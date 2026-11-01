@@ -24,10 +24,7 @@ public:
     virtual ObjectDrawInterface *getObjectDrawInterface();
 };
 
-class Drawable {
-public:
-    DrawModule **getDrawModules();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva002B224BDwordField {
 public:

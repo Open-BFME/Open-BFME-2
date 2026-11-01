@@ -43,11 +43,7 @@ BFME_LITERAL_NAME_GETTER(Rva003067C4Named, "BuffLogic")
 // 0x002793F0 at this+0x60) holds 0x00279669 in slot 2, the canonical
 // Snapshot GetSnapshotName slot; the body returns the unique "Drawable"
 // literal. Same six-byte body, real owner, as TerrainLogic below.
-class Drawable
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // Native TerrainLogic ctor283FAA installs BFB2C8; its slot2 is28417C,
 // returning the unique TerrainLogic literal. The canonical Snapshot header

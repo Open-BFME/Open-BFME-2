@@ -885,7 +885,7 @@ private:
 	int m_38;
 };
 
-class Drawable {public: const Coord3D *getPosition() const;};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva003FA835 {public: BfmeEventPositionView rva003FA835();};
 

@@ -74,11 +74,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class Drawable
-{
-public:
-	Bool calcPitchRoll(void *objArg, void *locomotorArg, void *posArg, void *dirArg, Int pitchArg, Int rollArg);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 Bool Drawable::calcPitchRoll(void *objArg, void *locomotorArg, void *posArg, void *dirArg, Int pitchArg, Int rollArg)
 {

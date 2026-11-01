@@ -197,11 +197,7 @@ public:
 	const Coord3D *rva00276470() const;
 };
 
-class Drawable
-{
-public:
-	void rva002775C9(Coord3D *pos);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva002779CEHost
 {

@@ -17,7 +17,7 @@ class Rva004D977D { public: void rva004D977D(const Rva002C99FB&,const Rva002C99F
 class Rva004D9750 { public: Rva002390CB rva004D9750(int); };
 #include "ascii_string.h"
 class Rva0041541B { public: const Rva002390CB &rva0041541B(const AsciiString&); };
-class Drawable { public: Rva002390CB rva0027675F(int); Rva002390CB rva00274CD8(const AsciiString&); };
+#include "../../Include/GameClient/Drawable.h"
 class Rva004D97B0 {
  char pad[0x14]; Drawable *drawable; Rva004D9750 *extra;
 public: void rva004D97B0(int); void rva004D9874(const AsciiString&);

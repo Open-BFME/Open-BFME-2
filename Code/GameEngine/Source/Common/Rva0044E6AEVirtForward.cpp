@@ -51,11 +51,7 @@ public:
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class Drawable
-{
-public:
-	void colorFlash(const RGBColor *color, unsigned int a, unsigned int b, unsigned int c);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class UpgradeTemplate;
 

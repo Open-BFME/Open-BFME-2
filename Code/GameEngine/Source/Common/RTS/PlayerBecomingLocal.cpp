@@ -21,7 +21,7 @@ class Radar {public:void removeObject(Rva002D76C6Owner*);void addObject(Object*)
 extern Radar *TheRadar;
 class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Drawable {public:void setIndicatorColor(int);};
+#include "../../../Include/GameClient/Drawable.h"
 #include "../Thing/thing.h"
 class Module;
 class Team;

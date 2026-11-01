@@ -1579,13 +1579,7 @@ bool ActionManager::rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *p
 
 // getEnterMessage's views: a Drawable holds its Object at +0xFC and the
 // drawable list is STLport's list<Drawable *>, one pointer to its sentinel.
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-	char m_pad00[0xFC];
-	Object *m_object;	// +0xFC
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 struct DrawableListNode
 {

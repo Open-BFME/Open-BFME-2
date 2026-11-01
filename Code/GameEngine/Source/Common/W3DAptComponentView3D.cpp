@@ -865,11 +865,7 @@ struct Float3
 	float z;
 };
 
-class Drawable : public Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva0059E2FD;
 

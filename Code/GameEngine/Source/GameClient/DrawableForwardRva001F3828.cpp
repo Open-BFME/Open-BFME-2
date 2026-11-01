@@ -21,10 +21,7 @@ public:
 
 extern GameClient *TheGameClient;
 
-struct Drawable
-{
-	bool rva002788C7(int a, int b);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva001F3828
 {

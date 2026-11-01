@@ -85,12 +85,7 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class Drawable
-{
-public:
-	char m_pad[0xFC];
-	Object *m_object;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 struct Rva000B31CBScale
 {

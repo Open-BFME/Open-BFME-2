@@ -152,11 +152,7 @@ public:
 	Rva002390CB rva00239435(int index) throw();
 };
 
-class Drawable
-{
-public:
-	Rva002390CB rva0027682F();
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class ThingTemplate;
 

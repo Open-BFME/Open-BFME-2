@@ -87,11 +87,7 @@ BFME_LITERAL_NAME_GETTER(ModelConditionSoundSelectorClientBehavior, "ModelCondit
 // 0x002793F0 at this+0x60) holds 0x00279669 in slot 2, the canonical
 // Snapshot GetSnapshotName slot; the body returns the unique "Drawable"
 // literal. Same six-byte body, real owner, as TerrainLogic below.
-class Drawable
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 const char *Drawable::GetSnapshotName() const
 {

@@ -83,14 +83,7 @@ struct UpgradeSoundSelectorClientBehaviorModuleData
 	Rva004CB51CEntry *m_end; // +0x0C
 };
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-private:
-	unsigned char m_pad000[0xFC];
-	Object *m_object; // +0xFC
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class DrawableModule
 {

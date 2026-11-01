@@ -593,11 +593,7 @@ struct Coord3D;
 
 #include "Thing/thing.h"
 
-class Drawable : public Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 
 class Rva0059E2FD;

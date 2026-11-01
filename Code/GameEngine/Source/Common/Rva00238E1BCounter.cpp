@@ -3,11 +3,7 @@
 // Evidence: unlock lane leaf increment; callers 0x00280176 0x00283642; lea shape not inc.
 // ?rva00238E25@Rva00238E1B@@QAEX PAV Rva002714E6 chain: inc +0x2C then registry via 0x00271058 then list push via 0x002714E6.
 
-class Drawable
-{
-public:
-	void setID(void *p);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva002714E6
 {

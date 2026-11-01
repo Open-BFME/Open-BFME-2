@@ -43,14 +43,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 }
 
 
-class Drawable
-{
-public:
-	void rva00276B95();
-
-	char m_pad00[0x43c];
-	bool m_selected;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class ControlBar;
 class BfmeWorldRV { public: void rva0031AA4B(int); };

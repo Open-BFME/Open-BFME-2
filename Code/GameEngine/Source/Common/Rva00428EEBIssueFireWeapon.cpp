@@ -110,15 +110,7 @@ public:
     bool rva0028B3A6() const;
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad00[0xFC];
-	Object *m_object;
-	void rva00278C7C(int selected);
-    void colorFlash(const RGBColor*,unsigned int,unsigned int,unsigned int);
-    const Coord3D* getPosition() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // Target override receiver and SpecialPowerTemplate ID at +0x14, as read
 // by 0x0042994D after the existing const final-override provider.

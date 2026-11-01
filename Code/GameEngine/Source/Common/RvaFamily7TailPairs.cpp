@@ -63,11 +63,7 @@ public:
 	void second();
 };
 
-class Drawable
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva005E590F
 {

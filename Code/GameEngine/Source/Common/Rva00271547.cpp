@@ -149,19 +149,12 @@ void Rva002716Holder::rva00271547()
 	}
 }
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-public:
-	unsigned char m_pre43D[0x43D];
-	bool m_hidden43D;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::setDrawableHidden(bool hidden)
 {
-	if (hidden == m_hidden43D)
+	if (hidden == field_43d)
 		return;
-	m_hidden43D = hidden;
+	field_43d = hidden;
 	reinterpret_cast<Rva002716Holder *>(this)->rva00271547();
 }

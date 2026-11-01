@@ -396,7 +396,7 @@ class Rva001F38C1Slot {public:void set(const Rva001F38C1Arg&);};
 struct ParticleFlagView {char pad[0x1a7];bool active;};
 struct ParticleMDView {char pad[0x12a];bool useDrawableBones;};
 struct ParticleTrackerNode {ParticleTrackerNode*next,*previous;BfmeStringRecord000B757D value;};
-class Drawable {public:bool rva00272835(int,int);};
+#include "../../Include/GameClient/Drawable.h"
 struct ParticleMatrixView {float values[12];};
 class ParticleRenderCallView {public:
  virtual void s0();

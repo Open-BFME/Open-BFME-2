@@ -6,11 +6,7 @@
 // Manual index*4 arithmetic forces the scale-4 lea; the list call is a
 // TU-local declaration pinned to the rowed 0x239E0B (see symbols.csv);
 // address-derived outer name, no STL headers.
-class Drawable
-{
-public:
-	char m_pad[4];
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class DrawableList
 {

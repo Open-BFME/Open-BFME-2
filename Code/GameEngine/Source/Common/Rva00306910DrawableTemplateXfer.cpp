@@ -54,14 +54,7 @@ private:
 	ObjectID m_id; // +0x74
 };
 
-class Drawable
-{
-public:
-	Object *getObject() const { return m_object; }
-private:
-	unsigned char m_pad00[0xFC];
-	Object *m_object; // +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class ThingTemplate
 {

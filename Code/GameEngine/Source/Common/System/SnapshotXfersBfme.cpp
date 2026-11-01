@@ -290,11 +290,7 @@ class Rva000788D3FloatField
 public:
 	float get() const;
 };
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 int g_012F801C;	// 0x009EBC38 (live-instance counter bumped by the ctor)
 struct TBuffSource
 {

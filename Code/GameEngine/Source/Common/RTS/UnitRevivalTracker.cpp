@@ -163,7 +163,7 @@ class CreateAHeroManager { public:
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
 class CreateAHeroHero { public: bool UpdateCommandSet(unsigned int); };
-class Drawable { public: void rva00274176(bool); };
+#include "../../../Include/GameClient/Drawable.h"
 class Object
 {
 public:

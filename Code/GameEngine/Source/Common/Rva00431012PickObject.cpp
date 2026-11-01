@@ -16,12 +16,7 @@ public:
 	bool rva0035B010(Player *p, Object *o);
 };
 
-class Drawable
-{
-public:
-	char m_pad[0xFC];
-	Object *m_object;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class TacticalView
 {

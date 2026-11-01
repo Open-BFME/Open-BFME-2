@@ -20,35 +20,7 @@ private:
 	char m_pad[8];
 };
 
-class Drawable
-{
-public:
-	Rva002390CB rva0027675F(int key);
-
-	Rva002390CB rva00346C79(); // key 0x21
-	Rva002390CB rva00346C92(); // key 0x22
-	Rva002390CB rva00346CAB(); // key 0x23
-	Rva002390CB rva00346CC4(); // key 0x24
-	Rva002390CB rva0027682F(); // key 0x25
-	Rva002390CB rva00276848(); // key 0x26
-	Rva002390CB rva00276861(); // key 0x27
-	Rva002390CB rva0027687A(); // key 0x28
-	Rva002390CB rva00276893(); // key 0x29
-	Rva002390CB rva00374389(); // key 0x2A
-	Rva002390CB rva003743A2(); // key 0x2B
-	Rva002390CB rva0049D114(); // key 0x2C
-	Rva002390CB rva004BE120(); // key 0x2D
-	Rva002390CB rva004BE139(); // key 0x2E
-	Rva002390CB rva00462D95(); // key 0x2F
-	Rva002390CB rva00462DAE(); // key 0x30
-	Rva002390CB rva004BE152(); // key 0x31
-	Rva002390CB rva004BE16B(); // key 0x32
-	Rva002390CB rva004BE184(); // key 0x33
-	Rva002390CB rva00462DC7(); // key 0x34
-	Rva002390CB rva0028F8E0(); // key 0x35
-	Rva002390CB rva0028F8F9(); // key 0x36
-	Rva002390CB rva0028F912(); // key 0x37
-};
+#include "../../Include/GameClient/Drawable.h"
 
 Rva002390CB Drawable::rva00346C79()
 {

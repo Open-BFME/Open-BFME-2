@@ -13,10 +13,7 @@ public:
  Rva0036CA00Str(const Rva0036CA00Str &) throw();
  ~Rva0036CA00Str(){OpaqueRefCounted *const volatile &value=handle.value;if(value)value->Release_Ref();}
 };
-class Drawable {
-public:
- Rva0036CA00Str rva0027824D(int);
-};
+#include "../../Include/GameClient/Drawable.h"
 class Rva00278341Host
 {
 public:

@@ -60,11 +60,7 @@ struct Rva004E65CFFloatSrc
  bool m_flag14;
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 
 class Rva00330995

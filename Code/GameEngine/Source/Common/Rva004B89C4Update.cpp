@@ -69,12 +69,7 @@ public:
 	virtual Rva004B89C4Listener *getListener();	// +0x7C
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad000[0xB0];
-	Real m_B0;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 #include "Thing/thing.h"
 
@@ -167,7 +162,7 @@ UpdateSleepTime OathbreakersFadeAwayBehavior::update()
 		{
 			Drawable *draw = obj->bfme_getDrawable_b3f60();
 			if (draw)
-				draw->m_B0 = m_fraction;
+				draw->field_0b0 = m_fraction;
 		}
 	}
 	return calcSleepTime();

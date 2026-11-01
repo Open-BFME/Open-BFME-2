@@ -114,16 +114,7 @@ class Rva001F3852ByteOneSetter
   public:
     void enable();
 };
-class Drawable
-{
-  public:
-    char pad[0xfc];
-    Object *object;
-    void setDrawableHidden(bool);
-    void rva00272A02(bool);
-    void setSelectable(bool);
-    const Coord3D *getPosition() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class Rva00270260
 {
   public:
@@ -401,7 +392,7 @@ static BfmeParticleSystemHandle createParticleSystem(Drawable *draw)
     BfmeParticleSystemHandle system;
     if (draw)
     {
-        Object *obj = draw->object;
+        Object *obj = draw->m_object;
         if (obj)
         {
             AsciiString name;

@@ -56,11 +56,7 @@ public:
 	void rva001E431E(const int *value);
 };
 
-class Drawable
-{
-public:
-	void rva00274176(bool flag);
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class BuildListInfo
 {

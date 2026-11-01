@@ -123,15 +123,7 @@ private:
 	const ObjectLevelRecord *m_record; // +0x04
 };
 
-class Drawable
-{
-public:
-	void rva002778E1();
-	void rva002775C9(Coord3D *pos);
-private:
-	char m_pad000[0xFC];
-	Object *m_object; // +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::rva002778E1()
 {

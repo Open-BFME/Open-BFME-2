@@ -19,11 +19,7 @@
 
 struct Coord3D;
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class AnimateWindow;
 

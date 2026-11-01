@@ -272,7 +272,7 @@ public:
 // The existing matched Drawable provider sets Drawable's hidden byte at +0x43D
 // and refreshes it; the Object manager cascade is Object::rva0028BAC0
 // (0x0028BAC0). Neither original name is claimed here.
-class Drawable { public: void setDrawableHidden(bool hidden); };
+#include "../../../Include/GameClient/Drawable.h"
 
 class Pathfinder { public: void RemoveObjectFromPathfindMap(Object *); };
 
