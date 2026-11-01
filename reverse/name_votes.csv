@@ -20834,3 +20834,11 @@ Code/GameEngine/Source/Common/INI/Rva00222278Parse.cpp|member|Owner00222278|m_0C
 Code/GameEngine/Source/Common/INI/Rva00222278Parse.cpp|member|Owner00222278|m_28,cc8a43fc2ffffcfded3ce548,claude-haiku-5-5,drz-k8-n33f,w-92c9822ecc57,2026-11-01
 Code/GameEngine/Source/Common/io_open.cpp|member|BfmeTagVIF|m_bfme08,7f2791a62943f46f5d01c5a2,claude-haiku-5-5,drz-k8-n33f,w-92c9822ecc57,2026-11-01
 Code/GameEngine/Source/Common/io_open.cpp|param|io_open|L,0ff102c02582a520ef257025,claude-haiku-5-5,drz-k8-n33f,w-92c9822ecc57,2026-11-01
+Code/GameEngine/Source/Common/LibraryMapCache.cpp|local|LibraryMapCache::~LibraryMapCache|v,fcbbf450a188a8fe75d762df,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp|class||OwnerAudioEvent003FDF1B,4fe1f5ba94546b78349bdad7,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/NameKeyGeneratorMapInsert.cpp|param|tableAt|n,9bcdbe037b71d3fecafdf3c8,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/Mutex.cpp|param|Mutex::Mutex|a2,2af333e5f4d8a5b0750bc33c,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/NativeBlockWriters.cpp|param|Rva0052AF5F::write|b,71e1e64a614bed0bf0876ec6,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/NativeBlockWriters.cpp|param|Rva005975E1::write|b,322d64567fe8964c100754c4,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp|local|Rva00077710Value::rva0022D89D|tmp,761ab3cbd2a67d4ce273995a,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
+Code/GameEngine/Source/Common/ObfuscatedValueOperators.cpp|local|Rva00077710Value::rva0022D99A|tmp,1a8dcec6742bf868a234a451,haiku-5.5,drz-k10-n33g,w-a9197dfa94c6,2026-11-01
