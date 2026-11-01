@@ -7,13 +7,7 @@
 // "APT:_level%u.%s_RegionName" at VA 0x008758D4, rowed AsciiString::format
 // 0x00038150, pinned bfmeSetText 0x00225301, rowed releaseBuffer 0x00036410,
 // manager at VA 0x009FE4CC, default %s at VA 0x007BAC1C, callers 0x005F960C 0x005FA7BD.
-template <typename T> struct BfmeStringData
-{
-    int refCount;
-    unsigned short length;
-    unsigned short capacity;
-    T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 #include "unicode_string.h"
 class BfmeAptWindowManager

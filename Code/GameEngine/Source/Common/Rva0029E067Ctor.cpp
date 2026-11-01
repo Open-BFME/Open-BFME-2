@@ -2,13 +2,7 @@
 // ??0Rva0029E067@@QAE@ABU0@@Z @0x0029E067 127B
 // Copy ctor: StringBase<char> at +0/+4 via pin 0x000365F0 plus int/byte tail
 // +8..+30. Unblocks 0x0029FB63; caller 0x0029E14E.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

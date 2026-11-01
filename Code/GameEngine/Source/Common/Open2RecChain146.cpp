@@ -22,14 +22,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 typedef unsigned short RawWChar;
 
-template <typename T>
-struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

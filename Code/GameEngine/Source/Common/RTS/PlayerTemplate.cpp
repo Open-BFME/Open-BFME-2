@@ -237,13 +237,7 @@ struct Rva001FD404
 #define _CRTIMP
 #undef _CRTIMP
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 // ?rva001FD8DF@Rva001FD42B@@QAEPAU1@ABU1@@Z @0x001FD8DF 115B.
 // Tree assign for the Rva001FD42B node family: self-check, clear via rowed

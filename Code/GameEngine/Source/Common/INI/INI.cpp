@@ -75,13 +75,7 @@ struct BfmeE12
 #pragma inline_depth(3)
 #define _STLP_NO_EXCEPTIONS 1
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../../Include/Common/BfmeStringData.h"
 
 namespace rts
 {

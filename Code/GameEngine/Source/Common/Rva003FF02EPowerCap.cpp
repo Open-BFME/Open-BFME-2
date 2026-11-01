@@ -5,13 +5,7 @@
 // then bfmeSetText pin 0x00225301 on global 0x009FE4CC with false, release 0x00036E70.
 // Evidence: literal 0x0083814C, static guard 0x00A02EE0, caller 0x002D69A4;
 // precedent Rva00517048Chat.cpp local key plus bfmeSetText false, Rva005FDF1CApt.cpp flags.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

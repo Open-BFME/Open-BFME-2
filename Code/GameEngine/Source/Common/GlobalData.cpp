@@ -60,13 +60,7 @@ typedef float Real;
 #include <map>
 #include <stdlib.h>
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 //
 // ?rva002360DE@GlobalData@@QBE?AVAsciiString@@XZ,

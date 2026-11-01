@@ -3,13 +3,7 @@
 // ??1Rva002FED8D@@UAE@XZ @0x002FEDEC 64B virtual dtor via vptr plus List_base AsciiString plus releaseBuffer
 // Evidence: vtable 0x00807408; List_base dtor 0x002FECBC; releaseBuffer 0x00036410; caller deleting dtor 0x002FFCEA; ctor sibling Rva002FED8DCtor same flags.
 #include <list>
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 #include "ascii_string.h"
 
 namespace _STL {

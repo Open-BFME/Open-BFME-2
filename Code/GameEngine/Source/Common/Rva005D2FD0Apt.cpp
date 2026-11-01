@@ -1,13 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // StrategicHUD::SetString retail 0x005D2FD0 106B
 // Evidence: format APT:_level%u.%s_%s via 0x00038150; bfmeSetText via pin 0x00225301; releaseBuffer 0x00036410; globals 0x009FE4CC 0x007BAC1C 0x008758A8; callers 0x005D3128 0x005D318D 0x005D31F2
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

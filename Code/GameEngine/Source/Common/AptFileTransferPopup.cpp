@@ -22,13 +22,7 @@ class AsciiString;
 // 0x00BBAC1C, then rowed BfmeAptWindowManager::rva00225375 0x00225375 with key
 // "APT:FileTransferLoadingMapName" and globals 0x009FE4CC. Evidence: caller
 // 0x0044C60C; callees all rowed; releaseBuffer 0x00036410; StringBase ctor 0x00037BA0.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 class BfmeAptWindowManager
 {

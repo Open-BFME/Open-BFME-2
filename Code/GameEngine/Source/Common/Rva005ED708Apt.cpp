@@ -2,13 +2,7 @@
 // ?rva005ED708@StrategicHUD::RegionAwardMovieClip::Impl@@QAEXHH@Z, retail 0x005ED708, 98 bytes.
 // NumRegions cached setter via Rva005ED310Get and SetPlayerString; imul needs /G7.
 // Evidence: calls 0x005ED310 0x005ED516 0x00036E70; string APT NumRegions via callee; base +0x44 slot size 0x14 field +0xC; caller 0x005ED849.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "unicode_string.h"
 

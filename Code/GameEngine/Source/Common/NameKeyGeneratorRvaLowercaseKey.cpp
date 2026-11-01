@@ -22,14 +22,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-template <typename T>
-struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 

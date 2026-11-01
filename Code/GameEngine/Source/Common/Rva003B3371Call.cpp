@@ -4,13 +4,7 @@
 // 0x009C1050[index] via pinned AsciiString(PBD) at 0x00037BA0, calls rowed
 // ScriptEngine::rva00357DD2, destroys temp via releaseBuffer. Evidence:
 // rowed StringBase ctor plus rowed rva00357DD2 plus releaseBuffer; 6 callers.
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
+#include "../../Include/Common/BfmeStringData.h"
 
 #include "ascii_string.h"
 
