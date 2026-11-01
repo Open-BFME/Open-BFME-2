@@ -39,11 +39,16 @@ public:
 	virtual void close() = 0;
 };
 
+class VideoStreamInterface;
+class SubtitleEntry;
+typedef SubtitleEntry *(__cdecl *CreateSubtitleEntry)(AsciiString *, int,
+    const AsciiString &, unsigned int, int, int, int, int, int);
+
 class VideoPlayer
 {
 public:
 	virtual ~VideoPlayer() = 0;
-	virtual void slot01() = 0;
+	virtual void init();
 	virtual void slot02() = 0;
 	virtual void slot03() = 0;
 	virtual void slot04() = 0;
@@ -63,8 +68,13 @@ public:
 	virtual VideoStreamInterface *firstStream() = 0;
 	virtual void closeAllStreams() = 0;
 
+	void rva00689580(AsciiString &out);
+
 private:
-	unsigned char m_pad04[0x14];
+	unsigned char m_pad04[8];
+	AsciiString (__cdecl *m_movieName)();
+	int m_second;
+	CreateSubtitleEntry m_createSubtitleEntry;
 	bool m_flag18;
 };
 

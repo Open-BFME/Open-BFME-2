@@ -8,18 +8,43 @@
 #include <new.h>
 #include "../../Include/GameClient/BfmeVideoRecord.h"
 #include "../../Include/GameClient/BfmeVideoTable.h"
+class VideoStreamInterface;
 class SubtitleEntry;
 typedef SubtitleEntry *(__cdecl *CreateSubtitleEntry)(AsciiString *, int,
- const AsciiString &, unsigned int, int, int, int, int, int);
+    const AsciiString &, unsigned int, int, int, int, int, int);
+
 class VideoPlayer
 {
 public:
- virtual void init();
- void rva00689580(AsciiString &out);
- char m_unknown04[8];
- AsciiString (__cdecl *m_movieName)();
- int m_second;
- CreateSubtitleEntry m_createSubtitleEntry;
+	virtual ~VideoPlayer() = 0;
+	virtual void init();
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void Rva00689180() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual VideoStreamInterface *firstStream() = 0;
+	virtual void closeAllStreams() = 0;
+
+	void rva00689580(AsciiString &out);
+
+private:
+	unsigned char m_pad04[8];
+	AsciiString (__cdecl *m_movieName)();
+	int m_second;
+	CreateSubtitleEntry m_createSubtitleEntry;
+	bool m_flag18;
 };
 void VideoPlayer::rva00689580(AsciiString &out)
 {
