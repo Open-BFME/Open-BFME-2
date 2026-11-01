@@ -64,3 +64,14 @@ separate code-generation prerequisite, not an approved merge.
 
 The last publication's AIBaseBuilder consumer receipt has now been refreshed:
 27 rows pass strict checks. This does not retroactively clear the prior audit.
+
+## Supported view reconciliation result
+
+The supported tu_views trial applies ExperienceTracker and FXList only as
+formatting/parameter-name alignment; those changes are restored since their
+declarations were already equivalent. The list-member union is automatically
+restored after its inline begin/end bodies fail to compile in the constructor
+donor: forwarding Rva004AD613Iterator and Rva004AD613Node does not supply their
+complete definitions. Supply those existing views before retrying that union.
+The merge dry run accepts zero donors both before and after the trial. No
+source-file reduction or additional recovery is claimed.

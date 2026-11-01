@@ -10606,6 +10606,11 @@ constructor/destructor owners, with 41 strict provider rows and a retained
 4,783-byte preview. The supported base-identity fold has unique native vtable
 proof but cannot claim five held consumer files; no part of that fold is
 applied. The derived novtable difference still needs a combined exact solution.
+The supported list-member reconciliation also needs complete existing iterator
+and node definitions in the donors; its inline begin/end methods cannot use
+forward declarations alone. That trial is restored, and the supported merge
+still accepts zero donors. The two other accepted view edits were formatting
+only and are not retained.
 Clearance: pending.
 
 **Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default

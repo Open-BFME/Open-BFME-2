@@ -1,0 +1,87 @@
+{
+ "tu": "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+ "classes": {
+  "ExperienceTracker": {
+   "status": "applied",
+   "files": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp"
+   ],
+   "notes": [],
+   "renames": {},
+   "fields": [],
+   "block": "class ExperienceTracker\n{\npublic:\n\tbool rva0039B4EC(int levels, bool flag1, bool flag2);\n};\n",
+   "files_changed": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp"
+   ]
+  },
+  "FXList": {
+   "status": "applied",
+   "files": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp"
+   ],
+   "notes": [],
+   "renames": {},
+   "fields": [],
+   "block": "class FXList\n{\npublic:\n\tstatic void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);\n};\n",
+   "files_changed": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp"
+   ]
+  },
+  "Rva0029FB3BMember": {
+   "status": "reverted",
+   "files": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp"
+   ],
+   "notes": [
+    "sizeof 0x4 from Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp; Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp (0x1), Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp (0x1) stop at their last field",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp gets struct Rva004AD613Iterator; struct Rva004AD613Node;",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp gets struct Rva004AD613Iterator; struct Rva004AD613Node;"
+   ],
+   "renames": {},
+   "fields": [
+    [
+     "0x00",
+     4,
+     "m_head",
+     "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp"
+    ]
+   ],
+   "block": "class Rva0029FB3BMember\n{\npublic:\n\tbool empty() const { return m_head->m_next == m_head; }\n\tRva004AD613Iterator begin() const { Rva004AD613Iterator it; it.m_node = m_head->m_next; return it; }\n\tRva004AD613Iterator end() const { Rva004AD613Iterator it; it.m_node = m_head; return it; }\n\tvoid reset();\n\tvoid init(void *context);\n\tRva004AD613Node *m_head; // +0x00\n};\n",
+   "why": "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp does not compile with the block: e\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(49) : error C2027: use of undefined type 'Rva004AD613Iterator' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(42) : see declaration of 'Rva004AD613Iterator' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(49) : error C2079: 'it' uses undefined struct 'Rva004AD613Iterator' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(49) : error C2228: left of '.m_node' must have class/struct/union type | type is 'int' | compile failed: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp"
+  }
+ },
+ "canonical": {},
+ "applied": [
+  "ExperienceTracker",
+  "FXList"
+ ],
+ "failed": {
+  "Rva0029FB3BMember": "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp does not compile with the block: e\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(49) : error C2027: use of undefined type 'Rva004AD613Iterator' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(42) : see declaration of 'Rva004AD613Iterator' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(49) : error C2079: 'it' uses undefined struct 'Rva004AD613Iterator' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp(49) : error C2228: left of '.m_node' must have class/struct/union type | type is 'int' | compile failed: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RousingSpeechUpdateBehaviorCtor.cpp"
+ },
+ "seed": "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+ "files": [
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp"
+ ],
+ "merge_before": [],
+ "rejected_before": {
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.e13afb587bf235bc.tu_skeleton.cpp(602) : error C2511: 'RousingSpeechUpdate::RousingSpeechUpdate(Thing *,const ModuleData *)' : overloaded member function not found in 'RousingSpeechUpdate' | Code\\GameEngine\\Source\\GameLogic\\Object\\Up",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.317ea5cbaf4929a7.tu_skeleton.cpp(616) : error C2600: 'RousingSpeechUpdateModuleData::RousingSpeechUpdateModuleData' : cannot define a compiler-generated special member function (must be declared in the class first) | Code\\GameEngine",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.6d48dbe67a751b10.tu_skeleton.cpp(615) : error C2065: 'data' : undeclared identifier | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.6d48dbe67a751b10.tu_skeleton.cpp(618) : error C2065: 'affected' : undeclared i",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp": "bytes"
+ },
+ "merge_after": [],
+ "still_rejected": {
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorCtor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.e13afb587bf235bc.tu_skeleton.cpp(602) : error C2511: 'RousingSpeechUpdate::RousingSpeechUpdate(Thing *,const ModuleData *)' : overloaded member function not found in 'RousingSpeechUpdate' | Code\\GameEngine\\Source\\GameLogic\\Object\\Up",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateModuleDataCtor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.317ea5cbaf4929a7.tu_skeleton.cpp(616) : error C2600: 'RousingSpeechUpdateModuleData::RousingSpeechUpdateModuleData' : cannot define a compiler-generated special member function (must be declared in the class first) | Code\\GameEngine",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.6d48dbe67a751b10.tu_skeleton.cpp(615) : error C2065: 'data' : undeclared identifier | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.RousingSpeechUpdate.6d48dbe67a751b10.tu_skeleton.cpp(618) : error C2065: 'affected' : undeclared i",
+  "Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateBehaviorDtor.cpp": "bytes"
+ }
+}
