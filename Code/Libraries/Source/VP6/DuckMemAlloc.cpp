@@ -13,10 +13,12 @@ public:
 	virtual void *allocate(unsigned int size, void *descriptor);
 };
 
-namespace _STL
-{
-void *vectorSmallAllocate(unsigned int bytes, unsigned int alignment); // 0x004307F0 engine allocate
-}
+// The engine byte allocator 0x004307F0 is STLport's static
+// allocator<char>::allocate(bytes, hint), rowed at RVA 0x000307F0
+// (GameMemory.cpp). Bind its real name: the former private
+// _STL::vectorSmallAllocate spelling resolved only through a link-wide
+// alternatename that d96297b68e retired.
+extern "C" char *__cdecl __identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(unsigned int bytes, const void *hint);
 
 // RVA 0x001B63C0
 extern "C" void *__cdecl duck_malloc(unsigned int size)
@@ -27,7 +29,7 @@ extern "C" void *__cdecl duck_malloc(unsigned int size)
 		unsigned int descriptor[3] = { 0, 0, 0 };
 		return allocator->allocate(size, descriptor);
 	}
-	return _STL::vectorSmallAllocate(size, 0);
+	return __identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(size, 0);
 }
 
 // RVA 0x001B6400: /Ob1 keeps this call to the core out of line, as in retail.

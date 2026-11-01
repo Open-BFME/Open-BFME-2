@@ -8,9 +8,14 @@ struct Gen_t_008fb570_p8pod
 	int value[2];
 };
 
+// The node allocation calls STLport's static allocator<char>::allocate(bytes,
+// hint), rowed at 0x000307F0 (GameMemory.cpp). Bind its real name: the former
+// private _STL::vectorSmallAllocate spelling resolved only through a link-wide
+// alternatename that d96297b68e retired.
+extern "C" char *__cdecl __identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(unsigned int bytes, const void *hint);
+
 namespace _STL
 {
-void *vectorSmallAllocate(unsigned int bytes, unsigned int alignment);
 
 template <class Destination, class Source>
 void _Construct(Destination *, const Source &);
@@ -71,7 +76,7 @@ void deque<Type, Allocator>::_M_push_back_aux_v(const Type &value)
 	if (2 > mapSize - (unsigned int)(finish.node - map))
 		_M_reallocate_map(1, false);
 
-	*(finish.node + 1) = (Type *)vectorSmallAllocate(0x80, 0);
+	*(finish.node + 1) = (Type *)__identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(0x80, 0);
 	_Construct(finish.current, copy);
 	setDequeNode(finish, finish.node + 1);
 	finish.current = finish.first;
