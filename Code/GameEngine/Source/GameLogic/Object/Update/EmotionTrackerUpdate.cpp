@@ -188,11 +188,7 @@ private:
 	char m_pad[0x9C];
 	EmotionNugget *m_slot;
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Thing;
 class ModuleData;

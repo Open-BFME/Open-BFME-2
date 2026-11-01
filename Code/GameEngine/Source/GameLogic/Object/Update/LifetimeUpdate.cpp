@@ -215,11 +215,7 @@ private:
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

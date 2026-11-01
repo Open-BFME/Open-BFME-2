@@ -4,11 +4,7 @@
 enum NameKeyType { NK_UNKNOWN=0 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
 class Module;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Matrix3D { public: float Get_Z_Rotation() const; };
 class ModuleData;

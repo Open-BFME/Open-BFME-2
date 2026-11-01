@@ -29,11 +29,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 // The +0x0C field of the module data (the HordeMemberFilter entry).
 struct Rva00490225MemberFilter

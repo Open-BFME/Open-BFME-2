@@ -207,7 +207,7 @@ extern GameLogic *TheGameLogic;
 
 enum NameKeyType { INVALID_NAME_KEY = -1 };
 
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

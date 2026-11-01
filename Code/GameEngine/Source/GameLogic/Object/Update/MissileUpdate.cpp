@@ -197,11 +197,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 
 class MissileUpdateModuleData;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

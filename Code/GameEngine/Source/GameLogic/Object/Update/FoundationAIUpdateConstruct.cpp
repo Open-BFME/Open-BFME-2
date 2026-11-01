@@ -53,11 +53,7 @@ enum NameKeyType
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ModuleData;

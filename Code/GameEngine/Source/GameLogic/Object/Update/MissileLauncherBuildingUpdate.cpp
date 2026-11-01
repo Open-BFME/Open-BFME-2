@@ -319,11 +319,7 @@ class Rva00523825;
 
  Rva00523825 *__stdcall Rva002D21FBCreate(void *);
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
