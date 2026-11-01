@@ -1822,7 +1822,6 @@ name,address,notes
 ??1BfmeHandleCX@@QAE@XZ,0x0017098D,TU-private view (MaterialCollector/MeshModel units) of the same texture reference; their unwind funclets destroy it through the ICF-folded release-if-non-null body at this address
 ??1BfmeItemERE@@QAE@XZ,0x002154BE,callee of ?bfmeResizeERE@BfmeVecERE@@QAEXIUBfmeItemERE@@@Z at retail 0x00215AE1 read from its REL32 displacement; donor-named alias of the rowed element dtor at 0x002154BE
 ??1BfmeMemCH@@QAE@XZ,0x0032C3A3,callee read from retail REL32 at 0x0032C64A in ~BfmeTmpACH 0x0032C632 (byte-exact modulo relocs as emitted by BfmeConv1768.cpp): member at +0xC; address rowed as the 63B vector dtor Rva0032C3A3
-??1BfmeModuleDataSnapshotBase@@UAE@XZ,0x0011647B,base dtor ICF with setter called by LookupTablePostEffect dtor 0x00111B9A
 ??1BfmeMsg1052@@QAE@XZ,0x00655780
 ??1BfmeMsg803A00@@QAE@XZ,0x00655780
 ??1BfmeMsg803B60@@QAE@XZ,0x00655780

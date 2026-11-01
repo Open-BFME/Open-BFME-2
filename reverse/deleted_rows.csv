@@ -4511,3 +4511,4 @@ uw_00777b65,0x00777B65,"Replaced through add_match by exact compiler-local $L588
 ??6Debug@@QAEAAV0@_N@Z,0x00038890,"Renamed to ??6Debug@@UAEAAV0@_N@Z by tools/rename.py (virtual: retail vtable slot)"
 ??6Debug@@QAEAAV0@_J@Z,0x0003B510,"Renamed to ??6Debug@@UAEAAV0@_J@Z by tools/rename.py (virtual: retail vtable slot)"
 ??6Debug@@QAEAAV0@_K@Z,0x0003B570,"Renamed to ??6Debug@@UAEAAV0@_K@Z by tools/rename.py (virtual: retail vtable slot)"
+??0BfmeModuleDataSnapshotBase@@QAE@XZ,0x0011646E,"Renamed to ??0Rva001164B6@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00BCFB24)"
