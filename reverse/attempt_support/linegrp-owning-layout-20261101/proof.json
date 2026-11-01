@@ -1,0 +1,31 @@
+[
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp",
+    "rows": 23,
+    "matched": 23,
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\22548ac5cfe2fa77.obj",
+    "before_definitions": 72,
+    "after_definitions": 74,
+    "added": [
+      "??0?$RefCountPtr@VTextureClass@@@@QAE@XZ",
+      "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ"
+    ],
+    "removed": [],
+    "changed": [],
+    "link_guard": []
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp",
+    "rows": 4,
+    "matched": 4,
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\e1e3d41c19f5cf75.obj",
+    "before_definitions": 4,
+    "after_definitions": 5,
+    "added": [
+      "??_H@YGXPAXIHP6EPAX0@Z@Z"
+    ],
+    "removed": [],
+    "changed": [],
+    "link_guard": []
+  }
+]

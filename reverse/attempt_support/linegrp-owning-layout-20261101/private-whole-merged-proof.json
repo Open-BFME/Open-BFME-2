@@ -1,0 +1,13 @@
+{
+  "rows": 27,
+  "matched": 27,
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\sole-next-20261101\\build\\tu_skeleton\\411f28b5e7f94f90.obj",
+  "old_complete_definitions": 74,
+  "new_complete_definitions": 75,
+  "added": [
+    "??0?$RefCountPtr@VTextureClass@@@@QAE@XZ"
+  ],
+  "removed": [],
+  "changed": [],
+  "link_guard": []
+}

@@ -8,7 +8,7 @@
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 #include "sharebuf.h"
-#include "linegrp.h"
+#include "linegrp_class.h"
 #include "texture.h"
 #include "vertmaterial.h"
 #include <d3d8.h>

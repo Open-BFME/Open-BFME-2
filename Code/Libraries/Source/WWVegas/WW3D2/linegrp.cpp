@@ -1349,7 +1349,7 @@ LineGroupClass::LineGroupClass(void) :
 	LineSize(NULL),
 	LineUCoord(NULL),
 	LineCount(0),
-	Texture(NULL),
+	Texture(),
 	Flags(0),
 	Shader(ShaderClass::_PresetAdditiveSpriteShader.Get_Bits()),
 	DefaultLineSize(0.0f),
@@ -1386,14 +1386,14 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 											DefaultLineColor.Z > value_255 &&
 											DefaultLineAlpha > value_255);
 
-	if (LineDiffuse || !default_white_opaque || !Texture) {
+	if (LineDiffuse || !default_white_opaque || !Texture.Referent) {
 		Shader.Set_Primary_Gradient(static_cast<ShaderClass::PriGradientType>(6));
 	} else {
 		Shader.Set_Primary_Gradient(ShaderClass::GRADIENT_DISABLE);
 	}
 
-	// If Texture is non-NULL enable texturing in shader - otherwise disable.
-	if (Texture) {
+	// If Texture.Referent is non-NULL enable texturing in shader - otherwise disable.
+	if (Texture.Referent) {
 		Shader.Set_Texturing(ShaderClass::TEXTURING_ENABLE);
 	} else {
 		Shader.Set_Texturing(ShaderClass::TEXTURING_DISABLE);
@@ -1402,7 +1402,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	VertexMaterialClass * linemat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 	DX8Wrapper::Set_Material(linemat);
 	DX8Wrapper::Set_Shader(Shader);
-	BFME2Set_Texture(0, reinterpret_cast<const BFME2TextureRef &>(Texture));
+	BFME2Set_Texture(0, reinterpret_cast<const BFME2TextureRef &>(Texture.Referent));
 	REF_PTR_RELEASE(linemat);
 
 	WWASSERT(StartLineLoc && StartLineLoc->Get_Array());
@@ -1773,11 +1773,11 @@ void LineGroupClass::Set_Texture(TextureClass* texture)
 	TextureClass **next = reinterpret_cast<TextureClass **>(texture);
 	if (*next)
 		++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(*next) + 4);
-	if (Texture) {
-		Texture->Release_Ref();
-		Texture = *next;
+	if (Texture.Referent) {
+		Texture.Referent->Release_Ref();
+		Texture.Referent = *next;
 	} else {
-		Texture = *next;
+		Texture.Referent = *next;
 	}
 }
 

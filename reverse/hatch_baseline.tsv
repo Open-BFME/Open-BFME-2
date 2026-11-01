@@ -10698,8 +10698,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Line3DClassRender.cpp	"gsy",
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Line3DCompileView.h	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Line3DCompileView.h	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Line3DCompileView.h	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Log_DX8_ErrorCode.cpp	"y",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Log_DX8_ErrorCode.cpp	"y",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp	"",on	1
@@ -11896,7 +11894,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScr
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	transferAssetsFromThat@Player@@QAEXPAV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::crc	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::teamAboutToBeDeleted	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::xfer	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	0ClosestKindOfData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp	body	1

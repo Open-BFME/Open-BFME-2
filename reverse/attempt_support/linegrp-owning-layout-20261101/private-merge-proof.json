@@ -1,0 +1,50 @@
+{
+  "tu": "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp",
+  "approved": 26,
+  "mixed": {
+    "Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp": 34
+  },
+  "refused": {},
+  "accepted": [
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp"
+  ],
+  "rejected": {},
+  "link_guard": "census-linked: Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp, Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassRender.cpp, Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp",
+  "flags": [
+    "/DBFME_WWSTRING_NATIVE_CSTR_ASSIGN",
+    "/DNDEBUG",
+    "/MD",
+    "/EHsc",
+    "/Ireference/shims/wwstring_teardown/bfme",
+    "/Ireference/shims/bfmerendobj",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/Compression",
+    "/Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug",
+    "/Ireference/shims/sweep",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload",
+    "-Ireference/open-bfme-1/game/Libraries/Source/Compression",
+    "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug"
+  ],
+  "rows": 27,
+  "carried": {
+    "reverse/flag_overrides.csv": 2,
+    "reverse/data_ledger.csv": 1,
+    "reverse/hatch_baseline.tsv": "hatch_counters --update"
+  },
+  "trailer": "Verifier-Change: tu_skeleton --merge carried the protected-register keys of 2 absorbed donor(s) to Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp (transfer; totals kept)",
+  "follow-up": [
+    "python3 tools/flag_defaults.py propose Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp (drops the override when the region default keeps every row)"
+  ]
+}
