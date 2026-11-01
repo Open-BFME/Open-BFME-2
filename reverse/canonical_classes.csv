@@ -175,3 +175,4 @@ DieModuleInterface,Code/GameEngine/Include/GameLogic/Module/DieModuleInterface.h
 MixFileCreator,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h,legacy nested record scope only; target16byte font record with AsciiString; no outer archive instance ABI claimed
 GameWindow,Code/GameEngine/Include/GameClient/Bfme2GameWindow.h,native218extent11virtualslots; no base data inferred; unknown spans kept opaque
 WinInstanceData,Code/GameEngine/Include/GameClient/Bfme2WinInstanceData.h,native1A8memberextent and one virtual dtor; out-of-line lifetime owners; unknown fields opaque
+BuildListInfo,Code/GameEngine/Include/GameLogic/Bfme2BuildListInfo.h,Native C0D904 four slots and0x80 stride32A1FE/32A942; fields32A0CE/3299AD; named Snapshot no new defaults

@@ -46,11 +46,7 @@ BFME_LITERAL_NAME_GETTER(Rva00306A48Named, "Module")
 BFME_LITERAL_NAME_GETTER(ObjectModule, "ObjectModule")
 BFME_LITERAL_NAME_GETTER(Rva0031860DNamed, "GlobalWeatherSystem")
 BFME_LITERAL_NAME_GETTER(Rva00318B7DNamed, "ArmyMoveCommand")
-class BuildListInfo
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 const char *BuildListInfo::GetSnapshotName() const
 {
