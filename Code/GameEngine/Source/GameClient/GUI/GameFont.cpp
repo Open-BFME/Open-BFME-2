@@ -140,6 +140,7 @@ public:
 };
 #include "../../../../Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfo.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include <stdlib.h>
 
 void Rva0021781DConstruct(MixFileCreator::FileInfoStruct *, const MixFileCreator::FileInfoStruct &);
 
@@ -261,18 +262,6 @@ public:
 			ReleaseTreeHintRef00217D4C(m_ref);
 	}
 	TargetRef00217D4C *m_ref;
-};
-
-class Rva002186EB : public Rva0007DF07
-{
-public:
-	Rva002186EB();
-	Rva002186EB(int tag);
-
-private:
-	// +0x04 is Rva0007DF07::m_04 (canonical header).
-	Rva002186EBRef defaults; // +0x08
-	Rva002177CD sizes; // +0x0C
 };
 
 void __cdecl __insertion_sort(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortCompare comp);
@@ -829,9 +818,36 @@ namespace _STL
 	_BidIt2 copy_backward(_BidIt1 first, _BidIt1 last, _BidIt2 result);
 }
 
+template TreeHint00217DE3::iterator TreeHint00217DE3::insert_unique(TreeHint00217DE3::iterator, const TreeHintPair00217DE3 &);
+
+// The map wrapper directly calls this tree's verified hinted insertion.
+typedef _STL::map<AsciiString,TreeHintPayload00217DE3,_STL::less<AsciiString >,_STL::allocator<TreeHintPair00217DE3> > MapInsert002181dd;
+
+template MapInsert002181dd::iterator MapInsert002181dd::insert(MapInsert002181dd::iterator, const TreeHintPair00217DE3 &);
+
+class Rva002186EB : public Rva0007DF07
+{
+public:
+	Rva002186EB();
+	Rva002186EB(int tag);
+
+private:
+	// +0x04 is Rva0007DF07::m_04 (canonical header).
+	Rva002186EBRef defaults; // +0x08
+	Rva002177CD sizes; // +0x0C
+};
+
+namespace _STL
+{
+template <class T> void _Destroy(T first, T last);
+template <> void _Destroy<GeometryRecord *>(GeometryRecord *first, GeometryRecord *last);
+}
+
 // tu-skeleton: 0x002173FA 79B ?unlinkFont@FontLibrary@@IAEXPAVGameFont@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp (not merged yet)
 
 // tu-skeleton: 0x00217449 53B ?deleteAllFonts@FontLibrary@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 
@@ -1358,12 +1374,6 @@ int Rva000696C0Distance( const Rva000696C0Iterator &first, const Rva000696C0Iter
 
 Rva002175C7Fields *Rva002175C7Fields::clear() { wordC=0; return this; }
 
-// tu-skeleton: 0x00217490 7B ?get@Rva00217490SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00217497 13B ??0Rva00217497@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x002174A4 43B ??4?$AptRef@VAptCommandMap@@@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp
 
 //
@@ -1437,20 +1447,6 @@ void __cdecl Rva002176F1Insert(MixFileCreator::FileInfoStruct *last, MixFileCrea
 	*last = value;
 }
 
-// tu-skeleton: 0x00217508 47B ??$__copy_backward@PAUFileInfoStruct@MixFileCreator@@PAU12@H@_STL@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00217537 14B ??1GameFont@@UAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x00217545 28B ??_GGameFont@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x00217561 89B ?init@FontLibrary@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
-
-// tu-skeleton: 0x002175BA 13B ??0GameFont@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x002175CE 57B ??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x0021768A 28B ??_G?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Q3IntrosortLoop004775D0.cpp
 
 //
@@ -1516,48 +1512,6 @@ void __insertion_sort(Q3SortElem16 *first, Q3SortElem16 *last,
         __linear_insert(first, current, *current, comp);
 }
 
-// tu-skeleton: 0x002177B0 29B ??$__copy_backward_ptrs@PAUFileInfoStruct@MixFileCreator@@PAU12@@_STL@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x002177CD 53B ?rva002177CD@Rva002177CD@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0021781D 45B ?Rva0021781DConstruct@@YAXPAUFileInfoStruct@MixFileCreator@@ABU12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs2.cpp (not merged yet)
-
-// tu-skeleton: 0x00217895 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x0021789E 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x002178CB 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
-
-// tu-skeleton: 0x002178F8 5B ?Rva002178F8Swap@@YAXPAUFileInfoStruct@MixFileCreator@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0021792B 9B ??$_Destroy@UGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002179D9 41B ?rva002179D9@Rva002177CD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00217A02 53B ?rva00217A02@Rva00217A02@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00217A37 53B ?rva00217A37@Rva00217A37@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00217A6C 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x00217A8E 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
-
-// tu-skeleton: 0x00217B1E 25B ??$_Destroy@PAUGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@0@Z -- matched in Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00217C2E 56B ??1Rva002177CD@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00217C66 41B ?rva00217C66@Rva00217A02@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00217C8F 41B ?rva00217C8F@Rva00217A37@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00217CB8 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x00217D4C 151B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x00217DE3 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
-
-// tu-skeleton: 0x00217E77 151B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/__linear_insert.cpp
 
 // ?__linear_insert@@YAXPAUQ3SortElem16@@0U1@UQ3SortCompare@@@Z @0x00217F0E 111B CHAIN attempt under pinned Q3 name but FileInfo bodies via ICF
@@ -1573,6 +1527,112 @@ void __cdecl __linear_insert(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortElem
 	}
 }
 
+// tu-skeleton: 0x00217490 7B ?get@Rva00217490SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00217497 13B ??0Rva00217497@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x002174A4 43B ??4?$AptRef@VAptCommandMap@@@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp (not merged yet)
+
+// tu-skeleton: 0x00217508 47B ??$__copy_backward@PAUFileInfoStruct@MixFileCreator@@PAU12@H@_STL@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00217537 14B ??1GameFont@@UAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00217545 28B ??_GGameFont@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00217561 89B ?init@FontLibrary@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
+
+// tu-skeleton: 0x002175BA 13B ??0GameFont@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x002175CE 57B ??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0021768A 28B ??_G?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x002177B0 29B ??$__copy_backward_ptrs@PAUFileInfoStruct@MixFileCreator@@PAU12@@_STL@@YAPAUFileInfoStruct@MixFileCreator@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x002177CD 53B ?rva002177CD@Rva002177CD@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0021781D 45B ?Rva0021781DConstruct@@YAXPAUFileInfoStruct@MixFileCreator@@ABU12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs2.cpp (not merged yet)
+
+// tu-skeleton: 0x00217895 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0021789E 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp
+
+// BFME2 STLport tree with an AsciiString key and a four-byte opaque mapped value.
+// The application's original mapped-type name is not established.
+// Identity chain: hinted insert 0x002181DD -> ordinary insert 0x00217E77
+// and _M_insert 0x00217DE3 -> _M_create_node 0x00217A8E.
+// The node allocator requests 24 bytes: 16 bytes tree links + 8 bytes value.
+// _Construct at 0x002178CB calls the independently matched 27-byte pair copy
+// at 0x00466EA7: AsciiString copy at offset 0, one raw dword at offset 4.
+// The comparisons reach the independently matched AsciiString operator<,
+// RVA 0x0005598C, and both iterator-step helpers are already independently matched.
+// Semantic reference: reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib/
+// RvaTreeInsertUniqueHint.cpp. Here /O1 leaves the comparator out of line.
+
+// BFME replaces STLport allocation with a static byte allocator (RVA 0x307F0).
+
+// Retail 0x00217A8E allocates the node, then constructs its value.
+// Unlike stock STLport, this retail body has no allocation-cleanup catch path.
+// ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z
+template <>
+TreeHint00217DE3::_Link_type TreeHint00217DE3::_M_create_node(const TreeHintPair00217DE3 &value)
+{
+    _Link_type node = (_Link_type)_STL::allocator<char>::allocate(sizeof(_STL::_Rb_tree_node<TreeHintPair00217DE3>), 0);
+    _STL::_Construct(&node->_M_value_field, value);
+    return node;
+}
+
+// Retail 0x00217E77 uses the header node as the first insertion hint.
+// ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z
+template <>
+_STL::pair<TreeHint00217DE3::iterator, bool>
+TreeHint00217DE3::insert_unique(const TreeHintPair00217DE3 &value)
+{
+	_Link_type parent = this->_M_header._M_data;
+	_Link_type node = _M_root();
+	bool before = true;
+	while (node != 0)
+	{
+		parent = node;
+		before = _M_key_compare(_STL::_Select1st<TreeHintPair00217DE3>()(value), _S_key(node));
+		node = before ? _S_left(node) : _S_right(node);
+	}
+	iterator hint = iterator(parent);
+	if (before && hint == begin())
+		return _STL::pair<iterator, bool>(_M_insert(parent, parent, value), true);
+	if (before)
+		--hint;
+	if (_M_key_compare(_S_key(hint._M_node), _STL::_Select1st<TreeHintPair00217DE3>()(value)))
+		return _STL::pair<iterator, bool>(_M_insert(node, parent, value), true);
+	return _STL::pair<iterator, bool>(hint, false);
+}
+
+// tu-skeleton: 0x002178F8 5B ?Rva002178F8Swap@@YAXPAUFileInfoStruct@MixFileCreator@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0021792B 9B ??$_Destroy@UGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002179D9 41B ?rva002179D9@Rva002177CD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00217A02 53B ?rva00217A02@Rva00217A02@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00217A37 53B ?rva00217A37@Rva00217A37@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00217A6C 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x00217B1E 25B ??$_Destroy@PAUGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@0@Z -- matched in Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00217C2E 56B ??1Rva002177CD@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00217C66 41B ?rva00217C66@Rva00217A02@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00217C8F 41B ?rva00217C8F@Rva00217A37@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00217CB8 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x00217D4C 151B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
 // tu-skeleton: 0x00217FAD 5B ?rva00217FAD@Rva00217FAD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00217FB2 56B ??1Rva00217A02@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
@@ -1580,8 +1640,6 @@ void __cdecl __linear_insert(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortElem
 // tu-skeleton: 0x00217FEA 56B ??1Rva00217A37@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x00218022 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x002181DD 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
 
 // tu-skeleton: 0x0021840B 5B ?rva0021840B@Rva0021840B@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp (not merged yet)
 
@@ -1593,9 +1651,15 @@ void __cdecl __linear_insert(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortElem
 
 // tu-skeleton: 0x002186A6 69B ?rva002186A6@FontLibrary@@QAEPAXPBVAsciiString@@M@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp (not merged yet)
 
-// tu-skeleton: 0x002186EB 61B ??0Rva002186EB@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva002186EBCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/Rva002186EBCtor.cpp
 
-// tu-skeleton: 0x00218728 28B ??_GRva002186EB@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva002186EBCtor.cpp (not merged yet)
+// ??0Rva002186EB@@QAE@XZ, retail 0x002186EB, 61 bytes.
+// Base count +4, reference +8 and map +0x0C (ctor 0x0033C432); caller 0x00218D61.
+// Retail zeros +4 before vtable 0x7E5B10; EH states 0 then 1 precede the map call.
+
+Rva002186EB::Rva002186EB()
+{
+}
 
 // tu-skeleton: 0x00218787 124B ??A?$map@HUTreeHintRef00218787@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef00218787@@@_STL@@@3@@_STL@@QAEAAUTreeHintRef00218787@@ABH@Z -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
 
@@ -1603,9 +1667,19 @@ void __cdecl __linear_insert(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortElem
 
 // tu-skeleton: 0x00218842 29B ?insert@?$map@VAsciiString@@UTreeHintRef00217D4C@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
 
-// tu-skeleton: 0x0021885F 29B ?insert@?$map@VAsciiString@@UTreeHintPayload00217DE3@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/Rva0021887CDestroyFree.cpp
 
-// tu-skeleton: 0x0021887C 30B ?rva0021887C@Rva0021887C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva0021887CDestroyFree.cpp (not merged yet)
+// ?rva0021887C@Rva0021887C@@QAEXXZ @0x0021887C 30B: destroy GeometryRecord range then free storage.
+// Evidence: pushes [this+4]/[this] to rowed _Destroy<GeometryRecord*> 0x00217B1E; reloads [this] and frees via rowed free 0x00030830; callers 0x00218B20/0x0006454B.
+// ?rva0021887C@Rva0021887C@@QAEXXZ @0x0021887C present-unmatched
+
+void Rva0021887C::rva0021887C()
+{
+	_STL::_Destroy(m_first, m_last);
+	GeometryRecord *first = m_first;
+	if (first != 0)
+		free(first);
+}
 
 // tu-skeleton: 0x00218942 103B ??0FontLibrary@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp (not merged yet)
 
@@ -1631,8 +1705,6 @@ void __cdecl __linear_insert(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortElem
 
 // tu-skeleton: 0x0076E3D8 10B __ehhandler$??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
 
-// tu-skeleton: 0x0076E418 14B uw_0076e418 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
-
 // tu-skeleton: 0x0076E426 10B __ehhandler$??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E442 8B $L3330 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
@@ -1644,8 +1716,6 @@ void __cdecl __linear_insert(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortElem
 // tu-skeleton: 0x0076E45C 10B __ehhandler$?rva0021857E@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E46E 11B uw_0076e46e -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E479 10B __ehhandler$??0Rva002186EB@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva002186EBCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E483 8B $L14415 -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
 

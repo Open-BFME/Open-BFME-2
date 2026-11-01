@@ -12381,7 +12381,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/RAMFile.cpp	RAMFile::conv
 present_unmatched	Code/GameEngine/Source/Common/System/Radar.cpp	RadarObject::RadarObject	1
 present_unmatched	Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp	0Rva002D3772Pair@@QAE@HM@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp	1Rva00030DD0Guard@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/Rva0021887CDestroyFree.cpp	@0x0021887C	1
 present_unmatched	Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp	Rva003EE9F1Ref::dropReference	1
 present_unmatched	Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp	Rva003EF14ABase::~Rva003EF14ABase	1
 present_unmatched	Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp	Rva003EF14ASecondary::~Rva003EF14ASecondary	1
@@ -12559,6 +12558,7 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Skirm
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getSuperweaponRestricted@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getUserName@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp	0BuddyControls@@	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	@0x0021887C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	0WindowLayoutInfo@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseListboxData.cpp	scanShort@@YAHPBDAAF@Z	1
