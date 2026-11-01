@@ -52,6 +52,8 @@ public:
 class ShroudTextureHandle
 {
 public:
+	ShroudTextureHandle() : m_p(0) {}
+	~ShroudTextureHandle() { if (m_p) m_p->Release_Ref(); }
 	TextureClass *m_p;
 };
 void BFME_DX8_Thread_Lock();
@@ -205,9 +207,66 @@ class BfmeResetTextureRef { public: void clear(); };
 
 class Rva00131DFC { public: void rva00131DFC(void *, void *, void *, void *, int, int); };
 
+template<class T> class Rva0054E8DCAllocator : public _STL::allocator<T>
+{
+public:
+ template<class U> struct rebind { typedef Rva0054E8DCAllocator<U> other; };
+ Rva0054E8DCAllocator() throw() {}
+ Rva0054E8DCAllocator(const Rva0054E8DCAllocator &) throw() {}
+ template<class U> Rva0054E8DCAllocator(const Rva0054E8DCAllocator<U> &) throw() {}
+};
+namespace _STL {
+template<class T, class U> struct _Alloc_traits<T, Rva0054E8DCAllocator<U> > {
+ typedef Rva0054E8DCAllocator<U> _Orig;
+ typedef Rva0054E8DCAllocator<T> allocator_type;
+ static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
+};
+}
+
+class W3DShroud;
+
+class __declspec(novtable) BfmeDynamicVBRefCount
+{
+public:
+	__declspec(dllimport) __forceinline BfmeDynamicVBRefCount() : m_count(1) {}
+	virtual void DeleteThis();
+	virtual ~BfmeDynamicVBRefCount();
+	int m_count;
+};
+
+class __declspec(novtable) Rva0072AED : public BfmeDynamicVBRefCount
+{
+public:
+	Rva0072AED() : m_ref(0) {}
+	virtual ~Rva0072AED();
+	void *m_ref;
+};
+
+class Rva00072FE1 : public Rva0072AED
+{
+public:
+	__declspec(dllimport) __forceinline Rva00072FE1(W3DShroud *owner) : m_owner(owner) {}
+	virtual ~Rva00072FE1();
+	W3DShroud *m_owner;
+};
+
+class Rva00087A93
+{
+public:
+	Rva00087A93(Rva00072FE1 *p) : m_ptr(p) {}
+	~Rva00087A93();
+	Rva00072FE1 *m_ptr;
+};
+
+// The shroud. Fields to +0x3C are Zero Hour's; BFME 2 adds the counted
+// partial-rendering method object at +0x40, the dirty-tracking flag at +0x48
+// and the dirty-cell set at +0x4C (constructor 0x00073320, setShroudLevel
+// 0x000731F4).
 class W3DShroud
 {
 public:
+	W3DShroud();
+	void setShroudLevel(int x, int y, unsigned char level, bool textureOnly);
 	Bool ReAcquireResources();
  void rva00073628(void *unused);
 	void init(WorldHeightMap *map, Real worldCellSizeX,
@@ -236,6 +295,10 @@ private:
 	unsigned char m_pad37;
 	unsigned char *m_finalFogData;
 	unsigned char *m_currentFogData;
+	Rva00087A93 m_method;					// +0x40
+	int m_pad44;
+	unsigned char m_trackDirtyCells;		// +0x48
+	_STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;	// +0x4C
 };
 
 struct Rva000731AE {
