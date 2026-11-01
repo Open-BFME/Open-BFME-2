@@ -12869,12 +12869,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface2Anchor@WeaponModeSpecialPowerUpdateIface2@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface3Anchor@WeaponModeSpecialPowerUpdateIface3@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface4Anchor@WeaponModeSpecialPowerUpdateIface4@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	1SupplyWarehouseDockUpdate@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	action@SupplyWarehouseDockUpdate@@UAE_NPAVObject@@0@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	crc@SupplyWarehouseDockUpdate@@MAEXPAVXfer@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	loadPostProcess@SupplyWarehouseDockUpdate@@MAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	onObjectCreated@SupplyWarehouseDockUpdate@@MAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	setCashValue@SupplyWarehouseDockUpdate@@QAEXH@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp	1ActivateModuleSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetCanBeActivatedFor.cpp	rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvaAnnounceClientCreate.cpp	1EvaAnnounceClientCreateModuleData@@	1
