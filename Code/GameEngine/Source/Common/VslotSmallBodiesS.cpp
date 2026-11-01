@@ -379,36 +379,8 @@ void Rva005450B5::onExit(Int)
 
 // 0x00545222: whether the +0x04 object's +0x04 count (999999 without the
 // object) is zero.
-struct Rva00545222Info
-{
-	Int m_00;
-	Int m_04;
-};
-class Rva00545222
-{
-public:
-	bool rva00545222() const;
-private:
-	Int m_00;
-	Rva00545222Info *m_04;
-};
-
 // 0x0057A4C9: the rowed 0x005D4BD4 with 0.0 on the +0x28 object, when there
 // is one.
-class Rva005D4BD4
-{
-public:
-	void rva005D4BD4(float f);
-};
-class Rva0057A4C9
-{
-public:
-	void rva0057A4C9();
-private:
-	char m_pad00[0x28];
-	Rva005D4BD4 *m_28;
-};
-
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 bool canPlayersTransferMoneyYet();

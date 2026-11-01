@@ -20,28 +20,10 @@ namespace ATL
 	};
 }
 
-class Rva00019EB0VTableInstall
-{
-public:
-	Rva00019EB0VTableInstall *init();
-};
-
-class Rva000910D8VTableInstall
-{
-public:
-	Rva000910D8VTableInstall *init();
-};
-
 class SortingRenderStateStruct
 {
 public:
 	SortingRenderStateStruct();
-};
-
-class SegLineRendererClass
-{
-public:
-	SegLineRendererClass();
 };
 
 class BfmeDualVtableReleaseDtor
@@ -60,12 +42,6 @@ class Rva00214E02
 {
 public:
 	Rva00214E02();
-};
-
-class Rva005CB35A
-{
-public:
-	Rva005CB35A();
 };
 
 class Rva005E74CF

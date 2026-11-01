@@ -181,14 +181,6 @@ extern Win32Mouse *TheWin32Mouse;
 
 struct MouseIO;
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 // ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
 class Rva00524F35
 {
@@ -212,11 +204,6 @@ BFME_DISP_DWORD_GETTER(Rva000419DCDwordField, 0x12DC)
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 BFME_DISP_DWORD_SETTER(Rva000419CFDwordSlot, 0x12DC)
 
 // Native UpdateTurnPhase reads the complete EAX result at 2BD6E3,
@@ -243,25 +230,12 @@ public:
 // Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
 // Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-class Rva0027C2A4Fields {
-public: void subtract(unsigned int value);
-private: unsigned char unknown[0x28]; unsigned int value28;
-};
-
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
 // Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
 // Original owner and complete bounds unresolved; independent address-owned view.
-struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
-
 // BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
 // Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
 // Original owner and complete class bounds remain unknown.
-struct Rva00563E5FFields
-{
-    unsigned char flag;
-    Rva00563E5FFields *enable();
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.

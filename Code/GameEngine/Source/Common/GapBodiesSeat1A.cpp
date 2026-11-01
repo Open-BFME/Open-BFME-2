@@ -408,14 +408,6 @@ int Rva004CE29DGet(void);
 extern const FieldParse s_Rva00254628FieldParse[];			// VA 0x00BF247C
 extern const FieldParse s_Rva002546EBFieldParse[];			// VA 0x00BF2534
 
-class Rva0025460F
-{
-public:
-	Rva0025460F();
-private:
-	char m_pad[0x11C];
-};
-
 class RadarUpgradeModuleData
 {
 public:
@@ -423,22 +415,6 @@ public:
 private:
 	unsigned char m_pad[0x11C];
 };
-
-class Rva00254628ModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &p);
-};
-
-
-
-class Rva002546EBModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &p);
-};
-
-
 
 // --- 0x0025F342 (67B): swaps a marker into the +0x80 list in place of the
 // one with the same name, returning the unlinked one (or null); 0x0025F3AE
@@ -1343,16 +1319,6 @@ class Rva00256AB0Owner
 public:
 	bool hasEntries() const;								// 0x004DF49C
 };
-
-class Rva0028BC3B
-{
-public:
-	bool rva0028BC3B() const;
-private:
-	char m_pad000[0x23C];
-	Rva00256AB0Owner *m_field;
-};
-
 
 // --- 0x0028C59F (14B): zeroes twenty bytes of this through the CRT memset
 // thunk 0x006291AE.

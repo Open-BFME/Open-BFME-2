@@ -131,17 +131,6 @@ unsigned int Rva002C8E52WordField::take()
 // GameLogic/Pathfinder/PathfindPrependCells.cpp supplies
 // PathfindCell::clearParentCellForPrepend's expression as a source lead.
 // Its class, parent-cell name and pointer meaning remain donor facts only.
-struct Rva002E6C8DWordNode {
-    char unknown0[8];
-    unsigned int word8;
-};
-class Rva002E6C8DWordChase {
-public:
-    void clear();
-private:
-    Rva002E6C8DWordNode *node;
-};
-
 // Whole native 405A1C..405A25 is bracketed by the predecessor's RET at
 // 405A1B and the next constructor's entry at 405A25. It loads the receiver's
 // pointer at +0, clears that pointee's raw DWORD, and returns the raw word +4.
@@ -149,14 +138,6 @@ private:
 // R2SmallMemberOps.cpp, compiled O1/SSE2/G6, supplies the pointer-clear/return
 // expression. Donor Rva004C1280::run and its result pointer type are source
 // facts only: target receiver, field meanings and complete layout are unknown.
-class Rva00405A1CWordClearResult {
-public:
-    unsigned int clear();
-private:
-    unsigned int *target;
-    unsigned int result;
-};
-
 // Complete native 4DE52C..4DE536 follows RET8 at4DE529 and precedes the
 // distinct word-copy leaf4DE536. ECX supplies the accessed prefix; EAX keeps
 // that receiver while raw DWORD+4 then DWORD+0 are zeroed before RET0.
@@ -232,11 +213,3 @@ Rva003B3F6DZeroView *Rva003B3F6DZeroView::clear()
 // indistinguishable constructor guides. Their record names and string fields
 // are donor facts only; original target element and complete layout are unknown.
 // This ordinary operation exposes the consumed prefix without a lifetime claim.
-class Rva004B9C46ZeroView
-{
-public:
-    Rva004B9C46ZeroView *clear();
-private:
-    unsigned char unknown0[8];
-    unsigned int word8;
-};

@@ -11,17 +11,6 @@ typedef float Real;
 
 // 0x0055B0B9 (tables of Rva0055B0CC and Rva00573B23): the larger of the
 // Reals at +0x18 and +0x04.
-class Rva0055B0B9
-{
-public:
-	Real rva0055B0B9() const;
-private:
-	Int m_00;
-	Real m_04;
-	char m_pad08[0x10];
-	Real m_18;
-};
-
 // 0x00597372 (beside xfer 0x005974CC): zeroes the three Reals out.
 struct Rva00597372Triple
 {
@@ -29,12 +18,6 @@ struct Rva00597372Triple
 	Real y;
 	Real z;
 };
-class Rva00597372
-{
-public:
-	void rva00597372(Rva00597372Triple *out);
-};
-
 // 0x005C793A: 1.0 and the most negative Int out.
 struct Rva005C793APair
 {
@@ -95,17 +78,6 @@ protected:
 	const Rva00452E00Data *m_moduleData; // +0x04
 	char m_pad08[0x18];
 };
-class Rva00452E00Iface
-{
-public:
-	virtual Int getValue(Real *out) = 0;
-};
-class Rva00452E00 : public Rva00452E00Primary, public Rva00452E00Iface
-{
-public:
-	Int getValue(Real *out);
-};
-
 // 0x005D9D81: whether the two arguments' +0x38/+0x3C positions are more than
 // 100 apart (squared distance against 10000).
 struct Rva005D9D81Pos

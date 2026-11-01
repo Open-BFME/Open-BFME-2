@@ -114,12 +114,6 @@ int Rva0006DD63::Class_ID()
 }
 
 // 0x0018077E: constant 0x44.
-class Rva0018077E
-{
-public:
-	int rva0018077E();
-};
-
 // 0x003FD370: constant 0x10.
 class Rva003FD370
 {
@@ -302,18 +296,6 @@ int MilesAudioManager::rva000518A4(int index)
 // 0x00072740 / 0x0007274B (slots 9 and 10 of BfmeOwnerCC's table): mark the
 // flag at +0x48 and answer the address of the word at +8 / +0xC of the block
 // at +0x40.
-class Rva00072740
-{
-public:
-	int *rva00072740();
-	int *rva0007274B();
-private:
-	char m_pad00[0x40];
-	int *m_block40;
-	char m_pad44[4];
-	bool m_flag48;
-};
-
 // 0x00086A82: whether the word at +0x23CC equals its argument.
 class Rva00086A82
 {
@@ -361,16 +343,6 @@ void Rva000E132C::rva000E132C(Rva00SlotQuad *out)
 }
 
 // 0x000E4886: sets the flag bytes at +0x22 and +0x21.
-class Rva000E4886
-{
-public:
-	void rva000E4886();
-private:
-	char m_pad00[0x21];
-	bool m_flag21;
-	bool m_flag22;
-};
-
 // 0x000E7529: sets four flag bytes deep in a large object.
 class Rva000E7529
 {
@@ -653,17 +625,6 @@ void Rva00330CC2::rva00330CC2(const Rva00SlotTriple *value)
 }
 
 // 0x00355DD4: clears the words at +8 and +0x10.
-class Rva00355DD4
-{
-public:
-	void rva00355DD4();
-private:
-	char m_pad00[8];
-	int m_value08;
-	int m_value0C;
-	int m_value10;
-};
-
 // 0x0036803F: stores TheGameLogic's +0x40 word plus 2 at +0x20 and answers 0.
 struct Rva0036803FLogic
 {

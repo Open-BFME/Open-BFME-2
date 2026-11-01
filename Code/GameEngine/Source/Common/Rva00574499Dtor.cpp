@@ -112,41 +112,6 @@ TreeHintRef00217D4C Rva00574499::rva005744DD() const
     return TreeHintRef00217D4C((TargetRef00217D4C *)new InGameSimpleHelp(title, text));
 }
 
-class Rva0042D6B4PtrChaseField
-{
-public:
-    int get() const;
-};
-
-class Rva001FF3A9
-{
-public:
-    void rva001FF3A9(const TreeHintRef00217D4C &ref);
-};
-
 extern unsigned g_Va00E062FC;
 extern unsigned g_Va00E0630C;
-
-class Rva005749B7
-{
-public:
-    void rva005749B7(int unused);
-private:
-    char m_pad00[0x18];
-    Rva0042D6B4PtrChaseField *m_at18;
-    char m_pad1c[0x4C];
-    TreeHintRef00217D4C m_at68;
-};
-
-class Rva00574A19
-{
-public:
-    void rva00574A19(int unused);
-private:
-    char m_pad00[0x14];
-    Rva0042D6B4PtrChaseField *m_at14;
-    char m_pad18[0x54];
-    TreeHintRef00217D4C m_at6c;
-};
-
 

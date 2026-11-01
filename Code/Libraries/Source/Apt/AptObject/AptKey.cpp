@@ -8,10 +8,6 @@ class BfmeAptValue006DCD20 {
 public: int isKey() const;bool isCIH(bool=false) const; void setGCRootCount(unsigned int);
 };
 
-class Rva006DBB60ShrNAndField { public: bool get()const; };
-
-class Rva008A4570Owner { public: bool nameEquals(const char *); };
-
 class AptBasePtrStack {public: BfmeAptValue006DCD20 *At(int);int count,capacity;BfmeAptValue006DCD20 **elements;};
 
 struct AptActionInterpreter { AptBasePtrStack stack; };
@@ -22,15 +18,9 @@ extern AptValue *gpUndefinedValue;
 
 template<class T> class AptValueSet {public: bool has(T)const;};
 
-class Rva006E9A40List {public:void add(AptCIH *);};
-
-class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);};
-
 class Rva006E34D0 {public:unsigned char unaccessed00[0x18];AptValueSet<AptValue *> listenerSet;};
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
-
-class AptBoolean {public:static AptValue *Create(bool);};
 
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
 

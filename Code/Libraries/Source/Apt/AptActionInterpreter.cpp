@@ -779,12 +779,6 @@ unsigned char Rva006FD5B0(char hi, char lo);
 
 	// row 0x006FD5B0 (Apt/Rva006FD5B0HexPair.cpp)
 
-class BfmeBufVKG
-{
-public:
-	BfmeBufVKG *bfmeAppendVKG(const char *source, unsigned int limit);
-};
-
 class Rva006FD340Object
 {
 	char m_pad[0x60];
@@ -915,14 +909,6 @@ void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
 // Play/Stop: opcode6/7 dispatch and original PDB establish handler identity.
 // Later source supplies semantics; PC proves CIH+4C and sprite playing bit25+1C.
 // Keep direct accessor-expression bitfield assignment: a temporary changes MSVC codegen.
-class AptMovie { public: int labelToFrame(const EAStringC *) const; void runFrameActions(AptCIH *,int); };
-
-struct AptCharacter { unsigned char prefix[8]; AptMovie movie; };
-
-class AptDisplayList { public: void removeClonedObject(AptCIH *); };
-
-struct AptSpriteInstBase { unsigned char prefix[0xC]; AptCharacter *character; unsigned char middle[8]; int mnFrame; int mnObjectClipActions:24; unsigned int mbJustLoaded:1; unsigned int mbIsPlaying:1; unsigned int mnIsCustomControl:2; void *clipActions; AptDisplayList displayList; };
-
 struct AptContextRootState { unsigned char prefix[0x54]; AptValue *head; };
 
 struct AptContextRootDisplay { AptContextRootState *state; };

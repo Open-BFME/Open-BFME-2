@@ -96,35 +96,3 @@ void Rva001FBA8C::setup(void *a, void *b)
 	m_00 = ((Rva001F5DE8Slot *)b)->get(a);
 	m_04.setup(a, b);
 }
-class Rva001FBC43
-{
-public:
-	void setup(void *a, void *b);
-private:
-	void *m_00;
-	Rva001FBA8C m_04;
-};
-class Rva001FBFEA
-{
-public:
-	void setup(void *a, void *b);
-private:
-	void *m_00;
-	Rva001FBC43 m_04;
-};
-class Rva001FC357
-{
-public:
-	void setup(void *a, void *b);
-private:
-	void *m_00;
-	Rva001FBFEA m_04;
-};
-class Rva001FC451
-{
-public:
-	void setup(void *a, void *b);
-private:
-	void *m_00;
-	Rva001FC357 m_04;
-};

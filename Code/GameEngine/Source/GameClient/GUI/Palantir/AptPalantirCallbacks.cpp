@@ -30,15 +30,6 @@ private:
 	void *m_0;
 };
 
-class Rva00527CCE
-{
-public:
-	Rva00527CCE(int level, const AsciiString &name);
-
-private:
-	unsigned char m_pad00[0x20];
-};
-
 class Rva00527FA2
 {
 public:
@@ -102,24 +93,6 @@ private:
 	unsigned char m_pad00[0x230];
 };
 
-class Rva00528AC3
-{
-public:
-	Rva00528AC3(void *argument);
-
-private:
-	void *m_0;
-};
-
-class Rva0052A244
-{
-public:
-	Rva0052A244(void *argument);
-
-private:
-	void *m_0;
-};
-
 class Rva0052AF1C
 {
 public:
@@ -135,12 +108,6 @@ class Rva002D38AE
 {
 public:
 	void reset(Rva0052710C *panel);
-};
-
-class Rva002D38EB
-{
-public:
-	void reset(Rva00527CCE *panel);
 };
 
 class Rva002D390E

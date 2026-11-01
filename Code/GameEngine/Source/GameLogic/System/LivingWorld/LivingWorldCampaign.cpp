@@ -727,11 +727,7 @@ namespace _STL { template <> void vector<BfmePod52, allocator<BfmePod52> >::_M_f
 
 namespace _STL { template <> void vector<BfmePod44, allocator<BfmePod44> >::_M_fill_insert(BfmePod44 *, size_t, const BfmePod44 &); }
 
-struct BfmePod8 { int a[2]; };
-
 struct BfmePod16 { int a[4]; };
-
-struct BfmePod20 { int a[5]; };
 
 struct BfmePod28 { int a[7]; };
 
@@ -761,12 +757,6 @@ struct BfmePod52 { int a[13]; };
 struct BfmePod68 { int a[17]; };
 
 struct BfmePod76 { int a[19]; };
-
-struct BfmePod492 { int a[123]; };
-
-struct BfmePod840 { int a[210]; };
-
-struct BfmePod24 { int a[6]; };
 
 // 696 = 0x2B8 is BuddyRequest, as in stlport_pod_large_bodies.cpp.
 class BuddyRequest

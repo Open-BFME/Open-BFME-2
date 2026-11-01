@@ -48,12 +48,6 @@ static __declspec(noinline) bool compareHeroEntries(const Rva005E4300Entry *a,co
  return keyA<keyB;
 }
 }
-class Rva005E4300Cmp {
-public:
- char operator()(int,int) const;
-private: Rva005E4300Context *m_context;
-};
-
 struct TargetRef00217D4C { void *vtable; int count; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00217D4C {
@@ -88,8 +82,6 @@ static float ComputeRankProgress(const Rva005E4300Entry *entry) {
  return (entry->metric-low)/(high-low);
 }
 }
-class Rva0037DCA5 {public:void *GetThingTemplate();};
-class InGameSimpleHelp {public:InGameSimpleHelp(const UnicodeString &,const UnicodeString &);private:char storage[12];};
 // StrategicInGameUI::Rva005E6A23 is rowed in Common/Rva005E6A23Rva005E6A23Farm.cpp;
 // a copy here was linked in place of the retail one.
 namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry *entry);}
@@ -130,12 +122,6 @@ class Rva005CB265
 {
 public:
 	virtual int rva005CB265();
-};
-
-class Rva005CB260
-{
-public:
-	void rva005CB260();
 };
 
 // Base vtable C79544: the listener callbacks rowed in StrategicUiArmyHandler.cpp.
