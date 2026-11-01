@@ -42,11 +42,7 @@ public:
 };
 extern UpgradeCenter *TheUpgradeCenter;
 
-class Player
-{
-public:
-	Upgrade *addUpgrade(const UpgradeTemplate *tmpl, UpgradeStatusType a, int b);
-};
+#include "../../../../Include/Common/Player.h"
 
 class Rva004B8CDEBase
 {
