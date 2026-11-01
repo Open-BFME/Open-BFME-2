@@ -294,28 +294,12 @@ private:
 	bool m_CE; // +0xCE
 };
 
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
-
 BFME_DISP_BYTE_GETTER(Rva004A768AByteField, 0xAD)
 
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 class TerrainLogic {public:virtual ~TerrainLogic();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual float getGroundHeight(float,float,Coord3D*)const;virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D*,bool)const;PathfindLayerEnum getHighestLayerForDestination(const Coord3D*,bool);};
 
 extern TerrainLogic *TheTerrainLogic;
@@ -408,18 +392,6 @@ public:
 	static void parseScience(INI *, void *, void *, const void *);
 };
 
-class Rva003B1017
-{
-public:
-	static void parseFromINI(INI *, void *, void *, const void *);
-};
-
-class Rva004B65E4
-{
-public:
-	static void rva004B65E4(INI *, void *, void *, const void *);
-};
-
 void Rva000B9468Parse(INI *, void *, void *, const void *);
 
 void Rva002567EAParse(INI *, void *, void *, const void *);
@@ -435,12 +407,6 @@ void iniParseObjectFilter(INI *, void *, void *, const void *);
 void rva004649A1(INI *, void *, void *, const void *);
 
 void rva004B5293(INI *, void *, void *, const void *);
-
-class Rva0049B8A0
-{
-public:
-	static void parseFromINI(INI *, void *, void *, const void *);
-};
 
 void Rva0049B51EParse(INI *, void *, void *, const void *);
 
@@ -486,31 +452,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class RespawnBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 class DelayedDeathBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class FreeLifeBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class GloriousChargeUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class GiveOrRestoreUpgradeSpecialPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -518,190 +460,9 @@ public:
 
 int Rva004CE29DGet(void);
 
-class ReplaceSelfUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class UnpauseSpecialPowerUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class AutoHealBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class AttributeModifierAuraUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class LevelGrantSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class LevelUpUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class MaxHealthUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class TooltipUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ExperienceScalarUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 int Rva004CE52EGet(void);
 
-class UpgradeDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class CrushDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class KeepObjectDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RefundDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class SpecialPowerCompletionDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RebuildHoleExposeDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class DamageFilteredCreateObjectDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class SupplyCenterDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class CommandPointsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class BaseUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class AudioLoopUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class GarrisonContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static void parseInitialRoster(INI *, void *, void *, const void *);
-};
-
-class HordeGarrisonContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class FireWeaponUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class OilSpillUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class WeaponFireSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ReplenishUnitsBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 class DominateEnemySpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RousingSpeechUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class GeometryUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RadiateFearUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ModelConditionUpgradeModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -769,56 +530,11 @@ extern const FieldParse BfmeMissileUpdateFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class SpawnBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RubbleRiseUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static void parseFXList(INI *, void *, void *, const void *);
-	static void parseOCL(INI *, void *, void *, const void *);
-};
-
-class SubObjectsUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 int Rva0033A495Get(void);
 
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
 
-class RandomSoundSelectorClientBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static void parseVoicePriority(INI *, void *, void *, const void *);
-};
-
 class GiveUpgradeUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class OpenContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class CreateObjectDieModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class CaveContainModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -835,84 +551,6 @@ public:
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
 class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class RemoveUpgradeUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ReplaceObjectUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class MonsterDockUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class FireWeaponWhenDeadBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class FireWeaponWhenDamagedBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ArrowStormUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ModelConditionSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class HeroModeSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class WeaponSetSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class TeleportSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class ToggleMountedSpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class SpecialDisguiseUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class FellBeastSwoopPowerModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
