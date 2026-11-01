@@ -1,13 +1,7 @@
 // cl: /O1 /arch:SSE /G7 /MD /Oi-
 // ?rva0009AE98@Rva0009AE98@@UAE_NPBVVector3@@PAH@Z @0x0009AE98 248B.
 // Target evidence: vtable 0x007C89C8 slot 15; the body projects the input point and converts it to screen coordinates. Class identity remains unresolved, so the address-based class name is used.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 class CameraClass
 {

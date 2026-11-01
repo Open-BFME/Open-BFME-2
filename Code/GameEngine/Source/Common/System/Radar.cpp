@@ -808,7 +808,7 @@ int __cdecl rva002D7BFD(int x);
 // x87 truncation under /arch:SSE; an intermediate int changes that codegen.
 // The local RGB/HSV pair keeps target stack offsets; it is scratch storage,
 // not a claimed persistent target class layout. Original helper name unknown.
-class Vector3 {public:float X,Y,Z;};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 void Rva002D2ACAGet(int,float*,float*,float*,float*);
 
