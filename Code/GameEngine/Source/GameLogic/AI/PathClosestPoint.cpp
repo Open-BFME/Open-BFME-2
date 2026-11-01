@@ -7,7 +7,7 @@
 // The target searches segment projections, clamps the fraction to[0,1], and
 // retains the best start node. The only call is the owned debug-position setter.
 #include "Coord3D.h"
-class Pathfinder {public:void SetDebugPathPosition(const Coord3D*);};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI;extern AI *TheAI;
 struct PathAIView {char unknown[0x10];Pathfinder *pathfinder;};
 class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D position;int layer;bool canOptimize;int waypointID;};

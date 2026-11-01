@@ -37,12 +37,7 @@ private:
 #include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
-class Pathfinder
-{
-public:
-	Bool AdjustTargetDestination(Object *obj, Int a, Int b, Int c, const Coord3D *dest);
-	Bool rva002F379E(ICoord2D *cell, Int range, void *info);	// row 0x002F379E spelling
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 Bool Pathfinder::AdjustTargetDestination(Object *obj, Int a, Int b, Int c, const Coord3D *dest)
 {

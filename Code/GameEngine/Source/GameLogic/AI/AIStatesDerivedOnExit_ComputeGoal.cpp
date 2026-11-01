@@ -250,18 +250,7 @@ public:
 	// Zero Hour's appendNode with a BFME 2 third argument.
 	void appendNode(const Coord3D *pos, PathfindLayerEnum layer, int bfmeArg);
 };
-class Pathfinder
-{
-public:
-	bool IsBuildRestrictedCell(const Coord3D *pos, bool flagA, bool flagB, int layer);
-	Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest,
-		const Coord3D *groupDest);
-	void SnapClosestGoalPosition(Object *obj, Coord3D *pos);
-	// Zero Hour's setIgnoreObstacleID (out of line, folded with a +0x48 store).
-	void rva003E3BFB(ObjectID objID);
-	// (position, layer) as the rowed name's two ints.
-	bool IsCliffCell(int pos, int layer);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct TAiData
 {
 	unsigned char m_pad00[0x58];

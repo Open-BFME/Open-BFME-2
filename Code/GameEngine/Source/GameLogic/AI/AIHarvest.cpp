@@ -224,13 +224,7 @@ class TerrainLogic;
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Pathfinder
-{
-public:
-	bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
-	bool IsPointOnWall(int pos, bool flag);
-	bool IsPointOnRamp(const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

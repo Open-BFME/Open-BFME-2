@@ -31,19 +31,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
-class Pathfinder
-{
-public:
-	int bfmeCheckAttackViewAlt(Object *object, void *targetPosition);
-	int bfmeCheckAttackViewAltHelper(Object *object, Coord3D *cachedPosition, void *targetPosition);
-
-	int bfmeCheckAttackView(Object *object, void *targetPosition);
-	int bfmeCheckAttackViewHelper(Object *object, Coord3D *cachedPosition, void *targetPosition);
-
-	bool isAttackViewBlockedByObstacle(const Object *source, const Coord3D *targetPosition);
-	bool isAttackViewBlockedByObstacle(const Object *source, const Object *target);
-bool isAttackViewBlockedByObstacle(const Object *source, const Coord3D &sourcePosition, const Object *target, const Coord3D &targetPosition);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 
 // ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@PBUCoord3D@@@Z

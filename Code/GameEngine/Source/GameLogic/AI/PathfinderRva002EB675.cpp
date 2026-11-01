@@ -17,13 +17,7 @@ struct Rva002E7ED6Info
 {
 	Int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY);
 };
-class Pathfinder
-{
-public:
-	int rva002EB675(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7ED6Info *info);
-private:
-	int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 int Pathfinder::rva002EB675(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7ED6Info *info)
 {

@@ -37,9 +37,7 @@ public:
 	virtual void b0();
 };
 
-class Pathfinder : public PathfinderBase, public Snapshot
-{
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class TAiData : public Snapshot
 {

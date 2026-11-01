@@ -723,16 +723,7 @@ StateReturnType AIGoingIdleState::onEnter()
 
 class Rva002C9B80Owner;
 
-class Pathfinder
-{
-public:
-	Bool IsPointOnWall(int pos, Bool flag);
-	Bool CanApproachToTarget(Object *obj, const Coord3D *targetPos, Rva002C9B80Owner *weapon, Bool flag);
-	Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet,
-		Coord3D *dest, const Coord3D *groupDest);
-	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet,
-		Coord3D *dest);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AIData
 {

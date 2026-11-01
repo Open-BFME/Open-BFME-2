@@ -50,12 +50,7 @@ private:
 	int m_10;
 };
 
-class Pathfinder
-{
-public:
-	int MoveAlliesAwayFromDestination(Object *obj, const Coord3D *lhs, const Coord3D *rhs);
-	int rva002F6AE3(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F3F7DInfo *info);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 int Pathfinder::MoveAlliesAwayFromDestination(Object *obj, const Coord3D *lhs, const Coord3D *rhs)
 {

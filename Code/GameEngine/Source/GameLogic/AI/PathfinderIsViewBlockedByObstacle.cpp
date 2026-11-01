@@ -16,12 +16,7 @@ public:
     bool isSignificantlyAboveTerrain(void) const;
     Coord3D const *getPosition(void) const { return &position; }
 };
-class Pathfinder
-{
-public:
-    bool isViewBlockedByObstacle(Object const *, Object const *);
-    bool isAttackViewBlockedByObstacle(Object const *, Coord3D const &, Object const *, Coord3D const &);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 bool Pathfinder::isViewBlockedByObstacle(Object const *obj, Object const *objOther)
 {
     if (objOther->isSignificantlyAboveTerrain()) return false;

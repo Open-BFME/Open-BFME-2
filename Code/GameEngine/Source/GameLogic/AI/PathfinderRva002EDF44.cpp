@@ -32,13 +32,7 @@ class PathfindCell
 {
 };
 
-class Pathfinder
-{
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, Int cellX, Int cellY);
-	PathfindCell *Rva002EDF44(ObjWithPos *obj);
-	PathfindCell *Rva002EDF7C(ObjWithPos *obj, ICoord2D *out);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 ICoord2D *__cdecl Rva002EBC14Cell(ICoord2D *out, void *obj, const Coord3D *pos);
 

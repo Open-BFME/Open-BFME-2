@@ -594,11 +594,7 @@ extern ScienceStore *TheScienceStore;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Pathfinder
-{
-public:
-	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

@@ -5,23 +5,7 @@
 // (plus bit 16/17) of the returned record. thiscall with ecx passthrough;
 // ?rva names: class lead from the 0x002E9871 Pathfinder pin, identities unproven.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Pathfinder
-{
-public:
- 	void *rva001E3647Pos(int a, const Coord3D *pos);
-	int GetGroundLayer(const Coord3D *pos);
-	bool IsWaterCell(int pos, int layer);
-	bool IsCliffCell(int pos, int layer);
-	int isBlockedGateObstacleCell(int pos, int layer);
-	int IsNonPinchedCliffCell(int pos, int layer);
-	bool IsPointOnWall(int pos, bool requireClearCell);
-	bool IsImpassableCell(int pos, int layer);
-	bool IsBuildRestrictedCell(const Coord3D *pos, bool allowWater, bool allowImpassable, int layer);
-	void GetCellType(int pos, void *cellExists, void *a3, void *cellType, int layer);
-private:
-	char m_pad000[0x10];
-	int m_unk0010; // +0x10 null-guard read by GetGroundLayer
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct Rva001E3647Result
 {
 	char m_pad[0x0C];
@@ -32,7 +16,7 @@ struct Rva001E3647Result
 // existing same-name pin into a row.
 int Pathfinder::GetGroundLayer(const Coord3D *pos)
 {
-	if (m_unk0010 != 0)
+	if (m_map != 0)
 	{
 		Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(1, pos);
 		if (rec != 0)

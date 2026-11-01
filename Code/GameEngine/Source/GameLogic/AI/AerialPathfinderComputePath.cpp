@@ -68,7 +68,7 @@ public:
     bool isSignificantlyAboveTerrain() const;
 };
 class LocomotorSet;
-class Pathfinder { public: bool AdjustDestination(Object *, const LocomotorSet &, Coord3D *, const Coord3D *); };
+#include "../../../Include/GameLogic/AIPathfind.h"
 class AI;
 struct AerialAIView { char pad[0x10]; Pathfinder *pathfinder; };
 class GlobalData;

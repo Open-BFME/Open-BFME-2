@@ -60,11 +60,7 @@ public:
 	Rva003642DFResult rva003642DF(float dist);
 };
 
-class Pathfinder
-{
-public:
-	bool IsBuildRestrictedCell(const Coord3D *pos, bool flagA, bool flagB, int layer);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

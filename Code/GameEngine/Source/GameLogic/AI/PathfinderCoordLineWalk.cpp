@@ -82,32 +82,7 @@ public:
 
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 
-class Pathfinder
-{
-public:
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo);
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ECE6AInfo *callbackInfo);
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo);
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F1BD5Info *callbackInfo);
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F18D4Info *callbackInfo);
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F4D8BInfo *callbackInfo);
-	// Line-query wrappers at 0x002F1AF4/32/66/A2: build the callback query via
-	// the pinned init above, walk it, bool-convert the hit. Names from the
-	// WorldBuilder debug build's asserts (pathfinder.cpp 3706/3713/3720/3727,
-	// the same order as these addresses); each calls the same walk overload
-	// and pops the same argument bytes as its WB twin.
-	Int IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
-	Bool IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
-	Int IsLinePassableForOptimize(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c);
-	Bool IsHordeMeleeLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
-private:
-	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo);
-	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ECE6AInfo *callbackInfo);
-	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo);
-	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002F1BD5Info *callbackInfo);
-	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002F18D4Info *callbackInfo);
-	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002F4D8BInfo *callbackInfo);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo)
 {

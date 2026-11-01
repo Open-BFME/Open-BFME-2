@@ -289,11 +289,7 @@ public:
 		Int attackInfo, Int a, Int b);
 };
 
-class Pathfinder
-{
-public:
-	Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest = 0);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

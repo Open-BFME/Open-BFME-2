@@ -16,12 +16,7 @@ struct ThingTemplate { char pad[0x109]; unsigned char kind109; };
 class Object { public: void *vptr; ThingTemplate *type; char pad[0x38-8]; Coord3D position; };
 class PathfindCell { public: char pad[0xc]; unsigned int flags; int getLayer() const {return(flags>>4)&0x3f;} };
 void *rva002EBC59(void *,void *,int,int,int);
-class Pathfinder {
-public:
- PathfindCell *getCell(PathfindLayerEnum,int,int);
- bool rva002E9EA7(Object *,int,int,PathfindLayerEnum,int,unsigned char,int *);
- bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,int);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 class Rva002F57E6Query
 {
 public:

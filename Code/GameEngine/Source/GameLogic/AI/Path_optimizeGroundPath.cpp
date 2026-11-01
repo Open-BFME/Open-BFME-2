@@ -41,12 +41,7 @@ private:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
-class Pathfinder
-{
-public:
-	Bool IsGroundPathPassable(const Coord3D *startWorld,
-		PathfindLayerEnum startLayer, const Coord3D *endWorld, Int pathDiameter);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
 #include "../../../Include/GameLogic/AI.h"

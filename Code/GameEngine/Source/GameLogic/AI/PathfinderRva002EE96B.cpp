@@ -21,12 +21,7 @@ struct Rva002E7ED6Info
 	Real m_z;
 	Int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY);
 };
-class Pathfinder
-{
-public:
-	int rva002EE96B(Coord3D *lhs, const Coord3D *rhs);
-	int rva002EB675(const Coord3D *lhs, const Coord3D *rhs, PathfindLayerEnum layer, Rva002E7ED6Info *info);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 int Pathfinder::rva002EE96B(Coord3D *lhs, const Coord3D *rhs)
 {
 	Rva002E7ED6Info info;

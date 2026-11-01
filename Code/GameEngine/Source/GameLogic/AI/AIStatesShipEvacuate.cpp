@@ -92,11 +92,7 @@ __declspec(noinline) inline void Rva00352F9D::rva003531DB(const void *obj, const
 class Object;
 class StateMachine;
 
-class Pathfinder
-{
-public:
-	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *out);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

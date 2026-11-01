@@ -101,15 +101,7 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class Pathfinder
-{
-public:
-	bool CanApproachToTarget(Object *obj, const Coord3D *pos, Rva002C9B80Owner *weapon, bool flag);
-	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flags);
-	int isBlockedGateObstacleCell(int pos, int layer);
-	bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
- bool AdjustDestination(Object *, const LocomotorSet &, Coord3D *, const Coord3D *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva003449C5AIData
 {

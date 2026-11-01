@@ -134,13 +134,7 @@ private:
 };
 extern Rva002872BA *TheTriggerManager;
 
-class Pathfinder
-{
-public:
-	int rva002E7749(void *object, int x, int y, int layer, int clearance, bool exact);
-	int rva002F0A72(PathfindCell *cell, PathfindCell *goal);
-	void AddToOpenList(PathfindCell *cell);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Rva002F4491Info
 {

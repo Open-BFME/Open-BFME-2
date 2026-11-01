@@ -315,11 +315,7 @@ private:
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_bfme438; // +0x438
 };
-class Pathfinder
-{
-public:
-	Bool AdjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest = NULL);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 struct TAiData
 {
 	unsigned char m_pad00[0x3C];

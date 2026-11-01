@@ -118,14 +118,7 @@ public:
 class Rva002C9B80Owner;
 class LocomotorSet;
 
-class Pathfinder
-{
-public:
-	Bool AdjustDestination(Object *obj, const LocomotorSet &set, Coord3D *dest, const Coord3D *group);
-	Bool isAttackViewBlockedByObstacle(const Object *obj, const Coord3D *objPos, const Object *target, const Coord3D *targetPos);
-	Bool CanApproachToTarget(Object *obj, const Coord3D *targetPos, Rva002C9B80Owner *weapon, Bool flag);
-	Bool rva002ED313(Object *obj);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class AI
 {

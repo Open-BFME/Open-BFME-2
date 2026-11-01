@@ -33,12 +33,7 @@ struct Rva002E7B29Info
 	Real m_0C;
 	Real m_10;
 };
-class Pathfinder
-{
-public:
-	int AdjustGroundPathPosition(const Coord3D *lhs, Coord3D *rhs);
-	int rva002EB3D7(const Coord3D *lhs, const Coord3D *rhs, PathfindLayerEnum layer, Rva002E7B29Info *info);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 int Pathfinder::AdjustGroundPathPosition(const Coord3D *lhs, Coord3D *rhs)
 {
 	Rva002E7B02 info((int)this, 4, *(const _Rva002E7B02Cell *)lhs);
