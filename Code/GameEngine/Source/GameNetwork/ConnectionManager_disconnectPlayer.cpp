@@ -36,22 +36,8 @@ enum
 	MAX_SLOTS = 8
 };
 
-class GameSlot
-{
-public:
-	UnsignedInt lastFrameInGame() const { return m_lastFrameInGame; }
-	void setLastFrameInGame(UnsignedInt frame) { m_lastFrameInGame = frame; }
+#include "../../Include/GameNetwork/GameInfo.h"
 
-private:
-	char m_pad00[0x44];
-	UnsignedInt m_lastFrameInGame;
-};
-
-class GameInfo
-{
-public:
-	GameSlot *getSlot(Int index);
-};
 
 #include "../Common/GameLogicObjectLookupView.h"
 

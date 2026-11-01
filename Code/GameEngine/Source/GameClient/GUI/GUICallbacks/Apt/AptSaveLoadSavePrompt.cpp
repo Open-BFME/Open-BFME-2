@@ -183,8 +183,7 @@ void __cdecl Rva00434EFA()
 class Rva002DC267 { public: bool rva002DC681() const; };
 class GameState;
 extern GameState *TheGameState;
-class GameSlot { public: bool isHuman() const; };
-class GameInfo { public: GameSlot *getSlot(int slotNum); };
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 struct AptSaveLoadModeView
 {

@@ -22,35 +22,8 @@ const T &minimum(const T &first, const T &second)
 #include "unicode_string.h"
 #include <windows.h>
 #include <string.h>
-class GameSlot
-{
-public:
-	bool isHuman() const;
-	bool hasMap() const { return m_hasMap; }
+#include "../../Include/GameNetwork/GameInfo.h"
 
-private:
-	char m_pad[9];
-	bool m_hasMap;
-};
-
-class GameInfo
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void hostPad4();
-	virtual void hostPad5();
-	virtual void hostPad6();
-	virtual void hostPad7();
-	virtual void hostPad8();
-	virtual void hostPad9();
-	virtual void hostPad10();
-	virtual void hostPad11();
-	virtual bool amIHost() const;
-	const GameSlot *getConstSlot(int slot) const;
-};
 
 class NetworkInterface
 {

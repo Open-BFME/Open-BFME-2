@@ -27,20 +27,8 @@ class PlayerInfo;
 class GameSpyStagingRoom;
 typedef std::map<Int, GameSpyStagingRoom *> StagingRoomMap;
 
-class GameSlot
-{
-public:
-	unsigned char m_pad00[0x30];
-	bool isHuman() const;
-	UnicodeString m_name;				// +0x30
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	AsciiString getMap() const;
-	GameSlot *getSlot(Int slotNum);			// 0x003FF29F
-};
 
 #define GSI_SLOT(n) virtual void slot##n();
 

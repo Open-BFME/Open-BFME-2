@@ -165,7 +165,8 @@ struct Bfme939Helper { int get()const; }; class RecorderClass; extern RecorderCl
 class RecorderClass { public:void stopRecording(); };
 class Rva00210C66CmpBoolField { public: bool get() const; };
 extern class GameInfo *TheGameInfo;
-class GameInfo { public: void setMap(AsciiString); }; class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
+#include "../../../Include/GameNetwork/GameInfo.h"
+class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 void InitGameLogicRandom(unsigned);

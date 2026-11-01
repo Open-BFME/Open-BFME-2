@@ -241,7 +241,7 @@ class TerrainRoadType;
 // (+0x40), 0x000DE5B7 (+0x48) and 0x0027F5A6 (+0x50); the calls name those rows.
 class Script { public: AsciiString getConditionTeamName() const; };
 
-class GameInfo { public: AsciiString getMap() const; };
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 class Rva000DE59C { public: AsciiString rva000DE59C(); };
 

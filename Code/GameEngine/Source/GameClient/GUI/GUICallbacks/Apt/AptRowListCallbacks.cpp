@@ -257,20 +257,8 @@ typedef AsciiStringPlusStringText (*PlusStringText)(const AsciiStringPlusString 
 typedef AsciiStringCharPlusText (*CharPlusText)(const AsciiStringRefWithChar &left, const char *right);
 
 // TheGameInfo's slots and ThePlayerList's players.
-class GameSlot
-{
-public:
-	bool isOccupied() const;
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-	unsigned char m_pad000[0x34];
-	AsciiString m_playerName; // +0x34
-};
-
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int index) const;
-};
 
 extern GameInfo *TheGameInfo;
 
@@ -356,7 +344,7 @@ void Rva005105D7::rva0050EEDC()
 		const GameSlot *slot = TheGameInfo->getConstSlot(i);
 		if (slot == 0 || !slot->isOccupied())
 			continue;
-		AsciiString name = slot->m_playerName;
+		AsciiString name = slot->m_field34;
 		if (isEmptyText(name))
 			continue;
 		Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));

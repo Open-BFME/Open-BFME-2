@@ -180,12 +180,7 @@ public:
 	void rva00108951();
 };
 
-class GameInfo
-{
-public:
-	int getNumPlayers() const;
-	int getNumOpenOrOccupiedSlots() const;
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

@@ -710,18 +710,8 @@ bool Rva00439E0C::rva004395D3(Object *object, const Coord3D *pos, Rva004393D6Ent
 // buffer unless the flag is set: the +0x90 slot map's player colour value
 // (after a "0" default) from the +0x88 game info, and the +0x14 game mode's
 // suffix ("_lan", "_skirmish", "_internetAdv").
-class GameSlot
-{
-public:
-	bool isOccupied() const;								// 0x003FF0FB
-	int getApparentColor() const;							// 0x003FF838
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int index);							// 0x003FF29F
-};
 
 class MultiplayerColorDefinition;
 

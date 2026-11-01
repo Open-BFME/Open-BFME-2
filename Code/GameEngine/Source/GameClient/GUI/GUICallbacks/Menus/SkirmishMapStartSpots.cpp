@@ -19,17 +19,7 @@ public: char unknown00[0x20]; int m_numPlayers; char unknown24[0x100-0x24];
 class MapCache:public _STL::map<AsciiString,MapMetaData> {};
 typedef char MapMetaDataSizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 extern MapCache *TheMapCache;
-class GameSlot {
-public:
- int getApparentStartPos() const;
- int getStartPos() const {return m_startPos;}
- int getPlayerTemplate() const {return m_playerTemplate;}
- void setStartPos(int n) {m_startPos=n;}
-private: char unknown00[0x10]; int m_startPos; char unknown14[4];int m_playerTemplate;
-};
-class GameInfo {
-public: AsciiString getMap() const; GameSlot *getSlot(int);
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 class GameWindow {
 public: int winHide(bool); void winSetTooltip(UnicodeString);
 };

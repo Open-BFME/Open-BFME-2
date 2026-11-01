@@ -10,18 +10,7 @@ public:
 };
 void SubsystemInterfaceList::addSubsystem(SubsystemInterface *) {}
 
-class GameInfo {
-public:
-    virtual void v00(); virtual void v04(); virtual void v08();
-    virtual void v0C(); virtual void v10(); virtual void v14();
-    virtual void v18(); virtual void v1C(); virtual void v20();
-    virtual void v24(); virtual void reset();
-    void init();
-    void setSeed(int seed);
-private:
-    char m_04[0x4C];
-    int m_seed;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 void GameInfo::init() { reset(); }
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.

@@ -39,18 +39,7 @@ public:
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameInfo.h
 class GameSlot;
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual int getLocalSlotNum();
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 class Mouse
 {

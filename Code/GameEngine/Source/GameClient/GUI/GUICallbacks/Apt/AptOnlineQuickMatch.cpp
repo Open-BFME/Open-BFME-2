@@ -94,8 +94,7 @@ extern GameWindowManager *TheWindowManager;
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int=-1,bool=true);
 enum SlotState {SLOT_OPEN,SLOT_CLOSED,SLOT_AI2,SLOT_AI3,SLOT_AI4,SLOT_AI5,SLOT_PLAYER};
 struct GameSlotConnectInfo{unsigned ip;unsigned short port;GameSlotConnectInfo():ip(0),port(0){}GameSlotConnectInfo(unsigned i,unsigned short p):port(p),ip(i){}};
-class GameSlot {public:char at00[0xc];int color;char at10[0xc];int team;char at20[0x20];int nat;bool isHuman()const;void setState(SlotState,UnicodeString=UnicodeString::TheEmptyString,const GameSlotConnectInfo* = &GameSlotConnectInfo());void setPlayerTemplate(int);};
-class GameInfo {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)virtual void clear();virtual void startGame(int);V(12)virtual int localSlot();char pad04[0xd];bool inProgress;int getSlotNum(AsciiString)const;void enterGame();void setSeed(int);void setMap(AsciiString);};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 class GameSpyGameSlot:public GameSlot {public:char at44[0x18c];int rva1d0,rva1d4;};
 class GameSpyStagingRoom:public GameInfo {public:GameSpyGameSlot *getGameSpySlot(int);void launchGame();};
 extern GameSpyStagingRoom *TheGameSpyGame;

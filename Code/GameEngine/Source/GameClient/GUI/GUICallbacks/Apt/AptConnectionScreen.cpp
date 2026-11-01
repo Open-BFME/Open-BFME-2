@@ -264,19 +264,8 @@ public:
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int slotNum);
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-	char m_pad[0x30];
-	UnicodeString m_name;
-};
 
 class BfmeAptWindowManager
 {

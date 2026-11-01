@@ -6,18 +6,12 @@
 // Session-Map line. Leaf, no new pins.
 #include "ascii_string.h"
 
-class GameInfo
-{
-public:
-	unsigned char m_pad[0x40];
-	AsciiString m_map;
-	AsciiString getMap() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 // ?getMap@GameInfo@@QBE?AVAsciiString@@XZ
 inline AsciiString GameInfo::getMap() const
 {
-	return m_map;
+	return m_mapName;
 }
 
 // Header inlines that the units including the header emit as select-any

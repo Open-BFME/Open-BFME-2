@@ -13,17 +13,8 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int slotNum);
-};
 
 class GameSpyInfoInterface
 {

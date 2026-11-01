@@ -6,18 +6,8 @@ public:
 	int rva0051274F(int a1, unsigned int a2, unsigned int a3);
 };
 
-class GameSlot
-{
-public:
-	char m_pad[0x0A];
-	unsigned char m_flag0A;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int slotNum);
-};
 
 extern GameInfo *TheGameInfo;
 
@@ -48,7 +38,7 @@ int AptObjectivesMenu::OnSystemMsg(int msg, unsigned int wParam, unsigned int lP
 		bool checked = GadgetCheckBoxIsChecked((GameWindow *)wParam);
 		if (slot == 0)
 			break;
-		slot->m_flag0A = checked;
+		slot->m_isMuted = checked;
 	}
 	return 1;
 }

@@ -4,50 +4,8 @@
 typedef int Int;
 typedef bool Bool;
 
-class GameSlot
-{
-public:
-	virtual void reset();
-	Int getTeamNumber() const { return m_teamNumber; }
+#include "../../Include/GameNetwork/GameInfo.h"
 
-private:
-	Int m_state;
-	Bool m_isAccepted;
-	Bool m_hasMap;
-	char m_pad0A[2];
-	Int m_color;
-	Int m_startPos;
-	char m_pad14[4];
-	Int m_playerTemplate;
-	Int m_teamNumber;
-};
-
-class GameInfo
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual Int getLocalSlotNum() const = 0;
-	virtual void slot38() = 0;
-	virtual void slot3c() = 0;
-	virtual void slot40() = 0;
-	virtual void slot44() = 0;
-	virtual void slot48() = 0;
-	virtual Bool isMultiPlayer() = 0;
-
-	const GameSlot *getConstSlot(Int slotNum) const;
-};
 
 Bool Rva005BF28EIsAlly(const GameInfo *gameInfo, const GameSlot *slot)
 {

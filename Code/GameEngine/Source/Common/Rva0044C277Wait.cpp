@@ -5,12 +5,7 @@
 // checks, timeout reset helper, and the TheGameInfo global.
 
 #include <windows.h>
-class GameInfo
-{
-public:
-	bool rva003FF457() const;
-	bool isHeroDataReadyForSlot(unsigned short slot) const;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 extern GameInfo *TheGameInfo;
 void Rva0044C205Reset();

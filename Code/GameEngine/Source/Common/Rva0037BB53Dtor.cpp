@@ -7,19 +7,8 @@
 // with TheGameInfo fclose UnicodeStrings GameEngineDeletingBase base) and array
 // shape pushes dtor 0x2294FD count 8 size 0x1AC base+0xDC.
 
-class GameInfo
-{
-public:
-	virtual ~GameInfo();
-	char m_pad[0xDC - 4];
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameSlot
-{
-public:
-	virtual ~GameSlot();
-	char m_pad[0x1AC - 4];
-};
 
 class __declspec(novtable) Rva0037BB53 : public GameInfo
 {

@@ -35,20 +35,8 @@ public:
 	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
-class GameSlot
-{
-public:
-	bool isHuman() const;
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-	unsigned char m_pad00[0x30];
-	UnicodeString m_name; // +0x30
-};
-
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int index) const;
-};
 
 class GameTextInterface
 {

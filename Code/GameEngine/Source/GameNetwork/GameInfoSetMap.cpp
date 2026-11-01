@@ -57,26 +57,7 @@ static inline void concatChar(AsciiString &asciiString, char c)
 	((StringBase<char> *)&asciiString)->concat(&c, 1);
 }
 
-class GameInfo
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
-	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
-	virtual bool amIHost() const;
-	void setMap(AsciiString mapName);
-	void setMapCRC(unsigned int mapCRC);
-	void setMapSize(unsigned int mapSize);
-
-private:
-	char m_unrecovered04[0x0C];
-	bool m_inGame;
-	char m_unrecovered11[0x2F];
-	AsciiString m_mapName;
-	unsigned int m_mapCRC;
-	unsigned int m_mapSize;
-	int m_mapMask;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 

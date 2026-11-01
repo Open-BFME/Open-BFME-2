@@ -14,17 +14,8 @@
 #include <string.h>
 #include <stdio.h>
 
-class GameSlot
-{
-public:
-	int getApparentColor() const;
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int index) const;
-};
 
 class MultiplayerColorDefinition
 {

@@ -28,7 +28,7 @@ class SkirmishPreferences:public UserPreferences {
 public:AsciiString buildProfileKey(const char*);bool getGameInfo();
 };
 class GameSlot;
-class GameInfo {public:GameSlot *getSlot(int);};
+#include "../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 class Rva003FF0E7DwordSlot {public:void set(int);};
 bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,bool);

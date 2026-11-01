@@ -212,13 +212,7 @@ public:
 // Target memberwise assignment at 0x005232D0 copies the 0x20-byte preference
 // record shape; its owning type remains address-derived in the ledger.
 class GameSlot;
-class GameInfo
-{
-public:
-	virtual void *v0slot0(int v);
-	GameSlot *getSlot(int index);
- AsciiString getMap() const;
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern int g_Va00E0333C;
 void __cdecl operator delete(void *p);
@@ -264,19 +258,6 @@ private:
 	unsigned char m_fields[0x13C];
 };
 
-class GameSlot
-{
-public:
-	bool isOccupied() const;
-	void rva0037AD8D(const CreateAHeroData &data);
-
-	void *m_vtable;
-	unsigned char m_pad00[0x50 - 0x04];
-	int m_heroKind; // +0x50, nonzero before this screen assigns a hero
-	int m_hero0c; // +0x54
-	int m_hero10; // +0x58
-	int m_hero; // +0x5C, CreateAHeroData list index
-};
 
 class Rva0040A3F9
 {

@@ -255,20 +255,8 @@ typedef AsciiStringPlusStringText (*PlusStringText)(const AsciiStringPlusString 
 typedef AsciiStringCharPlusText (*CharPlusText)(const AsciiStringRefWithChar &left, const char *right);
 
 // TheGameInfo's slots and ThePlayerList's players.
-class GameSlot
-{
-public:
-	bool isOccupied() const;
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 
-	unsigned char m_pad000[0x34];
-	AsciiString m_playerName; // +0x34
-};
-
-class GameInfo
-{
-public:
-	const GameSlot *getConstSlot(int index) const;
-};
 
 extern GameInfo *TheGameInfo;
 

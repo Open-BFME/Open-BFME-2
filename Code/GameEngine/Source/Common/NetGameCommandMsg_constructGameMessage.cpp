@@ -19,18 +19,8 @@ enum NameKeyType
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class GameSlot
-{
-public:
-	char m_pad00[0x34];
-	AsciiString m_name;
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
-class GameInfo
-{
-public:
-	GameSlot *getSlot(int idx);
-};
 extern GameInfo *TheGameInfo;
 
 class Player
@@ -132,7 +122,7 @@ GameMessage *NetGameCommandMsg::constructGameMessage()
 	if (gi->getSlot(m_slot) == 0)
 		return 0;
 	GameSlot *slot = TheGameInfo->getSlot(m_slot);
-	NameKeyType key = TheNameKeyGenerator->nameToKey(slot->m_name);
+	NameKeyType key = TheNameKeyGenerator->nameToKey(slot->m_field34);
 	Player *player = ThePlayerList->findPlayerWithNameKey(key);
 	if (player == 0)
 		return 0;

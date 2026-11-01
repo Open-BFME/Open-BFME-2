@@ -387,7 +387,7 @@ private:
     int value;
 };
 class GameSlot;
-class GameInfo { public: GameSlot *getSlot(int); };
+#include "../../../../Include/GameNetwork/GameInfo.h"
 // PrepareSkirmishOpponents reads native VA E02EF0, the existing owned
 // TheSkirmishGameInfo global. TheGameInfo is a different pointer at E02EEC.
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
