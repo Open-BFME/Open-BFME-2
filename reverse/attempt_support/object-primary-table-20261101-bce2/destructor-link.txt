@@ -1,0 +1,4 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 972)
+  comdat      ??_7Object@@6BThing@@@  (first: differs from the first copy in link order (no retail address))
+link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

@@ -1,0 +1,115 @@
+{
+  "native_table_rva": "0x007FC300",
+  "native_table_bytes": 32,
+  "native_slots": [
+    "0x28b569",
+    "0x47a6a9",
+    "0x47a6a9",
+    "0xd43d0",
+    "0xd43d0",
+    "0x292d49",
+    "0x28b193",
+    "0x29a10f"
+  ],
+  "objects": {
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp": {
+      "source_sha256": "8e4851877b8bf1f69ad2ec3f572172d7206e64208e1e94c142f8fa3b794a2028",
+      "object_sha256": "5e1faeaf0b1f507ab3dbf3db7bdd1aa0883caea528e2e1820d0e45398a3cf40d",
+      "table_size": 32,
+      "entries": [
+        {
+          "slot": 0,
+          "reloc_type": 6,
+          "symbol": "?calculateHeightAboveTerrain@Thing@@MBEMXZ"
+        },
+        {
+          "slot": 1,
+          "reloc_type": 6,
+          "symbol": "?asObjectMeth@Thing@@MBEPBVObject@@XZ",
+          "local_definition_bytes": "33c0c3"
+        },
+        {
+          "slot": 2,
+          "reloc_type": 6,
+          "symbol": "?asObjectMeth@Thing@@MAEPAVObject@@XZ",
+          "local_definition_bytes": "33c0c3"
+        },
+        {
+          "slot": 3,
+          "reloc_type": 6,
+          "symbol": "?asDrawableMeth@Thing@@MBEPBVDrawable@@XZ",
+          "local_definition_bytes": "33c0c3"
+        },
+        {
+          "slot": 4,
+          "reloc_type": 6,
+          "symbol": "?asDrawableMeth@Thing@@MAEPAVDrawable@@XZ",
+          "local_definition_bytes": "33c0c3"
+        },
+        {
+          "slot": 5,
+          "reloc_type": 6,
+          "symbol": "__purecall"
+        },
+        {
+          "slot": 6,
+          "reloc_type": 6,
+          "symbol": "?vslot6@Thing@@MAEXXZ",
+          "local_definition_bytes": "c3"
+        },
+        {
+          "slot": 7,
+          "reloc_type": 6,
+          "symbol": "??_EObject@@MAEPAXI@Z",
+          "local_definition_bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400"
+        }
+      ]
+    },
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp": {
+      "source_sha256": "d726321f19efd8d16391bb1bbc8a60edd9e587101d12e22d94e5c1a220134ae3",
+      "object_sha256": "b63fb9994c5c6d2fe986d5b3a2f20f5920b14bdb00bc181e8f5d02f7c494ab5b",
+      "table_size": 4,
+      "entries": [
+        {
+          "slot": 0,
+          "reloc_type": 6,
+          "symbol": "??_EObject@@MAEPAXI@Z",
+          "local_definition_bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400"
+        }
+      ]
+    }
+  },
+  "proven_current_constructor_mismatch": "slots1/2 return null instead of native this; slot5 is purecall instead of native292D49; size alone is insufficient",
+  "native_nontrivial_owners": [
+    {
+      "name": "??_GRva00299CE4@@UAEPAXI@Z",
+      "target_rva": "0x0029A10F",
+      "target_size": "28",
+      "source": "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp"
+    },
+    {
+      "name": "?rva0028B193@Object@@QAEXXZ",
+      "target_rva": "0x0028B193",
+      "target_size": "65",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp"
+    },
+    {
+      "name": "?calculateHeightAboveTerrain@Object@@MBEMXZ",
+      "target_rva": "0x0028B569",
+      "target_size": "44",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectCalculateHeightAboveTerrain.cpp"
+    },
+    {
+      "name": "?reactToTransformChange@Object@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z",
+      "target_rva": "0x00292D49",
+      "target_size": "362",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp"
+    },
+    {
+      "name": "?reactToTransformChange@Object@@QAEXPBVMatrix3D@@PBUCoord3D@@M@Z",
+      "target_rva": "0x00292D49",
+      "target_size": "362",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectReactToTransformChange.cpp"
+    }
+  ]
+}

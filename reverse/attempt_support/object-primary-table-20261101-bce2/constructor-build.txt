@@ -1,0 +1,11 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 38 row(s) verified past a renumbered $L label
+    $L10046 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10046 was renumbered; verified parent EH data places $L11174 at 0x007747FF
+    $L10047 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10047 was renumbered; verified parent EH data places $L11175 at 0x0077480D
+    $L10051 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10051 was renumbered; verified parent EH data places $L11179 at 0x00774845
+    $L10056 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10056 was renumbered; verified parent EH data places $L11184 at 0x0077488B
+    $L10060 (Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp): $L10060 was renumbered; verified parent EH data places $L11188 at 0x007748AA
+Functions: OK 49/49 matched across 1 source file(s)
+String-ref verify: OK (11 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (2 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

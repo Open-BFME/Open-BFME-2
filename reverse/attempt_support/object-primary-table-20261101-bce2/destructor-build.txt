@@ -1,0 +1,13 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Funclet pins: 15 row(s) verified past a renumbered $L label
+    $L1984 (Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp): $L1984 was renumbered; verified parent EH data places $L2919 at 0x007749A9
+    $L1987 (Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp): $L1987 was renumbered; verified parent EH data places $L2922 at 0x007749D9
+    $L1989 (Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp): $L1989 was renumbered; verified parent EH data places $L2924 at 0x007749F5
+    $L1990 (Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp): $L1990 was renumbered; verified parent EH data places $L2925 at 0x00774A03
+    $L1994 (Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp): $L1994 was renumbered; verified parent EH data places $L2929 at 0x00774A3B
+Functions: OK 17/17 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
