@@ -913,7 +913,46 @@ private:
 
 class Rva0027D347;
 
-class Rva0027E4F3
+// The grid queries 0x0027DCF2..0x0027E79E walk TerrainLogic's record vector
+// (+0x578) and 50x50 bucket grid (+0x588) through this owner view; spelled as
+// in Rva0027DF9DGridQueries.cpp, which defines them.
+struct GridEntry
+{
+	float x;
+	float y;
+	float z;
+	int live;			// +0x0C
+	char pad10[8];
+	unsigned char excluded;		// +0x18
+	char pad19[19];
+	unsigned char mode1;		// +0x2C
+	unsigned char mode2;		// +0x2D
+	short next;			// +0x2E
+};
+
+class Rva0027GridOwner
+{
+public:
+	virtual void _s00();
+	virtual void _s01();
+	virtual void _s02();
+	virtual void _s03();
+	virtual void _s04();
+	virtual void _s05();
+	virtual void _s06();
+	virtual void _s07();
+	virtual void _s08();
+	virtual void _s09();
+	virtual void getBounds(Region3D *out);	// +0x28
+protected:
+	char _pad04[0x578 - 4];
+	GridEntry **m_base;			// +0x578
+	GridEntry **m_end;			// +0x57C
+	char _pad580[8];
+	short m_grid[1];			// +0x588, 50 x 50
+};
+
+class Rva0027E4F3 : public Rva0027GridOwner
 {
 public:
 	void rva0027E4F3(Coord3D *center, float radius, Rva0027D347 *out, bool flag, int mode);
@@ -1573,6 +1612,8 @@ class Object
 {
 public:
 	void friend_notifyOfNewMapBoundary();
+public:
+	void teleportTo(const Coord3D *, bool);	// 0x0029660C
 public:
 	const Coord3D *getPosition() const { return &m_pos; }
 public:

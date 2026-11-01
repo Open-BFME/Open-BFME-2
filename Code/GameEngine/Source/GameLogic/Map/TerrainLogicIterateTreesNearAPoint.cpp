@@ -13,14 +13,22 @@
 // All floor operations inline here; keep the unused wrapper local.
 extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
-__forceinline long fast_float2long_round(float f) { long i; __asm { fld [f] } __asm { fistp [i] } return i; }
+__forceinline long fast_float2long_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
 struct TerrainTreeBounds {Coord3D lo,hi;};
 struct Rva0087DC00Vec {int x,y,z;};
 class Rva0087DC00 {public:void get(Rva0087DC00Vec*);};
 enum GeometryType {GEOMETRY_SPHERE,GEOMETRY_CYLINDER,GEOMETRY_BOX};
 class GeometryInfo {public: GeometryInfo(GeometryType,bool,float,float,float);virtual ~GeometryInfo();
  bool CollidesWith(const Coord3D &,float,const GeometryInfo &,const Coord3D &,float) const;
- char pad04[12]; float radius;char pad14[0x5c-0x14];};
+ char pad04[12]; float m_minorRadius;char pad14[0x5c-0x14];};
 class BfmeX1035;
 class BfmeT1035
 {
@@ -29,6 +37,9 @@ public:
 	int m_bfmeV; // +0x00 +0x00
 };
 struct TerrainTreeRecord {Coord3D position;int key;char pad10[8];bool flag18;char pad19[15];int amount;bool flag2c,flag2d;short next; bool isF18() const {return flag18;}};
+// +0x578 is TerrainLogic's record-pointer vector (the seed's Rva0027D098 view);
+// these records are read through the tree view at the use.
+class Rva0027D098;
 class TerrainLogic {public:
 virtual void slot0();
 virtual void slot1();
@@ -40,13 +51,13 @@ virtual void slot6();
 virtual void slot7();
 virtual void slot8();
 virtual void slot9();
-virtual void bounds(TerrainTreeBounds *);
- char pad04[0x578-4]; TerrainTreeRecord **begin,**end,**capacity;char pad584[4];short buckets[50*50];
+virtual void fetchBounds(void *out);
+ char pad04[0x578-4]; Rva0027D098 **begin,**end,**capacity;char pad584[4];short buckets[50*50];
  void iterateTreesNearAPoint(const Coord3D*,float,GeometryInfo*,BfmeT1035*,bool,int);
 };
 void TerrainLogic::iterateTreesNearAPoint(const Coord3D *position,float angle,
  GeometryInfo *geometry,BfmeT1035 *action,bool skipFlag18,int mode) {
- float radius=geometry->radius;
+ float radius=geometry->m_minorRadius;
  Coord3D center;
  ((Rva0087DC00*)geometry)->get((Rva0087DC00Vec*)&center);
  center.x+=position->x;center.y+=position->y;center.z+=position->z;
@@ -54,7 +65,7 @@ void TerrainLogic::iterateTreesNearAPoint(const Coord3D *position,float angle,
  if(count==0)return;
  radius+=7.0f;
  TerrainTreeBounds extent;
- bounds(&extent);
+ fetchBounds(&extent);
  float x=center.x-radius,y=center.y-radius;
  if(x<extent.lo.x)x=extent.lo.x;
  if(y<extent.lo.y)y=extent.lo.y;
@@ -73,7 +84,7 @@ void TerrainLogic::iterateTreesNearAPoint(const Coord3D *position,float angle,
   for(int j=minY;j<maxY;++j) {
    int index=buckets[j*50+i];
    while(index!=-1 && index>=0 && index<count) {
-    TerrainTreeRecord **base=begin;
+    TerrainTreeRecord **base=(TerrainTreeRecord **)begin;
     unsigned offset=index*sizeof(TerrainTreeRecord*);
     TerrainTreeRecord *record=*(TerrainTreeRecord**)((char*)base+offset);
     if(!record->key) {index=record->next;continue;}
@@ -84,7 +95,7 @@ void TerrainLogic::iterateTreesNearAPoint(const Coord3D *position,float angle,
     delta.x-=center.x;delta.y-=center.y;delta.z-=center.z;
     GeometryInfo cylinder(GEOMETRY_CYLINDER,false,20.0f,7.0f,7.0f);
     if(radius*radius>(delta.x*delta.x+delta.y*delta.y+delta.z*delta.z)) {
-     TerrainTreeRecord **list=begin;
+     TerrainTreeRecord **list=(TerrainTreeRecord **)begin;
      if(geometry->CollidesWith(*position,angle,cylinder,list[index]->position,0.0f))
       action->bfmeUse1035((BfmeX1035*)record,(int)&center);
     }
