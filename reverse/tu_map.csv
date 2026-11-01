@@ -56499,10 +56499,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006883B0,56,code,,,-,,Code/GameEngine/Source/Common/Rva006883B0Cluster.cpp
 0x006883F0,340,code,,,-,,Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp
 0x00688550,74,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,N,N=Code/GameEngine/Source/GameClient/SubtitleEntry.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
-0x006885A0,14,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,N,N=Code/GameEngine/Source/GameClient/SubtitleEntry.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp
+0x006885A0,14,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,N,N=Code/GameEngine/Source/GameClient/SubtitleEntry.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x006885B0,194,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x006885A0..0x00688680 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
-0x00688680,98,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,U,N=Code/GameEngine/Source/GameClient/SubtitleManager.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleManager_getStartFrame.cpp
-0x006886F0,30,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,N,N=Code/GameEngine/Source/GameClient/SubtitleEntry.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp
+0x00688680,98,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,U,N=Code/GameEngine/Source/GameClient/SubtitleManager.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
+0x006886F0,30,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,N,N=Code/GameEngine/Source/GameClient/SubtitleEntry.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x00688710,59,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x006886F0..0x00688750 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp
 0x00688750,107,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,U,N=Code/GameEngine/Source/GameClient/SubtitleManager.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
 0x006887C0,42,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x006887F0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp
