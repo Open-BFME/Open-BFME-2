@@ -1,4 +1,4 @@
-// cl: /GX- /D_STLP_USE_STATIC_LIB
+// cl: /GX- /D_STLP_USE_STATIC_LIB /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 #define _STLP_EXPOSE_GLOBALS_IMPLEMENTATION
 #include <limits>
@@ -25,13 +25,8 @@ float Rva004647D1Get(void)
 }
 
 // RenderObjClass's public ?AT_MIN_LOD@RenderObjClass@@2MB (FLT_MAX) and
-// ?AT_MAX_LOD@RenderObjClass@@2MB (-1.0f), declared through a minimal view.
-class RenderObjClass
-{
-public:
-	static const float AT_MIN_LOD;
-	static const float AT_MAX_LOD;
-};
+// ?AT_MAX_LOD@RenderObjClass@@2MB (-1.0f), declared by the canonical header.
+#include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 // ?Rva00167F59Get@@YAMXZ @ 0x00167f59 (7B) over 0x00BD2F58 (FLT_MAX).
 // Follows a ret (prev C3); carried by 19 .rdata vtable slots, adjacent to
