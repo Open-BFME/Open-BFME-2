@@ -1503,16 +1503,6 @@ private:
 	unsigned int m_flagBits[4];
 };
 
-class Rva002AA8BF
-{
-public:
-	Bool testBit(int bit) const;
-
-private:
-	unsigned char m_pre[0x13C];
-	unsigned int m_flagBits[4];
-};
-
 BFME_DISP8_NEG_LEA_GETTER(Rva00299C74LeaField, 108)
 
 BFME_DISP8_NEG_LEA_GETTER(Rva00299C78LeaField, 112)
@@ -1529,13 +1519,6 @@ BFME_DISP8_NEG_LEA_GETTER(Rva00299CBELeaField, 52)
 // Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
 // Target behavior: receiver8 plus eight-byte element stride; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-struct Rva006C03C0Slot { unsigned char bytes[8]; };
-
-class Rva006C03C0Fields {
-public: void *at(int index);
-private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
-};
-
 // Object virtual-base table BFC27C references adjustment stubs299CA0 and
 // 299CB2. Each ends with an unconditional jump to a separate leaf below:
 // 299CA8..299CB2 stores one stack word at receiver-16 and returns RET4;
@@ -1555,15 +1538,6 @@ public:
 // store-and-zero-return expression only. Complete native6C9630..6C963C
 // lies between INT3 padding: raw32 argument to receiver2C then EAX0 RET4.
 // Original receiver, field purpose and return type remain unknown.
-class Rva006C9630DwordSlot
-{
-public:
-    unsigned int store(unsigned int value);
-private:
-    char unknown00[0x2C];
-    unsigned int value2C;
-};
-
 BFME_DISP_DWORD_SETTER(Rva0028B525DwordSlot, 0x40C)
 
 BFME_DISP_DWORD_SETTER(Rva00299C7CDwordSlot, 0x45C)
@@ -1592,25 +1566,12 @@ public:
 // Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
 // Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-class Rva0027C2A4Fields {
-public: void subtract(unsigned int value);
-private: unsigned char unknown[0x28]; unsigned int value28;
-};
-
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
 // Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
 // Original owner and complete bounds unresolved; independent address-owned view.
-struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
-
 // BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
 // Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
 // Original owner and complete class bounds remain unknown.
-struct Rva00563E5FFields
-{
-    unsigned char flag;
-    Rva00563E5FFields *enable();
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -1843,27 +1804,6 @@ private:
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
-class Rva004CB73CmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva0050D3ECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
-class Rva002620FECmpBoolField
-{
-public:
-	bool get() const;
-	int m_value;
-};
-
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 class ToppleUpdate
@@ -1872,28 +1812,6 @@ public:
 	bool isAbleToBeToppled() const;
 	char m_lead[0x38];
 	int m_toppleState;
-};
-
-struct Rva0036CC89Inner
-{
-	char m_pad[0x1C];
-	unsigned int m_flags;
-};
-
-class Rva0036CC89CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[4];
-	Rva0036CC89Inner *m_ptr;
-};
-
-class Rva00368594CmpBoolField
-{
-public:
-	bool get() const;
-	char m_lead[0x558];
-	unsigned char m_byte;
 };
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
@@ -1911,46 +1829,14 @@ public:
 	unsigned char m_4C;
 };
 
-class Rva00050D6C
-{
-public:
-	int rva00050D6C();
-	char m_lead[0x49];
-	unsigned char m_49;
-	unsigned char m_4A;
-	unsigned char m_4B;
-	unsigned char m_4C;
-};
-
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
-class Rva0026FFF7 {
-    char m_pad[0xB8];
-    int m_value;
-public:
-    int get() const;
-};
-
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
 // Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva00050D53Fields {
-public: char *get();
-private: char *value;
-};
-
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-class Rva0023C4F8BothFlags
-{
-public:
-	bool get() const;
-	char m_lead[0x15];
-	bool m_first;
-	bool m_second;
-};
-
 BFME_DISP_DWORD_GETTER(Rva0028A6A1DwordField, 0x240)
 
 BFME_DISP_DWORD_GETTER(Rva0028A6A8DwordField, 0x24C)
@@ -1980,11 +1866,6 @@ public:
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Two methods of the placeholder class Rva004076EE (its matched getter
@@ -1994,25 +1875,6 @@ private: unsigned char unknown[0x114]; unsigned int flags;
 // 0x00407C17 clears all three. Callers 0x005B4D05 / 0x005B57C1 (tail jump).
 // Names by address. Condition word array at Object+0x10C with masked-word
 // accessors in free __forceinline helpers around the pinned notifier 0x0028AE6D.
-
-class Rva0010CBits
-{
-public:
-	unsigned int test(int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
 
 class Object
 {
@@ -2236,39 +2098,11 @@ public:
 	virtual const char *GetSnapshotName() const;
 };
 
-class Eva
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class W3DDebrisDraw
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
-class FireLogicSystem
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
-
-class SequentialScript { public: virtual const char *GetSnapshotName(); };
-
 // LargeGroupAudio getter is owned by the complete subsystem unit.
 class GeometryInfo
 {
 public:
 	virtual const char *GetSnapshotName();
-};
-
-class DrawModule
-{
-protected:
-    virtual const char *GetSnapshotName() const;
 };
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -2279,14 +2113,6 @@ BFME_LITERAL_NAME_GETTER(Rva0028CA92Named, "ObjectRecoveryHelper")
 
 BFME_LITERAL_NAME_GETTER(Rva0028CB23Named, "ObjectRepulsorHelper")
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 BFME_DISP_BYTE_GETTER(Rva0028A69AByteField, 0x43C)
 
 BFME_DISP_BYTE_GETTER(Rva0028B984ByteField, 0x48C)
@@ -2295,11 +2121,6 @@ BFME_DISP_BYTE_GETTER(Rva0028B984ByteField, 0x48C)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 // ?rva0028C6FB@Rva0028C6FB@@QAEPAXI@Z @0x0028C6FB 42B
 // Bit-present table lookup: if bit (idx&31) of word (idx>>5) at +0 is set return table[idx] else 0.
 // Evidence: test [this+word*4] mask plus mov eax [idx*4+VA 0x00DC828C]; sole caller 0x00292414;
@@ -2324,48 +2145,12 @@ private:
 
 
 
-class Rva000454F3
-{
-public:
-	void *rva000454F3(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
 extern const char *SpecialPowerNames[];
 
 class Rva0028C783
 {
 public:
 	void *rva0028C783(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
-class Rva002AA2CF
-{
-public:
-	void *rva002AA2CF(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
-class Rva0031852F
-{
-public:
-	void *rva0031852F(unsigned int idx);
-
-private:
-	unsigned int m_bits[8];
-};
-
-class Rva004BE0C7
-{
-public:
-	void *rva004BE0C7(unsigned int idx);
 
 private:
 	unsigned int m_bits[8];

@@ -1514,56 +1514,21 @@ BFME_DISP32_BYTE_GETTER(Rva0039D525ByteField, 0x3BE)
 
 BFME_DISP32_BYTE_GETTER(Rva0039D7C1ByteField, 0x324)
 
-class WorkerAIUpdate
-{
-public:
-	virtual bool isForcedIntoWantingState() const;
-private:
-	char m_pad04[0xD4 - 4];
-	bool m_forcePending;
-};
-
 // Clean BF1 9cbfb551fe Common/Rva003CBA00Indexed.cpp semantic donor, normal O1/SSE/G7.
 // Native 0029A25D..0029A268 has its own complete RET boundary and establishes
 // receiver10 indexed dword load, RET4. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0029A25DArray {
-public: int getValue(int index);
-private: unsigned char unknown[0x10]; int values[1];
-};
-
 // BF1 9cbfb551fe Common/Rva0028ED50Get.cpp is the clean semantic donor.
 // Full native leaf 004B0CEF..004B0CFD ends at its own RET boundary.
 // Target evidence: receiver4 pointer; inner0C dword not zero.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-struct Rva004B0CEFInner { char unknown[0x0C]; int value; };
-
-class Rva004B0CEFFields {
-public: bool get();
-private: char unknown[4]; Rva004B0CEFInner *inner;
-};
-
 // BF1 9cbfb551fe Common/Rva0028ED70Nz.cpp is the clean semantic donor.
 // Full native leaf 004B0CFD..004B0D0C ends at its own RET boundary.
 // Target evidence: receiver4 pointer; inner4C dword not all ones.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-struct Rva004B0CFDInner { char unknown[0x4C]; int value; };
-
-class Rva004B0CFDFields {
-public: bool get();
-private: char unknown[4]; Rva004B0CFDInner *inner;
-};
-
 // BF1 9cb Rva18C170NestedFloatGetter.cpp is a structural guide. Complete
 // target 262356..26235C follows the adjacent getter RET; receiver+8 points
 // to the float loaded into ST0. Original owner and full bounds unknown.
-struct Rva00262356Fields
-{
-    char unknown00[8];
-    const float *pointer;
-    float get() const;
-};
-
 BFME_DISP_BYTE_SETTER(Rva0039D495ByteSlot, 0x31E)
 
 BFME_DISP_BYTE_SETTER(Rva0039D481ByteSlot, 0x31C)
@@ -1576,24 +1541,10 @@ BFME_DISP_BYTE_SETTER(Rva0039D481ByteSlot, 0x31C)
 // or constructor identity is established; retain the target address and
 // describe its proven initializer ABI. Destination is the repository's
 // nearest-neighbour home, immediately after its 0x0047A2A9 setter.
-class Rva0047A2B6Floats
-{
-public:
-    Rva0047A2B6Floats *initialize();
-private:
-    float first[3];
-    float second[3];
-};
-
 // Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0010855FArray {
-public: void setValue(unsigned int index, unsigned int value);
-private: unsigned char unknown[0x68]; unsigned int values[1];
-};
-
 class Player
 {
 public:
@@ -1650,13 +1601,6 @@ public:
 // between independently bounded RET4 at30F2B7 and known getter30F2C7.
 // Found beside the BF1 9cb WaterRenderObjConstructor Boxed<float> placement;
 // adjacency does not establish its original class or field purpose.
-class Rva0030F2BAFloatField
-{
-public:
-    void set(float value);
-    float m_value;
-};
-
 // BF1 f98983a7d3 WW3D2/animobj.cpp supplies only the clean float-store
 // source shape (fresh /O2 /arch:SSE2 /G6 donor sweep). Its animation method
 // is already owned at target1A5440 and is not the identity of this body.
@@ -1677,23 +1621,7 @@ BFME_DISP_BYTE_GETTER(Rva0039D52CByteField, 0x5E6)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
 BFME_DISP32_LEA_GETTER(Rva0039D7C8LeaGetter, 0x328)
-
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
 
  
  
@@ -1770,242 +1698,29 @@ class BaseHeightMapRenderObjClass;
 // Value types the by-value returns construct; which constructor each body
 // uses is read off its load/store shape (x87 for the first member, movss
 // for the rest when built from components; member-wise copies otherwise).
-struct Rva00SlotFloat2
-{
-	float x, y;
-	Rva00SlotFloat2() {}
-	Rva00SlotFloat2(float ax, float ay) { x = ax; y = ay; }
-};
-
-struct Rva00SlotFloat2Copy
-{
-	float x, y;
-	Rva00SlotFloat2Copy() {}
-	Rva00SlotFloat2Copy(const Rva00SlotFloat2Copy &that) { x = that.x; y = that.y; }
-};
-
-struct Rva00SlotFloat2FromInts
-{
-	float x, y;
-	Rva00SlotFloat2FromInts(int ax, int ay) { x = (float)ax; y = (float)ay; }
-};
-
-struct Rva00SlotFloat3
-{
-	float x, y, z;
-	Rva00SlotFloat3() {}
-	Rva00SlotFloat3(float ax, float ay, float az) { x = ax; y = ay; z = az; }
-};
-
-struct Rva00SlotFloat3Copy
-{
-	float x, y, z;
-	Rva00SlotFloat3Copy() {}
-	Rva00SlotFloat3Copy(const Rva00SlotFloat3Copy &that) { x = that.x; y = that.y; z = that.z; }
-};
-
 // 0x0007E0A2: adds the argument times the +0x28 float of the object at +0xC
 // to the float at +0x10.
-struct Rva0007E0A2Rate
-{
-	char m_pad00[0x28];
-	float m_rate28;
-};
-
-class Rva0007E0A2
-{
-public:
-	void rva0007E0A2(float scale);
-private:
-	char m_pad00[0x0C];
-	Rva0007E0A2Rate *m_rate0C;
-	float m_value10;
-};
-
 // 0x003ABD04 / 0x003ABD6B: return the float pairs at +0xA4 / +0x34 by value.
-class Rva003ABD04
-{
-public:
-	Rva00SlotFloat2 rva003ABD04();
-private:
-	char m_pad00[0xA4];
-	float m_xA4;
-	float m_yA8;
-};
-
-class Rva003ABD6B
-{
-public:
-	Rva00SlotFloat2 rva003ABD6B();
-private:
-	char m_pad00[0x34];
-	float m_x34;
-	float m_y38;
-};
-
 // 0x0008BBF6: adds the magnitude of its argument to +0x98 (negating via a
 // separate multiply statement keeps retail's mulss by -1.0 and the two adds);
 // 0x0008BC2B: clears the float at +0x98; 0x0008BC3E: stores two floats at
 // +0xAC / +0xB0.
-class Rva0008BC2B
-{
-public:
-	void rva0008BBF6(float delta);
-	void rva0008BC2B();
-	void rva0008BC3E(float a, float b);
-private:
-	char m_pad00[0x98];
-	float m_value98;
-	char m_pad9C[0xAC - 0x9C];
-	float m_valueAC;
-	float m_valueB0;
-};
-
 // 0x00285CD1: the integer pair at +8 / +0xC as a float pair, by value.
-class Rva00285CD1
-{
-public:
-	Rva00SlotFloat2FromInts rva00285CD1();
-private:
-	char m_pad00[8];
-	int m_x08;
-	int m_y0C;
-};
-
 // 0x0029A872 / 0x00095343: return the float pair at +0x808 / the float
 // triple at +0xD4 by value.
-class Rva0029A872
-{
-public:
-	Rva00SlotFloat2Copy rva0029A872();
-private:
-	char m_pad00[0x808];
-	Rva00SlotFloat2Copy m_value808;
-};
-
-class Rva00095343
-{
-public:
-	Rva00SlotFloat3Copy rva00095343();
-private:
-	char m_pad00[0xD4];
-	Rva00SlotFloat3Copy m_valueD4;
-};
-
 // 0x0004C6C6 (slot 51 of W3DGameClient's table): truncates its float
 // argument into the global at 0x00DE204C.
-class Rva0004C6C6
-{
-public:
-	void setFrameRate(float value);
-};
-
 // 0x00062E4F: ten times the +0x10 integer of the terrain render object's
 // +0x37C0 block.
-struct Rva00062E4FBlock
-{
-	char m_pad00[0x10];
-	int m_value10;
-};
-
-struct Rva00062E4FTerrain
-{
-	char m_pad00[0x37C0];
-	Rva00062E4FBlock *m_block37C0;
-};
-
-class Rva00062E4F
-{
-public:
-	float rva00062E4F();
-};
-
 // 0x000851B7 / 0x000851CD / 0x000851E2 / 0x00086093: setters of the words
 // at +0x58 / +0x5C / +0x60 and the floats at +0x64 / +0x68 (the last also
 // sets the flag at +0x27D).
-class Rva000851B7
-{
-public:
-	void rva000851B7(int value);
-	void rva000851CD(int value, float amount);
-	void rva000851E2();
-	void rva00086093(int value, float amount);
-private:
-	char m_pad00[0x58];
-	int m_value58;
-	int m_value5C;
-	int m_value60;
-	float m_amount64;
-	float m_amount68;
-	char m_pad6C[0x27D - 0x6C];
-	bool m_flag27D;
-};
-
 // 0x000858E4: the float at +0xA8 times the float at +0x3C.
-class Rva000858E4
-{
-public:
-	float rva000858E4();
-private:
-	char m_pad00[0x3C];
-	float m_value3C;
-	char m_pad40[0xA8 - 0x40];
-	float m_valueA8;
-};
-
 // 0x000910C7: stores its float argument into the +0x20 float of the object
 // at +0x2C.
-struct Rva000910C7Target
-{
-	char m_pad00[0x20];
-	float m_value20;
-};
-
-class Rva000910C7
-{
-public:
-	void setTargetValue(float value);
-private:
-	char m_pad00[0x2C];
-	Rva000910C7Target *m_target2C;
-};
-
 // 0x0009862E: answers (1, 1, 1) by value; two arguments unused.
-class Rva0009862E
-{
-public:
-	Rva00SlotFloat3 rva0009862E(int a, int b);
-};
-
 // 0x003425A0: sets the +0x1A0 float of the object three links down
 // (+0x18, +0x14, +0x258) to FLT_MAX; one argument unused.
-struct Rva003425A0Leaf
-{
-	char m_pad00[0x1A0];
-	float m_value1A0;
-};
-
-struct Rva003425A0Mid
-{
-	char m_pad00[0x258];
-	Rva003425A0Leaf *m_leaf258;
-};
-
-struct Rva003425A0Top
-{
-	char m_pad00[0x14];
-	Rva003425A0Mid *m_mid14;
-};
-
-class Rva003425A0
-{
-public:
-	void onExit(int unused);
-private:
-	char m_pad00[0x18];
-	Rva003425A0Top *m_top18;
-};
-
 // 0x0039D840: the +0x21C integer of the object at +0x2C as a float.
 struct Rva0039D840Target
 {
@@ -2034,15 +1749,6 @@ public:
 };
 
 // 0x00101CA0: the byte at +0x18 as a float (through a stack slot, fild).
-class Rva00101CA0
-{
-public:
-	float rva00101CA0();
-private:
-	char m_pad00[0x18];
-	unsigned char m_value18;
-};
-
 // tu-skeleton: 0x0039D40F 26B ?dlink_isInList_TeamInstanceList@Team@@QBE_NPBQAV1@@Z -- matched in Code/GameEngine/Source/Common/Team_dlink_isInList_TeamInstanceList.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/Team.cpp

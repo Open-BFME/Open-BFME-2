@@ -74,26 +74,7 @@ public:
 };
 
 // vtable 0x00BC4E34#6: raise the byte at +0x1464, then Radar 0x002D7E68 on this.
-class Rva0004E3A6
-{
-public:
-	void rva0004E3A6(Int value);
-private:
-	char m_pad00[0x1464];
-	Bool m_1464;
-};
-
 // vtable 0x00BCBC40#7: 0x000B5FE6 on this when the field at +0x50 is set.
-class W3DScriptedModelDraw
-{
-public:
-	void rva000B7C18();
-	void rva000B5FE6();
-private:
-	char m_pad00[0x50];
-	void *m_50;
-};
-
 // vtable 0x00BD3B1C#7: an empty body taking the reference-counted handle
 // Rva00087A93 by value (its destructor 0x0007B724 runs on return).
 class Rva00087A93
@@ -102,12 +83,6 @@ public:
 	~Rva00087A93();
 private:
 	void *m_data;
-};
-
-class Rva001524BE
-{
-public:
-	void rva001524BE(Rva00087A93 handle);
 };
 
 // vtable 0x00BC4738#24: an empty body taking an AsciiString by value.
@@ -136,37 +111,11 @@ public:
 	void rva003EF2FF();
 };
 
-struct Rva003EF2FFHolder
-{
-	char m_pad[0x2C];
-	_STL::vector<Int> m_2C;
-};
-
-struct Rva003EF2FFMid
-{
-	char m_pad[0x8];
-	Rva003EF2FFHolder *m_8;
-};
-
-class Rva002BA8F1Logic
-{
-public:
-	char m_pad[0xB0];
-	Rva003EF2FFMid *m_B0;
-};
-
 // vtable 0x00BC57E0#18 and #19: hand the argument to two cdecl functions,
 // the second the ledger's Rva000A8F64Set.
 unsigned long __cdecl Rva000A90B0(unsigned long value);
 
 void __cdecl Rva000A8F64Set(bool enabled);
-
-class Rva00062A1C
-{
-public:
-	void rva00062A1C(Int value);
-	void rva00062A29(bool enabled);
-};
 
 // vtable 0x00BC64D8#4: the object at +0x44 runs the ledger's
 // Rva000724AE::rva000724D7 on the field at +0x1C.
@@ -176,49 +125,12 @@ public:
 	void *rva000724D7(Int *value);
 };
 
-class Rva00072559
-{
-public:
-	void rva00072559();
-private:
-	char m_pad00[0x1C];
-	Int m_1C;
-	char m_pad20[0x44 - 0x20];
-	Rva000724AE *m_44;
-};
-
 // vtable 0x00BC7F74#0 and #1: allocate and free through operator new[] and
 // delete[], each with an unused second argument.
-class Rva000910E1
-{
-public:
-	void *allocate(unsigned int size, Int);
-	void deallocate(void *block, Int);
-};
-
 // vtable 0x00C35B28#1: 0x00261C89 on the object at +4 of the argument.
-class Rva00261C89
-{
-public:
-	bool rva00261C89();
-};
-
-struct Rva00261D01Holder
-{
-	void *m_00;
-	Rva00261C89 *m_04;
-};
-
 class Object;
 
 // Slot 1 (allow) of partition filter vftable 0x00C35B28.
-class Rva00261D01Filter
-{
-public:
-	virtual ~Rva00261D01Filter();
-	virtual bool allow(Object *obj);
-};
-
 // vtable 0x00BE25B4#1 (shared by five stores): clear the pointer vector at
 // +0xC (STLport erase(begin, end), 0x0031BD55). WorldBuilder names the body
 // ScienceStore::init (Science.cpp:29); the other stores' identical init
@@ -239,16 +151,6 @@ class DataChunkOutput
 {
 public:
 	void writeInt(Int value);
-};
-
-class Rva00330484
-{
-public:
-	void rva00330484(Int);
-	void rva00330494(Int);
-private:
-	void *m_00;
-	DataChunkOutput *m_04;
 };
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowGlobal.cpp

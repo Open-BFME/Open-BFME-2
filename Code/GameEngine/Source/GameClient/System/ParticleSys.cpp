@@ -1714,12 +1714,6 @@ void XferParticleSystemID(Xfer*,int*);
 // Unnamed completion predicate: retail 1F4E2D..1F4E82, WB B0D730.
 // Its whole-particle receiver, bool result and zero arguments are established
 // by this caller and WB. The original method name remains unknown.
-class Rva001F4E2D
-{
-public:
-    bool rva001F4E2D();
-};
-
 // Declaration-only view; this unit creates no vtable. Retail and WB both call
 // +24 with one float. The earlier slots are outside this body's evidence.
 class ParticleAngleModuleView
@@ -1855,14 +1849,6 @@ BFME_RVA001F43BD_SLOT_SETTER(Rva001F61BESlot, 0xC0)
 // IDENTITY IS NOT RECOVERED.  Names are address-derived; the vtable slots ahead
 // of the called one exist only to place it and say nothing about the real class.
 
-class GenSlot08
-{
-public:
-	virtual int slot00();
-	virtual int slot04();
-	virtual int slot08();
-};
-
 // BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 clean donor
 // game/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp supplied the
 // nullable first-slot dispatch expression, compiled /O1 /arch:SSE /G7.
@@ -1872,19 +1858,6 @@ public:
 // at the start and the following EH-framed function begins at the end.
 // Both original classes and the slot's purpose remain unknown. Unsigned
 // expresses the returned raw32 bits without asserting source signedness.
-class Rva000E44B1Slot0
-{
-public:
-    virtual unsigned dispatch();
-};
-
-class Rva000E44B1
-{
-public:
-    unsigned dispatch() const;
-    Rva000E44B1Slot0 *m_held;
-};
-
 // Whole clean BF1 f98983a7d3 Common/NullCheckedForwarders.cpp supplies the
 // nullable held-interface forwarding expression. Native complete leaves
 // 001F4234/12, 001F4240/14 and 001F424E/14 each load receiver[0], return on
@@ -1940,45 +1913,11 @@ public:
 	virtual const char *GetSnapshotName() const;
 };
 
-class Eva
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class W3DDebrisDraw
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
-
 BFME_LITERAL_NAME_GETTER(Rva001FBEB1Named, "FXParticleSystem")
-
-class FireLogicSystem
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LivingWorldBuilding { public: virtual const char *GetSnapshotName(); };
 
 BFME_LITERAL_NAME_GETTER(Rva001FC179Named, "FXParticle")
 
-class SequentialScript { public: virtual const char *GetSnapshotName(); };
-
 // LargeGroupAudio getter is owned by the complete subsystem unit.
-class GeometryInfo
-{
-public:
-	virtual const char *GetSnapshotName();
-};
-
-class DrawModule
-{
-protected:
-    virtual const char *GetSnapshotName() const;
-};
-
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
@@ -1991,24 +1930,10 @@ BFME_DISP_BYTE_SETTER(Rva001F3C13ByteSlot, 0x1A8)
 // or constructor identity is established; retain the target address and
 // describe its proven initializer ABI. Destination is the repository's
 // nearest-neighbour home, immediately after its 0x0047A2A9 setter.
-class Rva0047A2B6Floats
-{
-public:
-    Rva0047A2B6Floats *initialize();
-private:
-    float first[3];
-    float second[3];
-};
-
 // Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0010855FArray {
-public: void setValue(unsigned int index, unsigned int value);
-private: unsigned char unknown[0x68]; unsigned int values[1];
-};
-
 // Native UpdateTurnPhase reads the complete EAX result at 2BD6E3,
 // 2BD7A6 and 2BD885, not just AL. The complete 20-byte predicate returns
 // integer zero or one; the original class and method names stay unknown.
@@ -2035,25 +1960,12 @@ BFME_DISP_DWORD_SETTER(Rva001F3D21DwordSlot, 0x19C)
 // Native 0027C2A4..0027C2AE is a complete independently bounded RET leaf.
 // Target behavior: receiver28 dword subtracts stack argument modulo32; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-class Rva0027C2A4Fields {
-public: void subtract(unsigned int value);
-private: unsigned char unknown[0x28]; unsigned int value28;
-};
-
 // BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
 // Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
 // Original owner and complete bounds unresolved; independent address-owned view.
-struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
-
 // BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
 // Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
 // Original owner and complete class bounds remain unknown.
-struct Rva00563E5FFields
-{
-    unsigned char flag;
-    Rva00563E5FFields *enable();
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -2116,55 +2028,7 @@ typedef int Int;
 // under this name (the rowed 0x001D901B) has a positive +0x74; reached
 // from 0x004BF8AC, the slot that applies it to the +0xF8 name (eleven
 // module tables).
-class ArmorTemplate
-{
-public:
-	char m_pad00[0x74];
-	Int m_74;
-};
-
-class Rva001D901B
-{
-public:
-	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
-};
-
-class Rva001D9083
-{
-public:
-	Int rva001D9083();
-};
-
-class Rva004BF8AC
-{
-public:
-	Int rva004BF8AC();
-private:
-	char m_pad00[0xF8];
-	Rva001D9083 m_armorName;
-};
-
 // 0x0060038E (three tables): virtual slot 4 of the +0x08 object.
-class Rva0060038ETarget
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-};
-
-class Rva0060038E
-{
-public:
-	void rva0060038E();
-private:
-	Int m_00;
-	Int m_04;
-	Rva0060038ETarget *m_08;
-};
-
 // 0x001F9343 (three callers): the pinned
 // ParticleSystemManager::findTemplate for the name (the second argument is
 // unused); 0x001E0C77 is a slot that asks the manager at VA 0x00DFDD04 for
@@ -2197,16 +2061,10 @@ private:
 
 // 0x0056a9ed: installed-vtable scalar store. Only the native memory
 // write and stack-word ABI are known; owner and field meaning remain unknown.
-class Rva0056A9EDScalarStore {public: void rva0056A9ED(Int unused); private: char m_prefix[0x9]; unsigned char m_value;};
-
 // 0x005cc958: installed-vtable scalar store. Only the native memory
 // write and stack-word ABI are known; owner and field meaning remain unknown.
-class Rva005CC958ByteStore {public: void rva005CC958(Int unused);void rva005CC95F(Int unused); private: char m_prefix[0x23]; unsigned char m_value;};
-
 // 0x005e39d9: installed-vtable scalar store. Only the native memory
 // write and stack-word ABI are known; owner and field meaning remain unknown.
-class Rva005E39D9ScalarStore {public: void rva005E39D9(Int unused,Int value); private: char m_prefix[0x29]; unsigned char m_value;};
-
 // Forwarding chain 001F6492 .. 001FA7CE (seven 42B bodies) with the
 // Rva001F5D0E.cpp shape: null-checked virtual slot 0xc on the pointer at +0
 // with (int,int) then the same call on the next link at +4. Next-link callees

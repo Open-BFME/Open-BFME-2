@@ -421,12 +421,6 @@ private:
 	char storage[0x40]; // +0x00
 };
 
-class Rva00366E2E
-{
-public:
-	void rva00366E2E();
-};
-
 class Rva002E713FOwner
 {
 public:
@@ -1392,51 +1386,12 @@ private:
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
 
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
-class Rva005F6B12
-{
-public:
-	int rva005F6B12(int index) const;
-private:
-	char m_pad00[4];
-	int *m_values;
-};
-
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-struct Rva005FC73BPtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_byte;
-};
-
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-	char m_lead[0x18];
-	Rva005FC73BPtrChaseInner *m_ptr;
-};
-
 // Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
 // tail-jump to virtual slot 1; else return the chased pointer.
 // Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
 // je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-struct Rva005FC745PtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_flag;
-};
-
-class Rva005FC745PtrChaseField
-{
-	virtual ~Rva005FC745PtrChaseField() {}
-	virtual void *fetch() const = 0;
-	char m_lead[0x18 - 4];
-public:
-	void *get() const;
-	Rva005FC745PtrChaseInner *m_ptr;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -1450,31 +1405,8 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // Several donor names share each shape, so no donor owner/type is asserted.
 // Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
 // and6F6830..6F6836. They read raw words through independently proved offsets.
-class Rva0001CD70Word
-{
-public:
- unsigned int get() const;
- char m_pad00[4];
- unsigned int *m_ptr;
-};
-
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class Rva0001CDA0Word
-{
-public:
- unsigned int get() const;
- char m_pad00[8];
- unsigned int *m_ptr;
-};
-
-class Rva006F6830Word
-{
-public:
- unsigned int get() const;
- unsigned int *m_ptr;
-};
-
 class AI
 {
 public:
@@ -1496,17 +1428,6 @@ private:
 // proves dword zero stores at +0x0c then +0x24 and the complete leaf
 // 0x000C9286..0x000C928F between prior RET at C9285 and the next function.
 // Original receiver, field purposes and signedness remain unknown.
-class Rva000C9286PairClearer
-{
-public:
-    void clear();
-private:
-    char m_lead[0x0c];
-    unsigned m_at0c;
-    char m_middle[0x24 - 0x0c - 4];
-    unsigned m_at24;
-};
-
 // Receiver-return zero-field leaves from clean BFME1 9cbfb551 donor leads:
 // WorldHeightMap.cpp and W3DBridgeBufferCtorThunk.cpp supply the source pattern.
 // Retail independently fixes complete RET boundaries, raw32 fields14/0C and
@@ -1525,15 +1446,6 @@ struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields 
 // take-and-clear expression. Its pointer type and WeaponTemplate identity
 // are donor facts only. This consumed-prefix view preserves the raw 32 bits;
 // original receiver, field type and pointer/ownership meanings remain unknown.
-class Rva002C8E52WordField
-{
-public:
-    unsigned int take();
-private:
-    char m_unknown0[4];
-    unsigned int m_word4;
-};
-
 // Complete native 2E6C8D..2E6C94 follows the preceding member's final RET
 // and precedes a distinct word setter. It loads the receiver's pointer at
 // +0 and clears the pointee's raw word at +8; no original owner is proven.
@@ -1560,14 +1472,6 @@ private:
 // R2SmallMemberOps.cpp, compiled O1/SSE2/G6, supplies the pointer-clear/return
 // expression. Donor Rva004C1280::run and its result pointer type are source
 // facts only: target receiver, field meanings and complete layout are unknown.
-class Rva00405A1CWordClearResult {
-public:
-    unsigned int clear();
-private:
-    unsigned int *target;
-    unsigned int result;
-};
-
 // Complete native 4DE52C..4DE536 follows RET8 at4DE529 and precedes the
 // distinct word-copy leaf4DE536. ECX supplies the accessed prefix; EAX keeps
 // that receiver while raw DWORD+4 then DWORD+0 are zeroed before RET0.
@@ -1577,14 +1481,6 @@ private:
 // are donor facts only; target owner, field meanings and complete class
 // bounds remain unknown. This ordinary method models only the physical
 // receiver/return and two raw32 accesses, with no original lifetime claim.
-class Rva004DE52CWordPair {
-public:
-    Rva004DE52CWordPair *clear();
-private:
-    unsigned int word0;
-    unsigned int word4;
-};
-
 // Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/
 // msgloop.cpp supplies AcceleratorTracker's ordered two-zero expression.
 // Other donor names emit the same bytes; no tracker identity or constructor
@@ -1592,32 +1488,12 @@ private:
 // wrapper and ends before a distinct global-guarded entry. It clears raw32
 // receiver words+0 then+4 and returns RET0 without calls or relocations.
 // Original receiver, field meanings and complete layout remain unknown.
-class Rva00306761WordPair
-{
-public:
-    void clear();
-private:
-    unsigned int word0;
-    unsigned int word4;
-};
-
 // Complete native 3B3F6D..3B3F78 follows RET 3B3F6C and precedes a new entry.
 // It clears only raw words +8 and +10, retaining the receiver in EAX; no
 // literal-address or direct-call references establish its original lifetime.
 // Clean BF1 f989 S1ZeroingConstructors.cpp compiled O1/SSE/G6 supplies two
 // indistinguishable zeroing guides. The original owner, field meanings,
 // constructor role and unaccessed prefix/gap remain unknown.
-class Rva003B3F6DZeroView
-{
-public:
-    Rva003B3F6DZeroView *clear();
-private:
-    unsigned char unknown0[8];
-    unsigned int word8;
-    unsigned char unknownC[4];
-    unsigned int word10;
-};
-
 // Complete native 4B9C46..4B9C4D follows RET4 at 4B9C43 and precedes 4B9C4D.
 // This distinct entry clears only raw word +8 and returns the receiver.
 // Actual pushes 4BA5A7/4BA5C4/4BA5E2 pass it to owned EH vector constructor
@@ -1627,15 +1503,6 @@ private:
 // indistinguishable constructor guides. Their record names and string fields
 // are donor facts only; original target element and complete layout are unknown.
 // This ordinary operation exposes the consumed prefix without a lifetime claim.
-class Rva004B9C46ZeroView
-{
-public:
-    Rva004B9C46ZeroView *clear();
-private:
-    unsigned char unknown0[8];
-    unsigned int word8;
-};
-
 // Native 2E6CB0..2E6CB7 and 2E6CB7..2E6CBE are independently complete
 // RET0 leaves after the RET4 at 2E6CAD and before the distinct initializer
 // at 2E6CBE. Each zero-extends an unsigned 16-bit pointee field, at +0x12
@@ -1697,23 +1564,6 @@ struct Rva002E7334
 
 // --- 0x004E4E05 (37B): copy five settings from another record;
 // 0x004E4E2A (48B): the +0x08 value clamped to [0, 1].
-class Rva004E4E05
-{
-public:
-	void rva004E4E05(const Rva004E4E05 *that);
-	void rva004E4E2A(float value);
-private:
-	char m_pad[8];
-	float m_08;
-	char m_pad0C[0x18 - 0x0C];
-	int m_18;
-	char m_pad1C[0x24 - 0x1C];
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-};
-
 // --- 0x0030F642 (55B): unlink a node (+0x04 previous, +0x08 next) from the
 // list with tail +0x0C and head +0x10, clearing its +0x0C; 0x0030F679 (30B):
 // whether a node from the tail back carries the id (+0x10).
@@ -1746,26 +1596,7 @@ public:
 	void rva0052A387(int value);							// 0x0052A387
 };
 
-class Rva0052A621
-{
-public:
-	Out0052A36A *rva0052A621(Out0052A36A *out);
-	void rva0052A652(int value);
-private:
-	char m_pad[8];
-	Rva0052A36A m_08;
-};
-
 // --- 0x005DBB4D (45B): the 8x8 short table at +0x838, 0 out of range.
-class Rva005DBB4D
-{
-public:
-	short rva005DBB4D(unsigned short row, unsigned short column) const;
-private:
-	char m_pad[0x838];
-	short m_table[8][8];
-};
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp

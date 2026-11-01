@@ -1386,24 +1386,10 @@ BFME_DISP_BYTE_SETTER(Rva004BF8CBByteSlot, 0xB5)
 // or constructor identity is established; retain the target address and
 // describe its proven initializer ABI. Destination is the repository's
 // nearest-neighbour home, immediately after its 0x0047A2A9 setter.
-class Rva0047A2B6Floats
-{
-public:
-    Rva0047A2B6Floats *initialize();
-private:
-    float first[3];
-    float second[3];
-};
-
 // Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
 // Native 0010855F..0010856E has its own complete RET boundary and establishes
 // receiver68 indexed dword store, RET8. Original owner and full array bound remain
 // unresolved; this separate address-owned view models only observed accesses.
-class Rva0010855FArray {
-public: void setValue(unsigned int index, unsigned int value);
-private: unsigned char unknown[0x68]; unsigned int values[1];
-};
-
 struct RvaCoords
 {
 	Coord3D *m_start;
@@ -1460,51 +1446,12 @@ struct Rva004BFD83Owner
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva004BDC48PtrChaseField, 0x0C, 0x38)
 
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
-class Rva005F6B12
-{
-public:
-	int rva005F6B12(int index) const;
-private:
-	char m_pad00[4];
-	int *m_values;
-};
-
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
-struct Rva005FC73BPtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_byte;
-};
-
-class Rva005FC73BPtrChaseField
-{
-public:
-	bool get() const;
-	char m_lead[0x18];
-	Rva005FC73BPtrChaseInner *m_ptr;
-};
-
 // Virtual-fallback ptr-chase getter: if bit 3 of the chased byte is set,
 // tail-jump to virtual slot 1; else return the chased pointer.
 // Retail 0x005FC745 is mov eax,[ecx+0x18] / test byte [eax+0x34],8 /
 // je ret / mov eax,[ecx] / jmp [eax+4] / ret.
-struct Rva005FC745PtrChaseInner
-{
-	char m_pad[0x34];
-	unsigned char m_flag;
-};
-
-class Rva005FC745PtrChaseField
-{
-	virtual ~Rva005FC745PtrChaseField() {}
-	virtual void *fetch() const = 0;
-	char m_lead[0x18 - 4];
-public:
-	void *get() const;
-	Rva005FC745PtrChaseInner *m_ptr;
-};
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
@@ -1518,48 +1465,12 @@ struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 // Several donor names share each shape, so no donor owner/type is asserted.
 // Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
 // and6F6830..6F6836. They read raw words through independently proved offsets.
-class Rva0001CD70Word
-{
-public:
- unsigned int get() const;
- char m_pad00[4];
- unsigned int *m_ptr;
-};
-
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
-class Rva0001CDA0Word
-{
-public:
- unsigned int get() const;
- char m_pad00[8];
- unsigned int *m_ptr;
-};
-
-class Rva006F6830Word
-{
-public:
- unsigned int get() const;
- unsigned int *m_ptr;
-};
-
 // 0x001D9083: whether the armor template the store at VA 0x00DFDBC4 finds
 // under this name (the rowed 0x001D901B) has a positive +0x74; reached
 // from 0x004BF8AC, the slot that applies it to the +0xF8 name (eleven
 // module tables).
-class ArmorTemplate
-{
-public:
-	char m_pad00[0x74];
-	Int m_74;
-};
-
-class Rva001D901B
-{
-public:
-	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
-};
-
 class Rva001D9083
 {
 public:
@@ -1576,26 +1487,6 @@ private:
 };
 
 // 0x0060038E (three tables): virtual slot 4 of the +0x08 object.
-class Rva0060038ETarget
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-};
-
-class Rva0060038E
-{
-public:
-	void rva0060038E();
-private:
-	Int m_00;
-	Int m_04;
-	Rva0060038ETarget *m_08;
-};
-
 class Rva001E0C77
 {
 public:
@@ -1610,16 +1501,10 @@ private:
 
 // 0x0056a9ed: installed-vtable scalar store. Only the native memory
 // write and stack-word ABI are known; owner and field meaning remain unknown.
-class Rva0056A9EDScalarStore {public: void rva0056A9ED(Int unused); private: char m_prefix[0x9]; unsigned char m_value;};
-
 // 0x005cc958: installed-vtable scalar store. Only the native memory
 // write and stack-word ABI are known; owner and field meaning remain unknown.
-class Rva005CC958ByteStore {public: void rva005CC958(Int unused);void rva005CC95F(Int unused); private: char m_prefix[0x23]; unsigned char m_value;};
-
 // 0x005e39d9: installed-vtable scalar store. Only the native memory
 // write and stack-word ABI are known; owner and field meaning remain unknown.
-class Rva005E39D9ScalarStore {public: void rva005E39D9(Int unused,Int value); private: char m_prefix[0x29]; unsigned char m_value;};
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp

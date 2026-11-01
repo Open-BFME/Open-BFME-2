@@ -822,87 +822,14 @@ void HSV_To_RGB(Vector3&,const Vector3&);
 
 // 0x00131CF2 and 0x00151415 (texture tables): true when the +0x14 object's
 // +0x08 (resp. +0x04) is set, else the rowed 0x00130FCE on this object.
-struct Rva00131CF2Info
-{
-	Int m_00;
-	Int m_04;
-	Int m_08;
-};
-
-class Rva00130FCE
-{
-public:
-	bool rva00130FCE();
-};
-
-class Rva00131CF2 : public Rva00130FCE
-{
-public:
-	bool rva00131CF2();
-	bool rva00151415();
-private:
-	char m_pad00[0x14];
-	Rva00131CF2Info *m_14;
-};
-
 // 0x0057B97C: 1 when the +0x34 object exists and the rowed 0x005D4E6F
 // holds for it, else 0.
-class Rva005D4E6F
-{
-public:
-	bool rva005D4E6F();
-};
-
-class Rva0057B97C
-{
-public:
-	Int rva0057B97C();
-private:
-	char m_pad00[0x34];
-	Rva005D4E6F *m_34;
-};
-
 // 0x003FF312: false while +0x10 is clear, else the rowed GameSlot
 // 0x003FF145 of the +0x18 slot for the +0x38 address.
 struct BfmeNetAddress;
 
-class Rva003FF145
-{
-public:
-	bool rva003FF145(const BfmeNetAddress *address) const;
-};
-
-class Rva003FF312
-{
-public:
-	bool rva003FF312();
-private:
-	char m_pad00[0x10];
-	bool m_10;
-	char m_pad11[0x07];
-	Rva003FF145 *m_18;
-	char m_pad1C[0x1C];
-	Int m_38;
-};
-
 // 0x0023DAF7: the rowed 0x0023C7F5 with both arguments on the +0x08
 // member.
-class Rva0023C7F5
-{
-public:
-	Int rva0023C7F5(Real a, Int b);
-};
-
-class Rva0023DAF7
-{
-public:
-	void rva0023DAF7(Real a, Int b);
-private:
-	Int m_00;
-	Int m_04;
-	Rva0023C7F5 m_08;
-};
-
 // 0x005FEEC7 and 0x005FEEE6 (adjacent slots of table VA 0x00C7A454): each
 // first runs the shared empty base slot 0x0047A69C (pinned there as
 // Gen_003bcb40::m) with its index, then stores entry [index] of the +0x08
@@ -912,25 +839,6 @@ class Gen_003bcb40
 {
 public:
 	void m(Int index);
-};
-
-struct Rva005FEEC7Info
-{
-	char m_pad00[0x18];
-	Int *m_18;
-	char m_pad1C[0x08];
-	Int m_24;
-};
-
-class Rva005FEEC7 : public Gen_003bcb40
-{
-public:
-	void rva005FEEC7(Int index);
-	void rva005FEEE6(Int index);
-private:
-	Int m_00;
-	Int m_04;
-	Rva005FEEC7Info *m_08;
 };
 
 // 0x005C4352 and 0x005C4553 (tables VA 0x00C745E0/0x00C746D8): field-parse
@@ -951,91 +859,14 @@ extern const FieldParse g_rva005C4553FieldParse[];
 
 extern const FieldParse g_rva005C47A8FieldParse[];
 
-class Rva005C4352Base
-{
-public:
-	void buildFieldParse(MultiIniFieldParse &p);
-};
-
-class Rva005C4352 : public Rva005C4352Base
-{
-public:
-	void rva005C4352(MultiIniFieldParse &p);
-	void rva005C4553(MultiIniFieldParse &p);
-	void rva005C47A8(MultiIniFieldParse &p);
-};
-
 // 0x00576FFE (table VA 0x00C6E8F0): the dword the rowed getter 0x0042D697
 // reads through the object the rowed getter 0x00328A83 (alias-pinned with
 // its pointer result) reaches from the +0x08 object's +0x04 member.
-class Rva0042D697PtrChaseField
-{
-public:
-	Int get() const;
-};
-
-class Rva00328A83
-{
-public:
-	Rva0042D697PtrChaseField *rva00328A83() const;
-};
-
-struct Rva00576FFEInfo
-{
-	Int m_00;
-	Rva00328A83 *m_04;
-};
-
-class Rva00576FFE
-{
-public:
-	Int rva00576FFE();
-private:
-	Int m_00;
-	Int m_04;
-	Rva00576FFEInfo *m_08;
-};
-
 // 0x00251C24, 0x00466E0A and 0x004BC51B: interface overrides
 // (interface at +0x0C, +0x34 resp. +0x10) that only dispatch to
 // virtual slot 12, 28 resp. 13 of the complete object.
 // 0x00251C11 (the slot just before 0x00251C24 in the same vtable, at
 // 0x007EFDA4): hands its float to virtual slot 15 of the object at +0x04.
-class Rva00251C11Primary
-{
-public:
-	virtual void p00();
-};
-
-class Rva00251C11Base04
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void rva00251C11Target(Real value);
-};
-
-class Rva00251C11 : public Rva00251C11Primary
-{
-public:
-	void rva00251C11(Real value);
-private:
-	Rva00251C11Base04 m_04;
-};
-
 template <int N>
 class Rva00251C24Slots : public Rva00251C24Slots<N - 1>
 {
@@ -1057,181 +888,9 @@ private:
 	char m_pad04[SIZE - 4];
 };
 
-class Rva00251C24Iface
-{
-public:
-	virtual void forward() = 0;
-};
-
-class Rva00251C24 : public Rva00251C24Primary<12, 0x0C>, public Rva00251C24Iface
-{
-public:
-	void forward();
-};
-
-class Rva00466E0A : public Rva00251C24Primary<28, 0x34>, public Rva00251C24Iface
-{
-public:
-	void forward();
-};
-
-class Rva004BC51B : public Rva00251C24Primary<13, 0x10>, public Rva00251C24Iface
-{
-public:
-	void forward();
-};
-
-class Rva003F7B59
-{
-public:
-	void *rva003F7B59(const AsciiString *a, Int b);
-	Int m_00;
-};
-
-struct Rva005C456FSub04
-{
-	char m_pad00[0x24];
-	Int m_24;
-};
-
-struct Rva005C456FSub08
-{
-	Int m_00;
-	Int m_04;
-	Int m_08;
-	Int m_0C;
-	Int m_10;
-};
-
-class Rva005C456F
-{
-public:
-	void rva005C456F(Rva003F7B59 *evaBucket);
-private:
-	Int m_00;
-	Rva005C456FSub04 *m_04;
-	Rva005C456FSub08 *m_08;
-};
-
-class Rva005C47DC
-{
-public:
-	void rva005C47DC(Int unused);
-private:
-	char m_pad00[0x14];
-	Int m_14;
-};
-
-class AsciiStringRef
-{
-public:
-	Int write(char *buf);
-private:
-	Int m_ref;
-};
-
-struct Rva0032AFA4Pair
-{
-	AsciiStringRef m_a;
-	AsciiStringRef m_b;
-};
-
-class Rva0032AFA4
-{
-public:
-	Int rva0032AFA4(char *buf);
-private:
-	Int m_00;
-	Rva0032AFA4Pair *m_04;
-};
-
-struct Rva003678D6Sub04
-{
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual bool v8();
-};
-
-struct Rva003678D6Sub28
-{
-	Int m_00;
-	Rva003678D6Sub04 *m_04;
-	bool check() const { return m_04 ? m_04->v8() : true; }
-};
-
-class Rva003678D6
-{
-public:
-	bool rva003678D6();
-private:
-	char m_pad00[0x28];
-	Rva003678D6Sub28 *m_28;
-};
-
-class Rva0037B7C7
-{
-public:
-	void rva0037BC65();
-};
-
-class RecorderClass
-{
-public:
-	virtual ~RecorderClass();
-	virtual void init();
-	virtual void postProcessLoad();
-	virtual void reset();
-	virtual void update();
-protected:
-	void updateRecord();
-private:
-	char m_pad04[0x1C - 4];
-	Int m_mode;
-};
-
 namespace FXParticleSystem
 {
-class CPUParticle
-{
-public:
-	virtual void *deleteInstance(Int pool);
-	bool update();
-	char m_pad04[0x60];
-	CPUParticle *m_next64;
-};
 }
-
-class Rva003AFDAA
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual FXParticleSystem::CPUParticle *v8();
-	void rva003AFDF1();
-};
-
-class Rva003F409F
-{
-public:
-	void rva003F409F(bool val);
-};
-
-struct Rva003F82F4Sub04
-{
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual bool v12(Rva003F409F *arg);
-};
-
-class Rva003F82F4
-{
-public:
-	bool rva003F82F4(Rva003F409F *arg);
-private:
-	Int m_00;
-	Rva003F82F4Sub04 *m_04;
-};
 
 class INI;
 
@@ -1296,20 +955,6 @@ public:
 	bool testStatus(ObjectStatusTypes status) const;
 };
 
-class StateMachine
-{
-public:
-	char m_pad00[0x14];
-	Object *m_owner;
-};
-
-struct State
-{
-public:
-	char m_pad00[0x18];
-	StateMachine *m_machine;
-};
-
 class Waypoint
 {
 public:
@@ -1317,12 +962,6 @@ public:
 };
 
 extern Waypoint *g_waypointListHead;
-
-class Rva0027CE80
-{
-public:
-	void rva0027CE80();
-};
 
 class Display;
 
@@ -1335,54 +974,8 @@ class LANAPI;
 
 extern LANAPI *TheLAN;
 
-struct LANView0044446D : public Rva00251C24Slots<54>
-{
-	virtual bool v54();
-};
-
-class AptMpGameSetup
-{
-public:
-	void rva0043DC0F();
-};
-
-class Rva0043DFE0
-{
-public:
-	void rva0043DBA3();
-};
-
-struct Rva004469D1Receiver
-{
-	void rva0044446D(bool flag);
-	char m_pad00[0x288];
-	int m_288;
-};
-
 // The constructor installs Snapshot table VA 0x00C0DA88 at +0x0C.
 // Its name slot holds this getter.
-class SidesList
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LuaScriptEngine
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
-class LivingWorldRegionManager { public: virtual const char *GetSnapshotName() const; };
-
-class LivingWorldLogic { public: virtual const char *GetSnapshotName() const; };
-
-class TAiData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
-
 // tu-skeleton: 0x002D75E5 130B ?deleteListResources@Radar@@IAEXXZ -- matched in Code/GameEngine/Source/Common/System/Radar_deleteListResources.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/Radar.cpp

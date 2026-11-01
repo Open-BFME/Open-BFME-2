@@ -62,70 +62,13 @@ private:
 }
 
 // --- 0x00403137 (19B): copy a 19-word block into +0x1C.
-struct Rva00403137Block
-{
-	int m_words[0x13];
-};
-
-class Rva00403137
-{
-public:
-	void rva00403137(const Rva00403137Block &block);
-private:
-	char m_pad[0x1C];
-	Rva00403137Block m_1C;
-};
-
 // --- 0x0040315E (18B): whether the value is below the record's +0x08 bound
 // (the receiver is not read).
-struct Rva0040315ERecord
-{
-	int m_00;
-	int m_04;
-	unsigned m_08;
-};
-
-class Rva0040315E
-{
-public:
-	bool rva0040315E(unsigned value, const Rva0040315ERecord *record);
-};
-
 // --- 0x0040332B (32B): how many 20-byte records of the [+0x00, +0x04) range
 // carry the key in their first word.
-struct Rva0040332BRecord
-{
-	int m_key;
-	int m_rest[4];
-};
-
-class Rva0040332B
-{
-public:
-	int rva0040332B(int key) const;
-private:
-	Rva0040332BRecord *m_begin;
-	Rva0040332BRecord *m_end;
-};
-
 // --- 0x00406DA3 (15B) / 0x00406DB2 (26B) / 0x00406DCC (23B): default
 // constructor, copy constructor and assignment of a word and a byte over an
 // empty base (the base is value-initialised: retail's stosb).
-struct Rva00406DA3Empty
-{
-};
-
-class Rva00406DA3 : public Rva00406DA3Empty
-{
-public:
-	Rva00406DA3();
-	Rva00406DA3(const Rva00406DA3 &that);
-	Rva00406DA3 &operator=(const Rva00406DA3 &that);
-private:
-	int m_00;
-	bool m_04;
-};
-
 // --- 0x0040A15B (19B): hand the record to TheCreateAHeroManager's rowed
 // 0x0021929D release (the receiver is not read).
 class CreateAHeroData;
@@ -140,85 +83,14 @@ public:
 	void rva0021929D(CreateAHeroData **data);				// 0x0021929D
 };
 
-class Rva0040A15B
-{
-public:
-	void rva0040A15B(CreateAHeroData *data);
-};
-
 // --- 0x0040B068 (104B): assignment of a word, two rowed 0x0021C21B vectors,
 // two 7-word blocks, two strings and a byte.
-struct Rva0040B068Block
-{
-	int m_words[7];
-};
-
-class Rva0040B068
-{
-public:
-	Rva0040B068 &operator=(const Rva0040B068 &that);
-private:
-	int m_00;
-	_STL::vector<Rva0021C21BElement> m_04;
-	_STL::vector<Rva0021C21BElement> m_10;
-	Rva0040B068Block m_1C;
-	Rva0040B068Block m_38;
-	AsciiString m_54;
-	AsciiString m_58;
-	int m_5C;
-	int m_60;
-	bool m_64;
-};
-
 // --- 0x0040B7E1 (83B): assignment of a word, a rowed 0x0021C21B vector,
 // three strings and a rowed 0x0040B61A vector (the layout the rowed
 // 0x0040B707 copy constructor copies).
-class Rva0040B7E1
-{
-public:
-	Rva0040B7E1 &operator=(const Rva0040B7E1 &that);
-private:
-	int m_00;
-	_STL::vector<Rva0021C21BElement> m_04;
-	AsciiString m_10;
-	AsciiString m_14;
-	AsciiString m_18;
-	_STL::vector<BfmeRecord0040B61A> m_1C;
-};
-
 // --- 0x0040C58C (12B): invert all 32 words of the mask.
-class Rva0040C58C
-{
-public:
-	void rva0040C58C();
-private:
-	unsigned m_words[32];
-};
-
 // --- 0x004135B5 (24B): no id and unit scales.
-class Rva004135B5
-{
-public:
-	Rva004135B5();
-private:
-	int m_id;
-	float m_04;
-	float m_08;
-};
-
 // --- 0x00416072 (22B): two cleared ids, two zero words and a cleared id.
-class Rva00416072
-{
-public:
-	Rva00416072();
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-};
-
 // --- 0x00417AE9 (19B): field-parse callback reading the block into the
 // store through table 0x00C3A658 (the table the rowed 0x00417FF0 parse uses).
 struct FieldParse;
@@ -242,230 +114,40 @@ struct FieldParse
 };
 
 // --- 0x0041B7F5 (12B): whether the +0x80 word is set.
-class Rva0041B7F5
-{
-public:
-	bool rva0041B7F5() const;
-private:
-	char m_pad[0x80];
-	int m_80;
-};
-
 // --- 0x0041E6AA (14B): store the +0x3C float.
-class Rva0041E6AA
-{
-public:
-	void rva0041E6AA(float value);
-private:
-	char m_pad[0x3C];
-	float m_3C;
-};
-
 // --- 0x0041F344 (37B): the object's level slot (its +0x30 record's +0x2C8)
 // picks one of three +0x34 counts, capped at 15; slots past 2 read zero.
-struct Rva0041F344Record
-{
-	char m_pad[0x2C8];
-	int m_slot;
-};
-
-struct Rva0041F344Object
-{
-	char m_pad[0x30];
-	Rva0041F344Record *m_record;
-};
-
-class Rva0041F344
-{
-public:
-	int rva0041F344(const Rva0041F344Object *object) const;
-private:
-	char m_pad[0x34];
-	int m_counts[3];
-};
-
 // --- 0x00421ECA (22B): the address of cell (row, column) in a table of
 // 24-byte rows whose first word points at 12-byte cells.
-struct Rva00421ECACell
-{
-	int m_words[3];
-};
-
-struct Rva00421ECARow
-{
-	Rva00421ECACell *m_cells;
-	int m_rest[5];
-};
-
-class Rva00421ECA
-{
-public:
-	Rva00421ECACell *rva00421ECA(int row, int column);
-private:
-	Rva00421ECARow *m_rows;
-};
-
 // --- 0x00425ED3 (29B, cdecl): build a word and a 13-word block in place.
-struct Rva00425ED3Block
-{
-	int m_words[13];
-};
-
-struct Rva00425ED3Pair
-{
-	int m_first;
-	Rva00425ED3Block m_second;
-};
-
 // --- 0x00427105 (15B): the value scaled by the indexed +0x04 factor.
-class Rva00427105
-{
-public:
-	float rva00427105(float value, int index) const;
-private:
-	int m_00;
-	float m_factors[1];
-};
-
 // --- 0x00427C19 (19B, cdecl) / 0x00427D00 (14B, cdecl): distance between
 // and advance of cursors over 24-byte records.
-struct Rva00427C19Record
-{
-	int m_words[6];
-};
-
-struct Rva00427C19Cursor
-{
-	Rva00427C19Record *m_at;
-};
-
 // --- 0x00429276 (48B, cdecl): offer an entry to a two-slot holder: an empty
 // second slot takes it into the first when its +0x04 template flag 0x04 is
 // set (answering 0); an entry already in the second slot clears it.
-struct Rva00429276Template
-{
-	char m_pad[0x113];
-	unsigned char m_flags;
-};
-
-struct Rva00429276Entry
-{
-	int m_00;
-	Rva00429276Template *m_template;
-};
-
-struct Rva00429276Holder
-{
-	Rva00429276Entry *m_first;
-	Rva00429276Entry *m_second;
-};
-
 // --- 0x004292A6 (80B, file-static): iterate the local player's objects with
 // Rva00429276, offering the incoming entry; repeat once with second slot empty.
 class Object;
 
 typedef int (*ObjectIterateFunc)(Object *, void *);
 
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-};
-
 class PlayerList;
 
 extern PlayerList *ThePlayerList;
 
-struct Rva004292A6PlayerListView
-{
-	char m_pad[0x10];
-	Player *m_local;
-};
-
 // --- 0x0042C0A2 (12B): the +0x14 base of the object (null stays null).
-struct Rva0042C0A2Head
-{
-	int m_words[5];
-};
-
-struct Rva0042C0A2Base
-{
-	int m_00;
-};
-
-class Rva0042C0A2 : public Rva0042C0A2Head, public Rva0042C0A2Base
-{
-public:
-	Rva0042C0A2Base *rva0042C0A2();
-};
-
 // --- 0x0042D67C (27B): whether the referenced record's +0x08 kind is 1, 2
 // or 3.
-struct Rva0042D67CRecord
-{
-	int m_00;
-	int m_04;
-	int m_kind;
-};
-
-class Rva0042D67C
-{
-public:
-	int rva0042D67C() const;
-private:
-	Rva0042D67CRecord *m_record;
-};
-
 // --- 0x004319AF (19B): whether fewer than 500 ticks passed since +0x18.
-class Rva004319AF
-{
-public:
-	bool rva004319AF(unsigned now) const;
-private:
-	char m_pad[0x18];
-	unsigned m_18;
-};
-
 // --- 0x00432858 (38B, cdecl): whether TheMouse's +0x4F0C block has any of
 // its +0x18 / +0x24 / +0x30 words set.
-struct Rva00432858Block
-{
-	char m_pad[0x18];
-	int m_18;
-	char m_pad1C[0x24 - 0x1C];
-	int m_24;
-	char m_pad28[0x30 - 0x28];
-	int m_30;
-};
-
 class Mouse;
 
 extern Mouse *TheMouse;
 
-struct Rva00432858Mouse
-{
-	char m_pad[0x4F0C];
-	Rva00432858Block m_block;
-};
-
 // --- 0x00432968 (14B): the address of the +0x08 24-byte record the +0x1E8
 // index selects.
-struct Rva00432968Record
-{
-	int m_words[6];
-};
-
-class Rva00432968
-{
-public:
-	Rva00432968Record *rva00432968();
-private:
-	int m_00;
-	int m_04;
-	Rva00432968Record m_records[20];
-	int m_1E8;
-};
-
 // --- 0x00435B71 (17B) / 0x00435BA1 (18B) / 0x00435D70 (13B): the rowed
 // obfuscated hooks fed one value twice (a sign-extended short, the argument,
 // the +0x04 word); 0x00435B71 and 0x00435BA1 do not read the receiver.
@@ -476,28 +158,11 @@ int Rva0043549AHook(int a, int b);
 
 							// 0x0043549A
 
-class Rva00435B71
-{
-public:
-	int rva00435B71(short value);
-	int rva00435BA1(int value);
-	int rva00435D70();
-private:
-	int m_00;
-	int m_04;
-};
-
 // --- 0x004361DC (22B): assign a 16-bit value through the rowed 0x00435CFE.
 class Rva00435CFE
 {
 public:
 	void rva00435CFE(unsigned short value);				// 0x00435CFE
-};
-
-class Rva004361DC : public Rva00435CFE
-{
-public:
-	Rva004361DC &operator=(const unsigned short &value);
 };
 
 struct Coord3D;
@@ -600,46 +265,14 @@ private:
 };
 
 // --- 0x00422035 (18B): a deque-of-pointers cursor advanced in place.
-class Rva00422035 : public _STL::_Deque_iterator_base<void *>
-{
-public:
-	Rva00422035 &operator+=(int count);
-};
-
 // --- 0x0042304A (18B): copy of a holder of the rowed 0x004220CD vector.
 struct Rva004220CDRecord;
-
-class Rva0042304A
-{
-public:
-	Rva0042304A(const Rva0042304A &that);
-private:
-	_STL::vector<Rva004220CDRecord> m_records;
-};
-
-class Rva00424CD7
-{
-public:
-	Rva00424CD7();
-private:
-	_STL::_List_base<Coord3D, _STL::allocator<Coord3D> > m_list;
-};
 
 // --- 0x00425806 (24B): an empty deque of word deques at +0x08 (rowed deque
 // base 0x00421F87).
 struct BfmeWordValue4;
 
 typedef _STL::deque<BfmeWordValue4> Rva00425806Inner;
-
-class Rva00425806
-{
-public:
-	Rva00425806();
-private:
-	int m_00;
-	int m_04;
-	_STL::_Deque_base<Rva00425806Inner, _STL::allocator<Rva00425806Inner> > m_queue;
-};
 
 // tu-skeleton: 0x0043A15D 99B ?processProgress@AptLoadScreen@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/AptHeroPowerText.cpp (not merged yet)
 
