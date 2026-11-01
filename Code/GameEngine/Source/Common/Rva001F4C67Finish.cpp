@@ -16,7 +16,7 @@ struct Node001F4882;
 class Rva001F4882 { public: void rva001F4882(Node001F4882 *n); };
 struct Node001F4882 : public Rva001F45DFSlot { char m_p[0x6c-0x40]; Node001F4882 *m_prev; Node001F4882 *m_next; char m_g; unsigned char m_f; };
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
-class RvaSmartPtr12 { public: void rva0004CBC0() throw(); };
+#include "../../Include/Common/RvaSmartPtr12.h"
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Slot6Obj { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void slot6(void *arg); };

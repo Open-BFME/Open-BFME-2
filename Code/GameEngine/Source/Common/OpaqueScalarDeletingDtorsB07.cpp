@@ -155,7 +155,7 @@ Rva003ABA4C::Rva003ABA4C(EmitVtableTag *)
 {
 }
 
-class RvaSmartPtr12 { public: __declspec(nothrow) void rva0004CBC0(); };
+#include "../../Include/Common/RvaSmartPtr12.h"
 struct Rva003FCE38Handle
 {
     void *system, *previous, *next;

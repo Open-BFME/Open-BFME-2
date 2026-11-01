@@ -12,14 +12,7 @@
 
 extern "C" const void *const __identifier("??_7?$CategoryModuleInfo@$00@FXParticleSystem@@6B@")[];  // folded, 35 classes
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &other);
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class DefaultModuleHeadBase
 {

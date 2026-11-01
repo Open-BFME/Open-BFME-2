@@ -7,17 +7,7 @@
 // pointer (RVO). Callers at 0x0055DE57 0x0055F885 0x005623AA use a 12-byte
 // temp plus the rowed handle dtor; landing unblocks 0x0055F840 0x0055DDD1
 // 0x00562366.
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 
 class Rva0055DDB6SmartField
 {

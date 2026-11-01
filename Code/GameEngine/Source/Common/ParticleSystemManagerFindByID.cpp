@@ -25,17 +25,7 @@ enum ParticleSystemID
 class ParticleSystem;
 class ParticleSystem *Make001FCBD7();
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(void *system) throw();
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	void rva0004CBC0() throw();
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 class BfmeParticleSystemHandle
 {

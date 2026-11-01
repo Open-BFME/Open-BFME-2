@@ -13,17 +13,7 @@
 // own vtable 0x00C1D5FC plus second/third 0x00C1C780 via rowed Head 0x003A57C5;
 // callers at 0x003A5861 0x0055B5CA 0x0055BF2C 0x0055F995 0x005641C6.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr; // +0x0
-	int m_pad04; // +0x4
-	int m_pad08; // +0x8
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 // Shared second base at +0x14: vptr 0x00C1C780.
 class DefaultModuleSecondBase

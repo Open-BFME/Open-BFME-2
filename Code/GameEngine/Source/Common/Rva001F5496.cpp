@@ -5,14 +5,7 @@
 // else zero. Callers at 0x001FBD17 and 0x001FC701.
 // Sibling of 0x001F5467 (offsets +0x16C/+0x178).
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 struct Target001F5496
 {
@@ -33,7 +26,7 @@ private:
 void Rva001F5496::rva001F5496(const RvaSmartPtr12 &slave)
 {
 	m_smart = slave;
-	void *m_slaveSystem = slave.m_ptr;
+	void *m_slaveSystem = slave.field00;
 	int m_slaveSystemID;
 	if (m_slaveSystem != 0)
 		m_slaveSystemID = ((Target001F5496 *)m_slaveSystem)->m_val;

@@ -19,17 +19,7 @@
 // call under /Os, and picks ecx for the int scratch under /O2 where
 // retail uses eax).
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr; // +0x0
-	int m_pad04; // +0x4
-	int m_pad08; // +0x8
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 // Shared second base at +0x14: vptr 0x00C1C780, whose one slot is
 // __purecall (0x0003B810); no destructor of its own.

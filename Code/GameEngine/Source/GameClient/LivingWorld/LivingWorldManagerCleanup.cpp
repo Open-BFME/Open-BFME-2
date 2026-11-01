@@ -47,11 +47,7 @@ public:
     int id;
 };
 ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12 {
-public:
-    RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw();
-    void rva0004CBC0();
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {
 public:
     BfmeParticleSystemHandle() : system(0), previous(0), next(0) {}

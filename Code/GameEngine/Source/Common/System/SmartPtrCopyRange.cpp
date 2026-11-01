@@ -7,16 +7,7 @@
 // push 0xC pop idiv), then assignment loop stepping both pointers. Caller
 // is 0x4CD20; prev is __uninitialized_fill_n 0x4CCA8 in the STL TU family.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 
 RvaSmartPtr12 *Rva0004CCCDCopyRange(RvaSmartPtr12 *first, RvaSmartPtr12 *last, RvaSmartPtr12 *dest)
 {

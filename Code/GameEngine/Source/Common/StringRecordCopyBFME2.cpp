@@ -377,7 +377,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12 {public:void rva0004CBC0()throw();};
+#include "../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandle {public:
  ParticleSystem *ptr;void *previous,*next;
  __forceinline ~BfmeParticleSystemHandle()throw(){if(ptr)((RvaSmartPtr12*)this)->rva0004CBC0();}

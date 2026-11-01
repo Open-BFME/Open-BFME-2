@@ -6,14 +6,7 @@
 // +0x0C; returns this, ret 4, no vtable. Caller at 0x00211E07 in 0x00211DFB.
 // Owner unknown so honest address-derived name; member size 12B puts m_0c at
 // +0x0C per the retail offsets.
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &other);
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &other);
-private:
-	char m_data[12];
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 class Rva002111C8
 {

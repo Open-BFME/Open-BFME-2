@@ -4,10 +4,7 @@
 // placement copy; push-esi/edi loop with late cmp, returns final dest.
 // Dedicated TU so the Construct definition cannot inline. Callers at
 // 0x00213E79/0x00213EC4. Owner unknown so honest address-derived names.
-class RvaSmartPtr12
-{
-	char m_data[12];
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 class Rva002111C8
 {
 	RvaSmartPtr12 m_00;

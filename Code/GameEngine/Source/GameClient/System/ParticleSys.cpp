@@ -1020,11 +1020,7 @@ public:
 // The handle findParticleSystemByID returns: the BfmeParticleSystemHandle
 // class of ParticleSystemManagerFindByID.cpp. Its release is the rowed
 // RvaSmartPtr12::rva0004CBC0, reached only when the handle holds a system.
-class RvaSmartPtr12
-{
-public:
-	void rva0004CBC0() throw(); // 0x0004CBC0
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 
 class BfmeParticleSystemHandle
 {

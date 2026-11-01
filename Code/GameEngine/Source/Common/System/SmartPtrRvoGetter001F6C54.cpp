@@ -4,17 +4,7 @@
 // RVO smart-pointer getter. Same shape as rowed 0x003FDA90 (30B) with member
 // at +0x68 vs +0x15C. Callee 0x0004CC19 rowed. Unblocks 20 callers with 2 ready.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../Include/Common/RvaSmartPtr12.h"
 
 class Rva001F6C54SmartField
 {

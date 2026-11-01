@@ -90,17 +90,7 @@ WindModuleInfo::WindModuleInfo()
 // vtable-only bases at +0x14/+0x18 (both 0x00C1C780, ICF-folded tables)
 // and the WindModuleInfo point (0x00C1B598). The class view of the base
 // mirrors DefaultModuleBaseCopyCtors.cpp.
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class DefaultModuleHeadBase
 {

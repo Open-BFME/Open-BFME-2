@@ -12,16 +12,7 @@
 // ??0Rva003B0152@@QAE@ABVRvaSmartPtr12@@@Z @0x003B0134 24B: base-constructs
 // Rva003B00D6 from the arg, then installs vptr 0x00C1D950.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 class Rva003B00D6
 {

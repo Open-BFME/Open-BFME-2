@@ -9,17 +9,7 @@
 // 0x00C1D6C8 plus second/third 0x00C1C780 via rowed base 0x0055BEE9; callers
 // at 0x0055F9CE 0x005624F8. All vtable dwords are DIR32 sites.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class DefaultModuleSecondBase
 {

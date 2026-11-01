@@ -50,11 +50,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // Retail's element destroy loop (0x00212AD6, stride 0x10) calls only the
 // handle dtor 0x002115C5 (rowed ??1RvaSmartPtr12): the element's own dtor is
 // implicit, so it has no address and destroys just this member.
-class RvaSmartPtr12 {
-	char m_data[12];
-public:
-	~RvaSmartPtr12();
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 class Rva002111C8 {
 public:

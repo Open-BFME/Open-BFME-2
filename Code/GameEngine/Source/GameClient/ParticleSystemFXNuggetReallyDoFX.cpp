@@ -125,7 +125,7 @@ public:
 	__forceinline void setTarget(const Vector3 &p) { target = p; targetValid = true; }
 };
 ParticleSystem *Make001FCBD7();
-class RvaSmartPtr12 { public: void rva0004CBC0() throw(); };
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 // 12-byte particle-system handle that createParticleSystem returns by value.
 class BfmeParticleSystemHandle

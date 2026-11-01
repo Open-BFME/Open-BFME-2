@@ -75,13 +75,7 @@ void Rva0023C4A1::rva0023C4A1()
 // --- 8-byte receiver-adjust forwarders (add ecx, imm8; jmp rowed callee),
 // the skeleton of ??1PlayerPosition 0x0022D920. Stack arguments pass
 // through; each callee keeps its ledger spelling.
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &other);	// 0x0004CC3D
-private:
-	void *m_ptr;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 class Rva00283002 { public: void rva00283002(); };	// 0x00283002 (list clear)
 enum ScienceType { };
 class Player { public: bool hasScience(ScienceType science) const; };	// 0x002AB7D5

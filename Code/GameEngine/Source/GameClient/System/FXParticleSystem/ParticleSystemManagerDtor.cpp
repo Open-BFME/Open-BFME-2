@@ -103,13 +103,7 @@ public:
 	void rva001F81EC();
 };
 
-class RvaSmartPtr12
-{
-public:
-	void attach() throw();
-	void rva0004CBC0() throw();
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that) throw();
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class Rva001F9D98Handle
 {

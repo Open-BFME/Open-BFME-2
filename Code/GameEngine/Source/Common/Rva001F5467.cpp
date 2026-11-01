@@ -4,14 +4,7 @@
 // Smart-ptr assign at +0x16C via rowed 0x4CC3D, then pointee+0xA8 to +0x178
 // else zero. Callers at 0x001FBD17 and 0x001FC701.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 struct Target001F5467
 {
@@ -32,7 +25,7 @@ private:
 void Rva001F5467::rva001F5467(const RvaSmartPtr12 &arg)
 {
 	m_smart = arg;
-	void *p = arg.m_ptr;
+	void *p = arg.field00;
 	int v;
 	if (p != 0)
 		v = ((Target001F5467 *)p)->m_val;

@@ -1,16 +1,7 @@
 // cl: /EHsc
 // ??0Rva0055F197@@QAE@ABVRvaSmartPtr12@@H@Z, retail 0x0055F197, 129 bytes.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 class DefaultModuleSecondBase
 {

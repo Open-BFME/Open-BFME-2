@@ -3,13 +3,7 @@
 // Native21173C passes three float components as one copied12B vector.
 // Chain from 0x003FC7C7: calls rowed rva003FC7C7 with first arg then copies 12B stack args to +0xAC.
 // Evidence: callee row Rva003FC7FCClear.cpp, ret 0x10, copy 3x movsd.
-class RvaSmartPtr12
-{
-public:
-	void *m_ptr;
-	int m_a;
-	int m_b;
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 
 class Rva003FC7FC
 {

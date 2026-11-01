@@ -35,17 +35,7 @@ struct XferUnknown11;
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 class Rva003ACF68Object;
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class DefaultModuleSecondBase
 {

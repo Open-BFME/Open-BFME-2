@@ -185,11 +185,7 @@ typedef _STL::pair<AsciiString,AsciiString> ScriptStringKey;
 typedef _STL::pair<const ScriptStringKey,AsciiString> ScriptStringValue;
 template <> ScriptStringValue::~pair();
 typedef ScriptStringValue Rva00204686;
-class RvaSmartPtr12
-{
-public:
-	~RvaSmartPtr12();
-};
+#include "../../Include/Common/RvaSmartPtr12.h"
 struct Rva0029E00D
 {
 public:

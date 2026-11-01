@@ -5,16 +5,7 @@
 // +0x1C/+0x1D via inline second base, final vtables through real inheritance.
 // Evidence: calls 0x0055BEE9 at 0x005641C6; callers at 0x00564207/0x00564918.
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12();
-private:
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
 class DefaultModuleSecondBase
 {
