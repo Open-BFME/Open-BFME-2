@@ -6,7 +6,6 @@ struct Rva0054107FRecord { Rva0054107FRecord(); Rva0054107FRecord(const Rva00541
 
 namespace _STL {
 struct __false_type { __false_type() {} };
-struct random_access_iterator_tag {};
 template <class InputIter, class OutputIter> OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
 template <class T> class allocator {};
 template <class T, class A> class vector {

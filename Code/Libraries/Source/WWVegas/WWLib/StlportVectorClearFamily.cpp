@@ -48,15 +48,6 @@ struct Rva004C3F09Element;
 namespace _STL {
 template <> void vector<Rva004C3F09Element>::push_back(const Rva004C3F09Element &);
 }
-class Rva004C3F40
-{
-public:
-	void rva004C3F40(const Rva004C3F09Element &element);
-private:
-	char m_pad00[0x7C];
-	_STL::vector<Rva004C3F09Element> m_7C;
-};
-
 // The independent entry 0x004F8871 delegates its first two pointer fields to
 // the same range-erase body as vector<TreeHintRef00217D4C>::clear at 0x002B8134.
 // Keep an address-derived owner: the shared bytes do not prove the original

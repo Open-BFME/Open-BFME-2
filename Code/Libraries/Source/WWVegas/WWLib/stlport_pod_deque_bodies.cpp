@@ -34,7 +34,6 @@ template <> __declspec(dllimport) __forceinline void _Construct<BfmePod16, BfmeP
 struct BfmePod16;
 namespace _STL { template <> void __destroy_aux<_Deque_iterator<BfmePod16,_Nonconst_traits<BfmePod16> > >(_Deque_iterator<BfmePod16,_Nonconst_traits<BfmePod16> >,_Deque_iterator<BfmePod16,_Nonconst_traits<BfmePod16> >,__false_type const &); }
 struct BfmePod16 { int a[4]; };
-struct BfmePod20 { int a[5]; };
 struct BfmePod28 { int a[7]; };
 struct BfmePod40 { int a[10]; };
 struct BfmePod56 { int a[14]; };

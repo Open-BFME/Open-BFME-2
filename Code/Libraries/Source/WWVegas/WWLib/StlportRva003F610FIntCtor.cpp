@@ -10,11 +10,6 @@ class ModuleData;
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-struct BfmePod104
-{
-	int a[26];
-};
-
 struct BfmeAssignRecord104
 {
 	int a[26];

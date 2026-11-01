@@ -43,13 +43,6 @@ struct Rva004393D6 : public _STL::list<BfmePod196>
 	Rva004393D6(const Rva004393D6 &o);
 	Rva004393D6 &operator=(const Rva004393D6 &o);
 };
-struct Rva004395EC
-{
-	void *m_00;
-	Rva004393D6 m_04;
-	Rva004395EC(void **p, const Rva004393D6 &o);
-	Rva004395EC(const Rva004395EC &o);
-};
 typedef _STL::map<int, Rva004393D6, _STL::less<int>,
     _STL::allocator<_STL::pair<const int, Rva004393D6> > > InvisibilityRecordMap;
 template <> Rva004393D6 &InvisibilityRecordMap::operator[](const int &key)

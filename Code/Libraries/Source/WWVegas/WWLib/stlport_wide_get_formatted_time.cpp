@@ -153,8 +153,6 @@ inline bool operator!=(const istreambuf_iterator<CharT, Traits> &lhs,
 typedef istreambuf_iterator<unsigned short, char_traits<unsigned short> > wide_iterator;
 
 
-struct __false_type {};
-
 }
 
 namespace _STL

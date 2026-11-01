@@ -94,7 +94,6 @@ struct BfmePod68 { int a[17]; };
 struct BfmePod76 { int a[19]; };
 struct BfmePod492 { int a[123]; };
 struct BfmePod840 { int a[210]; };
-struct BfmePod24 { int a[6]; };
 // 696 = 0x2B8 is BuddyRequest, as in stlport_pod_large_bodies.cpp.
 class BuddyRequest
 {

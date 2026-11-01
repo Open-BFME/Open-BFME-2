@@ -28,8 +28,6 @@ public:
 	Pointer _M_data;
 };
 
-struct forward_iterator_tag {};
-
 template <class CharT, class Alloc>
 class _String_base
 {

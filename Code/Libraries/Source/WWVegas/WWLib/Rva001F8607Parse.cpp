@@ -69,19 +69,6 @@ private:
 	HierarchyPrototype *m_object;
 };
 
-class HTreePrototypeOwner
-{
-public:
-	HTreePrototypeOwner(const HierarchyPrototypeRef &source);
-	~HTreePrototypeOwner()
-	{
-		if (m_prototype != 0)
-			m_prototype->Release_Ref();
-	}
-
-	HierarchyPrototype *m_prototype;
-};
-
 extern HierarchyPrototypeRef __cdecl Rva0061F230_GetPrototype(const char *name);
 
 // ?Rva001F8607Parse@@YAXPAVINI@@PAX@Z

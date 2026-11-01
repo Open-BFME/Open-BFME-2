@@ -22,8 +22,6 @@ public:
 struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class ArmorTemplateSet { public: unsigned char m_data[12]; };
-struct BfmeStringRecord005DDD40 { public: unsigned char m_data[8]; };
-
 // ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@@Z
 typedef _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::_Select1st<_STL::pair<const AsciiString, NoCaseTreeValue4> >, _STL::less<AsciiString>, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > VAsciiStringUNoCaseTreeValue4MapTree;
 void __cdecl Rva0022112DConstruct(void *dest, const void *source);

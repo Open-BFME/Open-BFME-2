@@ -73,7 +73,6 @@ struct BfmeAssignRecord44 { AsciiString s; int a[10]; BfmeAssignRecord44 &operat
 inline bool operator==(const BfmeAssignRecord44 &x, const BfmeAssignRecord44 &y) { return x.s == y.s; }
 struct BfmeAssignRecord52 { AsciiString s; int a[12]; BfmeAssignRecord52 &operator=(const BfmeAssignRecord52 &); ~BfmeAssignRecord52(); };
 inline bool operator==(const BfmeAssignRecord52 &x, const BfmeAssignRecord52 &y) { return x.s == y.s; }
-struct BfmePod8 { int a[2]; };
 struct BfmeAssignRecord84 { AsciiString s; int a[20]; BfmeAssignRecord84 &operator=(const BfmeAssignRecord84 &); };
 inline bool operator==(const BfmeAssignRecord84 &x, const BfmeAssignRecord84 &y) { return x.s == y.s; }
 struct BfmeStringHeadRecord148 { AsciiString s; int a[36]; BfmeStringHeadRecord148() {} BfmeStringHeadRecord148(const BfmeStringHeadRecord148 &); };
