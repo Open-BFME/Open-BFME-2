@@ -16179,3 +16179,11 @@ helper avoids emitting an extra iterator member. Normal/strict checks and the sc
 44 rows. One alias hatch retires through the owning counter update. Cleanup
 remains blocked: an out-of-line destructor specialization still changes the
 parent's EH inference when compiled together. Its source is unchanged.
+
+The supported auxiliary merge is applied: one further source file is removed,
+its single row is repointed, and all 44 final rows pass. All 113 shared external
+code bodies/relocations are unchanged; the native push-back joins them while
+two suppressed seed copies retain identical existing providers. The merge
+guard and scoped 4,455-byte cohort prediction pass. Path consumers and affected
+queues were audited across this outgoing batch. Census confirmation remains
+separate from these retained predictions.

@@ -45569,7 +45569,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0054B3B1,99,code,,,-,,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
 0x0054B414,8,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp N=Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
 0x0054B41C,58,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,C,C=0x0054B414..0x0054B456,Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp
-0x0054B456,101,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,C,C=0x0054B414..0x0054B4BB,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp
+0x0054B456,101,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,C,C=0x0054B414..0x0054B4BB,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
 0x0054B4BB,99,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,C,C=0x0054B414..0x0054B51E,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp
 0x0054B51E,99,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,C,C=0x0054B414..0x0054B581,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp
 0x0054B581,99,code,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,approved,C,C=0x0054B414..0x0054B5E4,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp

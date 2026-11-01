@@ -1,0 +1,16 @@
+{
+  "old_seed_definitions": 115,
+  "final_tu_definitions": 114,
+  "removed": [
+    "??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z",
+    "??2@YAPAXIPAX@Z"
+  ],
+  "changed": [],
+  "added_whole_body_and_relocation_twins_of_absorbed_donor": {
+    "?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z": true
+  },
+  "removed_seed_copies_still_have_whole_body_and_relocation_twins_in_existing_iterator_provider": {
+    "??$_Construct@UBfmeE8@@U1@@_STL@@YAXPAUBfmeE8@@ABU1@@Z": true,
+    "??2@YAPAXIPAX@Z": true
+  }
+}

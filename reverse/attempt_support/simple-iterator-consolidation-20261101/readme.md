@@ -87,3 +87,25 @@ destructor specialization after the parent's definition. All eight donor rows
 still match, but the composed parent destructor and its EH/cleanup rows do not;
 whole-TU exception inference defeats that declaration-visibility hypothesis.
 The failed trial stays outside Code, and the donor remains unchanged.
+
+## Applied push-back merge
+
+The supported tool absorbed the auxiliary donor and repointed its one row;
+all 44 final rows pass normal and strict checks, with no new unmatched body.
+The cohort's 4,455 predicted bytes are retained. The private complete-object
+proof has 115 old seed definitions and 114 final definitions: all 113 shared
+bodies and relocations are identical; the added push-back equals the absorbed
+donor. Two now-suppressed seed copies (`_Construct<BfmeE8>` and placement new)
+have complete byte/relocation twins in the existing iterator provider. The
+merge guard checks provider/consumer retention; these are not lost rows.
+
+This second applied move lowers source count by one more. In the complete
+pending batch since a2cfbd3094, its only deleted path is the auxiliary donor.
+Combined old-path and basename searches again found no active tool, hook,
+workflow, build registry or include consumer: remaining hits are historical
+proofs and the retained provenance comment. Header and Microsoft-header
+reports were refreshed by the merge tool and have no affected queue row.
+No debt transfer is required. The map edit changes one source field only;
+no regenerated map is committed. CSV, TU ownership and enforced data checks
+pass. The previous publication's AIBaseBuilder receipt boundary remains open
+until the broader audit/census clears it.

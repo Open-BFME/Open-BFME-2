@@ -109,6 +109,13 @@ template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyAscending>(CopyR
 
 template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyDescending);
 
+namespace _STL {
+template<> void deque<BfmeE8,allocator<BfmeE8> >::_M_reserve_map_at_back(unsigned int);
+template<> void _Construct<BfmeE8,BfmeE8>(BfmeE8 *,const BfmeE8 &);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0054BBB5.cpp
@@ -186,14 +193,6 @@ void SimpleObjectIterator::insert(int a, float b)
 	reinterpret_cast<_STL::deque<BfmeE8> &>(m_deque).push_back(tmp);
 }
 
-// tu-skeleton: 0x0054B41C 58B ??1?$deque@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B456 101B ?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B4BB 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x0054B51E 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportDequeCopyRecord8KeySort.cpp
 
 //
@@ -215,6 +214,41 @@ void SimpleObjectIterator::insert(int a, float b)
 // arguments differently and stays pinned only; the ascending median and
 // partition fold into the bodies already rowed at 0x00549F02 and 0x0054A355,
 // and the ascending unguarded insertion sort into its rowed CmpKey twin.
+
+// tu-skeleton: 0x0054B41C 58B ??1?$deque@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp
+
+// Native 54B456: eight-byte integer/float records, sixteen elements per node.
+// Use the shared STLport declarations while preserving the existing external
+// reserve and construction providers; their visibility determines native code.
+// The byte allocator already owns the former vectorSmallAllocate alias target.
+
+// Preserve the existing local node-update helper without emitting an unused
+// out-of-line copy of the header's iterator member under this TU's profile.
+static __forceinline void setDequeNode(
+    _STL::_Deque_iterator_base<BfmeE8> &iterator, BfmeE8 **newNode)
+{
+    iterator._M_node = newNode;
+    iterator._M_first = *newNode;
+    iterator._M_last = iterator._M_first + 16;
+}
+
+template<> void _STL::deque<BfmeE8,_STL::allocator<BfmeE8> >::_M_push_back_aux_v(const BfmeE8 &value)
+{
+ BfmeE8 copy;
+ copy.a = value.a;
+ copy.b = value.b;
+ this->_M_reserve_map_at_back(1);
+ *(this->_M_finish._M_node + 1) = (BfmeE8 *)_STL::allocator<char>::allocate(0x80,0);
+ _STL::_Construct(this->_M_finish._M_cur, copy);
+ setDequeNode(this->_M_finish, this->_M_finish._M_node + 1);
+ this->_M_finish._M_cur = this->_M_finish._M_first;
+}
+
+// tu-skeleton: 0x0054B4BB 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x0054B51E 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8CmpDescending@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8CmpDescending@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x0054B647 47B ??$make_heap@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 

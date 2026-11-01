@@ -8971,7 +8971,7 @@ _luaT_tag,,0x0074FDD0,28,Code/Libraries/Source/Lua/ltm.c,matched,call-free type 
 ?get@Rva0057E556DwordField@@QBEHXZ,,0x0057E556,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 ?get@Rva005C4AE9DwordField@@QBEHXZ,,0x005C4AE9,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter; address-derived opaque holder
 _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lua-4.0.1; BFME1 byte-identical donor; b1 0x0099EC90; 2 DIR32 string literal(s) agree
-?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,,0x0054B456,101,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp,matched,stlport 4.5.3; dedicated TU with int-float element for movss copy and /Oy- ebp frame; a-then-b assignment order
+?_M_push_back_aux_v@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXABUBfmeE8@@@Z,,0x0054B456,101,Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp,matched,stlport 4.5.3; dedicated TU with int-float element for movss copy and /Oy- ebp frame; a-then-b assignment order
 ?isRange@T2WideCtype@@QBEPBGPBG0PAI@Z,,0x00016D00,57,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840940
 ?narrowRange@T2WideCtype@@QBEPBGPBG0DPAD@Z,,0x00016E60,57,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,matched,BFME1 byte-identical donor; b1 0x00840AA0
 ?narrowRange@T2NarrowCtype@@QBEPBDPBD0DPAD@Z,,0x00016C60,39,Code/GameEngine/Source/Common/T2NarrowCtype.cpp,matched,BFME1 byte-identical donor; b1 0x00840880
