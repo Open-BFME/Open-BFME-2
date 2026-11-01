@@ -31,12 +31,7 @@
 class DamageInfo;
 class Player;
 
-class UpgradeTemplate
-{
-public:
-	int m_00;
-	int m_type;	// +0x04 (0 a player upgrade; Rva00485C86Finish precedent)
-};
+#include "../../../../Include/Common/Upgrade.h"
 
 class Object
 {
@@ -59,11 +54,6 @@ public:
 	void removeUpgrade(const UpgradeTemplate *upgrade, int flag);	// 0x002ADAC3
 };
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 extern UpgradeCenter *TheUpgradeCenter;
 
 extern GameLogic *TheGameLogic;

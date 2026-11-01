@@ -185,7 +185,7 @@ class ModuleData;
 
  class UpgradeTemplate;
 
-class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int index) const; };
+#include "../../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

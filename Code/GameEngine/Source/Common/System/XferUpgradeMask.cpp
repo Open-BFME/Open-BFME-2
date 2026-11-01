@@ -43,23 +43,8 @@ public:
  __forceinline bool testBit(unsigned int bit) const { return (words[bit>>5] & (1u<<(bit&31))) != 0; }
  __forceinline void setBit(unsigned int bit) { words[bit>>5] |= 1u<<(bit&31); }
 };
-class UpgradeTemplate
-{
-public:
-	char m_pad0[8]; // +0x00 so m_name lands at +0x08 per retail lea [esi+8]
-	AsciiString m_name; // +0x08
-	char m_pad1[0x38 - 0x0C]; // +0x0C..0x37
-	unsigned int m_bitIndex; // +0x38
-	char m_pad2[0x64 - 0x3C]; // +0x3C..0x63
-	UpgradeTemplate *m_next; // +0x64
-};
+#include "../../../Include/Common/Upgrade.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-	const UpgradeTemplate *rva001DB0A8() const;
-};
 
 extern UpgradeCenter *TheUpgradeCenter;
 // Retail ThrowInfo identifies the 8-byte XferException class and its
@@ -81,7 +66,7 @@ void __cdecl xferUpgradeMask(Xfer *xfer, Rva00291440 *bits)
 		unsigned int count = 0;
 		const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->rva001DB0A8();
 		while (upgradeTemplate) {
-			unsigned int bit = upgradeTemplate->m_bitIndex;
+			unsigned int bit = upgradeTemplate->field38;
 			if (m_upgradeMask->testBit(bit))
 				count++;
 			upgradeTemplate = upgradeTemplate->m_next;
@@ -89,7 +74,7 @@ void __cdecl xferUpgradeMask(Xfer *xfer, Rva00291440 *bits)
 		*transfer == *reinterpret_cast<unsigned short*>(&count);
 		upgradeTemplate = TheUpgradeCenter->rva001DB0A8();
 		while (upgradeTemplate) {
-			unsigned int bit = upgradeTemplate->m_bitIndex;
+			unsigned int bit = upgradeTemplate->field38;
 			if (m_upgradeMask->testBit(bit)) {
 				((StringBase<char> &)(upgradeName)).set((const StringBase<char> &)(upgradeTemplate->m_name));
 				*transfer == upgradeName;
@@ -109,7 +94,7 @@ void __cdecl xferUpgradeMask(Xfer *xfer, Rva00291440 *bits)
 				if (!up) {
 					throw XferException(0, 0);
 				}
-				unsigned int bit = up->m_bitIndex;
+				unsigned int bit = up->field38;
 				m_upgradeMask->setBit(bit);
 				++i;
 			} while (i < count);

@@ -86,11 +86,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager *ThePartitionManager;
 class AsciiString;
 class UpgradeTemplate;
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 class BfmeThingBMD
 {
@@ -113,14 +109,6 @@ public:
 
 typedef unsigned int UnsignedInt;
 class Object;
-class UpgradeTemplate
-{
-public:
-	char m_pad00[0x4];
-	int m_type; // +0x04 (0 player, 1 object)
-	char m_pad08[0x30];
-	int m_bitIndex; // +0x38
-};
 class Rva0028ADECmpBoolField
 {
 public:

@@ -17,20 +17,10 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class UpgradeTemplate
-{
-public:
-	unsigned char m_unreconstructed[4];
-	int m_requiredZero; // +0x04: entries with a nonzero word here are skipped
-};
+#include "../../../Include/Common/Upgrade.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
-};
 
 namespace _STL
 {
@@ -68,7 +58,7 @@ void INI::Rva003F1FD0_ParseGiveUpgrade(INI *ini, void *instance, void *store, co
 			break;
 		NameKeyType key = TheNameKeyGenerator->nameToKey(token);
 		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgradeByKey(key);
-		if (upgrade == 0 || upgrade->m_requiredZero != 0)
+		if (upgrade == 0 || upgrade->m_type != 0)
 			continue;
 		((_STL::vector<const UpgradeTemplate *> *)store)->push_back(upgrade);
 	}

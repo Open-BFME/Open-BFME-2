@@ -42,11 +42,7 @@ enum ObjectID { INVALID_ID = 0 };
 
 class Player;
 class UpgradeTemplate;
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 class Object

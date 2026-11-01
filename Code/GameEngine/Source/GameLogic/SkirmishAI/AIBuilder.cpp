@@ -198,11 +198,7 @@ struct Rva002A8AB1Record
     unsigned char gap164[8];
     int difficulty16c;
 };
-class UpgradeCenter
-{
-public:
-    const UpgradeTemplate *findUpgrade(const AsciiString &) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 class Rva005C4AD1LeaField
 {
 public:

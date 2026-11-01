@@ -91,11 +91,7 @@ public:
 };
 }
 class UpgradeTemplate;
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *rva0026EEA0(int key) const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 class Rva00406F9C

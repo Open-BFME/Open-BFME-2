@@ -15,11 +15,7 @@ class Player;
 class GameInfo;
 extern GameInfo *TheGameInfo;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 class ObjectP04Flags00219757

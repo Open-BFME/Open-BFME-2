@@ -8,10 +8,7 @@ public:
     unsigned m_money;
 };
 
-class UpgradeTemplate {
-public:
-    unsigned calcCostToBuild(Player *, unsigned) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 #include "ascii_string.h"
 
@@ -61,12 +58,6 @@ bool __stdcall bfmeCanAffordUpgrade(Player *player,
 // reads ECX (all four arguments come from the stack), hence identical bytes
 // under either convention; the third argument is an Object* at call sites.
 class Object;
-class UpgradeCenter
-{
-public:
-    bool rva0026F11A(Player *player, const UpgradeTemplate *upgrade,
-                     Object *obj, bool displayReason);
-};
 bool UpgradeCenter::rva0026F11A(Player *player,
                                 const UpgradeTemplate *upgrade,
                                 Object *obj,

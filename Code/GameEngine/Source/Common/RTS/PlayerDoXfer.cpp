@@ -72,7 +72,7 @@ enum ObjectID { OBJECT_NATIVE_ZERO=0 };
 enum UpgradeStatusType { UPGRADE_NATIVE_INVALID=0 };
 class UpgradeTemplate;
 class Upgrade;
-class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString&) const; };
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 class TeamPrototype;
 #include "../../../Include/Common/TeamBFME2.h"

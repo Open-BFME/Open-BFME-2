@@ -66,20 +66,8 @@ private:
 	_STL::_Base_bitset<4> m_bits;
 };
 
-class UpgradeTemplate
-{
-public:
-	UpgradeType getUpgradeType() const { return m_type; }
-private:
-	void *m_vtable;
-	UpgradeType m_type; // +0x04
-};
+#include "../../../../Include/Common/Upgrade.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 extern UpgradeCenter *TheUpgradeCenter;
 
 class Upgrade;

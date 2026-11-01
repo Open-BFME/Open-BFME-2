@@ -20,11 +20,7 @@ enum UpgradeStatusType
 	UPGRADE_STATUS_COMPLETE
 };
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class PlayerList
 {

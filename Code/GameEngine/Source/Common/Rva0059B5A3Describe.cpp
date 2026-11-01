@@ -51,17 +51,7 @@ public:
 	AsciiString m_name;	// +0x64
 };
 
-class UpgradeTemplate
-{
-public:
-	unsigned char m_pad00[8];
-	AsciiString m_name;	// +0x08
-};
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *rva0026EEA0(int upgradeID) const;	// by id
-};
+#include "../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 namespace _STL

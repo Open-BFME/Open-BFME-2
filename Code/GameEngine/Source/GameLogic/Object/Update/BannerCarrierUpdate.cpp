@@ -52,7 +52,7 @@ enum ObjectStatusTypes { STATUS_DUMMY=0 };
 
 class UpgradeTemplate;
 
-class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
+#include "../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

@@ -175,7 +175,7 @@ class Rva005C4AD1LeaField {public:void*get()const;};
 class NetCommandList;
 class FrameData {public:NetCommandList*getCommandList();};
 class UpgradeTemplate;
-class UpgradeCenter {public:const UpgradeTemplate*rva001DB0A8()const;};
+#include "../../../../Include/Common/Upgrade.h"
 class Rva001DB09DDwordField {public:int get()const;};
 class Rva004E6A9BBase {public:virtual unsigned char rva00578522()const=0;virtual void rva004E6B7D(bool)=0;virtual void rva004E725F(const UnicodeString&,const Rva002217EA&,int)=0;virtual void DoClose()=0;virtual int rva004E6882()=0;~Rva004E6A9BBase(){}};
 class InGameNotificationBoxMovieClip:public Rva004E6A9BBase {public:

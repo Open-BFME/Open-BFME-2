@@ -33,7 +33,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b) { return a < b ? b : a; }
 }
 extern GameLogic *TheGameLogic;
-class UpgradeCenter {public:const UpgradeTemplate *rva0026EEA0(int)const;};
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 struct Rva0046247DPair {void *first;const _STL::list<Object *> *second;};
 class Rva0046247D {public:__declspec(noinline) void rva0046247D(Rva0046247DPair &p){void *base=this;char *field=(char *)base+0x20;p.first=base?field:0;p.second=(const _STL::list<Object *> *)((char *)base+0x54);}};

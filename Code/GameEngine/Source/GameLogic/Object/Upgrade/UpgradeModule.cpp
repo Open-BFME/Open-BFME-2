@@ -112,16 +112,8 @@ private:
 	bool m_b04;
 };
 
-class UpgradeTemplate {
-public:
-    char m_pad[8];
-    AsciiString m_name;
-};
+#include "../../../../Include/Common/Upgrade.h"
 
-class UpgradeCenter {
-public:
-    const UpgradeTemplate *rva0026EEA0(int key) const;
-};
 
 extern UpgradeCenter *TheUpgradeCenter;
 

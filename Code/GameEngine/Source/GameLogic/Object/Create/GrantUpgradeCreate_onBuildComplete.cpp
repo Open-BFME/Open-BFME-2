@@ -19,12 +19,7 @@
 
 #include "../../../Common/RTS/PlayerUpgradeStatus.h"
 
-class UpgradeTemplate
-{
-public:
-	int m_00;
-	int m_type;
-};
+#include "../../../../Include/Common/Upgrade.h"
 
 class Player;
 
@@ -35,11 +30,6 @@ public:
 	void rva00293077(const void *p);
 };
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 extern UpgradeCenter *TheUpgradeCenter;
 
 #include "../../../../Include/Common/Player.h"

@@ -5,22 +5,8 @@
 
 enum VeterancyLevel { LEVEL_REGULAR, LEVEL_VETERAN, LEVEL_ELITE, LEVEL_HEROIC };
 
-class UpgradeTemplate
-{
-public:
-	void friend_makeVeterancyUpgrade(VeterancyLevel v);
-};
+#include "../../../Include/Common/Upgrade.h"
 
-class UpgradeCenter
-{
-public:
-	virtual ~UpgradeCenter();
-	virtual void init();
-	virtual void postProcessLoad();
-	virtual void reset();
-	virtual void update();
-	UpgradeTemplate *newUpgrade(const AsciiString &name, bool assignMaskBit);
-};
 
 void UpgradeCenter::init(void)
 {

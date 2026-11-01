@@ -53,11 +53,7 @@ class UpgradeTemplate;
 class Anim2DTemplate;
 struct Rva002D752DNode;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findVeterancyUpgrade(VeterancyLevel level) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class Rva002D752D
 {
