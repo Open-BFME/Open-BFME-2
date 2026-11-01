@@ -61,13 +61,7 @@ extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char 
 // matters, never the address.
 extern const char *TheDamageNames[];
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	float dup_002EE10(const char *token);
-	int scanIndexList(const char *token, const char *const *nameList);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // BFME2 carries 27 damage coefficients (retail rep stosd count 0x1B).
 enum

@@ -352,13 +352,7 @@ private:
 	unsigned char m_pad3E[2];
 };
 
-class INI
-{
-public:
-	const char *getNextSubToken(const char *expected);
-	int scanInt(const char *token);
-	const char *getNextToken(const char *delimiters=0);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 // Retail 0x004616B1 (252 B, cdecl): the Link line parser of DynamicPortalBehaviour's
 // module data. The target vector is read from the argument before the link is built

@@ -22,13 +22,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	UnsignedInt scanUnsignedInt(const char *token);
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
