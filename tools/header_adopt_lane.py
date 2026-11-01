@@ -1499,6 +1499,127 @@ def rewrite_ledger(renames):
 FIELD_RENAMES = {}     # source -> {Class::private field: canonical field} of its last swap, for reports
 
 
+def prospective_renames(sources, name, key):
+    """Find class-key row changes without compiling/probing or writing a unit."""
+    changed = set()
+    for source in sources:
+        span = body_span((ROOT / source).read_text(encoding="latin-1"), name)
+        if span and span[2] != key:
+            changed.add(source)
+    if not changed:
+        return []
+    scope = class_contract.mangled_scope(name)
+    have, other = ("U", "V") if key == "struct" else ("V", "U")
+    pattern = re.compile(other + re.escape(scope) + r"@@")
+    names = collections.defaultdict(list)
+    with LEDGER.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            if row["source"] in changed and pattern.search(row["name"]):
+                names[row["source"]].append((row["name"], pattern.sub(have + scope + "@@", row["name"])))
+    return [(s, None, None, renames) for s, renames in names.items()]
+
+
+def adoption_dependencies(items, rows=None, new_rows=None):
+    """Read-only provider -> {lost name: consumers} for a coordinated adoption.
+
+    Use the hook's resolver and current-object/source-text rules. Discovery is
+    shared across all renames, includes data-only consumers, and never claims or
+    edits a dependent. No symbol changes means no repository-wide scan.
+    """
+    renames = {old: new for _, _, _, names in items for old, new in names}
+    if not renames or not BFME2:
+        return {}
+    import name_dependents as nd
+    if rows is None:
+        with LEDGER.open(newline="", encoding="utf-8") as handle:
+            rows = list(csv.DictReader(handle))
+    if new_rows is None:
+        new_rows = [{**r, "name": renames.get(r["name"], r["name"])} for r in rows]
+    with (ROOT / "reverse/symbols.csv").open(newline="", encoding="utf-8") as handle:
+        pins = list(csv.DictReader(handle))
+    with (ROOT / "reverse/data_rows.csv").open(newline="", encoding="utf-8") as handle:
+        data = list(csv.DictReader(handle))
+    lost_calls = nd.lost_names(nd.call_targets(rows, pins), nd.call_targets(new_rows, pins))
+    lost_data = nd.lost_names(nd.data_targets(rows, data), nd.data_targets(new_rows, data))
+    references = {}
+    lost = set(lost_calls) | set(lost_data)
+    if lost:
+        # A retained address pin can keep byte resolution working while the C++
+        # provider's old linker name still disappears. Include provider-home
+        # losses in the same scan, for both code and data-only consumers.
+        data_objects = nd._data_row_objects(data)
+        objects = nd._row_objects(rows)
+        for source, paths in data_objects.items():
+            objects.setdefault(source, []).extend(p for p in paths if p not in objects[source])
+        references = nd.dependents_by_name(lost, objects, ROOT)
+    plan = {}
+    for source, _, _, names in items:
+        for old, _ in names:
+            if references.get(old, set()) - {source}:
+                plan.setdefault(source, {})[old] = sorted(references[old] - {source})
+    return plan
+
+
+def dependency_blockers(plan, candidates):
+    """Reject incomplete connected provider/caller groups, keeping unrelated work.
+
+    An included caller must not survive when its renamed provider fails either.
+    The same plan is reused after byte failures, held files and link refusals.
+    """
+    candidates = set(candidates)
+    graph = collections.defaultdict(set)
+    for provider, names in plan.items():
+        for callers in names.values():
+            for caller in callers:
+                graph[provider].add(caller)
+                graph[caller].add(provider)
+    blocked, seen = {}, set()
+    for source in graph:
+        if source in seen:
+            continue
+        component, pending = set(), [source]
+        while pending:
+            node = pending.pop()
+            if node in component:
+                continue
+            component.add(node)
+            pending.extend(graph[node] - component)
+        seen.update(component)
+        missing = component - candidates
+        if missing:
+            why = ("symbol dependencies: coordinated adoption also requires " + ", ".join(sorted(missing))
+                   + "; reconcile these callers/providers in the same verified batch")
+            blocked.update(dict.fromkeys(component & candidates, why))
+    return blocked
+
+
+def acceptance_dependencies(sources):
+    """Discover already-applied row renames too, before accepting/retiring debt."""
+    if not BFME2 or not (ROOT / "reverse/functions.csv").is_file():
+        return {}
+    import name_dependents as nd
+    raw = nd.git_bytes("HEAD:reverse/functions.csv", ROOT)
+    if raw is None:
+        raise RuntimeError("cannot read HEAD's function ledger")
+    current_raw = LEDGER.read_bytes()
+    if current_raw == raw:
+        return {}  # Ordinary header-only adoption: no CSV parse or caller scan.
+    before = nd.csv_dicts(raw.decode("utf-8-sig"))
+    after = nd.csv_dicts(current_raw.decode("utf-8-sig"))
+    old, current = collections.defaultdict(set), collections.defaultdict(set)
+    wanted = set(sources)
+    for rows, target in ((before, old), (after, current)):
+        for row in rows:
+            if row.get("status") == "matched" and row["source"] in wanted:
+                target[row["source"], row["target_rva"]].add(row["name"])
+    renamed = collections.defaultdict(list)
+    for key, names in old.items():
+        new_name = next(iter(sorted(current[key] - names)), "")
+        renamed[key[0]].extend((prior, new_name) for prior in sorted(names - current[key]))
+    items = [(s, None, None, names) for s, names in renamed.items() if names]
+    return adoption_dependencies(items, before, after)
+
+
 def prepare_unit(source, strip, header, key):
     """Prepare a swap without writing source/ledger files or running the byte gate."""
     path = ROOT / source
@@ -1540,31 +1661,74 @@ def try_unit(source, strip, header, key):
     return source, why, swapped, renames
 
 
-def try_units(sources, strip, header, key, jobs=1):
+def try_units(sources, strip, header, key, jobs=1, dependency_plan=None):
     """Trial a whole variant in one source/ledger state, always restoring both.
 
     Preparation errors remain per-file failures. Byte failures are isolated by
     gate_many; class-key renames share one temporary ledger instead of races.
     """
     sources = list(dict.fromkeys(sources))
-    if len(sources) == 1 or not BFME2:
+    if not BFME2:
         with cf.ThreadPoolExecutor(jobs) as pool:
             got = list(pool.map(lambda s: try_unit(s, strip, header, key), sources))
         fixed = try_renamed([g for g in got if g[3]], jobs)
         return [(s, fixed.get(s, why), text, renames) for s, why, text, renames in got]
+    try:
+        prospective = prospective_renames(sources, strip[0], key)
+        plan = adoption_dependencies(prospective)
+    except (Exception, SystemExit) as exc:
+        return [(s, f"symbol dependency discovery unavailable: {exc}", None, []) for s in sources]
+    early = dependency_blockers(plan, sources)
+    pending = [s for s in sources if s not in early]
     with cf.ThreadPoolExecutor(jobs) as pool:
-        got = list(pool.map(lambda s: prepare_unit(s, strip, header, key), sources))
+        prepared = dict(zip(pending, pool.map(lambda s: prepare_unit(s, strip, header, key), pending)))
+    got = [prepared[s] if s in prepared else (s, early[s], None, []) for s in sources]
     ready = [g for g in got if g[2] is not None and (g[1] is None or g[3])]
+    try:
+        predicted = {(s, old, new) for s, _, _, names in prospective for old, new in names}
+        actual = {(s, old, new) for s, _, _, names in ready for old, new in names}
+        if actual - predicted:
+            # Recheck if preparation found an additional row change; a caller or
+            # custom preparer must never bypass discovery by adding it late.
+            for s, names in adoption_dependencies(ready).items():
+                plan.setdefault(s, {}).update(names)
+    except (Exception, SystemExit) as exc:
+        why = f"symbol dependency discovery unavailable: {exc}"
+        eligible = {g[0] for g in ready}
+        return [(s, why if s in eligible else reason, text, names) for s, reason, text, names in got]
+    if dependency_plan is not None:
+        dependency_plan.update(plan)
+    blocked = dependency_blockers(plan, [g[0] for g in ready])
+    statuses = {s: why for s, why, _, _ in got}
+    statuses.update(blocked)
+    ready = [g for g in ready if g[0] not in blocked]
     originals = {s: (ROOT / s).read_bytes() for s, _, _, _ in ready}
     renames = [r for _, _, _, names in ready for r in names]
     backup = LEDGER.read_bytes() if renames else None
     try:
-        rewrite_ledger(renames)
-        for source, _, text, _ in ready:
-            (ROOT / source).write_bytes(text.encode("latin-1"))
-        verdicts = gate_many([s for s, _, _, _ in ready])
-        return [(s, verdicts[s] if s in originals else why, text, names)
-                for s, why, text, names in got]
+        active = list(ready)
+        while active:
+            if backup is not None:
+                LEDGER.write_bytes(backup)
+            active_renames = [r for _, _, _, names in active for r in names]
+            rewrite_ledger(active_renames)
+            for source, _, text, _ in active:
+                (ROOT / source).write_bytes(text.encode("latin-1"))
+            verdicts = gate_many([s for s, _, _, _ in active])
+            statuses.update(verdicts)
+            passed = {s for s, why in verdicts.items() if why is None}
+            dropped = dependency_blockers(plan, passed)
+            statuses.update(dropped)
+            kept = [g for g in active if g[0] in passed and g[0] not in dropped]
+            removed_renames = any(g[3] for g in active if g not in kept)
+            for s, _, _, _ in active:
+                if s not in passed or s in dropped:
+                    (ROOT / s).write_bytes(originals[s])
+            if not dropped and not removed_renames:
+                break
+            active = kept  # Reverify survivors if the temporary resolver changed.
+        return [(s, statuses[s], text, names)
+                for s, _, text, names in got]
     finally:
         for source, original in originals.items():
             (ROOT / source).write_bytes(original)
@@ -1638,10 +1802,12 @@ def tournament(name, contract, sources, header, variants, jobs, fixed_header=Fal
                 (ROOT / header).write_text(generate(contract, variant, methods, header, slots), encoding="utf-8",
                                            newline="\n")
             started = time.time()
-            got = try_units(sources, strip, header, contract["key"], jobs)
+            dependencies = {}
+            got = try_units(sources, strip, header, contract["key"], jobs, dependency_plan=dependencies)
             verdicts = {s: why for s, why, _, _ in got}
             results[variant] = {"verdicts": verdicts, "texts": {s: t for s, _, t, _ in got},
-                                "renames": {s: r for s, _, _, r in got if r}, "seconds": time.time() - started,
+                                "renames": {s: r for s, _, _, r in got if r}, "dependencies": dependencies,
+                                "seconds": time.time() - started,
                                 "header": (ROOT / header).read_text(encoding="utf-8") if (ROOT / header).exists() else ""}
             passes = sum(v is None for v in verdicts.values())
             print(f"  variant {variant:<14} {passes}/{len(sources)} pass  ({results[variant]['seconds']:.0f}s)", flush=True)
@@ -1927,6 +2093,18 @@ def accept(name, sources, header=None, gate=None):
     """Judge each unit (verdict) and retire every passing unit's queue row: the row
     leaves only on this verdict, never by a hand deletion."""
     sources = list(dict.fromkeys(sources))
+    try:
+        dependencies = acceptance_dependencies(sources)
+        blocked = dependency_blockers(dependencies, sources)
+    except (Exception, SystemExit) as exc:
+        blocked = dict.fromkeys(sources, f"symbol dependency discovery unavailable: {exc}")
+    if blocked:
+        for source, why in blocked.items():
+            print(f"  FAIL {source}: {why}")
+        remaining = [s for s in sources if s not in blocked]
+        if remaining:
+            accept(name, remaining, header, gate)
+        return 1
     judged = None
     if len(sources) > 1:
         builds = {s: gate(s) for s in sources} if gate else gate_many(sources)
@@ -1940,6 +2118,9 @@ def accept(name, sources, header=None, gate=None):
                     problems.append("link_check predicts a loss of census-linked bytes")
                 elif linked.get(source) is not True:
                     problems.append("link_check produced no usable per-unit verdict")
+        accepted = [s for s, problems in judged.items() if not problems]
+        for source, why in dependency_blockers(dependencies, accepted).items():
+            judged[source].append(why)
     bad, done = 0, set()
     for source in sources:
         problems = judged[source] if judged is not None else verdict(name, source, header, gate)
@@ -2100,6 +2281,9 @@ def run(args):
             print(f"  refusing to apply: {len(held)} file(s) another worker holds: " + "; ".join(
                 f"{key} ({who})" for key, who in held[:8]) + (" ..." if len(held) > 8 else ""))
             return 3
+        blocked = dependency_blockers(best.get("dependencies", {}), passed)
+        failed.update(blocked)
+        passed = [s for s in passed if s not in blocked]
         if not fixed:
             (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
             (ROOT / header).write_text(best["header"], encoding="utf-8", newline="\n")
@@ -2816,6 +3000,9 @@ def bulk_land(name, prepared, ctx):
     evidence = prepared["evidence"]
     passed = sorted(s for s, v in best["verdicts"].items() if v is None)
     failed = {s: v for s, v in best["verdicts"].items() if v is not None}
+    blocked = dependency_blockers(best.get("dependencies", {}), passed)
+    failed.update(blocked)
+    passed = [s for s in passed if s not in blocked]
     if not passed:
         release_rewrites(name)      # the header claim bulk_prepare took
         reasons = collections.Counter(failure_class(v) for v in failed.values())
@@ -2838,6 +3025,9 @@ def bulk_land(name, prepared, ctx):
     dropped = {s: ("link regression: the census-linked unit would stop linking with the header"
                    if verdicts.get(s) is False else "link unverified: link_check gave no verdict")
                for s in passed if verdicts.get(s) is not True}
+    blocked = dependency_blockers(best.get("dependencies", {}), kept)
+    dropped.update(blocked)
+    kept = [s for s in kept if s not in blocked]
     for source in dropped:
         (ROOT / source).write_bytes(originals[source])
     if not kept:

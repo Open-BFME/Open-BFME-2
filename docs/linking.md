@@ -110,7 +110,21 @@ older consumers. Class-wide claims still protect the shared definition.
 private-declaration inventory: every query reads current contents, but unchanged
 contents reuse their parsed declarations. A first single-class query prefilters
 class heads instead of building the whole inventory. Compiled layout, byte and
-link checks remain required. The header tier serves
+link checks remain required.
+
+Before probing a class-key change (`struct`/`class`), the lane predicts its row-name
+changes and uses `name_dependents` to discover code and data consumers in one shared
+scan. A missing caller produces a `symbol dependencies` diagnostic listing the
+units to reconcile; no candidate source/ledger write or byte trial occurs. The
+lane never edits or claims outside callers automatically. Connected provider/caller
+groups must pass together: a byte failure, held unit or link refusal cannot leave
+only half the group applied. Survivors are reverified if a failed rename changes
+the temporary resolver. `accept` checks already-applied row changes against HEAD
+before retiring debt, so manual adoptions get the same early guard. Discovery
+errors refuse approval; symbol-preserving work skips this scan. Normal commit and
+push hooks still provide the final checks over affected callers.
+
+The header tier serves
 classes by the queued TU-merge donors their header unblocks:
 `header_adopt_lane.py order --merges [N]` lists them (private views in one
 approved TU that tu_views cannot reconcile, or private copies of a registered

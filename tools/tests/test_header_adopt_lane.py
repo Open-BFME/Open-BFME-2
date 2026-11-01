@@ -83,6 +83,7 @@ def test_trial_batch_shares_ledger_and_restores_sources_even_on_exception(tmp_pa
     ledger = tmp_path / "functions.csv"
     ledger.write_bytes(b"old,row\r\n")
     monkeypatch.setattr(lane, "LEDGER", ledger)
+    monkeypatch.setattr(lane, "adoption_dependencies", lambda items: {})
     originals = {s: f"original {s}\r\n".encode() for s in ["a.cpp", "b.cpp", "blocked.cpp"]}
     for s, content in originals.items():
         (tmp_path / s).write_bytes(content)
@@ -137,7 +138,7 @@ def test_variant_failure_restores_the_trial_header(tmp_path, monkeypatch, existi
     original = b"original\r\n"
     if existing:
         header.write_bytes(original)
-    def fail(*args):
+    def fail(*args, **kwargs):
         assert header.read_text() == "candidate header\n"
         raise RuntimeError("interrupted")
     monkeypatch.setattr(lane, "try_units", fail)
@@ -148,6 +149,256 @@ def test_variant_failure_restores_the_trial_header(tmp_path, monkeypatch, existi
 CONTRACT = {"class": "Coord3D", "key": "struct", "key_by": "bytes", "size": 12, "size_by": "zh", "bases": [],
             "fields": [{"offset": o, "size": 4, "kind": "f4", "type": "float", "name": n}
                        for o, n in ((0, "x"), (4, "y"), (8, "z"))]}
+
+
+@pytest.fixture
+def dependency_tree(tmp_path, monkeypatch):
+    import name_dependents as nd
+    from test_name_dependents import compiled
+    old = "?getVel@Owner@@QAE?AUPoint@@XZ"
+    new = "?getVel@Owner@@QAE?AVPoint@@XZ"
+    provider, caller, data = "Code/provider.cpp", "Code/caller.cpp", "Code/data.cpp"
+    texts = {provider: "struct Point { int x; }; // getVel owner\n",
+             caller: "void caller() { getVel(); }\n", data: "void *table = getVel;\n"}
+    objects = {s: compiled(tmp_path, s, [old], text) for s, text in texts.items()}
+    rev = tmp_path / "reverse"
+    rev.mkdir()
+    ledger = rev / "functions.csv"
+    rows = [dict(name=old, target_rva="0x1000", target_size="18", source=provider, status="matched", notes=""),
+            dict(name="?caller@@YAXXZ", target_rva="0x2000", target_size="8", source=caller, status="matched", notes="")]
+    def write_rows(path, rows, fields):
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fields)
+            writer.writeheader()
+            writer.writerows(rows)
+    write_rows(ledger, rows, list(rows[0]))
+    write_rows(rev / "symbols.csv", [], ["name", "address"])
+    data_rows = [dict(name="_table", address="0x00403000", address_kind="va", size="4", source=data, status="matched")]
+    write_rows(rev / "data_rows.csv", data_rows, list(data_rows[0]))
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "LEDGER", ledger)
+    monkeypatch.setattr(nd, "_row_objects", lambda rows: {s: [objects[s]] for s in {r["source"] for r in rows}})
+    monkeypatch.setattr(nd, "_data_row_objects", lambda rows: {s: [objects[s]] for s in {r["source"] for r in rows}})
+    return SimpleNamespace(root=tmp_path, ledger=ledger, rows=rows, old=old, new=new, provider=provider,
+                           caller=caller, data=data, texts=texts, objects=objects, write_rows=write_rows)
+
+
+def prepared_dependency_items(tree, sources):
+    return [(s, None, "// adopted " + s, [(tree.old, tree.new)] if s == tree.provider else []) for s in sources]
+
+
+def test_rename_discovery_shares_one_scan_and_includes_data_only_consumers(dependency_tree, monkeypatch):
+    import name_dependents as nd
+    t = dependency_tree
+    calls = []
+    scan = nd.dependents_by_name
+    monkeypatch.setattr(nd, "dependents_by_name", lambda names, objects, root:
+                        calls.append((set(names), set(objects))) or scan(names, objects, root))
+    plan = lane.adoption_dependencies(prepared_dependency_items(t, [t.provider]))
+    assert plan == {t.provider: {t.old: [t.caller, t.data]}}
+    assert calls == [({t.old}, {t.provider, t.caller, t.data})]
+
+
+def test_provider_loss_still_checks_callers_when_an_address_pin_remains(dependency_tree):
+    t = dependency_tree
+    t.write_rows(t.root / "reverse/symbols.csv", [dict(name=t.old, address="0x1000")], ["name", "address"])
+    assert lane.adoption_dependencies(prepared_dependency_items(t, [t.provider])) == {
+        t.provider: {t.old: [t.caller, t.data]}}
+
+
+def test_no_name_change_skips_all_dependency_io(monkeypatch):
+    monkeypatch.setattr(lane, "LEDGER", None)
+    assert lane.adoption_dependencies([("a.cpp", None, "candidate", [])]) == {}
+
+
+def test_stale_objects_use_the_hook_scanners_conservative_text_check(dependency_tree):
+    t = dependency_tree
+    t.objects[t.caller].unlink()
+    assert t.caller in lane.adoption_dependencies(prepared_dependency_items(t, [t.provider]))[t.provider][t.old]
+
+
+def test_external_dependencies_block_before_any_write_or_byte_gate(dependency_tree, monkeypatch):
+    t = dependency_tree
+    items = prepared_dependency_items(t, [t.provider])
+    monkeypatch.setattr(lane, "prepare_unit", lambda *args: items[0])
+    monkeypatch.setattr(lane, "gate_many", lambda *args: pytest.fail("blocked candidate reached byte gate"))
+    monkeypatch.setattr(lane, "rewrite_ledger", lambda *args: pytest.fail("blocked candidate wrote ledger"))
+    original = t.ledger.read_bytes()
+    got = lane.try_units([t.provider], ["Point"], "Point.h", "class")
+    assert "symbol dependencies" in got[0][1]
+    assert t.caller in got[0][1] and t.data in got[0][1]
+    assert (t.root / t.provider).read_text() == t.texts[t.provider]
+    assert t.ledger.read_bytes() == original
+
+
+def test_complete_coordinated_batch_passes_and_restores_its_trial(dependency_tree, monkeypatch):
+    t = dependency_tree
+    sources = [t.provider, t.caller, t.data]
+    prepared = {i[0]: i for i in prepared_dependency_items(t, sources)}
+    monkeypatch.setattr(lane, "prepare_unit", lambda s, *args: prepared[s])
+    calls = []
+    def gate(ss):
+        calls.append(list(ss))
+        assert t.new in t.ledger.read_text() and t.old not in t.ledger.read_text()
+        assert all((t.root / s).read_text() == prepared[s][2] for s in ss)
+        return dict.fromkeys(ss)
+    monkeypatch.setattr(lane, "gate_many", gate)
+    original = t.ledger.read_bytes()
+    plan = {}
+    got = lane.try_units(sources, ["Point"], "Point.h", "class", dependency_plan=plan)
+    assert all(why is None for _, why, _, _ in got)
+    assert plan == {t.provider: {t.old: [t.caller, t.data]}}
+    assert calls == [sources]
+    assert t.ledger.read_bytes() == original
+    assert all((t.root / s).read_text() == t.texts[s] for s in sources)
+
+
+def test_failed_caller_prevents_partial_provider_application(dependency_tree, monkeypatch):
+    t = dependency_tree
+    sources = [t.provider, t.caller, t.data]
+    prepared = {i[0]: i for i in prepared_dependency_items(t, sources)}
+    monkeypatch.setattr(lane, "prepare_unit", lambda s, *args: prepared[s])
+    monkeypatch.setattr(lane, "gate_many", lambda ss: {s: "caller mismatch" if s == t.caller else None for s in ss})
+    original = t.ledger.read_bytes()
+    got = {s: why for s, why, _, _ in lane.try_units(sources, ["Point"], "Point.h", "class")}
+    assert got[t.caller] == "caller mismatch"
+    assert "symbol dependencies" in got[t.provider] and "symbol dependencies" in got[t.data]
+    assert t.ledger.read_bytes() == original
+    assert all((t.root / s).read_text() == t.texts[s] for s in sources)
+
+
+def test_failed_rename_rechecks_survivors_against_the_restored_resolver(dependency_tree, monkeypatch):
+    t = dependency_tree
+    sources = [t.provider, t.caller]
+    prepared = {i[0]: i for i in prepared_dependency_items(t, sources)}
+    monkeypatch.setattr(lane, "prepare_unit", lambda s, *args: prepared[s])
+    monkeypatch.setattr(lane, "adoption_dependencies", lambda items: {})
+    calls = []
+    def gate(ss):
+        calls.append(list(ss))
+        if len(calls) == 1:
+            assert t.new in t.ledger.read_text()
+            return {t.provider: "provider mismatch", t.caller: None}
+        assert ss == [t.caller] and t.old in t.ledger.read_text()
+        assert (t.root / t.provider).read_text() == t.texts[t.provider]
+        return {t.caller: "new provider is unavailable"}
+    monkeypatch.setattr(lane, "gate_many", gate)
+    got = lane.try_units(sources, ["Point"], "Point.h", "class")
+    assert [why for _, why, _, _ in got] == ["provider mismatch", "new provider is unavailable"]
+    assert calls == [sources, [t.caller]]
+
+
+def test_dependency_scan_failure_cannot_approve_ungated_survivors(dependency_tree, monkeypatch):
+    t = dependency_tree
+    prepared = {i[0]: i for i in prepared_dependency_items(t, [t.provider, t.caller])}
+    monkeypatch.setattr(lane, "prepare_unit", lambda s, *args: prepared[s])
+    def fail(items):
+        raise OSError("unreadable object")
+    monkeypatch.setattr(lane, "adoption_dependencies", fail)
+    monkeypatch.setattr(lane, "gate_many", lambda *args: pytest.fail("discovery failure reached gate"))
+    got = lane.try_units(list(prepared), ["Point"], "Point.h", "class")
+    assert all("discovery unavailable" in why for _, why, _, _ in got)
+
+
+def test_already_applied_rename_cannot_retire_debt_with_outside_callers(dependency_tree, monkeypatch):
+    t = dependency_tree
+    import name_dependents as nd
+    baseline = t.ledger.read_bytes()
+    monkeypatch.setattr(nd, "git_bytes", lambda *args: baseline)
+    lane.rewrite_ledger([(t.old, t.new)])
+    monkeypatch.setattr(lane, "gate_one", lambda *args: pytest.fail("blocked acceptance reached byte gate"))
+    monkeypatch.setattr(lane, "retire_rows", lambda *args: pytest.fail("blocked acceptance retired debt"))
+    assert lane.accept("Point", [t.provider]) == 1
+
+
+def test_unchanged_ledger_acceptance_skips_csv_parsing_and_dependency_scans(dependency_tree, monkeypatch):
+    t = dependency_tree
+    import name_dependents as nd
+    baseline = t.ledger.read_bytes()
+    monkeypatch.setattr(nd, "git_bytes", lambda *args: baseline)
+    monkeypatch.setattr(nd, "csv_dicts", lambda *args: pytest.fail("unchanged ledger was parsed"))
+    assert lane.acceptance_dependencies([t.provider]) == {}
+
+
+@pytest.mark.parametrize("failure", ["none", "byte", "link", "unknown"])
+def test_acceptance_retires_only_complete_dependency_groups(dependency_tree, monkeypatch, failure):
+    t = dependency_tree
+    import name_dependents as nd
+    baseline = t.ledger.read_bytes()
+    monkeypatch.setattr(nd, "git_bytes", lambda *args: baseline)
+    lane.rewrite_ledger([(t.old, t.new)])
+    sources = [t.provider, t.caller, t.data]
+    monkeypatch.setattr(lane, "gate_many", lambda ss:
+                        {s: "byte mismatch" if s == t.caller and failure == "byte" else None for s in ss})
+    monkeypatch.setattr(lane, "adoption_problems", lambda name, s, header, gate: [gate(s)] if gate(s) else [])
+    monkeypatch.setattr(lane, "link_ok", lambda ss:
+                        {s: (False if failure == "link" else None) if s == t.caller and failure in ("link", "unknown")
+                         else True for s in ss})
+    retired = []
+    monkeypatch.setattr(lane, "retire_rows", lambda done: retired.append(done) or 0)
+    assert lane.accept("Point", sources) == (failure != "none")
+    assert retired == ([{("Point", s) for s in sources}] if failure == "none" else [set()])
+
+
+def test_multiple_renames_of_one_provider_keep_all_dependencies(dependency_tree, monkeypatch):
+    t = dependency_tree
+    import name_dependents as nd
+    other = "?other@Owner@@QAE?AUPoint@@XZ"
+    rows = t.rows + [{**t.rows[0], "name": other, "target_rva": "0x1100"}]
+    changed = [{**r, "name": t.new if r["name"] == t.old else other + "New" if r["name"] == other else r["name"]}
+               for r in rows]
+    monkeypatch.setattr(nd, "dependents_by_name", lambda *args: {t.old: {t.caller}, other: {t.data}})
+    items = [(t.provider, None, None, [(t.old, t.new)]), (t.provider, None, None, [(other, other + "New")])]
+    assert lane.adoption_dependencies(items, rows, changed) == {t.provider: {t.old: [t.caller], other: [t.data]}}
+
+
+def test_acceptance_checks_each_name_at_a_folded_row_address(dependency_tree, monkeypatch):
+    t = dependency_tree
+    import name_dependents as nd
+    rows = t.rows + [{**t.rows[0], "name": "?folded@@YAXXZ"}]
+    t.write_rows(t.ledger, rows, list(rows[0]))
+    baseline = t.ledger.read_bytes()
+    monkeypatch.setattr(nd, "git_bytes", lambda *args: baseline)
+    lane.rewrite_ledger([(t.old, t.new)])
+    assert lane.acceptance_dependencies([t.provider]) == {t.provider: {t.old: [t.caller, t.data]}}
+
+
+def test_dependency_blockers_propagate_transitively_but_preserve_unrelated_work():
+    plan = {"provider.cpp": {"old": ["middle.cpp"]}, "middle.cpp": {"other": ["outside.cpp"]}}
+    blocked = lane.dependency_blockers(plan, ["provider.cpp", "middle.cpp", "unrelated.cpp"])
+    assert set(blocked) == {"provider.cpp", "middle.cpp"}
+    assert all("outside.cpp" in why for why in blocked.values())
+
+
+def test_bulk_link_refusal_cannot_publish_only_half_a_dependency_group(dependency_tree, monkeypatch):
+    t = dependency_tree
+    unrelated = "Code/unrelated.cpp"
+    (t.root / unrelated).write_text("// unrelated original\n")
+    sources = [t.provider, t.caller, unrelated]
+    originals = {s: (t.root / s).read_bytes() for s in sources}
+    best = dict(verdicts=dict.fromkeys(sources), texts=dict.fromkeys(sources, "// adopted\n"),
+                renames={t.provider: [(t.old, t.new)]}, header="class Point {};\n",
+                dependencies={t.provider: {t.old: [t.caller]}})
+    prepared = dict(results={"data": best}, winner="data", header="Point.h", sources=sources,
+                    contract={"class": "Point", "fields": []}, evidence={})
+    monkeypatch.setattr(lane, "REGISTRY", t.root / "reverse/canonical_classes.csv")
+    monkeypatch.setattr(lane, "QUEUE", t.root / "reverse/header_queue.tsv")
+    monkeypatch.setattr(lane.class_contract, "CONTRACTS", t.root / "reverse/class_contracts")
+    monkeypatch.setattr(lane, "claim_rewrites", lambda *args: [])
+    monkeypatch.setattr(lane, "register", lambda *args: None)
+    queued, renamed, committed = {}, [], []
+    monkeypatch.setattr(lane, "write_queue", lambda name, header, failures: queued.update(failures))
+    monkeypatch.setattr(lane, "rewrite_ledger", lambda names: renamed.extend(names))
+    ctx = dict(link_check=lambda ss: {s: s != t.caller for s in ss}, trailers=[],
+               commit=lambda paths, message: committed.append(paths) or (True, "commit", ""))
+    status, _, _ = lane.bulk_land("Point", prepared, ctx)
+    assert status == "adopted"
+    assert unrelated in committed[0] and not {t.provider, t.caller} & set(committed[0])
+    assert "symbol dependencies" in queued[t.provider]
+    assert queued[t.caller].startswith("link regression")
+    assert not renamed
+    assert (t.root / t.provider).read_bytes() == originals[t.provider]
+    assert (t.root / t.caller).read_bytes() == originals[t.caller]
 
 
 @pytest.fixture(params=[("Coord2D", "Coord2DCtorView"),
@@ -856,8 +1107,8 @@ def test_tournament_strips_every_class_the_header_brings(tmp_path, monkeypatch):
     monkeypatch.setattr(lane, "ROOT", tmp_path)
     (tmp_path / "Leaf.h").write_text("class Base { };\nclass Leaf : public Base { };\n")
     seen = []
-    monkeypatch.setattr(lane, "try_unit", lambda s, strip, header, key: seen.append(list(strip)) or (s, None, "", []))
-    monkeypatch.setattr(lane, "try_renamed", lambda items, jobs: {})
+    monkeypatch.setattr(lane, "try_units", lambda sources, strip, header, key, jobs, **kw:
+                        seen.append(list(strip)) or [(s, None, "", []) for s in sources])
     monkeypatch.setattr(lane, "registered", lambda: {})
     lane.tournament("Leaf", {"fields": [], "key": "class"}, ["u.cpp"], "Leaf.h", ["registered"], 1, fixed_header=True)
     assert seen == [["Leaf", "Base"]]
