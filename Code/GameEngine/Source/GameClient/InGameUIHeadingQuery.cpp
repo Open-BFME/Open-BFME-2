@@ -20,17 +20,7 @@ static inline float lengthSqr2D(const Coord3D &c)
 	return c.x * c.x + c.y * c.y;
 }
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-private:
-	friend class InGameUI;
-	char m_pad000[0x38];
-	Coord3D m_position;			// +0x38
-	char m_pad044[0x1C0 - 0x44];
-	float m_orientation;		// +0x1C0
-};
+#include "../GameLogic/Object/object.h"
 
 class InGameUI
 {
@@ -46,12 +36,12 @@ private:
 float InGameUI::rva0029B3C1(const Object *obj) const
 {
 	if (!m_overrideHeading)
-		return obj->m_orientation;
+		return obj->m_1c0;
 	Coord3D dir;
 	dir.set(&m_headingTarget);
 	dir.sub(obj->getPosition());
 	if (lengthSqr2D(dir) < 1.0f)
-		return obj->m_orientation;
+		return obj->m_1c0;
 	else {
 		dir.Normalize2D();
 		if (dir.y < 0.0f)

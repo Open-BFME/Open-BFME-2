@@ -273,11 +273,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_25 = 0x25
 };
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-};
+#include "../GameLogic/Object/object.h"
 class StateMachine
 {
 public:

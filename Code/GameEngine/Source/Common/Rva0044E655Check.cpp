@@ -17,12 +17,7 @@ class BfmeVirtualSlots<0>
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
-class Object
-{
-public:
-	char m_pad00[0x258];
-	AIUpdateInterface *m_ai258;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva0044E655
 {
@@ -39,7 +34,7 @@ private:
 
 bool Rva0044E655::rva0044E655()
 {
-	AIUpdateInterface *ai = m_obj08->m_ai258;
+	AIUpdateInterface *ai = m_obj08->m_ai;
 	if (ai == 0)
 		return true;
 	if (m_7F != 0)

@@ -1,11 +1,7 @@
 // cl: /MD
 // ?Rva005D7860Check@@YG_NPAVObject@@@Z @0x005D7860 101B via vtable slot 6 class Rva005D7855 gap between dtor and deleting dtor; callees rowed getControllingPlayer get rva002A7461; floats g_Va00BBB8D8 length_estimate_factor.
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 class Rva002A7389
 {
 public:

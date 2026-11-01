@@ -4,10 +4,7 @@
 class Object;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 class Rva005EE816 { public: unsigned rva005EE3B0(Object *obj, bool flag); };
-class Object {
-public:
-	AIUpdateInterface *getAI() const { return *(AIUpdateInterface *const *)((const char *)this + 0x258); }
-};
+#include "../GameLogic/Object/object.h"
 class Rva005EE30C { public: virtual ~Rva005EE30C(); };
 class Rva005D9C6C : public Rva005EE30C {
 public:

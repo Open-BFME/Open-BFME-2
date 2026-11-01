@@ -22,12 +22,7 @@ struct AIUpdateInterface
 	AICommandInterface m_cmd;
 };
 
-class Object
-{
-public:
-	char m_pad[0x258];
-	AIUpdateInterface *m_ai;
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva0048AEC6Pair
 {

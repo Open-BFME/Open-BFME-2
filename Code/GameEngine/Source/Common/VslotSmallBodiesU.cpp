@@ -212,11 +212,7 @@ enum UpdateSleepTime
 {
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-};
+#include "../GameLogic/Object/object.h"
 class Rva004DF897Iface
 {
 public:

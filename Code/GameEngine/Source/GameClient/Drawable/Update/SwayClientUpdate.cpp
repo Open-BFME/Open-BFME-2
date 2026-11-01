@@ -48,16 +48,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BURNED = 11
 };
-class Object
-{
-public:
-	Bool testStatus(ObjectStatusTypes bit) const;
-	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-
-private:
-	unsigned char m_pad000[0x438];
-	UnsignedByte m_privateStatus; // +0x438
-};
+#include "../../../GameLogic/Object/object.h"
 class Drawable
 {
 public:

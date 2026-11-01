@@ -23,10 +23,7 @@ public:
 	unsigned char m_pad[0x118];
 	UnsignedInt m_status;
 };
-class Object {
-public:
-	Drawable *getDrawable() const;
-};
+#include "../GameLogic/Object/object.h"
 class TintDrawableFXNugget {
 public:
 	virtual void v00();

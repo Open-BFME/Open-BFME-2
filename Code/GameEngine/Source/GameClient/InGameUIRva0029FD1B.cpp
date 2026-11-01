@@ -25,11 +25,7 @@ public:
 	Object *rva002AC629();
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Shadow
 {

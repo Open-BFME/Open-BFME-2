@@ -25,11 +25,7 @@ public:
 
 class Player;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 template<int N>
 class BitFlags

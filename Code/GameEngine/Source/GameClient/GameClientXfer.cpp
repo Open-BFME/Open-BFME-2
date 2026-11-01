@@ -108,15 +108,7 @@ private:
 
 #include "../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-public:
-	ObjectID getID() const { return m_id; }
-
-private:
-	char m_pad060[0x74 - 0x60];
-	ObjectID m_id; // +0x74
-};
+#include "../GameLogic/Object/object.h"
 
 enum DrawableStatus
 {

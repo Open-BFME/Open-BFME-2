@@ -18,11 +18,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes bit) const;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "GameLogicObjectLookupView.h"
 

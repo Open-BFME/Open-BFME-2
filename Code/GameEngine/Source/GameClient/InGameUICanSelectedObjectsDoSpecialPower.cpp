@@ -40,11 +40,7 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
-class Object
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

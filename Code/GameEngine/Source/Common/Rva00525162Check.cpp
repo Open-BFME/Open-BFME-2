@@ -6,12 +6,7 @@
 
 enum ObjectStatusTypes;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool testStatus(ObjectStatusTypes bit) const;
-};
+#include "../GameLogic/Object/object.h"
 
 unsigned char __stdcall Rva00525162Check(Object *obj)
 {

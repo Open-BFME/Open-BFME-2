@@ -23,11 +23,7 @@ public:
 	int m_playerIndex;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 // setPlayerIndex on the event: rowed dword-slot setter 0x0033F15D.
 class Rva0033F15DDwordSlot

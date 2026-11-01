@@ -12,11 +12,7 @@ public:
 	int m_playerType;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva004A9715
 {

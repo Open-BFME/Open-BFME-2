@@ -7,11 +7,7 @@
 // selects a local-player object with kind bit 14, reconciles button visibility
 // and fades, then updates each non-null button's owned updater.
 class Player;
-class Object
-{
-public:
-    Player *getControllingPlayer() const;
-};
+#include "../../../../GameLogic/Object/object.h"
 
 class BfmeMemberRV;
 class BfmeThingRV

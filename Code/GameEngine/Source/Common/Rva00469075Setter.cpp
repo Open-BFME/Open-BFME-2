@@ -10,9 +10,7 @@ enum UpdateSleepTime
 
 #include "Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "../GameLogic/Object/object.h"
 
 class UpdateModule
 {

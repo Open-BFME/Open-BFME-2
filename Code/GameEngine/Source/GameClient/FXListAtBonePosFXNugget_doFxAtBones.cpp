@@ -30,11 +30,7 @@ public:
 #include "../../Include/GameClient/Drawable.h"
 
 
-class Object : public Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva001DFEAABase
 {

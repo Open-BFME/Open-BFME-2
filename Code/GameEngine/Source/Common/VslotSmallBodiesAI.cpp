@@ -354,11 +354,7 @@ private:
 	void *m_0c;
 	int m_10;
 };
-class Object
-{
-public:
-	virtual void *deleteInstance(int flags);
-};
+#include "../GameLogic/Object/object.h"
 class Rva00575674
 {
 public:

@@ -41,11 +41,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_COUNT
 };
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes bit, bool flag);
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva004DF2E2
 {

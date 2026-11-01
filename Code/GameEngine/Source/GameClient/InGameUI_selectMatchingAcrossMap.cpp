@@ -76,12 +76,7 @@ public:
 	unsigned char m_kindFlags;
 };
 
-class Object
-{
-public:
-	void *m_vptr;
-	ThingTemplate *m_template;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

@@ -78,11 +78,7 @@ public:
 
 #include "GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	void rva0028BC4D();
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva002E2F39Owner
 {

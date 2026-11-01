@@ -21,13 +21,7 @@ enum KindOfType
 {
 	KINDOF_INVALID = -1
 };
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-	bool rva0029493F(Object *victim, int mode);
-	bool isKindOf(KindOfType t) const;
-};
+#include "../GameLogic/Object/object.h"
 struct Rva00349D02Machine
 {
 	char m_pad00[0x14];

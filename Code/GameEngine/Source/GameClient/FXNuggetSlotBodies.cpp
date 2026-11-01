@@ -24,16 +24,7 @@
 
 class Matrix3D;
 
-class Object
-{
-public:
-	virtual ~Object();
-	const Coord3D *getPosition() const { return &m_position; }
-
-private:
-	unsigned char m_pad04[0x38 - 4];
-	Coord3D m_position; // +0x38
-};
+#include "../GameLogic/Object/object.h"
 
 class View
 {

@@ -5,11 +5,7 @@
 // then sets byte 28 of TheControlBar (owned global VA E01CFC). The
 // original callback owner/name and meaning of status 100 are unknown.
 enum ObjectStatusTypes;
-class Object {
-public:
-    bool testStatus(ObjectStatusTypes) const;
-    void setStatus(ObjectStatusTypes, bool);
-};
+#include "../../../GameLogic/Object/object.h"
 class ControlBar;
 extern ControlBar *TheControlBar;
 struct Rva0035B6C8ControlBarPrefix {

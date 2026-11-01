@@ -407,11 +407,7 @@ public:
 	char m_pad00[0x54];
 	Int m_54;
 };
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 // slot at VA 0x00C4B568 slot 6 (offset 0x18) of Rva004886C7 (vtable 0x0084B568,
 // class of ??0Rva004886C7@@QAE@PAVStateMachine@@@Z from AIStateHashCtorsMisc):

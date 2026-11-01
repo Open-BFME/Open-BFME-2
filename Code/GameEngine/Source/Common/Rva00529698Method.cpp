@@ -6,11 +6,7 @@
 // Evidence: callers none; callees all rowed; prev/next share Rva0052936C family.
 #include "ascii_string.h"
 
-class Object
-{
-public:
-	virtual void *deleteInstance(int flags);
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva00575674
 {
