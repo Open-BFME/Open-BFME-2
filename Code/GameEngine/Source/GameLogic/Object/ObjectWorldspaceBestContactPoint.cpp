@@ -21,14 +21,7 @@ typedef unsigned int UnsignedInt;
 #include "Lib/Coord3D.h"
 
 static __forceinline void ContactSet(Coord3D *out,float x,float y,float z){out->x=x;out->y=y;out->z=z;}
-struct Vector3
-{
-	Vector3() {}
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct Vector4
 {

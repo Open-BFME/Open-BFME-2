@@ -123,16 +123,7 @@ public:
 	Real Row[3][4];
 };
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3 &operator-=(const Vector3 &v) { X -= v.X; Y -= v.Y; Z -= v.Z; return *this; }
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // WWMath's Matrix3D * Vector3 and Get_Translation.
 static inline Vector3 operator*(const Matrix3D &A, const Vector3 &a)
