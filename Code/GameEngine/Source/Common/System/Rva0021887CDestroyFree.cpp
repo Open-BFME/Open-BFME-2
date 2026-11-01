@@ -10,6 +10,7 @@ struct GeometryRecord;
 namespace _STL
 {
 template <class T> void _Destroy(T first, T last);
+template <> void _Destroy<GeometryRecord *>(GeometryRecord *first, GeometryRecord *last);
 }
 
 class Rva0021887C

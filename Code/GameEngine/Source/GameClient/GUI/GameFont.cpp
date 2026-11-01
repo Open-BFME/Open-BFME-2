@@ -239,36 +239,40 @@ struct TargetRef00217D4C;
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
+namespace _STL {
+template <> map<int, void *, less<int>, allocator<pair<const int, void *> > >::map();
+}
+
 class Rva002177CD
 {
 public:
 	~Rva002177CD();
-
 private:
-	unsigned char m_pad[0x18];
+	_STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > m_records;
 };
 
 class Rva002186EBRef
 {
 public:
+	Rva002186EBRef() : m_ref(0) {}
 	~Rva002186EBRef()
 	{
 		if (m_ref)
 			ReleaseTreeHintRef00217D4C(m_ref);
 	}
-
 	TargetRef00217D4C *m_ref;
 };
 
 class Rva002186EB : public Rva0007DF07
 {
 public:
+	Rva002186EB();
 	Rva002186EB(int tag);
 
 private:
 	// +0x04 is Rva0007DF07::m_04 (canonical header).
-	Rva002186EBRef m_08; // +0x08
-	Rva002177CD m_0C; // +0x0C
+	Rva002186EBRef defaults; // +0x08
+	Rva002177CD sizes; // +0x0C
 };
 
 void __cdecl __insertion_sort(Q3SortElem16 *first, Q3SortElem16 *last, Q3SortCompare comp);
