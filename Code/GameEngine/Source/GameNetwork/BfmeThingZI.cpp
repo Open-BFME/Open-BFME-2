@@ -435,12 +435,6 @@ public:
 	void *m_bfmeThing;					// +0x00
 };
 
-class Gen_00929260
-{
-public:
-	BfmeHandleCX bfmeGet(int index) const;
-};
-
 void Rva007F79F0Callback(Rva007E8810Message *message, Rva007F7980Browser *browser);
 
 class Rva007F7A00Sender

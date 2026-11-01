@@ -517,7 +517,6 @@ Xfer *Rva003F2394Xfer(Xfer *,_STL::vector<ScienceType> *);
 class Rva004E075FObj;
 int Rva004E075FGet(Rva004E075FObj *,int);
 class Rva003F1093 { public: CreateAHeroData *rva003F083A(void *); void rva003F1CA2(CreateAHeroData *,bool); void rva003F1CFE(void *,bool); char prefix[0x170]; BuildPlotVector plots; };
-class Rva003F3B28View { public: void rva003F3B28(int); };
 // Native construction tracks an eight-byte zero coordinate temporary in the
 // EH bitmap and then clears its bit without a cleanup call. Keep that lifetime
 // here while using the canonical Coord2D layout and plot-constructor ABI.

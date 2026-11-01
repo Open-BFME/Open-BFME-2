@@ -440,13 +440,6 @@ public:
 	virtual void s00();
 };
 
-class UnicodeStringData
-{
-public:
-	UnsignedByte m_prefix[8];
-	WideChar m_data[1];
-};
-
 enum
 {
 	g_lanGameNameLength = 16,

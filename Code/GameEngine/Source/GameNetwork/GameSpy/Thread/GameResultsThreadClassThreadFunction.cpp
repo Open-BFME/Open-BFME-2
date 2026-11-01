@@ -129,24 +129,6 @@ private:
 // slots are named by index because nothing in the image names them; the shape
 // is fixed by the call site and by GameResultsQueue::getRequest (0x00642440)
 // which pops a request and returns the bool the caller tests.
-struct Rva00641F2EQueueSlots
-{
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual Bool slot34(GameResultsRequest &req);
-};
-
 // BFME 2's Thread_Function asks the queue for a request through vtable slot 0x48
 // (0x0041A8D4; BFME 1's was 0x34), so its SubsystemInterface carries more virtuals.
 struct Rva0041A843QueueSlots

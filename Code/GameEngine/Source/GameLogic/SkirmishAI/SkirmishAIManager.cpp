@@ -183,7 +183,6 @@ public:
 extern GameInfo *TheGameInfo;
 class GameLogic;
 extern GameLogic *TheGameLogic;
-class Rva0023C6A4 { public: bool rva00200084(); };
 void Rva004ECE14Clear();
 class AIGameTeam { public: void addPlayer(const ModuleData *); void rva004E94FB();void rva004E951C(void*); };
 

@@ -41,10 +41,6 @@ class Object;
 #include "Lib/Coord3D.h"
 #include <list>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class BFME2NativeNetwork
-{
-public:
-};
 // The ctor calls 0x001B4E63 and the paired destructor calls 0x001B4E74;
 // both place Snapshot after the twelve-byte subsystem base.
 typedef bool Bool;

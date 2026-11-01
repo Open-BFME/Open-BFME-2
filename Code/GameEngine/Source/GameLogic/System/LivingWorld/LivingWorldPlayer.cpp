@@ -499,14 +499,6 @@ public:
 	unsigned char m_minimum;
 };
 
-class XferException {
-public:
- XferException(int,const char*,...);
- XferException(const XferException&);
- ~XferException();
- char *text; int tag;
-};
-
 Xfer *Rva002E07FAXfer(Xfer*,unsigned int*);
 
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;

@@ -37,7 +37,6 @@ public:
  __forceinline ~Rva004F6093Holder(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
-class Rva001EB769 {public:void rva001EB769() throw();};
 class FreelistProxyHead {public:void setup(const void*,void*);};
 class FreelistPool {public:void*pop();};
 extern FreelistPool g_freelistPool00DB8FEC;

@@ -43,12 +43,6 @@ public:
 	int m_bfme0c; // +0x0C
 };
 
-class BfmeThingCIC
-{
-public:
-	void bfmeGoCIC( void *key, void *value );
-};
-
 class Gen_007e86c0
 {
 public:

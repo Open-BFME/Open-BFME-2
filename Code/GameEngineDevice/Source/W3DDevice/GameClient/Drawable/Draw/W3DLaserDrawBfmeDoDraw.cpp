@@ -72,7 +72,6 @@ public:
 // Address-derived ABI views for BFME methods absent from the shared header.
 // 94F960 adds E0 then tails to 960050, which dereferences its texture argument.
 __declspec(dllimport) __forceinline void bfmeScaleCoord(Coord3D *v, Real s) { v->x *= s; v->y *= s; v->z *= s; }
-class Rva0094F960 { public: void apply(TextureClass *const &); };
 class Rva0094FCF0 { public: void apply(Real, Real); };
 class Rva001048C0
 {

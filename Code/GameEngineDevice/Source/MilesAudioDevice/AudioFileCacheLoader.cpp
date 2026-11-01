@@ -57,7 +57,6 @@ public:
  bool rva00041037(int); bool rva00041055();
 private: void *m_mutex; bool m_flag;
 };
-class Rva0010ECB5 {public: bool rva0010ECB5();};
 class OpenAudioFile {
 public:
  AsciiString m_name;

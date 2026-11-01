@@ -253,15 +253,6 @@ void Rva007F7140Owner::reset()
 }
 
 // --------------------------------------------------- three-field free-and-zero
-class Rva007F9610Holder
-{
-public:
-	void release();
-	int m_a;
-	int m_b;
-	void *m_block;
-};
-
 Rva00802E70Element::Rva00802E70Element()
 {
 	m_value04 = 0;

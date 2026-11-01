@@ -49,19 +49,6 @@ private:
 	int m_count;
 };
 
-class Rva00802470Get
-{
-public:
-	int get(const char *key);
-
-private:
-	char m_pad00[4];
-	Rva00802240Host *m_host;
-	char m_pad08[0x18];
-	Rva00801900Entry *m_entries;
-	int m_count;
-};
-
 int Rva00801900Get::rva008018C0Get(const char *key)
 {
 	const char *k = key;

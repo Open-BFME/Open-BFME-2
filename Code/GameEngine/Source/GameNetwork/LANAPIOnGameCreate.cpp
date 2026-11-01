@@ -37,11 +37,6 @@ extern const Color chatSystemColor;
 // Retail global at VA 0x00E03354. Its no-argument helper at 0x004469D1 is
 // called only on the success path when the pointer is present; called once
 // in the whole image, so the helper identity stays address based.
-struct Rva004469D1Receiver
-{
-	void Rva004469D1Advance( void );
-};
-
 // Rowed callee at 0x004469D1: ?OnGameCreate@AptLanLobby@@QAEXXZ (the LAN
 // lobby screen, named from WorldBuilder's AptLanLobby.cpp). Declared exactly as its owner row spells it;
 // the call casts the global.
