@@ -464,12 +464,7 @@ public:
 	char m_pad00[0x14];
 	Object *m_owner;
 };
-struct State
-{
-public:
-	char m_pad00[0x18];
-	StateMachine *m_machine;
-};
+#include "../../Include/Common/StateMachine.h"
 int rva0034373F(State *state, void *);
 
 

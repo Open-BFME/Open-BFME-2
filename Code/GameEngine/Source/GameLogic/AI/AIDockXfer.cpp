@@ -68,14 +68,7 @@ public:
 };
 
 // The state base: only its virtual table matters to these bodies.
-class State
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/Common/StateMachine.h"
 
 enum ObjectID
 {
