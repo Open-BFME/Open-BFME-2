@@ -14,13 +14,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-class Rva0023DAA5List : public _STL::list<int, _STL::allocator<int> >
-{
-public:
-	~Rva0023DAA5List();
-	void clear();
-};
-
 class AsciiStringMember
 {
 public:

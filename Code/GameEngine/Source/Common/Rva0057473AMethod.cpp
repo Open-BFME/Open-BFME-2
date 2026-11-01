@@ -87,8 +87,3 @@ public:
 	virtual int rva005CB265();
 };
 
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};

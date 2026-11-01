@@ -33,13 +33,6 @@ public:
 	void *m_ptr;
 };
 
-class Rva001FF3A9
-{
-public:
-	virtual void rva001FF3A9_slot0();
-	void rva001FF3A9(const TreeHintRef00217D4C &hint);
-};
-
 struct Rva0057473AOuter
 {
 	char m_pad[0x20];

@@ -35,14 +35,6 @@ template <> struct _Base_bitset<32>
 };
 }
 
-class Rva0033A453
-{
-public:
-	bool rva0033A453(const void *required, const void *exempt) const;
-};
-
-
-
 class Player
 {
 public:

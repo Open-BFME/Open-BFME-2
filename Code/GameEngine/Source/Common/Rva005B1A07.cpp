@@ -17,13 +17,6 @@ class Rva005B129FVector {
 public:
     Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
 };
-class Rva005B129FClass
-{
-public:
-	int m_0;
-	int m_4;
-};
-
 namespace _STL
 {
 // Bind the growth path to the rowed fill_insert 0x005B1748

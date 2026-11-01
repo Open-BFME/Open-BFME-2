@@ -65,12 +65,6 @@ public:
     bool hasTeamAchievedVictory(int key);
 };
 
-struct Rva004FCD49Vec {
-    void *vtbl;
-    _STL::vector<int> m_vec;
-    int m_10;
-};
-
 class Rva004FD448 {
 public:
     void rva004FD571(int key, _STL::vector<const ModuleData *> *records, int *out) const;

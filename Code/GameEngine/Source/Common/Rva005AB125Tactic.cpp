@@ -24,13 +24,6 @@
 AsciiString StartWoTRBattleTacticHasRun("StartWoTRBattleTacticHasRun");
 #pragma inline_depth()
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
 // BFME2's Xfer: operator== overloads, grouped by cl at the first overload

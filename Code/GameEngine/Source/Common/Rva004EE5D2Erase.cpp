@@ -28,12 +28,6 @@ Rva002B7250 g_00E04424;
 extern Rva002B7250 g_registryAtE02E88;
 Rva002B7250 g_00E044F0;
 
-class BfmeSelectionState
-{
-public:
-	bool isSelectionLocked()const;
-};
-
 #include <time.h>
 
 #include "../../Include/Common/LivingWorldScoreKeeper.h"

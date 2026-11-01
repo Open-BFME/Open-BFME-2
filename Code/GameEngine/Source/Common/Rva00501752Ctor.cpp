@@ -7,14 +7,6 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-struct Rva005011DA
-{
-	void *m_start;
-	void *m_finish;
-	void *m_end;
-	~Rva005011DA();
-};
-
 struct Rva00501776
 {
 	char m_pad[0x14];

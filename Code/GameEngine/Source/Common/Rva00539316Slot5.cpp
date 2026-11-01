@@ -39,12 +39,6 @@ public:
 	unsigned int m_index;
 };
 
-class Rva001FF3A9
-{
-public:
-	virtual void rva001FF3A9();
-};
-
 class Rva00539316Elem
 {
 public:

@@ -5,13 +5,6 @@
 // subss plus stores to 12B local, Coord2D GetLength row 0x0000599F on XY part,
 // fld plus fcompi plus jb returning AL 1 when dist >= length. Callers 0x004C21A9
 // plus self-neighbour. Honest address name.
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"

@@ -23,11 +23,6 @@ public:
 private:
 	unsigned int m_layout[3];
 };
-class Rva00574815
-{
-public:
-	void rva005CBB4A(int first, int second, int third);
-};
 class Rva005CBB4A { public: void rva005CBB4A(void *map, int point, int mode); }; // rowed 0x005CBB4A
 class Rva005ED28AAddDwordField
 {

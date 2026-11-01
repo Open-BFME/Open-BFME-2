@@ -317,13 +317,6 @@ public:
 	bool rva003F0259(SpawnArmy *ctx);
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *index);
-	int rva002B65B7(SpawnArmy *ctx, Rva002E2903Player *player, int v);
-};
-
 struct Rva004FAA81Target
 {
 	char m_pad[0x13C];

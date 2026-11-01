@@ -11,11 +11,6 @@ class Rva00518359
 public:
 	void rva00518359();
 };
-class Rva00222479ByteOneSetter
-{
-public:
-	void enable();
-};
 void __cdecl Rva00518262Enable(void);
 class Rva002E4272
 {

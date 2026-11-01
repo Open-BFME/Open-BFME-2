@@ -5,13 +5,6 @@ enum ObjectID
 	OBJECTID_INVALID = 0
 };
 
-struct BridgeBehaviorObjectIDNode
-{
-	BridgeBehaviorObjectIDNode *m_next;
-	BridgeBehaviorObjectIDNode *m_prev;
-	ObjectID m_value;
-};
-
 class Rva002A1B6FNativeList
 {
 public:

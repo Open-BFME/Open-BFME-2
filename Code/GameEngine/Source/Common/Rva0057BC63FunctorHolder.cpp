@@ -56,9 +56,3 @@ void Rva0057BC63FunctorWrapper::invoke() {
     (m_binding.m_target->*m_binding.m_method)();
 }
 
-class Rva0057BC63FunctorHolder
-{
-public:
-	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
-	Rva0057BC63FunctorWrapper *m_ptr;
-};
