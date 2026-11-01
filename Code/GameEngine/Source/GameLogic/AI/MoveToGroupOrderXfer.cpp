@@ -121,15 +121,7 @@ struct RGBAColorInt;
 
 extern Xfer &XferObjectID(Xfer *xfer, ObjectID *id);
 
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 typedef _STL::pair<ObjectID, Coord3D> ObjectCoord3DPair;
 
