@@ -6,7 +6,12 @@
 
 #include <math.h>
 #include <string.h>
-#include <new>
+#include <stddef.h>
+// Preserve the rowed array allocator bindings without the CRT placement
+// operator bodies that conflict with the seed's WWLib declarations.
+void *__cdecl operator new[](size_t size);
+void __cdecl operator delete[](void *pointer);
+
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
