@@ -89,6 +89,7 @@ public:
     void read(ChunkInputStream &s);
     void write(OutputStream &stream);
     unsigned int allocateID(const AsciiString &name);
+    unsigned int getID(const AsciiString &name);
     AsciiString getName(unsigned int id);
 
     Mapping *m_list;
@@ -211,6 +212,7 @@ public:
     void writeInt(int intValue);
     void writeReal(float realValue);
     void writeByte(unsigned char byteValue);
+    void writeArrayOfBytes(char *ptr, int len);
     DataChunkOutput(OutputStream *pOut);
     ~DataChunkOutput();
     void writeAsciiString(const AsciiString &textValue) throw();
