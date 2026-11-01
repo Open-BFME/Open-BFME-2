@@ -11,12 +11,7 @@
 // A data already in the lists (+0x24) skips the refresh when asked to.
 // Layout and constants are retail's; member names are structural.
 
-struct Vector3
-{
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWVegas/WWMath/Vector3Data.h"
 
 #include <math.h>
 

@@ -5,13 +5,7 @@
 // ?Rotate_Vector@Quaternion@@QBEXABVVector3@@PAV2@@Z, retail 0x0015F6D0 (306 bytes, RET 8),
 // the out-of-line copy of quat.h's result-pointer overload, placed right after
 // quat.cpp's operator* (0x0015F5E0); same expansion, each component stored in turn.
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	float X, Y, Z;
-};
+#include "Vector3Data.h"
 
 class Quaternion
 {
