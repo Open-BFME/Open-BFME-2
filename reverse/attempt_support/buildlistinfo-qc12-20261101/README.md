@@ -40,3 +40,5 @@ BuildListInfoCtor.cpp: private view removed in its own normal verified commit; a
 BuildListInfoAssign.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.
 
 BuildListInfo.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.
+
+BuildListInfoParseStructure.cpp: private view removed in its own normal verified commit; all owned native rows and full runtime/virtual-provider graph retained, with only the already disclosed getter duplicate aliases.

@@ -40,29 +40,7 @@ public:
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-class BuildListInfo
-{
-public:
-	BuildListInfo();
-	static void parseStructure(INI *ini, void *instance, void *store, const void *userData);
-
-	void *m_vtable;						// +0x00
-	AsciiString m_buildingName;				// +0x04
-	AsciiString m_templateName;				// +0x08
-	Coord3D m_location;					// +0x0C
-	Coord2D m_rallyPointOffset;				// +0x18
-	float m_angle;						// +0x20
-	bool m_isInitiallyBuilt;				// +0x24
-	unsigned int m_numRebuilds;				// +0x28
-	BuildListInfo *m_nextBuildList;				// +0x2C
-	AsciiString m_script;					// +0x30
-	int m_health;						// +0x34
-	bool m_whiner;						// +0x38
-	bool m_unsellable;					// +0x39
-	bool m_repairable;					// +0x3A
-	bool m_automaticallyBuild;				// +0x3B
-	char m_pad3C[0x80 - 0x3C];
-};
+#include "../../../Include/GameLogic/Bfme2BuildListInfo.h"
 
 // The template-name setter's address-derived row.
 class Rva002AAE81
