@@ -160,13 +160,7 @@ struct Rva00506C82Arg;
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
 
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	char m_pad000[0x864];
-	_STL::vector<int> m_usedStarts;	// +0x864
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class Rva005ADA40Owned

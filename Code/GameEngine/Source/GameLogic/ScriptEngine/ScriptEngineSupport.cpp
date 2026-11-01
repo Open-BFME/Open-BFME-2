@@ -17,7 +17,7 @@ public:
 };
 class Rva002A8A81 { public: float rva002A8A81(void *); };
 struct Rva002A8AB1Record { void *rva002C6ACB(); };
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 struct CombatChainAIDataView { char unknown00[0x54]; float scale; };
 class AI;

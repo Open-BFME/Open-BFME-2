@@ -138,12 +138,7 @@ struct Rva002A8F24Record
 	Rva00049D20 *m_10;		// +0x10
 };
 
-class Rva002A8F24
-{
-public:
-	// LINK: 0x002A8F24 is rowed as void *Rva002A8F24::rva002A8F24(Player *) (Rva002A8F24.cpp); the result is the record.
-	void *rva002A8F24(Player *owner);	// 0x002A8F24
-};
+#include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // What slot 1 hands the pick to: +0x2C the kind of pick.

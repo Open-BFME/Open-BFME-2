@@ -412,12 +412,7 @@ struct Rva002A8AB1Record
 	Rva002C5FE8 *m_164;	// +0x164
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	void *rva002A8F24(Player *player);
-};
+#include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);

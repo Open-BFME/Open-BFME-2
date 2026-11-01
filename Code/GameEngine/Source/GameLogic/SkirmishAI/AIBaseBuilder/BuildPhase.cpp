@@ -13,7 +13,7 @@
 // The final empty test reads current bounds while its loop uses the end pointer
 // captured before the preceding loop, exactly as retail does.
 struct Rva002A8AB1Record {char pad[0x16c];int phase;};
-class Rva002A8F24 {public:Rva002A8AB1Record *rva002A8AB1(void *);};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class Rva004E9378 {public:bool rva004E9378();};

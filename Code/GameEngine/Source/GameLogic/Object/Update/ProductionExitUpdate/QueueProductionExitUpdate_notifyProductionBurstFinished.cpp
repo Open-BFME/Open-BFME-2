@@ -77,11 +77,7 @@ public:
 	int m_5c;
 };
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *x);
-};
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object

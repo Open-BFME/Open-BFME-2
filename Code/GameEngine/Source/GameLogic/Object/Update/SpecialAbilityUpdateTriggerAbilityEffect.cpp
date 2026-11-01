@@ -533,11 +533,7 @@ class SpecialDisguiseUpdate {
   public:
     void rva004B05F5(bool);
 };
-class Rva002A8F24 {
-  public:
-    void UnRegister(Object *);
-    void rva002A9365(Object *);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 // Descriptive bank-only declarations: existing address-named owners need a
 // coherent rename before landing. Never bind a second global at their address.
 extern Rva002A8F24 *TheSkirmishAIManager;

@@ -358,7 +358,7 @@ struct BuilderNames004DFB7E {unsigned char prefix[0x98];_STL::vector<AsciiString
 
 struct Rva002A8AB1Record {unsigned char prefix[0x160];BuilderNames004DFB7E *data;};
 
-class Rva002A8F24 {public:Rva002A8AB1Record *rva002A8AB1(void*);};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 
 struct BuilderTemplate004DFB7E {unsigned char prefix[0x64];AsciiString name;};
 

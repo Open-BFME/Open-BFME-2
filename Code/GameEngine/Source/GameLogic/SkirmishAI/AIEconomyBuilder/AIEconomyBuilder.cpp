@@ -44,12 +44,7 @@ template <> void **vector<void *, allocator<void *> >::erase(void **first, void 
 class EconomyFarmDestroyView { public: virtual void *destroy(int); };
 class Player;
 class CreateAHeroData;
-class Rva002A8F24 {
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *);
-public:
-	void *rva002A8F24(Player *);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 class Rva004DFB55 { public: void rva004DFB55(CreateAHeroData *); };
 
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte

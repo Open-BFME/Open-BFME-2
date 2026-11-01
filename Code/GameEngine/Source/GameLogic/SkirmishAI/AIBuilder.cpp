@@ -208,14 +208,7 @@ class Rva005C4AD1LeaField
 public:
     void *get() const;
 };
-class Rva002A8F24
-{
-public:
-    void *rva002A8F24(Player *);
-    void UnRegister(Object *);
-    void rva002A9365(Object *);
-    Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern int BfmeLogicFramesPerSecond;

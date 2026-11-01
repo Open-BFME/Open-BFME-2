@@ -238,12 +238,7 @@ public:
 	int m_2EC;			// +0x2EC
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	void *rva002A8F24(Player *player);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // 0x004ED748 on the tactic base is rowed as AITactic::end(bool, bool).

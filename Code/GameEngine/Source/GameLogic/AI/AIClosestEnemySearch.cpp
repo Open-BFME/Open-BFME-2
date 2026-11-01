@@ -213,7 +213,7 @@ public:
 
 // The tactical AI registry (0x00DFEEF8) and its per-player lookup 0x002A8AB1.
 struct Rva002A8AB1Record;
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

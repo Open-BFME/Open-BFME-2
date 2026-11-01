@@ -36,7 +36,7 @@ class Rva005C4AD1LeaField{public:void *get()const;};
 struct RoamOwnerStats{char pad[8];Rva005C4AD1LeaField *all;IntMap *targets;};
 struct Rva002A8AB1Record;
 class Player;
-class Rva002A8F24 {public:void *rva002A8F24(Player *);Rva002A8AB1Record *rva002A8AB1(void *);};
+#include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class Rva004EBF4B{public:Coord3D rva004EBF4B();};
 class Rva00295A0FCommands{public:void Rva00295A0FCommand(void*,int,int);};

@@ -67,13 +67,7 @@ struct Rva002A8B59Data
 	float m_4C;
 };
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-	Rva002A8AB1Record *rva002A8AB1(void *key);
-	Rva002A8B59Data *rva002A8B59(void *key);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 

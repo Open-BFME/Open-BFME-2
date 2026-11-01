@@ -96,14 +96,7 @@ struct Rva002A8F24Record
 	int m_10;			// +0x10
 };
 
-class Rva002A8F24
-{
-public:
-	Rva0050535AStore **rva002A8F24(void *owner);
-	Rva002A8F24Record *rva002A8F24Record(void *owner);
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	struct Rva002A8AE4Record *rva002A8AE4(void *owner);
-};
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 
 class GameLogic;
 

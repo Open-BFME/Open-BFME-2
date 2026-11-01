@@ -17,7 +17,7 @@ class Rva00758230 {public:void rva00758230(Rva009A29A0Window*);};
 struct Rva00287C21Other;
 class FireLogicSystem {public:void RegisterObject(Rva00287C21Other*);};
 class LuaDrawableState {public:void rva00333E5B(Object*);};
-class Rva002A8F24 {public:void rva002A9365(Object*);};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 class ShroudManager;
 // TheShroudManager is only an alias of the owned global TheShroudManager (ledger names column); this unit reads the owner through its own view type.
 extern class PartitionManager *TheShroudManager;

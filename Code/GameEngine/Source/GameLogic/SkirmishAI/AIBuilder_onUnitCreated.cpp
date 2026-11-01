@@ -63,12 +63,7 @@ struct Rva002A8AB1Record
     unsigned char gap164[8];
     int difficulty16c;
 };
-class Rva002A8F24
-{
-public:
-    void *rva002A8F24(Player *);
-    Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;
 enum ObjectStatusTypes;

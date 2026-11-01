@@ -48,13 +48,7 @@ struct Coord3D;
 struct AITeamRequirementView;
 struct AITargetView;
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *);
-	void *rva002A8F24(Player *);
-	void *rva002A8B73(void *,int);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class TeamPrototype;

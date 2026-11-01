@@ -311,7 +311,7 @@ Rva00598C3AItem *AIUnitBuilder::createBestUnitToMake()
 
 
 class Player;
-class Rva002A8F24 { public: void *rva002A8F24(Player *); };
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 // Native51B at4DFBED returns the keyed count at node+8 or0; RET4.
 // WB129B860 reads the same AsciiString reference; identity stays address-named.

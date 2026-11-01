@@ -191,11 +191,7 @@ public:
 	void *rva002C6ACB();
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *p);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 
 // Native DFEEF8 is the existing single datum owned by Rva005EEA20Find.cpp.
 extern Rva002A8F24 *TheSkirmishAIManager;

@@ -27,11 +27,7 @@ struct Rva002A8AB1Record
 	char m_pad000[0x160];
 	Rva005DCB32Chances *m_chances;	// +0x160
 };
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-};
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 struct Rva005DCB32Slot

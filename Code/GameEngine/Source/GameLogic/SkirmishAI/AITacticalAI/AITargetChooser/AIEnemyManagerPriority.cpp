@@ -17,7 +17,7 @@
 class Rva005A9562 { public: float rva005A92DE(void *); private: void *m_ptr; };
 #include "wwmath.h"
 struct Rva002A8AB1Record;
-class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
+#include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class Rva004EBF4B { public: Coord3D rva004EBF4B(); };
 Coord3D __cdecl Rva00506CF5(void *, Coord3D *);

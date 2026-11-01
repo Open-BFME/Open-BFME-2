@@ -208,11 +208,7 @@ struct Rva002A8AB1Record
 	void rva002C6A4E(Object *obj);
 	void rva002C6A3D(Object *obj);
 };
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 template <int N> class Rva00455B42Slots : public Rva00455B42Slots<N - 1>
 {

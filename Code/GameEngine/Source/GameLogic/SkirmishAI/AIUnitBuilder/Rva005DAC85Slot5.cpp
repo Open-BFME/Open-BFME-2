@@ -33,12 +33,7 @@ public:
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
 
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
-	Rva002A8AB1Record *rva002A8AB1(void *key);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 class ThingTemplate;

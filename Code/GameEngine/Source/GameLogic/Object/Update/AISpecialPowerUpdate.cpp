@@ -229,11 +229,7 @@ public:
 struct Rva002A8AB1Record;
 
 // 0x002A8AB1 by its row name (Rva002A8AB1.cpp).
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
