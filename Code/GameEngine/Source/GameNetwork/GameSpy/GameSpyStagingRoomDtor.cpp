@@ -12,12 +12,7 @@
 // 0xDC+0xF00=0xFDC landing exactly on first string; sibling Rva004482FB pattern.
 #include "ascii_string.h"
 
-class GameInfo
-{
-public:
-	virtual ~GameInfo();
-	char m_pad[0xDC - 4];
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 
 class Rva00382398
 {

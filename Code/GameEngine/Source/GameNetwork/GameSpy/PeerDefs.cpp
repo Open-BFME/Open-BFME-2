@@ -1522,23 +1522,7 @@ typedef char PeerDefsStagingRoomSize[(sizeof(GameSpyStagingRoom)==0x1020)?1:-1];
 typedef char PeerDefsGameSpyInfoSize[(sizeof(GameSpyInfo)==0x1640)?1:-1];
 
 // Observed slot-name field at+30; other GameSlot fields remain opaque here.
-class GameSlot {
-public:
-    Bool isHuman() const;
-    unsigned char m_unreconstructed[0x30];
-    UnicodeString m_name;
-};
-class GameInfo {
-public:
-    virtual ~GameInfo();
-    virtual void s01(); virtual void s02(); virtual void s03();
-    virtual void s04(); virtual void s05(); virtual void s06();
-    virtual void s07(); virtual void s08(); virtual void s09();
-    virtual void s0A(); virtual void s0B(); virtual void s0C();
-    virtual Int getLocalSlotNum() const;
-    void enterGame();
-    const GameSlot *getConstSlot(Int) const;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 class Rva00381D02 { public: void rva00381D02(void*); };
 class Rva00381CED { public: void rva00381CED(void*); };
 class Rva00382234 { public: void rva00382234(AsciiString); };
