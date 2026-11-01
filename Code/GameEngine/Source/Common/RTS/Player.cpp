@@ -1091,16 +1091,8 @@ GameDifficulty Player::getPlayerDifficulty(void) const
 //-------------------------------------------------------------------------------------------------
 /** Is the nearest supply source safe? */
 //-------------------------------------------------------------------------------------------------
-// ?Player::isSupplySourceSafe present-unmatched
-Bool Player::isSupplySourceSafe( Int minSupplies )
-{
-	// ai query
-	// BFME's Player tail is wider than the recovered Zero Hour declaration.
-	AIPlayer *ai = *reinterpret_cast<AIPlayer **>(reinterpret_cast<char *>(this) + 0x220);
-	if( ai )
-		return ai->isSupplySourceSafe( minSupplies );
-	return true;
-}  // isSupplySourceSafe
+
+  // isSupplySourceSafe
 
 //-------------------------------------------------------------------------------------------------
 /** Is a supply source attacked? */

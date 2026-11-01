@@ -12051,7 +12051,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::getSquadN
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::guardSupplyCenter	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyBuildFacility	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::hasAnyUnits	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::isSupplySourceSafe	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::preTeamDestroy	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::removeObjectFromHotkeySquad	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::removeTeamRelationship	1

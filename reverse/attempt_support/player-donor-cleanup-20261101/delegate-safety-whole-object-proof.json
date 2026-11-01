@@ -1,0 +1,11 @@
+{
+  "base": "d2337ea7d01702453b1e6d1785f0cc1a838e88f2",
+  "before_definitions": 346,
+  "after_definitions": 345,
+  "added": [],
+  "removed": [
+    "?isSupplySourceSafe@Player@@QAE_NH@Z"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
