@@ -169,18 +169,6 @@ struct Rva002A8AB1Record
 	int rva002C7196(const AsciiString &key);
 };
 
-struct Rva005AAB91IDs
-{
-	ObjectID *m_begin;
-	ObjectID *m_end;
-};
-
-class Rva005C4AD1LeaField
-{
-public:
-	void *get() const;
-};
-
 namespace _STL
 {
 template <class T1, class T2> struct pair

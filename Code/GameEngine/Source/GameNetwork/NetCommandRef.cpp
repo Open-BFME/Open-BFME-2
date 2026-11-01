@@ -56,27 +56,6 @@ public:
 // The ack getters are out of line in BFME 2; retail folds the three
 // classes' identical bodies onto 0x004543C6 (byte at +0x1E) and 0x004D5767
 // (word at +0x1C), and isEqualCommandMsg calls them there.
-class NetAckBothCommandMsg : public NetCommandMsg
-{
-public:
-	UnsignedShort getCommandID();
-	UnsignedByte getOriginalPlayerID();
-};
-
-class NetAckStage1CommandMsg : public NetCommandMsg
-{
-public:
-	UnsignedShort getCommandID();
-	UnsignedByte getOriginalPlayerID();
-};
-
-class NetAckStage2CommandMsg : public NetCommandMsg
-{
-public:
-	UnsignedShort getCommandID();
-	UnsignedByte getOriginalPlayerID();
-};
-
 class NetCommandNode
 {
 public:

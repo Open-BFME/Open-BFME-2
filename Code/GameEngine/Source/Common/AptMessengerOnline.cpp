@@ -299,12 +299,6 @@ public:
 	const char *rva0002DFE2(const char *seps, bool *substituted);
 };
 
-class Rva0049B6AE
-{
-public:
-	void append(const char *s, StringBase<char> *b);
-};
-
 class Rva003339CE
 {
 public:
@@ -312,12 +306,6 @@ public:
 
 private:
 	unsigned int m_words[4]; // Native worker clears/accesses the 16-byte bitset.
-};
-
-class Rva003B1017 : public Rva003339CE
-{
-public:
-	void rva003B1017(INI *ini, void *extra);
 };
 
 // ---- from Code/GameEngine/Source/Common/AptMessengerOnline.cpp

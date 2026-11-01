@@ -11,7 +11,6 @@ class BfmeAptValue006DCD20 {
 public: int isKey() const;bool isCIH(bool=false) const; void setGCRootCount(unsigned int);
 };
 class Rva006DBB60ShrNAndField { public: bool get()const; };
-class Rva008A4570Owner { public: bool nameEquals(const char *); };
 class AptBasePtrStack {public: BfmeAptValue006DCD20 *At(int);int count,capacity;BfmeAptValue006DCD20 **elements;};
 struct AptActionInterpreter { AptBasePtrStack stack; };
 extern AptActionInterpreter g_aptDateInterpreter;
@@ -25,13 +24,6 @@ class AptBoolean {public:static AptValue *Create(bool);};
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Constructor storage view only; rowed native ctor initializes all36 bytes.
-class Rva006D6500 {
- unsigned char storage[36];
-public:
- Rva006D6500(int callback);
- static void *operator new(unsigned int n){return g_pChainBlockAllocatorF4->allocBlock(n);}
- static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}
-};
 class BfmeC1062 {public:virtual void bfmeSlot1062C_0();virtual void bfmeSlot1062C_1();};
 extern BfmeC1062 *g_bfmeC1062,*g_bfmeD1062;
 extern unsigned int Rva008A5250LastKey;
@@ -118,7 +110,6 @@ inline void *operator new(unsigned int n,KeyObjectAllocation){return g_pChainBlo
 inline void operator delete(void *p,KeyObjectAllocation size){g_pChainBlockAllocatorF4->freeBlock(p,size);}
 EAStringC *Rva0070B4F0GetString(int);
 AptValue *Rva008A4EA0MakeFloat(float);
-struct KeyAnimationAnalog {unsigned char prefix[0x7c];float leftX,leftY;unsigned char unused[8];float rightX,rightY;};
 AptValue *aptKeyValue();
 AptValue *aptKeyCode();
 AptInteger *aptPackedKeyFieldAt008A5360();

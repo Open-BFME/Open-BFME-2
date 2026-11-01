@@ -92,22 +92,10 @@ public:
 
 #include "../../Include/Common/TeamBFME2.h"
 
-class Rva004EBF4B
-{
-public:
-	Coord3D rva004EBF4B();
-};
-
 struct Rva002A8AB1Record
 {
 	void rva002C717E(const AsciiString &key, int value);
 	int rva002C7196(const AsciiString &key);
-};
-
-struct Rva005AB309IDs
-{
-	ObjectID *m_begin;
-	ObjectID *m_end;
 };
 
 class Rva005C4AD1LeaField

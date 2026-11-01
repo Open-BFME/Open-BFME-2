@@ -110,11 +110,6 @@ public:
 
 // Coord3D's sub and dot as WorldBuilder calls them out of line (WB 0x40b88e
 // and 0x40b7d0); retail inlines both and the canonical header lacks them.
-struct FireCoord3D : public Coord3D
-{
-	void sub(const Coord3D *o) { x -= o->x; y -= o->y; z -= o->z; }
-	float dot(const Coord3D *other) const { return x * other->x + y * other->y + z * other->z; }
-};
 // The area's shape (PolygonTrigger +8): its bounds come back through
 // 0x0030B6E3 and 0x00285B66 tests a cell centre against it.
 #include "../../../../Libraries/Include/Lib/Region2D.h"
@@ -274,21 +269,9 @@ struct Rva00286214Node
 	FireCellCentre m_key;			// +0x18, the cell's centre
 };
 struct Rva002E6EFFPosition;
-class Rva002E6EFFGrid
-{
-public:
-	unsigned int rva00285860(const Rva002E6EFFPosition *position);
-};
-
 #include <new>
 
 // m_cellsOnFire's clear (0x0028662D).
-class Rva0028614C
-{
-public:
-	void rva0028662D();
-};
-
 // The terrain extent TheTerrainLogic's slot 0x30 fills (lo, hi).
 struct Rva00287015Extent
 {

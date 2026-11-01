@@ -95,26 +95,9 @@ void *BfmeThingTVB::bfmeDelTVB(unsigned char flags)
 	return this;
 }
 
-class BfmeSinkTVC
-{
-public:
-	virtual void bfmeV0TVC() = 0;
-	virtual void bfmeV1TVC() = 0;
-	virtual void bfmeV2TVC() = 0;
-	virtual void bfmeDropTVC(void *p, int f) = 0;
-};
-
 class GenAlloc; GenAlloc *Gen007EFFC0();
 void bfmeFreeTVC(void *p, int n);
 
-class BfmeThingTVC
-{
-public:
-	void *bfmeDelTVC(unsigned char flags);
-	int m_bfme00;
-	int m_bfme04;
-	void *m_bfmeItem;
-};
 // ?g_bfmeVftTUA@@3PAPAXA: the global at VA 0xce0f20 is ?vftable_011296B0@@3HA.
 #pragma comment(linker, "/alternatename:?g_bfmeVftTUA@@3PAPAXA=?vftable_011296B0@@3HA")
 

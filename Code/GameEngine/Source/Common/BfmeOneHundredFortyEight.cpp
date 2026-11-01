@@ -8,18 +8,6 @@ public:
 	unsigned char m_bfmeBusy;		// 0x58
 };
 
-class BfmeThingXU
-{
-public:
-	int bfmeFreeXU(void) const;
-};
-
-class BfmeKeyXW
-{
-public:
-	int bfmeDiffersXW(const BfmeKeyXW *other) const;
-};
-
 class BfmeLinkXX;
 
 class BfmeReachXX

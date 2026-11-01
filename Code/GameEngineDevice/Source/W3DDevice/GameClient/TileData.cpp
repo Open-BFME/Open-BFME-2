@@ -81,14 +81,6 @@ public:
 	void rva0011178B(TileData *value);
 };
 
-class MilesAudioManager
-{
-public:
-    virtual int rva0005189D() const;
-    char m_lead[0x678 - sizeof(void *)];
-    int m_value;
-};
-
 BFME_DISP_DWORD_GETTER(Rva00111784DwordField, 0x2AB4)
 
 // ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z @0x00524F35 37B
@@ -112,11 +104,6 @@ public:
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 // Small bodies from .text gaps no Ghidra function covers (thirty-ninth
 // batch; see GapBodiesGE01.cpp). Each begins after its neighbour's padding or
 // ret and ends in its own ret. Retail bytes establish every shape; owning
@@ -131,14 +118,6 @@ extern "C" __declspec(dllimport) int __stdcall AIL_stream_user_data(void *stream
 typedef void (__stdcall *GapStreamCallback)(int value);
 
 // --- 0x001100D6 (18B): leading words differ.
-class Rva001100D6
-{
-public:
-	bool rva001100D6(const Rva001100D6 &other) const;
-private:
-	int m_00;
-};
-
 // --- 0x00111772 (18B): the +0x2AB4 counted object with one more reference.
 struct GapCounted
 {

@@ -130,22 +130,6 @@ BFME_DISP_BYTE_GETTER(Rva001A1520ByteField, 0x11C)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class Rva001F350BFields {
-public: unsigned char isTwo() const;
-private: char unknown[0x0C]; unsigned int value;
-};
-
-class MilesAudioManager
-{
-public:
-    virtual unsigned char rva000515A4() const;
-    virtual unsigned char rva00051896() const;
-    char m_lead[0x6A3 - sizeof(void *)];
-    unsigned char m_6A3;
-    char m_pad6A4[2];
-    unsigned char m_6A6;
-};
-
 BFME_DISP_DWORD_GETTER(Rva001A0F60DwordField, 0x1C0)
 
 BFME_DISP_DWORD_GETTER(Rva001A0F70DwordField, 0x1C4)
@@ -173,11 +157,6 @@ public:
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-class Rva0023C4CEFields {
-public: void setFlags(unsigned int value);
-private: unsigned char unknown[0x114]; unsigned int flags;
-};
-
 // Direct game string allocation helper; imported CRT _strdup is a different binding.
 extern "C" char * __cdecl strdup(const char *);
 

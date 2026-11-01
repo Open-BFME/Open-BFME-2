@@ -163,15 +163,6 @@ struct GapModelView
 	MeshMatDescClass *m_matDesc;							// +0x94
 };
 
-class Rva00144340
-{
-public:
-	unsigned int *getColorArray(int index);
-	Vector2 *getUVArrayByIndex(int index);
-private:
-	GapModelView *m_model;
-};
-
 // --- 0x00144650 (22B): append a present object to the +0x1C multi-list
 // through the rowed GenericMultiListClass::Internal_Add_Tail.
 class MultiListObjectClass;
@@ -208,20 +199,6 @@ struct GapRefList
 	GapRefItem **m_items;									// +0x08
 };
 
-class Rva0015A840
-{
-public:
-	GapRefItem *getMaterial(int i, int stage);
-	GapRefItem *rva0015A890(int i, int stage);
-	GapRefItem *rva0015A960(int i, int stage) const;
-private:
-	char m_pad00[0xA8];
-	GapRefItem *m_materials[4];
-	GapRefItem *m_B8[12];
-	GapRefList *m_E8[8];
-	GapRefList *m_108[8];
-};
-
 // --- 0x0015AB00 (49B): counted-pointer assignment: add a reference to the
 // new object, release the old one (slot 0 when the count reaches zero).
 class GapCountedObject
@@ -229,14 +206,6 @@ class GapCountedObject
 public:
 	virtual void Delete_This();
 	int m_refs;												// +0x04
-};
-
-class Rva0015AB00
-{
-public:
-	Rva0015AB00 &rva0015AB00(const Rva0015AB00 &that);
-private:
-	GapCountedObject *m_object;
 };
 
 // --- 0x0015DFB0 (24B): copy a three-word value into +0x0C.

@@ -78,14 +78,6 @@ typedef int Int;
 
 typedef unsigned int UnsignedInt;
 
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
-};
-
 class NameKeyGenerator
 {
 public:
@@ -180,18 +172,6 @@ public:
 };
 
 class W3DTruckDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class W3DTankDrawModuleData : public W3DModelDrawModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-class W3DQuadrupedDrawModuleData : public W3DModelDrawModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);

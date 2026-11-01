@@ -62,18 +62,6 @@ private:
 	BfmeItemDC *m_bfmeItem;			// 0x0
 };
 
-class BfmeThingDD
-{
-public:
-	void bfmeGoDD(int first, int second, int third, int fourth);
-};
-
-class BfmeThingDF
-{
-public:
-	int bfmeDropDF(void);
-};
-
 struct BfmeThingDG;
 
 class BfmeTargetDG;
@@ -159,17 +147,6 @@ public:
 	TexturePtr        m_ptr08;
 	Member0C00739C70  m_member0c;
 	int               m_flags;
-};
-
-class Owner00739C90
-{
-public:
-	void cleanup();
-
-	char         m_pad0[ 0x28 ];
-	bool         m_dirty28;
-	char         m_pad29[ 0x1B ];
-	Rva00739C70 *m_subObject;
 };
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/surfaceclass.cpp
