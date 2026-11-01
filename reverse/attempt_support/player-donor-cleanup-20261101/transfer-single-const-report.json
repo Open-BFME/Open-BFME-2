@@ -1,0 +1,167 @@
+{
+  "label": "removed-with-single-const-keeper",
+  "rows": 12,
+  "matched": 12,
+  "misses": [],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\7dd318a7e2dd5af8.obj",
+  "source_unchanged": true,
+  "control_external_code_definitions": 344,
+  "candidate_external_code_definitions": 327,
+  "added_external_code": [],
+  "changed_retained_external_code": [],
+  "all_retained_external_code_identical": true,
+  "added_runtime_data_section_variants": [
+    {
+      "name": ".data",
+      "size": 64,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_C@_09PPNHOLKJ@Available?$AA@"
+        ],
+        [
+          4,
+          6,
+          "??_C@_08JGILNPHN@Disabled?$AA@"
+        ],
+        [
+          8,
+          6,
+          "??_C@_06FHBILLDG@Hidden?$AA@"
+        ],
+        [
+          16,
+          6,
+          "??_C@_04DFAHIJNB@SELF?$AA@"
+        ],
+        [
+          20,
+          6,
+          "??_C@_06GEKNHHBI@ALLIES?$AA@"
+        ],
+        [
+          24,
+          6,
+          "??_C@_07BBLJLDBH@ENEMIES?$AA@"
+        ],
+        [
+          28,
+          6,
+          "??_C@_08BEEKKHM@NEUTRALS?$AA@"
+        ],
+        [
+          32,
+          6,
+          "??_C@_07BLBMOCHF@SUICIDE?$AA@"
+        ],
+        [
+          36,
+          6,
+          "??_C@_0M@MBNEMAGD@NOT_SIMILAR?$AA@"
+        ],
+        [
+          40,
+          6,
+          "??_C@_0N@DACDPBME@NOT_AIRBORNE?$AA@"
+        ],
+        [
+          48,
+          6,
+          "?bfme_force_ScienceVec_erase@@YAPAW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@PAW41@@Z"
+        ],
+        [
+          56,
+          6,
+          "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ"
+        ],
+        [
+          60,
+          6,
+          "?getDefaultTeam@Player@@QAEPAVTeam@@XZ"
+        ]
+      ],
+      "symbols": [
+        "?bfme_force_ScienceVec_erase_anchor@@3P6APAW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@PAW41@@ZA",
+        "_TheWeaponAffectsMaskNames",
+        "_ScienceAvailabilityNames",
+        "_SECONDS_PER_LOGICFRAME_REAL",
+        "_bfmePlayerAcademyStatsAnchor",
+        "_bfmePlayerDefaultTeamKeeper"
+      ]
+    },
+    {
+      "name": ".CRT$XCU",
+      "size": 12,
+      "relocations": [
+        [
+          0,
+          6,
+          "_$E129"
+        ],
+        [
+          4,
+          6,
+          "_$E131"
+        ],
+        [
+          8,
+          6,
+          "_$E133"
+        ]
+      ],
+      "symbols": [
+        "_$S130",
+        "_$S132",
+        "_$S134"
+      ]
+    }
+  ],
+  "data_totals": {
+    "control": {
+      ".data": 64,
+      ".rdata": 203,
+      ".bss": 44,
+      ".CRT": 12
+    },
+    "candidate": {
+      ".data": 68,
+      ".rdata": 203,
+      ".bss": 44,
+      ".CRT": 12
+    }
+  },
+  "keeper_records": [
+    {
+      "name": "_bfmePlayerDefaultTeamKeeper",
+      "value": 60,
+      "section": 4,
+      "storage": 3
+    }
+  ],
+  "initializer_symbols": {
+    "control": [
+      "_$E127",
+      "_$E129",
+      "_$E131"
+    ],
+    "candidate": [
+      "_$E129",
+      "_$E131",
+      "_$E133"
+    ]
+  },
+  "default_team_incoming": [
+    {
+      "section": ".data",
+      "offset": 60,
+      "type": 6
+    },
+    {
+      "section": ".debug$F",
+      "offset": 0,
+      "type": 7
+    }
+  ]
+}

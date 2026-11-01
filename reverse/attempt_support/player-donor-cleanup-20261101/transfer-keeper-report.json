@@ -1,0 +1,319 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+  "source_sha256_at_start": "a36bccb65571de9f286dc117df02d41d776cfcf687b323e2da65987eb3bd380c",
+  "source_sha256_at_end": "a36bccb65571de9f286dc117df02d41d776cfcf687b323e2da65987eb3bd380c",
+  "permanent_source_unchanged": true,
+  "private_compiler": "tu_skeleton.Verifier only; no build.compile_source or shared match-cache mutation",
+  "variants": [
+    {
+      "label": "control",
+      "rows": 12,
+      "matched": 12,
+      "misses": [],
+      "errors": [],
+      "object": "C:/Users/clemens/Documents/Experiments/Open-BFME-2/build/tu_skeleton/cfc5664cf6b405b0.obj"
+    },
+    {
+      "label": "removed-only",
+      "rows": 12,
+      "matched": 11,
+      "misses": [
+        "?getDefaultTeam@Player@@QAEPAVTeam@@XZ"
+      ],
+      "errors": [],
+      "object": "C:/Users/clemens/Documents/Experiments/Open-BFME-2/build/tu_skeleton/15561af8febda86a.obj"
+    },
+    {
+      "label": "removed-with-three-keepers",
+      "rows": 12,
+      "matched": 12,
+      "misses": [],
+      "errors": [],
+      "object": "C:/Users/clemens/Documents/Experiments/Open-BFME-2/build/tu_skeleton/21d1d9b9053d5008.obj"
+    }
+  ],
+  "proof": {
+    "control_external_code_definitions": 344,
+    "candidate_external_code_definitions": 327,
+    "added_external_code": [],
+    "removed_external_code": [
+      "??0?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVObject@@@1@@Z",
+      "??0?$allocator@PAVObject@@@_STL@@QAE@XZ",
+      "??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z",
+      "??0AsciiString@@QAE@ABV0@@Z",
+      "??1?$allocator@PAVObject@@@_STL@@QAE@XZ",
+      "??1?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ",
+      "??D?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QBEAAPAVObject@@XZ",
+      "??E?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@_STL@@QAEAAU01@XZ",
+      "?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z",
+      "?begin@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@XZ",
+      "?end@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@XZ",
+      "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@_N@Z",
+      "?getBeaconTemplate@PlayerTemplate@@QBE?AVAsciiString@@XZ",
+      "?getMoney@Player@@QAEPAVMoney@@XZ",
+      "?insert@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObject@@U?$_Nonconst_traits@PAVObject@@@_STL@@@2@U32@ABQAVObject@@@Z",
+      "?push_back@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z",
+      "?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+    ],
+    "changed_retained_external_code": [],
+    "all_retained_whole_bytes_and_symbolic_relocations_equal": true,
+    "runtime_data_sections_before": {
+      ".data": 64,
+      ".rdata": 203,
+      ".bss": 44
+    },
+    "runtime_data_sections_after": {
+      ".data": 68,
+      ".rdata": 203,
+      ".bss": 60
+    },
+    "added_runtime_data_section_variants": [
+      {
+        "section": ".bss",
+        "size": 44,
+        "sha256": "85759b3811ff7dc47b03792ac85317be51431a3f9e01dcafce317ed736a391b0",
+        "relocations": [],
+        "symbols": [
+          {
+            "name": "?TheTeamFactory@@3PAVTeamFactory@@A",
+            "storage": 2,
+            "value": 0
+          },
+          {
+            "name": "_bfmePlayerSkirmishTeams",
+            "storage": 3,
+            "value": 36
+          },
+          {
+            "name": "_bfmeObjectNextTeamMemberKeeper",
+            "storage": 3,
+            "value": 28
+          },
+          {
+            "name": "_bfmePlayerDifficulty",
+            "storage": 3,
+            "value": 20
+          },
+          {
+            "name": "_bfmePlayerSkirmishSides",
+            "storage": 3,
+            "value": 12
+          },
+          {
+            "name": "_bfmeObjectTeamKeeper",
+            "storage": 3,
+            "value": 4
+          }
+        ]
+      },
+      {
+        "section": ".data",
+        "size": 64,
+        "sha256": "394048cfe2b6f20d96de7ab1e6d5f9e6f69838367e909f60cc55f31dda2778cb",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_C@_09PPNHOLKJ@Available?$AA@"
+          ],
+          [
+            4,
+            6,
+            "??_C@_08JGILNPHN@Disabled?$AA@"
+          ],
+          [
+            8,
+            6,
+            "??_C@_06FHBILLDG@Hidden?$AA@"
+          ],
+          [
+            16,
+            6,
+            "??_C@_04DFAHIJNB@SELF?$AA@"
+          ],
+          [
+            20,
+            6,
+            "??_C@_06GEKNHHBI@ALLIES?$AA@"
+          ],
+          [
+            24,
+            6,
+            "??_C@_07BBLJLDBH@ENEMIES?$AA@"
+          ],
+          [
+            28,
+            6,
+            "??_C@_08BEEKKHM@NEUTRALS?$AA@"
+          ],
+          [
+            32,
+            6,
+            "??_C@_07BLBMOCHF@SUICIDE?$AA@"
+          ],
+          [
+            36,
+            6,
+            "??_C@_0M@MBNEMAGD@NOT_SIMILAR?$AA@"
+          ],
+          [
+            40,
+            6,
+            "??_C@_0N@DACDPBME@NOT_AIRBORNE?$AA@"
+          ],
+          [
+            48,
+            6,
+            "?bfme_force_ScienceVec_erase@@YAPAW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@PAW41@@Z"
+          ],
+          [
+            56,
+            6,
+            "?getAcademyStats@Player@@QAEPAVAcademyStats@@XZ"
+          ],
+          [
+            60,
+            6,
+            "?getDefaultTeam@Player@@QAEPAVTeam@@XZ"
+          ]
+        ],
+        "symbols": [
+          {
+            "name": "?bfme_force_ScienceVec_erase_anchor@@3P6APAW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@PAW41@@ZA",
+            "storage": 2,
+            "value": 48
+          },
+          {
+            "name": "_TheWeaponAffectsMaskNames",
+            "storage": 3,
+            "value": 16
+          },
+          {
+            "name": "_ScienceAvailabilityNames",
+            "storage": 3,
+            "value": 0
+          },
+          {
+            "name": "_SECONDS_PER_LOGICFRAME_REAL",
+            "storage": 3,
+            "value": 52
+          },
+          {
+            "name": "_bfmePlayerAcademyStatsAnchor",
+            "storage": 3,
+            "value": 56
+          },
+          {
+            "name": "_bfmePlayerDefaultTeamKeeper",
+            "storage": 3,
+            "value": 60
+          }
+        ]
+      }
+    ],
+    "keeper_symbol_records": [
+      {
+        "name": "_bfmePlayerDefaultTeamKeeper",
+        "value": 60,
+        "section": 4,
+        "storage": 3
+      },
+      {
+        "name": "_bfmeObjectNextTeamMemberKeeper",
+        "value": 28,
+        "section": 3,
+        "storage": 3
+      },
+      {
+        "name": "_bfmeObjectTeamKeeper",
+        "value": 4,
+        "section": 3,
+        "storage": 3
+      }
+    ],
+    "getter_incoming": {
+      "?getDefaultTeam@Player@@QAEPAVTeam@@XZ": [
+        {
+          "section": ".data",
+          "offset": 60,
+          "type": 6,
+          "owners": [
+            ".data",
+            "?bfme_force_ScienceVec_erase_anchor@@3P6APAW4ScienceType@@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@PAW41@@ZA",
+            "_TheWeaponAffectsMaskNames",
+            "_ScienceAvailabilityNames",
+            "_SECONDS_PER_LOGICFRAME_REAL",
+            "_bfmePlayerAcademyStatsAnchor",
+            "_bfmePlayerDefaultTeamKeeper"
+          ]
+        },
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "type": 7,
+          "owners": []
+        }
+      ],
+      "?getTeam@Object@@QAEPAVTeam@@XZ": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "type": 7,
+          "owners": []
+        },
+        {
+          "section": ".text$yc",
+          "offset": 1,
+          "type": 6,
+          "owners": [
+            "_$E129"
+          ]
+        }
+      ],
+      "?dlink_next_TeamMemberList@Object@@QBEPAV1@XZ": [
+        {
+          "section": ".debug$F",
+          "offset": 0,
+          "type": 7,
+          "owners": []
+        },
+        {
+          "section": ".text",
+          "offset": 9,
+          "type": 6,
+          "owners": [
+            "?bfmePlayerMembers@@YA?AVBfmePlayerIter@@PBVTeam@@@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 40,
+          "type": 6,
+          "owners": [
+            "?onUpgradeCompleted@Player@@QAEXPBVUpgradeTemplate@@@Z"
+          ]
+        },
+        {
+          "section": ".text$yc",
+          "offset": 1,
+          "type": 6,
+          "owners": [
+            "_$E131"
+          ]
+        }
+      ]
+    },
+    "deposit_still_undefined": false,
+    "withdraw_still_undefined": true,
+    "crt_initializer_table_bytes": {
+      "control": 12,
+      "candidate": 20
+    },
+    "static_initializer_function_count": {
+      "control": 3,
+      "candidate": 5
+    }
+  },
+  "qualification": "Private probe only, no claims, Git or network. Results are not application or publication approval.",
+  "conclusion": "The three ordinary static keepers preserve all twelve rows but add four initialized-data bytes, sixteen BSS bytes, and two runtime initializers/eight CRT initializer-table bytes. This is not a zero-storage emission keeper. No candidate was applied."
+}

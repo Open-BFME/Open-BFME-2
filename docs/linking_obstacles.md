@@ -58,6 +58,11 @@ Private static-STL profile trials preserve the 12 code rows but introduce
 12–13 new helper variants while leaving 20 non-STL unresolved names. No profile
 is applied. Reconcile the remaining donor users instead of admitting those
 variants; detailed trial verdicts are in the same evidence packet.
+Asset-transfer retirement remains blocked: removing the donor loses the
+seven-byte getter row. Static keepers restore it at a runtime-storage cost,
+and a type-only keeper still loses it. No variant is applied. Reconcile the
+getter's owner/contract, retaining the earlier +160 versus +2EC distinction,
+before deleting that donor; no coverage or storage trade is accepted.
 
 
 ### Six-source Vector4 batch (2026-11-01)

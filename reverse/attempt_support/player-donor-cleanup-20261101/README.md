@@ -135,3 +135,18 @@ preview from 26 unresolved names to 23, with the same vector losing/wrong-select
 copy still present. The preceding publication's broader AIBuildable consumer
 audit remains inconclusive; this scoped check does not clear it or change the
 census. The current AGENTS revision is unchanged (877b481530).
+
+## Asset-transfer donor retirement: blocked, not applied
+
+Removing transferAssetsFromThat alone preserves 11 of 12 code rows but loses
+the seven-byte getDefaultTeam emission. The Object getters survive without
+extra keepers. Three static member-address keepers restore the rows but add
+four data bytes, sixteen BSS bytes and two initializer routines. A single
+const getter keeper still adds four data bytes. A type-only/template-argument
+trial adds no useful solution: only 11 rows match. No trial is applied.
+
+The existing getter row/contract must be reconciled before retiring that donor
+without trading coverage or adding runtime storage. The earlier Player
+contract investigation also distinguishes its +160 getter from +2EC caller
+views; matching bytes do not resolve that naming/layout question. All native
+rows, source flags and runtime data remain unchanged by this investigation.
