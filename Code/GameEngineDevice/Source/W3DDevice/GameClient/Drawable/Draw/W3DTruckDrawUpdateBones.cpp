@@ -47,17 +47,7 @@ public:
 	virtual int Get_Bone_Index(const char *bonename) const;
 };
 
-class Debug
-{
-public:
-	class Format
-	{
-	public:
-		Format(const char *format, ...);
-	private:
-		char m_text[0x200];
-	};
-};
+#include "../../../../../../GameEngine/Source/Common/debug.h"
 
 class TruckBoneReport
 {

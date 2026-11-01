@@ -21,7 +21,7 @@ extern "C" const FieldParse VictorySystemFieldParse[]={
  {"CellBonusRadius",INI::parseReal,0,0x24},
  {0,0,0,0}
 };
-class Debug {public:class Format {public:Format(const char *,...);operator const char *()const{return m_buffer;}char m_buffer[512];};};
+#include "../debug.h"
 extern Debug *theDebug;
 class VictoryDiagnosticStreamView {public:
  virtual void s00();virtual void s04();virtual void s08();virtual void s0C();

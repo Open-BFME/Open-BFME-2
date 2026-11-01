@@ -159,7 +159,7 @@ extern Debug *theDebug;
 bool bfmeRva000387C0();
 
 // Use the already rowed Debug owner for this static member.
-class Debug { public: static bool SkipNext(bool); };
+#include "../../Common/debug.h"
 class Rva003B7836Stream {
 public:
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();

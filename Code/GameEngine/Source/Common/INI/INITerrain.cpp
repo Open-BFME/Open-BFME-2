@@ -72,19 +72,7 @@ public:
 	void *rva003B1820(const StringBase<char> &name);
 };
 
-class Debug
-{
-public:
-	class Format
-	{
-	public:
-		explicit Format(const char *format, ...);
-		operator const char *() const { return m_buffer; }
-
-	private:
-		char m_buffer[512];
-	};
-};
+#include "../debug.h"
 
 class BfmeAwakenLog
 {

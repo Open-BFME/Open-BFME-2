@@ -121,10 +121,7 @@ class PathfindZoneManager{public:void MarkDirty(int,int);};
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic*TheGameLogic;
-class Debug{public:
- virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual void s1C();
- virtual Debug&operator<<(const char*);virtual Debug&operator<<(int);virtual Debug&operator<<(unsigned);virtual Debug&operator<<(long);virtual Debug&operator<<(unsigned long);virtual Debug&operator<<(bool);virtual Debug&operator<<(float);virtual void s3C();virtual void s40();virtual void s44();virtual void s48();virtual bool CrashDone(int);virtual void s50();virtual void s54();virtual void s58();virtual void s5C();virtual void SkipNext();virtual void s64();virtual void s68();virtual Debug&CrashBegin(const char*,int,int);
-};
+#include "../../Common/debug.h"
 extern Debug*theDebug;
 bool bfmeRva000387C0();void _bfme_debugRecordCallsite(int);
 #include <math.h>

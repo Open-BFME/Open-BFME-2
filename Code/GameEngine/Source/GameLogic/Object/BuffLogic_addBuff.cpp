@@ -54,22 +54,7 @@ extern class G00DFF080Obj *TheTerrainVisual;
 // Symbol ?g_00C07D80@@3QBDB, transcribed below.
 extern const char g_00C07D80[] = " requires a W3DBuffDrawModule.\n";
 
-class Debug
-{
-public:
-	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
-	virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
-	virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
-	virtual void pad12(); virtual void pad13();
-	virtual Debug &operator<<(const char *str);
-	virtual void pad15(); virtual void pad16(); virtual void pad17(); virtual void pad18();
-	virtual void CrashDone(int mode);
-	virtual void pad20(); virtual void pad21(); virtual void pad22();
-	virtual void SetCrashAddress(void *returnAddress, int set);
-	virtual void SkipNext();
-	virtual void pad25(); virtual void pad26();
-	virtual Debug &CrashBegin(const char *file, int line, int reserved);
-};
+#include "../../Common/debug.h"
 
 extern Debug *theDebug;
 

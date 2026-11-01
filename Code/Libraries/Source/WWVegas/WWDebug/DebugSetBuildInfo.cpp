@@ -11,18 +11,7 @@
 
 #include <string.h>
 
-class Debug
-{
-public:
-	virtual void SetBuildInfo(const char *version, const char *internalVersion,
-		const char *buildDate);
-
-private:
-	unsigned char m_pad04[0x9E8C];
-	char m_version[64];                  // +0x9E90
-	char m_intVersion[64];               // +0x9ED0
-	char m_buildDate[64];                // +0x9F10
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // ?SetBuildInfo@Debug@@UAEXPBD00@Z
 void Debug::SetBuildInfo(const char *version, const char *internalVersion,

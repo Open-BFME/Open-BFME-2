@@ -12,23 +12,7 @@
 extern void *DebugAllocMemory(unsigned int size);
 
 
-class Debug
-{
-private:
-	struct PatternListEntry
-	{
-		PatternListEntry *next;
-		unsigned int frameTypes;
-		bool isActive;
-		char *pattern;
-	};
-
-	unsigned char m_prefix[0x9E00];
-	PatternListEntry *firstPatternEntry;
-	PatternListEntry *lastPatternEntry;
-
-	void AddPatternEntry(unsigned int types, bool isActive, const char *pattern);
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // ?AddPatternEntry@Debug@@AAEXI_NPBD@Z
 void Debug::AddPatternEntry(unsigned int types, bool isActive, const char *pattern)

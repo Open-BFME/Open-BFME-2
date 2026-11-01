@@ -24,20 +24,7 @@ inline void __cdecl operator delete(void *, void *) throw()
 
 void *DebugAllocMemory(size_t numBytes);
 
-class Debug
-{
-public:
-	virtual ~Debug();
-
-private:
-	Debug();
-
-	static Debug *PreStaticInit();
-
-	unsigned char m_pad04[0x9C78];
-	int refCount;                        // +0x9C7C
-	unsigned char m_pad9C80[0x9F68 - 0x9C80];
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // theDebug: retail .bss 0x00DE0880, the one definition (the other units declare it extern).
 Debug *theDebug;

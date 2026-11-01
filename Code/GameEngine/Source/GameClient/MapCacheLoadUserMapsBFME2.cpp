@@ -42,7 +42,7 @@ class Xfer;enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE,INI_LOAD_CREATE_
 class INI{public:INI();~INI();void load(AsciiString,INILoadType,Xfer*,void(*)(INI*));static void parseMapCacheDefinition(INI*);private:char storage[0x87C];};
 class Rva00300489{public:virtual AsciiString getMapDir()const;};
 class Rva00300D7A{public:AsciiString rva00300D7A();};
-class Debug{public:class Format{public:Format(const char*,...);private:char text[0x200];};};
+#include "../Common/debug.h"
 class RvaLoadUserReport{public:
  virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual RvaLoadUserReport*setText(const char*);virtual void s15();virtual void s16();virtual void s17();virtual void s18();virtual void show(int);
  RvaLoadUserReport&operator<<(const Debug::Format&v){setText((const char*)&v);return *this;}

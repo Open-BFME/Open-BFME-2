@@ -111,17 +111,7 @@ public:
 	const char *rva000B4A9F();
 };
 
-class Debug
-{
-public:
-	class Format
-	{
-	public:
-		Format(const char *format, ...);
-	private:
-		char m_text[0x200];
-	};
-};
+#include "../../../../../../GameEngine/Source/Common/debug.h"
 
 class Rva000BE775Report
 {

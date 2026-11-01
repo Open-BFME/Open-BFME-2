@@ -113,19 +113,7 @@ private:
 // Native2255AD..225616 proves parent id50, 512-byte format buffer and
 // debug slots60/6C(three ints)/38/4C; original BFME2 class naming differs
 // from the existing Watchdog view, retained here without an owner rename.
-class Debug
-{
-public:
-	class Format
-	{
-	public:
-		explicit Format(const char *format, ...);
-		operator const char *() const { return m_buffer; }
-
-	private:
-		char m_buffer[512];
-	};
-};
+#include "../Common/debug.h"
 
 class BfmeAwakenLog
 {

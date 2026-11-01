@@ -2,11 +2,7 @@
 
 // TU-scoped declarations (mirrors Rva0088A7E0UpdateFrameStatus.cpp in this
 // directory, which already calls Debug::SimpleMatch).
-class Debug
-{
-public:
-	static bool SimpleMatch(const char *str, const char *pattern);
-};
+#include "../../../../GameEngine/Source/Common/debug.h"
 
 // BFME wildcard comparison ported from reference/open-bfme-1/.../DebugSimpleMatch.cpp:
 // unlike the Zero Hour body (kept in debug_debug.cpp), BFME folds ASCII
