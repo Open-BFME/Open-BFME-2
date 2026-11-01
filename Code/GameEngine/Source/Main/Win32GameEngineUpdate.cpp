@@ -44,15 +44,7 @@ public:
 	virtual void update();
 };
 
-class LANAPI
-{
-public:
-	BFME_VSLOT(0) BFME_VSLOT(1) BFME_VSLOT(2) BFME_VSLOT(3) BFME_VSLOT(4)
-	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8) BFME_VSLOT(9)
-	virtual void update();
-	BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13)
-	virtual void setIsActive(Bool isActive);
-};
+#include "../../Include/GameNetwork/LANAPI.h"
 
 #undef BFME_VSLOT
 

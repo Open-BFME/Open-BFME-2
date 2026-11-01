@@ -75,67 +75,9 @@ extern GameTextInterface *TheGameText;
 // parameter is an integer window, not a pointer. Semantic identity unproven.
 void Rva00381C82AddChatText( Int window, const UnicodeString &text, Color color );
 
-class LANAPIInterface
-{
-public:
-	enum ReturnType
-	{
-		RET_OK = 0,
-		RET_TIMEOUT,
-		RET_GAME_FULL,
-		RET_DUPLICATE_NAME,
-		RET_CRC_MISMATCH,
-		RET_SERIAL_DUPE,
-		RET_GAME_STARTED,
-		RET_GAME_EXISTS,
-		RET_GAME_GONE,
-		RET_BUSY,
-		RET_UNKNOWN,
-		RET_MAX
-	};
-};
+#include "../../Include/GameNetwork/LANAPI.h"
 
 // Keep only the proven LANAPI prefix and the virtual slots this body needs.
-class LANAPI
-{
-public:
-	virtual void slot00( void ) = 0;
-	virtual void slot01( void ) = 0;
-	virtual void slot02( void ) = 0;
-	virtual void slot03( void ) = 0;
-	virtual void slot04( void ) = 0;
-	virtual void slot05( void ) = 0;
-	virtual void slot06( void ) = 0;
-	virtual void slot07( void ) = 0;
-	virtual void slot08( void ) = 0;
-	virtual void slot09( void ) = 0;
-	virtual void slot10( void ) = 0;
-	virtual void slot11( void ) = 0;
-	virtual void slot12( void ) = 0;
-	virtual void slot13( void ) = 0;
-	virtual void slot14( void ) = 0;
-	virtual void slot15( void ) = 0;
-	virtual void slot16( void ) = 0;
-	virtual void slot17( void ) = 0;
-	virtual void slot18( void ) = 0;
-	virtual void slot19( void ) = 0;
-	virtual void slot20( void ) = 0;
-	virtual void slot21( void ) = 0;
-	virtual void slot22( void ) = 0;
-	virtual void slot23( void ) = 0;
-	virtual void slot24( void ) = 0;
-	virtual void slot25( void ) = 0;
-	virtual void slot26( void ) = 0;
-	virtual void slot27( void ) = 0;
-	virtual void slot28( void ) = 0;
-	virtual void slot29( void ) = 0;
-	virtual void RequestLobbyLeave( Bool forced ) = 0; // slot 30 (+0x78)
-	virtual void OnGameCreate( LANAPIInterface::ReturnType ret );
-
-protected:
-	unsigned char m_beforeLobby[0x41 - 4];
-	Bool m_inLobby; // +0x41
-};
 
 // ?OnGameCreate@LANAPI@@UAEXW4ReturnType@LANAPIInterface@@@Z
 void LANAPI::OnGameCreate( LANAPIInterface::ReturnType ret )

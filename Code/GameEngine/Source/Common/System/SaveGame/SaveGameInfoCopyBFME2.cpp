@@ -286,11 +286,7 @@ class LANGameInfo : public GameInfo
 class GameSpyStagingRoom : public GameInfo
 {
 };
-class LANAPI : public VSlots<56>
-{
-public:
-	virtual LANGameInfo *GetMyGame() = 0;
-};
+#include "../../../../Include/GameNetwork/LANAPI.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern LANAPI *TheLAN;
 extern GameSpyStagingRoom *TheGameSpyGame;

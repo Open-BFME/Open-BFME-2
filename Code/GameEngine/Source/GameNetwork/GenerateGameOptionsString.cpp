@@ -101,11 +101,7 @@ public:
 	Bool amIHost( void ) const;
 };
 
-class LANAPI : public VSlots<56>
-{
-public:
-	virtual LANGameInfo *GetMyGame( void ) = 0;
-};
+#include "../../Include/GameNetwork/LANAPI.h"
 
 extern LANAPI *TheLAN;
 

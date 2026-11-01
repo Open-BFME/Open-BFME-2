@@ -414,47 +414,7 @@ struct BFMEFileTransferAddress
 	unsigned short port;
 	BFMEFileTransferAddress(unsigned int value, unsigned short portValue) : ip(value), port(portValue) {}
 };
-class LANAPI
-{
-public:
-	virtual void unknown00();
-	virtual void unknown04();
-	virtual void unknown08();
-	virtual void unknown0C();
-	virtual void unknown10();
-	virtual void unknown14();
-	virtual void unknown18();
-	virtual void unknown1C();
-	virtual void unknown20();
-	virtual void unknown24();
-	virtual void unknown28();
-	virtual void unknown2C();
-	virtual void unknown30();
-	virtual void unknown34();
-	virtual void unknown38();
-	virtual void unknown3C();
-	virtual void unknown40();
-	virtual void unknown44();
-	virtual void unknown48();
-	virtual void unknown4C();
-	virtual void unknown50();
-	virtual void unknown54();
-	virtual void unknown58();
-	virtual void unknown5C();
-	virtual void unknown60();
-	virtual void unknown64();
-	virtual void unknown68();
-	virtual void unknown6C();
-	virtual void unknown70();
-	virtual void unknown74();
-	virtual void unknown78();
-	virtual void unknown7C();
-	virtual void unknown80();
-	virtual void unknown84();
-	virtual void unknown88();
-	virtual void OnChat(UnicodeString player, const BFMEFileTransferAddress &address,
-		UnicodeString message, int format);
-};
+#include "../../Include/GameNetwork/LANAPI.h"
 extern LANAPI *TheLAN;
 
 class NetFileAnnounceCommandMsg : public NetCommandMsg
