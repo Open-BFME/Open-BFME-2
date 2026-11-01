@@ -286,11 +286,8 @@ private:
 };
 
 // The object's transform at +0x08: three rows of four.
-class Matrix3D
-{
-public:
-	Real Row[3][4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class Drawable
 {
 public:
@@ -1198,9 +1195,9 @@ public:
 
 static __forceinline Vector3 transformSlavedPoint(const Matrix3D &matrix3D, const Vector3 &a)
 {
-	Real ry = matrix3D.Row[1][0] * a.X + matrix3D.Row[1][1] * a.Y + matrix3D.Row[1][2] * a.Z + matrix3D.Row[1][3];
-	Real rz = matrix3D.Row[2][0] * a.X + matrix3D.Row[2][1] * a.Y + matrix3D.Row[2][2] * a.Z + matrix3D.Row[2][3];
-	Real rx = matrix3D.Row[0][0] * a.X + matrix3D.Row[0][1] * a.Y + matrix3D.Row[0][2] * a.Z + matrix3D.Row[0][3];
+	Real ry = matrix3D.Row[1].X * a.X + matrix3D.Row[1].Y * a.Y + matrix3D.Row[1].Z * a.Z + matrix3D.Row[1].W;
+	Real rz = matrix3D.Row[2].X * a.X + matrix3D.Row[2].Y * a.Y + matrix3D.Row[2].Z * a.Z + matrix3D.Row[2].W;
+	Real rx = matrix3D.Row[0].X * a.X + matrix3D.Row[0].Y * a.Y + matrix3D.Row[0].Z * a.Z + matrix3D.Row[0].W;
 	return Vector3(rx, ry, rz);
 }
 
