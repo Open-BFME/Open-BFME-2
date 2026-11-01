@@ -314,11 +314,6 @@ void Rva000791E5Forwarder::rva000791E5(Int firstValue)
 	((W3DHordeModelDrawModuleData *)m_member)->rva00079186(firstValue);
 }
 
-class Rva00210E9DTarget
-{
-public:
-	void rva00210E9D();
-};
 
 // The global at VA 0x00DFE1C8.
 class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
@@ -477,11 +472,6 @@ void Rva0025DEDDForwarder::rva0025DEDD(Int firstValue, Int secondValue, Int thir
 	((Rva004D0E93 *)m_member)->rva004D0E93(firstValue, secondValue, *(const UnicodeString *)thirdValue);
 }
 
-class Rva002034E9Target
-{
-public:
-	void rva002034E9();
-};
 
 // The global at VA 0x00DFE78C.
 extern class GameLogic *TheGameLogic;

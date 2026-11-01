@@ -6,15 +6,6 @@
 // recovered caller. Callees are the rowed bodies the retail jmp targets.
 
 // ?rva00531041@Rva00531041@@QAEXXZ @0x00531041 9B: clear +0x10 then +0x0C.
-class Rva00531041
-{
-public:
-	void rva00531041();
-private:
-	char m_pad[0xc];
-	int m_0c;
-	int m_10;
-};
 
 // ?rva0054C836@Rva0054C836@@QBE_NXZ @0x0054C836 9B: pointer at +0x14 non-null.
 class Rva0054C836
@@ -287,18 +278,6 @@ Rva0060D0AE::~Rva0060D0AE()
 // 0x002D64C7): forward the Xfer to the rowed 0x00525ABF on the object held
 // at +0.
 class Xfer;
-class Rva00525ABF
-{
-public:
-	void rva00525ABF(Xfer *xfer);
-};
-class Rva00525E00
-{
-public:
-	void rva00525E00(Xfer *xfer);
-private:
-	Rva00525ABF *m_00;
-};
 
 
 // ?rva0050EE1C@Rva0050EE1C@@QBEHXZ @0x0050EE1C 7B: the rowed
@@ -1185,24 +1164,10 @@ void StrategicHUD::BattlePromptMovieClip::Impl::OnEnemyTabsUnloaded(const char *
 
 // ?rva005B1903@Rva005B1903@@QAEXPAUBfmePod8@@IABU2@@Z @0x005B1903 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x000B02B6.
 struct BfmePod8;
-class Rva005B1903
-{
-public:
-	void rva005B1903(BfmePod8 *position, unsigned int count, const BfmePod8 &value);
-private:
-	_STL::vector<BfmePod8> m_vector;
-};
 
 
 // ?rva005B1908@Rva005B1908@@QAEXPAUBfmePod20@@IABU2@@Z @0x005B1908 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005B1748.
 struct BfmePod20;
-class Rva005B1908
-{
-public:
-	void rva005B1908(BfmePod20 *position, unsigned int count, const BfmePod20 &value);
-private:
-	_STL::vector<BfmePod20> m_vector;
-};
 
 
 // ?rva005EE00F@Rva005EE00F@@QAEXPAUBfmeStringRecord005ED5F3@@IABU2@@Z @0x005EE00F 5B: fill-insert into the vector at +0 through the rowed _M_fill_insert 0x005EDEF3.
@@ -1326,13 +1291,6 @@ unsigned int Rva005C6D48::rva005C6D48(const Rva0027EA49 &key)
 {
 	return m_tree.erase(key);
 }
-class Rva005CABBB
-{
-public:
-	unsigned int rva005CABBB(const AsciiString &key);
-private:
-	Rva005CABBBTree m_tree;
-};
 
 
 // ?rva00549420@Rva00549420@@QBEHABV1@@Z @0x00549420 5B and
@@ -1351,11 +1309,6 @@ namespace _STL
 		T **_M_node;
 	};
 }
-class Rva00549420 : public _STL::_Deque_iterator_base<BfmeE8>
-{
-public:
-	int rva00549420(const Rva00549420 &other) const;
-};
 class Rva00584D50 : public _STL::_Deque_iterator_base<BfmeE12>
 {
 public:
@@ -1393,18 +1346,6 @@ unsigned int Rva005D7357::rva005D7357() const
 
 // ?rva0052B488@Rva0052B488@@QAEHPBD@Z @0x0052B488 5B: rowed
 // XferSave::rva0060D435 0x0060D435 on the saver at +0 (a tail jump).
-class XferSave
-{
-public:
-	int rva0060D435(const char *name);
-};
-class Rva0052B488
-{
-public:
-	int rva0052B488(const char *name);
-private:
-	XferSave m_xfer;
-};
 
 
 // ?Rva005676FB@@YAPAXPAVGameWindow@@@Z @0x005676FB 5B: cdecl forward to the
