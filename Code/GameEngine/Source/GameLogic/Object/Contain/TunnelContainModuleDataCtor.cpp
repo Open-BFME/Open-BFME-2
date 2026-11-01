@@ -6,13 +6,7 @@
 // +0xD4 to 1.0, then reset the inherited +0x40 filter through 0x00362192
 // with BitSet(0, 8) and a copy of the default storage at 0x00DFEFA4, as in
 // GarrisonContainModuleData's constructor in GarrisonContain.cpp.
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	unsigned char m_bytes[0x1C];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva00045411BitSet
 {

@@ -151,12 +151,7 @@ private:
 	unsigned char m_pad[0xC8 - 4];
 };
 
-class BfmeFixedStorage0004543D
-{
-	char m_bytes[28];
-public:
-	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 template <int N> class BitFlags;
 

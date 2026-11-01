@@ -51,14 +51,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
-class BfmeFixedStorage0004543D
-{
-public:
-	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva003623E5Member
 {

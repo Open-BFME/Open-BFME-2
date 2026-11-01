@@ -4,12 +4,7 @@
 // two default FixedStorage copies. Evidence: unlock lane, neighbours
 // Rva002A73B8Dtor share /O1 layout, callees member ctor/init pin-only and
 // FixedStorage copy rowed, __EH_prolog frame, returns this.
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-	char m_data[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva003623E5Member
 {
 public:

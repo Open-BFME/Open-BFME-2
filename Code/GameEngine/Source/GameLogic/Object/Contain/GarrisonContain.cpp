@@ -37,13 +37,7 @@
 // filter record (its rowed initFromStorages 0x00362087 is a sibling method),
 // and 0x00362192 is pinned under an address name from this call and its three siblings (TunnelContain
 // 0x002579D5, 0x0039A14A, 0x004A045E).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	unsigned char m_bytes[0x1C];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva00045411BitSet
 {
 public:

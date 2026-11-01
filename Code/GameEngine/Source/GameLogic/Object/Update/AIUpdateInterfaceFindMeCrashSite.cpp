@@ -14,7 +14,7 @@
 #include "Lib/Coord3D.h"
 float Sin(float);
 float Cos(float);
-class BfmeFixedStorage0004543D { public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw(); unsigned char bytes[28]; };
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva000421C8 { public: virtual ~Rva000421C8() {} virtual bool allow(Object*)=0; virtual int getPlayerMask() {return -1;} Rva000421C8 *next; };

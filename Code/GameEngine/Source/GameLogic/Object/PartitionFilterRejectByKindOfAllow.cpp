@@ -33,11 +33,7 @@ public:
  virtual int getPlayerMask() { return -1; }
  Rva000421C8 *m_next;
 };
-class BfmeFixedStorage0004543D {
- char m_bytes[28];
-public:
- __declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 class PartitionFilterRejectByKindOf : public Rva000421C8 {
 public:
  PartitionFilterRejectByKindOf(const BfmeFixedStorage0004543D &,const BfmeFixedStorage0004543D &);

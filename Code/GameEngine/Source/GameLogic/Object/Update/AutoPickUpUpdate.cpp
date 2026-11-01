@@ -16,13 +16,7 @@ public:
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28]; // +0x00
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
 struct Rva00045411BitSet
 {

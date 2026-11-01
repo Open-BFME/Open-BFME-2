@@ -35,11 +35,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 class INI;
-class BfmeFixedStorage0004543D {
-    char bytes[28];
-public:
-    BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 template<int N> class BitFlags { unsigned bits[7]; };
 extern BitFlags<116> KINDOFMASK_NONE;
 void Rva00360CB0Release(int *);

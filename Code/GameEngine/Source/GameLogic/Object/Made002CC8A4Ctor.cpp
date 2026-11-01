@@ -8,13 +8,7 @@
 // via 0x003623E5 plus FixedStorage from 0x009FEFA4 via 0x0004543D to 0x00362087;
 // caller parseMetaImpactNugget 0x002CC8C9 news 0x164.
 
-class BfmeFixedStorage0004543D
-{
-public:
-	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 // Retail's shared fixed-storage object at RVA 0x009FEFA4 (pinned).
 template <int N> class BitFlags;

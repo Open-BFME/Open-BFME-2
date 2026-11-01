@@ -56,13 +56,7 @@ public:
 };
 
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 // vftable 0x00C1A25C: any of the mask's kinds.
 class Rva003959FA : public Rva000421C8

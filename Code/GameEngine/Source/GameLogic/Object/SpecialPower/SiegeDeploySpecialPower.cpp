@@ -52,13 +52,7 @@ public:
 };
 // A KindOfMaskType built from its set bits (0x00045411 one bit; the first
 // argument is unused).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x45411; same 28-byte mask.
 struct Rva00045411BitSet
 {

@@ -19,14 +19,7 @@
 // symbol is the ctor call in the byte-true CallHelpOnDamage data factory.
 extern int BfmeLogicFramesPerSecond;
 
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
-	~BfmeFixedStorage0004543D() {}
-private:
-	unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 template <int N> class BitFlags;
 

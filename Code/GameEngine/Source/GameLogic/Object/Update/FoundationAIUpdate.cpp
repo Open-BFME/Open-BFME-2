@@ -420,11 +420,7 @@ void FoundationAIUpdate::rva00455BDD(const ThingTemplate *thingTemplate, const C
    TheGameLogic->destroyObject(obj);
  }
 }
-class BfmeFixedStorage0004543D {
-public:
- BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();
- unsigned char m_bytes[28];
-};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
 struct Rva00045411BitSet
 {
