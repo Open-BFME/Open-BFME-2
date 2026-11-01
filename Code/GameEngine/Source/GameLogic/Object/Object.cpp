@@ -133,11 +133,7 @@ public:
 // Views for Object::doCommandButton (0x00296749). Offsets are retail facts
 // read from that body; slot names stay neutral where WB gives none.
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator
-{
-public:
- NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/Common/Module.h"
 #pragma inline_depth(0)

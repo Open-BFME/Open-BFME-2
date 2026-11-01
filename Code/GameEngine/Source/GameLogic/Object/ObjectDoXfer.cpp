@@ -186,12 +186,7 @@ public:
 };
 extern AI *TheAI;
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class PolygonTrigger

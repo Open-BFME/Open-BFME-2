@@ -15,7 +15,8 @@
 // push. Both bodies independently match, with no newpins or address globals.
 class Object;class Module;class SpecialPowerTemplate;
 enum NameKeyType {NK_UNKNOWN=0};
-class NameKeyGenerator{public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator*TheNameKeyGenerator;
+#include "../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator*TheNameKeyGenerator;
 template<int N>class BitFlags {public:BitFlags():bits(0){}bool any()const;bool test(const void*)const;unsigned bits;};
 typedef BitFlags<11>DisabledMaskType;
 class AutoAbilityMaskView{public:virtual void slot00();virtual DisabledMaskType slot04()const;};

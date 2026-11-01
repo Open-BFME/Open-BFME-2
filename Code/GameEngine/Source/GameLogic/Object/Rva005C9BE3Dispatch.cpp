@@ -17,15 +17,7 @@ union GameMessageArgumentType
 	ICoord2D pixel;
 };
 
-class GameMessage
-{
-public:
-	const GameMessageArgumentType *getArgument(int argIndex) const;
-	int getType() const { return m_type; }
-private:
-	unsigned char m_pad00[0x10];
-	int m_type;								// +0x10
-};
+#include "../../../Include/Common/MessageStream.h"
 
 class Rva005C9B76
 {

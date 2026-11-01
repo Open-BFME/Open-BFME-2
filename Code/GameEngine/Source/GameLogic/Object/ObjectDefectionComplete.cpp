@@ -109,11 +109,7 @@ enum NameKeyType
 	INVALID_NAME_KEY = 0, NAME_KEY_MIN = (-2147483647 - 1), NAME_KEY_MAX = 2147483647
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
