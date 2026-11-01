@@ -47,7 +47,7 @@ class FormationAI : public FormationSlots<110> { public: virtual bool idleBlocke
  virtual void slot135()=0;
  virtual void resetAttack()=0; };
 
-class AICommandInterface { public: void aiIdle(CommandSourceType); };
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object {
 public:

@@ -169,11 +169,7 @@ public:
 	float m_scale;
 };
 
-class AICommandInterface
-{
-public:
-	void aiGetHealed(Object *target, CommandSourceType source);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva00495183
 {

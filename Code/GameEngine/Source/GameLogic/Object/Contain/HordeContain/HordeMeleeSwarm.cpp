@@ -44,7 +44,7 @@ class SwarmAI : public SwarmSlots<110> { public: virtual bool idleBlocked()=0; v
  virtual void slot134()=0;
  virtual void slot135()=0;
  virtual void resetAttack()=0; };
-class AICommandInterface { public: void rva0026C2D9(Object *,int,CommandSourceType); void aiIdle(CommandSourceType); };
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object {
 public:
  Object *rva002931F5(bool);

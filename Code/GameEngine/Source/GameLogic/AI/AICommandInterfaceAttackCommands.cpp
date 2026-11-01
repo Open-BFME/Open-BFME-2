@@ -107,68 +107,7 @@ struct AICommandParms
 	char m_tailPad[0xC0 - 0x3C - 0x7C]; // +0xB8..+0xBF, retail block size
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms) = 0;
-
-	void aiIdle(CommandSourceType cmdSource);
-	void aiHunt(CommandSourceType cmdSource);
-	void aiEvacuate(bool exposeStealthUnits, CommandSourceType cmdSource);
-	void aiForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
-	void rva0026C2D9(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
-	void aiAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
-	void aiFacePosition(const Coord3D *pos, Int cmdSource);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-	void aiFaceObject(Object *target, CommandSourceType cmdSource);
-	void aiDock(Object *target, CommandSourceType cmdSource);
-	void rva0026C486(Object *target, CommandSourceType cmdSource);
-	void aiMoveAwayFromUnit(Object *victim, const Coord3D *pos, CommandSourceType cmdSource);
-	void rva0026C347(Object *target, CommandSourceType cmdSource);
-	void aiWanderInPlace(CommandSourceType cmdSource);
-	void rva003C7653(Object *target, CommandSourceType cmdSource);
-	void rva0036EBB8(Object *target, CommandSourceType cmdSource);
-	void rva0036EC1D(Object *target, CommandSourceType cmdSource);
-	void rva0036EFF5(Object *target, CommandSourceType cmdSource);
-	void aiExit(Object *objectToExit, CommandSourceType cmdSource);
-	void aiBfmeObjectCommand3D(Object *obj, CommandSourceType cmdSource);
-	void aiFollowWaypointPath(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void aiFollowWaypointPathExact(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void aiFollowWaypointPathAsTeam(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void aiBfmeCommand33(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void aiAttackArea(const PolygonTrigger *areaToGuard, CommandSourceType cmdSource);
-	void aiAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
-	void aiGuardPosition(const Coord3D *position, GuardMode guardMode, CommandSourceType cmdSource);
-	void rva0045003E(Int value, CommandSourceType cmdSource);
-	void aiTightenToPosition(const Coord3D *position, CommandSourceType cmdSource);
-	void aiMoveToAndEvacuate(const Coord3D *position, CommandSourceType cmdSource);
-	void aiMoveToAndEvacuateAndExit(const Coord3D *position, CommandSourceType cmdSource);
-	void aiFollowPathAppend(const Coord3D *position, CommandSourceType cmdSource);
-	void aiGoProne(const Rva003427DD *info, CommandSourceType cmdSource);
-	void rva0036F19B(Object *target, CommandSourceType cmdSource);
-	void aiResumeConstruction(Object *target, CommandSourceType cmdSource);
-	void aiGetHealed(Object *target, CommandSourceType cmdSource);
-	void aiGetRepaired(Object *target, CommandSourceType cmdSource);
-	void aiHarvest(const Coord3D *position, CommandSourceType cmdSource);
-	void aiGuardObject(Object *target, Int value, CommandSourceType cmdSource);
-	void rva0036F54D(const Team *team, Int value, CommandSourceType cmdSource);
-	void aiGuardArea(const PolygonTrigger *area, Int value, CommandSourceType cmdSource);
-	void aiGuardAreaFromPosition(const PolygonTrigger *area, Int value, CommandSourceType cmdSource, const Coord3D *pos);
-	void rva0036F6A7(float value, CommandSourceType cmdSource);
-	void aiMoveToPositionAndFaceDirection(const Coord3D *position, CommandSourceType cmdSource, float value);
-	void aiAttackMoveToPositionAndFaceDirection(const Coord3D *position, Int value, CommandSourceType cmdSource, float floatValue);
-	void rva003C77EE(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void rva003C76B8(Int value, CommandSourceType cmdSource);
-	void rva003C78AF(const Waypoint *waypoint, CommandSourceType cmdSource);
-	void aiAttackMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource);
-	void aiMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource);
-	void rva0037379B(Object *target, CommandSourceType cmdSource);
-	void rva0044FFD9(Object *target, CommandSourceType cmdSource);
-	void aiMoveToPositionSA(const Coord3D *pos, Int cmdSource);
-	void rva0036EE16(const Rva0035149F *info, Object *target, CommandSourceType cmdSource);
-	void rva0036EE89(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource);
-	void rva0036EF09(const Rva0035149F *info, Object *target, float value, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // ?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z @0x1E8A38
 inline void AICommandInterface::aiIdle(CommandSourceType cmdSource)

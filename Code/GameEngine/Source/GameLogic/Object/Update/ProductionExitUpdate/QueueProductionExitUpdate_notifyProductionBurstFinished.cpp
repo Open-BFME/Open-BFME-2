@@ -83,11 +83,7 @@ public:
 	Rva002A8AB1Record *rva002A8AB1(void *x);
 };
 extern Rva002A8F24 *TheSkirmishAIManager;
-class AICommandInterface
-{
-public:
-	void rva0036EBB8(Object *obj, CommandSourceType src);
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:

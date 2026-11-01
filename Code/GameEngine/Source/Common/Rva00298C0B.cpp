@@ -15,11 +15,7 @@ enum CommandSourceType
 	CST_2 = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType src);
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 struct Virt118
 {

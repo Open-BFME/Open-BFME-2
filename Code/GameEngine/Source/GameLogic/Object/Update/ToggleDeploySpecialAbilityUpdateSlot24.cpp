@@ -204,11 +204,7 @@ enum CommandSourceType {
 	kCommandSourcePlayer = 1,
 	kCommandSourceAI = 2
 };
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType t);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class ToggleDeploySpecialAbilityUpdate : public Rva0044EF5E
 {
 public:

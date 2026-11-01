@@ -53,12 +53,7 @@ struct AICommandParms
 	Int m_B8;
 	Int m_BC;
 };
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms) = 0;
-	void rva0047971C(const Rva0035149F &info, Object *target, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 void AICommandInterface::rva0047971C(const Rva0035149F &info, Object *target, CommandSourceType cmdSource)
 {
 	AICommandParms parms(AICMD_0A, cmdSource);

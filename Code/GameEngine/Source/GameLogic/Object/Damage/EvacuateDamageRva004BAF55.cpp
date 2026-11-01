@@ -233,12 +233,7 @@ enum CommandSourceType
 	CMDSRC_UNKNOWN = 0
 };
 
-class AICommandInterface
-{
-public:
-	void rva0037379B(Object *obj, CommandSourceType src);
-	void aiExit(Object *obj, CommandSourceType src);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva004BAFE5
 {
