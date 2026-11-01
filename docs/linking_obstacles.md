@@ -15,6 +15,22 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 ### Player unrowed donor-body cleanup (2026-11-01, Cortys)
 
+Strict preparation verifies all 12 Player functions and its global, plus all
+11 rows in current ThingFactory and ProductionPrerequisite. Player's preview
+loses the science-vector COMDAT/wrong-selected blockers and retains 23 unresolved
+names. The outside vector-assignment caller still uses ThingFactory's alternate
+provider; that unit retains its existing wrong helper and other obstacles.
+All three units remain unlinked in this bounded preview (0 -> 0). The removed
+helper chain is therefore not globally unreferenced. The broader earlier
+AIBuildable/old-index batch-audit scope remains inconclusive for the next census.
+
+The unverified resetSciences donor and 17 incidental helpers are removed with
+all 326 retained complete definitions/relocations unchanged. All 12 functions
+and the global remain exact; one placeholder hatch retires. This removes the
+local science-vector assignment/losing-copy chain while retaining the native
+copy row and its explicit erase anchor. Consumer scope and strict/preview
+results are recorded in the same evidence packet; this is not census clearance.
+
 Isolated unrowed `removeObjectFromHotkeySquad` is also removed after reference auditing; all 344 retained definitions/relocations and all native rows remain exact. One placeholder hatch retires; see the per-method evidence in the packet.
 
 Isolated unrowed `isSupplySourceSafe` is also removed after reference auditing; all 345 retained definitions/relocations and all native rows remain exact. One placeholder hatch retires; see the per-method evidence in the packet.

@@ -150,3 +150,25 @@ without trading coverage or adding runtime storage. The earlier Player
 contract investigation also distinguishes its +160 getter from +2EC caller
 views; matching bytes do not resolve that naming/layout question. All native
 rows, source flags and runtime data remain unchanged by this investigation.
+
+## Unrowed resetSciences and incidental vector assignment closure
+
+The isolated unverified resetSciences donor is removed, preserving all 12 native
+function rows and the owned global. The saved graph has no local or outside
+runtime/data incoming reference to it. Its vector assignment was the sole local
+user of the losing/wrong-selected _M_allocate_and_copy specialization. The
+complete-object proof removes 18 definitions (the donor and 17 incidental
+helpers), adds none, and preserves all 326 retained definitions and symbolic
+relocations against the 344-definition HEAD control. The existing copy row,
+explicit erase anchor, getter anchors, aliases and global stay in place. One
+present-unmatched count retires through hatch_counters --update. This removal
+does not assert retail lacks a reset method and does not claim a census gain.
+
+Strict preparation verifies all 12 Player functions and its global, plus all
+11 rows in current ThingFactory and ProductionPrerequisite. Player's preview
+loses the science-vector COMDAT/wrong-selected blockers and retains 23 unresolved
+names. The outside vector-assignment caller still uses ThingFactory's alternate
+provider; that unit retains its existing wrong helper and other obstacles.
+All three units remain unlinked in this bounded preview (0 -> 0). The removed
+helper chain is therefore not globally unreferenced. The broader earlier
+AIBuildable/old-index batch-audit scope remains inconclusive for the next census.

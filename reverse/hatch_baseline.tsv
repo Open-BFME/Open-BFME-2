@@ -12099,7 +12099,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeKindOfProdu
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removePlayerRelationship@Player@@QAE_NPBV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeUpgrade@Player@@QAEXPBVUpgradeTemplate@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	resetOrStartSpecialPowerReadyFrame@Player@@QAEXPBVSpecialPowerTemplate@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	resetSciences@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnderTheSun@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1

@@ -1583,29 +1583,8 @@ Bool Player::addSkillPoints(Int delta)
 // Player::addSkillPointsForKill is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerAddSkillPointsForKill.cpp (0x002AA6DE).
 
 //=============================================================================
-// ?resetSciences@Player@@QAEXXZ present-unmatched
-void Player::resetSciences()
-{
-	m_sciences.clear();
 
-	if (getPlayerTemplate())
-		m_sciences = getPlayerTemplate()->getIntrinsicSciences();
 
-	for (Int i = 1; i <= m_rankLevel; ++i)
-	{
-		const RankInfo* rank = TheRankInfoStore->getRankInfo(i);
-		if (rank)
-		{
-			for (ScienceVec::const_iterator it = rank->m_sciencesGranted.begin(); it != rank->m_sciencesGranted.end(); ++it)
-			{
-				addScience(*it);
-			}
-		}
-	}
-
-	for (ScienceVec::const_iterator it = m_sciences.begin(); it != m_sciences.end(); ++it)
-		TheScriptEngine->notifyOfAcquiredScience(m_playerIndex, *it);
-}
 
 //=============================================================================
 /// returns TRUE if sciences were gained/lost.

@@ -1,0 +1,342 @@
+{
+  "scope": "Read-only current Player object plus existing census graph. No compiler, source edits, claims or network.",
+  "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+  "source_sha256": "a36bccb65571de9f286dc117df02d41d776cfcf687b323e2da65987eb3bd380c",
+  "object_sha256": "4ea7c3eaa5d78579d1a11cf1ca9887e9823cad99ef1033f1d17eb96058553de6",
+  "compile_receipt_current": true,
+  "index_meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "remaining_non_stl_unresolved_count": 15,
+  "remaining_non_stl_unresolved": [
+    "?deposit@Money@@QAEXI_N@Z",
+    "?evacuateTeam@Team@@QAEXXZ",
+    "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+    "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ",
+    "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ",
+    "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ",
+    "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+    "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+    "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z",
+    "?hasAnyBuildings@TeamPrototype@@QBE_NXZ",
+    "?hasAnySpecialPower@Object@@QBE_NXZ",
+    "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+    "?isOnSquad@Squad@@QBE_NPBVObject@@@Z",
+    "?setRankLevel@Player@@QAE_NH@Z",
+    "?withdraw@Money@@QAEII_N@Z"
+  ],
+  "method_checks": [
+    {
+      "method": "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ",
+      "raw_bytes": 27,
+      "introduced_unresolved": [
+        "?getAIDifficulty@AIPlayer@@QBE?AW4GameDifficulty@@XZ"
+      ],
+      "local_runtime_or_data_incoming": [
+        {
+          "section": ".text",
+          "offset": 33,
+          "type": 20,
+          "owners": [
+            "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "offset": 126,
+          "type": 20,
+          "owners": [
+            "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z"
+          ]
+        }
+      ],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z",
+      "raw_bytes": 44,
+      "introduced_unresolved": [
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ",
+      "raw_bytes": 44,
+      "introduced_unresolved": [
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z",
+      "raw_bytes": 46,
+      "introduced_unresolved": [
+        "?isOnSquad@Squad@@QBE_NPBVObject@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?hasAnyBuildings@Player@@QBE_NXZ",
+      "raw_bytes": 47,
+      "introduced_unresolved": [
+        "?hasAnyBuildings@TeamPrototype@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z",
+      "raw_bytes": 52,
+      "introduced_unresolved": [
+        "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?hasAnyBuildings@Player@@QBE_NV?$BitFlags@$0HE@@@@Z",
+      "raw_bytes": 66,
+      "introduced_unresolved": [
+        "?hasAnyBuildings@TeamPrototype@@QBE_NV?$BitFlags@$0HE@@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?canBuildMoreOfType@Player@@QBE_NPBVThingTemplate@@@Z",
+      "raw_bytes": 96,
+      "introduced_unresolved": [
+        "?getMaxSimultaneousOfType@ThingTemplate@@QBEIXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?resetSciences@Player@@QAEXXZ",
+      "raw_bytes": 161,
+      "introduced_unresolved": [
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z",
+      "raw_bytes": 169,
+      "introduced_unresolved": [
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": [
+        "?getPlayerDifficulty@Player@@QBE?AW4GameDifficulty@@XZ"
+      ]
+    },
+    {
+      "method": "?addSkillPoints@Player@@QAE_NH@Z",
+      "raw_bytes": 222,
+      "introduced_unresolved": [
+        "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+        "?getRankLevelCount@RankInfoStore@@QBEHXZ",
+        "?setRankLevel@Player@@QAE_NH@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?killPlayer@Player@@QAEXXZ",
+      "raw_bytes": 258,
+      "introduced_unresolved": [
+        "?evacuateTeam@Team@@QAEXXZ",
+        "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+        "?withdraw@Money@@QAEII_N@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    }
+  ],
+  "five_smallest_isolated": [
+    {
+      "method": "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z",
+      "raw_bytes": 44,
+      "introduced_unresolved": [
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": true,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ",
+      "raw_bytes": 44,
+      "introduced_unresolved": [
+        "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+        "?hasAnySpecialPower@Object@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?getSquadNumberForObject@Player@@QBEHPBVObject@@@Z",
+      "raw_bytes": 46,
+      "introduced_unresolved": [
+        "?isOnSquad@Squad@@QBE_NPBVObject@@@Z"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?hasAnyBuildings@Player@@QBE_NXZ",
+      "raw_bytes": 47,
+      "introduced_unresolved": [
+        "?hasAnyBuildings@TeamPrototype@@QBE_NXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 1,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    },
+    {
+      "method": "?findMostReadyShortcutWeaponForThing@Player@@QAEPAVObject@@PBVThingTemplate@@AAI@Z",
+      "raw_bytes": 52,
+      "introduced_unresolved": [
+        "?getMostPercentReadyToFireAnyWeapon@Object@@QBEIXZ"
+      ],
+      "local_runtime_or_data_incoming": [],
+      "local_debug_incoming_count": 0,
+      "all_index_incoming_sources": [],
+      "index_referenced": false,
+      "direct_dependencies_on_other_candidate_methods": []
+    }
+  ],
+  "shared_introducers": [
+    {
+      "unresolved": "?findAnyShortcutSpecialPowerModuleInterface@Object@@QBEPAVSpecialPowerModuleInterface@@XZ",
+      "source_introducers": [
+        "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z",
+        "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ"
+      ]
+    },
+    {
+      "unresolved": "?getRankInfo@RankInfoStore@@QBEPBVRankInfo@@H@Z",
+      "source_introducers": [
+        "?addSkillPoints@Player@@QAE_NH@Z",
+        "?resetSciences@Player@@QAEXXZ"
+      ]
+    },
+    {
+      "unresolved": "?hasAnySpecialPower@Object@@QBE_NXZ",
+      "source_introducers": [
+        "?findMostReadyShortcutSpecialPowerOfType@Player@@QAEPAVObject@@W4SpecialPowerType@@@Z",
+        "?hasAnyShortcutSpecialPower@Player@@QAE_NXZ"
+      ]
+    },
+    {
+      "unresolved": "?isInSinglePlayerGame@GameLogic@@QAE_NXZ",
+      "source_introducers": [
+        "?friend_applyDifficultyBonusesForObject@Player@@QBEXPAVObject@@_N@Z",
+        "?killPlayer@Player@@QAEXXZ"
+      ]
+    },
+    {
+      "unresolved": "?withdraw@Money@@QAEII_N@Z",
+      "source_introducers": [
+        "?killPlayer@Player@@QAEXXZ",
+        "?transferAssetsFromThat@Player@@QAEXPAV1@@Z"
+      ]
+    }
+  ],
+  "excluded_method": "?transferAssetsFromThat@Player@@QAEXPAV1@@Z",
+  "preserve": [
+    "all 12 matched rows",
+    "existing getter anchors",
+    "ScienceType copy and erase anchor",
+    "TheTeamFactory native storage definition",
+    "six existing linker aliases and their required target providers"
+  ],
+  "qualification": "No outside incoming index edge means no incoming graph edge at all for the five recommendations. Published graph is not a fresh current-tree census; application still needs whole-object/native-row and consumer verification.",
+  "science_vector_loser_chain": [
+    {
+      "name": "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+      "runtime_or_data_incoming": [
+        {
+          "section": ".text",
+          "offset": 54,
+          "type": 20,
+          "source_symbols": [
+            "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "runtime_or_data_incoming": [
+        {
+          "section": ".text",
+          "offset": 44,
+          "type": 20,
+          "source_symbols": [
+            "?resetSciences@Player@@QAEXXZ"
+          ]
+        }
+      ]
+    }
+  ],
+  "science_vector_cleanup_note": "The existing wrong-selected _M_allocate_and_copy copy is reached locally only by vector<ScienceType>::operator=; that operator is reached locally only by unrowed Player::resetSciences. A removal probe may naturally retire the losing copy without changing the STL profile. It must preserve the rowed __copy and existing explicit erase anchor and verify affected outside consumers."
+}

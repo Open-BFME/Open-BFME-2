@@ -1,0 +1,3305 @@
+{
+  "source": "Code/GameEngine/Source/Common/RTS/Player.cpp",
+  "object_sha256": "35c33180d89d8b7e3a38277c762ecf91a2ec40dcc3fcf09320ae018b8efc19ca",
+  "compile_receipt_current": true,
+  "index_meta": {
+    "date": "2026-11-01 14:31",
+    "commit": "86db074988",
+    "clean_tree": true,
+    "census_date": "2026-11-01 12:39",
+    "census_commit": "39dfbbdb50"
+  },
+  "control_object": "build/player-donor-cleanup-20261101/original.obj",
+  "control_base": "66b383f316b2e6836483f7e3bc366cb62c04ef40",
+  "removed_helper_count": 17,
+  "helpers_with_outside_provider_count": 16,
+  "retained_local_runtime_or_data_incoming_count": 0,
+  "helpers": [
+    {
+      "name": "??$_Construct@W4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@ABW41@@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "1f973cbdcb23",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "source": "Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+          "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "ad8cdf2bb9fa",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$_Destroy@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^move^towards^position^horde.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+          "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^science^store^parse^science^definition.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^living^world^region^bonus^rule_^cache^region^i^ds.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionBonusRule_CacheRegionIDs.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^in^game_^tactical_^banner^u^i.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^bfme^pod216^dtor.obj",
+          "source": "Code/GameEngine/Source/Common/System/SaveGame/BfmePod216Dtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^interface_do^locomotor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^superweapons.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power^store^can^use^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^create^revival.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^type.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainType.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar_populate^special^power^shortcut.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0033^a2^e9^resize.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0033A2E9Resize.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_ini^parse^science^vector^vector.obj",
+          "source": "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_rva003^f2150^rva003^f2150^farm.obj",
+          "source": "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^rva0040^a^e^e3_overflow.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AEE3_overflow.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^rva0040^a^e^e3_pushback.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AEE3_pushback.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_parse^a^i^base^definition.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/parseAIBaseDefinition.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^rva0043^d193^science^vector^destructor.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/Rva0043D193ScienceVectorDestructor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^living^world^a^i^building^types.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIBuildingTypes.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^planning^phase^building^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^tactical^a^i_^a^i^target^chooser_^a^i^target^heuristics_^a^i^target^heuristic^tech^building.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicTechBuilding.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^c^f4^a8^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005CF4A8SelectionCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^e8^c54^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005E8C54Ctor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^battle^prompt^army^panel^base.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptArmyPanelBase.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^f^e^f65.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005FEF65.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/RTS/Player.cpp",
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ]
+        }
+      ],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "d7a31fca1efb",
+          "index_verdict": "wrong"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/RTS/Player.cpp",
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ]
+        }
+      ],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "6c17e5c0fbc7",
+          "index_verdict": "unknown"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "aefb0551669e",
+          "index_verdict": "retail"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/RTS/Player.cpp",
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ]
+        }
+      ],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "a8c1fa9ffc88",
+          "index_verdict": "unknown"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$__destroy@PAW4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@00@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^move^towards^position^horde.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+          "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^science^store^parse^science^definition.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^living^world^region^bonus^rule_^cache^region^i^ds.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionBonusRule_CacheRegionIDs.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^in^game_^tactical_^banner^u^i.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^bfme^pod216^dtor.obj",
+          "source": "Code/GameEngine/Source/Common/System/SaveGame/BfmePod216Dtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^interface_do^locomotor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^superweapons.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power^store^can^use^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^create^revival.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^type.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainType.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar_populate^special^power^shortcut.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0033^a2^e9^resize.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0033A2E9Resize.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_ini^parse^science^vector^vector.obj",
+          "source": "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_rva003^f2150^rva003^f2150^farm.obj",
+          "source": "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^rva0040^a^e^e3_overflow.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AEE3_overflow.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^rva0040^a^e^e3_pushback.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AEE3_pushback.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_parse^a^i^base^definition.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/parseAIBaseDefinition.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^rva0043^d193^science^vector^destructor.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/Rva0043D193ScienceVectorDestructor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^living^world^a^i^building^types.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIBuildingTypes.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^planning^phase^building^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^tactical^a^i_^a^i^target^chooser_^a^i^target^heuristics_^a^i^target^heuristic^tech^building.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicTechBuilding.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^c^f4^a8^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005CF4A8SelectionCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^e8^c54^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005E8C54Ctor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^battle^prompt^army^panel^base.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptArmyPanelBase.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^f^e^f65.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005FEF65.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$__destroy_aux@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0ABU__false_type@0@@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^move^towards^position^horde.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+          "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^science^store^parse^science^definition.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^living^world^region^bonus^rule_^cache^region^i^ds.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionBonusRule_CacheRegionIDs.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^in^game_^tactical_^banner^u^i.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^bfme^pod216^dtor.obj",
+          "source": "Code/GameEngine/Source/Common/System/SaveGame/BfmePod216Dtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^interface_do^locomotor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^superweapons.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power^store^can^use^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreCanUseSpecialPower.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^create^revival.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^type.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainType.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar_populate^special^power^shortcut.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0033^a2^e9^resize.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0033A2E9Resize.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_ini^parse^science^vector^vector.obj",
+          "source": "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_rva003^f2150^rva003^f2150^farm.obj",
+          "source": "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^rva0040^a^e^e3_overflow.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AEE3_overflow.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^rva0040^a^e^e3_pushback.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva0040AEE3_pushback.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_parse^a^i^base^definition.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/parseAIBaseDefinition.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^rva0043^d193^science^vector^destructor.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/Rva0043D193ScienceVectorDestructor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^living^world^a^i^building^types.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIBuildingTypes.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^planning^phase^building^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^tactical^a^i_^a^i^target^chooser_^a^i^target^heuristics_^a^i^target^heuristic^tech^building.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicTechBuilding.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^c^f4^a8^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005CF4A8SelectionCtor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^e8^c54^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005E8C54Ctor.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^battle^prompt^army^panel^base.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptArmyPanelBase.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^f^e^f65.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005FEF65.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+          "digest": "8bf7b464aaa2",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$__stl_alloc_rebind@W4ScienceType@@W41@@_STL@@YAAAV?$allocator@W4ScienceType@@@0@AAV10@PBW4ScienceType@@@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "source": "Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^in^game_^tactical_^banner^u^i.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^bfme^pod216^dtor.obj",
+          "source": "Code/GameEngine/Source/Common/System/SaveGame/BfmePod216Dtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^interface_do^locomotor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^living^world^a^i^building^types.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIBuildingTypes.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^tactical^a^i_^a^i^target^chooser_^a^i^target^heuristics_^a^i^target^heuristic^tech^building.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicTechBuilding.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^c^f4^a8^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005CF4A8SelectionCtor.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "341dc3ec187f",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??$__uninitialized_copy@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/RTS/Player.cpp",
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ]
+        },
+        {
+          "name": "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/RTS/Player.cpp",
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ]
+        },
+        {
+          "name": "??0?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV01@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+            "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+            "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+            "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+            "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+            "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+            "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+            "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+            "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+            "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+            "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+            "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+            "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+            "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+            "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+            "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+            "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+            "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+            "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+            "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+            "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+            "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+            "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+            "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+            "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+            "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp"
+          ]
+        }
+      ],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "7f207cefe31b",
+          "index_verdict": "unknown"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+          "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "65f49290a8b3",
+          "index_verdict": "retail"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "??4ProductionPrerequisite@@QAEAAV0@ABV0@@Z",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp"
+          ]
+        }
+      ],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "8998eb34f7dd",
+          "index_verdict": "unknown"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?allocate@?$_STLP_alloc_proxy@PAW4ScienceType@@W41@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@I@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "88c4cde8e7dd",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "source": "Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "5a1316b93750",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?begin@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^move^towards^position^horde.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^linear^campaign^manager.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "source": "Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^science^store^find^science^info.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^new^map.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineNewMap.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^living^world^region^bonus^rule_^cache^region^i^ds.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionBonusRule_CacheRegionIDs.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^in^game_^tactical_^banner^u^i.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^do^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerDoXfer.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^create^revival.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_ini^parse^science^vector^vector.obj",
+          "source": "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f20^b0^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F20B0Clear.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_rva003^f2150^rva003^f2150^farm.obj",
+          "source": "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^region^constructor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^d^b52^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040DB52Xfer.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^missile^launcher^building^update.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva004^d6^c29^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva004D6C29Clear.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/Squad.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^living^world^a^i^building^types.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIBuildingTypes.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^l^w^a^i^world^information_^gather^world^information.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^planning^phase^building^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^tactical^a^i_^a^i^target^chooser_^a^i^target^heuristics_^a^i^target^heuristic^tech^building.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicTechBuilding.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^a^i^structure^stats.obj",
+          "source": "Code/GameEngine/Source/Common/AIStructureStats.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^upgrade_^a^i^upgrade^science^builder_^a^i^upgrade^science^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeScienceBuilder/AIUpgradeScienceBuilder.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^c^f4^a8^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005CF4A8SelectionCtor.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva005^e8^c54^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva005E8C54Ctor.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+          "digest": "afd9af583299",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?capacity@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "source": "Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "ed5631eee1d2",
+          "index_verdict": "retail"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXXZ",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^linear^campaign^manager.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^do^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerDoXfer.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_ini^parse^science^vector^vector.obj",
+          "source": "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f20^b0^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F20B0Clear.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^d^b52^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040DB52Xfer.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^missile^launcher^building^update.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^l^w^a^i^world^information_^gather^world^information.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^a^i^structure^stats.obj",
+          "source": "Code/GameEngine/Source/Common/AIStructureStats.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+          "digest": "9fd2d118f169",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": true,
+      "index_callers": [
+        {
+          "name": "?clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXXZ",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^a^i^structure^stats.obj",
+            "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+            "^code_^game^engine_^source_^common_^r^t^s_^player^do^xfer.obj",
+            "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+            "^code_^game^engine_^source_^common_^rva0035^b^b4^b^ctor.obj",
+            "^code_^game^engine_^source_^common_^rva0040^d^b52^xfer.obj",
+            "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+            "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+            "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+            "^code_^game^engine_^source_^common_^system_^rva003^f20^b0^clear.obj",
+            "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+            "^code_^game^engine_^source_^common_ini^parse^science^vector^vector.obj",
+            "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+            "^code_^game^engine_^source_^game^logic_^object_^update_^missile^launcher^building^update.obj",
+            "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+            "^code_^game^engine_^source_^game^logic_^system_^linear^campaign^manager.obj",
+            "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj",
+            "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+            "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^l^w^a^i^world^information_^gather^world^information.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/AIStructureStats.cpp",
+            "Code/GameEngine/Source/Common/RTS/Player.cpp",
+            "Code/GameEngine/Source/Common/RTS/PlayerDoXfer.cpp",
+            "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+            "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+            "Code/GameEngine/Source/Common/Rva0040DB52Xfer.cpp",
+            "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+            "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+            "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+            "Code/GameEngine/Source/Common/System/Rva003F20B0Clear.cpp",
+            "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+            "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+            "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+            "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+            "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+            "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+            "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+            "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/AIStructureStats.cpp",
+            "Code/GameEngine/Source/Common/RTS/PlayerDoXfer.cpp",
+            "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+            "Code/GameEngine/Source/Common/Rva0035BB4BCtor.cpp",
+            "Code/GameEngine/Source/Common/Rva0040DB52Xfer.cpp",
+            "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+            "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+            "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+            "Code/GameEngine/Source/Common/System/Rva003F20B0Clear.cpp",
+            "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+            "Code/GameEngine/Source/Common/iniParseScienceVectorVector.cpp",
+            "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+            "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+            "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+            "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+            "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+            "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+            "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp"
+          ]
+        },
+        {
+          "name": "?clear@ArmyMemberIDVector@@QAEXXZ",
+          "provider_objects": [
+            "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp"
+          ]
+        },
+        {
+          "name": "??1Rva005965A5@@UAE@XZ",
+          "provider_objects": [
+            "^code_^game^engine_^source_^common_^a^i^structure^stats.obj"
+          ],
+          "provider_source_paths": [
+            "Code/GameEngine/Source/Common/AIStructureStats.cpp"
+          ],
+          "outside_player_source_paths": [
+            "Code/GameEngine/Source/Common/AIStructureStats.cpp"
+          ]
+        }
+      ],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^reset.obj",
+          "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^living^world^region^bonus^rule_^cache^region^i^ds.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionBonusRule_CacheRegionIDs.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "b119095bb864",
+          "index_verdict": "unknown"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "b119095bb864",
+          "index_verdict": "unknown"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^special^power.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/SpecialPower.cpp",
+          "digest": "b119095bb864",
+          "index_verdict": "unknown"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f209^c^clear.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F209CClear.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e02^b^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E02BClear.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0040^e0^b7^clear.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0040E0B7Clear.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+          "digest": "3d4177e3a3a9",
+          "index_verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^apt^spell^store.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp",
+          "digest": "b119095bb864",
+          "index_verdict": "unknown"
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?getIntrinsicSciences@PlayerTemplate@@QBEABV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@XZ",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    },
+    {
+      "name": "?size@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ",
+      "retained_local_runtime_or_data_incoming": [],
+      "index_referenced": false,
+      "index_callers": [],
+      "outside_comdat_providers": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder^init.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^f^x^shader^parameter^binder.obj",
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva001^d^f2^d3^element^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Rva001DF2D3ElementCopyCtor.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^linear^campaign^manager.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "source": "Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^bfme^object476^copy.obj",
+          "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva0021^e85^a^copy.obj",
+          "source": "Code/GameEngine/Source/Common/Rva0021E85ACopy.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^object_^add^create^a^hero^special^power^upgrade.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/Object_AddCreateAHeroSpecialPowerUpgrade.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^science^vector^reserve.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorReserve.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^add^science.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/PlayerAddScience.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^thing_^production^prerequisite^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva002^e0298.obj",
+          "source": "Code/GameEngine/Source/Common/Rva002E0298.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^create^revival.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^terrain^types.obj",
+          "source": "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar_populate^special^power^shortcut.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^mineshaft^portal^behaviour.obj",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^path^finder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPathFinder.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva003F2394Xfer.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva003^f5^b^d^b.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva003F5BDB.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/OldSchoolHelpBoxContentSource.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_^bfme^record0040^b61^a_allocate_copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva0040E19DXfer.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_int_vector_sciencetype_subscript.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype_subscript.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^d^o^t^manager.obj",
+          "source": "Code/GameEngine/Source/Common/System/DOTManager.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^production^prerequisite^is^satisfied_^production^prerequisite_is^satisfied.obj",
+          "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "source": "Code/GameEngine/Source/Common/System/Rva004FACD0Xfer.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva005026^e^e^copy.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva005026EECopy.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^living^world^a^i^building^types.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIBuildingTypes.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^time^line.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command^processing.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^planning^phase^building^selection^ctor.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^copy^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderCopyCtor.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^group^order^holder^ctor.obj",
+          "source": "Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^a^i^team^builder_^a^i^team^builder.obj",
+          "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^a^i^support_^rva0059^d^d3^f^recruit.obj",
+          "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/Rva0059DD3FRecruit.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^stats.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^entry^added.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^details^populate.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^army^unit^swapper^validation.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^in^game^u^i_^strategic^in^game^u^i^battle^prompt^army^panel^base.obj",
+          "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptArmyPanelBase.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^rappeller^count.obj",
+          "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+          "digest": "1703624a7b19",
+          "index_verdict": null
+        }
+      ],
+      "outside_strong_providers": [],
+      "incoming_index_aliases": []
+    }
+  ],
+  "thingfactory": {
+    "source": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+    "source_sha256": "1fccf85cd1921dccd9029b2882f555dbe36ed7f9b68854a49b529cc349adab50",
+    "object": "build/match/^code_^game^engine_^source_^common_^thing_^thing^factory.obj",
+    "object_sha256": "26b11dc9311da3334d271db93091a382dbab21908ee90594f098c74648a66646",
+    "compile_receipt_current": true,
+    "sidecar": "build/match/^code_^game^engine_^source_^common_^thing_^thing^factory.deps.json",
+    "receipt_fields": {
+      "version": 2,
+      "cmd": "0a859994381a2d95bee2817bdbb96671",
+      "source": "8e24a857f09c877f03421684173f3d03",
+      "path": "Code/GameEngine/Source/Common/Thing/ThingFactory.cpp",
+      "object": "d9424004452aa995da05417ff6456e21"
+    },
+    "recorded_dependency_count": 256,
+    "branch_copies": [
+      {
+        "name": "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+        "current_digest": [
+          "d7a31fca1efb",
+          143
+        ],
+        "index_copies": [
+          {
+            "digest": "d7a31fca1efb",
+            "index_verdict": "wrong"
+          }
+        ],
+        "current_matches_index_digest": true,
+        "listed_wrong_selected_in_existing_thingfactory_index": true
+      },
+      {
+        "name": "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+        "current_digest": [
+          "8998eb34f7dd",
+          221
+        ],
+        "index_copies": [
+          {
+            "digest": "8998eb34f7dd",
+            "index_verdict": "unknown"
+          }
+        ],
+        "current_matches_index_digest": true,
+        "listed_wrong_selected_in_existing_thingfactory_index": false
+      }
+    ]
+  },
+  "object_bytes_stable_during_audit": true,
+  "risk": "The removed helper family is not globally unreferenced. ProductionPrerequisite::operator= in ThingFactory is an outside caller of vector<ScienceType>::operator=. Its sole indexed alternate and the sole alternate allocation/copy helper are in ThingFactory; the latter remains a wrong-selected existing copy in that index. Include current strict ThingFactory and affected assignment consumers in the batch audit. Other referenced const-copy, uninitialized-copy, capacity and range-erase helpers retain alternate providers. The unique removed getIntrinsicSciences getter has no indexed caller and is unreferenced.",
+  "qualification": "Read-only existing-object/index audit, no compiler or network. Source/object paths derive from current matched ledger sources. Receipt currency is recorded for Player and ThingFactory, not claimed for every alternate provider. No whole-tree current census was run."
+}

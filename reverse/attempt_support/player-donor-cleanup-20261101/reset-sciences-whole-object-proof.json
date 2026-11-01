@@ -1,0 +1,28 @@
+{
+  "base": "66b383f316b2e6836483f7e3bc366cb62c04ef40",
+  "before_definitions": 344,
+  "after_definitions": 326,
+  "added": [],
+  "removed": [
+    "??$_Construct@W4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@ABW41@@Z",
+    "??$_Destroy@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0@Z",
+    "??$_M_allocate_and_copy@PBW4ScienceType@@@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEPAW4ScienceType@@IPBW42@0@Z",
+    "??$__copy@PBW4ScienceType@@PAW41@H@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABUrandom_access_iterator_tag@0@PAH@Z",
+    "??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z",
+    "??$__destroy@PAW4ScienceType@@W41@@_STL@@YAXPAW4ScienceType@@00@Z",
+    "??$__destroy_aux@PAW4ScienceType@@@_STL@@YAXPAW4ScienceType@@0ABU__false_type@0@@Z",
+    "??$__stl_alloc_rebind@W4ScienceType@@W41@@_STL@@YAAAV?$allocator@W4ScienceType@@@0@AAV10@PBW4ScienceType@@@Z",
+    "??$__uninitialized_copy@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z",
+    "??4?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z",
+    "?allocate@?$_STLP_alloc_proxy@PAW4ScienceType@@W41@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@I@Z",
+    "?begin@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@XZ",
+    "?capacity@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ",
+    "?clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXXZ",
+    "?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@0@Z",
+    "?getIntrinsicSciences@PlayerTemplate@@QBEABV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@XZ",
+    "?resetSciences@Player@@QAEXXZ",
+    "?size@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QBEIXZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}
