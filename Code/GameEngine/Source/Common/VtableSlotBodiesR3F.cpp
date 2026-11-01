@@ -185,11 +185,6 @@ private:
 	Rva00SlotFloat3Copy m_valueD4;
 };
 
-Rva00SlotFloat3Copy Rva00095343::rva00095343()
-{
-	return m_valueD4;
-}
-
 // 0x0004C6C6 (slot 51 of W3DGameClient's table): truncates its float
 // argument into the global at 0x00DE204C.
 class Rva0004C6C6
