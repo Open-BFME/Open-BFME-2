@@ -187,3 +187,4 @@ Drawable,Code/GameEngine/Include/GameClient/Drawable.h,existing header; contract
 FieldParse,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/FieldParse.json; 158/294 sampled units adopt
 MultiIniFieldParse,Code/GameEngine/Include/Common/INI/FieldParse.h,existing header; contract class_contracts/MultiIniFieldParse.json; 110/159 sampled units adopt
 AICommandInterface,Code/GameEngine/Include/GameLogic/Module/AIUpdate.h,existing header; contract class_contracts/AICommandInterface.json; 32/208 sampled units adopt
+INI,Code/GameEngine/Include/Common/INI/INI.h,existing header; contract class_contracts/INI.json; 663/760 sampled units adopt

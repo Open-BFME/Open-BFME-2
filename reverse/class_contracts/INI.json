@@ -1,0 +1,501 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "INI",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 760,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 5
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x417": {
+    "1": 1
+   },
+   "0x418": {
+    "4": 2
+   },
+   "0x41c": {
+    "4": 1
+   },
+   "0x420": {
+    "4": 3
+   },
+   "0x424": {
+    "4": 1
+   },
+   "0x430": {
+    "1": 1
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0x838": {
+    "4": 2
+   },
+   "0x83c": {
+    "4": 1
+   },
+   "0x86c": {
+    "4": 1
+   },
+   "0x870": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2cdb0"
+     ],
+     "value": {
+      "0x4": [
+       "?$StringBase@D"
+      ]
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2cdb0"
+     ],
+     "value": 2160
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2cdb0"
+     ],
+     "value": {
+      "0x14": [
+       1
+      ],
+      "0x42c": [
+       4
+      ],
+      "0x430": [
+       1
+      ],
+      "0x431": [
+       1
+      ],
+      "0x86c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2cdb0"
+     ],
+     "value": {
+      "0x838": [
+       "??0Rva00601BBCHelper@@QAE@XZ"
+      ],
+      "0x870": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x2cdb0"
+     ],
+     "value": {
+      "0x428": [
+       "0x7bdce8"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 38,
+  "retail_vtables": {},
+  "view_errors": 13,
+  "view_sizes": {
+   "1": 627,
+   "12": 49,
+   "1052": 3,
+   "1060": 34,
+   "1064": 1,
+   "2108": 1,
+   "2172": 32
+  },
+  "views": 747,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_INI.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_00",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 2172,
+   "type": "char[2172]",
+   "views": 55,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1206
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/CrowdResponseBlockParse.cpp",
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/INI/INIWater.cpp",
+    "Code/GameEngine/Source/Common/INI/INIWaterTransparency.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp",
+    "Code/GameEngine/Source/Common/Rva00402B19Parse.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B668Parse.cpp",
+    "Code/GameEngine/Source/Common/Rva0056BDFCParse.cpp",
+    "Code/GameEngine/Source/Common/Rva0056BF1FParse.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameClient/SubtitleEntry.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AnimationSoundModuleManager.cpp",
+    "Code/GameEngine/Source/Common/AttributeModifierStore.cpp",
+    "Code/GameEngine/Source/Common/CrowdResponseBlockParse.cpp",
+    "Code/GameEngine/Source/Common/GlobalData.cpp",
+    "Code/GameEngine/Source/Common/INI/AudioEventInfoParseMultisound.cpp",
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp",
+    "Code/GameEngine/Source/Common/INI/INIBfmeSettingsParsers.cpp",
+    "Code/GameEngine/Source/Common/INI/INICommandButton.cpp",
+    "Code/GameEngine/Source/Common/INI/INIParticleSystemDefinition.cpp",
+    "Code/GameEngine/Source/Common/INI/INIWater.cpp",
+    "Code/GameEngine/Source/Common/INI/INIWaterTransparency.cpp",
+    "Code/GameEngine/Source/Common/INI_parseMiscEvaData.cpp",
+    "Code/GameEngine/Source/Common/MissionObjectiveTracker_ParseMapMissionObjective.cpp",
+    "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp",
+    "Code/GameEngine/Source/Common/Rva00041403.cpp",
+    "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp",
+    "Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp",
+    "Code/GameEngine/Source/Common/Rva00402B19Parse.cpp",
+    "Code/GameEngine/Source/Common/Rva004DCAD2Parse.cpp",
+    "Code/GameEngine/Source/Common/Rva0056B668Parse.cpp",
+    "Code/GameEngine/Source/Common/Rva0056BDFCParse.cpp",
+    "Code/GameEngine/Source/Common/Rva0056BF1FParse.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/Common/System/Rva00318ABBFieldParse.cpp",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingFactoryParseObjectDefinition.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingTemplateParsePrerequisites.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/FXListStoreParse.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp",
+    "Code/GameEngine/Source/GameClient/INIParseWeatherDefinition.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldObjectParser.cpp",
+    "Code/GameEngine/Source/GameClient/SubtitleEntry.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioInit_Rva0020D86C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorSetSetLocomotorAndBaseSpeed.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva001EA3AEFinish.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LightPointSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveResourceBonus.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore.cpp",
+    "Code/GameEngine/Source/GameLogic/System/RankInfoParse.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva001ED2C5Parse.cpp"
+   ],
+   "views": 59
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameClient/INILineAccessors.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameClient/INILineAccessors.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1048,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_getNextToken.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp",
+    "Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseRankCollections.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 1052,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1056,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp",
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp",
+    "Code/GameEngine/Source/Common/INI/INIObjectListParsers.cpp",
+    "Code/GameEngine/Source/Common/INI/Rva0006AF00FunctionCurveParseKey.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp",
+    "Code/GameEngine/Source/Common/Rva000C2B23ParseModelName.cpp",
+    "Code/GameEngine/Source/Common/Rva003A47F3Parse.cpp",
+    "Code/GameEngine/Source/Common/System/EmotionNuggetTemplateIniParseEmotionType.cpp",
+    "Code/GameEngine/Source/Common/System/GeometryParseOther.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_Rva000C3B6EParse.cpp",
+    "Code/GameEngine/Source/Common/System/INI_Rva003F156FParseRegionBonusEntry.cpp",
+    "Code/GameEngine/Source/Common/System/INI_Rva0044E6CDParseCustomAnim.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp",
+    "Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp",
+    "Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva0056A83BParseAudioMap.cpp",
+    "Code/GameEngine/Source/GameLogic/Module/OpenContainParsePassengerBone.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataParse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseSplitResult.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/HordeContainParseComboHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionAudioLoopClientBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponParseShotDelayClip.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleBonus.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawGetProjectileLaunchOffset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParticleSysBone.cpp"
+   ],
+   "views": 39
+  },
+  {
+   "offset": 1060,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/BannerCarrierUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1064,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1068,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1072,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1073,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2104,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameClient/INILineAccessors.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 2156,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI.cpp",
+    "Code/GameEngine/Source/Common/System/INI_loadFile.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 2160,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2164,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2168,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseRva0020443D.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "bytes": 2,
+    "m_00": 7,
+    "m_0000": 1,
+    "m_beforeLoadType": 1,
+    "m_body": 2,
+    "m_data": 6,
+    "m_file": 5,
+    "m_head": 1,
+    "m_prefix": 1,
+    "m_storage": 3,
+    "m_unmodelled00": 2,
+    "m_unmodelled_000": 1,
+    "m_unported": 3,
+    "m_unreconstructed": 2,
+    "m_unreconstructed_00": 1,
+    "m_unreconstructed_000": 7,
+    "opaque00": 1,
+    "prefix": 3,
+    "storage": 3,
+    "unmodelled": 1,
+    "unused": 2
+   },
+   "class": "INI"
+  }
+ ],
+ "size": 2172,
+ "size_by": "majority",
+ "vslots": {}
+}
