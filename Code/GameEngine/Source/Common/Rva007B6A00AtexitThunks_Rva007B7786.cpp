@@ -46,52 +46,13 @@ public:
 };
 
 extern unsigned int g_00DDE0AC;
-extern unsigned g_Va00DEBC64;	// retail RVA 0x009EBC64 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00DFE490;	// retail RVA 0x009FE490 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00DFE49C;	// retail RVA 0x009FE49C (.bss), defined in Rva007B6A00AtexitThunks.cpp
 class Rva00575674;
 extern Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), defined in Rva002220DCInit.cpp
-extern unsigned g_Va00DFE6DC;	// retail RVA 0x009FE6DC (.bss), defined in Rva007B6A00AtexitThunks.cpp
 extern unsigned char g_00DFE7A8;	// canonical byte owner, Rva003B9EC4.cpp
-extern unsigned g_Va00DFE940;	// retail RVA 0x009FE940 (.bss), defined in Rva007B6A00AtexitThunks.cpp
 struct BfmeUiResourceEntryState;
 extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
-extern unsigned g_Va00DFF030;
-extern unsigned g_Va00DFF0A0;	// retail RVA 0x009FF0A0 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00DFF0A4;	// retail RVA 0x009FF0A4 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00DFF0C4;
-extern unsigned g_Va00DFF168;	// retail RVA 0x009FF168 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E022E8;
-extern unsigned g_Va00E028C4;
-extern unsigned g_Va00E02D68;
-extern unsigned g_Va00E02D90;
-extern unsigned g_Va00E02D94;
-extern unsigned g_Va00E02E70;
-extern unsigned g_Va00E02E74;
-extern unsigned g_Va00E032E8;
-extern unsigned g_Va00E04444;	// retail RVA 0x00A04444 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E04448;	// retail RVA 0x00A04448 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E04490;
-extern unsigned g_Va00E0494C;	// retail RVA 0x00A0494C (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E04954;	// retail RVA 0x00A04954 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E04964;	// retail RVA 0x00A04964 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E04998;	// retail RVA 0x00A04998 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E049A0;	// retail RVA 0x00A049A0 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E049A4;	// retail RVA 0x00A049A4 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E062FC;
-extern unsigned g_Va00E0630C;
-extern unsigned g_Va00E0631C;
-extern unsigned g_Va00E06360;	// retail RVA 0x00A06360 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E063D4;
-extern unsigned g_Va00E06458;	// retail RVA 0x00A06458 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E065EC;
-extern unsigned g_Va00E06620;
-extern unsigned g_Va00E06710;
-extern unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined in Rva007B6A00AtexitThunks.cpp
 extern int g_00E06734;	// data row 0x00A06734 (Rva005E8DB5.cpp)
 extern int g_00E06748;	// data row 0x00A06748 (Rva005E8DB5.cpp)
-extern unsigned g_Va00E08D48;	// retail RVA 0x00A08D48 (.bss), defined in Rva007B6A00AtexitThunks.cpp
-extern unsigned g_Va00E09E60;
 extern unsigned GeometryContactSphere;
 
 void __cdecl rva007B6DFA();

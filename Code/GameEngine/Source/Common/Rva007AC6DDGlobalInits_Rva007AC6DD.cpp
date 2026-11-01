@@ -54,17 +54,14 @@ void rva007AC6DD()
 	atexit(rva007B6DFA);
 }
 
-extern unsigned g_Va00DEBC98;
 void __cdecl rva007B6E18();
 void rva007AC747();
 
 
-extern unsigned g_Va00DEC0E0;
 void __cdecl rva007B6ED6();
 void rva007AC910();
 
 
-extern unsigned g_Va00DFDD0C;
 void __cdecl rva007B7588();
 void rva007AD50B();
 
@@ -88,17 +85,14 @@ void __cdecl rva007B89C1();
 void rva007B1CDC();
 
 
-extern unsigned g_Va00E04508;
 void __cdecl rva007B9049();
 void rva007B342C();
 
 
-extern unsigned g_Va00E0669C;
 void __cdecl rva007B993D();
 void rva007B4FDA();
 
 
-extern unsigned g_Va00E06710;
 void __cdecl rva007B9947();
 void rva007B5000();
 
@@ -108,32 +102,26 @@ void __cdecl rva007B99B5();
 void rva007B51EB();
 
 
-extern unsigned g_Va00E06E60;
 void __cdecl rva007B9A37();
 void rva007B53D4();
 
 
-extern unsigned g_Va00E182E0;
 void __cdecl rva007B9C50();
 void rva007B67A0();
 
 
-extern unsigned g_Va00DDEF54;
 void __cdecl rva007B6A50();
 void rva007ABB80();
 
 
-extern unsigned g_Va00DEC140;
 void __cdecl rva007B6EEA();
 void rva007AC940();
 
 
-extern unsigned g_Va00DEC174;
 void __cdecl rva007B6EF4();
 void rva007AC956();
 
 
-extern unsigned g_Va00E0631C;
 void __cdecl rva007B94C8();
 void rva007B4100();
 

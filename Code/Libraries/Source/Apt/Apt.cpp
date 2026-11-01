@@ -140,7 +140,6 @@ void Rva006CC380Initialize(unsigned valueSize,int valueCount,unsigned chainSize,
 // in the complete native493B body. No private-register asm is used.
 // The complete355B caller stays declared until its separate ledger commit.
 extern int g_bfmeAptFlagAtE176D4,g_rva00891FA0Value,g_rva00891FA0Ready;
-extern unsigned char g_Va00E1770C;
 extern AptActionInterpreter g_aptDateInterpreter;
 class Rva006DBB30SarDwordField {public:int get() const;};
 class BfmeAptValue006DCD20 {public:bool isUndefined() const;void setGCRootCount(unsigned);BfmeAptValue006DCD20 *rva006DCF60(bool);};

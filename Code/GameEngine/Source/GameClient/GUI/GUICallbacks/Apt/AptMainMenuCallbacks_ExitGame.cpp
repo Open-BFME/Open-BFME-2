@@ -445,7 +445,6 @@ public:
 class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;
 
-extern int g_Va00DD1538;
 
 
 

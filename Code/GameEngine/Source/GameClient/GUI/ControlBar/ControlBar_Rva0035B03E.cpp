@@ -1017,7 +1017,6 @@ struct BfmeRallyPointDrawable
 
 // byte-exact reconstruction: game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate_Thunk.cpp
 
-extern int g_Va012F4C38;
 class Shell;
 extern Shell *TheShell;
 

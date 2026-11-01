@@ -45,17 +45,6 @@ void __cdecl clearMissingVariant();
 // This split initializer unit only refers to the same objects.
 // VA 0x00DEC290: zero-initialized AsciiString storage, explicitly constructed below.
 extern unsigned BfmeLiveCameraModeNameStorage;
-extern unsigned g_Va00DEC3B8;	// retail RVA 0x009EC3B8 (.bss), owned by the original initializer unit
-extern unsigned g_Va00DFF030;
-extern unsigned g_Va00E022E8;
-extern unsigned g_Va00E028C4;
-extern unsigned g_Va00E02D68;
-extern unsigned g_Va00E02E70;
-extern unsigned g_Va00E02E74;
-extern unsigned g_Va00E04490;	// retail RVA 0x00A04490 (.bss), owned by the original initializer unit
-extern unsigned g_Va00E063D4;	// retail RVA 0x00A063D4 (.bss), owned by the original initializer unit
-extern unsigned g_Va00E06444;	// retail RVA 0x00A06444 (.bss), owned by the original initializer unit
-extern unsigned g_Va00E06448;	// retail RVA 0x00A06448 (.bss), owned by the original initializer unit
 
 struct Rva007AB85CAtexitInits
 {

@@ -166,7 +166,6 @@ UnicodeString __cdecl Rva005B2446Describe(void *power)
 	return TheGameText->fetch(label);
 }
 extern const char *g_00DD3B90[];
-extern const unsigned short g_Va007C9260[];
 
 class Rva005B9378
 {

@@ -58,7 +58,6 @@ class FXList;
 typedef _STL::vector<const FXList *> RubbleFXVec;
 
 extern void *g_00DE1ED0;
-extern float g_Va00BBB8D8;
 
 class Rva0007517F : public Rva0030B0E3
 {

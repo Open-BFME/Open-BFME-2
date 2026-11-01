@@ -5,7 +5,6 @@
 // reverse/deleted_rows.csv.
 // cl: /G7 /MD /EHsc /DNDEBUG
 
-extern unsigned int g_Va00DFEDE4;
 extern unsigned int g_Va00DFEE10;
 // g_Va00DFEE10: matched references place it at VA 0xdfee10 (zero-filled .bss).
 unsigned int g_Va00DFEE10;

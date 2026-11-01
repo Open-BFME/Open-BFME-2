@@ -14,7 +14,6 @@
 extern unsigned int g_Va00E02820;
 // g_Va00E02820: matched references place it at VA 0xe02820 (zero-filled .bss).
 unsigned int g_Va00E02820;
-extern unsigned int g_Va00E02F24;
 
 unsigned int Rva00780FA4ClearFlag(void)
 {

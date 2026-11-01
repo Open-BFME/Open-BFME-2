@@ -72,26 +72,17 @@ void __cdecl rva007B8590();
 // RVA 0x009DF580: Rva00200D38Ctor.cpp's _STL::vector<const ModuleData *> g_vec00200D38.
 class ModuleData;
 extern _STL::vector<const ModuleData *> g_vec00200D38;
-extern unsigned g_Va00DF29A8;
 extern unsigned int g_00DFE174;
 extern unsigned int g_00DFE1AC;
 unsigned g_00DFE358;	// retail RVA 0x009FE358 (.bss), defined here
 class BfmeItemKA;
 extern BfmeItemKA **g_bfmeBegKA;
-extern unsigned g_Va00DFF134;
 // RVA 0x00A04484: AIWallBuilder.cpp's RvaVector g_00E04484.
 struct RvaVector;
 extern RvaVector g_00E04484;
-extern unsigned g_Va00E04920;
-extern unsigned g_Va00E0657C;
-extern unsigned g_Va00E06654;
-extern unsigned g_Va00E06670;
-extern unsigned g_Va00DE6194;
 // RVA 0x00A01E68: the vector whose begin pointer ObjectFilterRelease.cpp defines
 // as g_validityBegin (the data ledger's owner of the address).
 extern unsigned char *g_validityBegin;
-extern unsigned g_Va00E032DC;
-extern unsigned g_Va00E0362C;
 
 struct Rva007ABB96AllocCtorInits
 {

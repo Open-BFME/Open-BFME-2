@@ -335,7 +335,6 @@ public:
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 // Further screens that keep the store closed while up
 // (ColdGlobalDwordGetters.cpp, AptDisconnectScreen.cpp).
-extern int g_Va00E0330C;
 class AptQuitMenu;
  extern AptQuitMenu *TheAptQuitMenu;
 class DisconnectMenu;

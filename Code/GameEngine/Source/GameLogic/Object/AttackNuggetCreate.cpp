@@ -94,7 +94,6 @@ public:
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-extern unsigned int g_Va00DFDCD8;
 extern unsigned int g_00DFDCD4;
 
 class RadiusDecalUpdate : public Module {

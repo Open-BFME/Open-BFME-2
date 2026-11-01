@@ -102,9 +102,6 @@ void __cdecl rva007B9B28();
 extern unsigned int g_00DDE070;
 extern unsigned int g_00DDE071;
 extern unsigned int g_00DDE0AC;
-extern unsigned g_Va00DDEB24;
-extern unsigned g_Va00DE4878;
-extern unsigned g_Va00DEDC80;
 // VA 0x00DEE5D8 is dx8wrapper.cpp's protected
 // ?render_state@DX8Wrapper@@1URenderStateStruct@@A, reached through a TU-scoped
 // friend view instead of a second datum at its address.
@@ -115,14 +112,12 @@ class DX8Wrapper
 protected:
 	static RenderStateStruct render_state;
 };
-extern unsigned int g_Va009F6F30;
 // VA 0x00DFE180 is ScriptEngine_init.cpp's TheFXParticleEditor.
 extern BfmeDualVtableReleaseDtor TheFXParticleEditor;
 extern Rva0030ADED TheFireSettings;			// 0x00DFF4F8 (Rva007B6880Thunks.cpp)
 extern Rva0030ADED TheFireSettingsSaved;		// 0x00DFF4B8
 extern Rva00214E02 TheCloudEffectSettings;		// 0x00DFE280 (Rva007B6880Thunks.cpp)
 extern Rva00214E02 TheCloudEffectSettingsSaved;	// 0x00DFE1E8
-extern unsigned g_Va00E065EC;
 extern unsigned int g_00E06664;
 // VA 0x00E06665: the one-byte STLport `static ios_base::_Loc_init _LocInit;`
 // sentry that <fstream>/<iostream> declare per TU, beside the ios_base::Init

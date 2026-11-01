@@ -54,7 +54,6 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-extern float g_Va00BBB8D8;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 

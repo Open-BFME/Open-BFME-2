@@ -59,7 +59,6 @@ public:
 // g_Va00DB5FB0 is only an alias of the owned global g_00DB5FB0 (ledger names column); this unit reads the owner through its own view type.
 extern int g_00DB5FB0;
 #define g_Va00DB5FB0 (*(int *)&g_00DB5FB0)
-extern float g_Va00DEC49C;
 
 class W3DAptAux
 {
@@ -183,7 +182,6 @@ unsigned long Rva000A90B0(unsigned long);						// 0x000A90B0
 
 // The Apt draw callback slot (0x00DB5FC8) and the Apt player (0x00DFE4CC),
 // whose OnCustomRender identity is corroborated by WB B97350 and retail 223D8D.
-extern int g_Va00DB5FC8;
 
 class AptPlayer
 {
