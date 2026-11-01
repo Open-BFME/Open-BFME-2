@@ -20,7 +20,6 @@ public:
 	// Keep prefix accessors inline without competing canonical getter copies.
 	__declspec(dllimport) __forceinline Int getXExtent() { return m_width; }
 	__declspec(dllimport) __forceinline Int getYExtent() { return m_height; }
-	void setInMesh(Int x, Int y, bool value) { ((Rva000AD9AB *)this)->rva000AD9AB(x, y, value); }
 private:
 	unsigned char m_pad00[0x08];
 	Int m_width;
@@ -53,7 +52,7 @@ void W3DTerrainBackground::rva00111FCF()
 			x = MIN(x, xMax);
 			Int y = yOrg + j;
 			y = MIN(y, yMax);
-			m_map->setInMesh(x, y, false);
+			((Rva000AD9AB *)m_map)->rva000AD9AB(x, y, false);
 		}
 	}
 }
