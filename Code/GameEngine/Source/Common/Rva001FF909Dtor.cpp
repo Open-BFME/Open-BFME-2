@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // ??1Rva001FF909@@UAE@XZ, retail 0x001FF909..0x001FF9E4 (219 bytes, EH):
 // a subsystem's destructor (opaque pin of its scalar deleting destructor;
@@ -20,8 +20,16 @@ void __cdecl Rva00030830GameFree(void *);
 namespace _STL {
 template<> inline _Vector_base<Rva001FF909Owned *, allocator<Rva001FF909Owned *> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
 template<> vector<void *>::iterator vector<void *>::erase(iterator first, iterator last);
-template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() { return _M_start; }
-template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
+}
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void *>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void *>::end() { return this->_M_finish; }
 }
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
