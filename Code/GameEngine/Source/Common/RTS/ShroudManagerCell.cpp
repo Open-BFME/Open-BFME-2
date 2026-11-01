@@ -150,15 +150,7 @@ public:
 
 // Retail's Version1 (0x000053EE, System/Xfer.cpp) is inlined in this unit's
 // transfer: the version record is built on the stack and passed to slot 10.
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 
 class ShroudManagerCell;
 

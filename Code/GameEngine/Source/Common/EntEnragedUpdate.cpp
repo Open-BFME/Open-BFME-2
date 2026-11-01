@@ -187,15 +187,7 @@ private:
 
 BFME_LITERAL_NAME_GETTER(Rva004B2394Named, "EntEnragedUpdate")
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../Include/Common/XferVersion.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
 class ModuleData

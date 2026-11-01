@@ -143,15 +143,7 @@ class AIUpdateInterface;
 
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../Include/Common/XferVersion.h"
 
 // The Object's AI as these units use it: slot 110 (+0x1B8) answers whether
 // it is busy, the command interface sits at +0x20 and +0x34 is tested before

@@ -218,15 +218,7 @@ class DamageInfo;
 
 #include "../../../Include/Common/BfmeXfer.h"
 
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 
 class Rva004E0513 { public: void rva004E0513(Xfer*); };
 class Rva00291440;

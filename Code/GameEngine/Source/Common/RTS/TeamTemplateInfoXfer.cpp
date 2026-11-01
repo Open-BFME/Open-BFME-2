@@ -19,14 +19,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 // KindOfMaskType is the donor's BitFlags typedef. Target 0x2AC06A's loop
 // bound 218 and seven-word payload establish this target specialization.
 template <int NUMBITS>

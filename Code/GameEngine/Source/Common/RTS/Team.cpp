@@ -770,15 +770,7 @@ struct TeamTemplateGenericScriptsView
 	unsigned char m_pad000[0x118];
 	AsciiString m_teamGenericScripts[MAX_GENERIC_SCRIPTS]; // +0x118, prototype +0x244
 };
-class Xfer::Version
-{
-public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
-
-	unsigned char m_current;
-	unsigned char m_minimum;
-};
+#include "../../../Include/Common/XferVersion.h"
 class XferException
 {
 public:
