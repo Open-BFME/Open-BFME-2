@@ -1,0 +1,15 @@
+{
+  "base": "974ad2994e2a45ef8c1af52d3d5b36e2e515fec9",
+  "before_definitions": 313,
+  "after_definitions": 308,
+  "added": [],
+  "removed": [
+    "?addSkillPoints@Player@@QAE_NH@Z",
+    "?fast_float2long_round@@YAJM@Z",
+    "?fast_float_ceil@@YAMM@Z",
+    "?fast_float_trunc@@YAMM@Z",
+    "?getRankLevelLimit@GameLogic@@QBEHXZ"
+  ],
+  "changed": [],
+  "all_retained_whole_code_and_relocations_equal": true
+}

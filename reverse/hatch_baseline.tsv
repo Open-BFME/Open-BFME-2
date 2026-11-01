@@ -11953,7 +11953,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setAttack
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	Player::setTeamDelaySeconds	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addKindOfProductionCostChange@Player@@QAEXV?$BitFlags@$0HE@@@M@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addNewSharedSpecialPowerTimer@Player@@QAEXPBVSpecialPowerTemplate@@I@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addSkillPoints@Player@@QAE_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	addUpgrade@Player@@QAEPAVUpgrade@@PBVUpgradeTemplate@@W4UpgradeStatusType@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefense@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	buildBaseDefenseStructure@Player@@QAEXABVAsciiString@@_N@Z	1

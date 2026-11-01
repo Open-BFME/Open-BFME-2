@@ -1407,29 +1407,8 @@ void Player::recruitSpecificTeam( TeamPrototype *teamProto, Real recruitRadius)
 
 //=============================================================================
 /// returns TRUE if the player gained/lost levels as a result.
-// ?addSkillPoints@Player@@QAE_NH@Z present-unmatched
-Bool Player::addSkillPoints(Int delta)
-{
-	delta = REAL_TO_INT_CEIL(m_skillPointsModifier * INT_TO_REAL(delta));
 
-	if( delta == 0 )
-		return false;
 
-	Int levelCap = min( TheGameLogic->getRankLevelLimit(), TheRankInfoStore->getRankLevelCount() );
-	Int pointCap = TheRankInfoStore->getRankInfo(levelCap)->m_skillPointsNeeded; // Cap at lowest point of cap level, not highest.
-
-	Bool levelGained = FALSE;
-	m_skillPoints = min( pointCap, (m_skillPoints + delta) );
-	while( m_skillPoints >= m_levelUp )
-	{
-		// LevelUp gets increased as a side effect of setRankLevel, and this won't infinitely loop,
-		// because when there are no more levels to be gained, m_levelUp is set to INT_MAX.
-		setRankLevel( m_rankLevel + 1 );
-		levelGained = TRUE;
-	}
-
-	return levelGained;
-}
 
 //=============================================================================
 /// returns TRUE if the player gained/lost levels as a result.
