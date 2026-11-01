@@ -16820,6 +16820,20 @@ index (two receipt gaps, first linegrp.cpp). Fresh strict receipts now cover
 the two current units, but wider/global clearance awaits census measurement.
 Evidence: reverse/attempt_support/linegrp-owning-layout-20261101/.
 
+## LineGroup stale link-order fence (2026-11-01)
+
+The final27-row composition is exact, but its first supported attempt refused
+an earlier-order condition even though both sources have census objects. The
+seed's earlier verified Render absorption moved its current rank3825 ahead of
+the old destructor slot3826. No live outsider lies between, and all surviving
+census outsiders retain their side. Recorded false reject and independent
+review led to a separate verifier repair: require exact cohort mappings and
+unchanged outside ordering, then use the actual merged rank for copy exemptions.
+157 consolidation tests and61 exploit tests pass (one existing skip), including
+the stale-holder different-body rejection. No game source or census changed in
+that repair; final absorption still runs through the ordinary merge lane.
+Evidence: reverse/attempt_support/linegrp-link-order-fence-20261101/.
+
 ### LINK-170: Player donor-closure removal (`da3e48530e`) unresolved three Player consumers (2026-11-01, seat halilkkaya-lk12)
 
 Status: Open (partly repaired). Base `6b1a8fb85c`; census 12:39 (`39dfbbdb50`), index `86db074988`.

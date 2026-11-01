@@ -1389,6 +1389,32 @@ class LinkGuard:
             out["references"].pop("objects", None)
         return out
 
+    def same_outside_order(self, files, places, merged, holder_rank):
+        """A stale cohort slot still has exactly the current outside neighbours.
+
+        A previously merged file can now start before its census slot. Moving
+        within that empty gap is representable only when every cohort object
+        is census-known and all live outsiders remain on the same side. The
+        actual current rank still decides existing-copy exemptions.
+        """
+        import build
+        names = {build.obj_path(build.ROOT / f).name for f in files}
+        if len(places) != len(names) or any(self.position(f) is None or
+                self.index["objects"][self.position(f)] != build.obj_path(build.ROOT / f).name
+                for f in files):
+            return False
+        if any(name not in names and merged <= rank <= holder_rank
+               for name, rank in self.rank.items()):
+            return False
+        first = min(places)
+        for position, name in enumerate(self.index["objects"]):
+            if position in places or position in self.gone:
+                continue
+            rank = self.rank.get(name)
+            if rank is None or (position < first) != (rank < merged):
+                return False
+        return True
+
     def judge(self, obj, files, text):
         """Why the merged object of `files` (compiled from `text`) would not
         link, [] when it links or when no file of it links at the census."""
@@ -1408,22 +1434,26 @@ class LinkGuard:
             why = []
             # The next census places the merged object by the lowest row of ALL its
             # files, census-known or not. The view can only hold it at the census
-            # slot of its earliest census unit, so a file that would move it earlier
-            # than that slot is a link order this guard cannot model: refuse.
+            # slot of its earliest census unit. An earlier current rank needs
+            # proof that this slot has exactly the same outside neighbours.
             merged = None
             if self.rank is not None:
                 merged = min((r for f in files if (r := self.rank.get(build.obj_path(build.ROOT / f).name)) is not None),
                              default=None)   # link_rank's names (build.row_object)
             holder = self.index["objects"][min(places)] if places else None
-            if merged is not None and holder in self.rank and merged < self.rank[holder]:
-                why.append("a file without a census object would place the merged unit earlier in link "
-                           "order than the guard can judge")
+            placement_rank = self.rank.get(holder) if self.rank is not None else None
+            if merged is not None and placement_rank is not None and merged < placement_rank:
+                if self.same_outside_order(files, places, merged, placement_rank):
+                    placement_rank = merged
+                else:
+                    why.append("a file without a census object or a changed outside order would place "
+                               "the merged unit earlier in link order than the guard can judge")
             with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
                 found = LC.check_object(obj, view, self.truth)
                 rank, previous = None, {}
                 if places and self.rank is not None and view["objects"][min(places)] == obj.name:
-                    if holder in self.rank:
-                        rank = dict(self.rank, **{obj.name: self.rank[holder]})
+                    if placement_rank is not None:
+                        rank = dict(self.rank, **{obj.name: placement_rank})
                 # Existing copies are exempt only where they keep their link place: a
                 # file absorbed from a later place moves its copies earlier, which can
                 # make another unit's copy lose (breaks_others judges those).

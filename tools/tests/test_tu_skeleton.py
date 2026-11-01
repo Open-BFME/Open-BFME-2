@@ -1652,6 +1652,7 @@ class LinkGuardTests(unittest.TestCase):
 
         def new_variants(obj, view, truth, previous=None, rank=None):
             given["previous"] = previous
+            self.last_variant_rank = rank
             return []
         clean = {"unresolved": [], "duplicates": [], "comdat": [], "addresses": [], "selected": [],
                  "unreferenced_differs": []}
@@ -1694,6 +1695,68 @@ class LinkGuardTests(unittest.TestCase):
         self.assertIn("dt", previous["?inl@@YAXXZ"])          # the target keeps its place: exempt
         self.assertNotIn("da", previous["?inl@@YAXXZ"])       # the moved donor's copy is judged
 
+    def test_a_known_cohort_can_use_a_stale_slot_without_crossing_an_outsider(self):
+        import build
+        name = lambda f: build.obj_path(build.ROOT / f).name
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = self.ranked_guard(tmp, {self.TU: 11, self.A: 10})
+            guard.prepare([self.TU, self.A])
+            guard.previous = {0: {"?inl@@YAXXZ": {"stale"}}, 1: {"?inl@@YAXXZ": {"current"}}}
+            why, previous = self.judge(guard, [self.TU, self.A])
+        self.assertEqual(why, [])
+        self.assertEqual(self.last_variant_rank["m.obj"], 10)
+        self.assertEqual(self.last_variant_rank[name(self.TU)], 11)
+        self.assertIn("current", previous["?inl@@YAXXZ"])
+        self.assertNotIn("stale", previous["?inl@@YAXXZ"])
+
+    def test_a_stale_slot_cannot_cross_a_live_or_unindexed_outsider(self):
+        import build
+        name = lambda f: build.obj_path(build.ROOT / f).name
+        for outsider in (name(self.B), "new.obj"):
+            with self.subTest(outsider=outsider), tempfile.TemporaryDirectory() as tmp:
+                guard = self.ranked_guard(tmp, {self.TU: 11, self.A: 10})
+                guard.rank[outsider] = 10.5
+                why, _ = self.judge(guard, [self.TU, self.A])
+                self.assertTrue(any("earlier in link order" in w for w in why))
+
+    def test_an_empty_interval_does_not_excuse_a_changed_census_side(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = self.ranked_guard(tmp, {self.TU: 11, self.A: 10})
+            guard.rank["x.obj"] = 9       # census-last, currently before both cohort objects
+            why, _ = self.judge(guard, [self.TU, self.A])
+        self.assertTrue(any("earlier in link order" in w for w in why))
+
+    def test_a_blocker_for_the_wrong_cohort_object_cannot_prove_a_stale_slot(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = self.ranked_guard(tmp, {self.TU: 11, self.A: 10})
+            guard.index["blockers"][self.A]["object"] = guard.index["objects"][2]
+            why, _ = self.judge(guard, [self.TU, self.A])
+        self.assertTrue(any("earlier in link order" in w for w in why))
+
+    def test_a_gone_intermediary_leaves_an_empty_gap_but_a_live_one_does_not(self):
+        for live in (False, True):
+            with self.subTest(live=live), tempfile.TemporaryDirectory() as tmp:
+                guard = self.ranked_guard(tmp, {self.TU: 11, self.A: 10})
+                guard.index["objects"].insert(1, "old-render.obj")
+                for table, _ in T.LINK_TABLES:
+                    for name, entries in guard.index[table].items():
+                        guard.index[table][name] = [e + (e >= 1) if table == "strong"
+                                                   else (e[0] + (e[0] >= 1), *e[1:]) for e in entries]
+                if live:
+                    guard.rank["old-render.obj"] = 10.5
+                why, _ = self.judge(guard, [self.TU, self.A])
+                self.assertEqual(any("earlier in link order" in w for w in why), live)
+
+    def test_an_unknown_surviving_census_rank_keeps_the_stale_slot_refusal(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = self.ranked_guard(tmp, {self.TU: 11, self.A: 10})
+            guard.prepare([self.TU, self.A])
+            del guard.rank["x.obj"]
+            guard.gone = set()            # no proof that the unknown object left the link
+            with patch.object(guard, "prepare", return_value=None):
+                why, _ = self.judge(guard, [self.TU, self.A])
+        self.assertTrue(any("earlier in link order" in w for w in why))
+
     def test_a_dropped_definition_the_census_references_is_refused(self):
         with tempfile.TemporaryDirectory() as tmp:
             why, _ = self.judge(self.ranked_guard(tmp), [self.TU, self.A], defined=("?t@@YAXXZ",))
@@ -1734,14 +1797,15 @@ class LinkGuardTests(unittest.TestCase):
 
     def judge_moved_copy(self, copies, emitted="old", *, outside_rank=13, strong=False, exception=False,
                          unknown_holder=False, portable=True, old_proof=True, cohort_route=None,
-                         missing_cohort_proof=False, becomes_referenced=False, alias_only=False):
+                         missing_cohort_proof=False, becomes_referenced=False, alias_only=False,
+                         cohort_ranks=None):
         """Exercise real variant and keep rules around a two-file merge."""
         import link_check as LC
         import link_census as LCe
         import link_debt
         name = "?inl@@YAXXZ"
         with tempfile.TemporaryDirectory() as tmp:
-            guard = self.ranked_guard(tmp)
+            guard = self.ranked_guard(tmp, cohort_ranks)
             guard.index["comdat"][name] = copies
             guard.index["strong"]["callee"] = [2]
             if not becomes_referenced:
@@ -1804,6 +1868,11 @@ class LinkGuardTests(unittest.TestCase):
         # Both outside losses and selected verdict 'unknown' stay the same, but
         # the chosen implementation changes from the target's old body to A's.
         why = self.judge_moved_copy([(0, "target", None), (1, "old", None), (3, "other", None)])
+        self.assertIn("breaks another unit's copy of ?inl@@YAXXZ", why)
+
+    def test_a_stale_holder_cannot_exempt_its_different_selected_body(self):
+        why = self.judge_moved_copy([(0, "stale", None), (1, "current", None), (3, "other", None)],
+                                   emitted="stale", cohort_ranks={self.TU: 11, self.A: 10})
         self.assertIn("breaks another unit's copy of ?inl@@YAXXZ", why)
 
     def test_a_moved_old_copy_cannot_displace_the_selected_exclusive_owner(self):
@@ -2225,6 +2294,7 @@ class LinkGuardPlacementTests(unittest.TestCase):
         guard = T.LinkGuard("Code/Owner.cpp", index=index)
         with patch.object(LCe, "ledger", return_value=rows), patch.object(LCe, "data_ledger", return_value=[]), \
                 patch.object(LCe, "RetailTruth", side_effect=lambda rows: object()), \
+                patch.object(T, "link_rank", side_effect=LC.link_rank), \
                 patch.object(LC, "require_common_index", return_value=None), \
                 patch.object(T.LinkGuard, "census_contexts", return_value={}):
             self.assertIsNone(guard.prepare([]))

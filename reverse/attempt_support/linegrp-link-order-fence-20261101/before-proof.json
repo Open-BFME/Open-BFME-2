@@ -1,0 +1,87 @@
+{
+  "index": {
+    "time": null,
+    "commit": null
+  },
+  "positions": {
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp": 3827,
+    "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp": 3826
+  },
+  "current_ranks": {
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp": 3825,
+    "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp": 3826
+  },
+  "view_holder": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^line^group^class^destructor.obj",
+  "holder_current_rank": 3826,
+  "merged_current_rank": 3825,
+  "current_outside_objects_in_interval": [],
+  "index_neighbours": [
+    [
+      3823,
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^b^f^m^e2^encoding0^motion^channel^ctor.obj",
+      3823,
+      false
+    ],
+    [
+      3824,
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^b^f^m^e2^encoding0^motion^channel.obj",
+      3824,
+      false
+    ],
+    [
+      3825,
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^line^group^class^render.obj",
+      null,
+      true
+    ],
+    [
+      3826,
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^line^group^class^destructor.obj",
+      3826,
+      false
+    ],
+    [
+      3827,
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_linegrp.obj",
+      3825,
+      false
+    ],
+    [
+      3828,
+      "^code_^game^engine_^source_^common_^subsystem^legend.obj",
+      3827,
+      false
+    ],
+    [
+      3829,
+      "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^rva001^b4^d0^e^append.obj",
+      3828,
+      false
+    ],
+    [
+      3830,
+      "^code_^game^engine_^source_^common_^rva0022^e0^e5^dtor.obj",
+      3829,
+      false
+    ]
+  ],
+  "outside_side_mismatches": [],
+  "rows": 27,
+  "matched": 27,
+  "old_complete_definitions": 75,
+  "new_complete_definitions": 75,
+  "duplicate_variants": [
+    {
+      "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp",
+      "first_bytes_sha256": "bdac4502c2d582422a740fe80a75f77ff1e3ae581d66648d9b84093ca5fc71d6",
+      "other_bytes_sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d"
+    }
+  ],
+  "added": [],
+  "removed": [],
+  "changed_from_first_copy": [],
+  "findings": [
+    "a file without a census object would place the merged unit earlier in link order than the guard can judge"
+  ]
+}
