@@ -36,15 +36,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Object
-{
-public:
-    __declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface()
-    {
-        return *(AIUpdateInterface **)((char *)this + 0x258);
-    }
-    void leaveGroup();
-};
+#include "../Object/object.h"
 
 class ScriptActions
 {

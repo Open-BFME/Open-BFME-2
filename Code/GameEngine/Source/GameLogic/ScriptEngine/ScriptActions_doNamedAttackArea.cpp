@@ -38,12 +38,7 @@ public:
     AICommandInterface m_commandInterface;
 };
 
-class Object
-{
-public:
-    AIUpdateInterface *getAIUpdateInterface();
-    void leaveGroup();
-};
+#include "../Object/object.h"
 
 class ScriptActions
 {

@@ -39,12 +39,7 @@ public:
 	void *rva0031D5F8(const AsciiString *s);
 };
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
-	void rva00297000(const CommandButton *b, Object *o, int a, int c);
-};
+#include "../Object/object.h"
 
 void ScriptActions::Rva003C5825Do(Parameter *p, const AsciiString &name, const AsciiString &lookupName)
 {

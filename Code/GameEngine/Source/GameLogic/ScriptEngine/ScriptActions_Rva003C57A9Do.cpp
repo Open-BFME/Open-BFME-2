@@ -37,13 +37,7 @@ class ControlBar
 };
 extern ControlBar *TheControlBar;
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
-	void doCommandButton(const CommandButton *button, int source, bool extra);
-	void doCommandButtonAtPosition(const CommandButton *button, const Coord3D *pos, int source, int extra);
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

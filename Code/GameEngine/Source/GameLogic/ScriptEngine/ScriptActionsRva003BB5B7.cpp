@@ -15,11 +15,7 @@ public:
 };
 #include "../../Common/Thing/thing.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
-class Object
-{
-public:
-	int getIndicatorColor() const;
-};
+#include "../Object/object.h"
 class Team;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

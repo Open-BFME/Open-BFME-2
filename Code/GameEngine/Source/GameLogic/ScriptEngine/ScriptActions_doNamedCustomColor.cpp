@@ -4,11 +4,7 @@
 // body - the unit by name (BFME2 resolves it from its parameter through the
 // rowed getUnitNamed) gets the rowed Object::setCustomIndicatorColor, Zero
 // Hour's only script caller of that setter.
-class Object
-{
-public:
-	void setCustomIndicatorColor(int color);
-};
+#include "../Object/object.h"
 
 class Parameter;
 

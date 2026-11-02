@@ -18,11 +18,7 @@ public:
     virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
     virtual void s12(const Coord3D *position, int options);
 };
-class Object
-{
-public:
-    SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-};
+#include "../Object/object.h"
 // Native rowed member iterator returns24B. Only its current Object is read
 // here; its opaque20B callback state is retained for the out-of-line advance.
 template<class OBJCLASS>

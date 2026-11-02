@@ -35,11 +35,7 @@ enum SpecialPowerType
 	SPECIAL_INVALID = 0
 };
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

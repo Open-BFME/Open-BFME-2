@@ -37,15 +37,7 @@ public:
     AICommandInterface m_commandInterface;
 };
 
-class Object
-{
-public:
-    __declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface()
-    {
-        return *(AIUpdateInterface **)((char *)this + 0x258);
-    }
-    void leaveGroup();
-};
+#include "../Object/object.h"
 
 class ScriptActions
 {

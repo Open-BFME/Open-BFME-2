@@ -352,11 +352,7 @@ enum DisabledType
 {
 	DISABLED_TYPE_3 = 3
 };
-class Object
-{
-public:
-	void setDisabledUntil(DisabledType, unsigned int);
-};
+#include "../Object/object.h"
 void ScriptActions::Rva003BBF23Disable(Parameter *unit, bool held)
 {
 	Object *theObj = TheScriptEngine->getUnitNamed(unit);

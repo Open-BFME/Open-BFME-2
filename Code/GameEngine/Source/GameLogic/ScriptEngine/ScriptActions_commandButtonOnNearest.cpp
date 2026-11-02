@@ -126,17 +126,7 @@ public:
 
 struct Coord3D;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;						// 0x0028AFA9
-	bool rva002922D9(const CommandButton *button);					// 0x002922D9
-	void rva00297000(const CommandButton *button, Object *target, int source, int flags);	// 0x00297000
-	void doCommandButtonAtPosition(const CommandButton *button, const Coord3D *pos, int source, int flags);	// 0x00297149
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-};
+#include "../Object/object.h"
 
 class CommandButton
 {

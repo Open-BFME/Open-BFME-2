@@ -91,18 +91,7 @@ public:
 	virtual HordeContainInterface *getHordeContainInterface();	// slot 31 (+0x7C)
 };
 
-class Object
-{
-public:
-	void kill(DamageType damageType, DeathType deathType);	// 0x002984D4
-	// Keep the native +0x250 load inline; omit the competing legacy getter.
-	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
-	void *getBodyModule() const { return m_body; }
-private:
-	unsigned char m_pad000[0x250];
-	ContainModuleInterface *m_contain;	// +0x250
-	void *m_body;				// +0x254
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

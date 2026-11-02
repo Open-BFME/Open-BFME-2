@@ -9,12 +9,7 @@
 // native vtableEDI and global THIS reload across the getter calls.
 class Parameter;
 
-class Object
-{
-public:
-	char m_pad[0x74];
-	int m_74;
-};
+#include "../Object/object.h"
 
 class Drawable;
 #include "../../Common/Thing/thing.h"
@@ -67,7 +62,7 @@ void ScriptActions::Rva003BC1B2Do(Parameter *parameter, bool flag, float v)
 	Object *obj = TheScriptEngine->getUnitNamed(parameter);
 	if (obj == 0)
 		return;
-	reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s097(obj->m_74);
+	reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s097(obj->m_id);
 	reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s103(((Rva0055A88BDwordField *)((Thing *)obj)->getDrawable())->get());
 	if (flag)
 		reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s098();

@@ -47,19 +47,7 @@ public:
 	AICommandInterface m_command;
 };
 
-class Object
-{
-public:
-	void leaveGroup();
-private:
-	char m_pad0[0x38];
-public:
-	Coord3D m_position;
-private:
-	char m_pad1[0x258 - 0x44];
-public:
-	AIUpdateInterface *m_ai;
-};
+#include "../Object/object.h"
 
 extern ScriptEngine *TheScriptEngine;
 
@@ -75,9 +63,9 @@ void ScriptActions::doNamedAttackFollowWaypoints(Parameter *unitParam, const Asc
 	if (!unit)
 		return;
 	Coord3D pos;
-	pos.x = unit->m_position.x;
-	pos.y = unit->m_position.y;
-	pos.z = unit->m_position.z;
+	pos.x = unit->m_cachedPos.x;
+	pos.y = unit->m_cachedPos.y;
+	pos.z = unit->m_cachedPos.z;
 	AIUpdateInterface *ai = unit->m_ai;
 	if (!ai)
 		return;

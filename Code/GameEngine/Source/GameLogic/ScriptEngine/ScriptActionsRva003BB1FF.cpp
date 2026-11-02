@@ -13,12 +13,7 @@ public:
 	char m_pad00[0x70];
 	const AttackPriorityInfo *m_info70;
 };
-class Object
-{
-public:
-	char m_pad00[0x258];
-	AIUpdateInterface *m_ai258;
-};
+#include "../Object/object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 void ScriptActions::Rva003BB1FFAttack(Parameter *unit, const AsciiString &infoName)
@@ -26,7 +21,7 @@ void ScriptActions::Rva003BB1FFAttack(Parameter *unit, const AsciiString &infoNa
 	Object *obj = TheScriptEngine->getUnitNamed(unit);
 	if (obj == 0)
 		return;
-	AIUpdateInterface *ai = obj->m_ai258;
+	AIUpdateInterface *ai = obj->m_ai;
 	if (ai == 0)
 		return;
 	ai->m_info70 = TheScriptEngine->getAttackInfo(infoName);

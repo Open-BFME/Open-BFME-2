@@ -9,11 +9,7 @@
 // the unnamed Object method at 0x00291A8C with three floats and an int.
 // LINK: 0x00291A8C is rowed as Object::rva00291A8C(float, float, float, AsciiString const&) (the fourth word is that string's address).
 class AsciiString;
-class Object
-{
-public:
-	void rva00291A8C(float a, float b, float c, const AsciiString &d);
-};
+#include "../Object/object.h"
 class Parameter;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
