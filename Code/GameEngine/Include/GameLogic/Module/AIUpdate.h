@@ -186,7 +186,7 @@ public:
     virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
     virtual bool vslot24_01(int);
     virtual bool vslot24_02() { return false; }
-    virtual bool vslot24_03();
+    virtual bool vslot24_03() { return false; }
     virtual bool vslot24_04();
     virtual bool vslot24_05();
 

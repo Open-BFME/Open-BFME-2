@@ -18587,3 +18587,5 @@ The ordinary Object-header gate exposed ThreatFinderUpdate.cpp's stale five-pare
 ### Canonical AIUpdate collision default recovery (2026-11-02)
 
 Canonical vslot24_02 now supplies native false/RET at47A699 through ordinary inline C++. All37emitter rows, both secondary tables and all92prior code/ten data definitions remain exact. The bounded SupplyTruck preview drops definite unresolved ancestors41->40, still unlinked. [Native table evidence, unchanged object proof and donor-TU boundary](../reverse/attempt_support/aiupdate-collision-defaults-20261102/README.md). The existing9row donor TU is unchanged; its owning adoption tool cannot locate an external-header private view, and whole-view reconciliation remains separate. Header-dependent gates and publication checks remain required; no census gain is claimed.
+
+Canonical AIUpdate collision slot3 now shares the exact3B native false default at47A699, with its own inline ICF admission and all38consumer rows passing. Slot2 remains verified; slots4/5 and other ancestor groups remain. Original Xfer representatives and census status are kept, with no pin or new layout claim.
