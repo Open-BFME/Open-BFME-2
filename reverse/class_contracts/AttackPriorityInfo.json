@@ -1,0 +1,122 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AttackPriorityInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 16,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "8": 4,
+   "12": 1,
+   "16": 5
+  },
+  "views": 16,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AttackPriorityInfo.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AttackPriorityInfo_setPriority.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoGetPriority.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205D5D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/AttackPriorityInfo_setPriority.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoGetPriority.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/AttackPriorityInfoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00205D5D.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v01()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}

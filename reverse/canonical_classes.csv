@@ -371,3 +371,4 @@ ActiveBodyModuleData,Code/GameEngine/Include/GameLogic/Module/ActiveBodyModuleDa
 NetCommandList,Code/GameEngine/Include/GameNetwork/NetCommandListClass.h,existing header; contract class_contracts/NetCommandList.json; 10/16 sampled units adopt
 AABoxClass,Code/Libraries/Source/WWVegas/WWMath/AABoxClass.h,existing header; contract class_contracts/AABoxClass.json; 9/18 sampled units adopt
 Condition,Code/GameEngine/Include/GameLogic/ScriptCondition.h,existing header; contract class_contracts/Condition.json; 8/16 sampled units adopt
+AttackPriorityInfo,Code/GameEngine/Include/GameLogic/AttackPriorityInfo.h,existing header; contract class_contracts/AttackPriorityInfo.json; 11/16 sampled units adopt
