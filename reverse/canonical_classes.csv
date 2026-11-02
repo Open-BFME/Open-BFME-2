@@ -313,3 +313,4 @@ WeaponSet,Code/GameEngine/Include/GameLogic/WeaponSetClass.h,existing header; co
 ScriptList,Code/GameEngine/Include/GameLogic/ScriptList.h,existing header; contract class_contracts/ScriptList.json; 13/34 sampled units adopt
 GameSpyStagingRoom,Code/GameEngine/Include/GameNetwork/GameSpyStagingRoom.h,existing header; contract class_contracts/GameSpyStagingRoom.json; 7/35 sampled units adopt
 PathfindZoneManager,Code/GameEngine/Include/GameLogic/PathfindZoneManager.h,existing header; contract class_contracts/PathfindZoneManager.json; 17/32 sampled units adopt
+AIStateMachine,Code/GameEngine/Include/GameLogic/AIStateMachineClass.h,existing header; contract class_contracts/AIStateMachine.json; 8/35 sampled units adopt

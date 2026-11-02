@@ -1,0 +1,638 @@
+{
+ "bases": [
+  "StateMachine"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AIStateMachine",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 35,
+  "inherited": {
+   "base_views": 10,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 2
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x4c": {
+    "4": 3
+   },
+   "0x50": {
+    "4": 7
+   },
+   "0x58": {
+    "4": 2
+   },
+   "0x5c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x351c48"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "StateMachine",
+       "offset": 0,
+       "own_vftable": "0x814cd0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x351c48"
+     ],
+     "value": 104
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x351c48"
+     ],
+     "value": {
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x351c48"
+     ],
+     "value": {
+      "0x0": [
+       "?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z"
+      ],
+      "0x3c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x351c48"
+     ],
+     "value": {
+      "0x0": "0x814cd0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x814cd0"
+     ],
+     "value": {
+      "count": 16,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAIStateMachine@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x352b25"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva00351753Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x351753"
+       },
+       {
+        "name": "?xfer@AIStateMachine@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x353667"
+       },
+       {
+        "name": "?updateStateMachine@AIStateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 4,
+        "target": "0x3502ca"
+       },
+       {
+        "name": "?clear@AIStateMachine@@UAEXXZ",
+        "slot": 5,
+        "target": "0x352b41"
+       },
+       {
+        "name": "?resetToDefaultState@AIStateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 6,
+        "target": "0x350392"
+       },
+       {
+        "name": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+        "slot": 7,
+        "target": "0x4d770f"
+       },
+       {
+        "name": "?setState@AIStateMachine@@UAE?AW4StateReturnType@@H@Z",
+        "slot": 8,
+        "target": "0x3503d0"
+       },
+       {
+        "name": "?createMachine@Rva0034BA20Owner@@QAEPAVRva0034B952@@XZ",
+        "slot": 9,
+        "target": "0x34ba20"
+       },
+       {
+        "name": "?rva0034145C@AIStateMachineSlot10@@UAEPAVAIGuardMachine@@XZ",
+        "slot": 10,
+        "target": "0x34145c"
+       },
+       {
+        "name": "?isInAttackState@StateMachine@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x2621b8"
+       },
+       {
+        "name": "?rva0033FD77@Rva00367E26@@UAE_NXZ",
+        "slot": 12,
+        "target": "0x33fd77"
+       },
+       {
+        "name": "?rva004D7395@StateMachine@@UAEXXZ",
+        "slot": 13,
+        "target": "0x4d7395"
+       },
+       {
+        "name": "?rva0033FCDC@Rva0033FCDC@@QAEXPAVObject@@@Z",
+        "slot": 14,
+        "target": "0x33fcdc"
+       },
+       {
+        "name": "?halt@StateMachine@@UAEXXZ",
+        "slot": 15,
+        "target": "0x4d73a4"
+       }
+      ],
+      "table": "0x814cd0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x814cd0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAIStateMachine@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva00351753Named@@QBEPBDXZ",
+     "3": "?xfer@AIStateMachine@@MAEXPAVXfer@@@Z",
+     "4": "?updateStateMachine@AIStateMachine@@UAE?AW4StateReturnType@@XZ",
+     "5": "?clear@AIStateMachine@@UAEXXZ",
+     "6": "?resetToDefaultState@AIStateMachine@@UAE?AW4StateReturnType@@XZ",
+     "7": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
+     "8": "?setState@AIStateMachine@@UAE?AW4StateReturnType@@H@Z",
+     "9": "?createMachine@Rva0034BA20Owner@@QAEPAVRva0034B952@@XZ",
+     "10": "?rva0034145C@AIStateMachineSlot10@@UAEPAVAIGuardMachine@@XZ",
+     "11": "?isInAttackState@StateMachine@@UBE_NXZ",
+     "12": "?rva0033FD77@Rva00367E26@@UAE_NXZ",
+     "13": "?rva004D7395@StateMachine@@UAEXXZ",
+     "14": "?rva0033FCDC@Rva0033FCDC@@QAEXPAVObject@@@Z",
+     "15": "?halt@StateMachine@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "4": 3,
+   "60": 2,
+   "72": 3,
+   "76": 3,
+   "80": 2,
+   "84": 2,
+   "88": 2,
+   "104": 9
+  },
+  "views": 35,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AIStateMachine.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIStateMachine.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 18,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 11
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getCurrentStateID.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_predicates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva0026A05DUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva0026A05DUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 57,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 58,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineGoalPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGoalPathRva002657CE.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineGoalPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGoalPathRva002657CE.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineGoalPath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGoalPathRva002657CE.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineSetGoalWaypoint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineGoals.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getCurrentStateID.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_predicates.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 24]]": 3,
+    "[[0, 4]]": 1,
+    "[[0, 59]]": 2,
+    "[[0, 60]]": 1,
+    "[[0, 84]]": 1,
+    "[[20, 24]]": 2
+   },
+   "class": "AIStateMachine"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "slot04()": 1,
+    "updateStateMachine()": 1
+   },
+   "class": "AIStateMachine"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "s9()": 1,
+    "slot09()": 1
+   },
+   "class": "AIStateMachine"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "s10()": 1,
+    "slot10()": 1
+   },
+   "class": "AIStateMachine"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "s11()": 1,
+    "slot11()": 1
+   },
+   "class": "AIStateMachine"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "s12()": 1,
+    "slot12()": 1
+   },
+   "class": "AIStateMachine"
+  }
+ ],
+ "size": 104,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot01()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "s13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "setGoalObject(Object*)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot03()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "clear()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "setState(int)"
+  }
+ }
+}
