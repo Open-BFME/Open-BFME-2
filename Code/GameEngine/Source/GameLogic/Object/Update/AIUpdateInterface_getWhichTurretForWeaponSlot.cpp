@@ -28,16 +28,7 @@ enum
 	MAX_TURRETS = 1
 };
 
-struct TurretAI
-{
-	char m_pad[0x18];
-	Real m_angle;
-	Real m_pitch;
-
-	Real getTurretAngle() const { return m_angle; }
-	Real getTurretPitch() const { return m_pitch; }
-	Bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

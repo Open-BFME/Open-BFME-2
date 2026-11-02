@@ -15,10 +15,7 @@ enum WhichTurretType
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct TurretAI
-{
-	void setTurretTargetPosition(const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

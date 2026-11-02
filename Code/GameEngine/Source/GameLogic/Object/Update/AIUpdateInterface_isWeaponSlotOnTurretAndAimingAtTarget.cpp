@@ -60,16 +60,7 @@ enum
 	MAX_TURRETS = 1
 };
 
-struct TurretAI
-{
-	Bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;
-	Bool isTryingToAimAtTarget(const class Object *victim) const;
-	TurretTargetType friend_getTurretTarget(Object *&obj, Coord3D &pos) const;
-
-private:
-	char m_pad[0x14];
-	const TurretStateMachine *m_turretStateMachine;
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

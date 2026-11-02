@@ -17,10 +17,7 @@ enum WhichTurretType
 
 class Object;
 
-struct TurretAI
-{
-	void setTurretTargetObject(Object *o, Bool forceAttacking);
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

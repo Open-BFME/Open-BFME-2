@@ -18,10 +18,7 @@ enum
 	MAX_TURRETS = 1
 };
 
-struct TurretAI
-{
-	bool isOwnersCurWeaponOnTurret() const;
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

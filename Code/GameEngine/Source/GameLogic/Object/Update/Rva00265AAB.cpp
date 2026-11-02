@@ -9,11 +9,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class TurretAI
-{
-public:
-	UpdateSleepTime updateTurretAI();
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 template<int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>

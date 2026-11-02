@@ -15,10 +15,7 @@ enum WhichTurretType
 	TURRET_PRIMARY = 0
 };
 
-struct TurretAI
-{
-	Bool isTurretInNaturalPosition() const;
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

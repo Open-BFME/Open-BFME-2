@@ -15,18 +15,8 @@ enum WhichTurretType
 	TURRET_PRIMARY = 0
 };
 
-struct TurretAIData
-{
-	Real m_turnRate;
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
-struct TurretAI
-{
-	char m_pad[8];
-	const TurretAIData *m_data;
-
-	Real getTurnRate() const { return m_data->m_turnRate; }
-};
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

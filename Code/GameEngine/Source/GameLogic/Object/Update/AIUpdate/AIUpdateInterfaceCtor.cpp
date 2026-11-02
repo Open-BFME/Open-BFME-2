@@ -147,13 +147,7 @@ private:
 	unsigned char m_pad[0xC];
 };
 
-class TurretAI
-{
-public:
-	TurretAI(Object *owner, const TurretAIData *data, WhichTurretType tur);
-private:
-	unsigned char m_pad[0x40];
-};
+#include "../../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

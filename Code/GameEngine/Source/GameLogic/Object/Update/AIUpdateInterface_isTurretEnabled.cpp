@@ -15,13 +15,7 @@ enum WhichTurretType
 	TURRET_PRIMARY = 0
 };
 
-struct TurretAI
-{
-	char m_pad[0x3C];
-	Bool m_enabled;
-
-	Bool isTurretEnabled() const { return m_enabled; }
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

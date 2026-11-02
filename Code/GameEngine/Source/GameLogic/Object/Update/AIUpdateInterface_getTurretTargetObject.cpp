@@ -27,10 +27,7 @@ class Object;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct TurretAI
-{
-	TurretTargetType friend_getTurretTarget(Object *&obj, Coord3D &pos) const;
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

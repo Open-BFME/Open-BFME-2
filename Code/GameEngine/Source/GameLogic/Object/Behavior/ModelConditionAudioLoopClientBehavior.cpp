@@ -99,11 +99,7 @@ enum ObjectID { INVALID_ID = 0 };
 
 struct LivingWorldArmy;
 
-class TurretAI
-{
-public:
-	Bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;		// 0x004D81D7
-};
+#include "../../../../Include/GameLogic/Module/TurretAI.h"
 
 class LivingWorldBattle
 {
