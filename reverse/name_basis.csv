@@ -6548,3 +6548,9 @@ carry,rva00311638CatmullRom::interpolated,catmullRom::interpolated,inferred,scop
 carry,rva00311638CatmullRom::point1,catmullRom::point1,inferred,scope renamed by Rename rva00311638CatmullRom to catmullRom (inferred),Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp,0x00311638
 carry,rva00311638CatmullRom::point2,catmullRom::point2,inferred,scope renamed by Rename rva00311638CatmullRom to catmullRom (inferred),Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp,0x00311638
 carry,rva00311638CatmullRom::point3,catmullRom::point3,inferred,scope renamed by Rename rva00311638CatmullRom to catmullRom (inferred),Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp,0x00311638
+param,CurveValue#3::x,CurveValue#3::xValue,inferred,agree:nl-5d137ff3bf6b,Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp,
+param,CurveValue#3::y,CurveValue#3::yValue,inferred,agree:nl-2d37707e2b08,Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp,
+param,CurveValue#3::z,CurveValue#3::zValue,inferred,agree:nl-9f4dfff4746f,Code/GameEngine/Source/Common/Rva00311638CatmullRom.cpp,
+param,Rva00318D9BFill::n,Rva00318D9BFill::count,inferred,agree:nl-427348cdf897-m2229e8b9008d0790daf3379f,Code/GameEngine/Source/Common/Rva00318D9BFill.cpp,0x00318D9B
+param,Rva00318D9BFill::x,Rva00318D9BFill::fillValue,inferred,agree:nl-075586f373ee-m1b36f1c3189956688e6b2b94,Code/GameEngine/Source/Common/Rva00318D9BFill.cpp,0x00318D9B
+class,Rva00318B1ERecord,PlayerNameRecord,inferred,agree:nl-5cf4263a1d9c,Code/GameEngine/Source/Common/Rva00318B1EPlayerName.cpp,

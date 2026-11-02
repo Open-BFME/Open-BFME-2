@@ -23,10 +23,10 @@ namespace _STL
 struct __false_type {};
 }
 
-Rva00318B5C *Rva00318D9BFill(Rva00318B5C *first, unsigned int n, const Rva00318B5C &x, const _STL::__false_type &)
+Rva00318B5C *Rva00318D9BFill(Rva00318B5C *first, unsigned int count, const Rva00318B5C &fillValue, const _STL::__false_type &)
 {
 	Rva00318B5C *cur = first;
-	for (; n > 0; --n, ++cur)
-		Rva00318D63Copy(cur, x);
+	for (; count > 0; --count, ++cur)
+		Rva00318D63Copy(cur, fillValue);
 	return cur;
 }

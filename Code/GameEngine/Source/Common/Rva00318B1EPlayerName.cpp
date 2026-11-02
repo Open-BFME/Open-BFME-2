@@ -12,7 +12,7 @@
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-struct Rva00318B1ERecord
+struct PlayerNameRecord
 {
 	int m_00;
 	AsciiString m_name;	// +0x04
@@ -22,7 +22,7 @@ class Rva002E2903Player
 {
 public:
 	char m_pad00[0x40];
-	Rva00318B1ERecord *m_40;
+	PlayerNameRecord *m_40;
 };
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"

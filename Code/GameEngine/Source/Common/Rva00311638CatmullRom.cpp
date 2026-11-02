@@ -18,7 +18,7 @@ public:
  float X,Y,Z;
  __forceinline CurveValue(const D3DXVECTOR3 &d3DXVECTOR3){X=d3DXVECTOR3.x;Y=d3DXVECTOR3.y;Z=d3DXVECTOR3.z;}
  __forceinline CurveValue(const CurveValue &curveValue){X=curveValue.X;Y=curveValue.Y;Z=curveValue.Z;}
- __forceinline CurveValue(float x,float y,float z){X=x;Y=y;Z=z;}
+ __forceinline CurveValue(float xValue,float yValue,float zValue){X=xValue;Y=yValue;Z=zValue;}
 };
 // ?operatorPlus present-unmatched
 static __forceinline CurveValue operator+(const CurveValue &a,const CurveValue &b){return CurveValue(a.X+b.X,a.Y+b.Y,a.Z+b.Z);}
