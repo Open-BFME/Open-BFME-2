@@ -113,7 +113,7 @@ class RvaGlobalDataView { public:
 };
 struct Rva001EDD80Pair;
 #include "../../../Include/GameClient/Mouse.h"
-class Radar { public: bool rva00107140(Coord3D*); };
+#include "../../../Include/Common/Radar.h"
 class Rva004891C0 { public: char pad00[0x4d]; bool field4d; bool test() const; };
 class Rva003968A0 { public: bool test(); };
 enum RecorderModeType { RECORDER_NONE };

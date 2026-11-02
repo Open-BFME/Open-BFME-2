@@ -74,11 +74,7 @@ enum RadarEventType
 	RADAR_EVENT_STEALTH_NEUTRALIZED = 9
 };
 
-class Radar
-{
-public:
-	void createEvent(const Coord3D *pos, RadarEventType type, Real secondsToLive = 4.0f);	// 0x002D88A4
-};
+#include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 struct MiscAudio

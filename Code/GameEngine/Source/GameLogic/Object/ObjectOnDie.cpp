@@ -160,11 +160,7 @@ public:
 #include "../../../Include/Common/TeamBFME2.h"
 
 struct Rva002D76C6Owner;
-class Radar
-{
-public:
-	void removeObject(Rva002D76C6Owner *obj);
-};
+#include "../../../Include/Common/Radar.h"
 
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 

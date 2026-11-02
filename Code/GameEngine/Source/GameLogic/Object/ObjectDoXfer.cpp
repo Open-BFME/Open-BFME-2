@@ -159,11 +159,7 @@ extern TeamFactory *TheTeamFactory;
 class Object;
 
 struct Rva002D76C6Owner;
-class Radar
-{
-public:
-	void removeObject(Rva002D76C6Owner *owner);
-};
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 #include "../../../Include/GameLogic/AIPathfind.h"

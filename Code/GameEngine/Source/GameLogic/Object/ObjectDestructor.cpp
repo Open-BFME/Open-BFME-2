@@ -164,7 +164,7 @@ class RadarWindowOverrideSource;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 struct Rva002D76C6Owner;
-class Radar { public: void removeObject(Rva002D76C6Owner *obj); };
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 class Object : public Thing, public Snapshot, public Rva00BFC2D8Base, public Rva00BFC2B8Base, public Rva00BFC290Base

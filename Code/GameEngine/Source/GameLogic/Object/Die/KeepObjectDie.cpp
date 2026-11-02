@@ -42,11 +42,7 @@ class Player : public Rva002AA22AByteField
 #include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class Radar
-{
-public:
-	void addObject(Object *obj);
-};
+#include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 struct Rva00486CF6_P04
 {

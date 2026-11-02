@@ -61,19 +61,7 @@ public:
 
 #include "../GameLogicObjectLookupView.h"
 
-class Radar
-{
-public:
-	virtual void vslot0();
-protected:
-	void deleteListResources();
-private:
-	// Single vptr here (the retail MI second base shifts nothing this body
-	// reads); the pad keeps the retail list offsets.
-	char m_pad[0x10];
-	RadarObject *m_objectList; // +0x14
-	RadarObject *m_localObjectList; // +0x18
-};
+#include "../../../Include/Common/Radar.h"
 
 // ?deleteListResources@Radar@@IAEXXZ
 void Radar::deleteListResources()

@@ -31,11 +31,7 @@ static __forceinline Bool regionContainsNoZ(const Region3D &region, const Coord3
 
 class Object;
 
-class Radar
-{
-public:
-	void addObject(Object *obj);
-};
+#include "../../../Include/Common/Radar.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

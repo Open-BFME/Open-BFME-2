@@ -793,11 +793,7 @@ public:
 	virtual char slot99();			// +0x18C
 };
 
-class Radar
-{
-public:
-	void newMap();
-};
+#include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 struct GlobalA04450;

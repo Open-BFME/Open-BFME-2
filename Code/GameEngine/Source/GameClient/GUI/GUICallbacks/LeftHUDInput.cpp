@@ -78,17 +78,7 @@ enum NEED_TARGET_OPTION { NEED_TARGET_POS = 0x20 };
 
 #include "../../../../Include/Common/PlayerList.h"
 
-class Radar
-{
-public:
-	char m_pad00[0x10];
-	Bool m_radarHidden;             // +0x10
-	Bool m_radarForceOn;            // +0x11
-	__declspec(dllimport) __forceinline Bool isRadarHidden() { return m_radarHidden; }
-	__declspec(dllimport) __forceinline Bool isRadarForced() { return m_radarForceOn; }
-	Bool localPixelToRadar(const ICoord2D *pixel, ICoord2D *radar);
-	Bool radarToWorld(const ICoord2D *radar, Coord3D *world);
-};
+#include "../../../../Include/Common/Radar.h"
 
 #include "../../../../Include/GameClient/Mouse.h"
 

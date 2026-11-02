@@ -335,7 +335,7 @@ struct Rva002D893BColorSource;
 
 enum RadarEventType { RADAR_EVENT_BATTLE_PLAN=7 };
 
-class Radar { public: void createPlayerEvent(const Rva002D893BColorSource *,const Coord3D *,RadarEventType,float); };
+#include "../../../../Include/Common/Radar.h"
 
 class Rva0033F15DDwordSlot { public: void set(int); };
 

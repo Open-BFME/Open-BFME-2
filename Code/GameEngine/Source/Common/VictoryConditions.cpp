@@ -48,12 +48,7 @@ struct Bfme939Helper : public RecorderClass
 };
 class RecorderClass; extern RecorderClass *TheRecorder;
 
-class Radar
-{
-public:
-	unsigned char m_pad[0x11];
-	unsigned char m_11;
-};
+#include "../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 class VictoryConditions
@@ -136,6 +131,6 @@ void VictoryConditions::cachePlayerPtrs()
 	if (m_68 >= 0)
 		return;
 	m_84 = 1;
-	TheRadar->m_11 = 1;
+	TheRadar->m_radarForceOn = 1;
 	m_86 = 1;
 }

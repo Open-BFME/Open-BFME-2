@@ -63,11 +63,7 @@ void vector<void*>::clear()
 
 typedef bool Bool;
 
-class Radar
-{
-public:
-	void rva002D7E68(void *terrainParam);
-};
+#include "../../../Include/Common/Radar.h"
 
 // vtable 0x00BC4E34#6: raise the byte at +0x1464, then Radar 0x002D7E68 on this.
 // vtable 0x00BCBC40#7: 0x000B5FE6 on this when the field at +0x50 is set.

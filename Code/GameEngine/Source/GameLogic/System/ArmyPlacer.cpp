@@ -133,7 +133,7 @@ extern View*TheTacticalView;
 
 enum RadarEventType{RADAR_EVENT_INVALID=11};
 
-class Radar{public:void createEvent(const Coord3D*,RadarEventType,float);};
+#include "../../../Include/Common/Radar.h"
 
 extern Radar*TheRadar;
 

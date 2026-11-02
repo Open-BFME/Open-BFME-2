@@ -115,11 +115,7 @@ public:
 	void OnClosed(const char *unused);
 };
 
-class Radar
-{
-public:
-	void newMap();
-};
+#include "../../../Include/Common/Radar.h"
 
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

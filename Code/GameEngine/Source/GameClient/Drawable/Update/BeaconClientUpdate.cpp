@@ -208,11 +208,7 @@ enum RadarEventType
     RADAR_EVENT_BEACON_PULSE = 6
 };
 
-class Radar
-{
-  public:
-    void createEvent(const Coord3D *, RadarEventType, float);
-};
+#include "../../../../Include/Common/Radar.h"
 
 extern Radar *TheRadar;
 

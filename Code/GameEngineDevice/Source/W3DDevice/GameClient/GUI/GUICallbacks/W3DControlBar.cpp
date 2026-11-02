@@ -202,17 +202,7 @@ public:
 
 #include "../../../../../../GameEngine/Include/Common/PlayerList.h"
 
-class Radar
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06();
-	virtual void draw(Int pixelX, Int pixelY, Int width, Int height, UnsignedInt color = 0xFFFFFFFF);   // +0x1C
-
-	char m_pad04[0x10 - 0x04];
-	Bool m_radarHidden;    // +0x10
-	Bool m_radarForceOn;   // +0x11
-};
+#include "../../../../../../GameEngine/Include/Common/Radar.h"
 
 // File-static flag readers: retail inlines both reads, and a member spelling would
 // emit an external ?isRadarForced@Radar COMDAT that differs from the other

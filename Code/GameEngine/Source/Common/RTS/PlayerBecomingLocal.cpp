@@ -17,7 +17,7 @@ template<> class PlayerLocalSlots<0>{};
 class GameClient:public PlayerLocalSlots<32>{public:virtual void setTeamColor(int,int,int)=0;};
 extern GameClient *TheGameClient;
 struct Rva002D76C6Owner;
-class Radar {public:void removeObject(Rva002D76C6Owner*);void addObject(Object*);};
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

@@ -173,12 +173,7 @@ private:
 
 struct Rva002D76C6Owner;
 
-class Radar
-{
-public:
-	void removeObject(Rva002D76C6Owner *obj);
-	void addObject(Object *obj);
-};
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 class W3DBridge

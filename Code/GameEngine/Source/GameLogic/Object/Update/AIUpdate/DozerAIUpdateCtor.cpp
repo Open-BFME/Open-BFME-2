@@ -2253,11 +2253,7 @@ enum RadarEventType
 	RADAR_EVENT_CONSTRUCTION
 };
 
-class Radar
-{
-public:
-	void createEvent(const Coord3D *world, RadarEventType type, Real secondsToLive = 4.0f);
-};
+#include "../../../../../Include/Common/Radar.h"
 
 extern Radar *TheRadar;
 

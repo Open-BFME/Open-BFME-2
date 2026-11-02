@@ -4,5 +4,5 @@
 // Named from ZH Radar::isRadarWindow (same compare, called from the command
 // hint as in ZH InGameUI); keeps the measured int result.
 class GameWindow;
-class Radar {public:char pad10[0x10];bool hidden,forced;char pad12[0x1430-0x12];GameWindow *window;int isRadarWindow(GameWindow *);};
-int Radar::isRadarWindow(GameWindow *value) { GameWindow *gameWindow=window; if(gameWindow==value && gameWindow) return 1; return 0; }
+#include "../../Include/Common/Radar.h"
+int Radar::isRadarWindow(GameWindow *value) { GameWindow *gameWindow=m_radarWindow; if(gameWindow==value && gameWindow) return 1; return 0; }

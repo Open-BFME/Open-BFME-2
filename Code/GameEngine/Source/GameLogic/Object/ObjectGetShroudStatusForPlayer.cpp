@@ -50,7 +50,7 @@ class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class Object;
 struct Rva002D76C6Owner;
-class Radar {public:void addObject(Object*);void removeObject(Rva002D76C6Owner*);};
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

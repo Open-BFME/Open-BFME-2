@@ -425,13 +425,7 @@ enum RadarEventType
 
 struct Rva002D76C6Owner;
 
-class Radar
-{
-public:
-	void addObject(Object *obj);
-	void removeObject(Rva002D76C6Owner *obj);
-	void createEvent(const Coord3D *pos, RadarEventType type, Real secondsToLive = 4.0f);
-};
+#include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 struct MiscAudio

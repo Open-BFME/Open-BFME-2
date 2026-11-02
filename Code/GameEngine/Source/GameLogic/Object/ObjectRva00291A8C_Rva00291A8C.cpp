@@ -163,7 +163,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 struct Rva002D76C6Owner;
-class Radar { public: void removeObject(Rva002D76C6Owner *); };
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 struct Obj00526309;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;

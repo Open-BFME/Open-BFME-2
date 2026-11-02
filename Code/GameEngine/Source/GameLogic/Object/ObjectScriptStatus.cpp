@@ -164,7 +164,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 struct Rva002D76C6Owner;
-class Radar { public: void removeObject(Rva002D76C6Owner *); };
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 class Rva002D37Owner { public: void rva002D373E(int); };
 struct Obj00526309;

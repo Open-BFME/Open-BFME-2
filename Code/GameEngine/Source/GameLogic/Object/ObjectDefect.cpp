@@ -76,11 +76,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Radar
-{
-public:
-	void tryInfiltrationEvent(const Object *obj);
-};
+#include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
 class ObjectDefectionHelper
