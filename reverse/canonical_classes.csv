@@ -250,3 +250,4 @@ PathfindCell,Code/GameEngine/Include/GameLogic/PathfindCell.h,existing header; c
 ExperienceTracker,Code/GameEngine/Include/GameLogic/ExperienceTracker.h,existing header; contract class_contracts/ExperienceTracker.json; 45/69 sampled units adopt
 Dict,Code/GameEngine/Include/Common/Dict.h,existing header; contract class_contracts/Dict.json; 45/68 sampled units adopt
 FileSystem,Code/GameEngine/Include/Common/FileSystem.h,existing header; contract class_contracts/FileSystem.json; 69/71 sampled units adopt
+UpgradeModule,Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h,existing header; contract class_contracts/UpgradeModule.json; 44/66 sampled units adopt
