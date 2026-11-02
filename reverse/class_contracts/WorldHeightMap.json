@@ -1,0 +1,896 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "WorldHeightMap",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 4
+   },
+   "0x20": {
+    "4": 5
+   },
+   "0x8": {
+    "4": 9
+   },
+   "0x80bc": {
+    "4": 2
+   },
+   "0x80c8": {
+    "4": 5
+   },
+   "0x80d0": {
+    "4": 3
+   },
+   "0x98": {
+    "4": 4
+   },
+   "0x9c": {
+    "4": 1
+   },
+   "0xa0": {
+    "4": 2
+   },
+   "0xa4": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x120f0": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xb098a",
+      "0xb0acd",
+      "0xb0c38"
+     ],
+     "value": 73940
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xb098a",
+      "0xb0acd",
+      "0xb0c38"
+     ],
+     "value": {
+      "0x120d0": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xb098a",
+      "0xb0acd",
+      "0xb0c38"
+     ],
+     "value": {
+      "0x0": [
+       "?rva000B08F7@Rva000B08F7@@QAEXXZ"
+      ],
+      "0x14": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x28": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x38": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x44": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x50": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x5c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x68": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x74": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x80": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x80b0": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x80bc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x8c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0xb098a",
+      "0xb0acd",
+      "0xb0c38"
+     ],
+     "value": {
+      "0x0": "0x7c967c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c967c"
+     ],
+     "value": {
+      "count": 3,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GWorldHeightMap@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0xb0238"
+       },
+       {
+        "name": "?parseBlendTileData@WorldHeightMap@@QAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z",
+        "slot": 2,
+        "target": "0xb1173"
+       }
+      ],
+      "table": "0x7c967c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 16,
+  "retail_vtables": {
+   "0x7c967c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GWorldHeightMap@@UAEPAXI@Z",
+     "2": "?parseBlendTileData@WorldHeightMap@@QAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z"
+    },
+    "stores": 3
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 9,
+   "16": 3,
+   "20": 2,
+   "40": 8,
+   "156": 1,
+   "168": 1,
+   "33012": 1,
+   "33016": 1,
+   "73936": 1,
+   "73952": 2,
+   "73960": 2,
+   "73968": 7
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_WorldHeightMap.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_width",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 9
+   },
+   "size": 4,
+   "type": "int",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_height",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "int",
+   "views": 23,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 14
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/WorldHeightMapGetTerrainNameAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEstimateMaxHeightAlongLine.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackground.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundDoPartialUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp"
+   ],
+   "views": 17
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesGE35.cpp",
+    "Code/GameEngine/Source/Common/WorldHeightMapGetTerrainNameAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapEstimateMaxHeightAlongLine.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapGetHeightMapHeight.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesGE35.cpp",
+    "Code/GameEngine/Source/Common/WorldHeightMapGetTerrainNameAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGetTerrainColorAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesGE35.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesGE35.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesGE35.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16560,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32944,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32948,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32952,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32956,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 32960,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 32964,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 32968,
+   "sources": [
+    "Code/GameEngine/Source/Common/WorldHeightMapGetTerrainNameAt.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AC4C6Finish.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 32972,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000AC4C6Finish.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 32976,
+   "sources": [
+    "Code/GameEngine/Source/Common/WorldHeightMapGetTerrainNameAt.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 53452,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 53456,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseBlendTileData.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 73936,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 73940,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 73944,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00B0028Dtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapTileTexture.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 73952,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapSetDrawOrg.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73956,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapGridBlendQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapSetDrawOrg.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 73960,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapSetDrawOrg.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73964,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroud.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapSetDrawOrg.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [],
+ "size": 40,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "Delete_This()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
