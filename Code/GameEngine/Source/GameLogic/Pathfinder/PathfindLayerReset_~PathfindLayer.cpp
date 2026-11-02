@@ -48,19 +48,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class PathfindCell
-{
-public:
-	~PathfindCell();
-	void rva0052DED3();
-	void DoXfer(Xfer *xfer);
-public:
-	unsigned char m_storage[8];
-	unsigned short m_zone;
-	unsigned short m_padding;
-	unsigned int m_flags;
-	bool SetType_Dirty(int);
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 // Native vslot zero is called with flags zero; its returned pointer is
 // passed to the rowed global operator delete. Only that ABI is asserted.

@@ -8,11 +8,7 @@ enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0
 };
-class PathfindCell
-{
-public:
-	char m_unreconstructed[0x10];
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva002E7ED6Info
 {
 	Int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY);

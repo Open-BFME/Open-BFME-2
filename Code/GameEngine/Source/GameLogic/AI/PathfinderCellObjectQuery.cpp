@@ -83,14 +83,7 @@ private:
 // 0x002E6C23 is the row ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z
 // (Rva002E6C23Obstacle.cpp, WB lead PathfindCell::IsObstaclePresent).
 enum ObjectID {};
-class PathfindCell
-{
-public:
-	// Values come from the native cell-query tests. Enum spellings are carried
-	// from the BFME1/ZH donor; the target does not independently name them.
-	enum CellType { CELL_OBSTACLE = 4, CELL_BRIDGE_IMPASSABLE = 5, CELL_IMPASSABLE = 6 };
-	bool IsObstaclePresent(ObjectID objID) const;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 // BFME1 cf0a80c2 AIPathfind.cpp:82 supplies this clean static predicate.
 // Native 002E7569..002E757D is its exact 20-byte private EAX-input copy.

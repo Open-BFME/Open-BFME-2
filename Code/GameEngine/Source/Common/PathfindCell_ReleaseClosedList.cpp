@@ -11,13 +11,7 @@
 
 struct WalkNode;
 
-class PathfindCell
-{
-public:
-	void ReleaseInfo();
-public:
-	static int ReleaseClosedList(class MixFileInfoBuffer *head);
-};
+#include "../../Include/GameLogic/PathfindCell.h"
 
 class MixFileInfoBuffer
 {

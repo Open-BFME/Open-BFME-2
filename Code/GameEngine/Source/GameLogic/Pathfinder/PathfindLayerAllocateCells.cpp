@@ -65,19 +65,7 @@ __forceinline long fast_float2long_round(Real f)
 template <class T> inline const T &pathfindMin(const T &lhs, const T &rhs) { return rhs < lhs ? rhs : lhs; }
 template <class T> inline const T &pathfindMax(const T &lhs, const T &rhs) { return lhs < rhs ? rhs : lhs; }
 
-class PathfindCell
-{
-public:
-	PathfindCell();
-	~PathfindCell();
-	void setZone(UnsignedShort zone) { m_zone = zone; }
-private:
-	void *m_info;			// +0x00
-	unsigned int m_04;		// +0x04
-	UnsignedShort m_zone;		// +0x08
-	UnsignedShort m_0A;
-	unsigned int m_flags;		// +0x0C
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 typedef PathfindCell *PathfindCellP;
 
 class Bridge

@@ -4,13 +4,7 @@
 // ?rva002F40E7@Pathfinder@@QAEHXZ @0x002F40E7 46B chain from 0x002F370D plus release 0x0052DE9B and stat adds at +0x34 +0x3C +0x40 +0x44 returning release result.
 // Dequeues front PathfindCell pointer from queue at +0x1D1F0: if empty return 0 else mark front false via 0x0052DAE9 then pop via 0x002F301F and return it.
 // Evidence: unlock lane; callees rowed 0x0052DAE9 0x002F301F; callers in 7 Pathfinder bodies; neighbours PathfinderCoordLineWalk share flags.
-class PathfindCell
-{
-public:
-	void SetOpen(bool flag);
-public:
-	static int ReleaseClosedList(class MixFileInfoBuffer *buf);
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 // The queue at +0x1D1F0 is an STLport priority_queue; 0x002F301F is its
 // out-of-line pop (Rva002F301FRva002F301F.cpp). Its element and comparator

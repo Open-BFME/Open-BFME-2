@@ -3,11 +3,7 @@
 // The scalar callback is52DD64; source identity is independently established
 // by the shipped WorldBuilder PathfindCell::Info::Free assertion/callback chain.
 #include <new>
-class PathfindCell {
-public:
- ~PathfindCell();
- unsigned char m_storage[16];
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 // Existing delete-array emission anchor, renamed with the corrected type.
 // ?bfmeEmitPathfindCellVectorDtor@@YAXPAVPathfindCell@@@Z absent-from-retail
 void bfmeEmitPathfindCellVectorDtor(PathfindCell *pathfindCell) { delete[] pathfindCell; }

@@ -46,18 +46,7 @@ struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class PathfindCell
-{
-public:
-	void rva0052DED3();
-	void DoXfer(Xfer *xfer);
-public:
-	unsigned char m_storage[8];
-	unsigned short m_zone;
-	unsigned short m_padding;
-	unsigned int m_flags;
-	bool SetType_Dirty(int);
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 // Native vslot zero is called with flags zero; its returned pointer is
 // passed to the rowed global operator delete. Only that ABI is asserted.
@@ -196,7 +185,7 @@ extern AI *TheAI;
  for(int i=0;i<m_width;++i){
   for(int j=0;j<m_height;++j){
    PathfindCell *cell=&m_layerCells[i][j];
-   int connectLayer=(cell->m_flags>>10)&0x3f;
+   int connectLayer=(cell->m_0C>>10)&0x3f;
    _ReadWriteBarrier(); if((unsigned char)isGroundOrBridgeLayer(connectLayer)){
     PathfindCell *groundCell=TheAI->m_pathfinder->getCell(LAYER_GROUND,i+m_xOrigin,j+m_yOrigin);
     if(groundCell){

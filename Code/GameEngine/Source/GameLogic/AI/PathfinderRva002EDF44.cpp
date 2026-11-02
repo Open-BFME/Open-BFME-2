@@ -28,9 +28,7 @@ public:
 	Int rva0028B511() const;
 };
 
-class PathfindCell
-{
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 

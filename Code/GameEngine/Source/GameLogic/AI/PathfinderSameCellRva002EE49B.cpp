@@ -26,14 +26,7 @@ enum PathfindLayerEnum
 bool __cdecl Rva001E3679(int layer);
 int __cdecl Rva002E6E8AGet(int layer);
 
-class PathfindCell
-{
-public:
-	Int getType() const { return m_info & 0xf; }
-	Int getLayer() const { return (m_info >> 4) & 0x3f; }
-	char m_pad00[0x0C];
-	unsigned int m_info;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 class Object;
 

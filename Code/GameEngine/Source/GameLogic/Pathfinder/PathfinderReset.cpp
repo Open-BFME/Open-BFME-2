@@ -44,11 +44,7 @@ private:
 
 #include <new>
 
-class PathfindCell {
-public:
- ~PathfindCell();
- unsigned char m_storage[16];
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 struct ListNode5C
 {

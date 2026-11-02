@@ -61,15 +61,7 @@ public:
 	void resetIfMatching(const Rva003F7380Argument *argument);
 };
 
-class PathfindCell
-{
-public:
-	Bool rva0052DEEF(const struct Rva0052DEEFArg *,Bool,In002E6BA1 *);
-	Bool rva0052DFB1(const struct Rva0052DFB1Arg *);
-
-private:
-	char m_pad[16];
-};
+#include "../../Include/GameLogic/PathfindCell.h"
 
 class PathfindZoneManager
 {

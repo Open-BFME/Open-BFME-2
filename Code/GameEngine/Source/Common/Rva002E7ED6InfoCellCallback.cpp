@@ -10,12 +10,7 @@
 
 #include "Lib/Coord3D.h"
 
-class PathfindCell
-{
-public:
-	char m_pad[0x0C];
-	unsigned int m_0C;
-};
+#include "../../Include/GameLogic/PathfindCell.h"
 
 int __cdecl Rva002E6E8AGet(int v);
 struct PathfinderCellPoint : Coord3D {};
