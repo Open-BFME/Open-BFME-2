@@ -75,6 +75,7 @@ public:
     virtual unsigned int getActionDelayForDock(Object *dock); //19
     virtual NameKeyType getModuleNameKey() const;
 protected:
+    virtual void loadPostProcess();
     virtual void xfer(Xfer *xfer);
     virtual AIStateMachine *makeStateMachine();
 private:
@@ -254,4 +255,9 @@ unsigned int SupplyTruckAIUpdate::getActionDelayForDock(Object *dock)
     if (dock->findUpdateModule(keyCenter) != 0)
         return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field68;
     return 0;
+}
+
+void SupplyTruckAIUpdate::loadPostProcess()
+{
+    AIUpdateInterface::loadPostProcess();
 }
