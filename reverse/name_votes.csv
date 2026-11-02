@@ -21469,3 +21469,7 @@ Code/GameEngine/Source/Common/Rva000B32EF.cpp|member|Rva000B32EF|m_template228,4
 Code/GameEngine/Source/Common/Rva000B32EF.cpp|function|0x000B32C2|rva000B32C2,3f192c240efffaeb7269fc48,claude-haiku-5-5,drz-k3-n34g2,w-a3d394d58042,2026-11-02
 Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|function|0x000B3649|rva000B3649,478975afd35d525ff251241c,claude-haiku-5-5,drz-k3-n34g2,w-a3d394d58042,2026-11-02
 Code/GameEngine/Source/Common/PortNegotiationSchema_sentAPingPacket.cpp|global||g_00DD35C4,81496cfa919a9e4ba7a33541,claude-haiku-5-5,drz-k3-n34a3,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|member|Rva003B0D7CMisc|ref38,ca057b64ae0f9644c2738eb0,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|member|Rva003B0D7CMisc|ref3C,de21b8ae7b34bf756b2c955f,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva002AA292Check.cpp|function|0x002AA292|rva002AA292,a482badf6baf71358818d878,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva002AD19EArmor.cpp|function|0x002AD19E|rva002AD19E,2a61422bf72b703743e6d06e,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
