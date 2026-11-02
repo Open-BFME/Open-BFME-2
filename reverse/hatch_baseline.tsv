@@ -812,7 +812,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineH
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeStatistics.cpp	g_Va00E06504	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeStatistics.cpp	g_Va00E06524	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp	g_Va00E062F0	2
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp	g_Va00E06550	2
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp	g_Va00E06550	4
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp	g_Va00E06550	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp	g_Va00E06550	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	g_Va00A04904	2
@@ -882,7 +882,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E065B8	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E065BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0056D983Ensure.cpp	g_Va00E0333C	3
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp	g_Va00E06550	3
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C63398	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C745A0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C74698	2

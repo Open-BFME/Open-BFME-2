@@ -466,46 +466,35 @@ public:
 #include <stdlib.h>
 #pragma inline_depth(0)
 #pragma inline_depth()
-
 // bfme link decl-only begin
 namespace _STL { template <> _Bit_iter<_Bit_reference, _Bit_reference *> copy<_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *> >(_Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>, _Bit_iter<_Bit_reference, _Bit_reference *>); }
-
 namespace _STL { template <> unsigned int * _Bvector_base<allocator<bool> >::_M_bit_alloc(unsigned int); }
-
 namespace _STL { template <> void vector<bool, allocator<bool> >::_M_insert_aux(_Bit_iter<_Bit_reference, _Bit_reference *>, bool); }
-
 // bfme link decl-only end
 // Declaration-only: retail keeps one _STL::max<unsigned int> (17-byte jae
 // shape); this TU's flags would emit a private copy.
 namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-
 class Rva00385333 {
 public:
   char bytes[0x1a8];
   ~Rva00385333();
 };
-
 class Rva00553E47StatsCore;
-
 class Rva00559D0CRankWeights {
 public:
   int rva00559D0C(const Rva00553E47StatsCore *) const;
 };
-
 // The Other rank-weight table at VA 0x00E06000, defined (with the layout
 // Rva00559A11.cpp proves) in the unit whose arg-ctor bodies fill it,
 // Common/Rva007ABEF3ArgCtorInits.cpp.
 extern Rva00559D0CRankWeights g_00E06000;
-
 class Rva0054D974 {
 public:
   Rva0054D8D8 *rva0054D6C8(int);
 };
-
 extern Rva0054D974 *TheLadderList;
-
 class PlayerTemplate
 {
 public:
@@ -518,13 +507,11 @@ public:
 	bool m_playableSide;			// +0x151
 	unsigned char m_pad152[0x1dc - 0x152];
 };
-
 class QuickMatchPlayerTemplateRange : public _STL::vector<PlayerTemplate>
 {
 public:
 	unsigned int count() const { return (unsigned int)(this->_M_finish - this->_M_start); }
 };
-
 class PlayerTemplateStore
 {
 public:
@@ -535,11 +522,8 @@ public:
     unsigned char m_pad00[0x0c];
     QuickMatchPlayerTemplateRange m_playerTemplates; // +0x0C
 };
-
 extern PlayerTemplateStore *ThePlayerTemplateStore;
-
 int GetGameClientRandomValue(int, int, char *, int);
-
 class OptionPreferences {
 public:
   OptionPreferences();
@@ -547,7 +531,6 @@ public:
   char p[0x10];
   int getFirewallBehavior();
 };
-
 class LadderPref {
 public:
   LadderPref() {}
@@ -558,7 +541,6 @@ public:
   unsigned short port;
   long lastPlayDate;
 };
-
 class LadderPreferences {
 public:
   LadderPreferences();
@@ -568,7 +550,6 @@ public:
   virtual bool write();
   void addRecentLadder(LadderPref);
 };
-
 class Rva00323674
 {
 public:
@@ -577,24 +558,18 @@ public:
 	~Rva00323674();
 	GameWindow *m_window; // +0x00
 };
-
 class Rva003236C4 {
 public:
   int rva003236C4(int);
 };
-
 class Rva00237E28 {
 public:
   int v[4];
   void rva00237E28(Rva00237E28 *);
 };
-
 extern int OnlineQuickMatchMaxPingEntries, g_009C0758, g_009C075C, BfmeOnlineLadderRank1v1, BfmeOnlineLadderRank2v2;
-
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 struct NativeQuickMatchRequest {
   int minPointPercentage, maxPointPercentage, points, widenTime, ladderID, ladderPassCRC, maxPing,
       maxDiscons, searchTime;
@@ -603,9 +578,7 @@ struct NativeQuickMatchRequest {
   Rva00237E28 data;
   unsigned exeCRC, iniCRC;
 };
-
 void *GadgetComboBoxGetItemData(GameWindow *, int);
-
 // Native5BAF35..5BB3A1 RET4 (1132B): the quick-match "matched" handler the
 // response drain 0x005BB5F6 calls for QM status 7 after DoOpenFound. Semantic
 // guide: BF1 handleMatched (AptOnlineQuickMatch.cpp, donor 2f243e26d); BFME 2
@@ -614,18 +587,13 @@ void *GadgetComboBoxGetItemData(GameWindow *, int);
 // the connect-info type (its constructor zeroing is dead but sets retail's
 // frame homes for the temporaries and the param-home reuse of the new NAT).
 class MapMetaData {public:char pad[0x20];int players;};
-
 #include "../../../../../Include/GameClient/MapCache.h"
-
 extern MapCache *TheMapCache;
-
 void SendStatsToOtherPlayers(GameInfo*);
-
 // Post-include free redeclare drops dllimport for the metadata vector's
 // deallocate call only: retail calls the engine _free directly at 0x30830
 // (same recipe as stlport_vector_int_insert_overflow.cpp).
 extern "C" void __cdecl free(void *);
-
 // Native5BBDAC..5BBF15 RET4 (361B): quick-match map-selection vector builder.
 // WB1589500 shows the request map-selection walk; BF1 donor rva0055A240 and
 // ZH WOLQuickMatchMenu are the semantic guides. The local view classes below
@@ -633,7 +601,6 @@ extern "C" void __cdecl free(void *);
 // the loop body holds *m in a named local, which reproduces retail's iterator
 // register roles (EDI first-arg / ESI iterator) exactly.
 struct Rva0030145CCmp {bool operator()(MapMetaData *,MapMetaData *)const;};
-
 struct Rva00450B90Item
 {
 	char m_beforeFlags[0x24];
@@ -641,7 +608,6 @@ struct Rva00450B90Item
 	bool m_flag25;
 	bool m_flag26;
 };
-
 class Rva00450B90Predicate
 {
 public:
@@ -663,12 +629,8 @@ public:
 
 	unsigned int m_mask;
 };
-
-
 void GadgetComboBoxGetSelectedPos(GameWindow *combo, int *selected);
-
 void *GadgetComboBoxGetItemData(GameWindow *combo, int selected);
-
 class Rva005BA440
 {
 public:
@@ -682,7 +644,6 @@ private:
 	GameWindow *m_connectionSpeed; // +0x8C
 	GameWindow *m_ladder; // +0x90
 };
-
 //
 // BFME2's online quick match screen Apt callbacks
 // "AptOnline::OnlineQuickMatch::WidenSearch" (0x005BAA2B) and "::Cancel"
@@ -698,7 +659,6 @@ struct PeerRequest
 	int unknown_00;
 	unsigned char m_rest[0x1EC - 0x04];
 };
-
 struct Global003EF728V6
 {
 	virtual void f0();
@@ -709,18 +669,14 @@ struct Global003EF728V6
 	virtual void f5();
 	virtual void f6(PeerRequest *rec);
 };
-
 class GameSpyPeerMessageQueueInterface;
-
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 // The owner keeps its Apt movie at +0x274 (as the custom match screen's).
 struct AptOnlineQuickMatchOwnerView
 {
 	unsigned char m_pad000[0x274];
 	void *m_movie;	// +0x274
 };
-
 // Native Cancel forwards through the screen's +0x58 owner to the verified
 // AptOnline::rva00516F08 body. Represent its named nested screen as a nested
 // class so the owner uses that same AptOnline identity; no owner layout is
@@ -741,7 +697,6 @@ protected:
     AptOnline *m_owner; // +0x58
     int unknown5c;
 };
-
 class UserPreferences
 {
 public:
@@ -778,7 +733,6 @@ public:
 private:
     GameWindow *m_window;
 };
-class Image;
 class AptOnline
 {
 public:
@@ -808,17 +762,12 @@ public:
         int m_9C;
     };
 };
-
 // ?rva005BB5CE@Rva005BB5CEOwner@@QAE_NXZ @0x005BB5CE 40B: thiscall, no args, bool.
 // Runs three gate predicates in order (rowed 0x005BA626, 0x005BA6EE and the address-named
 // 0x005BB3A1); when all pass, sets the owner's byte flag at +0x78 to 1. Predicate
 // meanings are address-derived views only.
 class Rva005BA626 { public: bool rva005BA626(); };
-
 class Rva005BA6EE { public: bool rva005BA6EE(); };
-
-
-
 class Rva005BB3A1
 {
 public:
@@ -829,7 +778,6 @@ public:
 	unsigned char m_pad78[0x88 - 0x78];
 	GameWindow *m_comboBoxSide;		// +0x88
 };
-
 class Rva005BB5CEOwner
 {
 public:
@@ -838,36 +786,26 @@ private:
 	char pad00[0x78];
 	unsigned char m_78;
 };
-
 class AsciiString;
-
 void GadgetComboBoxReset(GameWindow *comboBox);
-
 int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
-
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool dontHide);
-
 extern int GameSpyColor[];
-
-
 class Rva00420B2AZeroSetter
 {
 public:
 	void disable();
 };
-
 class Rva005FD8C1
 {
 public:
 	void rva005FD8C1();
 };
-
 class AptCIH
 {
 public:
 	void rva006dbd80();
 };
-
 #include "../../../../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 
 namespace Debug_Statistics
@@ -1065,6 +1003,10 @@ namespace _STL {
  template<> _List_base<int, allocator<int> >::_List_base(const allocator<int>&);
  template<> _List_base<int, allocator<int> >::~_List_base();
 }
+
+void _bfme_closeAptScreen(const AsciiString&);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
 // Declaration-only ABI view keeps the retail out-of-line destructor call.
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
@@ -1405,12 +1347,6 @@ void Rva005BA621::rva005BA621()
 	rva005BA440();
 }
 
-// tu-skeleton: 0x005BA3AD 19B ?rva005BA3AD@Rva005BA3AD@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp
 
 // Native 007B9C10..007B9C1A: the atexit callback registered by 007B6740.
@@ -1436,13 +1372,32 @@ void __stdcall rva005ba587(unsigned int word, UnicodeString text)
     (void)word;
 }
 
-// tu-skeleton: 0x005BA593 142B ??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
+// tu-skeleton: 0x005BA3AD 19B ?rva005BA3AD@Rva005BA3AD@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchReady.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp
+
+// Complete native 5BA593..5BA621 and WB 15875B0 establish the QuickMatch
+// singleton cleanup, non-owning window reference+80, preferences+64 and base.
+// The constructor at5BAB7E installs this same C73E24 vptr and binds the
+// named AptOnline::OnlineQuickMatch callbacks; reconcile its real owner here.
+
+inline Rva0056DC4C::~Rva0056DC4C() {}
+
+AptOnline::OnlineQuickMatch::~OnlineQuickMatch()
+{
+    if((int)this==g_Va00E06550) {
+        _bfme_closeAptScreen("AptOnlineQuickMatch::InitGadgets");
+        g_Va00E06550=0;
+    }
+}
 
 // tu-skeleton: 0x005BA6EE 277B ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
 
 // tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA92E 28B ??_GOnlineQuickMatch@AptOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
 
@@ -1458,15 +1413,9 @@ void __stdcall rva005ba587(unsigned int word, UnicodeString text)
 
 // tu-skeleton: 0x005BB5F6 1974B ?rva005BB5F6@AptOnlineQuickMatch@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
-// tu-skeleton: 0x0079FB45 8B $L1271 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
+// tu-skeleton: 0x0079FB21 8B $L5801 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
 
-// tu-skeleton: 0x0079FB4D 11B Unwind@00b9fb4d -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB58 14B Unwind@00b9fb58 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB66 8B Unwind@00b9fb66 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB6E 10B __ehhandler$??1OnlineQuickMatch@AptOnline@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005BA593Dtor.cpp (not merged yet)
+// tu-skeleton: 0x0079FB29 10B __ehhandler$??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB8A 8B $L843 -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
 
