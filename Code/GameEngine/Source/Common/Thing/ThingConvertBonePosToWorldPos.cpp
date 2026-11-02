@@ -16,36 +16,36 @@
 // operator=, Vector4/Matrix3D operator[] and Matrix3D::mul: identical inlined
 // bytes, but this TU no longer emits their loser COMDAT copies. No flags touched.
 static __forceinline void bfmeCopyV3(Vector3 &destinationVector,const Vector3 &sourceVector) {destinationVector.X=sourceVector.X;destinationVector.Y=sourceVector.Y;destinationVector.Z=sourceVector.Z;}
-static __forceinline void bfmeSetV3(Vector3 &targetVector,float x,float y,float z) {targetVector.X=x;targetVector.Y=y;targetVector.Z=z;}
-static __forceinline float boneSubmul(const Vector4 &row,float x,float y,float z) {return row.Z*z+row.Y*y+row.X*x;}
+static __forceinline void bfmeSetV3(Vector3 &targetVector,float xComponent,float yComponent,float zComponent) {targetVector.X=xComponent;targetVector.Y=yComponent;targetVector.Z=zComponent;}
+static __forceinline float boneSubmul(const Vector4 &row,float pointX,float pointY,float pointZ) {return row.Z*pointZ+row.Y*pointY+row.X*pointX;}
 class Matrix3D {public:
  Vector4 Row[3];
- __forceinline void bfme_mul_bp(const Matrix3D &matrix3D,const Matrix3D &b) {
+ __forceinline void bfme_mul_bp(const Matrix3D &matrix3D,const Matrix3D &boneTransform) {
   float x,y,z;
-  x=b.Row[0].X;y=b.Row[1].X;z=b.Row[2].X;
+  x=boneTransform.Row[0].X;y=boneTransform.Row[1].X;z=boneTransform.Row[2].X;
   Row[0].X=boneSubmul(matrix3D.Row[0],x,y,z);
   Row[1].X=boneSubmul(matrix3D.Row[1],x,y,z);
   Row[2].X=boneSubmul(matrix3D.Row[2],x,y,z);
-  x=b.Row[0].Y;y=b.Row[1].Y;z=b.Row[2].Y;
+  x=boneTransform.Row[0].Y;y=boneTransform.Row[1].Y;z=boneTransform.Row[2].Y;
   Row[0].Y=boneSubmul(matrix3D.Row[0],x,y,z);
   Row[1].Y=boneSubmul(matrix3D.Row[1],x,y,z);
   Row[2].Y=boneSubmul(matrix3D.Row[2],x,y,z);
-  x=b.Row[0].Z;y=b.Row[1].Z;z=b.Row[2].Z;
+  x=boneTransform.Row[0].Z;y=boneTransform.Row[1].Z;z=boneTransform.Row[2].Z;
   Row[0].Z=boneSubmul(matrix3D.Row[0],x,y,z);
   Row[1].Z=boneSubmul(matrix3D.Row[1],x,y,z);
   Row[2].Z=boneSubmul(matrix3D.Row[2],x,y,z);
-  x=b.Row[0].W;y=b.Row[1].W;z=b.Row[2].W;
+  x=boneTransform.Row[0].W;y=boneTransform.Row[1].W;z=boneTransform.Row[2].W;
   Row[0].W=boneSubmul(matrix3D.Row[0],x,y,z)+matrix3D.Row[0].W;
   Row[1].W=boneSubmul(matrix3D.Row[1],x,y,z)+matrix3D.Row[1].W;
   Row[2].W=boneSubmul(matrix3D.Row[2],x,y,z)+matrix3D.Row[2].W;
   }
  static __forceinline void Transform_Vector(const Matrix3D &matrix3D,const Vector3 &in,Vector3 *out) {
-  Vector3 tmp;
-  Vector3 *v;
-  if(out==&in) {bfmeCopyV3(tmp,in);v=&tmp;} else v=(Vector3 *)&in;
-  out->X=matrix3D.Row[0].X*v->X+matrix3D.Row[0].Y*v->Y+matrix3D.Row[0].Z*v->Z+matrix3D.Row[0].W;
-  out->Y=matrix3D.Row[1].X*v->X+matrix3D.Row[1].Y*v->Y+matrix3D.Row[1].Z*v->Z+matrix3D.Row[1].W;
-  out->Z=matrix3D.Row[2].X*v->X+matrix3D.Row[2].Y*v->Y+matrix3D.Row[2].Z*v->Z+matrix3D.Row[2].W;
+  Vector3 inputCopy;
+  Vector3 *inputVector;
+  if(out==&in) {bfmeCopyV3(inputCopy,in);inputVector=&inputCopy;} else inputVector=(Vector3 *)&in;
+  out->X=matrix3D.Row[0].X*inputVector->X+matrix3D.Row[0].Y*inputVector->Y+matrix3D.Row[0].Z*inputVector->Z+matrix3D.Row[0].W;
+  out->Y=matrix3D.Row[1].X*inputVector->X+matrix3D.Row[1].Y*inputVector->Y+matrix3D.Row[1].Z*inputVector->Z+matrix3D.Row[1].W;
+  out->Z=matrix3D.Row[2].X*inputVector->X+matrix3D.Row[2].Y*inputVector->Y+matrix3D.Row[2].Z*inputVector->Z+matrix3D.Row[2].W;
  }
 };
 class Thing {public:

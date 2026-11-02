@@ -69,7 +69,7 @@ struct Rva0033C965Rec
 class Rva0033C965
 {
 public:
-	void rva0033C965(int a1, int val);
+	void rva0033C965(int outAssets, int val);
 
 private:
 	char m_pad00[0x70];
@@ -86,16 +86,16 @@ private:
 	Rva0033C965Rec *m_recsEnd; // +0x35c
 };
 
-void Rva0033C965::rva0033C965(int a1, int val)
+void Rva0033C965::rva0033C965(int outAssets, int val)
 {
-	Rva0033B5B8Build(&m_mod0, MODULE_0, a1, val);
-	Rva0033B5B8Build(&m_mod1, MODULE_1, a1, val);
-	Rva0033B5B8Build(&m_mod2, MODULE_2, a1, val);
-	Rva0033B5B8Build(&m_mod3, MODULE_3, a1, val);
+	Rva0033B5B8Build(&m_mod0, MODULE_0, outAssets, val);
+	Rva0033B5B8Build(&m_mod1, MODULE_1, outAssets, val);
+	Rva0033B5B8Build(&m_mod2, MODULE_2, outAssets, val);
+	Rva0033B5B8Build(&m_mod3, MODULE_3, outAssets, val);
 
 	AsciiString &baseName = m_base90;
 	if (!((const StringBase<char> *)&baseName)->isEmpty()) {
-		*(AssetList00208F90 *)a1 << (baseName + ".tga");
+		*(AssetList00208F90 *)outAssets << (baseName + ".tga");
 	}
 
 	for (Rva0033C965Rec *rec = m_recs; rec != m_recsEnd; rec++) {
@@ -103,7 +103,7 @@ void Rva0033C965::rva0033C965(int a1, int val)
 		int left = 6;
 		do {
 			if (*slot)
-				(*slot)->rva002CAC6E(a1, val);
+				(*slot)->rva002CAC6E(outAssets, val);
 			slot++;
 		} while (--left != 0);
 	}
@@ -111,7 +111,7 @@ void Rva0033C965::rva0033C965(int a1, int val)
 	if (*(char *)((char *)TheWritableGlobalData + 0x1110) == 0) {
 		void *hit = ((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(&m_name70);
 		if (hit != 0)
-			((CommandSet *)hit)->rva00409F1B(a1, val);
+			((CommandSet *)hit)->rva00409F1B(outAssets, val);
 	}
 }
 
@@ -143,18 +143,18 @@ class ThingTemplate { public:
  char prefix[0x330];_STL::vector<AsciiString> names;
  char pad33c[0x3c4-0x33c];AssetList cached[2];
 };
-void ThingTemplate::GetAssetList(int a,volatile int b) {
- const bool *flag=reinterpret_cast<const bool *>((this?p4Operand(b):p4Operand(b)));
+void ThingTemplate::GetAssetList(int outAssets,volatile int cacheSelectFlag) {
+ const bool *flag=reinterpret_cast<const bool *>((this?p4Operand(cacheSelectFlag):p4Operand(cacheSelectFlag)));
  int mode=*flag!=0;
- if(!cached[mode].empty()) { *reinterpret_cast<AssetList *>(a)<<cached[mode];return; }
+ if(!cached[mode].empty()) { *reinterpret_cast<AssetList *>(outAssets)<<cached[mode];return; }
  const _STL::vector<AsciiString> &keys=names;
  if(!keys.empty()) {
-  b=reinterpret_cast<int>(keys.begin());
+  cacheSelectFlag=reinterpret_cast<int>(keys.begin());
   do {
-   Rva0033C965 *source=(Rva0033C965 *)TheThingFactory->findTemplate(*reinterpret_cast<AsciiString *>(b));
+   Rva0033C965 *source=(Rva0033C965 *)TheThingFactory->findTemplate(*reinterpret_cast<AsciiString *>(cacheSelectFlag));
    if(source) source->rva0033C965(reinterpret_cast<int>(&cached[mode]),reinterpret_cast<int>(flag));
-   b+=sizeof(AsciiString);
-  }while(p4Operand(b)!=reinterpret_cast<int>(keys.end()));
+   cacheSelectFlag+=sizeof(AsciiString);
+  }while(p4Operand(cacheSelectFlag)!=reinterpret_cast<int>(keys.end()));
  }else reinterpret_cast<Rva0033C965 *>(this)->rva0033C965(reinterpret_cast<int>(&cached[mode]),reinterpret_cast<int>(flag));
- *reinterpret_cast<AssetList *>(a)<<cached[mode];
+ *reinterpret_cast<AssetList *>(outAssets)<<cached[mode];
 }

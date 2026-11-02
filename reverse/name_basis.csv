@@ -6673,3 +6673,15 @@ param,Rva002629EACheck::b,Rva002629EACheck::otherThing,inferred,agree:nl-b2a3d3b
 param,bfmeCopyV3::d,bfmeCopyV3::destinationVector,inferred,agree:nl-de1222fe5e10-m48235da5c542d551121cc596,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
 param,bfmeCopyV3::s,bfmeCopyV3::sourceVector,inferred,agree:nl-cff37f7c5fdc-mc0d96cd799afeea935846bde,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
 param,bfmeSetV3::v,bfmeSetV3::targetVector,inferred,agree:nl-ac0c20058c38-m096d86131f04e0ab42a75230,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+local,Transform_Vector::tmp,Transform_Vector::inputCopy,inferred,agree:nl-c8671330f98e-m63ab096dd8f4db9592f251f4,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+local,Transform_Vector::v,Transform_Vector::inputVector,inferred,agree:nl-1fe2c0a0c86a-m3453089ec3b27c08fb7c11d9,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,bfmeSetV3::x,bfmeSetV3::xComponent,inferred,agree:nl-af22d3b29621-m3a2be42ffee684cf4ca3cd9d,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,bfmeSetV3::y,bfmeSetV3::yComponent,inferred,agree:nl-6da62696e691-mf8b6373759a3e0e3102f2bdd,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,bfmeSetV3::z,bfmeSetV3::zComponent,inferred,agree:nl-93e93446a16f-m31b1e564cc4fdc0216ded2a6,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,bfme_mul_bp::b,bfme_mul_bp::boneTransform,inferred,agree:nl-af067d8ce9d7-m05d325c4fc103793a950fe4f,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,boneSubmul::x,boneSubmul::pointX,inferred,agree:nl-9240bcd2411a-m47249668ca03c394943da783,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,boneSubmul::y,boneSubmul::pointY,inferred,agree:nl-421d18911a00-ma7b667b3a208508fc891d3a3,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,boneSubmul::z,boneSubmul::pointZ,inferred,agree:nl-97411f8261ff-me30f46cded76a5e952591851,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,Rva0033C965::rva0033C965::a1,Rva0033C965::rva0033C965::outAssets,inferred,agree:nl-60f006639a02-m83d70d896e50d3a56eb93081,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,0x0033C965
+param,ThingTemplate::GetAssetList::a,ThingTemplate::GetAssetList::outAssets,inferred,agree:nl-4a505af908e3-ma00e66bb8ea20485016667f5,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,0x0033CF34
+param,ThingTemplate::GetAssetList::b,ThingTemplate::GetAssetList::cacheSelectFlag,inferred,agree:nl-2a9b7f7f7e71-m41dbb162af9d12a0371e2090,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,0x0033CF34
