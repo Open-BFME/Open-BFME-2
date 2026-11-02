@@ -180,7 +180,7 @@ public:
     virtual NameKeyType getModuleNameKey() const;
     virtual void onObjectCreated();
     virtual void xfer(Xfer *);
-    virtual AIUpdateInterface *getAIUpdateInterface();
+    virtual AIUpdateInterface *getAIUpdateInterface() { return this; }
     virtual UpdateSleepTime update();
     virtual DisabledMaskType getDisabledTypesToProcess() const
     {
