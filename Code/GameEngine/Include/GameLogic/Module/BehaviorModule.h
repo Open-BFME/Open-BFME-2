@@ -16,7 +16,9 @@
 //  - The primary table 0x00BEEA7C is ObjectModule's ten slots plus two of
 //    BehaviorModule's own, both 0x000D43D0 (returning 0).
 //  - ~DieModule (0x0045CE54) restores 0x00BEEA7C and 0x00BEE9C0 inline: the
-//    BehaviorModule destructor is inline and empty.
+//    BehaviorModule destructor is inline and empty. No current unit defines a
+//    destructor that inlines it, so the header only declares it (see below);
+//    a unit that must inline it supplies the empty body itself.
 // Donor (Zero Hour BehaviorModule.h) facts: the getter names. Zero Hour's order
 // has getDestroy at 5 and getDie at 6; BFME2's dies override slot 7, so one slot
 // was added before getDie. Only the slots a family's override pins carry a name;
@@ -103,7 +105,15 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 public:
 	BehaviorModule( Thing *thing, const ModuleData *moduleData );
-	virtual ~BehaviorModule() { }
+protected:
+	// Declared, not defined: an inline body made every unit that defines a
+	// derived constructor emit ~BehaviorModule and both 47-slot BehaviorModule
+	// tables, which lose to the Zero Hour units' 34-slot copies (LINK-168,
+	// mechanism 2). The protected spelling (??1BehaviorModule@@MAE@XZ) is the
+	// module-destructor convention retail and Zero Hour share; no rowed body
+	// calls it out of line.
+	virtual ~BehaviorModule();
+public:
 
 	virtual void *vslot10() { return 0; }			// primary slot 10
 	virtual void *vslot11() { return 0; }			// primary slot 11

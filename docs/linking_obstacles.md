@@ -16628,7 +16628,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | SupplyWarehouseCripplingBehaviorCtor, WallUpgradeUpdate | 1,143 | 1 | repaired (second commit): `??_7PoisonedBehavior@@6BBehaviorModuleInterface@@@` (0x00C49800) and the `c3e8f0752f` renames `??_7Rva004839D3@@6BRva004839D3_E1/UpdateModule/ObjectModule@@@`, `??_7Rva004AB246@@6BUpdateModule/ObjectModule@@@` |
 | BloodthirstyUpdateCtor, RainOfFireUpdateCtor | 250 | 1 | repaired (second commit): `6BObjectModule`/`6BBehaviorModuleInterface` tables their Dtor units emit |
 | BridgeBehaviorCtor, QueueProductionExitUpdateCtor | 302 | 1 | QueueProductionExitUpdateCtor links again (2026-11-01, lk12, below). BridgeBehaviorCtor still blocked: `6BMiBase1` (0x00C40920) is now BridgeBehaviorDtor.cpp's `6BBehaviorModuleInterface` (retail DIR32 pair), but the unit's own view derives from BehaviorModuleInterface, so rebinding is C2373. Moving the ctor to canonical UpdateModule with compiler vptr stores is not enough either: BridgeBehaviorDtor.cpp (first in link order, held by StarkillerHDX) emits a primary `6BObjectModule` table whose slots 1-4 are UpdateModule's defaults, while retail 0x00C409DC (the ctor's byte-verified `_vtbl_00C409DC` data row) holds 0x00497805, BridgeBehavior::GetSnapshotName, ::xfer and ::getModuleNameKey; the Dtor's view needs those overrides first |
-| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | UpdateModuleCtor's implicit own destructor is removed, but its two BehaviorModule table COMDATs still need the shared-header contract repair; historical class reservation and tested proposal below |
+| UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | repaired (2026-11-02, lk15): the canonical header declares `protected: virtual ~BehaviorModule();` out of line; all six predict LINKS (below) |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
 | ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
@@ -16699,6 +16699,29 @@ Rva0024A797Grandchildren.cpp (1,280 B, linked in the 07:56 census) now loses the
 `??_7StructureToppleUpdate@@6BUpdateModule/BehaviorModuleInterface/ObjectModule@@@`
 copies to StructureToppleUpdate.cpp's Zero Hour tables (first in link order), after
 `c3e8f0752f` moved it onto canonical UpdateModule (mechanism 4).
+Mechanism 2 repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`, index 08:35
+`984a4cdc4d`): `BehaviorModule.h` now declares `protected: virtual ~BehaviorModule();` with no
+body, the proposal below. Scope proof before the edit: in the census index exactly six objects
+define `??1BehaviorModule@@UAE@XZ` and the canonical 47-slot `??_7BehaviorModule@@6B...` tables
+(the six units above, digests `80eaa6db`/`d0dadb66`), and no other object touches those names, so
+no other canonical unit inlined the empty destructor (an inlined copy would reference the tables).
+After the edit the six objects define none of them; only SpecialPowerModuleCtor gains an external
+reference, `??1BehaviorModule@@MAE@XZ`, from its constructor's state-0 unwind action, which the
+nine Zero Hour units already provide as identical COMDATs (`d8d55189`, no retail address, the
+same provider WeaponModeSpecialPowerUpdateCtorThunk.cpp already links against). `./build.sh`
+22/22 rows over the six sources (three funclet labels renumbered, parent EH data verified);
+`link_check`: all six 0 -> LINKS, 1,167 B (UpdateModuleCtor 61, RunOffMapBehaviorCtor 49,
+DamageModuleCtor 49, SpecialPowerModuleCtor 340, BodyModuleCtor 109, FireWeaponCollide 559).
+Identity lead found on the way (not acted on): retail's out-of-line ~BehaviorModule exists.
+SpecialPowerModule's ctor 0x00493C5A has FuncInfo 0x00D3CA18 (two unwind states); state 0's action
+0x0078CDDB (`mov ecx,[ebp-14h]; jmp`) jumps to 0x004607E1, an 18-byte body storing 0x00BEEA7C at
++0 and 0x00BEE9C0 at +0x0C and tail-jumping the Snapshot fold 0x0049B47C, i.e. BehaviorModule's
+destructor. It is rowed as the placeholder `??1Rva004607E1@@UAE@XZ` (Rva0049B47CDerived.cpp;
+`CreateModule.cpp` and `UpgradeModuleCtor.cpp` also spell it). Folding `Rva004607E1` into
+`BehaviorModule` (`rename.py class --fold`, a placeholder-into-existing-class decision) would give
+`??1BehaviorModule@@MAE@XZ` a retail address; check first that the Zero Hour copies then lose
+nothing (they would be proven wrong unless the retail-shaped copy is supplied). Census
+confirmation: pending.
 Mechanism 2 tested proposal (third commit, no header change landed): with the header
 temporarily patched to `protected: virtual ~BehaviorModule();` (declaration only) and the
 eight affected ctor units compiled into `build/lk10_scratch` (never `build/match`; header
