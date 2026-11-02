@@ -4593,9 +4593,9 @@ void MilesAudioManager::loadPostProcess(void)
 
 // Transfer helpers MilesAudioManager::xfer calls, rowed in their own units.
 class AudioReceiver;
-void Rva00050C61Dispatch(AudioReceiver *receiver, void *value);
-void Rva00050C79Dispatch(AudioReceiver *receiver, void *value);
-void Rva00050C91Dispatch(AudioReceiver *receiver, void *value);
+void setAudioViewType(AudioReceiver *receiver, void *value);
+void setAudioViewTypeBits(AudioReceiver *receiver, void *value);
+void setMusicSystem(AudioReceiver *receiver, void *value);
 void XferAudioAffect(Xfer *xfer, void *value);
 Xfer *Rva00058DC6Xfer(Xfer *xfer, _STL::set<AsciiString> *value);
 Xfer *xferUnicodeStringVector(Xfer *xfer, _STL::vector<UnicodeString> *vec);
@@ -4618,16 +4618,16 @@ void MilesAudioManager::xfer(Xfer *transfer)
     version.m_currentVersion = 4;
     *transfer == (Xfer::Version &)version;
     int oldViewType = m_at678;
-    Rva00050C61Dispatch(reinterpret_cast<AudioReceiver *>(transfer), &m_at678);
+    setAudioViewType(reinterpret_cast<AudioReceiver *>(transfer), &m_at678);
     if (oldViewType != m_at678)
         m_viewTypeChanged = true;
-    Rva00050C79Dispatch(reinterpret_cast<AudioReceiver *>(transfer), &m_at690);
+    setAudioViewTypeBits(reinterpret_cast<AudioReceiver *>(transfer), &m_at690);
     *transfer == m_at6A7;
     int viewType;
     for (viewType = 0; viewType < 3; ++viewType) {
         if (viewType == 2 && version.m_currentVersion >= 3 && !m_transferViewType2)
             continue;
-        Rva00050C91Dispatch(reinterpret_cast<AudioReceiver *>(transfer), &m_activeMusicSystem[viewType]);
+        setMusicSystem(reinterpret_cast<AudioReceiver *>(transfer), &m_activeMusicSystem[viewType]);
         reinterpret_cast<GlobalVolumeData *>(&m_volumeData[viewType])->rva0005CE7E(transfer);
         Rva00058DC6Xfer(transfer, &m_atA14[viewType]);
         if (version.m_currentVersion >= 4)

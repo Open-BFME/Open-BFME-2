@@ -1,7 +1,7 @@
 // cl: /MD
-// ?Rva00050C61Dispatch@@YAXPAVAudioReceiver@@PAX@Z @0x00050C61 24B virtual slot +0x94 forward with "AudioViewType"; callers 0x0005E456; siblings 0x00050C79 0x00050C91.
-// ?Rva00050C79Dispatch@@YAXPAVAudioReceiver@@PAX@Z @0x00050C79 24B virtual slot +0x94 forward with "AudioViewTypeBits"; callers 0x0005E473.
-// ?Rva00050C91Dispatch@@YAXPAVAudioReceiver@@PAX@Z @0x00050C91 24B virtual slot +0x94 forward with "MusicSystem"; callers 0x0005E4AA.
+// ?setAudioViewType@@YAXPAVAudioReceiver@@PAX@Z @0x00050C61 24B virtual slot +0x94 forward with "AudioViewType"; callers 0x0005E456; siblings 0x00050C79 0x00050C91.
+// ?setAudioViewTypeBits@@YAXPAVAudioReceiver@@PAX@Z @0x00050C79 24B virtual slot +0x94 forward with "AudioViewTypeBits"; callers 0x0005E473.
+// ?setMusicSystem@@YAXPAVAudioReceiver@@PAX@Z @0x00050C91 24B virtual slot +0x94 forward with "MusicSystem"; callers 0x0005E4AA.
 class AudioReceiver
 {
 public:
@@ -17,15 +17,15 @@ public:
     virtual void slot90();
     virtual void slot94(const char*, void*, int);
 };
-void Rva00050C61Dispatch(AudioReceiver* receiver, void* value)
+void setAudioViewType(AudioReceiver* receiver, void* value)
 {
     receiver->slot94("AudioViewType", value, 4);
 }
-void Rva00050C79Dispatch(AudioReceiver* receiver, void* value)
+void setAudioViewTypeBits(AudioReceiver* receiver, void* value)
 {
     receiver->slot94("AudioViewTypeBits", value, 4);
 }
-void Rva00050C91Dispatch(AudioReceiver* receiver, void* value)
+void setMusicSystem(AudioReceiver* receiver, void* value)
 {
     receiver->slot94("MusicSystem", value, 4);
 }

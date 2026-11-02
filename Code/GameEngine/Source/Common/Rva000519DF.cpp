@@ -15,14 +15,14 @@ public:
 class Rva000519DF
 {
 public:
-	Rva000519DF(void **a1, const BfmePoolRef10 &a2);
+	Rva000519DF(void **source, const BfmePoolRef10 &ref);
 
 private:
 	void *m_ptr0;
 	BfmePoolRef10 m_ref4;
 };
 
-Rva000519DF::Rva000519DF(void **a1, const BfmePoolRef10 &a2)
-	: m_ptr0(*a1), m_ref4(a2)
+Rva000519DF::Rva000519DF(void **source, const BfmePoolRef10 &ref)
+	: m_ptr0(*source), m_ref4(ref)
 {
 }
