@@ -88,7 +88,7 @@ class Rva005F09E7 { public: void rva005F09E7(const Image *); };
 class Rva005F09EF { public: void rva005F09EF(const Image *); };
 class Rva005F09DF { public: void rva005F09DF(bool); };
 const Image *__cdecl Rva005F01B8Get(int);
-class LivingWorldRegion { public: const Image *GetFortressPortrait(); UnicodeString GetFortressDisplayName(); UnicodeString GetFortressDisplayDescription(); };
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 class Rva005E2896Vector { public: void reserve(unsigned int); };
 struct PageContext { void *region, *page, *owner; };
 // The .data word 0x00E066A4 (zero-initialised; only this ctor reads it).

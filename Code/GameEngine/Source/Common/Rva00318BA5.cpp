@@ -8,11 +8,7 @@ struct Rva003F0F13Elem
 	float b;
 };
 
-class LivingWorldRegion
-{
-public:
-	void GetGarrisonArmyPlacementSpot(Rva003F0F13Elem *out);
-};
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 
 class Rva00318BA5
 {

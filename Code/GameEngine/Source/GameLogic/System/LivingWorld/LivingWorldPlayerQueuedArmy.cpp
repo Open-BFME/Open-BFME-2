@@ -42,14 +42,7 @@ public:
     unsigned char m_pad00[0x18];
     int m_key18;
 };
-class LivingWorldRegion
-{
-public:
-    int rva003F05CE();
-    LivingWorldBuilding *GetBuildingByIndex(int index) const;
-    unsigned char m_pad00[0x13c];
-    int m_ownerPlayerID;
-};
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 struct Rva002E118ERegionCollection
 {
     _STL::vector<LivingWorldRegion *> m_regions;
@@ -88,7 +81,7 @@ bool LivingWorldPlayer::HasArmyQueuedInAnyBuilding(void *key, int *outBuildingID
     for (unsigned int i = 0; i < collection->m_regions.size(); ++i)
     {
         LivingWorldRegion *region = collection->m_regions[i];
-        if (region->m_ownerPlayerID != m_playerID)
+        if (region->m_field13C != m_playerID)
             continue;
         int count = region->rva003F05CE();
         for (int j = 0; j < count; ++j)

@@ -4,7 +4,7 @@
 // A byte flag at +0x1A3 returns false; otherwise the result of an unnamed
 // thiscall at 0x003F0588 (address-derived pin) is normalised to bool.
 // Class name is address-derived.
-class LivingWorldRegion { public: void *rva003F0588(); }; // rowed 0x003F0588 void*(void)
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 class Rva003F07CEOwner
 {
 public:

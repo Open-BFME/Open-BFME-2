@@ -8,12 +8,7 @@
 // Element: the class whose rowed member 0x003F3708 is ?rva003F3708@LivingWorldRegion@@QAEPAUElem003B2540@@H@Z
 // (result unused here).
 struct Elem003B2540;
-class LivingWorldRegion
-{
-public:
-	void SetupRegionOwnership();
-	Elem003B2540 *rva003F3708(int v);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegion.h"
 
 struct Rva0020E9F2Inner
 {

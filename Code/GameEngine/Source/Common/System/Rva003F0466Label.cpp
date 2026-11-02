@@ -38,25 +38,16 @@ extern GameTextInterface *TheGameText;
 // GetFortressDisplayDescription (0x003F04E0): WorldBuilder names
 // (LivingWorldRegion.cpp lines 1478 and 1486), the labels at +0x124 / +0x128
 // fetched through TheGameText unless empty.
-class LivingWorldRegion
-{
-public:
-	UnicodeString GetFortressDisplayName();
-	UnicodeString GetFortressDisplayDescription();
-private:
-	char m_pad[0x124];
-	AsciiString m_fortressNameLabel;			// +0x124
-	AsciiString m_fortressDescriptionLabel;		// +0x128
-};
+#include "../../../Include/GameLogic/LivingWorldRegion.h"
 
 UnicodeString LivingWorldRegion::GetFortressDisplayName()
 {
-	return !((const StringBase<char> *)&m_fortressNameLabel)->isEmpty() ? TheGameText->fetchLabel(m_fortressNameLabel) : UnicodeString::TheEmptyString;
+	return !((const StringBase<char> *)&m_field124)->isEmpty() ? TheGameText->fetchLabel(m_field124) : UnicodeString::TheEmptyString;
 }
 
 UnicodeString LivingWorldRegion::GetFortressDisplayDescription()
 {
-	return !((const StringBase<char> *)&m_fortressDescriptionLabel)->isEmpty() ? TheGameText->fetchLabel(m_fortressDescriptionLabel) : UnicodeString::TheEmptyString;
+	return !((const StringBase<char> *)&m_field128)->isEmpty() ? TheGameText->fetchLabel(m_field128) : UnicodeString::TheEmptyString;
 }
 
 // Native 0x003F8497..0x003F8509, 114B. The predicate and the optional

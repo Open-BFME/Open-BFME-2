@@ -23,18 +23,7 @@ public:
 };
 
 class Xfer;
-class LivingWorldRegion
-{
-public:
-	virtual ~LivingWorldRegion();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void DoXfer(Xfer *);
-
-private:
-	unsigned char m_pad[0x1A2 - 4];
-	bool flag1a2;
-};
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 typedef void (Rva003EFDF5Host::*Rva003EFDF5ByteSetter)(bool);
 
@@ -42,5 +31,5 @@ void LivingWorldRegion::loadPostProcess()
 {
 	((Rva003F012F *)this)->rva003F012F();
 	Rva003EFDF5ByteSetter setter = reinterpret_cast<Rva003EFDF5ByteSetter>(&Rva003EFDF5Host::rva003EFDF5);
-	(((Rva003EFDF5Host *)this)->*setter)(flag1a2);
+	(((Rva003EFDF5Host *)this)->*setter)(m_field1A2);
 }

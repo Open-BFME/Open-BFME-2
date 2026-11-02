@@ -17,19 +17,7 @@ typedef void (*FieldParseProc)(INI *ini, void *instance, void *store, const void
 // are cast to the field-parse type.
 void parseConnection(INI *ini, void *instance, void *store, const void *userData);
 void Rva003F25DF(void *ini, void *instance, void *store, void *userData);
-class LivingWorldRegion
-{
-public:
-	class ModuleData
-	{
-	public:
-		class BuildingRestriction
-		{
-		public:
-			static void ParseINI(INI *ini, void *instance);
-		};
-	};
-};
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 
 // The field table this unit hands initFromINI: 49 keywords (MapName ..
 // FortressDisplayDescription) with retail's callbacks and offsets, then the

@@ -50,19 +50,7 @@ extern const FieldParse buildingRestrictionFieldParse[3] = {
 	{ 0, 0, 0, 0 }
 };
 
-class LivingWorldRegion
-{
-public:
-	class ModuleData
-	{
-	public:
-		class BuildingRestriction
-		{
-		public:
-			static void ParseINI(INI *ini, void *outer);
-		};
-	};
-};
+#include "../../../Include/GameLogic/LivingWorldRegion.h"
 
 void LivingWorldRegion::ModuleData::BuildingRestriction::ParseINI(INI *ini, void *outer)
 {

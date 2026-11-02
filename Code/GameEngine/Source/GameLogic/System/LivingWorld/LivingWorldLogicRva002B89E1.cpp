@@ -66,14 +66,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class LivingWorldRegion
-{
-public:
-	void PrepareSkirmishOpponents(LivingWorldBattle *battle);	// 0x003F34DD
-
-	unsigned char m_pad00[0x12C];
-	int m_field12C;						// +0x12C
-};
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 class LivingWorldBattle
 {

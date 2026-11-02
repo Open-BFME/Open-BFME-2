@@ -18,11 +18,7 @@ public:
 	int m_20;
 };
 
-class LivingWorldRegion
-{
-public:
-	bool rva003F1B7C(CreateAHeroData *hero, const Rva003F1BD3TemplateView *view, int *out);
-};
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 
 class Rva005E1160Flag { public: void rva005E1160(bool); };
 

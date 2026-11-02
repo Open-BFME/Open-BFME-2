@@ -36,15 +36,7 @@ public:
 	char m_pad4C[0x0C];
 };
 
-class LivingWorldRegion
-{
-public:
-	void GetGarrisonArmyPlacementSpot(Rva003F0F13Elem *out);
-	bool CanSpawnUnitWithinCPLimit(SpawnArmy *ctx) const;
-
-	char m_pad0[0x13C];
-	int m_ownerId;	// +0x13C owning player's LivingWorld id
-};
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 struct Rva004FAA81Building
 {
@@ -312,7 +304,7 @@ void LivingWorldBuildingNuggetSpawnArmy::runProductionPhase()
 		spot.b = 0.0f;
 		region->GetGarrisonArmyPlacementSpot(&spot);
 		army.m_pos = spot;
-		int ownerId = region->m_ownerId;
+		int ownerId = region->m_field13C;
 		Rva002E2903Player *owner = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(ownerId, 0);
 		if (!owner)
 			return;

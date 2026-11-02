@@ -84,14 +84,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva002E2903Player;
 class Rva003F287F;
-class LivingWorldRegion
-{
-public:
-	int rva003F0189(Rva002E2903Player *player) const;
-private:
-	int rva003EFD6F(Rva002E2903Player *player) const;
-	friend class Rva005CB748;
-};
+#include "../../Include/GameLogic/LivingWorldRegion.h"
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 class Rva002B2B66 { public: Int rva002B2B66(); };
 extern LivingWorldLogic *TheLivingWorldLogic;

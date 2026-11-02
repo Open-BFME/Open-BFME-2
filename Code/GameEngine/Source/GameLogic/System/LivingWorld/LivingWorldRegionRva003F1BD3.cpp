@@ -25,12 +25,7 @@ class Rva003F11EC
 public:
     int rva003F11EC(CreateAHeroData *key);
 };
-class LivingWorldRegion
-{
-public:
-    bool rva003F1BD3(NameKeyType name, int *reason);
-    int rva003F0614(CreateAHeroData *key) const;
-};
+#include "../../../../Include/GameLogic/LivingWorldRegion.h"
 
 bool LivingWorldRegion::rva003F1BD3(NameKeyType name, int *reason)
 {

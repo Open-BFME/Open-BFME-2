@@ -7,11 +7,7 @@ public:
 	void rva003F7954();
 };
 class Rva003F7BB4;
-class LivingWorldRegion
-{
-public:
-	void rva003F2150(Rva003F7BB4 *v);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegion.h"
 struct Rva0020EB4EInner
 {
 	char m_pad[0x2C];
