@@ -322,6 +322,11 @@ no refused pin.
     the holder's table is the base one. `step-b-v2-aistatemachinector.patch` makes it link, and
     the family total becomes 221,890 -> 228,887 B (+6,997).
   - AIDock (2,608 B) and AIAttackMoveStateMachine (654 B): they emit State-subclass tables.
+    Trial (lk17): rebasing AIAttackMoveStateMachine's state views on canonical State builds
+    15/15, but its three state tables then reference canonical State's placeholder slots
+    `?_bfme_state_slot10..12@State@@EAEXXZ`, which nothing defines. Those units first need
+    State's slots 7-16 named and provided (the State family table work), or overrides for every
+    slot in each view.
   - TurretStateMachineCtor (562 B): needs TurretStateMachine.h.
   - SupplyTruckAIUpdate (1,658 B): held.
 - SupplyTruckAIUpdate.cpp to-do, read-only survey (still held at 21:30 UTC by
