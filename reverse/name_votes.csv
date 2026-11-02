@@ -22142,3 +22142,5 @@ Code/GameEngine/Source/Common/Rva005E50A7SortHeap.cpp|local|rva005E50A7|m,b493cd
 Code/GameEngine/Source/Common/Rva005E569ACtor.cpp|param|Rva005E569A::Rva005E569A|b,77e077af5b62e30c728c177a,claude-haiku-5-5,drz-k4-n40c,w-9078cc5436a9,2026-11-02
 Code/GameEngine/Source/Common/Rva005E56C8Ctor.cpp|param|Rva005E56C8::Rva005E56C8|b,e5c9dfd98c603cb4049b2532,claude-haiku-5-5,drz-k4-n40c,w-9078cc5436a9,2026-11-02
 Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp|param|RvaF1Handle|p,c79d48143a703d4c0b135bfd,claude-haiku-5-5,drz-k4-n40c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva005E8C54Ctor.cpp|member|Rva005E8C54|m_source18,0cf0b25cf4c4a59947b0edcb,claude-haiku-5-5,drz-k5-n40d,w-b45613012194,2026-11-02
+Code/GameEngine/Source/Common/Rva005E8C54Ctor.cpp|member|Rva005E8C54|m_member04,0df6b37cbdd9ae90af5bf92d,claude-haiku-5-5,drz-k5-n40d,w-b45613012194,2026-11-02
