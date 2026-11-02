@@ -239,8 +239,12 @@ public:
     ShaderClass();
     ShaderClass(const ShaderClass &shader) : ShaderBits(shader.ShaderBits) {}
     ShaderClass(unsigned int bits) : ShaderBits(bits) {}
-    bool operator==(const ShaderClass &shader);
-    bool operator!=(const ShaderClass &shader);
+    // Inline, as retail's are: VectorClass<ShaderClass>::operator== and ::ID fold into the
+    // four-byte-element bodies 0x00196920 and 0x001964F0 (the compare is inlined), and the rowed
+    // 0x00143240/0x001541B0 are the COMDAT copies units emit where a call is not inlined.
+    // Declared out of line, a unit calls them where retail inlines (LINK-177).
+    bool operator==(const ShaderClass &shader) { return ShaderBits == shader.ShaderBits; }
+    bool operator!=(const ShaderClass &shader) { return ShaderBits != shader.ShaderBits; }
 
     unsigned int Get_Bits() const { return ShaderBits; }
     void Reset();

@@ -108,6 +108,21 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
    FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
 
+Repaired (2026-11-02, lk15): MeshLoadContextCtor (2,043 B) and matinfo (644 B), cause `ccfd564709`
+(Adopt canonical ShaderClass in 38 more units). Canonical `ShaderClass.h` declared `operator==`/`!=`
+out of line, so MaterialCollectorDestructor.cpp (first in link order) emitted
+`VectorClass<ShaderClass>::operator==`, `::ID` and `DynamicVectorClass<ShaderClass>::ID` calling
+`??8ShaderClass` (73 B) where the two units inline the compare (45 B). Retail inlines it: the
+VectorClass<ShaderClass> table 0x00BD4670 (installed by ctor 0x0016FB40) points slot 1 at 0x00196920
+and the ID slot at 0x001964F0, the four-byte-element bodies shared with
+VectorClass<FontCharsBuffer*> (no call), and the rowed 0x00143240/0x001541B0 are COMDAT copies (four
+units emit `??8ShaderClass` as identical `retail` COMDATs from in-class definitions). The header now
+defines both operators in the class. Only MaterialCollectorDestructor referenced them out of line
+(index touches); its three template copies now equal the other units' and its new `??8ShaderClass`
+COMDAT equals the retail-proven copies. `./build.sh` 74/74 rows over the three units; scoped DIR32 OK;
+`link_check` MeshLoadContextCtor 2,043 and matinfo 644 B link again, MaterialCollectorDestructor
+1,588 B unchanged. Full gate on the header commit.
+
 Repaired (2026-11-02, lk15): the Apt GameWindow family (item 2, 4,985 B). AptMainMenu.cpp,
 Rva005173F8Dtor.cpp and _bfme_AptGameWindow.cpp replace their one-slot private GameWindow
 views with canonical `Bfme2GameWindow.h`, as OpaqueScalarDeletingDtorsB12.cpp reads it (its
