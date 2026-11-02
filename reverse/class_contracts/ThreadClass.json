@@ -1,0 +1,218 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "ThreadClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 31,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x44": {
+    "4": 1
+   },
+   "0x48": {
+    "4": 4
+   },
+   "0x4c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x610430"
+     ],
+     "value": 80
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x610430"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x610430"
+     ],
+     "value": {
+      "0x0": "0x87b6ac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x87b6ac"
+     ],
+     "value": {
+      "count": 3,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GThreadClass@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x610620"
+       },
+       {
+        "name": "?Execute@ThreadClass@@UAEXXZ",
+        "slot": 1,
+        "target": "0x6104b0"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x87b6ac"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x87b6ac": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GThreadClass@@UAEPAXI@Z",
+     "1": "?Execute@ThreadClass@@UAEXXZ",
+     "2": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "4": 5,
+   "80": 20,
+   "84": 3
+  },
+  "views": 31,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/thread.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "running",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 64,
+   "type": "char[64]",
+   "views": 22,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_threadId",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "ThreadID",
+   "name_by": "zh",
+   "offset": 72,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "ExceptionHandler",
+   "name_by": "zh",
+   "offset": 76,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 17,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 80,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "Execute()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "Thread_Function()"
+  }
+ }
+}
