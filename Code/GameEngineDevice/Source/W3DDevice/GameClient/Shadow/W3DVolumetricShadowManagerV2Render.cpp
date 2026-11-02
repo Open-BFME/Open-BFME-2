@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BFME1 de2635e79 BfmeVolumetricShadowRender.cpp supplies the two-pass
 // semantic lead. Native107F8B..1080B4 RET4 independently proves camera
 // argument, frustum100, flag60, enabled4/5, links6C/70 and manager8/C.
@@ -8,7 +8,7 @@
 // from their complete boundaries and call ABI without asserting recovery.
 #include "vector3.h"
 class FrustumClass {};
-class AABoxClass {public: Vector3 Center, Extent;};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 class RenderObjClass {public: Vector3 Get_Position() const;};
 class CameraClass : public RenderObjClass {
 protected: void Update_Frustum() const;

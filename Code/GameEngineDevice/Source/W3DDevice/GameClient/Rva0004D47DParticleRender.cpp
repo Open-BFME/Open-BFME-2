@@ -64,7 +64,7 @@ namespace _STL { template <> void allocator<RvaSmartPtr12>::deallocate(RvaSmartP
 
 class FrustumClass {};
 struct Vector3Data { float X, Y, Z; };
-class AABoxClass { public: Vector3Data Center, Extent; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
 class CameraClass
 {

@@ -37,14 +37,7 @@ typedef bool Bool;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class AABoxClass
-{
-public:
-	AABoxClass(void) {}
-	AABoxClass(const AABoxClass &box);
-	Vector3 Center;
-	Vector3 Extent;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/SphereClass.h"
 

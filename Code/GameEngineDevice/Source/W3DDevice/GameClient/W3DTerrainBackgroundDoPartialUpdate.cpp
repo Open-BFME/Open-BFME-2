@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native [00115044,00115791),1869B, RET16. W3DTerrainBackground::
 // doPartialUpdate (WorldBuilder name). BFME 2 rewrite of the ZH update: after
 // the tesselated terrain update it builds a second mesh of textured quads for
@@ -72,18 +72,7 @@ public:
 	Vector3 MaxCorner;
 };
 
-class AABoxClass
-{
-public:
-	__forceinline void Init(const MinMaxAABoxClass &mmbox)
-	{
-		Center = (mmbox.MaxCorner + mmbox.MinCorner) * 0.5f;
-		Extent = (mmbox.MaxCorner - mmbox.MinCorner) * 0.5f;
-	}
-
-	Vector3 Center;
-	Vector3 Extent;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 

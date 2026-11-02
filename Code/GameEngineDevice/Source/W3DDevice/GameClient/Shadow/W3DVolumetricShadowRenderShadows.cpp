@@ -44,13 +44,7 @@ typedef unsigned char UnsignedByte;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class AABoxClass
-{
-public:
-	AABoxClass(void) {}
-	Vector3 Center;
-	Vector3 Extent;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 
 class FrustumClass
 {

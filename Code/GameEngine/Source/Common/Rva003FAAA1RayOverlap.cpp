@@ -1,4 +1,4 @@
-// cl: /I. /O1 /arch:SSE /MD
+// cl: /I. /O1 /arch:SSE /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva003FAAA1@Rva003FAAA1@@QAE_NPAX@Z @0x003FAAA1, 236B.
 // Overlap test via rowed Region3D copy 0x0009AC04 LineSeg ctor 0x000927F9 and Overlap_Test 0x00723870.
 // Evidence: retail calls 0x0009AC04 0x000927F9 0x00723870 plus virtuals at +0x108 and +0x34, data TheLivingWorld (0x00DFEF18) and the 100000.0f literal, caller 0x002BFE80.
@@ -16,12 +16,7 @@
 #include "Code/Libraries/Include/Lib/Coord3DCtorView.h"
 #undef scale
 
-class AABoxClass
-{
-public:
-	Vector3 Center;
-	Vector3 Extent;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/AABoxClass.h"
 // class-gate: allow Region3D codegen view declaring the rowed out-of-line copy constructor 0x0009AC04 (the canonical header has only the inline copy); retail copies the 24-byte box through that call and passes it to Overlap_Test as the AABox
 struct Region3D : public AABoxClass
 {
