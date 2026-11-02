@@ -107,10 +107,10 @@ const T2WChar *T2WideCtype::narrowRange(const T2WChar *low, const T2WChar *high,
 {
 	while (low != high)
 	{
-		T2WChar c = *low;
+		T2WChar wideChar = *low;
 		++low;
-		int v = ((int)(char)c == (int)c) ? (int)c : (int)dflt;
-		*to = (char)v;
+		int narrowValue = ((int)(char)wideChar == (int)wideChar) ? (int)wideChar : (int)dflt;
+		*to = (char)narrowValue;
 		++to;
 	}
 	return high;
@@ -120,8 +120,8 @@ const T2WChar *T2WideCtype::toUpperRange(T2WChar *low, T2WChar *high) const
 {
 	while (low < high)
 	{
-		T2WChar c = *low;
-		*low = (c < 0x100) ? (T2WChar)_STL::ctype<char>::_S_upper[c] : c;
+		T2WChar wideChar = *low;
+		*low = (wideChar < 0x100) ? (T2WChar)_STL::ctype<char>::_S_upper[wideChar] : wideChar;
 		++low;
 	}
 	return high;
@@ -131,8 +131,8 @@ const T2WChar *T2WideCtype::toLowerRange(T2WChar *low, T2WChar *high) const
 {
 	while (low < high)
 	{
-		T2WChar c = *low;
-		*low = (c < 0x100) ? (T2WChar)_STL::ctype<char>::_S_lower[c] : c;
+		T2WChar wideChar = *low;
+		*low = (wideChar < 0x100) ? (T2WChar)_STL::ctype<char>::_S_lower[wideChar] : wideChar;
 		++low;
 	}
 	return high;

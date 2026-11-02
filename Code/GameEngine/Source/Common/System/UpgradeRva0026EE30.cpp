@@ -15,26 +15,26 @@ extern int BfmeLogicFramesPerSecond;
 
 #include "../../../Include/Common/Upgrade.h"
 
-int UpgradeTemplate::rva0026EE30(void *arg1, void *arg2)
+int UpgradeTemplate::rva0026EE30(void *player, void *arg2)
 {
 	(void)arg2;
-	void *diff = ((Rva002A9BF2 *)arg1)->rva002A9BF2();
+	void *diff = ((Rva002A9BF2 *)player)->rva002A9BF2();
 	if ((int)diff == 3) {
-		if (TheSkirmishAIManager->rva002A8AB1(arg1)) {
+		if (TheSkirmishAIManager->rva002A8AB1(player)) {
 			float *limitPtr = (float *)((char *)TheSkirmishAIManager + 0x854);
 			float base = g_Va00BBB8D8;
-			float v;
+			float cappedBase;
 			if (base > *limitPtr)
-				v = *limitPtr;
+				cappedBase = *limitPtr;
 			else
-				v = base;
-			float r = base - v;
-			r *= m_buildTime;
-			r *= (float)BfmeLogicFramesPerSecond;
-			return (int)r;
+				cappedBase = base;
+			float excessFrames = base - cappedBase;
+			excessFrames *= m_buildTime;
+			excessFrames *= (float)BfmeLogicFramesPerSecond;
+			return (int)excessFrames;
 		}
 	}
-	float r2 = (float)BfmeLogicFramesPerSecond;
-	r2 *= m_buildTime;
-	return (int)r2;
+	float buildFrames = (float)BfmeLogicFramesPerSecond;
+	buildFrames *= m_buildTime;
+	return (int)buildFrames;
 }

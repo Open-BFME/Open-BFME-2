@@ -5,7 +5,7 @@
 // at a unique masked placement on unclaimed .text:
 //
 //   ?getStackPointer@@YAPAXXZ  0x00226819  16 B  mov [esp],esp  -- the stack pointer
-//   ?rva61b20@@YAPAXXZ   0x00226809  16 B  mov [esp],ebp  -- the frame pointer
+//   ?getFramePointer@@YAPAXXZ   0x00226809  16 B  mov [esp],ebp  -- the frame pointer
 //   ?rva61ae0@@YAIXZ    0x0056E692  18 B  rdtsc
 //   ?rva61b40@@YAIXZ    0x0056DD9C  20 B  pushfd
 //
@@ -61,8 +61,8 @@ unsigned int rva61ae0( void )
 	return cycles;
 }
 
-// ?rva61b20@@YAPAXXZ -- retail 0x00226809, 16 bytes
-void *rva61b20( void )
+// ?getFramePointer@@YAPAXXZ -- retail 0x00226809, 16 bytes
+void *getFramePointer( void )
 {
 	void *framePtr = 0;
 

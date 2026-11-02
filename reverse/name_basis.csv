@@ -6652,3 +6652,13 @@ local,Rva00605365::s,Rva00605365::cursor,inferred,agree:nl-e019e08864d0-m9bea53a
 param,Rva00605365::p,Rva00605365::path,inferred,agree:nl-e67125003854-m2e33f564de387c94809cf97c,Code/GameEngine/Source/Common/System/Rva00605365.cpp,0x00605365
 function,?rva007B7400@@YAXXZ,?destroyVertexLoc@@YAXXZ,inferred,agree:nl-f8df2d23e9ed,Code/GameEngine/Source/Common/System/Rva007B7280Siblings.cpp,0x007B7400
 function,?rva54b800@@YAPAXXZ,?getStackPointer@@YAPAXXZ,inferred,agree:nl-33a5f18371f6,Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp,0x00226819
+local,UpgradeTemplate::rva0026EE30::r,UpgradeTemplate::rva0026EE30::excessFrames,inferred,agree:nl-804aa3102e76,Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp,0x0026EE30
+local,UpgradeTemplate::rva0026EE30::r2,UpgradeTemplate::rva0026EE30::buildFrames,inferred,agree:nl-ae5d09b29e52,Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp,0x0026EE30
+local,UpgradeTemplate::rva0026EE30::v,UpgradeTemplate::rva0026EE30::cappedBase,inferred,agree:nl-775208f34bb3,Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp,0x0026EE30
+param,UpgradeTemplate::rva0026EE30::arg1,UpgradeTemplate::rva0026EE30::player,inferred,agree:nl-726193ffbc81,Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp,0x0026EE30
+local,T2WideCtype::narrowRange::c,T2WideCtype::narrowRange::wideChar,inferred,agree:nl-f59048693893,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,0x00016E60
+local,T2WideCtype::narrowRange::v,T2WideCtype::narrowRange::narrowValue,inferred,agree:nl-4f226d56b817,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,0x00016E60
+local,T2WideCtype::toLowerRange::c,T2WideCtype::toLowerRange::wideChar,inferred,agree:nl-a5222cb97a2b,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,0x00016DC0
+local,T2WideCtype::toUpperRange::c,T2WideCtype::toUpperRange::wideChar,inferred,agree:nl-7e400576dee2,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,0x00016D60
+local,ModuleInfo::getNthData::b,ModuleInfo::getNthData::recordBegin,inferred,agree:nl-388f4076cd47,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,0x0033ACE8
+function,?rva61b20@@YAPAXXZ,?getFramePointer@@YAPAXXZ,inferred,agree:nl-1360a53ce61a,Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp,0x00226809
