@@ -18093,3 +18093,8 @@ The native32A304 copy operation now has a real typed Rva00196D90Element construc
 ### Dict-record placement helper (2026-11-02)
 
 The approved SidesList.cpp now emits the complete typed18B _Construct twin at32ACEA, through ordinary placement new and the verified58B copy. Existing57 rows,162 code and541 data definitions are preserved. A scoped nonthrowing contract is justified by the entire18B->58B primitive-copy/refcount graph and nonthrowing placement operator, not by an assumed missing exception path. The tagged fill and allocator base are still open; [proof and contract scope](../reverse/attempt_support/element196d90-construct-20261102/README.md). No unit/census clearance is claimed.
+
+
+### Dict-record tagged fill repaired (2026-11-02)
+
+The37B typed uninitialized-fill twin at32AD58 now uses the real18B placement helper and58B copy in the approved SidesList.cpp TU. Normal/strict62-row verification preserves the consumer's original85B constructor and27B wrapper plus the provider's prior163 code/541 data definitions. Its scoped construction contract is justified by the complete call graph; no blanket exception assumption is used. Bounded linking preserves SidesList's LINKS2103B and leaves only the vector-base conflict at421D73 in the consumer. [Full proof and negative controls](../reverse/attempt_support/element196d90-fill-20261102/README.md). Unit/census clearance remains pending.

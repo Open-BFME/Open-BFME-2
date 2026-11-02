@@ -65,13 +65,15 @@ struct Rva00196D90Element
 
 namespace _STL
 {
-	__forceinline Rva00196D90Element *__uninitialized_fill_n(
+// The verified18B placement helper and its58B copy cannot throw C++ exceptions.
+template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(Rva00196D90Element *, const Rva00196D90Element &);
+	inline Rva00196D90Element *__uninitialized_fill_n(
 		Rva00196D90Element *first, unsigned int count,
 		const Rva00196D90Element &value, const __false_type &)
 	{
 		Rva00196D90Element *current = first;
 		for ( ; count > 0; --count, ++current )
-			new ( current ) Rva00196D90Element( value );
+			_Construct(current, value);
 		return current;
 	}
 }

@@ -2921,6 +2921,18 @@ Rva00196D90Element::Rva00196D90Element(const Rva00196D90Element &source)
 {}
 
 namespace _STL {
+template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(Rva00196D90Element *, const Rva00196D90Element &);
+
+inline Rva00196D90Element *__uninitialized_fill_n(
+    Rva00196D90Element *first, unsigned int count,
+    const Rva00196D90Element &value, const __false_type &)
+{
+    Rva00196D90Element *current = first;
+    for (; count > 0; --count, ++current)
+        _Construct(current, value);
+    return current;
+}
+
 // Concrete18B helper ->58B copy contains only scalar copies/refcount increment.
 // Its placement operator new is nonthrowing; this contract covers no other type.
 template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(
@@ -2929,3 +2941,5 @@ template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90E
     new (dest) Rva00196D90Element(source);
 }
 }
+
+template Rva00196D90Element *_STL::uninitialized_fill_n<Rva00196D90Element *, unsigned int, Rva00196D90Element>(Rva00196D90Element *, unsigned int, const Rva00196D90Element &);
