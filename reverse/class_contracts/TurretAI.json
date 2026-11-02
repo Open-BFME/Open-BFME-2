@@ -1,0 +1,511 @@
+{
+ "bases": [
+  "<vftable 0x8078dc>"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "TurretAI",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 24,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 6
+   },
+   "0x14": {
+    "4": 10
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 5
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x3c": {
+    "1": 2
+   },
+   "0x3e": {
+    "1": 1
+   },
+   "0x3f": {
+    "1": 4
+   },
+   "0x8": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x40": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4d85b6"
+     ],
+     "value": [
+      {
+       "kind": "inference",
+       "name": "<vftable 0x8078dc>",
+       "offset": 4,
+       "own_vftable": "0x860d64",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d85b6"
+     ],
+     "value": 64
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d85b6"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       1
+      ],
+      "0x39": [
+       1
+      ],
+      "0x3a": [
+       1
+      ],
+      "0x3b": [
+       1
+      ],
+      "0x3c": [
+       1
+      ],
+      "0x3d": [
+       1
+      ],
+      "0x3e": [
+       1
+      ],
+      "0x3f": [
+       1
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4d85b6"
+     ],
+     "value": {
+      "0x0": "0x860d78",
+      "0x4": "0x860d64"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x860d78"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTurretAI@@MAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4d8974"
+       },
+       {
+        "name": "?loadPostProcess@TurretAI@@UAEXXZ",
+        "slot": 1,
+        "target": "0x4d80d4"
+       },
+       {
+        "name": "?name@TurretAI@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4d86bb"
+       },
+       {
+        "name": "?xfer@TurretAI@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4d7fad"
+       }
+      ],
+      "table": "0x860d78"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 22,
+  "retail_vtables": {
+   "0x860d64": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x860d78": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTurretAI@@MAEPAXI@Z",
+     "1": "?loadPostProcess@TurretAI@@UAEXXZ",
+     "2": "?name@TurretAI@@QBEPBDXZ",
+     "3": "?xfer@TurretAI@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 9,
+   "8": 1,
+   "12": 1,
+   "24": 1,
+   "32": 2,
+   "36": 1,
+   "61": 1,
+   "64": 6
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TurretAI.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TurretAI.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getTurretTurnRate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIStartRotOrPitchSound.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getTurretRotAndPitch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getWhichTurretForWeaponSlot.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getTurretRotAndPitch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getWhichTurretForWeaponSlot.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIStartRotOrPitchSound.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 57,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 58,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 59,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isTurretEnabled.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 61,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 62,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 63,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAICtor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TurretAIDtor.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base@0x4",
+   "candidates": {
+    "'<vftable 0x8078dc>'": 1
+   },
+   "class": "TurretAI",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  }
+ ],
+ "size": 64,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
