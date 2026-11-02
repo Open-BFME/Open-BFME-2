@@ -214,13 +214,7 @@ public:
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
 // VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
 // template's trainable flag): the byte at +0x5E7 of the +0x04 template.
-class ExperienceTracker
-{
-public:
-	bool isTrainable() const;
-	char m_lead[0x4];
-	void *m_template;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 BFME_DISP8_BYTECHASE_GETTER(Rva004B59FCByteChase32Field, 0x4, 0x128)
 

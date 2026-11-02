@@ -31,14 +31,7 @@ class Object;
 
 #include "../../../Include/Common/XferVersion.h"
 
-class ExperienceTracker
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class ExperienceTrackerAutoResolve : public ExperienceTracker
 {

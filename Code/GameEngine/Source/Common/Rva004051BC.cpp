@@ -46,11 +46,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class ExperienceTracker
-{
-public:
-	bool rva0039B4EC(int levels, bool flag1, bool flag2); // 0x0039B4EC pin-only
-};
+#include "../../Include/GameLogic/ExperienceTracker.h"
 
 #include "../GameLogic/Object/object.h"
 

@@ -69,11 +69,7 @@ public:
 	bool rva005CB9FF(int a);
 };
 
-class ExperienceTracker
-{
-public:
-	ExperienceLevelHandle rva0039AC0C() const;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 class Object
 {

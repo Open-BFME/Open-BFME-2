@@ -981,11 +981,7 @@ class ExperienceLevelSystem;
 
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-class ExperienceTracker
-{
-public:
-	ExperienceLevelHandle rva0039AC0C() const;
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
 

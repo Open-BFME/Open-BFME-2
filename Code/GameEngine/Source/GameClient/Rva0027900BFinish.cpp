@@ -123,11 +123,7 @@ public:
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-class ExperienceTracker
-{
-public:
-	ExperienceLevelHandle rva0039AC0C() const;
-};
+#include "../../Include/GameLogic/ExperienceTracker.h"
 
 class Drawable;
 #include "../Common/Thing/thing.h"

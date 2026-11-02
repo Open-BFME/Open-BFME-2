@@ -21,10 +21,7 @@ struct ExperienceLevelHandle {
     ExperienceLevelList *m_list;
     void *m_iter;
 };
-class ExperienceTracker {
-public:
-    ExperienceLevelHandle rva0039AC0C() const;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class ExperienceLevelStore {
 public:
     bool IsValid(ExperienceLevelHandle) const;

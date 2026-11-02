@@ -23,7 +23,7 @@ class GlobalData{public:char pad[0xec4];MultiPlayMults mults;};extern GlobalData
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class BfmeGlob939D{public:char bfmeCall939D();};
-class ExperienceTracker{public:void rva0039B315(float,bool,bool,bool,bool);};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Rva0039ADF3{public:bool rva0039AE04()const;};
 class Rva0028D796{public:int rva0028D796();};
 #include "../../../../Include/GameClient/DrawableBFME2.h"

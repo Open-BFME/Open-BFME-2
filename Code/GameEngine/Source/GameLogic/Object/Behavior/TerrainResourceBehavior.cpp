@@ -461,11 +461,7 @@ public:
 	char m_stats[4];								// +0x3BC
 };
 
-class ExperienceTracker
-{
-public:
-	void rva0039B315(Real amount, Bool a, Bool b, Bool c, Bool d);
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 // 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
 // ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it

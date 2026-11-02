@@ -183,11 +183,7 @@ public:
 	Rva0039B7AD m_3BC;		// +0x3BC
 };
 
-class ExperienceTracker
-{
-public:
-	bool rva0039B4EC(int levels, bool flag1, bool flag2);	// 0x0039B4EC
-};
+#include "../../../../../Include/GameLogic/ExperienceTracker.h"
 
 class ThingTemplate
 {

@@ -108,12 +108,7 @@ public:
 	void rva00403415(int *mask, int value);
 };
 
-class ExperienceTracker
-{
-public:
-	bool rva0039ABFF() const;
-	bool rva0039B4EC(int count, bool a, bool b);
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };
 

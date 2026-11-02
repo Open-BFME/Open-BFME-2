@@ -94,11 +94,7 @@ enum ObjectStatusTypes
 };
 // Existing exact eligibility provider at 0x0039AE04 uses this opaque owner.
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
-class ExperienceTracker
-{
-public:
-	void rva0039B315(float amount, bool a, bool b, bool c, bool d);	// 0x0039B315
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class ThingTemplate
 {
 public:

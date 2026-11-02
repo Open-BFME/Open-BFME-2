@@ -49,7 +49,7 @@ public:
     char pad10c[0x113-0x10c]; unsigned char flags113;
     char pad114[0x11a-0x114]; unsigned char flags11a;
 };
-class ExperienceTracker { public: char pad[0x24]; int level; };
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Object {
 public:
     const Coord3D *getPosition() const { return &pos; }

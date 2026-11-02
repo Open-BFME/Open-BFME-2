@@ -518,13 +518,7 @@ BFME_DISP8_BYTECHASE_GETTER(Rva0048E844ByteChaseField, 0x04, 0x6F)
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
 // VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
 // template's trainable flag): the byte at +0x5E7 of the +0x04 template.
-class ExperienceTracker
-{
-public:
-	bool isTrainable() const;
-	char m_lead[0x4];
-	void *m_template;
-};
+#include "../../../../../Include/GameLogic/ExperienceTracker.h"
 
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0000048E828PtrChaseField, 0x04, 0x64)
 

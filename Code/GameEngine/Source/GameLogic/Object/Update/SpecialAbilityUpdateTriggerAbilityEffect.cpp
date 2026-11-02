@@ -71,10 +71,7 @@ class StealthUpdate {
     void disguiseAsObject(const Object *);
     void markAsDetected(unsigned, int, Object *, bool);
 };
-class ExperienceTracker {
-  public:
-    void rva0039B315(float, bool, bool, bool, bool);
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Rva00380200 {
   public:
     bool rva003805BB(float, bool);

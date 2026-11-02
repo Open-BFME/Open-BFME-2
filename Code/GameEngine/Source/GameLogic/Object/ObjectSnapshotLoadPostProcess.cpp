@@ -71,7 +71,7 @@ extern CreateAHeroManager*TheCreateAHeroManager;
 struct Rva00293EFFXPNode {char pad[12];int value;};
 class Rva00293EFFXPField {public:int getField();char pad[0x2C];Rva00293EFFXPNode*node;};
 class Rva003BD306Target{public:void rva0039B548();};
-class ExperienceTracker{public:void rva0039B315(float,bool,bool,bool,bool);};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 class Rva0039B20C{public:void rva0039B227(int);};
 struct LoadScoringView{char pad[0x98];bool enabled;};
 struct LoadXPView{char pad[16];float points;};

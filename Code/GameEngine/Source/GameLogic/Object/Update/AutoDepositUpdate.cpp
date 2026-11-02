@@ -88,11 +88,7 @@ public:
 	char m_pad284[0x3BC - 0x284];
 	Rva0039B7AD m_3BC; // +0x3BC
 };
-class ExperienceTracker
-{
-public:
-	void rva0039B315(Real experience, Bool flag1, Bool flag2, Bool flag3, Bool unused); // 0x0039B315
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 // 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
 // ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
 // resolves to the rowed body instead of the unrowed ExperienceTracker

@@ -140,13 +140,7 @@ const Image *Object::getObjectSelectedPortraitImage()
 	return Rva0033BC53Get(thingTemplate, this);
 }
 
-class ExperienceTracker
-{
-public:
-	bool rva0039B4EC(int a, bool b, bool c);
-	char m_pad[0x24];
-	int m_24;
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 struct V49Holder
 {

@@ -57,15 +57,7 @@ typedef bool Bool;
 
 typedef float Real;
 
-class ExperienceTracker
-{
-public:
-	Real getExperienceScalar() const { return m_experienceScalar; }
-	void setExperienceScalar(Real scalar) { m_experienceScalar = scalar; }
-private:
-	unsigned char m_pad00[0x1C];
-	Real m_experienceScalar; // +0x1C
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 class Object
 {

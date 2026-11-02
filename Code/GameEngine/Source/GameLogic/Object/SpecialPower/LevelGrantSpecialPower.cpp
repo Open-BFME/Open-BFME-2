@@ -283,11 +283,7 @@ public:
 
 // The tracker at Object +0x264 (its neighbours include ExperienceTracker's
 // xfer 0x0039AFC8).
-class ExperienceTracker
-{
-public:
-	void rva0039B315(float amount, bool a, bool b, bool c, bool d);	// 0x0039B315
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 // 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
 // ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it

@@ -77,13 +77,7 @@ struct Rva00482A4DRecord
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
 // VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
 // template's trainable flag): the byte at +0x5E7 of the +0x04 template.
-class ExperienceTracker
-{
-public:
-	bool isTrainable() const;
-	char m_lead[0x4];
-	void *m_template;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 // 0x00460A98 and 0x00460AA2 are UpgradeModule's UpgradeMux slots 13 and 14:
 // Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp.

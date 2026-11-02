@@ -676,7 +676,7 @@ class Rva0037E421 { public: void *rva0037E7A5(int); void *rva0037E451(int); void
 struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };
 class UnitRevivalTracker { public: bool productionSystemQueueCreateUnit(int,int,const Image **); Object *productionSystemNewObject(unsigned int,const Coord3D *); };
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
-class ExperienceTracker { public: void rva0039B315(float,bool,bool,bool,bool); };
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 struct ProductionExperienceView { char pad[0x24]; int level; int next; };
 class Rva003BD306Target { public: void rva0039B2C7(int,bool); };
 class Rva004DC8E7AsciiField { public: AsciiString get() const; };

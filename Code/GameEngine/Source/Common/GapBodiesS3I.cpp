@@ -121,11 +121,7 @@ void Rva005C4CE7::rva005C4CE7(bool on, int)
 
 // --- 0x005DB045 (47B): forward to the rowed ExperienceTracker 0x0039B16F
 // with a clear fourth flag and a 1.0 scale, then run the rowed 0x005DB004.
-class ExperienceTracker
-{
-public:
-	void rva0039B16F(float value, bool a, bool b, bool c, bool d, float scale);	// 0x0039B16F
-};
+#include "../../Include/GameLogic/ExperienceTracker.h"
 
 class Rva005DB004
 {

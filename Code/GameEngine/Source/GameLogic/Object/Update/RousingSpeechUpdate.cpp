@@ -13,11 +13,7 @@ enum KindOfType
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Player;
-class ExperienceTracker
-{
-public:
-	bool rva0039B4EC(int levels, bool flag1, bool flag2);
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class FXList
 {
 public:

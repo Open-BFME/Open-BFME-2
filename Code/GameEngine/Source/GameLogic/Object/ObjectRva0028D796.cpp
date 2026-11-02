@@ -18,12 +18,7 @@ public:
 	Int m_bountyValue; // +0x570
 };
 
-class ExperienceTracker
-{
-public:
-	unsigned char m_pad00[0x24];
-	Int m_24; // +0x24
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class ExperienceLevelList;
 

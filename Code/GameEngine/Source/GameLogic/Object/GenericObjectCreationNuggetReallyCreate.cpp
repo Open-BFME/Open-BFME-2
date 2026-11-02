@@ -206,11 +206,7 @@ public:
 	virtual void addToContain(Object *obj);	// +0x9C
 };
 
-class ExperienceTracker
-{
-public:
-	Bool rva0039B4EC(Int levels, Bool a, Bool b);
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class Rva0028CBFD
 {

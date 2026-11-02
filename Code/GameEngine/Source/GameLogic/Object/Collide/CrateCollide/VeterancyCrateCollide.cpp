@@ -55,15 +55,7 @@ extern GameTextInterface *TheGameText;
 
 extern ScriptEngine *TheScriptEngine;
 
-class ExperienceTracker
-{
-public:
-	bool isTrainable() const;	// 0x0039ADAF
-	bool rva0039ABFF() const;	// 0x0039ABFF
-	bool rva0039B4EC(int levels, bool flag1, bool flag2);	// 0x0039B4EC
-	char m_pad00[0x24];
-	int m_level;	// +0x24
-};
+#include "../../../../../Include/GameLogic/ExperienceTracker.h"
 
 struct VeterancyCrateCollideModuleData
 {
@@ -253,7 +245,7 @@ bool VeterancyCrateCollide::isValidToExecute(const Object *other) const
 		return false;
 	if (!tracker || !tracker->rva0039ABFF())
 		return false;
-	if (tracker->m_level > data->m_affectsUpToLevel)
+	if (tracker->m_24 > data->m_affectsUpToLevel)
 		return false;
 	if (data->m_isPilot) {
 		const Object *object = m_object;

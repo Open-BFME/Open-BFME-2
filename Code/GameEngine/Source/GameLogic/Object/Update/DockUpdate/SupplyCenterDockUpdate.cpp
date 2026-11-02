@@ -123,7 +123,7 @@ public:
  virtual SupplyTruckAIInterface *getSupplyTruckAIInterface();
 };
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
-class ExperienceTracker { public: void rva0039B315(float, bool, bool, bool, bool); };
+#include "../../../../../Include/GameLogic/ExperienceTracker.h"
 class Drawable;
 class Rva0010CConditionBits
 {

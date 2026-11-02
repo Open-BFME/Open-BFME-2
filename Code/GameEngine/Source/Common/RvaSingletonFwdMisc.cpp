@@ -49,11 +49,7 @@ public:
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-class ExperienceTracker
-{
-public:
-	bool rva0039ABFF() const;
-};
+#include "../../Include/GameLogic/ExperienceTracker.h"
 
 struct Rva003F1BD3TemplateView;
 class LivingWorldBuildPlot

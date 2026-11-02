@@ -463,11 +463,7 @@ public:
 	bool IsValid(ExperienceLevelHandle handle) const;
 	int GetLevelRank(ExperienceLevelHandle handle) const;
 };
-class ExperienceTracker
-{
-public:
-	ExperienceLevelHandle rva0039AC0C() const;
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class Rva002390CB
 {
