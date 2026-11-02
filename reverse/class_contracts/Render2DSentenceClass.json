@@ -1,0 +1,908 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "Render2DSentenceClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 33,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 4
+   },
+   "0x1c": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x4c": {
+    "4": 10
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 6
+   },
+   "0x64": {
+    "4": 6
+   },
+   "0x68": {
+    "4": 6
+   },
+   "0x6c": {
+    "4": 4
+   },
+   "0x70": {
+    "4": 6
+   },
+   "0x7c": {
+    "4": 6
+   },
+   "0x8": {
+    "4": 2
+   },
+   "0x84": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 1
+   },
+   "0x8c": {
+    "4": 1
+   },
+   "0x9c": {
+    "4": 3
+   },
+   "0xa0": {
+    "4": 2
+   },
+   "0xa4": {
+    "4": 3
+   },
+   "0xa8": {
+    "4": 2
+   },
+   "0xac": {
+    "1": 1
+   },
+   "0xad": {
+    "1": 1
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xb8": {
+    "4": 1
+   },
+   "0xbc": {
+    "4": 1
+   },
+   "0xc0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x157e80"
+     ],
+     "value": 196
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x157e80"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x80": [
+       1
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       1
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       1
+      ],
+      "0xad": [
+       1
+      ],
+      "0xae": [
+       1
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x157e80"
+     ],
+     "value": {
+      "0x1c": [
+       "??0?$VectorClass@UPendingSurfaceStruct@Render2DSentenceClass@@@@QAE@HPBUPendingSurfaceStruct@Render2DSentenceClass@@@Z"
+      ],
+      "0x34": [
+       "??0?$VectorClass@UAddInfoStruct@MixFileFactoryClass@@@@QAE@HPBUAddInfoStruct@MixFileFactoryClass@@@Z"
+      ],
+      "0x4": [
+       "??0?$VectorClassWide@UTextureStatisticsStructWide@@@@QAE@IPBUTextureStatisticsStructWide@@@Z"
+      ],
+      "0x7c": [
+       "??0BfmeThingDC@@QAE@PAUBfmeItemDC@@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x157e80"
+     ],
+     "value": {
+      "0x1c": [
+       "0x7d3c68"
+      ],
+      "0x34": [
+       "0x7d3c30"
+      ],
+      "0x4": [
+       "0x7d3c18"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x157e80"
+     ],
+     "value": {
+      "0x0": "0x7d3c80"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d3c80"
+     ],
+     "value": {
+      "count": 1,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?Reset@Render2DSentenceClass@@UAEXXZ",
+        "slot": 0,
+        "target": "0x155a20"
+       }
+      ],
+      "table": "0x7d3c80"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x7d3c80": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?Reset@Render2DSentenceClass@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 11,
+   "28": 1,
+   "52": 1,
+   "76": 1,
+   "80": 1,
+   "128": 2,
+   "176": 3,
+   "180": 2,
+   "184": 1,
+   "196": 8,
+   "204": 1
+  },
+  "views": 32,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 20,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "S:DynamicVectorClass<Render2DSentenceClass::SentenceDataStruct>",
+   "name": "SentenceData",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 24,
+   "type": "DynamicVectorClass<Render2DSentenceClass::SentenceDataStruct>",
+   "views": 18,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "f4",
+   "name": "BaseLocation.U",
+   "name_by": "zh",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "f4",
+   "name": "Location.U",
+   "name_by": "zh",
+   "offset": 88,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 16,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Release_Pending_Surfaces.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 65,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset_Polys.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceExtentBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 15
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 15
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClassRva00156540.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceRecordChunkBFME2.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 137,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 173,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 174,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildThaiBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass_Reset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 175,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceAllocateSurfaceBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceGlyphSurfaceBFME2.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDestructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceConstructorBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "nested@0x50",
+   "candidates": {
+    "BaseLocation.U": 16
+   },
+   "class": "Render2DSentenceClass"
+  },
+  {
+   "attribute": "nested@0x58",
+   "candidates": {
+    "Location.U": 16
+   },
+   "class": "Render2DSentenceClass"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "Reset()": 2
+   },
+   "class": "Render2DSentenceClass",
+   "why": "beyond the retail vftable's 1 slots"
+  }
+ ],
+ "size": 196,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "Reset()"
+  }
+ }
+}
