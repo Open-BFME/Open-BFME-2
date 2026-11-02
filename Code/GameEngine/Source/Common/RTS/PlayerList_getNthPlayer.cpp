@@ -34,17 +34,7 @@ class BuildListInfo;
 
 #include "../../../Include/Common/Dict.h"
 
-class SidesInfo
-{
-public:
-	BuildListInfo *getBuildList() { return m_pBuildList; }
-	void releaseBuildList() { m_pBuildList = 0; }
-	Dict *getDict() { return &m_dict; }
-
-private:
-	BuildListInfo *m_pBuildList;	// +0x00
-	Dict m_dict; char m_tail[0x60-4-sizeof(Dict)];	// +0x04
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class SidesList
 {

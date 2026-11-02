@@ -69,16 +69,7 @@ private:
 	short m_freeHead;
 };
 
-class SidesInfo
-{
-public:
-	Dict *getDict() { return &m_dict; }
-
-private:
-	void *m_pBuildList;
-	Dict m_dict;
-	char m_rest[0x60 - 8];
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class SidesList
 {

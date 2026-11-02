@@ -12,11 +12,7 @@
 // m_numSkirmishSides at +0x7C0, m_skirmishSides at +0x7C4 with a 0x60 stride.
 // Same spelling as the rowed getSideInfo twin at 0x002035BA.
 
-class SidesInfo
-{
-public:
-	unsigned char m_data[0x60];
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class SidesList
 {

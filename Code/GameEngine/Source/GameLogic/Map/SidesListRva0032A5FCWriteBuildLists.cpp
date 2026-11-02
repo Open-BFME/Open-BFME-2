@@ -109,16 +109,7 @@ public:
 	AsciiString getFilename();
 };
 
-class SidesInfo
-{
-public:
-	BuildListInfo *getBuildList() { return m_pBuildList; }
-	Dict *getDict() { return &m_dict; }
-
-private:
-	BuildListInfo *m_pBuildList; // +0x00
-	Dict m_dict; // +0x04
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class Dict;
 #include "../../../Include/Common/DataChunkOutput.h"

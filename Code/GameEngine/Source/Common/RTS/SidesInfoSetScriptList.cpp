@@ -8,17 +8,11 @@
 
 #include "../../../Include/GameLogic/ScriptList.h"
 
-struct SidesInfo
-{
-	void setScriptList(ScriptList *list);
-
-	char m_pad[8];
-	ScriptList m_scriptList; // +0x08
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 inline void SidesInfo::setScriptList(ScriptList *list)
 {
-	m_scriptList.swap(list);
+	m_scripts.swap(list);
 }
 
 // Header inlines that the units including the header emit as select-any

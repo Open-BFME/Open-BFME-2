@@ -37,16 +37,7 @@ extern const StaticNameKey TheKey_playerName;
 
 #include "../../../Include/Common/Dict.h"
 
-class SidesInfo
-{
-public:
-	Dict *getDict() { return &m_dict; }
-
-private:
-	void *m_pBuildList;
-	Dict m_dict;
-	unsigned char m_pad[0x60 - 8];
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class SidesList
 {

@@ -45,14 +45,7 @@ extern const StaticNameKey TheKey_teamName;
 
 #include "../../../Include/Common/Dict.h"
 
-class SidesInfo
-{
-public:
-	Dict *getDict() { return &m_dict; }
-private:
-	char m_pad00[4];
-	Dict m_dict;	// +0x04
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 struct TeamsInfoEntry
 {

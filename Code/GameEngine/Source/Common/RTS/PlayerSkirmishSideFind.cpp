@@ -31,15 +31,7 @@ extern Rva00148F5ECache TheKey_playerFaction;
 
 #include "../../../Include/Common/Dict.h"
 
-class SidesInfo
-{
-public:
-	Dict *getDict() { return &m_dict; }
-
-private:
-	void *m_pBuildList;
-	Dict m_dict;
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class SidesList
 {
