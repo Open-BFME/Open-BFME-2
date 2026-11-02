@@ -269,26 +269,6 @@ void *Rva0020EE29::rva0020FAB4(int a1, int a2)
 	return rva0020F9F6(&bBlock, &aBlock, (void *)a2);
 }
 
-// ?rva0020FB8B@Rva0020EE29@@QAEXPAURva0020FB8BNode@@@Z present-unmatched
-void Rva0020EE29::rva0020FB8B(Rva0020FB8BNode *arg)
-{
-	unsigned i = 0;
-	Rva0020FB8BVec14 *vec = &m_14;
-	Rva0020FB8BNode **pp = (Rva0020FB8BNode **)vec->m_begin;
-	for (; i < (unsigned)(((char *)vec->m_end - (char *)vec->m_begin) >> 2); ++i, ++pp) {
-		if (arg->m_34 == (*pp)->m_00->m_34)
-			goto found;
-	}
-	goto end;
-found:
-	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(arg->m_30);
-	m_20.vecReserve((unsigned)(((char *)vec->m_end - (char *)vec->m_begin) >> 2));
-	m_20.vecPushBack((void *&)arg);
-	vec->vecErase((void **)((char *)vec->m_begin + i * 4));
-end:
-	;
-}
-
 // ?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z @0x002104C7 38B
 // Looks up the second handle through the rowed-pending free 0x002104B6 and,
 // when found, runs the rowed-pending member 0x0020E374 on this with the
@@ -580,126 +560,8 @@ void Rva00DFE1C8Host::rva00212655(int arg)
     }
 }
 
-// ?Rva00210E5B@@YGXPAX0@Z @0x00210E5B 33B
-// Looks up the first handle through the VA 0x00DFEF18 singleton
-// (rowed-pending 0x002BFDAE) and, when found, runs the rowed-pending
-// 0x003FA781 on it with the second handle. Evidence: retail pushes the arg
-// with this=singleton (direct call, callee-clean); the null test; the
-// second push reads the other arg slot after the callee-cleaned call.
-// Free function (no this); handles opaque.
-class Rva003FA781Host
-{
-public:
-	void rva003FA781(void *a);
-};
-
-void __stdcall Rva00210E5B(void *a1, void *a2)
-{
-	void *p = ((Rva00DFEF18QueryHost *)TheLivingWorld)->rva002BFDAE(a1);
-	if (!p)
-		return;
-	((Rva003FA781Host *)p)->rva003FA781(a2);
-}
-
-// ?rva002110DF@Rva002110DF@@QAEXH@Z @0x002110DF 66B
-// Runs every entry of the +0x258 vector through the rowed-pending
-// 0x003FCDD5 with the forwarded arg. Evidence: retail reload-each-iteration
-// count (calls inside block strength reduction, rowed-EE29 idiom); the arg
-// pushed straight from its incoming slot; this-cached callee. Element
-// identity unproven (address-derived view).
-class Rva002110DFElem
-{
-public:
-	void rva003FCDD5(int a);
-};
-
-class Rva002110DF
-{
-public:
-	void rva002110DF(int a1);
-
-private:
-	char m_pad[0x258];
-	Rva002110DFElem **m_258begin;
-	Rva002110DFElem **m_25Cend;
-};
-
-// ?rva002110DF@Rva002110DF@@QAEXH@Z present-unmatched
-void Rva002110DF::rva002110DF(int a1)
-{
-	for (unsigned i = 0; i < (unsigned)(((char *)m_25Cend - (char *)m_258begin) >> 2); ++i)
-		m_258begin[i]->rva003FCDD5(a1);
-}
-
 // 0x00211570 is owned by its existing retail source unit.
 
-
-// ?Rva002122FD@@YGXPAX@Z @0x002122FD 30B
-// Free __stdcall lookup chain: resolves through the VA 0x00DF36A4 singleton
-// (rowed-pending 0x0009FA65), then feeds that into the VA 0x00DFE1C8
-// singleton (rowed-pending 0x002122D4). Evidence: retail loads each global
-// to ecx per call (direct, callee-clean); single pushes; ret 4. Handles
-// opaque; singletons share this TU's externs.
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
-
-class AsciiString;
-
-#include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
-
-class Rva002122D4Host
-{
-public:
-	void rva002122D4(void *a);
-};
-
-extern NameKeyGenerator *TheNameKeyGenerator; // VA 0xDF36A4, owned by NameKeyGenerator.cpp
-
-void __stdcall Rva002122FD(void *a1)
-{
-	void *t = (void *)TheNameKeyGenerator->nameToKey(*(const AsciiString *)a1);
-	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva002122D4(t);
-}
-
-// ?Rva0021618A@@YAPAXHHH@Z @0x0021618A 27B
-// Free __cdecl forwarder: passes its three dwords plus the address of a
-// one-byte stack slot to the rowed-pending free 0x00215F83 and answers its
-// value opaquely. Evidence: retail reserves via push with the byte addressed
-// at [ebp-1] (2101C6 two-byte precedent); caller-side add-esp cleanup.
-// Return flows to 0x00216245; unproven beyond the bytes.
-void *rva00215F83(int a1, int a2, int a3, void *b);
-
-void *Rva0021618A(int a1, int a2, int a3)
-{
-	unsigned char b;
-	return rva00215F83(a1, a2, a3, &b);
-}
-
-// ?rva00216245@Rva00216245@@QAEPAXH@Z @0x00216245 34B
-// Forwards two member pointers plus the arg through the rowed free
-// 0x0021618A and answers its value unless it equals the +0x2c member, when
-// it answers null (branchless neg/sbb mask). Evidence: retail push order
-// plus the caller-side add-esp cleanup; the neg/sbb/and select on the
-// result. Slot meanings unproven.
-class Rva00216245
-{
-public:
-	void *rva00216245(int a1);
-
-private:
-	char m_pad[0x28];
-	void *m_28;
-	void *m_2C;
-};
-
-void *Rva00216245::rva00216245(int a1)
-{
-	void *p2 = m_2C;
-	void *r = Rva0021618A((int)m_28, (int)p2, a1);
-	return (r != p2) ? r : 0;
-}
 
 // ?rva002115D0@Rva002115D0@@QAEXPAX0@Z @0x002115D0 28B
 // Uses the master-pinned StringBase<char>(const char*) constructor at
@@ -729,33 +591,7 @@ public:
 	void *rva0021BD22(unsigned int a);
 };
 
-class Rva00219B9ERet
-{
-public:
-	int rva0021BC2C(int a);
-	int rva0021BDAB(int a);
-	int rva0021BC53(int a);
-};
-
 void *__stdcall Rva00219B9E(int a);
-
-int __stdcall Rva0021BE23(int a1, int a2)
-{
-	void *p = Rva00219B9E(a2);
-	if (p)
-		return ((Rva00219B9ERet *)p)->rva0021BC2C(a1);
-	return 0;
-}
-
-// 0x0021BE42 rowed by another seat from Rva0021BE42Chain.cpp; the twin
-// body here is intentionally absent to keep a single owner.
-int __stdcall Rva0021BEA2(int a1, int a2)
-{
-	void *p = Rva00219B9E(a2);
-	if (p)
-		return ((Rva00219B9ERet *)p)->rva0021BC53(a1);
-	return 0;
-}
 
 int __stdcall Rva0021BEC1(int a1, int a2)
 {
@@ -816,23 +652,6 @@ private:
 	Rva00210D6DVec5C m_5Cvec;
 };
 
-// ?rva002103B6@Rva002103B6@@QAEXPAVRva00210390@@@Z present-unmatched
-void Rva002103B6::rva002103B6(Rva00210390 *a1)
-{
-	Rva002103B6Vec *vec = &m_2Cvec;
-	vec->vecEraseR(vec->m_begin, vec->m_end);
-	vec->vecReserveR((unsigned)(((char *)m_20vec.m_end - (char *)m_20vec.m_begin) >> 2));
-	Rva002103B6Vec *vec20p = &m_20vec;
-	for (unsigned i = 0; i < (unsigned)(((char *)vec20p->m_end - (char *)vec20p->m_begin) >> 2); ++i) {
-		void *hit = a1->rva00210390((const AsciiString *)&m_20vec.m_begin[i]);
-		// Value first (stays in eax through both arms), home second: retail
-		// ors eax (not memory) then stores once for the push address.
-		int v = hit ? *(int *)((char *)hit + 0x12C) : -1;
-		int slot = v;
-		vec->vecPushR(&slot);
-	}
-}
-
 // ?rva002106D6@Rva002103B6@@QAEXXZ @0x002106D6 84B
 // Runs every entry of the +0x2c vector through the rowed-pending 0x003F0DC6,
 // then every entry of the +0x5c vector through the rowed 0x002103B6 with
@@ -850,71 +669,4 @@ void Rva002103B6::rva002106D6()
 	Rva00210D6DVec5C *vec5C = &m_5Cvec;
 	for (unsigned j = 0; j < (unsigned)(((char *)vec5C->m_end - (char *)vec5C->m_begin) >> 2); ++j)
 		((LivingWorldRegionBonusRule *)m_5Cvec.m_begin[j])->CacheRegionIDs((Rva00210390 *)this);
-}
-
-// Dump-range-7 0x0021BEE0/0x0021BF11/0x0021BF42 entry dispatchers (49-50B,
-// __thiscall, 3 args). Each bounds-checks the index against the +0x14c flat
-// 32-byte table, then runs one rowed 0x0021BE2x lookup on &table[index] with
-// the other two handles, answering its value; on a miss answers 0 or -1
-// matching that callee. Evidence: retail end-minus-begin sar-5 count with
-// jae-out; the shl-5-plus-base entry address into ecx (this for the member
-// spelling, pinned); the [esp+...] pushes in entry order. Table and entry
-// identities unproven (address-derived views).
-struct Rva0021BEEntry
-{
-	char m_data[32];
-	int rva0021BE23(int a1, int a3);
-	int rva0021BEA2(int a1, int a3);
-	int rva0021BE42(int a1, int a3);
-};
-
-struct Rva0021BETable
-{
-	void *m_begin;
-	void *m_end;
-};
-
-class Rva0021BFxx
-{
-public:
-	int rva0021BEE0(int a1, int a2, int a3);
-	int rva0021BF11(int a1, int a2, int a3);
-	int rva0021BF42(int a1, int a2, int a3);
-
-private:
-	char m_pad[0x14C];
-	Rva0021BETable m_14Ctable;
-};
-
-// ?rva0021BEE0@Rva0021BFxx present-unmatched
-int Rva0021BFxx::rva0021BEE0(int a1, int a2, int a3)
-{
-	Rva0021BETable *t = &m_14Ctable;
-	unsigned n = (unsigned)(((char *)t->m_end - (char *)t->m_begin) >> 5);
-	if ((unsigned)a2 < n) {
-		return ((Rva0021BEEntry *)((char *)t->m_begin + a2 * 32))->rva0021BE23(a1, a3);
-	}
-	return 0;
-}
-
-// ?rva0021BF11@Rva0021BFxx present-unmatched
-int Rva0021BFxx::rva0021BF11(int a1, int a2, int a3)
-{
-	Rva0021BETable *t = &m_14Ctable;
-	unsigned n = (unsigned)(((char *)t->m_end - (char *)t->m_begin) >> 5);
-	if ((unsigned)a2 < n) {
-		return ((Rva0021BEEntry *)((char *)t->m_begin + a2 * 32))->rva0021BEA2(a1, a3);
-	}
-	return 0;
-}
-
-// ?rva0021BF42@Rva0021BFxx present-unmatched
-int Rva0021BFxx::rva0021BF42(int a1, int a2, int a3)
-{
-	Rva0021BETable *t = &m_14Ctable;
-	unsigned n = (unsigned)(((char *)t->m_end - (char *)t->m_begin) >> 5);
-	if ((unsigned)a2 < n) {
-		return ((Rva0021BEEntry *)((char *)t->m_begin + a2 * 32))->rva0021BE42(a1, a3);
-	}
-	return -1;
 }
