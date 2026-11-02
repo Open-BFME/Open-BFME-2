@@ -58,18 +58,8 @@ private:
 	Int m_activeBoundary; // +0x3C
 };
 
-// The target calls Radar::newMap through vtable slot 6 (+0x18).
-class __declspec(novtable) Radar
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void newMap(TerrainLogic *terrain);
-};
+// The target calls Radar slot 6 (+0x18) with TheTerrainLogic.
+#include "../../../Include/Common/Radar.h"
 
 // ThePartitionManager and TheShroudManager use the canonical PartitionManager
 // view (PartitionRangeQueryCallView.h): rva00625300 is the +0x10 region
@@ -113,7 +103,6 @@ public:
 template <> class __declspec(novtable) ViewSlots<0> {};
 #include "../../../Include/GameClient/View.h"
 
-extern Radar *TheRadar;
 extern PartitionManager *ThePartitionManager;
 extern PartitionManager *TheShroudManager;
 extern class GlobalData *TheWritableGlobalData;
@@ -140,7 +129,7 @@ void TerrainLogic::setActiveBoundary(Int newActiveBoundary)
 	Region3D region;
 	m_activeBoundary = newActiveBoundary;
 	getExtent(&region);
-	TheRadar->newMap(TheTerrainLogic);
+	TheRadar->vslot06(TheTerrainLogic);
 	ThePartitionManager->rva00625300(&region);
 	TheShroudManager->setRegion(&region, 0.0f);
 	((Rva0035A2DC *)TheGameLogic->getTerrainResourceManager())->rva0035A2DC(&region, (*(Rva00DFE758Holder **)&TheWritableGlobalData)->m_floatD4);
