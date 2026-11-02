@@ -1,0 +1,11 @@
+0x0052465B    101 N ?AddOverButtonHandler@AptOverButtonHandlerAdder@@QAEXABVAsci mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+0x005246C0    101 U ?AddCustomRender@AptCustomRenderAdder@@QAEXABVAsciiString@@V mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+0x00524725     66 C ?rva00524725@Rva00524306@@QAEXABVAsciiString@@PBVImage@@@Z   pull Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
+0x00524767     66 C ?rva00524767@Rva00524306@@QAEXABVAsciiString@@0@Z            pull Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
+0x005247A9    101 U ?AddTimer@AptTimerAdder@@QAEXABVAsciiString@@V?$AptRef@VAptT mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+0x0052480E     55 C ?push_back@?$vector@UTreeKey00242F5E@@V?$allocator@UTreeKey0 pull Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp
+0x00524845    139 N ?AddOverButtonHandler@AptOverButtonHandlerAdder@@QAEXHABVAsc mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+0x007966B9      8 P $L2563                                                       mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+0x007966C1      8 P $L2565                                                       mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+0x007966C9     10 P __ehhandler$?AddOverButtonHandler@AptOverButtonHandlerAdder@ mixed Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
+10 approved rows, 2 donor files, 1 mixed files, 0 refused files

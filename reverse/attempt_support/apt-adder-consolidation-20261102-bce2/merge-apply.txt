@@ -1,0 +1,13 @@
+tu: Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
+approved: 10
+mixed: {'Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp': 14}
+refused: {}
+accepted: ['Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp', 'Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp']
+rejected: {}
+flags: ['/MD', '/D_CRTIMP=', '/D_STLP_USE_STATIC_LIB', '/D_STLP_NO_EXCEPTIONS', '/Ireference/shims/bfme2_ascii', '/Ireference/shims/bfmealloc']
+rows: 4
+plan_reused: True
+link_guard: census-linked: Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp, Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp
+repointed: {'reverse/functions.csv': 1, 'reverse/tu_map.csv': 1}
+stage: staged: Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp reverse/functions.csv reverse/tu_map.csv Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp
+subject: Merge 2 files into AptOverButtonHandlerAdder.cpp (4 rows, tu_map approved TU, retail order)
