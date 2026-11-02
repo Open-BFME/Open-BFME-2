@@ -224,16 +224,16 @@ Rva004C1B7B::Rva004C1B7B(EmitVtableTag *)
 {
 }
 
-class Rva004E0D67
+class LivingWorldBuilding
 {
 public:
-	Rva004E0D67(EmitVtableTag *);
+	LivingWorldBuilding(EmitVtableTag *);
 public:
-	virtual ~Rva004E0D67();
+	virtual ~LivingWorldBuilding();
 };
 
-// ?<Rva004E0D67::Rva004E0D67> absent-from-retail
-Rva004E0D67::Rva004E0D67(EmitVtableTag *)
+// ?<LivingWorldBuilding::LivingWorldBuilding> absent-from-retail
+LivingWorldBuilding::LivingWorldBuilding(EmitVtableTag *)
 {
 }
 

@@ -1,5 +1,5 @@
 // cl: /O1 /MD /EHsc
-// ??1Rva004E0D67@@UAE@XZ, retail 0x004E0D67..0x004E0E5C (245 bytes, EH):
+// ??1LivingWorldBuilding@@UAE@XZ, retail 0x004E0D67..0x004E0E5C (245 bytes, EH):
 // the destructor of the Snapshot-derived Rva004E0B60 family object (the same
 // +0x2C/+0x30/+0x34 fields that Rva004E0ADBFamily.cpp reads; opaque pin of
 // its scalar deleting destructor 0x004E0E5C, tables 0x00C61618 and
@@ -11,7 +11,13 @@
 // (rowed 0x002B2E8E), the +0x30 list storage and the +8 buffer base (GameFree;
 // unwind copies 0x0007FAB3), the +4 listener base (restores 0x00C62A20; copy
 // 0x004EDFFF) and Snapshot. Identities are not established.
+// LivingWorldBuilding's Snapshot slots carry BFME2's capitalized names and the
+// non-const name getter, as LivingWorldBuilding.cpp declares them (table 0x00C61618).
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../Include/Common/RegionTurnObserverView.h"
 
 void __cdecl Rva00030830GameFree(void *);
 
@@ -92,21 +98,16 @@ struct Gen_uwm_0007fab3
 	Rva004E0D67Owned **m_capacity;
 };
 
-class Gen_uwm_004edfff
+// The +4 listener is the RegionTurnObserverView base (table 0x00C61610, own
+// table 0x00C62A20 restored inline), with LivingWorldBuilding.cpp's overrides.
+class LivingWorldBuilding : public Snapshot, public Gen_uw_0007fab3, public RegionTurnObserverView
 {
 public:
-	virtual void s0();
-	~Gen_uwm_004edfff() {}
-};
-
-class Rva004E0D67 : public Snapshot, public Gen_uw_0007fab3, public Gen_uwm_004edfff
-{
-public:
-	virtual ~Rva004E0D67();
-protected:
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
+	virtual ~LivingWorldBuilding();
+	virtual void BeginTurn(int, int);
+	virtual void LoadPostProcess();
+	virtual const char *GetSnapshotName();
+	virtual void DoXfer(Xfer *xfer);
 private:
 	unsigned char m_pad14[0x2C - 0x14];
 	Rva004E0D67Owned *m_2C;
@@ -116,7 +117,7 @@ private:
 	int m_44;
 };
 
-Rva004E0D67::~Rva004E0D67()
+LivingWorldBuilding::~LivingWorldBuilding()
 {
 	Rva004EFour f = { &Rva005CB260::rva005CB260, 0, 0, 0 };
 	reinterpret_cast<Rva004E0B60 *>(this)->rva004E0B60(f, (int)this);
@@ -126,5 +127,5 @@ Rva004E0D67::~Rva004E0D67()
 	Rva004E0D67Owned **end = m_list.m_end;
 	for (Rva004E0D67Owned **p = m_list.m_begin; p != end; ++p)
 		::delete *p;
-	TheLivingWorldLogic->m_list1C.rva002B7250((CreateAHeroData *)static_cast<Gen_uwm_004edfff *>(this));
+	TheLivingWorldLogic->m_list1C.rva002B7250((CreateAHeroData *)static_cast<RegionTurnObserverView *>(this));
 }

@@ -4534,3 +4534,6 @@ __ehhandler$?rva004A7DA5@SupplyWarehouseDockUpdate@@SA?AW4NameKeyType@@XZ,0x0078
 ?rva001711a6@Rva00171024@@QAEXXZ,0x001711A6,"Renamed to ?UpdateResultTexture@Rva00171024@@QAEXXZ by tools/rename.py (canonical:wb)"
 __ehhandler$?rva001711a6@Rva00171024@@QAEXXZ,0x00767B00,"Renamed to __ehhandler$?UpdateResultTexture@Rva00171024@@QAEXXZ by tools/rename.py (canonical:wb)"
 ?bfmeClose@Gen009D6DD0@@QAEXXZ,0x0060C8CD,"Renamed to ?Close@Gen009D6DD0@@QAEXXZ by tools/rename.py (canonical:wb)"
+??_GRva004E0D67@@UAEPAXI@Z,0x004E0E5C,"Renamed to ??_GLivingWorldBuilding@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C61618)"
+??1Rva004E0D67@@UAE@XZ,0x004E0D67,"Renamed to ??1LivingWorldBuilding@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C61618)"
+__ehhandler$??1Rva004E0D67@@UAE@XZ,0x00791927,"Renamed to __ehhandler$??1LivingWorldBuilding@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C61618)"

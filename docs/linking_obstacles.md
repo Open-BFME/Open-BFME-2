@@ -8834,6 +8834,26 @@ class:LivingWorldBuilding reservation was refused; all three partial scope
 claims were released immediately. No source edit, fold trial, clearance or
 census gain. [Current checkpoint and claim result](../reverse/attempt_support/render-task-record-name-20261101/readme.md).
 
+**Repaired (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`):** `rename.py class --fold Rva004E0D67
+--into LivingWorldBuilding` (evidence: dtor 0x004E0D67's first +0 store is 0x00C61618, which
+LivingWorldBuilding.cpp's DIR32 binding already names `??_7LivingWorldBuilding@@6BSnapshot@@@`;
+`??_G` 0x004E0E5C is its slot 0) renamed the three rows (`??1`, `??_G`, `__ehhandler$`) with
+tombstones and rewrote OpaqueScalarDeletingDtorsB11.cpp and Rva004E0D67Dtor.cpp. That alone moved the
+blocker: Rva004E0D67Dtor.cpp (first in link order at 0x004E0D67) then emitted a differing
+`??_7LivingWorldBuilding@@6BSnapshot@@@` (Zero Hour crc/xfer/loadPostProcess slots). Its view now
+matches LivingWorldBuilding.cpp's: Snapshot with `BFME_SNAPSHOT_CAPITALIZED_SLOTS`, `_NAME_SLOT` and
+`_NONCONST_NAME_SLOT` (LoadPostProcess, GetSnapshotName, DoXfer) and the +4 listener as
+`RegionTurnObserverView` with the `BeginTurn` override, in place of `Gen_uwm_004edfff::s0`; its
+non-polymorphic +8 buffer base, members and body are unchanged. `./build.sh` 40/40 rows for the fold
+and 7/7 after the view change (funclet labels renumbered, parent EH data verified); scoped DIR32 OK
+(11 symbols, three units); `rename.py check` clean; `link_check` LivingWorldBuilding.cpp 0 -> 1,124 B,
+Rva004E0D67Dtor.cpp 0 -> 245 B, OpaqueScalarDeletingDtorsB11 964 B unchanged; other units touching the
+affected names (VslotSmallBodiesAE 570, SubsystemNameGetters 263, Rva004FC4D1Dtor 194) unchanged;
+`??1Gen_uwm_004edfff@@QAE@XZ`, whose only COMDAT the old dtor view emitted, keeps its symbols.csv pin
+(0x004EDFFF) and its one consumer, the already unlinked `uw_gen_013.cpp`, keeps 184 unresolved names.
+Remaining: Rva004E0D67Dtor.cpp's file name still spells the placeholder (consolidation into
+`LivingWorldBuilding.cpp` once 0x004E0D67/0x004E0E5C are TU-approved). Census confirmation: pending.
+
 ### LINK-025: `StlSweepR3Rva0002CCC3.cpp`'s opaque hashtable record needs the macro table's real type
 Status: Blocked (identity prerequisite). Updated: 2026-10-26; inspected revision: 308a442bae.
 Evidence / affected units: `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CCC3.cpp` (67 B): unresolved
