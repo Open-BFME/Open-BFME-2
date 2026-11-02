@@ -357,3 +357,4 @@ MaterialPassClass,Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h,existi
 OptionPreferences,Code/GameEngine/Include/Common/OptionPreferences.h,existing header; contract class_contracts/OptionPreferences.json; 11/22 sampled units adopt
 AIPlayer,Code/GameEngine/Include/GameLogic/AIPlayerClass.h,existing header; contract class_contracts/AIPlayer.json; 10/22 sampled units adopt
 FXListStore,Code/GameEngine/Include/GameClient/FXListStore.h,existing header; contract class_contracts/FXListStore.json; 15/21 sampled units adopt
+DieMuxData,Code/GameEngine/Include/GameLogic/Module/DieMuxData.h,existing header; contract class_contracts/DieMuxData.json; 12/21 sampled units adopt
