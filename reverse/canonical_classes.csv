@@ -305,3 +305,4 @@ Keyboard,Code/GameEngine/Include/GameClient/KeyboardClass.h,existing header; con
 NetworkInterface,Code/GameEngine/Include/GameNetwork/NetworkInterfaceClass.h,existing header; contract class_contracts/NetworkInterface.json; 5/34 sampled units adopt
 DataChunkOutput,Code/GameEngine/Include/Common/DataChunkOutput.h,existing header; contract class_contracts/DataChunkOutput.json; 34/38 sampled units adopt
 MultiplayerSettings,Code/GameEngine/Include/GameNetwork/MultiplayerSettingsClass.h,existing header; contract class_contracts/MultiplayerSettings.json; 21/31 sampled units adopt
+AICommandParms,Code/GameEngine/Include/GameLogic/AICommandParms.h,existing header; contract class_contracts/AICommandParms.json; 8/34 sampled units adopt
