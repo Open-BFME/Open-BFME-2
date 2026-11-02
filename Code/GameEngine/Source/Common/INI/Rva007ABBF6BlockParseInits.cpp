@@ -129,13 +129,7 @@ class EmotionNuggetTemplate
 public:
 	static void friend_parseEmotionNugget(INI *);
 };
-class Eva
-{
-public:
-	static void iniParseEvaEventForwardReference(INI *);
-	static void iniParseNewEvaEvent(INI *);
-	static void iniParsePredefinedEvaEvent(INI *);
-};
+#include "../../../Include/GameClient/Eva.h"
 class ExperienceLevelStore
 {
 public:

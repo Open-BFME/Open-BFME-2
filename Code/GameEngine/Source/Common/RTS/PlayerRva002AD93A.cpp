@@ -124,11 +124,7 @@ class Player;
 extern PlayerList *ThePlayerList;
 
 enum EvaEventID { EVA_EVENT_STUB = 0 };
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID eventId, const struct Coord3D *pos, const struct Coord3D *secondPos);
-};
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
 class Player

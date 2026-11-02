@@ -1072,7 +1072,7 @@ private:
 	int m_localPlayerIndex;                                             // +0x64
 };
 
-class Eva : public SubsystemInterface { public: virtual ~Eva(); };
+#include "../../Include/GameClient/Eva.h"
 // TheScoredKillEvaAnnouncerController, under the placeholder class
 // GameEngine::init creates it with.
 class Rva0022C22CSubsystem : public SubsystemInterface { public: virtual ~Rva0022C22CSubsystem(); };

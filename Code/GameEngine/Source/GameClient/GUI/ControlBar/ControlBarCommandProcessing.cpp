@@ -65,7 +65,8 @@ bool __cdecl pickAndPlayUnitVoiceResponse(const DrawableList*,GameMessage::Type,
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Keyboard { public: bool isShift(); }; extern Keyboard *TheKeyboard;
 extern GameLogic *TheGameLogic;
-class Eva { public: bool reportEvaEvent(EvaEventID,const Coord3D*,const Coord3D*); }; extern Eva *TheEva;
+#include "../../../../Include/GameClient/Eva.h"
+extern Eva *TheEva;
 class Overridable { public: const Overridable *friend_getFinalOverride() const; char unmodelled[0x14]; int id; };
 class UpgradeTemplate { public: char pad[0x38]; int id; };
 class UpgradeCenter { public:

@@ -33,11 +33,7 @@ BFME_LITERAL_NAME_GETTER(Rva0006D054Named, "BaseHeightMapRenderObjClass")
 BFME_LITERAL_NAME_GETTER(Rva00078B7DNamed, "W3DHordeModelDraw")
 BFME_LITERAL_NAME_GETTER(WaterRenderObjClass, "WaterRenderObjClass")
 BFME_LITERAL_NAME_GETTER(Rva0008EFD2Named, "InGameUI")
-class Eva
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameClient/Eva.h"
 
 const char *Eva::GetSnapshotName() const
 {

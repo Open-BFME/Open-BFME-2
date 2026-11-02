@@ -12,12 +12,7 @@ struct XferVersionBytes {unsigned char version,current;};
 union XferVersion {XferVersionBytes fields;unsigned int storage;};
 #include "../Common/System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
-class Eva
-{
-public:
- void xferEvaEventID(Xfer *,int *);
- int rva001DE78E(const AsciiString *);
- AsciiString messageToName(int);};
+#include "../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 void Eva::xferEvaEventID(Xfer *xfer,int *message) {
  if(xfer->IsCRC())return;

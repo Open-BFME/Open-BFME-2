@@ -42,11 +42,7 @@ enum EvaEventID
 	EVA_EVENT_INVALID = -1
 };
 
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID event, const Coord3D *position, const Coord3D *position2);
-};
+#include "../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
 struct ModuleData

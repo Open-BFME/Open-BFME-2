@@ -35,11 +35,7 @@ enum EvaMessage
 	EVA_Invalid = -1
 };
 
-class Eva
-{
-public:
-	int iniScanEvaEventID(const char *name);
-};
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
 namespace _STL

@@ -49,11 +49,7 @@ private:
 };
 
 enum EvaEventID { EVA_EVENT_STUB = 0 };
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID event, const Coord3D *position, const Coord3D *secondPosition);
-};
+#include "../../Include/GameClient/Eva.h"
 
 Eva *TheEva;
 

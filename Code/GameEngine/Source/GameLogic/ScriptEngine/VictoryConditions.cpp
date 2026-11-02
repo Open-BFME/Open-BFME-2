@@ -231,7 +231,7 @@ public:
 extern InGameUI *TheInGameUI;
 struct Coord3D;
 enum EvaEventID { EVA_EVENT_0 = 0 };
-class Eva { public: Bool reportEvaEvent(EvaEventID event, const Coord3D *position, const Coord3D *secondPosition); };
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 class BfmeAptWindowManager; extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern PartitionManager *TheShroudManager;

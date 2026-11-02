@@ -21,7 +21,7 @@ extern const FieldParse g_00BDC078[10] = {
 	{ 0, 0, 0, 0 }
 };
 
-class Eva { public: void rva001DCFC9(INI *ini, void *obj); };
+#include "../../Include/GameClient/Eva.h"
 
 void Eva::rva001DCFC9(INI *ini, void *obj)
 {

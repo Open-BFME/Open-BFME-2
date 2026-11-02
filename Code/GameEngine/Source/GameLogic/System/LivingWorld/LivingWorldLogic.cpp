@@ -3294,7 +3294,7 @@ struct Coord3D;
 struct Rva002BB15FCoord3D {float x,y,z;};
 class Vector3; class Rva002BF4F3 {public: bool rva002BF5B0(const Vector3 *,Vector3 *);};
 class Eva;extern Eva *TheEva;
-class Eva {public: bool reportEvaEvent(EvaEventID eventID, const Coord3D *position, const Coord3D *secondPosition);};
+#include "../../../../Include/GameClient/Eva.h"
 class LivingWorldRegionEffectsManager {public: void SyncRegion(int);};
 struct LivingWorldManagerEffectsView {char pad000[0x268];LivingWorldRegionEffectsManager *effects;};
 class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;

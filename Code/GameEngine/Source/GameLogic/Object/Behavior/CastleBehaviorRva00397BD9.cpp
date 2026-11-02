@@ -46,11 +46,7 @@ int rva00395C80(Object *obj);								// 0x00395C80
 // Eva::reportEvaEvent uses the target enum and two nullable position pointers.
 enum EvaEventID { EVA_INVALID = -1 };
 
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID eventID, const Coord3D *position, const Coord3D *secondPosition);	// 0x001DE2DA
-};
+#include "../../../../Include/GameClient/Eva.h"
 
 extern Eva *TheEva;
 

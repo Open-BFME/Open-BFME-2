@@ -349,10 +349,7 @@ class PlayerList {
 extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 enum EvaEventID { EVA_EVENT_15 = 15 };
-class Eva {
-  public:
-    bool reportEvaEvent(EvaEventID, const Coord3D *, const Coord3D *);
-};
+#include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"

@@ -19,7 +19,8 @@ struct PlayerListUpdateView{char pad[0x10];Player *localPlayer;int playerCount;}
 // only a null third word, so its observed stack/receiver contract is unchanged;
 // the retained int spelling is not an assertion that the last argument is a flag.
 enum EvaEventID { EVA_EVENT_STUB = 0 };
-class Eva{public:bool reportEvaEvent(EvaEventID,const Coord3D*,const Coord3D*);};extern Eva *TheEva;
+#include "../../../Include/GameClient/Eva.h"
+extern Eva *TheEva;
 class Rva00414F5EHost{public:void run();};
 struct AnnouncerUpdateView{char pad[8];int event;unsigned threshold;char pad10[12];_STL::vector<ScoredKillTracker> trackers;Player *localPlayer;int seenPlayers;};
 struct TrackerUpdateView{char pad[0x1c];int count;Coord3D position;};

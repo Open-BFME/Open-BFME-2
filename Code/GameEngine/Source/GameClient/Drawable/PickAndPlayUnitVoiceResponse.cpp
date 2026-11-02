@@ -928,11 +928,7 @@ public:
 };
 
 enum EvaEventID{EVA_NONE=0};
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID message,const Coord3D*pos,const Coord3D*other);
-};
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
 class Rva00395561

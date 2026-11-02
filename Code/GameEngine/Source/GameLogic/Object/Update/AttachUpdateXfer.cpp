@@ -38,11 +38,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
-class Eva
-{
-public:
-	void xferEvaEventID(Xfer *xfer, int *handle);	// row 0x001DEC48
-};
+#include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class AttachUpdate : public UpdateModule

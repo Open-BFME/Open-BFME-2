@@ -4848,7 +4848,7 @@ class HordeDeathHeight : public Rva00468D11Slots<7> { public: virtual float heig
 struct HordeDeathDataView { char prefix[0x248]; int deathEvent; };
 enum HordeDeathKind { HORDE_DEATH_KIND = 0x1bb };
 enum EvaEventID { EVA_EVENT_NONE = 0 };
-class Eva { public: bool reportEvaEvent(EvaEventID, const Coord3D *, const Coord3D *); };
+#include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 class Rva00265254 { public: Rva00265254(unsigned, unsigned, unsigned, unsigned); int words[19]; };
 class Rva001E42F2 { public: void rva001E42F2(const int *); };

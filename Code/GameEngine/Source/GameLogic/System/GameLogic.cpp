@@ -3379,11 +3379,7 @@ private:
 	AsciiString m_str;
 };
 
-class Eva
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameClient/Eva.h"
 
 class W3DDebrisDraw
 {

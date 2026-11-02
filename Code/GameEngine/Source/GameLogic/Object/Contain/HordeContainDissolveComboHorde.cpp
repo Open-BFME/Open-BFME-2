@@ -76,11 +76,7 @@ public:
 	const Rva00469689Body *m_264; // +0x264
 };
 
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID event, const Coord3D *pos, const Coord3D *pos2);
-};
+#include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 extern GameLogic *TheGameLogic;
 

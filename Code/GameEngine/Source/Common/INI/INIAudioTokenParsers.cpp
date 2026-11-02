@@ -141,7 +141,8 @@ void Rva00339184(const char *token,void *store)
  if(!((OpaqueRefElement4*)store)->referent) throw INIException(3,"Invalid Sound '%s'",token);
 }
 
-class Eva {public:int rva001DE78E(const AsciiString *name);};extern Eva *TheEva;
+#include "../../../Include/GameClient/Eva.h"
+extern Eva *TheEva;
 struct Rva00339235Value {int eventID;OpaqueRefElement4 sound;};
 void Rva00339235(const char *token,void *store)
 {

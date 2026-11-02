@@ -848,7 +848,7 @@ class GameEngine;
 
 extern GameEngine*TheGameEngine;
 
-class Eva {public:void rva001DD3DD();};
+#include "../../../Include/GameClient/Eva.h"
 
 extern Eva*TheEva;
 

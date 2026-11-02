@@ -40,11 +40,7 @@ private:
 extern PlayerList *ThePlayerList;
 
 enum EvaEventID { EVA_EVENT_NONE = 0 };
-class Eva
-{
-public:
-	bool reportEvaEvent(EvaEventID event, const Coord3D *pos, const Coord3D *pos2);
-};
+#include "../../../../Include/GameClient/Eva.h"
 
 extern Eva *TheEva;
 

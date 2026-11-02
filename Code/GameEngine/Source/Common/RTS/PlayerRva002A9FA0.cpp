@@ -16,10 +16,7 @@ public:
 };
 #include "../../../Include/GameClient/ControlBar.h"
 enum EvaEventID { EVA_EVENT_STUB = 0 };
-class Eva {
-public:
-    bool reportEvaEvent(EvaEventID, const Coord3D *, const Coord3D *);
-};
+#include "../../../Include/GameClient/Eva.h"
 class PlayerList {
 public:
     char unknown00[0x10];

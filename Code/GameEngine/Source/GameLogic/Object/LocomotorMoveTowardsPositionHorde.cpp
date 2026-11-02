@@ -773,11 +773,7 @@ public:
 };
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class Eva
-{
-public:
-	Bool reportEvaEvent(EvaEventID id, const Coord3D *pos, const Coord3D *pos2);
-};
+#include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 class Rva001E3557
 {

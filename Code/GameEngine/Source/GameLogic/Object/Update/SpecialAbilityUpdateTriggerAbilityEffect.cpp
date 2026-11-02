@@ -510,10 +510,7 @@ enum ObjectID; class ThingFactory {
     Object *newObject(const ThingTemplate *, Team *, const CreateMask *, ObjectID);
 };
 extern ThingFactory *TheThingFactory;
-class Eva {
-  public:
-    bool reportEvaEvent(EvaEventID, const Coord3D *, const Coord3D *);
-};
+#include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 class Rva00439E0C {
   public:
