@@ -263,3 +263,4 @@ CommandSet,Code/GameEngine/Include/GameClient/CommandSet.h,existing header; cont
 PlayerTemplate,Code/GameEngine/Include/Common/PlayerTemplate.h,existing header; contract class_contracts/PlayerTemplate.json; 24/55 sampled units adopt
 Parameter,Code/GameEngine/Include/GameLogic/ScriptParameter.h,existing header; contract class_contracts/Parameter.json; 52/75 sampled units adopt
 Radar,Code/GameEngine/Include/Common/Radar.h,existing header; contract class_contracts/Radar.json; 28/54 sampled units adopt
+DisplayString,Code/GameEngine/Include/GameClient/DisplayString.h,existing header; contract class_contracts/DisplayString.json; 30/52 sampled units adopt

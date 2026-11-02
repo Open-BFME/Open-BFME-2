@@ -1,0 +1,413 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "DisplayString",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 52,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x35897d"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x35897d"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x35897d"
+     ],
+     "value": {
+      "0x0": "0x815338"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x815338"
+     ],
+     "value": {
+      "count": 24,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GDisplayString@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3589cd"
+       },
+       {
+        "name": "?setText@DisplayString@@UAEXVUnicodeString@@@Z",
+        "slot": 1,
+        "target": "0x358a03"
+       },
+       {
+        "name": "?rva0022C4DF@Rva0022C4DF@@QBE?AVUnicodeString@@XZ",
+        "slot": 2,
+        "target": "0x22c4df"
+       },
+       {
+        "name": "?getTextLength@DisplayString@@UAEHXZ",
+        "slot": 3,
+        "target": "0x106153"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 4,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@DisplayString@@UAEXXZ",
+        "slot": 5,
+        "target": "0x358946"
+       },
+       {
+        "name": "?rva0010670B@Rva002217EA@@QAEXPBVImage@@@Z",
+        "slot": 6,
+        "target": "0x10670b"
+       },
+       {
+        "name": "?getName@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBDXZ",
+        "slot": 7,
+        "target": "0x30f45f"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 10,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 15,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 16,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 17,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 18,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 19,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 20,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?removeLastChar@DisplayString@@UAEXXZ",
+        "slot": 21,
+        "target": "0x358933"
+       },
+       {
+        "name": "?appendChar@DisplayString@@UAEXG@Z",
+        "slot": 22,
+        "target": "0x358957"
+       },
+       {
+        "name": "?appendString@DisplayString@@UAEXABVUnicodeString@@@Z",
+        "slot": 23,
+        "target": "0x3589e9"
+       }
+      ],
+      "table": "0x815338"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x815338": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GDisplayString@@UAEPAXI@Z",
+     "1": "?setText@DisplayString@@UAEXVUnicodeString@@@Z",
+     "2": "?rva0022C4DF@Rva0022C4DF@@QBE?AVUnicodeString@@XZ",
+     "3": "?getTextLength@DisplayString@@UAEHXZ",
+     "4": "??1Region2D@@QAE@XZ",
+     "5": "?reset@DisplayString@@UAEXXZ",
+     "6": "?rva0010670B@Rva002217EA@@QAEXPBVImage@@@Z",
+     "7": "?getName@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBDXZ",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "__purecall",
+     "11": "__purecall",
+     "12": "__purecall",
+     "13": "__purecall",
+     "14": "__purecall",
+     "15": "__purecall",
+     "16": "__purecall",
+     "17": "__purecall",
+     "18": "__purecall",
+     "19": "__purecall",
+     "20": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "21": "?removeLastChar@DisplayString@@UAEXXZ",
+     "22": "?appendChar@DisplayString@@UAEXG@Z",
+     "23": "?appendString@DisplayString@@UAEXABVUnicodeString@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "4": 46,
+   "20": 5
+  },
+  "views": 51,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DisplayString.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayString.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 51,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 10
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayString.cpp",
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayString.cpp",
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayString.cpp",
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayString.cpp",
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "clip(int*)": 1,
+    "setClipRegion(IRegion2D*)": 4,
+    "slot20()": 4
+   },
+   "class": "DisplayString"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "setText(UnicodeString)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "setColors(int,int)"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "draw(int,int,int,int)"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "getSize(int*,int*)"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "getWidth(int)"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "getText()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "removeLastChar()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "appendChar(ushort)"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "appendString(UnicodeString*)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "getTextLength()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "setFont(GameFont*)"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "setWordWrap(int)"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}
