@@ -12,12 +12,7 @@
 #include "ascii_string.h"
 typedef bool Bool;
 class ModuleData;
-class Object
-{
-public:
-	bool addAttributeModifierToPool(const AsciiString &name, int value);
-	void removeAttributeModifierFromPool(const AsciiString &name);
-};
+#include "../object.h"
 struct AttributeModifierUpgradeModuleData
 {
 	unsigned char m_pad00[0x118];

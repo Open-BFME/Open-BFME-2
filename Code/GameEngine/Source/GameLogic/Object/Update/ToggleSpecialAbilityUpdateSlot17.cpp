@@ -30,12 +30,7 @@ enum KindOfType
 	KINDOF_INVALID = -1
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes bit) const;
-	bool isKindOf(KindOfType t) const;
-};
+#include "../object.h"
 
 class SpecialAbilityUpdate
 {

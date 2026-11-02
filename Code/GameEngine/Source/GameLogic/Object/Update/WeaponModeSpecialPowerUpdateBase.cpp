@@ -26,12 +26,7 @@ public:
 };
 class SpecialPowerTemplate;
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool rva0028C15E(int, float *, int, int);
-};
+#include "../object.h"
 class Rva002AC6B1PlayerTimers
 {
 public:

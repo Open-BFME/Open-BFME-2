@@ -33,14 +33,7 @@ template <> class Rva004B3CC2Slots<0>
 {
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class Object
-{
-public:
-	__declspec(dllimport) __forceinline BehaviorModule **getBehaviorModules() const { return m_behaviors; }
-private:
-	unsigned char m_pad000[0x244];
-	BehaviorModule **m_behaviors;		// +0x244
-};
+#include "../object.h"
 struct DelayedUpgradeModuleData
 {
 	unsigned char m_pad00[0x118];

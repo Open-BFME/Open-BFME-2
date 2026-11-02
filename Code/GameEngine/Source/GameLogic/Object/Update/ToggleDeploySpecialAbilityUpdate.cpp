@@ -58,12 +58,7 @@ enum KindOfType
 	KINDOF_BFME_60 = 0x60
 };
 
-class Object
-{
-public:
-	bool isKindOf(KindOfType kind) const;
-	int rva0028B7C8() const;
-};
+#include "../object.h"
 
 class ModuleData;
 

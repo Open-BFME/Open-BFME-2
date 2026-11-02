@@ -13,11 +13,7 @@
 class AsciiString;
 class CommandButton;
 
-class Object
-{
-public:
-	void doCommandButton(const CommandButton *button, int a2, bool a3);
-};
+#include "../object.h"
 
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;

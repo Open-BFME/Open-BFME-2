@@ -59,14 +59,7 @@ typedef float Real;
 
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 
-class Object
-{
-public:
-	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
-private:
-	unsigned char m_pad000[0x264];
-	ExperienceTracker *m_experienceTracker; // +0x264
-};
+#include "../object.h"
 
 class ModuleData;
 

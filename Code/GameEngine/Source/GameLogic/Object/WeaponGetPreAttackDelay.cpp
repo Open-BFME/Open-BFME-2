@@ -20,19 +20,7 @@
 struct Arg1_004DEA70;
 struct Coord3DBase;
 
-class Object
-{
-public:
-	// Bind the wrapper's existing provisional signature, rather than giving
-    // its retail address another C++ name. The caller interprets EAX as int.
-    void *rva0028BE7F(Arg1_004DEA70 *victim, const Coord3DBase *pos);
-	Coord3D rva0028BE93() const;
-	const Coord3D *getPosition() const { return &m_position; }
-
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "object.h"
 
 enum WeaponPrefireType
 {

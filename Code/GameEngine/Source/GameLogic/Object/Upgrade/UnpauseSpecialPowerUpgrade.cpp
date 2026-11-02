@@ -29,15 +29,7 @@ public:
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Rva004B555F;
-class Object
-{
-friend class UnpauseSpecialPowerUpgrade;
-public:
-	void AddCreateAHeroSpecialPowerUpgrade(Rva004B555F *u);
-private:
-	unsigned char m_pad000[0x244];
-	BehaviorModule **m_behaviors; // +0x244
-};
+#include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 // ?getModuleNameKey@UnpauseSpecialPowerUpgrade@@UBE?AW4NameKeyType@@XZ @0x4B5405

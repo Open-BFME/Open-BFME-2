@@ -34,14 +34,7 @@ public:
 	unsigned char m_pad330[0x738 - 0x330];
 	UnitRevivalTracker m_738;			// +0x738
 };
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-    void *rva0028BC58(int arg);
-    int vptr;
-    const ThingTemplate *m_template;
-};
+#include "../object.h"
 class ControlBar
 {
 public:

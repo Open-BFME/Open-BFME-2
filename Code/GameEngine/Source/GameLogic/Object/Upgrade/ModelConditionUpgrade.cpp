@@ -154,11 +154,7 @@ struct Rva004B63BDModuleData
 	Real m_specialConditionSeconds;			// +0x1B4
 };
 
-class Object
-{
-public:
-	void setSpecialModelConditionState(ModelConditionFlagType type, UnsignedInt frames);
-};
+#include "../object.h"
 
 class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
 

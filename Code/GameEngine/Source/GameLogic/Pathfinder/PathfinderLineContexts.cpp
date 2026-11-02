@@ -6,12 +6,7 @@
 // while the additional16B query/layout and reset counter are target facts.
 // Keep the existing generic init ABI; original constructor spelling remains
 // unresolved. The count reset precedes the query copy in WB as in retail.
-class Object
-{
-public:
-	bool rva0028AC62() const;
-	bool rva0028AFBB() const;
-};
+#include "../Object/object.h"
 
 class Rva002E6FDF
 {

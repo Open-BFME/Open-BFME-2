@@ -121,13 +121,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Xfer;
 
-class Object
-{
-public:
-	void releaseWeaponLock(WeaponLockType type);
-	void clearWeaponSetFlag(WeaponSetType type);
-	void removeAttributeModifierFromPool(const AsciiString &name);
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 

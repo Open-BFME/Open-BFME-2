@@ -87,12 +87,7 @@ public:
 	int m_timingExtra;
 };
 
-class Object
-{
-public:
-	void setDisabledUntil(DisabledType type, UnsignedInt frame);
-	Drawable *getDrawable() const;
-};
+#include "object.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

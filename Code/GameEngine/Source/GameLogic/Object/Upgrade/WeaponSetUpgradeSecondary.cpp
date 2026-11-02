@@ -64,11 +64,7 @@ public:
 // Evidence: vtable 0x00857F68 slot 20 plus sibling 0x004B5765 pattern plus rowed 0x00290AC1 0x004CE4A8 plus prev 0x004B5765 next 0x004B57AA.
 class Rva0028C570;
 
-class Object
-{
-public:
-	void rva00290AC1(const Rva0028C570 &other);
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 

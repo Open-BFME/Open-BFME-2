@@ -34,15 +34,7 @@ class Rva004B3E15Target : public Rva004B3E15Slots<49>
 public:
 	virtual void rvaSlot49() = 0;
 };
-class Object
-{
-public:
-	void *rva0029439D();
-	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
-private:
-	unsigned char m_pad000[0x264];
-	ExperienceTracker *m_experienceTracker;	// +0x264
-};
+#include "../object.h"
 struct LevelUpUpgradeModuleData
 {
 	unsigned char m_pad00[0x118];
