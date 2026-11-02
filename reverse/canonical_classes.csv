@@ -361,3 +361,4 @@ DieMuxData,Code/GameEngine/Include/GameLogic/Module/DieMuxData.h,existing header
 RecorderClass,Code/GameEngine/Include/Common/RecorderClass.h,existing header; contract class_contracts/RecorderClass.json; 17/22 sampled units adopt
 W3DPropBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h,existing header; contract class_contracts/W3DPropBuffer.json; 5/20 sampled units adopt
 DamageModule,Code/GameEngine/Include/GameLogic/Module/DamageModuleClass.h,existing header; contract class_contracts/DamageModule.json; 16/21 sampled units adopt
+FrameDataManager,Code/GameEngine/Include/GameNetwork/FrameDataManagerClass.h,existing header; contract class_contracts/FrameDataManager.json; 17/19 sampled units adopt
