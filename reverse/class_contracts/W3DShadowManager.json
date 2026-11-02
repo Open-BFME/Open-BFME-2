@@ -1,0 +1,107 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DShadowManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 26,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x18": 1
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 15,
+   "8": 2,
+   "12": 7,
+   "24": 2
+  },
+  "views": 26,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DShadowManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadow.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "m_vtable",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Gen006E2310Update.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderDynamicMeshVolume.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderMeshVolume.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderShadows.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderStencilShadows.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlushOccludedObjectsIntoStencil.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeVolumetricShadowBufferDraw.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderDynamicMeshVolume.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderMeshVolume.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderShadows.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderStencilShadows.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneRenderStenciledPlayerColor.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
