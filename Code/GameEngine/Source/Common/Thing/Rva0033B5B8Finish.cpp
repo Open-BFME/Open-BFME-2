@@ -15,11 +15,7 @@ enum ModuleType
 	MODULE_TYPE_INVALID = 0
 };
 // COMDAT and cannot differ from the shared header at link.
-class ModuleFactory
-{
-public:
-	void GetAssetList(const AsciiString &name, int a, ModuleType type, int b, int c);
-};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
 class ModuleInfo
 {

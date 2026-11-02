@@ -34,11 +34,7 @@ public:
 	void rva002573EE(int, int, int, ModuleType, const AsciiString &, int);
 };
 
-class ModuleFactory
-{
-public:
-	virtual void init();
-};
+#include "../../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
 
 class W3DModuleFactory : public ModuleFactory
 {

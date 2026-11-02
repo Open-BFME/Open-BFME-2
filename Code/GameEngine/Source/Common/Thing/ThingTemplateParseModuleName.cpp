@@ -19,10 +19,7 @@ class ModuleData { public:
  virtual bool rvaSlot7();
 };
 class ThingTemplate;
-class ModuleFactory { public:
- int findModuleInterfaceMask(const AsciiString &,ModuleType);
- ModuleData *newModuleDataFromINI(INI *,const AsciiString &,ModuleType,const AsciiString &);
-};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
 class ModuleInfo { public:
  bool rva0033C84A(int);

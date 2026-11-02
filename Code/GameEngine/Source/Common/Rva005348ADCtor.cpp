@@ -20,18 +20,7 @@ enum NameKeyType
 	NAMEKEY_FIRST = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		const void *m_createProc;
-		const void *m_createDataProc;
-		const void *m_data;
-		int m_whichInterfaces;
-	};
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 
 class Rva005348AD
 {

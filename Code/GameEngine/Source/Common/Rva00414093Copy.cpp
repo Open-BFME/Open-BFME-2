@@ -18,17 +18,7 @@ enum NameKeyType
 	NAMEKEY_0 = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		void *m_createProc;
-		void *m_createDataProc;
-		int m_whichInterfaces;
-	};
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> _Rb_tree<NameKeyType,pair<NameKeyType const ,ModuleFactory::ModuleTemplate>,_Select1st<pair<NameKeyType const ,ModuleFactory::ModuleTemplate> >,less<NameKeyType>,allocator<pair<NameKeyType const ,ModuleFactory::ModuleTemplate> > >::_Rb_tree(_Rb_tree<NameKeyType,pair<NameKeyType const ,ModuleFactory::ModuleTemplate>,_Select1st<pair<NameKeyType const ,ModuleFactory::ModuleTemplate> >,less<NameKeyType>,allocator<pair<NameKeyType const ,ModuleFactory::ModuleTemplate> > > const &); }
 

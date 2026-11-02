@@ -20,17 +20,7 @@ enum NameKeyType
 	kNameKeyInvalid = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		void *m_createProc;
-		void *m_createDataProc;
-		int m_whichInterfaces;
-	};
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16

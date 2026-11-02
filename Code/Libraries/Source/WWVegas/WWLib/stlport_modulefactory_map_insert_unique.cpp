@@ -31,17 +31,7 @@ enum NameKeyType
 	NAMEKEY_0 = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		void *m_createProc;
-		void *m_createDataProc;
-		int m_whichInterfaces;
-	};
-};
+#include "../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
 
 typedef _STL::pair<const NameKeyType, ModuleFactory::ModuleTemplate> ModuleFactoryInsertValue;
 typedef _STL::_Rb_tree<NameKeyType, ModuleFactoryInsertValue, _STL::_Select1st<ModuleFactoryInsertValue>, _STL::less<NameKeyType>, _STL::allocator<ModuleFactoryInsertValue> > ModuleFactoryInsertTree;

@@ -18,12 +18,7 @@ class Rva00257252
 public:
 	BfmePod16 &rva00257252(const int &key);
 };
-class ModuleFactory
-{
-	friend class Rva002573EE;
-protected:
-	static NameKeyType makeDecoratedNameKey(const AsciiString &name, ModuleType type);
-};
+#include "../../../../Include/Common/ModuleFactoryClass.h"
 class Rva002573EE
 {
 public:

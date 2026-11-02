@@ -21,17 +21,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 enum NameKeyType { NK_ZERO = 0 };
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		void *m_createProc;
-		void *m_createDataProc;
-		int m_whichInterfaces;
-	};
-};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 class Rva00413F8B
 {
 public:

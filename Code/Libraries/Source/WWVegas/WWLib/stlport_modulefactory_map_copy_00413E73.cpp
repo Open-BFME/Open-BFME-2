@@ -18,17 +18,7 @@ enum NameKeyType
 	NAMEKEY_0 = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		void *m_createProc;
-		void *m_createDataProc;
-		int m_whichInterfaces;
-	};
-};
+#include "../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
 
 namespace _STL
 {

@@ -119,11 +119,7 @@ public:
 	virtual const ModuleData *rva28();			// +0x28
 };
 
-class ModuleFactory
-{
-public:
-	Module *newModule(Thing *thing, const AsciiString &name, const ModuleData *data, ModuleType type);
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
 
 class Drawable;

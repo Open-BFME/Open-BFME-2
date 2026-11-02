@@ -160,11 +160,7 @@ struct Rva00603E50Value { const char *key; unsigned words[3]; };
 
 enum NameKeyType { NameKeyZero = 0 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate { public: void *m_createProc; void *m_createDataProc; int m_whichInterfaces; };
-};
+#include "../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
 
 typedef _STL::pair<const NameKeyType, ModuleFactory::ModuleTemplate> ModuleWordPair;
 

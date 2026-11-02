@@ -13,15 +13,7 @@ enum NameKeyType
 	NK_Dummy = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		int m_dummy;
-	};
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 
 namespace _STL
 {

@@ -9,21 +9,7 @@ enum ModuleType
 {
 	MODULE_TYPE_INVALID = 0
 };
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		int m_00;
-		int m_04;
-		int m_08;
-		int m_tag0C;
-	};
-	int findModuleInterfaceMask(const AsciiString &name, ModuleType type);
-protected:
-	const ModuleTemplate *findModuleTemplate(const AsciiString &name, ModuleType type);
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 // ?findModuleInterfaceMask@ModuleFactory@@QAEHABVAsciiString@@W4ModuleType@@@Z
 int ModuleFactory::findModuleInterfaceMask(const AsciiString &name, ModuleType type)
 {

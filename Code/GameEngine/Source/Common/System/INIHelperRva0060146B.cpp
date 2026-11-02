@@ -12,15 +12,7 @@ enum NameKeyType
 	RvaNameKeyZero = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		int m_a;
-	};
-};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 
 typedef _STL::map<NameKeyType, ModuleFactory::ModuleTemplate, _STL::less<NameKeyType> > RvaMapType;
 

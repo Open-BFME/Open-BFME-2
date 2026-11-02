@@ -20,17 +20,7 @@ enum NameKeyType
 	NAMEKEY_0 = 0
 };
 
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		void *m_createProc;
-		void *m_createDataProc;
-		int m_whichInterfaces;
-	};
-};
+#include "../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
 
 // These are the existing native clear providers in Rva0038201DFree.cpp.
 // Both measured receivers store the header at +0 and the node count at +4,

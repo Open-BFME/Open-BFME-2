@@ -40,17 +40,7 @@ typedef _STL::map<unsigned, void *, _STL::less<unsigned>, _STL::allocator<PairIn
 // owner at 0x00413E55. Preserve that provider's full value type instead of
 // emitting a pointer-pair clone under the legacy caller's template name.
 enum NameKeyType { NAMEKEY_0 = 0 };
-class ModuleFactory
-{
-public:
-    class ModuleTemplate
-    {
-    public:
-        void *m_createProc;
-        void *m_createDataProc;
-        int m_whichInterfaces;
-    };
-};
+#include "../../../../GameEngine/Include/Common/ModuleFactoryClass.h"
 typedef _STL::pair<const NameKeyType, ModuleFactory::ModuleTemplate> ModuleCloneValue;
 typedef _STL::_Rb_tree<NameKeyType, ModuleCloneValue,
     _STL::_Select1st<ModuleCloneValue>, _STL::less<NameKeyType>,

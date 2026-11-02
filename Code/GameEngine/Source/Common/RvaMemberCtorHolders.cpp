@@ -22,11 +22,7 @@ public:
 
 class LadderPref;
 enum NameKeyType {};
-class ModuleFactory
-{
-public:
-	class ModuleTemplate;
-};
+#include "../../Include/Common/ModuleFactoryClass.h"
 
 namespace _STL
 {

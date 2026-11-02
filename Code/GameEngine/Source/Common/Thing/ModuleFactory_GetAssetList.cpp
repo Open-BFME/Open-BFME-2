@@ -11,20 +11,7 @@ enum ModuleType
 {
 	MODULE_TYPE_INVALID = 0
 };
-class ModuleFactory
-{
-public:
-	class ModuleTemplate
-	{
-	public:
-		int m_00;
-		int m_04;
-		void (__cdecl *m_create08)(int a, int b, int c);
-	};
-	void GetAssetList(const AsciiString &name, int a, ModuleType type, int b, int c);
-protected:
-	const ModuleTemplate *findModuleTemplate(const AsciiString &name, ModuleType type);
-};
+#include "../../../Include/Common/ModuleFactoryClass.h"
 // ?GetAssetList@ModuleFactory@@QAEXABVAsciiString@@HW4ModuleType@@HH@Z
 void ModuleFactory::GetAssetList(const AsciiString &name, int a, ModuleType type, int b, int c)
 {
