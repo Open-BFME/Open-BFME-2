@@ -17,7 +17,7 @@ public:
 class Rva0006E52A
 {
 public:
-	void rva0006E52A(Rva0006E52AObj *v, int idx);
+	void rva0006E52A(Rva0006E52AObj *newObject, int idx);
 
 private:
 	char m_pad0[0x130];
@@ -25,16 +25,16 @@ private:
 	int m_count;
 };
 
-void Rva0006E52A::rva0006E52A(Rva0006E52AObj *v, int idx)
+void Rva0006E52A::rva0006E52A(Rva0006E52AObj *newObject, int idx)
 {
 	if (m_count < idx + 1)
 		m_count = idx + 1;
-	if (v)
-		++v->m_ref;
+	if (newObject)
+		++newObject->m_ref;
 	Rva0006E52AObj *old = m_arr[idx];
 	if (old) {
 		if (--old->m_ref == 0)
 			old->Delete();
 	}
-	m_arr[idx] = v;
+	m_arr[idx] = newObject;
 }

@@ -231,3 +231,6 @@ agree:nl-b58d4355a239,Rva000D19F9::rva000D19F9::at8,Rva000D19F9::rva000D19F9::de
 agree:nl-72db0e86a82e,Rva000E459F::rva000E46DA::v,Rva000E459F::rva000E46DA::fieldValue,Code/GameEngine/Source/Common/Rva000E459F.cpp,b789af391371c7f9e6a3f2e55fd46525a935ff46f0da9008ee4b523200b8f67b
 agree:nl-bf3d2324e827,Team::hasAnyObjects::b3,Team::hasAnyObjects::bit3Set,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,ec3608d981bac21bd011c69513f7ba4b0af3054a069d75f99b9a8cd889820357
 agree:nl-7a7f1304e249,Team::hasAnyObjects::b4,Team::hasAnyObjects::bit4Set,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,ec3608d981bac21bd011c69513f7ba4b0af3054a069d75f99b9a8cd889820357
+agree:nl-2f5c3dd8103c,Rva000B2EB5::rva000B2EB5::f,Rva000B2EB5::rva000B2EB5::position,Code/GameEngine/Source/Common/Rva000B2EB5.cpp,5a2f9181d5c70654c831fabb4a710b34c3fda5bd0875dbb63fb7a0b4bdfc41fd
+agree:nl-4e18dcbd4375,Rva000B2EB5::rva000B2EB5::n,Rva000B2EB5::rva000B2EB5::numFrames,Code/GameEngine/Source/Common/Rva000B2EB5.cpp,5a2f9181d5c70654c831fabb4a710b34c3fda5bd0875dbb63fb7a0b4bdfc41fd
+agree:nl-6467c27eb593,Rva000B2F38::rva000B2F38::g,Rva000B2F38::rva000B2F38::ratio,Code/GameEngine/Source/Common/Rva000B2F38.cpp,b1999c2e0d61790cc7171a186544d41e56003a387757481462f614180c9c0d4f

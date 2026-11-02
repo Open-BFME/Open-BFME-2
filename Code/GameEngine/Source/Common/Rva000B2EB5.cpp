@@ -156,17 +156,17 @@ float Rva000B2EB5::rva000B2EB5()
 		return g_00BBB9AC;
 	if (m_ptr->s003() != 0x19)
 		return g_00BBB9AC;
-	float f;
-	int n;
+	float position;
+	int numFrames;
 	int u1;
 	int u2;
-	m_ptr->s130(&f, &n, &u1, &u2);
-	if (f < 0.0)
+	m_ptr->s130(&position, &numFrames, &u1, &u2);
+	if (position < 0.0)
 		return 0.0f;
-	float fn = (float)n;
-	if (f >= fn)
+	float fn = (float)numFrames;
+	if (position >= fn)
 		return g_Va00BBB8D8;
-	return f / (fn - g_Va00BBB8D8);
+	return position / (fn - g_Va00BBB8D8);
 }
 
 // ?g_00BBB9AC@@3MA: matched references place it at VA 0xbbb9ac; also referenced as ?g_00BBB9AC@@3MB.

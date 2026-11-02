@@ -6496,3 +6496,11 @@ param,Rva000677CAHost::rva000677CA::a,Rva000677CAHost::rva000677CA::cellX,inferr
 param,Rva000677CAHost::rva000677CA::b,Rva000677CAHost::rva000677CA::cellY,inferred,agree:nl-a60678d813c5,Code/GameEngine/Source/Common/Rva000677CAHostRva0006DC8E.cpp,0x000677CA
 param,Rva00068073Host::rva00068073::a,Rva00068073Host::rva00068073::location,inferred,agree:nl-633e9cda8060,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,0x00068073
 param,Rva00068073Host::rva00068073::b,Rva00068073Host::rva00068073::angle,inferred,agree:nl-c95960a06edc,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,0x00068073
+param,Rva00068073Host::rva00068073::c,Rva00068073Host::rva00068073::id,inferred,agree:nl-ae397b52c3d1,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,0x00068073
+param,Rva00068073Host::rva000680D6::a,Rva00068073Host::rva000680D6::location,inferred,agree:nl-4a405bbcc737,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,0x000680D6
+param,Rva00068073Host::rva000680D6::c,Rva00068073Host::rva000680D6::angle,inferred,agree:nl-6164f95b732d,Code/GameEngine/Source/Common/Rva00068073Bodies.cpp,0x000680D6
+param,Rva0006E52A::rva0006E52A::v,Rva0006E52A::rva0006E52A::newObject,inferred,agree:nl-3cb8e9c11332,Code/GameEngine/Source/Common/Rva0006E52ASet.cpp,0x0006E52A
+local,Rva000B2EB5::rva000B2EB5::f,Rva000B2EB5::rva000B2EB5::position,inferred,agree:nl-2f5c3dd8103c,Code/GameEngine/Source/Common/Rva000B2EB5.cpp,0x000B2EB5
+local,Rva000B2EB5::rva000B2EB5::n,Rva000B2EB5::rva000B2EB5::numFrames,inferred,agree:nl-4e18dcbd4375,Code/GameEngine/Source/Common/Rva000B2EB5.cpp,0x000B2EB5
+local,Rva000B2F38::rva000B2F38::g,Rva000B2F38::rva000B2F38::ratio,inferred,agree:nl-6467c27eb593,Code/GameEngine/Source/Common/Rva000B2F38.cpp,0x000B2F38
+param,Rva000B2F38::rva000B2F38::v,Rva000B2F38::rva000B2F38::divisor,inferred,agree:nl-49904b58dcd2,Code/GameEngine/Source/Common/Rva000B2F38.cpp,0x000B2F38

@@ -26,26 +26,26 @@ class AsciiString;
 class Rva00068073Host
 {
 public:
-	void rva00068073(int location, float angle, int c);
-	void rva000680D6(const Coord3D *a, const GeometryInfo &b, float c);
+	void rva00068073(int location, float angle, int id);
+	void rva000680D6(const Coord3D *location, const GeometryInfo &b, float angle);
 
 	char m_pad[0x3854];
 	W3DShrubBuffer *m_3854; // +0x3854
 	W3DPropBuffer *m_3858; // +0x3858
 };
 
-void Rva00068073Host::rva00068073(int location, float angle, int c)
+void Rva00068073Host::rva00068073(int location, float angle, int id)
 {
 	if (m_3854)
-		m_3854->rva000E912A((const Coord3D *)location, angle, c);
+		m_3854->rva000E912A((const Coord3D *)location, angle, id);
 	if (m_3858)
 		m_3858->rva000EE04A((const Coord3D *)location, angle);
 }
 
-void Rva00068073Host::rva000680D6(const Coord3D *a, const GeometryInfo &geometryInfo, float c)
+void Rva00068073Host::rva000680D6(const Coord3D *location, const GeometryInfo &geometryInfo, float angle)
 {
 	if (m_3854)
-		m_3854->rva000E9D18(a, geometryInfo, c);
+		m_3854->rva000E9D18(location, geometryInfo, angle);
 	if (m_3858)
-		m_3858->removePropsForConstruction(a, geometryInfo, c);
+		m_3858->removePropsForConstruction(location, geometryInfo, angle);
 }

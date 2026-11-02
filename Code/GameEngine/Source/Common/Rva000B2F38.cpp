@@ -37,10 +37,10 @@ class Rva000B2F38
 	char _fill[0x9c - 0x50 - 4];
 	float m_f;
 public:
-	bool rva000B2F38(float v);
+	bool rva000B2F38(float divisor);
 };
 
-bool Rva000B2F38::rva000B2F38(float v)
+bool Rva000B2F38::rva000B2F38(float divisor)
 {
 	if (!m_a || m_a->s03() != 0x19)
 		return false;
@@ -50,10 +50,10 @@ bool Rva000B2F38::rva000B2F38(float v)
 	int n = b->t05();
 	float f = (float)n * 1e+03f;
 	float m = b->t06();
-	float g = f / m;
-	if (g > 0.0f && v > 0.0f)
+	float ratio = f / m;
+	if (ratio > 0.0f && divisor > 0.0f)
 	{
-		m_f = g / v;
+		m_f = ratio / divisor;
 		return true;
 	}
 	return false;
