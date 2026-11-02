@@ -9,9 +9,9 @@
    "majority": [],
    "zh": null
   },
-  "census": 35,
+  "census": 29,
   "inherited": {
-   "base_views": 10,
+   "base_views": 9,
    "inherited_slots": 0,
    "inherited_spans": []
   },
@@ -177,7 +177,7 @@
         "target": "0x4d770f"
        },
        {
-        "name": "?setState@AIStateMachine@@UAE?AW4StateReturnType@@H@Z",
+        "name": "?setState@AIStateMachine@@UAE?AW4StateReturnType@@I@Z",
         "slot": 8,
         "target": "0x3503d0"
        },
@@ -236,7 +236,7 @@
      "5": "?clear@AIStateMachine@@UAEXXZ",
      "6": "?resetToDefaultState@AIStateMachine@@UAE?AW4StateReturnType@@XZ",
      "7": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
-     "8": "?setState@AIStateMachine@@UAE?AW4StateReturnType@@H@Z",
+     "8": "?setState@AIStateMachine@@UAE?AW4StateReturnType@@I@Z",
      "9": "?createMachine@Rva0034BA20Owner@@QAEPAVRva0034B952@@XZ",
      "10": "?rva0034145C@AIStateMachineSlot10@@UAEPAVAIGuardMachine@@XZ",
      "11": "?isInAttackState@StateMachine@@UBE_NXZ",
@@ -252,15 +252,15 @@
   "view_sizes": {
    "1": 9,
    "4": 3,
-   "60": 2,
+   "60": 1,
    "72": 3,
    "76": 3,
-   "80": 2,
-   "84": 2,
+   "80": 1,
+   "84": 1,
    "88": 2,
-   "104": 9
+   "104": 6
   },
-  "views": 35,
+  "views": 29,
   "witness_offsets": [],
   "zh": {
    "error": "build/class_layouts/zh_AIStateMachine.cpp: compile failed: C2039; C2955; C2143",
@@ -277,7 +277,7 @@
    "retail_widths": {},
    "size": 4,
    "type": "void*",
-   "views": 18,
+   "views": 15,
    "witness": null
   }
  ],
@@ -294,20 +294,17 @@
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getCurrentStateID.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_predicates.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/Rva0026A05DUpdate.cpp"
    ],
-   "views": 8
+   "views": 6
   },
   {
    "offset": 8,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 20,
@@ -318,103 +315,91 @@
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp"
    ],
-   "views": 8
+   "views": 7
   },
   {
    "offset": 24,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 28,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 32,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 36,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 3
+   "views": 2
   },
   {
    "offset": 40,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 3
+   "views": 2
   },
   {
    "offset": 44,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 3
+   "views": 2
   },
   {
    "offset": 48,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 3
+   "views": 2
   },
   {
    "offset": 52,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 56,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/Rva0026A05DUpdate.cpp"
    ],
-   "views": 3
+   "views": 2
   },
   {
    "offset": 57,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 58,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
    ],
-   "views": 2
+   "views": 1
   },
   {
    "offset": 60,
@@ -470,11 +455,10 @@
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineGoals.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp"
    ],
-   "views": 5
+   "views": 4
   },
   {
    "offset": 80,
@@ -484,10 +468,9 @@
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getCurrentStateID.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_predicates.cpp"
    ],
-   "views": 7
+   "views": 6
   },
   {
    "offset": 84,
@@ -543,7 +526,7 @@
    "candidates": {
     "[[0, 24]]": 3,
     "[[0, 4]]": 1,
-    "[[0, 59]]": 2,
+    "[[0, 59]]": 1,
     "[[0, 60]]": 1,
     "[[0, 84]]": 1,
     "[[20, 24]]": 2

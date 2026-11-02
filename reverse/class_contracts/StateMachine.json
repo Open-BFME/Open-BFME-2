@@ -4,7 +4,7 @@
  "class": "StateMachine",
  "evidence": {
   "bases_overruled": null,
-  "census": 219,
+  "census": 184,
   "inherited": {
    "base_views": 0,
    "inherited_slots": 0,
@@ -171,7 +171,7 @@
         "target": "0x4d770f"
        },
        {
-        "name": "?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z",
+        "name": "?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z",
         "slot": 8,
         "target": "0x4d7acd"
        },
@@ -230,7 +230,7 @@
      "5": "?clear@StateMachine@@UAEXXZ",
      "6": "?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
      "7": "?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ",
-     "8": "?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z",
+     "8": "?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z",
      "9": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
      "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
      "11": "?isInAttackState@StateMachine@@UBE_NXZ",
@@ -242,24 +242,24 @@
     "stores": 1
    }
   },
-  "view_errors": 14,
+  "view_errors": 11,
   "view_sizes": {
-   "1": 16,
-   "4": 37,
-   "8": 8,
+   "1": 6,
+   "4": 31,
+   "8": 6,
    "12": 1,
-   "24": 70,
+   "24": 65,
    "32": 2,
    "40": 1,
-   "48": 27,
+   "48": 25,
    "52": 1,
-   "60": 35,
+   "60": 28,
    "76": 1,
    "80": 3,
    "84": 2,
    "88": 1
   },
-  "views": 205,
+  "views": 173,
   "witness_offsets": [],
   "zh": {
    "error": "build/class_layouts/zh_StateMachine.cpp: compile failed: C2039; C2955; C2143",
@@ -276,7 +276,7 @@
    "retail_widths": {},
    "size": 4,
    "type": "void*",
-   "views": 107,
+   "views": 93,
    "witness": null
   },
   {
@@ -290,12 +290,12 @@
    },
    "size": 4,
    "type": "State*",
-   "views": 40,
+   "views": 34,
    "witness": null
   },
   {
    "decided_by": "majority",
-   "kind": "S:_STL::map<int,State *,_STL::less<int>,_STL::allocator<_STL::pair<int const ,State *> > >",
+   "kind": "S:_STL::map<unsigned int,State *,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const ,State *> > >",
    "members": [
     {
      "kind": "P",
@@ -312,11 +312,11 @@
      "type": "uint"
     },
     {
-     "kind": "S:_STL::less<int>",
+     "kind": "S:_STL::less<unsigned int>",
      "name": "_M_key_compare",
      "offset": 8,
      "size": 1,
-     "type": "_STL::less<int>"
+     "type": "_STL::less<unsigned int>"
     }
    ],
    "name": "m_stateMap",
@@ -324,7 +324,7 @@
    "offset": 8,
    "retail_widths": {},
    "size": 12,
-   "type": "_STL::map<int,State *,_STL::less<int>,_STL::allocator<_STL::pair<int const ,State *> > >",
+   "type": "_STL::map<unsigned int,State *,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const ,State *> > >",
    "views": 6,
    "witness": null
   },
@@ -337,7 +337,7 @@
    "retail_widths": {},
    "size": 4,
    "type": "Object*",
-   "views": 112,
+   "views": 107,
    "witness": null
   }
  ],
@@ -407,9 +407,7 @@
     "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
@@ -430,7 +428,7 @@
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
     "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp"
    ],
-   "views": 41
+   "views": 39
   },
   {
    "offset": 40,
@@ -453,9 +451,7 @@
     "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
@@ -476,7 +472,7 @@
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
     "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp"
    ],
-   "views": 40
+   "views": 38
   },
   {
    "offset": 44,
@@ -499,9 +495,7 @@
     "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIMoveAndEvacuateStateEnterExit.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIMoveToStateOnEnter.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeComputePath.cpp",
@@ -522,7 +516,7 @@
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
     "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp"
    ],
-   "views": 40
+   "views": 38
   },
   {
    "offset": 48,
@@ -553,11 +547,9 @@
     "Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/StateMachine_setGoalObject.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
-    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_friend_setGoalObject.cpp"
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
    ],
-   "views": 18
+   "views": 16
   },
   {
    "offset": 57,
@@ -634,28 +626,7 @@
    "views": 1
   }
  ],
- "queue": [
-  {
-   "attribute": "slot7",
-   "candidates": {
-    "_rsvd07()": 1,
-    "gap07()": 1,
-    "initDefaultState()": 19,
-    "isInAttackState()": 1,
-    "m7()": 1,
-    "s07()": 1,
-    "s1C()": 2,
-    "s7()": 6,
-    "slot07()": 19,
-    "slot1C()": 2,
-    "slot7()": 1,
-    "v07()": 1,
-    "v7()": 1,
-    "vslot1c()": 1
-   },
-   "class": "StateMachine"
-  }
- ],
+ "queue": [],
  "size": 24,
  "size_by": "majority",
  "vslots": {
@@ -701,7 +672,7 @@
   },
   "4": {
    "decided_by": "majority",
-   "member": "updateStateMachine()"
+   "member": "slot04()"
   },
   "5": {
    "decided_by": "majority",
@@ -710,6 +681,10 @@
   "6": {
    "decided_by": "majority",
    "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
   },
   "8": {
    "decided_by": "majority",
