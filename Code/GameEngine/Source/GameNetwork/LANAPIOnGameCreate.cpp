@@ -44,26 +44,7 @@ public:
 	void OnGameCreate( void );
 };
 
-class GameTextInterface
-{
-public:
-	virtual void slot00( void ) = 0;
-	virtual void slot01( void ) = 0;
-	virtual void slot02( void ) = 0;
-	virtual void slot03( void ) = 0;
-	virtual void slot04( void ) = 0;
-	virtual void slot05( void ) = 0;
-	virtual void slot06( void ) = 0;
-	virtual void slot07( void ) = 0;
-	virtual void slot08( void ) = 0;
-	virtual void slot09( void ) = 0;
-	virtual void slot10( void ) = 0;
-	virtual void slot11( void ) = 0;
-	virtual void slot12( void ) = 0;
-	virtual void slot13( void ) = 0;
-	virtual void slot14( void ) = 0;
-	virtual UnicodeString fetch( const char *label, bool *exists = 0 ) = 0; // slot 15 (+0x3C)
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 // Retail helper at 0x00381C82. Takes a window index, the text and a color;

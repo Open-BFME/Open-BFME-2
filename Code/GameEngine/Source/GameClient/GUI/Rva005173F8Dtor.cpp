@@ -97,14 +97,7 @@ void __cdecl Rva00511F73Run();
 
 #include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class GameTextInterface {
-public:
-#define SLOT(n) virtual void s##n();
- SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
- SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14)
-#undef SLOT
- virtual UnicodeString fetch(const char*,bool *exists=0);
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void __cdecl Rva00512069Register();
 void __cdecl Rva005118F3Show(int,bool);

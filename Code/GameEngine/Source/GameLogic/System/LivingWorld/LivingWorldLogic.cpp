@@ -3144,15 +3144,7 @@ namespace _STL {
 typedef _Rb_tree<int, int, _Identity<int>, less<int>, allocator<int> > Lk11RbIntSet;
 template <> pair<Lk11RbIntSet::iterator, bool> Lk11RbIntSet::insert_unique(const int &);
 }
-class GameTextInterface {public:
- virtual ~GameTextInterface(){}
- virtual void slot00()=0;virtual void slot04()=0;virtual void slot08()=0;
- virtual void slot0c()=0;virtual void slot10()=0;virtual void slot14()=0;
- virtual void slot18()=0;virtual void slot1c()=0;virtual void slot20()=0;
- virtual void slot24()=0;virtual void slot28()=0;virtual void slot2c()=0;
- virtual void slot30()=0;virtual void slot34()=0;
- virtual UnicodeString fetch(const char*,bool *exists=0)=0;
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class Rva0020E89C {public:
  UnicodeString rva0020E89C();
