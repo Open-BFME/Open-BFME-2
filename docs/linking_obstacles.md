@@ -6067,6 +6067,23 @@ consumer receipt. Carry this provider and affected consumers into the next
 scheduled census. [Checks and prerequisite](../reverse/attempt_support/tcbspline-emission-20261029-codex.md).
 
 
+**tcbspline native vector storage repair (2026-11-02, base `bc450807165`):**
+The native12B array-construction and three-float assignment contract replaces
+the donor POD element in a TU-local vector-only view. Resize227B and base
+ctor150B now match their existing Vector3 owners, including both complete EH
+graphs; the empty element ctor matches its existing3B owner. All five old rows
+and17 other COMDAT fingerprints, both24B tables and every old provider remain.
+Normal paired checks pass45/45 across eight sources; all eight preview LINKS,
+5015->5355B (+340B from tcbspline only) against index984a4cdc4d. Strict-current
+preparation passes14/14 for the three explicit vector sources. No class identity,
+shared header, pin, flag or ledger row changes; this clears the Resize conflict
+in the stated preview scope, not the full donor identity or a spline TU.
+The owning identity-retirement check refuses on1132 missing ledger objects,
+so its old wrong key remains unchanged. Global selection/debt retirement and
+census confirmation remain pending; carry provider and affected consumers into
+the next scheduled census. [Bodies, EH graphs, retained providers and limits](../reverse/attempt_support/tcb-native-vector-link-20261102/readme.md).
+
+
 **Assigned virtual-table audit (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`; index `d1f046749a`):** `Rva001F4B01Ctor.cpp`, `Rva005BA1FDCtor.cpp`, `Rva005F422CDtor.cpp` and `RvaPayloadValueReturnsUnresolved.cpp` remain unchanged and blocked. `build/link-worker-w6/vtable-witnesses.log` reads each matched constructor/destructor's native DIR32 table and maps its emitted slots to current rows. Particle's nested binders already have real ResolveBindings rows, but its primary selector at 0x001F4A90 is still rowed with the incompatible nonvirtual `QAEXPBDHH` signature; declaration-only table suppression would not repair that contract. The online constructors give the same BaseVirt name two distinct native targets, 0x005BA272 and 0x005BA303, and need the actual hierarchy and deleting-destructor owners. The icon family needs the already rowed ArmyHeroIcon/vtordisp identities, rather than its placeholder override spellings. All three payload clone tables use the existing deleting body at 0x005FAA31, rowed under Rva004E84A4; their constructor units still emit incompatible short tables. No new match or independently proven fold pin was established. Next check: reconcile those row signatures and complete class/table identities across every emitter. Clearance and census confirmation remain pending.
 
 **UnicodeString and Vector2 adoption package (2026-10-27; base `6338687e62`; local index `5ce093a71a`, `retail-truth-4`):** The accepted units retain every matched row and their clean ordinary link previews; only the owning acceptance tool removes their header-queue entries. The complete per-unit results, acceptance output and raw gate paths are in local `build/header-report.md` and `build/header-h2/`. Remaining prerequisites are StringBase value ownership and storage access, writable-buffer forwarding, inline empty/character operations, nonthrowing comparison contracts, the subtitle copy-constructor target under its existing flags, and the WWMath conversion context used by the clock renderer. Stopped sources are restored exactly and have one tool-recorded blocked verdict each. Canonical headers, reference shims, function and symbol ledgers and code-generation flags are unchanged. This clears only the accepted header-debt scope; class-wide closure and new census gains are not claimed.

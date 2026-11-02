@@ -42,8 +42,39 @@
 // The donor spline methods and persistence factory have no ledger ownership.
 // Instantiate the vector constructor to retain the five matched virtuals;
 // direct method instantiation changes VC7.1's inlining of the element comparison.
-// The separate VectorClass<TCBClass>::Resize identity remains unresolved.
-#include "tcbspline.h"
+// Native vector slot 2 and the DynamicVector Resize caller fold with the
+// existing 227B VectorClass<Vector3>::Resize owner at 0x000F0BF1. Its array
+// construction uses 12-byte elements and the empty constructor at 0x0047A6A9;
+// its copy path assigns three floats individually. Those requirements differ
+// from the donor's POD TCBClass and constrain this TU-local storage view.
+// The 150B base constructor also matches the existing owner at 0x000F0D2F.
+// Nonthrowing array delete follows that owner's verified allocation contract.
+// TU-local storage view for the existing vector instantiations only.
+// The donor spelling is retained; no spline layout or original type identity is asserted.
+void __cdecl operator delete[](void *) throw();
+#include "vector.h"
+class TCBSpline3DClass
+{
+protected:
+    class TCBClass
+    {
+    public:
+        float Tension, Continuity, Bias;
+        WWINLINE TCBClass() {}
+        WWINLINE TCBClass &operator=(const TCBClass &that)
+        {
+            Tension = that.Tension;
+            Continuity = that.Continuity;
+            Bias = that.Bias;
+            return *this;
+        }
+        bool operator==(const TCBClass &that)
+        {
+            return Tension == that.Tension && Continuity == that.Continuity && Bias == that.Bias;
+        }
+        bool operator!=(const TCBClass &that) { return !operator==(that); }
+    };
+};
 
 // Type access only: no spline object, method or vtable is instantiated.
 struct TCBVectorTypes : TCBSpline3DClass
