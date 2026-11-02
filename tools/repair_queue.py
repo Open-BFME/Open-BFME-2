@@ -1908,8 +1908,40 @@ def verify_missing_debt(message=""):
 
 
 def _head_header_verdict(name, source):
+    return _head_header_verdicts([(name, source)])[name, source]
+
+
+def _header_verdicts(lane, rows):
+    """Use the owning lane's batched byte gate and explicit per-source link verdicts.
+
+    Byte-passing structural rejects still join the link preview: they can provide
+    symbols to another accepted unit. Keep missing results fail-closed, and bound
+    preview command lines just as the lane bounds its normal byte builds.
+    """
+    sources = list(dict.fromkeys(source for _, source in rows))
+    builds = lane.gate_many(sources)
+    judged = {(name, source): lane.adoption_problems(
+        name, source, gate=lambda s: builds.get(s, "byte verification returned no verdict"))
+        for name, source in rows}
+    linked = {}
+    passing = [s for s in sources if s in builds and builds[s] is None]
+    for chunk in _pathspec_chunks(passing, budget=6000):
+        linked.update(lane.link_ok(chunk))
+    for (_, source), problems in judged.items():
+        if not problems:
+            if linked.get(source) is False:
+                problems.append("link_check predicts a loss of census-linked bytes")
+            elif linked.get(source) is not True:
+                problems.append("link_check produced no usable per-unit verdict")
+    return judged
+
+
+def _head_header_verdicts(rows):
     """Load acceptance and layout helpers from the trusted base, never the edit being judged."""
     import types
+    rows = list(dict.fromkeys(rows))
+    if not rows:
+        return {}
     saved = {name: sys.modules.get(name) for name in ("class_contract", "class_layouts")}
     try:
         modules = {}
@@ -1917,14 +1949,17 @@ def _head_header_verdict(name, source):
             path = f"tools/{module_name}.py"
             got = _git("show", f"{DEBT_BASE}:{path}")
             if got.returncode:
-                return [f"{DEBT_BASE}:{path} unavailable"]
+                return {row: [f"{DEBT_BASE}:{path} unavailable"] for row in rows}
             module = types.ModuleType(module_name)
             module.__file__ = str(ROOT / path)
             if module_name != "header_adopt_lane":
                 sys.modules[module_name] = module
             exec(compile(got.stdout, module.__file__, "exec"), module.__dict__)
             modules[module_name] = module
-        return modules["header_adopt_lane"].verdict(name, source)
+        lane = modules["header_adopt_lane"]
+        if len(rows) == 1:
+            return {rows[0]: lane.verdict(*rows[0])}
+        return _header_verdicts(lane, rows)
     finally:
         for module_name, previous in saved.items():
             if previous is None:
@@ -2016,7 +2051,9 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
 
     The builds run batched, and identity verdicts share one load of the tree, when
     every source is already built (_batched_build: the same objects, the same
-    verdicts); otherwise each source is built just before its own verdict."""
+    verdicts); otherwise each source is built just before its own verdict.
+    Header removals use the trusted lane's batch byte gate and bounded combined
+    link previews, keeping a separate structural/byte/link verdict per row."""
     global _ACTIVE_TREE_STATE
     failures = []
     tree = _verification_tree()
@@ -2061,6 +2098,7 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
                                 f"verdict: {problems_note(problems)}")
     finally:
         _ACTIVE_TREE_STATE = None
+    header_plan = []
     for name, source in removed_header_rows():
         if _debt_transferred("header", source, [name], ()):
             continue
@@ -2070,14 +2108,19 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
             failures.append(f"{source}: its {HEADER_QUEUE} row ({name}) went with the source; a vanished unit is "
                             "a regression to investigate, not an adoption")
             continue
-        if header_verdict is None:
-            header_verdict = _head_header_verdict
         problems = _verification_problems(tree, [source])
         if problems:
             failures += [f"{source}: {problem}" for problem in problems]
             continue
         judged.add(source)
-        problems = header_verdict(name, source)
+        header_plan.append((name, source))
+    if header_verdict is None and len(header_plan) > 1:
+        header_results = _head_header_verdicts(header_plan)
+    else:
+        verdict = header_verdict or _head_header_verdict
+        header_results = {row: verdict(*row) for row in header_plan}
+    for name, source in header_plan:
+        problems = header_results.get((name, source), ["header acceptance returned no verdict"])
         if problems:
             failures.append(f"{source}: {HEADER_QUEUE} row ({name}) removed but acceptance fails: "
                             + "; ".join(problems))

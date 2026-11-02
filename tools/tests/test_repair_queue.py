@@ -2705,11 +2705,94 @@ def test_header_verdict_uses_head_helpers_despite_worktree_edits(tmp_path, monke
     (tools / "class_layouts.py").write_text('answer = "HEAD layout"\n')
     (tools / "class_contract.py").write_text('import class_layouts\nanswer = class_layouts.answer\n')
     (tools / "header_adopt_lane.py").write_text(
-        'import class_contract\ndef verdict(name, source):\n    return [class_contract.answer]\n')
+        'import class_contract\ndef verdict(name, source):\n    return [class_contract.answer]\n'
+        'def gate_many(sources):\n    return dict.fromkeys(sources)\n'
+        'def adoption_problems(name, source, gate=None):\n    return [class_contract.answer]\n'
+        'def link_ok(sources):\n    return dict.fromkeys(sources, True)\n')
     _git_repo(tmp_path)
     for path in tools.glob("*.py"):
         path.write_text('raise AssertionError("working-tree helper executed")\n')
     assert rq._head_header_verdict("C", "Code/A.cpp") == ["HEAD layout"]
+    rows = [("C", "Code/A.cpp"), ("D", "Code/B.cpp")]
+    assert rq._head_header_verdicts(rows) == dict.fromkeys(rows, ["HEAD layout"])
+
+
+def test_header_debt_batch_retains_individual_failures_and_byte_passing_providers():
+    from types import SimpleNamespace
+    import repair_queue as rq
+    builds, previews = [], []
+    sources = ["good", "byte-failure", "private-body", "lost-link", "unknown-link", "missing-build"]
+    rows = [("C", s) for s in sources] + [("OtherClass", "good")]
+    def gate_many(selected):
+        builds.append(selected)
+        return {s: "byte mismatch" if s == "byte-failure" else None for s in selected if s != "missing-build"}
+    def adoption(name, source, gate):
+        problems = ["still declares a private body"] if source == "private-body" else []
+        why = gate(source)
+        return problems + ([why] if why else [])
+    def links(selected):
+        previews.append(selected)
+        return {s: s != "lost-link" for s in selected if s != "unknown-link"}
+    lane = SimpleNamespace(gate_many=gate_many, adoption_problems=adoption, link_ok=links)
+    got = rq._header_verdicts(lane, rows)
+    assert builds == [sources]                              # shared source built once for two classes
+    assert previews == [["good", "private-body", "lost-link", "unknown-link"]]
+    assert got == {
+        ("C", "good"): [], ("OtherClass", "good"): [],
+        ("C", "byte-failure"): ["byte mismatch"],
+        ("C", "private-body"): ["still declares a private body"],
+        ("C", "lost-link"): ["link_check predicts a loss of census-linked bytes"],
+        ("C", "unknown-link"): ["link_check produced no usable per-unit verdict"],
+        ("C", "missing-build"): ["byte verification returned no verdict"],
+    }
+
+
+def test_header_debt_batch_bounds_preview_commands():
+    from types import SimpleNamespace
+    import repair_queue as rq
+    sources = [f"Code/{'a' * 180}/Unit{i}.cpp" for i in range(90)]
+    previews = []
+    def links(selected):
+        previews.append(selected)
+        return dict.fromkeys(selected, True)
+    lane = SimpleNamespace(gate_many=lambda selected: dict.fromkeys(selected),
+                           adoption_problems=lambda name, source, gate: [], link_ok=links)
+    assert all(not problems for problems in rq._header_verdicts(lane, [("C", s) for s in sources]).values())
+    assert len(previews) > 1 and [s for chunk in previews for s in chunk] == sources
+    assert all(sum(len(s) + 1 for s in chunk) <= 6000 for chunk in previews)
+
+
+@pytest.mark.parametrize("case", ["failure", "missing-verdict", "source", "header", "index"])
+def test_header_debt_hook_batches_rows_and_rechecks_the_verification_tree(tmp_path, monkeypatch, case):
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES + [("Code/Include/C.h", "// original\n")])
+    git = _git_repo(tmp_path)
+    queue = rev / "header_queue.tsv"
+    queue.write_text("".join(line for line in queue.read_text().splitlines(True)
+                             if "Code/GameEngine/" not in line), newline="\n")
+    git("add", str(queue))
+    seen = []
+    def verdicts(rows):
+        seen.append(rows)
+        got = dict.fromkeys(rows, [])
+        if case == "failure":
+            got[rows[-1]] = ["link_check predicts a loss of census-linked bytes"]
+        elif case == "missing-verdict":
+            got.pop(rows[-1])
+        else:
+            target = tmp_path / ("Code/Include/C.h" if case == "header" else rows[-1][1])
+            target.write_text("// changed during judgment\n")
+            if case == "index":
+                git("add", str(target))
+        return got
+    monkeypatch.setattr(rq, "_head_header_verdicts", verdicts)
+    failures = rq.verify_removed_debt()
+    assert seen == [[("AsciiString", "Code/GameEngine/Loco.cpp"), ("Coord3D", "Code/GameEngine/Body.cpp")]]
+    if case == "failure":
+        assert len(failures) == 1 and "Body.cpp" in failures[0] and "link_check" in failures[0]
+    elif case == "missing-verdict":
+        assert len(failures) == 1 and "returned no verdict" in failures[0]
+    else:
+        assert failures and "staged" in " ".join(failures)
 
 
 def test_deferred_hook_checks_run_in_commit_msg():

@@ -135,6 +135,13 @@ contents reuse their parsed declarations. A first single-class query prefilters
 class heads instead of building the whole inventory. Compiled layout, byte and
 link checks remain required.
 
+Commit and push hooks also batch retired header-queue rows through the trusted
+base's adoption checks: one byte gate per bounded cohort, individual structural
+verdicts and combined link previews of byte-passing consumers. Byte failures are
+isolated by the lane's normal bisection; missing link results still refuse
+retirement. Staged/outgoing input checks run before and after judgment. This
+does not reuse verdicts across commits or rebases.
+
 Before probing a class-key change (`struct`/`class`), the lane predicts its row-name
 changes and uses `name_dependents` to discover code and data consumers in one shared
 scan. A missing caller produces a `symbol dependencies` diagnostic listing the
