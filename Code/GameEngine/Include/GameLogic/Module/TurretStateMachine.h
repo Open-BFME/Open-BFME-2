@@ -16,7 +16,7 @@ public:
 
     virtual void clear();
     virtual StateReturnType resetToDefaultState();
-    virtual StateReturnType setState(int newStateID);
+    virtual StateReturnType setState(StateID newStateID);
 
     Object *getGoalObject();
     Object *rva004D7735();

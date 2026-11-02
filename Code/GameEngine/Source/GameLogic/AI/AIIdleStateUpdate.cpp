@@ -229,10 +229,10 @@ public:
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual void slot07();
-	virtual StateReturnType setState(int newStateID); // slot 8
+	virtual StateReturnType setState(unsigned int newStateID); // slot 8
 	Object *getOwner() const { return m_owner; }
 	__declspec(dllimport) __forceinline Bool isLocked() const { return m_locked; }
-	Bool hasState(int id);
+	Bool hasState(unsigned int id);
 private:
 	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14

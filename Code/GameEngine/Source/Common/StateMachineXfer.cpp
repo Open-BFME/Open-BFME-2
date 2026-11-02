@@ -56,7 +56,7 @@ public:
   bool m_locked;
   bool m_defaultStateInited;
   bool m_extra3A;
-  State *internalGetState(StateID id);
+  State *internalGetState(UnsignedInt id);
   StateID getCurrentStateID() const { return m_currentState ? ((State*)m_currentState)->getID() : INVALID_STATE_ID; }
 protected:
   virtual void slot00(); virtual void slot01(); virtual void slot02();

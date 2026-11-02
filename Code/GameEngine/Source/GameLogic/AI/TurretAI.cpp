@@ -215,7 +215,7 @@ public:
 	virtual ~TurretStateMachine();
 	virtual void clear();								// slot 5
 	virtual StateReturnType resetToDefaultState();		// slot 6
-	virtual StateReturnType setState(int newStateID);	// slot 8
+	virtual StateReturnType setState(StateID newStateID);	// slot 8
 	Object *getGoalObject();
 	int getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
 	TurretAI *m_turretAI;								// +0x3C
@@ -1125,7 +1125,7 @@ void TurretAI::removeSelfAsTargeter()
 
 // ---- from Code/GameEngine/Source/Common/TurretStateMachineSetState.cpp
 
-// ?setState@TurretStateMachine@@UAE?AW4StateReturnType@@H@Z, retail 0x004D8578, 62 bytes.
+// ?setState@TurretStateMachine@@UAE?AW4StateReturnType@@I@Z, retail 0x004D8578, 62 bytes.
 // Virtual slot 8 (offset 0x20) of vtable 0x008609C8 (VA 0x00C609C8), class
 // TurretStateMachine (slot 2 returns "TurretStateMachine" at 0x00860A08).
 // BFME1 donor reference/open-bfme-1/Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
@@ -1137,7 +1137,7 @@ void TurretAI::removeSelfAsTargeter()
 
 // End of the TurretAI.cpp TU view.
 
-StateReturnType TurretStateMachine::setState(int newStateID)
+StateReturnType TurretStateMachine::setState(StateID newStateID)
 {
 	State *current = m_currentState;
 	int oldID = current ? current->m_id : INVALID_STATE_ID;

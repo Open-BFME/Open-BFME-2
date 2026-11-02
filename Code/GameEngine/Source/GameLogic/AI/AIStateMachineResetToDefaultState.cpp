@@ -61,7 +61,7 @@ class StateMachine
 public:
 	virtual ~StateMachine();
 	virtual StateReturnType resetToDefaultState();
-	virtual StateReturnType setState(StateID newStateID);
+	virtual StateReturnType setState(unsigned int newStateID);
 	Object *getOwner() const { return m_owner; }
 	StateID getCurrentStateID() const { return m_currentState ? m_currentState->getID() : INVALID_STATE_ID; }
 private:
@@ -73,7 +73,7 @@ class AIStateMachine : public StateMachine
 {
 public:
 	virtual StateReturnType resetToDefaultState();
-	virtual StateReturnType setState(StateID newStateID);
+	virtual StateReturnType setState(unsigned int newStateID);
 	void rva0035033F();
 private:
 	unsigned char m_pad18[0x50 - 0x18];
@@ -96,7 +96,7 @@ StateReturnType AIStateMachine::resetToDefaultState()
 
 	return tmp;
 }
-StateReturnType AIStateMachine::setState(StateID newStateID)
+StateReturnType AIStateMachine::setState(unsigned int newStateID)
 {
 	if (m_temporaryState)
 	{

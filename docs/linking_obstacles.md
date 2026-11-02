@@ -223,6 +223,36 @@ Three blockers remain:
 Both refused pins are grandfathered wrong bindings (code_identity_baseline lines 86-89), so these are
 real prerequisites, not false rejects. `_M_create_node` (0x00534743) re-admits with
 `fold-proof=StateMachineDefineState.cpp`.
+
+Repaired (2026-11-02, lk17), blocker (2): StateID is unsigned, and the `_M_find` pin is proven.
+- Target fact: hasState 0x004D76F2, internalGetState 0x004D764C and rva004D7627 0x004D7627 each push
+  `lea eax,[esp+8]` (the parameter's own slot) to the find at 0x00357180, whose key compares are
+  `jb`/`jae`. The key type is unsigned and the parameter has that same type (an `int` parameter
+  would need a converted temporary). Donor fact: Zero Hour GeneralsMD StateMachine.h:61
+  `typedef UnsignedInt StateID`. The ledger already spelled defineState and setTemporaryState with
+  `I` for their state IDs.
+- Change: StateMachineGoal.cpp keys its map by `unsigned int` (with the matching `less<unsigned>`
+  forceinline), and seven rows are respelled from `H` to `I` by hand (rename.py cannot change a
+  signature), each tombstoned in deleted_rows.csv: internalGetState, internalSetState, hasState,
+  rva004D7627, the virtual StateMachine::setState and its AIStateMachine and TurretStateMachine
+  overrides. The canonical StateMachineClass.h, AIStateMachineClass.h and TurretStateMachine.h, the
+  StateMachineView.h shim, and the private views of the 13 objects that reference these names now
+  declare the parameters unsigned. Every body uses the ID only in equality tests or passes it on, so
+  no byte changes.
+- Pin: `??$_M_find@I@...IPAUState@@...` was admitted at 0x00357180 through `pin_admission.py --add`
+  with `fold-proof=StateMachineGoal.cpp`, replacing the refused `H` spelling. allowed_symbols now
+  reports the three StateMachineGoal references as `fold` and 0 wrong bindings. The
+  code_identity_baseline keys 87-89 hold the old names. `retire identity` refuses them while HEAD
+  still lists the old rows, so they are retired in the next commit.
+- Verified: `./build.sh` 220/220 rows over the 13 objects and 648/648 over the 51 includers of the
+  four edited headers; scoped DIR32 OK; find_declared_unmatched clean. In current objects only three
+  stale objects whose sources are deleted still spell `H`. `link_check` over the 263 units that touch
+  the family's tables or State names: 242 link. The 21 that do not are the known item-1 losers
+  (12,033 B plus Rva0033FC0ACtor 213 B, all "differs from the first copy" on their own `??_7`), the
+  B11 sweep artifact, and units that the census already records as unlinked. ReplenishUnitsBehavior
+  (1,050 B) links on current objects.
+- Blockers (1) SupplyTruckAIUpdate.cpp (still held by the foreign fleet) and (3) remain. The class-key
+  patch must respell the new `_M_find` pin to `PAVState@@` and re-admit it with the same fold-proof.
 - W3DScriptedModelDrawDestructor (lk16): canonical DrawModule.h makes the dtor call
   `??1DrawModule@@MAE@XZ`. Retail inlines it: the body ends with the 0x00BC9690 store and a call to
   0x0049B47C.

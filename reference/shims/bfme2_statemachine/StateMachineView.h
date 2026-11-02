@@ -21,7 +21,7 @@ public:
     virtual void clear();
     virtual StateReturnType resetToDefaultState();
     virtual StateReturnType initDefaultState();
-    virtual StateReturnType setState(int stateID);
+    virtual StateReturnType setState(unsigned int stateID);
     virtual int slot09() { return 0; }
     virtual int slot10() { return 0; }
     virtual bool isInAttackState() const;

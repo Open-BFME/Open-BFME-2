@@ -81,7 +81,7 @@ class StateMachine
 public:
 	virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions);
-	void rva004D7627(int id);
+	void rva004D7627(StateID id);
 	void setGoalPosition(const Coord3D *pos);
 	Object *getOwner() const { return m_owner; }
 private:

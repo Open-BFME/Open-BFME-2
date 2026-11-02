@@ -22,7 +22,7 @@ public:
     virtual StateReturnType updateStateMachine();
     virtual void clear();
     virtual StateReturnType resetToDefaultState();
-    virtual StateReturnType setState(int stateID);
+    virtual StateReturnType setState(StateID stateID);
     virtual int slot09();
     virtual int slot10();
     virtual bool isInBusyState() const;

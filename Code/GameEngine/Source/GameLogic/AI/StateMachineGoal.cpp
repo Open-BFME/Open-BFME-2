@@ -11,13 +11,13 @@
 // retail 0x00262224, 22 bytes, plus
 // ?halt@StateMachine@@UAEXXZ,
 // retail 0x004D73A4, 9 bytes, plus
-// ?internalGetState@StateMachine@@QAEPAUState@@H@Z,
+// ?internalGetState@StateMachine@@QAEPAUState@@I@Z,
 // retail 0x004D764C, 31 bytes, plus
-// ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z,
+// ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@I@Z,
 // retail 0x004D766B, 135 bytes, plus
 // ?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ,
 // retail 0x004D770F, 23 bytes, plus
-// ?hasState@StateMachine@@QAE_NH@Z,
+// ?hasState@StateMachine@@QAE_NI@Z,
 // retail 0x004D76F2, 29 bytes. Dedicated TU for the StateMachine goal
 // file-unit: the lock-gated setter, the storing worker, the object setter,
 // the one-argument overload that supplies the default range, the halt, the
@@ -40,12 +40,12 @@
 #include <cfloat>
 #include <map>
 
-// map/set<int> internals otherwise instantiate the less<int>::operator()
+// map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
 // specialization takes those calls inline so this TU emits no external copy.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
-bool less<int>::operator()(const int &a, const int &b) const
+bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const
 { return a < b; }
 }
 
@@ -59,7 +59,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
-typedef int StateID;
+typedef unsigned int StateID; // Zero Hour StateMachine.h: typedef UnsignedInt StateID; retail 0x00357180 compares the key unsigned
 typedef bool Bool;
 
 enum { MACHINE_DONE_STATE_ID = 999998, INVALID_STATE_ID = 999999 };
@@ -232,7 +232,7 @@ void StateMachine::rva004D7427(const void *src)
 	rva004D73AD(src);
 }
 
-// ?internalGetState@StateMachine@@QAEPAUState@@H@Z
+// ?internalGetState@StateMachine@@QAEPAUState@@I@Z
 State *StateMachine::internalGetState(StateID id)
 {
 	// locate the actual state associated with the given ID
@@ -242,7 +242,7 @@ State *StateMachine::internalGetState(StateID id)
 	return (*i).second;
 }
 
-// ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z
+// ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@I@Z
 StateReturnType StateMachine::internalSetState(StateID newStateID)
 {
 	State *newState = NULL;
@@ -326,20 +326,20 @@ StateReturnType StateMachine::initDefaultState()
 	return internalSetState(m_defaultStateID);
 }
 
-// ?hasState@StateMachine@@QAE_NH@Z
+// ?hasState@StateMachine@@QAE_NI@Z
 Bool StateMachine::hasState(StateID id)
 {
 	return m_stateMap.find(id) != m_stateMap.end();
 }
 
-// ?rva004D7627@StateMachine@@QAEXH@Z @0x004D7627 37B
+// ?rva004D7627@StateMachine@@QAEXI@Z @0x004D7627 37B
 // Evidence: leaf with 1 unclaimed caller; layout from StateMachine (map at +0x08 via rowed _M_find 0x00357180, default at +0x1C); branchless neg/sbb/and sets default to id when found else 0.
 void StateMachine::rva004D7627(StateID id)
 {
 	m_defaultStateID = (m_stateMap.find(id) != m_stateMap.end()) ? id : 0;
 }
 
-// ?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z @0x004D7ACD 16B
+// ?setState@StateMachine@@UAE?AW4StateReturnType@@I@Z @0x004D7ACD 16B
 // Retail lock-gated setter tail-jmps to internalSetState when unlocked.
 // Donor BFME1 StateMachine.cpp setState verbatim minus debug.
 // Vtable slot 8 of 19 Rva004D759C-derived classes; callers at 0x350403 and 0x4D8593.

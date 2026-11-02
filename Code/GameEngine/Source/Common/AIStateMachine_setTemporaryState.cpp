@@ -12,7 +12,7 @@ struct State;
 class StateMachine
 {
 public:
-	State *internalGetState(int id);
+	State *internalGetState(unsigned int id);
 };
 
 struct State
@@ -92,7 +92,7 @@ private:
 
 StateReturnType AIStateMachine::setTemporaryState(unsigned int id, int frameLimit)
 {
-	State *st = ((StateMachine *)this)->internalGetState((int)id);
+	State *st = ((StateMachine *)this)->internalGetState(id);
 	if (m_50) {
 		m_50->v05(1);
 		m_50 = 0;

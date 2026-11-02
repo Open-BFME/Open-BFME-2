@@ -1,4 +1,4 @@
-/* Target facts: StateMachine constructor RVA 0x004D79E1 (RET 12, scalar name key) and destructor RVA 0x004D759C install VA 0x00C60740; destructor RVA 0x004D7616 then restores Snapshot VA 0x00BBB554 at +0. The latter is the base teardown table, not another StateMachine table. VA 0x00C60740 has 16 code entries followed by data at VA 0x00C60780: slots 0..8 target RVAs 0x004D7A59, 0x000B3FD0, 0x00341456, 0x004D7744, 0x004D7321, 0x004D72C5, 0x004D7A75, 0x004D770F, 0x004D7ACD; slots 9/10 return zero at RVA 0x000D43D0; slots 11..15 target 0x002621B8, 0x004D7309, 0x004D7395, 0x004D750F, 0x004D73A4. Ledger names prove the named slots; 9/10 retain neutral names. Constructor stores bound the extent through byte +0x3A, rounded to 0x3C with four-byte alignment; AIStateMachine constructor RVA 0x00351C48 calls the base at 0x00351C64 and constructs its first member at +0x3C (LEA at 0x00351C6C). It initializes current state +4, constructs a 12-byte tree at +8 (call RVA 0x0033C432), stores owner +0x14, default ID +0x1C, goal ID +0x20, floats +0x24/+0x28/+0x2C/+0x30, dword +0x34 and flags +0x38/+0x39/+0x3A. RVA 0x004D766B reads/writes sleep frame +0x18; RVA 0x004D73C4 copies the goal position and stores range; RVA 0x004D7435 reads Object +0x74 into goal ID. Unknown members remain neutral and the tree is opaque. Out-of-line declarations follow the StateMachine ledger rows at RVAs 0x002621B8..0x00262224 and 0x004D72C5..0x004D7B0F; getGoalObject is called at RVA 0x004D7AE6 and pinned at 0x004D7726. Zero Hour StateMachine.h proves the inline accessor names; retail owner +0x14, current-state +4, state ID +4 and lock +0x38 accesses prove their offsets. State declarations below retain their existing canonical surface. */
+/* Target facts: StateMachine constructor RVA 0x004D79E1 (RET 12, scalar name key) and destructor RVA 0x004D759C install VA 0x00C60740; destructor RVA 0x004D7616 then restores Snapshot VA 0x00BBB554 at +0. The latter is the base teardown table, not another StateMachine table. VA 0x00C60740 has 16 code entries followed by data at VA 0x00C60780: slots 0..8 target RVAs 0x004D7A59, 0x000B3FD0, 0x00341456, 0x004D7744, 0x004D7321, 0x004D72C5, 0x004D7A75, 0x004D770F, 0x004D7ACD; slots 9/10 return zero at RVA 0x000D43D0; slots 11..15 target 0x002621B8, 0x004D7309, 0x004D7395, 0x004D750F, 0x004D73A4. Ledger names prove the named slots; 9/10 retain neutral names. Constructor stores bound the extent through byte +0x3A, rounded to 0x3C with four-byte alignment; AIStateMachine constructor RVA 0x00351C48 calls the base at 0x00351C64 and constructs its first member at +0x3C (LEA at 0x00351C6C). It initializes current state +4, constructs a 12-byte tree at +8 (call RVA 0x0033C432), stores owner +0x14, default ID +0x1C, goal ID +0x20, floats +0x24/+0x28/+0x2C/+0x30, dword +0x34 and flags +0x38/+0x39/+0x3A. RVA 0x004D766B reads/writes sleep frame +0x18; RVA 0x004D73C4 copies the goal position and stores range; RVA 0x004D7435 reads Object +0x74 into goal ID. Unknown members remain neutral and the tree is opaque. Out-of-line declarations follow the StateMachine ledger rows at RVAs 0x002621B8..0x00262224 and 0x004D72C5..0x004D7B0F; getGoalObject is called at RVA 0x004D7AE6 and pinned at 0x004D7726. Zero Hour StateMachine.h proves the inline accessor names; retail owner +0x14, current-state +4, state ID +4 and lock +0x38 accesses prove their offsets. StateID parameters are unsigned: RVAs 0x004D764C, 0x004D76F2 and 0x004D7627 pass the parameter's own address to the unsigned-key find RVA 0x00357180 (jb/jae compares), and Zero Hour StateMachine.h declares typedef UnsignedInt StateID. State declarations below retain their existing canonical surface. */
 // StateMachine stays apart from State's StateMachine.h: units that adopted State still hold private StateMachine views.
 #pragma once
 #ifndef BFME2_STATEMACHINECLASS_H
@@ -24,7 +24,7 @@ public:
     virtual void clear();
     virtual StateReturnType resetToDefaultState();
     virtual StateReturnType initDefaultState();
-    virtual StateReturnType setState(int stateID);
+    virtual StateReturnType setState(StateID stateID);
     virtual int slot09() { return 0; }
     virtual int slot10() { return 0; }
     virtual bool isInAttackState() const;
@@ -34,10 +34,10 @@ public:
     virtual void halt();
 
     void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions = 0);
-    State *internalGetState(int stateID);
-    StateReturnType internalSetState(int stateID);
-    bool hasState(int stateID);
-    void rva004D7627(int stateID);
+    State *internalGetState(StateID stateID);
+    StateReturnType internalSetState(StateID stateID);
+    bool hasState(StateID stateID);
+    void rva004D7627(StateID stateID);
     void setGoalPosition(const Coord3D *position);
     void setGoalPosition(const Coord3D *position, float range);
     void internalSetGoalPosition(const Coord3D *position, float range);
