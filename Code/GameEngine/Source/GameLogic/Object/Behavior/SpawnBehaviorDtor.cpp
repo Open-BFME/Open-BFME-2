@@ -43,27 +43,9 @@ public:
 	virtual void unused();
 };
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	void setWakeFrame(Object *obj, unsigned int frame);
-};
+// The canonical UpdateModule, as SpawnBehaviorCtor.cpp reads it, so both units emit the same
+// SpawnBehavior primary, BehaviorModuleInterface and +0x10 tables (LINK-177).
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class SpawnBehaviorInterface
 {

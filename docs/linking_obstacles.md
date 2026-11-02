@@ -108,6 +108,13 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
    FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
 
+Repaired (2026-11-02, lk15): SpawnBehaviorDtor (174 B). SpawnBehaviorCtor.cpp moved onto canonical
+UpdateModule.h (`a9be158d99`, landed after the 06:54 census) while the Dtor (first in link order) kept a
+private UpdateModule with a one-slot interface (primary slots 1-3 `__purecall`, 12 slots). The Dtor now
+includes the canonical header (the GettingBuiltBehavior recipe). `./build.sh` 4/4 rows; scoped DIR32 OK
+(14 symbols); only the two units touch the SpawnBehavior tables, now one digest each; `link_check`
+SpawnBehaviorDtor 174 B links again, SpawnBehaviorCtor 263 B unchanged.
+
 Repaired (2026-11-02, lk15): AttributeModifierAuraUpdateCtor (128 B), cause `0769434026` (Adopt
 canonical UpdateModuleInterface in 21 more units): the Dtor unit now emits the +0x10 and +0x20 tables
 (0x00C50D20, 0x00C50CD8) as `??_7AttributeModifierAuraUpdate@@6BUpdateModule@@@` and
