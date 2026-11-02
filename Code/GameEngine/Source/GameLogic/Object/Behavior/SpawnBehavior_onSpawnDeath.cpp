@@ -72,11 +72,7 @@ public:
 	ObjectID m_sourceID;
 };
 
-class Object
-{
-public:
-	void kill(DamageType damageType, DeathType deathType);
-};
+#include "../object.h"
 
 class Rva00294D61
 {

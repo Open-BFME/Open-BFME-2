@@ -20,11 +20,7 @@ class Rva00398E4AArg;
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-protected:
-	Module *findModule(NameKeyType key) const;
-};
+#include "../object.h"
 
 class ObjectWithPub : public Object
 {

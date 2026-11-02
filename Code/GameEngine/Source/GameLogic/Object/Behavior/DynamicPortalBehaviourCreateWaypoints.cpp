@@ -38,14 +38,7 @@
 
 class Matrix3D;
 
-class Object
-{
-public:
-	int getMultiLogicalBonePosition(const char *boneNamePrefix, int maxBones, Coord3D *positions, Matrix3D *transforms, bool convertToWorld, int flags) const;
-
-	char m_pad00[0x74];
-	int m_74; // +0x74
-};
+#include "../object.h"
 
 class Waypoint
 {
@@ -135,7 +128,7 @@ void DynamicPortalBehaviour::createWaypoints()
 			activationFrame = (int)(BfmeLogicFramesPerSecond * data->m_activationDelaySeconds);
 			activationFrame += TheGameLogic->getFrame();
 		}
-		int ownerID = m_object->m_74;
+		int ownerID = m_object->m_id;
 		int index = 0;
 		for (const DynamicPortalWayPoint *it = data->m_wayPoint.begin(); it != data->m_wayPoint.end(); ++it, ++index)
 		{

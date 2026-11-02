@@ -29,15 +29,7 @@ public:
 	unsigned char m_kindOf119;
 };
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_pos;
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -106,9 +98,9 @@ Int SiegeDockingBehavior::rva00459CC0( ObjectID id )
 
 		SiegeDockingPoint entryPos(entry->m_position);
 		Coord3D delta;
-		delta.x = entryPos.x - obj->m_pos.x;
-		delta.y = entryPos.y - obj->m_pos.y;
-		delta.z = entryPos.z - obj->m_pos.z;
+		delta.x = entryPos.x - obj->m_cachedPos.x;
+		delta.y = entryPos.y - obj->m_cachedPos.y;
+		delta.z = entryPos.z - obj->m_cachedPos.z;
 		Real dist = delta.length();
 		if( dist < bestDist )
 		{

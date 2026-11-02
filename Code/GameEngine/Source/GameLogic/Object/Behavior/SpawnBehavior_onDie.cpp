@@ -72,22 +72,7 @@ public:
 
 
 
-class Object
-{
-public:
-	void setProducer(Object *producer);
-	void kill(DamageType damageType, DeathType deathType);
-	Bool isEffectivelyDead() const { return (m_deadFlag & 1) != 0; }
-
-public:
-	unsigned char m_pad00[0x74];
-	unsigned int m_id;
-	unsigned int m_producerId;
-	unsigned char m_pad7C[0x244 - 0x7C];
-	BehaviorModule **m_behaviorModules;
-	unsigned char m_pad248[0x438 - 0x248];
-	unsigned char m_deadFlag;
-};
+#include "../object.h"
 
 class SpawnBehaviorModuleData
 {
@@ -150,7 +135,7 @@ void SpawnBehavior::onDie(const DamageInfo *damageInfo)
 		Object *currentSpawn = TheGameLogic->findObjectByID(*iter);
 		if (currentSpawn)
 		{
-			for (BehaviorModule **update = currentSpawn->m_behaviorModules; *update; ++update)
+			for (BehaviorModule **update = currentSpawn->m_behaviors; *update; ++update)
 			{
 				SlavedUpdateInterface *sdu = static_cast<SlavedUpdateInterface *>((*update)->slot26());
 				if (sdu != NULL)

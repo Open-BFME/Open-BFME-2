@@ -19,11 +19,7 @@ typedef bool Bool;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	Bool isAbleToAttack() const;
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

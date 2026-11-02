@@ -58,15 +58,7 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class Object
-{
-public:
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
-
-private:
-	unsigned char m_pad000[0x244];
-	BehaviorModule **m_behaviors;
-};
+#include "../object.h"
 
 typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<ObjectID> > ObjectPtrHash;
 

@@ -28,15 +28,7 @@ class Thing;
 class ModuleData;
 class ThingTemplate;
 
-class Object
-{
-public:
-	void setProducer(Object *prod);
-
-public:
-	unsigned char m_pad00[0x438];
-	unsigned char m_status438;
-};
+#include "../object.h"
 
 class SpawnBehaviorModuleData
 {
@@ -117,7 +109,7 @@ void SpawnBehavior::onDelete()
 			if (obj)
 				obj->setProducer(NULL);
 			++it;
-			if (obj && (obj->m_status438 & 1) == 0)
+			if (obj && (obj->m_privateStatus & 1) == 0)
 				TheGameLogic->destroyObject(obj);
 		}
 	}

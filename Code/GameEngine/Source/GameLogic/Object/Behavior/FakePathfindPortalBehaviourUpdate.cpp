@@ -11,11 +11,7 @@
 // this body touches is modelled.
 
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 struct Rva002A8AB1Record;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"

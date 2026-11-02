@@ -52,16 +52,7 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	const Coord3D *getPosition() const { return &m_pos; }
-
-private:
-	char m_pad00[0x38];
-	Coord3D m_pos; // +0x38
-};
+#include "../object.h"
 
 struct Rva002A8AB1Record;
 

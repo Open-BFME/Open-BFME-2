@@ -83,15 +83,7 @@ public:
 	Rva004534F5PlayerPart *m_34; // +0x34
 };
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool testStatus(ObjectStatusTypes bit) const;
-	void *rva0028BC58(int which);
-	unsigned char m_pad000[0x04];
-	const ThingTemplate *m_template; // +0x04
-};
+#include "../object.h"
 
 struct GettingBuiltBehaviorModuleData
 {

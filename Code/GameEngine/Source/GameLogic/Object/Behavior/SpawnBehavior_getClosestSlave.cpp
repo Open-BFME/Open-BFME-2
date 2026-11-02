@@ -34,12 +34,7 @@ public:
 #include "../../../Common/RTS/XYDistanceCallView.h"
 
 
-class Object
-{
-public:
-	char m_pad[0x38];
-	Coord3D m_position;
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

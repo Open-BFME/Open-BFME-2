@@ -42,11 +42,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Object
-{
-public:
-	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *victim, const Coord3D *pos, CommandSourceType commandSource) const;
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;
