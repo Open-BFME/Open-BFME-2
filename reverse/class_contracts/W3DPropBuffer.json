@@ -1,0 +1,411 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DPropBuffer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 20,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xef008"
+     ],
+     "value": 194344
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xef008"
+     ],
+     "value": {
+      "0x2ee04": [
+       4
+      ],
+      "0x2ee08": [
+       1
+      ],
+      "0x2ee09": [
+       1
+      ],
+      "0x2ee0a": [
+       1
+      ],
+      "0x2ee18": [
+       4
+      ],
+      "0x2ee20": [
+       4
+      ],
+      "0x2ee24": [
+       4
+      ],
+      "0x2ee28": [
+       4
+      ],
+      "0x2ee2c": [
+       4
+      ],
+      "0x2f718": [
+       4
+      ],
+      "0x2f71c": [
+       4
+      ],
+      "0x2f720": [
+       4
+      ],
+      "0x2f724": [
+       4
+      ],
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xef008"
+     ],
+     "value": {
+      "0x0": [
+       "??_L@YGXPAXIHP6EX0@Z1@Z"
+      ],
+      "0x2ee0c": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0xef008"
+     ],
+     "value": {
+      "0x0": "0x7ceecc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7ceecc"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GW3DPropBuffer@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0xeefec"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@W3DPropBuffer@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0xeefe6"
+       },
+       {
+        "name": "?xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0xee901"
+       }
+      ],
+      "table": "0x7ceecc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x7ceecc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GW3DPropBuffer@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@W3DPropBuffer@@MBEPBDXZ",
+     "3": "?xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 3,
+   "4": 1,
+   "192012": 2,
+   "192020": 1,
+   "194332": 2,
+   "194340": 1,
+   "194344": 7
+  },
+  "views": 17,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DPropBuffer.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBuffer.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_props",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 192000,
+   "type": "TProp[192000]",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numProps",
+   "name_by": "majority",
+   "offset": 192004,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_anythingChanged",
+   "name_by": "majority",
+   "offset": 192008,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_initialized",
+   "name_by": "majority",
+   "offset": 192009,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_doCull",
+   "name_by": "majority",
+   "offset": 192010,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_unrecovered2EE0B",
+   "name_by": "majority",
+   "offset": 192011,
+   "retail_widths": {},
+   "size": 13,
+   "type": "char[13]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_member2EE0C.m_vector.m_data",
+   "name_by": "tie",
+   "offset": 192012,
+   "retail_widths": {},
+   "size": 12,
+   "type": "void*[12]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_container.m_end",
+   "name_by": "majority",
+   "offset": 192016,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_propTypes",
+   "name_by": "majority",
+   "offset": 192024,
+   "retail_widths": {},
+   "size": 2304,
+   "type": "TPropType[2304]",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_numPropTypes",
+   "name_by": "majority",
+   "offset": 194328,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_propShroudMaterialPass",
+   "name_by": "majority",
+   "offset": 194332,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva000EEEF4Ref*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_ref2F720",
+   "name_by": "tie",
+   "offset": 194336,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_light",
+   "name_by": "majority",
+   "offset": 194340,
+   "retail_widths": {},
+   "size": 4,
+   "type": "LightClass*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x2ee0c",
+   "candidates": {
+    "m_container.m_begin": 1,
+    "m_list2EE0C.m_vector": 1,
+    "m_member2EE0C.m_vector.m_data": 1
+   },
+   "class": "W3DPropBuffer"
+  },
+  {
+   "attribute": "name@0x2f720",
+   "candidates": {
+    "m_bfme2F720": 1,
+    "m_bfmeExtraField": 1,
+    "m_ref2F720": 1,
+    "m_shroudResetIndex": 1
+   },
+   "class": "W3DPropBuffer"
+  },
+  {
+   "attribute": "nested@0x2ee0c",
+   "candidates": {
+    "m_member2EE0C.m_vector.m_data": 3
+   },
+   "class": "W3DPropBuffer"
+  },
+  {
+   "attribute": "nested@0x2ee10",
+   "candidates": {
+    "m_container.m_end": 1
+   },
+   "class": "W3DPropBuffer"
+  },
+  {
+   "attribute": "straddle@0x2ee0c",
+   "candidates": {},
+   "class": "W3DPropBuffer"
+  },
+  {
+   "attribute": "straddle@0x2ee10",
+   "candidates": {},
+   "class": "W3DPropBuffer"
+  }
+ ],
+ "size": 194344,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
