@@ -1,0 +1,177 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PathNode",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 41,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 3,
+   "24": 17,
+   "28": 4,
+   "36": 17
+  },
+  "views": 41,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_PathNode.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_next",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "PathNode*",
+   "views": 27,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_previous",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "PathNode*",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_nextOptimized",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "PathNode*",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_pos",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 38,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_layer",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 21,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/Path.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathAppendNode.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathClosestPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva003649B1.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva003649B1_Rva00364521.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva00364AA2.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva00365309.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Path_GetNextPortalID.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Path_SetLastNodePortal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva003641F2Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathOptimizeRva00364551.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathRva00365B8A.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva003642DFRva003642DFFarm.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp"
+   ],
+   "views": 17
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/Path.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathAppendNode.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathClosestPoint.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva003649B1.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva003649B1_Rva00364521.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva00364AA2.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathRva00365309.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Path_GetNextPortalID.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Path_SetLastNodePortal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva003641F2Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathOptimizeRva00364551.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathRva00365B8A.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva003642DFRva003642DFFarm.cpp",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp"
+   ],
+   "views": 17
+  }
+ ],
+ "queue": [],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {}
+}
