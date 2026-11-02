@@ -197,13 +197,7 @@ public:
 
 // Object's body module (+0x254): slots 15 and 16 are Zero Hour's
 // getLastDamageInfo and getLastDamageTimestamp.
-struct DamageInfo
-{
-	char m_pad00[0x10];
-	Int m_damageType; // +0x10
-	char m_pad14[0x20 - 0x14];
-	Real m_amount; // +0x20
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 

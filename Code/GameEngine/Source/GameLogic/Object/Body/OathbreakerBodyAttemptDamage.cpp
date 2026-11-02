@@ -30,12 +30,7 @@ private:
 	ObjectID m_producerID;		// +0x78
 };
 extern GameLogic *TheGameLogic;
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;		// +0x08
-};
+#include "../../../../Include/GameLogic/Damage.h"
 class ModuleData;
 class ModuleBase
 {

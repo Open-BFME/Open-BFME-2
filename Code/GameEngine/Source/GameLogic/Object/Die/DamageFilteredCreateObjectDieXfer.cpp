@@ -73,14 +73,7 @@ public:
 	char pad00[0x38]; Coord3D position;
 };
 extern GameLogic *TheGameLogic;
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;		// +0x08
-	unsigned char m_pad0C[0x18 - 0x0C];
-	int m_18;			// +0x18
-};
+#include "../../../../Include/GameLogic/Damage.h"
 struct DamageFilteredCreateObjectDieModuleData
 {
 	unsigned char m_pad00[0x38];
@@ -138,7 +131,7 @@ void DamageFilteredCreateObjectDie::onDie(const DamageInfo *damageInfo)
  if (!data) return;
  Object *object=m_object;
  if (!object) return;
- if (data->m_dieDamage == damageInfo->m_18)
+ if (data->m_dieDamage == damageInfo->field18)
  {
   Object *source=TheGameLogic->findObjectByID(damageInfo->m_sourceID);
   if (!source) return;

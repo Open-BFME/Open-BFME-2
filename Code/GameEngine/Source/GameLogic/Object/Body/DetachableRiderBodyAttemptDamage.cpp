@@ -41,13 +41,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 Real GetGameLogicRandomValueReal(Real lo, Real hi, char *file, int line);
 
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x20];
-	Real m_amount;			// +0x20
-	bool m_kill;			// +0x24
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 struct DetachableRiderBodyModuleData
 {

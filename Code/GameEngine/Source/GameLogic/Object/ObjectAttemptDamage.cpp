@@ -33,12 +33,7 @@ private:
 };
 }
 
-class DamageInfo
-{
-public:
-	unsigned char m_pad0[0x28];
-	Real m_x28;			// +0x28, forced to 1.0 under status 0x48
-};
+#include "../../../Include/GameLogic/Damage.h"
 
 class Object
 {

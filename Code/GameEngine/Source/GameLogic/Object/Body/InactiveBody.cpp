@@ -11,12 +11,7 @@
 // Target DamageInfo type is +10, output floats +70/+74, noEffect +78.
 // Damage type 7 is healing, type 8 is unresistable in donor and target.
 // Only the accessed class/interface prefixes are declared; no vtable emitted.
-class DamageInfo { public:
- char prefix[0x10]; int damageType;
- char middle[0x70-0x14];
- float actualDamageDealt, actualDamageClipped;
- bool noEffect;
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 class Object {public:void onDie(DamageInfo*);};
 
@@ -67,22 +62,22 @@ private:bool dieCalled;
 
 void InactiveBody::attemptDamage(DamageInfo *damageInfo){
  if(!damageInfo)return;
- if(damageInfo->damageType==7){attemptHealing(damageInfo);return;}
- damageInfo->actualDamageDealt=0.0f;
- damageInfo->actualDamageClipped=0.0f;
- damageInfo->noEffect=true;
- if(damageInfo->damageType==8){
-  damageInfo->noEffect=false;
+ if(damageInfo->m_damageType==7){attemptHealing(damageInfo);return;}
+ damageInfo->m_actualDamageDealt=0.0f;
+ damageInfo->m_actualDamageClipped=0.0f;
+ damageInfo->m_noEffect=true;
+ if(damageInfo->m_damageType==8){
+  damageInfo->m_noEffect=false;
   if(!dieCalled){getObject()->onDie(damageInfo);dieCalled=true;}
  }
 }
 
 void InactiveBody::attemptHealing(DamageInfo *damageInfo){
  if(!damageInfo)return;
- if(damageInfo->damageType!=7){attemptDamage(damageInfo);return;}
- damageInfo->actualDamageDealt=0.0f;
- damageInfo->actualDamageClipped=0.0f;
- damageInfo->noEffect=true;
+ if(damageInfo->m_damageType!=7){attemptDamage(damageInfo);return;}
+ damageInfo->m_actualDamageDealt=0.0f;
+ damageInfo->m_actualDamageClipped=0.0f;
+ damageInfo->m_noEffect=true;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/BodyZeroPairReturn.cpp

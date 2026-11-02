@@ -246,19 +246,7 @@ private:
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
 // The 0x7C-byte damage record; its constructor is the rowed 0x00263895.
-class DamageInfo
-{
-public:
-	DamageInfo();
-	char m_pad00[0x08];
-	ObjectID m_sourceID; // +0x08
-	char m_pad0C[0x10 - 0x0C];
-	Int m_damageType; // +0x10
-	char m_pad14[0x1C - 0x14];
-	Int m_deathType; // +0x1C
-	Real m_amount; // +0x20
-	char m_pad24[0x7C - 0x24];
-};
+#include "../../../Include/GameLogic/Damage.h"
 
 #define HUGE_DAMAGE_AMOUNT 999999.0f
 

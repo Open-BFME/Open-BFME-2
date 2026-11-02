@@ -65,12 +65,7 @@ enum DeathType
 
 class Object;
 
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[8];
-	ObjectID m_sourceID;
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 #include "../object.h"
 

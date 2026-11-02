@@ -27,14 +27,7 @@ enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };
 class Object;
 class Team;
 
-class DamageInfo
-{
-public:
-	char pad00[0x08];
-	ObjectID m_sourceID;	// +0x08
-	char pad0C[0x1C - 0x0C];
-	int m_deathType;	// +0x1C
-};
+#include "../../../Include/GameLogic/Damage.h"
 
 class Rva00265254
 {

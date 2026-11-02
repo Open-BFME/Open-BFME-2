@@ -71,12 +71,7 @@ enum
 	MODELCONDITION_PRONE = 2 * 32 + 7,
 	OBJECT_STATUS_NO_ATTACK = 5
 };
-class DamageInfo
-{
-public:
-	unsigned char m_pad[0x70];
-	Real m_actualDamageDealt; // out.m_actualDamageDealt, +0x70
-};
+#include "../../../../Include/GameLogic/Damage.h"
 #include "ProneUpdateModuleDataView.h"
 // ??0ProneUpdateModuleData@@QAE@XZ at retail 0x0049FEDF (16 bytes). The
 // module-data half of ProneUpdate: vtable immediate 0x00C4ED70 modelled as an

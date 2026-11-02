@@ -15,12 +15,7 @@ typedef bool Bool;
 struct Coord3D;
 class Matrix3D;
 
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 class DieMuxData
 {

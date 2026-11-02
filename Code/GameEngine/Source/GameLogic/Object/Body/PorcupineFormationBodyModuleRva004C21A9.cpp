@@ -104,12 +104,7 @@ private:
 	unsigned char m_pad278[0x438 - 0x278];
 	unsigned char m_438;		// +0x438
 };
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;		// +0x08
-};
+#include "../../../../Include/GameLogic/Damage.h"
 struct PorcupineFormationBodyModuleData
 {
 	unsigned char m_pad00[0x64];

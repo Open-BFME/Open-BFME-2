@@ -11,14 +11,7 @@
 // later than in ZH. getHealth is read once, so the clamp is a by-reference
 // a < b ? a : b template rather than ZH's min macro. Retail compares with
 // fcompi, which MSVC 7.1 emits only under /arch:SSE.
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x10];
-	int m_damageType;		// +0x10
-	unsigned char m_pad14[0x20 - 0x14];
-	float m_amount;			// +0x20
-};
+#include "../../../../Include/GameLogic/Damage.h"
 class ModuleData;
 class Object;
 class ModuleBase

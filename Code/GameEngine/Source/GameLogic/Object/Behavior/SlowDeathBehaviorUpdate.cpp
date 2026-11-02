@@ -231,13 +231,7 @@ private:
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x70];
-	Real m_actualDamageDealt; // +0x70
-	Real m_actualDamageClipped; // +0x74
-};
+#include "../../../../Include/GameLogic/Damage.h"
 
 class BehaviorModule;
 

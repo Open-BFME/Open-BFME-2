@@ -1011,11 +1011,7 @@ struct CondC003E5F73
 	char m_pad[8];
 	int m_limit;
 };
-struct DamageInfo
-{
-    unsigned char m_pad[0xC];
-    int m_sourcePlayerMask; // +0x0C
-};
+#include "../../../Include/GameLogic/Damage.h"
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 enum KindOfType
 {

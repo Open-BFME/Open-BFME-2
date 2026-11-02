@@ -80,11 +80,7 @@ public:
 	}
 };
 
-struct DamageInfo
-{
-	char m_pad00[8];
-	ObjectID m_sourceID;
-};
+#include "../../Include/GameLogic/Damage.h"
 
 #include "../../Include/GameLogic/Module/BodyModule.h"
 

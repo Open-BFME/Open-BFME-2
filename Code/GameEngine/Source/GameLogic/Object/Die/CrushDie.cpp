@@ -66,14 +66,7 @@ enum
 	MODELCONDITION_BACKCRUSHED = 2
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;
-	unsigned char m_pad0C[0x10 - 0x0C];
-	DamageType m_damageType;
-};
+#include "../../../../Include/GameLogic/Damage.h"
 class BodyModuleInterface
 {
 public:

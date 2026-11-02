@@ -20,14 +20,7 @@ public:
 };
 #include "../object.h"
 extern GameLogic *TheGameLogic;
-class DamageInfo
-{
-public:
-	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;		// +0x08
-	unsigned char m_pad0C[0x18 - 0x0C];
-	int m_18;			// +0x18
-};
+#include "../../../../Include/GameLogic/Damage.h"
 struct DamageFilteredCreateObjectDieModuleData
 {
 	unsigned char m_pad00[0x40];
@@ -64,7 +57,7 @@ void DamageFilteredCreateObjectDie::onDamage(DamageInfo *damageInfo)
 		return;
 	const DamageFilteredCreateObjectDieModuleData *data =
 		(const DamageFilteredCreateObjectDieModuleData *)m_moduleData;
-	if (data && data->m_damageTypeTriggersForDuration == damageInfo->m_18)
+	if (data && data->m_damageTypeTriggersForDuration == damageInfo->field18)
 	{
 		m_frame = TheGameLogic->getFrame();
 		Object *source = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
