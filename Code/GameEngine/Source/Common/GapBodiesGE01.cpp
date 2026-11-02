@@ -168,7 +168,7 @@ class Gen_00528EC0
 {
 public:
 	Gen_00528EC0 *rva003F2BC2(int kind, short value, int data);
-	void rva003F2968(short value);							// 0x003F2968
+	void SetValue(short value);							// 0x003F2968
 private:
 	int m_00;
 	int m_04;
@@ -179,7 +179,7 @@ Gen_00528EC0 *Gen_00528EC0::rva003F2BC2(int kind, short value, int data)
 	if (kind == 2)
 		m_04 = data;
 	if (kind == 1)
-		rva003F2968(value);
+		SetValue(value);
 	return this;
 }
 

@@ -120,10 +120,10 @@ class Rva00406F9C
 {
 public:
 	bool rva00406F9C(const void *key);						// 0x00406F9C
-	int rva004B3FDC(const void *key);
+	int notContains(const void *key);
 };
 
-int Rva00406F9C::rva004B3FDC(const void *key)
+int Rva00406F9C::notContains(const void *key)
 {
 	return !rva00406F9C(key);
 }

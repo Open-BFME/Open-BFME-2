@@ -54,7 +54,7 @@ void rva0035AED4(INI *ini, void *instance, void *store, const void *userData)
 
 // --- 0x0041516C (55B): when own slot 2 allows it, announce the crowd-response
 // reload on TheInGameUI (retail's literal) and latch +0x20; returns the latch.
-class Rva0041516C
+class CrowdResponseReloader
 {
 public:
 	virtual void s0();
@@ -66,7 +66,7 @@ private:
 	bool m_reloaded;										// +0x20
 };
 
-bool Rva0041516C::rva0041516C(int)
+bool CrowdResponseReloader::rva0041516C(int)
 {
 	if (s2())
 	{
@@ -106,13 +106,13 @@ private:
 	char m_pad[0x2A4 - 4];
 };
 
-class Rva005114C6
+class AptMessengerFactory
 {
 public:
 	virtual Rva005114C6Messenger *createMessenger(void *owner);
 };
 
-Rva005114C6Messenger *Rva005114C6::createMessenger(void *owner)
+Rva005114C6Messenger *AptMessengerFactory::createMessenger(void *owner)
 {
 	Rva005114C6Messenger *messenger = 0;
 	if (TheGameSpyInfo)

@@ -368,8 +368,8 @@ void LivingWorldRegion::CreateBuildPlots()
 int Rva003F1E2EHook(int,int);
 class Gen_00528EC0 {
 public:
-    Gen_00528EC0(short index) { rva003F2968(index); }
-    void rva003F2968(short);
+    Gen_00528EC0(short index) { SetValue(index); }
+    void SetValue(short);
     bool bfmeDiffers(const Gen_00528EC0 &) const;
     Gen_00528EC0 rva003F3133();
     int index() const { return (short)Rva003F1E2EHook(value,value); }

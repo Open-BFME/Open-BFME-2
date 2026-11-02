@@ -91,7 +91,7 @@ void __identifier("?Rva0043DA1BCreate@@YGPAVRva0043D686@@PAX@Z")();
 void __identifier("?Rva0051104DCreate@@YGPAVRva00510FDB@@PAX@Z")();
 void __identifier("?createAptScreenObjectives@@YGPAXPAX@Z")();
 void __identifier("?createAptScreenQuickMatchMenu@@YGPAXPAX@Z")();
-void __identifier("?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z")();
+void __identifier("?createMessenger@AptMessengerFactory@@UAEPAVRva005114C6Messenger@@PAX@Z")();
 }
 
 // Native table RVA 0x009bc998: 2 entries and the null record (36 bytes).
@@ -159,7 +159,7 @@ TableEntry g_009BC890[22] = {
 	{ 0, "LanLobby.apt", (void *)&__identifier("?Rva002D1F77Create@@YGPAVAptLanLobby@@PAX@Z") }, // 0x002d1f77
 	{ 0, "LoadScreen.apt", (void *)&__identifier("?Rva002D1E55Create@@YGPAVRva0051268C@@PAX@Z") }, // 0x002d1e55
 	{ 0, "MainMenu.apt", (void *)&__identifier("?Rva002D1FB1Create@@YGPAVRva00516211@@PAX@Z") }, // 0x002d1fb1
-	{ 0, "Messenger.apt", (void *)&__identifier("?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z") }, // 0x005114c6
+	{ 0, "Messenger.apt", (void *)&__identifier("?createMessenger@AptMessengerFactory@@UAEPAVRva005114C6Messenger@@PAX@Z") }, // 0x005114c6
 	{ 0, "Objectives.apt", (void *)&__identifier("?Rva002D1FEBCreate@@YGPAVRva004E4A45@@PAX@Z") }, // 0x002d1feb
 	{ 0, "OnlineShell.apt", (void *)&__identifier("?Rva002D2025Create@@YGPAVRva005173F8@@PAX@Z") }, // 0x002d2025
 	{ 0, "Options.apt", (void *)&__identifier("?Rva002D205FCreate@@YGPAVRva0051A78E@@PAX@Z") }, // 0x002d205f

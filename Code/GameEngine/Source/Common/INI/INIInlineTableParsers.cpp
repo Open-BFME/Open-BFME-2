@@ -39,7 +39,7 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *use
 // to class INI: it is declared at file scope.
 void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
 
-struct Rva0045A22EQuery
+struct ObjectQuery
 {
 	int m_count;
 	int m_filter;
@@ -67,7 +67,7 @@ void INI::Rva0033A49B_ParseDecal(INI *ini, void *, void *store, const void *)
 // ?Rva0045A22E_ParseQuery@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva0045A22E_ParseQuery(INI *ini, void *instance, void *store, const void *userData)
 {
-	Rva0045A22EQuery *query = (Rva0045A22EQuery *)store;
+	ObjectQuery *query = (ObjectQuery *)store;
 	for (int i = 0; i < 6; ++i, ++query)
 	{
 		if (query->m_count < 0)

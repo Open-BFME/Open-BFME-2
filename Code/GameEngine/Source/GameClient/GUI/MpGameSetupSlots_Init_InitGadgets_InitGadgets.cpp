@@ -665,8 +665,8 @@ public:
 	Gen_00528EC0(const Gen_00528EC0 &other) { m_value = other.m_value; }
 	// 0x003F2968 (rowed; encodes the short at +0x04) through the short
 	// constructor, the LivingWorldRegion idiom.
-	void rva003F2968(short value);
-	Gen_00528EC0(short value) { rva003F2968(value); }
+	void SetValue(short value);
+	Gen_00528EC0(short value) { SetValue(value); }
 	Gen_00528EC0(unsigned int encoded, int) { m_value = encoded; }
 	// 0x003F2330 (rowed, S5HandleHashCompares.cpp).
 	bool bfmeDiffers(const Gen_00528EC0 &other) const;

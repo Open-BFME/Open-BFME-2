@@ -205,7 +205,7 @@ class Gen_00528EC0
 {
 public:
 	Gen_00528EC0 *rva003F2BC2(int kind, short value, int data);
-	void rva003F2968(short value);							// 0x003F2968
+	void SetValue(short value);							// 0x003F2968
 private:
 	int m_00;
 	int m_04;

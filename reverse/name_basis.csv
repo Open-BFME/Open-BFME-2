@@ -6426,3 +6426,10 @@ function,?rva0009CD9B@Rva0009C134Host@@QAEXXZ,?setupSunRays@Rva0009C134Host@@QAE
 carry,Rva0009C134Host::rva0009CD9B::dist,Rva0009C134Host::setupSunRays::dist,inferred,scope renamed by Rename rva0009CD9B to setupSunRays (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp,0x0009CD9B
 function,?Rva001F4A37IsEmpty@@YA_NABV?$StringBase@D@@@Z,?isEmptyString@@YA_NABV?$StringBase@D@@@Z,inferred,agree:nl-4e130f54e7cc,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,0x001F4A37
 function,?Rva000D1A9AGet@@YAMXZ,?getProjectionBias@@YAMXZ,inferred,agree:nl-a191c19e34ab,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,0x000D1A9A
+function,?rva004B3FDC@Rva00406F9C@@QAEHPBX@Z,?notContains@Rva00406F9C@@QAEHPBX@Z,inferred,agree:nl-05859b097bbe,Code/GameEngine/Source/Common/GapBodiesGE24.cpp,0x004B3FDC
+function,?rva000CF370@W3DFloorDraw@@UAEXPBVRva000CF0D6@@HH@Z,?updateRecordMatch@W3DFloorDraw@@UAEXPBVRva000CF0D6@@HH@Z,inferred,agree:nl-82c490dbd520,Code/GameEngine/Source/Common/GapBodiesS3K.cpp,0x000CF370
+function,?rva003F2968@Gen_00528EC0@@QAEXF@Z,?SetValue@Gen_00528EC0@@QAEXF@Z,inferred,agree:nl-8c995062469c,Code/GameEngine/Source/Common/Gen00528EC0Rva003F2968.cpp,0x003F2968
+class,Rva0041516C,CrowdResponseReloader,inferred,agree:nl-fd4a0da11e70,Code/GameEngine/Source/Common/GapBodiesS3L.cpp,
+class,Rva005114C6,AptMessengerFactory,inferred,agree:nl-4ba8697b50b2,Code/GameEngine/Source/Common/GapBodiesS3L.cpp,
+carry,?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,?createMessenger@AptMessengerFactory@@UAEPAVRva005114C6Messenger@@PAX@Z,inferred,scope renamed by Rename Rva005114C6 to AptMessengerFactory (inferred),Code/GameEngine/Source/Common/GapBodiesS3L.cpp,0x005114C6
+class,Rva0045A22EQuery,ObjectQuery,inferred,agree:nl-3a2a90fd5878,Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp,

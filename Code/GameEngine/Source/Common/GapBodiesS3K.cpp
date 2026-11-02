@@ -43,7 +43,7 @@ public:
 class W3DFloorDrawIface
 {
 public:
-	virtual void rva000CF370(const Rva000CF0D6 *what, int b, int c);
+	virtual void updateRecordMatch(const Rva000CF0D6 *what, int b, int c);
 	char m_04, m_05, m_06;
 	bool m_matched;											// +0x07 of the interface
 };
@@ -51,11 +51,11 @@ public:
 class W3DFloorDraw : public W3DFloorDrawBase0, public W3DFloorDrawIface
 {
 public:
-	virtual void rva000CF370(const Rva000CF0D6 *what, int b, int c);
+	virtual void updateRecordMatch(const Rva000CF0D6 *what, int b, int c);
 	void rva000CF2CF();										// 0x000CF2CF
 };
 
-void W3DFloorDraw::rva000CF370(const Rva000CF0D6 *what, int, int)
+void W3DFloorDraw::updateRecordMatch(const Rva000CF0D6 *what, int, int)
 {
 	if (!m_data->m_records.empty())
 	{

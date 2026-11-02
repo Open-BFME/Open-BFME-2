@@ -762,11 +762,11 @@ class Gen_00528EC0
  }
 // 0x003F2968 (rowed; encodes the short at +0x04) through the short
 // constructor, the LivingWorldRegion idiom.
- void rva003F2968(short value);
+ void SetValue(short value);
  Gen_00528EC0(short value) 
  
  {
-  rva003F2968(value);
+  SetValue(value);
   
  }
  Gen_00528EC0(unsigned int encoded, int) 

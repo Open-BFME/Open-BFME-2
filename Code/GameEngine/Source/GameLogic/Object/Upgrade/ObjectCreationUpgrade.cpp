@@ -363,7 +363,7 @@ void ObjectCreationUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x004B3FCB 17B ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FDC 17B ?rva004B3FDC@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+// tu-skeleton: 0x004B3FDC 17B ?notContains@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 

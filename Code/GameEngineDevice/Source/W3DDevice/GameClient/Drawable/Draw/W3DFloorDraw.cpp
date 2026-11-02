@@ -471,7 +471,7 @@ void W3DFloorDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x000CF1A6 102B ??1W3DFloorDraw@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DFloorDrawDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000CF370 74B ?rva000CF370@W3DFloorDraw@@UAEXPBVRva000CF0D6@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3K.cpp (not merged yet)
+// tu-skeleton: 0x000CF370 74B ?updateRecordMatch@W3DFloorDraw@@UAEXPBVRva000CF0D6@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3K.cpp (not merged yet)
 
 // tu-skeleton: 0x000CF3BA 94B ?doDrawModule@W3DFloorDraw@@UAEXPBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDraw_doDrawModule.cpp (not merged yet)
 
