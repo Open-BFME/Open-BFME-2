@@ -9,3 +9,5 @@ Slot7: ?preloadAssets@Module@@UAEXXZ, native0x000B3FD0/1B. Existing C++ body is 
 Slot8: ?onDelete@Module@@UAEXXZ, native0x000B3FD0/1B. Existing C++ body is unchanged; separate normal row admission and commit.
 
 Slot9: ?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z, native0x0050B238/3B. Existing C++ body is unchanged; separate normal row admission and commit.
+
+Slot10: ?vslot10@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Existing C++ body is unchanged; separate normal row admission and commit.
