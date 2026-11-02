@@ -270,3 +270,4 @@ WeaponStore,Code/GameEngine/Include/GameLogic/WeaponStore.h,existing header; con
 AIInternalMoveToState,Code/GameEngine/Include/GameLogic/AIInternalMoveToState.h,existing header; contract class_contracts/AIInternalMoveToState.json; 18/84 sampled units adopt
 ArmorTemplate,Code/GameEngine/Include/GameLogic/Armor.h,existing header; contract class_contracts/ArmorTemplate.json; 32/47 sampled units adopt
 GameState,Code/GameEngine/Include/Common/GameState.h,existing header; contract class_contracts/GameState.json; 30/46 sampled units adopt
+VertexMaterialClass,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h,existing header; contract class_contracts/VertexMaterialClass.json; 42/72 sampled units adopt

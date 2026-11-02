@@ -1,0 +1,380 @@
+{
+ "bases": [
+  "W3DMPO",
+  "RefCountClass"
+ ],
+ "bases_by": "zh",
+ "class": "VertexMaterialClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 72,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x14": {
+    "4": 3
+   },
+   "0x18": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 4
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 2
+   },
+   "0x64": {
+    "4": 2
+   },
+   "0x68": {
+    "1": 34
+   },
+   "0x69": {
+    "1": 2,
+    "4": 1
+   },
+   "0x8": {
+    "4": 63
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "[('0x0', '0x7d32a0')]": 1,
+      "[]": 1
+     },
+     "fact": "vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x6c": 7
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x13d420",
+      "0x13dae0"
+     ],
+     "value": {
+      "0x1c": [
+       "StringClass"
+      ]
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x13d420",
+      "0x13dae0"
+     ],
+     "value": 106
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x13d420",
+      "0x13dae0"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x68": [
+       1
+      ],
+      "0x69": [
+       1
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x13d420",
+      "0x13dae0"
+     ],
+     "value": {
+      "0x1c": [
+       "?Get_String@StringClass@@AAEXH_N@Z"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 43,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 12,
+   "4": 2,
+   "8": 38,
+   "32": 1,
+   "36": 1,
+   "40": 2,
+   "64": 2,
+   "108": 13
+  },
+  "views": 71,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 50,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 44,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 52
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialComputeRamSize.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialInitFromMaterial3.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialParseStruct.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialInitFromMaterial3.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialParseStruct.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass_Init_Thunk.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialLoadW3D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoTextureMappers.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescFXShaderConversion.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialComputeRamSize.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingMaterialBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingTextureBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8RendererAddMesh.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/TextureMaterialShaderBooking.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingMaterialBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingTextureBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8RendererAddMesh.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/TextureMaterialShaderBooking.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass_Init_Thunk.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialInitFromMaterial3.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialParseStruct.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 105,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescFXShaderConversion.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass_Init_Thunk.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "retail-vftables",
+   "candidates": {
+    "[('0x0', '0x7d32a0')]": 1,
+    "[]": 1
+   },
+   "class": "VertexMaterialClass",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "2": 2
+   },
+   "class": "VertexMaterialClass"
+  }
+ ],
+ "size": 108,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "Delete_This()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
