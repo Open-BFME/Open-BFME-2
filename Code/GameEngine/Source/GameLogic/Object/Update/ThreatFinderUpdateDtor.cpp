@@ -52,6 +52,12 @@ class ThreatFinderUpdate : public UpdateModule
 {
 public:
 	virtual ~ThreatFinderUpdate();
+	// Retail primary table 0x00C360CC slots 3 and 4: the rowed overrides 0x003ECED5 and
+	// 0x003ECCD6 (ThreatFinderUpdate.cpp), so both units emit one table.
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
 	Rva003ECDB7Object *m_heap;

@@ -16802,6 +16802,15 @@ view must define the empty destructor inline in that unit and then emits the 47-
 `??_7BehaviorModule@@6B...` tables, which lose to the nine Zero Hour units' 34-slot copies exactly as
 mechanism 2 did. Prerequisite (family-wide): those ZH copies go (their units move onto BFME views)
 or the two retail tables get proven names so the canonical copies win.
+Mechanism 4, ThreatFinderUpdate (2026-11-02, lk15): ThreatFinderUpdate.cpp (first) reads Snapshot
+through PlayerList.h, which selects the capitalized slot names, so canonical UpdateModule's
+`loadPostProcess`/`xfer` overrode nothing and were appended (15 slots, `__purecall` in 1 and 3, the
+rowed `xfer` at 12). Retail 0x00C360CC has 13 slots (0x00C36100 starts the next table) with
+`ThreatFinderUpdate::xfer` 0x003ECED5 in slot 3 and `::getModuleNameKey` 0x003ECCD6 in slot 4. The
+.cpp now includes the moduledata Snapshot with `BFME_SNAPSHOT_NAME_SLOT` before PlayerList.h and the
+Dtor declares both overrides; the one table digest is shared. `./build.sh` 24/24 rows; scoped DIR32
+OK (19 symbols); only the two units touch the tables; `link_check` ThreatFinderUpdateDtor 0 -> 125 B,
+ThreatFinderUpdate.cpp 1,167, MapLoadPostProcess 172 and FriendNew 56 B unchanged.
 Mechanism 2 repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`, index 08:35
 `984a4cdc4d`): `BehaviorModule.h` now declares `protected: virtual ~BehaviorModule();` with no
 body, the proposal below. Scope proof before the edit: in the census index exactly six objects
