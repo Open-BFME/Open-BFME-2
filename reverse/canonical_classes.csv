@@ -309,3 +309,4 @@ AICommandParms,Code/GameEngine/Include/GameLogic/AICommandParms.h,existing heade
 ScienceStore,Code/GameEngine/Include/Common/ScienceStore.h,existing header; contract class_contracts/ScienceStore.json; 15/30 sampled units adopt
 DrawableList,Code/GameEngine/Include/GameClient/DrawableList.h,existing header; contract class_contracts/DrawableList.json; 21/32 sampled units adopt
 ScriptAction,Code/GameEngine/Include/GameLogic/ScriptAction.h,existing header; contract class_contracts/ScriptAction.json; 17/36 sampled units adopt
+WeaponSet,Code/GameEngine/Include/GameLogic/WeaponSetClass.h,existing header; contract class_contracts/WeaponSet.json; 23/36 sampled units adopt

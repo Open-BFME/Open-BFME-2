@@ -1,0 +1,367 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "WeaponSet",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 36,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1c": {
+    "4": 3
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 4
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x34": {
+    "1": 3
+   },
+   "0x35": {
+    "1": 2
+   },
+   "0x3c": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 4
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2c72d5"
+     ],
+     "value": 64
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2c72d5"
+     ],
+     "value": {
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       1
+      ],
+      "0x35": [
+       1
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2c72d5"
+     ],
+     "value": {
+      "0x0": "0x80089c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x80089c"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GWeaponSet@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2c75b5"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Rva002C74FBGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x2c74fb"
+       },
+       {
+        "name": "?xfer@WeaponSet@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x2c8872"
+       }
+      ],
+      "table": "0x80089c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 12,
+  "retail_vtables": {
+   "0x80089c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GWeaponSet@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?Rva002C74FBGet@@YAHXZ",
+     "3": "?xfer@WeaponSet@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 19,
+   "8": 1,
+   "32": 2,
+   "36": 2,
+   "64": 11,
+   "108": 1
+  },
+  "views": 36,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_WeaponSet.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/WeaponSet.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 12,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPredicate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectPreFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRvaWeaponWrappers.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 12
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectPreFireCurrentWeapon.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 53,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 54,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp"
+   ],
+   "views": 8
+  }
+ ],
+ "queue": [],
+ "size": 64,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
