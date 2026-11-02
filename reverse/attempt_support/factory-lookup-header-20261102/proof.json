@@ -1,0 +1,112 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/Rva002D06CAGet.cpp",
+  "rows": 3,
+  "original_source_sha256": "405b650749f3a0bb640787cb1fb832225df011405e227d677a929e7efa4c13bb",
+  "canonical_header_sha256": "e14b51ee78348a7c2bd69a8648400f032f943784abf80a588d832a281710873d",
+  "variants": [
+    {
+      "label": "before",
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\thingfactory-header-20261102\\lookup-probe\\before.obj",
+      "object_sha256": "db9059387c4873a9b86eefbfe2548e7255c674ee4adf9afc52556833babd045a",
+      "definitions": [
+        {
+          "name": "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec5151ff75088d45f85083c114e8000000008b45f885c074058b4008eb0233c0c9c20400",
+          "relocations": [
+            [
+              16,
+              20,
+              "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "?rva002D06AA@ThingFactory@@QAE_NABVAsciiString@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec5151ff75088d45f85083c114e80000000033c03945f80f95c0c9c20400",
+          "relocations": [
+            [
+              16,
+              20,
+              "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "?rva000CEB48@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "label": "candidate",
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\thingfactory-header-20261102\\lookup-probe\\candidate.obj",
+      "object_sha256": "9a36b346d9c24162837378c24da5dadca87f7198143e706f93b25f706abe3f69",
+      "definitions": [
+        {
+          "name": "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec5151ff75088d45f85083c114e8000000008b45f885c074058b4008eb0233c0c9c20400",
+          "relocations": [
+            [
+              16,
+              20,
+              "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "?rva002D06AA@ThingFactory@@QAE_NABVAsciiString@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec5151ff75088d45f85083c114e80000000033c03945f80f95c0c9c20400",
+          "relocations": [
+            [
+              16,
+              20,
+              "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "?rva000CEB48@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@@Z"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "before_code": 3,
+  "after_code": 3,
+  "before_data": 0,
+  "after_data": 0,
+  "changed": [],
+  "removed": [],
+  "added": [],
+  "live_source_matches_immutable_original": true
+}

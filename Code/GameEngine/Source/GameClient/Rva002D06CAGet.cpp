@@ -24,26 +24,17 @@ class Rva00056F61
 public:
 	Rva0041534BIter rva0041534B(const AsciiString *key);
 };
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	bool rva002D06AA(const AsciiString &name);
-	const ThingTemplate *rva000CEB48(const AsciiString &name);
-private:
-	char m_pad[0x14];
-	Rva00056F61 m_table;
-};
+#include "../../Include/Common/ThingFactory.h"
 const ThingTemplate *ThingFactory::findTemplate(const AsciiString &name)
 {
-	Rva0041534BIter it = m_table.rva0041534B(&name);
+	Rva0041534BIter it = reinterpret_cast<Rva00056F61 *>(field14)->rva0041534B(&name);
 	if (it.m_node != 0)
 		return *(const ThingTemplate **)((char *)it.m_node + 8);
 	return 0;
 }
 bool ThingFactory::rva002D06AA(const AsciiString &name)
 {
-	Rva0041534BIter it = m_table.rva0041534B(&name);
+	Rva0041534BIter it = reinterpret_cast<Rva00056F61 *>(field14)->rva0041534B(&name);
 	return it.m_node != 0;
 }
 
