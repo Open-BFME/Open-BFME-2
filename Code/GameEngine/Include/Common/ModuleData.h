@@ -9,13 +9,11 @@
 #ifndef BFME2_MODULEDATA_H
 #define BFME2_MODULEDATA_H
 
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error ModuleData requires Snapshot's retail GetSnapshotName slot.
-#endif
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Xfer;
 
 class AsciiString;
 class HordeModuleData;
@@ -27,7 +25,11 @@ class ModuleData : public Snapshot
 public:
     virtual ~ModuleData();
     virtual void loadPostProcess() {}
+#ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
+#else
+    virtual void crc(Xfer *xfer);
+#endif
     virtual void xfer(Xfer *) {}
 
     virtual bool slot04() const { return false; }
