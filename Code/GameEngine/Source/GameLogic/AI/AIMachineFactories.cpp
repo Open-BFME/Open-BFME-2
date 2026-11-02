@@ -11,13 +11,7 @@
 // ledger's for those vtables.
 typedef unsigned int UnsignedInt;
 class Object;
-class AIStateMachine
-{
-public:
-	AIStateMachine(Object *owner, UnsignedInt nameKey);	// rowed 0x00351C48
-private:
-	unsigned char m_pad[0x68];	// operator new size 0x68
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 class AIUpdateModuleView
 {
 public:

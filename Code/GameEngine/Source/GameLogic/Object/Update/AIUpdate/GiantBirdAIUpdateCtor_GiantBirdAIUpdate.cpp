@@ -149,10 +149,7 @@ private:
 
 // The giant bird's state machine (rowed constructor 0x0036792F in
 // Rva0036792FMachineCtor.cpp, 0x68 bytes, an AIStateMachine).
-class AIStateMachine
-{
-	unsigned char m_unmodelled_00[0x68];
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:

@@ -10,12 +10,7 @@ typedef unsigned int UnsignedInt;
 
 class Object;
 
-class AIStateMachine
-{
-public:
-	AIStateMachine(Object *owner, UnsignedInt nameKey);
-	unsigned char m_unmodelled_00[0x68];
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 

@@ -15,21 +15,15 @@ struct AIState
 	int m_id;
 };
 
-struct AIStateMachine
-{
-	char m_pad00[4];
-	AIState *m_state04;
-	char m_pad08[0x50 - 8];
-	AIState *m_state50;
-};
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 int AIUpdateInterface::getCurrentStateID() const
 {
 	AIStateMachine *aIStateMachine = m_stateMachine;
-	int id = aIStateMachine->m_state50 ? aIStateMachine->m_state50->m_id : 0xF423F;
+	int id = aIStateMachine->m_temporaryState ? aIStateMachine->m_temporaryState->m_id : 0xF423F;
 	if (id != 0xF423F)
 		return id;
-	return aIStateMachine->m_state04 ? aIStateMachine->m_state04->m_id : 0xF423F;
+	return aIStateMachine->m_currentState ? aIStateMachine->m_currentState->m_id : 0xF423F;
 }

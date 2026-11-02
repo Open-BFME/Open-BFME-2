@@ -45,16 +45,7 @@ struct BfmeThingCDF
 	BfmeThingCDF *bfmeGoCDF(BfmeThingCDF *that);
 };
 
-class AIStateMachine
-{
-public:
-	void setGoalTeam( const Team *team );
-	void setGoalAIGroup( const AIGroup *group );
-	void setGoalSquad( const Squad *squad );
-private:
-	unsigned char m_pad00[0x4C];
-	Squad *m_goalSquad; // +0x4C
-};
+#include "../../../Include/GameLogic/AIStateMachineClass.h"
 
 //----------------------------------------------------------------------------------------------------------
 void AIStateMachine::setGoalTeam( const Team *team )

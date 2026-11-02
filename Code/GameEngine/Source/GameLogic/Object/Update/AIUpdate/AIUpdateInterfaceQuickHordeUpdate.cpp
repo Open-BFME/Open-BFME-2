@@ -455,9 +455,7 @@ Real normalizeAngle(Real angle);
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
-class AIStateMachine : public StateMachine
-{
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
 class AICommandInterface
 {
