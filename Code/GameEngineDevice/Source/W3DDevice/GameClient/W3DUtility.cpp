@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Retail 0x0010E87A..0x0010EA49 (463 bytes); WB 0x00963540 names
 // W3DUtility::_SetOpacity and this source path (assert lines 128..164).
@@ -63,7 +63,7 @@ struct OpacitySetupView {
 };
 struct OpacityShaderView { unsigned char pad0[0xb8]; OpacitySetupView *setup; };
 struct OpacityMeshModelView { unsigned char pad0[0x94]; OpacityShaderView *shader; };
-class VertexMaterialClass { public: void Set_Opacity(float); void Set_Diffuse(float,float,float); void Set_Emissive(float,float,float); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 class MaterialInfoClass { public: VertexMaterialClass *Get_Vertex_Material(int); };
 class OpacityReferenceView {
 public:

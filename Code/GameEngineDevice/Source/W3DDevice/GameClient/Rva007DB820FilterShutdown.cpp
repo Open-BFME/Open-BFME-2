@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // set is slot 5 of the same native table as the existing shutdown:
@@ -27,23 +27,7 @@ enum FilterTypes { FT_NULL_FILTER=0 };
 #include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
-class VertexMaterialClass
-{
-public:
-	enum PresetType
-	{
-		PRELIT_DIFFUSE = 0
-	};
-	virtual void Delete_This();
-	static VertexMaterialClass *Get_Preset(PresetType type);
-	void Release_Ref()
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-	Int NumRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 extern VertexMaterialClass *ScreenMaterial;
 
 class ShaderClass
@@ -60,14 +44,6 @@ protected:
 };
 
 class TextureBaseClass { public: void Release_Ref(); };
-class StringClass {
-public:
- StringClass(int initial_len = 0, bool hint_temporary = false);
- __forceinline ~StringClass() { Free_String(); }
-private:
- void Free_String();
- char *m_Buffer;
-};
 class WW3D {
 public: static bool Is_Snapshot_Activated() { return SnapshotActivated; }
 private: static bool SnapshotActivated;

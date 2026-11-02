@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 //
@@ -52,34 +52,8 @@ extern View *TheTacticalView;
 
 // Imported inline helpers retain their native inline use while suppressing
 // competing COMDAT definitions; 997B/391B/43B and both EH tables stay exact.
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	__forceinline ~StringClass() { Free_String(); }
-private:
-	void Free_String();
-	char *m_Buffer;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-class VertexMaterialClass
-{
-public:
-	enum PresetType
-	{
-		PRELIT_DIFFUSE = 0
-	};
-	virtual void Delete_This();
-	static VertexMaterialClass *Get_Preset(PresetType type);
-	__declspec(dllimport) __forceinline void Add_Ref() { NumRefs++; }
-	void Release_Ref()
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-	Int NumRefs;
-};
 extern VertexMaterialClass *ScreenMaterial;
 
 class ShaderClass

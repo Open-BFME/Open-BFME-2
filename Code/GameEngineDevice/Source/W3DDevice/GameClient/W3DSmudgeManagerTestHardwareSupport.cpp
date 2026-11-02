@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
+// cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 //
@@ -57,52 +57,13 @@ protected:
 	static bool m_renderingToTexture;
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This(void);
-	virtual ~RefCountClass(void);
-	__forceinline void Add_Ref(void)
-	{
-		++m_numRefs;
-	}
-	__forceinline void Release_Ref(void)
-	{
-		--m_numRefs;
-		if (m_numRefs == 0)
-			Delete_This();
-	}
-
-private:
-	int m_numRefs;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class W3DMPO
 {
 };
 
-class VertexMaterialClass : public W3DMPO, public RefCountClass
-{
-public:
-	enum PresetType { PRELIT_DIFFUSE = 0 };
-	static VertexMaterialClass *Get_Preset(PresetType type);
-};
 
-class StringClass
-{
-	void Get_String(int length, bool is_temp);
-	void Free_String(void);
-
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass(void)
-	{
-		Free_String();
-	}
-	char *m_Buffer;
-	static char m_NullChar;
-	static char *m_EmptyString;
-};
 
 class ShaderClass
 {

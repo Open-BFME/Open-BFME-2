@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@SAXXZ @ 0x001245A0 (283B).
 // Dedicated TU: this function spans DX8Caps, DX8MeshRendererClass,
@@ -70,11 +70,7 @@ private:
 	char m_body[ 0x30 ];
 };
 
-class VertexMaterialClass
-{
-public:
-	static void Init( void );
-};
+#include "VertexMaterialClass.h"
 
 class BoxRenderObjClass
 {

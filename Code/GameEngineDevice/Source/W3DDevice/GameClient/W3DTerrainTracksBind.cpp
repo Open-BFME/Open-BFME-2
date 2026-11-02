@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /arch:SSE /G7 /MD /EHsc /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Reference semantic lead: GeneralsMD W3DTerrainTracks.cpp computeTrackSpacing
 // at BFME1 checkout dae380faa5f6fa536eec8d6ebbe877321d4cb51d.
 // Retail 0x84B18..0x84C05 supplies the boundary and target-specific ABI:
@@ -140,11 +140,7 @@ static __declspec(noinline) float computeTrackSpacing(Rva00084B18RenderObj *obj,
  return spacing;
 }
 class SceneClass;
-class VertexMaterialClass {
-public:
- enum PresetType { PRELIT_DIFFUSE = 0 };
- static VertexMaterialClass *Get_Preset(PresetType);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 class ShaderClass {
 public:
  unsigned int bits;

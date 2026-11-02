@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // ?renderShadows@W3DVolumetricShadowManager@@QAEXAAVRenderInfoClass@@@Z @0x000F4AB7 4116B.
@@ -40,16 +40,7 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned char UnsignedByte;
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass() { Free_String(); }
-private:
-	char *m_Buffer;
-private:
-	void Free_String();
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
@@ -106,17 +97,6 @@ private:
 };
 extern W3DShadowManager *TheW3DShadowManager;
 
-class VertexMaterialClass
-{
-public:
-	enum PresetType { PRELIT_DIFFUSE = 0 };
-	static VertexMaterialClass *Get_Preset(PresetType type);
-	virtual void Delete_This(void);
-	void Add_Ref(void) { ++NumRefs; }
-	void Release_Ref(void) { if (--NumRefs == 0) Delete_This(); }
-private:
-	int NumRefs;
-};
 
 class ShaderClass
 {

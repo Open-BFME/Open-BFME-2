@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 //
@@ -43,16 +43,7 @@ typedef int Int;
 // DWORD its decorations carry (?Get_DX8_Render_State_Value_Name@...KI@Z).
 struct IDirect3DDevice8;
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass() { Free_String(); }
-private:
-	char *m_Buffer;
-private:
-	void Free_String();
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
@@ -70,17 +61,6 @@ public:
 	Vector4 Row[4];
 };
 
-class VertexMaterialClass
-{
-public:
-	enum PresetType { PRELIT_DIFFUSE = 0 };
-	static VertexMaterialClass *Get_Preset(PresetType type);
-	virtual void Delete_This(void);
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-private:
-	int NumRefs;
-};
 
 #define REF_PTR_RELEASE(x)		{ if (x) x->Release_Ref(); x = 0; }
 

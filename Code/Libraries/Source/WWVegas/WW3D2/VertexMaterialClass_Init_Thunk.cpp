@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 // VertexMaterialClass::Init (packet 00921eba) disagrees with the vendored
 // vertmaterial.h on two points, both confirmed directly against the retail
@@ -30,40 +30,7 @@
 // the real (unmodified) constructor/Presets array are pulled in by mangled
 // name so this stays a single definition of each, not a duplicate.
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.h
-class VertexMaterialClass
-{
-public:
-	enum ColorSourceType
-	{
-		MATERIAL = 0,
-		COLOR1,
-		COLOR2,
-	};
-
-	enum PresetType
-	{
-		PRELIT_DIFFUSE = 0,
-		PRELIT_NODIFFUSE,
-		PRESET_COUNT,
-	};
-
-	VertexMaterialClass(void);
-
-	void Set_Diffuse_Color_Source(ColorSourceType src);
-	void Set_Lighting(bool lighting);
-
-	static void Init();
-
-private:
-	unsigned char _unused_pre_diffuse_source[0x18];
-	unsigned int DiffuseColorSource;					// real offset 0x18
-	unsigned char _unused_between[0x68 - 0x1C];
-	unsigned char CRCDirty;								// real offset 0x68
-	unsigned char UseLighting;							// real offset 0x69
-	unsigned char _unused_tail[0x6C - 0x6A];			// pad sizeof() to 0x6C
-
-	static VertexMaterialClass *Presets[PRESET_COUNT];
-};
+#include "VertexMaterialClass.h"
 
 inline void VertexMaterialClass::Set_Diffuse_Color_Source(ColorSourceType src)
 {

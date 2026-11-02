@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?flush@TerrainTracksRenderObjClassSystem@@QAEXXZ, retail 0x00084DAC..0x00085117
 // (875B), thiscall.
@@ -47,29 +47,8 @@ struct VertexFormatXYZDUV1
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-class StringClass
-{
-public:
-	StringClass(int initial_len = 0, bool hint_temporary = false);
-	__forceinline ~StringClass() { Free_String(); }
-private:
-	void Free_String();
-	char *m_Buffer;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref()
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-	Int NumRefs;
-};
 extern bool bfmeCameraProjectionOverride;
 
 class ShaderClass

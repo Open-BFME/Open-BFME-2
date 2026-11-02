@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // Native full extent 0014B8C0..0014BA3D; donor supplies recolor semantics,
 // target bytes prove the field offsets, vtable slots and ABI below.
 // The same-valued volatile blue operand keeps native load/test before the
@@ -14,7 +14,7 @@
 #define _CRTIMP
 #include "vector3.h"
 class Rva0013101E{public:unsigned flags,color;};
-class VertexMaterialClass{public:void Make_Unique();void Set_Ambient(const Vector3&);void Set_Diffuse(const Vector3&);__forceinline void Set_Ambient(float r,float g,float b){Set_Ambient(Vector3(r,g,b));}__forceinline void Set_Diffuse(float r,float g,float b){Set_Diffuse(Vector3(r,g,b));}};
+#include "VertexMaterialClass.h"
 class MeshModelClass{public:virtual void Delete_This();int refs;void Add_Ref(){++refs;}void Release_Ref(){--refs;if(refs==0)Delete_This();}
  // LINK: same-body helper under a TU-unique name (identical inlined bytes;
  // ADD-flags branch shape is load-bearing, so no manual respell). This TU's

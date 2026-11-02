@@ -1,10 +1,6 @@
-// cl: /DNDEBUG /MD /EHsc /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?bfmeTotalVNQ@BfmeThingVNQ@@QAEHXZ 0x0016EEE0 63B evidence: BFME1 donor BfmeConv1517.cpp bfmeTotalVNQ same layout same total; BFME2 callee rowed VertexMaterial rva0013D250 const; caller 0x00188117 unblocks link bonus
-class VertexMaterialClass
-{
-public:
-	int rva0013D250() const;
-};
+#include "VertexMaterialClass.h"
 class BfmeThingVNQ
 {
 public:

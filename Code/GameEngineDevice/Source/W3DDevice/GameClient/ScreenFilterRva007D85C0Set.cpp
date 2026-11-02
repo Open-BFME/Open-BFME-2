@@ -1,27 +1,11 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // Retail 0x007D81C0, filter vtable 0x01128BAC slot 5.
 // The matched Rva007D85C0 constructor installs this vtable; original class name unknown.
 #include <d3d9.h>
 
-class StringClass {
- char *m_Buffer;
- static char *m_EmptyString; static char m_NullChar;
- void Get_String(int,bool); void Free_String();
-public:
-
- StringClass(int n=0,bool temp=false):m_Buffer(m_EmptyString) { Get_String(n,temp); m_Buffer[0]=m_NullChar; }
-
- __forceinline ~StringClass(void) { Free_String(); }
-};
-class VertexMaterialClass {
-public:
- virtual void Delete_This(); int refs;
- enum PresetType {PRELIT_DIFFUSE};
- static VertexMaterialClass *Get_Preset(PresetType);
- void Release_Ref(){if (!--refs) Delete_This();}
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 class TextureClass { public: void Release_Ref(); };
 class TextureBaseClass;
 class TextureHandle { public: TextureClass *p; TextureHandle():p(0){} ~TextureHandle(){if(p)p->Release_Ref();} };
@@ -72,7 +56,7 @@ class Rva007D85C0 { protected: virtual int set(FilterModes); };
 int Rva007D85C0::set(FilterModes mode) {
  if(mode>FM_NULL_MODE){
  VertexMaterialClass *vmat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
- if(vmat)++vmat->refs;
+ if(vmat)++vmat->NumRefs;
  if(ScreenMaterial)ScreenMaterial->Release_Ref();
  ScreenMaterial=vmat;
  DX8Wrapper::render_state_changed|=0x4000;

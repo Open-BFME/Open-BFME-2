@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?onDrawableBoundToObject@W3DScriptedModelDraw@@UAEXXZ retail 0x000C1252
 //
 // ?buildPlayingAnimationStringInfo@W3DScriptedModelDraw@@UAEXHPAVAsciiString@@0@Z
@@ -67,18 +67,7 @@ public:
 
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This();
-	void Get_Emissive(Vector3 *set) const;
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-	int NumRefs;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 class MaterialInfoClass
 {

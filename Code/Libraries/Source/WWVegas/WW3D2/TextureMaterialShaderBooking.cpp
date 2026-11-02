@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Add_Textures_Material_And_Shader@Textures_Material_And_Shader_Booking_Struct@@QAE_NPAVBfmeHandleCX@@PAVVertexMaterialClass@@VShaderClass@@@Z, RVA 0x00143AD0, 292B.
 // Booking of unique texture/material/shader combos for Generate_Texture_Categories.
@@ -42,26 +42,7 @@ public:
 	}
 };
 
-class VertexMaterialClass
-{
-	char m_pad[0x64];
-	mutable unsigned long m_crc;
-	mutable bool m_dirtyFlag;
-
-public:
-	unsigned long Get_CRC() const
-	{
-		if (m_dirtyFlag)
-		{
-			m_crc = Compute_CRC();
-			m_dirtyFlag = false;
-		}
-		return m_crc;
-	}
-
-private:
-	unsigned long Compute_CRC() const;
-};
+#include "VertexMaterialClass.h"
 
 class ShaderClass
 {

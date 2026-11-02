@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?renderStenciledPlayerColor@@YAXII_NI@Z  Native 0x0006EB6D..0x0006ED29 (444 bytes)
 // ZH W3DScene.cpp renderStenciledPlayerColor with the BFME2 deltas: an early
 // return without TheW3DShadowManager; the clear pass uses the caller stencil
@@ -24,16 +24,7 @@ class ShaderClass { public: unsigned int ShaderBits; };
 // split-out unit reads it, so the definition lives here.
 ShaderClass g_00DB4248 = { 0x00105817u };
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This();
-	int NumRefs;
-	enum PresetType { PRELIT_DIFFUSE = 0 };
-	static VertexMaterialClass *Get_Preset(PresetType type);
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
 extern VertexMaterialClass *ScreenMaterial;
 

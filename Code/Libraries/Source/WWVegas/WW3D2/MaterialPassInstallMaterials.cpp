@@ -1,40 +1,12 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Install_Materials@MaterialPassClass@@UBEXXZ, retail 0x0013EFA0..0x0013F0A5 (261 B), the
 // MaterialPassClass vtable entry at 0x007D3314. Zero Hour matpass.cpp Install_Materials (WB
 // 0x009E1F30, vtable evidence): DX8Wrapper::Set_Material and Set_Shader inline on
 // render_state (0x00DEE5D8, changed bits 0x4000/0x8000; Set_Shader keeps its snapshot
 // StringClass), then one BFME2Set_Texture per stage up to the caps' max textures per pass,
 // each stage handle formed by the rowed 0x0013EF40. Layout per MaterialPassClassDestructor.cpp.
-class StringClass
-{
-public:
-	__declspec(dllimport) __forceinline StringClass(int initial_len = 0, bool hint_temporary = false) : m_Buffer(m_EmptyString)
-	{
-		Get_String(initial_len, hint_temporary);
-		m_Buffer[0] = m_NullChar;
-	}
-	~StringClass() { Free_String(); }
-private:
-	void Get_String(int length, bool is_temp);
-	void Free_String();
-	char *m_Buffer;
-	static char *m_EmptyString;
-	static char m_NullChar;
-};
+#include "VertexMaterialClass.h"
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This();
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref()
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			Delete_This();
-	}
-	int NumRefs;
-};
 
 class ShaderClass
 {

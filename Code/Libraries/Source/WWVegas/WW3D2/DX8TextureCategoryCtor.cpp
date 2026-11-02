@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -89,14 +89,7 @@ public:
 template<> inline RefCountPtr<TextureClass>::RefCountPtr() : Referent(0) {}
 #pragma optimize("", on)
 
-class VertexMaterialClass
-{
-public:
-	virtual void Delete_This() = 0;
-	// Preserve the inline 32-bit increment without a competing external copy.
-	__declspec(dllimport) __forceinline void Add_Ref() { ++NumRefs; }
-	int NumRefs;
-};
+#include "VertexMaterialClass.h"
 
 class DX8PolygonRendererClass;
 class DX8FVFCategoryContainer;
