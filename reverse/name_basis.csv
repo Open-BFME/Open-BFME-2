@@ -6556,3 +6556,14 @@ param,Rva00318D9BFill::x,Rva00318D9BFill::fillValue,inferred,agree:nl-075586f373
 class,Rva00318B1ERecord,PlayerNameRecord,inferred,agree:nl-5cf4263a1d9c,Code/GameEngine/Source/Common/Rva00318B1EPlayerName.cpp,
 function,?rva00082BE1@Rva00082BE1@@QAEIABH@Z,?erase@Rva00082BE1@@QAEIABH@Z,inferred,agree:nl-f055dd97119f,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,0x00082BE1
 carry,Rva00082BE1::rva00082BE1::key,Rva00082BE1::erase::key,inferred,scope renamed by Rename rva00082BE1 to erase (inferred),Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,0x00082BE1
+local,GUICommandTranslator::translateGameMessage::x,GUICommandTranslator::translateGameMessage::cancelCommand,inferred,agree:nl-4f6bcc4f342c,Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp,0x004314B1
+local,GUICommandTranslator::translateGameMessage::y,GUICommandTranslator::translateGameMessage::executeCommand,inferred,agree:nl-6bf6d0983d26,Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslatorTranslateGameMessage.cpp,0x004314B1
+param,Rva002F57E6Query::rva002F57E6::x,Rva002F57E6Query::rva002F57E6::cellX,inferred,agree:nl-9275a821dd31,Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustCandidate.cpp,0x002F57E6
+param,Rva002F57E6Query::rva002F57E6::y,Rva002F57E6Query::rva002F57E6::cellY,inferred,agree:nl-d2529d8cdd16,Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustCandidate.cpp,0x002F57E6
+function,?Rva005243FA@@YAHHHH@Z,?find@@YAHHHH@Z,inferred,agree:nl-b3dc8c4efdf2,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,0x005243FA
+carry,Rva005243FA::tag,find::tag,inferred,scope renamed by Rename Rva005243FA to find (inferred),Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,0x005243FA
+carry,Rva005243FA::searchValue,find::searchValue,inferred,scope renamed by Rename Rva005243FA to find (inferred),Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,0x005243FA
+carry,Rva005243FA::first,find::first,inferred,scope renamed by Rename Rva005243FA to find (inferred),Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,0x005243FA
+carry,Rva005243FA::last,find::last,inferred,scope renamed by Rename Rva005243FA to find (inferred),Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,0x005243FA
+function,?Rva00304BA9Populate@@YAHPAVGameWindow@@_N1ABVAsciiString@@@Z,?populateMapListboxNoReset@@YAHPAVGameWindow@@_N1ABVAsciiString@@@Z,inferred,agree:nl-743371fe7a5d,Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp,0x00304BA9
+function,?rva006D0930@Rva006CE660Vec@@QAEXPBVEAStringC@@HHH@Z,?updatePlaybackState@Rva006CE660Vec@@QAEXPBVEAStringC@@HHH@Z,inferred,agree:nl-46c630b3a55f,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,0x006D0930

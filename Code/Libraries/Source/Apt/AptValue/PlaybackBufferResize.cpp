@@ -28,7 +28,7 @@ Rva006CDD50Item *__cdecl Rva006CDE00Copy(Rva006CDD50Iterator,Rva006CDD50Iterator
 // and two8B entries at+0C. Original container name is unresolved.
 class AptValueNameEntry {public:EAStringC name;int value;AptValueNameEntry(const EAStringC&n,int v):name(n),value(v){} __forceinline AptValueNameEntry(){value=0;}};
 AptValueNameEntry *__cdecl resizeArray(AptValueNameEntry *,int,int);
-class Rva006CE660Vec {public:void rva006CEB10(const EAStringC &);void rva006D0930(const EAStringC *,int,int,int);void rva006D0A10(const EAStringC *);void reserve(int); void insert(AptValueNameEntry *const &,AptValueNameEntry *const &,const Rva006CDD50Iterator &);void append(AptValueNameEntry *);int count,capacity;AptValueNameEntry *data;AptValueNameEntry inlineItems[2];
+class Rva006CE660Vec {public:void rva006CEB10(const EAStringC &);void updatePlaybackState(const EAStringC *,int,int,int);void rva006D0A10(const EAStringC *);void reserve(int); void insert(AptValueNameEntry *const &,AptValueNameEntry *const &,const Rva006CDD50Iterator &);void append(AptValueNameEntry *);int count,capacity;AptValueNameEntry *data;AptValueNameEntry inlineItems[2];
  Rva006CDD50Iterator begin(){Rva006CDD50Item *firstItem=reinterpret_cast<Rva006CDD50Item *>(data);return Rva006CDD50Iterator(firstItem,firstItem,firstItem+count);}
  Rva006CDD50Iterator end(){return Rva006CDD50Iterator(reinterpret_cast<Rva006CDD50Item *>(data+count),reinterpret_cast<Rva006CDD50Item *>(data),reinterpret_cast<Rva006CDD50Item *>(data+count));}};
 void Rva006CE660Vec::reserve(int want){
@@ -123,7 +123,7 @@ void Rva006CE660Vec::rva006CEB10(const EAStringC &name) {
 // already present has its value replaced only when it equals the expected
 // one; an absent key is appended with the initial value. Callers and the
 // original member name are unresolved.
-void Rva006CE660Vec::rva006D0930(const EAStringC *key,int expected,int replacement,int initial) {
+void Rva006CE660Vec::updatePlaybackState(const EAStringC *key,int expected,int replacement,int initial) {
  for(Rva006CDD50Iterator it=begin();it!=end();it++){
   if(it.position->name.IsEqualTo(key)){
    if(it.position->value==expected)it.position->value=replacement;
@@ -141,4 +141,4 @@ void Rva006CE660Vec::append(AptValueNameEntry *value){AptValueNameEntry *last=va
 // Native6D0A10..6D0A22 RET4: the fixed-argument forwarder beside the rowed
 // rva006D0930 -- the same name with the constants 1, 3 and 2 on the same
 // receiver. Address name.
-void Rva006CE660Vec::rva006D0A10(const EAStringC *name){rva006D0930(name,1,3,2);}
+void Rva006CE660Vec::rva006D0A10(const EAStringC *name){updatePlaybackState(name,1,3,2);}

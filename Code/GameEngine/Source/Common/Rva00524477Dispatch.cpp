@@ -25,7 +25,7 @@ struct Out00524477
 // make_pair provider. Its generated linker alias retains this legacy view;
 // typed-return trials add EH data or trigger MSVC7.1 ICE in this flat-frame unit.
 int Rva0023FC23(Out00524477 *out, int *a1, int a2);
-int Rva005243FA(int a, int b, int c);
+int find(int a, int b, int c);
 
 struct C00524477
 {
@@ -70,7 +70,7 @@ void Holder00524477::Rva00524477(int level, int a2)
 	int searchKey = Rva0023FC23(out, &level, a2);
 	int rangeEnd = m_end;
 	int rangeBegin = m_C.m_0;
-	int rr = Rva005243FA(rangeBegin, rangeEnd, searchKey);
+	int rr = find(rangeBegin, rangeEnd, searchKey);
 	((AsciiString *)(buf + 4))->~AsciiString();
 	if (rr == m_end)
 		return;

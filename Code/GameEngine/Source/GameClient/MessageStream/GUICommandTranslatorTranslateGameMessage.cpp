@@ -464,29 +464,29 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	bool gameMessageArgumentType = (msg->m_type == 0x18 || msg->m_type == 0x17) && !m_14;
 	bool rightClick = (msg->m_type == 0x1C || msg->m_type == 0x1B) && !m_rightMouseDragged;
 	bool isDown = msg->m_type == 4;
-	bool x;
-	bool y;
+	bool cancelCommand;
+	bool executeCommand;
 	if (command->m_commandType == 0xA && TheWritableGlobalData->m_flag5C)
 	{
-		x = gameMessageArgumentType;
-		y = rightClick;
+		cancelCommand = gameMessageArgumentType;
+		executeCommand = rightClick;
 	}
 	else
 	{
-		x = rightClick;
-		y = gameMessageArgumentType;
+		cancelCommand = rightClick;
+		executeCommand = gameMessageArgumentType;
 	}
 
-	if (!y && !x && !isDown)
+	if (!executeCommand && !cancelCommand && !isDown)
 		return KEEP_MESSAGE;
 	if (isDown)
 		disp = DESTROY_MESSAGE;
-	else if (x)
+	else if (cancelCommand)
 	{
 		disp = DESTROY_MESSAGE;
 		TheInGameUI->setGUICommand(0);
 	}
-	else if (y)
+	else if (executeCommand)
 	{
 	int status = 1;
 	const ICoord2D *hi = &msg->getArgument(0)->pixelRegion.hi;

@@ -20,23 +20,23 @@ void *rva002EBC59(void *,void *,int,int,int);
 class Rva002F57E6Query
 {
 public:
-	bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
+	bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int cellX,int cellY,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
 	char m_pad00[0x24];
 	int minX; // +0x24
 	int minY; // +0x28
 	int maxX; // +0x2C
 	int maxY; // +0x30
 };
-bool Rva002F57E6Query::rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word) {
+bool Rva002F57E6Query::rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int cellX,int cellY,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word) {
  Pathfinder *pathfinder=(Pathfinder *)this; Object *object=(Object *)a;
- PathfindCell *cell=pathfinder->getCell((PathfindLayerEnum)layer,(int)x,y);
+ PathfindCell *cell=pathfinder->getCell((PathfindLayerEnum)layer,(int)cellX,cellY);
  if(!cell) return false;
  if((cell->flags&0xf)==2) return false;
- if(mode && ((int)x<minX || y<minY || (int)x>maxX || y>maxY)) return false;
- if(!pathfinder->rva002E9EA7(object,(int)x,y,(PathfindLayerEnum)layer,radius,center,word)) return false;
+ if(mode && ((int)cellX<minX || cellY<minY || (int)cellX>maxX || cellY>maxY)) return false;
+ if(!pathfinder->rva002E9EA7(object,(int)cellX,cellY,(PathfindLayerEnum)layer,radius,center,word)) return false;
  {
   Coord3D cellPosition,adjust;
-  adjust=*(Coord3D *)rva002EBC59(&cellPosition,object,x,y,cell->getLayer());
+  adjust=*(Coord3D *)rva002EBC59(&cellPosition,object,cellX,cellY,cell->getLayer());
   if(!(object->type->kind109&0x10)) {
    if(originalZ>0.0f && fabs(adjust.z-originalZ)>50.0f) return false;
    bool adjustedPathExists=pathfinder->QuickDoesPathExist(object,&object->position,&adjust,0);

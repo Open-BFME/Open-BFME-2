@@ -256,7 +256,7 @@ int Rva003000F6Get(bool systemMaps,bool multiplayer)
 // Native 304BA9..304BCD (36B, cdecl): the same bool-argument map-list wrapper
 // as Rva00304BCDPopulate below with flag 0x40 added to the helper's filter
 // flags. Identity unproven; RVA-qualified name.
-int Rva00304BA9Populate(GameWindow *listbox,bool systemMaps,bool multiplayer,
+int populateMapListboxNoReset(GameWindow *listbox,bool systemMaps,bool multiplayer,
                        const AsciiString &mapToSelect)
 {
  return Rva00304744Populate(listbox,Rva003000F6Get(systemMaps,multiplayer)|0x40,mapToSelect);

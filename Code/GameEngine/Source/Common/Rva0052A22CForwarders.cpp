@@ -39,7 +39,7 @@ struct Pair005258F8
 void __stdcall Rva00525407(Pair005258F8 *pair);
 
 
-// ?Rva005243FA@@YAHHHH@Z @0x005243FA 27B
+// ?find@@YAHHHH@Z @0x005243FA 27B
 // Cdecl forwarder: passes three pointers plus the address of a temp tag byte
 // to rowed find 0x52408B (Rva0052408BFind, stlport_hero_integer_vector_tree.cpp)
 // and returns its EAX result, which range dispatch 0x524477 reads
@@ -47,7 +47,7 @@ void __stdcall Rva00525407(Pair005258F8 *pair);
 struct Rva00523DB7;
 const Rva00523DB7 *Rva0052408BFind(const Rva00523DB7 *first, const Rva00523DB7 *last, const Rva00523DB7 *val, int tag);
 
-int Rva005243FA(int first, int last, int searchValue)
+int find(int first, int last, int searchValue)
 {
 	char tag;
 	return (int)Rva0052408BFind((const Rva00523DB7 *)first, (const Rva00523DB7 *)last, (const Rva00523DB7 *)searchValue, (int)&tag);

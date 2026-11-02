@@ -49,7 +49,7 @@ extern AptLinker *g_bfmeAptLinkerAtE176F8;
 
 extern int g_bfmeAptFlagAtE176D4;
 
-class Rva006CE660Vec {public:void rva006D0930(const EAStringC *,int,int,int);};
+class Rva006CE660Vec {public:void updatePlaybackState(const EAStringC *,int,int,int);};
 
 class Rva006CEB10Playback;
 
@@ -138,7 +138,7 @@ void __stdcall Rva006D1600(Rva006D07E0Key key)
 
 void Rva006D1520(Rva006D07E0Key key){
  g_bfmeAptLinkerAtE176F8->rva006D1450(key);
- if(g_bfmeAptFlagAtE176D4){const EAStringC *eAStringC=&key.m_object->name8;((Rva006CE660Vec *)g_aptPlaybackCheckpoints)->rva006D0930(eAStringC,1,3,2);}
+ if(g_bfmeAptFlagAtE176D4){const EAStringC *eAStringC=&key.m_object->name8;((Rva006CE660Vec *)g_aptPlaybackCheckpoints)->updatePlaybackState(eAStringC,1,3,2);}
 }
 
 // ---- from Code/Libraries/Source/Apt/Rva006D15B0Push.cpp
