@@ -10,22 +10,18 @@
 // current surface of the pair at +0x30 (a square of side +0x0C); otherwise
 // rendering is redirected to the target at +0x2C and cleared.
 #include <string.h>
+// Keep the SDK typedef separate from the two native transform enum tags
+// declared by the canonical DX8Wrapper interface. The SDK enum tag is unchanged.
+#define D3DTRANSFORMSTATETYPE D3D9TransformStateType
 #include <d3dx9tex.h>
+#undef D3DTRANSFORMSTATETYPE
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct IDirect3DSurface8;
 struct IDirect3DDevice8;
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-	static void Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer);
-	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
-protected:
-	static struct IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // The device keeps its D3D8 type name but is a Direct3D 9 device: StretchRect
 // is slot 34 and CreateTexture slot 23. The back buffer and render targets are

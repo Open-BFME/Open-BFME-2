@@ -1,0 +1,17 @@
+{
+  "units": 1278,
+  "receipt_scope": "ordinary dependency receipts; verified historical provider objects for before",
+  "strict_current_objects": 357,
+  "absorbed_sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterPreRender.cpp"
+  ],
+  "clean_before": 1235,
+  "clean_after": 1235,
+  "lost_links": [],
+  "new_findings": [],
+  "historical_objects": {
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^screen^filter^rva007^d85^c0^slot6.obj": "b677166e5d2714dd3dfee52a91127bbd6d7cbfc431a3715e9f888bcfe875019b",
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^screen^hilight^filter.obj": "3c7df2e246a811f6b162bc10ceac3f44925b1674df184bd32768d7eabb830d6d",
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^screen^hilight^filter^pre^render.obj": "76fba102892a296b497ee4ab6653b2ebdbb8ce5c7497507e21e8b50b9d5f9e16"
+  }
+}

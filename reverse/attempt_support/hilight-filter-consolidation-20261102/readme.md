@@ -75,3 +75,53 @@ the old name's only indexed touching source is PreRender itself. No outside
 consumer loses that provider. All three current candidate units retain LINKS
 (4134B total). No header_queue entry is retired. A fresh supported dry-run
 accepts seed plus PreRender,15rows; Slot6 remains rejected.
+
+## Slot6 boundary, attempted and restored
+
+An isolated trial aligned Rva007D85C0's receiver to its native slot6, kept
+its full consumed storage, and preserved all14seed/Slot6rows. The supported
+merge still rejects Slot6 on declaration ordering and DX8Wrapper composition
+(C2143 before a reference parameter and C2660). A forward texture declaration
+clears the first unknown-pointer error but does not clear that boundary.
+The trial is saved as slot6-unlanded.patch, then restored from dbdd412ab3;
+no guessed interface, guard workaround or nonmatching body stays in Code.
+Native slot identity and static-wrapper composition remain prerequisites;
+the actual PreRender merge proceeds independently.
+
+## Unlanded init/preRender composition
+
+The supported candidate composes seed plus PreRender exactly:15rows,48
+external COMDAT definitions with unchanged full bytes/relocations, destination
+4055B =3286+769. The1278-source current comparison reports1235clean before/after,
+zero lost link or new finding. These artifacts describe an UNLANDED candidate.
+
+The commit-msg hook then refuses the donor DX8Wrapper key disappearing into
+a TU that already holds that key. The candidate's two separate queue RVA
+cohorts were retained, but per-key debt accounting does not accept that
+transfer. No accounting trailer or verifier bypass was used. Source, row/map
+and queue changes were restored to dbdd412ab3 before continuing. The completed
+stack still removes five source files. Slot6's restored source stays untouched.
+
+## Owning DX8Wrapper adoption and retirement
+
+The original canonical adoption first fails C2371: the SDK typedef
+D3DTRANSFORMSTATETYPE conflicts with the distinct enum tag the canonical
+interface preserves for native Get_Transform. A TU-local SDK-include alias
+keeps the SDK's enum tag and both canonical tags unchanged; it only separates
+the SDK typedef spelling. Shared headers are unchanged.
+
+header_adopt_lane adopt --apply now replaces PreRender's private DX8Wrapper
+with the unchanged canonical header, and owning accept retires exactly its
+one queue row. This is a SEPARATE EARLIER header_queue retirement commit:
+it must land before any future merge deletes PreRender. All2rows(769B), both
+literals, strict preparation, frozen-file checks and LINKS are retained.
+All seven complete external code/data definitions retain their byte and
+relocation digests; header-adoption-definitions.json records that comparison.
+The seed's own DX8Wrapper debt is unchanged; no class-wide clearance is claimed.
+
+The former candidate compatibility audit covered six prospective removals.
+Only five are currently committed; active Doxygen repair is in3d7bb371e5.
+All other old-path mentions are provenance/model/callsite comments. No active
+runtime/tool/include/config/register/fold-proof consumer was changed by the
+restored candidate. The shared obstacle register is held by another worker;
+this handoff supplies its result without editing that claimed file.
