@@ -15,19 +15,7 @@ extern int BfmeLogicFramesPerSecond;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Parameter
-{
-public:
-	enum ParameterType { TEAM = 3 };
-	Int getParameterType() const { return m_type; }
-	const AsciiString &getString() const { return m_string; }
-private:
-	Int m_type;
-	Int m_initialized;
-	Int m_integer;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Condition;
 

@@ -8,14 +8,7 @@
 // receiver names BfmeOwnZC and Rva002046C0Owner remain inherited placeholders.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-    const AsciiString &getString() const { return m_string; }
-private:
-    unsigned char m_pad00[0x10];
-    AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 class ScriptAction
 {
 public:

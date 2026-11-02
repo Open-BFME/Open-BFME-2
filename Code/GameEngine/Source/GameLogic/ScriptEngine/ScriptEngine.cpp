@@ -26,14 +26,7 @@ struct ScriptFlagKeyNode
 	ScriptFlagKeyNode *m_prev;
 	unsigned long m_key;
 };
-class Parameter
-{
-public:
-	char m_unknown[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 class Condition
 {
 public:

@@ -60,18 +60,7 @@ template <class T> Debug &operator<<(Debug &debug, const StringBase<T> &string);
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);
 
-class Parameter
-{
-public:
-	int getInt(void) const { return m_integer; }
-	const AsciiString &getString(void) const { return m_string; }
-
-private:
-	char m_unknown[8];
-	int m_integer;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ScriptAction
 {

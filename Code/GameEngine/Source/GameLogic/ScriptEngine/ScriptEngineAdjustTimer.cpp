@@ -24,14 +24,7 @@ __forceinline long fast_float2long_round(float f)
 	return i;
 }
 
-class Parameter
-{
-public:
-	char m_unknown[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ScriptAction
 {

@@ -31,19 +31,7 @@ public:
 	Player *getPlayerFromMask(int mask);
 };
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-	int getCachedPlayerMask() const { return m_cachedPlayerMask; }
-	void setCachedPlayerMask(int mask) { m_cachedPlayerMask = mask; }
-
-private:
-	unsigned char m_pad00[0x10];
-	AsciiString m_string; // +0x10
-	unsigned char m_pad14[0x0C];
-	int m_cachedPlayerMask; // +0x20
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

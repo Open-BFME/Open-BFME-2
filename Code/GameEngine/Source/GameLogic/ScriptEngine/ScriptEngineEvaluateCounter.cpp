@@ -15,22 +15,7 @@
 // matched evaluateFlag/evaluateTimer witness the BFME named-counter lookup.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-	enum
-	{
-		LESS_THAN, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL
-	};
-	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
-	const AsciiString &getString() const { return m_string; }
-
-private:
-	char m_unknown[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Condition
 {

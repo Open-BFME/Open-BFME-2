@@ -27,17 +27,7 @@ class Player;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-
-private:
-	char m_pad[8];
-	int m_integer;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ScriptAction
 {

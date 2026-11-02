@@ -14,18 +14,7 @@ typedef int Int;
 
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-    __declspec(dllimport) __forceinline Int getInt(void) const { return m_integer; }
-    const AsciiString &getString(void) const { return m_string; }
-
-private:
-    char m_unknown[8];
-    Int m_integer;
-    float m_real;
-    AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ScriptAction
 {
