@@ -274,3 +274,4 @@ VertexMaterialClass,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h,ex
 ShaderClass,Code/Libraries/Source/WWVegas/WW3D2/ShaderClass.h,existing header; contract class_contracts/ShaderClass.json; 51/76 sampled units adopt
 ModelConditionFlags,Code/GameEngine/Include/GameClient/ModelConditionFlags.h,existing header; contract class_contracts/ModelConditionFlags.json; 21/75 sampled units adopt
 CreateAHeroData,Code/GameEngine/Include/GameLogic/CreateAHeroData.h,existing header; contract class_contracts/CreateAHeroData.json; 30/66 sampled units adopt
+UpgradeMux,Code/GameEngine/Include/GameLogic/Module/UpgradeMux.h,existing header; contract class_contracts/UpgradeMux.json; 49/76 sampled units adopt
