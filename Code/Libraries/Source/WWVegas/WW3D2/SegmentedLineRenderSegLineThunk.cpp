@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // SegmentedLineClass::Render_Seg_Line, retail 0x0015EED0, 78 bytes.
 // Dedicated TU. BFME2 adds one RenderObj vtable slot versus the BFME1 thunk
@@ -14,10 +14,7 @@ class RenderInfoClass
 
 #include "../WWMath/Vector4Data.h"
 
-class SphereClass
-{
-	float Values[4];
-};
+#include "../WWMath/SphereClass.h"
 
 class SegLineRendererClass
 {

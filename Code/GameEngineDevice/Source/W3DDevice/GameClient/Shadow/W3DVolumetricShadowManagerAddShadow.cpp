@@ -17,11 +17,7 @@
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-struct SphereClass
-{
-	Vector3 Center;
-	float Radius;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/SphereClass.h"
 
 class RenderObjClass
 {

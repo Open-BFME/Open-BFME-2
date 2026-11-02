@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 // ?allocateShadowVolume@W3DVolumetricShadow@@IAE_NHHH@Z @0x000F185F 158B.
 // ?Create@Geometry@@QAEHHH@Z @0x000EFB99 172B.
@@ -46,14 +46,7 @@ public:
 	Vector3 Extent;
 };
 
-class SphereClass
-{
-public:
-	SphereClass(void) {}
-	SphereClass &operator=(const SphereClass &sphere);
-	Vector3 Center;
-	float Radius;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/SphereClass.h"
 
 class CollisionMath
 {

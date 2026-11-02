@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?rva0007BEA7@Rva007C454@@UAE_NABVSphereClass@@@Z @0x0007BEA7 (51B):
 // Slot-129 overlap scan: walks PlaneClass array [+0x3FC,+0x400) stride 16
@@ -12,12 +12,7 @@ public:
 	float m_n[3];
 	float m_d;
 };
-class SphereClass
-{
-public:
-	float m_center[3];
-	float m_radius;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/SphereClass.h"
 class CollisionMath
 {
 public:
