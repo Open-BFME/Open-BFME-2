@@ -1090,7 +1090,10 @@ class Rva0005F279Host { public: void rva0005F279(void); };
 // base before it is SubsystemInterface's 12 bytes: vptr, +0x04 flag and the
 // +0x08 name (layout of the rowed SubsystemInterface constructor 0x001B4E63).
 typedef bool Bool;
-#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+#ifndef BFME_SUBSYSTEM_SLOTS
+#define BFME_SUBSYSTEM_SLOTS
+#endif
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // Native base constructor 0x0005107D: SubsystemInterface 0x001B4E63, then
 // the Snapshot and the abstract base's own vftables (BC5148/BC5138) -- Zero
