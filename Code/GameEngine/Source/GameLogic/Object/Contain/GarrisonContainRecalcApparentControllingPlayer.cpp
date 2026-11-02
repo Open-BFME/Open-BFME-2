@@ -77,11 +77,7 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class TeamFactory
-{
-public:
-    Team *findTeamByID(unsigned int id);
-};
+#include "../../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 #include "../../../../Include/Common/GlobalData.h"

@@ -58,14 +58,7 @@ class Team;
 
 struct BfmePairEL __cdecl Rva00194810(const BfmeWordEL &name);
 
-class TeamFactory
-{
-public:
-	TeamPrototype *findTeamPrototype(const AsciiString &word);
-	Team *findTeam(const AsciiString &word);
-	TeamPrototype *findTeamPrototype(const AsciiString &a, const AsciiString &b);
-	Team *findTeam(const AsciiString &a, const AsciiString &b);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 TeamPrototype *TeamFactory::findTeamPrototype(const AsciiString &word)
 {

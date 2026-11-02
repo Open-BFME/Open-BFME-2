@@ -202,11 +202,7 @@ struct TeamPrototype
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);	// 0x0039F761
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class Player

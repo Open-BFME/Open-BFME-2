@@ -132,11 +132,7 @@ private:
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
 #include "../../../Include/Common/TeamBFME2.h"
-class TeamFactory
-{
-public:
-	Team *findTeamByID(TeamID id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 struct DamageInfoInput
 {

@@ -121,11 +121,7 @@ public:
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID deferInit);
 };
 
-class TeamFactory
-{
-public:
-	Team *findTeam(const AsciiString &name);
-};
+#include "../../../../Include/Common/TeamFactory.h"
 
 struct AsciiStringVector
 {

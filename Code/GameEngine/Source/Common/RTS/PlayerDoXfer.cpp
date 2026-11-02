@@ -76,7 +76,7 @@ class Upgrade;
 extern UpgradeCenter *TheUpgradeCenter;
 class TeamPrototype;
 #include "../../../Include/Common/TeamBFME2.h"
-class TeamFactory { public: Team *findTeamByID(unsigned); TeamPrototype *findTeamPrototypeByID(unsigned); };
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 class Rva002AAC74PoolList { public: void clear(); };
 class Rva00291440;

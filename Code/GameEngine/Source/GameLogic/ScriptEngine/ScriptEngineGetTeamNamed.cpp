@@ -52,12 +52,7 @@ public:
     AsciiString resolveName(const AsciiString &name);
 };
 
-class TeamFactory
-{
-public:
-    Team *findTeamByID(unsigned int id);
-    TeamPrototype *findTeamPrototype(const AsciiString &normalized, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 class TeamPrototype
 {

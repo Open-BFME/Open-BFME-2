@@ -224,11 +224,7 @@ static __forceinline void clearCondition(Object *obj, int bit)
 }
 
 class Team;
-class TeamFactory
-{
-public:
-    Team *findTeamByID(unsigned int id);
-};
+#include "../../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 extern GameLogic *TheGameLogic;

@@ -153,11 +153,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class Object;

@@ -111,12 +111,7 @@ struct Rva003A2FD4Proto
 	bool m_31c;		// +0x31c
 };
 
-class TeamFactory
-{
-public:
-	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerData, int a, unsigned int b);
-	Team *createTeamOnPrototype(class TeamPrototype *proto, bool b);
-};
+#include "../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class Rva004EBF4B

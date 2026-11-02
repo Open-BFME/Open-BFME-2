@@ -87,14 +87,7 @@ private:
 extern SidesList *TheSidesList;
 
 class Team;
-class TeamFactory
-{
-public:
-	void clear();
-	void initFromSides(SidesList *sides);
-	Team *findTeam(const AsciiString &name);
-	Team *findTeam(const AsciiString &owner, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class BfmeWordEL

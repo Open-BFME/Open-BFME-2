@@ -46,11 +46,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(TeamID id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

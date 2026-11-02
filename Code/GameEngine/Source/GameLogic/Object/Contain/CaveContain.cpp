@@ -241,11 +241,7 @@ public:
 #define _STLP_NO_EXCEPTIONS 1
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-};
+#include "../../../../Include/Common/TeamFactory.h"
 
 class TeamFactory;
 

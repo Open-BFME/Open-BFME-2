@@ -217,12 +217,7 @@ private:
 	AIData *m_aiData;			// +0x18
 };
 extern AI *TheAI;
-class TeamFactory
-{
-public:
-	Team *findTeam(const AsciiString &owner, const AsciiString &name);
-	Team *createInactiveTeam(const AsciiString &owner, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 // BFME 2's unit entry is 0x18 bytes (AIPlayerTeamBuild.cpp's view).
 struct TCreateUnitsInfo

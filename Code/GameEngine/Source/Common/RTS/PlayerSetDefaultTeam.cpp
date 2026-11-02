@@ -15,11 +15,7 @@
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeam(const AsciiString &owner, const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

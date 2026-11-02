@@ -53,11 +53,7 @@ enum PathfindLayerEnum
 class Object;
 class Team;
 class PolygonTrigger;
-class TeamFactory
-{
-public:
-	Team *findTeamByID(TeamID id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 extern GameLogic *TheGameLogic;
 #include "../../../Include/GameLogic/TerrainLogic.h"

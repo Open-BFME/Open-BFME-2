@@ -649,11 +649,7 @@ private:
 
 class TeamFactory;
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-};
+#include "../../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

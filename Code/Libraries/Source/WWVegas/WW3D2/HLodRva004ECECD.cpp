@@ -15,13 +15,7 @@ extern TeamFactory *TheTeamFactory;
 struct Rva003A2FD4Proto;
 class AsciiString;
 class TeamPrototype;
-class TeamFactory
-{
-public:
-	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerName, int targetID, unsigned int tacticID);
-	TeamPrototype *findTeamPrototypeByID(unsigned int id);
-	Team *findTeamByID(unsigned int id); // 0x0039F761
-};
+#include "../../../../GameEngine/Include/Common/TeamFactory.h"
 
 struct Rva004ECECDNode
 {

@@ -41,9 +41,7 @@ void Rva00351570::rva00351570(const Rva00351570Src &src)
 }
 
 class Team;
-class TeamFactory {
-public: Team *findTeam(const AsciiString &, const AsciiString &);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern GameLogic *TheGameLogic;
 extern TeamFactory *TheTeamFactory;
 

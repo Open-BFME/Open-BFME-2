@@ -57,14 +57,7 @@ typedef std::pair<int, int> BfmeTeamPrototypeKey;
 // insert_unique is called out of line: bind it to StlSweepR3Rva0039F692.cpp's rowed
 // retail specialization instead of emitting a competing (duplicate) copy here.
 namespace _STL { template <> pair<_Rb_tree_iterator<pair<const pair<int, int>, TeamPrototype *>, _Nonconst_traits<pair<const pair<int, int>, TeamPrototype *> > >, bool> _Rb_tree<pair<int, int>, pair<const pair<int, int>, TeamPrototype *>, _Select1st<pair<const pair<int, int>, TeamPrototype *> >, less<pair<int, int> >, allocator<pair<const pair<int, int>, TeamPrototype *> > >::insert_unique(const pair<const pair<int, int>, TeamPrototype *> &); }
-class TeamFactory
-{
-public:
-	void addTeamPrototypeToList(TeamPrototype *team);
-private:
-	char m_pad[0xb0];
-	Rva0039EA4E m_tree;
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 enum Relationship
 {

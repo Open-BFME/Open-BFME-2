@@ -22,11 +22,7 @@ public:
 	void removeCommandPoints(Rva002A7588In *in);
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class TeamFactory
-{
-public:
-	Team *findTeam(const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class ThingTemplate

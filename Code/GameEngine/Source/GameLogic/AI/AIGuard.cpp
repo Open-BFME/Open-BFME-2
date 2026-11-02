@@ -183,11 +183,7 @@ public:
 	TeamTemplateInfo *m_prototype;
 };
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(TeamID id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

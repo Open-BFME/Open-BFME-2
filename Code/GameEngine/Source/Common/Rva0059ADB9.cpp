@@ -291,11 +291,7 @@ public:
     bool flag111;
 };
 class TeamPrototype;
-class TeamFactory
-{
-public:
-    Team *createTeamOnPrototype(TeamPrototype *, bool);
-};
+#include "../../Include/Common/TeamFactory.h"
 class Rva0039D5A9
 {
 public:

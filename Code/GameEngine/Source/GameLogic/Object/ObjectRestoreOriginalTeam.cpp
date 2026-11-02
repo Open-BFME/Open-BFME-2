@@ -21,11 +21,7 @@ public:
 
 #include "../../../Include/Common/Player.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeam(const AsciiString &name);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 enum DamageType

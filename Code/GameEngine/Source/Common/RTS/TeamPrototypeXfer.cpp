@@ -107,12 +107,7 @@ private:
 };
 
 class TeamFactory;
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-	Team *createTeamOnPrototype(TeamPrototype *proto, bool activate);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class TeamPrototype : public Snapshot

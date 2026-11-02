@@ -446,7 +446,7 @@ struct Rva00573A00
 
 struct Rva003A2FD4Proto{char pad[0x2CC];int m_2CC;char pad2D0[0x31C-0x2D0];bool m_31C;};
 class TeamPrototype;
-class TeamFactory{public:Rva003A2FD4Proto*initTeamForTacticalAI(const AsciiString&,void*,int,unsigned);Team*createTeamOnPrototype(TeamPrototype*,bool);};
+#include "../../../../../../Include/Common/TeamFactory.h"
 extern TeamFactory*TheTeamFactory;extern const char*g_009BC1B8[];
 class AITactic
 {

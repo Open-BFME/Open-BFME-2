@@ -176,13 +176,7 @@ public: unsigned int bucket_count() const;
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > AITacticAssistIndex;
 
-class TeamFactory
-{
-public:
-	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerName, int targetID, unsigned int tacticID);
-	TeamPrototype *findTeamPrototypeByID(unsigned int id);
-	Team *findTeamByID(unsigned int id); // 0x0039F761
-};
+#include "../../../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

@@ -168,11 +168,7 @@ public:
 };
 extern AiOrdersManager *TheAiOrdersManager;
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-};
+#include "../../../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class Rva001E3591

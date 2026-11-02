@@ -480,11 +480,7 @@ enum
 	MAA_Affect_Range_IgnoreAll = 0x00000010
 };
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 class TeamFactory;
 

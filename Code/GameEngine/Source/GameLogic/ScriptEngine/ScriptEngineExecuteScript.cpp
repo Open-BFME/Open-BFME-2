@@ -120,11 +120,7 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
 }
 
-class TeamFactory
-{
-public:
-	TeamPrototype *findTeamPrototype(const AsciiString &name, const AsciiString &qualifiedName);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 void ScriptEngine::executeScript(Script *pScript, const AsciiString &name)

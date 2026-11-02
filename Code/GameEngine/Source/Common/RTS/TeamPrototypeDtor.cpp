@@ -74,11 +74,7 @@ private:
 	char m_pad41[0x3];
 };
 
-class TeamFactory
-{
-public:
-	void teamAboutToBeDeleted(Team *team);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 extern TeamFactory *TheTeamFactory;
 

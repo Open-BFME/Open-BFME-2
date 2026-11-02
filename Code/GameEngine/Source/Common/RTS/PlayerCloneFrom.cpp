@@ -96,11 +96,7 @@ private:
 };
 extern SidesList *TheSidesList;
 
-class TeamFactory
-{
-public:
-	void initTeam(const AsciiString &name, const AsciiString &owner, Bool isSingleton, Dict *d);
-};
+#include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class Player;

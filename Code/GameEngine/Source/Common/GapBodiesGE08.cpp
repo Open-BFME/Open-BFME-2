@@ -103,11 +103,7 @@ Rva003674CA::Rva003674CA(int value, bool flag) : m_04(0), m_08(value), m_0C(flag
 }
 
 class Team;
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);					// 0x0039F761
-};
+#include "../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
 class Rva003674E7

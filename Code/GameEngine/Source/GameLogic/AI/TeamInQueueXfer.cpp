@@ -77,11 +77,7 @@ void XferObjectID( Xfer *xfer, ObjectID *value );
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamFactory
-{
-public:
-	Team *findTeamByID(unsigned int id);
-};
+#include "../../../Include/Common/TeamFactory.h"
 
 class TeamFactory;
 extern TeamFactory *TheTeamFactory;
