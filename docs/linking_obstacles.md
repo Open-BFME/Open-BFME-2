@@ -18494,3 +18494,5 @@ SupplyTruck primary slot24 now implements native command-value0 handling through
 SupplyTruck primary slot51's ordinary base dock call plus conditional canonical Object::getID store matches complete43B native4A6ADB and all33ctor rows. The canonical inline ID accessor preserves the target field read; no private Object view is added. Three primary bodies plus canonical base providers remain; the original representative stays.
 
 SupplyTruck primary slot52's actual base harvest call and conditional Coord3D/flag assignment now match complete52B native4A6B06 and all34ctor rows. No asm or private position class is used. The two interface accessor bodies and canonical base providers remain; original representative and census status are kept.
+
+SupplyTruck primary slot94 now returns the real SupplyTruckAIInterface through ordinary base conversion, matching complete15B native4A9B51 including null behavior. All35ctor rows pass and the old address-named representative remains. Only primary slot95 and canonical base providers remain; no pin or original callback-name claim is added.

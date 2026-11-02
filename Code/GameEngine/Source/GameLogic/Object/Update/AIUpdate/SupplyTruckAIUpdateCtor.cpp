@@ -74,6 +74,7 @@ public:
     virtual int rva000D43D0() const { return 0; }             //18
     virtual unsigned int getActionDelayForDock(Object *dock); //19
     virtual NameKeyType getModuleNameKey() const;
+    virtual void *vslot094() const;
 protected:
     virtual void loadPostProcess();
     virtual const char *GetSnapshotName() const;
@@ -294,4 +295,9 @@ void SupplyTruckAIUpdate::privateHarvest(const Coord3D *position, CommandSourceT
         m_3F0 = *position;
         m_3FC = true;
     }
+}
+
+void *SupplyTruckAIUpdate::vslot094() const
+{
+    return static_cast<SupplyTruckAIInterface *>(const_cast<SupplyTruckAIUpdate *>(this));
 }
