@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc -ICode/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc -ICode/Libraries/Include C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // Native 0x000FDB21..0x000FDCD7, 438 bytes, RET4.
@@ -44,14 +44,7 @@ void BoxSetTexture(unsigned int,TextureBaseClass*&);
 extern VertexMaterialClass *ScreenMaterial;
 extern unsigned number_of_DX8_calls;
 
-class ShaderClass {
-public:
- static ShaderClass _PresetOpaqueShader;
- unsigned int ShaderBits;
-protected:
- friend class DX8Wrapper;
- static bool ShaderDirty;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 struct RenderStateStruct { ShaderClass shader; };
 // The device keeps its D3D8 type name but is a Direct3D 9 device (SetRenderState, slot 57).
 struct IDirect3DDevice8;

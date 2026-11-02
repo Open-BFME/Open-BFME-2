@@ -56,17 +56,7 @@ extern View *TheTacticalView;
 
 extern VertexMaterialClass *ScreenMaterial;
 
-class ShaderClass
-{
-public:
-	static ShaderClass _PresetOpaqueShader;
-	unsigned int ShaderBits;
-protected:
-	friend class DX8Wrapper;
-	static bool ShaderDirty;
-private:
-	unsigned int m_bits[2];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class TextureBaseClass
 {

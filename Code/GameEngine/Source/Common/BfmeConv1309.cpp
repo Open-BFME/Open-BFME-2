@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // Open-BFME5 conversions.
@@ -42,11 +43,7 @@ class DX8Wrapper
 protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
-class ShaderClass
-{
-protected:
-	static bool ShaderDirty;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern unsigned number_of_DX8_calls;
 
 struct BfmeDeviceTDB : DX8Wrapper

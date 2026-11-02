@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /O1 /G7 /arch:SSE /MD /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // Small bodies from .text gaps no Ghidra function covers (twenty-ninth
 // batch; see GapBodiesGE01.cpp). Each begins after its neighbour's padding or
@@ -136,12 +136,7 @@ protected:
 	static bool FogEnable;
 };
 
-class ShaderClass
-{
-	friend class Rva0006614F;
-protected:
-	static bool ShaderDirty;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class WW3D
 {

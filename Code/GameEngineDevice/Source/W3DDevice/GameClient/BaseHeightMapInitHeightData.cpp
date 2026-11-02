@@ -150,19 +150,7 @@ private:
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 // HeightMap.cpp's detail-blend shader (one ShaderBits dword).
 class DX8Wrapper;
-class ShaderClass
-{
-protected:
-	friend class DX8Wrapper;
-public:
-	static ShaderClass _PresetAlphaShader;
-	static ShaderClass _PresetMultiplicativeShader;
-protected:
-	static bool ShaderDirty;
-public:
-	void Enable_Fog(const char *source);
-	unsigned bits; // +0x00
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern ShaderClass detailOpaqueShader;
 class BaseHeightMapRenderObjClass {
 public:
@@ -382,7 +370,7 @@ int BaseHeightMapRenderObjClass::initHeightData(int x,int y,WorldHeightMap*pMap,
    rva0006B3F3();
    ((Rva000686F2*)this)->rva000686F2();
    material=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
-   shader=detailOpaqueShader.bits;
+   shader=detailOpaqueShader.ShaderBits;
   }
  }
  return 0;

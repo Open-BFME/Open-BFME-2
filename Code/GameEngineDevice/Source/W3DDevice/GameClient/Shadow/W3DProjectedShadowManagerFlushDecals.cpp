@@ -73,20 +73,7 @@ public:
 		(pri_grad) << 10 | (sec_grad) << 13 | (src_blend) << 14 | (texture) << 16 | \
 		(alpha_test) << 18 | (cullmode) << 19 | (post_det_color) << 20 | (post_det_alpha) << 24)
 
-class ShaderClass
-{
-public:
-	ShaderClass(void) {}
-	ShaderClass(unsigned int bits) : ShaderBits(bits) {}
-	void Enable_Fog(const char *source);
-	static ShaderClass _PresetAdditiveShader;
-	static ShaderClass _PresetAlphaShader;
-	static ShaderClass _PresetMultiplicativeShader;
-	unsigned int ShaderBits;
-protected:
-	friend class DX8Wrapper;
-	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 // BFME 2's stencil-pass shaders: this unit's initialised .data at VA 0x00DB5ED8, 0x00DB5EDC and
 // 0x00DB5EE0 (retail words 0x00150023, 0x00155813, 0x005598B3; the 0x00DB5E98 ledger entry spans

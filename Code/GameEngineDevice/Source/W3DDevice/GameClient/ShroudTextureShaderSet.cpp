@@ -105,16 +105,7 @@ private:
 };
 
 
-class ShaderClass
-{
-	friend class ShroudTextureShader;
-	friend class DX8Wrapper;
-public:
-	static ShaderClass _PresetMultiplicativeSpriteShader;
-	unsigned ShaderBits;
-protected:
-	static bool ShaderDirty;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class TextureBaseClass
 {

@@ -4,7 +4,7 @@
 // rva0009C0EB, the mesh texture assignment, two sun-ray matrix builds with
 // sin/cos, the livingworld.txt atof pass into the DE5E00 globals and the
 // SegmentedLineClass setup. Unrowed 0x9C18A/0x9B28C keep Rva-named methods.
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /arch:SSE /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /arch:SSE /G7 /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // The two-entry livingworld arrays below own their retail zero-filled storage.
 
 // Retail corrections: guarded resources, complete light colors/transforms and unchecked file reads.
@@ -63,12 +63,7 @@ class Rva0009C0EB {
 public:
     void rva0009C0EB(Rva0009C0EBRef **out,const AsciiString *name);
 };
-class ShaderClass {
-public:
-    unsigned m_value;
-    __declspec(dllimport) __forceinline ShaderClass(const ShaderClass &shader) : m_value(shader.m_value) {}
-    static ShaderClass _PresetAdditiveShader;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 class SegLineRendererClass {
 public:
     enum TextureMapMode { MAP_NONE=0,MAP_LINEAR=1,MAP_PERSPECTIVE=2 };

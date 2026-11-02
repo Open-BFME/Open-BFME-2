@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // Bodies ported from Open-BFME-1's GameEngineDevice/Source/W3DDevice/GameClien
 // t/Water/W3DWaterTracksTestUpdate.cpp (donor revision
@@ -217,7 +217,7 @@ static __forceinline void unbindEditorTrack(WaterTracksRenderSystem *system,Wate
 }
 
 class DX8Wrapper { public: static void Invalidate_Cached_Render_States(); };
-class ShaderClass { public: static void Invalidate() { ShaderDirty = true; } protected: static bool ShaderDirty; };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern void *ApplicationHWnd;
 static Bool pauseWaves;
 WaterTracksObj *WaterTracksRenderSystem::bindTrack(waveType type)

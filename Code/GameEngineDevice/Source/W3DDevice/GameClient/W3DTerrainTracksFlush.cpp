@@ -51,15 +51,7 @@ extern GlobalData *TheWritableGlobalData;
 
 extern bool bfmeCameraProjectionOverride;
 
-class ShaderClass
-{
-	friend class DX8Wrapper;
-public:
-	static void Invalidate() { ShaderDirty = true; }
-	UnsignedInt ShaderBits;
-protected:
-	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class VertexBufferClass
 {

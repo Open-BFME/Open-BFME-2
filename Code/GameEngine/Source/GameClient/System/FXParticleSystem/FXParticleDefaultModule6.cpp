@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // FXParticleSystem::DefaultModule<6>::doParticles, native55C478..55C86D,
 // full1013B RET12. WB1418FF0 independently names the method and source file
 // fxpsdefaultdrawmodule.cpp; slot4 and the shared particle loop agree with
@@ -41,23 +41,7 @@ extern ShareBufferClass<Vector4> *g_00E065CC;
 extern ShareBufferClass<float> *g_00E065D0;
 extern ShareBufferClass<unsigned char> *g_00E065D4;
 
-class ShaderClass
-{
-public:
-	__declspec(dllimport) __forceinline ShaderClass(const ShaderClass &s) { ShaderBits = s.ShaderBits; }
-	// Keep the inline assignments without a competing standalone copy.
-	__declspec(dllimport) __forceinline ShaderClass &operator=(const ShaderClass &s) { ShaderBits = s.ShaderBits; return *this; }
-	void Enable_Fog(const char *source);
-
-	static ShaderClass _PresetAdditive2DShader;
-	static ShaderClass _PresetAlpha2DShader;
-	static ShaderClass _PresetAdditiveSpriteShader;
-	static ShaderClass _PresetAlphaSpriteShader;
-	static ShaderClass _PresetATestSpriteShader;
-	static ShaderClass _PresetMultiplicativeSpriteShader;
-private:
-	unsigned int ShaderBits;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern unsigned int BfmeParticleType2ShaderBits;
 
 class TextureClass

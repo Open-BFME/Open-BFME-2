@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /I.
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /I. C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 // stlport
 // BFME1 donor f98983a7d: W3DLaserDrawBfmeConstructor.cpp supplies laser setup,
@@ -119,14 +119,7 @@ public:
 	virtual float getLaserTemplateWidth() const = 0;
 };
 
-class ShaderClass
-{
-public:
-	static ShaderClass _PresetAdditiveShader;
-	Int m_bits;
-
-	__declspec(dllimport) __forceinline ShaderClass(const ShaderClass &other) { m_bits = other.m_bits; }
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 
 // Retail thunk 0x0094F960 adjusts ECX by 0xE0 then jumps to Set_Texture.

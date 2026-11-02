@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?drawAndRelease@W3DVolumetricShadowManagerV2@@QAEXH@Z @0x00107865 252B via BFME1 BfmeVolumetricShadowBufferDraw donor
 // Evidence: frees vertex/index WriteLocks at +0xc/+0x10 via rowed dtors plus operator delete; 30000 compares at +0x14/+0x18 with div; rowed Record_DX8_Polys plus CurrentCaps+0x90 check plus rowed Set_DX8_Render_State plus D3DDevice Draw slot 82; BFME1 donor BfmeVolumetricShadowBufferDraw.cpp names drawAndRelease.
 class VertexBufferClass
@@ -31,12 +31,7 @@ public:
 		(pri_grad) << 10 | (sec_grad) << 13 | (src_blend) << 14 | (texture) << 16 | \
 		(alpha_test) << 18 | (cullmode) << 19 | (post_det_color) << 20 | (post_det_alpha) << 24)
 
-class ShaderClass
-{
-public:
-	ShaderClass(unsigned int bits) : ShaderBits(bits) {}
-	unsigned int ShaderBits;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 // The shader drawAndRelease reports to Debug_Statistics: this unit's initialised .data word at
 // VA 0x00DB5E98 (retail 0x00101823 = LEQUAL, no depth/colour writes, dst ONE, primary gradient 6,

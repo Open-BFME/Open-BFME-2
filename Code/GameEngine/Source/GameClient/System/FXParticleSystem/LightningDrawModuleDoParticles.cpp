@@ -18,7 +18,7 @@
 // WB 1429DF0: the endpoint branch stores offset before out (WB 142a59d); the noise X
 // sum accumulates v2*A.x, v0*B.x, v1*C.x in retail order (one expression reassociates).
 // Primary clean donor: BFME1 LightningDrawModuleCtor005F4E90.cpp at 575ba2b04.
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ob2
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ob2 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 #include "Coord3D.h"
 #include "ascii_string.h"
 typedef int Int;
@@ -46,22 +46,7 @@ extern ShareBufferClass<Vector4> *g_00E065CC;
 extern ShareBufferClass<float> *g_00E065D0;
 extern ShareBufferClass<unsigned char> *g_00E065D4;
 
-class ShaderClass
-{
-public:
-	__declspec(dllimport) __forceinline ShaderClass(const ShaderClass &s) { ShaderBits = s.ShaderBits; }
-	ShaderClass &operator=(const ShaderClass &s) { ShaderBits = s.ShaderBits; return *this; }
-	void Enable_Fog(const char *source);
-
-	static ShaderClass _PresetAdditive2DShader;
-	static ShaderClass _PresetAlpha2DShader;
-	static ShaderClass _PresetAdditiveSpriteShader;
-	static ShaderClass _PresetAlphaSpriteShader;
-	static ShaderClass _PresetATestSpriteShader;
-	static ShaderClass _PresetMultiplicativeSpriteShader;
-private:
-	unsigned int ShaderBits;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern unsigned int BfmeParticleType2ShaderBits;
 
 class TextureClass

@@ -15,14 +15,7 @@ class Rva007D85C0;
 // ShaderClass / DX8Wrapper statics under the names shader.cpp, ShaderClassApply.cpp and
 // dx8wrapper.cpp define (data ledger 0x009B6228, 0x009B621C, 0x009EE5D8, 0x009EC4F4):
 // the inlined DX8Wrapper::Set_Material / Set_Shader sequence.
-class ShaderClass {
-public:
- unsigned ShaderBits;
- static ShaderClass _PresetOpaqueShader;
-protected:
- friend class Rva007D85C0;
- static bool ShaderDirty;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 struct RenderStateStruct { ShaderClass shader; };
 // DX8Wrapper / WW3D statics under the names dx8wrapper.cpp and ww3d.cpp define (data
 // ledger 0x009ED5F8 / 0x009EDA34 / 0x009EDA64 / 0x009EC3FD), so the out-of-line

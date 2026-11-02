@@ -41,25 +41,7 @@ void __cdecl operator delete[](void *) throw();
 // this TU used BFME2 shifts (Cull 20, detail 21/25, default 0x10441b). Declare
 // them here so calls reach the kept copies; identical methods stay inline so
 // the vector Resize rows keep their bytes.
-class ShaderClass {
-public:
-    enum AlphaTestType { ALPHATEST_DISABLE = 0, ALPHATEST_ENABLE, ALPHATEST_MAX };
-    enum DetailAlphaFuncType { DETAILALPHA_DISABLE = 0, DETAILALPHA_DETAIL, DETAILALPHA_SCALE, DETAILALPHA_INVSCALE, DETAILALPHA_MAX };
-    enum DetailColorFuncType { DETAILCOLOR_DISABLE = 0, DETAILCOLOR_DETAIL, DETAILCOLOR_SCALE, DETAILCOLOR_INVSCALE, DETAILCOLOR_ADD, DETAILCOLOR_SUB, DETAILCOLOR_SUBR, DETAILCOLOR_BLEND, DETAILCOLOR_DETAILBLEND, DETAILCOLOR_ADDSIGNED, DETAILCOLOR_ADDSIGNED2X, DETAILCOLOR_SCALE2X, DETAILCOLOR_MODALPHAADDCOLOR, DETAILCOLOR_MAX };
-    enum CullModeType { CULL_MODE_DISABLE = 0, CULL_MODE_ENABLE, CULL_MODE_MAX };
-    ShaderClass();
-    ShaderClass(const ShaderClass &shader) { ShaderBits = shader.ShaderBits; }
-    ShaderClass(const unsigned int d) { ShaderBits = d; }
-    bool operator==(const ShaderClass &s) { return ShaderBits == s.ShaderBits; }
-    bool operator!=(const ShaderClass &s) { return ShaderBits != s.ShaderBits; }
-    void Reset();
-    void Set_Alpha_Test(AlphaTestType x);
-    void Set_Cull_Mode(CullModeType x);
-    void Set_Post_Detail_Alpha_Func(DetailAlphaFuncType x);
-    void Set_Post_Detail_Color_Func(DetailColorFuncType x);
-private:
-    unsigned int ShaderBits;
-};
+#include "ShaderClass.h"
 #include "vector.h"
 // Reset accesses the target's RefCountClass prefix only.
 #include "VertexMaterialClass.h"

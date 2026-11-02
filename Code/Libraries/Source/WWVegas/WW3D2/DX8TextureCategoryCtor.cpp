@@ -93,7 +93,7 @@ template<> inline RefCountPtr<TextureClass>::RefCountPtr() : Referent(0) {}
 
 class DX8PolygonRendererClass;
 class DX8FVFCategoryContainer;
-class ShaderClass { public: unsigned ShaderBits; };
+#include "ShaderClass.h"
 
 // Member +1C installs table BD34E0 and unwinds to 144690; use that
 // existing opaque provider without asserting the list's original type name.

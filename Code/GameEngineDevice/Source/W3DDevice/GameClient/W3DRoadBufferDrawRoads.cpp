@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /O1 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?drawRoads@W3DRoadBuffer@@QAEXAAVRenderInfoClass@@V?$RefCountPtr@VRenderingMethod@FXShader@@@@HHHHPAV?$RefMultiListIterator@VRenderObjClass@@@@@Z
 // retail 0x000D79CB (955B)
@@ -117,15 +117,7 @@ private:
 	char *m_Buffer;
 };
 
-class ShaderClass
-{
-	friend class DX8Wrapper;
-public:
-	static ShaderClass _PresetOpaque2DShader;
-	unsigned int ShaderBits;
-protected:
-	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 class TextureBaseClass
 {

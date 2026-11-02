@@ -1,5 +1,5 @@
 // ?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // BFME1 575ba2b04 W3DSnowManagerRenderSubBox.cpp semantic/reference guide.
@@ -35,7 +35,7 @@ extern float _FastSinTable[SIN_TABLE_SIZE];
 class WWMath {public:static __forceinline int Float_To_Int_Floor(const float&);static __forceinline float Fast_Sin(float);};
 struct Vector3 {float X,Y,Z;void Set(float x,float y,float z){X=x;Y=y;Z=z;} Vector3&operator=(const Vector3&r){X=r.X;Y=r.Y;Z=r.Z;return *this;}};
 class RenderInfoClass;class TextureBaseClass;
-class ShaderClass {public:static ShaderClass _PresetAlphaShader; unsigned int shaderBits;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 namespace Debug_Statistics {void Record_DX8_Polys_And_Vertices(int,int,const ShaderClass&);}
 struct IDirect3DDevice8;
 class DX8Wrapper {friend class W3DSnowManager;protected:static IDirect3DDevice8*D3DDevice;};

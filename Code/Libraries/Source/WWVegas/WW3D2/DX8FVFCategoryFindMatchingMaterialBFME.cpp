@@ -73,12 +73,7 @@ inline bool operator==(const BFME2TextureRef &left, const BFME2TextureRef &right
 
 #include "VertexMaterialClass.h"
 
-class ShaderClass
-{
-public:
-	unsigned int ShaderBits;
-	bool operator==(const ShaderClass &other) const { return ShaderBits == other.ShaderBits; }
-};
+#include "ShaderClass.h"
 
 class DX8PolygonRendererClass;
 class DX8FVFCategoryContainer;

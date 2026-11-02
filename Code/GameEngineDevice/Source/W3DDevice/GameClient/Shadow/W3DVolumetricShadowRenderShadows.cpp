@@ -98,15 +98,7 @@ private:
 extern W3DShadowManager *TheW3DShadowManager;
 
 
-class ShaderClass
-{
-	friend class DX8Wrapper;
-public:
-	static ShaderClass _PresetOpaqueShader;
-	unsigned ShaderBits;
-protected:
-	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
 struct BFME2TextureResource { void Release_Ref(void); };
 struct BFME2TextureRef

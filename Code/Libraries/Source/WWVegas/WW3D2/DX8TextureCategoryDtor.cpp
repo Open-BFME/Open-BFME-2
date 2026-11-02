@@ -63,11 +63,7 @@ public:
 	T *Referent;
 };
 
-class ShaderClass
-{
-public:
-	unsigned int ShaderBits;
-};
+#include "ShaderClass.h"
 
 class DX8PolygonRendererClass;
 class MeshModelClass;
