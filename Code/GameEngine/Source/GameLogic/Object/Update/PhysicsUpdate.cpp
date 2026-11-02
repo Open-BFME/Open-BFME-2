@@ -1,40 +1,8 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp); this unit had no counterpart under Code/.
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// PhysicsBehavior.cpp 
-// Simple rigid body physics
-// Author: Michael S. Booth, November 2001
-
+// TU Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-
-// please talk to MDC (x36804) before taking this out
 #define NO_DEBUG_CRC
-
 #include "Common/PerfTimer.h"
 #include "Common/ThingTemplate.h"
 #include "Common/Xfer.h"
@@ -49,40 +17,160 @@
 #include "GameLogic/TerrainLogic.h"
 #include "GameLogic/Weapon.h"
 #include "GameLogic/LogicRandomValue.h"
-
 const Real DEFAULT_MASS = 1.0f;
-
 const Real DEFAULT_SHOCK_YAW = 0.05f;
 const Real DEFAULT_SHOCK_PITCH = 0.025f;
 const Real DEFAULT_SHOCK_ROLL = 0.025f;
-
 const Real DEFAULT_FORWARD_FRICTION = 0.15f;
 const Real DEFAULT_LATERAL_FRICTION = 0.15f;
 const Real DEFAULT_Z_FRICTION = 0.8f;
 const Real DEFAULT_AERO_FRICTION = 0.0f;
-
 // Air friction used to be completely separate and unclamped, so this constant must be split.
 // The fact it defaults to 0 shows it.
 const Real MIN_AERO_FRICTION = 0.00f;
 const Real MIN_NON_AERO_FRICTION = 0.01f;
 const Real MAX_FRICTION = 0.99f;
-
 const Real STUN_RELIEF_EPSILON = 0.5f;
-
 #include "Common/CRCDebug.h"
+#define SLEEPY_PHYSICS
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+#endif
+#include <vector>
+#include <string.h>
+#pragma function(memset)
+
 // Suppress this TU's non-retail copy of ?test@?$bitset@$0N@@_STL@@QBE_NI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> bool bitset<13>::test(unsigned int) const; }
 
 const Int MOTIVE_FRAMES = LOGICFRAMES_PER_SECOND / 3;
 
-#define SLEEPY_PHYSICS
+ 
 
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+const Real INVALID_VEL_MAG = -1.0f;
+
+// Address-derived codegen view; only the 12-byte stride is witnessed.
+struct Rva00390729Element { int opaque[3]; };
+
+// Call the owned allocate/copy operation, not another template copy.
+struct BfmeE12;
+
+struct Coord3D;
+
+class Rva000E016A {
+public:
+    BfmeE12 *rva000E016A(unsigned int, Coord3D *, Coord3D *);
+};
+
+// tu-skeleton: 0x00390119 176B ??0PhysicsBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003901C9 17B ?buildFieldParse@PhysicsBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x003901DA 836B ?calcFlightPath@PhysicsBehavior@@QAE_N_NM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp (not merged yet)
+
+// tu-skeleton: 0x0039051E 21B ?rva0039051E@PhysicsBehavior@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp (not merged yet)
+
+// tu-skeleton: 0x00390533 36B ?rva00390533@Rva00390533@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp (not merged yet)
+
+// tu-skeleton: 0x00390557 170B ?rva00390557@PhysicsBehavior@@QAEXPBUCoord3D@@MMHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp (not merged yet)
+
+// tu-skeleton: 0x00390601 40B ?rva00390601@PhysicsBehavior@@QAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601.cpp (not merged yet)
+
+// tu-skeleton: 0x00390629 150B ?rva00390629@PhysicsBehavior@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp (not merged yet)
+
+// tu-skeleton: 0x003906BF 106B ?rva003906BF@PhysicsBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390629.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00390729_reserve.cpp
+
+// ?reserve@?$vector@URva00390729Element@@V?$allocator@URva00390729Element@@@_STL@@@_STL@@QAEXI@Z @0x00390729 125B. Identity: vector reserve with 12-byte stride; start/finish/end at +0/+4/+8; capacity check via idiv 0xC; empty path via allocator 0x395928; grow path via helper 0xE016A; free via 0x30830.
+// Evidence: callers 0xE0B3D/0x3909AE/0x48C487; callees rowed/pinned in packet; neighbours 0x3901C9/0x3907A6; same 125B shape as rowed BfmeE12 reserve 0x3B0224.
+
+// STLport reserve with the native allocate/copy provider at 0xE016A.
+template <>
+void _STL::vector<Rva00390729Element>::reserve(unsigned int n)
+{
+    if (capacity() < n) {
+        const size_type old_size = size();
+        pointer tmp;
+        if (this->_M_start) {
+            tmp = (pointer)((Rva000E016A *)this)->rva000E016A(n,
+                (Coord3D *)this->_M_start, (Coord3D *)this->_M_finish);
+            _M_clear();
+        } else {
+            tmp = this->_M_end_of_storage.allocate(n);
+        }
+        _M_set(tmp, tmp + old_size, tmp + n);
+    }
+}
+
+// tu-skeleton: 0x003907A6 182B ??0PhysicsBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0039085C 69B ?rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x003908A1 6B ?name@PhysicsBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva003908A7Memset.cpp
+
+// ?rva003908A7@@YGPAXPAX@Z, retail 0x003908A7, 27 bytes.
+// memset the first four bytes, set flag 0x10 on the dword there, return the
+// input pointer. Evidence: memset import thunk 0x006291AE (three pushes:
+// dest, 0, 4); orl $0x10,(%esi); stdcall ret 4 returning the pointer.
+// memset is msvcr71's, called through its import thunk at 0x006291AE
+// rather than expanded inline: <string.h>'s memset with
+// #pragma function(memset).
+
+void *__stdcall rva003908A7(void *p)
+{
+	memset(p, 0, 4);
+	*reinterpret_cast<int *>(p) |= 0x10;
+	return p;
+}
+
+// tu-skeleton: 0x003908C2 79B ??1PhysicsBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/PhysicsBehavior.cpp (not merged yet)
+
+// tu-skeleton: 0x00390911 205B ?Rva00390911XferCoordVector@@YAPAVXfer@@PAV1@PAUAICommandCoordVector@@@Z -- matched in Code/GameEngine/Source/Common/Rva00390911Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x003909FA 720B ?consume@Rva003909FAObj@@QAEXPAXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp (not merged yet)
+
+// tu-skeleton: 0x00390CCA 134B ?rva00390CCA@PhysicsBehavior@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390CCA.cpp (not merged yet)
+
+// tu-skeleton: 0x00390D50 230B ?xfer@PhysicsBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00390E36 43B ?rva00390E36@PhysicsBehavior@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp (not merged yet)
+
+// tu-skeleton: 0x00390E61 334B ?rva00390E61@PhysicsBehavior@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp (not merged yet)
+
+// tu-skeleton: 0x00390FAF 412B ?rva00390FAF@PhysicsBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp (not merged yet)
+
+// tu-skeleton: 0x0039114B 665B ?update@PhysicsBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorTrajectory.cpp (not merged yet)
+
+// tu-skeleton: 0x00780A89 19B $L2298 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp (not merged yet)
+
+// tu-skeleton: 0x00780A9C 8B $L2315 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AA4 10B __ehhandler$?calcFlightPath@PhysicsBehavior@@QAE_N_NM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCalcFlightPath.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AAE 8B Unwind@00b80aae -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AB6 11B $L4252 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AC1 10B __ehhandler$??0PhysicsBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00780ACB 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AD8 10B __ehhandler$?rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AE2 8B $L347 -- matched in Code/GameEngine/Source/Common/PhysicsBehavior.cpp (not merged yet)
+
+// tu-skeleton: 0x00780AEA 10B __ehhandler$??1PhysicsBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/PhysicsBehavior.cpp (not merged yet)
 
 //-------------------------------------------------------------------------------------------------
 static Real angleBetweenVectors(const Coord3D& inCurDir, const Coord3D& inGoalDir)
@@ -114,7 +202,9 @@ static Real heightToSpeed(Real height)
 	// don't bother trying to remember how far we've fallen; instead,
 	// back-calc it from our speed & gravity... v = sqrt(2*g*h)
 	return sqrt(fabs(2.0f * TheGlobalData->m_gravity * height));
-} 
+}
+
+ 
 
 //-------------------------------------------------------------------------------------------------
 // LINK-DUP: ??0PhysicsBehaviorModuleData@@QAE@XZ owned by PhysicsBehaviorModuleDataCtor.cpp; declare only here.
@@ -128,7 +218,9 @@ static void parseHeightToSpeed( INI* ini, void * /*instance*/, void *store, cons
 	// back-calc it from our speed & gravity... v = sqrt(2*g*h)
 	Real height = INI::scanReal(ini->getNextToken());
 	*(Real *)store = heightToSpeed(height);
-} 
+}
+
+ 
 
 //-------------------------------------------------------------------------------------------------
 static void parseFrictionPerSec( INI* ini, void * /*instance*/, void *store, const void* /*userData*/ )
@@ -136,13 +228,7 @@ static void parseFrictionPerSec( INI* ini, void * /*instance*/, void *store, con
 	Real fricPerSec = INI::scanReal(ini->getNextToken());
 	Real fricPerFrame = fricPerSec * SECONDS_PER_LOGICFRAME_REAL;
 	*(Real *)store = fricPerFrame;
-} 
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-
-const Real INVALID_VEL_MAG = -1.0f;
+}
 
 //-------------------------------------------------------------------------------------------------
 static ProjectileUpdateInterface* getPui(Object* obj)
@@ -238,34 +324,3 @@ static Bool perpsLogicallyEqual( Real perpOne, Real perpTwo )
   const Real PERP_RANGE = 0.15f;
 	return fabs( perpOne - perpTwo ) <= PERP_RANGE;
 }
-
-//-------------------------------------------------------------------------------------------------
-/** Do the collision
- *  Cases:
- *  * The crusheeOther is !OVERLAPPABLE or !CRUSHABLE.								Result: return false
- *  * The crusherMe is !CRUSHER.																			Result: return false
- *  * crusher is CRUSHER, crushee is CRUSHABLE but allied.						Result: return false
- *  * crusher is CRUSHER, crushee is OVERLAPPABLE but not CRUSHABLE.  Result: return false
- *  * crushee has no PhysicsBehavior.																	Result: return false
- *  * crusher is CRUSHER, crushee is CRUSHABLE, but is too hard.			Result: return false
- *  * crusher is CRUSHER, crushee is CRUSHABLE, hardness ok.					Result: crush, return true
- *
- * Return true if we want to skip having physics push us apart // LORENZEN
- */
-//-------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-/** Test whether unit needs to die because of being on illegal cell, upside down, outside legal bounds **/
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/PhysicsBehaviorXfer.cpp
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
