@@ -141,12 +141,7 @@ struct Rva0006EE7A : public BitFlags<69>
 
 typedef int Color;
 
-class Object : public Thing
-{
-public:
-	Color getIndicatorColor() const;
-	Color getNightIndicatorColor() const;
-};
+#include "../GameLogic/Object/object.h"
 
 enum TimeOfDay
 {

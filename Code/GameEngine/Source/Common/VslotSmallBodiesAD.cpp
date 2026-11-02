@@ -19,13 +19,7 @@ enum KindOfType
 {
 	KINDOF_INVALID = -1
 };
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-	bool rva0029493F(Object *victim, int mode);
-	bool isKindOf(KindOfType t) const;
-};
+#include "../GameLogic/Object/object.h"
 // 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
 // 0x00288CFA accepts the argument's +0x264 word.
 class Rva00288CFA

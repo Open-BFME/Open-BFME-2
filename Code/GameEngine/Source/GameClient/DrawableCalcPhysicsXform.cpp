@@ -16,11 +16,7 @@ struct Rva0028AC4EEntry
     char unknown[0xAC];
     unsigned int lastPhysicsFrame;
 };
-class Object
-{
-public:
-    const Rva0028AC4EEntry *rva0028AC4E() const;
-};
+#include "../GameLogic/Object/object.h"
 struct DrawablePhysicsHolder
 {
     char unknown[0x1F0];

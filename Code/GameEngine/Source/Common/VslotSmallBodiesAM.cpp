@@ -378,11 +378,7 @@ void Rva005D99E4::rva005D99E4()
 // interface's +0x04 object; 0x005E19B4 runs the rowed 0x005E197E of the
 // complete object; 0x0049CE63 dispatches to the complete object's virtual
 // slot 16 (the arguments are unused).
-class Object
-{
-public:
-	void rva0028DB3C();
-};
+#include "../GameLogic/Object/object.h"
 class Rva0028F976Primary
 {
 public:

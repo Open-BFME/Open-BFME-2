@@ -19,11 +19,7 @@ public:
 	virtual Real getPercentReady() const = 0; // vslot 2
 };
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-};
+#include "../../../GameLogic/Object/object.h"
 
 #include "../../../../Include/GameClient/CommandButton.h"
 

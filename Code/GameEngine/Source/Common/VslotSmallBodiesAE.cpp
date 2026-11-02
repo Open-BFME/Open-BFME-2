@@ -404,12 +404,7 @@ public:
 	virtual void v16();
 	virtual Int v17();
 };
-class Object
-{
-public:
-	void *rva0028BC58(Int a);
-	Int rva00294ADD(Int a);
-};
+#include "../GameLogic/Object/object.h"
 struct Rva00597426Arg
 {
 	char m_pad00[0x94];

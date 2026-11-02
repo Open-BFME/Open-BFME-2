@@ -449,11 +449,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_25 = 0x25
 };
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-};
+#include "../GameLogic/Object/object.h"
 #include "../../Include/Common/StateMachineClass.h"
 #include "../../Include/Common/StateMachine.h"
 int rva0034373F(State *state, void *);

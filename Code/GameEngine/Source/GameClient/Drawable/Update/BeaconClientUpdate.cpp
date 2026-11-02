@@ -240,11 +240,7 @@ void *__stdcall createAptScreenObjectives(void *);
 
 void *__stdcall createAptScreenQuickMatchMenu(void *);
 
-class Object
-{
-  public:
-    int getIndicatorColor() const;
-};
+#include "../../../GameLogic/Object/object.h"
 
 // ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,

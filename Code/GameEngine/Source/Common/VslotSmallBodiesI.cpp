@@ -103,11 +103,7 @@ enum KindOfType
 {
 	KINDOF_BFME_D6 = 0xD6
 };
-class Object
-{
-public:
-	Bool isKindOf(KindOfType t) const;
-};
+#include "../GameLogic/Object/object.h"
 class Rva005D8BFC
 {
 public:

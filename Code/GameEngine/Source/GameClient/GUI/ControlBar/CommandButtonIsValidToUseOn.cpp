@@ -44,12 +44,7 @@ public:
     virtual const ProductionEntry *firstProduction();
     virtual const ProductionEntry *nextProduction(const ProductionEntry *entry);
 };
-class Object {
-public:
-    void *rva0028BC58(int which);
-    bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
-    bool hasUpgrade(const UpgradeTemplate *upgrade) const;
-};
+#include "../../../GameLogic/Object/object.h"
 class ActionManager {
 public:
     bool canDoSpecialPowerAtObject(const Object *, const Object *, CommandSourceType,
