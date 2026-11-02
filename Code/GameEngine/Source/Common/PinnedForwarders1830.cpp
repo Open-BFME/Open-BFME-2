@@ -428,13 +428,7 @@ void Rva0029B16A::setMissionHelpText(int text, int duration)
 
 class Team;
 class AsciiString;
-class AIPlayer
-{
-public:
-	void guardSupplyCenter(Team *t, int v);
-	void aiPreTeamDestroy(const Team *t);
-	void buildUpgrade(const AsciiString &s);
-};
+#include "../../Include/GameLogic/AIPlayerClass.h"
 
 class Rva002A9CDE
 {

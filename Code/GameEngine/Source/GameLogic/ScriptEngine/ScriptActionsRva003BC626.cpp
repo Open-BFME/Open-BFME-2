@@ -60,7 +60,7 @@ void ScriptActions::Rva003BC626Set(const AsciiString &name, int val)
 // passing the supplied integer and consuming EAX. The old destructor claim
 // for this8B provider was false. Original action name remains unresolved.
 enum GameDifficulty { DIFFICULTY_EASY, DIFFICULTY_NORMAL, DIFFICULTY_HARD, DIFFICULTY_COUNT };
-class AIPlayer {public:void setAIDifficulty(GameDifficulty);};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 class Rva002A9ECA {public:int rva002A9ECA(int);};
 void ScriptActions::Rva003BC67ASet(const AsciiString &name,int value) {
  int mask=TheScriptEngine->rva00357475(name,0);

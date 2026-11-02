@@ -12,14 +12,7 @@
 
 class Player;
 
-class AIPlayer
-{
-public:
-	AIPlayer(Player *p);
-	virtual ~AIPlayer();
-private:
-	char m_pad[0x78 - 4];
-};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
 class AISkirmishPlayer : public AIPlayer
 {

@@ -58,33 +58,7 @@ public:
 	void onUnitCreated(Object *object, Object *other);
 };
 
-class AIPlayer
-{
-	friend class Player;
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *pos, Int playerNdx, Real weaponRadius);
-	virtual void slot05();
-	virtual void slot06();
-	virtual void onUnitProduced(Object *factory, Object *unit);
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual Bool checkBridges(Object *unit, Waypoint *way);
-	virtual void repairStructure(ObjectID structure);
-	Bool getBaseCenter(Coord3D *pos) const {*pos = m_baseCenter; return m_baseCenterSet;}
-protected:
-	Bool rva004F2BEE(Int minimumCash);
-private:
-	unsigned char m_pad04[0x34 - 0x04];
-	Coord3D m_baseCenter; // +0x34
-	Bool m_baseCenterSet; // +0x40
-};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
 #include "../../../Include/Common/Player.h"
 

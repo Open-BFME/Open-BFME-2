@@ -242,14 +242,7 @@ enum DistanceCalculationType
 	FROM_BOUNDINGSPHERE_2D = 3
 };
 
-class AIPlayer
-{
-public:
-	bool isLocationSafe(const Coord3D *pos, const ThingTemplate *tthing);
-private:
-	char m_pad00[0x0C];
-	Player *m_player;		// +0x0C
-};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
 bool AIPlayer::isLocationSafe(const Coord3D *pos, const ThingTemplate *tthing)
 {

@@ -20,24 +20,13 @@ public:
 	void firstUnlink( TeamInQueue *entry );
 };
 
-class AIPlayer
-{
-public:
-	void removeAll_TeamReadyQueue( RemoveAllProc removeCallback );
-	void removeAll_TeamBuildQueue( RemoveAllProc removeCallback );
-	void clearTeamsInQueue();
-
-private:
-	char m_pad[4];
-	TeamInQueue *m_firstHead; // +04
-	TeamInQueue *m_queueHead;	// +0x08
-};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
 void AIPlayer::removeAll_TeamReadyQueue( RemoveAllProc removeCallback )
 {
-	while (m_queueHead)
+	while (m_teamReadyQueue)
 	{
-		TeamInQueue *teamInQueue = m_queueHead;
+		TeamInQueue *teamInQueue = m_teamReadyQueue;
 		((Rva004F0479 *)this)->rva004F0479( teamInQueue );
 		if (removeCallback)
 			(*removeCallback)( teamInQueue );
@@ -52,9 +41,9 @@ void AIPlayer::removeAll_TeamReadyQueue( RemoveAllProc removeCallback )
 
 void AIPlayer::removeAll_TeamBuildQueue(RemoveAllProc removeCallback)
 {
-    while (m_firstHead)
+    while (m_teamBuildQueue)
     {
-        TeamInQueue *entry = m_firstHead;
+        TeamInQueue *entry = m_teamBuildQueue;
         ((Rva004F0479 *)this)->firstUnlink(entry);
         if (removeCallback)
             (*removeCallback)(entry);
