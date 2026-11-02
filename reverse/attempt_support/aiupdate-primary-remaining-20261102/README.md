@@ -7,3 +7,5 @@ Slot36 (vslot036): native0x0050B238/3B, exact normal admission; existing first r
 Slot37 (vslot037): native0x0050B238/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
 
 First publication group: slots36/37 pass their separate235-source header gates; current strict preparation passes124/124 rows across the121-row emitter and three-row native cluster. Private full-object comparison adds only these two intended code definitions (129 -> 131), with all existing code and10 data definitions unchanged. Bounded preview reduces five missing RET8 providers to three, while the adopted native cluster preserves155 -> 155 linked bytes. These previews leave the published census unchanged at154 unlinked units.
+
+Slot44 (vslot044): native0x0050B238/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.

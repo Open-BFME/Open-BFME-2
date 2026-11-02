@@ -234,7 +234,7 @@ protected:
     virtual void privateAttackFollowWaypointPath(Waypoint const *,int,bool,CommandSourceType); // 42: RVA 0x0026C150
     virtual void privateHunt(CommandSourceType); // 43: RVA 0x002646E9
 public:
-    virtual void vslot044(Object *, CommandSourceType); // 44: RVA 0x0050B238
+    virtual void vslot044(Object *, CommandSourceType) {} // 44: RVA 0x0050B238
     virtual void vslot045(Object *, CommandSourceType); // 45: RVA 0x0050B238
 protected:
     virtual void privateGetHealed(Object *,CommandSourceType); // 46: RVA 0x0026DD89
