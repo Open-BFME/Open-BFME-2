@@ -14,14 +14,7 @@ extern ScriptEngine *TheScriptEngine;
 
 // The receiver is the Condition: +4 is its type, and evaluateCondition
 // (0x002096E2) tests the returned mode mask against the engine's.
-class Condition
-{
-	char m_pad[4];
-	int m_conditionType;	// +0x04
-
-public:
-	int rva003B275A();
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 int Condition::rva003B275A()
 {

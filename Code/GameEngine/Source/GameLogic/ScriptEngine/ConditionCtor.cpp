@@ -15,28 +15,7 @@ class Parameter
 {
 };
 
-class Condition
-{
-protected:
-	virtual ~Condition();
-public:
-	enum ConditionType { CONDITION_FALSE = 0 };
-	Condition();
-	Condition(ConditionType type);
-	void setConditionType(ConditionType type);
-
-private:
-	Int m_conditionType;
-	Int m_numParms;
-	Parameter *m_parms[MAX_PARMS];
-	Condition *m_nextCondition;
-	Int m_x40;
-	Int m_x44;
-	Int m_x48;
-	Bool m_flag4C;
-	unsigned char m_b4D;
-	char m_pad[2];
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 Condition::Condition() :
 	m_conditionType(0),

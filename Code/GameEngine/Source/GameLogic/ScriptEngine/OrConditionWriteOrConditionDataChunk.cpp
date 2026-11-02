@@ -24,11 +24,7 @@
 
 #include "../../../Include/Common/DataChunkOutput.h"
 
-class Condition
-{
-public:
-	static void WriteConditionDataChunk( DataChunkOutput &chunkWriter, Condition *pCond );
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 enum { K_SCRIPT_OR_CONDITION_DATA_VERSION_1 = 1 };
 

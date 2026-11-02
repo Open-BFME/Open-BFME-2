@@ -40,11 +40,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
-class Condition
-{
-public:
-	static bool __cdecl ParseConditionDataChunk(DataChunkInput &, DataChunkInfo *, void *);
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 class OrCondition

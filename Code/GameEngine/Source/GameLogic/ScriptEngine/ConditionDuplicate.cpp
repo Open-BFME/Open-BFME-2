@@ -18,29 +18,7 @@ public:
 	Rva0034FE00 &operator=(const Rva0034FE00 &other);
 };
 
-class Condition
-{
-public:
-	enum ConditionType { CONDITION_FALSE = 0 };
-	virtual ~Condition();
-private:
-	virtual MemoryPool *getObjectMemoryPool();
-public:
-	Condition(ConditionType type);
-	Condition *duplicate(void) const;
-
-private:
-	Int m_conditionType;
-	Int m_numParms;
-	Parameter *m_parms[MAX_PARMS];
-	Condition *m_nextCondition;
-	Int m_x40;
-	Int m_x44;
-	Int m_x48;
-	Bool m_flag4C;
-	unsigned char m_b4D;
-	char m_pad[2];
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 Condition *Condition::duplicate(void) const
 {

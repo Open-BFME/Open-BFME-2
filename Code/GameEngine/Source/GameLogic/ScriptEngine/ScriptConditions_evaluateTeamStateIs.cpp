@@ -819,22 +819,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 
 int __cdecl Rva003BD46ESum(void *range);
 
-class Condition
-{
-public:
-	Parameter *getParameter(int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
-	int getCustomData() const { return m_customData; }
-	unsigned int getCustomFrame() const { return m_customFrame; }
-	void setCustomData(int value) { m_customData = value; }
-	void setCustomFrame(unsigned int value) { m_customFrame = value; }
-private:
-	unsigned char m_pad00[0x08];
-	int m_numParms; // +0x08
-	Parameter *m_parms[12]; // +0x0C
-	unsigned char m_pad3C[0x44 - 0x3C];
-	int m_customData; // +0x44
-	unsigned int m_customFrame; // +0x48
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 class PlayerList
 {

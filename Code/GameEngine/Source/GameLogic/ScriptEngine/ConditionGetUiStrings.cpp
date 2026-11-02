@@ -23,14 +23,7 @@ class ConditionTemplate : public Template
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class Condition
-{
-public:
-	int getUiStrings(AsciiString * const strings);
-private:
-	char _pad[4];
-	int m_conditionType;
-};
+#include "../../../Include/GameLogic/ScriptCondition.h"
 
 int Condition::getUiStrings(AsciiString * const strings)
 {
