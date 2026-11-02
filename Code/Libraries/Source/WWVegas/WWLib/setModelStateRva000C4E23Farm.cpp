@@ -232,11 +232,8 @@ bool bfmeRva000387C0();
 template <typename T> Debug &operator<<(Debug &, const StringBase<T> &);
 static __forceinline const char *formatText(const Debug::Format &f) { return (const char *)&f; }
 
-class Matrix3D
-{
-public:
-	Real Row[3][4];
-};
+#include "../WWMath/Matrix3DData.h"
+
 class RenderObjClass;
 class HAnimClass
 {
