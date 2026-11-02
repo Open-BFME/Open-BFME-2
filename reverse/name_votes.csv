@@ -20926,3 +20926,6 @@ Code/GameEngine/Source/Common/RTS/Rva002A8F56.cpp|local|Rva002A8F24::UnRegister|
 Code/GameEngine/Source/Common/RTS/Rva002AA292Check.cpp|function|0x002AA292|rva002AA292,9e70b0934f87eb5023099b25,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01
 Code/GameEngine/Source/Common/RTS/Rva002AD19EArmor.cpp|function|0x002AD19E|rva002AD19E,995322e7aa6e1f13c32f7fd1,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01
 Code/GameEngine/Source/Common/RTS/Rva002AD19EArmor.cpp|param|Rva002AD19E::rva002AD19E|arg,e7f5dfb38bb4acd8a8f6e1ac,claude-haiku-5-5,drz-k2-n34b,w-4cad33e49465,2026-11-01
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_08,b9d17150f0c4f0b2bd647358,gpt-6,flood-first-coordinate-names-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_0C,466107641c3916105c282c31,gpt-6,flood-first-coordinate-names-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|function|0x0041F524|Rva0041F524_ParseArmyMember,7f4081a130fd7753d6d941cd,gpt-6,flood-first-coordinate-names-20261102,w-c1b03bfb0a31,2026-11-02

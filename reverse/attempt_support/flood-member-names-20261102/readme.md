@@ -59,7 +59,32 @@ No TU move, data row, pin, hatch or class-layout change is made.
 - Bounded index984a4cdc4d preview retains LINKS274->274 bytes.
 - Header/source planning grants no TU ownership; no source path changes.
 
-The broader outgoing consumer audit remains to be recorded before publication.
 No new matched bytes, measured linking gain or image-ownership receipt is claimed.
 
 `t=9 model=gpt-6 lane=R budget=30m`
+
+## Post-rebase publication checks
+
+The rebase onto `1291df600d4fba21e9a60ef84de93c18d033f5ea` succeeds and
+changes neither this source nor AGENTS.md. Worktree preparation pins the
+committed BFME 1 reference `946f3c05a1b1e60448734e874a8f47f8017cfdb9`;
+no independent upstream check was performed. CSV checks pass with 99,289 rows.
+The refreshed planning report still marks the TU map stale and grants no move.
+
+`rename.py check` reports six renames, zero problems. Header-dependency check
+returns 0. Current strict preparation again passes all three functions and
+the existing data row. Source tip for the explicit outgoing consumer audit is
+`c1f5e4a7023a08164602b191a51af1cea0c66cd7`.
+
+The audit returns 2 INCONCLUSIVE: its index `984a4cdc4d` predates the base,
+and affected consumer `Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. That unowned consumer was not rebuilt. The obstacle register carries
+this source and its affected consumers into the next scheduled census.
+
+Normal submission records three further independently written proposals for
+remaining neutral coordinate members and the Army parser. All validate, but
+none newly agrees. Only their hashes are published; no reviewer is launched
+and they produce no additional source change. Do not count them as landed names.
+
+Additional receipts: `range-check.log`, `header-check.log`,
+`post-rebase-strict.log`, `batch-audit.log` and `pending-submit.log`.
