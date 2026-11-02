@@ -36,23 +36,7 @@ class Thing;
 class ModuleData;
 class Object;
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-protected:
-	void setWakeFrame(Object *object, unsigned int frame);
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 enum ObjectID;
 void __cdecl XferRespawnModeType(Xfer *x, int *v);

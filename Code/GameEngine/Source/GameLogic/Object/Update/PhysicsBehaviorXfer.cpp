@@ -78,14 +78,7 @@ struct AICommandCoordVector
 
 Xfer *Rva00390911XferCoordVector( Xfer *xfer, AICommandCoordVector *coords );
 
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-	void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x20 - 0x04 ];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class PhysicsBehavior : public UpdateModule
 {

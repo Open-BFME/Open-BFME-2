@@ -254,29 +254,7 @@ class PB_Iface1 { public: virtual void slot(); };
 
 class PB_Iface2 { public: virtual void slot(); };
 
-class UpdateModule : public PB_DeepBase, public PB_Iface1, public PB_Iface2
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	virtual void loadPostProcess();				// slot 1
-	virtual const char *GetSnapshotName() const;		// slot 2
-
-public:
-	virtual void xfer(Xfer *xfer);				// slot 3
-	virtual NameKeyType getModuleNameKey() const = 0;	// slot 4
-
-protected:
-	void setWakeFrame(Object *, UpdateSleepTime);
-	Object *getObject() const { return m_object; }
-
-private:
-	unsigned int m_f14;
-	int m_f18;
-	int m_f1c;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class CommandButtonHuntUpdate : public UpdateModule
 {

@@ -348,18 +348,7 @@ public:
 	Bool m_useReturnToFormation;																							///< 0x32
 };
 
-class UpdateModule
-{
-public:
-	virtual void v00();
-protected:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-private:
-	const ModuleData *m_moduleData;																						///< 0x04
-	Object *m_object;																													///< 0x08
-	char m_unrecovered0C[ 0x20 - 0x0C ];
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class ExitInterface
 {

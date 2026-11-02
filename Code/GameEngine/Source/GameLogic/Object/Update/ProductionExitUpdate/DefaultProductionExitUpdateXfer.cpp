@@ -250,21 +250,7 @@ public:
 	Coord3D m_naturalRallyPoint;																							///< 0x14
 };
 
-class UpdateModule
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-protected:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-private:
-	const ModuleData *m_moduleData;																						///< 0x04
-	Object *m_object;																													///< 0x08
-	char m_unrecovered0C[ 0x20 - 0x0C ];
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class ExitInterface
 {

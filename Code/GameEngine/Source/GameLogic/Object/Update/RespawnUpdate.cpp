@@ -142,8 +142,7 @@ public:
 	unsigned char m_kindOfByte;
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
-class UpdateModule:public BehaviorModule,public UpdateModuleInterface {public:virtual ~UpdateModule();protected:void setWakeFrame(Object *,UpdateSleepTime);private:unsigned nextWake;int index,reserved;};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
 extern PlayerList *ThePlayerList;
 class ControlBar {public:char pad[0x28];bool dirty;};
