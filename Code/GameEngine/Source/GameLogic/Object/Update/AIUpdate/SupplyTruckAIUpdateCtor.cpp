@@ -75,6 +75,7 @@ public:
     virtual unsigned int getActionDelayForDock(Object *dock); //19
     virtual NameKeyType getModuleNameKey() const;
     virtual void *vslot094() const;
+    virtual void *vslot095() const;
 protected:
     virtual void loadPostProcess();
     virtual const char *GetSnapshotName() const;
@@ -111,14 +112,6 @@ SupplyTruckAIUpdate::~SupplyTruckAIUpdate()
 	::delete m_supplyTruckStateMachine;
 	m_supplyTruckStateMachine = 0;
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
 
 UpdateSleepTime SupplyTruckAIUpdate::update()
 {
@@ -298,6 +291,11 @@ void SupplyTruckAIUpdate::privateHarvest(const Coord3D *position, CommandSourceT
 }
 
 void *SupplyTruckAIUpdate::vslot094() const
+{
+    return static_cast<SupplyTruckAIInterface *>(const_cast<SupplyTruckAIUpdate *>(this));
+}
+
+void *SupplyTruckAIUpdate::vslot095() const
 {
     return static_cast<SupplyTruckAIInterface *>(const_cast<SupplyTruckAIUpdate *>(this));
 }
