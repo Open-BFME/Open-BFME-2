@@ -38,11 +38,7 @@ public:
 	char m_moneyArg;					// +0x3BC
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(Int index);			// 0x002A7A29
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

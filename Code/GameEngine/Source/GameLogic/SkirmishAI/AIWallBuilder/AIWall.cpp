@@ -65,7 +65,7 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 class Player;
 struct WallPlayerIndexView { unsigned char unknown[0x54]; int index; int getIndex() const {return index;} };
-class PlayerList { public: Player *getNthPlayer(int); };
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Rva00596CDF {
 public:

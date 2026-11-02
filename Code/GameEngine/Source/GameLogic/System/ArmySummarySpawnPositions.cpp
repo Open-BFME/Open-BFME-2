@@ -86,7 +86,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0020E89C;
 class Rva00318C8DOwner { public: Rva0020E89C *rva00318C8D(); };
 class Player;
-class PlayerList { public: Player *Rva002A7A6F(int); };
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class LivingWorldBattle { public: int rva003F4752(void*); };
 struct ArmySpawnBattleSide { unsigned char bytes[28]; };

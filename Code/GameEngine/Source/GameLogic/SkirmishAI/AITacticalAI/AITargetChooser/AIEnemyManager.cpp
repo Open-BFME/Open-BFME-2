@@ -36,7 +36,7 @@ class Object;
 
 class Player;
 
-class PlayerList { public: Player *getNthPlayer(int); };
+#include "../../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

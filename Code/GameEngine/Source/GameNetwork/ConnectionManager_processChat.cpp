@@ -86,11 +86,7 @@ private:
 	Int m_color;
 };
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../Include/Common/PlayerList.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 

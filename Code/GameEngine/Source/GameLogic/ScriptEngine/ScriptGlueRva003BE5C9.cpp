@@ -32,12 +32,7 @@ public:
 	char m_pad[0x34];
 	Rva003BE5C9P34 *m_p34; // +0x34
 };
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 unsigned char Rva003BA8F3Get();
@@ -88,7 +83,7 @@ void Rva003BE5C9::rva003BE5C9()
 	((Rva003BBAD3 *)this)->rva003BBAD3();
 	if (m_flagC != 0)
 		return;
-	Player *pl = ThePlayerList->m_localPlayer;
+	Player *pl = ThePlayerList->m_local;
 	if (TheVictoryConditions == 0 || pl == 0)
 		return;
 	Rva003BE5C9P34 *playerTemplate = pl->m_p34;

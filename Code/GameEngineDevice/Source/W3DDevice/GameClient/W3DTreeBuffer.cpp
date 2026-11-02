@@ -35,14 +35,7 @@ public:
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
 #include "../../../../GameEngine/Include/Common/Player.h"
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-private:
-	char m_pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct TTreeType
 {

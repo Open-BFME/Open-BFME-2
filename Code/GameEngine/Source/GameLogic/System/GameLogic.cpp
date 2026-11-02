@@ -519,13 +519,7 @@ struct Rva003F468DParticipant
 	unsigned char m_pad00[0x14];
 	int m_playerIndex;
 };
-class PlayerList : public SystemBase, public Snapshot
-{
-public:
-	Player *Rva002A7A6F(int index);
-	Player *getEachPlayerFromMask(int &mask);
-	Player *getNthPlayer(int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class VictoryConditionsInterface
 {

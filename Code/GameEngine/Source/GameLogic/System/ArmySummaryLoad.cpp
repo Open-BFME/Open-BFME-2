@@ -92,7 +92,7 @@ class Rva002E2903Player {public:char bytes00[0x14];int playerID;};
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;
 extern LivingWorldLogic*TheLivingWorldLogic;
-class PlayerList {public:Player*Rva002A7A6F(int);};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
 class PlayerTemplate {public:char bytes00[0xE8];_STL::vector<AsciiString>startingUnits;};
 class Player {public:char bytes00[0x34];PlayerTemplate*tmplate;};

@@ -75,15 +75,7 @@ private:
 	Team *m_defaultTeam;				// +0x2EC
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local;				// +0x10
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 class Object
 {

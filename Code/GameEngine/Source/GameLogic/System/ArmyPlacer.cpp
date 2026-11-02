@@ -62,7 +62,7 @@ struct Rva002B488EResult{char bytes00[0x78];ArmySummary*summary;};
 
 class Rva0037F57E{public:Rva0037F57E();virtual~Rva0037F57E();void rva0037FD2B(LoadedObjectList*,Rva002E2903Player*,Rva002B488EResult*,bool);};
 
-class PlayerList{public:Player*Rva002A7A6F(int);};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList*ThePlayerList;
 

@@ -19,11 +19,7 @@ unsigned long Rva003ECA13Get(const AsciiString &s);
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 

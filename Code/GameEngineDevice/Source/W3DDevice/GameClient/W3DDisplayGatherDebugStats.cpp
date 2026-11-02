@@ -520,14 +520,7 @@ class Rva0026F0F0 { public: void *rva0026F0F0(const void *mask); };
 class Rva002A7461 { public: int rva002A7461(); int rva002A7548(int i); };
 class Rva002A7389 { public: int get(int i); };
 class Player { public: char m_pad[0x60]; Rva002A7461 m_commandPoints; };
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-	char m_pad00[0x10];
-	Player *m_local; // +0x10
-	int m_playerCount; // +0x14 +0x14
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 class ScriptEngine { public: char m_pad[0x1A4C4]; int m_campaignAI; };
 class Rva002858E5 { public: bool rva002858E5(float *pos, int *a, int *b, int *c, int *d, int *e); };
 struct Slot64 { char m_pad[0x18]; unsigned int m_used; char m_pad1c[0x28 - 0x1C]; unsigned int m_peak; };

@@ -322,7 +322,7 @@ public: Rva0035A18D();~Rva0035A18D();
  _STL::vector<BfmePod8> values; int state;
 };
 
-class PlayerList {public:int rva002A7C0B(bool);};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
