@@ -21,12 +21,7 @@
 // Dedicated TU: marker-less meshmdlio.cpp cannot take rows (PostProcess
 // precedent). Frameless, no EH temps (no BfmeHandleCX here).
 
-class ChunkLoadClass
-{
-public:
-	unsigned long Cur_Chunk_Length();
-	unsigned long Read(void *buffer, unsigned long bytes);
-};
+#include "../WWLib/ChunkLoadClass.h"
 
 #include "MeshMatDescClass.h"
 

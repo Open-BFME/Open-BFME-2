@@ -1,4 +1,4 @@
-// cl: /Ob1 /DNDEBUG /MD /EHsc
+// cl: /Ob1 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 //
 // (renamed from placeholder BFME2LoadParticleTexture)
@@ -194,11 +194,7 @@ Rva00131DCBTextureRef::Rva00131DCBTextureRef(const BfmeResetAnyRef &rhs)
 // texture.cpp Load_Texture (ZH-derived). Target adds DDS/JPG lookup and
 // 16-bit references. Unknown class prefixes below are offset views only.
 #include <string.h>
-class ChunkLoadClass {
-public:
- bool Open_Chunk(); bool Close_Chunk(); unsigned long Cur_Chunk_ID();
- unsigned long Cur_Chunk_Length(); unsigned long Read(void *, unsigned long);
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h"
 bool Render_Obj_Exists(const char *);
 enum WW3DFormat { WW3D_FORMAT_UNKNOWN=0 };
 class W3DRadarFormatCaps {

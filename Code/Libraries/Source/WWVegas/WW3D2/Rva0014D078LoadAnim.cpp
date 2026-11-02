@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ @ 0x0014D078 (310
 // bytes). Slot 2 of the animation prototype vtable 0x00BD37EC (slot 6 is
@@ -47,37 +47,9 @@ class FileClass;
 
 File *__cdecl GetGameFilePart(const char *filename, int a, int b);
 
-struct ChunkHeader
-{
-	ChunkHeader() : ChunkType(0), ChunkSize(0) {}
-	uint32 ChunkType;
-	uint32 ChunkSize;
-};
+#include "../WWLib/ChunkLoadClass.h"
 
-struct MicroChunkHeader
-{
-	MicroChunkHeader() {}
-	uint8 ChunkType;
-	uint8 ChunkSize;
-};
 
-class ChunkLoadClass
-{
-public:
-	ChunkLoadClass(BFMEChunkInput *input);
-	bool Open_Chunk();
-	unsigned long Cur_Chunk_ID();
-
-private:
-	FileClass *File;
-	BFMEChunkInput *Input;
-	int StackIndex;
-	uint32 PositionStack[256];
-	ChunkHeader HeaderStack[256];
-	bool InMicroChunk;
-	int MicroChunkPosition;
-	MicroChunkHeader MCHeader;
-};
 
 class HAnimClass
 {

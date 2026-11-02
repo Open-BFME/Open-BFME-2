@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Rva0017FDA7_LoadTree@Rva0017FB41_Prototype@@UAEXXZ
 // retail 0x0017FDA7..0x0017FEA4 (254 bytes) thiscall RET 0.
@@ -46,37 +46,9 @@ class FileClass;
 
 File *__cdecl GetGameFilePart(const char *filename, int a, int b);
 
-struct ChunkHeader
-{
-	ChunkHeader() : ChunkType(0), ChunkSize(0) {}
-	uint32 ChunkType;
-	uint32 ChunkSize;
-};
+#include "../WWLib/ChunkLoadClass.h"
 
-struct MicroChunkHeader
-{
-	MicroChunkHeader() {}
-	uint8 ChunkType;
-	uint8 ChunkSize;
-};
 
-class ChunkLoadClass
-{
-public:
-	ChunkLoadClass(BFMEChunkInput *input);
-	bool Open_Chunk();
-	unsigned long Cur_Chunk_ID();
-
-private:
-	FileClass *File;
-	BFMEChunkInput *Input;
-	int StackIndex;
-	uint32 PositionStack[256];
-	ChunkHeader HeaderStack[256];
-	bool InMicroChunk;
-	int MicroChunkPosition;
-	MicroChunkHeader MCHeader;
-};
 
 class HTreeClass
 {

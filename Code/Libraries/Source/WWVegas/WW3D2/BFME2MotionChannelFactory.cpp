@@ -1,4 +1,4 @@
-// cl: /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Descriptive BFME2 channel types: original retail class names are unrecovered.
 // Factory RVA 0x001A46B4 reads the eight-byte on-disk header and dispatches
 // encoding 0/1/2. The trailing data member represents the payload convention
@@ -14,7 +14,7 @@
 #include <new>
 class Vector3;
 class Quaternion;
-class ChunkLoadClass { public: unsigned long Read(void *, unsigned long); unsigned long Cur_Chunk_Length(); unsigned long Seek(unsigned long); };
+#include "../WWLib/ChunkLoadClass.h"
 class BFME2MotionChannel {
 public:
     virtual bool Load(ChunkLoadClass &);

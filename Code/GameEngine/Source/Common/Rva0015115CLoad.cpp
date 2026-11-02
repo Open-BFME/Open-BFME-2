@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Load_W3D@Parameter@FXShader@@QAE_NPAVChunkLoadClass@@@Z at 0x0015115C (231B).
 // Chunk load with version at +4: reads version then first string at +0 via
@@ -14,11 +15,7 @@ private:
 	void *m_data;
 };
 
-class ChunkLoadClass
-{
-public:
-	unsigned long Read(void *buf, unsigned long len);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h"
 
 class FXShader
 {

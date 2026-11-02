@@ -137,16 +137,7 @@ __declspec(dllimport) __forceinline unsigned int DX8Wrapper::Convert_Color(const
 
 #include "VertexMaterialClass.h"
 
-class ChunkLoadClass
-{
-public:
-	unsigned long Read(void *dst, unsigned long size);
-	unsigned long Cur_Chunk_Length();
-	unsigned long Cur_Chunk_ID();
-	bool Open_Chunk();
-	bool Close_Chunk();
-	unsigned long Seek(unsigned long pos);
-};
+#include "../WWLib/ChunkLoadClass.h"
 
 #include "MeshMatDescClass.h"
 

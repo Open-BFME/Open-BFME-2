@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /ICode/GameEngineDevice/Source/W3DDevice/GameClient
+// cl: /DNDEBUG /MD /EHsc /ICode/GameEngineDevice/Source/W3DDevice/GameClient C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
 // ?read_textures@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
@@ -19,11 +19,7 @@
 // BfmeHandleCX remains the established vector element ABI; both handles own
 // one texture pointer with the same WORD acquisition and release sequence.
 
-class ChunkLoadClass
-{
-public:
-	bool Open_Chunk(void);
-};
+#include "../WWLib/ChunkLoadClass.h"
 
 #include <windows.h>
 #include "BFME2ParticleTextureHandles.h"

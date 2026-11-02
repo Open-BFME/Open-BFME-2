@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva001808B0@Gen_dtor_00972460@@UAEXXZ, retail 0x001808B0, 171 bytes.
 // Chain from 0x0007882F landing: vtable slot 2 of Gen_dtor_00972460 vtable
 // 0x007D5010. Copies name to 260B stack buffer via _mbscpy thunk, replaces
@@ -31,38 +31,9 @@ class FileClass;
 
 File *__cdecl GetGameFilePart(const char *filename, int a, int b);
 
-struct ChunkHeader
-{
-	ChunkHeader() : ChunkType(0), ChunkSize(0) {}
-	uint32 ChunkType;
-	uint32 ChunkSize;
-};
+#include "../WWLib/ChunkLoadClass.h"
 
-struct MicroChunkHeader
-{
-	MicroChunkHeader() {}
-	uint8 ChunkType;
-	uint8 ChunkSize;
-};
 
-class ChunkLoadClass
-{
-public:
-	ChunkLoadClass(BFMEChunkInput *input);
-	bool Open_Chunk();
-	unsigned long Cur_Chunk_ID();
-	unsigned long Read(void *buffer, unsigned long byte_count);
-
-private:
-	FileClass *File;
-	BFMEChunkInput *Input;
-	int StackIndex;
-	uint32 PositionStack[256];
-	ChunkHeader HeaderStack[256];
-	bool InMicroChunk;
-	int MicroChunkPosition;
-	MicroChunkHeader MCHeader;
-};
 
 void *__cdecl operator new(unsigned int size);
 

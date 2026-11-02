@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h
 class StringClass
@@ -67,32 +67,7 @@ public:
 class File : public BFMEChunkInput {};
 class FileClass;
 File *__cdecl GetGameFilePart(const char *, int, int);
-struct ChunkHeader
-{
-	ChunkHeader() : ChunkType(0), ChunkSize(0) {}
-	unsigned int ChunkType, ChunkSize;
-};
-struct MicroChunkHeader
-{
-	MicroChunkHeader() {}
-	unsigned char ChunkType, ChunkSize;
-};
-class ChunkLoadClass
-{
-public:
-	ChunkLoadClass(BFMEChunkInput *);
-	bool Open_Chunk();
-	unsigned long Cur_Chunk_ID();
-private:
-	FileClass *File;
-	BFMEChunkInput *Input;
-	int StackIndex;
-	unsigned int PositionStack[256];
-	ChunkHeader HeaderStack[256];
-	bool InMicroChunk;
-	int MicroChunkPosition;
-	MicroChunkHeader MCHeader;
-};
+#include "../WWLib/ChunkLoadClass.h"
 
 // Reduced primary-interface view. The verified MeshClass constructor and
 // Clone establish size 0x324; RefCountClass occupies the primary vptr and +4.

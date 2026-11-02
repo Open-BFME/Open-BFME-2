@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Small unrowed .text bodies from the 0x00684BB0..0x0073EE20 (/O2) region.
 // Retail bytes establish every shape; no caller is recovered and the owning
 // classes are unknown, so each keeps an address-derived name and a view of
@@ -245,12 +246,7 @@ bool Rva006FBB70::rva006FBB70(const EAStringC &key)
 
 // ?rva00615230@ChunkLoadClass@@QAEKPAX@Z @0x00615230 15B: a four-byte read
 // through the rowed ChunkLoadClass::Read(void *, unsigned long) 0x006151A0.
-class ChunkLoadClass
-{
-public:
-	unsigned long Read(void *buffer, unsigned long nbytes);
-	unsigned long rva00615230(void *buffer);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h"
 unsigned long ChunkLoadClass::rva00615230(void *buffer)
 {
 	return Read(buffer, 4);
