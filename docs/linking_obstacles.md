@@ -17630,3 +17630,11 @@ No census gain or source move is claimed. Evidence and remaining helper
 contracts: reverse/attempt_support/carryover-fill-20261102/.
 The preceding getter/construction push's wider audit remains INCONCLUSIVE
 against984a4cdc4d, first missing0CreateAHeroManager21FE49.cpp's receipt.
+
+### Typed Carryover backward loop (2026-11-02)
+
+The54B backward loop1EB262 now has an exact CarryoverUnit instance. All45
+source rows and94 prior complete definitions remain exact, and the existing
+EH graph passes. Current assignment-peer overlay retains LINKS1396B.
+Old providers stay intact; outer wrapper and parent migration remain pending.
+Evidence: reverse/attempt_support/carryover-backward-20261102/.

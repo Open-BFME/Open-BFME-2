@@ -217,3 +217,6 @@ template <> void _Destroy<Rva002BBB96Element *>(Rva002BBB96Element *first, Rva00
 // copy 001EB79E in fill-insert 001EBEAB; assignment is the real 001EB20E.
 #include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
 template void _STL::fill<CarryoverUnit *, CarryoverUnit>(CarryoverUnit *, CarryoverUnit *, const CarryoverUnit &);
+
+// Native backward loop 001EB262 assigns CarryoverUnit ranges through 001EB20E.
+template CarryoverUnit *_STL::__copy_backward<CarryoverUnit *, CarryoverUnit *, int>(CarryoverUnit *, CarryoverUnit *, CarryoverUnit *, const _STL::random_access_iterator_tag &, int *);

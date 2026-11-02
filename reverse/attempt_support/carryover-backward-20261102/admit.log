@@ -1,0 +1,12 @@
+add_match: appended: ??$__copy_backward@PAVCarryoverUnit@@PAV1@H@_STL@@YAPAVCarryoverUnit@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,,0x001EB262,54,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp,matched,Native fill1EBEAB moves its CarryoverUnit vector range through wrapper1EB831 to backward-loop1EB262 and real assignment1EB20E; old provider retained; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
+add_match: verifying: C:\Users\clemens\scoop\apps\python\current\python.exe tools/build.py Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 1 row(s) verified past a renumbered $L label
+    uw_0077e0f0 (Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp): $L27032 was renumbered; verified parent EH data places $L8364 at 0x0077E0F0
+Functions: OK 45/45 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+add_match: verified OK — row is live
+add_match: recorded `landed` x1 in reverse/re_attempts.log -- stage it
+add_match: claim kept until the row is on origin/master; after your push run `python3 tools/claims.py release --landed`

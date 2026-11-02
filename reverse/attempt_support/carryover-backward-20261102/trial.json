@@ -1,0 +1,33 @@
+{
+  "rows_before": 44,
+  "missing": [],
+  "errors": [],
+  "complete_code_before": 94,
+  "complete_code_after": 95,
+  "removed": [],
+  "added": [
+    "??$__copy_backward@PAVCarryoverUnit@@PAV1@H@_STL@@YAPAVCarryoverUnit@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z"
+  ],
+  "changed": [],
+  "old_body": [
+    "558bec8b450c2b450856beac000000998bcef7f985c07e18578bf829750c297510ff750c8b4d10e8000000004f75ec5f8b45105e5dc3",
+    [
+      [
+        40,
+        20,
+        "??4BfmeAssignRecord172@@QAEAAU0@ABU0@@Z"
+      ]
+    ]
+  ],
+  "typed_body": [
+    "558bec8b450c2b450856beac000000998bcef7f985c07e18578bf829750c297510ff750c8b4d10e8000000004f75ec5f8b45105e5dc3",
+    [
+      [
+        40,
+        20,
+        "??4CarryoverUnit@@QAEAAV0@ABV0@@Z"
+      ]
+    ]
+  ],
+  "raw_code_equal": true
+}
