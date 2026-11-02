@@ -7,17 +7,7 @@
 
 typedef unsigned int UnsignedInt;
 
-class ConnectionManager
-{
-public:
-	UnsignedInt getLocalPlayerID();
-	UnsignedInt getPacketRouterSlot();
-
-private:
-	unsigned char m_pre[0x12028];
-	UnsignedInt m_localSlot;	// +0x12028
-	UnsignedInt m_packetRouterSlot;	// +0x1202C
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 // ?getLocalPlayerID@ConnectionManager@@QAEIXZ
 UnsignedInt ConnectionManager::getLocalPlayerID()

@@ -23,18 +23,7 @@ public:
 	Bool isQueueEmpty();
 };
 
-class ConnectionManager
-{
-public:
-	Bool areAllQueuesEmpty( void );
-	Bool rva004CF3E1( void );
-
-private:
-	char m_unknown00[4];
-	Connection *m_connections[8];
-	char m_pad[0x12130 - 0x24];
-	UnsignedInt m_12130;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 // ?areAllQueuesEmpty@ConnectionManager@@QAE_NXZ
 Bool ConnectionManager::areAllQueuesEmpty( void )
@@ -58,10 +47,10 @@ Bool ConnectionManager::areAllQueuesEmpty( void )
 // Evidence: abuts prev 0x004CF3B9; caller 0x0025E8B0 in 0x0025E75F; IAT timeGetTime; honest address method on ConnectionManager.
 Bool ConnectionManager::rva004CF3E1( void )
 {
-	if ( m_12130 == 0 )
+	if ( field12130 == 0 )
 	{
 		return FALSE;
 	}
 
-	return 0x2710 < timeGetTime() - m_12130;
+	return 0x2710 < timeGetTime() - field12130;
 }

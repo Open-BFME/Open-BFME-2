@@ -15,16 +15,7 @@ public:
 void *operator new(unsigned int size);
 void operator delete(void *p);
 
-class ConnectionManager
-{
-public:
-	ConnectionManager();
-	virtual void init();
-	virtual void reset();
-	virtual void update(bool isInGame, int frameAdvanced);
-private:
-	char m_pad[0x121AC];
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 #include "GameLogicObjectLookupView.h"
 

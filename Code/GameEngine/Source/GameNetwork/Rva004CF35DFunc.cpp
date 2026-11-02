@@ -15,39 +15,26 @@ public:
 	unsigned int getDataLength();
 };
 
-class ConnectionManager
-{
-public:
-	void rva004CF35D(NetWrapperCommandMsg *msg);
-	bool IsFrameAcked(unsigned int arg);
-
-private:
-	char m_pad00[4];
-	unsigned int m_04[8];
-	char m_pad24[0x12060 - 0x24];
-	unsigned int m_12060[8];
-	int m_12080[8];
-	int m_120a0[8];
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::rva004CF35D(NetWrapperCommandMsg *msg)
 {
 	if ((unsigned int)msg->getData() >= 8)
 		return;
-	if (m_12080[(unsigned int)msg->getData()] != 0)
+	if (field12080[(unsigned int)msg->getData()] != 0)
 		return;
-	m_12080[(unsigned int)msg->getData()] = 1;
+	field12080[(unsigned int)msg->getData()] = 1;
 	unsigned int len = msg->getDataLength();
-	m_120a0[(unsigned int)msg->getData()] = len;
+	field120A0[(unsigned int)msg->getData()] = len;
 }
 
 bool ConnectionManager::IsFrameAcked(unsigned int arg)
 {
 	for (int i = 0; i < 8; ++i)
 	{
-		if (m_04[i] == 0)
+		if (m_connections[i] == 0)
 			continue;
-		if (m_12060[i] < arg)
+		if (field12060[i] < arg)
 			return false;
 	}
 	return true;

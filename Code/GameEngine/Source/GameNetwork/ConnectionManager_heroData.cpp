@@ -209,22 +209,7 @@ private:
 Bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	// ?processHero@ConnectionManager@@QAEXPAVNetCommandMsg@@@Z: renamed from
-// placeholder rva004CF1AD — the WB twin's assert string
-// "Can not create MemoryReadFile in ConnectionManager::processHero" names the
-// enclosing function (SAGE convention, callgraph 2).
-	void processHero(NetCommandMsg *command);
-	void sendHero(CreateAHeroData *hero, Int seed, UnsignedShort slot,
-		UnsignedByte playerMask);
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-
-private:
-	char m_pad00[0x12028];
-	Int m_localSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::processHero(NetCommandMsg *command)
 {

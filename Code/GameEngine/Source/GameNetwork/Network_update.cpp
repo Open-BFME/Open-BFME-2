@@ -10,16 +10,7 @@ enum PlayerLeaveCode
 	PLAYER_LEAVE_CODE_CLIENT
 };
 
-class ConnectionManager
-{
-public:
-	PlayerLeaveCode disconnectPlayer(int slot);
-	void disconnectLocalPlayer(void);
-
-private:
-	unsigned char m_unmodelled_00000[0x12028];
-	int m_localSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 // ?disconnectLocalPlayer@ConnectionManager@@QAEXXZ
 void ConnectionManager::disconnectLocalPlayer(void)

@@ -320,18 +320,7 @@ void Rva001F01B9NullForwarder::rva001F01B9(Int firstValue, Int secondValue)
 // ConnectionManager methods rowed under their real names (ConnectionManager*.cpp,
 // ConnectionManagerLocalSlot.cpp) that the Network forwarders below reach.
 class GameInfo;
-class ConnectionManager
-{
-public:
-	void parseUserList(const GameInfo *game);	// 0x004D1616
-	void initTransport();
-	unsigned int getPacketRouterSlot();	// 0x004CF3B2
-	unsigned int getLocalPlayerID();	// 0x004CF906
-	Int getNumPlayers();	// 0x004CF926
-	void updateLoadProgress(Int progress);	// 0x004CF940
-	void loadProgressComplete();	// 0x004D02F6
-	void requestLeave(Int firstValue);	// 0x004D00BB
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 // Network (vtable 0x00BF6040): WorldBuilder's Network.cpp:68-71 names these
 // three null-checked forwards to the connection manager (m_pConMgr, +0xC)

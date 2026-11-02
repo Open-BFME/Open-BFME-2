@@ -68,15 +68,7 @@ enum PlayerLeaveCode
 	PLAYERLEAVECODE_UNKNOWN = 0
 };
 
-class ConnectionManager
-{
-public:
-	void sendLocalGameMessage(GameMessage *msg);	// 0x004D0E06, sendLocalGameMessage
-	void rva004D0A0A();			// 0x004D0A0A
-	int getNumPlayers();			// 0x004CF926
-	bool rva004CF3E1();			// 0x004CF3E1
-	PlayerLeaveCode processPlayerLeave(unsigned char playerID);	// 0x004D1D37
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 class BFMEConnectionManager
 {
 public:

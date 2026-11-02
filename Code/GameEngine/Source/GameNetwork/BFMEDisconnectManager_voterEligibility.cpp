@@ -14,12 +14,7 @@ typedef bool Bool;
 typedef int Int;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/ConnectionManager.h
-class ConnectionManager
-{
-public:
-	Bool isPlayerConnected(int slot);
-	Bool _bfme_slotIsLocalOrLive(int slot);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 class BFMEDisconnectManager
 {

@@ -86,20 +86,7 @@ class NetDisconnectChatCommandMsg;
 Bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	void sendChat(UnicodeString text, Int playerMask);
-	void sendDisconnectChat(UnicodeString text);
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-
-private:
-	void processChat(NetChatCommandMsg *msg);
-	void processDisconnectChat(NetDisconnectChatCommandMsg *msg);
-
-	char m_pad00000[0x12028];
-	Int m_localSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::sendChat(UnicodeString text, Int playerMask)
 {

@@ -17,11 +17,7 @@ typedef int Int;
 
 int Rva004D39DEGet(int a, int b);
 
-class ConnectionManager
-{
-public:
-	unsigned int getLocalPlayerID();
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 class DisconnectManager
 {

@@ -50,26 +50,7 @@ struct Rva0025DBDCPair
 	UnsignedInt m_second;
 };
 
-class ConnectionManager
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void rva0025DBAESlot(Bool flag, Int value);
-
-	void voteForPlayerDisconnect(Int slot);
-
-	char m_pad04[0x20];
-	Rva0025DE76Slot m_slots[9];			// +0x24
-	char m_pad12024[0x12050 - 0x12024];
-	Rva0025DBDCPair m_12050;			// +0x12050
-	UnsignedInt m_12058;
-	UnsignedInt m_frameCeiling;			// +0x1205C
-	UnsignedInt m_playerLatestFrame[8];	// +0x12060
-	char m_pad12080[0x12100 - 0x12080];
-	DisconnectManager *m_12100;			// +0x12100
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -99,8 +80,8 @@ private:
 // ConnectionManager+0x12100's 0x004D3DF4 with this manager, when that object exists.
 void ConnectionManager::voteForPlayerDisconnect(Int slot)
 {
-	if (m_12100)
-		m_12100->voteForPlayerDisconnect(slot, this);
+	if (m_disconnectManager)
+		m_disconnectManager->voteForPlayerDisconnect(slot, this);
 }
 
 // The slot query is the shared `xor eax,eax; ret` 0x000D43D0 (rowed as an

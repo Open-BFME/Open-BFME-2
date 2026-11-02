@@ -41,11 +41,7 @@ enum NetCommandType { NETCOMMAND_TYPE_DUMMY };
 bool DoesCommandRequireACommandID(NetCommandType type);
 unsigned short GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	void sendLocalCommand(NetCommandMsg *msg, unsigned char flags);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 class Rva004D0E93
 {

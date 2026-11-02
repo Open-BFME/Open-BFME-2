@@ -132,12 +132,7 @@ Bool DoesCommandRequireACommandID(NetCommandType type);
 
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 // Router succession list node: latency score, player and next.
 struct BFMEPlayerRouterScore

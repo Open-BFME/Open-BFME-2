@@ -43,12 +43,7 @@ void Rva005F327ARun::run()
 	m_impl->Update();
 }
 
-class ConnectionManager
-{
-public:
-	void requestLeave(int arg);
-	void rva004D0E8B();
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::rva004D0E8B()
 {

@@ -27,12 +27,7 @@ public:
 class ConnectionManager;
 unsigned short __cdecl GenerateNextCommandID(void);
 
-class ConnectionManager
-{
-public:
-    unsigned int getLocalPlayerID();
-    void sendLocalCommandDirect(NetCommandMsg *msg, unsigned char mask);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 bool DoesCommandRequireACommandID(NetCommandType type);
 

@@ -106,16 +106,7 @@ public:
 extern FileSystem *TheFileSystem;
 extern LANAPI *TheLAN;
 
-class ConnectionManager
-{
-public:
-	void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-
-private:
-	char m_pad00000[0x12028];
-	Int m_localSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID)
 {

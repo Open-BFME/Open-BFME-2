@@ -44,14 +44,7 @@ extern NetworkInterface *TheNetwork;
 // contains 65; this body reads it as a runtime global rather than a constant.
 int FRAMES_TO_KEEP = 65;
 
-class ConnectionManager
-{
-public:
-	NetCommandList *getFrameCommandList(unsigned int frame);
-private:
-	char m_prefix[0x12104];
-	FrameDataManager *m_frameData[8];
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 NetCommandList *ConnectionManager::getFrameCommandList(unsigned int frame)
 {

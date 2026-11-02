@@ -130,11 +130,7 @@ template <class T> const T &frameMinimum(const T &lhs, const T &rhs)
 	return rhs < lhs ? rhs : lhs;
 }
 
-class ConnectionManager
-{
-public:
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 class BFMEConnectionManager
 {

@@ -17,11 +17,7 @@ extern GameLogic *TheGameLogic;
 
 extern MessageStream *TheMessageStream;
 
-class ConnectionManager
-{
-public:
-	void disconnectLocalPlayer();
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 class Rva0025E4CD
 {

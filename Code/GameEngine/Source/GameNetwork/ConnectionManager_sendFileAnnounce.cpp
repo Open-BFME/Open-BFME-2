@@ -128,18 +128,7 @@ extern LANAPI *TheLAN;
 Bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	UnsignedShort sendFileAnnounce(AsciiString path, UnsignedByte playerMask);
-	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
-
-private:
-	void processFileAnnounce(NetFileAnnounceCommandMsg *msg);
-
-	char m_pad00000[0x12028];
-	Int m_localSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 UnsignedShort ConnectionManager::sendFileAnnounce(AsciiString path, UnsignedByte playerMask)
 {

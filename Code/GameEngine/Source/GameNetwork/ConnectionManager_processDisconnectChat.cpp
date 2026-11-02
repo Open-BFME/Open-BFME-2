@@ -46,14 +46,7 @@ public:
 // TheDisconnectMenu.
 class DisconnectMenu; extern DisconnectMenu *TheDisconnectMenu;
 
-class ConnectionManager
-{
-public:
-	UnicodeString getPlayerName(Int playerID);
-
-private:
-	void processDisconnectChat(NetDisconnectChatCommandMsg *msg);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::processDisconnectChat(NetDisconnectChatCommandMsg *msg)
 {

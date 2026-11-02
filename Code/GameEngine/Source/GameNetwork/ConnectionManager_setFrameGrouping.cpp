@@ -43,20 +43,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/ConnectionManager.h
-class ConnectionManager
-{
-public:
-	void setFrameGrouping( UnsignedInt frameGrouping );
-
-	// The reference's ConnectionManager keeps m_connections right after the
-	// vptr; retail reads them at +4..+0x24 and the two slot numbers up at
-	// +0x12028/+0x1202C, which is what the connectionmanager shim already pins.
-	void *m_vptr;
-	Connection *m_connections[MAX_SLOTS];			// this+0x04 .. +0x24
-	char m_padToLocalSlot[0x12028 - 0x24];
-	UnsignedInt m_localSlot;						// this+0x12028
-	UnsignedInt m_packetRouterSlot;					// this+0x1202C
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::setFrameGrouping( UnsignedInt frameGrouping )
 {

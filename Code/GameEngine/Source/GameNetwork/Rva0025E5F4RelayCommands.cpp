@@ -12,7 +12,7 @@ class NetCommandList {public:virtual void *destroy(int);Rva0025E5F4Node *first;}
 class Rva004C54ECByte {public:__declspec(noinline) unsigned char get();char opaque00[0x1c];unsigned char value;};
 unsigned char Rva004C54ECByte::get() {return value;}
 enum PlayerLeaveCode { PLAYERLEAVECODE_UNKNOWN=0 };
-class ConnectionManager {public:NetCommandList *getFrameCommandList(unsigned);PlayerLeaveCode processPlayerLeave(unsigned char);bool IsFrameAcked(unsigned);};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 class Rva004CF406DwordClearer {public:void clear();};
 #include "../Common/GameLogicObjectLookupView.h"
 // Native40B provider supplies the status tail beyond the canonical prefix.

@@ -99,11 +99,7 @@ extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
 Bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 class BFMEConnectionManager
 {

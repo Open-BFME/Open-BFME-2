@@ -100,17 +100,7 @@ extern InGameUI *TheInGameUI;
 void Rva004CF145();
 void Rva00381C82AddChatText(Int type, const UnicodeString &text, Int color);
 
-class ConnectionManager
-{
-public:
-	UnicodeString getPlayerName(Int playerID);
-
-private:
-	void processChat(NetChatCommandMsg *msg);
-
-	char m_pad00000[0x12028];
-	Int m_localSlot;
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 void ConnectionManager::processChat(NetChatCommandMsg *msg)
 {

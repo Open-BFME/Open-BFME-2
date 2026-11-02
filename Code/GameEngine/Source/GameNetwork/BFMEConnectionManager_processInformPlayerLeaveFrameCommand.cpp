@@ -86,11 +86,7 @@ extern GameLogic *TheGameLogic;
 bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
-class ConnectionManager
-{
-public:
-	void sendLocalCommandDirect(NetCommandMsg *msg, UnsignedByte relay);
-};
+#include "../../Include/GameNetwork/ConnectionManager.h"
 
 template <class T> inline const T &frameMaximum(const T &lhs, const T &rhs)
 {
