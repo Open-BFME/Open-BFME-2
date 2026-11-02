@@ -1,0 +1,304 @@
+{
+ "bases": [
+  "Overridable"
+ ],
+ "bases_by": "majority",
+ "class": "SpecialPowerTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 41,
+  "inherited": {
+   "base_views": 40,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "16": 2,
+   "20": 6,
+   "24": 4,
+   "28": 1,
+   "32": 10,
+   "60": 1,
+   "72": 1,
+   "84": 2,
+   "88": 1,
+   "90": 3,
+   "92": 5,
+   "100": 2,
+   "128": 2
+  },
+  "views": 41,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_SpecialPowerTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SpecialPower.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 21,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_nextOverride",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Overridable*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_isOverride",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_flags",
+   "name_by": "tie",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_type",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 13,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 46
+ },
+ "outliers": [
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleTrigger.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleTrigger.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleTrigger.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGetters.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCreateViewObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerCanDoSpecialPowerAtLocation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCreateViewObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerCanDoSpecialPowerAtLocation.cpp",
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CurseSpecialPowerSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 89,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0049355ERatio.cpp",
+    "Code/GameEngine/Source/Common/Rva00493AB7Ready.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIPostDraw.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CurseSpecialPowerSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleIsReady.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 16]]": 10,
+    "[[0, 28]]": 1,
+    "[[0, 4]]": 2,
+    "[[0, 9]]": 4,
+    "[[4, 8]]": 1,
+    "[[89, 90]]": 2,
+    "[]": 20
+   },
+   "class": "SpecialPowerTemplate"
+  },
+  {
+   "attribute": "name@0x18",
+   "candidates": {
+    "flags": 1,
+    "m_18": 1,
+    "m_flags": 1,
+    "m_unmodelled18": 1
+   },
+   "class": "SpecialPowerTemplate"
+  }
+ ],
+ "size": 32,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
