@@ -54,6 +54,7 @@ class ExperienceTracker;
 class FiringTracker;
 class GeometryInfo;
 class Module;
+class UpdateModule;
 class ModuleData;
 class PartitionData;
 class Player;
@@ -173,6 +174,8 @@ public:
 	ObjectID getID() const { return m_id; }
 	Team *getTeam() { return m_team; }
 	Player *getControllingPlayer() const;
+	// ZH Object.h public API; SupplyTruck's keyed dock tests inline this call.
+	UpdateModule *findUpdateModule(NameKeyType key) const { return (UpdateModule *)findModule(key); }
 	bool testStatus(ObjectStatusTypes bit) const;
 	void setStatus(ObjectStatusTypes bit, bool set);
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }

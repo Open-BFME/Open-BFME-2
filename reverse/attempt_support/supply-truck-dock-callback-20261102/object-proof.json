@@ -1,0 +1,155 @@
+{
+  "scope": "Full external definitions before public Object wrapper and SupplyTruck dock callback. Local guard/EH objects are separately judged by strict byte and EH verification.",
+  "objects": [
+    {
+      "path": "scan-candidate.obj",
+      "sha256": "fe9db41d2a59219dc39458a04398050b5ba3196e53381c46bdee1fdec23bd1a7"
+    },
+    {
+      "path": "dock-candidate.obj",
+      "sha256": "faca09a68f4d0ac5c6f0d17fb9f72b66d595cb4c50285cf7fe5743c08db72bfb"
+    }
+  ],
+  "before": {
+    "code": 82,
+    "data": 7
+  },
+  "after": {
+    "code": 84,
+    "data": 9
+  },
+  "changed": [],
+  "removed": [],
+  "added": [
+    {
+      "name": "??_C@_0BH@LIOMMODL@SupplyCenterDockUpdate?$AA@",
+      "kind": "data",
+      "section": ".rdata",
+      "bytes": "537570706c7943656e746572446f636b55706461746500",
+      "relocations": []
+    },
+    {
+      "name": "??_C@_0BK@GDIHPEOG@SupplyWarehouseDockUpdate?$AA@",
+      "kind": "data",
+      "section": ".rdata",
+      "bytes": "537570706c7957617265686f757365446f636b55706461746500",
+      "relocations": []
+    },
+    {
+      "name": "?findUpdateModule@Object@@QBEPAVUpdateModule@@W4NameKeyType@@@Z",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "e900000000",
+      "relocations": [
+        [
+          1,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ]
+      ]
+    },
+    {
+      "name": "?getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "b800000000e800000000f6050000000001568bf17524830d00000000018b0d000000008365fc006800000000e800000000834dfcffa300000000ff35000000008b4d08e80000000085c0740b8b8620fcffff8b406ceb4ff60500000000027527830d00000000028b0d000000006800000000c745fc01000000e800000000834dfcffa300000000ff35000000008b4d08e80000000085c0740b8b8620fcffff8b4068eb0233c08b4df45e64890d00000000c9c20400",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          12,
+          6,
+          "?$S1@?1??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4IA"
+        ],
+        [
+          24,
+          6,
+          "?$S1@?1??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4IA"
+        ],
+        [
+          31,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          40,
+          6,
+          "??_C@_0BK@GDIHPEOG@SupplyWarehouseDockUpdate?$AA@"
+        ],
+        [
+          45,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          54,
+          6,
+          "?keyWarehouse@?1??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4W4NameKeyType@@A"
+        ],
+        [
+          60,
+          6,
+          "?keyWarehouse@?1??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4W4NameKeyType@@A"
+        ],
+        [
+          68,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          89,
+          6,
+          "?$S1@?1??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4IA"
+        ],
+        [
+          98,
+          6,
+          "?$S1@?1??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4IA"
+        ],
+        [
+          105,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          110,
+          6,
+          "??_C@_0BH@LIOMMODL@SupplyCenterDockUpdate?$AA@"
+        ],
+        [
+          122,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          131,
+          6,
+          "?keyCenter@?3??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4W4NameKeyType@@A"
+        ],
+        [
+          137,
+          6,
+          "?keyCenter@?3??getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z@4W4NameKeyType@@A"
+        ],
+        [
+          145,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          173,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  ]
+}

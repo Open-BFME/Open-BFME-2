@@ -124,7 +124,8 @@ UpdateSleepTime SupplyTruckAIUpdate::update()
 struct SupplyTruckModuleDataView {
     unsigned char field00[0x64];
     int field64;
-    unsigned char field68[8];
+    unsigned int field68;
+    unsigned int field6C;
     float field70;
     unsigned char field74;
     unsigned char field75[3];
@@ -234,4 +235,19 @@ float SupplyTruckAIUpdate::rva004A6FBF() const
         return value + value;
     }
     return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field70;
+}
+
+#include "../../../../../Include/Common/NameKeyGenerator.h"
+
+unsigned int SupplyTruckAIUpdate::getActionDelayForDock(Object *dock)
+{
+    static NameKeyType keyWarehouse =
+        TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
+    if (dock->findUpdateModule(keyWarehouse) != 0)
+        return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field6C;
+    static NameKeyType keyCenter =
+        TheNameKeyGenerator->nameToKey("SupplyCenterDockUpdate");
+    if (dock->findUpdateModule(keyCenter) != 0)
+        return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field68;
+    return 0;
 }

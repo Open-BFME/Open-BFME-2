@@ -18468,3 +18468,7 @@ Secondary slot10 now uses actual Object::getControllingPlayer and bounded field 
 ### ThreatFinder consolidated Snapshot include repaired (2026-11-02)
 
 The ordinary Object-header gate exposed ThreatFinderUpdate.cpp's stale five-parent Snapshot include, which pointed under nonexistent Code/reference. Using the correct six-parent path restores all20code rows and both data rows without changing any body, policy or owner. [Normal/strict evidence and exact path scope](../reverse/attempt_support/threatfinder-snapshot-include-20261102/README.md). This clears the compile obstacle; census/runtime and broader linking status are not remeasured here.
+
+### LINK-089 SupplyTruck keyed dock delay and public Object API (2026-11-02)
+
+The181B secondary slot19 callback now calls donor-backed public Object::findUpdateModule, added to the reserved draft header as a forwarder over the still-protected findModule. All28ctor rows, both native literals and three EH graphs pass; all82prior complete externalcode/seven data definitions and relocations remain unchanged. The old placeholder/static identities remain for reconciliation. [Target/donor distinction, header prerequisite and exact proof](../reverse/attempt_support/supply-truck-dock-callback-20261102/README.md). Normal dependent-source gates and the outgoing audit remain required; no unit/census clearance is claimed.

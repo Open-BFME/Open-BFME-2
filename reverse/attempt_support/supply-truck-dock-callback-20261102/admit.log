@@ -1,0 +1,16 @@
+add_match: appended: ?getActionDelayForDock@SupplyTruckAIUpdate@@UAEIPAVObject@@@Z,,0x004A6F0A,181,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp,matched,SupplyTruck secondary slot19 uses donor public Object::findUpdateModule forwarding to protected native findModule; two literal-key tests return actual module-data6C or68. Complete181B including guard and EH relocations matches. Existing placeholder owner retained. fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp
+add_match: verifying: C:\Users\clemens\scoop\apps\python\current\python.exe tools/build.py Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp
+Source claims: OK (1 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Funclet pins: 3 row(s) verified past a renumbered $L label
+    uw_0078df31 (Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp): $L570 was renumbered; verified parent EH data places $L5013 at 0x0078DF31
+    Unwind@00b8df29 (Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp): $L633 was renumbered; verified parent EH data places $L5012 at 0x0078DF29
+    Unwind@00b8de7a (Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp): $L612 was renumbered; verified parent EH data places $L4753 at 0x0078DE7A
+Functions: OK 28/28 matched across 1 source file(s)
+String-ref verify: OK (2 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+add_match: verified OK — row is live
+add_match: recorded `landed` x1 in reverse/re_attempts.log -- stage it
+add_match: claim kept until the row is on origin/master; after your push run `python3 tools/claims.py release --landed`
