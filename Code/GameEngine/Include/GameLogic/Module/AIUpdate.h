@@ -341,7 +341,7 @@ public:
     virtual CommandSourceType vslot143() const; // 143: RVA 0x005C4AFD
     virtual void notifyVictimIsDead(); // 144: RVA 0x000B3FD0
     virtual void rva00267E46(); // 145: RVA 0x00267E46
-    virtual bool vslot146() const; // 146: RVA 0x0050B5C6
+    virtual bool vslot146() const { return true; } // 146: RVA 0x0050B5C6
     virtual void vslot147() {  } // 147: RVA 0x000B3FD0
     virtual bool isAllowedToRespondToAiCommands(AICommandParms const *)const; // 148: RVA 0x0026734C
 protected:
