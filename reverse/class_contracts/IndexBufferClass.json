@@ -1,0 +1,167 @@
+{
+ "bases": [
+  "W3DMPO",
+  "RefCountClass"
+ ],
+ "bases_by": "zh",
+ "class": "IndexBufferClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 28,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 2,
+   "inherited_spans": [
+    [
+     0,
+     8
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1386c0"
+     ],
+     "value": 12
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1386c0"
+     ],
+     "value": {
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1386c0"
+     ],
+     "value": {
+      "0x0": "0x7d2eec"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d2eec"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GIndexBufferClass@@MAEPAXI@Z",
+        "slot": 1,
+        "target": "0x1390a0"
+       }
+      ],
+      "table": "0x7d2eec"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x7d2eec": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GIndexBufferClass@@MAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 16,
+   "8": 3,
+   "16": 2,
+   "20": 6,
+   "24": 1
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DynamicIBAccessWriteLock.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8RigidCheckIfMeshFits.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8SkinClearVisibleList.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassRender.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "zh",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
