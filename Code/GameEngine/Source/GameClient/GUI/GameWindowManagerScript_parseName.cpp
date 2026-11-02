@@ -20,7 +20,6 @@
 //   with 0x716355 (entries are name@+0/fn@+4; the walker at 0x31701C
 //   compares names and calls [eax+4]).
 
-#include <windows.h>
 #include <string.h>
 
 #include <assert.h>
@@ -36,11 +35,7 @@ enum NameKeyType
 #include "ascii_string.h"
 
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

@@ -28,7 +28,6 @@ typedef unsigned short wchar_t;
 
 class UnicodeString;
 
-#include <windows.h>
 #include "unicode_string.h"
 
 

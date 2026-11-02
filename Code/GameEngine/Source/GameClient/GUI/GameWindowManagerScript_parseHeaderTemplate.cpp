@@ -20,7 +20,6 @@
 typedef int Int;
 typedef bool Bool;
 
-#include <windows.h>
 #include <string.h>
 
 #include "ascii_string.h"

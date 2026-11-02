@@ -23,7 +23,6 @@
 //   with 0x715D6D (entries are name@+0/fn@+4; the walker at 0x31701C
 //   compares names and calls [eax+4]).
 
-#include <windows.h>
 #include <string.h>
 #include <assert.h>
 

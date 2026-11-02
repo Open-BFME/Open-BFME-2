@@ -37,7 +37,6 @@ typedef unsigned short wchar_t;
 class AsciiString;
 class UnicodeString;
 
-#include <windows.h>
 #include <string.h>
 
 #include "ascii_string.h"

@@ -151,7 +151,22 @@ Rva0031763A &Rva0031763A::operator=(const Rva0031763A &that)
 	return *this;
 }
 
-class WindowLayoutInfo {public:bool load(AsciiString);};
+class WindowLayoutInfo
+{
+public:
+	bool load(AsciiString filename);
+	unsigned int m_version; // +0x00 +0x00
+	void *m_init; // +0x04 +0x04
+	void *m_update; // +0x08 +0x08
+	void *m_shutdown; // +0x0C +0x0C
+	void *m_classCallback; // +0x10 +0x10
+	AsciiString m_initName; // +0x14 +0x14
+	AsciiString m_updateName; // +0x18 +0x18
+	AsciiString m_shutdownName; // +0x1C +0x1C
+	AsciiString m_className; // +0x20 +0x20
+	AsciiString m_filename; // +0x24 +0x24
+	void *m_windowList; // +0x28 +0x28 list<GameWindow *> node (44-byte info, ctor 0x0031763A)
+};
 class BfmeQuickMatchScreenBase {
 public:
  BfmeQuickMatchScreenBase();

@@ -1995,7 +1995,30 @@ static Bool parseChildWindows( GameWindow *window,
 }  // end parseChildWindows
 
 // lookup table for parsing functions
+Bool parseName(char *, WinInstanceData *, char *, void *);
+Bool parseStatus(char *, WinInstanceData *, char *, void *);
+Bool parseStyle(char *, WinInstanceData *, char *, void *);
+Bool parseSystemCallback(char *, WinInstanceData *, char *, void *);
 Bool parseWinClass(char *, WinInstanceData *, char *, void *);
+Bool parseInputCallback(char *, WinInstanceData *, char *, void *);
+Bool parseTooltipCallback(char *, WinInstanceData *, char *, void *);
+Bool parseDrawCallback(char *, WinInstanceData *, char *, void *);
+Bool parseFont(char *, WinInstanceData *, char *, void *);
+Bool parseHeaderTemplate(char *, WinInstanceData *, char *, void *);
+Bool parseListboxData(char *, WinInstanceData *, char *, void *);
+Bool parseComboBoxData(char *, WinInstanceData *, char *, void *);
+Bool parseSliderData(char *, WinInstanceData *, char *, void *);
+Bool parseRadioButtonData(char *, WinInstanceData *, char *, void *);
+Bool parseTooltipText(char *, WinInstanceData *, char *, void *);
+Bool parseTooltipDelay(char *, WinInstanceData *, char *, void *);
+Bool parseText(char *, WinInstanceData *, char *, void *);
+Bool parseTextColor(char *, WinInstanceData *, char *, void *);
+Bool parseStaticTextData(char *, WinInstanceData *, char *, void *);
+Bool parseTextEntryData(char *, WinInstanceData *, char *, void *);
+Bool parseTabControlData(char *, WinInstanceData *, char *, void *);
+Bool parseDrawData(char *, WinInstanceData *, char *, void *);
+Bool parseImageOffset(char *, WinInstanceData *, char *, void *);
+Bool parseTooltip(char *, WinInstanceData *, char *, void *);
 
 static GameWindowParse gameWindowFieldList[] = 
 {
