@@ -35,19 +35,7 @@ public:
 	Real get() const;
 };
 
-class PathNode
-{
-public:
-	PathNode(const Coord3D *position, PathfindLayerEnum layer) throw();
-
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	PathfindLayerEnum m_layer;
-	Bool m_canOptimize;
-	Int m_waypointID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 class Path
 {

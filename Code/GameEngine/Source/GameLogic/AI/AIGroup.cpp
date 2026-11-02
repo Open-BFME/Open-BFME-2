@@ -125,25 +125,7 @@ public:
 	char m_pad00[0x4];
 	Rva00373EC6ModuleData *m_moduleData; // +0x04
 };
-class PathNode
-{
-public:
-	PathNode *getNextOptimized() const
-	{
-	 return m_nextOpti;
-	}
-	const Coord3D *getPosition() const
-	{
-	 return &m_pos;
-	}
-	// Keep traversal inline without emitting another PathNode accessor body.
-	__declspec(dllimport) __forceinline PathNode *getNext() { return m_nextOpti; }
-	char m_pad00[0x8];
-private:
-	PathNode *m_nextOpti; // +0x08
-	// +0x08
-	Coord3D m_pos; // +0x0C
-};
+#include "../../../Include/GameLogic/PathNode.h"
 #include "../../../Include/GameLogic/PathfindPath.h"
 class Team;
 class Waypoint;

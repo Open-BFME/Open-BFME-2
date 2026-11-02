@@ -593,14 +593,7 @@ public:
 template <> class AIUpdateSlotsHigh<111> : public AIUpdateSlotsIdle
 {
 };
-class PathNode
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-private:
-	unsigned char m_pad00[0x0C];
-	Coord3D m_pos; // +0x0C
-};
+#include "../../../../Include/GameLogic/PathNode.h"
 #include "../../../../Include/GameLogic/PathfindPath.h"
 // AIUpdateInterface: isIdle is primary slot 110 and chooseLocomotorSet slot
 // 142 in BFME2; the command interface is the subobject at +0x20 and the

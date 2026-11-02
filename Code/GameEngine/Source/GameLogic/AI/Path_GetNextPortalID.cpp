@@ -6,17 +6,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class PathNode
-{
-public:
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	int m_layer;
-	bool m_canOptimize;
-	int m_waypointID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 
@@ -29,7 +19,7 @@ int Path::GetNextPortalID()
 	node = field_10;
 	if (node == 0)
 		return max;
-	while (node != 0 && node->m_waypointID == max)
-		node = node->m_nextOptimized;
-	return node != 0 ? node->m_waypointID : max;
+	while (node != 0 && node->m_portalID == max)
+		node = node->m_nextOpti;
+	return node != 0 ? node->m_portalID : max;
 }

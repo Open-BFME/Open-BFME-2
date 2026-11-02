@@ -11,17 +11,7 @@
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class PathNode
-{
-public:
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	int m_layer;
-	bool m_canOptimize;
-	int m_waypointID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 class Path
 {
@@ -54,28 +44,28 @@ Coord3D *Path::PeekPastClimbPortal(Coord3D *out)
 	}
 	PathNode *sel = m_unknown10;
 	if (sel == 0) {
-		out->x = head->m_position.x;
-		out->y = head->m_position.y;
-		out->z = head->m_position.z;
+		out->x = head->m_pos.x;
+		out->y = head->m_pos.y;
+		out->z = head->m_pos.z;
 		return out;
 	}
-	PathNode *first = sel->m_nextOptimized;
+	PathNode *first = sel->m_nextOpti;
 	if (first == 0) {
-		out->x = sel->m_position.x;
-		out->y = sel->m_position.y;
-		out->z = sel->m_position.z;
+		out->x = sel->m_pos.x;
+		out->y = sel->m_pos.y;
+		out->z = sel->m_pos.z;
 		return out;
 	}
 	Coord3D tmp;
-	tmp.x = first->m_position.x;
-	tmp.y = first->m_position.y;
-	tmp.z = first->m_position.z;
-	PathNode *next = first->m_nextOptimized;
+	tmp.x = first->m_pos.x;
+	tmp.y = first->m_pos.y;
+	tmp.z = first->m_pos.z;
+	PathNode *next = first->m_nextOpti;
 	if (next != 0) {
-		tmp = next->m_position;
-		PathNode *third = next->m_nextOptimized;
-		if (third != 0 && third->m_waypointID != 0x7fffffff) {
-			tmp = third->m_position;
+		tmp = next->m_pos;
+		PathNode *third = next->m_nextOpti;
+		if (third != 0 && third->m_portalID != 0x7fffffff) {
+			tmp = third->m_pos;
 		}
 	}
 	out->x = tmp.x;
@@ -105,22 +95,22 @@ float Path::computeFlightDistToGoal(const Coord3D *currentPosition,
 	}
 
 	PathNode *curNode = m_path;
-	PathNode *nextNode = curNode->m_nextOptimized;
-	goalPosition = curNode->m_position;
+	PathNode *nextNode = curNode->m_nextOpti;
+	goalPosition = curNode->m_pos;
 	float distance = 0.0f;
 	bool useNext = true;
 	while (nextNode)
 	{
 		if (useNext)
-			goalPosition = nextNode->m_position;
+			goalPosition = nextNode->m_pos;
 
 		Coord2D posToGoalVector;
-		posToGoalVector.x = nextNode->m_position.x - currentPosition->x;
-		posToGoalVector.y = nextNode->m_position.y - currentPosition->y;
+		posToGoalVector.x = nextNode->m_pos.x - currentPosition->x;
+		posToGoalVector.y = nextNode->m_pos.y - currentPosition->y;
 
 		Coord2D pathVector;
-		pathVector.x = nextNode->m_position.x - curNode->m_position.x;
-		pathVector.y = nextNode->m_position.y - curNode->m_position.y;
+		pathVector.x = nextNode->m_pos.x - curNode->m_pos.x;
+		pathVector.y = nextNode->m_pos.y - curNode->m_pos.y;
 		pathVector.normalize();
 
 		float dotProduct = posToGoalVector.x * pathVector.x +
@@ -131,7 +121,7 @@ float Path::computeFlightDistToGoal(const Coord3D *currentPosition,
 			useNext = false;
 		}
 		curNode = nextNode;
-		nextNode = curNode->m_nextOptimized;
+		nextNode = curNode->m_nextOpti;
 	}
 	return distance;
 }

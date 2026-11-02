@@ -14,10 +14,7 @@ typedef int Int;
 typedef float Real;
 typedef bool Bool;
 
-struct PathNode
-{
-	PathNode *m_next;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 

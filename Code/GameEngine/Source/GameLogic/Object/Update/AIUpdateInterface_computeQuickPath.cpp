@@ -31,16 +31,7 @@ enum PathfindLayerEnum
 class Object;
 extern GameLogic *TheGameLogic;
 
-class PathNode
-{
-public:
-	PathNode *getNextOptimized() const { return m_nextOptimized; }
-	const Coord3D *getPosition() const { return &m_pos; }
-private:
-	unsigned char m_pad00[0x08];
-	PathNode *m_nextOptimized; // +0x08
-	Coord3D m_pos; // +0x0C
-};
+#include "../../../../Include/GameLogic/PathNode.h"
 
 #include "../../../../Include/GameLogic/PathfindPath.h"
 

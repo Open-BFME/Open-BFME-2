@@ -115,14 +115,7 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-class PathNode
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-private:
-	unsigned char m_pad00[0x0C];
-	Coord3D m_pos; // +0x0C
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 

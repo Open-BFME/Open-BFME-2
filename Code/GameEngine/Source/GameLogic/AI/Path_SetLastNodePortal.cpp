@@ -7,17 +7,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class PathNode
-{
-public:
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	int m_layer;
-	bool m_canOptimize;
-	int m_waypointID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 
@@ -27,5 +17,5 @@ void Path::SetLastNodePortal(int id)
 	if (tail == 0) {
 		return;
 	}
-	tail->m_waypointID = id;
+	tail->m_portalID = id;
 }
