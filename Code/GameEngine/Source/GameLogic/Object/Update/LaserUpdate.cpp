@@ -245,10 +245,7 @@ extern float BfmeClientFramesPerMillisecond;
 
 enum WhichTurretType { TURRET_INVALID=-1,TURRET_MAIN=0 };
 
-class Object { public:
- bool getSingleLogicalBonePosition(const char *,Coord3D *,Matrix3D *) const;
- bool getSingleLogicalBonePositionOnTurret(WhichTurretType,const char *,Coord3D *,Matrix3D *) const;
-};
+#include "../object.h"
 
 enum DrawableID
 {

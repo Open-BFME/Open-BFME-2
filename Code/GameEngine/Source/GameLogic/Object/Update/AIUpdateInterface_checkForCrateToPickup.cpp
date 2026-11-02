@@ -23,14 +23,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class Object
-{
-public:
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
-private:
-	unsigned char m_pad00[0x244];
-	BehaviorModule **m_behaviors;
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

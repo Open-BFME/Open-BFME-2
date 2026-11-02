@@ -9,11 +9,7 @@
 // getWakeFrame 0x0044DF5B and setWakeFrame 0x0044DF71 via UpdateModuleSetWakeFrame.
 // Tail-call target of Object helper 0x0028AE6D and wrapper 0x0026296D.
 
-class Object
-{
-public:
-	void setEffectivelyDead(bool dead) throw();
-};
+#include "../object.h"
 
 enum UpdateSleepTime
 {

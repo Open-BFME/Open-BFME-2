@@ -61,13 +61,7 @@ public:
 	int m_numLinks; // 0x4C
 };
 
-class Object
-{
-public:
-	bool isMobile() const; // 0x002907A1
-	char m_unrecovered000[0x438];
-	unsigned char m_flags438; // +0x438
-};
+#include "../../object.h"
 
 class AIStateMachine
 {
@@ -117,7 +111,7 @@ private:
 
 void Rva00368344::rva0036BB2F(const Waypoint *way, bool flag, int cmdSource)
 {
-	if (m_object->m_flags438 & 1)
+	if (m_object->m_privateStatus & 1)
 		return;
 	if (!m_object->isMobile())
 		return;

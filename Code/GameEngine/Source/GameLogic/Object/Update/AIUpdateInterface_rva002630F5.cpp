@@ -6,11 +6,7 @@
 // 0x34EE32 0x34F082 0x3500C4. Single callee already rowed.
 
 class RadarObject;
-class Object
-{
-public:
-	RadarObject *friend_getRadarData();
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 

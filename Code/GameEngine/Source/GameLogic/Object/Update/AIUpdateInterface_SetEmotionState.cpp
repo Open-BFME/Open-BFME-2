@@ -9,11 +9,7 @@
 // +0x30 machine and +0x08 object; caller 0x004DCC84 passes int 2-5 plus Object;
 // INVALID_STATE_ID 0xF423F matches predicates sibling.
 
-class Object
-{
-public:
-	void *rva0029439D();
-};
+#include "../object.h"
 
 class Rva0033FCC8
 {

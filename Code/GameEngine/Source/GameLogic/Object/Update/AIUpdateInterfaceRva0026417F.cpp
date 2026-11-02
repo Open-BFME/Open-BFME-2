@@ -15,14 +15,7 @@ public:
 	unsigned char m_b109; // +0x109
 };
 
-class Object
-{
-public:
-	signed char rva0028CE7B() const;
-	float GetRelativeAngle(const struct Coord3D *coord) const;
-	unsigned char m_pad[4];
-	ThingTemplate *m_template; // +4
-};
+#include "../object.h"
 
 struct Rva003642DFResult
 {

@@ -9,18 +9,7 @@
 // the Object's +38 position. Original member name unknown.
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	bool isMobile() const;
-	float GetRelativeAngle(const Coord3D *pos) const;
-	const Coord3D *getPosition() const { return &m_position; }
-	float getOrientation() const { return m_orientation; }
-private:
-	char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	float m_orientation; // +0x44
-};
+#include "../../object.h"
 class Waypoint;
 class AIStateMachine { public: void setGoalWaypoint(const Waypoint *p); };
 class StateMachine

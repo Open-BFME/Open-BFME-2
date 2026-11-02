@@ -94,20 +94,7 @@ public:
 };
 extern ActionManager *TheActionManager;
 
-class Object
-{
-public:
-	bool isKindOf(KindOfType t) const;	// 0x0006F039
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	void doSpecialPowerAtObject(const SpecialPowerTemplate *spTemplate, Object *target, unsigned int commandOptions, bool forceUsable);	// 0x0028E01F
-	void doSpecialPower(const SpecialPowerTemplate *spTemplate, unsigned int options, bool source);	// 0x0028DF48
-	const Coord3D *getPosition() const { return &m_pos; }
-	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	unsigned char m_pad044[0x438 - 0x44];
-	unsigned char m_privateStatus;	// +0x438
-};
+#include "../object.h"
 
 class ObjectFilter
 {

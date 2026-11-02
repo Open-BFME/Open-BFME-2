@@ -367,22 +367,7 @@ class ControlBar;
 
 extern ControlBar *TheControlBar;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;							// 0x0028AFA9
-	Relationship getRelationship(const Object *that) const;					// 0x0028D156
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *t) const;	// 0x0028BB9E
-	Real rva00263763(const void *other) const;						// 0x00263763
-	const AsciiString *rva00290E67() const;							// getCommandSetString, rowed by address
-	const Coord3D *getPosition() const { return &m_pos; }
-	AIUpdateInterface *getAI() const { return m_ai; }
-private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos;				// +0x38
-	unsigned char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai;		// +0x258
-};
+#include "../object.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp
 

@@ -99,17 +99,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Object
-{
-public:
-	bool isKindOf(KindOfType t) const;	// 0x0006F039
-	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
-	void setStatus(ObjectStatusTypes bit, bool flag);	// 0x0023DB0E
-	float getVisionRange() const;	// 0x0028DDE0
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../../object.h"
 
 struct WanderAIUpdateModuleData
 {

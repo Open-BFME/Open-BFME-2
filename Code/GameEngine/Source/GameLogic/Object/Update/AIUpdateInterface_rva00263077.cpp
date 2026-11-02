@@ -38,16 +38,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	Player *getControllingPlayer() const;
-	char m_pad00[0x249];
-	unsigned char m_249; // +0x249
-	char m_pad24A[0x258 - 0x24A];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
