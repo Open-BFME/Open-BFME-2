@@ -1,0 +1,842 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "GameEngine",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 56,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 4
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 3
+   },
+   "0x38": {
+    "4": 5
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x44": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x22da66"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e7188",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x22da66"
+     ],
+     "value": 96
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x22da66"
+     ],
+     "value": {
+      "0x10": [
+       1
+      ],
+      "0x11": [
+       1
+      ],
+      "0x14": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       1
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x22da66"
+     ],
+     "value": {
+      "0x0": "0x7e7188"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e7188"
+     ],
+     "value": {
+      "count": 40,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGameEngine@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x226333"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@GameEngine@@UAEXXZ",
+        "slot": 9,
+        "target": "0x229708"
+       },
+       {
+        "name": "?update@GameEngine@@UAEXXZ",
+        "slot": 10,
+        "target": "0x225da9"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?init@GameEngine@@UAEXHQAPAD@Z",
+        "slot": 14,
+        "target": "0x22e2e4"
+       },
+       {
+        "name": "?rva0022D290@GameEngine@@QAEXXZ",
+        "slot": 15,
+        "target": "0x22d290"
+       },
+       {
+        "name": "?rva00225AD5@GameEngine@@UAE_NXZ",
+        "slot": 16,
+        "target": "0x225ad5"
+       },
+       {
+        "name": "?rva00225AFF@GameEngine@@UAE_NXZ",
+        "slot": 17,
+        "target": "0x225aff"
+       },
+       {
+        "name": "?dup_005f69c4@@YAXXZ",
+        "slot": 18,
+        "target": "0x5f69c4"
+       },
+       {
+        "name": "?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ",
+        "slot": 19,
+        "target": "0x1db0a8"
+       },
+       {
+        "name": "?setForceWantingState@SupplyTruckAIUpdate@@UAEX_N@Z",
+        "slot": 20,
+        "target": "0xd1a7e"
+       },
+       {
+        "name": "?get@Rva001DBA6DByteField@@QBEEXZ",
+        "slot": 21,
+        "target": "0x1dba6d"
+       },
+       {
+        "name": "?isMultiplayerSession@GameEngine@@UAE_NXZ",
+        "slot": 22,
+        "target": "0x225f76"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 23,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?get@Rva00041D5EByteField@@QBEEXZ",
+        "slot": 24,
+        "target": "0x41d5e"
+       },
+       {
+        "name": "?setForceBusyState@SupplyTruckAIUpdate@@UAEX_N@Z",
+        "slot": 25,
+        "target": "0x23c497"
+       },
+       {
+        "name": "?rva0023054C@GameEngine@@UAEXXZ",
+        "slot": 26,
+        "target": "0x23054c"
+       },
+       {
+        "name": "?bfmeCreateVTD@@YAPAVBfmeThingVTD@@XZ",
+        "slot": 27,
+        "target": "0x225f44"
+       },
+       {
+        "name": "__purecall",
+        "slot": 28,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 29,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?createMessageStream@GameEngine@@MAEPAVMessageStream@@XZ",
+        "slot": 30,
+        "target": "0x225f12"
+       },
+       {
+        "name": "__purecall",
+        "slot": 31,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 32,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 33,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 34,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 35,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 36,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 37,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?_bfme_updateNetworkAndLogic@GameEngine@@UAEXH@Z",
+        "slot": 38,
+        "target": "0x22634f"
+       },
+       {
+        "name": "?_bfme_updateClientSubsystems@GameEngine@@UAEXXZ",
+        "slot": 39,
+        "target": "0x225c12"
+       }
+      ],
+      "table": "0x7e7188"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {
+   "0x7e7188": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGameEngine@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@GameEngine@@UAEXXZ",
+     "10": "?update@GameEngine@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?init@GameEngine@@UAEXHQAPAD@Z",
+     "15": "?rva0022D290@GameEngine@@QAEXXZ",
+     "16": "?rva00225AD5@GameEngine@@UAE_NXZ",
+     "17": "?rva00225AFF@GameEngine@@UAE_NXZ",
+     "18": "?dup_005f69c4@@YAXXZ",
+     "19": "?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ",
+     "20": "?setForceWantingState@SupplyTruckAIUpdate@@UAEX_N@Z",
+     "21": "?get@Rva001DBA6DByteField@@QBEEXZ",
+     "22": "?isMultiplayerSession@GameEngine@@UAE_NXZ",
+     "23": "??1Region2D@@QAE@XZ",
+     "24": "?get@Rva00041D5EByteField@@QBEEXZ",
+     "25": "?setForceBusyState@SupplyTruckAIUpdate@@UAEX_N@Z",
+     "26": "?rva0023054C@GameEngine@@UAEXXZ",
+     "27": "?bfmeCreateVTD@@YAPAVBfmeThingVTD@@XZ",
+     "28": "__purecall",
+     "29": "__purecall",
+     "30": "?createMessageStream@GameEngine@@MAEPAVMessageStream@@XZ",
+     "31": "__purecall",
+     "32": "__purecall",
+     "33": "__purecall",
+     "34": "__purecall",
+     "35": "__purecall",
+     "36": "__purecall",
+     "37": "__purecall",
+     "38": "?_bfme_updateNetworkAndLogic@GameEngine@@UAEXH@Z",
+     "39": "?_bfme_updateClientSubsystems@GameEngine@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 8,
+   "4": 25,
+   "56": 3,
+   "60": 9,
+   "64": 5,
+   "92": 1,
+   "96": 3
+  },
+  "views": 54,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameEngine.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameEngine.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 32,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineExecuteRva0022D290.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineExecuteRva0022D290.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 13,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineExecuteRva0022D290.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineExecuteRva0022D290.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp",
+    "Code/GameEngine/Source/Common/GameEngineNetworkHelpers.cpp",
+    "Code/GameEngine/Source/Common/Rva00225D38Check.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable/Update/SwayClientUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_updateFloatingText.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDoDrawModule.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp",
+    "Code/GameEngine/Source/Common/Rva000B595FBarrierSweep.cpp",
+    "Code/GameEngine/Source/Common/Rva00271423.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva0049CBDACalc.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAdjustTransformMtx.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp",
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngine.cpp",
+    "Code/GameEngine/Source/Common/GameEngineFrameTiming.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['MovieSlots<23>']": 1,
+    "['VirtualSlots<23>']": 1
+   },
+   "class": "GameEngine",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "_M_slot_5c()": 1,
+    "m_unknown23()": 2,
+    "pump()": 1,
+    "s23()": 1,
+    "serviceWindowsOS()": 3,
+    "slot23()": 3,
+    "slot5C()": 1,
+    "slot5c()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "_M_slot_60()": 1,
+    "isActive()": 2,
+    "m_unknown24()": 2,
+    "s24()": 1,
+    "slot24()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot26",
+   "candidates": {
+    "s26()": 1,
+    "slot26()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "s27()": 1,
+    "slot27()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "s28()": 1,
+    "slot28()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "s29()": 1,
+    "slot29()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "s30()": 1,
+    "slot30()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot31",
+   "candidates": {
+    "s31()": 1,
+    "slot31()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot32",
+   "candidates": {
+    "s32()": 1,
+    "slot32()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot33",
+   "candidates": {
+    "s33()": 1,
+    "slot33()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot34",
+   "candidates": {
+    "s34()": 1,
+    "slot34()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot35",
+   "candidates": {
+    "s35()": 1,
+    "slot35()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot36",
+   "candidates": {
+    "s36()": 1,
+    "slot36()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot37",
+   "candidates": {
+    "s37()": 1,
+    "slot37()": 1
+   },
+   "class": "GameEngine"
+  },
+  {
+   "attribute": "slot38",
+   "candidates": {
+    "_bfme_updateNetworkAndLogic(int)": 1,
+    "s38(int)": 1
+   },
+   "class": "GameEngine"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot22()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "setIsActive(bool)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "39": {
+   "decided_by": "bytes",
+   "member": "s39()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}

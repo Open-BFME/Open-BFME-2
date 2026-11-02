@@ -256,3 +256,4 @@ SpecialPowerModuleInterface,Code/GameEngine/Include/GameLogic/Module/SpecialPowe
 NetCommandMsg,Code/GameEngine/Include/GameNetwork/NetCommandMsg.h,existing header; contract class_contracts/NetCommandMsg.json; 31/64 sampled units adopt
 TeamFactory,Code/GameEngine/Include/Common/TeamFactory.h,existing header; contract class_contracts/TeamFactory.json; 41/62 sampled units adopt
 DamageInfo,Code/GameEngine/Include/GameLogic/Damage.h,existing header; contract class_contracts/DamageInfo.json; 19/55 sampled units adopt
+GameEngine,Code/GameEngine/Include/Common/GameEngine.h,existing header; contract class_contracts/GameEngine.json; 30/56 sampled units adopt
