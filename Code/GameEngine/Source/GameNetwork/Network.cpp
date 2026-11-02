@@ -59,31 +59,6 @@ private:
 extern GameLogic *TheGameLogic;
 union GameMessageArgumentType;
 #include "../../Include/Common/MessageStream.h"
-class MessageStream
-{
-public:
-#define MESSAGE_STREAM_SLOT(n) virtual void slot##n(void) = 0
-	MESSAGE_STREAM_SLOT(00);
-	MESSAGE_STREAM_SLOT(01);
-	MESSAGE_STREAM_SLOT(02);
-	MESSAGE_STREAM_SLOT(03);
-	MESSAGE_STREAM_SLOT(04);
-	MESSAGE_STREAM_SLOT(05);
-	MESSAGE_STREAM_SLOT(06);
-	MESSAGE_STREAM_SLOT(07);
-	MESSAGE_STREAM_SLOT(08);
-	MESSAGE_STREAM_SLOT(09);
-	MESSAGE_STREAM_SLOT(10);
-	MESSAGE_STREAM_SLOT(11);
-	MESSAGE_STREAM_SLOT(12);
-	MESSAGE_STREAM_SLOT(13);
-	MESSAGE_STREAM_SLOT(14);
-	MESSAGE_STREAM_SLOT(15);
-	MESSAGE_STREAM_SLOT(16);
-	MESSAGE_STREAM_SLOT(17);
-	virtual GameMessage *appendMessage(UnsignedInt type) = 0;
-#undef MESSAGE_STREAM_SLOT
-};
 extern class MessageStream *TheMessageStream;
 #pragma pack(push, 4)
 class Network

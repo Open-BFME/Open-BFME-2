@@ -3604,9 +3604,6 @@ class GameInfo;extern GameInfo *TheGameInfo;
 struct DispatcherGameInfo {char pad00[0x80];int preference;};
 class GameInfo {public:GameSlot*getSlot(int);};
 struct DispatcherGameLogic {char pad00[0x38];int frame;char pad3c[8];bool field44;char pad45[0x114-0x45];int field114;};
-class MessageStream {public:
- virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14();virtual void s18();virtual void s1c();virtual void s20();virtual void s24();virtual void s28();virtual void s2c();virtual void s30();virtual void s34();virtual void s38();virtual void s3c();virtual void s40();virtual void s44();virtual GameMessage *append(int);
-};
 extern MessageStream *TheMessageStream;
 struct DispatcherSlot {char pad00[0x34];AsciiString name;char pad38[0x4c-0x38];int id;};
 class BfmeSelectionState {public:bool isSelectionLocked()const;};
@@ -3808,7 +3805,7 @@ void LivingWorldLogic::logicMessageDispatcher(GameMessage*msg,void*unused){
  if(!player)return;
  switch(((const int*)msg)[4]){
  case 1701:
-  if(TheGameLogic&&msg->getArgument(0)->integer==((DispatcherGameLogic*)TheGameLogic)->frame){GameMessage*out=TheMessageStream->append(29);out->appendIntegerArgument(1);}
+  if(TheGameLogic&&msg->getArgument(0)->integer==((DispatcherGameLogic*)TheGameLogic)->frame){GameMessage*out=TheMessageStream->appendMessage(29);out->appendIntegerArgument(1);}
   break;
  case 1704:{LivingWorldArmy*army;Rva0020E89C*region;
   if(getArmyFromMessage(&army,msg,0)&&rva002B2CE7(msg,&region,1)){

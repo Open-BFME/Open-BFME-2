@@ -6,26 +6,6 @@
 // MessageStream appendMessage is slot18 as in ControlBarUpdateConstruction;
 // GameMessage::appendIntegerArgument is the owned 30F936 provider.
 #include "../../../../GameEngine/Include/Common/MessageStream.h"
-class MessageStream{public:
-virtual void slot00();
-virtual void slot01();
-virtual void slot02();
-virtual void slot03();
-virtual void slot04();
-virtual void slot05();
-virtual void slot06();
-virtual void slot07();
-virtual void slot08();
-virtual void slot09();
-virtual void slot10();
-virtual void slot11();
-virtual void slot12();
-virtual void slot13();
-virtual void slot14();
-virtual void slot15();
-virtual void slot16();
-virtual void slot17();
-virtual GameMessage*appendMessage(int);};
 extern MessageStream*TheMessageStream; // ledger alias of MessageStreamSubsystem at 0x00A00950
 // The receiver is the W3DView object: the W3DView constructor 0x0008B7CF
 // ends by calling this body on its own this with 0.
