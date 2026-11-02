@@ -22,21 +22,15 @@ typedef bool Bool;
 #define Rva007D85C0TacticalViewGlobal ((Rva007D85C0TacticalView *)TheTacticalView)
 #include <vector>
 #include <stdlib.h>
-
 struct IDirect3DSurface8;
-
 struct IDirect3DBaseTexture8 {};
-
 // The device and textures keep their D3D8 type names (DX8Wrapper's static
 // decorations) but are Direct3D 9 objects: SetRenderState 57, SetTexture 65, SetSamplerState 69,
 // SetVertexDeclaration 87, SetVertexShader 92, SetPixelShader 107,
 // SetPixelShaderConstantF 109; texture AddRef / Release 1 / 2.
 struct IDirect3DDevice8;
-
 extern unsigned number_of_DX8_calls;
-
 extern unsigned g_fvfShader;
-
 class StringClass
 {
 public:
@@ -46,7 +40,6 @@ private:
 	void Free_String();
 	char *m_Buffer;
 };
-
 class VertexMaterialClass
 {
 public:
@@ -65,9 +58,7 @@ public:
 	}
 	int NumRefs;
 };
-
 extern VertexMaterialClass *ScreenMaterial;
-
 class ShaderClass
 {
 public:
@@ -79,15 +70,12 @@ protected:
 private:
 	unsigned int m_bits[2];
 };
-
 class TextureBaseClass
 {
 public:
 	void Release_Ref();
 };
-
 struct BFME2TextureResource;
-
 struct BFME2TextureRef
 {
 	BFME2TextureRef(BFME2TextureResource *texture) : Ptr(texture) {}
@@ -98,9 +86,7 @@ struct BFME2TextureRef
 	}
 	BFME2TextureResource *Ptr;
 };
-
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
-
 class WW3D
 {
 public:
@@ -108,46 +94,33 @@ public:
 private:
 	static bool SnapshotActivated;
 };
-
 struct RenderStateStruct
 {
 	ShaderClass shader;
 };
-
 struct GlowSampleVector;
-
 struct IDirect3DTexture8;
-
 // The settings block behind Rva00309E4BGet (+0x08 is the blur strength).
 struct BfmeHilightSettings
 {
 	char m_pad00[8];
 	float m_08;
 };
-
 int Rva00309E4BGet();
-
 // Helpers called from here: the colour read (0x000ABBEF) and the square
 // quad draw (rowed 0x00075A23). The blur pass is the rowed
 // W3DShaderManager::performGlow (0x00077392).
 void rva000ABBEF(float *r, float *g, float *b, int index);
-
 void Rva00075A23Draw(int width, int height);
-
 extern bool bfmeOnlyEmissiveDraws;
-
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 struct BfmeHilightGlobalDataView
 {
 	char m_pad[0xD34];
 	bool m_D34;
 };
-
 enum FilterModes { FM_NULL_MODE = 0 };
-
 class ScreenHilightFilter
 {
 public:
@@ -173,11 +146,8 @@ private:
 	IDirect3DSurface8 *m_renderTarget;	// +0x2C
 	void *m_surfaces[2];	// +0x30
 };
-
 class View;
-
 extern View *TheTacticalView;
-
 struct Vec4Base
 {
 	Real x;
@@ -185,7 +155,6 @@ struct Vec4Base
 	Real z;
 	Real w;
 };
-
 struct Vec4 : Vec4Base
 {
 	// ??0Vec4@@QAE@MMMM@Z absent-from-retail
@@ -197,9 +166,7 @@ struct Vec4 : Vec4Base
 		w = d;
 	}
 };
-
 struct Rva007D85C0Device;
-
 struct Rva007D85C0DeviceVtable
 {
 	char pad000[0x104];
@@ -217,12 +184,10 @@ struct Rva007D85C0DeviceVtable
 	// D3D9 slot 92 (programmable vertex shader).
 	long (__stdcall *SetVertexShader)(Rva007D85C0Device *, unsigned int);
 };
-
 struct Rva007D85C0Device
 {
 	Rva007D85C0DeviceVtable *v;
 };
-
 class Rva007D85C0TacticalView
 {
 public:
@@ -247,7 +212,6 @@ public:
 	virtual void slot18() = 0;
 	virtual void getOrigin(Int *, Int *) = 0;
 };
-
 class DX8Wrapper
 {
 public:
@@ -338,7 +302,6 @@ protected:
 	static unsigned render_state_changes;
 	static RenderStateStruct render_state;
 };
-
 // The settings block behind Rva00309E4BGet.
 struct BfmeGaussianSettings
 {
@@ -350,7 +313,6 @@ struct BfmeGaussianSettings
 	float m_18;
 	float m_1C;
 };
-
 struct BfmeGaussianParams
 {
 	int m_mode;
@@ -360,7 +322,6 @@ struct BfmeGaussianParams
 	float m_18;
 	float m_1C;
 };
-
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 // ?g_bfmeDirtyCU@@3_NA at 0x009FF48C: owned by
@@ -462,10 +423,28 @@ struct Rva000FB85D
 	void *m_18;
 };
 
-// --- 0x000D167A (13B): ORs the argument into the flag word at +0x118.
+struct Gen_p12pod { int a[3]; };
+
+class ScreenHilightFilterComRef
+{
+public:
+	virtual long __stdcall QueryInterface() = 0;
+	virtual unsigned long __stdcall AddRef() = 0;
+	virtual unsigned long __stdcall Release() = 0;
+};
+
+struct IDirect3DBaseTexture8;
+
+class Coord2D;
+
 // tu-skeleton: 0x000FA935 400B ?init@ScreenHilightFilter@@UAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterPreRender.cpp (not merged yet)
 
 // tu-skeleton: 0x000FAAC5 370B ?preRender@ScreenHilightFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterPreRender.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp
+
+// --- 0x000D167A (13B): ORs the argument into the flag word at +0x118.
+
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp
 
@@ -768,8 +747,6 @@ Rva000FB8B6::Rva000FB8B6()
 	m_28 = 0;
 }
 
-// tu-skeleton: 0x000FB0BC 79B ?rva000FB0BC@Rva007D85C0@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Slot6.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GapBodiesSeat2A.cpp
 
 // Small bodies from .text gaps no ledger row covered (each begins after its
@@ -785,9 +762,40 @@ Rva000FB85D::~Rva000FB85D()
 		free(m_18);
 }
 
+// tu-skeleton: 0x000FB0BC 79B ?rva000FB0BC@Rva007D85C0@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Slot6.cpp (not merged yet)
+
 // tu-skeleton: 0x000FB86C 15B ??1Rva004E5A24@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva004E5A24Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x000FB8EB 121B ?shutdown@ScreenHilightFilter@@QAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterShutdown.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterShutdown.cpp
+
+//
+// Bodies ported from Open-BFME-1's
+// GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterShutdown.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus
+// /O1). Compiled that way each body below places uniquely on unclaimed
+// game.dat .text by masked whole-.text search, and ./build.sh reproduces it
+// byte for byte: ScreenHilightFilter::shutdown 0x000FB8EB (121B). Callee
+// addresses are read off retail's call sites (reverse/symbols.csv). Only the
+// placed bodies are carried; the donor's other definitions are omitted.
+
+int ScreenHilightFilter::shutdown()
+{
+	if( m_pixelShader ) ((ScreenHilightFilterComRef *)m_pixelShader)->Release();
+	if( m_vertexShader ) ((ScreenHilightFilterComRef *)m_vertexShader)->Release();
+	m_pixelShader = 0;
+	m_vertexShader = 0;
+	((_STL::vector<Gen_p12pod> *)m_kernel)->clear();
+	if( m_renderTarget ) ((ScreenHilightFilterComRef *)m_renderTarget)->Release();
+	m_renderTarget = 0;
+	if( m_result ) ((ScreenHilightFilterComRef *)m_result)->Release();
+	ScreenHilightFilterComRef **screenHilightFilterComRef = (ScreenHilightFilterComRef **)&m_result;
+	*screenHilightFilterComRef = 0;
+	if( m_textures[0] ) ((ScreenHilightFilterComRef *)m_textures[0])->Release();
+	m_textures[0] = 0;
+	if( m_surfaces[0] ) ((ScreenHilightFilterComRef *)m_surfaces[0])->Release();
+	m_surfaces[0] = 0;
+	return 1;
+}
 
 // tu-skeleton: 0x00763F1F 8B Unwind@00b63f1f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007DCA80Init.cpp (not merged yet)
 

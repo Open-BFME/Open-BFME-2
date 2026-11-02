@@ -1,0 +1,14 @@
+{
+  "base": "1291df600d4fba21e9a60ef84de93c18d033f5ea",
+  "units": 1279,
+  "receipt_scope": "ordinary dependency receipts; historical provider objects for before",
+  "strict_current_objects": 114,
+  "clean_before": 1248,
+  "clean_after": 1248,
+  "lost_links": [],
+  "new_findings": [],
+  "historical_objects": {
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^screen^hilight^filter.obj": "7b9ace352d294dca37020a334e78371fe0841924b1bebc2746cbd7e5012cd27c",
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^screen^hilight^filter^shutdown.obj": "ef58c31f1aa92513eadac4231c2cfd6a52ca27124afcbecd150aec907d9f8336"
+  }
+}

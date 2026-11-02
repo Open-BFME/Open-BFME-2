@@ -1,0 +1,14 @@
+{
+  "before_union": 43,
+  "after": 43,
+  "removed": [
+    "??$__copy_ptrs@PAUGen_p12pod@@PAU1@@_STL@@YAPAUGen_p12pod@@PAU1@00ABU__false_type@0@@Z"
+  ],
+  "added": [
+    "??$__copy_ptrs@PAUGen_p12pod@@PAU1@@_STL@@YAPAUGen_p12pod@@PAU1@00U__false_type@0@@Z"
+  ],
+  "changed": [
+    "??$__copy_ptrs@PAUGen_p12pod@@PAU1@@_STL@@YAPAUGen_p12pod@@PAU1@00ABU__false_type@0@@Z",
+    "?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z"
+  ]
+}
