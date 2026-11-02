@@ -9156,6 +9156,18 @@ reports: LINKS (0 -> 37 bytes). Exact 1/1 byte match preserved.
 Census confirmation: awaiting the next census.
 
 ### LINK-040: the 172-byte `CarryoverUnit` vector is spelled as five element types
+**Supported-fold boundary (2026-11-02, GPT-6, base `3799c53a99b`):**
+The source/RVA scope was claimed and its frozen check passes. Normal
+`class --fold Rva001EBEABElement --into CarryoverUnit --dry-run` refuses
+before edits: zero constructor/destructor rows carry the placeholder class,
+so its own-vftable-store proof has no input. The constructor/destructor pins
+are call-binding leads, not that required proof. The opaque source's
+nonvirtual destructor also needs reconciliation with CarryoverUnit's virtual
+destructor, along with the helper twins already described below. No alias,
+pin, checker change or source trial was added; no new link or census claim.
+Do not repeat this fold without new element/ABI evidence or a supported proof
+path. [Exact boundary and next prerequisites](../reverse/attempt_support/carryover-fold-boundary-20261102/readme.md).
+
 Status: Open. Updated: 2026-10-26; inspected revision: 10621f1b34.
 Evidence / affected units: `StlSweepW4Rva001EBEAB.cpp` (`vector<Rva001EBEABElement>::_M_fill_insert`,
 0x001EBEAB, 307 B with funclets) fails on unresolved element ctor/dtor/`operator=` and a non-retail
