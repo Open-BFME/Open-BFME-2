@@ -1,0 +1,914 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "PlayerTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1feb8b"
+     ],
+     "value": 476
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1feb8b"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       1
+      ],
+      "0x151": [
+       1
+      ],
+      "0x164": [
+       4
+      ],
+      "0x168": [
+       4
+      ],
+      "0x16c": [
+       4
+      ],
+      "0x170": [
+       4
+      ],
+      "0x174": [
+       4
+      ],
+      "0x178": [
+       4
+      ],
+      "0x17c": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1a4": [
+       4
+      ],
+      "0x1a8": [
+       4
+      ],
+      "0x1ac": [
+       4
+      ],
+      "0x1b0": [
+       4
+      ],
+      "0x1b4": [
+       4
+      ],
+      "0x1b8": [
+       4
+      ],
+      "0x1bc": [
+       1
+      ],
+      "0x1c0": [
+       4
+      ],
+      "0x1c4": [
+       4
+      ],
+      "0x1d8": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ]
+     }
+    },
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x1feb8b"
+     ],
+     "value": {
+      "0x1feb8b": [
+       "BfmeObject476",
+       "PlayerTemplate"
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1feb8b"
+     ],
+     "value": {
+      "0x100": [
+       "??0?$hash_map@HURva001FEAB2Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva001FEAB2Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x114": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x120": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x12c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x138": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x13c": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x140": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x144": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x14c": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x154": [
+       "??0Rva003B0E5DRecord@@QAE@XZ"
+      ],
+      "0x164": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x168": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x16c": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x170": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x174": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x178": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x17c": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x18": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x180": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x18c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x198": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x1b0": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x1b4": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x1b8": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0x1c": [
+       "?rva003B0E83@Rva003B0E83@@QAEPAV1@XZ"
+      ],
+      "0x1c8": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x1cc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x44": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0xe8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xf4": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x1feb8b"
+     ],
+     "value": {
+      "0x2c": [
+       "0x7e1aa0"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1feb8b"
+     ],
+     "value": {
+      "0x0": "0x7e1be8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e1be8"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBfmeObject476@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1fe772"
+       }
+      ],
+      "table": "0x7e1be8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x7e1be8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBfmeObject476@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 7,
+  "view_sizes": {
+   "1": 7,
+   "20": 1,
+   "24": 1,
+   "28": 3,
+   "72": 2,
+   "244": 1,
+   "340": 1,
+   "344": 1,
+   "384": 2,
+   "436": 2,
+   "445": 2,
+   "448": 2,
+   "476": 8
+  },
+  "views": 33,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_PlayerTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/PlayerTemplate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "p",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 24,
+   "type": "char[24]",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_nextOverride",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Overridable*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_isOverride",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_key",
+   "name_by": "tie",
+   "offset": 16,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "enum",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "unknown14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "side",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:S3Handicap",
+   "members": [
+    {
+     "kind": "A",
+     "name": "values",
+     "offset": 0,
+     "size": 16,
+     "type": "float[16]"
+    }
+   ],
+   "name": "unknown1c",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 16,
+   "type": "S3Handicap",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva003B0D7C",
+   "name": "money",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Rva003B0D7C",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:S3Coord",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "unknown38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 12,
+   "type": "S3Coord",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "unknown44",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "unknowne8",
+   "name_by": "majority",
+   "offset": 232,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva001FD42B",
+   "members": [
+    {
+     "kind": "P",
+     "name": "header",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    },
+    {
+     "kind": "i4",
+     "name": "count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "A",
+     "name": "compare",
+     "offset": 8,
+     "size": 4,
+     "type": "char[4]"
+    }
+   ],
+   "name": "cost",
+   "name_by": "majority",
+   "offset": 244,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Rva001FD42B",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva000427195",
+   "members": [
+    {
+     "kind": "A",
+     "name": "words",
+     "offset": 0,
+     "size": 20,
+     "type": "void*[20]"
+    }
+   ],
+   "name": "unknown100",
+   "name_by": "majority",
+   "offset": 256,
+   "retail_widths": {},
+   "size": 20,
+   "type": "Rva000427195",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva001FD458",
+   "members": [
+    {
+     "kind": "P",
+     "name": "header",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    },
+    {
+     "kind": "i4",
+     "name": "count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "A",
+     "name": "compare",
+     "offset": 8,
+     "size": 4,
+     "type": "char[4]"
+    }
+   ],
+   "name": "veterancy",
+   "name_by": "majority",
+   "offset": 276,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Rva001FD458",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "unknown138",
+   "name_by": "majority",
+   "offset": 312,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "unknown140",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "unknown144",
+   "name_by": "majority",
+   "offset": 324,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_specialPowerShortcutButtonCount",
+   "name_by": "majority",
+   "offset": 328,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "observer",
+   "name_by": "tie",
+   "offset": 336,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_playableSide",
+   "name_by": "majority",
+   "offset": 337,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "property154",
+   "name_by": "majority",
+   "offset": 340,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_beaconTemplate",
+   "name_by": "majority",
+   "offset": 380,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_defaultAIType",
+   "name_by": "majority",
+   "offset": 432,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_1BC",
+   "name_by": "tie",
+   "offset": 444,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "suffixB",
+   "name_by": "majority",
+   "offset": 445,
+   "retail_widths": {},
+   "size": 31,
+   "type": "uchar[31]",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 11
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "m_key": 1,
+    "m_nameKey": 1
+   },
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "name@0x44",
+   "candidates": {
+    "m_side.m_text": 1,
+    "startingBuilding.m_text": 1
+   },
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "name@0x150",
+   "candidates": {
+    "flag150": 1,
+    "observer": 1
+   },
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "field@0x152",
+   "candidates": {
+    "106:A": 1,
+    "138:A": 1
+   },
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "name@0x1bc",
+   "candidates": {
+    "flag1bc": 1,
+    "m_1BC": 1,
+    "m_1bc": 1,
+    "m_flag1BC": 1,
+    "m_isEvil": 1
+   },
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "straddle@0xc",
+   "candidates": {},
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "straddle@0x10",
+   "candidates": {},
+   "class": "PlayerTemplate"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "PlayerTemplate"
+  }
+ ],
+ "size": 476,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
