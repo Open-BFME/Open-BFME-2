@@ -50,3 +50,17 @@ until its complete fresh-object prerequisite can be met through the normal lane.
 Carry the provider and affected consumers into the next scheduled census.
 
 Native Resize/storage family: t=13 model=gpt-6 lane=R budget=30m.
+
+## Rebase and outgoing audit
+
+Rebase onto d403addbb5332bed03cb67a6dfe0fad4dcf39abb succeeds; the source,
+AGENTS.md and committed reference pin are unchanged. Upstream also changes
+ShaderClass.h, so the full eight-source normal check and joint preview are
+repeated:45/45, both existing data rows, all8 LINKS and5015->5355B again.
+The range header-dependency check returns0; no source path moves occurred.
+
+At code tip5253bd1713c0880667a7812623bc1f2f65256a93 the explicit outgoing
+audit returns2 INCONCLUSIVE: the index984a4cdc4d predates the base, and
+Common/0CreateAHeroManager21FE49.cpp lacks a current affected-consumer receipt.
+That audit is not clean. Carry tcbspline.cpp and all affected consumers into
+the next scheduled census; no direct census or runtime runner is started.
