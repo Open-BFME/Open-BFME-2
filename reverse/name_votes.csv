@@ -21473,3 +21473,8 @@ Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|member|Rva003B0D7CMisc|re
 Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|member|Rva003B0D7CMisc|ref3C,de21b8ae7b34bf756b2c955f,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/RTS/Rva002AA292Check.cpp|function|0x002AA292|rva002AA292,a482badf6baf71358818d878,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/RTS/Rva002AD19EArmor.cpp|function|0x002AD19E|rva002AD19E,2a61422bf72b703743e6d06e,claude-haiku-5-5,drz-k9-n34b3,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva002D2EEFPlayerFromMask.cpp|function|0x002D2EEF|Rva002D2EEFPlayerFromMask,e9bbc612b4698551a6847728,claude-haiku-5-5,drz-k3-n34c3,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva0041458AScoredKillSave.cpp|class||Rva0041458AInterface,eaa38b42e872a084b0c381ad,claude-haiku-5-5,drz-k3-n34c3,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva0073B670Stepper.cpp|class||Rva0073B670Stepper,87e9b26d4f5cfd761681f728,claude-haiku-5-5,drz-k3-n34c3,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva0073B670Stepper.cpp|function|0x0073B6D0|Rva0073B6D0NextIndex,193c42d8feff917bc7571e6b,claude-haiku-5-5,drz-k3-n34c3,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/RTS/Rva0073B670Stepper.cpp|function|0x0073B6F0|Rva0073B6F0PrevIndex,dd1a5459c40cd191b7ec6787,claude-haiku-5-5,drz-k3-n34c3,w-a3d394d58042,2026-11-02
