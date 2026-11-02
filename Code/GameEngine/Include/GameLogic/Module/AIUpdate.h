@@ -224,7 +224,7 @@ protected:
     virtual void privateAttackObject(Object *,int,CommandSourceType); // 34: RVA 0x0026BCD2
     virtual void bfmePrivateCommand39(Object *,CommandSourceType); // 35: RVA 0x0026BE86
 public:
-    virtual void vslot036(void *, int); // 36: RVA 0x0050B238
+    virtual void vslot036(void *, int) {} // 36: RVA 0x0050B238
     virtual void vslot037(void *, int); // 37: RVA 0x0050B238
 protected:
     virtual void privateForceAttackObject(Object *,int,CommandSourceType); // 38: RVA 0x0026BEE6
