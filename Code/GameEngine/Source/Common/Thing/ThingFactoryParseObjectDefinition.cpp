@@ -23,7 +23,7 @@ class ThingTemplate { public: void copyFrom(const ThingTemplate *); void setCopi
 struct Rva0033E06AArg;
 class Rva0033E06A { public: void rva0033E06A(Rva0033E06AArg *); };
 
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); bool rva002D06AA(const AsciiString &); ThingTemplate *newOverride(ThingTemplate *); static void parseObjectDefinition(INI *,const AsciiString &,const AsciiString &,const AsciiString &); private: ThingTemplate *newTemplate(const AsciiString &); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class InGameUI; extern InGameUI *TheInGameUI;
 class ParserUI { public:

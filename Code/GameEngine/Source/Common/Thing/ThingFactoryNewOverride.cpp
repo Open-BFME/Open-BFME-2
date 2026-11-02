@@ -44,11 +44,7 @@ private:
 extern unsigned char g_00E01EA8;
 #define g_00E01EA8 (*(bool *)&g_00E01EA8)
 
-class ThingFactory
-{
-public:
-	ThingTemplate *newOverride(ThingTemplate *thingTemplate);
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 ThingTemplate *ThingFactory::newOverride(ThingTemplate *thingTemplate)
 {

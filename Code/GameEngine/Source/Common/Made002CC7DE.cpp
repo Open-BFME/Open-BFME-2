@@ -242,12 +242,7 @@ struct ProjectileNuggetMath
 
 enum ObjectID;
 
- class ThingFactory
-{
-public:
-	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID b);
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

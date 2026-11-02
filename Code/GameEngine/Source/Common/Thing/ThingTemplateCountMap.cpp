@@ -38,7 +38,7 @@ struct TemplateCountKey {
 };
 typedef _STL::map<TemplateCountKey, Int> ObjectCountMap;
 
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../Include/Common/ThingFactory.h"
 // ThingFactory.cpp owns the singleton; ThingFactory is this unit's lookup view.
 class ThingFactory;
 extern ThingFactory *TheThingFactory;

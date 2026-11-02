@@ -11,7 +11,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 struct Rva005E4300Entry {
  int key;

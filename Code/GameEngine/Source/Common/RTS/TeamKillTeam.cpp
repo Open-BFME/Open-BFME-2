@@ -279,11 +279,7 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 struct BfmeDispatchDelayedLuaEvent

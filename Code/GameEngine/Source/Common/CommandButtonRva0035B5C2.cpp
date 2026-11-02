@@ -19,7 +19,7 @@ extern ThingFactory *TheThingFactory;
 // the value and fold the comparison into an immediate, which breaks the rowed
 // body; the single tentative-style definition below keeps the memory operand.
 unsigned short g_00DBFDC8 = 0xFFFF;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../Include/Common/ThingFactory.h"
 class LocomotorTemplate;
 template<class T> class OVERRIDE { public: const T *operator->() const; };
 class Overridable {

@@ -26,7 +26,7 @@ __declspec(noinline) static int IterateTemplates(Rva002206F9Sink *sink,void *typ
  return 1;
 }
 class ThingTemplate;
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 typedef _STL::pair<AsciiString,int> HordeMember;
 typedef _STL::list<HordeMember> HordeMembers;

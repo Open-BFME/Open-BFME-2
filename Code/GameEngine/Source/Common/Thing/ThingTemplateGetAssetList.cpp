@@ -140,7 +140,7 @@ class AssetList { public:
 };
 typedef char AssetListNativeStride20[(sizeof(AssetList)==20)?1:-1];
 class ThingTemplate;
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class ThingTemplate { public:
  void GetAssetList(int,int);

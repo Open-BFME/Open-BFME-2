@@ -101,12 +101,7 @@ typedef char NativeObjectAllocationSize[sizeof(Object)==0x4D8?1:-1];
 
 extern GameLogic *TheGameLogic;
 
-class ThingFactory
-{
-public:
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, ObjectID id);
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 // ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z
 // @0x0023CAE7, 69B. Its matched caller at 0x002D0A23 supplies TheGameLogic

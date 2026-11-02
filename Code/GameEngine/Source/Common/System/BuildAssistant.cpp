@@ -1096,12 +1096,7 @@ bool BuildAssistant::rva00392DC0(Object *builder,const ThingTemplate *what,const
 // 0x00A027B8, and native callers load it as the build-assistant receiver.
 BuildAssistant *TheBuildAssistant = NULL;
 enum ObjectID;
- class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *statusBits, ObjectID flag);
-};
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class GlobalData
 {

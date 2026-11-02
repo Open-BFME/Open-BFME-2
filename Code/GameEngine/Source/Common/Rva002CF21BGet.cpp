@@ -81,10 +81,7 @@ struct Mgr
 	virtual Result *v28(int a1, int a2, int a3);
 };
 
-struct ThingFactory
-{
-	void *newDrawable(void *thingTemplate, int statusBits, int randomValue);
-};
+#include "../../Include/Common/ThingFactory.h"
 
 void *ThingFactory::newDrawable(void *thingTemplate, int statusBits, int randomValue)
 {

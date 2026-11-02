@@ -11,11 +11,7 @@ class Object;
 class AsciiString;
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &s);
-};
+#include "../../Include/Common/ThingFactory.h"
 
 
 #include "../../Include/Common/ThingTemplate.h"

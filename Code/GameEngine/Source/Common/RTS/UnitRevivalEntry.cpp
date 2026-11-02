@@ -167,7 +167,7 @@ public:
 	void rva0037EB1D(void *dest);
 };
 
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &key); };
+#include "../../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 

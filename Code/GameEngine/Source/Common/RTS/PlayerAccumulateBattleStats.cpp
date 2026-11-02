@@ -106,4 +106,4 @@ class ThingTemplate;
 namespace _STL {template<class T,class L,class R> static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;}}
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
+#include "../../../Include/Common/ThingFactory.h"

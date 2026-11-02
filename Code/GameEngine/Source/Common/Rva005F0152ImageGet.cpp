@@ -107,11 +107,7 @@ const Image *Rva005F01C7Get(int index)
 }
 
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
-};
+#include "../../Include/Common/ThingFactory.h"
 extern class ThingFactory *TheThingFactory;
 
 struct Rva005F01D6Payload

@@ -15,11 +15,7 @@ extern BuildAssistant *TheBuildAssistant;
 
 class Object;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &s);
-};
+#include "../../Include/Common/ThingFactory.h"
 
 
 class Rva00A027B8

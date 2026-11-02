@@ -12,11 +12,7 @@
 // The template lookup is the rowed ThingFactory::rva002D06CA.
 class AsciiString;
 class ThingTemplate;
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../Include/Common/ThingFactory.h"
 
 struct BfmeObj975A
 {

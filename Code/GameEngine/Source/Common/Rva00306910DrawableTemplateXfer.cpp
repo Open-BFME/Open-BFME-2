@@ -66,11 +66,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class ThingFactory
-{
-public:
-	const ThingTemplate *findTemplate(const AsciiString &name);
-};
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
 class Rva00306910

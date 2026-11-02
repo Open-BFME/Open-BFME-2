@@ -438,7 +438,7 @@ class ThingFactory;
 
 extern ThingFactory *TheThingFactory;
 
-class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
+#include "../../Include/Common/ThingFactory.h"
 
 // tu-skeleton: 0x004EE016 33B ?rva004EE016@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
 

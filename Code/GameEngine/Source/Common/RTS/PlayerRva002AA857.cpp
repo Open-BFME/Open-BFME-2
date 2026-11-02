@@ -9,7 +9,7 @@
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../Include/Common/ThingFactory.h"
 struct PlayerTemplateStringList { AsciiString *begin,*end,*capacity;
  unsigned int size() const {return end-begin;} };
 struct RevivalPlayerTemplateView {

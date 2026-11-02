@@ -60,7 +60,7 @@ private:
 };
 struct EntryNameView4710 { int unknown; AsciiString name; };
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
+#include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

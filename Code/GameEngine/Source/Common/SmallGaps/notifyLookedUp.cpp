@@ -12,7 +12,7 @@ class AsciiString;
 #include "../../../Include/Common/ThingTemplate.h"
 // TheThingFactory is EA's ThingFactory singleton, defined once in
 // Common/Thing/ThingFactory.cpp.
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+#include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory* TheThingFactory;
 struct Rva0020AA00Owner { char m_pad[0x20]; int* m_begin; int* m_end; };
 void notifyLookedUp(Rva0020AA00Owner* owner, int a, int b)
