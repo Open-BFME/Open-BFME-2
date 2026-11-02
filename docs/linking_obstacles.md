@@ -108,6 +108,16 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
    FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
 
+Repaired (2026-11-02, lk15): the Apt GameWindow family (item 2, 4,985 B). AptMainMenu.cpp,
+Rva005173F8Dtor.cpp and _bfme_AptGameWindow.cpp replace their one-slot private GameWindow
+views with canonical `Bfme2GameWindow.h`, as OpaqueScalarDeletingDtorsB12.cpp reads it (its
+default constructor declaration covers the two units' call-only `GameWindow()`); no other view
+change. `./build.sh` 56/56 and 32/32 rows (data row OK); scoped DIR32 OK (61 symbols, with B12);
+each unit's only changed definition is its `6BGameWindow` table, now B12's digest; `link_check`
+AptMainMenu 3,621, Rva005173F8Dtor 1,121, _bfme_AptGameWindow 243 B LINK again;
+OpaqueScalarDeletingDtorsB12 727 and BfmeAptGameWindowConstructor 104 B unchanged. Both copies keep
+GameWindow's slot 7 `__purecall`, the canonical contract (no retail override is declared).
+
 Repaired (2026-11-02, lk15): AptMyHero_Unresolved.cpp (1,067 B), cause `b056878e3e` (Adopt
 canonical CreateAHeroData in 30 more units): AptMyHeroCtor.cpp (first) now spells CreateAHeroData's
 slot 3 `xfer(Xfer *)` while the unit's private view kept `DoXfer(Xfer &)`; both names already

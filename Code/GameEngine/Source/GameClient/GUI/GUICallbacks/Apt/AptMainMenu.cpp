@@ -15,13 +15,9 @@
 typedef unsigned short WideChar;
 #include <new>
 
-class GameWindow
-{
-protected:
-	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
-};
+// The canonical GameWindow (11 slots), as OpaqueScalarDeletingDtorsB12.cpp (first in link order)
+// reads it since 636533e29f, so both units emit the same GameWindow-based tables (LINK-177).
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
 class __multiple_inheritance FunctorTarget;
 

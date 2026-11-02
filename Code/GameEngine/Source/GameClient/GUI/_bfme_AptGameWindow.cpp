@@ -18,11 +18,9 @@
 // target class name and fields beyond the consumed prefix remain unproven.
 // All three providers are independently full-byte verified. The shared
 // BFME2 AsciiString header deliberately supplies target36410 teardown.
-class GameWindow {
-public: GameWindow(); // call-only default ctor: keep the shared census provider
-protected: virtual ~GameWindow();
-private: unsigned char unknown[0x218-4];
-};
+// The canonical GameWindow (11 slots), as OpaqueScalarDeletingDtorsB12.cpp (first in link order)
+// reads it since 636533e29f, so both units emit the same GameWindow-based tables (LINK-177).
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 
 class Rva005248D0 {
 public: virtual ~Rva005248D0();

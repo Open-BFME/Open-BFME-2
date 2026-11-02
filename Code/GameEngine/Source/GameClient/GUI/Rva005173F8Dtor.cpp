@@ -42,11 +42,9 @@ namespace _STL {
 template <> AptOnlineSubScreen **vector<AptOnlineSubScreen *, allocator<AptOnlineSubScreen *> >::erase(AptOnlineSubScreen **, AptOnlineSubScreen **);
 }
 
-class GameWindow {
-public: GameWindow();
-protected: virtual ~GameWindow();
-private: unsigned char unknown[0x218 - 4];
-};
+// The canonical GameWindow (11 slots), as OpaqueScalarDeletingDtorsB12.cpp (first in link order)
+// reads it since 636533e29f, so both units emit the same GameWindow-based tables (LINK-177).
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
 class Rva005248D0 {
 public: virtual ~Rva005248D0();
 public:
