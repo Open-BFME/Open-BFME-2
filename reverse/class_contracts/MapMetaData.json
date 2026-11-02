@@ -1,0 +1,503 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MapMetaData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 56,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x100": 1
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3031d3",
+      "0x3039e8"
+     ],
+     "value": {
+      "0x0": [
+       "?$StringBase@G"
+      ],
+      "0x38": [
+       "?$map@HV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL",
+       "?$map@HV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@V?$allocator@V?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@@2@@_STL@@@_STL@@@2@@_STL",
+       "?$map@W4NameKeyType@@VModuleTemplate@ModuleFactory@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@VModuleTemplate@ModuleFactory@@@_STL@@@5@@_STL",
+       "LocomotorMapView",
+       "Rva004FA168Map",
+       "WaypointMap"
+      ],
+      "0x4": [
+       "?$StringBase@G"
+      ],
+      "0x48": [
+       "?$_List_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL",
+       "?$_List_base@URva0073EEE0ListValue@@V?$allocator@URva0073EEE0ListValue@@@_STL@@@_STL",
+       "?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL"
+      ],
+      "0x4c": [
+       "?$_List_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL",
+       "?$_List_base@URva0073EEE0ListValue@@V?$allocator@URva0073EEE0ListValue@@@_STL@@@_STL",
+       "?$list@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL"
+      ],
+      "0x50": [
+       "?$StringBase@D"
+      ],
+      "0x54": [
+       "MapPlayers"
+      ],
+      "0x8": [
+       "Region3D",
+       "Rva00540D94"
+      ],
+      "0xf8": [
+       "?$StringBase@G"
+      ],
+      "0xfc": [
+       "?$StringBase@G"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 10,
+   "32": 2,
+   "36": 4,
+   "39": 3,
+   "40": 3,
+   "48": 6,
+   "80": 1,
+   "84": 1,
+   "104": 1,
+   "244": 2,
+   "248": 1,
+   "252": 1,
+   "256": 17
+  },
+  "views": 52,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_MapMetaData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/MapUtil.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "displayName",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "description",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Region3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 12,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 16,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 20,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "extent",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 24,
+   "type": "Region3D",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_numPlayers",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "isMultiplayer",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "isScenarioMP",
+   "name_by": "majority",
+   "offset": 37,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "isOfficial",
+   "name_by": "majority",
+   "offset": 38,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_filesize",
+   "name_by": "tie",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_CRC",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:WinTimeStamp",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "timestampLo",
+     "offset": 0,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "timestampHi",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "m_timestamp",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 8,
+   "type": "WinTimeStamp",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:WaypointMap",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<AsciiString const ,Coord3D> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<AsciiString>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<AsciiString>"
+    },
+    {
+     "kind": "i4",
+     "name": "numStartSpots",
+     "offset": 12,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "waypoints",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 16,
+   "type": "WaypointMap",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<Coord3D,_STL::allocator<Coord3D> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_List_node<Coord3D>*"
+    }
+   ],
+   "name": "supplyPositions",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<Coord3D,_STL::allocator<Coord3D> >",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<Coord3D,_STL::allocator<Coord3D> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_List_node<Coord3D>*"
+    }
+   ],
+   "name": "techPositions",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<Coord3D,_STL::allocator<Coord3D> >",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "fileName",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:MapPlayers",
+   "members": [
+    {
+     "kind": "A",
+     "name": "items",
+     "offset": 0,
+     "size": 160,
+     "type": "PlayerPosition[160]"
+    }
+   ],
+   "name": "players",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 160,
+   "type": "MapPlayers",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "wordF4",
+   "name_by": "majority",
+   "offset": 244,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "cachedDisplayName",
+   "name_by": "majority",
+   "offset": 248,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "cachedDescription",
+   "name_by": "majority",
+   "offset": 252,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 152
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "filesize": 6,
+    "m_filesize": 6,
+    "size": 1
+   },
+   "class": "MapMetaData"
+  }
+ ],
+ "size": 256,
+ "size_by": "majority",
+ "vslots": {}
+}
