@@ -850,3 +850,12 @@ Code/GameEngine/Source/Common/Rva00880440Push.cpp|param|fill440|n,13d7f543b1d03b
 Code/GameEngine/Source/Common/Rva00880440Push.cpp|param|allocate440|n,666774a50560568d42c63933,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,812ad8dd5f5096171cda92ee
 Code/GameEngine/Source/Common/Rva009A2350Init.cpp|local|Rva009A2350::init|p,72568a045960c74f2bc27ec9,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,a41473707d274c04d5540cbf
 Code/GameEngine/Source/Common/Rva009A2350Init.cpp|local|Rva009A2350::init|q,19a32c3aa5bcf01233e32a06,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,2cc22e4661887ce21353e409
+Code/GameEngine/Source/Common/System/GeometryInfoRva0087E370.cpp|local|Rva0087E370::method|x,56785a41c1baa2521ec03c98,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,2d1bee2e2e8ecabdea8d0a86
+Code/GameEngine/Source/Common/System/LivingWorldPlayerWorldToMapParseList.cpp|param|Rva003F25DF|a1,d66e45d13a03b9c97b706ba9,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,a2494e5434ecf735d27a1986
+Code/GameEngine/Source/Common/System/LivingWorldPlayerWorldToMapParseList.cpp|param|Rva003F25DF|a2,63da566709e49d7ad6e73d70,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,87f54ead242df724a8a53d51
+Code/GameEngine/Source/Common/System/LivingWorldPlayerWorldToMapParseList.cpp|param|Rva003F25DF|a4,45852e5fd3bfb22d3b1217be,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,f84024193f318880877746d0
+Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp|local|Rva003F287F::rva003F287F|e,9278c90313791e6f24572b35,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,be3ffa75b9bcf667542fc8b3
+Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp|local|Rva003F287F::rva003F2818|e,ab980ec3a515986a221d6f61,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,e4ff381e37b64ced19387732
+Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp|local|Rva003F287F::rva003F28DB|e,935f23cc0c73d74fe6c2473d,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,51f2c5d9e3a16056848e7ebc
+Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp|param|Rva002D3772Pair::Rva002D3772Pair|b,dffb3168214387858e58d8be,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,33ad25fb64ee9317bc3718d9
+Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp|param|RadarWindowOverrideSource::rva002D3772|b,605b3a497663384c3335ca5a,claude-haiku-5-5,drz-k1-n42a,w-d119d30b66de,2026-11-02,cc8c067ff341c44a747d6f85
