@@ -29,7 +29,8 @@ TemplateReplacementCounter g_replacementTemplateCounter = {65535};
 
 #include "Common/INIException.h"
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class Overridable
 {
@@ -100,18 +101,7 @@ public:
 // Existing row 0x00223429: erase by pointer to the four-byte AsciiString.
 #include "../../../Include/GameLogic/Rva000427195.h"
 
-class ThingFactory : public SubsystemInterface
-{
-public:
-    virtual void reset();
-    virtual void postProcessLoad();
-private:
-    void freeDatabase();
-    void addTemplate(ThingTemplate *tmplate);
-    ThingTemplate *m_firstTemplate;
-    unsigned short m_nextTemplateID, m_unused12;
-    Rva000427195 m_templateHashMap;
-};
+#include "../../../Include/Common/ThingFactory.h"
 
 void ThingFactory::reset()
 {
@@ -142,7 +132,7 @@ void ThingFactory::reset()
             }
         }
         if (!stillValid)
-            m_templateHashMap.rva00223429(&templateName);
+            reinterpret_cast<Rva000427195 *>(field14)->rva00223429(&templateName);
         thingTemplate = nextT;
     }
 }
@@ -193,7 +183,7 @@ void ThingFactory::freeDatabase()
         m_firstTemplate = m_firstTemplate->m_nextTemplate;
         ::delete thingTemplate;
     }
-    m_templateHashMap.rva003A2A41();
+    reinterpret_cast<Rva000427195 *>(field14)->rva003A2A41();
     bfmeGoEBL();
 }
 
@@ -202,15 +192,15 @@ void ThingFactory::freeDatabase()
 void ThingFactory::addTemplate(ThingTemplate *thingTemplate)
 {
     const AsciiString *name = &thingTemplate->m_name;
-    Rva0041534BIter found = ((Rva00056F61 *)&m_templateHashMap)->rva0041534B(name);
+    Rva0041534BIter found = ((Rva00056F61 *)field14)->rva0041534B(name);
     if (found.m_node && m_flag) {
         ThingTemplate *old = *(ThingTemplate **)((char *)found.m_node + 8);
         thingTemplate->m_templateID = old->m_templateID;
         unsigned int replacementID = g_replacementTemplateCounter.storage;
         --g_replacementTemplateCounter.nextID;
         old->m_templateID = (unsigned short)replacementID;
-        m_templateHashMap.rva00223429(name);
-        *(ThingTemplate **)((Rva002CFEA5 *)&m_templateHashMap)->rva002CFEA5(name) = thingTemplate;
+        reinterpret_cast<Rva000427195 *>(field14)->rva00223429(name);
+        *(ThingTemplate **)((Rva002CFEA5 *)field14)->rva002CFEA5(name) = thingTemplate;
         thingTemplate->m_nextTemplate = m_firstTemplate;
         m_firstTemplate = thingTemplate;
         old->m_matchingReplacementCount = 0;
@@ -224,6 +214,6 @@ void ThingFactory::addTemplate(ThingTemplate *thingTemplate)
     } else {
         thingTemplate->m_nextTemplate = m_firstTemplate;
         m_firstTemplate = thingTemplate;
-        *(ThingTemplate **)((Rva002CFEA5 *)&m_templateHashMap)->rva002CFEA5(name) = thingTemplate;
+        *(ThingTemplate **)((Rva002CFEA5 *)field14)->rva002CFEA5(name) = thingTemplate;
     }
 }

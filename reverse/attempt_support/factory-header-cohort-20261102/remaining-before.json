@@ -1,0 +1,97 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doAttackMoveTeamTowardsNearest.cpp",
+    "original": "build\\thingfactory-header-20261102\\25.original.cpp",
+    "sha256": "0b851628fe99c2ea6e5133cc50981f9173f0e42c109d4796057551f484e83cc3"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doModifyBuildableStatus.cpp",
+    "original": "build\\thingfactory-header-20261102\\26.original.cpp",
+    "sha256": "89afdb20351e90a15dece3a19d3e61638b5ca8ba1a575c602ea2bfe386006638"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doMoveTeamTowardsNearest.cpp",
+    "original": "build\\thingfactory-header-20261102\\27.original.cpp",
+    "sha256": "8c7e518ed69987458a168afd1398afc1c23191bf76c29d8213698ae82affc38a"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doMoveUnitTowardsNearest.cpp",
+    "original": "build\\thingfactory-header-20261102\\28.original.cpp",
+    "sha256": "9fc50359d11cc42ba18de7276369b1ed90b5f5ea43e543e1b85216089f6ef77d"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doNamedBuildStructureAtWaypoint.cpp",
+    "original": "build\\thingfactory-header-20261102\\29.original.cpp",
+    "sha256": "94f0ad47d402104e562d9ec5df706e5747c57ccd0084fc675f1ee4b848b0b484"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp",
+    "original": "build\\thingfactory-header-20261102\\30.original.cpp",
+    "sha256": "4a5b619a070ae524ccc26dd1391834fafc146f12ebc25b06b07d59ed3ff92c4b"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2166.cpp",
+    "original": "build\\thingfactory-header-20261102\\31.original.cpp",
+    "sha256": "2eed7678d7158291ab9b27dcb8a0a42b54e902a6d1517e3f45faf080122a4a2e"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptAssets.cpp",
+    "original": "build\\thingfactory-header-20261102\\32.original.cpp",
+    "sha256": "0a1eccc6722c5ef8c116635048031e459b6a59c8012cedd8ab57d87517cbebf6"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp",
+    "original": "build\\thingfactory-header-20261102\\33.original.cpp",
+    "sha256": "75986837aee3666ab03271f9e6546ea5a1beafc01a985034482eae79d9e72017"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp",
+    "original": "build\\thingfactory-header-20261102\\34.original.cpp",
+    "sha256": "a6877d0122a23d50f4e3bf720c8ddc5a6a7580c38f0c488a6b58139df68bdfd1"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp",
+    "original": "build\\thingfactory-header-20261102\\35.original.cpp",
+    "sha256": "54f3eb0463ac434141ef598576433fdd28f7004190452fe9febc67b5112a0ef4"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp",
+    "original": "build\\thingfactory-header-20261102\\36.original.cpp",
+    "sha256": "3219a823db72b945cf6da15439a67df2f3ae3617761da35b8f3e01d0c537feff"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp",
+    "original": "build\\thingfactory-header-20261102\\37.original.cpp",
+    "sha256": "73f6a5d87df99022dd92f1bd6c6d902034ddee9ec3da1494e07d2935fe095cda"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BD062.cpp",
+    "original": "build\\thingfactory-header-20261102\\38.original.cpp",
+    "sha256": "e3a4e94ecfe5e01f34267d1607ff1e1ffb2befe41fd74bfa8958eca1c7c8d296"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C21E5.cpp",
+    "original": "build\\thingfactory-header-20261102\\39.original.cpp",
+    "sha256": "f529c78e09e409f5a5203dff7e2d9bcb0e7bfefb23402556c7abdcd2bf3237e6"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp",
+    "original": "build\\thingfactory-header-20261102\\40.original.cpp",
+    "sha256": "b0443f5b583b3c59abb1bd84fcabb54852491344ce575693dce62d3987d21afb"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject_Unresolved.cpp",
+    "original": "build\\thingfactory-header-20261102\\41.original.cpp",
+    "sha256": "ac525b6bf17f0a0891fc8b7345b7f7762b93c5f168dc09be49d82526edee9689"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "original": "build\\thingfactory-header-20261102\\42.original.cpp",
+    "sha256": "b0253999e400e8ed0c2f30ec0d5fe764a8a6b7fec19bd4871ae59b93e2fe03f7"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp",
+    "original": "build\\thingfactory-header-20261102\\43.original.cpp",
+    "sha256": "8061feee91c44a0e36e8a2a6834b6017d2c95a4621fd260ad72a2af82797c8c7"
+  }
+]

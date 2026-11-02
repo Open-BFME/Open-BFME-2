@@ -1,0 +1,654 @@
+{
+  "source": "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+  "rows": 6,
+  "original_source_sha256": "feb562866faab526a2ca26bdce3f8c6ffe7cd0fff26a045a320df9e437d9ea6b",
+  "canonical_header_sha256": "e14b51ee78348a7c2bd69a8648400f032f943784abf80a588d832a281710873d",
+  "variants": [
+    {
+      "label": "before",
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\thingfactory-header-20261102\\reset-probe\\before.obj",
+      "object_sha256": "dc6bd2b2594c2dde9e86538f78f216f077bfba1b8d1ab04a81472b36ca657260",
+      "definitions": [
+        {
+          "name": "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A",
+          "kind": "data",
+          "section": ".data",
+          "bytes": "ffff0000",
+          "relocations": []
+        },
+        {
+          "name": "??0AsciiString@@QAE@ABV0@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+          "relocations": [
+            [
+              8,
+              20,
+              "??0?$StringBase@D@@AAE@ABV0@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "??1AsciiString@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        {
+          "name": "?str@AsciiString@@QBEPBDXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8b0185c0740483c008c3b800000000c3",
+          "relocations": [
+            [
+              11,
+              6,
+              "??_C@_00CNPNBAHC@?$AA@"
+            ]
+          ]
+        },
+        {
+          "name": "??_C@_00CNPNBAHC@?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "00",
+          "relocations": []
+        },
+        {
+          "name": "?reset@ThingFactory@@UAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "b800000000e80000000083ec14538bd9568b730c85f60f84b1000000573b730c8bbe84040000c645f300897de07504c645f3018d4664508d4dece8000000008365fc008bcee80000000085c08945e475083845f37403897b0cf6861f0100004074418b86f402000081c6f00200002b066a149959f7f933ff85c08945e87e24578bcee80000000085c074128b108bc8ff524885c074078bc8e800000000473b7de87cdc837de400750c8d45ec508d4b14e8000000008b75e0834dfcff8d4dece80000000085f60f8551ffffff5f8b4df45e5b64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?reset@ThingFactory@@UAEXXZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              59,
+              20,
+              "??0?$StringBase@D@@AAE@ABV0@@Z"
+            ],
+            [
+              70,
+              20,
+              "?deleteOverrides@Overridable@@QAEPAV1@XZ"
+            ],
+            [
+              131,
+              20,
+              "?getNthData@ModuleInfo@@QBEPBVModuleData@@H@Z"
+            ],
+            [
+              153,
+              20,
+              "?rva000B4AE4@Rva000B4BED@@QAEXXZ"
+            ],
+            [
+              177,
+              20,
+              "?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z"
+            ],
+            [
+              192,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ],
+            [
+              213,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        {
+          "name": "?postProcessLoad@ThingFactory@@UAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec83ec0c53568b710c57eb648bcee8000000008dbee40200008b47042b076a149959f7f98365fc0085c08945f87e2fff75fc8bcfe8000000008bd885db74148b038bcbff502084c0740980bb8600000000742bff45fc8b45fc3b45f87cd1568d8e20050000e8000000008bb68404000085f67598e8000000005f5e5bc9c38b766485f68d46087505b8000000005068000000008d45f46a0350e80000000083c41068000000008d45f450e800000000cc",
+          "relocations": [
+            [
+              17,
+              20,
+              "?resolveNames@ThingTemplate@@QAEXXZ"
+            ],
+            [
+              55,
+              20,
+              "?getNthData@ModuleInfo@@QBEPBVModuleData@@H@Z"
+            ],
+            [
+              104,
+              20,
+              "?postInit@ThreatBreakdown@@QAEXPBX@Z"
+            ],
+            [
+              119,
+              20,
+              "?Rva00361439Resolve@@YAXXZ"
+            ],
+            [
+              139,
+              6,
+              "??_C@_00CNPNBAHC@?$AA@"
+            ],
+            [
+              145,
+              6,
+              "??_C@_0FD@OHLPFNNE@ENTRY?5MISSING?3?5ObjectStatusOfCon@"
+            ],
+            [
+              156,
+              20,
+              "??0INIException@@QAA@HPBDZZ"
+            ],
+            [
+              164,
+              6,
+              "__TI1?AVINIException@@"
+            ],
+            [
+              173,
+              20,
+              "__CxxThrowException@8"
+            ]
+          ]
+        },
+        {
+          "name": "??_R0?AVINIException@@@8",
+          "kind": "data",
+          "section": ".data",
+          "bytes": "00000000000000002e3f4156494e49457863657074696f6e404000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_7type_info@@6B@"
+            ]
+          ]
+        },
+        {
+          "name": "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8",
+          "kind": "data",
+          "section": ".xdata$x",
+          "bytes": "000000000000000000000000ffffffff000000000800000000000000",
+          "relocations": [
+            [
+              4,
+              6,
+              "??_R0?AVINIException@@@8"
+            ],
+            [
+              24,
+              6,
+              "??0INIException@@QAE@ABV0@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "__CTA1?AVINIException@@",
+          "kind": "data",
+          "section": ".xdata$x",
+          "bytes": "0100000000000000",
+          "relocations": [
+            [
+              4,
+              6,
+              "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8"
+            ]
+          ]
+        },
+        {
+          "name": "__TI1?AVINIException@@",
+          "kind": "data",
+          "section": ".xdata$x",
+          "bytes": "00000000000000000000000000000000",
+          "relocations": [
+            [
+              4,
+              6,
+              "??1INIException@@QAE@XZ"
+            ],
+            [
+              12,
+              6,
+              "__CTA1?AVINIException@@"
+            ]
+          ]
+        },
+        {
+          "name": "??_C@_0FD@OHLPFNNE@ENTRY?5MISSING?3?5ObjectStatusOfCon@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "454e545259204d495353494e473a204f626a6563745374617475734f66436f6e7461696e656420656e7472792072657175697265642077697468696e20436f6e7461696e4d6f64756c6520666f722025732e00",
+          "relocations": []
+        },
+        {
+          "name": "?freeDatabase@ThingFactory@@AAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "568bf1eb218b4e0c85c98b818404000089460c74088b016a00ff10eb0233c050e80000000059837e0c0075d98d4e14e8000000005ee900000000",
+          "relocations": [
+            [
+              33,
+              20,
+              "??3@YAXPAX@Z"
+            ],
+            [
+              48,
+              20,
+              "?rva003A2A41@Rva000427195@@QAEXXZ"
+            ],
+            [
+              54,
+              20,
+              "?bfmeGoEBL@@YAXXZ"
+            ]
+          ]
+        },
+        {
+          "name": "?addTemplate@ThingFactory@@AAEXPAVThingTemplate@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec83ec0c53568b7508578d5e648bf9538d45f48d4f1450895d08894dfce8000000008b45f485c00f8493000000807f04000f84890000008b5808ff75088d83d8050000668b0866898ed80500008b0d0000000066ff0d000000006689088d4f14e800000000ff75088d4f14e80000000089308b470c89868404000089770c83630c0083660c008b7f0cc6050000000001eb28668b87d8050000663b05000000007212ff75088d4f64e80000000085c07503ff470c8bbf8404000085ff75d4eb178b470c8b4dfc8986840400005389770ce80000000089305f5e5bc9c20400",
+          "relocations": [
+            [
+              32,
+              20,
+              "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+            ],
+            [
+              81,
+              6,
+              "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A"
+            ],
+            [
+              88,
+              6,
+              "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A"
+            ],
+            [
+              99,
+              20,
+              "?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z"
+            ],
+            [
+              110,
+              20,
+              "?rva002CFEA5@Rva002CFEA5@@QAEPAXPBVAsciiString@@@Z"
+            ],
+            [
+              141,
+              6,
+              "?g_flag1@@3_NA"
+            ],
+            [
+              158,
+              6,
+              "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A"
+            ],
+            [
+              171,
+              20,
+              "?compare@AsciiString@@QBEHABV1@@Z"
+            ],
+            [
+              211,
+              20,
+              "?rva002CFEA5@Rva002CFEA5@@QAEPAXPBVAsciiString@@@Z"
+            ]
+          ]
+        }
+      ],
+      "EH": {
+        "?reset@ThingFactory@@UAEXXZ": [
+          "EXACT",
+          ""
+        ]
+      }
+    },
+    {
+      "label": "candidate",
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\thingfactory-header-20261102\\reset-probe\\candidate.obj",
+      "object_sha256": "f500c881dd4692053f91d6f8ca6b95418e2d8283f5fb9cba3cc5322d46d9782d",
+      "definitions": [
+        {
+          "name": "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A",
+          "kind": "data",
+          "section": ".data",
+          "bytes": "ffff0000",
+          "relocations": []
+        },
+        {
+          "name": "??0AsciiString@@QAE@ABV0@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+          "relocations": [
+            [
+              8,
+              20,
+              "??0?$StringBase@D@@AAE@ABV0@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "??1AsciiString@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        {
+          "name": "?str@AsciiString@@QBEPBDXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8b0185c0740483c008c3b800000000c3",
+          "relocations": [
+            [
+              11,
+              6,
+              "??_C@_00CNPNBAHC@?$AA@"
+            ]
+          ]
+        },
+        {
+          "name": "??_C@_00CNPNBAHC@?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "00",
+          "relocations": []
+        },
+        {
+          "name": "?reset@ThingFactory@@UAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "b800000000e80000000083ec14538bd9568b730c85f60f84b1000000573b730c8bbe84040000c645f300897de07504c645f3018d4664508d4dece8000000008365fc008bcee80000000085c08945e475083845f37403897b0cf6861f0100004074418b86f402000081c6f00200002b066a149959f7f933ff85c08945e87e24578bcee80000000085c074128b108bc8ff524885c074078bc8e800000000473b7de87cdc837de400750c8d45ec508d4b14e8000000008b75e0834dfcff8d4dece80000000085f60f8551ffffff5f8b4df45e5b64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?reset@ThingFactory@@UAEXXZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              59,
+              20,
+              "??0?$StringBase@D@@AAE@ABV0@@Z"
+            ],
+            [
+              70,
+              20,
+              "?deleteOverrides@Overridable@@QAEPAV1@XZ"
+            ],
+            [
+              131,
+              20,
+              "?getNthData@ModuleInfo@@QBEPBVModuleData@@H@Z"
+            ],
+            [
+              153,
+              20,
+              "?rva000B4AE4@Rva000B4BED@@QAEXXZ"
+            ],
+            [
+              177,
+              20,
+              "?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z"
+            ],
+            [
+              192,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ],
+            [
+              213,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        {
+          "name": "?postProcessLoad@ThingFactory@@UAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec83ec0c53568b710c57eb648bcee8000000008dbee40200008b47042b076a149959f7f98365fc0085c08945f87e2fff75fc8bcfe8000000008bd885db74148b038bcbff502084c0740980bb8600000000742bff45fc8b45fc3b45f87cd1568d8e20050000e8000000008bb68404000085f67598e8000000005f5e5bc9c38b766485f68d46087505b8000000005068000000008d45f46a0350e80000000083c41068000000008d45f450e800000000cc",
+          "relocations": [
+            [
+              17,
+              20,
+              "?resolveNames@ThingTemplate@@QAEXXZ"
+            ],
+            [
+              55,
+              20,
+              "?getNthData@ModuleInfo@@QBEPBVModuleData@@H@Z"
+            ],
+            [
+              104,
+              20,
+              "?postInit@ThreatBreakdown@@QAEXPBX@Z"
+            ],
+            [
+              119,
+              20,
+              "?Rva00361439Resolve@@YAXXZ"
+            ],
+            [
+              139,
+              6,
+              "??_C@_00CNPNBAHC@?$AA@"
+            ],
+            [
+              145,
+              6,
+              "??_C@_0FD@OHLPFNNE@ENTRY?5MISSING?3?5ObjectStatusOfCon@"
+            ],
+            [
+              156,
+              20,
+              "??0INIException@@QAA@HPBDZZ"
+            ],
+            [
+              164,
+              6,
+              "__TI1?AVINIException@@"
+            ],
+            [
+              173,
+              20,
+              "__CxxThrowException@8"
+            ]
+          ]
+        },
+        {
+          "name": "??_R0?AVINIException@@@8",
+          "kind": "data",
+          "section": ".data",
+          "bytes": "00000000000000002e3f4156494e49457863657074696f6e404000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_7type_info@@6B@"
+            ]
+          ]
+        },
+        {
+          "name": "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8",
+          "kind": "data",
+          "section": ".xdata$x",
+          "bytes": "000000000000000000000000ffffffff000000000800000000000000",
+          "relocations": [
+            [
+              4,
+              6,
+              "??_R0?AVINIException@@@8"
+            ],
+            [
+              24,
+              6,
+              "??0INIException@@QAE@ABV0@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "__CTA1?AVINIException@@",
+          "kind": "data",
+          "section": ".xdata$x",
+          "bytes": "0100000000000000",
+          "relocations": [
+            [
+              4,
+              6,
+              "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8"
+            ]
+          ]
+        },
+        {
+          "name": "__TI1?AVINIException@@",
+          "kind": "data",
+          "section": ".xdata$x",
+          "bytes": "00000000000000000000000000000000",
+          "relocations": [
+            [
+              4,
+              6,
+              "??1INIException@@QAE@XZ"
+            ],
+            [
+              12,
+              6,
+              "__CTA1?AVINIException@@"
+            ]
+          ]
+        },
+        {
+          "name": "??_C@_0FD@OHLPFNNE@ENTRY?5MISSING?3?5ObjectStatusOfCon@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "454e545259204d495353494e473a204f626a6563745374617475734f66436f6e7461696e656420656e7472792072657175697265642077697468696e20436f6e7461696e4d6f64756c6520666f722025732e00",
+          "relocations": []
+        },
+        {
+          "name": "?freeDatabase@ThingFactory@@AAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "568bf1eb218b4e0c85c98b818404000089460c74088b016a00ff10eb0233c050e80000000059837e0c0075d98d4e14e8000000005ee900000000",
+          "relocations": [
+            [
+              33,
+              20,
+              "??3@YAXPAX@Z"
+            ],
+            [
+              48,
+              20,
+              "?rva003A2A41@Rva000427195@@QAEXXZ"
+            ],
+            [
+              54,
+              20,
+              "?bfmeGoEBL@@YAXXZ"
+            ]
+          ]
+        },
+        {
+          "name": "?addTemplate@ThingFactory@@AAEXPAVThingTemplate@@@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec83ec0c53568b7508578d5e648bf9538d45f48d4f1450895d08894dfce8000000008b45f485c00f8493000000807f04000f84890000008b5808ff75088d83d8050000668b0866898ed80500008b0d0000000066ff0d000000006689088d4f14e800000000ff75088d4f14e80000000089308b470c89868404000089770c83630c0083660c008b7f0cc6050000000001eb28668b87d8050000663b05000000007212ff75088d4f64e80000000085c07503ff470c8bbf8404000085ff75d4eb178b470c8b4dfc8986840400005389770ce80000000089305f5e5bc9c20400",
+          "relocations": [
+            [
+              32,
+              20,
+              "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+            ],
+            [
+              81,
+              6,
+              "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A"
+            ],
+            [
+              88,
+              6,
+              "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A"
+            ],
+            [
+              99,
+              20,
+              "?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z"
+            ],
+            [
+              110,
+              20,
+              "?rva002CFEA5@Rva002CFEA5@@QAEPAXPBVAsciiString@@@Z"
+            ],
+            [
+              141,
+              6,
+              "?g_flag1@@3_NA"
+            ],
+            [
+              158,
+              6,
+              "?g_replacementTemplateCounter@@3TTemplateReplacementCounter@@A"
+            ],
+            [
+              171,
+              20,
+              "?compare@AsciiString@@QBEHABV1@@Z"
+            ],
+            [
+              211,
+              20,
+              "?rva002CFEA5@Rva002CFEA5@@QAEPAXPBVAsciiString@@@Z"
+            ]
+          ]
+        }
+      ],
+      "EH": {
+        "?reset@ThingFactory@@UAEXXZ": [
+          "EXACT",
+          ""
+        ]
+      }
+    }
+  ],
+  "before_code": 7,
+  "after_code": 7,
+  "before_data": 7,
+  "after_data": 7,
+  "changed": [],
+  "removed": [],
+  "added": [],
+  "live_source_matches_immutable_original": true
+}

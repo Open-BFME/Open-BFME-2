@@ -1,0 +1,127 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/AwardSystemManagerParseThingStat.cpp",
+    "original": "build\\thingfactory-header-20261102\\00.original.cpp",
+    "sha256": "3228cb0392962a6aad1802201543be81cb47781bfa7c9d92592481cfb0bcf4f6"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/INI/INIObject.cpp",
+    "original": "build\\thingfactory-header-20261102\\01.original.cpp",
+    "sha256": "aa62f4ff4527c9e56c76feb3f4e2b0da69f0ddfc0facead9a4194e2ad1385d04"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/INI/INI_parseChildObjectDefinition.cpp",
+    "original": "build\\thingfactory-header-20261102\\02.original.cpp",
+    "sha256": "519d7f48883d5ec27e93a83e251d093a5acd749ab8342a13de6597beef45e2c7"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisiteResolveNames.cpp",
+    "original": "build\\thingfactory-header-20261102\\03.original.cpp",
+    "sha256": "fc3214b707b67dbb22f6a04d33228ceb8393c40dbecd748115da57a9ae470429"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp",
+    "original": "build\\thingfactory-header-20261102\\04.original.cpp",
+    "sha256": "c6d5844048516057080dcb1e4c14f18b7fe603003dcf1c28326499a5d438f4b5"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp",
+    "original": "build\\thingfactory-header-20261102\\05.original.cpp",
+    "sha256": "6a2373e21079ed414423a9f6be09c9b0c579fc1686dfddb17a10e7443f0597fd"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0023C641Write.cpp",
+    "original": "build\\thingfactory-header-20261102\\06.original.cpp",
+    "sha256": "8e43811d839a5c597f39630458b3811f8d12bb2a2a37737069dd6c5e2de485a5"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Thing/ThingFactoryDtor.cpp",
+    "original": "build\\thingfactory-header-20261102\\07.original.cpp",
+    "sha256": "7f1a0052b6ce9654b04a9e36d709c02026c0b115c3498f91475ecca4393ae267"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Thing/ThingFactoryNewTemplate.cpp",
+    "original": "build\\thingfactory-header-20261102\\08.original.cpp",
+    "sha256": "9e145b99f26c59742f3de608621971354c9457fae86dca5b0fe58f9449b5ce9a"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp",
+    "original": "build\\thingfactory-header-20261102\\09.original.cpp",
+    "sha256": "feb562866faab526a2ca26bdce3f8c6ffe7cd0fff26a045a320df9e437d9ea6b"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "original": "build\\thingfactory-header-20261102\\10.original.cpp",
+    "sha256": "ee29283fecab394eaf094a3e39f663685c0aa03521fea8a32132e334e6d001c3"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp",
+    "original": "build\\thingfactory-header-20261102\\11.original.cpp",
+    "sha256": "c9cbdc12a0713689e00301c92745220c8b978cb5cb5530a9317deefd6b8e6e3e"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenOnSystemMsg.cpp",
+    "original": "build\\thingfactory-header-20261102\\12.original.cpp",
+    "sha256": "ae7795f926f2f0aba89831d81bc7ed09c46aed48179808c708b26d60837cf769"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/GameClientXfer.cpp",
+    "original": "build\\thingfactory-header-20261102\\13.original.cpp",
+    "sha256": "7c497825d1b4b6c668da9b56266dd9cede09b4f3f7d3b759a6414758259b2aa3"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/Rva002D06CAGet.cpp",
+    "original": "build\\thingfactory-header-20261102\\14.original.cpp",
+    "sha256": "405b650749f3a0bb640787cb1fb832225df011405e227d677a929e7efa4c13bb"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "original": "build\\thingfactory-header-20261102\\15.original.cpp",
+    "sha256": "afff47bd9735575ee1d81de962bf87e27daeb714af6507a775a8fb4037bccb45"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "original": "build\\thingfactory-header-20261102\\16.original.cpp",
+    "sha256": "2ebab110053f13e12d8db1dafaeed49d7a669038a4ac57980b1ec21f5339bebd"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "original": "build\\thingfactory-header-20261102\\17.original.cpp",
+    "sha256": "b034a3267fc0faee1797dbb62196d0077e2468eeb7737625b7d3d6eb7e47678d"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "original": "build\\thingfactory-header-20261102\\18.original.cpp",
+    "sha256": "589c2ee27e8a828e56346ba2ce836066982ac65832b58f78c55136c440097a4f"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDie.cpp",
+    "original": "build\\thingfactory-header-20261102\\19.original.cpp",
+    "sha256": "f11b8a7d5935ec053e7e61ee213f261af2e0ac2586d8717ce3337f1a8286af74"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp",
+    "original": "build\\thingfactory-header-20261102\\20.original.cpp",
+    "sha256": "9dc2b822a41e877dbe4169d4dd99e8dd46aaaa45a893fd32260ab427329aee43"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BCB7A.cpp",
+    "original": "build\\thingfactory-header-20261102\\21.original.cpp",
+    "sha256": "271ad419b936c172afdc6409a723b456499b2b8155c7d74ffe5abdc060ad03be"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C951B.cpp",
+    "original": "build\\thingfactory-header-20261102\\22.original.cpp",
+    "sha256": "eea32cd4f6189aff775ef6b1c4020dc06da55387526f92b21b4fee0e832ba014"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_buildBaseBuilding.cpp",
+    "original": "build\\thingfactory-header-20261102\\23.original.cpp",
+    "sha256": "9c8af39a33ddcd27fa00ab4905ff5978d9e62a29b76703895f1bb419f2d0177d"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_closestOfObjectTypes.cpp",
+    "original": "build\\thingfactory-header-20261102\\24.original.cpp",
+    "sha256": "fc31e81c062a260e17480e2e81983fcdc17a77d637439830bfe90ad7f70cd841"
+  }
+]
