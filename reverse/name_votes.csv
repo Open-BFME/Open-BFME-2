@@ -22600,3 +22600,12 @@ Code/GameEngine/Source/GameClient/LanguageFilterRva0038968F.cpp|function|0x00389
 Code/GameEngine/Source/GameClient/LanguageFilterRva0038968F.cpp|local|Rva0038968FDup|n,5f7dc8bab9733e46e1daafab,claude-haiku-5-5,drz-k10-n43g,w-a9197dfa94c6,2026-11-02
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/BattleResolverWaitForBattleUpdate.cpp|function|0x005D052D|rva005D052D,c770fac31dc900971945784a,claude-haiku-5-5,drz-k10-n43g,w-a9197dfa94c6,2026-11-02
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/BattleResolverWaitForBattleUpdate.cpp|param|Rva005D0643::Rva005D0643|p,3bb56523928a270e6ccacba4,claude-haiku-5-5,drz-k10-n43g,w-a9197dfa94c6,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/rva005E4116Rva005E4116Farm.cpp|param|Rva005E4116Iterator|n,b11f630ab9ee598b7cd3a55a,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp|param|Rva005E39F3::Rva005E39F3|arg,e1c264993a207adff0b59e0a,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp|param|Rva005E3BD5::Rva005E3BD5|arg,6fcfdb924330a0de02535d47,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp|param|Rva005E62F1::Rva005E62F1|p4,ee55c28b614cf3a6a44f6820,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp|local|Rva005E62F1::Rva005E62F1|c,55d32f4dd0d1ac52c67f7cfa,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitIcon.cpp|local|StrategicInGameUI::ArmyUnitIcon::DoUpdate|t,e10a15e9d818839236ff1442,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp|param|Rva005E1E9BElement|p,0b5343d69d338340822f3688,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp|param|RegionArmyIconRef|p,e05b228738a6ced0102da235,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueUnitQueued.cpp|param|Rva005E71C6Ref|r,9a78a12ff16dfd6e21ad9e14,claude-haiku-5-5,drz-k11-n43h,w-eba6c619cb9e,2026-11-02
