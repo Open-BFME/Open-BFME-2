@@ -1,0 +1,454 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ScienceStore",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 30,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 14,
+   "inherited_spans": [
+    [
+     0,
+     12
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x24": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x22ca45"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e25b4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x22ca45"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x22ca45"
+     ],
+     "value": {
+      "0x18": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x22ca45"
+     ],
+     "value": {
+      "0x0": "0x7e25b4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e25b4"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva001FF909@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1ff9e4"
+       },
+       {
+        "name": "?init@ScienceStore@@UAEXXZ",
+        "slot": 1,
+        "target": "0x1ff8fb"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva001FF625@Rva001FF909@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x1ff625"
+       },
+       {
+        "name": "?rva001FF354@Rva001FF909@@QAE_NXZ",
+        "slot": 5,
+        "target": "0x1ff354"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva001FF5C3@Rva003B1546@@UAEXXZ",
+        "slot": 9,
+        "target": "0x1ff5c3"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7e25b4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 14,
+  "retail_vtables": {
+   "0x7e25b4": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva001FF909@@UAEPAXI@Z",
+     "1": "?init@ScienceStore@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva001FF625@Rva001FF909@@QAE_NH@Z",
+     "5": "?rva001FF354@Rva001FF909@@QAE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?rva001FF5C3@Rva003B1546@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 21,
+   "24": 3,
+   "36": 2
+  },
+  "views": 26,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ScienceStore.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Science.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-ctor/dtor",
+   "kind": "P",
+   "name": "field0c",
+   "name_by": "neutral-placeholder",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ScienceInfo**",
+   "views": 0,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor/dtor",
+   "kind": "P",
+   "name": "field10",
+   "name_by": "neutral-placeholder",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ScienceInfo**",
+   "views": 0,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor/dtor",
+   "kind": "P",
+   "name": "field14",
+   "name_by": "neutral-placeholder",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ScienceInfo**",
+   "views": 0,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor/dtor",
+   "kind": "P",
+   "name": "field18",
+   "name_by": "neutral-placeholder",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void**",
+   "views": 0,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor/dtor",
+   "kind": "P",
+   "name": "field1c",
+   "name_by": "neutral-placeholder",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void**",
+   "views": 0,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-ctor/dtor",
+   "kind": "P",
+   "name": "field20",
+   "name_by": "neutral-placeholder",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void**",
+   "views": 0,
+   "witness": null
+  }
+ ],
+ "hand_decided": {
+  "automatic_queue": [
+   {
+    "attribute": "name@0x0",
+    "candidates": {
+     "__vfptr": 2,
+     "m_data": 1,
+     "m_unmodelled00": 2
+    },
+    "class": "ScienceStore"
+   },
+   {
+    "attribute": "slot1",
+    "candidates": {
+     "init()": 1,
+     "rva_vtable_anchor()": 1
+    },
+    "class": "ScienceStore"
+   }
+  ],
+  "basis": "RVA 0x0022CA45 calls SubsystemInterface ctor 0x001B4E63 and stores VA 0x00BE25B4 at +0. At RVA 0x0022E740 the allocation pushes 0x24; RVA 0x0022E755 calls that ctor, then initSubsystem<ScienceStore> 0x00229D86 receives the result and TheScienceStore global VA 0x00DFE0E0 with the literal at VA 0x00BE80A4. Destructor rowed as Rva001FF909 at RVA 0x001FF909 stores the same derived table at RVA 0x001FF91D, tears down vectors +0x0C and +0x18, then calls SubsystemInterface dtor 0x001B4E74 at RVA 0x001FF9D0. That base ctor/dtor use VA 0x00BD77A0, which is not a competing ScienceStore table. The derived table has fourteen words before ScienceInfo table VA 0x00BE25EC; ScienceInfo ctor row Rva001FFE93 at RVA 0x001FFE39 installs the latter. No ScienceStore-named destructor row exists; the address-derived destructor is retained without renaming it.",
+  "by": "gpt-6.1-sol",
+  "declarations": "Methods retain function-ledger spellings, including the opaque Rva0043D3A8 query receiver at RVA 0x001FF47D. lookupScience is declared only for the existing symbols.csv binding to RVA 0x001FF65D used by INI::scanScience at 0x00338A8D. No binding or inline alias is added. The virtual destructor and all rowed methods are declared out of line.",
+  "name_at_0": "Implicit vfptr inherited from SubsystemInterface. No explicit named data member at +0 is justified; m_data and m_unmodelled00 are private-view spellings, not names to vote on.",
+  "parent_profile": "Header includes the registered SubsystemInterface.h with BFME_SUBSYSTEM_SLOTS enabled before first inclusion. A preincluded shortened profile is explicitly refused because it places derived reset/update at slots 4/5 instead of retail 9/10. The registered full profile agrees with retail; no parent header was changed.",
+  "slot1": "VA 0x00BE25B8 contains VA 0x005FF8FB, the matched ?init@ScienceStore@@UAEXXZ row. rva_vtable_anchor is a constructor-view artifact, not an alternative retail identity.",
+  "storage": "Two three-word pointer-vector storage blocks at +0x0C/+0x18 are initialized by the ctor through RVA 0x00211E58. The first begin/end loads at +0x0C/+0x10 in RVA 0x001FF3AD follow ScienceInfo overrides and key +0x10; the destructor uses four-byte owned-pointer strides in both blocks. Six neutral pointer fields express that layout without selecting a nonretail STL implementation. Element identity and original name of the second vector remain unknown."
+ },
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp",
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp",
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp",
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp",
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp",
+    "Code/GameEngine/Source/Common/RTS/ScienceStoreParseScienceDefinition.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesB.cpp",
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/Libraries/Source/subsystem/ScienceStore.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 36,
+ "size_by": "retail-operator-new + retail-ctor/dtor",
+ "vslots": {
+  "0": {
+   "decided_by": "retail-vtable",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "retail-vtable + matched-row",
+   "member": "init()"
+  },
+  "10": {
+   "decided_by": "retail-vtable",
+   "member": "update()"
+  },
+  "11": {
+   "decided_by": "retail-vtable",
+   "member": "vslot11(int)"
+  },
+  "12": {
+   "decided_by": "retail-vtable",
+   "member": "vslot12()"
+  },
+  "13": {
+   "decided_by": "retail-vtable",
+   "member": "vslot13(int)"
+  },
+  "2": {
+   "decided_by": "retail-vtable",
+   "member": "loadIniFilesFromLegend()"
+  },
+  "3": {
+   "decided_by": "retail-vtable",
+   "member": "postProcessLoad()"
+  },
+  "4": {
+   "decided_by": "retail-vtable",
+   "member": "vslot04(int)"
+  },
+  "5": {
+   "decided_by": "retail-vtable",
+   "member": "vslot05()"
+  },
+  "6": {
+   "decided_by": "retail-vtable",
+   "member": "vslot06()"
+  },
+  "7": {
+   "decided_by": "retail-vtable",
+   "member": "vslot07(int)"
+  },
+  "8": {
+   "decided_by": "retail-vtable",
+   "member": "vslot08()"
+  },
+  "9": {
+   "decided_by": "retail-vtable",
+   "member": "reset()"
+  }
+ }
+}
