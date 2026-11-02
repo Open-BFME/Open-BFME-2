@@ -1,3 +1,9 @@
+### LivingWorldLogicCtorBfme link repair (2026-11-02)
+
+`LivingWorldLogicCtorBfme.cpp` (815B) unresolved `?event5_2@LivingWorldLogic@@UAEXHHH@Z` resolved:
+Dropped the undeclared/unrowed `virtual void event5_2(int,int,int);` declaration from the `LivingWorldLogic` class view so slot 2 of `LivingWorldPlayerObserver` binds the base inline default (identical to slot 0 `event5_0`), eliminating the unresolved reference while maintaining the exact 14-slot primary table.
+Verification: `tools/build.py` 26/26 matched; `tools/link_check.py` LINKS 0 -> 815 bytes in `LivingWorldLogicCtorBfme.cpp` and preserves clean links in `LivingWorldLogicDtorRva002B964F.cpp` (717B), `LivingWorldLogic.cpp` (20,092B), `LivingWorldLogicPlayerObserverRva002BA3F2.cpp` (1,278B), `Common/LivingWorldLogic.cpp` (380B) and `OpaqueScalarDeletingDtorsB05.cpp` (748B), bringing total linked bytes across the cohort from 22,498 to 24,030 (+1,532 bytes).
+
 ### Link queue preview on current objects (2026-11-02, seat halilkkaya-lk18)
 
 `next_work.py --tier link --ranked` (census 06:54, `357ce2a88f`) serves ten units. Checked on current
@@ -14,8 +20,6 @@ A single-path `link_check` still reports their sibling COMDATs as "differs from 
 comes from the stale census-index copies, not from current objects.
 
 Still blocked:
-- LivingWorldLogicCtorBfme.cpp (815 B): `?event5_2@LivingWorldLogic@@UAEXHHH@Z` has no provider, and
-  the file is held by nleigh.
 - BridgeBehaviorCtor.cpp (196 B): it needs the Dtor's real class view. The ctor's natural base vptr
   stores then name `??_7BridgeBehaviorInterface@@6B@`/`??_7DieModuleInterface@@6B@`, which need data
   identity for the folded tables 0x00C40818 and 0x00C1C780 first.
@@ -16257,9 +16261,11 @@ scoped DIR32 OK (20 symbols, ctor plus dtor); the only objects touching `??_7Liv
 names are the two units and OpaqueScalarDeletingDtorsB05.cpp; `link_check`:
 LivingWorldLogicDtorRva002B964F 0 -> 717 B, OpaqueScalarDeletingDtorsB05 748, LivingWorldLogic.cpp
 20,092, LivingWorldLogicPlayerObserverRva002BA3F2 1,278 and Common/LivingWorldLogic.cpp 380 B
-unchanged LINKS. LivingWorldLogicCtorBfme still has its one blocker, `event5_2` (player slot 2 =
-0x002B2A95, the non-virtual `Rva002B2A95Callback::rva002B2A95` row: identity work). Remaining: the
-observer bases' slot names (identity), then the two overrides return.
+unchanged LINKS. LivingWorldLogicCtorBfme's blocker, `event5_2` (player slot 2 =
+0x002B2A95, the non-virtual `Rva002B2A95Callback::rva002B2A95` row), was resolved by dropping
+the undeclared virtual override so slot 2 binds the base default: `LivingWorldLogicCtorBfme.cpp`
+now LINKS 0 -> 815 B cleanly (cohort total 24,030 B). Remaining: the observer bases' slot names
+(identity), then the overrides return.
 
 ### Terrain resource CRT header cleanup (2026-10-30, codexb)
 

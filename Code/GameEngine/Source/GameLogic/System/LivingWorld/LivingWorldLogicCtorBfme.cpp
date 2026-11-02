@@ -50,11 +50,12 @@ public:
  LivingWorldLogic();virtual ~LivingWorldLogic();
  virtual void init();virtual void reset();virtual void update();
  virtual void loadPostProcess();virtual const char*GetSnapshotName() const;virtual void xfer(Xfer*);
- // Region slot 0 (0x002BA82B OnRegionChangedOwnership) and player slot 0 (0x002BA3F2) are
- // rowed overrides, but LivingWorldObservers.h names those base slots event4_0/event5_0, so
- // declaring them here appended two non-retail slots to the 14-slot primary table 0x00BFE2E4
- // (LINK-156). They return once the observer bases carry the rowed slot names.
- virtual void event1_1(int);virtual void event5_2(int,int,int);
+ // Region slot 0 (0x002BA82B OnRegionChangedOwnership), player slot 0 (0x002BA3F2) and
+ // player slot 2 (0x002B2A95) are rowed overrides, but LivingWorldObservers.h names those
+ // base slots event4_0/event5_0/event5_2, so declaring them here without the matching names
+ // or rowed definitions appended non-retail slots or unresolved symbols (LINK-156).
+ // They return once the observer bases carry the rowed slot names and types.
+ virtual void event1_1(int);
 
  _STL::vector<BfmeE16> players;
  void*localPlayer;int word9C,wordA0,wordA4,wordA8,wordAC;LivingWorldRegionManager*regions;
