@@ -302,6 +302,26 @@ Repaired (2026-11-02, lk17), blocker (3): the State map's tree helpers now bind 
   same fold-proofs: `_M_find`, create_node at 0x00382B7F and insert_unique at 0x004D795B. The
   State `_M_insert` ICF row needs the same respell. Blocker (1), SupplyTruckAIUpdate.cpp, is still
   held by the foreign fleet.
+
+Banked (2026-11-02, lk17): `state-classkey-v2.patch` in
+`reverse/attempt_support/link177-state-classkey-20261102/` applies on the commits above and needs
+no refused pin.
+- It contains the 32 source respells, the 13 `UState@@` -> `VState@@` rows, and the three State pins
+  re-admitted with fold-proofs (`_M_find`, create_node 0x00382B7F, insert_unique 0x004D795B).
+- Trial: `./build.sh` 463/463 rows. `link_check` over the 263 family units shows the same
+  non-linking set; the class key moves no bytes by itself.
+- What remains: SupplyTruckAIUpdate.cpp's respell and its 7 rows once it is claimable, then step B
+  (`StateMachineClass.h` in the 13 constructor units).
+- Not landed, at the lead's request.
+
+New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
+`??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
+under the name `??_7BridgeBehavior@@6BBehaviorModuleInterface@@@`. Rebinding the ctor's
+`__identifier` extern to that name fails with C2373: the ctor's BridgeBehavior derives from
+canonical UpdateModule, so cl owns that vftable name itself. The ctor has to install its tables
+through a real class view (BridgeBehaviorInterface, DamageModuleInterface and DieModuleInterface
+bases, as the dtor declares) instead of hand-written stores. Trial reverted; the verdict is in
+re_attempts.log.
 - W3DScriptedModelDrawDestructor (lk16): canonical DrawModule.h makes the dtor call
   `??1DrawModule@@MAE@XZ`. Retail inlines it: the body ends with the 0x00BC9690 store and a call to
   0x0049B47C.

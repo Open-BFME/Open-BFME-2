@@ -108,3 +108,36 @@ the bindings, not the check.
   bindings are fixed.
 - header_queue.tsv diagnostics and name_basis.csv mention the U names in free text
   only.
+
+## Refresh after the prerequisites (lk17, 2026-11-02): `state-classkey-v2.patch`
+
+Seat halilkkaya-lk17 cleared blockers (2) and (3), and the change is rebuilt on top of them:
+- 52f216e4e1 makes StateID unsigned and proves the `_M_find` pin;
+- the identity-key retirement follows it;
+- 41a2dcfb49 moves the State tree helpers to retail's 0x004D9C49 and 0x00382B7F and re-homes
+  0x0053479F.
+
+`state-classkey-v2.patch` applies on `41a2dcfb49` with `git apply`. It holds:
+- the same 32 source respells, applied with a three-way merge;
+- the 13 non-SupplyTruck `UState@@` rows respelled to `VState@@`;
+- all three State pins re-admitted through `pin_admission.py --add` with fold-proofs, so none is
+  refused any more:
+  - `??$_M_find@I@...IPAVState@@...` at 0x00357180, `fold-proof=StateMachineGoal.cpp`;
+  - `_M_create_node` at 0x00382B7F, `fold-proof=StateMachineDefineState.cpp`;
+  - `insert_unique` at 0x004D795B, `fold-proof=StateMachineDefineState.cpp`.
+
+The hatch_baseline.tsv hunk is the tool's own admission output.
+
+Measured on the trial:
+- `./build.sh` passes **463/463** rows over the 32 units, against v1's 458/463.
+- `link_check` over the 263 family units shows the same non-linking set as before the change. The
+  class key alone moves no bytes; the step-B header adoption in the 13 constructor units does.
+
+Still blocked: SupplyTruckAIUpdate.cpp (7 `UState@@` rows and a defineState call) is held by
+codex-01a1071d-root-recovery-oct11. Landing v2 without it would leave that unit's defineState
+reference unresolved. The unit already loses its `??_7SupplyTruckStateMachine@@6B@` on current
+objects, but the lead asked to bank, not land. Once the file is claimable:
+- respell its `struct State`;
+- rename its 7 rows (tombstones);
+- apply v2;
+- do step B (see `step-b-attackfirewhilecharging.patch`).
