@@ -155,11 +155,7 @@ struct Rva0025E75FLogic
 	int m_114;				// +0x114
 };
 
-class NetworkInterface
-{
-public:
-	void ProcessDestroyPlayerCommand(NetWrapperCommandMsg *msg);	// 0x0025E539
-};
+#include "../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 class Rva0025E4CD : public Rva0025E75FSlots<46>
 {

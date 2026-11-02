@@ -108,17 +108,7 @@ public:
 	void filterLine(UnicodeString &line);
 };
 extern LanguageFilter *TheLanguageFilter;
-class NetworkInterface
-{
-public:
-#define NET_SLOT(N) virtual void slot##N();
-	NET_SLOT(00) NET_SLOT(01) NET_SLOT(02) NET_SLOT(03) NET_SLOT(04) NET_SLOT(05) NET_SLOT(06)
-	NET_SLOT(07) NET_SLOT(08) NET_SLOT(09) NET_SLOT(10) NET_SLOT(11) NET_SLOT(12) NET_SLOT(13)
-	NET_SLOT(14) NET_SLOT(15) NET_SLOT(16) NET_SLOT(17) NET_SLOT(18) NET_SLOT(19) NET_SLOT(20)
-	NET_SLOT(21) NET_SLOT(22) NET_SLOT(23) NET_SLOT(24) NET_SLOT(25)
-#undef NET_SLOT
-	virtual void sendChat(UnicodeString text, int playerMask);
-};
+#include "../../../../../Include/GameNetwork/NetworkInterfaceClass.h"
 extern NetworkInterface *TheNetwork;
 // The open in-game chat screen (VA 0x00E04478).
 extern int g_Va00E04478;

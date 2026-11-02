@@ -118,37 +118,7 @@ public:
 	virtual const UnicodeString &fetch(const char *label, bool *exists = 0) = 0; // +0x44
 };
 
-class NetworkInterface
-{
-public:
-	virtual ~NetworkInterface() {}
-	virtual void n01() = 0;
-	virtual void n02() = 0;
-	virtual void n03() = 0;
-	virtual void n04() = 0;
-	virtual void n05() = 0;
-	virtual void n06() = 0;
-	virtual void n07() = 0;
-	virtual void n08() = 0;
-	virtual void n09() = 0;
-	virtual void n10() = 0;
-	virtual void n11() = 0;
-	virtual void n12() = 0;
-	virtual void n13() = 0;
-	virtual void n14() = 0;
-	virtual void n15() = 0;
-	virtual void n16() = 0;
-	virtual void n17() = 0;
-	virtual void n18() = 0;
-	virtual void n19() = 0;
-	virtual void n20() = 0;
-	virtual void n21() = 0;
-	virtual void n22() = 0;
-	virtual void n23() = 0;
-	virtual void n24() = 0;
-	virtual void n25() = 0;
-	virtual void sendChat(UnicodeString text, int playerMask) = 0; // +0x68
-};
+#include "../../../Include/GameNetwork/NetworkInterfaceClass.h"
 
 extern NetworkInterface *TheNetwork;
 extern GameLogic *TheGameLogic;
