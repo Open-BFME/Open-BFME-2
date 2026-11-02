@@ -88,14 +88,7 @@ const char* TheOCLCreateLocTypeNames[] =
 };
 
 //-------------------------------------------------------------------------------------------------
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void doSpecialPower( unsigned commandOptions ) = 0;
-	virtual void doSpecialPowerAtObject( Object *obj, unsigned commandOptions ) = 0;
-	virtual void doSpecialPowerAtLocation( const Coord3D *loc, unsigned commandOptions ) = 0;
-	virtual bool rva0049466D( const Coord3D *loc ) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 //-------------------------------------------------------------------------------------------------
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface

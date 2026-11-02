@@ -17,16 +17,7 @@ typedef unsigned int UnsignedInt;
 #include <windows.h>
 class SpecialPowerTemplate;
 class UnpauseSpecialPowerUpgrade;
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0; virtual void s01() = 0; virtual void s02() = 0;
-	virtual void s03() = 0; virtual void s04() = 0; virtual void s05() = 0;
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
-	virtual void s07() = 0;
-	virtual void setReadyFrame(UnsignedInt frame) = 0;
-	virtual void pauseCountdown(Bool pause) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 class Rva004B555F;
 #include "../object.h"

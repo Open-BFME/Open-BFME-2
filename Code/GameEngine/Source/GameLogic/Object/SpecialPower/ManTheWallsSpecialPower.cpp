@@ -104,11 +104,7 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void specialPowerModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class ModuleInterface
 {

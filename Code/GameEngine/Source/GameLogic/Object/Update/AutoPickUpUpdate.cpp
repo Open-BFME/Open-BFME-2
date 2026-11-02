@@ -131,15 +131,7 @@ private:
 enum KindOfType { KINDOF_37 = 0x25, KINDOF_61 = 0x3D };
 enum SpecialPowerType { SPECIAL_POWER_39 = 0x27 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10();
-	virtual void doSpecialPowerAtObject(Object *target, unsigned int options);
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class ContainModuleInterface
 {
 public:

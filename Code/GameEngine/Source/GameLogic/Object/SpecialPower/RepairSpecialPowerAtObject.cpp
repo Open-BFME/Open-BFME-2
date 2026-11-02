@@ -64,22 +64,7 @@ protected:
 	Object *m_object; // +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void s0A() = 0;
-	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
 	public SpecialPowerModuleInterface
 {

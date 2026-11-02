@@ -224,17 +224,7 @@ private:
 	AsciiString m_name;						// +0x10
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void spmi00() = 0;
-	virtual void spmi04() = 0;
-	virtual void spmi08() = 0;
-	virtual void spmi0C() = 0;
-	virtual void spmi10() = 0;
-	virtual void spmi14() = 0;
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;	// +0x18
-};
+#include "../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 #include "../../Include/GameLogic/Module/BehaviorModule.h"
 

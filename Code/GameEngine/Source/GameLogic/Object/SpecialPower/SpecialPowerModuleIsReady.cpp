@@ -17,15 +17,7 @@ class ModuleData { public: virtual ~ModuleData(); };
 class SpecialPowerModuleData : public ModuleData { public: int unknown4; const SpecialPowerTemplate *power; };
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class SpecialPowerModuleInterface {
-public:
- virtual bool isModuleForPower(const SpecialPowerTemplate *) const = 0;
- virtual bool isReady() const = 0;
- virtual float getPercentReady() const = 0;
- virtual void slot3() = 0; virtual void slot4() = 0; virtual void slot5() = 0;
- virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
- virtual void startPowerRecharge(float percent) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface {
 public: virtual bool isReady() const; virtual void startPowerRecharge(float percent);
  int unknown14; unsigned available; int paused; unsigned pausedOnFrame; float pausedPercent; bool blocked;

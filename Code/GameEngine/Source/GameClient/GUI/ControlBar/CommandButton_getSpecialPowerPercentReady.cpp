@@ -11,13 +11,7 @@ typedef float Real;
 
 class SpecialPowerTemplate;
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual Real getPercentReady() const = 0; // vslot 2
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 #include "../../../GameLogic/Object/object.h"
 

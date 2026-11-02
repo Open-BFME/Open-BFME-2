@@ -312,17 +312,7 @@ class SpecialPowerModuleInterface;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0; virtual void s01() = 0; virtual void s02() = 0;
-	virtual void s03() = 0; virtual void s04() = 0; virtual void s05() = 0;
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
-	virtual void s07() = 0; virtual void s08() = 0; virtual void s09() = 0;
-	virtual void s10() = 0; virtual void s11() = 0; virtual void s12() = 0;
-	virtual void s13() = 0; virtual void s14() = 0;
-	virtual void startPowerRecharge(float readyFraction) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {

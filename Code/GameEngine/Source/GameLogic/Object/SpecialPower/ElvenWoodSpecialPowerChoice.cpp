@@ -14,7 +14,7 @@ class Object;class Thing;
 struct ElvenWoodChoice {AsciiString name;float weight;};
 class ModuleData {public:unsigned char prefix[0x7c];_STL::vector<ElvenWoodChoice> choices;};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class SpecialPowerModuleInterface {public:virtual void specialPowerModuleInterfaceAnchor();};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class ModuleInterface
 {
 public:

@@ -24,19 +24,7 @@ class Object;
 class DamageInfo;
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void setReadyFrame(unsigned int frame) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../../../../Include/Common/Player.h"
 #include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"

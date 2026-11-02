@@ -488,15 +488,7 @@ struct Rva002C99FB
 };
 inline const Rva002C99FB &asStruct(const Rva002390CB &v) { return *(const Rva002C99FB *)&v; }
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
-	virtual void slot0C(); virtual void slot0D(); virtual void slot0E(); virtual void slot0F();
-	virtual Rva002390CB getInitiateSound();
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Rva0029439DModule
 {

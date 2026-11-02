@@ -176,23 +176,7 @@ template <class T> inline const T &devastateMin( const T &a, const T &b )
 	return b < a ? b : a;
 }
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void doSpecialPowerAtLocation( const Coord3D *loc, UnsignedInt commandOptions ) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class BehaviorModuleView
 {

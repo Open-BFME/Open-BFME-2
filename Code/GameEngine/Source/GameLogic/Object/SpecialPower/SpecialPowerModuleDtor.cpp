@@ -109,20 +109,7 @@ extern InGameUI *TheInGameUI;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0; virtual void s01() = 0; virtual void s02() = 0;
-	virtual void s03() = 0; virtual void s04() = 0;
-	virtual AsciiString getPowerName() const = 0;
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
-	virtual void onSpecialPowerCreation() = 0;
-	virtual void s08() = 0;
-	virtual void pauseCountdown(bool pause) = 0;
-	virtual void s10() = 0; virtual void s11() = 0; virtual void s12() = 0;
-	virtual void s13() = 0; virtual void s14() = 0;
-	virtual void startPowerRecharge(float percent) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {

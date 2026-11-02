@@ -320,18 +320,7 @@ template <> class BehaviorModuleInterfaceSlots<0>
 
 
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0;
-	virtual void slot03() = 0; virtual void slot04() = 0; virtual void slot05() = 0;
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
-	virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
-	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
-	virtual void slot13() = 0; virtual void slot14() = 0; virtual void slot15() = 0;
-	virtual void slot16() = 0; virtual void slot17() = 0;
-	virtual bool rva0049466D(const Coord3D *loc) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {

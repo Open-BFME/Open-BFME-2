@@ -37,14 +37,7 @@ public:
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int commandOptions); // slot 0x30
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Object
 {

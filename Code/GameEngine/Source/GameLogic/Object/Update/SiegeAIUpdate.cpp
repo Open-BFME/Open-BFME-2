@@ -39,12 +39,7 @@ enum SpecialPowerType
 {
 	SPECIAL_BFME_2D = 0x2D
 };
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0;
-	virtual Bool isReady() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../object.h"
 
 

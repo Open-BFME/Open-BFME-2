@@ -104,23 +104,7 @@ protected:
 
 // The +0x10 interface (vftable 0x00C5C4B8 in this class): slot 12 places the
 // power at a location.
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void s0A() = 0;
-	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options) = 0;
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
 	public SpecialPowerModuleInterface

@@ -96,13 +96,7 @@ public:
 	UnsignedInt m_type;
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2();
-	virtual void s3(); virtual void s4(); virtual void s5();
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 

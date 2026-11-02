@@ -90,15 +90,7 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void doSpecialPower(UnsignedInt commandOptions) = 0;
-	virtual void doSpecialPowerAtObject(Object *obj, UnsignedInt commandOptions) = 0;
-	virtual void doSpecialPowerAtLocation(const Coord3D *loc, UnsignedInt commandOptions) = 0;
-	virtual void doSpecialPowerUsingWaypoints(const Coord3D *loc, const Waypoint *way, UnsignedInt commandOptions) = 0;
-	virtual void markSpecialPowerTriggered(const Coord3D *location) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {

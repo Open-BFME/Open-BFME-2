@@ -46,17 +46,7 @@ class SpecialPowerModuleInterface;
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void tslot00() = 0;
-	virtual void tslot01() = 0;
-	virtual void tslot02() = 0;
-	virtual void tslot03() = 0;
-	virtual void tslot04() = 0;
-	virtual void tslot05() = 0;
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Object
 {

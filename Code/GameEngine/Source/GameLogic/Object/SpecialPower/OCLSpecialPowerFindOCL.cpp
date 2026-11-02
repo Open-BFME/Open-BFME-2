@@ -30,12 +30,7 @@ int __cdecl Rva004C30BC(ObjectCreationList*,void*,void*);
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class SpecialPowerModuleInterface {public:
- virtual void doSpecialPower(unsigned)=0;
- virtual void doSpecialPowerAtObject(Object*,unsigned)=0;
- virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned)=0;
- virtual bool rva0049466D(const Coord3D*)=0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterface {public:
  virtual void doSpecialPower(unsigned);
  virtual void doSpecialPowerAtObject(Object*,unsigned);

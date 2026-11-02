@@ -12,11 +12,7 @@
 
 class SpecialPowerTemplate;
 
-class SpecialPowerModuleInterface
-{
-public:
-    virtual bool isModuleForPower(const SpecialPowerTemplate *power) const;
-};
+#include "../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Bfme2BehaviorPowerQuery
 {

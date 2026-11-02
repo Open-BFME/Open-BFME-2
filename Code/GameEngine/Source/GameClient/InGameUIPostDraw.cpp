@@ -181,15 +181,7 @@ public:
 	Bool m_sharedNSync;							// +0x59
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual Bool isReady() const;				// slot 1
-	virtual void slot02();
-	virtual void slot03();
-	virtual UnsignedInt getReadyFrame() const;	// slot 4
-};
+#include "../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 enum ObjectStatusTypes
 {
