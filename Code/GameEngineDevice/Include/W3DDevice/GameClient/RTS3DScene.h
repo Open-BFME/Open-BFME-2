@@ -74,27 +74,8 @@ class SceneIterator;
 class W3DDynamicLight;
 class W3DShroudMaterialPassClass;
 class Matrix3D;
-class MultiListObjectClass;
-class GenericMultiListClass;
 enum CustomScenePassModes;
-
-class MultiListNodeClass
-{
-public:
-    MultiListNodeClass *Prev;
-    MultiListNodeClass *Next;
-    MultiListNodeClass *NextList;
-    MultiListObjectClass *Object;
-    GenericMultiListClass *List;
-};
-
-class GenericMultiListClass
-{
-public:
-    GenericMultiListClass() throw();
-    virtual ~GenericMultiListClass();
-    MultiListNodeClass Head;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 
 template<class T> class RefMultiListClass : public GenericMultiListClass
 {
