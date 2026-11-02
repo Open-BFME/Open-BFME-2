@@ -367,16 +367,7 @@ protected:
 	void Insert_To_Texture_Category(Vertex_Split_Table &split_table,TextureClass **texs,VertexMaterialClass *mat,ShaderClass shader,int pass,unsigned vertex_offset);
 };
 
-class VertexBufferClass {
-public:
- class AppendLockClass {
-  VertexBufferClass *VertexBuffer; void *Vertices; char device_lock;
- public:
-  AppendLockClass(VertexBufferClass*,unsigned,unsigned,int flags=0);
-  ~AppendLockClass();
-  void *Get_Vertex_Array() { return Vertices; }
- };
-};
+#include "VertexBufferClass.h"
 struct S2FVFInfo
 {
  unsigned fvf;

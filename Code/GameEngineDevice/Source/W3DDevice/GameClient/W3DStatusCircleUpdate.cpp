@@ -1,23 +1,11 @@
-// cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BF1 f98983a7d W3DStatusCircle::updateScreenVB supplies the quad layout.
 // Native 8E335..8E436 RET4 and W3DStatusCircle render caller 8E7A4 agree;
 // target screen VB is +E4 and the shared dirty byte is VA DE207C. Earlier
 // bank called this TerrainTracksRenderObjClass; the semantic donor identifies
 // the status-circle subsystem. -1/+1 are compiler literals, independently
 // verified in target .rdata; declaring them extern globals hoisted the load.
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(VertexBufferClass *b, int flags);
-		~WriteLockClass();
-		VertexBufferClass *m_buf;
-		void *Vertices;
-		char m_lock;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
 struct StatusVert
 {

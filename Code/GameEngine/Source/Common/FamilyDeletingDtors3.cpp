@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Each class is declared locally only so its deleting destructor is emitted;
 // the complete destructor call resolves through that destructor's own row.
 // Same-shape family as FamilyDeletingDtors2.cpp (??_GVersion 0x21C7 shape):
@@ -9,7 +9,7 @@ struct MutexClass { struct LockClass { ~LockClass(); }; };
 void famgenDelete(MutexClass::LockClass *p) { delete p; }
 
 // ??_GWriteLockClass@VertexBufferClass@@QAEPAXI@Z @0x107346
-struct VertexBufferClass { struct WriteLockClass { ~WriteLockClass(); }; };
+#include "../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 void famgenDelete(VertexBufferClass::WriteLockClass *lock) { delete lock; }
 
 // ??_GWriteLockClass@IndexBufferClass@@QAEPAXI@Z @0x107362

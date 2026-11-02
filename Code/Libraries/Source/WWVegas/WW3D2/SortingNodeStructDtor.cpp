@@ -49,9 +49,7 @@ class TextureClass;
 
 #include "VertexMaterialClass.h"
 
-class VertexBufferClass : public RefCountClass
-{
-};
+#include "VertexBufferClass.h"
 
 class IndexBufferClass : public RefCountClass
 {

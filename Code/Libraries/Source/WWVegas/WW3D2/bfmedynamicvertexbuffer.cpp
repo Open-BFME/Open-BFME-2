@@ -392,33 +392,7 @@ typedef char BfmeSortingVertexSize[(sizeof(BfmeSortingVertex)==44)?1:-1];
 // Zero Hour's VertexBufferClass lock helpers, layout-identical to the matched
 // VertexBufferLockClasses.cpp unit (buffer/kind/FVF record placement proven
 // there); the vertex-array accessor rides along because Copy needs it.
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-		VertexBufferClass *VertexBuffer;
-		void *Vertices;
-		BFMEDX8DeviceLock device_lock;
-
-	public:
-		WriteLockClass(VertexBufferClass *vertex_buffer, int flags = 0);
-		~WriteLockClass();
-		void *Get_Vertex_Array() { return Vertices; }
-	};
-
-	class AppendLockClass
-	{
-		VertexBufferClass *VertexBuffer;
-		void *Vertices;
-		BFMEDX8DeviceLock device_lock;
-
-	public:
-		AppendLockClass(VertexBufferClass *vertex_buffer, unsigned start_index, unsigned index_range, int flags = 0);
-		~AppendLockClass();
-		void *Get_Vertex_Array() { return Vertices; }
-	};
-};
+#include "VertexBufferClass.h"
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?loadShrubsInVertexAndIndexBuffers@W3DShrubBuffer@@QAEXXZ
 // W3DShrubBuffer::loadShrubsInVertexAndIndexBuffers, retail 0x000E7DF3 (1394 bytes): Zero Hour's
@@ -47,20 +47,7 @@ public:
 	};
 };
 
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-		BFMEDX8DeviceLock device_lock;
-		void *Vertices;
-		VertexBufferClass *VertexBuffer;
-	public:
-		WriteLockClass(VertexBufferClass *vertex_buffer, int flags = 0);
-		~WriteLockClass();
-		void *Get_Vertex_Array() { return Vertices; }
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
 // Retail 0x0016AB90: MeshGeometryClass::Get_Vertex_Normal_Array(bool).
 

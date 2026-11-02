@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Check_If_Mesh_Fits@DX8RigidFVFCategoryContainer@@UAE_NPAVMeshModelClass@@@Z,
 // retail 0x00143A20 (75 bytes, RET 4). Donor: Zero Hour dx8renderer.cpp.
@@ -26,13 +26,7 @@ public:
 	__declspec(dllimport) __forceinline int Get_Polygon_Count() const { return PolygonCount->Count; }
 };
 
-class VertexBufferClass
-{
-public:
-	unsigned char pad[0x0C];
-	unsigned short VertexCount;		// +0x0C
-	unsigned short Get_Vertex_Count() const { return VertexCount; }
-};
+#include "VertexBufferClass.h"
 
 class IndexBufferClass
 {

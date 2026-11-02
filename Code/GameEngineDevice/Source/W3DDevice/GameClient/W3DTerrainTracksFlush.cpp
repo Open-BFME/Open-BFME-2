@@ -53,21 +53,7 @@ extern bool bfmeCameraProjectionOverride;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(VertexBufferClass *vertex_buffer, int flags);
-		~WriteLockClass();
-		void *Get_Vertex_Array() { return Vertices; }
-	private:
-		VertexBufferClass *VertexBuffer;
-		void *Vertices;
-		int m_08;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 class IndexBufferClass;
 
 struct BFME2TextureResource;

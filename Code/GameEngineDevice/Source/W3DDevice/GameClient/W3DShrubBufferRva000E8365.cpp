@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Oy-
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Oy- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // W3DShrubBuffer::rva000E8365, retail 0x000E8365 (753 bytes): Zero Hour's
 // updateVertexBuffer shape for shrubs, per locked vertex buffer re-transforms the
 // vertices of every pushed-aside visible record. Donor: Open-BFME-1
@@ -31,21 +31,7 @@ static inline void scaleShrubVertex(Vector3 &vertex, float scale)
 	vertex.Z = vertex.Z * scale;
 }
 
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(VertexBufferClass *vertexBuffer, int flags);
-		~WriteLockClass();
-		void *Get_Vertex_Array(void) { return m_vertices; }
-	private:
-		VertexBufferClass *m_vertexBuffer;
-		void *m_vertices;
-		int m_flags;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
 struct VertexFormatXYZNDUV1
 {
