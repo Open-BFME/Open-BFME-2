@@ -1,0 +1,208 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MapCache",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x22e28b"
+     ],
+     "value": {
+      "0x0": [
+       "Rva0022E272MetadataMap"
+      ],
+      "0x18": [
+       "?$map@EFU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEF@_STL@@@2@@_STL",
+       "?$set@HU?$less@H@_STL@@V?$Rva0054E8DCAllocator@H@@@_STL",
+       "?$set@PAURva004ABDDCEntry@@U?$less@PAURva004ABDDCEntry@@@_STL@@V?$allocator@PAURva004ABDDCEntry@@@3@@_STL",
+       "?$set@URva000D20A9Key@@U?$less@URva000D20A9Key@@@_STL@@V?$allocator@URva000D20A9Key@@@3@@_STL",
+       "?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL",
+       "Rva002EE9B7"
+      ],
+      "0xc": [
+       "?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL",
+       "?$map@EMU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEM@_STL@@@2@@_STL",
+       "?$map@HPAXU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL",
+       "?$map@HPAXURva001FDAB0Less@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@_STL@@@_STL",
+       "?$map@HURva00501875Count@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva00501875Count@@@_STL@@@3@@_STL",
+       "?$map@IPAVWaypoint@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVWaypoint@@@_STL@@@3@@_STL",
+       "?$map@I_NU?$less@I@_STL@@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL",
+       "?$map@UTemplateCountKey@@HU?$less@UTemplateCountKey@@@_STL@@V?$allocator@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@HU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@H@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@MU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@M@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@PAVNamedTimerInfo@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@4@@_STL",
+       "?$map@VAsciiString@@UOpaqueVolumeWord@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UOpaqueVolumeWord@@@_STL@@@4@@_STL",
+       "?$map@W4ObjectID@@HU?$less@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL",
+       "?$multimap@IVAssetReference@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@3@@_STL",
+       "NoCaseMapView",
+       "Rva00205AF8",
+       "Rva0046A915",
+       "Rva004D1D32",
+       "TemplateNameMapView",
+       "WeaponSetFinderView"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 8,
+  "retail_vtables": {},
+  "view_errors": 6,
+  "view_sizes": {
+   "1": 19,
+   "4": 1,
+   "12": 9,
+   "24": 1,
+   "36": 4
+  },
+  "views": 34,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_MapCache.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/MapUtil.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "_M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<AsciiString const ,MapMetaData> >*",
+   "views": 15,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngineInit.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/PositionStartSpots.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheFindMap.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheWriteCacheINI.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngineInit.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/PositionStartSpots.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheFindMap.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheWriteCacheINI.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtilGetDefaultMap.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfo.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/GameEngineInit.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp",
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp",
+    "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+    "Code/GameEngine/Source/GameClient/MapUtil.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "nested@0x0",
+   "candidates": {
+    "_M_t._M_header._M_data": 15
+   },
+   "class": "MapCache"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
