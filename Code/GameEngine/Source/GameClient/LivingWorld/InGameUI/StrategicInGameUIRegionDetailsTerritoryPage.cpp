@@ -57,7 +57,7 @@ namespace StrategicInGameUI {
 
 #include "unicode_string.h"
 class Image;
-class MapMetaData { public: UnicodeString getDescription(); };
+#include "../../../../Include/GameClient/MapMetaData.h"
 class MapCache { public: const MapMetaData *findMap(AsciiString); };
 extern MapCache *TheMapCache;
 Image *getMapPreviewImage(AsciiString);

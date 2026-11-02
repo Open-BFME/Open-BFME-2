@@ -77,13 +77,7 @@ public:
 	AsciiString getMapLeafName( const AsciiString &in ) const;
 };
 extern GameState *TheGameState;
-class MapMetaData
-{
-public:
-	UnicodeString m_displayName;			// +0x00
-	UnsignedByte m_pre26[0x26 - 4];
-	Bool m_isOfficial;				// +0x26
-};
+#include "../../Include/GameClient/MapMetaData.h"
 class MapCache
 {
 public:

@@ -206,11 +206,7 @@ public:
 	_STL::vector<Rva00573E7C *> m_orders;	// +0x1C
 };
 
-class MapMetaData
-{
-public:
-	UnicodeString rva00300D0E();
-};
+#include "../../../../Include/GameClient/MapMetaData.h"
 
 class MapCache
 {

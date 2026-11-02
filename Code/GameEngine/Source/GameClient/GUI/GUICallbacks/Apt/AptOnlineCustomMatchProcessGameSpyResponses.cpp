@@ -148,17 +148,7 @@ private:
 };
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getDisplayName(bool full);
-
-	UnicodeString m_displayName; // +0x00
-	UnsignedByte m_pad04[0x20 - 0x04];
-	Int m_numPlayers;			 // +0x20
-	UnsignedByte m_pad24[0x26 - 0x24];
-	Bool m_isOfficial;		   // +0x26
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 class MapCache
 {

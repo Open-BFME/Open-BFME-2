@@ -170,13 +170,7 @@ public:
 
 extern GameSpyStagingRoom *TheGameSpyGame;
 
-class MapMetaData
-{
-public:
-	unsigned char m_pad00[0x28];
-	unsigned int m_filesize; // +0x28
-	unsigned int m_CRC;	  // +0x2C
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 

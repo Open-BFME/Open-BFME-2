@@ -48,12 +48,7 @@ public:
 	unsigned char m_8c;
 };
 
-class MapMetaData
-{
-public:
-	unsigned char m_pad00[0x20];
-	int m_maxPlayers;
-};
+#include "../../../Include/GameClient/MapMetaData.h"
 
 class MapCache
 {
@@ -130,11 +125,11 @@ void AptMpGameSetup::rva0043EDB4()
 				++count;
 		}
 	}
-	if (count > meta->m_maxPlayers)
+	if (count > meta->m_numPlayers)
 	{
 		for (int i = 7; i >= 0; --i)
 		{
-			if (count <= meta->m_maxPlayers)
+			if (count <= meta->m_numPlayers)
 				break;
 			GameSlot *slot = game->getSlot(i);
 			if (!slot)
@@ -146,7 +141,7 @@ void AptMpGameSetup::rva0043EDB4()
 		}
 		for (int i = 7; i >= 0; --i)
 		{
-			if (count <= meta->m_maxPlayers)
+			if (count <= meta->m_numPlayers)
 				break;
 			GameSlot *slot = game->getSlot(i);
 			if (!slot)
@@ -158,7 +153,7 @@ void AptMpGameSetup::rva0043EDB4()
 		}
 		for (int i = 7; i >= 0; --i)
 		{
-			if (count <= meta->m_maxPlayers)
+			if (count <= meta->m_numPlayers)
 				break;
 			GameSlot *slot = game->getSlot(i);
 			if (!slot)
@@ -172,11 +167,11 @@ void AptMpGameSetup::rva0043EDB4()
 			--count;
 		}
 	}
-	else if (count < meta->m_maxPlayers)
+	else if (count < meta->m_numPlayers)
 	{
 		for (int i = 0; i < 8; ++i)
 		{
-			if (count >= meta->m_maxPlayers)
+			if (count >= meta->m_numPlayers)
 				break;
 			GameSlot *slot = game->getSlot(i);
 			if (!slot)
@@ -191,7 +186,7 @@ void AptMpGameSetup::rva0043EDB4()
 		}
 		for (int i = 0; i < 8; ++i)
 		{
-			if (count >= meta->m_maxPlayers)
+			if (count >= meta->m_numPlayers)
 				break;
 			GameSlot *slot = game->getSlot(i);
 			if (!slot)

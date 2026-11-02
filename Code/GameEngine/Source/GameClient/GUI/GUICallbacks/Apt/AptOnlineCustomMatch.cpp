@@ -203,7 +203,7 @@ class GameSpyStagingRoom{public:
  void cleanUpSlotPointers();
  char beforeType[0x5c-4];int type;int rules[10];char beforeVersionBlock[0x90-0x88];int versionBlock[12];int version,build;char beforeId[0xfe0-0xc8];int id;char beforeLocked[0xfec-0xfe4];bool locked;
 };
-class MapMetaData{public:UnicodeString bfme_getBaseDisplayName();char beforeOfficial[0x26];bool official;};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 class AptMapPreview{public:MapMetaData*rva0057D922(const AsciiString&);};
 class AptMpGameSetup{public:const Image*rva0043E512(int);void rva0043FA68(GameInfo *);};
 #include "../../../../../Include/GameClient/Image.h"
@@ -225,7 +225,7 @@ int AptOnlineCustomMatch::rva0059F496(GameSpyStagingRoom*game)
  case 0:{
   MapMetaData*meta=((AptMapPreview*)((char*)this+0xd0))->rva0057D922(((GameInfo*)game)->getMap());
   UnicodeString display=meta->bfme_getBaseDisplayName();GadgetListBoxAddEntryText(list,display,color,row,4,true);
-  if(!meta->official)userMap=TheMappedImageCollection->findImageByName("AptUserMapNotConquered");
+  if(!meta->m_isOfficial)userMap=TheMappedImageCollection->findImageByName("AptUserMapNotConquered");
   break;
  }
  case 1:

@@ -311,13 +311,7 @@ template <> struct less<AsciiString>
 };
 }
 
-class MapMetaData
-{
-public:
-	unsigned char m_pad00[0x28];
-	unsigned int m_filesize; // +0x28
-	unsigned int m_CRC; // +0x2C
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 // Its 0x00305749 (98 bytes, refreshes the cache) is unrowed and pinned.
 class MapCache : public _STL::map<AsciiString, MapMetaData>

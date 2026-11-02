@@ -849,7 +849,7 @@ private:
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
 // template, or -1 without a combo box.
 
-class MapMetaData { public: UnicodeString bfme_getDisplayName(bool); };
+#include "../../../Include/GameClient/MapMetaData.h"
 struct StartPositionFactionView { char beforeReady[12]; int ready; };
 class GlobalData { public: unsigned char pad[0x9d4]; int factionRestrictions; char rest[0xa44-0x9d8]; int minPlayers; };
 extern GlobalData* TheWritableGlobalData;

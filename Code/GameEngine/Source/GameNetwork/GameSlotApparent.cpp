@@ -130,15 +130,7 @@ public:
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 
-class MapMetaData
-{
-	char m_pad00[0x20];
-public:
-	Int m_numPlayers;               // +0x20
-	bool m_isMultiplayer;           // +0x24
-	bool m_isScenarioMP;            // +0x25
-	bool m_isOfficial;              // +0x26
-};
+#include "../../Include/GameClient/MapMetaData.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 

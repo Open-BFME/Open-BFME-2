@@ -58,11 +58,7 @@ extern "C" __declspec(dllimport) void __cdecl _wsplitpath(const unsigned short *
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getBaseDisplayName();
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 class MapCache
 {

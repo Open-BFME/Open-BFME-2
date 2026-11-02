@@ -267,11 +267,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getDisplayName( Bool full );
-};
+#include "../../Include/GameClient/MapMetaData.h"
 
 class MapCache
 {

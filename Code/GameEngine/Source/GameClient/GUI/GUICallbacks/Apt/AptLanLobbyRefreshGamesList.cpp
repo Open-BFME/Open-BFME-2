@@ -101,11 +101,7 @@ public:
 	unsigned char m_version[0x10]; // +0x90
 };
 
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getBaseDisplayName();
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 
 // The +0x668 game list; 0x0058113D (87 bytes) is pinned by this name.
 // Minimal sort-record view for 0x58113D: the 16-byte member layout, the

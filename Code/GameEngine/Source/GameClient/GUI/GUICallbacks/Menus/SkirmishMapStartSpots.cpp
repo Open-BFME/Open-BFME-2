@@ -12,10 +12,7 @@
 #include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
-class MapMetaData {
-public: char unknown00[0x20]; int m_numPlayers; char unknown24[0x100-0x24];
- MapMetaData(const MapMetaData&); ~MapMetaData();
-};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 class MapCache:public _STL::map<AsciiString,MapMetaData> {};
 typedef char MapMetaDataSizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 extern MapCache *TheMapCache;

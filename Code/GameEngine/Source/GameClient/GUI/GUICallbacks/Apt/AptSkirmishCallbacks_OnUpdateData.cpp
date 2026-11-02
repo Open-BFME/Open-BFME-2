@@ -345,7 +345,7 @@ extern Display *TheDisplay;
 #include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
-class MapMetaData {public:char pad[0x24];bool official;};
+#include "../../../../../Include/GameClient/MapMetaData.h"
 class MapCache {public:const MapMetaData *findMap(AsciiString);};extern MapCache *TheMapCache;
 void InitGameLogicRandom(unsigned);
 class GameMessageArgument {public:char pad[8];int value;char tail[12];int type;};

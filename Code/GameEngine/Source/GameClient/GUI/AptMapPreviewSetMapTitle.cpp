@@ -12,11 +12,7 @@
 
 #include "unicode_string.h"
 
-class MapMetaData
-{
-public:
-    UnicodeString bfme_getDisplayName(bool includePlayerCount);
-};
+#include "../../../Include/GameClient/MapMetaData.h"
 
 #include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 

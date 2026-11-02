@@ -25,20 +25,7 @@ template <> struct less<AsciiString>
 };
 }
 
-class MapMetaData
-{
-public:
-	MapMetaData(const MapMetaData &other);
-	~MapMetaData();
-	char m_pad00[0x20];
-	int m_numPlayers;
-	char m_pad24;
-	bool m_bfme25;
-	bool m_bfme26;
-	char m_pad28[0x04];
-	unsigned int m_CRC;
-	char m_rest[0x100 - 0x30];
-};
+#include "../../Include/GameClient/MapMetaData.h"
 
 class MapCache : public _STL::map<AsciiString, MapMetaData>
 {
