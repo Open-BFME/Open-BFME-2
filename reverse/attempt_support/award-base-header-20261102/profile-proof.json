@@ -1,0 +1,261 @@
+{
+  "source": "Code/GameEngine/Source/Common/AwardSystemManagerParseThingStat.cpp",
+  "rows": 7,
+  "variants": [
+    {
+      "label": "canonical-base-prerequisite",
+      "missing": [],
+      "errors": [],
+      "object_sha256": "c923e1aa92591e5c97c3b9474642aecbffd0b454bf945189f2b43357f5c4d354",
+      "old_code": 9,
+      "new_code": 9,
+      "old_data": 21,
+      "new_data": 21,
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "EH": {
+        "?parseThingStat@AwardSystemManager@@SAXPAVINI@@PAX1PBX@Z": [
+          "EXACT",
+          ""
+        ]
+      },
+      "field_table": {
+        "name": "?g_00DC1DD8@@3QBUFieldParse@@B",
+        "size": 176,
+        "all_raw_bytes_and_symbolic_relocations_equal_original": true,
+        "native_nonrelocation_differences": [],
+        "relocations": [
+          [
+            0,
+            6,
+            "??_C@_08PLJNLANB@StatName?$AA@"
+          ],
+          [
+            4,
+            6,
+            "?parseStringAsNameKeyType@NameKeyGenerator@@SAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            16,
+            6,
+            "??_C@_0BD@LGFBMOCE@ThingTemplateNames?$AA@"
+          ],
+          [
+            20,
+            6,
+            "?Rva00149002Parse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            32,
+            6,
+            "??_C@_0P@LGEHBBJK@ExcludedThings?$AA@"
+          ],
+          [
+            36,
+            6,
+            "?Rva00149002Parse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            48,
+            6,
+            "??_C@_06NBEDPADE@KindOf?$AA@"
+          ],
+          [
+            52,
+            6,
+            "?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            64,
+            6,
+            "??_C@_0P@DAPLODCA@ExcludedKindOf?$AA@"
+          ],
+          [
+            68,
+            6,
+            "?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            80,
+            6,
+            "??_C@_07EJHFJHCD@NameTag?$AA@"
+          ],
+          [
+            84,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            96,
+            6,
+            "??_C@_0P@INGKIMNA@DescriptionTag?$AA@"
+          ],
+          [
+            100,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            112,
+            6,
+            "??_C@_0BA@CFJGMPM@MultiPlayerOnly?$AA@"
+          ],
+          [
+            116,
+            6,
+            "?parseBool@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            128,
+            6,
+            "??_C@_0L@MGEJDJGK@PrimaryKey?$AA@"
+          ],
+          [
+            132,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            144,
+            6,
+            "??_C@_0N@LOPNNPAE@SecondaryKey?$AA@"
+          ],
+          [
+            148,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ]
+        ]
+      }
+    },
+    {
+      "label": "canonical-base-thingfactory",
+      "missing": [],
+      "errors": [],
+      "object_sha256": "76a0125306382e6f71483c6c42d0c3ebb508cbca5df8acc443c1981b3b5dd0d9",
+      "old_code": 9,
+      "new_code": 9,
+      "old_data": 21,
+      "new_data": 21,
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "EH": {
+        "?parseThingStat@AwardSystemManager@@SAXPAVINI@@PAX1PBX@Z": [
+          "EXACT",
+          ""
+        ]
+      },
+      "field_table": {
+        "name": "?g_00DC1DD8@@3QBUFieldParse@@B",
+        "size": 176,
+        "all_raw_bytes_and_symbolic_relocations_equal_original": true,
+        "native_nonrelocation_differences": [],
+        "relocations": [
+          [
+            0,
+            6,
+            "??_C@_08PLJNLANB@StatName?$AA@"
+          ],
+          [
+            4,
+            6,
+            "?parseStringAsNameKeyType@NameKeyGenerator@@SAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            16,
+            6,
+            "??_C@_0BD@LGFBMOCE@ThingTemplateNames?$AA@"
+          ],
+          [
+            20,
+            6,
+            "?Rva00149002Parse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            32,
+            6,
+            "??_C@_0P@LGEHBBJK@ExcludedThings?$AA@"
+          ],
+          [
+            36,
+            6,
+            "?Rva00149002Parse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            48,
+            6,
+            "??_C@_06NBEDPADE@KindOf?$AA@"
+          ],
+          [
+            52,
+            6,
+            "?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            64,
+            6,
+            "??_C@_0P@DAPLODCA@ExcludedKindOf?$AA@"
+          ],
+          [
+            68,
+            6,
+            "?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"
+          ],
+          [
+            80,
+            6,
+            "??_C@_07EJHFJHCD@NameTag?$AA@"
+          ],
+          [
+            84,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            96,
+            6,
+            "??_C@_0P@INGKIMNA@DescriptionTag?$AA@"
+          ],
+          [
+            100,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            112,
+            6,
+            "??_C@_0BA@CFJGMPM@MultiPlayerOnly?$AA@"
+          ],
+          [
+            116,
+            6,
+            "?parseBool@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            128,
+            6,
+            "??_C@_0L@MGEJDJGK@PrimaryKey?$AA@"
+          ],
+          [
+            132,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ],
+          [
+            144,
+            6,
+            "??_C@_0N@LOPNNPAE@SecondaryKey?$AA@"
+          ],
+          [
+            148,
+            6,
+            "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+          ]
+        ]
+      }
+    }
+  ],
+  "live_source_matches_immutable_original": true
+}

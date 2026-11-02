@@ -19,7 +19,8 @@
 #include <vector>
 #include "ascii_string.h"
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
