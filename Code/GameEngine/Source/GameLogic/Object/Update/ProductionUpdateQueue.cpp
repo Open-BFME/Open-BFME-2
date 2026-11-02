@@ -729,7 +729,7 @@ class RespawnUpdate { public: void triggerRevival(Object *); };
 struct Rva0028F633 { Rva0028F633(int,int); unsigned int bits[32]; };
 namespace _STL {
 }
-class DrawableList: public _STL::list<Drawable *> {public: ~DrawableList() throw();};
+#include "../../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo;
 class PickAndPlayInfo { public: PickAndPlayInfo(); char pad[8]; Drawable *drawTarget; char tail[24]; };
 class GameMessage { public: enum Type { MSG_NONE=0 }; };

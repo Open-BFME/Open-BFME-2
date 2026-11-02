@@ -644,9 +644,7 @@ public:
 // The parameter type of pickAndPlayUnitVoiceResponse. The list itself is a
 // plain list<Drawable *>: its destructor is retail's 0x00239AF4 call on the
 // normal path and the list<Drawable *> thunk 0x00239BAB in the unwind funclet.
-class DrawableList : public _STL::list<Drawable *>
-{
-};
+#include "../../../../Include/GameClient/DrawableList.h"
 
 class PickAndPlayInfo;
 

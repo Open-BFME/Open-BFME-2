@@ -169,7 +169,7 @@ template<> TemplatePointerSet::set();
 
 }
 class Rva0029B667 : public TemplatePointerSet { public: ~Rva0029B667(); };
-class DrawableList : public _STL::list<Drawable*> {public: ~DrawableList() throw();};
+#include "../../Include/GameClient/DrawableList.h"
 class Rva002A1B07 {public: Rva002A1B07(); const ThingTemplate *type; DrawableList selected; bool includeContained;};
 int Rva002A1EF5(Drawable*,void*);
 #include "../../Include/GameClient/View.h"

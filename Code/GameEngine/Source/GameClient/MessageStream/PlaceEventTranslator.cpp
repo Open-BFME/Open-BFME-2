@@ -28,12 +28,7 @@ public:
 };
 extern Mouse *TheMouse;
 class Drawable;
-class DrawableList : public _STL::list<Drawable *>
-{
-public:
-	__forceinline DrawableList() {}
-	~DrawableList() throw();
-};
+#include "../../../Include/GameClient/DrawableList.h"
 #include "../../Common/PlacementPositionValue.h"
 
 // list<Drawable *> nodes come from the freelist pool at VA 0x00DBA5E0 (pop

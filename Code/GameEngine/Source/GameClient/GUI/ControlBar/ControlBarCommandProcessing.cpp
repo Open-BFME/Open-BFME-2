@@ -55,7 +55,7 @@ class Matrix3D { public: float Get_Z_Rotation() const; float m[12]; };
 class Object; class Player; class ThingTemplate; class Drawable; class CommandButton;
 class GameWindow; class Module; class Rva0043D3A8;
 #include "../../../../Include/Common/MessageStream.h"
-class DrawableList : public std::list<Drawable*> {};
+#include "../../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo { public:
  PickAndPlayInfo(); bool value; Drawable *source,*target; int *weaponSlot;
  void *other; Coord3D pos; const CommandButton *commandButton;

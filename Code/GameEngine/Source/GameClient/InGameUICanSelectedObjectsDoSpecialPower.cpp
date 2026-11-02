@@ -94,7 +94,7 @@ static inline bool operator!=(const _List_iterator<_ListVal, _ListLeft> &a,
 // list<Drawable *>: retail destroys it with the base destructor 0x00239AF4 on
 // the normal path and with the list<Drawable *> destructor thunk 0x00239BAB
 // in the unwind funclet.
-class DrawableList : public _STL::list<Drawable *> { };
+#include "../../Include/GameClient/DrawableList.h"
 
 #define PAD_VIRTUALS10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \

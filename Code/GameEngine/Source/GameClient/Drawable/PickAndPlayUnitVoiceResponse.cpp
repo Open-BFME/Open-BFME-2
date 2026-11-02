@@ -677,9 +677,7 @@ public:
 // built here is a plain list<Drawable *>: retail destroys it with the base
 // destructor 0x00239AF4 on the normal path and with the list<Drawable *>
 // destructor thunk 0x00239BAB in the unwind funclet.
-class DrawableList : public _STL::list<Drawable *, _STL::allocator<Drawable *> >
-{
-};
+#include "../../../Include/GameClient/DrawableList.h"
 
 class Rva004D9596
 {

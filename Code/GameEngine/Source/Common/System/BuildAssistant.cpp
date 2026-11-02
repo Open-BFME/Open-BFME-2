@@ -1379,9 +1379,7 @@ Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
 // is a plain list<Drawable *>: retail destroys it with the base destructor
 // 0x00239AF4 on the normal path and with the list<Drawable *> destructor
 // thunk 0x00239BAB in the unwind funclet.
-class DrawableList : public _STL::list<Drawable *>
-{
-};
+#include "../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo;
 class GameMessage
 {

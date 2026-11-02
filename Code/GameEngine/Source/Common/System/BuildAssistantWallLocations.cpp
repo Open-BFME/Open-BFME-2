@@ -661,11 +661,7 @@ Real GetGameLogicRandomValueReal(Real low,Real high,char*file,Int line);
 #define PI 3.14159265359f
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
-class DrawableList : public _STL::list<Drawable*>
-{
-public:
-~DrawableList()throw();
-};
+#include "../../../Include/GameClient/DrawableList.h"
 class PickAndPlayInfo;
 #include "../../../Include/Common/MessageStream.h"
 bool pickAndPlayUnitVoiceResponse(const DrawableList*list,GameMessage::Type messageType,

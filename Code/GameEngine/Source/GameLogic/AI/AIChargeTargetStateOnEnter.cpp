@@ -84,11 +84,7 @@ private:
 
 // Retail calls the list destructor out of line (the shared pointer-list
 // destructor 0x00239AF4); declaring it here keeps /O1 from expanding it.
-class DrawableList : public _STL::list<Drawable *>
-{
-public:
-	~DrawableList() throw();
-};
+#include "../../../Include/GameClient/DrawableList.h"
 
 class PickAndPlayInfo;
 
