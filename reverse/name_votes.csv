@@ -22009,3 +22009,4 @@ Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp|local|Rva005D639A::Rva00
 Code/GameEngine/Source/Common/Rva005AEB2CVectorFill.cpp|local|Rva005D639A::Rva005D639A|b,f527f251a19b0dbe3a2852c8,claude-haiku-5-5,drz-k5-n39d,w-b45613012194,2026-11-02
 Code/GameEngine/Source/Common/Rva005B02B5.cpp|local|Rva005B02B5::rva005B02B5|v,16cfc92417a75630bcf3962b,claude-haiku-5-5,drz-k5-n39d,w-b45613012194,2026-11-02
 Code/GameEngine/Source/Common/Rva005B02B5.cpp|local|Rva005B02B5::rva005B02FD|v,9f78b84b0efe670326bc25b1,claude-haiku-5-5,drz-k5-n39d,w-b45613012194,2026-11-02
+Code/GameEngine/Source/Common/Rva005C1AE4Points.cpp|function|0x005C1AE4|rva005C1AE4,b11133091d3706de44becdf8,claude-haiku-5-5,drz-k7-n39e,w-39f33c7a085b,2026-11-02
