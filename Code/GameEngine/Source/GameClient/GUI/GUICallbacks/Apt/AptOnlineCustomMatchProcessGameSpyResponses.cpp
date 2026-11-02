@@ -113,22 +113,7 @@ extern GameTextInterface *TheGameText;
 #include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
-class MultiplayerSettings
-{
-public:
-	Int getNumColors()
-	{
-		if (m_numColors == 0)
-			m_numColors = m_colorCount;
-		return m_numColors;
-	}
-
-private:
-	UnsignedByte m_pre38[0x38];
-	Int m_colorCount; // +0x38
-	UnsignedByte m_pre3c[0x40 - 0x3C];
-	Int m_numColors; // +0x40
-};
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 
 class PlayerTemplate

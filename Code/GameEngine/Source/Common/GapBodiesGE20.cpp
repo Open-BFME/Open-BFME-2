@@ -709,11 +709,7 @@ bool Rva00439E0C::rva004395D3(Object *object, const Coord3D *pos, Rva004393D6Ent
 
 class MultiplayerColorDefinition;
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(int index);		// 0x00381373
-};
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

@@ -10,17 +10,7 @@ struct FieldParse;
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MultiplayerSettings.h
 #include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerSettings();
-	static const FieldParse m_multiplayerSettingsFieldParseTable[];
-	const FieldParse *getFieldParse() const { return m_multiplayerSettingsFieldParseTable; }
-	MultiplayerColorDefinition *findMultiplayerColorDefinitionByName( AsciiString name );
-	MultiplayerColorDefinition *newMultiplayerColorDefinition( AsciiString name );
-private:
-	char m_pad[0xC4];
-};
+#include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

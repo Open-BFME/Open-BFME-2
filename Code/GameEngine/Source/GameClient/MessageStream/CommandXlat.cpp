@@ -122,7 +122,7 @@ enum NameKeyType { NAMEKEY_NONE };
 #include "../../../Include/Common/NameKeyGenerator.h"
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../Include/Common/ThingFactory.h"
-class MultiplayerSettings { public: char pad00[0x14]; int m_maxBeaconsPerPlayer; int getMaxBeaconsPerPlayer() { return m_maxBeaconsPerPlayer; } };
+#include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 struct Rva0029AEF9Item;
 enum SpecialPowerType { CONTEXT_POWER_NONE };
 class InGameUI {public:void resetCamera();

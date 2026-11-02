@@ -48,7 +48,7 @@ class MpGameSetupComboRef {public:MpGameSetupComboRef(const MpGameSetupComboRef&
 class Image;
 #include "../../../Include/GameClient/Image.h"
 class MultiplayerColorDefinition {public:char pad[0x10];int color;};
-class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};
+#include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings*TheMultiplayerSettings;
 extern ImageCollection*TheMappedImageCollection;
 extern int AptLobbyRandomColorTint;

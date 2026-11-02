@@ -330,11 +330,7 @@ extern GameTextInterface *TheGameText;
 
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(int index);
-};
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

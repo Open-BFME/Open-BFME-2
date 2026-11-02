@@ -345,11 +345,7 @@ public:
 
 class MultiplayerColorDefinition;
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(int index);		// 0x00381373
-};
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

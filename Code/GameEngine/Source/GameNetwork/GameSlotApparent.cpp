@@ -339,27 +339,7 @@ _STL::wstring MultiByteToWideCharSingleLine(const char *orig);
 
 // Zero Hour's MultiplayerSettings::getNumColors: the color count cached at
 // +0x40 on first use from the +0x38 count.
-class MultiplayerSettings
-{
-public:
-    bool showRandomPlayerTemplate() const { return m_showRandomPlayerTemplate; }
-    bool showRandomStartPos() const { return m_showRandomStartPos; }
-    bool showRandomColor() const { return m_showRandomColor; }
-    class MultiplayerColorDefinition *getColor(Int which);
-	Int getNumColors()
-	{
-		if (m_numColors == 0)
-			m_numColors = m_colorCount;
-		return m_numColors;
-	}
-private:
-	char m_pad00[0x1D];
-    bool m_showRandomPlayerTemplate, m_showRandomStartPos, m_showRandomColor;
-    char m_pad20[0x38 - 0x20];
-	Int m_colorCount;               // +0x38
-	Int m_3c;
-	Int m_numColors;                // +0x40
-};
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

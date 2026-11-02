@@ -19,11 +19,7 @@
 
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(int which);
-};
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

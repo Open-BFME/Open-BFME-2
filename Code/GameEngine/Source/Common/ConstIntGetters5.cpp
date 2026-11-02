@@ -302,7 +302,7 @@ int Rva0050B5C9Get(void)
 // BF1 575ba2b uses the same named-table declaration pattern in
 // Rva000C25F0Get.cpp and the related field-table getter units.
 struct FieldParse;
-class MultiplayerSettings { public: static const FieldParse m_multiplayerSettingsFieldParseTable[]; };
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 class ShellMenuSchemeManager { public: static const FieldParse m_shellMenuSchemeFieldParseTable[]; };
 
 // ?Rva001EF361Get@@YAHXZ @ 0x001ef361 (6B): returns 0x00c18fb0.

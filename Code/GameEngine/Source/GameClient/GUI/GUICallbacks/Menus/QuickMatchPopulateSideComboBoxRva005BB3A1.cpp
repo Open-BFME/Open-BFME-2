@@ -62,11 +62,7 @@ extern GameTextInterface *TheGameText;
 
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(Int which);
-};
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 
 enum { PLAYERTEMPLATE_RANDOM = -1 };

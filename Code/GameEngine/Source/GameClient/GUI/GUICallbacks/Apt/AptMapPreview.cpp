@@ -694,11 +694,7 @@ class Rva004FD6F9;
 
 class MultiplayerColorDefinition;
 
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(int v);
-};
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 class LivingWorldManager;
 

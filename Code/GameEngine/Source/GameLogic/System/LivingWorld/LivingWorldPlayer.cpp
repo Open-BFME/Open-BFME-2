@@ -153,11 +153,7 @@ class MultiplayerColorDefinition { public:
  char unknown10[0x24-0x10]; LivingWorldPlayerRGBColorView rgbAt24,rgbAt30;
 };
 
-class MultiplayerSettings { public:
- MultiplayerColorDefinition *getColor(int);
- int getNumColors() { if(numColors==0) numColors=listCount; return numColors; }
-private: char unknown00[0x38]; int listCount; int unknown3C; int numColors;
-};
+#include "../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

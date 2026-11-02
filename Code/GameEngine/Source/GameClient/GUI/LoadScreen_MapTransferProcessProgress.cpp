@@ -85,11 +85,7 @@ private:
 	unsigned char m_00[0x10];
 	Int m_color;	// +0x10
 };
-class MultiplayerSettings
-{
-public:
-	MultiplayerColorDefinition *getColor(Int which);
-};
+#include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 
 class GameSlot

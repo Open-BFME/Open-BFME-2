@@ -19,7 +19,7 @@ class Image;
 class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
 extern ImageCollection *TheMappedImageCollection;
 class MultiplayerColorDefinition {public:char unknown[0x10];int color;};
-class MultiplayerSettings {public:char unknown[0x38];int colorCount;int unknown3c;int cachedColorCount;MultiplayerColorDefinition *getColor(int);};
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 class QuickMatchPreferences {public:int getColor();};
 #include "../../../../../Include/Common/GlobalData.h"
@@ -155,8 +155,8 @@ void AptOnline::Login::CancelLogin(const char *unused)
 // Each helper's existing one-window storage view independently agrees with
 // the color reference prefix. These are direct provider calls, no PMF alias.
 void AptOnline::OnlineQuickMatch::rva005BA803() {
- int *count=&TheMultiplayerSettings->cachedColorCount;
- if(!*count)*count=TheMultiplayerSettings->colorCount;
+ int *count=&TheMultiplayerSettings->m_numColors;
+ if(!*count)*count=TheMultiplayerSettings->slot38;
  int colors=*count;
  OnlineQuickMatchWindowRef *combo=&m_color;
  ((Rva00323619*)combo)->rva00323642();

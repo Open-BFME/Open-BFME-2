@@ -129,7 +129,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 
 class MultiplayerColorDefinition { public: char unknown00[0x10]; int color10; };
 
-class MultiplayerSettings { public: MultiplayerColorDefinition *getColor(int); };
+#include "../../../Include/GameNetwork/MultiplayerSettingsClass.h"
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 

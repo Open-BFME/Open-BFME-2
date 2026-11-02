@@ -236,10 +236,7 @@ AsciiString _Rva00621350GameInfoMapPath(const AsciiString&,bool);
 class Rva003FF0E7DwordSlot { public: void set(int); };
 // The admitted GameInfo address-named setter reproduces native map-mask +4C.
 
-class MultiplayerSettings {
-    char pad[0x38]; int colorCount, field3c, numColors;
-public: int getNumColors(){ if(numColors==0) numColors=colorCount; return numColors; }
-};
+#include "../../Include/GameNetwork/MultiplayerSettingsClass.h"
 extern MultiplayerSettings *TheMultiplayerSettings;
 struct PlayerTemplateBody { char bytes[0x1dc]; };
 class PlayerTemplateStore {
