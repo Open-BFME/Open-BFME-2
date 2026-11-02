@@ -912,3 +912,4 @@ Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp|param|ThingTem
 Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp|param|Rva0033BFA6::rva0033BFA6|y,5fba8f90cfd6f8e198d2c830,claude-haiku-5-5,drz-k7-n42e,w-39f33c7a085b,2026-11-02,cd1a4d5f04487227fb6462df
 Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp|param|Rva0033BFA6::rva0033BFA6|v,c8bc7ce8585a14bf71faa7de,claude-haiku-5-5,drz-k7-n42e,w-39f33c7a085b,2026-11-02,a50e3edc8d341160906786a4
 Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp|local|Rva0033BFA6::rva0033BFA6|z,d2ef7994022a44f53c6c5c30,claude-haiku-5-5,drz-k7-n42e,w-39f33c7a085b,2026-11-02,8c5e247672b97fa02e1b772b
+Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp|param|RvaCloneResult|p,b4e5693c9dfd55f0abf1c46e,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02,83937e5c4b5f1c300a984cdb

@@ -22435,3 +22435,10 @@ Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp|function|0x00104E68|rva00104
 Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp|function|0x00104DE6|rva00104DE6,6c7cbc802c1d1420ddf08b75,claude-haiku-5-5,drz-k11-n42h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp|member|Rva00669410Arg|m_1C,578c36d5c2e7e27be107a3c1,claude-haiku-5-5,drz-k11-n42h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/Common/Rva009F66F0.cpp|function|0x00628A60|Rva009F66F0,5da4a3e5d881c56e3646f266,claude-haiku-5-5,drz-k3-n41e,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp|param|RvaCloneResult|p,b4e5693c9dfd55f0abf1c46e,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/S3ArrayOwnerDestructors.cpp|member|Gen_00930C10|m_bfmeArray,d9097baec450938e36b30be0,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/S3ArrayOwnerDestructors.cpp|member|Gen_00930C10|m_bfmeCount,c89198153fa2b404cc06eaf3,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/S3ArrayOwnerDestructors.cpp|member|Gen_00930C10|m_bfmeOwns,6158c24dc5bff2870ac65736,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/S3ListTailStores.cpp|member|Gen_000c8990|m_bfme000C,c95b12e21e3cb85a3ecfb413,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/S3SplitDispatchers.cpp|member|Gen_004655b0|m_bfmeHandler,eb9a4d4363eda0d7fe64e2d6,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/S3SplitDispatchers.cpp|function|0x0008FF56|bfmeDispatch,bba811cb5eba41f4d34c8627,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
