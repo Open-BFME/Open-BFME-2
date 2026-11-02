@@ -27,3 +27,5 @@ Slot101: complete3B native body at0x000D43D0; normal54consumer rows and all thre
 Slot102: complete3B native body at0x000D43D0; normal55consumer rows and all three data tables pass. Full dependent-source gate runs in the normal commit.
 
 Slot109: complete3B native body at0x000D43D0; normal56consumer rows and all three data tables pass. Full dependent-source gate runs in the normal commit.
+
+Slot107: complete3B native body at0x0050B5C6; normal57consumer rows and all three data tables pass. Full dependent-source gate runs in the normal commit.

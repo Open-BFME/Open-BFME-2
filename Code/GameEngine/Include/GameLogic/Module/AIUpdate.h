@@ -302,7 +302,7 @@ public:
     virtual int rva0026E988(); // 104: RVA 0x0026E988
     virtual int rva0026E999(); // 105: RVA 0x0026E999
     virtual int vslot106(const Object *) const; // 106: RVA 0x005DAA6C
-    virtual bool vslot107() const; // 107: RVA 0x0050B5C6
+    virtual bool vslot107() const { return true; } // 107: RVA 0x0050B5C6
     virtual bool vslot108() const; // 108: RVA 0x0050B5C6
     virtual ObjectID vslot109() const { return static_cast<ObjectID>(0); } // 109: RVA 0x000D43D0
     virtual bool isIdle() const; // 110: RVA 0x002645FF
