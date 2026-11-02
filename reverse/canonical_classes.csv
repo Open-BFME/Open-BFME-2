@@ -363,3 +363,4 @@ W3DPropBuffer,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferCl
 DamageModule,Code/GameEngine/Include/GameLogic/Module/DamageModuleClass.h,existing header; contract class_contracts/DamageModule.json; 16/21 sampled units adopt
 FrameDataManager,Code/GameEngine/Include/GameNetwork/FrameDataManagerClass.h,existing header; contract class_contracts/FrameDataManager.json; 17/19 sampled units adopt
 StateConditionInfo,Code/GameEngine/Include/Common/StateConditionInfo.h,existing header; contract class_contracts/StateConditionInfo.json; 6/19 sampled units adopt
+RadiusDecalTemplate,Code/GameEngine/Include/GameClient/RadiusDecalTemplate.h,existing header; contract class_contracts/RadiusDecalTemplate.json; 13/18 sampled units adopt

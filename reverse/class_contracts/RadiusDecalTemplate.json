@@ -1,0 +1,358 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "RadiusDecalTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 18,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x14": {
+    "4": 3
+   },
+   "0x18": {
+    "4": 3
+   },
+   "0x1c": {
+    "1": 1,
+    "4": 1
+   },
+   "0x20": {
+    "4": 5
+   },
+   "0x24": {
+    "4": 6
+   },
+   "0x28": {
+    "4": 5
+   },
+   "0x2c": {
+    "4": 3
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 3
+   },
+   "0xc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x330e5d"
+     ],
+     "value": {
+      "0x0": [
+       "?$StringBase@D"
+      ],
+      "0x4": [
+       "?$StringBase@D"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 7,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "16": 1,
+   "40": 1,
+   "52": 12
+  },
+  "views": 18,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_RadiusDecalTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/RadiusDecal.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_data",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 52,
+   "type": "uchar[52]",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_secondName",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_shadowType",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_minOpacity",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_maxOpacity",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_opacityThrobTime",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_color",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_onlyVisibleToOwningPlayer",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {
+    "1": 1,
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_unmodelled20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_unmodelled24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_unmodelled28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_unmodelled2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_unmodelled30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "m_secondName.m_text": 1,
+    "names.second.m_text": 1
+   },
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0xc",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x10",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x18",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x1c",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x20",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x24",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x28",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x2c",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  },
+  {
+   "attribute": "straddle@0x30",
+   "candidates": {},
+   "class": "RadiusDecalTemplate"
+  }
+ ],
+ "size": 52,
+ "size_by": "majority",
+ "vslots": {}
+}
