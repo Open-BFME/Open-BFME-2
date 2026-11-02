@@ -1,0 +1,119 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "DataChunkOutput",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 38,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 8
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 10,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 34,
+   "28": 3
+  },
+  "views": 37,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DataChunkOutput.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DataChunk.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_pOut",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OutputStream*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 49
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DataChunk.cpp",
+    "Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DataChunk.cpp",
+    "Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DataChunk.cpp",
+    "Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DataChunk.cpp",
+    "Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DataChunk.cpp",
+    "Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DataChunk.cpp",
+    "Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {}
+}
