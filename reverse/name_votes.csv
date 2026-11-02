@@ -22560,3 +22560,11 @@ Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSetValidationFlags.cp
 Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSetValidationFlags.cpp|local|GadgetComboBoxSetValidationFlags|c,0022e18ec49e444084bf624f,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02
 Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp|function|0x002186A6|rva002186A6,aeb7d4608ca71a1e7fa9c0c2,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02
 Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenBaseConstructor.cpp|local|BfmeAptScreenBase::BfmeAptScreenBase|p,f0d830b4a867b48b57f4e685,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp|param|lookupKey|v,4a9ef9437a7f1c2eecd4c67d,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp|param|tableAt|n,14711a122e5331eb693938fb,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp|local|Rva0042FD55::rva0042FD55|n,ceaa06e12ab5554a24e0cd81,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/Rva0042FCAC.cpp|local|Rva0042FCAC::rva0042FCAC|n,5573f8031b54f44b215a1b1c,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp|local|Rva00427114Parse|f,fb640885599ec36187963d04,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp|local|scanBool|temp,b8725ae5a083c264382ef6f6,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp|local|scanShort|temp,b3f8835fa8b05c34cdaccea6,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp|local|parseTextEntryData|c,b39a26378245159e95666716,claude-haiku-5-5,drz-k8-n43f,w-92c9822ecc57,2026-11-02
