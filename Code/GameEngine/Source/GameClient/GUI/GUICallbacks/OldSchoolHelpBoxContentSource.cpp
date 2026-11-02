@@ -165,22 +165,10 @@ public:
 
 extern ScienceStore *TheScienceStore;
 
-class UpgradeCenter
-{
-public:
-	bool rva0026F11A(Player *player, const UpgradeTemplate *upgrade, Object *obj, bool test);
-};
+#include "../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-class UpgradeTemplate
-{
-public:
-	// 0x0026EF50, rowed with the requesting Object spelled as unsigned.
-	unsigned int calcCostToBuild(Player *player, unsigned int requester) const;
-	void *m_0;
-	int m_4;
-};
 
 class Rva002D371DAddImm32Field
 {

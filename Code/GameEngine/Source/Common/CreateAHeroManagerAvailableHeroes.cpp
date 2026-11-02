@@ -324,11 +324,7 @@ bool Rva00219453Validate(int stat, const char *name);	// 0x00219453
 
 class UpgradeTemplate;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;	// 0x0026F26D
-};
+#include "../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

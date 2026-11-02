@@ -203,11 +203,7 @@ public:
 	unsigned char m_privateStatus; // +0x438
 };
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

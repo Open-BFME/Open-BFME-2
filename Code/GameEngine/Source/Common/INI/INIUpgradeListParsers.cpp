@@ -32,12 +32,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class UpgradeTemplate;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-	const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 extern void __declspec(noreturn) __stdcall _CxxThrowException(void *object, void *throwInfo);

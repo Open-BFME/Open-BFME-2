@@ -87,7 +87,7 @@ struct BfmeStringRecord002199C8 {
  ~BfmeStringRecord002199C8(); // rowed out of line (0x0021A0C2, Rva0021A0C2Dtor.cpp)
 };
 class UpgradeTemplate;
-class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 class Rva0021E9D8Call {public:int rva0021EA59(void*);};
 #include "../../../Include/GameLogic/CreateAHeroManager.h"

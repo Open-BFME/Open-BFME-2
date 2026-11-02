@@ -143,18 +143,8 @@ public:
 
 extern class GlobalData *TheWritableGlobalData;
 
-class UpgradeTemplate
-{
-public:
-	char m_pad00[0x04];
-	int m_type;	// +0x04 (0 a player upgrade)
-};
+#include "../../../../../Include/Common/Upgrade.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;	// 0x0026F26D
-};
 
 extern UpgradeCenter *TheUpgradeCenter;
 

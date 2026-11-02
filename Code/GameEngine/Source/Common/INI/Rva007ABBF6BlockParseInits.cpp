@@ -249,11 +249,7 @@ class SpecialPowerStore
 public:
 	static void parseSpecialPowerDefinition(INI *);
 };
-class UpgradeCenter
-{
-public:
-	static void parseUpgradeDefinition(INI *);
-};
+#include "../../../Include/Common/Upgrade.h"
 class WeaponStore
 {
 public:

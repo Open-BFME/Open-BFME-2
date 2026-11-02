@@ -23,11 +23,7 @@ public:
 	bool rva002AB87D(const UpgradeTemplate *upgrade) const;
 };
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../Include/Common/Upgrade.h"
 
 extern PlayerList *ThePlayerList;
 extern UpgradeCenter *TheUpgradeCenter;

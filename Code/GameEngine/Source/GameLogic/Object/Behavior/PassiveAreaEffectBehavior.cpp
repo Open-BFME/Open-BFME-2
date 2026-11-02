@@ -388,7 +388,7 @@ private:
 // (0x00484C3C in 0x00C4A448), so the base's first virtual is the destructor.
 struct AreaData;
 
-class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
+#include "../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

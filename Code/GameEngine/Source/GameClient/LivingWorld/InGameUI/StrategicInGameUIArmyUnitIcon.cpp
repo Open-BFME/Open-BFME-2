@@ -29,7 +29,7 @@ struct TemplateView { char unknown00[0x404]; _STL::_Base_bitset<32> upgrades; ch
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 class UpgradeTemplate;
-class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int) const; };
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 class Image;
 struct UpgradeView { char unknown00[0x90]; const Image *image; };

@@ -38,11 +38,7 @@ extern const char *g_Rva0107301CEmptyString;
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class Player
 {

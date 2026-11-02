@@ -10,7 +10,7 @@ template<> bool _STL::_Base_bitset<24>::_M_is_any() const;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class UpgradeTemplate;
-class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int) const; };
+#include "../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 struct UpgradeLabelView { char pad[0x2c]; AsciiString label; };
 struct UpgradeRecordView { char pad[0x10]; _STL::_Base_bitset<32> flags; };

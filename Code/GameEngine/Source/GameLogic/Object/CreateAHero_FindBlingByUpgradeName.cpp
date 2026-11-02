@@ -424,11 +424,7 @@ public:
 
 class UpgradeTemplate;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;	// 0x0026F26D
-};
+#include "../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 

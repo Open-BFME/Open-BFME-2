@@ -24,11 +24,7 @@ struct Rva002A8AB1Record
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../Include/Common/Upgrade.h"
 
 class Player
 {
