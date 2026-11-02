@@ -323,10 +323,7 @@ public:
 	void rva005E5097(int);
 };
 
-class PathfindLayer {
-public:
-    void rva000B3FD0();
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 class Rva005E6894 {
 public:

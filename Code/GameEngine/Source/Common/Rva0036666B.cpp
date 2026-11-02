@@ -3,12 +3,7 @@
 // Evidence: retail xor/cmp/jne/cmp/je/xor/inc shape; callers test al (e.g. 0x002E71D4 test al al); neighbours in Code/GameEngine/Source/Common.
 
 // 0x00366B77 is rowed as PathfindLayer::ClassifyWallCells.
-class PathfindLayer
-{
-public:
-	void ClassifyWallCells();
- void ClassifyBridgeCells();
-};
+#include "../../Include/GameLogic/PathfindLayer.h"
 
 
 class Rva0036666B

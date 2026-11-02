@@ -22,15 +22,7 @@ private:
 	PolygonTrigger *m_nextPolygonTrigger; // +0x3C
 };
 
-class PathfindLayer
-{
-public:
-	bool DoBoundsOverlap(const IRegion2D *bounds);
-
-private:
-	unsigned char m_pad00[0x38];
-	PolygonTrigger *m_triggers; // +0x38
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 bool PathfindLayer::DoBoundsOverlap(const IRegion2D *bounds)
 {

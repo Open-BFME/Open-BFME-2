@@ -38,7 +38,7 @@ class Rva00366500{public:bool rva0036652D(int);bool rva00366500(int);};
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 bool Rva001E3679(int);
-class PathfindLayer {public:PathfindCell *getCell(int,int);void AddWallConnectCell(const ICoord2D *);char pad[0x3C];int height;};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 class PathfindZoneManager{public:void MarkDirty(int,int);char pad[4];};
 class Rva0052E001{public:bool rva0052E001(bool v);};
 class Object;

@@ -59,14 +59,7 @@ public:
 
 class Pathfinder;
 
-class PathfindLayer
-{
-public:
-	PathfindCell *getCell( Int cellX, Int cellY );
-
-private:
-	char m_unreconstructed[0x40];
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 #define PATHFINDER_CELL_LINE_CALLBACK( Info ) \
 struct Info \

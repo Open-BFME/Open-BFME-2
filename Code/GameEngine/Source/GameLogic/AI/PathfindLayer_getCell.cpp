@@ -29,19 +29,7 @@ private:
 	char m_pad0D[0x10 - 0x0D];
 };
 
-class PathfindLayer
-{
-public:
-	PathfindCell *getCell(Int x, Int y);
-
-private:
-	void *m_unknown00;
-	PathfindCell **m_layerCells;
-	Int m_width;
-	Int m_height;
-	Int m_xOrigin;
-	Int m_yOrigin;
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 PathfindCell *PathfindLayer::getCell(Int x, Int y)
 {

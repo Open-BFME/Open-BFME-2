@@ -39,11 +39,7 @@ public:
 };
 extern class MessageStream *TheMessageStream;
 
-class PathfindLayer
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 class Rva005ED976
 {

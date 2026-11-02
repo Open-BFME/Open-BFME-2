@@ -39,20 +39,7 @@ public:
 class Pathfinder;
 struct IRegion2D;
 class Xfer;
-class PathfindLayer
-{
-public:
-	void ClassifyWallCells();
-	void ClassifyBridgeCells();
-	void allocateCells(const IRegion2D *extent);
-	__declspec(noinline) void rva000B3FD0();
-	bool setDestroyed(bool destroyed);
-	void rva003666FD(Xfer *xfer);
-	void rva00366DEC();
-	PathfindCell *getCell(int,int);
-private:
-	char storage[0x40]; // +0x00
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 struct AIData {char pad00[0xA0];float m_a0;};
 class AI {public:const AIData *getAiData() const {return m_aiData;}private:char pad00[0x10]; public: Pathfinder *pathfinder; private: char gap14[4]; const AIData *m_aiData;};
 extern AI *TheAI;

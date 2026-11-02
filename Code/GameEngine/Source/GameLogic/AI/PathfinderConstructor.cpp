@@ -19,13 +19,7 @@ class PathfindServicesInterface {public: virtual void slot0()=0;virtual void slo
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
-class PathfindLayer
-{
-public:
-	PathfindLayer();
-	~PathfindLayer();
-	char m_unknown[0x40];
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
 

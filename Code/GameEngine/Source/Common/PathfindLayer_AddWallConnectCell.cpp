@@ -8,26 +8,19 @@ struct ICoord2DBase;
 __declspec(dllimport) __forceinline ICoord2DBase &asBase(ICoord2D &);
 #include "../../../Libraries/Include/Lib/ICoord2DBase.h"
 
-class PathfindLayer
-{
-public:
-	char m_lead[0x18];
-	ICoord2D m_a;
-	ICoord2D m_b;
-	void AddWallConnectCell(const ICoord2D *p);
-};
+#include "../../Include/GameLogic/PathfindLayer.h"
 
 void PathfindLayer::AddWallConnectCell(const ICoord2D *p)
 {
-	if (*p == *reinterpret_cast<ICoord2DBase *>(&m_a))
+	if (*p == *reinterpret_cast<ICoord2DBase *>(&m_startCell))
 		return;
-	if (*p == *reinterpret_cast<ICoord2DBase *>(&m_b))
+	if (*p == *reinterpret_cast<ICoord2DBase *>(&m_endCell))
 		return;
-	if (m_a.x == -1) {
-		m_a = *p;
+	if (m_startCell.x == -1) {
+		m_startCell = *p;
 		return;
 	}
-	if (m_b.x == -1) {
-		m_b = *p;
+	if (m_endCell.x == -1) {
+		m_endCell = *p;
 	}
 }

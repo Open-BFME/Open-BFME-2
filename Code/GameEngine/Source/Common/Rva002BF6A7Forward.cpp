@@ -43,7 +43,7 @@ class Rva002BF652{public:void rva002BF652(void*);};
 // Native5CD284..5CD2A3 RET0, WB15C5010: empty folded hook, owned
 // 8B child-forwarder then region placement(value20->18, receiver10).
 // Existing neutral noop owner names only the proven shared empty RET.
-class PathfindLayer {public:void rva000B3FD0();};
+#include "../../Include/GameLogic/PathfindLayer.h"
 class Rva005CCB5B {public:void rva005CCB5B();};
 struct Rva005CD284Value {char pad[0x18];void*value;};
 class Rva005CD284 {public:void rva005CD284();private:char pad[0x10];Rva002BF652*placer;char pad14[0xC];Rva005CD284Value*holder;};

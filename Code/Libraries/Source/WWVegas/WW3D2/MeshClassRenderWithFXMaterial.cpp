@@ -231,11 +231,7 @@ public:
 }
 
 // The shared empty member body 0x000B3FD0 (FXShaderGeometry's end-of-draw hook).
-class PathfindLayer
-{
-public:
-	void rva000B3FD0();
-};
+#include "../../../../GameEngine/Include/GameLogic/PathfindLayer.h"
 
 class FXShaderGeometry
 {

@@ -74,34 +74,7 @@ public:
 	virtual void *slot0(unsigned int flags);
 };
 
-class PathfindLayer
-{
-public:
-	bool ConnectsZones(class PathfindZoneManager *, const class LocomotorSet &, int, int);
-	PathfindLayer();
-	void ClassifyWallCells();
-	void ClassifyBridgeCells();
-	void rva00366DEC();
- ~PathfindLayer();
-	void rva003667D4();
-	void rva003666FD(Xfer *xfer);
-private:
-	void *m_blockOfMapCells;
-	PathfindCell **m_layerCells;
-	int m_width;
-	int m_height;
-	int m_xOrigin;
-	int m_yOrigin;
-	ICoord2D m_startCell;
-	ICoord2D m_endCell;
-	int m_layer;
-	int m_zone;
-	bool m_destroyed;
-	unsigned char m_pad31[3];
-	class Bridge *m_bridge;
-	Rva00366DECVirtual *m_triggers;
-	int m_triggerObjectID;
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 
 

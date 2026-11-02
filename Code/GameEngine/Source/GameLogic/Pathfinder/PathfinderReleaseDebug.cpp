@@ -6,5 +6,5 @@
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 struct PathfinderDebugColor { float red,green,blue; };
 void Rva000B3FD0PathDebug(const Coord3D *,float,int,PathfinderDebugColor) {}
-class PathfindLayer { public: void rva000B3FD0(); };
+#include "../../../Include/GameLogic/PathfindLayer.h"
 void PathfindLayer::rva000B3FD0() {}

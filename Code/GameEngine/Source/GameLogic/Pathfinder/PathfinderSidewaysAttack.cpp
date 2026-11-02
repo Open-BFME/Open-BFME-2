@@ -316,14 +316,7 @@ private:
 char m_pad[0x14];
 };
 
-class PathfindLayer
-{
-public:
-bool setDestroyed(bool destroyed);
-__declspec(noinline) void rva000B3FD0();
-private:
-char m_pad[0x40];
-};
+#include "../../../Include/GameLogic/PathfindLayer.h"
 
 class PathfindZoneManager
 {
