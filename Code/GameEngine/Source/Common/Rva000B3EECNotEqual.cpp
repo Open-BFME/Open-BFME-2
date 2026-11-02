@@ -10,7 +10,7 @@ typedef bool Bool;
 
 Bool Rva00045473Equal(const void *a, const void *b);
 
-Bool Rva000B3EECNotEqual(const void *a, const void *b)
+Bool Rva000B3EECNotEqual(const void *lhs, const void *rhs)
 {
-	return !Rva00045473Equal(a, b);
+	return !Rva00045473Equal(lhs, rhs);
 }

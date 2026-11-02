@@ -34,26 +34,26 @@ class Rva000B2FBB
 	float m_f2c0;
 	int m_i2c4;
 public:
-	void rva000B2FBB(float f, const Matrix3D *m);
+	void rva000B2FBB(float scale, const Matrix3D *m);
 };
 
-void Rva000B2FBB::rva000B2FBB(float f, const Matrix3D *matrix3D)
+void Rva000B2FBB::rva000B2FBB(float scale, const Matrix3D *matrix3D)
 {
-	m_f2c0 = f;
+	m_f2c0 = scale;
 	*(int *)&m_mat.Row[0].X = *(const int *)&matrix3D->Row[0].X;
 	*(int *)&m_mat.Row[0].Y = *(const int *)&matrix3D->Row[0].Y;
 	*(int *)&m_mat.Row[0].Z = *(const int *)&matrix3D->Row[0].Z;
 	*(int *)&m_mat.Row[0].W = *(const int *)&matrix3D->Row[0].W;
-	int *d1 = (int *)&m_mat.Row[1].X;
-	d1[0] = *(const int *)&matrix3D->Row[1].X;
-	d1[1] = *(const int *)&matrix3D->Row[1].Y;
-	d1[2] = *(const int *)&matrix3D->Row[1].Z;
-	d1[3] = *(const int *)&matrix3D->Row[1].W;
-	int *d2 = (int *)&m_mat.Row[2].X;
-	d2[0] = *(const int *)&matrix3D->Row[2].X;
-	d2[1] = *(const int *)&matrix3D->Row[2].Y;
-	d2[2] = *(const int *)&matrix3D->Row[2].Z;
-	d2[3] = *(const int *)&matrix3D->Row[2].W;
+	int *row1 = (int *)&m_mat.Row[1].X;
+	row1[0] = *(const int *)&matrix3D->Row[1].X;
+	row1[1] = *(const int *)&matrix3D->Row[1].Y;
+	row1[2] = *(const int *)&matrix3D->Row[1].Z;
+	row1[3] = *(const int *)&matrix3D->Row[1].W;
+	int *row2 = (int *)&m_mat.Row[2].X;
+	row2[0] = *(const int *)&matrix3D->Row[2].X;
+	row2[1] = *(const int *)&matrix3D->Row[2].Y;
+	row2[2] = *(const int *)&matrix3D->Row[2].Z;
+	row2[3] = *(const int *)&matrix3D->Row[2].W;
 	m_thing->setTransformMatrix(matrix3D);
 	m_i2c4 = ((ClientFrameSubsystem *)TheGameClient)->s31();
 }

@@ -36,16 +36,16 @@ struct Flags000B5179
 
 void Rva000B5179Apply(void *a1_, void *a2_, void *a3_)
 {
-	Flags000B5179 *a1 = (Flags000B5179 *)a1_;
-	Cont000B5179 *a2 = (Cont000B5179 *)a2_;
+	Flags000B5179 *flags = (Flags000B5179 *)a1_;
+	Cont000B5179 *container = (Cont000B5179 *)a2_;
 	void *a3 = a3_;
-	if (a1 == 0 || a2 == 0 || a3 == 0)
+	if (flags == 0 || container == 0 || a3 == 0)
 		return;
-	if ((a2->mF4 & 8) == 0)
+	if ((container->mF4 & 8) == 0)
 		return;
-	Elem000B5179 **ppEnd = &a2->m_buckets[0].m_end;
+	Elem000B5179 **ppEnd = &container->m_buckets[0].m_end;
 	for (int i = 0; i < 6; i++, ppEnd = (Elem000B5179 **)((char *)ppEnd + 0xC)) {
-		if (a1->m_flags[i] != 0) {
+		if (flags->m_flags[i] != 0) {
 			Elem000B5179 *beg = *(ppEnd - 1);
 			for (Elem000B5179 *p = beg; p != *ppEnd; ++p) {
 				if (p->m08 != 0)

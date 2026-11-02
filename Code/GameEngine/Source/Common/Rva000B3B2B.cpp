@@ -81,8 +81,8 @@ void Rva000B3B2B::rva000B3B2B(Rva000B3B2BArg *o)
 		return;
 	int v12c = m_12c;
 	if (v12c != 0) {
-		float f = g_Va00BBB8D8 - m_90 / m_94;
-		o->v44(v110, m_114, v12c, m_130, f);
+		float complement = g_Va00BBB8D8 - m_90 / m_94;
+		o->v44(v110, m_114, v12c, m_130, complement);
 	} else {
 		o->v45(v110, m_114, 0);
 	}
