@@ -291,7 +291,7 @@ public:
     virtual DozerAIInterface *getDozerAIInterface(); // 93: RVA 0x000D43D0
     virtual void *vslot094() const; // 94: RVA 0x000D43D0
     virtual void *vslot095() const; // 95: RVA 0x000D43D0
-    virtual void *vslot096(); // 96: RVA 0x000D43D0
+    virtual void *vslot096() { return 0; } // 96: RVA 0x000D43D0
     virtual void *vslot097() const; // 97: RVA 0x000D43D0
     virtual void *vslot098(); // 98: RVA 0x000D43D0
     virtual void *vslot099() const; // 99: RVA 0x000D43D0
