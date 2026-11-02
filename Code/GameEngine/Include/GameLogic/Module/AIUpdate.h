@@ -320,7 +320,7 @@ public:
     virtual const Coord3D *vslot118() const { return &m_locationToGuard; } // 118: RVA 0x00042287
     virtual ObjectID vslot119() const { return m_objectToGuard; } // 119: RVA 0x002004A1
     virtual unsigned int vslot120() const { return m_field068; } // 120: RVA 0x00367508
-    virtual int vslot121() const; // 121: RVA 0x0036750C
+    virtual const PolygonTrigger *vslot121() const { return m_areaToGuard; } // 121: RVA 0x0036750C
     virtual void vslot122(int); // 122: RVA 0x0033F15D
     virtual int vslot123() const; // 123: RVA 0x0009AAA4
     virtual void clearGuardTargetType(); // 124: RVA 0x0026E9AA
