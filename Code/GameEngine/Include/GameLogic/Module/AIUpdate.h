@@ -354,7 +354,7 @@ protected:
 public:
     virtual bool getTreatAsAircraftForLocoDistToGoal()const; // 151: RVA 0x00262CF2
     virtual bool rva002697FC(); // 152: RVA 0x002697FC
-    virtual void vslot153(); // 153: RVA 0x002628B1
+    virtual void vslot153() { wakeUpNow(); } // 153: RVA 0x002628B1
 
 protected:
     virtual ~AIUpdateInterface();

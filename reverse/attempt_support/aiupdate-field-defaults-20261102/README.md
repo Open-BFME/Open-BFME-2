@@ -19,3 +19,5 @@ Slot125 (vslot125): complete4B at0x002A98A7, all69emitter rows and three data ta
 Slot143 (vslot143): complete4B at0x005C4AFD, all70emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
 
 Slot136 (setLocomotorGoalNone): complete8B at0x00262CB6, all71emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
+
+Slot153 (vslot153): complete5B at0x002628B1, all72emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
