@@ -9,7 +9,7 @@
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class AsciiString;
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class WindowLayout;
 class AnimateWindowManager;
 class ShellMenuSchemeManager;
