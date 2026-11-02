@@ -269,3 +269,4 @@ Eva,Code/GameEngine/Include/GameClient/Eva.h,existing header; contract class_con
 WeaponStore,Code/GameEngine/Include/GameLogic/WeaponStore.h,existing header; contract class_contracts/WeaponStore.json; 39/48 sampled units adopt
 AIInternalMoveToState,Code/GameEngine/Include/GameLogic/AIInternalMoveToState.h,existing header; contract class_contracts/AIInternalMoveToState.json; 18/84 sampled units adopt
 ArmorTemplate,Code/GameEngine/Include/GameLogic/Armor.h,existing header; contract class_contracts/ArmorTemplate.json; 32/47 sampled units adopt
+GameState,Code/GameEngine/Include/Common/GameState.h,existing header; contract class_contracts/GameState.json; 30/46 sampled units adopt
