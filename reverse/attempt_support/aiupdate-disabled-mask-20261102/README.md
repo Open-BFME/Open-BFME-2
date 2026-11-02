@@ -1,0 +1,7 @@
+# Canonical AIUpdate disabled-mask getter, 2026-11-02
+
+The native update-interface callback at4A2D67 returns a four-byte BitFlags11 mask with bit3 set. Ordinary header-visible C++ now reproduces its complete27B body and exact memset6291AE call. The existing stdcall initializer representative remains; owning ICF admission adds no pin or unique bytes. Normal62-row emitter verification and its three existing tables pass.
+
+The shared BitFlags11 header specializes only the native one-word value. Other template values keep their existing primaries. Native constructor names/storage and the small existing client API supply its contract; the two-bit constructor and any() stay declared against existing providers. A constructor-only private inline getter would leave other canonical AI clients without the definition, so the type and getter are visible through the canonical header.
+
+Private placement inventory bounds234 graph clients,182 actual canonical AI clients and15 sources with local primaries. The fifteen-source preflight preserves535existing rows and adds no getter provider in those objects. This preflight is not the full dependent gate or complete local metadata/link proof. The final normal shared-header gate and outgoing provider audit remain required. Broader private BitFlags11 views elsewhere remain unreconciled; no global ODR-complete recovery, original source text, census or runtime claim is made.

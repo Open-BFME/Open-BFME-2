@@ -1,0 +1,107 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+    "rows": 39,
+    "matched": 39,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "rows": 156,
+    "matched": 156,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAC.cpp",
+    "rows": 4,
+    "matched": 4,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp",
+    "rows": 20,
+    "matched": 20,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "rows": 4,
+    "matched": 4,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "rows": 12,
+    "matched": 12,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "rows": 1,
+    "matched": 1,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C.cpp",
+    "rows": 6,
+    "matched": 6,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C_Rva00291A8C.cpp",
+    "rows": 1,
+    "matched": 1,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower_doSpecialPower.cpp",
+    "rows": 7,
+    "matched": 7,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp",
+    "rows": 25,
+    "matched": 25,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp",
+    "rows": 9,
+    "matched": 9,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp",
+    "rows": 149,
+    "matched": 149,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp",
+    "rows": 72,
+    "matched": 72,
+    "missing": [],
+    "errors": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+    "rows": 30,
+    "matched": 30,
+    "missing": [],
+    "errors": []
+  }
+]

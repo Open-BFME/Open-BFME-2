@@ -54,6 +54,7 @@
 
 #include "UpdateModule.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/BitFlags11.h"
 
 class AIStateMachine;
 class AttackPriorityInfo;
@@ -181,7 +182,10 @@ public:
     virtual void xfer(Xfer *);
     virtual AIUpdateInterface *getAIUpdateInterface();
     virtual UpdateSleepTime update();
-    virtual DisabledMaskType getDisabledTypesToProcess() const;
+    virtual DisabledMaskType getDisabledTypesToProcess() const
+    {
+        return DisabledMaskType(DisabledMaskType::kInit, 3);
+    }
     virtual void aiDoCommand(const AICommandParms *);
     virtual void onCollide(Object *, const Coord3D *, const Coord3D *);
     virtual bool vslot24_01(int) { return false; }

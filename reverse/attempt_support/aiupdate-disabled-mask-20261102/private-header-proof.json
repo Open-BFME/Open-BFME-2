@@ -1,0 +1,21 @@
+{
+  "rows": 60,
+  "missing": [],
+  "errors": [],
+  "bodies": [
+    {
+      "name": "?getDisabledTypesToProcess@AIUpdateInterface@@UBE?AV?$BitFlags@$0L@@@XZ",
+      "rva": "0x4a2d67",
+      "size": 27,
+      "compiled": "568b7424086a046a0056e800000000830e0883c40c8bc65ec20400",
+      "native": "568b7424086a046a0056e838641800830e0883c40c8bc65ec20400",
+      "relocations": [
+        [
+          11,
+          20,
+          "_memset"
+        ]
+      ]
+    }
+  ]
+}

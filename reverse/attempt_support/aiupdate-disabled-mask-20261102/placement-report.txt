@@ -1,0 +1,108 @@
+AIUpdate disabled-mask shared placement review -- 2026-11-02
+
+Scope and receipts
+------------------
+Used root's supported header_dependents range output (05eac161c7..d05f92acf9), exactly234 Code sources; no whole-ledger inventory or compiler run. header_dependents.receipts(sources, dirty=set()) validated all234 against current working source/dependency MD5 hashes. This authenticates include evidence at the observation point, not strict object receipts or an immutable Git snapshot.
+
+182/234 receipts actually include Code/GameEngine/Include/GameLogic/Module/AIUpdate.h; the other52 include no canonical AIUpdate header and are basename-graph overapproximation. All52 instead record the complete Zero Hour Common/BitFlags.h primary template.
+Within the182 canonical clients, no recorded dependency header contains a complete BitFlags definition. Fifteen source files define a private generic primary BitFlags<int N>; eight definitions precede the direct AIUpdate include and seven follow it. No direct BitFlags<11> instantiation text or DisabledMaskType use was found before that include in these15. Receipt order/raw source inspection is not preprocessor/instantiation proof; in particular a typedef alone does not instantiate a class.
+
+Placement judgement
+-------------------
+A single header-visible native BitFlags<11> specialization, preceding the inline AIUpdate getter in every canonical client, is structurally more coherent than a TU-only inline getter. A primary template definition before the header is not itself a specialization-after-instantiation error; a forward-declared primary may also be defined later. The current15 generic definitions all use int template parameters, matching the canonical forward declaration. Do not remove or repurpose the primary: their other N specializations include 7-word kind masks.
+A shared specialization must expose the actual11-client API below. A constructor-only4B shell is insufficient. It must remain a4-byte, four-aligned nonpolymorphic value with appropriate constructor/copy/destructor properties; native body equality remains necessary. No conditional fallback to a different BitFlags11 definition is a substitute for one consistent type.
+This only bounds canonical AIUpdate clients. Other project TUs still instantiate private/global BitFlags<11> representations without this header. A new specialization must not be presented as globally ODR-complete recovery until that broader type ownership is reconciled;182 consumers alone are not all BitFlags11 users. The52 graph-overapproximation clients especially retain the donor primary.
+
+Exact additional surface/storage used by the15 current sources
+-------------------------------------------------------------
+1. Common/VslotSmallBodiesAC.cpp:69-97 -- BogusInitType enum with kInit=0 and BitFlags11(BogusInitType,int,int). Native getters construct (kInit,3,4) and (kInit,3,8). The class has one private unsigned word. Keep those two-bit constructor calls as they currently compile; do not infer that making another constructor visible must inline these calls too.
+2. GameLogic/Object/SpecialPower/CombineHordeSpecialPower_doSpecialPower.cpp:137,188 -- four-byte m_disabledMask at Object+1C8 and bool any() const. The source calls m_disabledMask.any().
+3. GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp:455 -- four-byte BitFlags11 member at Object+1C8. No direct11 any()/test() call is present in this source; those methods merely exist on its generic primary. This corrects the preliminary API suspicion: any() is required by CombineHorde, not demonstrated here.
+4. GameLogic/Object/ObjectRva00291A8C.cpp:249 and ObjectRva00291A8C_Rva00291A8C.cpp:244 -- four-byte disabledMask member at Object+1C8. Neither directly reads the11 words or calls an11 method. Their generic any()/countInverseIntersection declarations also serve other N types and must stay on the primary.
+5. The other10 source files have no explicit11 value use; their primary definitions are used by other N values (principally 69/116/218/45) or are declarations for those masks. Preserve these primaries and layouts.
+The new AIUpdate getter itself additionally requires kInit and the one-bit constructor (BogusInitType,int). No direct m_bits/m_words field access on an11 value was found in the15 source clients; their observed11 storage accesses are object-member layout and the any() call above.
+
+All15 private primary definitions (line; relative-to-direct-AIUpdate include)
+------------------------------------------------------------------------
+Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp:490 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/Common/RTS/Team.cpp:970 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/Common/VslotSmallBodiesAC.cpp:69 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp:171 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp:198 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp:65 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp:95 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C.cpp:177 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C_Rva00291A8C.cpp:172 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower_doSpecialPower.cpp:85 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp:174 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp:468 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp:52 -- before-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp:172 -- after-direct-AIUpdate-include
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp:158 -- before-direct-AIUpdate-include
+
+Existing shared/native definitions
+----------------------------------
+No existing shared header with a complete native BitFlags<11> specialization was found under Code/ or reference/shims/. Shared canonical BodyModule/UpdateModule/Thing/Team/etc headers only forward-declare BitFlags. LargeGroupAudioUpdateView.h and DemoTrapObjectView.h contain TU-family generic storage views, not a complete native11 API.
+Source/Common/System/BitFlags11DisabilityCtors.cpp is native one-word constructor evidence (default, one-bit, two-bit and four-bit forms), but it is a CPP provider, not an includable shared class contract. BitFlags11Any.cpp / BitFlags11Test.cpp are separate one-word private-primary providers. HordeContainIface11CSlots.cpp has a local explicit BitFlags11 specialization exposing only any(); it is not shared and lacks constructors.
+reference/shims/kindmask_native/Common/BitFlags.h includes the complete donor BitFlags template and specializes a116 helper. The donor primary uses size_t and std::bitset; it is not the proposed native11-only forward-primary header and importing it here would change the type/header surface substantially.
+
+Code-generation caution
+-----------------------
+Some canonical clients explicitly use /O1 (AIClosestEnemySearch, AutoHealBehaviorPlayerScan, TransportContainRiders, both ObjectRva00291A8C files, SpecialAbilityUpdateTriggerAbilityEffect); others have only /MD plus /GX or /EHs in their source lines and obtain managed optimization from regional defaults. Do not assume one effective profile for234 clients. A header-inline getter/constructor can acquire different O1/O2 or inlining-budget COMDAT bodies, change a formerly outlined two-bit constructor call, or add new helpers/providers. The first-selected copy and affected outside consumers need ordinary byte/data/EH and link checks; matching the27B body in SupplyTruck alone is not sufficient. No variant proof is claimed here.
+
+The52 receipts containing no canonical AIUpdate header
+----------------------------------------------------
+Code/GameEngine/Source/Common/RTS/Player.cpp
+Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp
+Code/GameEngine/Source/Common/Rva000BE245ValidateCachedBones.cpp
+Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp
+Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp
+Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp
+Code/GameEngine/Source/GameClient/Drawable_Rva0030a040.cpp
+Code/GameEngine/Source/GameClient/InGameUI.cpp
+Code/GameEngine/Source/GameLogic/AI/ai.cpp
+Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp
+Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp
+Code/GameEngine/Source/GameLogic/Object/Behavior/Matrix3DO1Inlines.cpp
+Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp
+Code/GameEngine/Source/GameLogic/Object/ByteFillNO1.cpp
+Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
+Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContain.cpp
+Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
+Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp
+Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp
+Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+Code/GameEngine/Source/GameLogic/Object/StlO1Instantiations.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateResumeConstruction.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateDock.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_transferAttack.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/EMPUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/HelicopterSlowDeathUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/MobMemberSlavedUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdate.cpp
+Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
+Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+Code/GameEngine/Source/GameLogic/Object/Weapon_Weapon_getAttackRange.cpp
+Code/GameEngine/Source/GameLogic/System/AIGroup_groupForceAttackObject.cpp
+Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_doSingleBoneName.cpp
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp
+
+Full per-source receipt membership/order, primary definitions and literal11-use details: placement-inventory.json. No tracked source/header/tool edits, claims, network, or compilation performed.
