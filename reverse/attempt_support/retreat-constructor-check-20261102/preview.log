@@ -1,0 +1,8 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/GUI/Rva005776A7Ctor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 170)
+  unresolved  ??1Rva0057702E@@QAE@XZ
+  unresolved  ??1Rva005776A7@@UAE@XZ
+  unresolved  ?r0@Rva005776A7Interface@@UAEXXZ
+  unresolved  ?s0@Gen_uwm_00429191@@UAEXXZ
+  comdat      ??_7Gen_uwm_00429191@@6B@  (first: differs from the first copy in link order (no retail address))
+link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.1s)

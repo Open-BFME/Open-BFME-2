@@ -10916,6 +10916,13 @@ Current retreat recheck (2026-10-29, base `593c57cc04`, index
 slots 0 through 18, so it does not yet supply the complete 26-slot contract
 needed for the constructor. No source change or census clearance is claimed.
 
+**2026-11-02 current checkpoint (GPT-6, basee12978fd83b):** the supported
+picker claims the retreat constructor, its frozen check passes, and the
+current-object preview against984a4cdc4d confirms the same U4/L1 and zero
+linking bytes. The 26-slot interface/destructor prerequisite above remains;
+no source trial or signature/alias shortcut was added. Claims are released.
+[Current diagnostic and next prerequisite](../reverse/attempt_support/retreat-constructor-check-20261102/readme.md).
+
 ### LINK-086: ArmyHeroIcon constructors and lifetime owners disagree on class and virtual signatures
 
 Status: Blocked on class and table reconciliation. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
