@@ -269,12 +269,7 @@ extern GameTextInterface *TheGameText;
 
 #include "../../Include/GameClient/MapMetaData.h"
 
-class MapCache
-{
-public:
-	void updateCache( void );
-	const MapMetaData *findMap( AsciiString mapName );
-};
+#include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
 class GlobalData

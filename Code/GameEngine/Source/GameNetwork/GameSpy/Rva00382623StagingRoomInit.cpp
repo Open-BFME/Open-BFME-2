@@ -90,11 +90,7 @@ public:
 	void rva00382234(AsciiString name);
 };
 
-class MapCache
-{
-public:
-	void updateCache();
-};
+#include "../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 AsciiString getDefaultMap(bool isMultiplayer);
 
