@@ -20,7 +20,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // BFME1 MeshModelClass::Reset adapted to the BFME2 bool ABI and target teardown order.
 #include "meshgeometry.h"
 
-void __cdecl operator delete(void *block);
+
 
 class MeshModelClass;
 

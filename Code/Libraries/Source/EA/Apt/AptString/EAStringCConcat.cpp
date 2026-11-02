@@ -13,14 +13,14 @@
 // The operator name is a semantic pick from the body (receiver-left
 // concatenation by value; ret 8 = hidden result + other); flags follow the
 // EAStringCMid.cpp sibling.
-extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
+#define _CRTIMP // retail calls the linked CRT bodies directly
+#include <string.h>
+#undef _CRTIMP
 #pragma intrinsic(memcpy)
 
-// strstr is the statically linked CRT routine (retail calls 0x00629850
-// directly), so it is declared here rather than through the dllimport
-// <string.h> prototype.
-extern "C" unsigned int __cdecl strlen(const char *s);
-extern "C" char *__cdecl strstr(const char *s, const char *sub);
+// Use the real CRT declarations; retain the existing intrinsic selections.
+
+
 #pragma intrinsic(strlen)
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;

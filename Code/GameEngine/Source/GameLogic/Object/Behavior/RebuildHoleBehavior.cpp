@@ -270,7 +270,9 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 // Native 128-bit status view; the 101-bit extent is a WB/donor lead.
 struct RebuildStatusView { unsigned words[4];bool test(unsigned pos) const {return ((words[pos>>5] >> (pos&31)) & 1u)!=0;} };
 class Thing {public:Drawable *getDrawable() const;void setPosition(const Coord3D*);};
-class ThingTemplate; class Team; class Player; class Drawable; struct CreateMask; struct RebuildCreateMaskView { unsigned bits[4];RebuildCreateMaskView(){memset(this,0,16);} }; struct Coord3D {float x,y,z;};
+class ThingTemplate; class Team; class Player; class Drawable; struct CreateMask; struct RebuildCreateMaskView { unsigned bits[4];RebuildCreateMaskView(){memset(this,0,16);} }; 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
 enum CommandSourceType {CMD_FROM_AI=2};
 class Rva00346BC0;
 class Rva001E4912 {public:Rva001E4912() {} unsigned m_bits[19]; Rva001E4912 *rva001E4912(int,unsigned,unsigned);};

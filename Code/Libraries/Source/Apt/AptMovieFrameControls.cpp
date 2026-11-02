@@ -169,7 +169,9 @@ void AptPseudoDisplayList::rva006F8430(int depth) {
 // The body is a thiscall int(int) lookup with inline strcmp and no direct
 // retail REL32 callees; the reviewed source probes exact at 135 bytes.
 // Existing import-ID provider moved here intact; same native symbol and135B.
-extern "C" int strcmp(const char *a, const char *b);
+#define _CRTIMP // retail calls the linked CRT bodies directly
+#include <string.h>
+#undef _CRTIMP
 
 #pragma intrinsic(strcmp)
 
@@ -276,7 +278,7 @@ void AptCharacterAnimation::ExecuteInitAction(AptCIH *inst,int id) {
  }
 }
 
-extern "C" char *__cdecl strstr(const char *,const char *);
+
 // Donor456a41a94fdaff0f export initialization; target __Packages. literal
 // and export-table28/2C references independently support semantic identity.
 void AptCharacterAnimation::ExportClassDefinitionAssets(AptCIH *inst) {

@@ -59,6 +59,11 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 # Linking obstacle register
 
+### Canonical vector storage batch 20261103-0008
+
+2 existing source units adopt registered storage; 3 units clean up local standard declarations; 3 stale completed Microsoft-header queue key(s) refreshed; 137 native/EH rows and 255 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.
+[Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261103-0008.md).
+
 ### Canonical vector storage batch 20261102-2256
 
 14 existing source units adopt registered storage; 1 stale completed Microsoft-header queue key(s) refreshed; 209 native/EH rows and 535 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.

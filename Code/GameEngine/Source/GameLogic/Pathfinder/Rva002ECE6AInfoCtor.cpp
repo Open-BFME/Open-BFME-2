@@ -44,7 +44,9 @@ void Rva002EBCA7Split(void *,Int *,unsigned char *);
 struct LineContextQuery {
  Int surfaces;Bool flag4,flag5;Int priority8;Bool flagC;
 };
-class Pathfinder;struct ICoord2D {Int x,y;};
+class Pathfinder;
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+
 struct TCheckMovementInfo {
  Int x,y,layer,radius;Bool center;unsigned char flag11;char pad12[2];Int surfaces;unsigned ignored;
  LineContextQuery query;Int word2C;Bool flag30,flag31,flag32;char pad33;Int word34;
