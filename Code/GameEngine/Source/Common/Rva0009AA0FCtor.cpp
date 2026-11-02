@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ??0Rva0009AA0F@@QAE@H@Z @0x0009AA0F 30B: derived constructor taking one
 // int/pointer stored at +0x108, then installing vtable 0x00BC8900. Calls
@@ -6,15 +6,7 @@
 // address-derived names on both sides; boundary verified (push esi at
 // 0x9AA0F, pop esi + ret 4 at end).
 
-class SimpleSceneClass
-{
-public:
-	SimpleSceneClass();
-	virtual ~SimpleSceneClass();
-
-private:
-	char m_pad04[0x108 - 4];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 
 class Rva0009AA0F : public SimpleSceneClass
 {

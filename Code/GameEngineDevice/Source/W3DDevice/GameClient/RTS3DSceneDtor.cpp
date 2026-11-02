@@ -9,7 +9,7 @@ class RenderObjClass;
 class LightClass:public RefCountClass{};
 #include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 class W3DShroudMaterialPassClass:public RefCountClass{};
-class SimpleSceneClass{public:virtual~SimpleSceneClass();char pad[0x104];};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class BfmeRefSceneList{public:virtual~BfmeRefSceneList();char head[20];};
 #include "../../../../Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h"

@@ -1,12 +1,7 @@
-// cl: /O1 /MD /EHsc /DNDEBUG
+// cl: /O1 /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva001040D5@@QAE@XZ retail 0x001040D5 18B.
 // Evidence: calls rowed base SimpleSceneClass 0x00142960 then installs vtable 0x00BCF6F0; neighbours Sub and VslotSmallBodiesAJ.
-class SimpleSceneClass
-{
-public:
-	SimpleSceneClass();
-	virtual ~SimpleSceneClass();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 
 class Rva001040D5 : public SimpleSceneClass
 {

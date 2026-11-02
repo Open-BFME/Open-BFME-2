@@ -30,13 +30,7 @@ typedef bool Bool;
 
 class RenderObjClass;
 
-class SimpleSceneClass
-{
-public:
-	SimpleSceneClass();
-	virtual ~SimpleSceneClass();
-	char m_pad004[0x108 - 0x04];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

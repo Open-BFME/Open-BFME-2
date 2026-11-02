@@ -1,4 +1,4 @@
-// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva00740555@@QAE@XZ @0x00740157 (18B). Default constructor of the SimpleSceneClass-derived
 // class whose destructor is rowed at 0x00740555 (TailJumpWrappers5B.cpp) and whose scalar
 // deleting destructor is 0x001042CF (slot in vtable 0x00CF1578): rowed SimpleSceneClass
@@ -12,27 +12,7 @@ class Vector3;
 class RenderObjClass;
 class SceneIterator;
 #include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class SceneClass : public RefCountClass
-{
-public:
-	virtual void Add_Render_Object(RenderObjClass *obj) = 0;
-	virtual void Remove_Render_Object(RenderObjClass *obj) = 0;
-	virtual SceneIterator *Create_Iterator() = 0;
-	virtual void Destroy_Iterator(SceneIterator *it) = 0;
-	virtual void Set_Ambient_Light(const Vector3 &color);
-};
-class SimpleSceneClass : public SceneClass
-{
-public:
-	SimpleSceneClass();
-	virtual ~SimpleSceneClass();
-	virtual void Add_Render_Object(RenderObjClass *obj);
-	virtual void Remove_Render_Object(RenderObjClass *obj);
-	virtual SceneIterator *Create_Iterator();
-	virtual void Destroy_Iterator(SceneIterator *it);
-private:
-	char m_pad08[0x108 - 8];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h"
 
 class Rva00740555 : public SimpleSceneClass
 {
