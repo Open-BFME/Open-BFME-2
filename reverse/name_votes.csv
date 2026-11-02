@@ -21464,3 +21464,7 @@ Code/GameEngine/Source/Common/Rva0007F944HostFamily.cpp|class||Rva0007F944ItemRe
 Code/GameEngine/Source/Common/Rva0009ADA0ScreenToTerrain.cpp|function|0x0009AF90|rva0009AF90,2ba4fe7115c9cb0638a37119,claude-haiku-5-5,drz-k9-n34f2,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/Rva0009ADA0ScreenToTerrain.cpp|function|0x0009AFA5|rva0009AFA5,43b2e84bd9d49b9100046ffe,claude-haiku-5-5,drz-k9-n34f2,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/Rva0009ADA0ScreenToTerrain.cpp|function|0x0009AFCE|rva0009AFCE,0a97c126d2be301e4a71ce07,claude-haiku-5-5,drz-k9-n34f2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva000B32EF.cpp|member|Rva000B32EF|m_decal218,79a9a371a1394a702bd228ce,claude-haiku-5-5,drz-k3-n34g2,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/Rva000B32EF.cpp|member|Rva000B32EF|m_template228,48517e3a3f589bbe70317527,claude-haiku-5-5,drz-k3-n34g2,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/Rva000B32EF.cpp|function|0x000B32C2|rva000B32C2,3f192c240efffaeb7269fc48,claude-haiku-5-5,drz-k3-n34g2,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|function|0x000B3649|rva000B3649,478975afd35d525ff251241c,claude-haiku-5-5,drz-k3-n34g2,w-a3d394d58042,2026-11-02
