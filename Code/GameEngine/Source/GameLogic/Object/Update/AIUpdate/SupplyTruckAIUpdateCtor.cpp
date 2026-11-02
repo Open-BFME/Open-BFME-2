@@ -141,3 +141,8 @@ unsigned char SupplyTruckAIUpdate::rva004A6FE5() const
 {
     return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field74;
 }
+
+float SupplyTruckAIUpdate::rva004A6FEF() const
+{
+    return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field78;
+}
