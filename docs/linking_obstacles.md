@@ -18486,3 +18486,5 @@ Primary indices3/4/150 now bind the actual rowed xfer, module-name key and state
 The preceding secondary-table push's wider audit remained INCONCLUSIVE against984a4cdc4d: two providers lacked current receipts, first BFME2Encoding1MotionChannelDecoders.cpp. The retry separately passed40764function rows,10226literals,4424float constants,1451imports and18801DIR32 symbols. These cross-checks do not replace the next census or establish global linking clearance.
 
 SupplyTruck primary slot1's qualified base loadPostProcess call now matches complete5B native49A7EE and its exact tail target. All30ctor rows pass; the WorkerAIUpdate representative remains. Six primary body candidates and canonical base-provider prerequisites remain; no pin or unit/census clearance is added.
+
+SupplyTruck primary slot2's canonical GetSnapshotName override now matches complete6B native4A6A3A and the exact SupplyTruckAIUpdate literal. All31ctor rows pass; the legacy name getter remains. Five primary bodies and canonical base-provider prerequisites remain, with no new pin or unit/census clearance.

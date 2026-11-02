@@ -76,6 +76,7 @@ public:
     virtual NameKeyType getModuleNameKey() const;
 protected:
     virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer);
     virtual AIStateMachine *makeStateMachine();
 private:
@@ -260,4 +261,9 @@ unsigned int SupplyTruckAIUpdate::getActionDelayForDock(Object *dock)
 void SupplyTruckAIUpdate::loadPostProcess()
 {
     AIUpdateInterface::loadPostProcess();
+}
+
+const char *SupplyTruckAIUpdate::GetSnapshotName() const
+{
+    return "SupplyTruckAIUpdate";
 }
