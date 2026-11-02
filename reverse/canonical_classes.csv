@@ -368,3 +368,4 @@ LightEnvironmentClass,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.
 SimpleSceneClass,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h,existing header; contract class_contracts/SimpleSceneClass.json; 11/18 sampled units adopt
 WindowVideoManager,Code/GameEngine/Include/GameClient/WindowVideoManagerClass.h,existing header; contract class_contracts/WindowVideoManager.json; 15/19 sampled units adopt
 ActiveBodyModuleData,Code/GameEngine/Include/GameLogic/Module/ActiveBodyModuleData.h,existing header; contract class_contracts/ActiveBodyModuleData.json; 10/18 sampled units adopt
+NetCommandList,Code/GameEngine/Include/GameNetwork/NetCommandListClass.h,existing header; contract class_contracts/NetCommandList.json; 10/16 sampled units adopt
