@@ -15,6 +15,7 @@ void BFME2_Nlerp(Quaternion &, const Quaternion &, const Quaternion &, float);
 
 class BFME2MotionChannel {
 public:
+ BFME2MotionChannel();
  virtual bool Load(ChunkLoadClass &); virtual ~BFME2MotionChannel(); virtual int UnknownSlot2();
  virtual void UnknownSlot3(float, float *, unsigned char **);
  virtual void UnknownSlot4(float, Vector3 *, unsigned char **);
@@ -24,6 +25,9 @@ public:
 
 class BFME2Encoding0MotionChannel : public BFME2MotionChannel {
 public:
+ BFME2Encoding0MotionChannel();
+ virtual bool Load(ChunkLoadClass &); virtual ~BFME2Encoding0MotionChannel();
+ virtual int UnknownSlot2(); virtual int UnknownSlot6();
  unsigned short *TimeCodes;
  float *Samples;
  // Retail 0x001B2DC4: binary search over TimeCodes masked with ~0x8000 for the key at or below
