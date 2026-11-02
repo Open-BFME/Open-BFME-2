@@ -4592,3 +4592,4 @@ __ehhandler$?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00
 __ehhandler$?rva006D0930@Rva006CE660Vec@@QAEXPBVEAStringC@@HHH@Z,0x007A8438,"Renamed to __ehhandler$?updatePlaybackState@Rva006CE660Vec@@QAEXPBVEAStringC@@HHH@Z by tools/rename.py (inferred)"
 ?rva000909B7@Rva007E3C20Vp6Stream@@QAEXXZ,0x000909B7,"Renamed to ?uploadFrame@Rva007E3C20Vp6Stream@@QAEXXZ by tools/rename.py (inferred)"
 __ehhandler$?rva000909B7@Rva007E3C20Vp6Stream@@QAEXXZ,0x0075FEDF,"Renamed to __ehhandler$?uploadFrame@Rva007E3C20Vp6Stream@@QAEXXZ by tools/rename.py (inferred)"
+?releaseResource0090C2D0@Rva0090C280@@QAEXXZ,0x001310CF,"Renamed to ?ReleaseResources@Rva0090C280@@QAEXXZ by tools/rename.py (inferred)"

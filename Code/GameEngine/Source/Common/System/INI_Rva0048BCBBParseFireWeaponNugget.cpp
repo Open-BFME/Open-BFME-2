@@ -47,8 +47,8 @@ private:
 
 struct Rva0048BCBBNugget
 {
-	Rva0048BCBBNugget() : m_00(0), m_fireDelay(0), m_oneShot(false), m_0C(0.0f), m_10(0.0f), m_14(0.0f) {}
-	int m_00;
+	Rva0048BCBBNugget() : m_weaponName(0), m_fireDelay(0), m_oneShot(false), m_0C(0.0f), m_10(0.0f), m_14(0.0f) {}
+	int m_weaponName;
 	int m_fireDelay;
 	bool m_oneShot;
 	float m_0C;

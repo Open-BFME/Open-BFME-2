@@ -35,7 +35,7 @@ class Rva0090C280
 {
 	void *m_vptr;
 	char m_04;
-	void *m_08;
+	void *m_resource;
 	int m_0C;
 	int m_10;
 	int m_14;
@@ -53,13 +53,13 @@ class Rva0090C280
 	int m_44;
 
 public:
-	void releaseResource0090C2D0();
+	void ReleaseResources();
 };
 
-void Rva0090C280::releaseResource0090C2D0()
+void Rva0090C280::ReleaseResources()
 {
 	m_vptr = (void *)((unsigned int)__identifier("??_7Rva0013107A@@6B@"));
-	void *resource = m_08;
+	void *resource = m_resource;
 	if (resource) {
 		void (__stdcall *destroy)(void *) = ((void (__stdcall **)(void *))*(void **)resource)[2];
 		destroy(resource);
@@ -68,4 +68,4 @@ void Rva0090C280::releaseResource0090C2D0()
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:??1Rva0013107A@@UAE@XZ=?releaseResource0090C2D0@Rva0090C280@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1Rva0013107A@@UAE@XZ=?ReleaseResources@Rva0090C280@@QAEXXZ")

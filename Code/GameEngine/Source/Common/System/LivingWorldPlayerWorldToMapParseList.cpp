@@ -86,11 +86,11 @@ static inline bool RvaPairEqual(const AsciiString &asciiString, const AsciiStrin
 
 typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > Rva003F25DFList;
 
-void Rva003F25DF(void *a1, void *a2, void *list, void *a4)
+void Rva003F25DF(void *iniParser, void *parseInstance, void *list, void *userData)
 {
 	Rva003F25DFList *vec = (Rva003F25DFList *)list;
 	vec->push_back((const ModuleData *)new Rva003F25DFPair);
-	Rva003F005F(a1, a2, (void *)*(vec->end() - 1), a4);
+	Rva003F005F(iniParser, parseInstance, (void *)*(vec->end() - 1), userData);
 
 	const ModuleData *const *it = vec->begin();
 	const ModuleData *const *last = vec->end() - 1;

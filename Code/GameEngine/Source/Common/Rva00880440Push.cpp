@@ -59,10 +59,10 @@ static inline BfmeElem440 *copy440(BfmeElem440 *first, BfmeElem440 *last, BfmeEl
         if (cur) cur->copyFrom(first);
     return cur;
 }
-static inline BfmeElem440 *fill440(BfmeElem440 *first, unsigned int n, const BfmeElem440 &value)
+static inline BfmeElem440 *fill440(BfmeElem440 *first, unsigned int count, const BfmeElem440 &value)
 {
     BfmeElem440 *cur = first;
-    for (; n > 0; --n, ++cur)
+    for (; count > 0; --count, ++cur)
         if (cur) cur->copyFrom(&value);
     return cur;
 }
@@ -70,9 +70,9 @@ static inline void destroy440(BfmeElem440 *first, BfmeElem440 *last)
 {
     for (; first != last; ++first) first->~BfmeElem440();
 }
-static inline BfmeElem440 *allocate440(unsigned int n)
+static inline BfmeElem440 *allocate440(unsigned int count)
 {
-    return n ? reinterpret_cast<BfmeElem440 *>(_STL::allocator<char>::allocate(n * sizeof(BfmeElem440), 0)) : 0;
+    return count ? reinterpret_cast<BfmeElem440 *>(_STL::allocator<char>::allocate(count * sizeof(BfmeElem440), 0)) : 0;
 }
 void BfmeVec440::overflow(BfmeElem440 *pos, const BfmeElem440 &value,
     const BfmeFalse440 &tag, unsigned int fill, bool atEnd)

@@ -23,11 +23,11 @@ void Rva009A2350::init()
 {
 	if (m_10)
 		return;
-	char *p = (char *)m_00 + 8;
-	m_10 = p;
-	void *q = *(void **)p;
-	m_14 = q;
-	if (q)
-		((void **)q)[4] = &m_14;
+	char *linkSlot = (char *)m_00 + 8;
+	m_10 = linkSlot;
+	void *previousLink = *(void **)linkSlot;
+	m_14 = previousLink;
+	if (previousLink)
+		((void **)previousLink)[4] = &m_14;
 	m_00->m_08 = (Rva009A2350Node *)this;
 }

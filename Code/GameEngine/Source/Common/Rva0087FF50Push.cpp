@@ -36,11 +36,11 @@ void BfmeVec50::push_back(const BfmeElem50 *value)
 		BfmeElem50 *newSlots = _M_finish;
 		if (newSlots)
 		{
-			const BfmeElem50 *v = value;
-			newSlots->m_00 = v->m_00;
-			newSlots->m_04 = v->m_04;
-			newSlots->m_08 = v->m_08;
-			newSlots->m_0C.copyFrom(&v->m_0C);
+			const BfmeElem50 *valueSource = value;
+			newSlots->m_00 = valueSource->m_00;
+			newSlots->m_04 = valueSource->m_04;
+			newSlots->m_08 = valueSource->m_08;
+			newSlots->m_0C.copyFrom(&valueSource->m_0C);
 		}
 		++_M_finish;
 	}
