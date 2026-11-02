@@ -91,7 +91,7 @@ enum SlotState {SLOT_OPEN,SLOT_CLOSED,SLOT_AI2,SLOT_AI3,SLOT_AI4,SLOT_AI5,SLOT_P
 struct GameSlotConnectInfo{unsigned ip;unsigned short port;GameSlotConnectInfo():ip(0),port(0){}GameSlotConnectInfo(unsigned i,unsigned short p):port(p),ip(i){}};
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 class GameSpyGameSlot:public GameSlot {public:char at44[0x18c];int rva1d0,rva1d4;};
-class GameSpyStagingRoom:public GameInfo {public:GameSpyGameSlot *getGameSpySlot(int);void launchGame();};
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 extern GameSpyStagingRoom *TheGameSpyGame;
 // Bind the existing NAT datum; retain this unit's access view at use sites.
 struct NAT {void processGlobalMessage(int,const char *);	// 0x005A8ABF, rowed

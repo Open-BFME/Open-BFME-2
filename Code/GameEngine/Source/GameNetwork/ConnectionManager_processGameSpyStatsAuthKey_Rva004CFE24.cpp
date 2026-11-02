@@ -42,11 +42,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/StagingRoomGameInfo.h
-class GameSpyStagingRoom
-{
-public:
-	GameSpyGameSlot *getGameSpySlot( int index );
-};
+#include "../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 extern GameSpyStagingRoom *TheGameSpyGame;
 

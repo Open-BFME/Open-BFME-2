@@ -33,11 +33,7 @@ public:
 
 #include "../../Include/GameNetwork/GameInfo.h"
 
-class GameSpyStagingRoom : public GameInfo
-{
-public:
-	GameSpyGameSlot *getGameSpySlot(int index);
-};
+#include "../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 extern GameSpyStagingRoom *TheGameSpyGame;	// retail RVA 0x00A02324, defined in CreateAHeroManagerList.cpp
 

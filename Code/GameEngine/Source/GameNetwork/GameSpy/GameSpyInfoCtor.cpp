@@ -102,31 +102,7 @@ struct BfmeOpaqueOwnedRecord492
 
 // 0x1020-byte staging-room record (GameInfo base at +0; ctor 0x004FDE4D,
 // copy ctor 0x003835F4, dtor 0x00382C4A).
-class GameSpyStagingRoom
-{
-public:
-	GameSpyStagingRoom();
-	GameSpyStagingRoom(const GameSpyStagingRoom &other);
-	virtual ~GameSpyStagingRoom();
-	virtual void s01(void);
-	virtual void s02(void);
-	virtual void s03(void);
-	virtual void s04(void);
-	virtual void s05(void);
-	virtual void s06(void);
-	virtual void s07(void);
-	virtual void s08(void);
-	virtual void s09(void);
-	virtual void reset(void);
-	static void operator delete(void *p) { ::operator delete(p); }
-	void cleanUpSlotPointers(void);
-	Int getID(void) const { return m_id; }
-	unsigned char m_pad0004[0xC8];		// +0x04..+0xCB
-	unsigned char m_digest[16];			// +0xCC..+0xDB
-	unsigned char m_pad00DC[0xF04];		// +0xDC..+0xFDF
-	Int m_id;							// +0xFE0
-	unsigned char m_pad0FE4[0x3C];		// +0xFE4..+0x101F
-};
+#include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 // GameInfo assignment (0x00382E73), rowed under its address name.
 struct TreeHintOpaque0043671B;

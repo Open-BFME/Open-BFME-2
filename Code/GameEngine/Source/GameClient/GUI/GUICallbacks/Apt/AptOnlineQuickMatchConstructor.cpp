@@ -142,14 +142,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern int g_Va00E06550;
 
-class GameSpyStagingRoom
-{
-public:
-#define G(n) virtual void v##n();
-	G(00) G(01) G(02) G(03) G(04) G(05) G(06) G(07) G(08) G(09)
-#undef G
-	virtual void reset(); // slot 10
-};
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 extern GameSpyStagingRoom *TheGameSpyGame;
 
 class GameSpyInfoInterface

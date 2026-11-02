@@ -4,13 +4,7 @@
 // Evidence: vslot 44 offset 0xB0 of vtable 0x00C19500 class Rva00386374; forwards by-value StagingRoom to slot 0xAC; copy 0x3835F4 builds outgoing arg then slot 0xAC then dtor 0x382C4A of incoming; ret 0x1020.
 #include "ascii_string.h"
 
-class GameInfo
-{
-public:
-	GameInfo(const GameInfo &other);
-	virtual ~GameInfo();
-	char m_pad[0xDC - 4];
-};
+#include "../../../Include/GameNetwork/GameSpyStagingRoom.h"
 
 class Rva00382398
 {
@@ -21,31 +15,6 @@ private:
 	char m_pad[0x1E0 - 4];
 };
 
-class GameSpyStagingRoom : public GameInfo
-{
-public:
-	virtual ~GameSpyStagingRoom();
-private:
-	Rva00382398 m_items[8];
-	AsciiString m_fdc;
-	int m_fe0;
-	int m_fe4;
-	AsciiString m_fe8;
-	char m_fec;
-	char m_fed;
-	int m_ff0;
-	char m_ff4;
-	int m_ff8;
-	AsciiString m_ffc;
-	AsciiString m_1000;
-	int m_1004;
-	short m_1008;
-	int m_100c;
-	int m_1010;
-	int m_1014;
-	int m_1018;
-	int m_101c;
-};
 
 class Rva00386374
 {

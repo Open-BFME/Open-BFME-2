@@ -22,7 +22,7 @@ class GameSpyInfoInterface{public:
 S(0)S(1)S(2)S(3)S(4)S(5)S(6)S(7)S(8)S(9)S(10)S(11)S(12)S(13)S(14)S(15)S(16)S(17)S(18)S(19)S(20)S(21)S(22)S(23)S(24)S(25)S(26)S(27)S(28)S(29)S(30)virtual int getLocalProfileID();
 S(32)S(33)S(34)S(35)S(36)S(37)S(38)S(39)S(40)S(41)S(42)S(43)S(44)S(45)S(46)S(47)S(48)S(49)S(50)S(51)S(52)S(53)S(54)S(55)S(56)S(57)S(58)S(59)S(60)S(61)S(62)S(63)S(64)S(65)S(66)S(67)S(68)S(69)S(70)S(71)S(72)S(73)S(74)S(75)S(76)S(77)S(78)S(79)S(80)S(81)S(82)S(83)S(84)S(85)S(86)S(87)S(88)S(89)virtual bool premium(int);};
 #undef S
-class GameSpyStagingRoom{public:char gap[0x5c];int type;};
+#include "../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 extern GameSpyPSMessageQueueInterface*TheGameSpyPSMessageQueue;extern GameSpyInfoInterface*TheGameSpyInfo;extern GameSpyStagingRoom*TheGameSpyGame;
 
 void dispatchIndexedValue(void*,int,void*,int,int*,int*);
@@ -35,14 +35,14 @@ void PeerThreadClass::pushStatsToRoom(void*peer){
  strategic=all.rva00389E0F();open=all.rva00389DF1();publishing=true;
  if(!TheGameSpyGame)return;
  Rva00553E47StatsCore*stats=0;
- switch(TheGameSpyGame->type){case 1:stats=&strategic;break;case 0:stats=&open;break;default:return;}
+ switch(TheGameSpyGame->m_field5C){case 1:stats=&strategic;break;case 0:stats=&open;break;default:return;}
  GameSpyMiscPreferences preferences;
  bool premium=TheGameSpyInfo->premium(TheGameSpyInfo->getLocalProfileID());
  _snprintf(s_valueBuffers[0],20,"%d",preferences.rva00559782());
  _snprintf(s_valueBuffers[1],20,"%d",reinterpret_cast<Rva005537BA*>(stats)->rva005537BA());
  _snprintf(s_valueBuffers[2],20,"%d",reinterpret_cast<Rva005537EB*>(stats)->rva005537EB());
- if(TheGameSpyGame->type==1){int key=g_00E05FCC.rva00559E48(stats);_snprintf(s_valueBuffers[6],20,"%d",key);_snprintf(s_valueBuffers[3],20,"%d",g_00E05FCC.rva00559DA0(stats,key));}
- else if(TheGameSpyGame->type==0){int key=g_00E06000.rva00559E48(stats);_snprintf(s_valueBuffers[6],20,"%d",key);_snprintf(s_valueBuffers[3],20,"%d",g_00E06000.rva00559DA0(stats,key));}
+ if(TheGameSpyGame->m_field5C==1){int key=g_00E05FCC.rva00559E48(stats);_snprintf(s_valueBuffers[6],20,"%d",key);_snprintf(s_valueBuffers[3],20,"%d",g_00E05FCC.rva00559DA0(stats,key));}
+ else if(TheGameSpyGame->m_field5C==0){int key=g_00E06000.rva00559E48(stats);_snprintf(s_valueBuffers[6],20,"%d",key);_snprintf(s_valueBuffers[3],20,"%d",g_00E06000.rva00559DA0(stats,key));}
  _snprintf(s_valueBuffers[4],20,"%d",reinterpret_cast<Rva00553D26*>(stats)->rva00553D26());
  _snprintf(s_valueBuffers[5],20,"%d",premium);
  dispatchIndexedValue(peer,1,(void*)login.c_str(),7,reinterpret_cast<int*>(s_keys),reinterpret_cast<int*>(s_values));dispatchIndexedValue(peer,2,(void*)login.c_str(),7,reinterpret_cast<int*>(s_keys),reinterpret_cast<int*>(s_values));publishing=false;
