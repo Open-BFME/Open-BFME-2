@@ -52,12 +52,7 @@ public:
 template<int N> class OCUSlots : public OCUSlots<N - 1> { public: virtual void slot(char (*)[N]); };
 template<> class OCUSlots<0> {};
 
-class BuildAssistant : public OCUSlots<14>
-{
-public:
-	virtual Object *buildObjectNow(Object *constructorObject, const ThingTemplate *what,
-		const Coord3D *pos, Real angle, Player *owningPlayer);
-};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 
 // Retail calls slot 2 to open a request and slot 8 to test the template.
 class OCUSpecialContext

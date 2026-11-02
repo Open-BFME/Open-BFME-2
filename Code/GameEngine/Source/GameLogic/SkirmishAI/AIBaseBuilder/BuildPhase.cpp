@@ -62,7 +62,7 @@ class ThingTemplate;
 class ThingFactory;
 extern ThingFactory*TheThingFactory;
 #include "../../../../Include/Common/ThingFactory.h"
-class BuildAssistant {public:bool rva00391AA1(const ThingTemplate*,const ThingTemplate*);};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant*TheBuildAssistant;
 // Native5DCC86..5DCCFB full117 RET4; BuildPhase vector4/8 and
 // order template-name0C are read directly from retail. AITactic/AIBase

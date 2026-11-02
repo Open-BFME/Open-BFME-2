@@ -439,7 +439,7 @@ class Player {public:char pad[0x3BC];ScoreKeeper score;};
 
  extern ThingFactory *TheThingFactory;
 
-class BuildAssistant : public MountedSlots<14> {public:virtual Object* buildObjectNow(Object*,const ThingTemplate*,const Coord3D*,float,Player*)=0;};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 
 extern BuildAssistant *TheBuildAssistant;
 

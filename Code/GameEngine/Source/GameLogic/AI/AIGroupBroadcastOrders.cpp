@@ -145,29 +145,7 @@ private:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/BuildAssistant.h
-class BuildAssistant
-{
-public:
-	virtual void unusedSlot00();
-	virtual void unusedSlot01();
-	virtual void unusedSlot02();
-	virtual void unusedSlot03();
-	virtual void unusedSlot04();
-	virtual void unusedSlot05();
-	virtual void unusedSlot06();
-	virtual void unusedSlot07();
-	virtual void unusedSlot08();
-	virtual void unusedSlot09();
-	virtual void unusedSlot10();
-	virtual void unusedSlot11();
-	virtual void unusedSlot12();
-	virtual void unusedSlot13();
-	virtual void unusedSlot14();
-	virtual void unusedSlot15();
-	virtual void unusedSlot16();
-	virtual void unusedSlot17();
-	virtual void sellObject(Object *obj);			// vtable +0x48
-};
+#include "../../../Include/Common/BuildAssistantClass.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Upgrade.h
 class UpgradeCenter

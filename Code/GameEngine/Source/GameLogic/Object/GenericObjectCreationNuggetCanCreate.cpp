@@ -46,14 +46,7 @@ private: char data[0x80-4];
 #include "../../../Include/Common/SidesList.h"
 extern SidesList *TheSidesList;
 enum LegalBuildCode { LBC_OK=0 };
-class BuildAssistant {
-public:
-    virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();
-    virtual void slot04();virtual void slot05();virtual void slot06();virtual void slot07();
-    virtual void slot08();virtual void slot09();virtual void slot10();virtual void slot11();
-    virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();
-    virtual LegalBuildCode isLocationLegalToBuild(const Coord3D*,const ThingTemplate*,float,unsigned int,Object*,Player*);
-};
+#include "../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant *TheBuildAssistant;
 float __cdecl normalizeAngle(float);
 struct NameArray { AsciiString *begin,*end,*cap; unsigned int size() const { return end-begin; } };

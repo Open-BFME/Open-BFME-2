@@ -42,7 +42,7 @@ extern WeaponStore *TheWeaponStore;
 class Pathfinder {public:void RemoveObjectFromPathfindMap(Object *);void AddObjectToPathfindMap(Object *);};
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
-class BuildAssistant {public:bool moveObjectsForConstruction(const ThingTemplate *,const Coord3D *,float,Player *);};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant *TheBuildAssistant;
 extern int BfmeLogicFramesPerSecond;
 class GettingBuiltUpdateSecondary {

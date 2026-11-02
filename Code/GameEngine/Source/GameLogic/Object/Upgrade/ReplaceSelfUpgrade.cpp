@@ -179,7 +179,7 @@ template<int N>class ReplaceSlots:public ReplaceSlots<N-1>{public:virtual void s
 
 template<>class ReplaceSlots<0>{};
 
-class BuildAssistant:public ReplaceSlots<14>{public:virtual Object *buildObjectNow(Object *,const ThingTemplate *,const Coord3D *,Real,class Player *);};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 
 extern BuildAssistant *TheBuildAssistant;
 

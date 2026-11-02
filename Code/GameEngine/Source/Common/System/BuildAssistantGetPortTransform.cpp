@@ -53,12 +53,7 @@ class ThingTemplate;
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
-class BuildAssistant
-{
-public:
-	void iterateFootprint(const ThingTemplate *build, Real buildOrientation, const Coord3D *worldPos, Real sampleResolution, void (*func)(const Coord3D *samplePoint, void *userData), void *userData);
-	Bool getPortTransform(const Coord3D *worldPos, const ThingTemplate *build, Real angle, Real *outAngle, Coord3D *outPos);
-};
+#include "../../../Include/Common/BuildAssistantClass.h"
 
 // BuildAssistant.cpp's sample context (0x50 bytes, isLocationLegalToBuild's frame at ebp-0x74).
 struct SampleBuildData

@@ -148,11 +148,7 @@ public:
 	unsigned char m_438;	// +0x438
 };
 
-class BuildAssistant
-{
-public:
-	bool moveObjectsForConstruction(const ThingTemplate *what, const struct Coord3D *pos, float angle, Player *player); // 0x00394FA7
-};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant *TheBuildAssistant;
 
 #include "../../../../Include/Common/GameAudio.h"

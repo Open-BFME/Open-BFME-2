@@ -2104,24 +2104,7 @@ public:
 
 enum { LBC_OK = 0 };
 
-class BuildAssistant
-{
-public:
-	enum
-	{
-		TERRAIN_RESTRICTIONS = 0x01,
-		NO_OBJECT_OVERLAP = 0x04,
-		SHROUD_REVEALED = 0x10
-	};
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual Int isLocationLegalToBuild(const Coord3D *worldPos, const ThingTemplate *build, Real angle,
-		UnsignedInt options, Object *builderObject, Player *player); // +0x40
-	void clearRemovableForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle);
-	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *playerToBuild);
-};
+#include "../../../../../Include/Common/BuildAssistantClass.h"
 
 extern BuildAssistant *TheBuildAssistant;
 
