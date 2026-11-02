@@ -15716,6 +15716,17 @@ primary table so the dtor links, or give the observer bases slot-0 names matchin
 overrides. The second needs `LivingWorldScoreKeeper::event4_0/event5_0` renamed and retyped with
 them (identity work). Copying the two wrong slots into the dtor view would only spread the defect.
 re_attempts verdict on 0x002B964F.
+2026-11-02 (halilkkaya-lk15, base `1765dc430d`): first fix applied. The ctor view no longer declares
+`OnRegionChangedOwnership` and `rva002BA3F2` (a comment records why), so its primary table is the
+retail 14 slots again; the region/player slot 0 still bind the base no-ops exactly as before
+(no change there). `./build.sh` 26/26 rows (one funclet label renumbered, parent EH data verified);
+scoped DIR32 OK (20 symbols, ctor plus dtor); the only objects touching `??_7LivingWorldLogic@@`
+names are the two units and OpaqueScalarDeletingDtorsB05.cpp; `link_check`:
+LivingWorldLogicDtorRva002B964F 0 -> 717 B, OpaqueScalarDeletingDtorsB05 748, LivingWorldLogic.cpp
+20,092, LivingWorldLogicPlayerObserverRva002BA3F2 1,278 and Common/LivingWorldLogic.cpp 380 B
+unchanged LINKS. LivingWorldLogicCtorBfme still has its one blocker, `event5_2` (player slot 2 =
+0x002B2A95, the non-virtual `Rva002B2A95Callback::rva002B2A95` row: identity work). Remaining: the
+observer bases' slot names (identity), then the two overrides return.
 
 ### Terrain resource CRT header cleanup (2026-10-30, codexb)
 
