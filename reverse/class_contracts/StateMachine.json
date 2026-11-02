@@ -4,7 +4,7 @@
  "class": "StateMachine",
  "evidence": {
   "bases_overruled": null,
-  "census": 184,
+  "census": 170,
   "inherited": {
    "base_views": 0,
    "inherited_slots": 0,
@@ -245,7 +245,7 @@
   "view_errors": 11,
   "view_sizes": {
    "1": 6,
-   "4": 31,
+   "4": 27,
    "8": 6,
    "12": 1,
    "24": 65,
@@ -253,13 +253,13 @@
    "40": 1,
    "48": 25,
    "52": 1,
-   "60": 28,
+   "60": 18,
    "76": 1,
    "80": 3,
    "84": 2,
    "88": 1
   },
-  "views": 173,
+  "views": 159,
   "witness_offsets": [],
   "zh": {
    "error": "build/class_layouts/zh_StateMachine.cpp: compile failed: C2039; C2955; C2143",
@@ -276,7 +276,7 @@
    "retail_widths": {},
    "size": 4,
    "type": "void*",
-   "views": 93,
+   "views": 79,
    "witness": null
   },
   {
@@ -337,7 +337,7 @@
    "retail_widths": {},
    "size": 4,
    "type": "Object*",
-   "views": 107,
+   "views": 104,
    "witness": null
   }
  ],
@@ -538,7 +538,6 @@
     "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIHuntStateUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIIdleStateUpdate.cpp",
@@ -549,7 +548,7 @@
     "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp"
    ],
-   "views": 16
+   "views": 15
   },
   {
    "offset": 57,

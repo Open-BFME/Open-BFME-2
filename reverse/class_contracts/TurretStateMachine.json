@@ -71,7 +71,7 @@
      ],
      "value": {
       "0x0": [
-       "?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z"
+       "?defineState@StateMachine@@QAEXIPAVState@@IIPBUStateConditionInfo@@@Z"
       ]
      }
     },
@@ -249,18 +249,22 @@
    "offset": 4,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isWeaponSlotOnTurretAndAimingAtTarget.cpp"
    ],
-   "views": 3
+   "views": 5
   },
   {
    "offset": 8,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 2
+   "views": 4
   },
   {
    "offset": 20,
@@ -268,107 +272,129 @@
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 4
+   "views": 5
   },
   {
    "offset": 24,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 2
+   "views": 4
   },
   {
    "offset": 28,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 2
+   "views": 4
   },
   {
    "offset": 32,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp"
    ],
-   "views": 4
+   "views": 6
   },
   {
    "offset": 36,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp"
    ],
-   "views": 4
+   "views": 6
   },
   {
    "offset": 40,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp"
    ],
-   "views": 4
+   "views": 6
   },
   {
    "offset": 44,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp"
    ],
-   "views": 4
+   "views": 6
   },
   {
    "offset": 48,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 2
+   "views": 4
   },
   {
    "offset": 52,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
     "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp"
    ],
-   "views": 3
+   "views": 5
   },
   {
    "offset": 56,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 3
+   "views": 4
   },
   {
    "offset": 57,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 2
+   "views": 4
   },
   {
    "offset": 58,
    "sources": [
     "Code/GameEngine/Source/Common/Rva004D759CDerived.cpp",
-    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    "Code/GameEngine/Source/GameLogic/AI/AIDock.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp"
    ],
-   "views": 2
+   "views": 4
   },
   {
    "offset": 60,
@@ -385,9 +411,7 @@
    "attribute": "base-extent",
    "candidates": {
     "[[0, 48]]": 1,
-    "[[0, 4]]": 1,
-    "[[0, 57]]": 1,
-    "[[0, 59]]": 2
+    "[[0, 59]]": 4
    },
    "class": "TurretStateMachine"
   }

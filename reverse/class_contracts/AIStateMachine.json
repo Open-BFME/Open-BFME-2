@@ -107,7 +107,7 @@
      ],
      "value": {
       "0x0": [
-       "?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z"
+       "?defineState@StateMachine@@QAEXIPAVState@@IIPBUStateConditionInfo@@@Z"
       ],
       "0x3c": [
        "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
@@ -291,20 +291,22 @@
    "offset": 4,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_predicates.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/Rva0026A05DUpdate.cpp"
    ],
-   "views": 6
+   "views": 7
   },
   {
    "offset": 8,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 20,
@@ -312,94 +314,106 @@
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
     "Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIFollowWaypointPathStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineResetToDefaultState.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp",
     "Code/GameEngine/Source/GameLogic/AI/AIWanderStateMethods.cpp",
     "Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp"
    ],
-   "views": 7
+   "views": 8
   },
   {
    "offset": 24,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 28,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 32,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 36,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 2
+   "views": 3
   },
   {
    "offset": 40,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 2
+   "views": 3
   },
   {
    "offset": 44,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 2
+   "views": 3
   },
   {
    "offset": 48,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp"
    ],
-   "views": 2
+   "views": 3
   },
   {
    "offset": 52,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 56,
    "sources": [
     "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp",
     "Code/GameEngine/Source/GameLogic/Object/Update/Rva0026A05DUpdate.cpp"
    ],
-   "views": 2
+   "views": 3
   },
   {
    "offset": 57,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 58,
    "sources": [
-    "Code/GameEngine/Source/Common/AIStateMachine.cpp"
+    "Code/GameEngine/Source/Common/AIStateMachine.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp"
    ],
-   "views": 1
+   "views": 2
   },
   {
    "offset": 60,
@@ -525,8 +539,7 @@
    "attribute": "base-extent",
    "candidates": {
     "[[0, 24]]": 3,
-    "[[0, 4]]": 1,
-    "[[0, 59]]": 1,
+    "[[0, 59]]": 2,
     "[[0, 60]]": 1,
     "[[0, 84]]": 1,
     "[[20, 24]]": 2
