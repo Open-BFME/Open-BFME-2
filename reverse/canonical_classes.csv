@@ -299,3 +299,4 @@ WW3D,Code/Libraries/Source/WWVegas/WW3D2/WW3DClass.h,existing header; contract c
 DX8Wrapper,Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h,existing header; contract class_contracts/DX8Wrapper.json; 61/209 sampled units adopt
 MeshGeometryClass,Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryClass.h,existing header; contract class_contracts/MeshGeometryClass.json; 5/40 sampled units adopt
 GameClient,Code/GameEngine/Include/GameClient/GameClientClass.h,existing header; contract class_contracts/GameClient.json; 44/82 sampled units adopt
+SpecialAbilityUpdate,Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdate.h,existing header; contract class_contracts/SpecialAbilityUpdate.json; 13/81 sampled units adopt
