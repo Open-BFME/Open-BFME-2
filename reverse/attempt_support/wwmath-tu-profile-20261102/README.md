@@ -1,0 +1,7 @@
+# WWMath consolidation boundary, 2026-11-02
+
+The fresh in-memory map used by tu_skeleton approves Random_Float (0x00711B90, 26B) for WWMath/wwmath.cpp; its WWLib donor is standalone. WWMathInit is mixed and was not edited or claimed. The naming planner independently lists a same-name Zero Hour hit and an alternative pluglib TU as hints, not BFME2 original-path proof. No donor path is asserted as BFME2 provenance.
+
+The supported dry run accepts no donor: both seed and Random_Float match independently, but Random_Float fails the combined bytes check. Private capture leaves the owning verifier's judgments unchanged. The seed's seven rows remain exact in the combined O1/SSE/G7/Oi trial, while Random_Float grows from 26B to 28B: EBP frame plus direct _rand replaces the native frame-free __imp__rand call. Adding MD fixes the import but leaves a 29B EBP-frame body. Explicit Oy does not recover the native frame-free body.
+
+Under a private O2/SSE/G7/MD/Oi trial Random_Float and six other rows match; areApproxEqual (0x34FA,42B) becomes44B because its true branch changes xor eax,eax; inc eax to mov eax,1. O2+Os restores that row and loses Random_Float again. Four ordinary equivalent boolean-control-flow spellings (counter, bool increment, goto, nested if) do not fix the42B row under O2. No nonmatching reconstruction, compiler override, pragma, class view, map or ledger change was applied. Both seed and donor remain census-linked in their existing separate files. Need a common-profile exact reconstruction before this merge can lower SOURCE FILES.

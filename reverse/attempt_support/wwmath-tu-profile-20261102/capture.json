@@ -1,0 +1,57 @@
+{
+  "report": {
+    "tu": "Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp",
+    "approved": 2,
+    "mixed": {
+      "Code/Libraries/Source/WWVegas/WWMath/WWMathInit.cpp": 1
+    },
+    "refused": {},
+    "accepted": [],
+    "rejected": {
+      "Code/Libraries/Source/WWVegas/WWLib/wwmath.cpp": "bytes"
+    },
+    "link_guard": "census-linked: Code/Libraries/Source/WWVegas/WWLib/wwmath.cpp, Code/Libraries/Source/WWVegas/WWMath/wwmath.cpp",
+    "blocked": "no verified merge of two or more donors"
+  },
+  "trials": [
+    {
+      "key": "2154399d8d53e80d",
+      "row_count": 1,
+      "missing": [],
+      "errors": []
+    },
+    {
+      "key": "2511a927eb3dcd50",
+      "row_count": 7,
+      "missing": [],
+      "errors": []
+    },
+    {
+      "key": "b0357e9fc77fdcaf",
+      "row_count": 7,
+      "missing": [],
+      "errors": []
+    },
+    {
+      "key": "609d21a8a6bddfc6",
+      "row_count": 8,
+      "missing": [
+        "0x00711B90"
+      ],
+      "errors": []
+    },
+    {
+      "key": "1675fab886b78d33",
+      "row_count": 7,
+      "missing": [
+        "0x0002FB90",
+        "0x0002FBA0",
+        "0x0002FBB0",
+        "0x0002FBC0",
+        "0x001333F0",
+        "0x00711AC0"
+      ],
+      "errors": []
+    }
+  ]
+}

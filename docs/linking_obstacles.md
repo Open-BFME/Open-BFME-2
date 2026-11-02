@@ -17984,3 +17984,8 @@ The approved quat.cpp merge still cannot absorb quat_BuildMatrix4.cpp: the carri
 ### Timing-log Microsoft-header cleanup (2026-11-02)
 
 Rva0023C641Write.cpp now uses the supplied stdio/string/Windows headers; its owning inventory drops from eleven copied declarations to one. All three rows, six emitted code definitions and five data definitions retain bytes and relocations; strict checks and the bounded LINKS 542-byte prediction pass. The remaining direct _mbscat declaration cannot yet become the /MD mbstring.h import without changing the native 371B setup body; a private trial confirms that boundary. SDK default-library directives are covered separately in the [verification packet](../reverse/attempt_support/timing-msheaders-20261102/README.md). Census and runtime status are unchanged.
+
+
+### WWMath random-helper consolidation boundary (2026-11-02)
+
+The approved WWLib/wwmath.cpp Random_Float donor and WWMath/wwmath.cpp seed verify separately but not under the same tested compiler profile. O1 changes the native26B random helper's import/frame; O2 preserves it but grows areApproxEqual42B to44B. MD, Oy, Os and four source-control-flow trials establish the remaining boundary; no source or provider changed and both units remain census-linked. [Trial matrix and handoff](../reverse/attempt_support/wwmath-tu-profile-20261102/README.md). WWMathInit remains mixed and outside this attempted merge.

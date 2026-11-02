@@ -1,0 +1,30 @@
+[
+  {
+    "label": "counter",
+    "missing": [
+      "0x000034FA"
+    ],
+    "errors": []
+  },
+  {
+    "label": "bool_increment",
+    "missing": [
+      "0x000034FA"
+    ],
+    "errors": []
+  },
+  {
+    "label": "goto",
+    "missing": [
+      "0x000034FA"
+    ],
+    "errors": []
+  },
+  {
+    "label": "nested",
+    "missing": [
+      "0x000034FA"
+    ],
+    "errors": []
+  }
+]
