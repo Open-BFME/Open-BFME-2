@@ -26,12 +26,7 @@ typedef bool Bool;
 
 enum { INVALID_STATE_ID = 999999 };
 
-struct StateConditionInfo
-{
-	void *test;
-	StateID toStateID;
-	void *userData;
-};
+#include "../../../Include/Common/StateConditionInfo.h"
 
 class StateMachine;
 

@@ -177,12 +177,7 @@ public:
 	Bool isGoalObjectDestroyed() const;
 };
 
-struct StateConditionInfo
-{
-	StateTransFuncPtr test;
-	int toStateID;
-	void *userData;
-};
+#include "../../Include/Common/StateConditionInfo.h"
 
 class __declspec(novtable) State
 {

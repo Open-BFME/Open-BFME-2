@@ -10,12 +10,7 @@
 
 class Object;
 
-struct StateConditionInfo
-{
-	void *test;
-	unsigned int toStateID;
-	void *userData;
-};
+#include "../../Include/Common/StateConditionInfo.h"
 
 struct State
 {
