@@ -25,11 +25,11 @@ struct Triple12
 // order, so it is the copy the link keeps); the anchor keeps the body emitted.
 inline Triple12 __cdecl Rva0037BA97Init(const Pair8 *src, int c)
 {
-	Triple12 tmp;
-	tmp.a = src->a;
-	tmp.b = src->b;
-	tmp.c = c;
-	return tmp;
+	Triple12 resultTriple;
+	resultTriple.a = src->a;
+	resultTriple.b = src->b;
+	resultTriple.c = c;
+	return resultTriple;
 }
 
 // Retain the inline body's ledger emission without changing its callers.

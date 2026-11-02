@@ -6611,3 +6611,14 @@ param,Rva0007517F::rva000749C1::a,Rva0007517F::rva000749C1::firstCorners,inferre
 param,Rva0007517F::rva000749C1::b,Rva0007517F::rva000749C1::secondCorners,inferred,agree:nl-a376d08f0dea,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
 param,Rva0007517F::rva000749C1::x1,Rva0007517F::rva000749C1::verticalEdgeColor,inferred,agree:nl-fc23886be192,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
 param,Rva0007517F::rva000749C1::x2,Rva0007517F::rva000749C1::firstRingEdgeColor,inferred,agree:nl-da8963af5a40,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
+member,Rva003189ADOwner::m_0c,Rva003189ADOwner::m_weatherAffectsType,inferred,agree:nl-4a86b168fdba,Code/GameEngine/Source/Common/System/Rva003189ADXfer.cpp,
+param,Rva0007517F::rva000749C1::x3,Rva0007517F::rva000749C1::secondRingEdgeColor,inferred,agree:nl-31304714b824,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
+local,Rva00222597::rva00222597::x,Rva00222597::rva00222597::mouseX,inferred,agree:nl-743febc2ade4,Code/GameEngine/Source/Common/System/Rva00222597.cpp,0x00222597
+local,Rva00222597::rva00222597::y,Rva00222597::rva00222597::mouseY,inferred,agree:nl-978f7bea3df9,Code/GameEngine/Source/Common/System/Rva00222597.cpp,0x00222597
+param,Rva00222597::rva00222597::p,Rva00222597::rva00222597::mousePos,inferred,agree:nl-ca9aebb01875,Code/GameEngine/Source/Common/System/Rva00222597.cpp,0x00222597
+local,Rva0037BA97Init::tmp,Rva0037BA97Init::resultTriple,inferred,agree:nl-a7891ba31f18-m2a62203d2d06d9769a61fcc0,Code/GameEngine/Source/Common/System/Rva0037BA97Finish.cpp,0x0037BA97
+param,Rva0039834C::rva0039834C::a,Rva0039834C::rva0039834C::childCandidate,inferred,agree:nl-fb5ec7d2c92a,Code/GameEngine/Source/Common/System/Rva0039834CInsert.cpp,0x0039834C
+param,Rva0039834C::rva0039834C::b,Rva0039834C::rva0039834C::parentNode,inferred,agree:nl-46e9c93860ff,Code/GameEngine/Source/Common/System/Rva0039834CInsert.cpp,0x0039834C
+param,Rva0039834C::rva0039834C::c,Rva0039834C::rva0039834C::rightHint,inferred,agree:nl-50db3339bb4c,Code/GameEngine/Source/Common/System/Rva0039834CInsert.cpp,0x0039834C
+param,Rva0039834C::rva0039834C::v,Rva0039834C::rva0039834C::valueToInsert,inferred,agree:nl-c16f95088b7a,Code/GameEngine/Source/Common/System/Rva0039834CInsert.cpp,0x0039834C
+function,?rva001042EB@Rva002D3573@@QAEXXZ,?resetAll@Rva002D3573@@QAEXXZ,inferred,agree:nl-d74d77a97f2b,Code/GameEngine/Source/Common/System/Rva002D40F4.cpp,0x001042EB

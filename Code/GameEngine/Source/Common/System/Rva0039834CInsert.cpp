@@ -24,31 +24,31 @@ struct Rva0039834C {
 	RvaNode0039834C *m_root;
 	unsigned m_count;
 	void *rva00397CC9(const Rva0039627D &src);
-	void rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *a, RvaNode0039834C *b, const Rva0039627D *v, RvaNode0039834C *c);
+	void rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *childCandidate, RvaNode0039834C *parentNode, const Rva0039627D *valueToInsert, RvaNode0039834C *rightHint);
 };
-void Rva0039834C::rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *a, RvaNode0039834C *b, const Rva0039627D *v, RvaNode0039834C *c)
+void Rva0039834C::rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *childCandidate, RvaNode0039834C *parentNode, const Rva0039627D *valueToInsert, RvaNode0039834C *rightHint)
 {
 	RvaNode0039834C *node;
-	if (b != m_root && (c != 0 || (a == 0 && v->m_key >= b->_key10))) {
-		node = (RvaNode0039834C *)rva00397CC9(*v);
-		b->_right = node;
+	if (parentNode != m_root && (rightHint != 0 || (childCandidate == 0 && valueToInsert->m_key >= parentNode->_key10))) {
+		node = (RvaNode0039834C *)rva00397CC9(*valueToInsert);
+		parentNode->_right = node;
 		RvaNode0039834C *root = m_root;
-		if (b == root->_right)
+		if (parentNode == root->_right)
 			root->_right = node;
 	} else {
-		node = (RvaNode0039834C *)rva00397CC9(*v);
-		b->_left = node;
+		node = (RvaNode0039834C *)rva00397CC9(*valueToInsert);
+		parentNode->_left = node;
 		RvaNode0039834C *root = m_root;
-		if (b == root) {
+		if (parentNode == root) {
 			root->_parent = node;
 			m_root->_right = node;
-		} else if (b == root->_left) {
+		} else if (parentNode == root->_left) {
 			root->_left = node;
 		}
 	}
 	node->_left = 0;
 	node->_right = 0;
-	node->_parent = b;
+	node->_parent = parentNode;
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node, (_STL::_Rb_tree_node_base *&)m_root->_parent);
 	++m_count;
 	out = node;

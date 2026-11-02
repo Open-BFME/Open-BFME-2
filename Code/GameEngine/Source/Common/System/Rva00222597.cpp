@@ -102,32 +102,32 @@ public:
 	virtual void pad14() = 0;
 	virtual void pad15() = 0;
 	virtual float *slot16() = 0;
-	void rva00222597(int *p);
+	void rva00222597(int *mousePos);
 };
 
-void Rva00222597::rva00222597(int *p)
+void Rva00222597::rva00222597(int *mousePos)
 {
 	Gen_00478220 *gen = TheWindowManager->slot53();
 	if (gen != 0)
 	{
 		BfmeQuadDO rect;
 		gen->bfmeGet(&rect);
-		int x = p[0];
-		if (x < rect.m_left)
+		int mouseX = mousePos[0];
+		if (mouseX < rect.m_left)
 			goto scaled;
-		int y = p[1];
-		if (y < rect.m_top)
+		int mouseY = mousePos[1];
+		if (mouseY < rect.m_top)
 			goto scaled;
-		if (x > rect.m_right)
+		if (mouseX > rect.m_right)
 			goto scaled;
-		if (y > rect.m_bottom)
+		if (mouseY > rect.m_bottom)
 			goto scaled;
 		Rva006CC950SetMousePos(0, 0);
 		return;
 	}
 scaled:
 	float *scale = slot16();
-	int sy = (int)((float)p[1] * scale[1]);
-	int sx = (int)((float)p[0] * scale[0]);
+	int sy = (int)((float)mousePos[1] * scale[1]);
+	int sx = (int)((float)mousePos[0] * scale[0]);
 	Rva006CC950SetMousePos(sx, sy);
 }

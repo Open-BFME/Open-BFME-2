@@ -140,7 +140,7 @@ class Rva002D3573 : public GameEngineDeletingBase, public Snapshot
 {
 public:
 	void rva002D40F4();
-	void rva001042EB();
+	void resetAll();
 private:
 	Rva002D3573 *m_self10;
 	char m_pad14[4];
@@ -221,11 +221,11 @@ void Rva002D3573::rva002D40F4()
 	inner->m7D = 1;
 }
 
-// ?rva001042EB@Rva002D3573@@QAEXXZ retail 0x001042EB 110B chain of 0x002D40F4.
+// ?resetAll@Rva002D3573@@QAEXXZ retail 0x001042EB 110B chain of 0x002D40F4.
 // Calls rva002D40F4 then fills [0x28,0x48) [0x48,0x68) [0x68,0x88) with zero
 // BfmeE8 via the same rowed fill. Same class (same this) and same /Os SSE
 // flags as its callee; layout extends Rva002D3573 with 12 BfmeE8 at +0x28.
-void Rva002D3573::rva001042EB()
+void Rva002D3573::resetAll()
 {
 	rva002D40F4();
 	{

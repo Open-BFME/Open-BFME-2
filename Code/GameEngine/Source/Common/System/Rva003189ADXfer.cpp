@@ -111,7 +111,7 @@ private:
 	int m_00;
 	int m_04;
 	int m_08;
-	int m_0c;
+	int m_weatherAffectsType;
 	Rva003189ADSub10 m_10;
 	int m_18;
 	int m_1c;
@@ -126,7 +126,7 @@ void Rva003189ADOwner::rva003189AD(Xfer *xfer)
 	*xfer == version;
 	XferGlobalWeatherType(xfer, &m_04);
 	((Rva003189ADGlobal *)TheAudio)->slot88(xfer, &m_08);
-	XferGlobalWeatherAffectsType(xfer, &m_0c);
+	XferGlobalWeatherAffectsType(xfer, &m_weatherAffectsType);
 	reinterpret_cast<ObjectFilter *>(&m_10)->DoXfer(xfer);
 	*xfer == reinterpret_cast<AsciiString &>(m_10.m_04);
 	unsigned int out = 0;
