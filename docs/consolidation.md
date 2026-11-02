@@ -82,7 +82,8 @@ regenerated `tu_map.csv` from this lane.
    claims `file:` for the TU and every donor, plus each moved row's RVA. It writes
    nothing when another worker holds one of them. Then it writes the TU, deletes
    the absorbed donors, repoints `functions.csv`, `data_rows.csv`, `tu_map.csv`
-   and `body_owners.csv` `source` columns and the `docs/doxygen/sources.cfg`
+   and `body_owners.csv` `source` columns, the `fold-proof=<donor>` notes tokens
+   in `functions.csv` and `symbols.csv`, and the `docs/doxygen/sources.cfg`
    inputs, carries the donors' protected-register keys to the TU (below), and
    stages the result. It prints the paths it staged and a commit subject.
 6. **Verify and commit.** `./build.sh TU`, then

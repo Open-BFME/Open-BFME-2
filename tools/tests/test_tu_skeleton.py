@@ -937,6 +937,32 @@ class RepointTests(unittest.TestCase):
                              b'name,address,notes\n?a@@YAXXZ,0x1000,fold-proof=Code/T.cpp\n')
             self.assertEqual(T.repoint_all(root, ["Code/A.cpp"], "Code/T.cpp"), {})
 
+    def test_repoint_all_moves_functions_csv_fold_proof_notes(self):
+        # fa09ab8ace, 2cb6a36060: a merge repointed the row's source column but left
+        # its notes token naming the deleted donor
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "reverse").mkdir()
+            path = root / "reverse/functions.csv"
+            path.write_bytes(
+                b'name,export_rva,target_rva,target_size,source,status,notes\n'
+                b'??1A@@QAE@XZ,,0x1000,12,Code/A.cpp,matched,fold-proof=Code/A.cpp; folded with ??1B@@QAE@XZ\n'
+                b'??1C@@QAE@XZ,,0x1000,12,Code/Keep.cpp,matched,"ICF, fold-proof=Code/B.cpp"\n'
+                b'?d@@YAXXZ,,0x2000,5,Code/A.cpp,matched,\n'
+                b'?e@@YAXXZ,,0x3000,5,Code/Keep.cpp,matched,fold-proof=Code/Keep.cpp\n'
+                b'?f@@YAXXZ,,0x4000,5,Code/Keep.cpp,matched,fold-proof=Code/A.cpp.bak\n')
+            moved = T.repoint_all(root, ["Code/A.cpp", "Code/B.cpp"], "Code/T.cpp")
+            # rows: ??1A (source and notes, counted once), ??1C (notes only), ?d (source only)
+            self.assertEqual(moved, {"reverse/functions.csv": 3})
+            self.assertEqual(path.read_bytes(),
+                b'name,export_rva,target_rva,target_size,source,status,notes\n'
+                b'??1A@@QAE@XZ,,0x1000,12,Code/T.cpp,matched,fold-proof=Code/T.cpp; folded with ??1B@@QAE@XZ\n'
+                b'??1C@@QAE@XZ,,0x1000,12,Code/Keep.cpp,matched,"ICF, fold-proof=Code/T.cpp"\n'
+                b'?d@@YAXXZ,,0x2000,5,Code/T.cpp,matched,\n'
+                b'?e@@YAXXZ,,0x3000,5,Code/Keep.cpp,matched,fold-proof=Code/Keep.cpp\n'
+                b'?f@@YAXXZ,,0x4000,5,Code/Keep.cpp,matched,fold-proof=Code/A.cpp.bak\n')
+            self.assertEqual(T.repoint_all(root, ["Code/A.cpp", "Code/B.cpp"], "Code/T.cpp"), {})
+
     def test_apply_stages_transferred_adoption_debt_without_a_microsoft_queue(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

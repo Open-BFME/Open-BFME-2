@@ -3940,6 +3940,7 @@ def carry_data_ledger(raw, gone, tu):
 # whose compiled object defines its symbol, read off the objects' symbol tables.
 # A key two units define, or none, is refused: nothing is invented or renamed.
 PINS = "reverse/symbols.csv"
+FUNCTIONS = "reverse/functions.csv"
 COFF_EXTERNAL, COFF_STATIC, COFF_CODE = 2, 3, 0x20
 
 
@@ -4307,19 +4308,21 @@ def repoint_sources_cfg(raw, gone, tu):
     return "".join(out).encode("utf-8"), count
 
 
-def repoint_fold_proofs(raw, gone, tu):
+def repoint_fold_proofs(raw, gone, tu, label=PINS):
     """Move exact fold-proof source tokens, preserving pin identities and prose.
     `tu`: the new source, or {pin name: new source} (a pin it omits is kept).
+    `label`: the register `raw` holds, symbols.csv (pins) or functions.csv
+    (code rows whose notes carry the same token).
 
-    Changed notes still go through normal pin admission, which recompiles the
-    proof source and checks bytes and relocations at its new path.
+    Changed pin notes still go through normal pin admission, which recompiles
+    the proof source and checks bytes and relocations at its new path.
     """
     from pin_admission import FOLD_PROOF_RE
-    rename.ledger_io.lf_terminator(raw, "reverse/symbols.csv")
+    rename.ledger_io.lf_terminator(raw, label)
     records = rename.ledger_io.split_records(raw)
     header = rename.ledger_io.fields(records[0][0]) if records else []
     if "notes" not in header:
-        raise rename.Refusal("reverse/symbols.csv has no 'notes' column")
+        raise rename.Refusal(f"{label} has no 'notes' column")
     index, gone = header.index("notes"), set(gone)
     at_name = header.index("name") if "name" in header else 0
     out, count = [records[0][0] + records[0][1]], 0
@@ -4351,17 +4354,24 @@ def repoint_fold_proofs(raw, gone, tu):
 
 def repoint_all(root, gone, tu):
     """Point path-keyed columns, fold-proof tokens and doxygen INPUTs at the TU.
-    Returns {file: records}; protected registries retain their normal gates."""
+    Returns {file: records}; protected registries retain their normal gates.
+    A functions.csv row's notes token `fold-proof=<donor>` moves with it: the
+    absorbed donor's body now compiles in the TU's object."""
     moved = {}
     for rel, column in rename.PATH_COLUMNS:
         path = Path(root) / rel
         if not path.exists():
             continue
-        raw = path.read_bytes()
+        before = raw = path.read_bytes()
         total = 0
         for f in sorted(gone):
             raw, n = rename.repoint_column(raw, rel, column, f, tu)
             total += n
+        if rel == FUNCTIONS:
+            raw, n = repoint_fold_proofs(raw, gone, tu, label=rel)
+            if n:   # a row whose source and fold proof both moved counts once
+                total = sum(a != b for a, b in zip(rename.ledger_io.split_records(before),
+                                                   rename.ledger_io.split_records(raw)))
         if total:
             path.write_bytes(raw)
             moved[rel] = total
