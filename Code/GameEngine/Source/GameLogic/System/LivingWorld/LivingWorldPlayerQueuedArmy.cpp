@@ -64,14 +64,7 @@ struct Rva002E118ELogicView
 };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class LivingWorldPlayer
-{
-public:
-    bool HasArmyQueuedInAnyBuilding(void *key, int *outBuildingID, int excludedBuildingID);
-private:
-    unsigned char m_pad00[0x14];
-    int m_playerID;
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 bool LivingWorldPlayer::HasArmyQueuedInAnyBuilding(void *key, int *outBuildingID, int excludedBuildingID)
 {
     Rva002E118ERegionCollection *collection =
@@ -81,7 +74,7 @@ bool LivingWorldPlayer::HasArmyQueuedInAnyBuilding(void *key, int *outBuildingID
     for (unsigned int i = 0; i < collection->m_regions.size(); ++i)
     {
         LivingWorldRegion *region = collection->m_regions[i];
-        if (region->m_field13C != m_playerID)
+        if (region->m_field13C != m_14)
             continue;
         int count = region->rva003F05CE();
         for (int j = 0; j < count; ++j)

@@ -62,14 +62,7 @@ public:
 	bool rva002E112A(SpawnArmy *ctx);
 };
 
-class LivingWorldPlayer
-{
-public:
-	void OnUnitDequeued(SpawnArmy *ctx);
-	bool rva002E1155(SpawnArmy *ctx);
-	bool rva002E12F3(int id);
-	bool HasArmyQueuedInAnyBuilding(void *army, int *index, int flags);
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 struct Arg54;
 

@@ -26,12 +26,7 @@ template <> __declspec(dllimport) __forceinline void *const &vector<void *>::ope
 }
 
 class Rva002E15BC; // Opaque parameter spelling retained for the stdcall provider.
-class LivingWorldPlayer
-{
-public:
-	void AddUpgrade(void *upgrade, bool flag);	// 0x002E1588
-	void RemoveUpgrade(void *upgrade);			// 0x002E15BC
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 struct Rva0020ED8EUpgradeOwner
 {

@@ -225,7 +225,7 @@ class ScenarioOwnerView;
 
 class Rva003F7BE9;
 
-class LivingWorldPlayer { public: static void ParseLivingWorldPlayer(INI *ini, void *instance); };
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 	// rowed 0x002E1D22
 namespace LivingWorldScenario { class Scenario { public: static void ParseINI(INI *ini, ScenarioOwnerView *owner); }; }

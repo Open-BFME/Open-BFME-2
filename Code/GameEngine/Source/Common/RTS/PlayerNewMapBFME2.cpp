@@ -73,7 +73,7 @@ namespace _STL { template<> vector<Rva002E2690Element>::~vector(); }
 struct Rva002E2D10Record { char bytes[0xD8]; };
 class Player;
 class UnitRevivalTracker { public: void addRevivableUnit(const Rva002E2D10Record &,Player *); void addInitialBuildUnit(const ThingTemplate *,Player *); char bytes[0x14]; };
-class LivingWorldPlayer { public: void ExtractRevivalUnitDataForCurrentMap(_STL::vector<Rva002E2690Element> *); };
+#include "../../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2903Player;
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class LivingWorldLogic;

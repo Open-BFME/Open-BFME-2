@@ -25,7 +25,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Include/Common/ThingTemplate.h"
 class Rva002E2903Player;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class LivingWorldPlayer {public:void *rva002E06EF();};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class CreateAHeroHero;
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;

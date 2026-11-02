@@ -107,11 +107,7 @@ public:
 	void rva005ED5BB(int index, const Image *image);
 };
 
-class LivingWorldPlayer
-{
-public:
-	int GetNumRegionsOwned();
-};
+#include "../../../Include/GameLogic/LivingWorldPlayer.h"
 
 struct Rva002E0D02Arg;
 int __cdecl CountOwnedUnits(Rva002E0D02Arg *arg);

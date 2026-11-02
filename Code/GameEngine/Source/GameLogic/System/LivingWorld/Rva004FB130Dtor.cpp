@@ -35,11 +35,7 @@ public:
 	bool rva004FB0C7(int key, Rva004FAFF2 *out);
 };
 
-class LivingWorldPlayer
-{
-public:
-	void OnUnitDequeued(SpawnArmy *unit);
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 class LivingWorldBuildingNuggetSpawnArmy
 {

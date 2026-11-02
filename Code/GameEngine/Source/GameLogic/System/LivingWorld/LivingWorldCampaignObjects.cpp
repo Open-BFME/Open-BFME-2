@@ -165,12 +165,7 @@ struct Rva002B2579Result;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E2903Player;
 class Rva004E0705 { public:Rva002E2903Player *rva004E0705(); };
-class LivingWorldPlayer { public:
- bool HasArmyQueuedInAnyBuilding(void *,int *,int);
- bool rva002E12F3(int);
- void *FindArmyWithHero(void *,int);
- void *rva002E06EF();
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 // Complete native body and associated EH graph verified against retail.
 const Image *SpawnArmy::GetButtonImage(int id) {

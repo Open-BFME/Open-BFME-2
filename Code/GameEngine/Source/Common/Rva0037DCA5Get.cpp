@@ -28,11 +28,7 @@ public:
 class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldPlayer
-{
-public:
-	void *rva002E06EF();
-};
+#include "../../Include/GameLogic/LivingWorldPlayer.h"
 // ?GetThingTemplate@Rva0037DCA5@@QAEPAXXZ @0x0037DC52 16B same +0x4 lookup via 0x002D06CA and global 0x00DFF000.
 void *Rva0037DCA5::GetThingTemplate()
 {

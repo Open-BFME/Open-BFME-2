@@ -298,11 +298,7 @@ public:
 // landed rva002E074E call below, so this resolves to the rowed body
 // instead of the unrowed Rva002E2903Player spelling.
 class SpawnArmy;
-class LivingWorldPlayer
-{
-public:
-	void OnUnitDequeued(SpawnArmy *unit);
-};
+#include "../../Include/GameLogic/LivingWorldPlayer.h"
 
 struct Rva003F0F13Elem
 {

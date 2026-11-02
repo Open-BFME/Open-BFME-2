@@ -193,11 +193,7 @@ public:
 	unsigned char m_3C5; // +0x3C5, nonzero once the player has left
 };
 
-class LivingWorldPlayer
-{
-public:
-	int GetNumRegionsOwned(); // WB LivingWorldPlayer::GetNumRegionsOwned
-};
+#include "../../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 struct Rva002E0D02Arg;
 int CountOwnedUnits(Rva002E0D02Arg *player);

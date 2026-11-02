@@ -85,18 +85,7 @@ struct LivingWorldRevivalUnitDataView;
 class SpawnArmy;
 class SpawnArmy;
 class Rva002E112A { public: Bool rva002E112A(SpawnArmy *); };
-class LivingWorldPlayer { public:
- int GetConflictResolveType();
- void MarkUnitsForUpgrades(void *region);
- void **RemoveArmy(void **&); // owned iterator erase at 002E10FE
- bool rva002E0B30();
- void AddArmy(LivingWorldArmy *);
- bool rva002E12F3(int);
- class GameSlot *rva002E06B8(); // 0x002E06B8
- int rva002E199E(const void *);
- void GetRevivalUnitData(int, LivingWorldRevivalUnitDataView *);
- void RemoveRevivalUnit(int);
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class LivingWorldLogic;
 struct LivingWorldBuildingNuggetSpawnArmy;
 

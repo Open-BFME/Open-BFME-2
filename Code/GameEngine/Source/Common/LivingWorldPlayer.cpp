@@ -8,15 +8,7 @@
 
 extern GameInfo *TheGameInfo;
 
-class LivingWorldPlayer
-{
-public:
-	GameSlot *rva002E06B8();
-	void *rva002E06EF();
-private:
-	char m_pad[0x14];
-	int m_14;
-};
+#include "../../Include/GameLogic/LivingWorldPlayer.h"
 
 // ---- from Code/GameEngine/Source/Common/Rva002E06B8Method.cpp
 

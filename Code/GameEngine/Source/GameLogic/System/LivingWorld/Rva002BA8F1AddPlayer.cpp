@@ -61,11 +61,7 @@ public:
     Rva002E2AAE(Rva002BA8F1Input *, void *);
     char storage[0x3c8];
 };
-class LivingWorldPlayer {
-public:
-    void SetColorIndex(int);       // native 0x002E0F91
-    void InitBuildableHeroes();    // native 0x002E3518
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E0648Owner { public: void rva002E0648(void *); };
 typedef _STL::vector<Rva002E2903Player *> Rva002BA8F1PlayerList;
 struct Rva002BA8F1Primary { char opaque[0x18]; };
