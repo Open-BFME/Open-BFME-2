@@ -329,3 +329,4 @@ FontCharsClass,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass.h,existing hea
 MaterialInfoClass,Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoClass.h,existing header; contract class_contracts/MaterialInfoClass.json; 6/28 sampled units adopt
 W3DShadowManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowManager.h,existing header; contract class_contracts/W3DShadowManager.json; 13/26 sampled units adopt
 PlayerInfo,Code/GameEngine/Include/GameNetwork/PlayerInfo.h,existing header; contract class_contracts/PlayerInfo.json; 11/29 sampled units adopt
+ActiveBody,Code/GameEngine/Include/GameLogic/Module/ActiveBody.h,existing header; contract class_contracts/ActiveBody.json; 15/30 sampled units adopt
