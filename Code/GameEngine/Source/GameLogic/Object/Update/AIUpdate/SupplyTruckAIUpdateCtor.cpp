@@ -73,6 +73,10 @@ public:
     virtual void rva0047A69C(unsigned int unusedWord) {}      //17
     virtual int rva000D43D0() const { return 0; }             //18
     virtual unsigned int getActionDelayForDock(Object *dock); //19
+    virtual NameKeyType getModuleNameKey() const;
+protected:
+    virtual void xfer(Xfer *xfer);
+    virtual AIStateMachine *makeStateMachine();
 private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x3E8
 	ObjectID m_preferredDock;   // +0x3EC
