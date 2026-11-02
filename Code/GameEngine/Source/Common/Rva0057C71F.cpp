@@ -58,11 +58,7 @@ public:
 	char m_24[0x30];
 	MapEntry m_entries[1];
 };
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString s);
-};
+#include "../../Include/GameClient/MapCache.h"
 class Rva002BA8F1Logic;
 
 extern MapCache *TheMapCache;

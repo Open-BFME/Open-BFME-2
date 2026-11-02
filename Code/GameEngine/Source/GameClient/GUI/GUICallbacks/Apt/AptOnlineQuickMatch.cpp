@@ -637,12 +637,7 @@ void *GadgetComboBoxGetItemData(GameWindow *, int);
 // frame homes for the temporaries and the param-home reuse of the new NAT).
 class MapMetaData {public:char pad[0x20];int players;};
 
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString);
-	void updateCache();
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

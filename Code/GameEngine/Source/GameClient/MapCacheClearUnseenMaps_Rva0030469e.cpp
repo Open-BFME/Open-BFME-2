@@ -80,12 +80,7 @@ void _STLP_alloc_proxy<_Rb_tree_node<pair<const AsciiString, MapMetaData> > *,
 }
 }
 
-class MapCache : public std::map<AsciiString, MapMetaData>
-{
-private:
-	Bool clearUnseenMaps(AsciiString dirName);
-	std::map<AsciiString, Bool> m_seen;
-};
+#include "../../Include/GameClient/MapCache.h"
 
 // ?clearUnseenMaps@MapCache@@AAE_NVAsciiString@@@Z
 Bool MapCache::clearUnseenMaps(AsciiString dirName)

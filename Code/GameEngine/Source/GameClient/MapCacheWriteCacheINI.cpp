@@ -41,9 +41,7 @@ class Rva00300489 { public: virtual AsciiString getMapDir() const; };
 class Rva00300D7A : public Rva00300489 { public: AsciiString rva00300D7A(); };
 AsciiString AsciiStringToQuotedPrintable(AsciiString);
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString);
-class MapCache : public _STL::map<AsciiString,MapMetaData> {
-    void writeCacheINI(bool);
-};
+#include "../../Include/GameClient/MapCache.h"
 static __forceinline void appendCharacter(AsciiString &dst,char c)
 { ((StringBase<char> *)&dst)->concat(&c,1); }
 void MapCache::writeCacheINI(bool userDir)

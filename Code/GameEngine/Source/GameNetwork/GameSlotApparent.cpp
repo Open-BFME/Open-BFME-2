@@ -139,11 +139,7 @@ template <> struct less<AsciiString>
 };
 }
 
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

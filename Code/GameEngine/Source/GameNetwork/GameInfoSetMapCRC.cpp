@@ -41,9 +41,7 @@ public:
 	UnsignedInt m_CRC;
 };
 
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-};
+#include "../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

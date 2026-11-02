@@ -135,12 +135,7 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 
 class MapMetaData;
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString);
-	void updateCache();
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
 class BfmeAptWindowManager;

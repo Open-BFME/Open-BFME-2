@@ -465,12 +465,7 @@ UnicodeString Rva0055A04C(int kind);
 struct LANGameInfo;
 
 class MapMetaData;
-class MapCache
-{
-public:
-	void updateCache();
-	const MapMetaData* findMap(AsciiString);
-};
+#include "../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

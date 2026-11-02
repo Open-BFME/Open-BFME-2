@@ -40,11 +40,7 @@ public:
 	char unknown54[0x100 - 0x54];
 };
 
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-	void updateCache();
-};
+#include "../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

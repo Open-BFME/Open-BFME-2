@@ -175,26 +175,7 @@ template <> struct pair<const AsciiString, MapMetaData>
 	~pair();
 };
 }
-class MapCache : public std::map<AsciiString, MapMetaData>
-{
-public:
-	MapCache() {}
-	void updateCache( void );
-	AsciiString getMapDir() const;
-	AsciiString getUserMapDir() const;
-	AsciiString getMapExtension() const;
-	const MapMetaData *findMap(AsciiString mapName);
-	void addShippingMap(AsciiString mapName) { mapName.toLower(); m_allowedMaps.insert(mapName); }
-private:
-	Bool clearUnseenMaps( AsciiString dirName );
-	void loadStandardMaps(void);
-	Bool loadUserMaps(void);
-	Bool addMap( AsciiString dirName, AsciiString fname, FileInfo *fileInfo, Bool isOfficial);
-	void writeCacheINI( Bool userDir );
-	static const char * m_mapCacheName;
-	std::map<AsciiString, Bool> m_seen;
-	std::set<AsciiString> m_allowedMaps;
-};
+#include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 extern TechAndSupplyImages TheSupplyAndTechImageLocations;
 Int populateMapListbox( GameWindow *listbox, Bool useSystemMaps, Bool isMultiplayer, AsciiString mapToSelect = AsciiString::TheEmptyString );

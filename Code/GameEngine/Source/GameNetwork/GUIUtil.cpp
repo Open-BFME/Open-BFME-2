@@ -328,11 +328,7 @@ public:
 	unsigned char m_00[0x26];
 	Bool m_isOfficial;	// +0x26
 };
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 Bool Rva00300E42Check(GameInfo *game);	// ZH WouldMapTransfer, keyed by the game in BFME2
 extern unsigned char g_Va00A0335C;	// ZH slotListUpdatesEnabled

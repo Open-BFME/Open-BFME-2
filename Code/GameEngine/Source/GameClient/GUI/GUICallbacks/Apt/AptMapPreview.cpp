@@ -438,11 +438,7 @@ public:
 	UnicodeString m_fc;	// +0xFC, getDescription's cached text
 };
 // ZH MapCache: the map records by lower-case file name.
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);	// 0x003024BC
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 Image *getMapPreviewImage(AsciiString mapName);
 // SkirmishGameOptionsMenu's helpers (ZH MapUtil).

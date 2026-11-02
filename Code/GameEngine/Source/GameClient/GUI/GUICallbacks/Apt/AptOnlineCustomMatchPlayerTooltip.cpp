@@ -180,9 +180,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 
-class MapCache : public std::map<AsciiString, MapMetaData>
-{
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

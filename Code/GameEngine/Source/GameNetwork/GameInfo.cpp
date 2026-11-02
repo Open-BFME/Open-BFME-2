@@ -27,12 +27,7 @@ template <> struct less<AsciiString>
 
 #include "../../Include/GameClient/MapMetaData.h"
 
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-	AsciiString getMapExtension() const;
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../Include/GameClient/MapCache.h"
 
 class GameSlot;
 

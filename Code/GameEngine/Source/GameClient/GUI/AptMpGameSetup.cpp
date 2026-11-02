@@ -504,11 +504,7 @@ struct LANGameInfo;
 // g_Rva00E02EEC is only an alias of the owned global TheGameInfo (ledger names column); this unit reads the owner through its own view type.
 extern class GameInfo *TheGameInfo;
 
-class MapCache
-{
-public:
-	void updateCache();
-};
+#include "../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

@@ -214,11 +214,7 @@ class LANAPI; extern LANAPI *TheLAN;
 
 #include "../../../../../Include/GameClient/MapMetaData.h"
 
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

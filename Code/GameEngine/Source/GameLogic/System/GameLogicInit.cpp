@@ -1194,11 +1194,7 @@ public:
 	MapStartPosition m_startPositions[8];                                // +0x54
 };
 
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../../Include/GameClient/MapCache.h"
 
 // Create-a-hero record of a slot (+0x64, valid when the byte at +0x60 is
 // set): class and subclass indices passed to GetFactionMaskType.

@@ -707,7 +707,8 @@ extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
 struct StartGameInfoView {char pad[0x50];unsigned seed;int u54;int scenario;};
 class MapMetaData {public:char pad[0x24];bool official;char pad25[3];unsigned size,crc;};
-class MapCache {public:const MapMetaData *findMap(AsciiString);};extern MapCache *TheMapCache;
+#include "../../../../../Include/GameClient/MapCache.h"
+extern MapCache *TheMapCache;
 void InitGameLogicRandom(unsigned);
 class GameMessageArgument {public:char pad[8];int value;char tail[12];int type;};
 class GameMessage { GameMessageArgument *allocArg(); public:void appendIntegerArgument(int);

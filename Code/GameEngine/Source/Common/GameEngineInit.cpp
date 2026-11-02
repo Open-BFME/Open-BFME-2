@@ -694,15 +694,7 @@ enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };
 
 class NetworkInterface;
 extern NetworkInterface *TheNetwork;
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-    MapCache();
-    void updateCache();
-    const MapMetaData *findMap(AsciiString mapName);
-private:
-    char m_0C[0x18];
-};
+#include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
 

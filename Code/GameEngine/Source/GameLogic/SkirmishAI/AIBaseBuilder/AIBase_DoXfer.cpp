@@ -276,11 +276,7 @@ public:
 
 #include "../../../../Include/GameClient/MapMetaData.h"
 
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
 #include "../../../../Include/Common/GlobalData.h"

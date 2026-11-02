@@ -13,7 +13,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../../../Include/GameClient/MapMetaData.h"
-class MapCache:public _STL::map<AsciiString,MapMetaData> {};
+#include "../../../../../Include/GameClient/MapCache.h"
 typedef char MapMetaDataSizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 extern MapCache *TheMapCache;
 #include "../../../../../Include/GameNetwork/GameInfo.h"

@@ -5,7 +5,7 @@ extern FileSystem *TheFileSystem;
 class Rva003006C4 {public:bool rva003006C4(const AsciiString&);};
 class Rva00300D7A {public:AsciiString rva00300D7A();};
 void setFPMode();
-class MapCache {public:void updateCache();bool loadUserMaps();void loadStandardMaps();private:void writeCacheINI(bool);};
+#include "../../Include/GameClient/MapCache.h"
 // BF1 MapCache.cpp supplies the update sequence; the native caller at
 // 0x3057AB names this method. Its 0x305749..0x3057AB body calls the owned
 // directory lookup and map loaders with a private writeCacheINI member.

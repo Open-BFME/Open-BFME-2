@@ -59,11 +59,7 @@ public:
 	char m_pad44[0x100 - 0x44];
 };
 
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"

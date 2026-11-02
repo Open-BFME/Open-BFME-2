@@ -314,11 +314,7 @@ template <> struct less<AsciiString>
 #include "../../../../../Include/GameClient/MapMetaData.h"
 
 // Its 0x00305749 (98 bytes, refreshes the cache) is unrowed and pinned.
-class MapCache : public _STL::map<AsciiString, MapMetaData>
-{
-public:
-	void updateCache();
-};
+#include "../../../../../Include/GameClient/MapCache.h"
 
 extern MapCache *TheMapCache;
 

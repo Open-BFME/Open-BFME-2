@@ -30,11 +30,7 @@ class NameKeyGenerator;
 class FileSystem;
 class ScriptEngine;
 
-class MapCache
-{
-public:
-	~MapCache();											// 0x0022E22E
-};
+#include "../../Include/GameClient/MapCache.h"
 
 class SubsystemInterfaceList
 {

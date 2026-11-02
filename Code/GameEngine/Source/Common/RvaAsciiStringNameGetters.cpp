@@ -24,11 +24,7 @@ AsciiString Rva00300489::getMapDir() const
 // ?getMapExtension@MapCache@@QBE?AVAsciiString@@XZ @0x003004A5 28B: "map".
 // MapCache::getMapExtension (ZH MapUtil.cpp returns AsciiString("map")); the
 // GameInfo map-path builder 0x00621350 calls this address by that name.
-class MapCache
-{
-public:
-	AsciiString getMapExtension() const;
-};
+#include "../../Include/GameClient/MapCache.h"
 
 AsciiString MapCache::getMapExtension() const
 {

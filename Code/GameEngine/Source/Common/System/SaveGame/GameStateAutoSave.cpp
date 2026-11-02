@@ -46,11 +46,7 @@ public:
 extern GameTextInterface *TheGameText;
 
 #include "../../../../Include/GameClient/MapMetaData.h"
-class MapCache
-{
-public:
-	const MapMetaData *findMap(AsciiString mapName);
-};
+#include "../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
 // VA 0x00DBD04C and 0x00DBD050 (see the header comment).
