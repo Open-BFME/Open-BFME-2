@@ -8,11 +8,7 @@
 // 0x540CBF share this plus DataChunkInput and read floats after; callee
 // readInt is rowed 0x00306E78.
 
-class DataChunkInput
-{
-public:
-	int readInt();
-};
+#include "../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

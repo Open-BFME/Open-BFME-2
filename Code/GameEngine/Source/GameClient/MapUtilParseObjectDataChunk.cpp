@@ -18,7 +18,7 @@ class Dict { public:
  DataType getType(int) const;
  private:void releaseData();void *data;
 };
-class DataChunkInput {public:float readReal();int readInt();AsciiString readAsciiString();Dict readDict();};
+#include "../../Include/Common/DataChunk.h"
 class ThingTemplate { public: char unknown[0x111]; unsigned char flags; };
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;

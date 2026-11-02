@@ -17,12 +17,7 @@ class DataChunkInput;
 struct DataChunkInfo;
 typedef bool (__cdecl *Rva000ABB87Callback)(DataChunkInput &, DataChunkInfo *, void *);
 
-class DataChunkInput
-{
-public:
-    UserParser *registerParser(const AsciiString &name, const AsciiString &label,
-        Rva000ABB87Callback callback, void *userData);
-};
+#include "../../../Include/Common/DataChunk.h"
 
 class BfmeTargetCW;
 unsigned char bfmeAskCW(void *, void *, BfmeTargetCW *);

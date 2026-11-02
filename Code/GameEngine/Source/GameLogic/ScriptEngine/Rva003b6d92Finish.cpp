@@ -51,14 +51,7 @@ struct DataChunkInfo
 	Int dataSize;
 };
 
-class DataChunkInput
-{
-public:
-	Int readInt();
-	NameKeyType readNameKey();
-	DataChunkVersionType getChunkVersion();
-	Bool atEndOfChunk();
-};
+#include "../../../Include/Common/DataChunk.h"
 
 class Parameter
 {

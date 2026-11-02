@@ -23,15 +23,7 @@ class UserParser;
 typedef bool (*DataChunkParser)(DataChunkInput &file, DataChunkInfo *info, void *userData);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DataChunk.h
-class DataChunkInput
-{
-public:
-	UserParser *registerParser(const AsciiString &name, const AsciiString &parentLabel, DataChunkParser parser, void *userData);	// 0x00307779
-	bool parse(void *userData);
-
-	unsigned char m_unreconstructed_00[0x20];
-	void *m_currentObject;						///< retail this+0x20
-};
+#include "../../Include/Common/DataChunk.h"
 
 bool ParseObjectDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
 

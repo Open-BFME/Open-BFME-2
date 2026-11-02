@@ -7,11 +7,7 @@
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 #include "AreaSetEntryView.h"
-class DataChunkInput
-{
-public:
-	int readInt();
-};
+#include "../../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

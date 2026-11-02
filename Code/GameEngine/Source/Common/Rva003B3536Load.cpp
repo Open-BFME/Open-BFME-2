@@ -7,13 +7,7 @@
 // caller 0x3B79F1 layout bool+0 bool+1 int+4 bool+8 AsciiString+0xC ret 8.
 #include "ascii_string.h"
 
-class DataChunkInput
-{
-public:
-	unsigned char readByte();
-	int readInt();
-	AsciiString readAsciiString();
-};
+#include "../../Include/Common/DataChunk.h"
 
 class Rva003B3536
 {

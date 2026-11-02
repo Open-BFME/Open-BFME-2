@@ -7,11 +7,7 @@
 // Evidence: calls 0x5C702D then five readReal/fstp sequences; next row
 // 0x00540C59 writes the same layout; caller at 0x5422B2 shares this.
 
-class DataChunkInput
-{
-public:
-	float readReal();
-};
+#include "../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

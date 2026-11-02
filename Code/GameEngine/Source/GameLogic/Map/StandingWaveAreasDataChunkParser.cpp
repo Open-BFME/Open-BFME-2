@@ -5,12 +5,7 @@
 typedef int Int;
 typedef bool Bool;
 typedef float Real;
-class DataChunkInput
-{
-public:
-	Int readInt();
-	AsciiString readAsciiString();
-};
+#include "../../../Include/Common/DataChunk.h"
 struct DataChunkInfo
 {
 	char m_pad00[8];

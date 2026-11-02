@@ -7,11 +7,7 @@
 // prev/next flags, caller forwarder 0x003308EE. Returns 1 in al so E not X.
 #include <vector>
 
-class DataChunkInput
-{
-public:
-	int readInt() throw();
-};
+#include "../../../../Include/Common/DataChunk.h"
 
 #include "../../../../Include/Common/ModuleData.h"
 

@@ -122,15 +122,7 @@ class DataChunkInput;
 class UserParser;
 struct DataChunkInfo;
 typedef bool (__cdecl *BfmeScriptParserCallback)(DataChunkInput &, DataChunkInfo *, void *);
-class DataChunkInput
-{
-public:
-    AsciiString readAsciiString();
-    unsigned char readByte();
-    int readInt();
-    UserParser *registerParser(const AsciiString &, const AsciiString &, BfmeScriptParserCallback, void *);
-    bool parse(void *);
-};
+#include "../../../Include/Common/DataChunk.h"
 static __declspec(noinline) BfmeFixedStorage002CF0F0 ReadScriptPlayerMask_Rva003B5918(DataChunkInput &file)
 {
     AsciiString text = file.readAsciiString();

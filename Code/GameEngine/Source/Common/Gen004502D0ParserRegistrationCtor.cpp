@@ -17,12 +17,7 @@ class DataChunkInput;
 struct DataChunkInfo;
 typedef bool (*BfmeParserCallback)(DataChunkInput &, DataChunkInfo *, void *);
 
-class DataChunkInput
-{
-public:
-    UserParser *registerParser(const AsciiString &name, const AsciiString &label,
-        BfmeParserCallback callback, void *userData);
-};
+#include "../../Include/Common/DataChunk.h"
 
 class BfmeParserRegistrationVE
 {

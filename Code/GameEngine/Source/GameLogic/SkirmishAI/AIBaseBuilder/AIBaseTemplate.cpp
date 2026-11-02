@@ -43,14 +43,7 @@ struct DataChunkInfo
 	int dataSize;
 };
 
-class DataChunkInput
-{
-public:
-	int readInt();						// 0x00306E78
-	float readReal();					// 0x00306E56
-	NameKeyType readNameKey();			// 0x003077E0
-	AsciiString readAsciiString();		// 0x0030750A
-};
+#include "../../../../Include/Common/DataChunk.h"
 
 // The records' shared base; its position setter is rowed at 0x00573A00.
 struct Rva00573A00

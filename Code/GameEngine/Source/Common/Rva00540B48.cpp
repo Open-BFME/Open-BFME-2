@@ -33,7 +33,7 @@ Rva0053FDE6::Rva0053FDE6() : m_00(2), m_04(0.0f), m_08(0.0f), m_0c(0.0f), m_10(0
 }
 
 
-class DataChunkInput { public: int readInt(); };
+#include "../../Include/Common/DataChunk.h"
 // Shared 40-byte record layout from the verified outer-constructor owner.
 class Rva0054000B
 {

@@ -115,13 +115,7 @@ void emitScriptNameFixup(ScriptList *list, AsciiString &script)
 // ScriptList::addGroupRef; retail loads ecx with the list). Nested
 // "ScriptGroup" and "Script" bindings (rowed ctors 0x003B3485 and
 // 0x003B37C8) cover the group's sub-chunks while DataChunkInput::parse runs.
-class DataChunkInput
-{
-public:
-    AsciiString readAsciiString();
-    unsigned char readByte();
-    bool parse(void *userData);
-};
+#include "../../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

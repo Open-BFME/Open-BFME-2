@@ -24,12 +24,7 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(
 namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::reserve(unsigned int); }
 // bfme link decl-only end
 struct BfmeE12 { int a[3]; };
-class DataChunkInput
-{
-public:
-	int readInt();
-	float readReal();
-};
+#include "../../Include/Common/DataChunk.h"
 struct AreaPolygonBounds { float v[4]; };
 struct AreaPolygonBase
 {

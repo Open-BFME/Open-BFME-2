@@ -171,12 +171,7 @@ template <> void vector<BfmeFloat4Record00469C61, allocator<BfmeFloat4Record0046
 template <> void vector<BfmeFloat4Record00469C61, allocator<BfmeFloat4Record00469C61> >::push_back(const BfmeFloat4Record00469C61 &);
 }
 
-class DataChunkInput
-{
-public:
-	int readInt();
-	float readReal();
-};
+#include "../../Include/Common/DataChunk.h"
 
 // ---- from Code/GameEngine/Source/Common/Rva005388C2Assign.cpp
 

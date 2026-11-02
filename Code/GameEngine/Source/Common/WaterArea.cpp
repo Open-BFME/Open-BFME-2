@@ -23,13 +23,7 @@ private:
 	unsigned char m_byte2C;             // +0x2C
 };
 
-class DataChunkInput
-{
-public:
-	AsciiString readAsciiString();
-	float readReal();
-	unsigned char readByte();
-};
+#include "../../Include/Common/DataChunk.h"
 
 class WaterArea
 {

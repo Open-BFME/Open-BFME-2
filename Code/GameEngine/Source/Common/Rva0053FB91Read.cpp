@@ -8,11 +8,7 @@
 // five- and three-float readers at 0x540C0A and 0x540CB2; caller at 0x540B90
 // shares this.
 
-class DataChunkInput
-{
-public:
-	float readReal();
-};
+#include "../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

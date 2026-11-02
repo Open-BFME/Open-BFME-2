@@ -3,14 +3,7 @@
 // Parses DataChunkInput into holder: int plus 2 AsciiStrings plus bool plus int plus 6 AsciiStrings plus bool plus RGBColor plus 3 floats plus rowed 0x0030BB87.
 // Evidence: chain from 0x0030BB87; caller 0x003295B4 passes DataChunkInput plus word plus out; callees readInt 0x00306E78 readByte 0x00306E9A readReal 0x00306E56 readAsciiString 0x0030750A set 0x000366F0 releaseBuffer 0x00036410 setFromInt 0x00004EDF 0x0030BB87 rowed.
 #include "ascii_string.h"
-class DataChunkInput
-{
-public:
-	int readInt();
-	unsigned char readByte();
-	float readReal();
-	AsciiString readAsciiString();
-};
+#include "../../Include/Common/DataChunk.h"
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 struct ElevatedAreaPolygon
 {

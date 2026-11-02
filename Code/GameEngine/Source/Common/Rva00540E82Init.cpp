@@ -195,7 +195,7 @@ virtual void afterInsert(void*,int);
 virtual void afterChange(void*,int);
 };
 class Rva005414E5List {public:void forEach(void(Rva005414E5Listener::*)(void*,int),void*,int);private:void *begin,*end,*capacity;unsigned index;};
-class DataChunkInput {public:int readInt();};
+#include "../../Include/Common/DataChunk.h"
 struct DataChunkInfo;
 class Rva00540C0A {public:bool rva00540C0A(DataChunkInput*,DataChunkInfo*);};
 struct BfmePod28{char bytes[28];};

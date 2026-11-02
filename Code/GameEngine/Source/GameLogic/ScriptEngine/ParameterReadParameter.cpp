@@ -21,13 +21,7 @@ typedef bool Bool;
 
 #include "Coord3D.h"
 
-class DataChunkInput
-{
-public:
-	Int readInt();
-	float readReal();
-	AsciiString readAsciiString();
-};
+#include "../../../Include/Common/DataChunk.h"
 
 template <unsigned int N>
 class BitFlags

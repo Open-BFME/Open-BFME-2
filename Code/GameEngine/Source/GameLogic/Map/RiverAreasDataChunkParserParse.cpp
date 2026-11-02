@@ -36,13 +36,7 @@ typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
-class DataChunkInput
-{
-public:
-	Int readInt();
-	Real readReal();
-	AsciiString readAsciiString();
-};
+#include "../../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

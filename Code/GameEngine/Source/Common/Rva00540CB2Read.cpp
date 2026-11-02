@@ -8,11 +8,7 @@
 // 0x00540C59 and 0x00540CED are the five- and three-float writers; caller at
 // 0x54235C shares this.
 
-class DataChunkInput
-{
-public:
-	float readReal();
-};
+#include "../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

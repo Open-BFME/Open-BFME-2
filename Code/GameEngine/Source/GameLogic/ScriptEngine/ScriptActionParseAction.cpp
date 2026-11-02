@@ -43,12 +43,7 @@ public:
 	~DataChunkInfo();
 };
 
-class DataChunkInput
-{
-public:
-	Int readInt();
-	NameKeyType readNameKey();
-};
+#include "../../../Include/Common/DataChunk.h"
 
 class GameEngine
 {

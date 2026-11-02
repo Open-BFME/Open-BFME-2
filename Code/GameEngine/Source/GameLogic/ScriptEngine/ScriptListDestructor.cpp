@@ -95,12 +95,7 @@ struct DataChunkInfo { AsciiString label; };
 class DataChunkInput;
 bool Rva003B7836(DataChunkInput &, DataChunkInfo *, void *);
 class UserParser;
-class DataChunkInput {
-public:
- UserParser *registerParser(const AsciiString &, const AsciiString &,
-  bool (*)(DataChunkInput &, DataChunkInfo *, void *), void *);
- bool parse(void *);
-};
+#include "../../../Include/Common/DataChunk.h"
 struct Rva003B793AReadInfo { int count; ScriptList *lists[20]; };
 class Rva003B793A {
  char unknown00[12];

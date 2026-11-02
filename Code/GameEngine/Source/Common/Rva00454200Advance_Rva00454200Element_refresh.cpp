@@ -25,13 +25,7 @@ template <> _Rb_tree_node<AsciiString> *Lk6AsciiSetTree::_M_create_node(const As
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 
-class DataChunkInput
-{
-public:
-	unsigned char readByte();
-	int readInt();
-	AsciiString readAsciiString();
-};
+#include "../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {

@@ -23,12 +23,7 @@ template <> StringBase<char>::~StringBase();
 
 
 
-class DataChunkInput
-{
-public:
-	AsciiString readAsciiString();
-	int readInt();
-};
+#include "../../Include/Common/DataChunk.h"
 
 struct Rva0053FB33Holder
 {

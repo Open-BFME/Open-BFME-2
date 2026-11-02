@@ -39,12 +39,7 @@ typedef int Int;
 typedef bool Bool;
 
 
-class DataChunkInput
-{
-public:
-	Int readInt();
-	AsciiString readAsciiString();
-};
+#include "../../../Include/Common/DataChunk.h"
 
 struct DataChunkInfo
 {
