@@ -32,11 +32,7 @@ enum ObjectScriptStatusBit
 	OBJECT_STATUS_SCRIPT_UNSTEALTHED = 0x08
 };
 
-class Object
-{
-public:
-    void setScriptStatus( ObjectScriptStatusBit bit, Bool set );
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

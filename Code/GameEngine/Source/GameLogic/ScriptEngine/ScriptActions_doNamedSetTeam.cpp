@@ -18,11 +18,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class Object
-{
-public:
-	void setTeam(Team *team);
-};
+#include "../Object/object.h"
 #include "../../../Include/Common/TeamBFME2.h"
 class ScriptActions
 {

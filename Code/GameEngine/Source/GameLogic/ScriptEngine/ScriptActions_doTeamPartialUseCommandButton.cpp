@@ -41,11 +41,7 @@ __forceinline long fast_float2long_round(float f)
 	return i;
 }
 
-class Object
-{
-public:
-	void doCommandButton(const class CommandButton *button, int source, bool extra);
-};
+#include "../Object/object.h"
 
 template <class OBJCLASS>
 class DLINK_ITERATOR

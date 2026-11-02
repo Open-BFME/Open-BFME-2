@@ -6,11 +6,7 @@
 // Evidence: ScriptEngine getUnitNamed then Object kill 8 0.
 enum DamageType { DAMAGE_8 = 8 };
 enum DeathType { DEATH_0 = 0 };
-class Object
-{
-public:
-	void kill(DamageType a, DeathType b);
-};
+#include "../Object/object.h"
 class Parameter;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

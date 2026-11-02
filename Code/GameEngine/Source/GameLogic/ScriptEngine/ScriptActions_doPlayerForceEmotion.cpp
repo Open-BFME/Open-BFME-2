@@ -66,11 +66,7 @@ public:
 
 #include "Common/Snapshot.h"
 
-class Object
-{
-public:
-	void forceEmotion(int index, float value, int arg);
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

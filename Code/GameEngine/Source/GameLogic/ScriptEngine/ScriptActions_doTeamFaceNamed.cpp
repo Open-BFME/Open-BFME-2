@@ -29,15 +29,7 @@ public:
     OBJCLASS *cur() const { return m_cur; }
 };
 
-class Object
-{
-public:
-    void leaveGroup();
-    AIUpdateInterface *getAIUpdateInterface() const
-    {
-        return *(AIUpdateInterface **)((const char *)this + 0x258);
-    }
-};
+#include "../Object/object.h"
 
 class AICommandInterface
 {

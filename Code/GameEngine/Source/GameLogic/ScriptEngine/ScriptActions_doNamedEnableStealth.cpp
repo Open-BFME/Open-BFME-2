@@ -15,11 +15,7 @@ enum ObjectScriptStatusBit
 
 typedef bool Bool;
 
-class Object
-{
-public:
-    void setScriptStatus( ObjectScriptStatusBit bit, Bool set );
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

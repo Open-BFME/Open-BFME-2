@@ -18,12 +18,7 @@ extern int BfmeLogicFramesPerSecond;	// logic frames per second
 enum ModelConditionFlagType { MODEL_CONDITION_FIRST = 0 };
 inline int LogicFramesPerSecond() { return BfmeLogicFramesPerSecond; }
 
-class Object
-{
-public:
-	void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned int frames);
-	void rva002949AE(int flag, int frames, float value);
-};
+#include "../Object/object.h"
 
 template<class OBJ> class DLINK_ITERATOR
 {

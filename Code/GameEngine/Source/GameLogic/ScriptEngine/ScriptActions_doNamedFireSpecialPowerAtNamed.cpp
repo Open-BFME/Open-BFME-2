@@ -8,11 +8,7 @@
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-};
+#include "../Object/object.h"
 
 class Parameter;
 class Object;

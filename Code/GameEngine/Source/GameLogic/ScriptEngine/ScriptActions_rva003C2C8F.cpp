@@ -17,12 +17,7 @@ public:
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 
-class Object
-{
-public:
-	char m_pad[0x264];
-	ExperienceTracker *m_264;
-};
+#include "../Object/object.h"
 
 struct ScriptCounter
 {
@@ -38,7 +33,7 @@ void ScriptActions::Rva003C2C8FDo(Parameter *parameter, Parameter *b)
 	Object *obj = TheScriptEngine->getUnitNamed(parameter);
 	if (obj == 0)
 		return;
-	ExperienceTracker *tracker = obj->m_264;
+	ExperienceTracker *tracker = obj->m_experienceTracker;
 	if (tracker == 0)
 		return;
 	ScriptCounter *counter = TheScriptEngine->bfmeCounter(b->m_string);

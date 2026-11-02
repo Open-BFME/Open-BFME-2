@@ -38,12 +38,7 @@ enum ObjectScriptStatusBit
 	OBJECT_STATUS_SCRIPT_BFME_20 = 0x20
 };
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-	void setScriptStatus(ObjectScriptStatusBit bit, bool set);
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

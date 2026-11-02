@@ -18,11 +18,7 @@ public:
 	virtual void *s06();
 };
 
-class Object
-{
-public:
-	void *rva0028BCF4() const;
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

@@ -25,14 +25,7 @@ public:
     virtual void rvaSlot34();
 };
 
-class Object
-{
-public:
-    Drawable *getDrawable() const;
-    void updateUpgradeModules();
-    int getNightIndicatorColor() const;
-    int getIndicatorColor() const;
-};
+#include "../Object/object.h"
 
 class Parameter;
 

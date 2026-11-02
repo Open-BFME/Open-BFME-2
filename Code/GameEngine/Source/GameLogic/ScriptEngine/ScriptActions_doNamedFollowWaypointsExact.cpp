@@ -43,19 +43,7 @@ public:
     char pad[0x20];
     Rva00352F2FOpaque command;
 };
-class Object
-{
-public:
-    void leaveGroup();
-private:
-    char pad0[0x38];
-public:
-    Coord3D m_position;
-private:
-    char pad1[0x258 - 0x44];
-public:
-    AIUpdateInterface *m_ai;
-};
+#include "../Object/object.h"
 class ScriptActions
 {
 protected:
@@ -72,9 +60,9 @@ void ScriptActions::doNamedFollowWaypointsExact(const AsciiString &unitName,
     Object *unit = TheScriptEngine->getUnitNamed(unitName);
     if (!unit) return;
     Coord3D pos;
-    pos.x = unit->m_position.x;
-    pos.y = unit->m_position.y;
-    pos.z = unit->m_position.z;
+    pos.x = unit->m_cachedPos.x;
+    pos.y = unit->m_cachedPos.y;
+    pos.z = unit->m_cachedPos.z;
     AIUpdateInterface *ai = unit->m_ai;
     if (!ai) return;
     Waypoint *waypoint = ((TerrainLogicByValue *)TheTerrainLogic)->getClosestWaypointOnPath(&pos,

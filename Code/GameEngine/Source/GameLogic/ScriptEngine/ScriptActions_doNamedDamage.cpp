@@ -37,11 +37,7 @@ public:
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class Object
-{
-public:
-	void attemptDamage(DamageInfo *info);
-};
+#include "../Object/object.h"
 
 extern class ScriptEngine *TheScriptEngine;
 
