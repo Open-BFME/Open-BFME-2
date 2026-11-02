@@ -1,0 +1,191 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "GenericMultiListClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 29,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x65815"
+     ],
+     "value": 24
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x65815"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x65815"
+     ],
+     "value": {
+      "0x0": "0x7c5c70"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c5c70"
+     ],
+     "value": {
+      "count": 1,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGenericMultiListClass@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x6583c"
+       }
+      ],
+      "table": "0x7c5c70"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x7c5c70": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGenericMultiListClass@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "20": 1,
+   "24": 25
+  },
+  "views": 29,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/multilist.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 26,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "S:MultiListNodeClass",
+   "members": [
+    {
+     "kind": "P",
+     "name": "Prev",
+     "offset": 0,
+     "size": 4,
+     "type": "MultiListNodeClass*"
+    },
+    {
+     "kind": "P",
+     "name": "Next",
+     "offset": 4,
+     "size": 4,
+     "type": "MultiListNodeClass*"
+    },
+    {
+     "kind": "P",
+     "name": "NextList",
+     "offset": 8,
+     "size": 4,
+     "type": "MultiListNodeClass*"
+    },
+    {
+     "kind": "P",
+     "name": "Object",
+     "offset": 12,
+     "size": 4,
+     "type": "MultiListObjectClass*"
+    },
+    {
+     "kind": "P",
+     "name": "List",
+     "offset": 16,
+     "size": 4,
+     "type": "GenericMultiListClass*"
+    }
+   ],
+   "name": "Head",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 20,
+   "type": "MultiListNodeClass",
+   "views": 25,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 24,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
