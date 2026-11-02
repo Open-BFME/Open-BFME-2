@@ -18880,3 +18880,9 @@ Primary slot144 now supplies its complete1B native default at0x000B3FD0 through 
 ### AIUpdate primary defaults clear the bounded emitter link preview (2026-11-02)
 
 [Final eight-body proof and normal/strict/link receipts](../reverse/attempt_support/aiupdate-primary-remaining-20261102/README.md): all127 emitter rows and six current data rows pass; each header edit passed235 dependent sources. The final137-code/10-data object adds only the eight intended exact native defaults. The bounded preview now says LINKS, with all five prior unresolved RET8 names supplied. This is not a census/runtime result: primary slot110 name identity, conditional weak deleting-destructor selection, six existing primary base-name rows and wider provider evidence remain. Published census still154 unlinked units.
+
+### Existing AIUpdate primary base bodies rowed (2026-11-02)
+
+[Per-body native evidence and admissions](../reverse/attempt_support/aiupdate-primary-existing-20261102/README.md). Existing C++ definitions gain ledger identities; no source or header changes.
+
+Primary base slot6 now has its own verified matched row for the unchanged complete1B body at0x000B3FD0. Existing spelling and first representative remain; no new bytes or census clearance. The slot110 provider-name prerequisite and conditional weak deleting-destructor selection remain open.
