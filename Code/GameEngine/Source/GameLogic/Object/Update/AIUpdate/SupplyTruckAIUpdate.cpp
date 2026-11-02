@@ -111,7 +111,7 @@ enum NameKeyType
 };
 class ResourceGatheringManager;
 class Module;
-struct State;
+class State;
 struct StateConditionInfo
 {
 	Bool (*test)(State *thisState, void *userData);
@@ -130,7 +130,7 @@ protected:
 	Object *m_owner; // +0x14
 	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
 };
-struct State
+class State
 {
 public:
 	virtual ~State();
@@ -699,8 +699,8 @@ char Rva002C56F0::copy(Rva002C56F0Vec *dst) const
 // the regrouping table is written as its own array with the busy table's
 // entries; the identical pair shares one address in retail. The
 // machine's dtor is the rowed 0x004A6C59 (11 bytes, vtable store and jmp to
-// the base dtor) and is only declared here. State is a struct in this view
-// because the rowed defineState is spelled with one.
+// the base dtor) and is only declared here. State is a class, as the
+// canonical StateMachine.h and the rowed defineState spell it.
 //
 // The class views are the union the TU's other condition, state and helper
 // bodies need (SupplyTruckAIUpdate.cpp consolidation): the supply truck
@@ -816,7 +816,7 @@ Bool SupplyTruckStateMachine::isForcedIntoBusyState(State *thisState, void *user
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckOwnerDocking.cpp
 
-// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
+// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
 bool SupplyTruckStateMachine::ownerDocking(State *thisState, void *userData)
 {
 	Object *owner = thisState->getMachineOwner();
@@ -830,7 +830,7 @@ bool SupplyTruckStateMachine::ownerDocking(State *thisState, void *userData)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckOwnerRva004A6D15.cpp
 
-// ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
+// ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
 // Address-derived placeholder: returns true iff the owner's AI state ID is
 // retail-observed 0x2F (47). No BFME2 state name is claimed for 47.
 bool SupplyTruckStateMachine::ownerRva004A6D15(State *thisState, void *userData)
@@ -846,7 +846,7 @@ bool SupplyTruckStateMachine::ownerRva004A6D15(State *thisState, void *userData)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckOwnerIdle.cpp
 
-// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
+// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
 bool SupplyTruckStateMachine::ownerIdle(State *thisState, void *userData)
 {
 	Object *owner = thisState->getMachineOwner();
@@ -860,7 +860,7 @@ bool SupplyTruckStateMachine::ownerIdle(State *thisState, void *userData)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckOwnerAvailableForSupplying.cpp
 
-// ?ownerAvailableForSupplying@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
+// ?ownerAvailableForSupplying@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
 bool SupplyTruckStateMachine::ownerAvailableForSupplying(State *thisState, void *userData)
 {
 	Object *owner = thisState->getMachineOwner();
@@ -877,7 +877,7 @@ bool SupplyTruckStateMachine::ownerAvailableForSupplying(State *thisState, void 
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckOwnerNotDockingOrIdle.cpp
 
-// ?ownerNotDockingOrIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
+// ?ownerNotDockingOrIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
 bool SupplyTruckStateMachine::ownerNotDockingOrIdle(State *thisState, void *userData)
 {
 	Object *owner = thisState->getMachineOwner();

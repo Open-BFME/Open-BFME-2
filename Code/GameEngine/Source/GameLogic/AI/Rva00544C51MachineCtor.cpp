@@ -13,7 +13,7 @@ typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
 #include "../../../Include/Common/StateConditionInfo.h"
-struct State
+class State
 {
 public:
 	virtual ~State();

@@ -34,7 +34,8 @@ class RealRange; class RGBColor; class RGBAColorReal; class RGBAColorInt;
 class Snapshot; class Thing; class ModuleData;
 #include "../../Include/Common/BfmeXfer.h"
 class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
-struct State {
+class State {
+public:
   virtual void vslot00(); virtual void vslot04(); virtual void vslot08(); virtual void vslot0c();
   virtual int onEnter(); virtual void onExit(int status); virtual int update();
   virtual Bool isIdle() const; virtual Bool isAttack() const; virtual Bool isGuardIdle() const; virtual Bool isBusy() const;

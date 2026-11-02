@@ -367,6 +367,22 @@ unit defines. Base `9e271b3526`.
 - Every step-B patch still waits on v2, and v2 waits on SupplyTruckAIUpdate.cpp. That file was
   still held by codex-01a1071d-root-recovery-oct11 at 22:40.
 
+Landed (2026-11-02, lk18), item 1 step A, the State class key. SupplyTruckAIUpdate.cpp was freed by
+codex-01a1071d at 22:38, and lk18 claimed it.
+- Applied: lk17's `state-classkey-v2.patch` sources (32 units) plus SupplyTruck's two `struct State`
+  lines and its comment.
+- 20 rows respelled `PAUState@@` -> `PAVState@@`, each with a tombstone and a re_log `solved` verdict.
+  These are the 13 rows from v2 and SupplyTruck's 7 conditions.
+- The three State tree pins (`_M_find` 0x00357180, `_M_create_node` 0x00382B7F, `insert_unique`
+  0x004D795B) are renamed in place with their fold-proof notes. The hatch_baseline hunk in v2 is
+  obsolete: master had already dropped that allow token.
+- Verified:
+  - `./build.sh` passes 500/500 rows over the 33 units;
+  - no live source's object still spells `UState@@`;
+  - check_csv and pin_consistency pass;
+  - `link_check` over 527 State-family units gives 482/527 and 584,501 B both before and after. The
+    class key moves no bytes by itself.
+
 New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
 `??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
 under the name `??_7BridgeBehavior@@6BBehaviorModuleInterface@@@`. Rebinding the ctor's

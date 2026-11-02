@@ -11,7 +11,7 @@
 // esi and is recycled into 0x2BC; 0x2C0/0x2BE trade through ebx; the 0x270F
 // pair rides transient ecx.
 class Object;
-struct State;
+class State;
 struct StateConditionInfo;
 
 class StateMachine

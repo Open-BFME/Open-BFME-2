@@ -36,7 +36,7 @@ struct StateConditionInfo
 	void *m_userData;
 };
 
-struct State
+class State
 {
 public:
 	virtual ~State();

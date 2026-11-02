@@ -13,7 +13,7 @@
 // 0x00347C38, pushes the constant 0xD944B508).
 
 class Object;
-struct State;
+class State;
 struct StateConditionInfo;
 
 class StateMachine

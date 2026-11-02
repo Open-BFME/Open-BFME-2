@@ -36,7 +36,7 @@ enum TurretStateType
 	TURRETAI_RECENTER = 4,
 	TURRETAI_HOLD = 5
 };
-struct State;
+class State;
 class StateMachine
 {
 public:
@@ -68,7 +68,7 @@ public:
 private:
 	TurretAI *m_turretAI; // +0x3C
 };
-struct State
+class State
 {
 public:
 	State(StateMachine *machine, UnsignedInt nameKey);

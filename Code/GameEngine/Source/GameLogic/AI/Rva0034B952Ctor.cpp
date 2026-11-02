@@ -7,7 +7,7 @@
 class Object;
 class AttackExitConditionsInterface;
 
-struct State;
+class State;
 struct StateConditionInfo;
 
 class StateMachine

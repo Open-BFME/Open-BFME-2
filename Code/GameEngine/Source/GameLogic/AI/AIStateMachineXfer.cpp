@@ -25,7 +25,7 @@ class Snapshot; class Thing; class ModuleData;
 #include "../../../Include/Common/BfmeXfer.h"
 class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
 
-struct State {virtual ~State();unsigned int id;};
+class State {public:virtual ~State();unsigned int id;};
 #include "../../../Include/GameLogic/Waypoint.h"
 class Squad {public:Squad()throw();virtual ~Squad();virtual void slot01();virtual void slot02();virtual void xfer(Xfer*);private:_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
 #include "../../../Include/GameLogic/TerrainLogic.h"

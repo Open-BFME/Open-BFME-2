@@ -11,7 +11,7 @@
 // to keep ebx, so the zeros ride as immediates and the dead state reset
 // takes whatever bl holds.
 class Object;
-struct State;
+class State;
 struct StateConditionInfo;
 
 class StateMachine

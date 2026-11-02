@@ -11,7 +11,7 @@
 // retail 0x00262224, 22 bytes, plus
 // ?halt@StateMachine@@UAEXXZ,
 // retail 0x004D73A4, 9 bytes, plus
-// ?internalGetState@StateMachine@@QAEPAUState@@I@Z,
+// ?internalGetState@StateMachine@@QAEPAVState@@I@Z,
 // retail 0x004D764C, 31 bytes, plus
 // ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@I@Z,
 // retail 0x004D766B, 135 bytes, plus
@@ -92,8 +92,9 @@ public:
 	Int m_id; // +0x74
 };
 
-struct State
+class State
 {
+public:
 	// Retail reaches onEnter through vtable slot 4 and onExit through
 	// slot 5 and update through slot 6 and isBusy through slot 10; the lower
 	// slots belong to the Snapshot and MemoryPoolObject bases plus the State
@@ -232,7 +233,7 @@ void StateMachine::rva004D7427(const void *src)
 	rva004D73AD(src);
 }
 
-// ?internalGetState@StateMachine@@QAEPAUState@@I@Z
+// ?internalGetState@StateMachine@@QAEPAVState@@I@Z
 State *StateMachine::internalGetState(StateID id)
 {
 	// locate the actual state associated with the given ID

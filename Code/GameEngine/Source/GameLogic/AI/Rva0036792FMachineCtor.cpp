@@ -15,7 +15,7 @@ typedef UnsignedInt ObjectID;
 class Object;
 #include "../../../Include/Common/StateConditionInfo.h"
 class StateMachine;
-struct State
+class State
 {
 public:
 	virtual ~State();

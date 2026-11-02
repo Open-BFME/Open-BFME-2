@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 //
-// ?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z at retail 0x004D7B0F (97B).
+// ?defineState@StateMachine@@QAEXIPAVState@@IIPBUStateConditionInfo@@@Z at retail 0x004D7B0F (97B).
 // StateMachine::defineState: map id->state at +0x08 then State ids at +0x04/+0x08/+0x0C
 // then transitions via rowed State::rva004D7127 0x004D7127 then default 999999 at +0x1C
 // then terminal flag at State+0x1C when id==success==failure.
@@ -26,8 +26,9 @@ enum { INVALID_STATE_ID = 999999 };
 
 class StateMachine;
 
-struct State
+class State
 {
+public:
 	virtual void vslot00();
 	virtual void vslot04();
 	virtual void vslot08();

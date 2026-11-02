@@ -13,7 +13,7 @@
 // The 0xE1 word and the zero CSE into esi/ebx; blocks 2 and 5 pass the
 // branchless (x ? x+0x20 : 0) selector for the int-typed state ctors.
 class Object;
-struct State;
+class State;
 struct StateConditionInfo;
 
 class StateMachine

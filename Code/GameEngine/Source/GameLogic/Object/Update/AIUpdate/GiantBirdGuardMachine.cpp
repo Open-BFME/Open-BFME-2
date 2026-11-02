@@ -46,7 +46,7 @@ enum StateReturnType
 
 class StateMachine;
 
-struct State;
+class State;
 struct StateConditionInfo;
 
 #include "../../object.h"
@@ -118,8 +118,9 @@ public:
 	virtual ~GiantBirdGuardMachine();
 };
 
-struct State
+class State
 {
+public:
 	State(StateMachine *machine, unsigned int nameHash);
 	virtual ~State();
 	virtual void slot01();

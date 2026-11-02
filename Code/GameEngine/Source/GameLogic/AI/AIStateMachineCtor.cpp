@@ -23,7 +23,7 @@ class Waypoint;
 class Squad;
 class AttackExitConditionsInterface;
 struct StateConditionInfo;
-struct State
+class State
 {
 public:
 	virtual ~State();

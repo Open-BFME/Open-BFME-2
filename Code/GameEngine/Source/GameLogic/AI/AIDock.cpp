@@ -42,7 +42,7 @@ class Object;
 
 class StateMachine;
 
-struct State;
+class State;
 
 struct StateConditionInfo
 {
@@ -162,8 +162,9 @@ public:
 	int m_approachPosition;	// +0x3C dock approach slot (-1: none)
 };
 
-struct State
+class State
 {
+public:
 	State(StateMachine *machine, unsigned int hash);
 	virtual ~State();
 	virtual void slot01();
@@ -584,7 +585,7 @@ extern const void *const g_00C69C30[18] = {
 
 // ---- from Code/GameEngine/Source/Common/AIDockMachine_ableToAdvance.cpp
 
-// ?ableToAdvance@AIDockMachine@@SA_NPAUState@@PAX@Z, retail 0x005440F6, 61 bytes.
+// ?ableToAdvance@AIDockMachine@@SA_NPAVState@@PAX@Z, retail 0x005440F6, 61 bytes.
 //
 // Target facts: the rowed AIDockMachine ctor 0x005448A1 pushes the .rdata
 // condition table 0x00869C78 for state 1, whose only entry is this function

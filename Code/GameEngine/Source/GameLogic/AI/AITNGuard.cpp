@@ -487,7 +487,7 @@ public:
 
 struct DamageInfo;
 
-struct State
+class State
 {
 public:
 	virtual ~State();
@@ -890,7 +890,7 @@ Object *__fastcall TunnelNetworkScan(Object *owner)
 
 // platformsdk
 //
-// ?rva00545F10@@YA_NPAUState@@PAX@Z, retail 0x00545F10..0x00545F80 (112
+// ?rva00545F10@@YA_NPAVState@@PAX@Z, retail 0x00545F10..0x00545F80 (112
 // bytes): Zero Hour AITNGuard.cpp's hasAttackedMeAndICanReturnFire, the
 // AITNGuardMachine transition condition (to state 5005, the attack-aggressor
 // state). Its address is the test of the condition table the rowed

@@ -484,7 +484,7 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 
 // tu-skeleton: 0x004D7627 37B ?rva004D7627@StateMachine@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
-// tu-skeleton: 0x004D764C 31B ?internalGetState@StateMachine@@QAEPAUState@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+// tu-skeleton: 0x004D764C 31B ?internalGetState@StateMachine@@QAEPAVState@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
 // tu-skeleton: 0x004D766B 135B ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
@@ -504,7 +504,7 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 
 // tu-skeleton: 0x004D7AFB 20B ?insert@?$map@IPAVImage@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/GameEngine/Source/Common/Rva00295927.cpp (not merged yet)
 
-// tu-skeleton: 0x004D7B0F 97B ?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp (not merged yet)
+// tu-skeleton: 0x004D7B0F 97B ?defineState@StateMachine@@QAEXIPAVState@@IIPBUStateConditionInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp (not merged yet)
 
 // tu-skeleton: 0x00791183 8B uw_00791183 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 

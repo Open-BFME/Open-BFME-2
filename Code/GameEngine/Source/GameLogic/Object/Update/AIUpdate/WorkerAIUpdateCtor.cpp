@@ -190,7 +190,7 @@ enum { INVALID_STATE_ID = 999999 };
 
 class StateMachine;
 
-struct State
+class State
 {
 public:
 	virtual ~State();

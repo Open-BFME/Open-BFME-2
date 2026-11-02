@@ -9,7 +9,7 @@
 // CSEs into esi; zero stays in ebx; the int-typed state takes the branchless
 // (x ? x+0x20 : 0) selector.
 class Object;
-struct State;
+class State;
 struct StateConditionInfo;
 
 class StateMachine

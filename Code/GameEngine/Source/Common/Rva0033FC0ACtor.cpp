@@ -12,8 +12,9 @@ class Object;
 
 #include "../../Include/Common/StateConditionInfo.h"
 
-struct State
+class State
 {
+public:
 	virtual ~State();
 	char m_pad[0x20 - 4];
 };

@@ -16,7 +16,7 @@
 
 class Object;
 
-struct State;
+class State;
 
 struct StateConditionInfo
 {
@@ -25,8 +25,9 @@ struct StateConditionInfo
 	void *userData;
 };
 
-struct State
+class State
 {
+public:
 	virtual ~State();
 	char m_pad[0x20 - 4];
 };

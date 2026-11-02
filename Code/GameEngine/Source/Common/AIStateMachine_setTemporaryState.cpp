@@ -7,7 +7,7 @@
 // unsigned StateID and StateReturnType spelling; target preserves the
 // AI notification at owner+258 slot136 and the negative-frame sentinels.
 enum StateReturnType { STATE_CONTINUE = 0, STATE_SUCCESS = -1, STATE_FAILURE = -2 };
-struct State;
+class State;
 
 class StateMachine
 {
@@ -15,7 +15,7 @@ public:
 	State *internalGetState(unsigned int id);
 };
 
-struct State
+class State
 {
 public:
 	virtual void v00();

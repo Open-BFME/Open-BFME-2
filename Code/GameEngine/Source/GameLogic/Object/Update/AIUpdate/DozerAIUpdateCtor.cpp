@@ -260,7 +260,7 @@ struct StateConditionInfo
 // caller passes the name as one dword, and only a scalar parameter gives
 // retail's push of the immediate key, so this view takes the key as one.
 
-struct State
+class State
 {
 public:
 	virtual ~State();

@@ -384,7 +384,7 @@ enum
 
 // The state base: only its virtual table matters to these bodies. The
 // ledger spells it struct (U), as the transition conditions' rows do.
-struct State
+class State
 {
 public:
 	State(StateMachine *machine, unsigned int hash);
@@ -1099,7 +1099,7 @@ StateReturnType AIGuardReturnState::onEnter( void )
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardHasAttackedMeCondition.cpp
 
 //
-// ?rva005430E7@@YA_NPAUState@@PAX@Z, retail 0x005430E7..0x00543163 (124
+// ?rva005430E7@@YA_NPAVState@@PAX@Z, retail 0x005430E7..0x00543163 (124
 // bytes): Zero Hour AIGuard.cpp's hasAttackedMeAndICanReturnFire, the
 // AIGuardMachine transition condition (to state 5005, the attack-aggressor
 // state). Its address is the test of the condition table the rowed

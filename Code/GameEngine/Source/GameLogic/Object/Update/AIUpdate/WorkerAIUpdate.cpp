@@ -1247,9 +1247,9 @@ Rva004A9947::Rva004A9947(StateMachine *machine) : State(machine, 0x83242288u)
 
 // tu-skeleton: 0x004A996F 6B ?GetSnapshotName@WorkerStateMachine@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x004A9975 70B ?supplyTruckSubMachineWantsToEnter@WorkerStateMachine@@SA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+// tu-skeleton: 0x004A9975 70B ?supplyTruckSubMachineWantsToEnter@WorkerStateMachine@@SA_NPAVState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A99BB 59B ?supplyTruckSubMachineReadyToLeave@WorkerStateMachine@@SA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
+// tu-skeleton: 0x004A99BB 59B ?supplyTruckSubMachineReadyToLeave@WorkerStateMachine@@SA_NPAVState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Module/Rva004A99F6.cpp
 

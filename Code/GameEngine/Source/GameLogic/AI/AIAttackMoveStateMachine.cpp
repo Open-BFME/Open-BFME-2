@@ -42,7 +42,7 @@ typedef UnsignedInt StateID;
 class Object;
 class AttackExitConditionsInterface;
 struct StateConditionInfo;
-struct State;
+class State;
 enum StateReturnType
 {
 	STATE_CONTINUE = 0
@@ -91,7 +91,7 @@ class MachineStart : public MachineVSlots<7>
 public:
 	virtual StateReturnType initDefaultState() = 0;
 };
-struct State
+class State
 {
 public:
 	virtual ~State();

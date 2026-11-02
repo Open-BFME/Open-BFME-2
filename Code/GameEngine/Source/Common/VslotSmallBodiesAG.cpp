@@ -280,7 +280,7 @@ public:
 	char m_pad00[0x14];
 	Object *m_owner;
 };
-struct State
+class State
 {
 public:
 	char m_pad00[0x18];
