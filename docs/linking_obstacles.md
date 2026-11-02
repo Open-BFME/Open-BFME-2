@@ -18088,3 +18088,8 @@ Rva00196D90MemberConstructor_Rva0032bde7.cpp now emits an exact36B default-const
 ### Dict-record typed copy provider (2026-11-02)
 
 The native32A304 copy operation now has a real typed Rva00196D90Element constructor twin in its approved SidesList.cpp TU. Normal/strict57-row verification preserves all prior159 code and541 data definitions, with the two newly emitted Dict helpers also matching their existing native owners. The real Dict member is constructed normally; no new pin or alias is used. Tagged fill and vector base remain open, and the new provider's private record declaration still needs shared-header cleanup. [Proof and remaining scope](../reverse/attempt_support/element196d90-copy-20261102/README.md).
+
+
+### Dict-record placement helper (2026-11-02)
+
+The approved SidesList.cpp now emits the complete typed18B _Construct twin at32ACEA, through ordinary placement new and the verified58B copy. Existing57 rows,162 code and541 data definitions are preserved. A scoped nonthrowing contract is justified by the entire18B->58B primitive-copy/refcount graph and nonthrowing placement operator, not by an assumed missing exception path. The tagged fill and allocator base are still open; [proof and contract scope](../reverse/attempt_support/element196d90-construct-20261102/README.md). No unit/census clearance is claimed.

@@ -2919,3 +2919,13 @@ Rva00196D90Element::Rva00196D90Element(const Rva00196D90Element &source)
       m_word4(source.m_word4), m_word6(source.m_word6),
       m_word8(source.m_word8), m_dict(source.m_dict)
 {}
+
+namespace _STL {
+// Concrete18B helper ->58B copy contains only scalar copies/refcount increment.
+// Its placement operator new is nonthrowing; this contract covers no other type.
+template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(
+    Rva00196D90Element *dest, const Rva00196D90Element &source)
+{
+    new (dest) Rva00196D90Element(source);
+}
+}
