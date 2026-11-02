@@ -366,3 +366,4 @@ StateConditionInfo,Code/GameEngine/Include/Common/StateConditionInfo.h,existing 
 RadiusDecalTemplate,Code/GameEngine/Include/GameClient/RadiusDecalTemplate.h,existing header; contract class_contracts/RadiusDecalTemplate.json; 13/18 sampled units adopt
 LightEnvironmentClass,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h,existing header; contract class_contracts/LightEnvironmentClass.json; 4/19 sampled units adopt
 SimpleSceneClass,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h,existing header; contract class_contracts/SimpleSceneClass.json; 11/18 sampled units adopt
+WindowVideoManager,Code/GameEngine/Include/GameClient/WindowVideoManagerClass.h,existing header; contract class_contracts/WindowVideoManager.json; 15/19 sampled units adopt
