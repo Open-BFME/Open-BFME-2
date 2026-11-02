@@ -41,15 +41,7 @@ public:
 	void *getTargetByIndexForPlayer(int unused, int key);
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *key);
-	Rva002A8AE4Record *rva002A8AE4(void *key);
-	Rva002A8B59Data *rva002A8B59(void *key);
-	Rva004E9600 *rva002A8B24(void *key);
-	void *rva002A8B73(void *key, int key2);
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 Rva002A8AE4Record *Rva002A8F24::rva002A8AE4(void *key)
 {

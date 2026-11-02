@@ -138,7 +138,7 @@ bool AITacticSiege::isWallBreached() {
 }
 struct Rva002A8AB1Record {public:void*rva002C6ACB();};
 class Player;
-class Rva002A8F24 {public:Rva002A8AB1Record*rva002A8AB1(void*);void*rva002A8F24(Player*);};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24*TheSkirmishAIManager;
 class Rva0025BFF8 {public:Object*rva0025BFF8(int);};
 namespace _STL {

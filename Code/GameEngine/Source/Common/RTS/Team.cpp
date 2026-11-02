@@ -864,11 +864,7 @@ struct TeamMapInner
 };
 class Rva004EC05A { public: void rva004EC05A(void *); };
 struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *);
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 // One unit record and the template's record array and count (+0x130 and
 // +0x1D8 of the prototype), spelled as the Team.cpp seed's Rva0039EA9C and
