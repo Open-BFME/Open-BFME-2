@@ -3,15 +3,7 @@
 // StandingWaveAreas save via DataChunkOutput: openDataChunk StandingWaveAreas, write count, cursor-iterate areas, write int, Rva00537EAD, Rva0030B2FE at +0x38, cvttss2si floats, AsciiString at +0x9c. Evidence: packet disassembly, chain from 0x00537EAD, sibling 0x0030C2CE cursor pattern.
 #include "ascii_string.h"
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short unk);
-	void writeInt(int v);
-	void writeReal(float v);
-	void writeAsciiString(const AsciiString &s);
-	void closeDataChunk();
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 class Rva00537EAD
 {

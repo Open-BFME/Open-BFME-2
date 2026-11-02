@@ -23,13 +23,7 @@
 
 typedef int Int;
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short version);
-	void writeInt(Int value);
-	void closeDataChunk();
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 class Rva003304A4Animation;
 

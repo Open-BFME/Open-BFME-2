@@ -9,12 +9,7 @@
 // this plus DataChunkOutput and write the remaining floats after; callee
 // writeInt/writeReal share 0x00306CFF (ICF-folded).
 
-class DataChunkOutput
-{
-public:
-	void writeInt(int value);
-	void writeReal(float value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 struct KeyCode
 {

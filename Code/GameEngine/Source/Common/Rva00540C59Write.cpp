@@ -7,12 +7,7 @@
 // Evidence: five fld/fstp writeReal sequences; outer array at 0x00540F0B
 // strides 0x1C; shares this with the tag writer.
 
-class DataChunkOutput
-{
-public:
-	void writeInt(int value);
-	void writeReal(float value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 class Rva005C706A
 {

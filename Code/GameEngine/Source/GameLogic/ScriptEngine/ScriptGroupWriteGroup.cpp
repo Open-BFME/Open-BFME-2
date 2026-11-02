@@ -23,14 +23,7 @@ class Script;
 class ScriptList;
 class ScriptGroup;
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);
-	void writeAsciiString(const AsciiString &str);
-	void writeByte(Byte b);
-	void closeDataChunk(void);
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 struct GroupNameEntry
 {

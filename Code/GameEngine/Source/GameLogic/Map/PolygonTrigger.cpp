@@ -191,14 +191,7 @@ private:
 	int m_58;
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);
-	void writeInt(int value);
-	void writeAsciiString(const AsciiString &textValue);
-	void closeDataChunk();
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 struct Rva0030B2B6
 {

@@ -6,11 +6,7 @@
 // (same layout). Evidence: calls 0x005C706A then eight writeReal fld/fstp
 // sequences; base file Rva005C706AWrite.cpp names 0x53FC07 as a caller passing
 // the same this plus DataChunkOutput; caller at 0x0053FF4C.
-class DataChunkOutput
-{
-public:
-	void writeReal(float value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 class Rva005C706A
 {
 public:

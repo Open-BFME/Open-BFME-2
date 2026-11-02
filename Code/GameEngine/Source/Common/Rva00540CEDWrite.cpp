@@ -8,12 +8,7 @@
 // outer array at 0x00540F4D strides 0x14 (time plus this 0x10 body);
 // shares this with the tag writer (same ECX).
 
-class DataChunkOutput
-{
-public:
-	void writeInt(int value);
-	void writeReal(float value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 class Rva005C706A
 {

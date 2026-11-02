@@ -19,15 +19,7 @@
 // each triplet from changes made by writeReal; no aggregate copy helper emits.
 #include "Coord3D.h"
 class AsciiString;
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short version);
-	void writeInt(int value);
-	void writeReal(float value);
-	void writeAsciiString(const AsciiString &value);
-	void closeDataChunk();
-};
+#include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 struct LightingColor { float red,green,blue; };
 struct LightingRecord { LightingColor ambient,diffuse; Coord3D lightPos; };
 class GlobalData {

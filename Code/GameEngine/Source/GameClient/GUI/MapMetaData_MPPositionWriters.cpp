@@ -28,15 +28,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 #include "ascii_string.h"
 
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);
-	void writeAsciiString(const AsciiString &textValue);
-	void writeByte(unsigned char value);
-	void writeInt(int value);
-	void closeDataChunk();
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 typedef std::map<AsciiString, int> PositionNameMap;
 

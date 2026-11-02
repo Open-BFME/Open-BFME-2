@@ -24,12 +24,7 @@ enum
 	K_SCRIPTS_DATA_VERSION_1 = 1
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);
-	void closeDataChunk(void);
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 class Script;
 class ScriptGroup;

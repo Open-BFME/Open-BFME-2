@@ -290,15 +290,7 @@ private:
 	AsciiString m_arr78[64];
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);
-	void writeInt(int v);
-	void writeReal(float v);
-	void writeAsciiString(const AsciiString &s);
-	void closeDataChunk();
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 struct Rva0007E394Element {unsigned opaque;bool operator<(const Rva0007E394Element&)const;bool operator==(const Rva0007E394Element&)const;};
 

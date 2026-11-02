@@ -7,12 +7,7 @@
 // Evidence: strides 0x1C in 0x00540F0B versus 0x14 sibling 0x00540F4D; inner
 // call to rowed 0x00540C59; begin at +0x10 end at +0x14; caller at 0x005411B5.
 
-class DataChunkOutput
-{
-public:
-	void writeInt(int value);
-	void writeReal(float value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 class Rva00540C59
 {

@@ -5,12 +5,7 @@
 // slot 5 plus rowed DataChunkOutput writers.
 class AsciiString;
 
-class DataChunkOutput
-{
-public:
-	void writeAsciiString(const AsciiString &s);
-	void writeInt(int value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 #include "ascii_string.h"
 

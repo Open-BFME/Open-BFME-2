@@ -13,7 +13,7 @@
 // public and the base subobject is at offset 0, so the address and the rowed
 // compare at RVA 0x000069D6 are unchanged).
 extern const AsciiString g_00DEC3B8;
-class DataChunkOutput{public:void openDataChunk(char*,unsigned short);void writeByte(unsigned char);void writeReal(float);void writeAsciiString(const AsciiString&);void closeDataChunk();};
+#include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 class Rva00101F31NameProvider{public:virtual AsciiString name();};
 class Rva001021F7{public:AsciiString rva00101F31();Rva00101F31NameProvider*active;char rest[28];};
 Rva001021F7*Rva00102215Get();

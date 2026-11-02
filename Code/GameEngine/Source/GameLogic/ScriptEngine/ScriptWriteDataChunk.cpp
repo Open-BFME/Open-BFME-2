@@ -20,13 +20,7 @@ class ScriptAction;
 class DataChunkInput;
 struct DataChunkInfo;
 class OrCondition { public: OrCondition *duplicate() const; static bool ParseOrConditionDataChunk(DataChunkInput &,DataChunkInfo *,void *); static void WriteOrConditionDataChunk(DataChunkOutput &,OrCondition *); };
-class DataChunkOutput { public:
- void openDataChunk(char *, unsigned short);
- void writeAsciiString(const AsciiString &);
- void writeByte(unsigned char);
- void writeInt(int);
- void closeDataChunk();
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 #include <string.h>
 // ?equalTag_Rva003B31C7@@YA_NPBX0H@Z present-unmatched
 static __declspec(noinline) bool equalTag_Rva003B31C7(const void *record, const void *tag, int) {

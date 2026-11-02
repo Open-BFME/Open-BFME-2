@@ -27,14 +27,7 @@ enum NameKeyType
 
 class AsciiString;
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short version);
-	void writeInt(Int value);
-	void writeNameKey(NameKeyType key);
-	void closeDataChunk(void);
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 class ActionTemplate
 {

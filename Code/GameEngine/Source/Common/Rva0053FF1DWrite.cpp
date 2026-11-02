@@ -5,11 +5,7 @@
 // via rowed 0x0053FBFE. Chain on 0x0053FBFE landed this session. Evidence:
 // (end-begin)/0x28 idiv count; loop push [esi] plus lea ecx [esi+4] call
 // 0x53FBFE plus add esi 0x28; caller at 0x00540144.
-class DataChunkOutput
-{
-public:
-	void writeInt(int value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 struct Rva0053FBFE
 {
 	void rva0053FBFE(DataChunkOutput *out);

@@ -22,12 +22,7 @@
 
 #include "../../../Include/Common/MemoryPoolObject.h"
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk( char *name, unsigned short ver );
-	void closeDataChunk( void );
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 class Condition
 {

@@ -43,16 +43,7 @@ public:
 	virtual Bool shouldWrite(MapObject *object);
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short version);
-	void closeDataChunk();
-	void writeReal(Real value);
-	void writeInt(Int value);
-	void writeAsciiString(const AsciiString &value);
-	void writeDict(const Dict &value);
-};
+#include "../../Include/Common/DataChunkOutput.h"
 
 void bfmeWriteObjectsDataChunk(MapObject *objects, DataChunkOutput *output,
 	MapObjectWriterFilter *filter)

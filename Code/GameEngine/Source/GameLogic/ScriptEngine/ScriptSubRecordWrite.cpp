@@ -18,13 +18,7 @@ typedef unsigned char Byte;
 // never constructs, copies or destroys one, so no ctor/dtor is declared).
 #include "ascii_string.h"
 
-class DataChunkOutput
-{
-public:
-	void writeByte(Byte value);
-	void writeInt(Int value);
-	void writeAsciiString(const AsciiString &str);
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 struct ScriptSubRecord
 {

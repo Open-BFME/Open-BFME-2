@@ -131,11 +131,7 @@ private:
 
 // vtable 0x00C0DB34#2 and #0: write the four-character code 'free' and
 // 'look' through the ledger's DataChunkOutput::writeInt of the object at +4.
-class DataChunkOutput
-{
-public:
-	void writeInt(Int value);
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowGlobal.cpp
 

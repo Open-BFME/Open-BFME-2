@@ -36,16 +36,7 @@ class AsciiString;
 
 
 class Mapping;
-class DataChunkTableOfContents
-{
-public:
-	unsigned int allocateID(const AsciiString &name);
-private:
-	Mapping *m_list;
-	int m_listLength;
-	unsigned int m_nextID;
-	bool m_headerOpened;
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 class OutputStream;
 class OutputChunk
@@ -63,20 +54,6 @@ OutputChunk::OutputChunk()
 {
 }
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short ver);
-	void writeInt(int value);
-	void writeNameKey(NameKeyType key);
-	void closeDataChunk(void);
-
-private:
-	OutputStream *m_pOut;
-	void *m_tmp_file;
-	DataChunkTableOfContents m_contents;
-	OutputChunk *m_chunkStack;
-};
 
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *buf, unsigned int size, unsigned int count, void *stream);
 extern "C" __declspec(dllimport) int __cdecl ftell(void *stream);

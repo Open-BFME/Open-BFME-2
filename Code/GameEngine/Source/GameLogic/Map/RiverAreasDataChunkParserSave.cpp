@@ -12,15 +12,7 @@ extern "C" void _ReadWriteBarrier(void);
 #include "ascii_string.h"
 #include "Lib/RGBColor.h"
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short unk);
-	void writeInt(int v);
-	void writeReal(float v);
-	void writeAsciiString(const AsciiString &s);
-	void closeDataChunk();
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 class Rva00537EAD
 {

@@ -27,13 +27,7 @@ public:
 // Coord3D: shared header/view; no private copy.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class DataChunkOutput
-{
-public:
-	void writeInt(Int value);
-	void writeReal(Real value);
-	void writeAsciiString(const AsciiString &textValue);
-};
+#include "../../../Include/Common/DataChunkOutput.h"
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 

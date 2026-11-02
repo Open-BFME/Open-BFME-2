@@ -24,15 +24,7 @@ struct Rva00747E80Coord3D
 	Real z;
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk(char *name, unsigned short version);
-	void writeInt(int value);
-	void writeReal(float value);
-	void writeAsciiString(const AsciiString &value);
-	void closeDataChunk();
-};
+#include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 
 class NamedCamera
 {

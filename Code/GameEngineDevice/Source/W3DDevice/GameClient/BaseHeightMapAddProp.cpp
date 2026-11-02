@@ -48,15 +48,7 @@ public:
 	char data[194344]; // +0x00
 };
 
-class DataChunkOutput
-{
-public:
-	void openDataChunk( char *name, unsigned short version );
-	void closeDataChunk( void );
-	void writeReal( Real r );
-	void writeByte( unsigned char b );
-	void writeAsciiString( const AsciiString &string );
-};
+#include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 
 class BaseHeightMapRenderObjClass
 {
