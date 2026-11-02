@@ -1,0 +1,1232 @@
+{
+ "bases": [
+  "DrawableModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "DrawModule",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 9,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0xb19a1"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "DrawableModule",
+       "offset": 0,
+       "own_vftable": "0x7c9690",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xb19a1"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0xb19a1"
+     ],
+     "value": {
+      "0x0": "0x7c9690"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c9690"
+     ],
+     "value": {
+      "count": 62,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva000CEB6F@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0xcef83"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@DrawModule@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0xb19bd"
+       },
+       {
+        "name": "?xfer@DrawModule@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4cbf58"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 9,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 15,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 16,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 17,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 18,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 19,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 20,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 21,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 22,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 23,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 24,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 25,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 26,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 27,
+        "target": "0x50b238"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 28,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 29,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 30,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 31,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 32,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 33,
+        "target": "0xd1407"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 34,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "__purecall",
+        "slot": 35,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 36,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 37,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "__purecall",
+        "slot": 38,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 39,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 40,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 41,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 42,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 43,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 44,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 45,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 46,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 47,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 48,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 49,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+        "slot": 50,
+        "target": "0x2bfbf0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 51,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 52,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 53,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 54,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 55,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 56,
+        "target": "0x50b238"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 57,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 58,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 59,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 60,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 61,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x7c9690"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7c9690": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva000CEB6F@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@DrawModule@@MBEPBDXZ",
+     "3": "?xfer@DrawModule@@MAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "__purecall",
+     "12": "__purecall",
+     "13": "__purecall",
+     "14": "__purecall",
+     "15": "??1Region2D@@QAE@XZ",
+     "16": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "17": "?IsCRC@Xfer@@UBE_NXZ",
+     "18": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "19": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "20": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "21": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "22": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "23": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "24": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "25": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "26": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "27": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "28": "??1Region2D@@QAE@XZ",
+     "29": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "30": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "31": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "32": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "33": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "34": "??1Region2D@@QAE@XZ",
+     "35": "__purecall",
+     "36": "??1Region2D@@QAE@XZ",
+     "37": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "38": "__purecall",
+     "39": "__purecall",
+     "40": "?IsCRC@Xfer@@UBE_NXZ",
+     "41": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "42": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "43": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "44": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "45": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "46": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "47": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "48": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "49": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "50": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+     "51": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "52": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "53": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "54": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "55": "?IsCRC@Xfer@@UBE_NXZ",
+     "56": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "57": "??1Region2D@@QAE@XZ",
+     "58": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "59": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "60": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "61": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 16,
+   "12": 24
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DrawModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DrawModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 38,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 22,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_drawable",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Drawable*",
+   "views": 21,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 8,
+    "10": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot62",
+   "candidates": {
+    "s332()": 1
+   },
+   "class": "DrawModule",
+   "why": "beyond the retail vftable's 62 slots"
+  },
+  {
+   "attribute": "slot63",
+   "candidates": {
+    "s333()": 1
+   },
+   "class": "DrawModule",
+   "why": "beyond the retail vftable's 62 slots"
+  },
+  {
+   "attribute": "slot64",
+   "candidates": {
+    "setModelState(ModelConditionInfo*,int,ModelConditionInfo*)": 1
+   },
+   "class": "DrawModule",
+   "why": "beyond the retail vftable's 62 slots"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "a01()": 1,
+    "dm01()": 1,
+    "loadPostProcess()": 1,
+    "s001()": 1,
+    "slot04()": 1,
+    "slot1()": 2,
+    "v01()": 2,
+    "vslot01()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "a02()": 1,
+    "dm02()": 1,
+    "s002()": 1,
+    "slot08()": 1,
+    "slot2()": 2,
+    "v02()": 2,
+    "vslot02()": 1,
+    "xfer(Xfer*)": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "a03()": 1,
+    "dm03()": 1,
+    "s003()": 1,
+    "slot0C()": 1,
+    "slot3()": 2,
+    "v03()": 2,
+    "vslot03()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "a10()": 1,
+    "dm04()": 1,
+    "s010()": 1,
+    "slot10()": 1,
+    "slot4()": 2,
+    "v04()": 2,
+    "vslot04()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "a11()": 1,
+    "dm05()": 1,
+    "s011()": 1,
+    "slot14()": 1,
+    "slot5()": 2,
+    "v05()": 2,
+    "vslot05()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "a12()": 1,
+    "dm06()": 1,
+    "onDrawableBoundToObject()": 1,
+    "s012()": 1,
+    "slot18()": 1,
+    "slot6()": 2,
+    "v06()": 2
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "a13()": 1,
+    "dm07()": 1,
+    "s013()": 1,
+    "slot1C()": 1,
+    "slot7()": 2,
+    "v07()": 2,
+    "vslot07()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "a20()": 1,
+    "dm08()": 1,
+    "s020()": 1,
+    "slot20()": 1,
+    "slot8()": 2,
+    "v08()": 2,
+    "vslot08()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "a21()": 1,
+    "dm09()": 1,
+    "s021()": 1,
+    "slot24()": 1,
+    "slot9()": 2,
+    "v09()": 2,
+    "vslot09()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "a22()": 1,
+    "dm10()": 1,
+    "doDrawModule(Matrix3D*)": 1,
+    "s022()": 1,
+    "slot10()": 2,
+    "slot28()": 1,
+    "v10()": 2,
+    "vslot10()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "a23()": 1,
+    "dm11()": 1,
+    "s023()": 1,
+    "setShadowsEnabled(bool)": 1,
+    "slot11()": 2,
+    "slot2C()": 1,
+    "v11()": 2,
+    "vslot11()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "a30()": 1,
+    "dm12()": 1,
+    "releaseShadows()": 1,
+    "s030()": 1,
+    "slot12()": 2,
+    "slot30()": 1,
+    "v12()": 2,
+    "vslot12()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "a31()": 1,
+    "allocateShadows()": 1,
+    "dm13()": 1,
+    "s031()": 1,
+    "slot13()": 2,
+    "slot34()": 1,
+    "v13()": 2,
+    "vslot13()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "a32()": 1,
+    "dm14()": 1,
+    "s032()": 1,
+    "setTerrainDecal(enum)": 1,
+    "slot14()": 2,
+    "slot38()": 1,
+    "v14()": 2,
+    "vslot14()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "a33()": 1,
+    "dm15()": 1,
+    "s033()": 1,
+    "setTerrainDecalSize(float,float)": 1,
+    "slot15()": 2,
+    "slot3C()": 1,
+    "v15()": 2,
+    "vslot15()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "b00()": 1,
+    "dm16()": 1,
+    "s100()": 1,
+    "setTerrainDecalOpacity(float)": 1,
+    "slot16()": 2,
+    "slot40()": 1,
+    "v16()": 2,
+    "vslot16()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "b01()": 1,
+    "dm17()": 1,
+    "s101()": 1,
+    "setFullyObscuredByShroud(bool)": 1,
+    "slot17()": 2,
+    "slot44()": 1,
+    "v17()": 2,
+    "vslot17()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "b02()": 1,
+    "dm18()": 1,
+    "isVisible()": 1,
+    "s102()": 1,
+    "slot18()": 2,
+    "slot48()": 1,
+    "v18()": 2,
+    "vslot18()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "b03()": 1,
+    "dm19()": 1,
+    "reactToTransformChange(Matrix3D*,Coord3D*,float)": 1,
+    "s103()": 1,
+    "slot19()": 2,
+    "slot4C()": 1,
+    "v19()": 2,
+    "vslot19()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "b10()": 1,
+    "dm20()": 1,
+    "reactToGeometryChange()": 1,
+    "s110()": 1,
+    "slot20()": 2,
+    "slot50(int)": 1,
+    "v20()": 2,
+    "vslot20()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "b11()": 1,
+    "dm21()": 1,
+    "isLaser()": 1,
+    "s111()": 1,
+    "slot21()": 2,
+    "slot54()": 1,
+    "v21()": 2,
+    "vslot21()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "b12()": 1,
+    "dm22()": 1,
+    "getObjectDrawInterface()": 1,
+    "s112()": 1,
+    "slot22()": 2,
+    "slot58()": 1,
+    "v22()": 2,
+    "vslot22()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "b13()": 1,
+    "dm23()": 1,
+    "getObjectDrawInterface()": 1,
+    "s113()": 1,
+    "slot23()": 2,
+    "slot5C(int)": 1,
+    "v23()": 2,
+    "vslot23()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "b20()": 1,
+    "dm24()": 1,
+    "getDebrisDrawInterface()": 1,
+    "s120()": 1,
+    "slot24()": 2,
+    "v24()": 2,
+    "vslot24()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "b21()": 1,
+    "dm25()": 1,
+    "getDebrisDrawInterface()": 1,
+    "s121()": 1,
+    "slot25()": 2,
+    "v25()": 2,
+    "vslot25()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot26",
+   "candidates": {
+    "b22()": 1,
+    "dm26()": 1,
+    "getTracerDrawInterface()": 1,
+    "s122()": 1,
+    "slot26()": 2,
+    "v26()": 2,
+    "vslot26()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "b23()": 1,
+    "dm27()": 1,
+    "getTracerDrawInterface()": 1,
+    "s123()": 1,
+    "slot27()": 2,
+    "v27()": 2,
+    "vslot27()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "b30()": 1,
+    "dm28()": 1,
+    "getRopeDrawInterface()": 1,
+    "s130()": 1,
+    "slot28()": 2,
+    "v28()": 2,
+    "vslot28()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "b31()": 1,
+    "dm29()": 1,
+    "getRopeDrawInterface()": 1,
+    "s131()": 1,
+    "slot29()": 2,
+    "v29()": 2,
+    "vslot29()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "b32()": 1,
+    "dm30()": 1,
+    "getLaserDrawInterface()": 1,
+    "s132()": 1,
+    "slot30()": 2,
+    "v30()": 2,
+    "vslot30()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot31",
+   "candidates": {
+    "b33()": 1,
+    "dm31()": 1,
+    "getLaserDrawInterface()": 1,
+    "s133()": 1,
+    "slot31()": 2,
+    "v31()": 2,
+    "vslot31()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot32",
+   "candidates": {
+    "c00()": 1,
+    "dm32()": 1,
+    "s200()": 1,
+    "slot32()": 2,
+    "v32()": 2,
+    "vslot32()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot33",
+   "candidates": {
+    "c01()": 1,
+    "dm33()": 1,
+    "s201()": 1,
+    "slot33()": 2,
+    "v33()": 2,
+    "vslot33()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot34",
+   "candidates": {
+    "c02()": 1,
+    "dm34()": 1,
+    "s202()": 1,
+    "slot34()": 2,
+    "v34()": 2,
+    "vslot34()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot35",
+   "candidates": {
+    "c03()": 1,
+    "dm35()": 1,
+    "s203()": 1,
+    "slot35()": 2,
+    "v35()": 2,
+    "vslot35()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot36",
+   "candidates": {
+    "c10()": 1,
+    "dm36()": 1,
+    "s210()": 1,
+    "slot36()": 2,
+    "v36()": 2,
+    "vslot36()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot37",
+   "candidates": {
+    "c11()": 1,
+    "dm37()": 1,
+    "s211()": 1,
+    "slot37()": 2,
+    "v37()": 2,
+    "vslot37()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot38",
+   "candidates": {
+    "c12()": 1,
+    "dm38()": 1,
+    "reactToTransformChange(Matrix3D*,Coord3D*,float)": 1,
+    "s212()": 1,
+    "slot38()": 2,
+    "v38()": 2
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot39",
+   "candidates": {
+    "c13()": 1,
+    "dm39()": 1,
+    "s213()": 1,
+    "slot39()": 2,
+    "v39()": 2
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot40",
+   "candidates": {
+    "d0()": 1,
+    "dm40()": 1,
+    "s220()": 1,
+    "slot40()": 2,
+    "v40()": 2
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot41",
+   "candidates": {
+    "dm41()": 1,
+    "getDrawInterface()": 2,
+    "s221()": 1,
+    "slot41()": 1,
+    "v41()": 2
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot43",
+   "candidates": {
+    "e01()": 1,
+    "s223()": 1,
+    "v43()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot44",
+   "candidates": {
+    "e02()": 1,
+    "s230()": 1,
+    "v44()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot45",
+   "candidates": {
+    "e03()": 1,
+    "s231()": 1,
+    "v45()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot46",
+   "candidates": {
+    "e10()": 1,
+    "s232()": 1,
+    "v46()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot47",
+   "candidates": {
+    "e11()": 1,
+    "s233()": 1,
+    "v47()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot48",
+   "candidates": {
+    "e12()": 1,
+    "s300()": 1,
+    "v48()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot49",
+   "candidates": {
+    "e13()": 1,
+    "getRenderObject()": 1,
+    "s301()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot50",
+   "candidates": {
+    "e20()": 1,
+    "s302()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot51",
+   "candidates": {
+    "e21()": 1,
+    "s303()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot52",
+   "candidates": {
+    "e22()": 1,
+    "s310()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot53",
+   "candidates": {
+    "e23()": 1,
+    "s311()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot54",
+   "candidates": {
+    "f0()": 1,
+    "s312()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot55",
+   "candidates": {
+    "f1()": 1,
+    "s313()": 1
+   },
+   "class": "DrawModule"
+  },
+  {
+   "attribute": "slot56",
+   "candidates": {
+    "buildSubObjectDescription(AsciiString*,int)": 1,
+    "s320()": 1
+   },
+   "class": "DrawModule"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "getObjectDrawInterface()"
+  },
+  "57": {
+   "decided_by": "bytes",
+   "member": "s321()"
+  },
+  "58": {
+   "decided_by": "bytes",
+   "member": "s322()"
+  },
+  "59": {
+   "decided_by": "bytes",
+   "member": "s323()"
+  },
+  "60": {
+   "decided_by": "bytes",
+   "member": "s330()"
+  },
+  "61": {
+   "decided_by": "bytes",
+   "member": "s331()"
+  }
+ }
+}
