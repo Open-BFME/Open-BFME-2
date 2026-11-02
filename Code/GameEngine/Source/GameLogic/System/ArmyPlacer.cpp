@@ -56,7 +56,7 @@ class Player;
 
 class Rva002E2903Player{public:char bytes00[0x14];int playerID;};
 
-class ArmySummary{public:bool getSpawnPositions(int,Coord3D*,Coord3D*,bool);};
+#include "../../../Include/GameLogic/ArmySummary.h"
 
 struct Rva002B488EResult{char bytes00[0x78];ArmySummary*summary;};
 

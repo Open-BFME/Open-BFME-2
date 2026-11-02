@@ -14,13 +14,7 @@ struct BfmeAssignRecord104
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-class ArmySummary
-{
-public:
-	ArmySummary();
-	virtual ~ArmySummary();
-	char _pad[100];
-};
+#include "../../../../GameEngine/Include/GameLogic/ArmySummary.h"
 
 namespace _STL
 {

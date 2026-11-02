@@ -255,7 +255,7 @@ struct XferVersion
 // The element is ArmySummary: constructor 0x0040E3EE stores vtable
 // 0x00C394F0 whose slot 0 is the rowed ??1ArmySummary (0x0040E499). The two vector casts reuse the existing reserve/push owners
 // over their proven three-pointer container and 104-byte record layouts.
-class ArmySummary { public: ArmySummary();virtual ~ArmySummary();char pad[100]; };
+#include "../../../../Include/GameLogic/ArmySummary.h"
 struct BfmeAssignRecord104 { int data[26]; };
 struct BfmePod104 { int data[26]; };
 namespace _STL {

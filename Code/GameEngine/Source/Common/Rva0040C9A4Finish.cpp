@@ -17,14 +17,13 @@
 class Rva00DFE78C { public: char m_pad[0x40]; int m_40; };
 class GameLogic;
 extern GameLogic *TheGameLogic;
-class ArmySummary { public: void rva0040C985(int x); float rva0040C9A4();
-private: char m_pad[0x24]; int m_24; int m_28; int m_2C; int m_30; int m_34; int m_38; };
+#include "../../Include/GameLogic/ArmySummary.h"
 float ArmySummary::rva0040C9A4()
 {
-	int denom = m_34 - m_38;
+	int denom = field34 - field38;
 	if (denom <= 0)
 		denom = 1;
-	unsigned num = (unsigned)(((Rva00DFE78C *)TheGameLogic)->m_40 - m_38);
+	unsigned num = (unsigned)(((Rva00DFE78C *)TheGameLogic)->m_40 - field38);
 	float fd = (float)denom;
 	float fn = (float)num;
 	float f = fn / fd;

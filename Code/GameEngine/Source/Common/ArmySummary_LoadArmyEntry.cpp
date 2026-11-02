@@ -14,20 +14,13 @@ public:
     Object *rva0040C495(Player *, int);
 };
 struct Rva0040E534Input { ArmySummaryEntry *value; };
-class ArmySummary {
-public:
-    void LoadArmyEntry(Rva0040E534Input *, int,
-        _STL::list<Object *, _STL::allocator<Object *> > *, int);
-private:
-    char unknown[0x1c];
-    int index;
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 void ArmySummary::LoadArmyEntry(Rva0040E534Input *input, int count,
     _STL::list<Object *, _STL::allocator<Object *> > *out, int overrideIndex)
 {
-    Player *player = Rva0040C94ALookup(index);
+    Player *player = Rva0040C94ALookup(field1C);
     if (player) {
-        int selected = overrideIndex ? overrideIndex : index;
+        int selected = overrideIndex ? overrideIndex : field1C;
         for (; count > 0; --count) {
             Object *object = input->value->rva0040C495(player, selected);
             if (object)

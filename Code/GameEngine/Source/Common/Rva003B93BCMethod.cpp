@@ -35,14 +35,7 @@ struct BfmePod104
 	int a[26];
 };
 
-class ArmySummary
-{
-public:
-	ArmySummary();
-	virtual ~ArmySummary();
-private:
-	char m_pad[0x64];
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 
 class Rva003B93BC
 {

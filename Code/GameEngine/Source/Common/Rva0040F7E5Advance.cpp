@@ -13,7 +13,7 @@ private:
 };
 
 // 0x0040F497 is rowed as ArmySummary::Load(bool, bool, int) on this.
-class ArmySummary { public: void Load(bool a, bool b, int c); };
+#include "../../Include/GameLogic/ArmySummary.h"
 
 // ?CallArmyReinforcementIntoBattleByID@ArmySummarySystem@@QAEXH@Z @0x0040FAFE
 // 23B: WorldBuilder's twin 0x0108DAC0 bears the name (ArmySummary.cpp:1920) and

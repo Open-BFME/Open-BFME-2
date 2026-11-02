@@ -12,15 +12,6 @@
 
 // Only the members swap reaches are declared, so this unit emits nothing else
 // of the class; the 0x64 bytes after the vptr give the retail 0x68 temporary.
-class ArmySummary
-{
-public:
-	ArmySummary(const ArmySummary &);
-	virtual ~ArmySummary();
-	ArmySummary &operator=(const ArmySummary &);
-
-private:
-	char m_fields[0x64];
-};
+#include "../../../../GameEngine/Include/GameLogic/ArmySummary.h"
 
 template void _STL::swap(ArmySummary &, ArmySummary &);

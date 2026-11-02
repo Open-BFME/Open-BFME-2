@@ -19,37 +19,20 @@ public:
 };
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-class ArmySummary
-{
-public:
-	void rva0040C985(int startFrame);
-	int rva0040C9F4();
-	void rva0040CA09();
-	int rva0040CA24();
-	void rva0040CA3A(int delaySeconds);
-
-private:
-	char m_pad[0x24];
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-	int m_34;
-	int m_38;
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 
 void ArmySummary::rva0040C985(int startFrame)
 {
-	if (m_2C == 0) {
-		m_2C = 2;
-		m_38 = startFrame;
-		m_34 = m_30 + startFrame;
+	if (field2C == 0) {
+		field2C = 2;
+		field38 = startFrame;
+		field34 = field30 + startFrame;
 	}
 }
 int ArmySummary::rva0040C9F4()
 {
 	int frame = ((Rva00DFE78C *)TheGameLogic)->m_40;
-	int val = m_34;
+	int val = field34;
 	if (frame < val)
 		return val - frame;
 	return 0;
@@ -57,17 +40,17 @@ int ArmySummary::rva0040C9F4()
 void ArmySummary::rva0040CA09()
 {
 	int frame = ((Rva00DFE78C *)TheGameLogic)->m_40;
-	if ((unsigned)frame < (unsigned)m_34)
+	if ((unsigned)frame < (unsigned)field34)
 		return;
-	if (m_2C != 2)
+	if (field2C != 2)
 		return;
-	m_2C = 3;
+	field2C = 3;
 }
 int ArmySummary::rva0040CA24()
 {
 	if (((Rva00DFE758 *)TheWritableGlobalData)->m_timeOfDay == 4)
-		return m_28;
-	return m_24;
+		return field28;
+	return field24;
 }
 
 extern float LOGICFRAMES_PER_SECONDS_REAL;
@@ -76,6 +59,6 @@ float LOGICFRAMES_PER_SECONDS_REAL = 5.0f;
 
 void ArmySummary::rva0040CA3A(int delaySeconds)
 {
-	m_2C &= 0;
-	m_30 = (int)((float)delaySeconds * LOGICFRAMES_PER_SECONDS_REAL);
+	field2C &= 0;
+	field30 = (int)((float)delaySeconds * LOGICFRAMES_PER_SECONDS_REAL);
 }

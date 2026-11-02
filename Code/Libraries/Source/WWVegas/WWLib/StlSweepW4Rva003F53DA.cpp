@@ -26,16 +26,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 // Only the members the vector operations reach are declared; the 0x64 bytes
 // after the vptr give the retail 0x68 stride.
-class ArmySummary
-{
-public:
-	ArmySummary(const ArmySummary &);
-	virtual ~ArmySummary();
-	ArmySummary &operator=(const ArmySummary &);
-
-private:
-	char m_fields[0x64];
-};
+#include "../../../../GameEngine/Include/GameLogic/ArmySummary.h"
 
 // Native placement copy retains its complete EH cleanup frame.
 namespace _STL {

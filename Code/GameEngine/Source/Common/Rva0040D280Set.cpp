@@ -11,11 +11,7 @@
 class Drawable;
 #include "Thing/thing.h"
 class BfmeY1038;
-class ArmySummary
-{
-public:
-	int rva0040CA24();
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 #include "../GameLogic/Object/object.h"
 class ArmySummarySystem
 {

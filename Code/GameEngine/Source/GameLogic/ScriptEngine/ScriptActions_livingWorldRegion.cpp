@@ -259,7 +259,7 @@ public:
 // ScriptConditions_delayedCarryover.cpp).
 class ObjectTypes;
 // 0x0040E589 is rowed as ArmySummary::SpawnOneDelayedCarryoverUnit.
-class ArmySummary { public: ObjectID SpawnOneDelayedCarryoverUnit(ObjectTypes *types); bool SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker(ObjectTypes *types); };
+#include "../../../Include/GameLogic/ArmySummary.h"
 
 class Rva0040D701ArmySummary;
 

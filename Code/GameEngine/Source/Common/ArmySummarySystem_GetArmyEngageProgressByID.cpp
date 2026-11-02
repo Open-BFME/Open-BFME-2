@@ -5,11 +5,7 @@ class BfmeY1038
 public:
 	char m_pad0[0x34];
 };
-class ArmySummary
-{
-public:
-	float rva0040C9A4();
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 extern const float BfmeZeroRange;
 class ArmySummarySystem
 {

@@ -25,11 +25,7 @@ public:
 	const ArmorTemplate *rva0035516C(NameKeyType key) const;
 };
 
-class ArmySummary
-{
-public:
-	int rva0040C9F4();
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 
 class ArmySummarySystem
 {

@@ -13,11 +13,7 @@ public:
 };
 class GameLogic;
 extern GameLogic *TheGameLogic;
-class ArmySummary
-{
-public:
-	void rva0040C985(int x);
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 class ArmySummarySystem
 {
 public:

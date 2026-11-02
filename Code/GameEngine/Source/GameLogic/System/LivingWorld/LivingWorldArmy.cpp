@@ -138,7 +138,7 @@ class Rva002E2903Player;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E34A9 { public: void rva002E34A9(const Rva0040DD3ARef &,int); };
-class ArmySummary { public: ArmySummary &operator=(const ArmySummary &); ArmySummary(); void rva0040CC8F(); char footprint[0x68]; int AddArmyEntry(const Rva004F6093Holder &); Rva0040DD3ARef RemoveEntry(int); Rva0040DD3ARef rva0040E672(int); Rva0040DD3ARef rva0040E6A4(ArmySummaryEntry *); };
+#include "../../../../Include/GameLogic/ArmySummary.h"
 struct HeroTemplateKindView { char pad00[0x113]; unsigned char kind113; };
 void __cdecl Rva00030830GameFree(void *);
 

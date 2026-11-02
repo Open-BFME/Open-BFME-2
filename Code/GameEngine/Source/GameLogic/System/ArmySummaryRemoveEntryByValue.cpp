@@ -17,11 +17,7 @@ class ArmySummaryEntry;
 class Rva0040CB3AIndexedField {
 public: int rva0040CB79(ArmySummaryEntry *) const;
 };
-class ArmySummary {
-public:
- Rva0040DD3ARef RemoveEntry(int);
- Rva0040DD3ARef rva0040E6A4(ArmySummaryEntry *entry);
-};
+#include "../../../Include/GameLogic/ArmySummary.h"
 Rva0040DD3ARef ArmySummary::rva0040E6A4(ArmySummaryEntry *entry) {
  int index=reinterpret_cast<const Rva0040CB3AIndexedField *>(this)->rva0040CB79(entry);
  if(index<0) return Rva0040DD3ARef();

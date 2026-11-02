@@ -14,7 +14,7 @@ public:
  ~Rva004F6093Holder() { if(entry)ReleaseTreeHintRef00217D4C(&entry->ref); }
 };
 struct ArmySummaryEntryRef { Rva004F6093Holder holder; };
-class ArmySummary { public: ArmySummaryEntryRef GetEntry(int); };
+#include "../../Include/GameLogic/ArmySummary.h"
 struct LivingWorldArmy {
 public:
  void rva00319EF9(LivingWorldArmy *source,int key);

@@ -26,12 +26,7 @@ public:
 	void addSubsystem(SubsystemInterface *subsystem);
 };
 
-class ArmySummary
-{
-public:
-	void rva0040C985(int x);
-	void rva0040CA09();
-};
+#include "../../Include/GameLogic/ArmySummary.h"
 
 class BfmeY1038
 {

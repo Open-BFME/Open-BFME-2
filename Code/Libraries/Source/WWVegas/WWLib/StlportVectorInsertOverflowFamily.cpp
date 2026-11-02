@@ -204,7 +204,7 @@ struct BfmePod104 { char m_pad[104]; public: BfmePod104(const BfmePod104 &); ~Bf
 // vector<ArmySummary>::_M_fill_insert 0x003F53DA (StlSweepW4Rva003F53DA.cpp).
 // Its helpers are rowed over the BfmePod104 / BfmeAssignRecord104 spellings,
 // so the forwarders below bind them by those names.
-class ArmySummary { public: ArmySummary(const ArmySummary &); virtual ~ArmySummary(); private: char m_fields[0x64]; };
+#include "../../../../GameEngine/Include/GameLogic/ArmySummary.h"
 // 16-byte element; push_back 0x0032D2EA.
 class BfmeThingUBB { char m_pad[16]; public: BfmeThingUBB(const BfmeThingUBB &); ~BfmeThingUBB(); };
 // 4-byte element; push_back 0x005E825C.

@@ -655,11 +655,7 @@ public:
 // 0x0040ED4F ?MergeUnitsFromArmy@ArmySummary@@QAEXAAV1@@Z then forwards to rva003198B8.
 // Evidence: packet disasm ret-4 single ptr arg plus callers 0x002B4A8D 0x002B672F.
 
-class ArmySummary
-{
-public:
-	void MergeUnitsFromArmy(ArmySummary &other);
-};
+#include "../../../Include/GameLogic/ArmySummary.h"
 
 class Rva0037DCA5;
 

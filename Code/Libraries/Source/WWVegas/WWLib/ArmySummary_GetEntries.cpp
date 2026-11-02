@@ -93,23 +93,15 @@ struct Rva0040E88BSrc
 	Rva003F7B22Element m_second;
 };
 
-class ArmySummary
-{
-public:
-	void GetEntries(_STL::vector<Rva0040DC56Element> &dst);
-private:
-	char m_pad[0x40];
-	Rva0040E88BSrc *m_begin;
-	Rva0040E88BSrc *m_end;
-};
+#include "../../../../GameEngine/Include/GameLogic/ArmySummary.h"
 
 void ArmySummary::GetEntries(_STL::vector<Rva0040DC56Element> &dst)
 {
 	dst.erase(dst.begin(), dst.end());
-	dst.reserve(unsigned int(m_end - m_begin));
+	dst.reserve(unsigned int(field44 - field40));
 	_STL::vector<Rva003F7B22Element> &dst2 = (_STL::vector<Rva003F7B22Element> &)dst;
-	Rva0040E88BSrc *first = m_begin;
-	Rva0040E88BSrc *last = m_end;
+	Rva0040E88BSrc *first = field40;
+	Rva0040E88BSrc *last = field44;
 	for (Rva0040E88BSrc *p = first; p != last; ++p)
 		dst2.push_back(p->m_second);
 }

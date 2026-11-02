@@ -12,15 +12,7 @@
 #include <algorithm>
 #include <memory>
 
-class ArmySummary
-{
-public:
-	ArmySummary(const ArmySummary &);
-	virtual ~ArmySummary();
-
-private:
-	char m_fields[0x64];
-};
+#include "../../../../GameEngine/Include/GameLogic/ArmySummary.h"
 
 struct BfmePod104 { char m_pad[104]; BfmePod104(const BfmePod104 &); ~BfmePod104(); };
 namespace _STL {

@@ -258,11 +258,7 @@ class AwardSystemManager
 public:
 	static void parseThingStat(INI *ini, void *instance, void *store, const void *userData);
 };
-class ArmySummary
-{
-public:
-	static void parseArmyEntry(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/GameLogic/ArmySummary.h"
 
 // retail .rdata 0x007E6B2C (2 entries + terminator)
 extern const FieldParse ArmySummaryDescriptionFields[] =
