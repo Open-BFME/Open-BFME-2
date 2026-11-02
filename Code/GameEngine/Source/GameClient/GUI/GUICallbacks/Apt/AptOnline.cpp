@@ -9,30 +9,20 @@
 #define TheMgr00517048 g_bfmeAptWindowManager
 #define TheTgt00517048 (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 #include <vector>
-
 // ?rva00517048@Rva00517048@@QAEXABVUnicodeString@@@Z @0x00517048 108B
 // Chat login APT text plus ChatMessageOpen invoke. AsciiString temp from
 // "APT:ChatFriendLogInMessage" via rowed 0x00037BA0; bfmeSetText via pin
 // 0x00225301 with false; releaseBuffer via rowed 0x00036410; invoke via pin
 // 0x00222A8B with owner at +0x274; global 0x009FE4CC; caller 0x004161F1.
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 #include "../../../../../Include/Common/BfmeStringData.h"
-
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
 typedef unsigned char UnsignedByte;
-
 typedef bool Bool;
-
 #include "../../../../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 class PSPlayerAllStats;
-
 class GameSpyInfoInterface
 {
 public:
@@ -135,32 +125,20 @@ public:
 	virtual void slot96();
 	virtual bool slot97();
 };
-
 extern GameSpyInfoInterface *TheGameSpyInfo;
-
 void Rva00511730(int a);
-
 class AptMessenger { public: static void OpenScreen(); static AptMessenger *s_instance; };
-
-// Reference-counted callback handles (address-derived views; the callee
-// releases its by-value handles).
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
 class Rva0044BC76 {
 public:
     Rva0044BC76(const int *);
     __forceinline Rva0044BC76(const Rva0044BC76 &o) : m_ptr(o.m_ptr) {}
     TargetRef00217D4C *m_ptr;
 };
-
 struct ImplRef0044BC76 { virtual ~ImplRef0044BC76() {} int m_ref; ImplRef0044BC76() : m_ref(0) {} };
-
 struct Impl0044BC76 : ImplRef0044BC76 { int m_value; Impl0044BC76(const int &v) : m_value(v) {} };
-
 typedef void (*CallbackFn)();
-
 struct Rva004F6986Member : public Rva0044BC76 {
     __forceinline Rva004F6986Member(CallbackFn fn) : Rva0044BC76((const int *)&fn) {}
     __forceinline Rva004F6986Member(const Rva004F6986Member &other) : Rva0044BC76(*(const Rva0044BC76*)&other) {
@@ -168,31 +146,22 @@ struct Rva004F6986Member : public Rva0044BC76 {
     }
     __forceinline ~Rva004F6986Member() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
-
 class Rva004C5DD0 { public: TargetRef00217D4C *m_00,*m_04; Rva004C5DD0(const Rva004C5DD0 &o); };
-
 struct Rva0044BA4E : Rva004C5DD0 {
     Rva0044BA4E(Rva004F6986Member,Rva004F6986Member);
     ~Rva0044BA4E();
 };
-
 struct Rva0044BF40 {
     TargetRef00217D4C *m_ptr;
     Rva0044BF40(Rva004C5DD0 pair);
     __forceinline Rva0044BF40(const Rva0044BF40 &other):m_ptr(other.m_ptr) { if(m_ptr) ++m_ptr->references; }
     __forceinline ~Rva0044BF40(){ if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
-
 extern "C" void __cdecl Rva00437F61(int,const UnicodeString &,const UnicodeString &,Rva0044BF40);
-
 void CloseWindow(const char *);
-
 class DebugDisplayInterface;
-
 void __cdecl rva000B3FD0DebugDisplay(DebugDisplayInterface *, void *, _iobuf *);
-
 class Rva00517345;
-
 class Rva0051759EHandler
 {
 public:
@@ -202,18 +171,6 @@ public:
 	virtual void slot0C();
 	virtual Int handle(Rva00517345 *screen, UnsignedInt msg, UnsignedByte key, UnsignedInt state);
 };
-
-class Rva00517345
-{
-public:
-	virtual Int rva0051759E(UnsignedInt msg, UnsignedByte key, UnsignedInt state);
-
-private:
-	char m_pad004[0x280 - 0x004];
-	Rva0051759EHandler **m_handlersBegin;	// +0x280
-	Rva0051759EHandler **m_handlersEnd;		// +0x284
-};
-
 struct Rva00516F3F
 {
 	int m_0;
@@ -225,7 +182,6 @@ struct Rva00516F3F
 	void rva00516F3F();
 	Rva00516F3F *rva00516F63(const Rva00516F3F &other);
 };
-
 // ?rva00516FA0@Rva00516FA0@@QAEXXZ @0x00516FA0 9B: an owner that embeds the
 // Rva00516F3F record at +0 and an int at +0x18: clear the int, then tail into
 // the rowed record reset 0x00516F3F.
@@ -235,24 +191,19 @@ struct Rva00516FA0
 	int m_18;
 	void rva00516FA0();
 };
-
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
 struct Rva00517397Holder08
 {
 	TargetRef00217D4C *m_ptr;
 	~Rva00517397Holder08() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
-
 class Rva00517397Base
 {
 public:
 	__forceinline ~Rva00517397Base() {}
 	virtual void keep() {}
 };
-
 class __declspec(novtable) Rva00517397 : public Rva00517397Base
 {
 public:
@@ -262,7 +213,6 @@ private:
 	int m_pad04;
 	Rva00517397Holder08 m_08;
 };
-
 // ??1Rva0044BE85@@QAE@XZ @0x0044BE85 52B: byte-identical to ~Rva00517397 above
 // except its own EH handler (formerly the alias dup_0044be85). Its 28B scalar
 // deleting dtor 0x0044BE69 (VslotSmallBodiesAS.cpp, vtable 0xC3EDF4) calls it
@@ -276,7 +226,6 @@ private:
 	int m_pad04;
 	Rva00517397Holder08 m_08;
 };
-
 // ?rva00516FE5@Rva00516FE5@@QAEHHII@Z at 0x00516FE5 size 66
 // Evidence: vtable slot 2 neighbours GameWindow draw; calls pinned base _bfme_AptGameWindow 0x0051274F then child virtual +0x14 over +0x280 array.
 
@@ -285,9 +234,7 @@ class _bfme_AptGameWindow
 public:
     int rva0051274F(int a, unsigned b, unsigned c);
 };
-
 class Rva00516FE5;
-
 class Rva00516FE5Child
 {
 public:
@@ -298,7 +245,6 @@ public:
     virtual void v4();
     virtual int handler(Rva00516FE5 *parent, int a, unsigned b, unsigned c);
 };
-
 class Rva00516FE5
 {
 public:
@@ -308,13 +254,6 @@ private:
     Rva00516FE5Child **m_begin;
     Rva00516FE5Child **m_end;
 };
-
-struct Rva0051732A
-{
- TargetRef00217D4C *m_ptr;
- Rva0051732A(Rva004F6986Member value);
-};
-
 struct Rva00517048
 {
 public:
@@ -326,7 +265,6 @@ public:
 public:
 	void rva00516EE9();
 };
-
 // ?rva00516FA9@@YAXXZ 60B @0x00516FA9.
 // Target facts: Ghidra bounds 0x00516FA9-0x00516FE4; early return on the
 // global at VA 0x00E04904; then a direct call to 0x005BD82E, an
@@ -334,31 +272,20 @@ public:
 // 0x002233A6 with argument 1 on the Apt window manager global. The online
 // entry is now recovered as StartPatchCheck at its native 0x005BD82E.
 struct Rva00517048;
-
 extern Rva00517048 *g_Va00A04904;
-
 #include "../../../../../Include/GameClient/Shell.h"
-
 extern Shell *TheShell;
-
 class BfmeAptWindowManager;
-
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 void StartPatchCheck();
-
 void __cdecl Rva00437E9C(int value);
-
 void __cdecl Rva00516E92Enable();
-
 void __cdecl Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
-
 struct Rva005170CDInner
 {
 	Rva00516F3F base;
 	int m_18;
 };
-
 class Rva005170CD
 {
 public:
@@ -370,7 +297,6 @@ private:
 	char m_pad1[4];
 	bool m_2B8;
 };
-
 // WB AptOnlineShell::RefreshCachedStats (0x0145CE70; assert645) provides
 // the name lead. Retail 0x00517F31 independently proves the singleton
 // guards, virtual slots, two by-value 0x548-byte stats transfers, preference
@@ -387,9 +313,7 @@ public:
 private:
     unsigned int unknown[0x544 / 4];
 };
-
 typedef char StatsExtent[sizeof(PSPlayerAllStats) == 0x548 ? 1 : -1];
-
 class GameSpyMiscPreferences {
 public:
     GameSpyMiscPreferences();
@@ -398,9 +322,7 @@ public:
 private:
     unsigned int unknown[4];
 };
-
 class BfmeOpaqueOwnedRecord1432;
-
 class GameSpyPSMessageQueueInterface {
 public:
     virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
@@ -409,26 +331,17 @@ public:
     virtual void s24(); virtual void s28(); virtual void s2C();
     virtual PSPlayerAllStats findPlayerStatsByID(int id);
 };
-
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
-
 struct Gen_uw_00385371;
-
 void Rva00556FB8(const Gen_uw_00385371 &);
-
 class Rva005B8EBB {
 public: void rva00517F31();
 };
-
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
-
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-
 void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
-
 // Second wrapper spelling folded onto 0x00516F21 (see the header comment).
 void Rva00516F21InvokeFold(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
-
 class BfmeOpaqueOwnedRecord1432
 {
 public:
@@ -439,7 +352,6 @@ public:
 	PSPlayerAllStats m_player;  // +0x08
 	unsigned char m_rest[0x598 - 0x550];
 };
-
 struct AptOnlineSubScreen
 {
 	virtual void v0();
@@ -453,17 +365,13 @@ struct AptOnlineSubScreen
 	virtual void v8();
 	virtual bool isDone();
 };
-
 extern int g_Va00E06544;
-
 extern int g_Va00E06548;
-
 class Rva00517EA2
 {
 public:
 	void rva00517EA2();
 };
-
 class AptOnline
 {
 public:
@@ -480,7 +388,6 @@ private:
 	unsigned char m_pad294[0x2B0 - 0x294];
 	int m_state;                         // +0x2B0
 };
-
 namespace _STL
 {
 template <class T> class allocator;
@@ -492,7 +399,6 @@ private:
 	void *m_node;
 };
 }
-
 // slot at VA 0x00C37080: LivingWorldBattle's traversal visitor (the class
 // whose inlined construction ~LivingWorldBattle stores, Rva003F6A91Dtor.cpp),
 // slot 0 of its two-slot table (slot 1 is the folded deleting destructor at
@@ -500,7 +406,6 @@ private:
 // (NULL stays NULL), to the rowed 0x002B7250 on the entry's +0x08 member;
 // answers true. Same shape as Rva005FED52::invoke (vtable 0x00C37064).
 class CreateAHeroData;
-
 #include "../../../../../Include/GameLogic/CreateAHeroData.h"
 
 // slots at VA 0x00C644C4, 0x00C64544 and 0x00C645AC: forward both arguments
@@ -536,11 +441,53 @@ public:
 
 ParticleSystem *Make001FCBD7();
 
-// Installed table output words. Original owner, base relationship and
-// aggregate/return convention remain unknown. Native word operations only.
+struct Rva0051732A
+{
+public:
+	TargetRef00217D4C *m_ptr;
+public:
+	Rva0051732A(Rva004F6986Member value);
+public:
+	~Rva0051732A() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+};
+
+class Rva00517345
+{
+public:
+	virtual Int rva0051759E(UnsignedInt msg, UnsignedByte key, UnsignedInt state);
+private:
+	char m_pad004[0x280 - 0x004];
+private:
+	Rva0051759EHandler **m_handlersBegin;
+private:
+	Rva0051759EHandler **m_handlersEnd;
+public:
+	Rva00517345(const Rva0051732A &other);
+};
+
+struct Rva005173CB
+{
+	Rva00517345 *m_ptr;
+	Rva005173CB *rva005173CB(const Rva0051732A &arg);
+};
+
+struct Rva00517547 : Rva005173CB
+{
+	Rva00517547 *rva00517547(Rva0051732A arg);
+};
+
 // tu-skeleton: 0x00516EC0 19B ?Options@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00516ED3 22B ?ShellExit@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+
+// Reference-counted callback handles (address-derived views; the callee
+// releases its by-value handles).
+
+// Installed table output words. Original owner, base relationship and
+// aggregate/return convention remain unknown. Native word operations only.
+
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 
@@ -850,6 +797,15 @@ int AptOnline::rva0051805B()
 	return 1;
 }
 
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp
+
+void Rva00517364::rva00517364(Int which)
+{
+	BfmeA1042N *member = &m_08;
+	if (which == 1 && member->m_00 != 0)
+		member->bfmeGo1042D();
+}
+
 // tu-skeleton: 0x00516F08 25B ?rva00516F08@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
 
 // tu-skeleton: 0x00517027 33B ?LoadChildScreen@AptOnlineShell@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00517027Set.cpp (not merged yet)
@@ -866,15 +822,6 @@ int AptOnline::rva0051805B()
 
 // tu-skeleton: 0x00517345 31B ??0Rva00517345@@QAE@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517345Ctor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp
-
-void Rva00517364::rva00517364(Int which)
-{
-	BfmeA1042N *member = &m_08;
-	if (which == 1 && member->m_00 != 0)
-		member->bfmeGo1042D();
-}
-
 // tu-skeleton: 0x0051737B 28B ??_GRva00517397@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-10.cpp (not merged yet)
 
 // tu-skeleton: 0x005173CB 45B ?rva005173CB@Rva005173CB@@QAEPAU1@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva005173CBSet.cpp (not merged yet)
@@ -885,7 +832,13 @@ void Rva00517364::rva00517364(Int which)
 
 // tu-skeleton: 0x005174E4 99B ?rva005174E4@Rva005174E4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp (not merged yet)
 
-// tu-skeleton: 0x00517547 59B ?rva00517547@Rva00517547@@QAEPAU1@URva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517547Set.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00517547Set.cpp
+
+Rva00517547 *Rva00517547::rva00517547(Rva0051732A arg)
+{
+	rva005173CB(arg);
+	return this;
+}
 
 // tu-skeleton: 0x00517582 28B ??_GRva005173F8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
 
@@ -922,10 +875,6 @@ void Rva00517364::rva00517364(Int which)
 // tu-skeleton: 0x00795532 14B $L5838 -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00795540 10B __ehhandler$??1Rva005173F8@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079554A 8B $L342 -- matched in Code/GameEngine/Source/Common/Rva00517547Set.cpp (not merged yet)
-
-// tu-skeleton: 0x00795552 10B __ehhandler$?rva00517547@Rva00517547@@QAEPAU1@URva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517547Set.cpp (not merged yet)
 
 // tu-skeleton: 0x00795586 8B Unwind@00b95586 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp (not merged yet)
 
