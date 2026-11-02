@@ -492,18 +492,7 @@ public:
 
 // BFME 2's partition filter base (ctor 0x000421C8): a vptr and the +0x04 link
 // to the next filter (link 0x00625790 appends its argument and returns this).
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *objOther) = 0;
-	virtual Int getPlayerMask(); // slot 2, 0x0036CC7A
-	Rva000421C8 *link(Rva000421C8 *next);
-	Bool allows(Object *obj); // 0x00625720, the chain test
-private:
-	Rva000421C8 *m_next; // +0x04
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 // The line-of-sight partition filter (vtable 0x00C07150).
 class Rva002619C1Filter : public Rva000421C8

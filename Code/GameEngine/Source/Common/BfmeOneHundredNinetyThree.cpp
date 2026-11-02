@@ -13,16 +13,7 @@ class Object;
 
 // Partition filter base (address-named after its constructor 0x000421C8):
 // allow is vftable slot 1; allows runs every filter along the +0x04 links.
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-
-	bool allows(Object *obj);
-
-	Rva000421C8 *m_next;		// 0x4
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // ?allows@Rva000421C8@@QAE_NPAVObject@@@Z
 bool Rva000421C8::allows(Object *obj)

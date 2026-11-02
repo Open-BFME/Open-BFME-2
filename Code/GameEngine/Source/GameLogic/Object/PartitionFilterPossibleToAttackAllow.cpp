@@ -34,16 +34,7 @@ enum CanAttackResult
 // shared getPlayerMask 0x0036CC7A.  The matched body below reads the derived
 // fields at +0x08/+0x0C/+0x10 on this base (the ZH source's private
 // m_pad04 is this base's m_next, keep the offsets identical).
-class Rva000421C8
-{
-public:
-	__declspec(dllimport) __forceinline Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual Bool allow(Object *objOther) = 0;
-	virtual Int getPlayerMask();
-private:
-	Rva000421C8 *m_next;						// +0x04
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 class PartitionFilterPossibleToAttack : public Rva000421C8
 {

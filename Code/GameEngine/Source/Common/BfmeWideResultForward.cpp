@@ -22,15 +22,7 @@ class Object;
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0): filters
 // chain through +0x04 and the partition manager's queries walk the chain.
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // The partition manager's range-query implementation behind +0x10
 // (0x00628770): position, radius, 0, distance type, filter chain, order.

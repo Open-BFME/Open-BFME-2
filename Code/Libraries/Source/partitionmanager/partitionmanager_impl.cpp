@@ -266,11 +266,7 @@ class Object;
 
 // Partition filter base: allows (0x00625720) runs the chain from this filter
 // along the +0x04 links.
-class Rva000421C8
-{
-public:
-	bool allows(Object *obj);
-};
+#include "../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 
 struct S4SortElem24
 {

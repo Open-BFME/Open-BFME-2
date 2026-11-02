@@ -13,7 +13,7 @@ extern PlayerList *ThePlayerList;
 struct BfmePointFD;
 class Rva00739830 {public:int rva00739830(const BfmePointFD *,int,unsigned)const;};// Global type follows the existing FXListDoFXPos provider.
 class PartitionManager;extern PartitionManager *TheShroudManager;
-class Rva000421C8 {public:Rva000421C8():next(0){}virtual ~Rva000421C8();virtual bool Allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *next;};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 // Name: WorldBuilder twin 0x01230A20 EmotionTrackerUpdate::TauntPointFilter::Allow (call graph)
 // names slot 1 and this nested class; the slot-2 and constructor names follow from it.
 class EmotionTrackerUpdate::TauntPointFilter:public Rva000421C8 {public:TauntPointFilter(EmotionTrackerUpdate*);virtual bool Allow(Object*);virtual int getPlayerMask();

@@ -20,14 +20,7 @@ class BfmeObjESA
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // Partition filter vftable 0x00BFAD04 slot 1, built inline by RespawnUpdate
 // 0x004AF1CE and 5 more matched users under this address-derived name: is

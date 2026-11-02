@@ -641,13 +641,7 @@ struct Rva00261750Arg
 };
 
 
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 class Rva00261750Filter : public Rva000421C8
 {

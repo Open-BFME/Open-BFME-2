@@ -27,14 +27,7 @@ typedef char (Rva0035B2C3::*Rva0035B2C3CharShape)(void *, void *, int, void *);
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // Partition filter vftable 0x00C1FE34 slot 1, built inline by script action
 // 0x003BDE5D (Zero Hour's PartitionFilterValidCommandButtonTarget there).

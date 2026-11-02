@@ -151,14 +151,7 @@ void Rva0025EEF5::rva0025EEF5(Int value, Int, Int, Int, Int, Int) { slot21(value
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // vtable 0x00C1FDE0#2: the field at +8, complemented unless the byte at +0xC.
 class Rva002613AFFilter : public Rva000421C8

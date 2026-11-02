@@ -15,16 +15,7 @@ class Object;
 
 // Partition filter base (vftable slot 2 is its rowed getPlayerMask, 0x0036CC7A),
 // the same view ReplenishUnitsBehaviorUpdate.cpp declares.
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_bfmeHeadAM(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-
-	void *m_bfmeHeadAM;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // Partition filter with vftable 0x00C49F14 (dtor, allow, getPlayerMask); bfmeCheckAM is its allow (slot 1).
 class Rva00260F77Filter : public Rva000421C8

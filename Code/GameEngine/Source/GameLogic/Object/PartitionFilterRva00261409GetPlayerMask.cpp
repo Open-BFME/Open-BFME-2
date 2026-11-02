@@ -16,13 +16,7 @@ class Object;
 
 extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 
-class Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj) = 0;
-private:
-	int m_04;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 class Rva00261409Filter : public Rva000421C8
 {

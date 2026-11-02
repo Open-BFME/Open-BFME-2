@@ -97,7 +97,7 @@ struct Rva004B0FEBData
 #include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class Rva000421C8 {public:virtual ~Rva000421C8();virtual bool Allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *next;};
+#include "../../../../Include/GameLogic/PartitionFilter.h"
 
 class EmotionTrackerUpdate
 {

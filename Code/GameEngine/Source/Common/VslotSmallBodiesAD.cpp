@@ -52,14 +52,7 @@ bool Rva00260E44Filter::allow(Object *obj)
 // 0x0026156C: filter slot1 of native vftable C600A0. Its caller preserves
 // Object::rva0029493F's AL result; the older void/int view dropped that ABI fact.
 // The source Object at+8 and mode at+C match the notifier's native filter.
-class Rva000421C8
-{
-public:
- virtual ~Rva000421C8();
- virtual bool allow(Object *)=0;
- virtual int getPlayerMask();
- Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 class Rva0026156C:public Rva000421C8
 {
 public:

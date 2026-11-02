@@ -70,14 +70,7 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../../Include/GameLogic/PartitionFilter.h"
 
 class Rva002619C1Filter : public Rva000421C8
 {

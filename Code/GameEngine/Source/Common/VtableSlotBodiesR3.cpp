@@ -522,14 +522,7 @@ void Rva001F01E8::rva0025EF01(int, int, int, int, int, int, int)
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // 0x00260E1E: one shifted left by the +0x54 word of the object at +8.
 struct Rva00260E1ETarget

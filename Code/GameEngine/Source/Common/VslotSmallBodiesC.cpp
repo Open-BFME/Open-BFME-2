@@ -186,14 +186,7 @@ Int Rva0008BBC7::rva0008BBC7()
 
 // The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
 class Object;
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // vtable 0x00BFAD28#2: the bit (+8)->+0x54 as a mask, complemented unless the
 // byte at +0xC is set.

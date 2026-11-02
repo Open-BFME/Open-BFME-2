@@ -110,13 +110,7 @@ public:
 	virtual int v96(int arg);
 };
 
-class Rva000421C8
-{
-public:
-	virtual ~Rva000421C8();
-	virtual bool allow(Object *obj) = 0;
-	Rva000421C8 *m_next;
-};
+#include "../../Include/GameLogic/PartitionFilter.h"
 
 // allow() of the partition filter with vftable 0x00C4D040 (LargeGroupBonusUpdate
 // builds it over its member filter): +0x08 the member filter handed to the
