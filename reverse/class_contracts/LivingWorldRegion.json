@@ -1,0 +1,801 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldRegion",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10c": {
+    "4": 1
+   },
+   "0x120": {
+    "4": 1
+   },
+   "0x13c": {
+    "4": 4
+   },
+   "0x14": {
+    "4": 2
+   },
+   "0x170": {
+    "4": 24
+   },
+   "0x174": {
+    "4": 16
+   },
+   "0x17c": {
+    "4": 1
+   },
+   "0x180": {
+    "4": 1
+   },
+   "0x18c": {
+    "4": 1
+   },
+   "0x1a3": {
+    "1": 1
+   },
+   "0x1a8": {
+    "4": 1
+   },
+   "0x1ac": {
+    "4": 1
+   },
+   "0xa9": {
+    "1": 1
+   },
+   "0xe0": {
+    "4": 1
+   },
+   "0xf0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3f3967"
+     ],
+     "value": {
+      "0x4": [
+       "Rva003197EEList",
+       "Rva00330757Member"
+      ]
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3f3967"
+     ],
+     "value": 421
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3f3967"
+     ],
+     "value": {
+      "0x12c": [
+       4
+      ],
+      "0x130": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       4
+      ],
+      "0x154": [
+       4
+      ],
+      "0x17c": [
+       4
+      ],
+      "0x198": [
+       4
+      ],
+      "0x19c": [
+       4
+      ],
+      "0x1a0": [
+       1
+      ],
+      "0x1a1": [
+       1
+      ],
+      "0x1a2": [
+       1
+      ],
+      "0x1a3": [
+       1
+      ],
+      "0x1a4": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3f3967"
+     ],
+     "value": {
+      "0x14": [
+       "??0Rva003F2D03@@QAE@ABVAsciiString@@@Z"
+      ],
+      "0x158": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x164": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x170": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x180": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x18c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x1a8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3f3967"
+     ],
+     "value": {
+      "0x0": "0x836fa4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x836fa4"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GLivingWorldRegion@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3f36ec"
+       },
+       {
+        "name": "?loadPostProcess@LivingWorldRegion@@UAEXXZ",
+        "slot": 1,
+        "target": "0x3f08ee"
+       },
+       {
+        "name": "?GetSnapshotName@LivingWorldRegion@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x3f3418"
+       },
+       {
+        "name": "?DoXfer@LivingWorldRegion@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x3f3bff"
+       }
+      ],
+      "table": "0x836fa4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 30,
+  "retail_vtables": {
+   "0x836fa4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GLivingWorldRegion@@UAEPAXI@Z",
+     "1": "?loadPostProcess@LivingWorldRegion@@UAEXXZ",
+     "2": "?GetSnapshotName@LivingWorldRegion@@UBEPBDXZ",
+     "3": "?DoXfer@LivingWorldRegion@@UAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 16,
+   "4": 1,
+   "228": 1,
+   "252": 1,
+   "285": 1,
+   "292": 1,
+   "300": 1,
+   "304": 2,
+   "312": 1,
+   "320": 6,
+   "380": 1,
+   "420": 4,
+   "436": 3
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 19
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion_SetupRegionOwnership.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldRegion_GetGarrisonArmyPlacementSpot.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldRegion_GetGarrisonArmyPlacementSpot.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldRegion_GetGarrisonArmyPlacementSpot.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/LivingWorldRegion_GetFortressPortrait.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Rva003F0466Label.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Rva003F0466Label.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicRva002B89E1.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva002B2590.cpp",
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerQueuedArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/LWAIWorldInformation_GatherWorldInformation.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 332,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 336,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 340,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion_BuildBuilding.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 396,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 400,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 404,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 408,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 412,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 416,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 417,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 418,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionLoadPostProcess.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 419,
+   "sources": [
+    "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegion_BuildBuilding.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 420,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 424,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 428,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 432,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB07.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionConstructor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 320,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "loadPostProcess()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "GetSnapshotName()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "DoXfer(Xfer*)"
+  }
+ }
+}
