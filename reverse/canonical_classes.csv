@@ -337,3 +337,4 @@ LocomotorSet,Code/GameEngine/Include/GameLogic/LocomotorSet.h,existing header; c
 GameLODManager,Code/GameEngine/Include/Common/GameLODManager.h,existing header; contract class_contracts/GameLODManager.json; 12/23 sampled units adopt
 HotKeyManager,Code/GameEngine/Include/GameClient/HotKeyManager.h,existing header; contract class_contracts/HotKeyManager.json; 18/24 sampled units adopt
 BuildAssistant,Code/GameEngine/Include/Common/BuildAssistantClass.h,existing header; contract class_contracts/BuildAssistant.json; 11/25 sampled units adopt
+ModuleFactory,Code/GameEngine/Include/Common/ModuleFactoryClass.h,existing header; contract class_contracts/ModuleFactory.json; 22/25 sampled units adopt
