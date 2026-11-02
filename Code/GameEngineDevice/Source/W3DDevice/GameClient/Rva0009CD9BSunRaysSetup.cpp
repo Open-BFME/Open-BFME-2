@@ -25,7 +25,8 @@ public:
 
     void set(float x,float y,float z) { X=x; Y=y; Z=z; }
 };
-struct Matrix3D { float Row[3][4]; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class TextureClass {
 public:
     virtual void slot0();
@@ -185,9 +186,9 @@ void Rva0009C134Host::rva0009CD9B()
         m_cc->specular.set(0.0f,0.0f,0.0f);
         m_cc->diffuse=color;
         Matrix3D tm;
-        tm.Row[0][0]=1.0f; tm.Row[0][1]=0.0f; tm.Row[0][2]=direction.X; tm.Row[0][3]=0.0f;
-        tm.Row[1][0]=0.0f; tm.Row[1][1]=1.0f; tm.Row[1][2]=direction.Y; tm.Row[1][3]=0.0f;
-        tm.Row[2][0]=0.0f; tm.Row[2][1]=0.0f; tm.Row[2][2]=direction.Z; tm.Row[2][3]=0.0f;
+        tm.Row[0].X=1.0f; tm.Row[0].Y=0.0f; tm.Row[0].Z=direction.X; tm.Row[0].W=0.0f;
+        tm.Row[1].X=0.0f; tm.Row[1].Y=1.0f; tm.Row[1].Z=direction.Y; tm.Row[1].W=0.0f;
+        tm.Row[2].X=0.0f; tm.Row[2].Y=0.0f; tm.Row[2].Z=direction.Z; tm.Row[2].W=0.0f;
         m_cc->Set_Transform(tm);
         m_c4->ReleaseChild(m_cc);
     }
@@ -205,9 +206,9 @@ void Rva0009C134Host::rva0009CD9B()
         m_d0->specular.set(0.0f,0.0f,0.0f);
         m_d0->diffuse=color;
         Matrix3D tm;
-        tm.Row[0][0]=1.0f; tm.Row[0][1]=0.0f; tm.Row[0][2]=direction.X; tm.Row[0][3]=0.0f;
-        tm.Row[1][0]=0.0f; tm.Row[1][1]=1.0f; tm.Row[1][2]=direction.Y; tm.Row[1][3]=0.0f;
-        tm.Row[2][0]=0.0f; tm.Row[2][1]=0.0f; tm.Row[2][2]=direction.Z; tm.Row[2][3]=0.0f;
+        tm.Row[0].X=1.0f; tm.Row[0].Y=0.0f; tm.Row[0].Z=direction.X; tm.Row[0].W=0.0f;
+        tm.Row[1].X=0.0f; tm.Row[1].Y=1.0f; tm.Row[1].Z=direction.Y; tm.Row[1].W=0.0f;
+        tm.Row[2].X=0.0f; tm.Row[2].Y=0.0f; tm.Row[2].Z=direction.Z; tm.Row[2].W=0.0f;
         m_d0->Set_Transform(tm);
         m_c4->ReleaseChild(m_d0);
     }
