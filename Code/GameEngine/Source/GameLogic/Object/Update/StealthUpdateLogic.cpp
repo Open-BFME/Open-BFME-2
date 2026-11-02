@@ -263,11 +263,7 @@ enum ObjectScriptStatusBit
 
 class UpgradeTemplate;
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 // TheTerrainLogic's query 0x0027F108, rowed under an address-derived class.

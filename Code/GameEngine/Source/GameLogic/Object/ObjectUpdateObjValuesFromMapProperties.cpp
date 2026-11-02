@@ -73,11 +73,7 @@ Rva00148F5ECache TheKey_objectExperienceLevel = { NAMEKEY_INVALID, "objectExperi
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class UpgradeTemplate;
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 
 struct Rva00336283Element;

@@ -41,11 +41,7 @@ class ModuleData;
 
 #include "../../../../Include/Common/ThingFactory.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../../Include/Common/Upgrade.h"
 
 class Drawable
 {

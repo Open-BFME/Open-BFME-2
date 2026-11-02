@@ -501,26 +501,9 @@ class AsciiString;
 // --- 0x0026FBBC (51B): with the image collection present, cache every
 // upgrade template's button image once (+0x14 flag; templates linked from
 // +0x0C through +0x64), then the rowed UpgradeCenter 0x0026F93C.
-class UpgradeTemplate
-{
-public:
-	void cacheButtonImage();								// 0x0026F216
-	char m_pad[0x64];
-	UpgradeTemplate *m_next;								// +0x64
-};
+#include "../../../Include/Common/Upgrade.h"
 class ImageCollection;
 extern ImageCollection *TheMappedImageCollection;
-class UpgradeCenter
-{
-public:
-	void rva0026F93C();										// 0x0026F93C
-	virtual void reset();
-private:
-	char m_pad[0x08];										// after the vftable pointer
-	UpgradeTemplate *m_upgradeList;							// +0x0C
-	char m_pad10[0x14 - 0x10];
-	bool m_buttonImagesCached;								// +0x14
-};
 // --- 0x0029A436 (25B): the +0x00 object's +0x20 angle = value - pi/2;
 // 0x0029A452 (23B): its +0x08 point = the given point.
 

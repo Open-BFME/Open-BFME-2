@@ -333,7 +333,7 @@ class ContainListInterface:public Slots<70>{public:virtual Rva0036AE51ListView r
 
 class UpgradeTemplate;
 
-class UpgradeCenter{public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
+#include "../../../../Include/Common/Upgrade.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
 
