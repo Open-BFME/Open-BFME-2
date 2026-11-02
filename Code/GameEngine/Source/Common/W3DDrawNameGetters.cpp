@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // W3D draw/buffer literal name getters: six-byte const members with one shape
 // (mov eax,<offset string literal> / ret). Same shape and verbatim
 // BFME_LITERAL_NAME_GETTER macro as
@@ -33,11 +34,7 @@ BFME_LITERAL_NAME_GETTER(Rva000E6B93Named, "W3DVegetationBufferBase")
 BFME_LITERAL_NAME_GETTER(Rva000EDB39Named, "W3DTreeBuffer")
 // Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
 // is EEFE6: the canonical Snapshot GetSnapshotName slot.
-class W3DPropBuffer
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 
 const char *W3DPropBuffer::GetSnapshotName() const
 {

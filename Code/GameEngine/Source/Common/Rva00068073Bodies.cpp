@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // Dump range 1 twins (0x00068073 64B, 0x000680D6 67B): guarded pairs through
 // +0x3854/+0x3858. The first guard calls, the second restores esi before its
@@ -21,17 +21,7 @@ public:
 };
 
 class AsciiString;
-class W3DPropBuffer
-{
-public:
-	void notifyShroudChanged();
-	void rva000EE04A(const Coord3D *a, float b);
-	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
-	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
-	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
-	W3DPropBuffer();
-	char data[194344]; // +0x00
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 
 class Rva00068073Host
 {

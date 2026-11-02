@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // More null-checked member-pointer forwarders (VslotNullCheckedForwarders.cpp
 // shape, found by a .text byte scan of unowned starts): load the pointer at
@@ -47,11 +47,7 @@ void Rva0020065ANullForwarder::draw()
 		m_member->draw();
 }
 
-class W3DPropBuffer
-{
-public:
-	void removeProp(Int a0);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 
 class Rva00068373NullForwarder
 {
