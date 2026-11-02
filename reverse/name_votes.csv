@@ -21455,3 +21455,8 @@ Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp|member|BfmePowerDisableTempl
 Code/GameEngine/Source/Common/RTS/PlayerRva002ACD09.cpp|function|0x002ACD09|rva002ACD09,f76d5b81cc6b35ae35863dcb,claude-haiku-5-5,drz-k9-n34b2,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/RTS/Rva002AA292Check.cpp|function|0x002AA292|rva002AA292,a482badf6baf71358818d878,claude-haiku-5-5,drz-k9-n34b2,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/RTS/Rva002AD19EArmor.cpp|function|0x002AD19E|rva002AD19E,97139ffe68e80e35ae765dff,claude-haiku-5-5,drz-k9-n34b2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp|function|0x000E055A|rva000E055A,67c0b126a67c0190b7d0b209,claude-haiku-5-5,drz-k9-n34d2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp|member|Rva0006D470|m_3844,c3d4d1c96e844fe749d1e7af,claude-haiku-5-5,drz-k9-n34d2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp|member|Rva0006D470|m_3848,a3367ebefea2df23c1a8e292,claude-haiku-5-5,drz-k9-n34d2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp|member|Rva0006D470|m_384C,937b70fa094d2c02fa9b45d0,claude-haiku-5-5,drz-k9-n34d2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva0006ACBDMethod.cpp|function|0x0006D3B6|rva0006D3B6,e87ff96ace3d91fef2539157,claude-haiku-5-5,drz-k9-n34d2,w-2a58b1ead41e,2026-11-02
