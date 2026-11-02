@@ -108,22 +108,7 @@ __declspec(noinline) UnicodeString Rva00539619(const UnicodeString &str){
  return out;
  }
 }
-class DisplayStringManager {public:
-virtual void v0();
-virtual void v1();
-virtual void v2();
-virtual void v3();
-virtual void v4();
-virtual void v5();
-virtual void v6();
-virtual void v7();
-virtual void v8();
-virtual void v9();
-virtual void v10();
-virtual void v11();
-virtual void v12();
-virtual void v13();
-virtual DisplayString *newDisplayString();};
+#include "../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 class __declspec(novtable) Rva005398CDRefCounted {public:
  Rva005398CDRefCounted():m_refCount(0){} virtual ~Rva005398CDRefCounted();int m_refCount;

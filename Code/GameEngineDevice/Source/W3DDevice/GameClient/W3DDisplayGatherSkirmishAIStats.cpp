@@ -45,15 +45,7 @@ public:
 extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
-class DisplayStringManager
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13)
-#undef V
-	virtual DisplayString *newDisplayString();	// +0x38
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
 class ThingTemplate

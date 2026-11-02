@@ -20,15 +20,7 @@ template <> __declspec(nothrow) int StringBase<unsigned short>::compare(const St
 
 class GameFont;
 #include "../../Include/GameClient/DisplayString.h"
-class DisplayStringManager
-{
-public:
-    virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c();
-    virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c();
-    virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c();
-    virtual void v30(); virtual void v34();
-    virtual DisplayString *newDisplayString();
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 class LanguageFilter { public: void filterLine(UnicodeString &line); };
 extern LanguageFilter *TheLanguageFilter;

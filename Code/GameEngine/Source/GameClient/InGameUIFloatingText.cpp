@@ -27,16 +27,7 @@ typedef int Color;
 
 #include "../../Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-#define SLOT(N) virtual void slot##N();
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
-#undef SLOT
-	virtual DisplayString *newDisplayString();	// slot 14
-	virtual void freeDisplayString( DisplayString *string );	// slot 15
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 extern DisplayStringManager *TheDisplayStringManager;
 

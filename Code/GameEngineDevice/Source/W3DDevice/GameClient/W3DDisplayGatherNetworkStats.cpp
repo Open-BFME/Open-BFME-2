@@ -38,15 +38,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C();
-	virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1C();
-	virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2C();
-	virtual void v30(); virtual void v34();
-	virtual DisplayString *newDisplayString();	// +0x38
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
 class NetworkInterface

@@ -1650,26 +1650,7 @@ public:
 
 class DisplayString;
 
-class DisplayStringManager
-{
-public:
-	virtual ~DisplayStringManager() {}
-	virtual void managerSlot04() = 0;
-	virtual void managerSlot08() = 0;
-	virtual void managerSlot0C() = 0;
-	virtual void managerSlot10() = 0;
-	virtual void managerSlot14() = 0;
-	virtual void managerSlot18() = 0;
-	virtual void managerSlot1C() = 0;
-	virtual void managerSlot20() = 0;
-	virtual void managerSlot24() = 0;
-	virtual void managerSlot28() = 0;
-	virtual void managerSlot2C() = 0;
-	virtual void managerSlot30() = 0;
-	virtual void managerSlot34() = 0;
-	virtual DisplayString *newDisplayString();
-	virtual void freeDisplayString(DisplayString *s);
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 extern DisplayStringManager *TheDisplayStringManager;
 

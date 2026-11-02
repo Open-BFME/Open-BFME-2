@@ -14,26 +14,7 @@ void *TheRva00222A8BOwner = (void *)-1;
 
 class DisplayString;
 
-class DisplayStringManager
-{
-public:
-	virtual ~DisplayStringManager() {}
-	virtual void s04() = 0;
-	virtual void s08() = 0;
-	virtual void s0C() = 0;
-	virtual void s10() = 0;
-	virtual void s14() = 0;
-	virtual void s18() = 0;
-	virtual void s1C() = 0;
-	virtual void s20() = 0;
-	virtual void s24() = 0;
-	virtual void s28() = 0;
-	virtual void s2C() = 0;
-	virtual void s30() = 0;
-	virtual void s34() = 0;
-	virtual DisplayString *newDisplayString() = 0;
-	virtual void freeDisplayString(DisplayString *s) = 0;
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 extern DisplayStringManager *TheDisplayStringManager;
 extern DisplayString *TheTooltipString;

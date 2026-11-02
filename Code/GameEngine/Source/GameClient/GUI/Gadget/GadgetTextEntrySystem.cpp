@@ -70,15 +70,7 @@ public:
 
 #include "../../../../Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-#define V(n) virtual void slot##n() = 0;
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07)
-	V(08) V(09) V(10) V(11) V(12) V(13) V(14)
-	virtual void freeDisplayString(DisplayString *string) = 0;
-#undef V
-};
+#include "../../../../Include/GameClient/DisplayStringManager.h"
 
 class IMEManager
 {

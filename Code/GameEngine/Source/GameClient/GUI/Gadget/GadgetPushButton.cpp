@@ -15,16 +15,7 @@ typedef unsigned char UnsignedByte;
 typedef unsigned int Color;
 
 class DisplayString;
-class DisplayStringManager {
-public:
- virtual ~DisplayStringManager();
- virtual void slot04();virtual void slot08();virtual void slot0C();
- virtual void slot10();virtual void slot14();virtual void slot18();virtual void slot1C();
- virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
- virtual void slot30();virtual void slot34();
- virtual DisplayString *newDisplayString();
- virtual void freeDisplayString(DisplayString *);
-};
+#include "../../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
 struct PushButtonData

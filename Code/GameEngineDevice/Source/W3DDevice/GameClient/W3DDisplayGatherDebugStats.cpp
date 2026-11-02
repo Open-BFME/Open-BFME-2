@@ -28,25 +28,7 @@ struct BodyView { virtual void v00(); virtual void v04(); virtual void v08(); vi
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-	virtual void v000();
-	virtual void v004();
-	virtual void v008();
-	virtual void v00C();
-	virtual void v010();
-	virtual void v014();
-	virtual void v018();
-	virtual void v01C();
-	virtual void v020();
-	virtual void v024();
-	virtual void v028();
-	virtual void v02C();
-	virtual void v030();
-	virtual void v034();
-	virtual DisplayString *newDisplayString();
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 

@@ -31,16 +31,7 @@ class DisplayStringManager;
 
 #include "../../Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-	virtual ~DisplayStringManager( void );
-protected:
-	void link( DisplayString *string );
-	char m_opaque04[ 8 ];
-	DisplayString *m_stringList;												///< 0x0C
-	DisplayString *m_currentCheckpoint;									///< 0x10
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 //-------------------------------------------------------------------------------------------------
 /** Link a display string to the master list */

@@ -790,7 +790,7 @@ public:
 	virtual void vf14();
 	virtual void createStreamMessages();                                // +0x3C
 };
-class DisplayStringManager : public SubsystemInterface { public: virtual ~DisplayStringManager(); };
+#include "../../Include/GameClient/DisplayStringManager.h"
 class SnowManager : public SubsystemInterface { public: virtual ~SnowManager(); };
 class Rva0027070CGlobal : public SubsystemInterface { public: virtual ~Rva0027070CGlobal(); };
 class CloudBreakEffectManager : public SubsystemInterface { public: virtual ~CloudBreakEffectManager(); };

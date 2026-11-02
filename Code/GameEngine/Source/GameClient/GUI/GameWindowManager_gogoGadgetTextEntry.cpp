@@ -73,14 +73,7 @@ extern LanguageID OurLanguage;
 
 #include "../../../Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-#define V(n) virtual void unused##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13)
-#undef V
-	virtual DisplayString *newDisplayString();
-};
+#include "../../../Include/GameClient/DisplayStringManager.h"
 
 extern DisplayStringManager *TheDisplayStringManager;
 

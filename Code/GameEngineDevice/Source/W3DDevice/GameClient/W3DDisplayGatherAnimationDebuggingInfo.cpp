@@ -42,12 +42,7 @@ enum WeaponStatus { READY_TO_FIRE = 0 };
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-	V4(a) V4(b) V4(c) virtual void d0(); virtual void d1();
-	virtual DisplayString *newDisplayString();	// +0x38
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
 class FontLibrary

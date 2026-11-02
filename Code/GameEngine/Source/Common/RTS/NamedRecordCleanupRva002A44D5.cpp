@@ -11,19 +11,7 @@
 class AsciiString;
 class DisplayString;
 
-class DisplayStringManager
-{
-public:
-    virtual ~DisplayStringManager();
-#define STRING_SLOT(n) virtual void unknown##n();
-    STRING_SLOT(04) STRING_SLOT(08) STRING_SLOT(0C) STRING_SLOT(10)
-    STRING_SLOT(14) STRING_SLOT(18) STRING_SLOT(1C) STRING_SLOT(20)
-    STRING_SLOT(24) STRING_SLOT(28) STRING_SLOT(2C) STRING_SLOT(30)
-    STRING_SLOT(34)
-#undef STRING_SLOT
-    virtual DisplayString *newDisplayString();
-    virtual void freeDisplayString(DisplayString *string);
-};
+#include "../../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
 class Rva001F8437

@@ -35,25 +35,7 @@ typedef unsigned short wchar_t;
 // so no vtable is emitted from this TU (VersionUnicode.cpp recipe).
 #include "../../../Include/GameClient/DisplayString.h"
 
-class DisplayStringManager
-{
-public:
-	virtual ~DisplayStringManager() {}
-	virtual void managerSlot04() = 0;
-	virtual void managerSlot08() = 0;
-	virtual void managerSlot0C() = 0;
-	virtual void managerSlot10() = 0;
-	virtual void managerSlot14() = 0;
-	virtual void managerSlot18() = 0;
-	virtual void managerSlot1C() = 0;
-	virtual void managerSlot20() = 0;
-	virtual void managerSlot24() = 0;
-	virtual void managerSlot28() = 0;
-	virtual void managerSlot2C() = 0;
-	virtual void managerSlot30() = 0;
-	virtual void managerSlot34() = 0;
-	virtual DisplayString *newDisplayString();
-};
+#include "../../../Include/GameClient/DisplayStringManager.h"
 
 extern DisplayStringManager *TheDisplayStringManager;
 

@@ -7,26 +7,7 @@
 // deleting dtor and 0x0056D3E3 free wrapper prev/next flags.
 class DisplayString;
 
-class DisplayStringManager
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0c();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1c();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2c();
-	virtual void slot30();
-	virtual void slot34();
-	virtual void slot38();
-	virtual void freeDisplayString(DisplayString *string);
-};
+#include "../../Include/GameClient/DisplayStringManager.h"
 
 extern DisplayStringManager *TheDisplayStringManager;
 
