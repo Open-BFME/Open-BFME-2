@@ -18835,3 +18835,7 @@ BI slot44 now has its own verified row for the existing complete1B body at0x000B
 BI slot45 now has its own verified row for the existing complete3B body at0x0047A69C. Normal consumer-row/data checks pass. Remaining BI targets, full table verification and peer-held RET8 primary methods remain; no census clearance is claimed.
 
 BI slot46 now has its own verified row for the existing complete3B body at0x0047A69C. Normal consumer-row/data checks pass. Remaining BI targets, full table verification and peer-held RET8 primary methods remain; no census clearance is claimed.
+
+### Complete AIUpdate behavior-interface table (2026-11-02)
+
+[Final47-slot/native proof](../reverse/attempt_support/aiupdate-bi-inline-rows-20261102/README.md): all45 existing shared inline bodies now have separate verified rows and the complete188B table at7FA3C0 resolves exactly to retail. The119-row consumer preserves129 code/10 data external definitions; no new unique C++ bytes or original-name/TU claim. Earlier RET8 reservation deferral is superseded by successful public file-wide reservations on the actual canonical header and emitting source; the foreign vector-destructor scope remains untouched. Primary-table closure, conditional deleting-destructor selection and global census/provider verification remain.

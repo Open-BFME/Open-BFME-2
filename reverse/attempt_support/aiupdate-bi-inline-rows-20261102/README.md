@@ -91,3 +91,11 @@ Slot44: ?slot44@BehaviorModule@@UAEXXZ, native0x000B3FD0/1B. Separate normal adm
 Slot45: ?slot45@BehaviorModule@@UAEXH@Z, native0x0047A69C/3B. Separate normal admission and commit; existing first representative retained.
 
 Slot46: ?slot46@BehaviorModule@@UAEXH@Z, native0x0047A69C/3B. Separate normal admission and commit; existing first representative retained.
+
+## Complete table verification
+
+All45 admissions completed as separate normal commits. The final119-row consumer privately reproduces all matched rows. Its complete188B BI table at7FA3C0 resolves all47 DIR32 targets through qualified matched ledger names to retail. External definitions are identical to the previously published getter-repair object:129 code and10 data definitions. No new code, data layout, source path, pin or unique-byte recovery in these admissions. Normal/strict checks accompany the final data row. Global provider selection and runtime remain unverified; published census remains154 unlinked units.
+
+Reservation clarification: the earlier RET8 deferral referred to an RVA route overlapping another vector-destructor file lock. The actual AI header and emitting source have valid public file-wide reservations. Remaining primary work proceeds only within those scopes; no foreign destructor work is touched.
+
+Normal build and strict receipt preparation both pass119/119 rows. All six current data rows are verified by the normal commit gate. Bounded link preview remains0 -> 0 with five unresolved RET8 primary methods; it does not certify full closure. The remaining stale StateMachine getter diagnostic is unreferenced, rather than a blocker. Published census remains154 unlinked units.
