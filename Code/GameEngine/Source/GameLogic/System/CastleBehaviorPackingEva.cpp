@@ -96,15 +96,7 @@ public:
 	int getPlayerIndex() const { return *(const int *)((const char *)this + 0x54); }
 	W3DBridge* getBuildControl() { return (W3DBridge*)((char*)this+0x3bc); }
 };
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return local; }
-	Player* getNthPlayer(int);
-	char m_pad00[0x10];
-private:
-	Player *local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 enum EvaEventID { EVA_NONE = 0 };
 class Eva

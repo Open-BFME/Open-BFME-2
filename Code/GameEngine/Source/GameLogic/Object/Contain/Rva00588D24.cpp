@@ -78,12 +78,7 @@ enum ObjectStatusTypes
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 class Player;
-class PlayerList
-{
-public:
-	unsigned char m_pad[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class GameMessage
 {
@@ -129,7 +124,7 @@ void Rva0047A040Base9E0::rva00588D99(Object *obj)
 {
 	Drawable *drawable = ((Thing *)obj)->getDrawable();
 	if (drawable != 0 && drawable->m_selected) {
-		Player *local = ThePlayerList->m_localPlayer;
+		Player *local = ThePlayerList->m_local;
 		Player *ctrl = obj->getControllingPlayer();
 		if (ctrl == local) {
 			GameMessage *msg = TheMessageStream->appendType(0x3ED);

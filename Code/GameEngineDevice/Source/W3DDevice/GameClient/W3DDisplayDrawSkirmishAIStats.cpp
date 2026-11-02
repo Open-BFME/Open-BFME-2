@@ -19,13 +19,7 @@
 // read through a reference (begin after end via +0x20), as retail does.
 
 class Player;
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-	char m_pad00[0x14];
-	int m_playerCount;			// +0x14
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Player

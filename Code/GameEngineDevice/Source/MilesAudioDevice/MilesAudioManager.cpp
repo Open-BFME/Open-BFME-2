@@ -3865,7 +3865,7 @@ public:
     char at000[0x2EC];
     Team *m_defaultTeam;    // +0x2EC
 };
-class PlayerList { public: Player *getNthPlayer(int index); };
+#include "../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Rva002DA414 { public: void *rva002DA414(void); };
 class Rva002D9C7A { public: int rva002D9C7A(void); };

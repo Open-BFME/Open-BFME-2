@@ -51,12 +51,7 @@ public:
 	Rva003BE5C9P34 *m_p34; // +0x34
 };
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Rva00E03138
@@ -155,7 +150,7 @@ void Rva003BE7ED::rva003BE7ED()
 	if (m_flagC == 0) {
 		if (TheVictoryConditions != 0) {
 			if (!((Rva00E03138 *)TheVictoryConditions)->rva0054()) {
-				Player *player = ThePlayerList->m_localPlayer;
+				Player *player = ThePlayerList->m_local;
 				if (player != 0) {
 					AsciiString s1("Gui_DefeatScreen");
 					AsciiString s2("APT:EndDefeat");

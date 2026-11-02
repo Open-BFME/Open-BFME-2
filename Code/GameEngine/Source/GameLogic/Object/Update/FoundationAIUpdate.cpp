@@ -92,14 +92,7 @@ private:
  unsigned char m_pad428[0x438-0x428];
  unsigned char m_privateStatus; // +0x438, bit 0 is effectively-dead
 };
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;

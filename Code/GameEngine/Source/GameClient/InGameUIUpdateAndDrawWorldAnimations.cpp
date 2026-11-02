@@ -71,12 +71,7 @@ public:
 	Int m_playerIndex; // +0x54
 };
 
-class PlayerList
-{
-public:
-	unsigned char m_pad[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -253,7 +248,7 @@ void InGameUI::updateAndDrawWorldAnimations()
 				wad->m_worldPos.z += wad->m_zRisePerSecond / (Real)BfmeLogicFramesPerSecond;
 		}
 
-		Int playerIndex = ThePlayerList->m_localPlayer->m_playerIndex;
+		Int playerIndex = ThePlayerList->m_local->m_playerIndex;
 		if (TheShroudManager->getShroudStatusForPlayer(playerIndex, &wad->m_worldPos) != CELLSHROUD_CLEAR)
 		{
 			++it;

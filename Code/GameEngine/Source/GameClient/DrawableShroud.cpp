@@ -118,14 +118,7 @@ public:
 	int iterateObjects(int (*func)(Object *obj, void *userData), void *userData) const;
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_localPlayer; }
-private:
-	char m_pad000[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Rva00270260

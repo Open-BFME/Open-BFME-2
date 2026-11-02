@@ -26,12 +26,7 @@ public:
 	int m_playerIndex; // +0x54
 };
 
-class PlayerList
-{
-public:
-	unsigned char m_pad[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -206,7 +201,7 @@ void InGameUI::drawFloatingText()
 		FloatingTextData *ftd = node->m_text;
 		ICoord2D pos;
 
-		int playerIndex = ThePlayerList->m_localPlayer->m_playerIndex;
+		int playerIndex = ThePlayerList->m_local->m_playerIndex;
 
 		if (!((TacticalView *)TheTacticalView)->worldToScreen(&ftd->m_pos3D, &pos) &&
 			ftd->m_dString &&

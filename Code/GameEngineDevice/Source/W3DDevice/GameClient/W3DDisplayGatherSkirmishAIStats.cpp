@@ -108,14 +108,7 @@ public:
 	unsigned char m_pad98[0x2EC - 0x98];
 	void *m_defaultTeam;				// +0x2EC
 };
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-	char m_pad00[0x10];
-	Player *m_local; // +0x10
-	int m_playerCount; // +0x14 +0x14
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // The per-player economy record and unit list the AI stats come from.

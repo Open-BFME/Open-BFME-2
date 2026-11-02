@@ -92,12 +92,7 @@ public:
 	Relationship getRelationship(const Team *team) const;
 };
 
-class PlayerList
-{
-public:
-	char m_pad[0x10];
-	Player *m_player;
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -203,7 +198,7 @@ ThingTemplate *Object::rva002911B7()
 		if (((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0())
 			goto failed;
 		Team *team = m_team304;
-		Player *pl = ThePlayerList->m_player;
+		Player *pl = ThePlayerList->m_local;
 		if (pl->getRelationship(team) != REL_0)
 			goto failed;
 		static NameKeyType s_key = TheNameKeyGenerator->nameToKey("SpecialDisguiseUpdate");
@@ -220,7 +215,7 @@ ThingTemplate *Object::rva002911B7()
 		if (((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0())
 			goto failed;
 		Team *team2 = m_team304;
-		Player *player = ThePlayerList->m_player;
+		Player *player = ThePlayerList->m_local;
 		if (player->getRelationship(team2) == REL_0) { _ReadWriteBarrier(); return (ThingTemplate *)p->m_ptr3c; }
 		goto failed;
 	}

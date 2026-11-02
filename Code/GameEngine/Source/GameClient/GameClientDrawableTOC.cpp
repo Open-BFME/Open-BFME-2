@@ -1044,15 +1044,7 @@ private:
 	int m_playerIndex;                                                  // +0x54
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-
-private:
-	unsigned char m_pad[0x10];
-	Player *m_local;                                                    // +0x10
-};
+#include "../../Include/Common/PlayerList.h"
 
 #include "../../Include/Common/GameEngine.h"
 

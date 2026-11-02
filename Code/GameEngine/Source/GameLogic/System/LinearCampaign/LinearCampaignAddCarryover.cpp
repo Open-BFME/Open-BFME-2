@@ -135,15 +135,7 @@ public:
 	int m_5C;
 };
 
-class PlayerList
-{
-public:
-	Player* getNthPlayer(int);
-	int rva002A7D30();
-	Player*getEachPlayerFromMask(int&);
-	char p0[0x14]; // +0x00
-	int count; // +0x14
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../../Include/Common/Upgrade.h"

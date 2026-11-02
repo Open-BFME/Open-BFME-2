@@ -150,13 +150,7 @@ private:
 	ListNode *m_listHead32C; // +0x32C +0x32C list sentinel
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i); // 0x002A7A29
-	char m_pad00[0x14];
-	int m_count14; // +0x14
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -412,7 +406,7 @@ bool SkirmishAI::isAPartialBrain()
 {
 	if (m_masterPlayerIndex != -1)
 		return true;
-	for (int i = 0; i < ThePlayerList->m_count14; i++) {
+	for (int i = 0; i < ThePlayerList->m_playerCount; i++) {
 		Player *player = ThePlayerList->getNthPlayer(i);
 		if (((Rva002AA22AByteField *)player)->get() != 0)
 			continue;
@@ -733,7 +727,7 @@ int SkirmishAI::resetMaster()
 {
 	int target = m_player->m_54;
 	int result = -1;
-	for (int i = 0; i < ThePlayerList->m_count14; i++) {
+	for (int i = 0; i < ThePlayerList->m_playerCount; i++) {
 		Player *player = ThePlayerList->getNthPlayer(i);
 		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
 		if (!rec)

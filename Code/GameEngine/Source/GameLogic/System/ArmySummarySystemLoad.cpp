@@ -32,13 +32,7 @@ class Rva002034E9Host { public: bool rva002034E9(); };
 struct Rva0040F87EGameLogic { char pad00[0x98]; bool m_98; };
 
 class Player;
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-	char pad00[0x14];
-	int m_playerCount;
-};
+#include "../../../Include/Common/PlayerList.h"
 
 // 0x003805BB is rowed as Rva00380200::rva003805BB (Rva00380200Getter.cpp).
 class Rva00380200 { public: bool rva003805BB(float value, bool flag); };

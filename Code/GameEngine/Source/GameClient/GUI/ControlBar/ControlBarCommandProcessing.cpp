@@ -306,11 +306,7 @@ Object *getObject() const { return object; }
  char pad000[0xFC];
  Object* object;
 };
-class PlayerList { public:
-Player *getLocalPlayer() const { return localPlayer; }
- char pad000[0x10];
- Player* localPlayer;
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct BfmeE8 { int a,b; };
 class CommandButton { public:

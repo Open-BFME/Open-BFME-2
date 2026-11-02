@@ -22,13 +22,7 @@ enum UpgradeStatusType
 
 #include "../../../Include/Common/Upgrade.h"
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(Int i);
-	unsigned char m_pad[0x14];
-	Int m_playerCount;
-};
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/Common/Player.h"
 

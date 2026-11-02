@@ -226,7 +226,7 @@ class ExitInterface {public:
  virtual void getExitPosition(Coord3D *,bool)=0;
 };
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
-class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class ControlBar {public:char pad[0x28];bool dirty;};extern ControlBar *TheControlBar;
 void RespawnUpdate::triggerRevival(Object *at) {

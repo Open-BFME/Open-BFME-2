@@ -17,7 +17,8 @@ class Rva002065C8 {public:void rva00206EF0();int header,count,compare;};
 class Rva002065FD {public:void rva00206F19();int header,count,compare;};
 class Rva00206632 {public:void rva00206F42();int header,count,compare;};
 class Player {public:char opaque[0x50];NameKeyType nameKey;};
-class PlayerList {public:Player*getNthPlayer(int);};extern PlayerList*ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
+extern PlayerList*ThePlayerList;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
 struct Rva002048A2 {virtual~Rva002048A2();AsciiString old;AsciiString*target;Rva002048A2(AsciiString*,const AsciiString&);};

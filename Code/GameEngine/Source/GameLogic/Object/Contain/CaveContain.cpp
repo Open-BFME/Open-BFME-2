@@ -361,18 +361,7 @@ private:
 
 #include "../../../../Include/GameClient/Drawable.h"
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const
-	{
-		return m_localPlayer;
-	}
-
-private:
-	unsigned char m_pad[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

@@ -3595,7 +3595,7 @@ struct DispatcherPlayer {
  char pad2c8[0x3c4-0x2c8];bool gone,localFlag;
 };
 class Player {public:char pad00[0x50];int nameKey;};
-class PlayerList {public:Player *getNthPlayer(int);};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 enum NameKeyType { DISPATCH_KEY_INVALID=-1 };
 class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};

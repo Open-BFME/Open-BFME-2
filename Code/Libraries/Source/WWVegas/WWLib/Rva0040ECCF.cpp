@@ -347,13 +347,7 @@ public:
 	UnitRevivalTracker m_revivalTracker;
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-	char pad00[0x14];
-	int m_playerCount;
-};
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 class Rva002E062EDwordSlot { public: void set(int value); };
 class LivingWorldPlayer { public: void rva002E14E9(const BfmeFixedStorage128 &bits); };
