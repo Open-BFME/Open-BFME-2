@@ -122,7 +122,7 @@ public:
 class Rva0009C134Host
 {
 public:
-    void rva0009CD9B();
+    void setupSunRays();
 
 private:
     unsigned char m_pad0[0xc4];
@@ -146,7 +146,7 @@ private:
     RefCountPtr<TextureClass> m_1d0;		// +0x1d0
 };
 
-void Rva0009C134Host::rva0009CD9B()
+void Rva0009C134Host::setupSunRays()
 {
     char *src=(char *)TheLivingWorldManager+0x14;
     ShaderOverbrightEnabled=false;

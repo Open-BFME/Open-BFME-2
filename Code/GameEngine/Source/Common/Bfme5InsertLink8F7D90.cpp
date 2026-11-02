@@ -10,10 +10,10 @@ struct BfmeLink8F7D90
 class Gen_008F7D90
 {
 public:
-	bool bfmeInsert(BfmeLink8F7D90 *item, BfmeLink8F7D90 *head);
+	bool insert(BfmeLink8F7D90 *item, BfmeLink8F7D90 *head);
 };
 
-bool Gen_008F7D90::bfmeInsert(BfmeLink8F7D90 *item, BfmeLink8F7D90 *head)
+bool Gen_008F7D90::insert(BfmeLink8F7D90 *item, BfmeLink8F7D90 *head)
 {
 	item->m_first = head;
 	item->m_next = head->m_first;

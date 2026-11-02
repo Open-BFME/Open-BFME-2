@@ -6419,3 +6419,8 @@ member,Rva0048E022Member::m_20,Rva0048E022Member::m_controlPointOffsetThreeY,inf
 member,Rva0048E022Member::m_24,Rva0048E022Member::m_controlPointOffsetThreeZ,inferred,agree:nl-460e488c787b,Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp,
 member,Rva0048E022Member::m_2C,Rva0048E022Member::m_controlPointOffsetFourY,inferred,agree:nl-a076cadfc5a0,Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp,
 member,Rva0048E022Member::m_30,Rva0048E022Member::m_controlPointOffsetFourZ,inferred,agree:nl-488ba75c7cab,Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp,
+function,?bfmeInsert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z,?insert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z,inferred,agree:nl-8efdc040ab90,Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp,0x0073A330
+function,?bfmeLinkTo@Gen_008F7BE0@@QAEXPAV1@@Z,?linkTo@Gen_008F7BE0@@QAEXPAV1@@Z,inferred,agree:nl-77b40da53a58,Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp,0x0073A180
+function,?bfmeUnlink8F7C00@Gen_008F7BE0@@QAEXXZ,?unlink@Gen_008F7BE0@@QAEXXZ,inferred,agree:nl-3964a0a315b2,Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp,0x0073A1A0
+function,?rva0009CD9B@Rva0009C134Host@@QAEXXZ,?setupSunRays@Rva0009C134Host@@QAEXXZ,inferred,agree:nl-aef53cd56e1e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp,0x0009CD9B
+carry,Rva0009C134Host::rva0009CD9B::dist,Rva0009C134Host::setupSunRays::dist,inferred,scope renamed by Rename rva0009CD9B to setupSunRays (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009CD9BSunRaysSetup.cpp,0x0009CD9B

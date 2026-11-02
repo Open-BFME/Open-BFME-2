@@ -4537,3 +4537,8 @@ __ehhandler$?rva001711a6@Rva00171024@@QAEXXZ,0x00767B00,"Renamed to __ehhandler$
 ??_GRva004E0D67@@UAEPAXI@Z,0x004E0E5C,"Renamed to ??_GLivingWorldBuilding@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C61618)"
 ??1Rva004E0D67@@UAE@XZ,0x004E0D67,"Renamed to ??1LivingWorldBuilding@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C61618)"
 __ehhandler$??1Rva004E0D67@@UAE@XZ,0x00791927,"Renamed to __ehhandler$??1LivingWorldBuilding@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C61618)"
+?bfmeInsert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z,0x0073A330,"Renamed to ?insert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z by tools/rename.py (inferred)"
+?bfmeLinkTo@Gen_008F7BE0@@QAEXPAV1@@Z,0x0073A180,"Renamed to ?linkTo@Gen_008F7BE0@@QAEXPAV1@@Z by tools/rename.py (inferred)"
+?bfmeUnlink8F7C00@Gen_008F7BE0@@QAEXXZ,0x0073A1A0,"Renamed to ?unlink@Gen_008F7BE0@@QAEXXZ by tools/rename.py (inferred)"
+?rva0009CD9B@Rva0009C134Host@@QAEXXZ,0x0009CD9B,"Renamed to ?setupSunRays@Rva0009C134Host@@QAEXXZ by tools/rename.py (inferred)"
+__ehhandler$?rva0009CD9B@Rva0009C134Host@@QAEXXZ,0x0076062E,"Renamed to __ehhandler$?setupSunRays@Rva0009C134Host@@QAEXXZ by tools/rename.py (inferred)"

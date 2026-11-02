@@ -789,9 +789,9 @@ extern "C" void _ReadWriteBarrier(void);
 
 // tu-skeleton: 0x0073A160 28B ?set@Rva0073A160Field@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva0073A130Leaves.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A180 30B ?bfmeLinkTo@Gen_008F7BE0@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp (not merged yet)
+// tu-skeleton: 0x0073A180 30B ?linkTo@Gen_008F7BE0@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp (not merged yet)
 
-// tu-skeleton: 0x0073A1A0 28B ?bfmeUnlink8F7C00@Gen_008F7BE0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp (not merged yet)
+// tu-skeleton: 0x0073A1A0 28B ?unlink@Gen_008F7BE0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp (not merged yet)
 
 // tu-skeleton: 0x0073A1C0 4B ?get@Rva0073A1C0FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
 
@@ -806,7 +806,7 @@ BfmeCellFD *Gen_008F7CD0::bfmeAt(int x, int y) const
 	return reinterpret_cast<BfmeCellFD *>(base + (y * m_bfmeWidth + x) * 0xA8);
 }
 
-// tu-skeleton: 0x0073A330 36B ?bfmeInsert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z -- matched in Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp (not merged yet)
+// tu-skeleton: 0x0073A330 36B ?insert@Gen_008F7D90@@QAE_NPAUBfmeLink8F7D90@@0@Z -- matched in Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp (not merged yet)
 
 // tu-skeleton: 0x0073A360 15B ?clear@Rva0073A360@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp (not merged yet)
 
