@@ -18363,3 +18363,7 @@ SupplyTruck secondary slot14's typed bool getter at object+405 matches complete4
 ### LINK-089 Companion AIUpdate adoption false-reject handoff (2026-11-02)
 
 A canonical AIUpdate/AICommand adoption privately and normally preserves all37rows plus every complete28code/fourdata definition and relocation. It restores real+20 command receivers and correct+10 update receiver conversion. Owning acceptance nevertheless refuses the existing census StateMachine table conflict as a predicted loss. No source adoption or debt retirement was retained and no check was altered. [Exact candidate, before/after hashes and refusal](../reverse/attempt_support/supply-truck-seed-base-20261102/README.md). State/StateMachine reconciliation and tooling treatment of unchanged pre-existing conflicts remain prerequisites.
+
+### LINK-089 SupplyTruck typed module-data getters (2026-11-02)
+
+Secondary slot1 now reads actual canonical ModuleData field64 through a prefix-only view; complete10B native4A6E29 and all sixteen ctor rows match. The original pointer-chase owner remains. A private five-getter batch preserves all66prior code/seven data definitions and introduces no lifetime changes; each remaining callback needs its own admission. [Exact native widths, object hashes and canonical accessor consensus](../reverse/attempt_support/supply-truck-module-getters-20261102/README.md). No unit/census clearance is claimed.

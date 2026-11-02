@@ -1,0 +1,7 @@
+# SupplyTruck module-data getters, 2026-11-02
+
+Five native secondary-interface callbacks read the actual canonical ModuleData pointer at interface-3E0 (whole object+4), then scalar offsets64/74/78/7C/80. Ordinary C++ reads a prefix-only SupplyTruckModuleDataView through canonical getModuleData(). The view copies no registered class and implements no lifetime. Widths, AL/EAX/x87 return registers and complete native body extents are facts; original field names, signedness and the dynamic data type remain unresolved.
+
+The complete private batch matches20/20 rows (the fifteen existing ctor rows plus five candidates). All66 prior complete external code and seven data definitions/relocations remain unchanged. The only additions are the five getters and the existing canonical four-byte Module::getModuleData inline accessor; the published index has83 identical providers of that accessor, no conflicting strong/selection override and no runtime incoming reference from this object. The compact proof includes object hashes, all added definitions, complete getter bytes and zero-relocation proofs.
+
+Each callback is admitted and committed separately against its existing ICF owner, preserving the original source/row and adding no pin or alias. This packet first accompanies slot1 at4A6E29; the remaining four private candidates become progress only when their own admissions and commits land. These are callback prerequisites, with no unit/census, unique-byte, original-name or runtime claim.

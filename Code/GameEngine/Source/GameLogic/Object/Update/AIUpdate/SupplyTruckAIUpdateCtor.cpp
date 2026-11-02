@@ -118,3 +118,21 @@ UpdateSleepTime SupplyTruckAIUpdate::update()
     if (n < slept) slept = n;
     return (UpdateSleepTime)slept;
 }
+
+// Prefix-only module-data read view. Offsets and scalar widths are target
+// facts; names, signedness and the complete dynamic type remain unresolved.
+struct SupplyTruckModuleDataView {
+    unsigned char field00[0x64];
+    int field64;
+    unsigned char field68[0x0C];
+    unsigned char field74;
+    unsigned char field75[3];
+    float field78;
+    int field7C;
+    unsigned int field80;
+};
+
+int SupplyTruckAIUpdate::rva004A6E29() const
+{
+    return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field64;
+}
