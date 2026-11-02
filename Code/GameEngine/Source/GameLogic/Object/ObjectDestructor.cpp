@@ -133,7 +133,7 @@ void vector<void *>::clear() { erase(begin(), end()); }
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); };
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 

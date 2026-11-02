@@ -23,8 +23,7 @@ public:
 	void release();
 };
 
-class CreateAHeroData : public Rva0053FA0A {
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva0033068BListener {
 public:

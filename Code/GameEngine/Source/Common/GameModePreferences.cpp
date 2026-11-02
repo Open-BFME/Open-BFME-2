@@ -133,15 +133,7 @@ public:
 };
 
 // Create-A-Hero data offsets are also read by rowed lobby slot code.
-class CreateAHeroData
-{
-public:
-	unsigned char m_pad00[0x0C];
-	int m_0c;
-	int m_10;
-	unsigned char m_pad14[0x48 - 0x14];
-	bool m_48;
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva0040A3F9
 {

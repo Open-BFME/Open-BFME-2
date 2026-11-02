@@ -102,12 +102,7 @@ public:
 
 // The same hero object under the names its rowed copy and setter carry:
 // operator= at 0x00409359 and the +4 setter at 0x00406E47.
-class CreateAHeroData
-{
-public:
-	bool rva00408A55(); // Existing refresh spelling on this data prefix.
-	CreateAHeroData &operator=(const CreateAHeroData &that);
-};
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 
 // A bling entry starts with its name and description string tags.
 struct CreateAHeroBling

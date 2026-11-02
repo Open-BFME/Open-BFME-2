@@ -9,11 +9,7 @@
 
 // The helper at this+0x0C is a CreateAHeroData: 0x004099CA is its rowed
 // load-by-name member (CreateAHeroDataDtor.cpp).
-class CreateAHeroData
-{
-public:
-	bool rva004099CA(AsciiString *name, bool flag);
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva0021A492Host
 {

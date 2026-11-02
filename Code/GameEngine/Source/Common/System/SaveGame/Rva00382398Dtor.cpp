@@ -11,16 +11,7 @@
 #include "unicode_string.h"
 class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class CreateAHeroData : public Snapshot {
-    unsigned char fields[0x13C];
-public:
-    CreateAHeroData(const CreateAHeroData &);
-    virtual ~CreateAHeroData();
-protected:
-    virtual void loadPostProcess();
-    virtual void crc(Xfer *xfer);
-    virtual void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/CreateAHeroData.h"
 class GameSlot : Snapshot {
 public:
     GameSlot();

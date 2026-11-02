@@ -21,11 +21,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 #define TheHeroManager TheCreateAHeroManager
 #include "unicode_string.h"
 // 0x00409359 consumes the source record as CreateAHeroData's rowed assignment.
-class CreateAHeroData
-{
-public:
-	CreateAHeroData &operator=(const CreateAHeroData &other);
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva00219251
 {

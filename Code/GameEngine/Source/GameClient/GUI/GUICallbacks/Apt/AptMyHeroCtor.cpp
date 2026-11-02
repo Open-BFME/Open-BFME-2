@@ -27,20 +27,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class CreateAHeroData
-{
-public:
-	CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
-	virtual ~CreateAHeroData();
-protected:
- virtual void loadPostProcess();
-public:
- virtual const char *GetSnapshotName() const;
- virtual void DoXfer(class Xfer &);
- virtual bool Update(int);
-protected:
-	char pad04[0x140 - 4];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

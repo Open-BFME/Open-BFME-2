@@ -11,11 +11,7 @@
 
 #include "../../../../Include/Common/ModuleData.h"
 
-class CreateAHeroData
-{
-public:
-	void dummy() throw();
-};
+#include "../../../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva0033068BListener
 {

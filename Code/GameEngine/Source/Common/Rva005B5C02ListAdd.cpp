@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 
-class CreateAHeroData { public: CreateAHeroData &operator=(const CreateAHeroData &); };
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 struct Rva005B5C02Entry
 {

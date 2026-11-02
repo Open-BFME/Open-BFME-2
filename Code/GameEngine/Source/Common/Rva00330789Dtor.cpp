@@ -26,8 +26,7 @@ public:
 	void release();
 };
 
-class CreateAHeroData : public Rva0053FA0A {
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 // Retail's member-pointer call goes through the slot +0x0C vcall thunk
 // (0x005CB265, jmp [eax+0xC]), so the listener's vtable puts notify fourth;

@@ -16,7 +16,7 @@ struct Rva005B5C02Entry
 };
 typedef char RvaEntrySizeCheck[sizeof(Rva005B5C02Entry) == 0x140 ? 1 : -1];
 
-class CreateAHeroData { public: CreateAHeroData &operator=(const CreateAHeroData &); };
+#include "../../../../Include/GameLogic/CreateAHeroData.h"
 
 class GameSlot {
 public:

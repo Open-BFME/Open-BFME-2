@@ -501,10 +501,7 @@ private:
 // answers true. Same shape as Rva005FED52::invoke (vtable 0x00C37064).
 class CreateAHeroData;
 
-class CreateAHeroData
-{
-	Int m_00;
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 
 // slots at VA 0x00C644C4, 0x00C64544 and 0x00C645AC: forward both arguments
 // to a rowed method of the +0x134 (resp. +0x128) object when it is set.

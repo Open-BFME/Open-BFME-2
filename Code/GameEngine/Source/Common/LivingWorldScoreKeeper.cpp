@@ -415,11 +415,7 @@ extern void __cdecl rva004EE8B8(ObjectCountMap *destination, ObjectCountMap *sou
 // Snapshot (hence the this-null checks) and +0xF8 its once-only flag.
 
 class LivingWorldLogic;
-class CreateAHeroData
-{
-public:
-	int m_x;
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 class Rva002B7250
 {
 public:

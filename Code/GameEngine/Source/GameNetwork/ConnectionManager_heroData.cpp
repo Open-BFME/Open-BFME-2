@@ -99,14 +99,7 @@ public:
 
 File *createMemoryReadFile(char *data, Int size);
 
-class CreateAHeroData
-{
-public:
-	virtual ~CreateAHeroData();
-	virtual void crc(Xfer *xfer);
-	virtual const char *typeName() const;
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class GameSlot
 {

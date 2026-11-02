@@ -25,7 +25,7 @@ public:
 	void rva002B7250(CreateAHeroData *v);
 };
 int __cdecl Rva00381452Get();
-class CreateAHeroData { char m_pad[0x140]; };
+#include "../../Include/GameLogic/CreateAHeroData.h"
 // 0x00A048C4: one retail global, defined (as g_Va00E048C4) by Rva007B6880Thunks.cpp,
 // whose dtor thunk and Rva007ABBB3CtorInits.cpp's initializer address the same object.
 extern unsigned int g_Va00E048C4;

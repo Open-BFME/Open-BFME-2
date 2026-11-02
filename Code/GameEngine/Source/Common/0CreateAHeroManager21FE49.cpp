@@ -161,17 +161,7 @@ private:
 };
 
 
-class CreateAHeroData
-{
-public:
-    CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
-    virtual ~CreateAHeroData();
-    bool rva00408A55();
-    bool rva004099CA(AsciiString *filename, bool mode);
-    unsigned char m_pad04[0x134-4];
-    unsigned int m_crc;
-    unsigned char m_pad138[8];
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 class Rva0040A3F9
 {
 public:

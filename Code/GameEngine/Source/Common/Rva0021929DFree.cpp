@@ -11,11 +11,7 @@
 // name cannot be called with ECX set. Honest-address name, on the class the
 // allocator's row uses.
 
-class CreateAHeroData
-{
-public:
-	virtual ~CreateAHeroData();
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva00219251
 {

@@ -248,15 +248,7 @@ static inline bool unicodeIsEmpty(const UnicodeString &text)
 // method; the target disassembly supplies the loop and call order. The slot
 // offsets are cross-checked against the matched GameSlot and CreateAHeroData
 // views in MpGameSetupSlots.cpp and GameSlot_rva0037AD8D.cpp.
-class CreateAHeroData
-{
-public:
-	virtual ~CreateAHeroData();
-	CreateAHeroData &operator=(const CreateAHeroData &that);
-
-private:
-	unsigned char m_fields[0x13C];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 
 
 class Rva0040A3F9

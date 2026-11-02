@@ -17,11 +17,7 @@ public:
 };
 // The closing call 0x004074CF is the rowed
 // CreateAHeroData::WriteNamedHeroAtRva004074CF (CreateAHeroDataDtor.cpp).
-class CreateAHeroData
-{
-public:
-	bool WriteNamedHeroAtRva004074CF();
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva0021937D
 {

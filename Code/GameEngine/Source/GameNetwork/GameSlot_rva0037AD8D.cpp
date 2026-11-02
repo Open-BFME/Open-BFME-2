@@ -10,15 +10,7 @@
 
 class Xfer;
 
-class CreateAHeroData
-{
-public:
-	virtual ~CreateAHeroData();
-	CreateAHeroData &operator=(const CreateAHeroData &that);
-
-private:
-	unsigned char m_fields[0x13C];
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class GameSlot
 {

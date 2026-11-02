@@ -14,11 +14,7 @@ extern unsigned char g_rva005B5C02Flag;
 
 // The entry is a CreateAHeroData record: the "use" call at 0x005B5C5A is its
 // rowed copy assignment 0x00409359 from the record at +0x27C.
-class CreateAHeroData
-{
-public:
-	CreateAHeroData &operator=(const CreateAHeroData &other);
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 struct Rva005B5C02Entry
 {

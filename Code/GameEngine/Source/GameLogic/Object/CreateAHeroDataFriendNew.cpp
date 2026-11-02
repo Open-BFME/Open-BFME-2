@@ -4,13 +4,7 @@
 // Evidence: retail push 0x140 plus null-checked ctor ??0CreateAHeroData@@QAE@HHHABVUnicodeString@@HHH@Z pin-only and ret 0x1c for 7 stack args and caller 0x005B2768 passes 0 0 0 EmptyString -1 0xff707070 -1 and uses eax.
 #include "unicode_string.h"
 
-class CreateAHeroData
-{
-public:
-	CreateAHeroData(int, int, int, const UnicodeString &, int, int, int);
-private:
-	unsigned char m_pad[0x140];
-};
+#include "../../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva00219251
 {

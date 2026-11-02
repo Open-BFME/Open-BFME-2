@@ -91,13 +91,7 @@ public:
 	static void GetDefaults(int mode, void *rules);
 };
 
-class CreateAHeroData
-{
-public:
-	unsigned char m_pad00[0x0C];
-	int m_0c;
-	int m_10;
-};
+#include "../../Include/GameLogic/CreateAHeroData.h"
 
 class Rva0040A3F9
 {

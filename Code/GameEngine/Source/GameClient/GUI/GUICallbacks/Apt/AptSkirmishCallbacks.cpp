@@ -514,15 +514,7 @@ bool AptSkirmish::MPOwnerValidatGameInfo(GameInfo *gameInfo)
 // method; the target disassembly supplies the loop and call order. The slot
 // offsets are cross-checked against the matched GameSlot and CreateAHeroData
 // views in MpGameSetupSlots.cpp and GameSlot_rva0037AD8D.cpp.
-class CreateAHeroData
-{
-public:
-	virtual ~CreateAHeroData();
-	CreateAHeroData &operator=(const CreateAHeroData &that);
-
-private:
-	unsigned char m_fields[0x13C];
-};
+#include "../../../../../Include/GameLogic/CreateAHeroData.h"
 
 enum SlotState { SLOT_CLOSED = 2, SLOT_PLAYER = 6 };
 struct GameSlotConnectInfo { GameSlotConnectInfo() : nat(0), port(0) {} int nat; unsigned short port, pad; };
