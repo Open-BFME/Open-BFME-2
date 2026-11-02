@@ -96,21 +96,21 @@ Rva0024910 *Rva0024910::f()
 	return this;
 }
 
-int rva0024940Equal(const int *a, const int *b)
+int rva0024940Equal(const int *lhs, const int *rhs)
 {
 	int y;
 	int x;
 
-	x = *a;
-	y = *b;
+	x = *lhs;
+	y = *rhs;
 	return x == y;
 }
 
-void rva0024780Forward(const void *first, const void *last, void *c)
+void rva0024780Forward(const void *first, const void *last, void *destination)
 {
 	void *unused;
 
-	_STL::__copy_trivial_backward(first, last, c);
+	_STL::__copy_trivial_backward(first, last, destination);
 }
 
 int rva0024A00Sub(const int *a, const int *b)

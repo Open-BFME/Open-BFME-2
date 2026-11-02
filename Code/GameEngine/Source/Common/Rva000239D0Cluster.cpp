@@ -33,36 +33,36 @@ int Rva000239D0::size()
 class Rva00023A00
 {
 public:
-	void f(void *p);
+	void f(void *ptr);
 };
 
-void Rva00023A00::f(void *p)
+void Rva00023A00::f(void *ptr)
 {
-	if (p)
-		free(p);
+	if (ptr)
+		free(ptr);
 }
 
 class Rva00023AC0
 {
 public:
-	void *f(unsigned n, const void *hint);
+	void *f(unsigned count, const void *hint);
 };
 
-void *Rva00023AC0::f(unsigned n, const void *hint)
+void *Rva00023AC0::f(unsigned count, const void *hint)
 {
-	return n != 0 ? _STL::allocator<char>::allocate(n << 2, 0) : 0;
+	return count != 0 ? _STL::allocator<char>::allocate(count << 2, 0) : 0;
 }
 
 class Rva00023B00
 {
 public:
-	void f(void *p, unsigned unused);
+	void f(void *ptr, unsigned unused);
 };
 
-void Rva00023B00::f(void *p, unsigned unused)
+void Rva00023B00::f(void *ptr, unsigned unused)
 {
-	if (p)
-		free(p);
+	if (ptr)
+		free(ptr);
 }
 
 // 0x00023B30..0x00023B48: RET8 initializer. Retail writes the second

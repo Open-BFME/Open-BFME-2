@@ -6466,3 +6466,10 @@ local,TeamFactory::findTeam::a,TeamFactory::findTeam::playerName,inferred,agree:
 local,TeamFactory::findTeam::b,TeamFactory::findTeam::teamName,inferred,agree:nl-353903b2b0b7,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A40F5
 local,Team::hasAnyObjects::b3,Team::hasAnyObjects::bit3Set,inferred,agree:nl-bf3d2324e827,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
 local,Team::hasAnyObjects::s,Team::hasAnyObjects::status,inferred,agree:nl-1374af2e3e18,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
+local,Team::hasAnyObjects::b4,Team::hasAnyObjects::bit4Set,inferred,agree:nl-7a7f1304e249,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
+param,Rva00023A00::f::p,Rva00023A00::f::ptr,inferred,agree:nl-c79e466e8be9,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,0x00023A00
+param,Rva00023AC0::f::n,Rva00023AC0::f::count,inferred,agree:nl-d3735c305258,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,0x00023AC0
+param,Rva00023B00::f::p,Rva00023B00::f::ptr,inferred,agree:nl-62e004ddd8fc,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,0x00023B00
+param,rva0024780Forward::c,rva0024780Forward::destination,inferred,agree:nl-0ec66f1b4806,Code/GameEngine/Source/Common/Rva00024610Cluster.cpp,0x00024780
+param,rva0024940Equal::a,rva0024940Equal::lhs,inferred,agree:nl-f7fb0f9e59c8,Code/GameEngine/Source/Common/Rva00024610Cluster.cpp,0x00024940
+param,rva0024940Equal::b,rva0024940Equal::rhs,inferred,agree:nl-7c081575a4e5,Code/GameEngine/Source/Common/Rva00024610Cluster.cpp,0x00024940

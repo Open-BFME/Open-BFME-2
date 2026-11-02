@@ -230,3 +230,4 @@ agree:nl-c5779afda573,Rva000C0D13Copy::n,Rva000C0D13Copy::count,Code/GameEngine/
 agree:nl-b58d4355a239,Rva000D19F9::rva000D19F9::at8,Rva000D19F9::rva000D19F9::decal,Code/GameEngine/Source/Common/Rva000D19F9.cpp,84d868ffd4d5e41eb21fd9838b2e69d197223d3befcb98a5cb199c7d2644e1b0
 agree:nl-72db0e86a82e,Rva000E459F::rva000E46DA::v,Rva000E459F::rva000E46DA::fieldValue,Code/GameEngine/Source/Common/Rva000E459F.cpp,b789af391371c7f9e6a3f2e55fd46525a935ff46f0da9008ee4b523200b8f67b
 agree:nl-bf3d2324e827,Team::hasAnyObjects::b3,Team::hasAnyObjects::bit3Set,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,ec3608d981bac21bd011c69513f7ba4b0af3054a069d75f99b9a8cd889820357
+agree:nl-7a7f1304e249,Team::hasAnyObjects::b4,Team::hasAnyObjects::bit4Set,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,ec3608d981bac21bd011c69513f7ba4b0af3054a069d75f99b9a8cd889820357
