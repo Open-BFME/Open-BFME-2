@@ -180,11 +180,7 @@ class Thing;
 class ModuleData;
 
 // The base slot 17 (0x0045108D) the override calls directly.
-class SpecialAbilityUpdate
-{
-public:
-	virtual void triggerAbilityEffect();
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 

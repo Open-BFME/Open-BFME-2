@@ -85,19 +85,7 @@ class ModuleData;
 
 class Object;
 
-class SpecialAbilityUpdate
-{
-public:
-	virtual void triggerAbilityEffect();
-	virtual void startUnpacking();
-protected:
-	virtual void onExit(bool a, bool b);
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x24 - 0x0C];
-	int m_24; // +0x24
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class ModelConditionSpecialAbilityUpdate : public SpecialAbilityUpdate
 {

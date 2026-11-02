@@ -93,11 +93,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void specialPowerUpdateAnchor();
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameLogic *TheGameLogic;
@@ -248,24 +244,6 @@ typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<Objec
 // Primary-vtable slots 1..17 of SpecialAbilityUpdate (vtable 0x00C3FBA8):
 // xfer 0x0044F996 in slot 3 and the pool key in slot 4; only the positions
 // of slots 15 and 17 matter to update().
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-
-protected:
-	virtual void xfer(Xfer *xfer); // slot 3
-public:
-	virtual NameKeyType getModuleNameKey() const; // slot 4
-
-
-
-	virtual void primarySlot13(); virtual void primarySlot14();
-	virtual void startPreparation(); // slot 15; 0x00450D9A, RousingSpeechUpdate 0x004ACE11
-	virtual void primarySlot16();
-	virtual void triggerAbilityEffect(); // slot 17; 0x0045108D, RousingSpeechUpdate 0x004AD399
-private:
-	unsigned char m_pad24[0x88 - 0x24];
-};
 
 // Field names from the chained parse table 0x00C54F28 (10 of 10 BFME1
 // fields); layout from the rowed ctor 0x4AD0EE.

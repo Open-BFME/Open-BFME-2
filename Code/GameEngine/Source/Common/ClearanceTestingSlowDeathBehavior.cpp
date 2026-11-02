@@ -218,16 +218,7 @@ class Rva002645FF
 public:
 	bool rva002645FF();
 };
-class SpecialAbilityUpdate
-{
-public:
-	virtual bool rva0044FC52();
-	virtual void startUnpacking();
-	virtual UpdateSleepTime update();
-private:
-	void onExit(bool a, bool b);
-	friend class Rva00494E4D;
-};
+#include "../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class GateOpenAndCloseBehavior
 {
 protected:
