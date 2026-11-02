@@ -20429,7 +20429,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?rva000D1743@W3DTornadoDraw@@AAEXXZ,,0x000D1743,51,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp,matched,W3DTornadoDraw list helper via dtor caller plus list-int clear
 ?top@?$AptValuePtrStack@VAptValue@@@@QAEPAVAptValue@@XZ,,0x006DE160,53,Code/Libraries/Source/Apt/AptValuePtrStackTop.cpp,matched,Apt stack top via shared assert triple
 ?xfer@W3DDebrisDraw@@MAEXPAVXfer@@@Z,,0x000B1DC3,268,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDraw.cpp,matched,slot 3 of vtable 0x007C97A8 via rowed ctor plus base DrawModule plus Version1
-??0Rva004523F5@@QAE@XZ,,0x004523F5,12,Code/GameEngine/Source/GameLogic/Object/Update/Rva004523F5Ctor.cpp,matched,gap ctor over rowed 0x24C7B3 helper honest name
+??0Rva004523F5@@QAE@XZ,,0x004523F5,12,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp,matched,gap ctor over rowed 0x24C7B3 helper honest name
 ??0Rva0022CD65@@QAE@XZ,,0x0022CD65,19,Code/GameEngine/Source/Common/System/SaveGame/Rva0022CD65Ctor.cpp,matched,opaque map-holder with int flag via Rva004E35A3 pattern
 ?rva004523CC@AutoHealBehavior@@QAEXXZ,,0x004523CC,29,Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorRva004523CC.cpp,matched,AutoHeal activation opposite stopHealing honest name
 ?getNthKey@Dict@@QBE?AW4NameKeyType@@H@Z,,0x00306BA9,36,Code/GameEngine/Source/Common/DictPairClear.cpp,matched,Dict nth key via ZH donor and writeDict caller at 0x00307DD4

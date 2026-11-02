@@ -36,53 +36,11 @@ class Snapshot;
 #include "GameClient/ParticleSys.h"
 #include "GameClient/Anim2D.h"
 #include "GameClient/InGameUI.h"
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// Original shim header: AutoHealBehavior.h /////////////////////////////////////////////////////////////////////////
-// Author: Colin Day, December 2001
-// Desc:   Update that heals itself
-//------------------------------------------
-// Modified by Kris Morness, September 2002
-// Kris: Added the ability to add effects, radius healing, and restricting the type of objects
-//       subjected to the heal (or repair).
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// TU-local view; guarded below.
-
-// TU-local view from the existing AutoHeal shim; the verified member order is
-// retained. The imported destructor, undoUpgrade and loadPostProcess bodies
-// are not native providers and are omitted. The native 39-byte destructor
-// remains owned by Rva0045232D; the 26-byte list push_back is already owned by
-// Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp.
-// Define this TU's two verified overrides out of line so their emission does
-// not depend on an imported, incompatible 15-slot UpgradeMux vtable.
-
 #ifndef __AutoHealBehavior_H_
 #define __AutoHealBehavior_H_
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+
 #include "GameClient/ParticleSys.h"
 #include "GameLogic/Module/BehaviorModule.h"
 #include "GameLogic/Module/UpgradeModule.h"
@@ -91,7 +49,9 @@ class Snapshot;
 #include "Common/BitFlagsIO.h"
 
 class ParticleSystem;
+
 class ParticleSystemTemplate;
+
 
 //-------------------------------------------------------------------------------------------------
 class AutoHealBehaviorModuleData : public UpdateModuleData
@@ -115,6 +75,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse& p);
 
 };
+
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -195,10 +156,7 @@ private:
 	ParticleSystemID m_radiusParticleSystemID;
 
 };
-
 #endif // __AutoHealBehavior_H_
-
-
 #include "GameLogic/Module/BodyModule.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Object.h"
@@ -207,6 +165,7 @@ private:
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 
 #endif
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
@@ -234,9 +193,80 @@ public:
 	virtual int get() const;
 };
 
+//
+// ??0Rva004523F5@@QAE@XZ, retail 0x004523F5, 12 bytes.
+// Gap between 0x004523B6 (stopHealing) and 0x00452401 (xfer).
+// Default ctor over the rowed Rva0024C7B3Member zeroing helper at 0x24C7B3
+// (member at +0x00, 0x1C bytes) with no trailing members.
+// Evidence: rowed callee plus no-caller gap plus byte-exact /O1 shape.
+// Honest address name: owning class identity unproven.
+
+class Rva0024C7B3Member
+{
+public:
+	Rva0024C7B3Member();
+
+private:
+	char m_bytes[0x1C];
+};
+
+class Rva004523F5
+{
+public:
+	Rva004523F5();
+
+private:
+	Rva0024C7B3Member m_00;
+};
+
 // tu-skeleton: 0x0045235E 69B ?rva00045235E@AutoHealBehavior@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x004523A3 6B ?GetSnapshotName@AutoHealBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// Original shim header: AutoHealBehavior.h /////////////////////////////////////////////////////////////////////////
+// Author: Colin Day, December 2001
+// Desc:   Update that heals itself
+//------------------------------------------
+// Modified by Kris Morness, September 2002
+// Kris: Added the ability to add effects, radius healing, and restricting the type of objects
+//       subjected to the heal (or repair).
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TU-local view; guarded below.
+
+// TU-local view from the existing AutoHeal shim; the verified member order is
+// retained. The imported destructor, undoUpgrade and loadPostProcess bodies
+// are not native providers and are omitted. The native 39-byte destructor
+// remains owned by Rva0045232D; the 26-byte list push_back is already owned by
+// Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp.
+// Define this TU's two verified overrides out of line so their emission does
+// not depend on an imported, incompatible 15-slot UpgradeMux vtable.
 
 // ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
 
@@ -374,11 +404,49 @@ void AutoHealBehavior::onDamage( DamageInfo *damageInfo )
 
   // end loadPostProcess
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void AutoHealBehavior::upgradeImplementation()
+{
+    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+
+void AutoHealBehavior::performUpgradeFX()
+{
+    getAutoHealBehaviorModuleData()->m_upgradeMuxData.performUpgradeFX(getObject());
+}
+
 // tu-skeleton: 0x004523CC 29B ?rva004523CC@AutoHealBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorRva004523CC.cpp (not merged yet)
 
 // tu-skeleton: 0x004523E9 12B ?upgradeRemovalImplementation@Rva004523E9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
 
-// tu-skeleton: 0x004523F5 12B ??0Rva004523F5@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004523F5Ctor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004523F5Ctor.cpp
+
+Rva004523F5::Rva004523F5()
+{
+}
 
 // tu-skeleton: 0x00452401 95B ?xfer@AutoHealBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorXfer.cpp (not merged yet)
 
@@ -421,12 +489,3 @@ void AutoHealBehavior::onDamage( DamageInfo *damageInfo )
 // tu-skeleton: 0x00789C7C 8B Unwind@00b89c7c -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp (not merged yet)
 
 // tu-skeleton: 0x00789C84 10B __ehhandler$?update@AutoHealBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp (not merged yet)
-
-void AutoHealBehavior::upgradeImplementation()
-{
-    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
-}
-void AutoHealBehavior::performUpgradeFX()
-{
-    getAutoHealBehaviorModuleData()->m_upgradeMuxData.performUpgradeFX(getObject());
-}
