@@ -33,7 +33,7 @@
 // 0x0026C1CE prove +0x48..+0x70. ZH AIUpdate.h supplies their field names.
 // Named method declarations use the ledger's decorated signatures; primary
 // slot comments give each retail target. Folded bodies with no class-specific
-// name use neutral vslotNNN declarations. Rowed bodies remain out of line.
+// name use neutral vslotNNN declarations; measured trivial defaults are inline.
 // setCurrentVictim 0x00268D1F and getCurrentVictim 0x00268D71 place the
 // victim ID at +0x40. Turret queries 0x002626B7 and destructor 0x0026E836
 // bound m_turretAI to one pointer at +0x20C. Ground-movement predicate

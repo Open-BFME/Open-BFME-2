@@ -1,0 +1,104 @@
+{
+  "name": "??_7SupplyTruckAIUpdate@@6BAIUpdateInterface24@@@",
+  "rva": "0x00852F88",
+  "size": 24,
+  "complete_table_and_all_six_targets_equal_native": true,
+  "entries": [
+    {
+      "slot": 0,
+      "name": "?onCollide@AIUpdateInterface@@UAEXPAVObject@@PBUCoord3D@@1@Z",
+      "rva": "0x0026DF0D",
+      "size": 359,
+      "source": "Code/GameEngine/Source/GameLogic/Object/AIUpdateInterface_onCollide.cpp"
+    },
+    {
+      "slot": 1,
+      "name": "?vslot24_01@AIUpdateInterface@@UAE_NH@Z",
+      "rva": "0x005CB9FF",
+      "size": 5,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp"
+    },
+    {
+      "slot": 2,
+      "name": "?vslot24_02@AIUpdateInterface@@UAE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp"
+    },
+    {
+      "slot": 3,
+      "name": "?vslot24_03@AIUpdateInterface@@UAE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp"
+    },
+    {
+      "slot": 4,
+      "name": "?vslot24_04@AIUpdateInterface@@UAE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp"
+    },
+    {
+      "slot": 5,
+      "name": "?vslot24_05@AIUpdateInterface@@UAE_NXZ",
+      "rva": "0x0047A699",
+      "size": 3,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp"
+    }
+  ],
+  "rows": 41,
+  "old_code": 92,
+  "new_code": 97,
+  "old_data": 10,
+  "new_data": 10,
+  "changed": [],
+  "removed": [],
+  "added": [
+    {
+      "name": "?vslot24_01@AIUpdateInterface@@UAE_NH@Z",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "32c0c20400",
+      "relocations": []
+    },
+    {
+      "name": "?vslot24_02@AIUpdateInterface@@UAE_NXZ",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "32c0c3",
+      "relocations": []
+    },
+    {
+      "name": "?vslot24_03@AIUpdateInterface@@UAE_NXZ",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "32c0c3",
+      "relocations": []
+    },
+    {
+      "name": "?vslot24_04@AIUpdateInterface@@UAE_NXZ",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "32c0c3",
+      "relocations": []
+    },
+    {
+      "name": "?vslot24_05@AIUpdateInterface@@UAE_NXZ",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "32c0c3",
+      "relocations": []
+    }
+  ],
+  "objects": [
+    {
+      "path": "build\\supply-truck-link-20261102\\primary-candidate.obj",
+      "sha256": "4c716ab634ed159340a02bd18f095df55b6c1adea52a756e6dd8a4a41569fe22"
+    },
+    {
+      "path": "build\\aiupdate-defaults-20261102\\collision-final.obj",
+      "sha256": "a6815f5562cda9e39d944618dd7d5c42dd163d64c2682c000833e2a22113a1bf"
+    }
+  ]
+}
