@@ -49053,10 +49053,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005B03B4,98,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE34.cpp
 0x005B0416,48,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B0446,23,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
-0x005B045D,22,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0446..0x005B0473,Code/GameEngine/Source/Common/Rva005B045D.cpp
+0x005B045D,22,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0446..0x005B0473,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B0473,20,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B0487,47,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
-0x005B04B6,29,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0487..0x005B04D3,Code/GameEngine/Source/Common/Rva005B045D.cpp
+0x005B04B6,29,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0487..0x005B04D3,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B04D3,50,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0487..0x005B0505,Code/Libraries/Source/WWVegas/WWLib/Rva005B09D8CopyPointers.cpp
 0x005B0505,50,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0487..0x005B0537,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp
 0x005B0537,50,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B0487..0x005B0569,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_2cf4c6_allocate_copy.cpp
@@ -49090,7 +49090,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005B129F,38,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B1288..0x005B12C5,Code/Libraries/Source/WWVegas/WWLib/Rva005B09D8CopyPointers.cpp
 0x005B12C5,1155,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp
 0x005B1748,232,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1830,Code/Libraries/Source/WWVegas/WWLib/StlportVectorFillInsertRva005B1748.cpp
-0x005B1830,211,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1903,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
+0x005B1830,211,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1903,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B1903,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B1908,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B1908,5,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,C,C=0x005B12C5..0x005B190D,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x005B190D,250,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
@@ -87837,10 +87837,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079EF0E,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B12C5@FuncInfo0x00955928,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp
 0x0079EF16,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B12C5@FuncInfo0x00955928,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp
 0x0079EF1E,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B12C5@FuncInfo0x00955928,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp
-0x0079EF28,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
-0x0079EF30,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
-0x0079EF38,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
-0x0079EF40,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/Common/Rva005B1830MyHero.cpp
+0x0079EF28,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
+0x0079EF30,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
+0x0079EF38,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
+0x0079EF40,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B1830@FuncInfo0x0095595C,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp
 0x0079EF4A,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B190D@FuncInfo0x00955998,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
 0x0079EF52,14,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B190D@FuncInfo0x00955998,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
 0x0079EF60,24,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp,approved,P,P=0x005B190D@FuncInfo0x00955998,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp
