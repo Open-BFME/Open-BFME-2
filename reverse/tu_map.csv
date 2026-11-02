@@ -53492,7 +53492,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0060D1B3,68,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060D10A..0x0060D1F7,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp
 0x0060D1F7,86,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/XferSave.cpp S=Code/GameEngine/Source/Common/System/XferSave.cpp N=Code/GameEngine/Source/Common/XferSave.cpp,Code/GameEngine/Source/Common/BfmeConv881O1.cpp
 0x0060D24D,28,code,,displaced,-,N=Code/Libraries/Source/xfer/XferSave.cpp,Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp
-0x0060D269,128,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060D1F7..0x0060D2E9,Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp
+0x0060D269,128,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,C,C=0x0060D1F7..0x0060D2E9,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x0060D2E9,331,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,S,S=Code/GameEngine/Source/Common/System/XferSave.cpp N=Code/GameEngine/Source/Common/System/XferSave.cpp,Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp
 0x0060D435,148,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,S,S=Code/GameEngine/Source/Common/System/XferSave.cpp N=Code/Libraries/Source/xfer/XferSave.cpp,Code/Libraries/Source/xfer/XferSaveBlocks.cpp
 0x0060D4C9,49,code,,,-,,Code/Libraries/Source/xfer/XferSaveChain.cpp
@@ -91124,8 +91124,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A6D1D,11,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D1F7@FuncInfo0x00960538,Code/GameEngine/Source/Common/BfmeConv881O1.cpp
 0x007A6D28,11,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D1F7@FuncInfo0x00960538,Code/gen_small/uw_gen_014.cpp
 0x007A6D33,10,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D1F7@FuncInfo0x00960538,Code/GameEngine/Source/Common/BfmeConv881O1.cpp
-0x007A6D3D,25,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D269@FuncInfo0x0096055C,Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp
-0x007A6D56,10,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D269@FuncInfo0x0096055C,Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp
+0x007A6D3D,25,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D269@FuncInfo0x0096055C,Code/GameEngine/Source/Common/System/XferSave.cpp
+0x007A6D56,10,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D269@FuncInfo0x0096055C,Code/GameEngine/Source/Common/System/XferSave.cpp
 0x007A6D60,8,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D2E9@FuncInfo0x00960580,Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp
 0x007A6D68,10,code,Code/GameEngine/Source/Common/System/XferSave.cpp,approved,P,P=0x0060D2E9@FuncInfo0x00960580,Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp
 0x007A6D72,8,code,Code/GameEngine/Source/Common/System/XferSaveAsText.cpp,approved,P,P=0x0060DED5@FuncInfo0x009605A4 provisional,Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp

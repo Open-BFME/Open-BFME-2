@@ -38,27 +38,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 namespace _STL {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline size_t vector<void *>::size() const { return size_t(this->_M_finish - this->_M_start); }
 template <> __declspec(dllimport) __forceinline void * &vector<void *>::operator[](size_t n) { return *(this->_M_start + n); }
 }
-
 // STLport 4.5.3 reference implementation; key/payload types follow retail.
 // Pointer keys and four-byte offsets are native facts; signedness and the
 // concrete template spelling remain reconstruction choices.
 typedef _STL::pair<const char *, int> XferKeyOffsetPair;
-
 typedef _STL::hashtable<XferKeyOffsetPair, const char *, _STL::hash<const char *>, _STL::_Select1st<XferKeyOffsetPair>, _STL::equal_to<const char *>, _STL::allocator<XferKeyOffsetPair> > XferKeyOffsetTable;
-
 // The separate retail resize provider retains the visible vector operations.
 namespace _STL { template <> void XferKeyOffsetTable::resize(unsigned int); }
-
-// Save-side stream transfer and block finalization. The slot-11 recovery
-// resumes reverse/attempt_support/0x0060ce41-w4-20261020.md; helper identity
-// corrections are documented in xfer-save-60ce41-identity-20261020.md.
-
 #include "../../../Include/Common/XferException.h"
 
 class BfmeByteStream
@@ -512,6 +503,37 @@ template class _STL::list<_STL::basic_string<char> >;
 
 template bool _STL::equal_to<_STL::basic_string<char> >::operator()(const _STL::basic_string<char> &, const _STL::basic_string<char> &) const;
 
+// Inline _String_base<char>'s dtor everywhere so this unit emits no copy of
+// its own; the kept retail copy serves any out-of-line call.
+namespace _STL { template <> __declspec(dllimport) __declspec(nothrow) __forceinline
+_String_base<char, allocator<char> >::~_String_base() { _M_deallocate_block(); } }
+
+namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
+
+// bfme link decl-only end
+// Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
+// out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
+{ allocator<char>::deallocate(__p, __n); }
+}
+
+class Rva0060D269 { public: unsigned int &rva0060D269(const _STL::string&); };
+
+typedef _STL::pair<const _STL::string,unsigned int> XferNamePair;
+
+typedef _STL::hashtable<XferNamePair,_STL::string,_STL::hash<_STL::string>,
+ _STL::_Select1st<XferNamePair>,_STL::equal_to<_STL::string>,_STL::allocator<XferNamePair> > XferNameTable;
+
+namespace _STL { template<> XferNamePair &XferNameTable::_M_insert(const XferNamePair&); }
+
+// ---- from Code/GameEngine/Source/Common/System/XferSave.cpp
+
+// Save-side stream transfer and block finalization. The slot-11 recovery
+// resumes reverse/attempt_support/0x0060ce41-w4-20261020.md; helper identity
+// corrections are documented in xfer-save-60ce41-identity-20261020.md.
+
 // ---- from Code/GameEngine/Source/Common/System/XferSave.cpp
 
 // ---- from Code/Libraries/Source/xfer/xfer_save.cpp
@@ -724,6 +746,8 @@ Rva0060D031Member::~Rva0060D031Member()
     ((Rva0060D031Map *)this)->clear();
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
+
 // tu-skeleton: 0x0060C9A7 23B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDH@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDH@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDH@_STL@@@2@@_STL@@ABEIABQBDI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0060CBAC.cpp (not merged yet)
 
 // tu-skeleton: 0x0060C9BE 5B ?_M_bkt_num@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABU?$pair@PBDURva009D7350Mapped@@@2@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
@@ -731,8 +755,6 @@ Rva0060D031Member::~Rva0060D031Member()
 // tu-skeleton: 0x0060C9C3 22B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABQBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
 
 // tu-skeleton: 0x0060C9D9 23B ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
 
 // tu-skeleton: 0x0060CADD 13B ??R?$hash@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@QBEIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_string_uint_resize.cpp (not merged yet)
 
@@ -770,7 +792,22 @@ Rva0060D031Member::~Rva0060D031Member()
 
 // tu-skeleton: 0x0060D1F7 86B ??0XferSave@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv881O1.cpp (not merged yet)
 
-// tu-skeleton: 0x0060D269 128B ?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp
+
+//
+// ?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z @ 0x0060D269, 128 bytes.
+// Dedicated TU: the XferSave owner TU carries /MD rows and a different
+// class view; the R1 member-visibility lever needs the visible
+// __declspec(noinline) Rva0060CAEA::rva0060CB61 definition here (the
+// rowed 0x60CB61 body in stlport_string_find_0060CAEA.cpp is identical).
+// Use the CRT declaration before STLport; a private _STL::free conflicts
+// when this fragment is composed after headers that import ::free.
+
+unsigned int &Rva0060D269::rva0060D269(const _STL::string &key) {
+ Rva0060CAEANode *node;
+ { Rva0060CAEAIterator it=((Rva0060CAEA*)this)->rva0060CB61(key); node=it.m_cur; }
+ return !node ? ((XferNameTable*)this)->_M_insert(XferNamePair(key,0)).second : node->value;
+}
 
 // tu-skeleton: 0x0060D2E9 331B ?rva0060D2E9@XferSave@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)
 
@@ -779,6 +816,10 @@ Rva0060D031Member::~Rva0060D031Member()
 // tu-skeleton: 0x007A6CC0 14B $L8331 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6CCE 10B __ehhandler$?StringUnsignedPairCopyAtRva0060CFFF@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6CD8 11B $L40800 -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6CE3 10B __ehhandler$??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6CED 8B $L389 -- matched in Code/Libraries/Source/xfer/XferSaveDeletingDtor.cpp (not merged yet)
 
@@ -795,10 +836,6 @@ Rva0060D031Member::~Rva0060D031Member()
 // tu-skeleton: 0x007A6D28 11B uw_007a6d28 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6D33 10B __ehhandler$??0XferSave@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv881O1.cpp (not merged yet)
-
-// tu-skeleton: 0x007A6D3D 25B ?rva007A6D3D@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp (not merged yet)
-
-// tu-skeleton: 0x007A6D56 10B __ehhandler$?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6D60 8B Unwind@00ba6d60 -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)
 
