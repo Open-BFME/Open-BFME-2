@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme_projection_matrix_link /Ireference/shims/bfme_vp_math /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme_projection_matrix_link /Ireference/shims/bfme_vp_math /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // The vector constructor iterator (??_H) takes the optimization state of the
 // first function that needs it; retail links the /O1 body at 0x00001423.
 // Instantiate it first in an unemitted anchor so this unit's copy is that body.
@@ -94,7 +94,7 @@ extern unsigned number_of_DX8_calls;
 struct _D3DVIEWPORT8 {unsigned X,Y,Width,Height;float MinZ,MaxZ;};
 struct IDirect3DDevice8 { void **vtable; };
 struct RenderStateStruct { unsigned shader;VertexMaterialClass*material;unsigned char unmodelled[0x1EC-8];Matrix4 world,view; };
-class ShaderClass { protected: static bool ShaderDirty; friend class DX8Wrapper; };
+#include "ShaderClass.h"
 class DX8Wrapper {
 public:
     static void Set_Viewport(const _D3DVIEWPORT8*);

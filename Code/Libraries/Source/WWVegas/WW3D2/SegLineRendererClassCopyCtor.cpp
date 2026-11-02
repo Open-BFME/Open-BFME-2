@@ -1,5 +1,5 @@
 // ??0SegLineRendererClass@@QAE@ABV0@@Z
-// cl: /EHsc /MD
+// cl: /EHsc /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // SegLineRendererClass copy constructor, retail 0x00191B50, 183 bytes.
 // Zero Hour's initialiser list on the BFME2 layout, then *this = that. Kept in
@@ -31,12 +31,7 @@ public:
 	TextureBaseClass *Ptr;
 };
 
-class ShaderClass
-{
-public:
-	static ShaderClass _PresetAdditiveSpriteShader;
-	unsigned ShaderBits;
-};
+#include "ShaderClass.h"
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 

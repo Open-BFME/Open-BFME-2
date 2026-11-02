@@ -8,14 +8,7 @@
 #include "VertexMaterialClass.h"
 
 
-class ShaderClass
-{
-	friend class DX8Wrapper;
-public:
-	unsigned int ShaderBits;
-protected:
-	static bool ShaderDirty;
-};
+#include "ShaderClass.h"
 
 class DX8Caps
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native0006F0BB..0006F1A6, cdecl(bool, Vector3 const&, float, float).
 // Semantic/source lead: the already byte-verified SceneClass_Render.cpp fog
 // wrapper, derived from BFME1 6583b3c1ff and the ZH dx8wrapper.h Set_Fog API.
@@ -12,7 +12,7 @@
 // ShaderDirty, FogEnable and FogColor are protected statics (ShaderClassApply.cpp
 // ?ShaderDirty@ShaderClass@@1_NA, dx8wrapper.cpp ?FogEnable@DX8Wrapper@@1_NA and
 // ?FogColor@DX8Wrapper@@1KA).
-class ShaderClass { protected: static bool ShaderDirty; public: static void Invalidate() {ShaderDirty=true;} };
+#include "ShaderClass.h"
 void rva0006F0BB(bool enable, const Vector3 &color, float start, float end);
 class DX8Wrapper {
  friend void rva0006F0BB(bool enable, const Vector3 &color, float start, float end);

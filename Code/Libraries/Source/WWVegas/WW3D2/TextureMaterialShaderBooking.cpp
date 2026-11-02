@@ -44,13 +44,7 @@ public:
 
 #include "VertexMaterialClass.h"
 
-class ShaderClass
-{
-	unsigned m_bits;
-
-public:
-	unsigned Get_Bits() const { return m_bits; }
-};
+#include "ShaderClass.h"
 
 inline static bool Equal_Material(const VertexMaterialClass *mat1, const VertexMaterialClass *mat2)
 {

@@ -1,22 +1,10 @@
-// cl: /MD
+// cl: /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // MeshModelClass::get_sort_flags(int), retail 0x00189270, 125 bytes.
 // Dedicated TU so meshmdlio.cpp keeps its matched bodies.
 // Shader[pass] is at MatDesc+0x98; ShaderArray[pass] at +0xF8.
 
-class ShaderClass
-{
-public:
-	enum StaticSortCategoryType {
-		SSCAT_OPAQUE,
-		SSCAT_ALPHA_TEST,
-		SSCAT_ADDITIVE,
-		SSCAT_SCREEN,
-		SSCAT_OTHER
-	};
-	unsigned Bits;
-	StaticSortCategoryType Get_SS_Category() const;
-};
+#include "ShaderClass.h"
 
 class ShareBufferClass
 {

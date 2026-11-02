@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/SceneClass_Render.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7). BFME2 deltas from
 // the donor: a float ZBias call, Set_Fog latching start/end, Convert_Color's
@@ -19,13 +19,7 @@ class ChunkLoadClass;
 #include "../WWLib/RefCountData.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/shader.h
-class ShaderClass
-{
-protected:
-	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
-public:
-	static void Invalidate() { ShaderDirty = true; }
-};
+#include "ShaderClass.h"
 
 void Set_Fog(bool enable, const Vector3 &color, float start, float end);
 
