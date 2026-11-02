@@ -1,0 +1,9 @@
+# Canonical AIUpdate collision defaults, 2026-11-02
+
+The real six-entry collision interface at object+24 has native table852F88. Entry1 is false/RET4 at5CB9FF; entries2-5 share false/RET at47A699. The canonical AIUpdate header already declares these overrides but supplied no bodies. Ordinary inline `return false` restores the measured three-byte default without changing class layout or inventing a name for the interface role.
+
+The first member, vslot24_02, passes normal37/37 consumer-row verification and both secondary data tables. Its complete emitted body matches the existing Xfer predicate ICF owner. Full external-object comparison preserves all92 prior code and ten data definitions/relocations and adds only that one body. The current bounded consumer preview drops its definite unresolved names41->40; it remains unlinked. A dependent-source header gate is still required before publication.
+
+The row names the existing emitting consumer TU and carries the inline token. A later verified ICF alias follows its emitter; this neither moves the original Xfer representative nor approves a retail TU or claims this header was recovered verbatim. Every remaining member requires its own admission/commit. No pin, hatch, unique-byte, census or runtime gain is claimed.
+
+The previously inspected nine-row AIUpdate.cpp still uses the donor-shaped aiupdatelayout header, has five admitted unmatched definitions and needs separate whole-view reconciliation. The owning header-adopt tool reports no private view because the class comes from that external header. That TU is unchanged and its reservation was released. Recovering these already-declared canonical defaults does not require reimplementing any lifetime owner.

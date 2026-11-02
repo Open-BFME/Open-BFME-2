@@ -1,0 +1,29 @@
+{
+  "scope": "Canonical inline collision-slot default; full external definitions of existing consumer before/after. No private class view or new TU claimed.",
+  "rows": 37,
+  "old_code": 92,
+  "old_data": 10,
+  "new_code": 93,
+  "new_data": 10,
+  "changed": [],
+  "removed": [],
+  "added": [
+    {
+      "name": "?vslot24_02@AIUpdateInterface@@UAE_NXZ",
+      "kind": "code",
+      "section": ".text",
+      "bytes": "32c0c3",
+      "relocations": []
+    }
+  ],
+  "objects": [
+    {
+      "path": "build\\supply-truck-link-20261102\\primary-candidate.obj",
+      "sha256": "4c716ab634ed159340a02bd18f095df55b6c1adea52a756e6dd8a4a41569fe22"
+    },
+    {
+      "path": "build\\aiupdate-defaults-20261102\\default02.obj",
+      "sha256": "6cc5b9441d859512245e4754f22258fbd6bd2af34c48d07f8ac8917dcfdc03de"
+    }
+  ]
+}
