@@ -418,12 +418,7 @@ extern const Int chatSystemColor;
 
 void Rva00381C82AddChatText( Int window, const UnicodeString &text, Int color );
 
-class Shell
-{
-public:
-	void push( AsciiString filename, Bool shutdownImmediate = false );
-	void pop( void );
-};
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 extern Bool LANbuttonPushed;
 

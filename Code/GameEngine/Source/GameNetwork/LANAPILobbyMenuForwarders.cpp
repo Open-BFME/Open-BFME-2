@@ -40,11 +40,7 @@ public:
 	void rva00444EC8();
 };
 
-class Shell
-{
-public:
-	void pop();							///< matched 0x0035BEC7
-};
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 extern Bool LANbuttonPushed;

@@ -24,11 +24,7 @@ typedef bool Bool;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
 #include "unicode_string.h"
 
-class Shell
-{
-public:
-	void push( AsciiString filename, bool shutdownImmediate = false );
-};
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 extern Bool LANbuttonPushed;

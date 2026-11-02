@@ -13,11 +13,7 @@
 // retail installs no vtable here.
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
-class Shell
-{
-public:
-	void pop();
-};
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 typedef bool Bool;

@@ -261,7 +261,7 @@ public:
     virtual void hide(bool); // vtable +0x10
  char pad04[0x10]; bool m_hidden;
 };
-class Shell { public: char pad00[0x58]; bool m_active; WindowLayout* top(); };
+#include "../../../Include/GameClient/Shell.h"
 class GameWindowManager {
 public:
     virtual void slot00(); // vtable +0x0
