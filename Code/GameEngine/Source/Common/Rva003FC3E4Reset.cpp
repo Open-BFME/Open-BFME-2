@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?rva003FC3E4@Rva003FC3E4@@QAEXXZ @0x003FC3E4 (68B):
 // Mesh texture reset walk: if +0x8 collection set take count via slot28;
@@ -6,11 +6,7 @@
 // slot85 and unless null call rowed Reset_Texture_Mappers.
 // Evidence: rowed Reset_Texture_Mappers 0x00184010; caller 0x005392DE;
 // unblocks 0x005392C2; neighbours use /O1 /DNDEBUG /MD.
-class MaterialInfoClass
-{
-public:
-	void Reset_Texture_Mappers();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialInfoClass.h"
 class Rva003FC3E4ObjB
 {
 public:

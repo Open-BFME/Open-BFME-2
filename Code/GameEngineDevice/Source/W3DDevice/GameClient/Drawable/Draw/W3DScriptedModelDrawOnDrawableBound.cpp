@@ -69,18 +69,7 @@ public:
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
 
-class MaterialInfoClass
-{
-public:
-	virtual void Delete_This();
-	VertexMaterialClass *Get_Vertex_Material(int index);
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-	int NumRefs;
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/MaterialInfoClass.h"
 
 #define SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 #define SLOTS16(p) SLOTS4(p##0) SLOTS4(p##1) SLOTS4(p##2) SLOTS4(p##3)

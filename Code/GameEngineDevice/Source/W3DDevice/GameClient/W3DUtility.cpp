@@ -64,7 +64,7 @@ struct OpacitySetupView {
 struct OpacityShaderView { unsigned char pad0[0xb8]; OpacitySetupView *setup; };
 struct OpacityMeshModelView { unsigned char pad0[0x94]; OpacityShaderView *shader; };
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h"
-class MaterialInfoClass { public: VertexMaterialClass *Get_Vertex_Material(int); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialInfoClass.h"
 class OpacityReferenceView {
 public:
     virtual void destroy();

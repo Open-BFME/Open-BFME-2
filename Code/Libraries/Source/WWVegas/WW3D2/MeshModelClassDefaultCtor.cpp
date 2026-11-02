@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
 // ??0MeshModelClass@@QAE@XZ at retail 0x001727E0 (335 bytes).
@@ -80,15 +80,7 @@ private:
 	char m_pad[0x118 - 4];
 };
 
-class MaterialInfoClass
-{
-public:
-	MaterialInfoClass();
-
-private:
-	// Retail news 0x38 for this (proven by the push below).
-	char m_pad[0x38];
-};
+#include "MaterialInfoClass.h"
 
 // Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
 // + MultiListObjectClass (vptr +8); Flags int at +0x18 per the meshgeom

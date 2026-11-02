@@ -94,21 +94,7 @@ public:
 	UVBufferClass *UV[8];
 };
 
-class MaterialInfoClass
-{
-public:
-	virtual void Delete_This();
-	void Release_Ref() const
-	{
-		NumRefs--;
-		if (NumRefs == 0)
-			const_cast<MaterialInfoClass *>(this)->Delete_This();
-	}
-
-private:
-	mutable int NumRefs;
-	char m_pad[0x38 - 8];
-};
+#include "MaterialInfoClass.h"
 
 // Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
 // + MultiListObjectClass (vptr +8); Flags unsigned at +0x18 (the skin-bit
