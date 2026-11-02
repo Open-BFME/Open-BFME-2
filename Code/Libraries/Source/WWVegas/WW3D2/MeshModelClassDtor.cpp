@@ -45,17 +45,7 @@ class W3DMPO
 
 #include "../WWLib/RefCountData.h"
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass() { Prev = Next = NextList = NULL; Object = NULL; List = NULL; }
-
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
 class MultiListObjectClass
 {
@@ -66,14 +56,6 @@ private:
 	MultiListNodeClass *ListNode;
 };
 
-class GenericMultiListClass
-{
-public:
-	GenericMultiListClass() { Head.Next = Head.Prev = &Head; Head.Object = NULL; Head.NextList = NULL; }
-	virtual ~GenericMultiListClass();
-
-	MultiListNodeClass Head;
-};
 
 class DX8PolygonRendererList : public GenericMultiListClass
 {

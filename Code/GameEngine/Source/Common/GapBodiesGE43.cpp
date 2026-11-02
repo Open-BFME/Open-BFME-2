@@ -108,11 +108,7 @@ Vector2 *Rva00144340::getUVArrayByIndex(int index)
 // through the rowed GenericMultiListClass::Internal_Add_Tail.
 class MultiListObjectClass;
 
-class GenericMultiListClass
-{
-protected:
-	bool Internal_Add_Tail(MultiListObjectClass *obj, bool onlyOnce);
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 
 class GapMultiList : public GenericMultiListClass
 {

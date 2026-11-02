@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // ?rva00072109@RTS3DScene@@QAEXAAVRayCollisionTestClass@@HAAV?$multimap@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@@Z
@@ -128,14 +128,7 @@ public:
 	MultiListNodeClass *ListNode;
 };
 
-struct MultiListNodeClass
-{
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	MultiListObjectClass *Object;
-	void *List;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 
 #define RENDEROBJ_SLOT(n) virtual void slot##n();
 
@@ -180,12 +173,6 @@ public:
 	virtual int Get_Collision_Type() const;								// +0x1E0
 };
 
-class GenericMultiListClass
-{
-public:
-	virtual ~GenericMultiListClass();
-	MultiListNodeClass Head;
-};
 
 class RefRenderObjListIterator
 {

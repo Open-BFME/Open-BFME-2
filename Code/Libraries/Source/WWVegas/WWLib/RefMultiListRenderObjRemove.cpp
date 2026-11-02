@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // RefMultiListClass<RenderObjClass>::Remove, retail 0x0006EF4E, 47 bytes.
 // Dedicated TU so multilist.cpp cannot see this body. Internal_Remove is
@@ -19,12 +19,7 @@ class RenderObjClass : public RefCountClass, public MultiListObjectClass
 {
 };
 
-class GenericMultiListClass
-{
-protected:
-	bool Internal_Remove(MultiListObjectClass *obj);
-	MultiListObjectClass *Internal_Remove_List_Head(void);
-};
+#include "GenericMultiListClass.h"
 
 template <class T>
 class RefMultiListClass : public GenericMultiListClass

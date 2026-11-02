@@ -24,25 +24,8 @@ private:
 	void *ListNode;
 };
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
-class GenericMultiListClass
-{
-public:
-	GenericMultiListClass() { Head.Next = Head.Prev = &Head; Head.Object = 0; Head.NextList = 0; }
-	virtual ~GenericMultiListClass();
-	MultiListNodeClass Head;
-protected:
-	MultiListObjectClass *Internal_Remove_List_Head();
-};
 
 // RefCountClass inline copies take the size form retail links (0x005D1A7D).
 #pragma optimize("s", on)

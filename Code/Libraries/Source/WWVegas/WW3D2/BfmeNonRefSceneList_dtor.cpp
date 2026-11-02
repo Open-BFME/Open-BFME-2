@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ob2
+// cl: /DNDEBUG /MD /EHsc /Ob2 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1BfmeNonRefSceneList@@UAE@XZ, retail 0x00141780, 96 bytes.
 // Dedicated TU (SimpleSceneClass_dtor.cpp calls this dtor twice for its
 // list_bc/list_d4 members; a same-TU definition would capture those REL32s
@@ -17,39 +17,10 @@
 
 class MultiListObjectClass;
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass() { Prev = Next = NextList = 0; Object = 0; List = 0; }
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	MultiListObjectClass *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
 // Only derived lists are constructed here; their native constructors install
 // the derived vptr. Keep the base table and its SEH deleting dtor external.
-class __declspec(novtable) GenericMultiListClass
-{
-public:
-	__declspec(dllimport) __forceinline GenericMultiListClass() { Head.Next = Head.Prev = &Head; Head.Object = 0; Head.NextList = 0; }
-	virtual ~GenericMultiListClass();
-
-	bool Is_Empty()
-	{
-		return (Head.Next == &Head);
-	}
-
-protected:
-	MultiListObjectClass *Internal_Remove_List_Head();
-
-	// NOTE: protected (not WW-private) in this TU-local view: the drain
-	// loop below names Head.Next directly so the emptiness check emits a
-	// memory compare (cmp [esi+8],edi). The header-inline !Is_Empty()
-	// spelling routes the same test through a register instead.
-	MultiListNodeClass Head;
-};
 
 class BfmeNonRefSceneList : public GenericMultiListClass
 {

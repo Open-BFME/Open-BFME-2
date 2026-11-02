@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ??1DX8MeshRendererClass@@QAE@XZ at retail 0x00147F60 (172B). Dedicated TU:
 // the Code/ dx8renderer.cpp TU builds against the ZH header (file-static
@@ -33,23 +33,8 @@ void __cdecl operator delete[](void *) throw();
 class CameraClass;
 class DecalMeshClass;
 
-class MultiListNodeClass
-{
-public:
-	void *Prev;
-	void *Next;
-	void *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
-class GenericMultiListClass
-{
-public:
-	MultiListNodeClass Head;
-
-	virtual ~GenericMultiListClass();
-};
 
 class FVFCategoryList : public GenericMultiListClass
 {

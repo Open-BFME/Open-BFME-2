@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ??1TextureCategoryList@@UAE@XZ at retail 0x001446F0 (95B) with its scalar
 // deleting destructor ??_GTextureCategoryList@@UAEPAXI@Z at 0x00144870 (27B).
@@ -20,26 +20,8 @@ public:
 	void *ListNode;
 };
 
-class MultiListNodeClass
-{
-public:
-	void *Prev;
-	void *Next;
-	void *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
-class GenericMultiListClass
-{
-public:
-	MultiListNodeClass Head;
-
-	virtual ~GenericMultiListClass();
-
-protected:
-	MultiListObjectClass *Internal_Remove_List_Head();
-};
 
 class TextureCategoryList : public GenericMultiListClass
 {

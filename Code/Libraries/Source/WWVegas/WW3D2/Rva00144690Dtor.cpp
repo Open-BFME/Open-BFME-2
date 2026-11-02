@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ??1Rva00144690@@UAE@XZ at retail 0x00144690 (95B) with its scalar
 // deleting destructor ??_GRva00144690@@UAEPAXI@Z at 0x00144850 (27B).
@@ -23,31 +23,11 @@ public:
 	void *ListNode;
 };
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass() { Prev = Next = NextList = 0; Object = 0; List = 0; }
-	void *Prev;
-	void *Next;
-	void *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
 // This unit constructs only the derived list. Its native constructor installs
 // the derived vptr; the base view must not emit a competing base vtable or
 // scalar deleting destructor under this unit's SEH compiler settings.
-class __declspec(novtable) GenericMultiListClass
-{
-public:
-	MultiListNodeClass Head;
-
-	__declspec(dllimport) __forceinline GenericMultiListClass() { Head.Next = Head.Prev = &Head; Head.Object = 0; Head.NextList = 0; }
-	virtual ~GenericMultiListClass();
-
-protected:
-	MultiListObjectClass *Internal_Remove_List_Head();
-};
 
 class Rva00144690 : public GenericMultiListClass
 {

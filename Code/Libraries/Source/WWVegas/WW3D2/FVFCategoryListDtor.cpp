@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ??1FVFCategoryList@@UAE@XZ at retail 0x00144750 (95B) with its scalar
 // deleting destructor ??_GFVFCategoryList@@UAEPAXI@Z at 0x00144890 (27B).
@@ -22,31 +22,10 @@ public:
 	void *ListNode;
 };
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass(void) { Prev = Next = NextList = 0; Object = 0; List = 0; }
-	void *Prev;
-	void *Next;
-	void *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
 // Only derived lists are constructed here; their native constructors install
 // the derived vptr. Keep the base table and its SEH deleting dtor external.
-class __declspec(novtable) GenericMultiListClass
-{
-public:
-	MultiListNodeClass Head;
-
-	__declspec(dllimport) __forceinline GenericMultiListClass(void) { Head.Next = Head.Prev = &Head; Head.Object = 0; Head.NextList = 0; }
-	virtual ~GenericMultiListClass();
-
-protected:
-	bool Internal_Remove(MultiListObjectClass *obj);
-	MultiListObjectClass *Internal_Remove_List_Head();
-};
 
 class FVFCategoryList : public GenericMultiListClass
 {

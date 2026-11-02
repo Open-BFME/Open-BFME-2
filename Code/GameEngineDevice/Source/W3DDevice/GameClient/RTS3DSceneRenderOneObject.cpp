@@ -117,21 +117,8 @@ public:
 	MultiListNodeClass *ListNode;
 };
 
-struct MultiListNodeClass
-{
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	MultiListObjectClass *Object;
-	void *List;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 
-class GenericMultiListClass
-{
-public:
-	virtual ~GenericMultiListClass();
-	MultiListNodeClass Head;
-};
 
 class RenderInfoClass;
 class SceneClass;

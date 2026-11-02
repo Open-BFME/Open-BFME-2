@@ -29,17 +29,7 @@ class W3DMPO
 
 #include "../WWLib/RefCountData.h"
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass() { Prev = Next = NextList = NULL; Object = NULL; List = NULL; }
-
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	void *Object;
-	void *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
 class MultiListObjectClass
 {
@@ -52,14 +42,6 @@ private:
 
 // The derived list owns the native vptr; its base's emitted table and deleting
 // destructor belong to the retail provider, not this local layout view.
-class __declspec(novtable) GenericMultiListClass
-{
-public:
-	__declspec(dllimport) __forceinline GenericMultiListClass() { Head.Next = Head.Prev = &Head; Head.Object = NULL; Head.NextList = NULL; }
-	virtual ~GenericMultiListClass();
-
-	MultiListNodeClass Head;
-};
 
 class Rva00144690 : public GenericMultiListClass
 {

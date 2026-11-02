@@ -24,21 +24,7 @@
 class MultiListObjectClass;
 class GenericMultiListClass;
 
-class MultiListNodeClass
-{
-public:
-	MultiListNodeClass()
-	{
-		Prev = Next = NextList = 0;
-		Object = 0;
-		List = 0;
-	}
-	MultiListNodeClass *Prev;
-	MultiListNodeClass *Next;
-	MultiListNodeClass *NextList;
-	MultiListObjectClass *Object;
-	GenericMultiListClass *List;
-};
+#include "../WWLib/GenericMultiListClass.h"
 
 class MultiListObjectClass
 {
@@ -50,19 +36,6 @@ private:
 };
 
 // Only the derived member list is constructed; retail stores its vptr.
-class __declspec(novtable) GenericMultiListClass
-{
-public:
-	__declspec(dllimport) __forceinline GenericMultiListClass()
-	{
-		Head.Next = Head.Prev = &Head;
-		Head.Object = 0;
-		Head.NextList = 0;
-	}
-	virtual ~GenericMultiListClass();
-private:
-	MultiListNodeClass Head;
-};
 
 class TextureClass
 {
