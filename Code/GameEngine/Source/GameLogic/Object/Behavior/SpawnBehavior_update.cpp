@@ -217,14 +217,7 @@ public:
 	virtual void rva0045FE4A();
 };
 
-class UpgradeMux
-{
-public:
-	virtual Bool isAlreadyUpgraded() const;
-
-private:
-	Bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,

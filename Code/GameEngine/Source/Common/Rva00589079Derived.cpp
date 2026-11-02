@@ -169,12 +169,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class UpgradeMux
-{
-	friend class FireWeaponWhenDeadBehavior;
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-};
+#include "../../Include/GameLogic/Module/UpgradeMux.h"
 
 class Member2C
 {

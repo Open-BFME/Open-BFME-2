@@ -82,14 +82,7 @@ public:
 	virtual void spawnExtraAnchor();
 };
 
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,

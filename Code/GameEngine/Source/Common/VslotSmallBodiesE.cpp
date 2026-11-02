@@ -89,15 +89,7 @@ extern DisabledMaskType DISABLEDMASK_ALL;
 enum SleepyUpdatePhase;
 
 
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual Bool isAlreadyUpgraded() const;
-	void giveSelfUpgrade();
-protected:
-	Bool m_upgradeExecuted; // +0x04
-};
+#include "../../Include/GameLogic/Module/UpgradeMux.h"
 
 class DieModuleInterface
 {

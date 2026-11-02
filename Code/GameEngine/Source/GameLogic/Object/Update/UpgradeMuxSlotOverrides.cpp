@@ -44,15 +44,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class UpgradeMux : public UpgradeMuxSlots<10>
-{
-protected:
-	virtual void upgradeImplementation() = 0;
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-	virtual void performUpgradeFX() = 0;
-	virtual bool requiresAllActivationUpgrades() const = 0;
-	unsigned int m_upgradeMuxFlags; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class UpdateModuleView
 {

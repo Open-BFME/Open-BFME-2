@@ -59,14 +59,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class UpgradeMux : public UpgradeMuxSlots<10>
-{
-protected:
-	virtual void upgradeImplementation() = 0;
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class AudioLoopUpgradeInterface
 {

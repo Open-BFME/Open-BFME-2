@@ -60,19 +60,7 @@ public:
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	void giveSelfUpgrade();
-
-protected:
-	virtual bool isUpgradeActive() = 0;
-	virtual void upgradeMuxXfer(Xfer *xfer);
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../Include/GameLogic/Module/UpgradeMux.h"
 
 class DamageModuleInterface
 {

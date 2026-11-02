@@ -195,13 +195,7 @@ class ModuleData;
 
 
 // +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
-class UpgradeMux
-{
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 struct BroadcastStealthUpdateModuleData
 {

@@ -40,15 +40,7 @@ class SpawnExtraBase
 public:
 	virtual void extraAnchor();
 };
-class UpgradeMux
-{
-public:
-	virtual void muxAnchor();
-	UpgradeMux();
-private:
-	bool m_executed;
-	char pad05[3];
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 class ThingTemplate;
 class SpawnBehavior : public UpdateModule,
 	public SpawnBehaviorInterface,

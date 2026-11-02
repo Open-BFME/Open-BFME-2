@@ -167,13 +167,7 @@ struct ObjectCreationUpgradeModuleData
 	bool m_useSpecialContext;		// +0x150
 };
 
-class UpgradeMux
-{
-public:
-	virtual ~UpgradeMux();
-private:
-	bool m_executed;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 

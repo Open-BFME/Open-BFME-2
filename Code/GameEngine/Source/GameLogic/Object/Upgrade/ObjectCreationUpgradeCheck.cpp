@@ -30,7 +30,7 @@ private:
 
 class Player { public: char pad00[0x13C]; Rva00406F9C mask; };
 class Object { public: Player *getControllingPlayer() const; char pad00[0x284]; Rva00406F9C mask; };
-class UpgradeMux { public: void giveSelfUpgrade(); };
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 struct BfmeFixedStorage128 { unsigned int words[32]; BfmeFixedStorage128(const BfmeFixedStorage128 &); };
 namespace _STL { template<unsigned N> struct _Base_bitset { unsigned long words[N]; void _M_do_or(const _Base_bitset &); }; }
 

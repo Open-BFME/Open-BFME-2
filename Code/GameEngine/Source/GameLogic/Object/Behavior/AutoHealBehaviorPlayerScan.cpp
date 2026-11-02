@@ -357,13 +357,7 @@ enum
 
 
 // +0x20: slot 0 reads the upgrade-executed byte.
-class UpgradeMux
-{
-public:
-	virtual Bool isAlreadyUpgraded() const;
-private:
-	Bool m_upgradeExecuted; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class DamageInfo;
 class DamageModuleInterface

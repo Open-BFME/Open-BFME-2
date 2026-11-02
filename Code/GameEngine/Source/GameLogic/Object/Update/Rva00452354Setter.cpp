@@ -8,17 +8,9 @@
 // +4 (m_upgradeExecuted). Donor ZH UpgradeModule.h backs the UpgradeMux
 // name and bool shape. Honest address name: virtualness unproven.
 
-class UpgradeMux
-{
-public:
-	void rva00452354(bool e);
-
-private:
-	void *m_vtable;
-	bool m_executed;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 void UpgradeMux::rva00452354(bool e)
 {
-	m_executed = e;
+	m_upgradeExecuted = e;
 }

@@ -368,11 +368,7 @@ public:
 	void setDragSelecting( void );
 };
 
-class UpgradeMux
-{
-public:
-	void rva00452354( bool state );
-};
+#include "../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class View
 {

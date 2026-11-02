@@ -51,11 +51,7 @@ public:
 	virtual void gap(char (*)[1]) = 0;
 };
 
-class UpgradeMux : public UpgradeMuxSlots<11>
-{
-protected:
-	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class SpawnBehaviorView
 {
