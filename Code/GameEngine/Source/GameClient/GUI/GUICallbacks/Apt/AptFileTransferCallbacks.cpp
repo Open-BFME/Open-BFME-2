@@ -17,12 +17,7 @@
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 
 
-class MultiplayerColorDefinition
-{
-public:
-	unsigned char m_pad00[0x10];
-	int m_color; // +0x10
-};
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class MultiplayerSettings
 {

@@ -18,34 +18,7 @@ typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 // The existing GameInfo constants, also selected by getColor's retail tests.
 enum { PLAYERTEMPLATE_RANDOM = -1, PLAYERTEMPLATE_OBSERVER = -2 };
-class MultiplayerColorDefinition
-{
-public:
-    MultiplayerColorDefinition();
-    // The pair copy at 0x00380DA3 calls the native color copy out of line.
-    MultiplayerColorDefinition(const MultiplayerColorDefinition &other);
-    static const FieldParse m_colorFieldParseTable[];
-    const FieldParse *getFieldParse() const { return m_colorFieldParseTable; }
-
-    AsciiString getTooltipName() const { return m_tooltipName; }
-    RGBColor getRGBValue() const { return m_rgbValue; }
-    RGBColor getRGBNightValue() const { return m_rgbValueNight; }
-    Color getColor() const { return m_color; }
-    Color getNightColor() const { return m_colorNight; }
-    void setColor(RGBColor rgb);
-    void setNightColor(RGBColor rgb);
-    MultiplayerColorDefinition *operator=(const MultiplayerColorDefinition &other);
-
-private:
-    AsciiString m_tooltipName; // +0x00
-    RGBColor m_rgbValue; // +0x04
-    Color m_color; // +0x10
-    RGBColor m_rgbValueNight; // +0x14
-    Color m_colorNight; // +0x20
-    RGBColor m_rgbExtra1; // +0x24, LivingWorldColor in the native parse table
-    RGBColor m_rgbExtra2; // +0x30, LivingWorldBannerColor in the native table
-    Bool m_extraFlag; // +0x3C, AvailableInWotR in the native table
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 typedef _STL::pair<const int, MultiplayerColorDefinition> ColorMapValue;
 typedef _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<_STL::pair<const int, MultiplayerColorDefinition> > > MultiplayerColorList;
 typedef MultiplayerColorList::iterator MultiplayerColorIter;

@@ -87,7 +87,7 @@ public:
 class Rva004DCAD2 {public: void rva004DCAD2(INI *);};
 class BfmeEmotionName;
 class EmotionNugget;
-class MultiplayerColorDefinition {public: AsciiString getTooltipName() const throw();};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 class CreateAHeroData;
 // Retail's EmotionSystem template registry is a pointer vector at +0x0C.
 struct EmotionTemplateListView {

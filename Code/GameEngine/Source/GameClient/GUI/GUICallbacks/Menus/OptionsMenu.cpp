@@ -321,11 +321,7 @@ public:
 // OptionPreferences_enumDispatch.cpp; this TU only references it.
 extern BfmeEnumTableEntry BfmeEnumTable[];
 
-class MultiplayerColorDefinition
-{
-public:
-	AsciiString getTooltipName() const throw();
-};
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 extern GlobalData *TheWritableGlobalData;
 

@@ -8,26 +8,7 @@ struct FieldParse;
 #include "../../../Include/Common/INI/INI.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MultiplayerSettings.h
-class MultiplayerColorDefinition
-{
-public:
-	MultiplayerColorDefinition();
-	static const FieldParse m_colorFieldParseTable[];
-	const FieldParse *getFieldParse() const { return m_colorFieldParseTable; }
-	AsciiString getTooltipName() const;
-	RGBColor getRGBValue() const { return m_rgbValue; }
-	RGBColor getRGBNightValue() const { return m_rgbValueNight; }
-	void setColor( RGBColor rgb );
-	void setNightColor( RGBColor rgb );
-	MultiplayerColorDefinition *operator=( const MultiplayerColorDefinition &other );
-
-private:
-	AsciiString m_tooltipName;
-	RGBColor m_rgbValue;
-	int m_color;
-	RGBColor m_rgbValueNight;
-	int m_colorNight;
-};
+#include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class MultiplayerSettings
 {

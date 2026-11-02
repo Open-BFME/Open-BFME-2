@@ -389,16 +389,7 @@ _STL::string WideCharStringToMultiByte(const unsigned short *orig);
 
 extern GameTextInterface *TheGameText;
 
-class MultiplayerColorDefinition
-{
-public:
-    Int getColor() const { return m_color; }
-
-private:
-    AsciiString m_tooltipName;
-    float m_rgbValue[3];
-    Int m_color;
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 
 #include "../../Include/Common/PlayerTemplate.h"

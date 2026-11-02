@@ -5,14 +5,7 @@
 
 #include "ascii_string.h"
 
-class MultiplayerColorDefinition
-{
-public:
-	AsciiString getTooltipName() const;
-
-private:
-	AsciiString m_tooltipName;
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 // ?getTooltipName@MultiplayerColorDefinition@@QBE?AVAsciiString@@XZ
 inline AsciiString MultiplayerColorDefinition::getTooltipName() const

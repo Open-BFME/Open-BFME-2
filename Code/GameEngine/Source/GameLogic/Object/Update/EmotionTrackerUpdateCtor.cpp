@@ -57,11 +57,7 @@ public:
 };
 
 // The ICF-shared copy of an AsciiString at +0, rowed under this name.
-class MultiplayerColorDefinition
-{
-public:
-	AsciiString getTooltipName() const;
-};
+#include "../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class EmotionTrackerUpdateEntry
 {

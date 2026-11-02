@@ -65,11 +65,7 @@ public:
 	EnumeratedIP *m_next;
 };
 
-class MultiplayerColorDefinition
-{
-public:
-	AsciiString getTooltipName() const;
-};
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class IPEnumeration
 {

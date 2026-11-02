@@ -367,15 +367,7 @@ private:
 AsciiString GameInfoToAsciiString( const GameInfo *game, Bool flag );
 Bool ParseGameOptionsString( LANGameInfo *game, AsciiString options, const void *data, Int length );
 
-class MultiplayerColorDefinition
-{
-public:
-	Int getColor( void ) const { return m_color; }
-
-private:
-	UnsignedByte m_pre10[0x10];
-	Int m_color;					// +0x10
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class MultiplayerSettings
 {

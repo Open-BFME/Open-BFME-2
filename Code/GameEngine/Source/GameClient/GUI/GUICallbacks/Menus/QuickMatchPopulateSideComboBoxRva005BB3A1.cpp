@@ -60,14 +60,7 @@ void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool 
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class MultiplayerColorDefinition
-{
-public:
-	Color getColor() const { return m_color; }
-
-	unsigned char m_pad00[0x10];
-	Color m_color;				// +0x10
-};
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class MultiplayerSettings
 {

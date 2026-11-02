@@ -13,11 +13,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "ascii_string.h"
 
-class MultiplayerColorDefinition
-{
-public:
-	AsciiString getTooltipName() const;
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 class BfmeEmotionName;
 class EmotionNugget;

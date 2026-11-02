@@ -20,14 +20,7 @@ struct BfmePod88
 	char m_body[88];
 };
 
-class MultiplayerColorDefinition
-{
-public:
-	MultiplayerColorDefinition(const MultiplayerColorDefinition &other);
-
-private:
-	char m_pad[4];
-};
+#include "../../../../GameEngine/Include/GameNetwork/MultiplayerColorDefinition.h"
 
 struct TreeHintPayload003012F0
 {

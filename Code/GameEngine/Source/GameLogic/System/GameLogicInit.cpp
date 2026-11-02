@@ -3802,18 +3802,7 @@ void GameLogic::SetUpCampaignPlayers(void)
 // ---------------------------------------------------------------------------
 #include "../../../Include/Common/PlayerTemplate.h"
 
-class MultiplayerColorDefinition
-{
-public:
-	int getColor(void) const { return m_color; }
-	int getNightColor(void) const { return m_colorNight; }
-
-private:
-	char m_pad00[0x10];
-	int m_color;                                                         // +0x10
-	char m_pad14[0x20 - 0x14];
-	int m_colorNight;                                                    // +0x20
-};
+#include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 extern Rva00148F5ECache TheKey_playerIsHuman;
 extern Rva00148F5ECache TheKey_playerDisplayName;

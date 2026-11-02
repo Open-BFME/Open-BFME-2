@@ -15,11 +15,7 @@
 // Follows padding plus leave / ret. Opaque address-derived name.
 // Declaration-only static-data view; no instance layout is asserted.
 struct FieldParse;
-class MultiplayerColorDefinition
-{
-public:
-    static const FieldParse m_colorFieldParseTable[];
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 extern const FieldParse g_00C082F0[];
 
 int Rva001EF348Get(void)

@@ -26,21 +26,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 // its AsciiString tooltip name gives the pair a destructor, so the tree
 // teardown COMDATs (_Destroy, _M_erase, ~_Rb_tree) take retail's shape;
 // /EHs keeps the EH state reset retail's 56-byte ~_Rb_tree has (0x38103F).
-class MultiplayerColorDefinition
-{
-public:
-	MultiplayerColorDefinition(const MultiplayerColorDefinition &other);
-
-private:
-	AsciiString m_tooltipName; // +0x00
-	RGBColor m_rgbValue; // +0x04
-	int m_color; // +0x10
-	RGBColor m_rgbValueNight; // +0x14
-	int m_colorNight; // +0x20
-	RGBColor m_rgbExtra1; // +0x24
-	RGBColor m_rgbExtra2; // +0x30
-	bool m_extraFlag; // +0x3C
-};
+#include "../../../../GameEngine/Include/GameNetwork/MultiplayerColorDefinition.h"
 
 typedef char ColorMapValueMatchesRetail[(sizeof(MultiplayerColorDefinition) == 0x40) ? 1 : -1];
 

@@ -17,22 +17,7 @@
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
 
-class MultiplayerColorDefinition
-{
-public:
-	MultiplayerColorDefinition();
-	MultiplayerColorDefinition(const MultiplayerColorDefinition &other);
-
-private:
-	AsciiString m_tooltipName; // +0x00
-	RGBColor m_rgbValue; // +0x04
-	int m_color; // +0x10
-	RGBColor m_rgbValueNight; // +0x14
-	int m_colorNight; // +0x20
-	RGBColor m_rgbExtra1; // +0x24
-	RGBColor m_rgbExtra2; // +0x30
-	bool m_extraFlag; // +0x3C
-};
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
 
 typedef char MultiplayerColorPairValueMatchesRetail[(sizeof(MultiplayerColorDefinition) == 0x40) ? 1 : -1];
 
