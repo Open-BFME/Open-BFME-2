@@ -27,11 +27,7 @@ public:
 	~Rva0040CFFF() {}
 };
 
-class LivingWorldBattle
-{
-public:
-	void rva003F498A(Rva003F498ACallback *callback);
-};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
 
 class Rva003F468D;
 

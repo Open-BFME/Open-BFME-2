@@ -48,12 +48,7 @@ struct Rva003F5BDBRet
 	_STL::vector<Rva003F5BDBElem *> m_elements;
 };
 
-class LivingWorldBattle
-{
-public:
-	void *rva003F4DEE(void *p);
-	void rva003F5BDB(void *a, _STL::vector<ScienceType> *out);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldBattle.h"
 
 void LivingWorldBattle::rva003F5BDB(void *a, _STL::vector<ScienceType> *out)
 {

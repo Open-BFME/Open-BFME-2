@@ -7,11 +7,7 @@
 // its complete native body returns integer flags 2/4/8. Owner name unresolved.
 // The final operation is the already-rowed no-argument method at 5E9601.
 
-class LivingWorldBattle
-{
-public:
-    int GetResolutionOptions();
-};
+#include "../../../Include/GameLogic/LivingWorldBattle.h"
 
 class Rva005F93CB
 {

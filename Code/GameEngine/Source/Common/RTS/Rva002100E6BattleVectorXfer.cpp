@@ -39,7 +39,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
-class LivingWorldBattle {public:LivingWorldBattle();char opaque[64];};
+#include "../../../Include/GameLogic/LivingWorldBattle.h"
 namespace _STL {
  template<>void vector<const ModuleData*,allocator<const ModuleData*> >::reserve(unsigned int);
  template<>void vector<const ModuleData*,allocator<const ModuleData*> >::push_back(const ModuleData*const&);

@@ -39,11 +39,7 @@ public:
 	StringBase<char> m_templateName;	// +0x18
 };
 
-class LivingWorldBattle
-{
-public:
-	int rva003F48FE(int side, int army, int unit);
-};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
 
 class Rva003F4DCA
 {

@@ -70,7 +70,7 @@ bool Rva002B31DB::invoke(int value)
 // Display160 and GameLogic2034E9 guard the global call. Original names
 // and full layouts remain unknown. Lookup20E5BB and singleton are now
 // provided by real recovered code; no new pin or duplicated callback.
-class LivingWorldBattle { public: void rva003F498A(Rva003F498ACallback *); };
+#include "../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F468D;
 class Rva0020E6B7RegionManager { public: Rva003F468D *rva0020E6B7(); };
 class Rva002B4AF8 {

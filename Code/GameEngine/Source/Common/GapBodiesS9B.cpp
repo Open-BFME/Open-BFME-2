@@ -17,11 +17,7 @@ public:
 	Bool isWeaponSlotOnTurret(WeaponSlotType wslot) const;		// 0x004D81D7
 };
 
-class LivingWorldBattle
-{
-public:
-	void RemoveArmy(LivingWorldArmy *army);					// 0x003F5647
-};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
 
 class Rva004CBF9A
 {

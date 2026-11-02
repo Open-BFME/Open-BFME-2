@@ -10,12 +10,7 @@
 #pragma intrinsic(_ReadWriteBarrier)
 extern "C" void _ReadWriteBarrier(void);
 
-class LivingWorldBattle
-{
-public:
-	int rva003F4831();
-	bool rva003F48EF(void *p);
-};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
 
 
 class Rva002B254F

@@ -94,7 +94,7 @@ bool Rva002B85B1::rva002B85B1(Rva003190A5 *a)
 // unchanged. Output pointer element names remain the existing caller ABI
 // views; application identities and complete class layouts remain open.
 class Rva003F498ACallback;
-class LivingWorldBattle {public: void rva003F498A(Rva003F498ACallback*);};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F468D;
 class Rva0020E6B7RegionManager {public:Rva003F468D *rva0020E6B7();};
 class Rva002B31F2 {

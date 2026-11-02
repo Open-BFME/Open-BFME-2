@@ -101,11 +101,7 @@ public:
     LivingWorldPlayer *localPlayer;
 };
 extern LivingWorldLogic *TheLivingWorldLogic;
-class LivingWorldBattle {
-public:
-    int rva003F4752(void *);
-    int rva003F4FAA(int, void *);
-};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
 
 namespace StrategicInGameUI {
 Rva005F918D CreateLocalPlayerData(LivingWorldBattle &battle, int first, int second, int third) {

@@ -1,10 +1,6 @@
 // cl: /MD
 // RVA 0x0056A989: false only when the +0x38 count is negative and LivingWorldBattle::rva003F459A is nonzero.
-class LivingWorldBattle
-{
-public:
-	int rva003F459A();
-};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
 
 class Rva0056A989
 {

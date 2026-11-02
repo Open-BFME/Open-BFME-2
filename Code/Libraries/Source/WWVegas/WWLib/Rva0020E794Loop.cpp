@@ -3,11 +3,7 @@
 // Pointer scan at +0x14/+0x18 over LivingWorldBattle pointers via rowed 0x003F4831
 // returning first element with positive count else NULL. Caller at 0x0020EC21.
 
-class LivingWorldBattle
-{
-public:
-	int rva003F4831();
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldBattle.h"
 
 class LivingWorldRegionManager
 {

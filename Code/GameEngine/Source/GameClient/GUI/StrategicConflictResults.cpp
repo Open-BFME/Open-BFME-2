@@ -30,7 +30,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 extern "C" char *__cdecl _mbscpy(char *, const char *);
 
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
-class LivingWorldBattle { public: int rva003F459A(); };
+#include "../../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F468D { public: int rva003F468D(int, int); };
 
 class Rva005EB955 {

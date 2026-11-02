@@ -37,7 +37,7 @@ class ArmySummary {public:__forceinline int entryCount()const{return records.siz
 struct SummaryHolder {ArmySummary*value;__forceinline ArmySummary*Get()const{return value;}};
 class Rva002BC1DAUnit {public:char pad00[0x18];AsciiString name;char pad1C[0x78-0x1C];SummaryHolder summary;};
 struct Rva002BC1DAArmy {char bytes[0x38];};
-class LivingWorldBattle {public:int rva003F4752(void*);int rva003F4FAA(int,void*);int rva003F48FE(int,int,int);int rva003F4921(int,int,int);};
+#include "../../../../Include/GameLogic/LivingWorldBattle.h"
 class Rva003F4DCA {public:int rva003F4DCA(int,int);};
 class ThingTemplate {public:char pad00[0x113];unsigned char heroFlags;char pad114[0x5C4-0x114];int kind;};
 #include "../../../../Include/Common/ThingFactory.h"

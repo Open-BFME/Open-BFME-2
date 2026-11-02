@@ -5,11 +5,7 @@
 // returning true on first hit. Callers at 0x002B5F4C 0x002BD319 0x002BD7E8.
 #include <vector>
 
-class LivingWorldBattle
-{
-public:
-	bool rva003F48EF(void *p);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldBattle.h"
 
 class Rva0020E72A
 {
