@@ -35,7 +35,7 @@ private:
 };
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
-class DX8IndexBufferClass : public IndexBufferClass {};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 class DX8Wrapper
 {

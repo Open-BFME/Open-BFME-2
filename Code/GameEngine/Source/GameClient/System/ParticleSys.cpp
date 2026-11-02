@@ -167,12 +167,7 @@ BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 
-class DX8IndexBufferClass:public IndexBufferClass {
-public:
-enum UsageType{USAGE_DEFAULT=0,USAGE_DYNAMIC=1,USAGE_SOFTWAREPROCESSING=2,USAGE_NPATCHES=4};DX8IndexBufferClass(unsigned,UsageType);
-private:
-void *index_buffer;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 struct IDirect3DDevice8;
 

@@ -186,20 +186,7 @@ public:
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-		BFMEDX8DeviceLock device_lock;
-		unsigned short *indices;
-		IndexBufferClass *index_buffer;
-	public:
-		WriteLockClass(IndexBufferClass *index_buffer, int flags = 0);
-		~WriteLockClass();
-		unsigned short *Get_Index_Array() { return indices; }
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 class VertexBufferClass
 {
@@ -224,18 +211,6 @@ private:
 	unsigned char m_pad[0x20];
 };
 
-class DX8IndexBufferClass : public IndexBufferClass
-{
-public:
-	enum UsageType
-	{
-		USAGE_DEFAULT = 0,
-		USAGE_DYNAMIC = 1
-	};
-	DX8IndexBufferClass(unsigned int count, UsageType usage);
-private:
-	unsigned char m_pad[0x18];
-};
 
 // Texture teardown view shared with the verified bridge destructor donor.
 class TextureBaseClass

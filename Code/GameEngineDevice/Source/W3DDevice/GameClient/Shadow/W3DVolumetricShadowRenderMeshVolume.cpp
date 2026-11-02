@@ -124,14 +124,7 @@ private:
 	IDirect3DVertexBuffer8 *VertexBuffer;
 };
 
-class DX8IndexBufferClass
-{
-public:
-	IDirect3DIndexBuffer8 *Get_DX8_Index_Buffer(void) { return index_buffer; }
-private:
-	char m_pad[0x14];
-	IDirect3DIndexBuffer8 *index_buffer;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
 class W3DBufferManager
 {
