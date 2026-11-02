@@ -272,12 +272,7 @@ extern GameTextInterface *TheGameText;
 #include "../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
-class GlobalData
-{
-public:
-	UnsignedByte m_preAC0[0xAC0];
-	AsciiString m_pendingFile;			// +0xAC0
-};
+#include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class GameInfo
@@ -829,7 +824,7 @@ void LANAPI::rva00249B08( LivingWorldBattle *battle )
 	const char *name = battleHolder->m_mapName.str();
 	AsciiString mapName;
 	mapName.format( "maps\\%s\\%s.map", name, name );
-	TheWritableGlobalData->m_pendingFile.format( &mapName );
+	TheWritableGlobalData->field0AC0.format( &mapName );
 
 	if( m_currentGame )
 	{
@@ -866,7 +861,7 @@ void LANAPI::rva00249B08( LivingWorldBattle *battle )
 		}
 
 		m_currentGame->startGame( 0 );
-		TheWritableGlobalData->m_pendingFile = m_currentGame->getMap();
+		TheWritableGlobalData->field0AC0 = m_currentGame->getMap();
 		InitGameLogicRandom( m_currentGame->getSeed() );
 	}
 }
@@ -942,7 +937,7 @@ void LANAPI::OnGameStart( void )
 		}
 
 		m_currentGame->startGame( 0 );
-		TheWritableGlobalData->m_pendingFile = m_currentGame->getMap();
+		TheWritableGlobalData->field0AC0 = m_currentGame->getMap();
 
 		GameMessage *msg = TheMessageStream->appendMessage( 0x1E );
 		msg->appendIntegerArgument( 1 );
