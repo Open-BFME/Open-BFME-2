@@ -296,3 +296,4 @@ MeshMatDescClass,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.h,existing
 MultiplayerColorDefinition,Code/GameEngine/Include/GameNetwork/MultiplayerColorDefinition.h,existing header; contract class_contracts/MultiplayerColorDefinition.json; 25/37 sampled units adopt
 LocomotorTemplate,Code/GameEngine/Include/GameLogic/LocomotorTemplate.h,existing header; contract class_contracts/LocomotorTemplate.json; 18/36 sampled units adopt
 WW3D,Code/Libraries/Source/WWVegas/WW3D2/WW3DClass.h,existing header; contract class_contracts/WW3D.json; 59/96 sampled units adopt
+DX8Wrapper,Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h,existing header; contract class_contracts/DX8Wrapper.json; 61/209 sampled units adopt
