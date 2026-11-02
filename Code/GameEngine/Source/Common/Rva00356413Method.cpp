@@ -16,46 +16,7 @@ public:
 
 class GameWindow;
 
-class GameWindowManager
-{
-public:
-	virtual void pad00();
-	virtual void pad01();
-	virtual void pad02();
-	virtual void pad03();
-	virtual void pad04();
-	virtual void pad05();
-	virtual void pad06();
-	virtual void pad07();
-	virtual void pad08();
-	virtual void pad09();
-	virtual void pad10();
-	virtual void pad11();
-	virtual void pad12();
-	virtual void pad13();
-	virtual void pad14();
-	virtual void pad15();
-	virtual void pad16();
-	virtual void pad17();
-	virtual void pad18();
-	virtual void pad19();
-	virtual void pad20();
-	virtual void pad21();
-	virtual void pad22();
-	virtual void pad23();
-	virtual void pad24();
-	virtual void pad25();
-	virtual void pad26();
-	virtual void pad27();
-	virtual void pad28();
-	virtual void pad29();
-	virtual void pad30();
-	virtual void pad31();
-	virtual void pad32();
-	virtual void pad33();
-	virtual void pad34();
-	virtual void managerSlot35(GameWindow *w);
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 

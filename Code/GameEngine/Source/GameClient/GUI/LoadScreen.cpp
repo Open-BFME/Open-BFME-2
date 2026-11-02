@@ -47,13 +47,7 @@ class GameSlot;
 #include "../../../Include/Common/GameEngine.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
-class GameWindowManager
-{
-public:
-	virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
-	virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9();
-	virtual void update();  // BFME 2 +0x28
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 // BFME 2 Apt window manager at VA 0x00DFE4CC.
 #include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

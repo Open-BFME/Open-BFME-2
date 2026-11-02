@@ -41,12 +41,7 @@ public:
 
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindowManager
-{
-public:
-	virtual WindowMsgHandledType winSendSystemMsg( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-	virtual WindowMsgHandledType winSendInputMsg( GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 //-------------------------------------------------------------------------------------------------
 /** Send a system message to the specified window */

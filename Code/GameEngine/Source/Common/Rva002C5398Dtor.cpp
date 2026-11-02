@@ -27,12 +27,7 @@ public:
 	virtual ~Rva002C5398Owned();
 };
 
-class GameWindowManager
-{
-public:
-	virtual int winDestroyAll();
-	virtual void freeStaticStrings();
-};
+#include "../../Include/GameClient/GameWindowManager.h"
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

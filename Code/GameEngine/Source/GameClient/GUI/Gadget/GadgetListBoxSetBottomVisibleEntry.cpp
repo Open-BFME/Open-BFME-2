@@ -40,70 +40,7 @@ struct ListboxData
 	Short displayPos;
 };
 
-class GameWindowManager
-{
-public:
-	virtual ~GameWindowManager() {}
-	virtual void pad00() = 0;
-	virtual void pad01() = 0;
-	virtual void pad02() = 0;
-	virtual void pad03() = 0;
-	virtual void pad04() = 0;
-	virtual void pad05() = 0;
-	virtual void pad06() = 0;
-	virtual void pad07() = 0;
-	virtual void pad08() = 0;
-	virtual void pad09() = 0;
-	virtual void pad0A() = 0;
-	virtual void pad0B() = 0;
-	virtual void pad0C() = 0;
-	virtual void pad0D() = 0;
-	virtual void pad0E() = 0;
-	virtual void pad0F() = 0;
-	virtual void pad10() = 0;
-	virtual void pad11() = 0;
-	virtual void pad12() = 0;
-	virtual void pad13() = 0;
-	virtual void pad14() = 0;
-	virtual void pad15() = 0;
-	virtual void pad16() = 0;
-	virtual void pad17() = 0;
-	virtual void pad18() = 0;
-	virtual void pad19() = 0;
-	virtual void pad1A() = 0;
-	virtual void pad1B() = 0;
-	virtual void pad1C() = 0;
-	virtual void pad1D() = 0;
-	virtual void pad1E() = 0;
-	virtual void pad1F() = 0;
-	virtual void pad20() = 0;
-	virtual void pad21() = 0;
-	virtual void pad22() = 0;
-	virtual void pad23() = 0;
-	virtual void pad24() = 0;
-	virtual void pad25() = 0;
-	virtual void pad26() = 0;
-	virtual void pad27() = 0;
-	virtual void pad28() = 0;
-	virtual void pad29() = 0;
-	virtual void pad2A() = 0;
-	virtual void pad2B() = 0;
-	virtual void pad2C() = 0;
-	virtual void pad2D() = 0;
-	virtual void pad2E() = 0;
-	virtual void pad2F() = 0;
-	virtual void pad30() = 0;
-	virtual void pad31() = 0;
-	virtual void pad32() = 0;
-	virtual void pad33() = 0;
-	virtual void pad34() = 0;
-	virtual void pad35() = 0;
-	virtual void pad36() = 0;
-	virtual void pad37() = 0;
-	virtual void pad38() = 0;
-	virtual Int winSendSystemMsg(GameWindow *window, unsigned int message,
-		unsigned int data1, unsigned int data2) = 0;
-};
+#include "../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 

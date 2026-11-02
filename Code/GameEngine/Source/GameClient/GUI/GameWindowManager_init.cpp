@@ -28,12 +28,7 @@ private:
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-class GameWindowManager
-{
-public:
-	virtual ~GameWindowManager();
-	virtual void init();
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 void GameWindowManager::init()
 {

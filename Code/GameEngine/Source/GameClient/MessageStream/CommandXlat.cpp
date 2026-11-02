@@ -246,66 +246,7 @@ public:
  char pad04[0x10]; bool m_hidden;
 };
 #include "../../../Include/GameClient/Shell.h"
-class GameWindowManager {
-public:
-    virtual void slot00(); // vtable +0x0
-    virtual void slot01(); // vtable +0x4
-    virtual void slot02(); // vtable +0x8
-    virtual void slot03(); // vtable +0xC
-    virtual void slot04(); // vtable +0x10
-    virtual void slot05(); // vtable +0x14
-    virtual void slot06(); // vtable +0x18
-    virtual void slot07(); // vtable +0x1C
-    virtual void slot08(); // vtable +0x20
-    virtual void slot09(); // vtable +0x24
-    virtual void slot0A(); // vtable +0x28
-    virtual void slot0B(); // vtable +0x2C
-    virtual void slot0C(); // vtable +0x30
-    virtual void slot0D(); // vtable +0x34
-    virtual void slot0E(); // vtable +0x38
-    virtual void slot0F(); // vtable +0x3C
-    virtual void slot10(); // vtable +0x40
-    virtual void slot11(); // vtable +0x44
-    virtual void slot12(); // vtable +0x48
-    virtual void slot13(); // vtable +0x4C
-    virtual void slot14(); // vtable +0x50
-    virtual void slot15(); // vtable +0x54
-    virtual void slot16(); // vtable +0x58
-    virtual void slot17(); // vtable +0x5C
-    virtual void slot18(); // vtable +0x60
-    virtual void slot19(); // vtable +0x64
-    virtual void slot1A(); // vtable +0x68
-    virtual void slot1B(); // vtable +0x6C
-    virtual void slot1C(); // vtable +0x70
-    virtual void slot1D(); // vtable +0x74
-    virtual void slot1E(); // vtable +0x78
-    virtual void slot1F(); // vtable +0x7C
-    virtual void slot20(); // vtable +0x80
-    virtual void slot21(); // vtable +0x84
-    virtual void slot22(); // vtable +0x88
-    virtual void slot23(); // vtable +0x8C
-    virtual void slot24(); // vtable +0x90
-    virtual void slot25(); // vtable +0x94
-    virtual void slot26(); // vtable +0x98
-    virtual void slot27(); // vtable +0x9C
-    virtual void slot28(); // vtable +0xA0
-    virtual void slot29(); // vtable +0xA4
-    virtual void slot2A(); // vtable +0xA8
-    virtual void slot2B(); // vtable +0xAC
-    virtual void slot2C(); // vtable +0xB0
-    virtual void slot2D(); // vtable +0xB4
-    virtual void slot2E(); // vtable +0xB8
-    virtual void slot2F(); // vtable +0xBC
-    virtual void slot30(); // vtable +0xC0
-    virtual void slot31(); // vtable +0xC4
-    virtual void slot32(); // vtable +0xC8
-    virtual void slot33(); // vtable +0xCC
-    virtual void slot34(); // vtable +0xD0
-    virtual void slot35(); // vtable +0xD4
-    virtual void slot36(); // vtable +0xD8
-    virtual GameWindow* winGetWindowFromId(GameWindow*,int); // vtable +0xDC
-
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 class GameInfo {
 public:
     virtual void slot00(); // vtable +0x0

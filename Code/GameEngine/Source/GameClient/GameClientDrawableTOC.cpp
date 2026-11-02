@@ -621,7 +621,7 @@ public:
 };
 
 class IMEManager : public SubsystemInterface { public: virtual ~IMEManager(); };
-class GameWindowManager : public SubsystemInterface { public: virtual ~GameWindowManager(); };
+#include "../../Include/GameClient/GameWindowManager.h"
 
 // GlobalData's screen resolution (ZH m_xResolution, m_yResolution), the
 // intro flags GameClient::update returns early on (ZH m_playIntro and
