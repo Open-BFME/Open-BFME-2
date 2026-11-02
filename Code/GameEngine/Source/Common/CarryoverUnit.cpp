@@ -61,7 +61,7 @@ class Xfer;
 // Layout from the ctor 0x0037DF2C: name +0x04 (copied from TheEmptyString),
 // float +0x08 (xorps/movss), int +0x0C, the cleared block +0x10, int +0x90,
 // the record +0x94; the dtor 0x0037DEE4 tears down +0x94 then +0x04.
-class CarryoverUnit:public Snapshot{public:CarryoverUnit();virtual ~CarryoverUnit();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);private:AsciiString name;float m_f08;int m_c0C;Rva001EAE6FHelper m_h10;int m_90;Rva001EB15A member;};
+class CarryoverUnit:public Snapshot{public:CarryoverUnit();CarryoverUnit &operator=(const CarryoverUnit &);virtual ~CarryoverUnit();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);private:AsciiString name;float m_f08;int m_c0C;Rva001EAE6FHelper m_h10;int m_90;Rva001EB15A member;};
 
 //
 // ?rva0037DCCC@@YAXPAVObject@@H@Z @0x0037DCCC 28B
@@ -228,3 +228,17 @@ CarryoverUnit::CarryoverUnit() : name(AsciiString::TheEmptyString), m_f08(0.0f),
 }
 
 // tu-skeleton: 0x0077F0AB 8B uw_0077f0ab -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
+
+// Native assignment at 001EB20E: the fill operation passes a live
+// CarryoverUnit temporary, and derived assignment uses the same base prefix.
+CarryoverUnit &CarryoverUnit::operator=(const CarryoverUnit &other)
+{
+    name = other.name;
+    m_f08 = other.m_f08;
+    m_c0C = other.m_c0C;
+    m_h10 = other.m_h10;
+    m_90 = other.m_90;
+    *reinterpret_cast<Rva001EAFC1 *>(&member) =
+        *reinterpret_cast<const Rva001EAFC1 *>(&other.member);
+    return *this;
+}

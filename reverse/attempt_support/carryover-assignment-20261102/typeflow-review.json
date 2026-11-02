@@ -1,0 +1,130 @@
+{
+  "scope": "Read-only native typeflow review of CarryoverUnit assignment1EB20E and24B tail. No Code/tool/ledger edits, builds, claims, network or new identity application.",
+  "inputs": {
+    "Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord172Assign.cpp": "d5ffe5b18733856e41789ee5715622dcdd5834b920421a44082e77295f2e1565",
+    "Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp": "cbef2f39d48395395f08060071df60a4ea95f047d04b44bf238f2fc5b77e7b03",
+    "Code/GameEngine/Source/Common/CarryoverUnit.cpp": "e9311a8d99e6cc2f3aa88e463fcfe3165a2016605858fb01d9ce48a038302c04",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp": "d72908c3f4dbc2a8e02d50467fce01516c5955474482269a739c2390f77fe2f2",
+    "Code/GameEngine/Source/Common/ArmySummaryEntry.cpp": "21ecb5b580ce5ae986831eaae4a6ff1b1006e54a61f8e7c0e6fd7a78383f2fa7",
+    "Code/GameEngine/Source/Common/LivingWorldBuilding.cpp": "35e9d2c4b2ff574e13955c403c096d02bcf868a20e6959c6d0d6faa7d6818625"
+  },
+  "verdict": "Strong target typeflow supports an independently verified CarryoverUnit::operator= body at1EB20E, coexisting with existing view owners as a legitimate typed twin. This does not prove uniqueness of that source spelling or authorize blanket class folding/owner retirement.",
+  "direct_assignment_source_proof": [
+    {
+      "site": "0x001EBEEC",
+      "parent": "native286B vector-fill1EBEAB",
+      "operation": "push value argument; leaECX[EBP-B8]; call real CarryoverUnit copy1EB79E119B. Copy installs VA00BDF158, the Carryover table."
+    },
+    {
+      "site": "0x001EBF3F",
+      "operation": "fill1EB84E receives source pointer exactly[EBP-B8] created above; destination range is original vector insertion region."
+    },
+    {
+      "site": "0x001EBF8B",
+      "operation": "other capacity branch passes the exact same Carryover temporary pointer to fill1EB84E."
+    },
+    {
+      "site": "0x001EB85B",
+      "parent": "native32B fill1EB84E",
+      "operation": "for each destination ECX, push incoming source pointer unchanged and call assignment1EB20E; destination advancesAC."
+    },
+    {
+      "site": "0x001EBF9D",
+      "operation": "same[EBP-B8] temporary destroyed through actual CarryoverUnit destructor37DEE472B; EH lifetime and normal teardown agree."
+    }
+  ],
+  "destination_lifetime_corroboration": [
+    {
+      "site": "0x001EBA48",
+      "operation": "native47B uninitialized-copy1EBA30 passes its output pointer into placement-copy1EB9E6."
+    },
+    {
+      "site": "0x001EBA72",
+      "operation": "native40B uninitialized-fill1EBA5F passes each output pointer into the same placement-copy1EB9E6."
+    },
+    {
+      "site": "0x001EBA02",
+      "operation": "native45B placement-copy1EB9E6 calls Carryover copy1EB79E on its destination pointer, establishing actual Carryover vptr/lifetime in vector output cells."
+    },
+    {
+      "site": "0x001ECA0B",
+      "operation": "native resize1EC9BD passes its by-value Carryover argument address[EBP+C] to fill1EBEAB, then37DEE4 destroys that value at1ECA17."
+    }
+  ],
+  "independent_derived_receiver_corroboration": [
+    "Matched ArmySummaryEntry copy40D688/121B calls Carryover copy1EB79E at40D691 on unchanged+0 receiver, then installs its own VA00C3944C and initializes secondary listener member+AC.",
+    "Matched LivingWorldBuilding representation update4E0BDC uses copy40D688 for creation or assignment4E09FB for existing storage. Native4E09FB begins by calling1EB20E at4E0A04 on unchanged receiver/source+0, then copies derived fields+B4..C5.",
+    "This is independent base-subobject flow, beyond same stride or neighboring placement. The exact original name of4E09FB remains outside this review; do not respell every Rva004E0790Inner use on this evidence alone."
+  ],
+  "assignment_member_contract": {
+    "native_range": "1EB20E..1EB262/84B",
+    "return": "this inEAX;ret4",
+    "writes": [
+      "+4AsciiString assignment through366F0",
+      "+8and+C scalar words copied unchanged",
+      "+10..8F128-byte block via32movsd",
+      "+90scalar word",
+      "+94member assignment through1EAFC1/61B"
+    ],
+    "does_not_write": [
+      "+0vptr",
+      "tail padding not explicitly copied by member assignment"
+    ],
+    "interpretation": "Normal assignment of an already-live polymorphic CarryoverUnit preserves its vptr and assigns owned/member state. NativeMOV copying of+8 does not refute the independently established float field; no arithmetic is performed."
+  },
+  "tail_record_evidence": {
+    "actual_member_location": "CarryoverUnit+94,24B; also UnitRevivalEntry+B0 in existing independently verified lifetime graphs.",
+    "operations": [
+      {
+        "native": "0x004E04FD",
+        "size": 22,
+        "current_names": [
+          "Rva001EB15A::Rva001EB15A()",
+          "Rva004E04FD::Rva004E04FD()"
+        ],
+        "outer_call": "Carryover default37DF2C calls on+94 at37DF79"
+      },
+      {
+        "native": "0x001EB15A",
+        "size": 89,
+        "current_name": "Rva001EB15A copy ctor",
+        "outer_call": "Carryover copy1EB79E calls onsrc+94/dst+94 at1EB7FE"
+      },
+      {
+        "native": "0x001EAFC1",
+        "size": 61,
+        "current_name": "Rva001EAFC1::operator=",
+        "outer_call": "Carryover-compatible assignment1EB20E calls onsrc+94/dst+94 at1EB254"
+      },
+      {
+        "native": "0x001EB05E",
+        "size": 54,
+        "current_names": [
+          "Rva001EB05E destructor",
+          "Rva001EB15A destructor alias"
+        ],
+        "outer_call": "Carryover destructor37DEE4 calls on+94 at37DF08"
+      }
+    ],
+    "common_target_shape": [
+      "three32-bit words+0/+4/+8",
+      "owning wide-string handle+C",
+      "owning AsciiString handle+10",
+      "one byte+14;size24 includes padding"
+    ],
+    "existing_view_disagreement": "FreelistPool.cpp Rva001EAFC1 names its wide member StringBase<unsigned short>, while Rva001EB15A uses UnicodeString; both same target string-operation slots and storage. Constructor/copy/destructor and assignment operate on the exact same consumed Carryover member, so a shared neutral record contract is supported. No original record type name is recovered.",
+    "limit": "Do not infer every use or larger Rva001EB05E view has24Bsizeof; one current teardown view models32B storage because its parent gap includes padding. Only the consumed member contract is established here."
+  },
+  "icf_and_naming_limits": [
+    "1EB20E is already owned by BfmeAssignRecord172 and an Rva001EB86EElement ICF row; other callers may use compatible prefixes or derived base subobjects. Evidence supports Carryover semantics, not a unique-source-symbol assertion.",
+    "Keep those providers and consumers until independently migrated. No automatic class --fold of a pins-only172B element is justified; vtable-fold tool conditions still apply.",
+    "The existing Carryover name needs no new speculative name. A new Carryover operator body still needs full84B+symbolic-relocation proof and its current approved TU; same shape alone is insufficient.",
+    "A clean shared header must supply an assignment-capable24B member contract. If a new neutral-member assignment spelling is needed, prove its full61B twin against the existing owner through supported admission rather than adding a hand alias or raw reinterpret assignment."
+  ],
+  "next_prerequisites": [
+    "Finish the root-owned canonical class contract from measured bases/layout/lifetimes.",
+    "Reconcile24B member constructor/copy/dtor/assignment declarations on that legitimate shared type.",
+    "Privately prove Carryover assignment84B, all constructor/dtor providers and relevant consumer rows after header adoption; preserve existing view owners.",
+    "Only then derive typed vector helper twins and migrate the served fill/overflow family using fresh TU mapping and supported admission."
+  ]
+}
