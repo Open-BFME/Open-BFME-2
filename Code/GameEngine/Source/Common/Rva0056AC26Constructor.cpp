@@ -85,7 +85,7 @@ public:
 bool Rva0056ACAEVisitor::Visit(LivingWorldPendingBattle *livingWorldPendingBattle){
  reinterpret_cast<Rva003F409F *>(livingWorldPendingBattle)->rva003F409F(livingWorldPendingBattle==selected);return true;
 }
-class LivingWorldRegionManager {public:void EnumeratePendingBattles(PendingBattleVisitor &) const;};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 struct RegistryWorldView {char prefix[0xB0];LivingWorldRegionManager *regions;};
 class Rva0056ACC5:public Rva0056AC26 {
 public:virtual ~Rva0056ACC5();

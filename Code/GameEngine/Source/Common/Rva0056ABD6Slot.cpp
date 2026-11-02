@@ -21,11 +21,7 @@ public:
 	Rva00318C32Ret *rva00318C32();
 };
 
-class LivingWorldRegionManager
-{
-public:
-	Int ValidateArmyRegionEntry(LivingWorldArmy *army, Rva00318C32Ret *from, Rva00318C32Ret *to, Int a, Int b);
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva002B4BC9
 {

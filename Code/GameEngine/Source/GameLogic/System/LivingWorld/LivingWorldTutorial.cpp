@@ -14,11 +14,7 @@ typedef int Int;
 // The existing real lookup owns 20E57F and compares that word with entry+24;
 // the meaning of the key and its original C++ parameter type stay unproven.
 class LivingWorldPendingBattle;
-class LivingWorldRegionManager
-{
-public:
-	LivingWorldPendingBattle *rva0020E57F(unsigned int regionKey);	// 0x0020E57F
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva002BA8F1Logic
 {

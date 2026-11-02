@@ -96,13 +96,7 @@ class Rva004E05E9DwordField { public: int get() const; };
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldPendingBattle;
-class LivingWorldRegionManager
-{
-public:
-	LivingWorldPendingBattle *rva0020E5BB(int id);
-	char pad00[0xc];
-	int m_activeBattleID;
-};
+#include "../../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva0040F87ELivingWorldLogic { char pad00[0xb0]; LivingWorldRegionManager *m_regionManager; };
 
 struct Rva0040F87ERegion { char pad00[0x1c]; };
@@ -187,7 +181,7 @@ void ArmySummarySystem::rva0040F87E()
 	}
 
 	LivingWorldRegionManager *regions = reinterpret_cast<Rva0040F87ELivingWorldLogic *>(TheLivingWorldLogic)->m_regionManager;
-	int battleID = regions->m_activeBattleID;
+	int battleID = regions->field0C;
 	if (battleID == 0) {
 		for (unsigned int i = 0; i < m_summaryIDs.size(); ++i) {
 			ArmySummary *summary = static_cast<ArmySummary *>(rva0040D008(m_summaryIDs[i]));

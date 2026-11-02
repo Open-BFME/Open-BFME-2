@@ -106,11 +106,7 @@ void Rva0056A362::rva0056A362(int first, int last)
 // LivingWorldRegionManager::SetRegionReinforcements (0x0020EEC8) on the
 // manager at +0xB0 of the receiver (TheLivingWorldLogic keeps its region
 // manager there; the receiver's class is not established).
-class LivingWorldRegionManager
-{
-public:
-	void SetRegionReinforcements(int a, int b, int c, int d, int e, int f, int g);
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva002B2955
 {

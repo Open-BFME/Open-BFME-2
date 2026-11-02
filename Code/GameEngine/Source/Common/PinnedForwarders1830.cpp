@@ -614,11 +614,7 @@ class Rva00319610
 public:
     void rva00319610();
 };
-class LivingWorldRegionManager
-{
-public:
-    void CheckForBattles();
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva002B3D0ERange
 {
     Rva00319610 **begin, **end;

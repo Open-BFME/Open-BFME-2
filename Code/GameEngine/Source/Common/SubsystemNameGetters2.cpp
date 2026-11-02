@@ -82,7 +82,7 @@ const char *TerrainLogic::GetSnapshotName() const
 }
 BFME_LITERAL_NAME_GETTER(Rva00214052Named, "LivingWorldManager")
 BFME_LITERAL_NAME_GETTER(Rva001FD2AENamed, "Money")
-class LivingWorldRegionManager { public: virtual const char *GetSnapshotName() const; };
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 const char *LivingWorldRegionManager::GetSnapshotName() const
 {
 	return "LivingWorldRegionManager";

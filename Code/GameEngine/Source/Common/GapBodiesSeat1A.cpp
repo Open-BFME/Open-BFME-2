@@ -2093,11 +2093,7 @@ struct Rva002B3740Item
 	bool m_88;
 };
 
-class LivingWorldRegionManager
-{
-public:
-	void UpdateBattleMarkers();								// 0x0020EBA0
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva002E2903Player;
 struct Rva002B488EResult;

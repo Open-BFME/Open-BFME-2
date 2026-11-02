@@ -47,11 +47,7 @@ class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
 class LivingWorldPendingBattle;
-class LivingWorldRegionManager
-{
-public:
-	LivingWorldPendingBattle *rva0020E501(int index);	// 0x0020E501
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

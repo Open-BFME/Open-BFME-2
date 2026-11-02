@@ -586,11 +586,7 @@ public:
 };
 
 class Rva0020E89C;
-class LivingWorldRegionManager
-{
-public:
-	bool GetRegionCenterPoint(Rva0020E89C *region, Coord2D *center);
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 struct EvaRegionView
 {

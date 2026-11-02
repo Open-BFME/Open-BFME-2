@@ -36,11 +36,7 @@ public:
 
 class Rva0020E89C;
 #include "../../../Libraries/Include/Lib/Coord2D.h"
-class LivingWorldRegionManager
-{
-public:
-	bool GetRegionCenterPoint(Rva0020E89C *region, Coord2D *out);
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 #include "ArmyMoveDispatchView.h"
 

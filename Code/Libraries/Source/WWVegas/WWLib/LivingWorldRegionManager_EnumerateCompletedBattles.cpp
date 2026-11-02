@@ -11,21 +11,12 @@ public:
 	virtual bool invoke(void *p) = 0;
 };
 
-class LivingWorldRegionManager
-{
-public:
-	void EnumerateCompletedBattles(Rva0020E7E8Callback *cb);
-
-private:
-	unsigned char m_pad[0x20];
-	void **m_begin;
-	void **m_end;
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 
 void LivingWorldRegionManager::EnumerateCompletedBattles(Rva0020E7E8Callback *cb)
 {
-	void **begin = m_begin;
-	void **end = m_end;
+	void **begin = field20;
+	void **end = field24;
 	for (; begin != end; ++begin) {
 		void *elem = *begin;
 		if (!cb->invoke(elem))

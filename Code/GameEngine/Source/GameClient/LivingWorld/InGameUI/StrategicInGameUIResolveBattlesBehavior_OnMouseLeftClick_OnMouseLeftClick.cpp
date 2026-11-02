@@ -103,14 +103,7 @@ private:
 class LivingWorldPendingBattle;
 class PendingBattleVisitor;
 class Rva0020E7E8Callback;
-class LivingWorldRegionManager
-{
-public:
-    LivingWorldPendingBattle *rva0020E6C0();
-    LivingWorldPendingBattle *rva0020E501(int);
-    void EnumeratePendingBattles(PendingBattleVisitor &) const;
-    void EnumerateCompletedBattles(Rva0020E7E8Callback *);
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 struct ResolveBattleWorldView

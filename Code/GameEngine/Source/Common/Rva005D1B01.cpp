@@ -13,7 +13,7 @@ class Rva005CCB5B {public:void rva005CCB5B();};
 class Rva0020E89C;
 class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};
 #include "../../../Libraries/Include/Lib/Coord2D.h"
-class LivingWorldRegionManager {public:bool GetRegionCenterPoint(Rva0020E89C*,Coord2D*);};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
 class Rva002D3627Host {public:void rva002BF09E(const Coord3D*);};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;

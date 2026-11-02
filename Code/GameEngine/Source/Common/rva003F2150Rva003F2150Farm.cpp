@@ -112,11 +112,7 @@ public:
 class Rva00318C32Ret;
 class Rva0020E89C;
 struct Pair8;
-class LivingWorldRegionManager { public:
-    Rva00318C32Ret *rva0020FAEA(const Coord2D *,Rva00318C32Ret *);
-    Bool GetRegionCenterPoint(Rva0020E89C *,Coord2D *);
-    Bool GetDefaultArmyPlacementPos(Int index, Pair8 *out);
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 
 // The rowed 0x20FAEA finder (Rva0020EE29 view) and the rowed 0x3F3B28
 // vector-resize owner (Rva003F3AB5 view) spellings.

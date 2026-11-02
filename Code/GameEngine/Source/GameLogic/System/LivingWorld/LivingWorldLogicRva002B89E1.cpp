@@ -77,11 +77,7 @@ public:
 	int m_id;						// +0x34
 };
 
-class LivingWorldRegionManager
-{
-public:
-	void SetActiveBattleID(int battleID, int value);	// 0x0020E63F
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class LivingWorld
 {

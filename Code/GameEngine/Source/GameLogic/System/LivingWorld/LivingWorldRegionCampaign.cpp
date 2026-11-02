@@ -155,11 +155,7 @@ struct FieldParse
 	int offset;
 };
 
-class LivingWorldRegionManager
-{
-public:
-	static void rva00210620(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 class LivingWorldRegionBonusRule
 {

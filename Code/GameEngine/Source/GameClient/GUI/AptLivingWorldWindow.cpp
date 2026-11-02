@@ -9,7 +9,7 @@
 class LivingWorldCampaignManager { public: void *GetCampaign(int index); };
 class Rva0052BAB2 { public: int rva0052BAB2() const; };
 class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
-class LivingWorldRegionManager {public: void SelectCampaign(const StringBase<char>& name);};
+#include "../../../Include/GameLogic/LivingWorldRegionManager.h"
 class Rva0052C036 {public: void rva0052C161();};
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;

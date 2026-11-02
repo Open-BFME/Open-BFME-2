@@ -29,7 +29,7 @@ class LivingWorldRegion:public Rva003F3F03{public:LivingWorldRegion(void*,int,co
 class ModuleData;
 struct NoCaseTreeValue4{char bytes[4];};class Rva002104ED{public:NoCaseTreeValue4 &rva002104ED(const AsciiString*);};
 struct Holder{char before[0x2c];_STL::vector<const ModuleData*>regions;char table[20];};
-class LivingWorldRegionManager{public:static void rva00210620(INI*,void*,void*,const void*);};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 void LivingWorldRegionManager::rva00210620(INI*ini,void*instance,void*,const void*){
  const char *token=ini->getNextToken();Holder*self=(Holder*)instance;
  int id=self->regions.size();

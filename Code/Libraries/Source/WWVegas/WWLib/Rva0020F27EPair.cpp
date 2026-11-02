@@ -8,11 +8,7 @@ public:
 	Rva0020E89C *rva0020EAF6(int index);
 };
 class Coord2D;
-class LivingWorldRegionManager
-{
-public:
-	bool GetRegionCenterPoint(Rva0020E89C *region, Coord2D *out);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 #include "../../../../GameEngine/Source/Common/RegionCenterPointDispatchView.h"
 bool Rva0020F27EHost::rva0020F27E(int idx, int v)
 {

@@ -137,11 +137,7 @@ class Rva002BF4F3
 public:
 	bool rva002BF5B0(const Vector3 *input, Vector3 *output);
 };
-class LivingWorldRegionManager
-{
-public:
-	bool GetRegionCenterPoint(Rva0020E89C *region, Coord2D *center);
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 // The rowed 0x004FBC02 position setter (position +0x18, flag +0x24).
 struct Rva004FBC02Src;

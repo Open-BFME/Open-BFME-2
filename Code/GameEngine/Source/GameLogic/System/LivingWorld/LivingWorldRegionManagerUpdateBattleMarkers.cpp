@@ -76,21 +76,11 @@ struct TmpBE4320 : EmptyBase20EBA0
 
 class PendingBattleVisitor;
 
-class LivingWorldRegionManager
-{
-public:
-	void UpdateBattleMarkers();
-	LivingWorldBattle *SelectPendingBattle();
-	void EnumeratePendingBattles(PendingBattleVisitor &visitor) const;
-private:
-	unsigned char m_pad[0x14];
-	LivingWorldBattle **m_begin;
-	LivingWorldBattle **m_end;
-};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
 void LivingWorldRegionManager::UpdateBattleMarkers()
 {
-	if (!((unsigned int)(m_end - m_begin) > 0))
+	if (!((unsigned int)(field18 - field14) > 0))
 		return;
 	if ((unsigned char)((Rva002B254F *)g_009FEF10)->rva002B254F()) {
 		((Rva003F81FDProxy *)((Rva002B256E *)g_009FEF10)->rva002B256E())->rva003F830F(this);
@@ -98,8 +88,8 @@ void LivingWorldRegionManager::UpdateBattleMarkers()
 	int n = g_009FEF10->rva002B5256(false);
 	if (n <= 1)
 		return;
-	LivingWorldBattle **begin = m_begin;
-	LivingWorldBattle **end = m_end;
+	LivingWorldBattle **begin = field14;
+	LivingWorldBattle **end = field18;
 	for (; begin != end; ++begin) {
 		LivingWorldBattle *livingWorldBattle = *begin;
 		if (livingWorldBattle->rva003F4831() == n) {

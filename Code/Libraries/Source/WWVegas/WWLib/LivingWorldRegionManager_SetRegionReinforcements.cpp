@@ -13,11 +13,7 @@ public:
 	void rva003F1AB9(int a1, int a2, int a3, int a4, int a5, int a6);
 };
 class Rva0020E89C;
-class LivingWorldRegionManager
-{
-public:
-	void SetRegionReinforcements(int idx, int a2, int a3, int a4, int a5, int a6, int a7);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 void LivingWorldRegionManager::SetRegionReinforcements(int idx, int a2, int a3, int a4, int a5, int a6, int a7)
 {
 	Rva0020E89C *region = ((Rva0020EAF6View *)this)->rva0020EAF6(idx);

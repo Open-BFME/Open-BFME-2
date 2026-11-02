@@ -31,7 +31,7 @@ extern Rva00E02D6C *TheCampaignManager;
 
 class LivingWorldCampaignManager { public: void CallActSubroutine(const AsciiString &script); };
 
-class LivingWorldRegionManager { public: void SetActiveBattleID(int key, int field3c); };
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 
 class Rva0020EE29
 {

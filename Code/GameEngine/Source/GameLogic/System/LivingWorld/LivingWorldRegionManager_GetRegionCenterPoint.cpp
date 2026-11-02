@@ -120,7 +120,7 @@ class Rva0020E89C;
 // @0x0020EA58 158B: renamed from placeholder Rva002B2702B0::rva0020EA58 — the
 // WorldBuilder pin carries the real name and signature (region overload with
 // the rowed Rva0020E89C region type and Coord2D out).
-class LivingWorldRegionManager {public:bool GetRegionCenterPoint(Rva0020E89C*region,Coord2D*out);};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 bool LivingWorldRegionManager::GetRegionCenterPoint(Rva0020E89C*region,Coord2D*out){
  Rva0020E47C*r=(Rva0020E47C*)region;
  if(r->custom){*(Rva0020E47CVal*)out=r->rva0020E47C();return true;}

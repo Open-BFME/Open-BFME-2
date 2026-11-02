@@ -168,7 +168,7 @@ struct Rva002B86AAKey; struct Rva002B86AAVal;
 class Rva002B86AA {public:bool rva002B86AA(Rva002B86AAKey*,Rva002B86AAVal*)const;};
 class Rva002104B6 {public:void *rva002104B6(void*);};
 class Rva0020E89C;
-class LivingWorldRegionManager {public:bool GetRegionCenterPoint(Rva0020E89C*,Coord2D*);};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva002B6A04Player; struct LivingWorldArmy;
 class LivingWorldLogic {public:
  void spawnCity(SpawnArmy*);

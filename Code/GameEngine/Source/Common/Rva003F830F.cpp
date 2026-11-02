@@ -8,11 +8,7 @@
 extern "C" void _ReadWriteBarrier(void);
 class Rva003F7D86Inner;
 class PendingBattleVisitor;
-class LivingWorldRegionManager
-{
-public:
-	void EnumeratePendingBattles(PendingBattleVisitor &visitor) const;
-};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 extern "C" const void *const __identifier("??_7Rva003F82E2@@6B@")[];
 class Rva003F81FDProxy
 {

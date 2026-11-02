@@ -24,7 +24,7 @@ public:
  char pad20[0x18];int m_side;int sides()const{return m_sidesEnd-m_sides;}
 };
 #include "../../Include/GameLogic/LivingWorldLogic.h"
-class LivingWorldRegionManager {public:void rva0020FB8B(LivingWorldBattle*);};
+#include "../../Include/GameLogic/LivingWorldRegionManager.h"
 class Rva003F468D {public:Int rva003F468D(Int,Int);Int rva003F4DAE(Int);};
 class Rva002B74DE {
 public:Int Update();

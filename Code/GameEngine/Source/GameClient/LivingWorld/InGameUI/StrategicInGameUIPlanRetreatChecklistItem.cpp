@@ -29,7 +29,7 @@ class Rva005CCB73 {public:void rva005CCB73(void*);};
 class Rva005CCB7B {public:void rva005CCB7B(bool);};
 class Rva005CCB83 {public:void rva005CCB83(void*);};
 class Rva005CCB90 {public:void rva005CCB90(const void*);};
-class LivingWorldRegionManager {public:bool GetRegionCenterPoint(Rva0020E89C*,Coord2D*);};
+#include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 class Vector3;
 class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);}; // rowed 0x002BF5B0 (Rva002BF4F3.cpp)
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;

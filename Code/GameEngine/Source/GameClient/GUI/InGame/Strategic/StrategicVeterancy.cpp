@@ -304,9 +304,7 @@ protected: virtual ~Rva005ECA91();
 private: unsigned char payload04[24];
 };
 class LivingWorldPendingBattle;
-class LivingWorldRegionManager {
-public: LivingWorldPendingBattle *rva0020E6C0();
-};
+#include "../../../../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva002B8573Filter;
 class LivingWorldLogic {
 public:

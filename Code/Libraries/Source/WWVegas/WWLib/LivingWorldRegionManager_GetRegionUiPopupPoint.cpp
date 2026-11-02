@@ -25,11 +25,7 @@ struct EAF6Elem
 	char m_pad[0xAB];
 	unsigned char m_AB;
 };
-class LivingWorldRegionManager
-{
-public:
-	bool GetRegionUiPopupPoint(int idx, void *outRaw);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 bool LivingWorldRegionManager::GetRegionUiPopupPoint(int idx, void *outRaw)
 {
 	Out0020E493 *out = (Out0020E493 *)outRaw;
