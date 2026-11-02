@@ -21,12 +21,7 @@ class MultiIniFieldParse;
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 class RadiusDecalTemplate
 {
 public:

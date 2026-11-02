@@ -12,11 +12,7 @@
 #include <string.h>
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *s);
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 #include "../../../../GameEngine/Include/Common/INI/FieldParse.h"
 struct Rva001DAAF2Element {
 	AsciiString name;

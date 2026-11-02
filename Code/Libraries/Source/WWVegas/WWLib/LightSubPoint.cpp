@@ -270,15 +270,7 @@ enum INILoadType
 
 class Xfer;
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
-private:
-	unsigned char m_data[0x87C];
-};
+#include "../../../../GameEngine/Include/Common/INI/INI.h"
 
 // tu-skeleton: 0x004247E3 59B ??1LightSubPoint@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp (not merged yet)
 
