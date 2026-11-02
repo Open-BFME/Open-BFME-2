@@ -129,11 +129,7 @@ class Rva005202C8 { public: static Rva005202C8 *s_instance; };
 
 // TheLivingWorldLogic (0x00DFEF10): the pinned 0x002B3740 and rowed
 // 0x002B3753 queries.
-class Rva002BA8F1Logic
-{
-public:
-	bool rva002B3740();
-};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class Rva002B3753
 {

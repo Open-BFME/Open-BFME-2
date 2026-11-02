@@ -115,11 +115,7 @@ public:
     char m_unrecovered[0x40];
     Rva004FC807PlayerTemplate *m_template;
 };
-class Rva002BA8F1Logic
-{
-public:
-    Rva002E2903Player *find(int id, unsigned int *index);
-};
+#include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList
 {

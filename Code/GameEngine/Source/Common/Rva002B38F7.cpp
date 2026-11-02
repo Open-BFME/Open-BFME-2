@@ -110,14 +110,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 
 #include "../../Include/GameLogic/Weapon.h"
 
-class Rva002BA8F1Logic
-{
-public:
-	void setLocal(Rva002E2903Player *player);
-private:
-	char m_pad00[0x98];
-	Rva002E2903Player *m_98;
-};
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 void Rva002BA8F1Logic::setLocal(Rva002E2903Player *player)
 {

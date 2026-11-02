@@ -430,11 +430,7 @@ public:
 	bool isSelectionLocked() const;	// 0x0004253A
 };
 
-class Rva002BA8F1Logic
-{
-public:
-	Rva002E2903Player *find(int id, unsigned int *out);	// 0x002B51F8
-};
+#include "../../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 class LivingWorldLogic
 {
