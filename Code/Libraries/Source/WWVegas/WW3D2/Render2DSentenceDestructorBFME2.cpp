@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /G7
+// cl: /DNDEBUG /MD /EHsc /G7 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BFME1 9cbfb551fe20 Render2DSentenceClass_dtor.cpp semantic donor.
 // Native157C70..157DCB/347B writes the established sentence vtable (Reset
 // in slot0), releases Font+4C, locks the DX8 device around Reset and renderer
@@ -27,11 +27,7 @@ class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~
 // is defined here and none is ever ODR-used, so this TU emits no symbols.
 #include "../WWLib/RefCountData.h"
 
-class FontCharsClass : public RefCountClass
-{
-public:
-	virtual ~FontCharsClass();
-};
+#include "FontCharsClass.h"
 
 class W3DRadarResetSurface
 {

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // FontCharsClass::Blit_Char, retail 0x001587C0 (215 bytes).
 // Dedicated TU (render2dsentence.cpp keeps the ZH simple-copy Blit as an
@@ -31,18 +31,7 @@ struct FontCharsClassCharDataStruct
 	unsigned short *Buffer;
 };
 
-class FontCharsClass
-{
-public:
-	const FontCharsClassCharDataStruct *loadCharacterData(unsigned short ch);
-	void Blit_Char(unsigned short ch, unsigned short *dest_ptr, int dest_stride, int x, int y);
-private:
-	char m_pad00[0x2C];
-	int CharHeight;
-	char m_pad30[4];
-	int CharOverhang;
-	int PixelOverlap;
-};
+#include "FontCharsClass.h"
 
 // ?Blit_Char@FontCharsClass@@QAEXGPAGHHH@Z
 void FontCharsClass::Blit_Char(unsigned short ch, unsigned short *dest_ptr, int dest_stride, int x, int y)

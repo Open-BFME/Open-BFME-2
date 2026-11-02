@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/shims/sweep
+// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // stlport
 // Retail 0x00154630, 488 bytes: FontCharsClass::Create_GDI_Font(font_name), a
 // GDI-font variant of Zero Hour's FontCharsClass::Create_GDI_Font for BFME 2:
@@ -40,23 +40,7 @@ struct Rva00154630SelectFont
 	Rva00154630SelectFont(HDC d, HFONT font) : dc(d) { old = (HFONT)::SelectObject(d, font); }
 	void restore() { ::SelectObject(dc, old); }
 };
-class FontCharsClass
-{
-	void Create_GDI_Font(const char *font_name);
-
-private:
-	unsigned char pad_to_metrics[0x2C];
-	int charHeightDiv;		// +0x2C: (extra + tmExtLead + tmHeight - 1) / extra
-	int charExtLeadDiv;		// +0x30: tmExtLead / extra
-	int charOverhangDiv;		// +0x34: (extra + tmOverhang - 1) / extra
-	int PixelOverlap;		// +0x38: clamp((int)floor(point_size*0.125+0.5),0,4)
-	float point_size;		// +0x3C
-	int extra_setting;		// +0x40
-	unsigned char pad_to_font[4];	// +0x44: gdi_font_name lives here in the sibling TU
-	HFONT GDIFont;			// +0x48
-	unsigned char pad_to_bold[0x414];
-	bool is_bold;			// +0x460
-};
+#include "FontCharsClass.h"
 
 // ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 void FontCharsClass::Create_GDI_Font(const char *font_name)
@@ -67,7 +51,7 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 		doingGenerals = true;
 	}
 
-	float height_base = point_size;
+	float height_base = PointSize;
 	float width_scale = 0.0f;
 	if (doingGenerals) {
 		width_scale = height_base * 0.4f;
@@ -81,10 +65,10 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 		PixelOverlap = 4;
 	}
 
-	int weight = is_bold ? FW_BOLD : FW_NORMAL;
+	int weight = IsBold ? FW_BOLD : FW_NORMAL;
 
-	float width_product = (float)extra_setting * width_scale + 0.5f;
-	float height_product = (float)extra_setting * height_base + 0.5f;
+	float width_product = (float)field40 * width_scale + 0.5f;
+	float height_product = (float)field40 * height_base + 0.5f;
 	float font_height = (float)floor(height_product);
 
 	GDIFont = ::CreateFontA((int)-font_height, (int)floor(width_product),
@@ -97,9 +81,9 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 	TEXTMETRIC text_metric = { 0 };
 	::GetTextMetricsA(FontScreenDCGlobalsPtr->screen_dc, &text_metric);
 
-	charHeightDiv = (extra_setting + text_metric.tmExternalLeading + text_metric.tmHeight - 1) / extra_setting;
-	charExtLeadDiv = text_metric.tmExternalLeading / extra_setting;
-	charOverhangDiv = (extra_setting + text_metric.tmOverhang - 1) / extra_setting;
+	CharHeight = (field40 + text_metric.tmExternalLeading + text_metric.tmHeight - 1) / field40;
+	CharAscent = text_metric.tmExternalLeading / field40;
+	CharOverhang = (field40 + text_metric.tmOverhang - 1) / field40;
 
 	sel.restore();
 }

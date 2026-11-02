@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Transferred from Open-BFME-1 5cae4bdff game/Libraries/Source/WWVegas/WW3D2/Small03eFontAdvance.cpp;
 // bfme1_sweep places the same masked body at BFME2 0x001586E0. Addresses in the donor text are BFME1.
 // The Get_Char_Data declaration is adapted to the matched target signature at
@@ -19,14 +19,7 @@ struct Rva00941450CharRecord
 	short extra_metric;
 };
 
-class FontCharsClass
-{
-private:
-	const FontCharsClassCharDataStruct *Get_Char_Data(unsigned short character);
-
-public:
-	int Rva00941450Body(unsigned short ch);
-};
+#include "FontCharsClass.h"
 
 int FontCharsClass::Rva00941450Body(unsigned short ch)
 {

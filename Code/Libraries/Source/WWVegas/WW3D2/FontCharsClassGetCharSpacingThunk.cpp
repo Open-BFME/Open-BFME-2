@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // FontCharsClass::Get_Char_Spacing, retail 0x00158760 (90 bytes).
 // Dedicated TU (render2dsentence.cpp documents the ABI as
@@ -18,17 +18,7 @@ struct FontCharsClassCharDataStruct
 	short ExtraSpacing;
 };
 
-class FontCharsClass
-{
-public:
-	int Get_Char_Spacing(unsigned short ch);
-	const FontCharsClassCharDataStruct *loadCharacterData(unsigned short ch);
-
-private:
-	char m_fields00[0x34];
-	int CharOverhang;
-	int PixelOverlap;
-};
+#include "FontCharsClass.h"
 
 // ?Get_Char_Spacing@FontCharsClass@@QAEHG@Z
 inline int FontCharsClass::Get_Char_Spacing(unsigned short ch)
