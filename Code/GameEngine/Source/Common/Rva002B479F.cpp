@@ -22,7 +22,7 @@ struct Rva002B479FGlobal
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
 
-class LivingWorldLogic { public: int rva002B479F(); };
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 int LivingWorldLogic::rva002B479F()
 {

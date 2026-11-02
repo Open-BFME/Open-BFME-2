@@ -20,11 +20,7 @@ public:
 	virtual GameMessage* newMessage(int type);
 };
 extern class MessageStream *TheMessageStream;
-class LivingWorldLogic
-{
-public:
-	void rva002B2E77(int x);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 void LivingWorldLogic::rva002B2E77(int x)
 {
 	GameMessage *msg = (*(GlobalHolder **)&TheMessageStream)->newMessage(0x6B9);

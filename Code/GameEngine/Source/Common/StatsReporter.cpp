@@ -320,7 +320,7 @@ class Rva002E2903Player;
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldLogic {};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva0021937DTarget;
 

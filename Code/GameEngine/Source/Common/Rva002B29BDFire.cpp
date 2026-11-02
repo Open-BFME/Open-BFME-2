@@ -10,11 +10,7 @@
 // g_bfmeAptWindowManager in Rva005832D0MapName.cpp; this TU reads it through
 // its own view type.
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-class LivingWorldLogic
-{
-public:
-	void rva002B29BD();
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 void LivingWorldLogic::rva002B29BD()
 {
 	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke((void *)13, "HideEndGame", 0, 0, 0, 0, 0, 0);

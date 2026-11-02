@@ -122,13 +122,7 @@ class LivingWorldRegionManager { public:
 // vector-resize owner (Rva003F3AB5 view) spellings.
 class Rva0020EE29 { public: void *rva0020FAEA(float *, void *); };
 class Rva003F3AB5 { public: void rva003F3B28(unsigned int); };
-class LivingWorldLogic
-{
-public:
-    void *rva002B4948(void *owner, void *region, void *exclude);
-    char beforeB0[0xb0];
-    LivingWorldRegionManager *regions;
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 

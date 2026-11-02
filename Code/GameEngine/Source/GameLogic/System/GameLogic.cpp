@@ -668,12 +668,7 @@ private:
 public:
 	GameMessage *m_firstMessage;
 };
-class LivingWorldLogic
-{
-public:
-	void rva002B2A0A();
-	void GameLogic_tacticalBattleComplete();
-};
+#include "../../../Include/GameLogic/LivingWorldLogic.h"
 void Rva004E400DEnable();
 class AptPlayerTribute
 {

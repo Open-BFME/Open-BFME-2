@@ -12,11 +12,7 @@ public:
 };
 // The removal 0x002B7DE6 is the LivingWorldLogic::RemovePlayer row (same host object).
 class LivingWorldPlayer;
-class LivingWorldLogic
-{
-public:
-	void RemovePlayer(LivingWorldPlayer *player);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 class Rva002B894DHost
 {
 public:

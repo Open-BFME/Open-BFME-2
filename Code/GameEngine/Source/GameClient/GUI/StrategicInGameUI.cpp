@@ -7,11 +7,7 @@
 // view at +0xB0 rowed 0x0020EAF6 with this+8; id chain this+4 then +0x18 +0x54;
 // find rowed 0x002B51F8; member query rowed 0x002B4948; shared xor eax null path.
 
-class LivingWorldLogic
-{
-public:
-    void *rva002B4948(void *a1, void *a2, void *a3);
-};
+#include "../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include <vector>
 #include <map>

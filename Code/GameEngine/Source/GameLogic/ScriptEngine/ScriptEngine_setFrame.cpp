@@ -21,12 +21,7 @@ extern int st_DebugDLL;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class LivingWorldLogic
-{
-public:
-	char m_pad00[0xFC];
-	int m_frameNumber;
-};
+#include "../../../Include/GameLogic/LivingWorldLogic.h"
 
 #define TheAppModule st_DebugDLL
 
@@ -83,6 +78,6 @@ void Rva002040E7GetFrameNumber()
 	if (!logic->rva001DCD1C())
 		value = logic->getFrame();
 	else
-		value = TheLivingWorldLogic->m_frameNumber;
+		value = TheLivingWorldLogic->fieldFC;
 	proc(value);
 }

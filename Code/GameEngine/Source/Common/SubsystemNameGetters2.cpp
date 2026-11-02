@@ -101,7 +101,7 @@ BFME_SNAPSHOT_NAME_GETTER(PlayerRelationMap, "PlayerRelationMap")
 BFME_LITERAL_NAME_GETTER(Rva002B30A8Named, "DelayedAudioEventModule")
 BFME_LITERAL_NAME_GETTER(Rva002B30D3Named, "DelayedCameraEventModule")
 BFME_LITERAL_NAME_GETTER(Rva002B596CNamed, "DelayedWorldTextEventModule")
-class LivingWorldLogic { public: virtual const char *GetSnapshotName() const; };
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 const char *LivingWorldLogic::GetSnapshotName() const
 {
 	return "LivingWorldLogic";

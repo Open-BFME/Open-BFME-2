@@ -12,13 +12,7 @@ struct Parent00575E4E;
 struct Parent0057605D;
 struct Parent00575EEA;
 
-class LivingWorldLogic
-{
-public:
-	bool rva002B5A5F(Parent00575E4E *);						// 0x002B5A5F
-	bool rva002B3484(Parent0057605D *);						// 0x002B3484
-	bool rva002B3416(Parent00575EEA *);						// 0x002B3416
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 

@@ -23,10 +23,7 @@ public:
  char pad00[0x18];struct SideRecord {char data[0x1c];} *m_sides,*m_sidesEnd;
  char pad20[0x18];int m_side;int sides()const{return m_sidesEnd-m_sides;}
 };
-class LivingWorldLogic {public:
- void OnBattleComplete(LivingWorldBattle*);
- void rva002B3833(LivingWorldBattle*,Rva002B89BBInfo*);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 class LivingWorldRegionManager {public:void rva0020FB8B(LivingWorldBattle*);};
 class Rva003F468D {public:Int rva003F468D(Int,Int);Int rva003F4DAE(Int);};
 class Rva002B74DE {

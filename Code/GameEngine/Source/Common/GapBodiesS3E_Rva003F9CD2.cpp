@@ -161,11 +161,7 @@ static __declspec(noinline) float Rva005742B3(Rva002E0C2B *owner)
 // player to slot 6. Names are address-derived.
 class Rva003F287F;
 class Rva002E2903Player;
-class LivingWorldLogic
-{
-public:
-	void GetNumUpgradeableTroopsInRegionForPlayer(Rva003F287F *region, int player, int *first, int *total);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002B2B66
 {

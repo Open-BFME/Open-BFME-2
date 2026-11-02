@@ -371,11 +371,7 @@ struct Rva00565085LogicView
 // MoveArmies (Rva00565085.cpp, 0x00565085): the second record vector, 20-byte spawn requests at
 // +0x38/+0x3C, each handed to LivingWorldLogic::spawnBuilding (0x002B99F8, rowed). WorldBuilder's twin
 // 0x0143A8C0 is unnamed, so the method keeps its address token.
-class LivingWorldLogic
-{
-public:
-	void spawnBuilding(const struct Rva002B99F8Request *request);	// 0x002B99F8
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 BFME_IMUL_ADD_DWORD_GETTER(Rva00564C40ImulAddField, 0x58)
 

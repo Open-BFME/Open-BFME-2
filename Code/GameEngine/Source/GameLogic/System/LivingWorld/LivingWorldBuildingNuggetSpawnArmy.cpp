@@ -60,11 +60,7 @@ struct LivingWorldArmy;
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldLogic
-{
-public:
-	LivingWorldArmy *spawnArmy(SpawnArmy *desc, Rva002B6A04Player *player, bool b);
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 

@@ -2,11 +2,7 @@
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class LivingWorldLogic
-{
-public:
-    void rva002B47C3();
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 // Native 0x002B47C3 and its WB twin 0x00D7D9C0 read the selected
 // campaign at manager+0x10/+0x14 and its script name at campaign+0x34.

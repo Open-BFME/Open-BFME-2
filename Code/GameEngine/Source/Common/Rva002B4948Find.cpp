@@ -24,11 +24,7 @@ struct Rva002B4948Container
 	Rva00318C79Owner **m_end1BC;
 };
 
-class LivingWorldLogic
-{
-public:
-    void *rva002B4948(void *container, void *a2, void *a3);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 void *LivingWorldLogic::rva002B4948(void *container, void *a2, void *a3)
 {

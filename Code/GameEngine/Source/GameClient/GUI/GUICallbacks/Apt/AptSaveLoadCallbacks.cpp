@@ -120,11 +120,7 @@ extern GameState *TheGameState;
 
 // TheLivingWorldLogic (Rva003F03C9Fetch.cpp's g_00DFEF10); its rowed
 // 0x002B2E77 is called with the logic in ECX, so it is a member.
-class LivingWorldLogic
-{
-public:
-	void rva002B2E77(int value);
-};
+#include "../../../../../Include/GameLogic/LivingWorldLogic.h"
 
 // TheGameLogic; its rowed 0x0023D30F (rowed as the stdcall
 // Rva0023D30FCall) likewise.

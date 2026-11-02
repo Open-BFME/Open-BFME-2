@@ -55,13 +55,7 @@ public:
 	void rva005CB260();
 };
 
-class LivingWorldLogic
-{
-public:
-	void ShowEndGameSplashScreen();
-	void rva002B88EC();
-	void rva002B29BD();	// 0x002B29BD (HideEndGame firer, Rva002B29BDFire.cpp)
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva002B8860
 {

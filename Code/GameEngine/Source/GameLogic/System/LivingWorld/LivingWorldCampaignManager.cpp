@@ -105,13 +105,7 @@ public:
 	LivingWorldRegionCampaign *m_activeCampaign;	// +0x08 (WB GetActiveCampaign)
 };
 
-class LivingWorldLogic
-{
-public:
-	unsigned char m_pad00[0xB0];
-	LivingWorldRegionManager *m_regionManager;	// +0xB0
-	void rva0047A69C(const AsciiString &name);
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
@@ -185,7 +179,7 @@ void LivingWorldCampaignManager::StartNewCampaign(Int campaignIndex)
 	if (campaignIndex < 0 || (UnsignedInt)campaignIndex >= m_campaignVector.size())
 		return;
 	m_campaignIndex = campaignIndex;
-	LivingWorldRegionManager *regionManager = TheLivingWorldLogic->m_regionManager;
+	LivingWorldRegionManager *regionManager = TheLivingWorldLogic->fieldB0;
 	if (regionManager)
 	{
 		const Rva0052BAB2 *named = reinterpret_cast<const Rva0052BAB2 *>(m_campaignVector[m_campaignIndex]);

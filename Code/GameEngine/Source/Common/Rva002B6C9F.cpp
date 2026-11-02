@@ -32,12 +32,7 @@ struct LivingWorldArmy;
 class ArmySummaryEntry;
 namespace _STL { template<class T> class allocator; template<class T, class A> class vector; }
 
-class LivingWorldLogic
-{
-public:
-	bool CanMoveArmyMember_internal(LivingWorldArmy *army, ArmySummaryEntry *entry, LivingWorldArmy *target, bool checkRoom);
-	bool CanMoveArmyMembers_internal(LivingWorldArmy *army, const _STL::vector<int, _STL::allocator<int> > &members, LivingWorldArmy *target, int *count);	// 0x002B6BCF
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva003193EC
 {

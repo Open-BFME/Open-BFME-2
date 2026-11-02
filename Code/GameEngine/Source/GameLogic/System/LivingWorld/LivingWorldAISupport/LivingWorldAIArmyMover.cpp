@@ -105,7 +105,7 @@ class LivingWorldAIArmyMover {public:void DefendHomeTerritory(_STL::vector<BfmeP
 // only independently observed extents and fields. The no-storage base adapter
 // invokes the existing cleanup provider; it is not original inheritance.
 struct SetupPlayer;struct SetupArmy;struct SetupRecord52;struct SetupSimulation44;
-class LivingWorldLogic {public:void SetUpAutoResolveBattle(const _STL::vector<SetupPlayer*>*,SetupPlayer*,const _STL::vector<SetupArmy*>*,void*,_STL::vector<SetupRecord52>*,_STL::vector<SetupSimulation44>*);};
+#include "../../../../../Include/GameLogic/LivingWorldLogic.h"
 #include "../../../../../../Libraries/Include/Lib/BfmeE16.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline bool less<int>::operator()(int const &x,int const &y)const  { return x < y; } }

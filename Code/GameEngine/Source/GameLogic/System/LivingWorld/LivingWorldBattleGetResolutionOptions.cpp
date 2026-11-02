@@ -55,10 +55,7 @@ public:
     virtual int slot14(LivingWorldBattle *);
 };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
-class LivingWorldLogic {
-public:
-    bool WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int, int);
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 class LivingWorldBattle {

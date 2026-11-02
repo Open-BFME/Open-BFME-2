@@ -20,7 +20,7 @@ public:
 // TheCampaignManager (0x00E02D6C): matched references place it at VA 0xe02d6c (retail .data initial value 0).
 class Rva00E02D6C;
 Rva00E02D6C *TheCampaignManager = 0;
-class LivingWorldLogic { public: int getStartingMoney(); };
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 int LivingWorldLogic::getStartingMoney()
 {

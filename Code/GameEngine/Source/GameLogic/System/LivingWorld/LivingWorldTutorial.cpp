@@ -6,7 +6,7 @@
 // retail supplies the bytes. The battle comes from the living-world logic's
 // region manager (+0xB0) through 0x0020E57F (unnamed).
 
-class LivingWorldLogic {public:void *rva002B4948(void *,void *,void *);};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 

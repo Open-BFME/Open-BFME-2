@@ -12,12 +12,7 @@ class Rva002E2903Player;
 
 #include "../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldLogic
-{
-public:
-	void RemovePlayer(LivingWorldPlayer *player);
-	void rva002B8DDE(int id);
-};
+#include "../../../Include/GameLogic/LivingWorldLogic.h"
 
 void LivingWorldLogic::rva002B8DDE(int id)
 {

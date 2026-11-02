@@ -647,11 +647,7 @@ public:
 	Rva00564DF2NameView *rva003B8D4D(const AsciiString &name);
 };
 
-class LivingWorldLogic
-{
-public:
-	void rva0047A69C(const AsciiString &name);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 // The manager behind bfmeGoDGH (0x00212183): the caller loads ECX from
 // TheLivingWorldManager and the body hands ECX on to 0x002120C2, which walks

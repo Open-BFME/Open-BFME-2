@@ -92,11 +92,7 @@ private:
 	int rva003EFD6F(Rva002E2903Player *player) const;
 	friend class Rva005CB748;
 };
-class LivingWorldLogic
-{
-public:
-	void GetNumUpgradeableTroopsInRegionForPlayer(Rva003F287F *region, Int playerId, Int *available, Int *total);
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 class Rva002B2B66 { public: Int rva002B2B66(); };
 extern LivingWorldLogic *TheLivingWorldLogic;
 

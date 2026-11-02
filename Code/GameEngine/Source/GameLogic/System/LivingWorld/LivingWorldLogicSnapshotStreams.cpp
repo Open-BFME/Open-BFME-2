@@ -38,7 +38,8 @@ struct RGBColor;
 struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../../Include/Common/BfmeXfer.h"
-class LivingWorldLogic{public:void rva002BB2B7(Xfer*);void rva002B83E5();};extern LivingWorldLogic*TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
+extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva002B22AFArg;
 class Rva002B22AF{public:Rva002B22AF():zeroC(0),zero10(0){}void rva002B22AF(Rva002B22AFArg*);char pad[8];int id;int zeroC,zero10,tail14;};
 struct RecVec{Rva002B22AF**begin,**end,**cap;};

@@ -932,11 +932,7 @@ void BfmeHub982::rva001116E2()
 	bfmeBegin982C();
 }
 
-class LivingWorldLogic
-{
-public:
-	void AwardOwnershipSetsToPlayers();
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva0059E647World
 {

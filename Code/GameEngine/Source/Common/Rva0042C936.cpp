@@ -113,12 +113,7 @@ namespace StrategicInGameUI
 // called on TheLivingWorldLogic as in MilesAudioSubtitleConsumer.cpp.
 class BfmeSelectionState { public: bool isSelectionLocked() const; };
 
-class LivingWorldLogic
-{
-public:
-	unsigned char m_pad00[0xf4];
-	int m_f4;	// +0xF4
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 struct Rva0042CA4BTarget
@@ -144,7 +139,7 @@ void Rva0042CA4B::update()
 	if (TheLivingWorldLogic && reinterpret_cast<BfmeSelectionState *>(TheLivingWorldLogic)->isSelectionLocked())
 	{
 		m_08->m_94 = false;
-		int value = TheLivingWorldLogic->m_f4;
+		int value = TheLivingWorldLogic->fieldF4;
 		if (value != m_turnPhase)
 		{
 			reinterpret_cast<Rva000AD6F4 *>(&m_behavior)->clear();

@@ -564,7 +564,7 @@ struct Rva002B3740Item;
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldLogic {public: void *rva002B4948(void*,void*,void*);};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 struct ExtractArmyView {char unknown00[0x20]; int id;};
 

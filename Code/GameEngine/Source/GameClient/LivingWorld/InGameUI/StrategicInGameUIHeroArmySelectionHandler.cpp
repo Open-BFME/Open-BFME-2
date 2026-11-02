@@ -17,11 +17,7 @@ class MouseoverRegionTracker;
 struct LivingWorldArmy;
 class Rva00318C32Ret;
 
-class LivingWorldLogic
-{
-public:
-	bool rva002B27B5(LivingWorldArmy *army, Rva00318C32Ret *entry);
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 

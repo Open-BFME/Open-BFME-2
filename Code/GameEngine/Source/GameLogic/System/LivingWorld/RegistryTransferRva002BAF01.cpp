@@ -61,12 +61,7 @@ public:
 
 // 0x002B9B42 is matched as the private LivingWorldLogic::AddDelayedRegionVictory.
 class Rva003F287F;
-class LivingWorldLogic
-{
-    friend class Rva002BAF01;
-private:
-    void AddDelayedRegionVictory(Rva003F287F *region, int value, unsigned int word);
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva002BAF01
 {

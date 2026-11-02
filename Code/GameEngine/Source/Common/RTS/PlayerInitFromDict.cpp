@@ -238,7 +238,7 @@ class LivingWorldBattle{public:char pad[0x24];class LivingWorldRegion*region;voi
 class RegionOwner{public:char pad[0x14];int index;};class CreateAHeroData;
 class LivingWorldRegion{public:char pad[0x11c];bool flag;int rva003F0614(CreateAHeroData*)const;};
 struct CampaignView{char pad[0xb0];Rva0020E6B7RegionManager*regions;bool active;};
-class LivingWorldLogic{public:int getStartingMoney();int rva002B479F();};
+#include "../../../Include/GameLogic/LivingWorldLogic.h"
 inline __declspec(noinline) SidesInfo*SidesList::getSkirmishSideInfo(int i){return i>=0 && i<skirmishCount?&skirmishSides[i]:0;}
 struct CharCompare {char m_unused;};
 int compareRange(const char*,int,const char*,int,CharCompare);

@@ -13,12 +13,7 @@
 // Rva003F830F.cpp and VslotProxyForwarders.cpp pin it at this address.
 // The callees live in other units so neither call is inlined here.
 
-class LivingWorldLogic
-{
-public:
-	char m_pad00[0xFC];
-	int m_xFC;
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;	// 0x00DFEF10
 
@@ -84,7 +79,7 @@ Rva003F8101 *Rva003F81FDProxy::rva003F816E()
 {
 	Rva003F816EItem **iter = m_begin14;
 	Rva003F816EItem **end = m_end18;
-	int sought = TheLivingWorldLogic->m_xFC + 1;
+	int sought = TheLivingWorldLogic->fieldFC + 1;
 	for (; iter != end; ++iter)
 	{
 		Rva003F816EItem *it = *iter;

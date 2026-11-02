@@ -156,7 +156,7 @@ public:
 
 // The rowed 0x002B2E77 ignores ECX, but both native callers load the
 // living-world receiver before its ret-4 call: a thiscall member.
-class LivingWorldLogic { public: void rva002B2E77(int value); };
+#include "../../../../../Include/GameLogic/LivingWorldLogic.h"
 
 void Rva0051AF0BEnable(int value);
 void Rva005210ECEnable(bool value);

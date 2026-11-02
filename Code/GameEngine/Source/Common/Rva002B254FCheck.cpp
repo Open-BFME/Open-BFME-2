@@ -44,11 +44,7 @@ public:
 // LivingWorldLogic::reset: retail's LivingWorldLogic SubsystemInterface table
 // 0x00BFE2E4 holds 0x002B2535 in slot 9, the base's reset; the body never
 // reads this.
-class LivingWorldLogic
-{
-public:
-	virtual void reset();
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 void LivingWorldLogic::reset()
 {
 	if (reinterpret_cast<GameLogicView002B2535 *>(TheGameLogic)->m_114 == 3)
