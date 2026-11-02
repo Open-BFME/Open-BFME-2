@@ -483,13 +483,7 @@ BFME_DISP8_TERNARY_BOOL_GETTER(Rva004E8234CmpBoolField, 0x284)
 
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
-class ToppleUpdate
-{
-public:
-	bool isAbleToBeToppled() const;
-	char m_lead[0x38];
-	int m_toppleState;
-};
+#include "../../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
 // Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit

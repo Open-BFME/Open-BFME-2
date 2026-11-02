@@ -76,13 +76,7 @@ class WinInstanceData;
 // lead padding is emitted (a zero-length pad array is not legal C++).
 // 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
 // Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
-class ToppleUpdate
-{
-public:
-	bool isAbleToBeToppled() const;
-	char m_lead[0x38];
-	int m_toppleState;
-};
+#include "../../Include/GameLogic/Module/ToppleUpdateClass.h"
 
 BFME_DISP8_TERNARY_CMP_BOOL_GETTER(Rva004D393ACmpBoolField, 0x0C, 1, ==)
 

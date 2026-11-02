@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class ToppleUpdate
-{
-public:
-	ToppleUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x58];
-};
+#include "../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
 
 // ?friend_newModuleInstance@ToppleUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *ToppleUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
