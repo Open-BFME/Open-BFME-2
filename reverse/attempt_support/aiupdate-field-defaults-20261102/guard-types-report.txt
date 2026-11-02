@@ -1,0 +1,117 @@
+AIUpdate guard-field/signature investigation -- 2026-11-02, read-only
+
+Verdict
+-------
+The +0x68 and +0x6C fields are not transposed. The current canonical storage
+declarations are consistent with target uses: +0x68 is a 32-bit team identifier;
++0x6C is the guarded/attacked PolygonTrigger pointer. The neutral virtual
+signatures at slots 120/121/122 were misidentified. Keep their neutral names.
+
+Compatible typed ABI contracts for root's subsequent exact trials:
+  unsigned int AIUpdateInterface::vslot120() const;
+  const PolygonTrigger *AIUpdateInterface::vslot121() const;
+  void AIUpdateInterface::vslot122(const PolygonTrigger *);
+
+Unsigned width/team-ID use at slot 120 is supported by an actual matched
+consumer. Constness of PolygonTrigger is the existing canonical field and donor
+API policy; machine instructions cannot independently establish pointee constness.
+The setter's complete body proves a one-word store into that pointer field;
+no original setter name or original C++ signature is claimed.
+
+Raw BFME2 target facts (RVAs)
+----------------------------
+Slot 120 / 0x00367508 / 4B: 8b 41 68 c3 -- EAX = [ECX+68], RET.
+Slot 121 / 0x0036750C / 4B: 8b 41 6c c3 -- EAX = [ECX+6C], RET.
+Slot 122 / 0x0033F15D / 10B: 8b 44 24 04 89 41 6c c2 04 00 --
+  copy the sole stack word into [ECX+6C], RET4.
+
+Matched AIGuardState::onEnter / 0x003511E3 / 378B:
+  0x0035128E calls [vtable+1E0], primary slot 120.
+  0x0035129A pushes its EAX result directly to
+  0x0035129B CALL 0x0039F761, the matched TeamFactory::findTeamByID(unsigned).
+  Its returned Team pointer is then passed to the rowed setter 0x0033F852.
+  This is concrete team-ID type flow, not a pointer getter analogy.
+  0x0035123F calls [vtable+1E4], primary slot 121, and
+  0x00351248 stores its returned word into the guard machine's area pointer +44.
+
+Guard commands:
+  privateGuardPosition 0x00264BC2: target-type words are +50/+54; location +58.
+    0x00264C02 compares [EBX+54] with 4, then writes 0 to +54 or +50.
+  privateGuardObject 0x00264D0E: writes target type 1 to +50/+54 and object ID +64.
+  command 0x20 / 0x00264D81: writes target type 2 at +50/+54;
+    0x00264DD7 loads the opaque argument's word +34 and
+    0x00264DDA stores it at AI+68. Do NOT identify the argument as canonical Team:
+    that particular parameter's complete type is not established here.
+  privateGuardAreaFromPosition 0x00264DF8: writes target type 3 and
+    0x00264E4E stores the area pointer into AI+6C.
+  privateAttackArea 0x0026C1CE: 0x0026C1F9 stores its actual area argument at AI+6C;
+    subsequent code calls the area's centre operation for voice response.
+
+Constructor 0x0026E9BD zeroes +68 at 0x0026EB1A and +6C at 0x0026EB23.
+Zero initialization does not identify either field's semantic type. The private
+constructor view's old m_areaToGuard label at +68 is contradicted by consumers;
+it is a historical agent spelling, not evidence to transpose the real fields.
+
+Xfer 0x00267EDD keeps the fields distinct:
+  0x00268045 takes the address of AI+68, passing it to Xfer vslot +78.
+  0x00268051 loads AI+6C, null-checks it, then accesses the pointed object's
+    string at +40; the reconstructed matched row serializes its trigger name.
+  0x00268096 calls TerrainLogic's trigger-name lookup slot +9C and
+  0x0026809C stores the returned pointer into AI+6C.
+  Thus +68 is transferred as a scalar word while +6C is resolved as a pointer.
+
+Current source citations / evidence qualification
+-----------------------------------------------
+Code/GameEngine/Include/GameLogic/Module/AIUpdate.h:493-497:
+  int m_guardTargetType[2]; Coord3D m_locationToGuard; ObjectID m_objectToGuard;
+  unsigned int m_field068; const PolygonTrigger *m_areaToGuard.
+These names are not all independently canonical; the layouts are target-backed.
+
+Code/GameEngine/Source/GameLogic/AI/AIGuardStateOnEnter.cpp:19-20,74-75,198-203:
+  Private target view already distinguishes getGuardTeam slot120 from
+  getAreaToGuard slot121. The actual body feeds the first into findTeamByID
+  and hands the second to the guarding machine. This corroborates raw target flow.
+
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp:
+  1206-1207: unsigned guard-extra +68; PolygonTrigger pointer +6C.
+  1498-1517: command0x20 copies argument+34 to +68.
+  1542-1549: privateAttackArea stores the PolygonTrigger argument at +6C.
+  2813-2829: guard-area does the same.
+Its historical comment calls command0x20 a LOCATION form; native target type2
+and the matched onEnter team branch show why that semantic label is unreliable.
+
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateXfer.cpp:259-260,373-377:
+  unsigned extra68 is transferred separately; area pointer6C serializes a name
+  and is restored through TerrainLogic::getTriggerAreaByName.
+
+Donor facts, not target-original-name claims
+-----------------------------------------
+Zero Hour Include/GameLogic/Module/AIUpdate.h:359-364 and696-700 declares
+guard location, guarded ObjectID, area pointer and a two-word guard-target stack.
+ZH has no intervening team-ID field or team getter. The BFME2-only team word
+explains the +4 area displacement and the inserted slot120 getter; slot122 is
+another BFME2 callback. Do not transplant the donor's old slot numbering.
+BFME2's m_teamToGuard semantic description is supported, but renaming the existing
+neutral field is a separate naming-lane decision and is not needed for this repair.
+
+Current users / implications
+---------------------------
+The canonical m_field068 name occurs only in AIUpdate.h. Current canonical
+AIUpdate vslot120/121/122 have no out-of-class definitions under Code/; their
+normal declarations and emitted vtable references are the affected ABI names.
+Other occurrences of vslot120/121/122 in W3DScriptedModelDrawNukeRender and the
+private melee-path view are unrelated or unused slot placeholders, not grounds
+for a global identifier replacement.
+
+The private AIUpdate guard/Xfer users above already use correct +68/+6C storage.
+Other m_areaToGuard members in AIGuardMachine views at +40/+44 are different
+classes and must not be mechanically renamed/retyped with the AIUpdate field.
+
+Retyping these virtual declarations changes decorated symbol spellings even
+though every value is one machine word. Root must coordinate provider admissions,
+all canonical-header dependents/vtable references and normal full byte/data/EH
+gates. No field-order/storage/lifetime change is warranted. No casts are proposed
+as the final repair. No source, ledger, header, claims or network changes made.
+
+Native binary slices and full objdump output are saved beside this report in
+native-disassembly.txt. No compiler was invoked.

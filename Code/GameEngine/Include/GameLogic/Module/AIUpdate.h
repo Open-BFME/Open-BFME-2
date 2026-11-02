@@ -317,7 +317,7 @@ public:
     virtual bool rva00262DBF()const; // 115: RVA 0x00262DBF
     virtual bool rva00262D7B()const; // 116: RVA 0x00262D7B
     virtual void doQuickExit(_STL::vector<Coord3D,_STL::allocator<Coord3D> > const *); // 117: RVA 0x00262F19
-    virtual const Coord3D *vslot118() const; // 118: RVA 0x00042287
+    virtual const Coord3D *vslot118() const { return &m_locationToGuard; } // 118: RVA 0x00042287
     virtual ObjectID vslot119() const; // 119: RVA 0x002004A1
     virtual const PolygonTrigger *vslot120() const; // 120: RVA 0x00367508
     virtual int vslot121() const; // 121: RVA 0x0036750C
