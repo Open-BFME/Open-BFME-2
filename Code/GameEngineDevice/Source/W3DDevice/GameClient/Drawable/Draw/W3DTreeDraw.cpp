@@ -28,8 +28,10 @@ class ModuleData;
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-class W3DTreeDrawModuleDataBase {
+class W3DTreeDrawModuleDataBase
+{
 public:
+	W3DTreeDrawModuleDataBase() {}
 	virtual ~W3DTreeDrawModuleDataBase() {}
 };
 
@@ -100,15 +102,42 @@ extern const FieldParse g_00BCCFE8[] = {
 };
 
 
-class W3DTreeDrawModuleData : public W3DTreeDrawModuleDataBase {
+class W3DTreeDrawModuleData : public W3DTreeDrawModuleDataBase
+{
 public:
-	unsigned int m_unused04;
-public:
-	AsciiString m_modelName;
-public:
+	W3DTreeDrawModuleData();
+	virtual ~W3DTreeDrawModuleData();
 	virtual AsciiString rva000CED14(int dummy);
-public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+
+private:
+	unsigned int m_unused04;
+	AsciiString m_modelName; // +08
+	AsciiString m_textureName; // +0C
+	unsigned int m_framesToMoveOutward; // +10
+	unsigned int m_framesToMoveInward; // +14
+	float m_maxOutwardMovement; // +18
+	float m_darkening; // +1C
+	void *m_toppleFX; // +20
+	void *m_bounceFX; // +24
+	AsciiString m_stumpName; // +28
+	float m_initialVelocityPercent; // +2C
+	float m_initialAccelPercent; // +30
+	float m_bounceVelocityPercent; // +34
+	float m_minimumToppleSpeed; // +38
+	bool m_killWhenToppled; // +3C
+	bool m_doTopple; // +3D
+	unsigned char m_pad3e[2];
+	unsigned int m_sinkFrames; // +40
+	float m_sinkDistance; // +44
+	AsciiString m_morphTree; // +48
+	unsigned int m_morphTime; // +4C
+	const void *m_morphFX; // +50
+	bool m_taintedTree; // +54
+	unsigned char m_pad55[3];
+	unsigned int m_fadeRate; // +58
+	unsigned int m_fadeTarget; // +5C
+	float m_fadeDistance; // +60
 };
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDraw.cpp
