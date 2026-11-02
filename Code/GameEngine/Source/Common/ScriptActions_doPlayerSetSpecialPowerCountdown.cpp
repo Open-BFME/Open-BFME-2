@@ -7,11 +7,7 @@ enum NameKeyType { NK_NONE = 0 };
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Object;
 class Player;

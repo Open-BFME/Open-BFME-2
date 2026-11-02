@@ -18,11 +18,7 @@ public:
 	Object *getGoalObject();
 };
 
-class Object
-{
-public:
-	DockUpdateInterface *getDockUpdateInterface();
-};
+#include "../GameLogic/Object/object.h"
 
 class DockUpdateInterface
 {

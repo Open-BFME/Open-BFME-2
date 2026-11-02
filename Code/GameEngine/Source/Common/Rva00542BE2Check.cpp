@@ -7,11 +7,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 #include "../../Include/GameLogic/Weapon.h"
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-};
+#include "../GameLogic/Object/object.h"
 class Rva00542BE2
 {
 public:

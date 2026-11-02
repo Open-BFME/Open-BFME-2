@@ -72,12 +72,7 @@ struct Rva005DA6F3Entry
 };
 
 class Player;
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
- Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

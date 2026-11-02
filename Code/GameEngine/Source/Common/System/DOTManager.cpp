@@ -37,13 +37,7 @@ public:
 	unsigned int m_84;
 };
 
-class Object
-{
-public:
-	void attemptDamage(DamageInfo *damageInfo);
-	char m_pad438[0x438];
-	unsigned char m_flag438;
-};
+#include "../../GameLogic/Object/object.h"
 
 struct MapNode
 {
@@ -123,7 +117,7 @@ void DOTManager::update()
 				obj->attemptDamage(di);
 				di->m_84 = di->m_7c + curFrame;
 			}
-			if ((obj->m_flag438 & 1) != 0)
+			if ((obj->m_privateStatus & 1) != 0)
 			{
 				((_STL::vector<ScienceType> &)vecRaw).push_back(*keyPtr);
 			}

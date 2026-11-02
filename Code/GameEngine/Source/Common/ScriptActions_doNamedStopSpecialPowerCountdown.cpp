@@ -7,11 +7,7 @@
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 
-class Object
-{
-public:
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Parameter;
 class Object;

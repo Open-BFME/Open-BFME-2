@@ -23,11 +23,7 @@ struct Rva0030AD8BTemplate
 
 #include "thing.h"
 
-class Object : public Thing
-{
-public:
-	Bool isSignificantlyAboveTerrain() const;
-};
+#include "../../GameLogic/Object/object.h"
 
 Bool Thing::rva0030AD8B(Real offset) const
 {

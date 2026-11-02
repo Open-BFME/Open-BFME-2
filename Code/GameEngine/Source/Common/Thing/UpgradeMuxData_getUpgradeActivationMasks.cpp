@@ -104,11 +104,7 @@ public:
 
 #include "thing.h"
 
-class Object : public Thing
-{
-public:
-	bool hasUpgradeMask(int bit) const;
-};
+#include "../../GameLogic/Object/object.h"
 
 class UpgradeMuxData
 {
