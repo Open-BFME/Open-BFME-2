@@ -18747,3 +18747,5 @@ Both BI getter repairs complete with74consumer rows, five tables and all1962rows
 [Native table/body inventory and incremental admissions](../reverse/attempt_support/aiupdate-bi-inline-rows-20261102/README.md). These are existing C++ definitions without ledger rows, not lost coverage. Original owners and interface spellings are retained without original-name/TU or unique-byte claims.
 
 BI slot0 now has its own verified row for the existing complete3B body at0x000D43D0. Normal consumer-row/data checks pass. Remaining BI targets, full table verification and peer-held RET8 primary methods remain; no census clearance is claimed.
+
+BI slot2 now has its own verified row for the existing complete3B body at0x000D43D0. Normal consumer-row/data checks pass. Remaining BI targets, full table verification and peer-held RET8 primary methods remain; no census clearance is claimed.
