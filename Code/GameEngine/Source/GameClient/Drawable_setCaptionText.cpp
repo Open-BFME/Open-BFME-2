@@ -19,15 +19,7 @@
 template <> __declspec(nothrow) int StringBase<unsigned short>::compare(const StringBase<unsigned short> &) const;
 
 class GameFont;
-class DisplayString
-{
-public:
-    virtual void v00();
-    virtual void setText(UnicodeString text);
-    virtual UnicodeString getText();
-    virtual void v0c(); virtual void v10(); virtual void v14();
-    virtual void setFont(GameFont *font);
-};
+#include "../../Include/GameClient/DisplayString.h"
 class DisplayStringManager
 {
 public:

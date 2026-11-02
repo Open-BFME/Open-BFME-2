@@ -146,13 +146,7 @@ public:
 // one of its descendants.
 class Rva003140AB { public: bool rva003140AB(Rva003140AB *window); };
 
-class DisplayString
-{
-public:
-	virtual void slot00();
-	virtual void setText(UnicodeString text);
-	virtual UnicodeString getText();
-};
+#include "../../../../Include/GameClient/DisplayString.h"
 
 struct ListEntryCell
 {

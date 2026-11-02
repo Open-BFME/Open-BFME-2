@@ -33,13 +33,7 @@ typedef unsigned short wchar_t;
 // Retail fetch call uses vtable offset 0x38 for the factory (BFME2 widens
 // the manager vtable past the donor's slot 0x24); pads stay declared-only
 // so no vtable is emitted from this TU (VersionUnicode.cpp recipe).
-class DisplayString
-{
-public:
-	virtual ~DisplayString() {}
-	virtual void setText(UnicodeString text);
-	virtual UnicodeString getText();
-};
+#include "../../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

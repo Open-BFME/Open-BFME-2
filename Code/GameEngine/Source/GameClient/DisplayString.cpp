@@ -37,42 +37,7 @@ typedef int Color;
 typedef bool Bool;
 typedef unsigned short WideChar;
 
-class DisplayString
-{
-public:
-	DisplayString( void );
-	virtual ~DisplayString( void );
-
-	virtual void setText( UnicodeString text );
-	virtual UnicodeString getText( void ) { return m_textString; }  // ZH DisplayString.h inline; ICF-folded into 0x0022C4DF
-	virtual Int getTextLength( void );
-	virtual void notifyTextChanged( void ) {}
-	virtual void reset( void );
-	virtual void setFont( GameFont *font ) { m_font = font; }
-	virtual GameFont *getFont( void ) { return m_font; }
-	virtual void setWordWrap( Int wordWrap ) = 0;
-	virtual void setWordWrapCentered( Bool isCentered ) = 0;
-	virtual void setColors( Color textColor, Color dropColor ) = 0;
-	virtual void setTextColor( Color *colors ) = 0;
-	virtual void setDropColor( Color *colors ) = 0;
-	virtual void draw( Int x, Int y, Color color, Color dropColor ) = 0;
-	virtual void draw( Int x, Int y ) = 0;
-	virtual void getSize( Int *width, Int *height ) = 0;
-	virtual Int getWidth( Int charPos = -1 ) = 0;
-	virtual void bfmeSetFloats17( float a, float b ) = 0;
-	virtual void bfmeSetFloats18( float a, float b ) = 0;
-	virtual void setUseHotkey( Bool useHotkey, Color hotKeyColor ) = 0;
-	virtual void setClipRegion( IRegion2D *region ) {}
-	virtual void removeLastChar( void );
-	virtual void appendChar( WideChar c );
-	virtual void appendString( const UnicodeString &text );
-
-protected:
-	UnicodeString m_textString;											///< 0x04
-	GameFont *m_font;																///< 0x08
-	DisplayString *m_next;													///< 0x0C
-	DisplayString *m_prev;													///< 0x10
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 // DisplayString::DisplayString ===============================================
 /** */

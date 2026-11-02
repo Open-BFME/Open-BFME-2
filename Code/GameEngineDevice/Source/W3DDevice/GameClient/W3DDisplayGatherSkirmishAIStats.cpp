@@ -44,17 +44,7 @@ public:
 };
 extern GlobalLanguage *TheGlobalLanguageData;
 
-class DisplayString
-{
-public:
-	virtual ~DisplayString();
-	virtual void setText(UnicodeString text);	// +0x04
-	virtual UnicodeString getText();
-	virtual Int getTextLength();
-	virtual void notifyTextChanged();
-	virtual void reset();
-	virtual void setFont(GameFont *font);		// +0x18
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 class DisplayStringManager
 {
 public:

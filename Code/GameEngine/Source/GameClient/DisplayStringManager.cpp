@@ -29,17 +29,7 @@
 
 class DisplayStringManager;
 
-class DisplayString
-{
-	friend class DisplayStringManager;
-public:
-	virtual ~DisplayString( void );
-protected:
-	void *m_textString;																	///< 0x04
-	void *m_font;																				///< 0x08
-	DisplayString *m_next;															///< 0x0C
-	DisplayString *m_prev;															///< 0x10
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

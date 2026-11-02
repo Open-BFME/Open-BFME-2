@@ -40,17 +40,7 @@ enum WeaponStatus { READY_TO_FIRE = 0 };
 #define V4(a) virtual void a##0(); virtual void a##1(); virtual void a##2(); virtual void a##3();
 #define V16(a) V4(a##0) V4(a##1) V4(a##2) V4(a##3)
 
-class DisplayString
-{
-public:
-	virtual void v00();
-	virtual void setText(UnicodeString text);	// +0x04
-	virtual void v08();
-	virtual void v0C();
-	virtual void v10();
-	virtual void v14();
-	virtual void setFont(GameFont *font);		// +0x18
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

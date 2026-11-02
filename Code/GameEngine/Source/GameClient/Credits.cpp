@@ -74,20 +74,7 @@ class BfmeSinkBOE;
 
 extern BfmeSinkBOE *g_bfmeSinkBOE;
 
-class DisplayString {
-public:
- virtual ~DisplayString();
- virtual void setText(UnicodeString);
- virtual UnicodeString getText();
- virtual int getTextLength();
- virtual void notifyTextChanged();
- virtual void reset();
- virtual void setFont(GameFont *);
- virtual GameFont *getFont();
- virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
- virtual void v12(); virtual void v13(); virtual void v14();
- virtual void getSize(int *, int *);
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 extern class DisplayStringManager *TheDisplayStringManager;
 

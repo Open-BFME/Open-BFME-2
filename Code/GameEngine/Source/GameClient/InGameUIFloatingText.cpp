@@ -25,12 +25,7 @@
 
 typedef int Color;
 
-class DisplayString
-{
-public:
-	virtual ~DisplayString();
-	virtual void setText( UnicodeString text );	// slot 1
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

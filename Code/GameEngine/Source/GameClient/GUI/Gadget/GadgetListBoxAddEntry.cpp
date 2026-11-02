@@ -36,26 +36,7 @@ public:
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class DisplayString
-{
-public:
-	virtual void slot00();
-	virtual void setText(UnicodeString text);
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void setFont(GameFont *font);
-	virtual void slot07();
-	virtual void setWordWrap(Int width);
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void getSize(Int *width, Int *height);
-};
+#include "../../../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

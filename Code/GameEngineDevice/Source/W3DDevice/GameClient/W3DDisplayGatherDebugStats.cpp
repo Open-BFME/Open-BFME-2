@@ -26,16 +26,7 @@ struct MouseIO { int x, y; char m_pad8[0x18 - 8]; int leftState; char m_pad1c[0x
 class Drawable;
 struct BodyView { virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual float getHealth(); };
 
-struct DisplayString
-{
-	virtual void v000();
-	virtual void setText(UnicodeString text);
-	virtual void v008();
-	virtual void v00C();
-	virtual void v010();
-	virtual void v014();
-	virtual void setFont(GameFont *font);
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

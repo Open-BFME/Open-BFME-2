@@ -86,41 +86,7 @@ public:
 // 0x00BCF900): Zero Hour's order with the six-argument draw dropped, three
 // colour setters and a two-argument draw added after setWordWrapCentered, two
 // float setters after getWidth, and a string append after appendChar.
-class DisplayString
-{
-public:
-	virtual ~DisplayString();
-	virtual void setText( UnicodeString text );
-	virtual UnicodeString getText( void );
-	virtual Int getTextLength( void );
-	virtual void notifyTextChanged( void );
-	virtual void reset( void );
-	virtual void setFont( GameFont *font ) { m_font = font; }
-	virtual GameFont *getFont( void );
-	virtual void setWordWrap( Int wordWrap ) = 0;
-	virtual void setWordWrapCentered( Bool isCentered ) = 0;
-	virtual void setColors( Color textColor, Color dropColor ) = 0;
-	virtual void setTextColor( Color *colors ) = 0;
-	virtual void setDropColor( Color *colors ) = 0;
-	// MSVC lays out overloaded virtuals in reverse declaration order: the
-	// two-argument draw is slot 13, the four-argument draw slot 14.
-	virtual void draw( Int x, Int y, Color color, Color dropColor ) = 0;
-	virtual void draw( Int x, Int y ) = 0;
-	virtual void getSize( Int *width, Int *height ) = 0;
-	virtual Int getWidth( Int charPos = -1 ) = 0;
-	virtual void bfmeSetFloats17( float a, float b ) = 0;
-	virtual void bfmeSetFloats18( float a, float b ) = 0;
-	virtual void setUseHotkey( Bool useHotkey, Color hotKeyColor ) = 0;
-	virtual void setClipRegion( IRegion2D *region );
-	virtual void removeLastChar( void );
-	virtual void appendChar( wchar_t c );
-	virtual void appendString( const UnicodeString &text );
-protected:
-	UnicodeString m_textString;
-	GameFont *m_font;
-	DisplayString *m_next;
-	DisplayString *m_prev;
-};
+#include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 class Render2DSentenceClass
 {

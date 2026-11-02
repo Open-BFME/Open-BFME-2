@@ -1,12 +1,5 @@
 // cl: /O1 /MD
-class DisplayString
-{
-public:
-    virtual void draw();
-    virtual void setText();
-    virtual void setFont();
-    virtual int getTextLength();
-};
+#include "../../../Include/GameClient/DisplayString.h"
 
 class WinInstanceData
 {

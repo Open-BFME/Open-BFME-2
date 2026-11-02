@@ -144,17 +144,7 @@ extern GlobalData *TheWritableGlobalData;
 
 class GameFont;
 
-class DisplayString
-{
-public:
-	virtual void slot00() = 0;
-	virtual void setText( UnicodeString text ) = 0;
-	virtual UnicodeString getText() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void reset() = 0;
-	virtual void setFont( GameFont *font ) = 0;
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

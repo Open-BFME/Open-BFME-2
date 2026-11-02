@@ -71,14 +71,7 @@ enum LanguageID
 
 extern LanguageID OurLanguage;
 
-class DisplayString
-{
-public:
-	virtual void unused0();
-	virtual void setText(UnicodeString text);
-	virtual UnicodeString getText();
-	virtual int getTextLength();
-};
+#include "../../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

@@ -37,18 +37,7 @@ struct FloatPair
 	float y;
 };
 
-class DisplayString
-{
-public:
-	virtual void v00();
-	virtual void setText(UnicodeString text);	// slot 1
-	virtual void v02(); virtual void v03(); virtual void v04();
-	virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void setWordWrap(Int wordWrap);	// slot 8
-	virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void draw(Int x,Int y); virtual void v14();
-	virtual void getSize(Int *width, Int *height);	// slot 15
-};
+#include "../../../../Include/GameClient/DisplayString.h"
 
 struct IntPair
 {

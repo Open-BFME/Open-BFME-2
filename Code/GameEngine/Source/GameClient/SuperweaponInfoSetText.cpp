@@ -6,12 +6,7 @@
 #include "unicode_string.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayString.h
-class DisplayString
-{
-public:
-	virtual void slot00();
-	virtual void setText(UnicodeString text);
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/InGameUI.h
 class SuperweaponInfo

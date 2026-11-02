@@ -64,26 +64,7 @@ template <> void allocator<BfmeStringRecord005DDD40>::deallocate(BfmeStringRecor
 template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &);
 }
 
-class DisplayString
-{
-public:
-	virtual void s00();
-	virtual void setText(UnicodeString s);
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void setFont(GameFont *font);
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void s11();
-	virtual void s12();
-	virtual void s13();
-	virtual void s14();
-	virtual void getSize(int *w, int *h);
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class DisplayStringManager
 {

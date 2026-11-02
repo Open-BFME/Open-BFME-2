@@ -99,20 +99,7 @@ template <> int StringBase<unsigned short>::compare(const StringBase<unsigned sh
 
 // The game-client DisplayString as W3DAptDisplayString reaches it (virtual
 // slots by offset; target evidence).
-class DisplayString
-{
-public:
-	virtual void slot00();
-	virtual void setText(UnicodeString text);		// +0x04
-	virtual UnicodeString getText();			// +0x08
-	virtual void slot0C(); virtual void slot10(); virtual void slot14();
-	virtual void slot18(); virtual void slot1C(); virtual void slot20();
-	virtual void slot24(); virtual void slot28(); virtual void slot2C();
-	virtual void slot30(); virtual void slot34(); virtual void slot38();
-	virtual void getSize(Int *width, Int *height);		// +0x3C
-	virtual void slot40(); virtual void slot44();
-	virtual void slot48(Real x, Real y);			// +0x48, called with (0, 0)
-};
+#include "../../../../../GameEngine/Include/GameClient/DisplayString.h"
 
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 

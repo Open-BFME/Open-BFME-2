@@ -37,14 +37,7 @@ class Rva0078FD30VptrCtor;
 class GameWindow;
 class GameFont;
 
-class DisplayString
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual int getTextLength();
-};
+#include "../../Include/GameClient/DisplayString.h"
 
 class WinInstanceData
 {
