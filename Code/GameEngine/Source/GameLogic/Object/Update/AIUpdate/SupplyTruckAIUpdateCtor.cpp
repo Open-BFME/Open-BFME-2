@@ -26,7 +26,7 @@ class Object;
 typedef int Int;
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../../Common/GameLogicObjectLookupView.h"
 typedef float Real;
 
 // Coord3D: shared header/view; no private copy.
@@ -86,7 +86,7 @@ private:
 SupplyTruckAIUpdate::SupplyTruckAIUpdate( Thing *thing, const ModuleData* moduleData ) : AIUpdateInterface( thing, moduleData )
 {
 	m_supplyTruckStateMachine = 0;
-	m_preferredDock = INVALID_ID;
+	m_preferredDock = INVALID_OBJECT_ID;
 	m_3F0.zero();
 	m_3FC = false;
 	m_numberBoxes = 0;
@@ -124,7 +124,8 @@ UpdateSleepTime SupplyTruckAIUpdate::update()
 struct SupplyTruckModuleDataView {
     unsigned char field00[0x64];
     int field64;
-    unsigned char field68[0x0C];
+    unsigned char field68[8];
+    float field70;
     unsigned char field74;
     unsigned char field75[3];
     float field78;
@@ -214,4 +215,23 @@ bool SupplyTruckAIUpdate::gainOneBox(int remainingStock)
         reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field64,
         m_numberBoxes);
     return true;
+}
+
+#include "../../object.h"
+
+// Target-bounded read view; original player field identity is unresolved.
+struct SupplyTruckPlayerTypeView {
+    unsigned char field00[0x5C];
+    int field5C;
+};
+
+float SupplyTruckAIUpdate::rva004A6FBF() const
+{
+    Player *player = getObject()->getControllingPlayer();
+    if (reinterpret_cast<const SupplyTruckPlayerTypeView *>(player)->field5C == 1)
+    {
+        float value = reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field70;
+        return value + value;
+    }
+    return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field70;
 }
