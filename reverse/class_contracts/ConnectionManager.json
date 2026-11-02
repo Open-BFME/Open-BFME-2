@@ -1,0 +1,641 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ConnectionManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x121b0": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d274b"
+     ],
+     "value": 74038
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d274b"
+     ],
+     "value": {
+      "0x12024": [
+       4
+      ],
+      "0x12028": [
+       4
+      ],
+      "0x1202c": [
+       4
+      ],
+      "0x12030": [
+       4
+      ],
+      "0x12050": [
+       4
+      ],
+      "0x12054": [
+       2
+      ],
+      "0x12058": [
+       4
+      ],
+      "0x1205c": [
+       4
+      ],
+      "0x12060": [
+       4
+      ],
+      "0x12080": [
+       4
+      ],
+      "0x120a0": [
+       4
+      ],
+      "0x120c0": [
+       4
+      ],
+      "0x120e0": [
+       4
+      ],
+      "0x12100": [
+       4
+      ],
+      "0x12104": [
+       4
+      ],
+      "0x12124": [
+       4
+      ],
+      "0x12128": [
+       4
+      ],
+      "0x1212c": [
+       4
+      ],
+      "0x12130": [
+       4
+      ],
+      "0x12134": [
+       1
+      ],
+      "0x12135": [
+       1
+      ],
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d274b"
+     ],
+     "value": {
+      "0x0": [
+       "??_H@YGXPAXIHP6EPAX0@Z@Z"
+      ],
+      "0x12138": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x12144": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4d274b"
+     ],
+     "value": {
+      "0x0": "0x8601c0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8601c0"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?init@ConnectionManager@@UAEXXZ",
+        "slot": 0,
+        "target": "0x4d24a2"
+       },
+       {
+        "name": "?reset@ConnectionManager@@UAEXXZ",
+        "slot": 1,
+        "target": "0x4d0669"
+       },
+       {
+        "name": "?init@BFMEConnectionManager@@QAEXXZ",
+        "slot": 2,
+        "target": "0x4cf032"
+       },
+       {
+        "name": "?update@ConnectionManager@@UAEX_NH@Z",
+        "slot": 3,
+        "target": "0x4d342a"
+       }
+      ],
+      "table": "0x8601c0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 45,
+  "retail_vtables": {
+   "0x8601c0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?init@ConnectionManager@@UAEXXZ",
+     "1": "?reset@ConnectionManager@@UAEXXZ",
+     "2": "?init@BFMEConnectionManager@@QAEXXZ",
+     "3": "?update@ConnectionManager@@UAEX_NH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 12,
+   "73772": 7,
+   "73776": 1,
+   "73920": 1,
+   "73988": 2,
+   "74020": 4,
+   "74032": 1,
+   "74036": 3,
+   "74040": 2,
+   "74128": 1,
+   "74160": 5
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ConnectionManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/ConnectionManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_localSlot",
+   "name_by": "majority",
+   "offset": 73768,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 20,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 29
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_areAllQueuesEmptyTwin_Rva004CF3B9.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_setFrameGrouping.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva004CF35DFunc.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 13
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 73764,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 73772,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_setFrameGrouping.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 73776,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 73808,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73812,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73816,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 73820,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 73824,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva004CF35DFunc.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 73856,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva004CF35DFunc.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 73888,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/Rva004CF35DFunc.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 73920,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 73952,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 73956,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 73984,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesBA.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 73988,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManagerFrameList.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 74008,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74012,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74016,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74020,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D00BB.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 74024,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 74028,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 74032,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_areAllQueuesEmptyTwin_Rva004CF3B9.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D00BB.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0A0A.cpp",
+    "Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 74036,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 74037,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 74038,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 74040,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 74044,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 74048,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 74052,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 74056,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 74060,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 74064,
+   "sources": [
+    "Code/GameEngine/Source/Common/ConnectionManagerCtor.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp",
+    "Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp",
+    "Code/GameEngine/Source/GameNetwork/ConnectionManager_dtor.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:P": 8,
+    "4:VPTR": 8,
+    "73768:A": 1,
+    "73988:A": 1
+   },
+   "class": "ConnectionManager"
+  }
+ ],
+ "size": 73772,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "init()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "reset()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "update(bool,int)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "rva0025DBAESlot(bool,int)"
+  }
+ }
+}

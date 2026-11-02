@@ -287,3 +287,4 @@ LivingWorldRegionManager,Code/GameEngine/Include/GameLogic/LivingWorldRegionMana
 LivingWorldBattle,Code/GameEngine/Include/GameLogic/LivingWorldBattle.h,existing header; contract class_contracts/LivingWorldBattle.json; 19/52 sampled units adopt
 LivingWorldManager,Code/GameEngine/Include/GameLogic/LivingWorldManager.h,existing header; contract class_contracts/LivingWorldManager.json; 31/50 sampled units adopt
 ArmySummary,Code/GameEngine/Include/GameLogic/ArmySummary.h,existing header; contract class_contracts/ArmySummary.json; 25/45 sampled units adopt
+ConnectionManager,Code/GameEngine/Include/GameNetwork/ConnectionManager.h,existing header; contract class_contracts/ConnectionManager.json; 28/49 sampled units adopt
