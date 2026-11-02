@@ -141,3 +141,44 @@ objects, but the lead asked to bank, not land. Once the file is claimable:
 - rename its 7 rows (tombstones);
 - apply v2;
 - do step B (see `step-b-attackfirewhilecharging.patch`).
+
+## Step B for nine constructor units (lk17, 2026-11-02): `step-b-v2-nine-ctors.patch`
+
+This applies after `state-classkey-v2.patch`. It covers the following units, with their census
+bytes:
+- AttackFireWhileChargingMachine 114 (lk16's proof, carried over);
+- AIGuardMachineCtor 451;
+- AIGuardRetaliateMachineCtor 199;
+- Rva00544C51MachineCtor 214;
+- AttackStateMachine 654;
+- AttackMeleeStateMachine 479;
+- AITNGuardMachineCtor 417;
+- Rva00343756Ctor 198;
+- Rva0033FC0ACtor 213.
+
+The recipe, mechanical in each unit:
+- Delete the private `class State` and `class StateMachine` and include `StateMachineClass.h`.
+  Each machine class keeps declaring only its constructor, destructor and members, so its
+  `??_7` table equals Rva004D759CDerived.cpp's 16-slot copy.
+- Where the unit's private `StateConditionInfo` used `(void *)` test pointers that canonical
+  `StateConditionInfo.h` accepts, it includes that header. AttackStateMachine keeps its own copy,
+  because its condition functions have mixed signatures.
+- State views no longer derive from State. Canonical State is abstract and 0x20 bytes, while these
+  units only `new` the states and call their rowed constructors. Each view keeps its allocation
+  size: either a full pad (`m_pad00[size]`) or a leading `m_stateBytes[0x20]` where the old view
+  relied on a 0x20-byte State base. Each `new` is cast to `State *` at its defineState call.
+
+Measured on v2 plus this patch:
+- `./build.sh` passes 463/463 rows over the 32 units.
+- `link_check` over the 263 family units plus StateMachineDefineState: 252/264 link, and LINKED
+  rises from 221,890 to 225,062 bytes. The nine units (2,939 B) and StateMachineDefineState
+  (233 B) link.
+- Still losing: AIStateMachineCtor 3,825, AIDock 2,608, SupplyTruckAIUpdate 1,658,
+  AIAttackMoveStateMachine 654 and TurretStateMachineCtor 562. Each needs real view work:
+  - AIStateMachineCtor constructs a `vector<Gen_p12pod>` goal path, but canonical
+    AIStateMachineClass.h keeps that field opaque (`field3C[0x0C]`), so the header has to carry
+    the vector first.
+  - AIAttackMoveStateMachine and AIDock define constructors of State subclasses that emit their
+    own tables and use `getMachineOwner`.
+  - TurretStateMachineCtor needs TurretStateMachine.h and its multi-level state views.
+  - SupplyTruckAIUpdate.cpp stays held.

@@ -1,0 +1,705 @@
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp
+index 71a247bba5..920942e871 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp
+@@ -10,18 +10,7 @@
+ // feeding rowed defineState directly (B952-family shape). Too few constants
+ // to keep ebx, so the zeros ride as immediates and the dead state reset
+ // takes whatever bl holds.
+-class Object;
+-class State;
+-struct StateConditionInfo;
+-
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, unsigned int name, bool flag);
+-	virtual ~StateMachine();
+-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
+-};
+-
++#include "../../../Include/Common/StateMachineClass.h"
+ 
+ // Rowed 0x00343042 as AIChargeTargetState::AIChargeTargetState (AIStateRva0034005DCtor.cpp).
+ class AIChargeTargetState
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp
+index 19483f242e..190388cb6b 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp
+@@ -12,26 +12,8 @@ typedef unsigned int UnsignedInt;
+ typedef UnsignedInt StateID;
+ typedef UnsignedInt ObjectID;
+ class Object;
+-struct StateConditionInfo
+-{
+-	void *m_test;
+-	StateID m_toStateID;
+-	void *m_userData;
+-};
+-class State
+-{
+-public:
+-	virtual ~State();
+-};
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-protected:
+-	unsigned char m_pad04[0x3C - 0x04];
+-};
++#include "../../../Include/Common/StateConditionInfo.h"
++#include "../../../Include/Common/StateMachineClass.h"
+ // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
+ // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
+ static __forceinline void zeroCoord3D(Coord3D &c)
+@@ -41,47 +23,47 @@ static __forceinline void zeroCoord3D(Coord3D &c)
+ 	c.z = 0.0f;
+ }
+ 
+-class AIGuardReturnState : public State
++class AIGuardReturnState
+ {
+ public:
+ 	AIGuardReturnState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x50 - 0x04];
++	unsigned char m_pad00[0x50];
+ };
+-class Rva00542D25 : public State
++class Rva00542D25
+ {
+ public:
+ 	Rva00542D25(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x30 - 0x04];
++	unsigned char m_pad00[0x30];
+ };
+-class AIGuardInnerState : public State
++class AIGuardInnerState
+ {
+ public:
+ 	AIGuardInnerState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x48 - 0x04];
++	unsigned char m_pad00[0x48];
+ };
+-class AIGuardOuterState : public State
++class AIGuardOuterState
+ {
+ public:
+ 	AIGuardOuterState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x44 - 0x04];
++	unsigned char m_pad00[0x44];
+ };
+-class Rva0036804F : public State
++class Rva0036804F
+ {
+ public:
+ 	Rva0036804F(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x50 - 0x04];
++	unsigned char m_pad00[0x50];
+ };
+-class AIGuardAttackAggressorState : public State
++class AIGuardAttackAggressorState
+ {
+ public:
+ 	AIGuardAttackAggressorState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x44 - 0x04];
++	unsigned char m_pad00[0x44];
+ };
+ class AIGuardMachine : public StateMachine
+ {
+@@ -106,7 +88,7 @@ AIGuardMachine::AIGuardMachine(Object *owner, UnsignedInt nameKey) : StateMachin
+ {
+ 	static const StateConditionInfo g_condC698F0[] =
+ 	{
+-		{ (void *)rva005430E7, 5005, NULL },
++		{ rva005430E7, 5005, NULL },
+ 		{ NULL, 0, NULL }	// keep last
+ 	};
+ 	m_targetToGuard = 0;
+@@ -120,10 +102,10 @@ AIGuardMachine::AIGuardMachine(Object *owner, UnsignedInt nameKey) : StateMachin
+ 	m_6C = 0;
+ 	m_70 = 0;
+ 	// order matters: first state is the default state.
+-	defineState( 5003, new AIGuardReturnState( this ), 5001, 5000, g_condC698F0 );
+-	defineState( 5001, new Rva00542D25( this ), 5000, 5003, g_condC698F0 );
+-	defineState( 5000, new AIGuardInnerState( this ), 5002, 5002 );
+-	defineState( 5002, new AIGuardOuterState( this ), 5004, 5004 );
+-	defineState( 5004, new Rva0036804F( this ), 5003, 5003 );
+-	defineState( 5005, new AIGuardAttackAggressorState( this ), 5003, 5003 );
++	defineState( 5003, (State *)new AIGuardReturnState( this ), 5001, 5000, g_condC698F0 );
++	defineState( 5001, (State *)new Rva00542D25( this ), 5000, 5003, g_condC698F0 );
++	defineState( 5000, (State *)new AIGuardInnerState( this ), 5002, 5002 );
++	defineState( 5002, (State *)new AIGuardOuterState( this ), 5004, 5004 );
++	defineState( 5004, (State *)new Rva0036804F( this ), 5003, 5003 );
++	defineState( 5005, (State *)new AIGuardAttackAggressorState( this ), 5003, 5003 );
+ }
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp
+index f6f994df3b..277e460740 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp
+@@ -15,26 +15,8 @@ typedef unsigned int UnsignedInt;
+ typedef UnsignedInt StateID;
+ typedef UnsignedInt ObjectID;
+ class Object;
+-struct StateConditionInfo
+-{
+-	void *m_test;
+-	StateID m_toStateID;
+-	void *m_userData;
+-};
+-class State
+-{
+-public:
+-	virtual ~State();
+-};
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-protected:
+-	unsigned char m_pad04[0x3C - 0x04];
+-};
++#include "../../../Include/Common/StateConditionInfo.h"
++#include "../../../Include/Common/StateMachineClass.h"
+ // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
+ // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
+ static __forceinline void zeroCoord3D(Coord3D &c)
+@@ -49,19 +31,19 @@ enum
+ 	AI_GUARD_RETALIATE_ATTACK_AGGRESSOR = 5005,
+ 	EXIT_MACHINE_WITH_SUCCESS = 9998
+ };
+-class AIGuardRetaliateAttackAggressorState : public State
++class AIGuardRetaliateAttackAggressorState
+ {
+ public:
+ 	AIGuardRetaliateAttackAggressorState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x44 - 0x04];
++	unsigned char m_pad00[0x44];
+ };
+-class AIGuardRetaliateReturnState : public State
++class AIGuardRetaliateReturnState
+ {
+ public:
+ 	AIGuardRetaliateReturnState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x50 - 0x04];
++	unsigned char m_pad00[0x50];
+ };
+ class AIGuardRetaliateMachine : public StateMachine
+ {
+@@ -84,13 +66,13 @@ AIGuardRetaliateMachine::AIGuardRetaliateMachine(Object *owner) : StateMachine(o
+ {
+ 	static const StateConditionInfo attackAggressors[] =
+ 	{
+-		{ (void *)rva0047A699, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, NULL },
++		{ rva0047A699, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, NULL },
+ 		{ NULL, 0, NULL }	// keep last
+ 	};
+ 
+ 	zeroCoord3D(m_positionToGuard);
+ 
+ 	// order matters: first state is the default state.
+-	defineState( AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, new AIGuardRetaliateAttackAggressorState( this ), AI_GUARD_RETALIATE_RETURN, AI_GUARD_RETALIATE_RETURN );
+-	defineState( AI_GUARD_RETALIATE_RETURN, new AIGuardRetaliateReturnState( this ), EXIT_MACHINE_WITH_SUCCESS, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, attackAggressors );
++	defineState( AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, (State *)new AIGuardRetaliateAttackAggressorState( this ), AI_GUARD_RETALIATE_RETURN, AI_GUARD_RETALIATE_RETURN );
++	defineState( AI_GUARD_RETALIATE_RETURN, (State *)new AIGuardRetaliateReturnState( this ), EXIT_MACHINE_WITH_SUCCESS, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, attackAggressors );
+ }
+diff --git a/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
+index 31b71d12b8..ef8d9f359b 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
+@@ -13,20 +13,7 @@ typedef UnsignedInt StateID;
+ typedef UnsignedInt ObjectID;
+ class Object;
+ #include "../../../Include/Common/StateConditionInfo.h"
+-class State
+-{
+-public:
+-	virtual ~State();
+-};
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-protected:
+-	unsigned char m_pad04[0x3C - 0x04];
+-};
++#include "../../../Include/Common/StateMachineClass.h"
+ // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
+ // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
+ static __forceinline void zeroCoord3D(Coord3D &c)
+@@ -36,26 +23,26 @@ static __forceinline void zeroCoord3D(Coord3D &c)
+ 	c.z = 0.0f;
+ }
+ 
+-class Rva00544EB1 : public State
++class Rva00544EB1
+ {
+ public:
+ 	Rva00544EB1(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x4C - 0x04];
++	unsigned char m_pad00[0x4C];
+ };
+-class AIHarvestPrepareSiteState : public State
++class AIHarvestPrepareSiteState
+ {
+ public:
+ 	AIHarvestPrepareSiteState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x24 - 0x04];
++	unsigned char m_pad00[0x24];
+ };
+-class Rva00544C2A : public State
++class Rva00544C2A
+ {
+ public:
+ 	Rva00544C2A(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x24 - 0x04];
++	unsigned char m_pad00[0x24];
+ };
+ class Rva00544C51 : public StateMachine
+ {
+@@ -69,7 +56,7 @@ Rva00544C51::Rva00544C51(Object *owner) : StateMachine(owner, 0x3e69bbc3u, false
+ {
+ 
+ 	// order matters: first state is the default state.
+-	defineState( 0, new Rva00544EB1( this ), 1, 9999 );
+-	defineState( 1, new AIHarvestPrepareSiteState( this ), 2, 0 );
+-	defineState( 2, new Rva00544C2A( this ), 9998, 9999 );
++	defineState( 0, (State *)new Rva00544EB1( this ), 1, 9999 );
++	defineState( 1, (State *)new AIHarvestPrepareSiteState( this ), 2, 0 );
++	defineState( 2, (State *)new Rva00544C2A( this ), 9998, 9999 );
+ }
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
+index fec76b2877..d17235b9e3 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
+@@ -25,20 +25,7 @@ struct StateConditionInfo
+ 	StateID m_toStateID;
+ 	void *m_userData;
+ };
+-class State
+-{
+-public:
+-	virtual ~State();
+-};
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-protected:
+-	unsigned char m_pad04[0x3C - 0x04];
+-};
++#include "../../../Include/Common/StateMachineClass.h"
+ enum ObjectStatusTypes
+ {
+ 	OBJECT_STATUS_26 = 0x26
+@@ -83,54 +70,54 @@ public:
+ class Rva00346D17Attack : public Rva00346D17AttackHead, public Rva00346D17AttackInterface
+ {
+ };
+-class Rva0033F3B6 : public State
++class Rva0033F3B6
+ {
+ public:
+ 	Rva0033F3B6(StateMachine *machine, Bool attackingObject, Bool forceAttacking);
+ private:
+-	unsigned char m_pad04[0x24 - 0x04];
++	unsigned char m_pad00[0x24];
+ };
+-class Rva0033F483 : public State
++class Rva0033F483
+ {
+ public:
+ 	Rva0033F483(StateMachine *machine, int attackInterface);
+ private:
+-	unsigned char m_pad04[0x28 - 0x04];
++	unsigned char m_pad00[0x28];
+ };
+-class Rva0033F43D : public State
++class Rva0033F43D
+ {
+ public:
+ 	Rva0033F43D(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x20 - 0x04];
++	unsigned char m_pad00[0x20];
+ };
+-class Rva004D74AC : public State
++class Rva004D74AC
+ {
+ public:
+ 	Rva004D74AC(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x20 - 0x04];
++	unsigned char m_pad00[0x20];
+ };
+-class Rva004D7491 : public State
++class Rva004D7491
+ {
+ public:
+ 	Rva004D7491(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x20 - 0x04];
++	unsigned char m_pad00[0x20];
+ };
+-class AIAttackPursueTargetState : public State
++class AIAttackPursueTargetState
+ {
+ public:
+ 	AIAttackPursueTargetState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking);
+ private:
+-	unsigned char m_pad04[0x64 - 0x04];
++	unsigned char m_pad00[0x64];
+ };
+-class AIAttackApproachTargetState : public State
++class AIAttackApproachTargetState
+ {
+ public:
+ 	AIAttackApproachTargetState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking);
+ private:
+-	unsigned char m_pad04[0x74 - 0x04];
++	unsigned char m_pad00[0x74];
+ };
+ class AttackStateMachine : public StateMachine
+ {
+@@ -195,9 +182,9 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
+ 		{ NULL, 0, NULL }	// keep last
+ 	};
+ 
+-	defineState( AIM_AT_TARGET, new Rva0033F3B6( this, attackingObject, forceAttacking ), FIRE_WEAPON, EXIT_MACHINE_WITH_FAILURE, attackingObject ? objectConditions : positionConditions );
+-	defineState( FIRE_WEAPON, new Rva0033F483( this, (int)static_cast<Rva00346D17AttackInterface *>(att) ), REAIM_TARGET, CHASE_TARGET, attackingObject ? objectConditions : positionConditions );
+-	defineState( REAIM_TARGET, new Rva0033F43D( this ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
++	defineState( AIM_AT_TARGET, (State *)new Rva0033F3B6( this, attackingObject, forceAttacking ), FIRE_WEAPON, EXIT_MACHINE_WITH_FAILURE, attackingObject ? objectConditions : positionConditions );
++	defineState( FIRE_WEAPON, (State *)new Rva0033F483( this, (int)static_cast<Rva00346D17AttackInterface *>(att) ), REAIM_TARGET, CHASE_TARGET, attackingObject ? objectConditions : positionConditions );
++	defineState( REAIM_TARGET, (State *)new Rva0033F43D( this ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+ 	// A same-valued template expression preserves retail's separate bit tests.
+ 	if (((this ? obj->m_template : obj->m_template)->m_kind108 & 4) == 0)
+ 	{
+@@ -208,21 +195,21 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
+ 				{ (void *)inWeaponRangeObject, AIM_AT_TARGET, NULL },
+ 				{ NULL, 0, NULL }	// keep last
+ 			};
+-			defineState( CHASE_TARGET, new Rva004D74AC( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE, portableStructureChaseConditions );
++			defineState( CHASE_TARGET, (State *)new Rva004D74AC( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE, portableStructureChaseConditions );
+ 		}
+ 		else if (attackingObject)
+ 		{
+-			defineState( CHASE_TARGET, new AIAttackPursueTargetState( this, follow, attackingObject, forceAttacking ), APPROACH_TARGET, APPROACH_TARGET );
+-			defineState( APPROACH_TARGET, new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
++			defineState( CHASE_TARGET, (State *)new AIAttackPursueTargetState( this, follow, attackingObject, forceAttacking ), APPROACH_TARGET, APPROACH_TARGET );
++			defineState( APPROACH_TARGET, (State *)new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+ 		}
+ 		else
+ 		{
+-			defineState( CHASE_TARGET, new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+-			defineState( APPROACH_TARGET, new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
++			defineState( CHASE_TARGET, (State *)new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
++			defineState( APPROACH_TARGET, (State *)new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+ 		}
+ 	}
+ 	else
+ 	{
+-		defineState( CHASE_TARGET, new Rva004D7491( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE );
++		defineState( CHASE_TARGET, (State *)new Rva004D7491( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE );
+ 	}
+ }
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp
+index 0563894cd6..9b60fbe62a 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp
+@@ -16,13 +16,7 @@ class Object;
+ class State;
+ struct StateConditionInfo;
+ 
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, unsigned int name, bool flag);
+-	virtual ~StateMachine();
+-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
+-};
++#include "../../../Include/Common/StateMachineClass.h"
+ 
+ 
+ // Ctors 0x00342A96, 0x00342AD6 and 0x00342B1A are rowed under these class names.
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp
+index e48496d283..202a96814e 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp
+@@ -12,26 +12,8 @@ typedef unsigned int UnsignedInt;
+ typedef UnsignedInt StateID;
+ typedef UnsignedInt ObjectID;
+ class Object;
+-struct StateConditionInfo
+-{
+-	void *m_test;
+-	StateID m_toStateID;
+-	void *m_userData;
+-};
+-class State
+-{
+-public:
+-	virtual ~State();
+-};
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-protected:
+-	unsigned char m_pad04[0x3C - 0x04];
+-};
++#include "../../../Include/Common/StateConditionInfo.h"
++#include "../../../Include/Common/StateMachineClass.h"
+ // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
+ // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
+ static __forceinline void zeroCoord3D(Coord3D &c)
+@@ -41,47 +23,47 @@ static __forceinline void zeroCoord3D(Coord3D &c)
+ 	c.z = 0.0f;
+ }
+ 
+-class Rva00545DB0 : public State
++class Rva00545DB0
+ {
+ public:
+ 	Rva00545DB0(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x58 - 0x04];
++	unsigned char m_pad00[0x58];
+ };
+-class Rva00545B4F : public State
++class Rva00545B4F
+ {
+ public:
+ 	Rva00545B4F(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x30 - 0x04];
++	unsigned char m_pad00[0x30];
+ };
+-class AITNGuardInnerState : public State
++class AITNGuardInnerState
+ {
+ public:
+ 	AITNGuardInnerState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x30 - 0x04];
++	unsigned char m_pad00[0x30];
+ };
+-class Rva00545D7E : public State
++class Rva00545D7E
+ {
+ public:
+ 	Rva00545D7E(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x2C - 0x04];
++	unsigned char m_pad00[0x2C];
+ };
+-class Rva0036804F : public State
++class Rva0036804F
+ {
+ public:
+ 	Rva0036804F(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x50 - 0x04];
++	unsigned char m_pad00[0x50];
+ };
+-class AITNGuardAttackAggressorState : public State
++class AITNGuardAttackAggressorState
+ {
+ public:
+ 	AITNGuardAttackAggressorState(StateMachine *machine);
+ private:
+-	unsigned char m_pad04[0x2C - 0x04];
++	unsigned char m_pad00[0x2C];
+ };
+ class AITNGuardMachine : public StateMachine
+ {
+@@ -99,17 +81,17 @@ AITNGuardMachine::AITNGuardMachine(Object *owner) : StateMachine(owner, 0x91632a
+ {
+ 	static const StateConditionInfo g_condC6A2FC[] =
+ 	{
+-		{ (void *)rva00545F10, 5005, NULL },
++		{ rva00545F10, 5005, NULL },
+ 		{ NULL, 0, NULL }	// keep last
+ 	};
+ 	m_nemesisToAttack = 0;
+ 	m_4C = 0;
+ 	zeroCoord3D(m_positionToGuard);
+ 	// order matters: first state is the default state.
+-	defineState( 5003, new Rva00545DB0( this ), 5001, 5000, g_condC6A2FC );
+-	defineState( 5001, new Rva00545B4F( this ), 5000, 5003 );
+-	defineState( 5000, new AITNGuardInnerState( this ), 5002, 5002, g_condC6A2FC );
+-	defineState( 5002, new Rva00545D7E( this ), 5004, 5004 );
+-	defineState( 5004, new Rva0036804F( this ), 5003, 5003 );
+-	defineState( 5005, new AITNGuardAttackAggressorState( this ), 5003, 5003 );
++	defineState( 5003, (State *)new Rva00545DB0( this ), 5001, 5000, g_condC6A2FC );
++	defineState( 5001, (State *)new Rva00545B4F( this ), 5000, 5003 );
++	defineState( 5000, (State *)new AITNGuardInnerState( this ), 5002, 5002, g_condC6A2FC );
++	defineState( 5002, (State *)new Rva00545D7E( this ), 5004, 5004 );
++	defineState( 5004, (State *)new Rva0036804F( this ), 5003, 5003 );
++	defineState( 5005, (State *)new AITNGuardAttackAggressorState( this ), 5003, 5003 );
+ }
+diff --git a/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp b/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp
+index ef40a6f642..e5522cd9a5 100644
+--- a/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp
++++ b/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp
+@@ -18,19 +18,7 @@ class Object;
+ 
+ class State;
+ 
+-struct StateConditionInfo
+-{
+-	bool (*test)(State *thisState, void *userData);
+-	unsigned int toStateID;
+-	void *userData;
+-};
+-
+-class State
+-{
+-public:
+-	virtual ~State();
+-	char m_pad[0x20 - 4];
+-};
++#include "../../Include/Common/StateConditionInfo.h"
+ 
+ class StateMachine;
+ class Rva00343F8A;
+@@ -38,8 +26,9 @@ class Rva00343F8A;
+ int rva0034373F(State *state, void *);
+ bool rva0033FDEB(Rva00343F8A *state, void *data);
+ 
+-class Rva0033F483 : public State
++class Rva0033F483
+ {
++	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
+ public:
+ 	Rva0033F483(StateMachine *machine, int arg);
+ 
+@@ -48,20 +37,14 @@ private:
+ 	int m_24;
+ };
+ 
+-class Rva0033F43D : public State
++class Rva0033F43D
+ {
++	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
+ public:
+ 	Rva0033F43D(StateMachine *machine);
+ };
+ 
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, unsigned int name, bool flag);
+-	virtual ~StateMachine();
+-	void defineState(unsigned int id, State *state, unsigned int successID,
+-		unsigned int failureID, const StateConditionInfo *conditions);
+-};
++#include "../../Include/Common/StateMachineClass.h"
+ 
+ class AttackContesterStateMachine : public StateMachine
+ {
+@@ -80,8 +63,8 @@ AttackContesterStateMachine::AttackContesterStateMachine(Object *owner, int val,
+ 		{ 0, 0, 0 } // keep last
+ 	};
+ 
+-	State *state = new Rva0033F483((StateMachine *)(void *)this, val ? val + 0x20 : 0);
++	State *state = (State *)new Rva0033F483((StateMachine *)(void *)this, val ? val + 0x20 : 0);
+ 	((StateMachine *)(void *)this)->defineState(0x1F4, state, 0x1F5, 0x270F, conditions);
+-	State *s2 = new Rva0033F43D((StateMachine *)(void *)this);
++	State *s2 = (State *)new Rva0033F43D((StateMachine *)(void *)this);
+ 	((StateMachine *)(void *)this)->defineState(0x1F5, s2, 0x1F4, 0x270F, conditions);
+ }
+diff --git a/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp b/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp
+index 250f772f58..dd1e55e2a4 100644
+--- a/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp
++++ b/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp
+@@ -12,48 +12,37 @@ class Object;
+ 
+ #include "../../Include/Common/StateConditionInfo.h"
+ 
+-class State
+-{
+-public:
+-	virtual ~State();
+-	char m_pad[0x20 - 4];
+-};
+-
+ class StateMachine;
+ 
+ 
+-class Rva00342EAC : public State
++class Rva00342EAC
+ {
++	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
+ public:
+ 	Rva00342EAC(StateMachine *machine);
+ private:
+ 	char m_extra[0x54 - 0x20];
+ };
+ 
+-class Rva0033F6C0 : public State
++class Rva0033F6C0
+ {
++	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
+ public:
+ 	Rva0033F6C0(StateMachine *machine);
+ private:
+ 	char m_extra[0x28 - 0x20];
+ };
+ 
+-class Rva0034005D : public State
++class Rva0034005D
+ {
++	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
+ public:
+ 	Rva0034005D(StateMachine *machine);
+ private:
+ 	char m_extra[0x50 - 0x20];
+ };
+ 
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, unsigned int name, bool flag);
+-	virtual ~StateMachine();
+-	void defineState(unsigned int id, State *state, unsigned int successID,
+-		unsigned int failureID, const StateConditionInfo *conditions);
+-};
++#include "../../Include/Common/StateMachineClass.h"
+ 
+ extern const void *const g_00C11D50[];
+ 
+@@ -69,10 +58,10 @@ public:
+ Rva0033FC0A::Rva0033FC0A(Object *owner, unsigned int key)
+ 	: StateMachine(owner, key, false)
+ {
+-	State *state = new Rva00342EAC((StateMachine *)(void *)this);
++	State *state = (State *)new Rva00342EAC((StateMachine *)(void *)this);
+ 	((StateMachine *)(void *)this)->defineState(0, state, 1, 0x270F, 0);
+-	State *s1 = new Rva0033F6C0((StateMachine *)(void *)this);
++	State *s1 = (State *)new Rva0033F6C0((StateMachine *)(void *)this);
+ 	((StateMachine *)(void *)this)->defineState(1, s1, 2, 0x270F, 0);
+-	State *s2 = new Rva0034005D((StateMachine *)(void *)this);
++	State *s2 = (State *)new Rva0034005D((StateMachine *)(void *)this);
+ 	((StateMachine *)(void *)this)->defineState(2, s2, 0x270E, 0x270E, 0);
+ }
