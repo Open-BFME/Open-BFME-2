@@ -22442,3 +22442,13 @@ Code/GameEngine/Source/Common/S3ArrayOwnerDestructors.cpp|member|Gen_00930C10|m_
 Code/GameEngine/Source/Common/S3ListTailStores.cpp|member|Gen_000c8990|m_bfme000C,c95b12e21e3cb85a3ecfb413,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/S3SplitDispatchers.cpp|member|Gen_004655b0|m_bfmeHandler,eb9a4d4363eda0d7fe64e2d6,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/S3SplitDispatchers.cpp|function|0x0008FF56|bfmeDispatch,bba811cb5eba41f4d34c8627,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/ScriptActions_doSkirmishFireSpecialPowerAtMostCost.cpp|param|ScriptActions::doSkirmishFireSpecialPowerAtMostCost|b,ff65aa3279a0106c905eed26,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/ScriptActions_doSkirmishFireSpecialPowerAtMostCost.cpp|local|ScriptActions::doSkirmishFireSpecialPowerAtMostCost|f,f94a2ca70968907b3f80564f,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SingletonForwarders.cpp|function|0x003BA938|rva003BA938,08dc6f5e18ac95ba2aad27f0,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp|param|reduceMatrix|m,da4b07b164e1375031b950a9,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp|local|reduceMatrix|r,94ea193ebcdedffcce91d1d0,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp|local|reduceMatrix|c,c0519828a95b8f2d5571c8f9,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/Rva00664EA0FieldSetter.cpp|member|Rva00664EA0|m_word28,6aa47848953e832f10bae948,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/Rva00664EA0FieldSetter.cpp|member|Rva00664EA0|m_word2C,d44b41355a4caec5eafdb683,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/Rva008809E0Transform2D.cpp|local|Rva008809E0Transform2D::Rva008809E0Transform2D|c,be994391bb2a5cc5b661c99d,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/SmallGaps/Rva009F2FA0PopSqrt.cpp|local|Rva009F2FA0Reader::popSqrt|e,41e7b57a7d052655f73c91f2,claude-haiku-5-5,drz-k3-n41g,w-a3d394d58042,2026-11-02
