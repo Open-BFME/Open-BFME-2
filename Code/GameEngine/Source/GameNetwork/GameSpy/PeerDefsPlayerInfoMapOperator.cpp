@@ -26,26 +26,7 @@
 
 typedef int Int;
 
-class PlayerInfo
-{
-public:
-	PlayerInfo();
-	PlayerInfo(const PlayerInfo &other);
-	~PlayerInfo();
-	AsciiString m_name;
-	AsciiString m_locale;
-	AsciiString m_clan;
-	Int m_wins;
-	Int m_losses;
-	Int m_profileID;
-	Int m_flags;
-	Int m_rankPoints;
-	Int m_side;
-	Int m_unk24;
-	Int m_dc;
-	Int m_desync;
-	Int m_preorder;
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 
 struct AsciiComparator
 {

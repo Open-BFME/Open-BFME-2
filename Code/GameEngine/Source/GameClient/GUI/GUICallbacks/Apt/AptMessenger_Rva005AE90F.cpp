@@ -25,7 +25,7 @@ void allocator<int>::deallocate(int* __p, size_t __n) const {
 // The second-tab name vector calls the existing out-of-line destructor.
 namespace _STL { template <> vector<AsciiString>::~vector(); }
 void __cdecl Rva004178C1(int profile, const AsciiString &name);
-class PlayerInfo {public: bool isIgnored();};
+#include "../../../../../Include/GameNetwork/PlayerInfo.h"
 #include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 void __cdecl Rva004177D5(int);

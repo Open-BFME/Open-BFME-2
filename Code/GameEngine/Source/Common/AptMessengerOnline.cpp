@@ -204,7 +204,7 @@ template<> __declspec(dllimport) __forceinline void allocator<int>::deallocate(i
 template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<int *, int, allocator<int> >::deallocate(int *p, size_t n) {static_cast<const allocator<int> &>(*this).deallocate(p, n);}
 }
 
-class PlayerInfo {public: bool isIgnored();};
+#include "../../Include/GameNetwork/PlayerInfo.h"
 
 #include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 

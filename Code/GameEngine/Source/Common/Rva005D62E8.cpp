@@ -93,16 +93,7 @@ public:
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class PlayerInfo
-{
-public:
-	bool isIgnored();
-private:
-	unsigned char m_pad00[0x14];
-public:
-	int m_profileID; // +0x14
-	int m_flags; // +0x18
-};
+#include "../../Include/GameNetwork/PlayerInfo.h"
 
 class Rva005D62E8
 {
@@ -119,17 +110,17 @@ Rva005D62E8 *Rva005D62E8::rva005D62E8(PlayerInfo *playerInfo)
 	m_state = 0;
 	m_player = playerInfo;
 	m_sub = 11;
-	if ((playerInfo->m_flags & 0x20) == 0 && !(*(Rva00E05FB4 **)&TheGameSpyConfig)->vf10(playerInfo->m_profileID))
+	if ((playerInfo->m_at18 & 0x20) == 0 && !(*(Rva00E05FB4 **)&TheGameSpyConfig)->vf10(playerInfo->m_at14))
 	{
 		_STL::map<int, int> *m = TheGameSpyInfo->vf24();
 		MapIntIntTree *mapIntIntTree = (MapIntIntTree *)m;
-		_STL::_Rb_tree_node<IntIntPair> *node = mapIntIntTree->_M_find(m_player->m_profileID);
+		_STL::_Rb_tree_node<IntIntPair> *node = mapIntIntTree->_M_find(m_player->m_at14);
 		if ((void *)node != *(void * *)mapIntIntTree)
 		{
 			m_state = 1;
 			m_sub = 8;
 		}
-		else if (m_player->m_profileID == TheGameSpyInfo->vf31())
+		else if (m_player->m_at14 == TheGameSpyInfo->vf31())
 		{
 			m_state = 3;
 			m_sub = 10;

@@ -30,12 +30,7 @@ public:
 	~MapMetaData();
 };
 
-class PlayerInfo
-{
-public:
-	PlayerInfo(const PlayerInfo &other);
-	~PlayerInfo();
-};
+#include "../../../../GameEngine/Include/GameNetwork/PlayerInfo.h"
 
 class Rva0045EF90Object
 {

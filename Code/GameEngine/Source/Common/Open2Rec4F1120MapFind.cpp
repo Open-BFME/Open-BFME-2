@@ -22,24 +22,7 @@ struct AsciiComparator
 	bool operator()(AsciiString s1, AsciiString s2) const;
 };
 
-class PlayerInfo
-{
-public:
-	~PlayerInfo();
-	AsciiString m_00;
-	AsciiString m_name;									// +0x04
-	AsciiString m_08;
-	int m_0C;
-	int m_10;
-	int m_profileID;									// +0x14
-	unsigned int m_flags;								// +0x18
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-};
+#include "../../Include/GameNetwork/PlayerInfo.h"
 
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 

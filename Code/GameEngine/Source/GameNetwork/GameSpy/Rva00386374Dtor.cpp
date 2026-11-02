@@ -22,13 +22,7 @@ struct GameSpyInfo
 	virtual void reset();
 };
 
-class PlayerInfo
-{
-public:
-	~PlayerInfo();
-private:
-	char m_data[0x30];
-};
+#include "../../../Include/GameNetwork/PlayerInfo.h"
 struct AsciiComparator
 {
 	bool operator()(AsciiString s1, AsciiString s2) const;

@@ -15,25 +15,7 @@
 
 #include "ascii_string.h"
 
-class PlayerInfo
-{
-public:
-	PlayerInfo();
-
-	AsciiString m_at00;
-	AsciiString m_at04;
-	AsciiString m_at08;
-	int m_at0c;
-	int m_at10;
-	int m_at14;
-	int m_at18;
-	int m_at1c;
-	int m_at20;
-	int m_at24;
-	int m_at28;
-	int m_at2c;
-	int m_at30;
-};
+#include "../../Include/GameNetwork/PlayerInfo.h"
 
 // @??0PlayerInfo@@QAE@XZ 0x004F1280
 PlayerInfo::PlayerInfo()

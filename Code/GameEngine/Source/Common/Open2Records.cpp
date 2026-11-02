@@ -132,24 +132,7 @@ Open2Rec439370::Open2Rec439370( const Open2Rec439370 &other )
 // (vtable slot 0x4C; row 0x00386EF8 takes VPlayerInfo@@ by value), and the
 // pair<const AsciiString PlayerInfo> constructors 0x003829AC and 0x00382BF0
 // copy the mapped value through it.
-class PlayerInfo
-{
-public:
-	PlayerInfo( const PlayerInfo &other );
-	AsciiString m_at00;
-	AsciiString m_at04;
-	AsciiString m_at08;
-	int m_at0c;
-	int m_at10;
-	int m_at14;
-	int m_at18;
-	int m_at1c;
-	int m_at20;
-	int m_at24;
-	int m_at28;
-	int m_at2c;
-	int m_at30;
-};
+#include "../../Include/GameNetwork/PlayerInfo.h"
 
 // @??0PlayerInfo@@QAE@ABV0@@Z 0x004F1120
 #pragma optimize("s", on)
