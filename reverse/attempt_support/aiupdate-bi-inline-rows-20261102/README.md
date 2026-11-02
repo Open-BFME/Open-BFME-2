@@ -21,3 +21,5 @@ Slot8: ?getSpecialPower@BehaviorModule@@UAEPAVSpecialPowerModuleInterface@@XZ, n
 Slot9: ?getUpdate@UpdateModule@@UAEPAVUpdateModuleInterface@@XZ, native0x002533D3/13B. Separate normal admission and commit; existing first representative retained.
 
 Slot10: ?getUpgrade@BehaviorModule@@UAEPAVUpgradeModuleInterface@@XZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
+
+Slot11: ?slot11@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
