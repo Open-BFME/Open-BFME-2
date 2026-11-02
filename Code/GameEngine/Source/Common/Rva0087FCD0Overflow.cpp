@@ -81,11 +81,11 @@ void BfmeVecCD::overflow(BfmeElemCD *pos, const BfmeElemCD &value,
 	{
 		if (newFinish)
 		{
-			const BfmeElemCD *v = &value;
-			newFinish->m_00 = v->m_00;
-			newFinish->m_04 = v->m_04;
-			newFinish->m_08 = v->m_08;
-			newFinish->m_0C.copyFrom(&v->m_0C);
+			const BfmeElemCD *valueSource = &value;
+			newFinish->m_00 = valueSource->m_00;
+			newFinish->m_04 = valueSource->m_04;
+			newFinish->m_08 = valueSource->m_08;
+			newFinish->m_0C.copyFrom(&valueSource->m_0C);
 		}
 		++newFinish;
 	}

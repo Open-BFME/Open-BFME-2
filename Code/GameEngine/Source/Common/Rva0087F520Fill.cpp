@@ -16,21 +16,21 @@ struct BfmeElemF5
 BfmeElemF5 *bfmeFillF5(BfmeElemF5 *dest, unsigned n, const BfmeElemF5 *src)
 {
 	unsigned k = n;
-	BfmeElemF5 *d = dest;
+	BfmeElemF5 *destCursor = dest;
 	if (k > 0)
 	{
-		unsigned m = k;
+		unsigned remaining = k;
 		do
 		{
-			if (d)
+			if (destCursor)
 			{
-				d->m_00 = src->m_00;
-				d->m_04 = src->m_04;
-				d->m_08 = src->m_08;
-				d->m_0C.copyFrom(&src->m_0C);
+				destCursor->m_00 = src->m_00;
+				destCursor->m_04 = src->m_04;
+				destCursor->m_08 = src->m_08;
+				destCursor->m_0C.copyFrom(&src->m_0C);
 			}
-			++d;
-		} while (--m);
+			++destCursor;
+		} while (--remaining);
 	}
-	return d;
+	return destCursor;
 }

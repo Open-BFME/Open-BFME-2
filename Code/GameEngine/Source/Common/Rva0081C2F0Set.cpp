@@ -9,7 +9,7 @@ static int Rva0081C2F0VTableAnchor;
 class Rva0081C2F0
 {
 	void *m_vt;
-	int m_04, m_08, m_width, m_10, m_14, m_18, m_1C;
+	int m_04, m_08, m_width, m_height, m_textureWidth, m_textureHeight, m_pitch;
 	float m_20;
 	int m_24;
 	char m_28;
@@ -25,10 +25,10 @@ Rva0081C2F0 &Rva0081C2F0::set(int n)
 	m_04 = 0;
 	m_08 = 0;
 	m_width = 0;
-	m_10 = 0;
-	m_14 = 0;
-	m_18 = 0;
-	m_1C = 0;
+	m_height = 0;
+	m_textureWidth = 0;
+	m_textureHeight = 0;
+	m_pitch = 0;
 	m_24 = n;
 	m_28 = 0;
 	if (n >= 6 || n < 0)

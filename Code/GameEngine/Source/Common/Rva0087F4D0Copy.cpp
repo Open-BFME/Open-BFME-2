@@ -22,18 +22,18 @@ struct BfmeElemF4
 
 BfmeElemF4 *bfmeCopyF4(BfmeElemF4 *first, BfmeElemF4 *last, BfmeElemF4 *dest)
 {
-	BfmeElemF4 *d = dest;
+	BfmeElemF4 *destCursor = dest;
 	while (first != last)
 	{
-		if (d)
+		if (destCursor)
 		{
-			d->m_00 = first->m_00;
-			d->m_04 = first->m_04;
-			d->m_08 = first->m_08;
-			d->m_0C.copyFrom(&first->m_0C);
+			destCursor->m_00 = first->m_00;
+			destCursor->m_04 = first->m_04;
+			destCursor->m_08 = first->m_08;
+			destCursor->m_0C.copyFrom(&first->m_0C);
 		}
 		first++;
-		d++;
+		destCursor++;
 	}
-	return d;
+	return destCursor;
 }

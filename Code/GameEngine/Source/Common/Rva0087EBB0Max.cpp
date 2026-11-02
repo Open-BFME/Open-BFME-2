@@ -19,11 +19,11 @@ public:
 
 void bfmeApplyEB(BfmeObjEB *obj)
 {
-	BfmeCoordEB c;
-	c.m_x = 0.0f;
-	c.m_y = 0.0f;
-	c.m_z = ((GeometryInfo *)obj)->getMaxHeightAbovePosition() * 0.67f;
-	obj->m_50 = c;
-	if (obj->m_44.m_z < c.m_z)
-		obj->m_44 = c;
+	BfmeCoordEB offset;
+	offset.m_x = 0.0f;
+	offset.m_y = 0.0f;
+	offset.m_z = ((GeometryInfo *)obj)->getMaxHeightAbovePosition() * 0.67f;
+	obj->m_50 = offset;
+	if (obj->m_44.m_z < offset.m_z)
+		obj->m_44 = offset;
 }

@@ -29,8 +29,8 @@ struct BfmeElemAA
 	int m_04;
 	int m_08;
 	int m_0C;
-	BfmeCoordAA m_10;
-	StringBase<char> m_1C;
+	BfmeCoordAA m_position;
+	StringBase<char> m_name;
 	char m_20;
 	char m_21;
 	char m_pad[2];
@@ -50,8 +50,8 @@ BfmeElemAA *bfmeCopyAA(BfmeElemAA *first, BfmeElemAA *last, BfmeElemAA *dest)
 			dest->m_04 = last->m_04;
 			dest->m_08 = last->m_08;
 			dest->m_0C = last->m_0C;
-			dest->m_10 = last->m_10;
-			dest->m_1C.set(last->m_1C);
+			dest->m_position = last->m_position;
+			dest->m_name.set(last->m_name);
 			dest->m_20 = last->m_20;
 			dest->m_21 = last->m_21;
 		} while (--remaining);
