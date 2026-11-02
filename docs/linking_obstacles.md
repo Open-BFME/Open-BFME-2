@@ -18334,3 +18334,5 @@ SupplyTruck secondary slot11 now has its ordinary bool setter at object+404: com
 SupplyTruck secondary slot12's bool getter at object+404 now matches complete4B native232E8F; all thirteen ctor rows pass. Owning ICF admission preserves the existing IMEManager row and adds no pin. Remaining callback/base prerequisites and census status are unchanged.
 
 SupplyTruck secondary slot13's typed bool store at object+405 matches complete10B native5975D7 with RET4. All fourteen ctor rows pass; the old scalar-store representative and legacy differently placed semantic setter remain. No pin or unit/census clearance is added.
+
+SupplyTruck secondary slot14's typed bool getter at object+405 matches complete4B native4A6A40. All fifteen ctor rows pass; the existing byte-field representative remains. No pin or unit/census clearance is added.
