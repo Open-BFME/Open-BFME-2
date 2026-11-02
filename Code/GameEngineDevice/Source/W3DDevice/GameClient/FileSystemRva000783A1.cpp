@@ -10,12 +10,7 @@
 
 class File;
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
-	File *rva000783A1(const char *filename, int access, int a, int b);
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 
 struct TwoInts
 {

@@ -139,12 +139,7 @@ struct FileInfo
 
 #include "../../../../GameEngine/Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int flags);
-	bool getFileInfo(const AsciiString &filename, FileInfo *fileInfo) const;
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

@@ -10,11 +10,7 @@
 
 class File;
 
-class FileSystem
-{
-public:
-	File *rva000783A1(const char *filename, int access, int a, int b);
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 
 // The global at 0x9E1FAC is the W3D file system.
 class W3DFileSystem;

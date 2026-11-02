@@ -22,7 +22,7 @@ extern "C" char *__cdecl strcpy(char *,const char *);
 extern "C" unsigned int __cdecl strlen(const char *);
 extern "C" char *__cdecl _mbscat(char *,const char *);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
-class FileSystem { public: bool doesFileExist(const char *) const; };
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

@@ -321,12 +321,7 @@ public:
 	int m_bfmeStackEAN[0x61]; // +0x2C
 };
 #include "../../../Include/Common/File.h"
-class FileSystem
-{
-public:
-	class File *openFile(const char *filename, int access, int unk);
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class Rva00542806
 {

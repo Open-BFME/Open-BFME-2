@@ -22,7 +22,7 @@ template <> pair<_Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less
 _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, allocator<AsciiString> >::insert_unique(const AsciiString &);
 }
 #include "../../../GameEngine/Include/Common/File.h"
-class FileSystem { public: File *openFile(const char *,int,int); };
+#include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class MilesMutexGuard {
 public:

@@ -49,7 +49,8 @@ class Rva000411084 { public: void *next(); void *current,*owner; Rva000411084(){
 #include "../../../GameEngine/Include/GameLogic/Rva000427195.h"
 struct AudioEventNode { void *next; AsciiString key; const AudioEventInfo* info; };
 class AudioEventRTS { public: void rva002D9ADC(); AsciiString getFilename(); };
-class FileSystem { public: bool doesFileExist(const char*)const; };extern FileSystem*TheFileSystem;
+#include "../../../GameEngine/Include/Common/FileSystem.h"
+extern FileSystem*TheFileSystem;
 class MilesAudioManager { public: virtual bool isMusicAlreadyLoaded()const; private: char prefix[0xb8]; mutable Rva000427195 table; };
 bool MilesAudioManager::isMusicAlreadyLoaded()const {
  ScopedMusicRef music;

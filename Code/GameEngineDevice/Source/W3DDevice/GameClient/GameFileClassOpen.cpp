@@ -12,11 +12,7 @@
 
 #include "../../../../GameEngine/Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile( const char *filename, int access, int flags );
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

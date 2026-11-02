@@ -69,11 +69,7 @@ public:
     virtual int size();
     AsciiString filename;
 };
-class FileSystem
-{
-public:
-    File *openFile(const char *, int, int);
-};
+#include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class Debug
 {

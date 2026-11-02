@@ -258,7 +258,7 @@ class Rva0007E90ECallee {public:char unknown00[0x28];AsciiString file;void rva00
 
 #include "../../../../../GameEngine/Include/Common/File.h"
 
-class FileSystem {public:File *openFile(const char*,int,int);};
+#include "../../../../../GameEngine/Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

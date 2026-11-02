@@ -10,11 +10,7 @@ class File {public:
  virtual char *readEntireAndClose();
  bool eof();
 };
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
-};
+#include "../../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 #include <string.h>
 #include <stdio.h>

@@ -380,12 +380,7 @@ public:
 	unsigned int getFileLength();
 };
 #include "../../Include/Common/File.h"
-class FileSystem
-{
-public:
-	bool doesFileExist(const char *filename) const;
-	File *openFile(const char *filename, int flags);
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 // BFME LAN chat passes an IP/port record by address, unlike the ZH scalar IP.

@@ -32,7 +32,7 @@ extern "C" __declspec(dllimport) int __cdecl isdigit(int);
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char*,int);
 }
 #include "../../../../../GameEngine/Include/Common/File.h"
-class FileSystem {public:File *openFile(const char*,int,int);};
+#include "../../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 static File *openFile(const AsciiString *fname)throw()
 {

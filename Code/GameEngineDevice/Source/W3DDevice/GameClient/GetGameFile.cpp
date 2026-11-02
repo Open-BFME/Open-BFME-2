@@ -8,11 +8,7 @@
 
 class File;
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 
 class W3DFileSystem
 {

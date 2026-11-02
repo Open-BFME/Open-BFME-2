@@ -95,11 +95,7 @@ struct StandingWaterPCAProperty
     AsciiString value;
 };
 #include "../../../Include/Common/File.h"
-class FileSystem
-{
-    public:
-    File *openFile(const char *,int,int);
-};
+#include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 void Rva00309358Tokenize(const std::string&,std::vector<std::string>&,const std::string&);
 class StandingWaterArea

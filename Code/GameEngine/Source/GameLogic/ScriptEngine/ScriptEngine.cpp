@@ -923,11 +923,7 @@ namespace _STL { template <> void __introsort_loop<int *,int,int,Rva00204BB8>(in
 
 #include "../../../Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int bufferSize);
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

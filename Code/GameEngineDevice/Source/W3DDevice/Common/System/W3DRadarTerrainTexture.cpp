@@ -36,7 +36,8 @@
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 class Player { public: AsciiString getBaseSide() const; };
 class GameState; extern GameState *TheGameState;
-class FileSystem { public: bool doesFileExist(const char*) const; }; extern FileSystem *TheFileSystem;
+#include "../../../../../GameEngine/Include/Common/FileSystem.h"
+extern FileSystem *TheFileSystem;
 class TextureClass { public: void Release_Ref(); };
 class BfmeMapPictureTexture { public: TextureClass *ptr; BfmeMapPictureTexture(const char*); BfmeMapPictureTexture &operator=(const BfmeMapPictureTexture&); ~BfmeMapPictureTexture(){if(ptr)ptr->Release_Ref();} };
 class BfmeResetTextureRef { public: void clear(); };

@@ -24,11 +24,7 @@ typedef unsigned char UnsignedByte;
 
 #include "../../Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, Int access = 0, Int bufferSize = 0);
-};
+#include "../../Include/Common/FileSystem.h"
 
 class NetCommandMsg
 {

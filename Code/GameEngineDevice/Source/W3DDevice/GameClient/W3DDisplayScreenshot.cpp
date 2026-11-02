@@ -30,12 +30,7 @@ extern "C" __declspec(dllimport) void *__stdcall LocalFree(void *memory);
 
 #include "../../../../GameEngine/Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access = 0, int bufferSize = 0);
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"

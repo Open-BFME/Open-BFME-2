@@ -91,12 +91,7 @@ namespace _STL {
 template <> __declspec(dllimport) __declspec(nothrow) __forceinline _String_base<wchar_t, allocator<wchar_t> >::~_String_base() { _M_deallocate_block(); }
 }
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int bufferSize);
-	void getFileListInDirectory(const AsciiString &directory, const AsciiString &searchName, FilenameList &filenameList, bool searchSubdirectories) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

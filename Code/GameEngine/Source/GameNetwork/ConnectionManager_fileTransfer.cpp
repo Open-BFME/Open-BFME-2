@@ -75,12 +75,7 @@ enum
 
 #include "../../Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, Int access = 0, Int bufferSize = 0);
-	Bool doesFileExist(const char *filename) const;
-};
+#include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

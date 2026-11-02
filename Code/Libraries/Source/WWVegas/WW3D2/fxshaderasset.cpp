@@ -170,12 +170,7 @@ extern "C" HRESULT __stdcall D3DXCreateEffectFromFileA(IDirect3DDevice8 *device,
 
 #include "../../../../GameEngine/Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int bufferSize);
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../../../GameEngine/Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

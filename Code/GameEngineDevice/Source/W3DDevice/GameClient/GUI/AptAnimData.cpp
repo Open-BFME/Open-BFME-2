@@ -26,7 +26,7 @@ typedef _STL::set<AsciiString,BfmeStringNoCaseLess,_STL::allocator<AsciiString> 
 // /EHsc copy out of the link.
 extern template _STL::_Rb_tree<AsciiString,AsciiString,_STL::_Identity<AsciiString>,BfmeStringNoCaseLess,_STL::allocator<AsciiString> >::~_Rb_tree();
 
-class FileSystem {public:void getFileListInDirectory(const AsciiString&,const AsciiString&,FilenameList&,bool)const;};
+#include "../../../../../GameEngine/Include/Common/FileSystem.h"
 
 extern FileSystem*TheFileSystem;
 

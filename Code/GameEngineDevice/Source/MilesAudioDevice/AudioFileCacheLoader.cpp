@@ -42,7 +42,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 #include "../../../GameEngine/Include/Common/File.h"
-class FileSystem { public: File *openFile(const char *,int,int); };
+#include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class MilesMutexGuard {
 public:

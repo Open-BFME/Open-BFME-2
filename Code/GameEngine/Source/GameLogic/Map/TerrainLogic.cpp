@@ -987,7 +987,7 @@ private:
 
 #include "../../../Include/Common/File.h"
 
-class FileSystem { public: File *openFile(const char *, int, int); };
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 
