@@ -18741,3 +18741,9 @@ The declared AI getter now has ordinary return-this code matching native4FA5F4/4
 AIUpdate now overrides the BI collision getter with an ordinary null-preserving conversion to its real+24six-slot subobject and the existing public collision view. Complete13B native3730FC and all74consumer rows/five tables pass. The base optional-interface null implementation remains for other classes. Forty-five other existing BI bodies still need rows and full table verification; no original interface-name, whole-class ODR or census clearance is asserted.
 
 Both BI getter repairs complete with74consumer rows, five tables and all1962rows across234dependent sources passing. All127retained old code definitions and other data are unchanged; only the unrowed unused base-null copy disappears from this emitter. BI slot1 now points to exact13B AI collision conversion; its real six-slot subobject is published through the existing API view. [Full object/gate/scope](../reverse/attempt_support/aiupdate-bi-getters-20261102/README.md). Forty-five existing inline methods still need rows and full BI table verification; the five peer-held RET8 names and wider prerequisites remain, without census/runtime clearance.
+
+### Existing AIUpdate BI inline bodies rowed (2026-11-02)
+
+[Native table/body inventory and incremental admissions](../reverse/attempt_support/aiupdate-bi-inline-rows-20261102/README.md). These are existing C++ definitions without ledger rows, not lost coverage. Original owners and interface spellings are retained without original-name/TU or unique-byte claims.
+
+BI slot0 now has its own verified row for the existing complete3B body at0x000D43D0. Normal consumer-row/data checks pass. Remaining BI targets, full table verification and peer-held RET8 primary methods remain; no census clearance is claimed.
