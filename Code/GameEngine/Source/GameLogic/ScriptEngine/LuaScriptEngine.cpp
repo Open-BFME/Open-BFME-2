@@ -365,38 +365,26 @@ public:
 	void DispatchSpyEvent(void *object, int eventKey, int spyKey);	// 0x002628C3 pinned
 };
 #pragma function(strcmp)
-
 class GameState
 {
 	char m_pad00[0x2c];
 public:
 	AsciiString m_pristineMapName;                                       // +0x2C
 };
-
 class Rva002DC7C1
 {
 public:
 	bool rva002DC7C1(const UnicodeString &path) const;
 };
-
 class File;
-
 extern GameState *TheGameState;
-
 extern "C" int (__cdecl * const _imp__sprintf)(char *buffer, const char *format, ...);
-
 struct Rva00990210Range;
-
 unsigned Rva00990210Lookup(Rva00990210Range *range, int index);
-
 extern "C" int lua_gettop( lua_State *state );
-
 extern "C" int lua_type( lua_State *state, int index );
-
 extern "C" double lua_tonumber( lua_State *state, int index );
-
 unsigned Rva00990030Lookup( Rva00990030Range *range, int index );
-
 template <class T> struct Rva00337AA8Buf
 {
 	void *m_ptr;
@@ -406,24 +394,19 @@ template <class T> struct Rva00337AA8Buf
 			Rva00030830GameFree(m_ptr);
 	}
 };
-
 // Retail C0E390 has the fourteen canonical subsystem slots, followed by
 // an empty hook, the name getter at337AA2 and the Version1 Xfer
 // callback at306A9B (same RET4 ABI as the owned free DoXfer worker). The constructor3379FD and
 // WB LuaScriptEngine dtor support identity; the address-derived type retains
 // compatibility with the already-owned deleting dtor337C70.
 enum ParticleSystemID { ParticleSystemIDUnknown = 0 };
-
 struct BfmeOpaqueRecord156;
-
 namespace _STL {
 template<> ParticleSystemID *vector<ParticleSystemID>::erase(ParticleSystemID *,ParticleSystemID *);
 template<> Rva003371B1 *vector<Rva003371B1>::erase(Rva003371B1 *,Rva003371B1 *);
 template<> BfmeOpaqueRecord156 *vector<BfmeOpaqueRecord156>::erase(BfmeOpaqueRecord156 *,BfmeOpaqueRecord156 *);
 }
-
 struct BfmeStringRecord00063BE4;
-
 class Rva00335C88
 {
 public:
@@ -432,19 +415,12 @@ public:
 private:
 	BfmeStringRecord00063BE4 *m_04; // +0x04
 };
-
 struct Rva00337RangeView { void *start,*finish,*limit; };
-
 class BfmeLexEAN;
-
 class XmlNameSlotList;
-
 class Object;
-
 struct Rva00334133Context;
-
 struct Rva00336283Element;
-
 class LuaScriptEngine : public SubsystemInterface
 {
 public:
@@ -496,17 +472,12 @@ private:
  char m_padD9[3];
  int m_singleStepKey; // +0xDC
 };
-
 // Retail VA 0x00E01DBC starts with four zero-filled bytes; the verified
 // initSubsystem<LuaScriptEngine> caller registers the subsystem here.
 LuaScriptEngine *TheLuaScriptEngine = 0;
-
 extern "C" int lua_type(lua_State*,int);
-
 struct Rva00990030Range;
-
 unsigned int Rva00990030Lookup(Rva00990030Range*,int);
-
 class AIUpdateInterface
 {
 public:
@@ -520,13 +491,9 @@ public:
 	bool m_flag3C4; // +0x3C4, set from Fear's third argument
 	bool m_forbid3C5; // +0x3C5 target fact, Bool byte store
 };
-
 int GetGameLogicRandomValue(int,int,char*,int);
-
 extern "C" int __cdecl lua_dobuffer(struct lua_State *L, const char *buff, unsigned int size, const char *name);
-
 extern "C" void __cdecl lua_settop(struct lua_State *L, int idx);
-
 class Rva003340FA
 {
 public:
@@ -536,7 +503,6 @@ private:
 	unsigned char m_pad[0x10];
 	struct lua_State *m_lua;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Ported from Open-BFME-1 GameEngine/Source/Common/BfmeConv824.cpp
@@ -546,19 +512,13 @@ private:
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
 
 extern void *g_activeObj12F0610;
-
 void __cdecl bfmeLogMsg574(const char *msg);
-
 // The traceback printer and the console hook are rowed as Rva00333BCALog and
 // Rva00333CD1Console (ScriptEngine/Rva00333BCALog.cpp, Rva00333CD1Console.cpp).
 struct LuaAr;
-
 void __cdecl Rva00333BCALog(void *L, LuaAr *ar);
-
 int __cdecl Rva00333CD1Console(void *L, LuaAr *ar);
-
 extern const char bfmeEmptyStr107388B[];
-
 struct BfmeStrHolder43D
 {
 	const char *m_raw;
@@ -567,11 +527,8 @@ struct BfmeStrHolder43D
 		return m_raw ? (const char*)((char*)m_raw + 8) : bfmeEmptyStr107388B;
 	}
 };
-
 void __cdecl bfmeHelper996070(void *field, void *arg1, void *arg2, const char *name);
-
 extern "C" void __cdecl lua_settop(lua_State *state, int index);
-
 struct BfmeThing43D
 {
 	unsigned char pad[8];
@@ -580,9 +537,7 @@ struct BfmeThing43D
 	void doDispatch8(void *arg1, void *arg2, BfmeStrHolder43D *nameHolder);
 	void doDispatchC(void *arg1, void *arg2, BfmeStrHolder43D *nameHolder);
 };
-
 extern const float g_rva01075350;
-
 class BfmeBaseA97
 {
 public:
@@ -598,31 +553,20 @@ public:
 	void handleMatch(void *a, void *b);
 	void checkAndDispatch(void *a, void *b);
 };
-
 class AudioManager;
-
 extern AudioManager *TheAudio;
-
 class SpecialPowerStore;
-
 extern SpecialPowerStore *TheSpecialPowerStore;
-
 class SpecialPowerStore
 {
 public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
-
 class Player;
-
 class UpgradeTemplate;
-
 class ContainModuleInterface;
-
 class PhysicsBehavior;
-
 class Rva002E9F70Vtbl94;
-
 class Object
 {
 public:
@@ -674,16 +618,12 @@ public:
 public:
 	Player *getControllingPlayer() const;
 };
-
 class Upgrade;
-
 struct BfmeSideHolder
 {
 	void *m_data;
 };
-
 enum UpgradeStatusType { UPGRADE_STATUS_02 = 2 };
-
 class Player
 {
 public:
@@ -694,65 +634,50 @@ public:
 	char m_pad00[0x58];
 	BfmeSideHolder m_side58; // +0x58 target fact, AsciiString-compatible 4B
 };
-
 class UpgradeTemplate
 {
 public:
 	int m_00;
 	int m_type;
 };
-
 class UpgradeCenter
 {
 public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &n) const;
 };
-
 extern UpgradeCenter *TheUpgradeCenter;
-
 struct Rva00335CAERec
 {
 	AsciiString name; // +0
 	char _pad04[16]; // +4..+13 (sizeof 20)
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
-
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@UBfmeStringRecord000331962@@V?$allocator@UBfmeStringRecord000331962@@@_S:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmeStringRecord000331962;
-
 namespace _STL { template <> _Vector_base<BfmeStringRecord000331962,allocator<BfmeStringRecord000331962> >::~_Vector_base(); }
-
 namespace _STL { template <> BfmeStringRecord000331962 * _STLP_alloc_proxy<BfmeStringRecord000331962 *,BfmeStringRecord000331962,allocator<BfmeStringRecord000331962> >::allocate(unsigned int); }
-
 namespace _STL { template <> void allocator<BfmeStringRecord000331962>::deallocate(BfmeStringRecord000331962 *,unsigned int) const; }
-
 // Use the rowed vector copy constructor at 0x0033629E. This unit's /Ob2
 // copy and its allocation/copy helpers differ from the native providers.
 namespace _STL {
 template <> vector<BfmeStringRecord000331962,allocator<BfmeStringRecord000331962> >::vector(const vector<BfmeStringRecord000331962,allocator<BfmeStringRecord000331962> > &);
 }
-
 struct BfmeStringRecord000331962 {
     unsigned int word;
     AsciiString text;
     unsigned char flag;
     ~BfmeStringRecord000331962();
 };
-
 // The member copy calls the rowed vector constructor at 0x0033629E.
 // Its provider owns the allocation/copy helpers; this caller only declares it.
 namespace _STL {
 template <> vector<BfmeStringRecord000331962>::vector(const vector &);
 }
-
 template void _STL::_Construct<Rva003371B1, Rva003371B1>(Rva003371B1 *, const Rva003371B1 &);
-
 class Rva002E9E70
 {
 public:
@@ -762,17 +687,13 @@ public:
 	unsigned char _pad5[3];
 	unsigned char m_vec[12];
 };
-
 typedef Rva002E9E70 *(__cdecl *Rva002E9E70FiveArg)(Rva002E9E70 *, Rva002E9E70 *, Rva002E9E70 *, void *, int);
-
 typedef Rva002E9E70 *(__cdecl *Rva002E9E70FourArg)(Rva002E9E70 *, Rva002E9E70 *, Rva002E9E70 *, void *);
-
 struct Rva003321D8 : _STL::vector<BfmeStringRecord000331962>
 {
     __declspec(dllimport) __forceinline Rva003321D8(const Rva003321D8 &other) : _STL::vector<BfmeStringRecord000331962>(other) {}
     ~Rva003321D8();
 };
-
 class Rva003323AD {
 public:
     Rva003323AD(const StringBase<char> &name);
@@ -783,7 +704,6 @@ public:
     unsigned char m_flag;
     Rva003321D8 m_vec;
 };
-
 class Rva003371B1 : public Rva003323AD {
 public:
     Rva003371B1(const AsciiString &name) : Rva003323AD(*(const StringBase<char> *)&name) {}
@@ -791,7 +711,6 @@ public:
     Rva003371B1 &operator=(const Rva003371B1 &other);
     ~Rva003371B1();
 };
-
 struct Rva00337C55Less
 {
     bool operator()(const Rva003371B1 &a, const Rva003371B1 &b) const
@@ -799,21 +718,17 @@ struct Rva00337C55Less
         return ((const StringBase<char> &)a.m_str).compare((const StringBase<char> &)b.m_str) < 0;
     }
 };
-
 template void _STL::partial_sort<Rva003371B1 *, Rva00337C55Less>(Rva003371B1 *, Rva003371B1 *, Rva003371B1 *, Rva00337C55Less);
-
 // ?Rva00337802Forward@@YAXPAX00@Z retail 0x00337802 23 bytes.
 // Forwards to 0x003377BC ?gen002EADF0@@YAXPAX0H0@Z with 0 as third arg and own third as fourth.
 // Callees rowed; caller 0x0033788F passes 3 args; unblocks 0x0033788F.
 // Identity honest address name free function.
 void __cdecl gen002EADF0(void *a, void *b, int c, void *d);
-
 // ?Rva0033788FSortHeap@@YAXPAX00@Z retail 0x0033788F 65 bytes.
 // Calls 0x00337802 Forward in a sort_heap loop decrementing by 0x14.
 // Caller 0x003379F0 passes 3 args; unblocks 0x00337999.
 // Identity honest address name free function.
 void __cdecl Rva00337802Forward(void *first, void *last, void *comp);
-
 struct S4SortElem20
 {
     AsciiString m_name;
@@ -823,7 +738,6 @@ struct S4SortElem20
     ~S4SortElem20();
     S4SortElem20 &operator=(const S4SortElem20 &) throw();
 };
-
 struct S4Cmp002EB8E0
 {
     bool operator()(const S4SortElem20 &left, const S4SortElem20 &right) const
@@ -831,7 +745,6 @@ struct S4Cmp002EB8E0
         return ((const StringBase<char> &)left.m_name).compare((const StringBase<char> &)right.m_name) < 0;
     }
 };
-
 namespace _STL
 {
 // Insertion helpers use the existing record lifetime and EH-enabled provider.
@@ -842,11 +755,8 @@ template <> void __unguarded_insertion_sort_aux<S4SortElem20 *, S4SortElem20, S4
 
 template void __final_insertion_sort<S4SortElem20 *, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4Cmp002EB8E0);
 }
-
 class BfmeStrF9 { public: void *m_data; };
-
 class BfmeObjF9 { public: void setFlag(const BfmeStrF9 &name, char flag); };
-
 namespace _STL
 {
 
@@ -855,42 +765,31 @@ void __pop_heap(RandomAccessIterator first, RandomAccessIterator last,
     RandomAccessIterator result, Tp value, Compare comp, Distance *distance);
 
 }
-
 void Rva00337819Insert(Rva002E9E70 *first, Rva002E9E70 *last, Rva003371B1 value, int unused);
-
 void Rva002EBEF0Intro(S4SortElem20 *first,
 	S4SortElem20 *last, S4SortElem20 *, int depth,
 	S4Cmp002EB8E0 comp);
-
 namespace _STL
 {
 template <class RandomAccessIter, class Compare>
 void __final_insertion_sort(RandomAccessIter first,
 	RandomAccessIter last, Compare comp);
 }
-
 class ThingTemplate;
-
 class Drawable;
-
 class SpecialPowerModuleInterface;
-
 struct LuaTargetOwner
 {
 	char m_targetPad[0xFC];
 	Object *m_target;	// +0xFC
 };
-
 struct LuaDrawableState
 {
 	char m_drawablePad[0x9C];
 	LuaDrawableLink *m_drawable;	// +0x9C
 };
-
 class LuaScriptEngine;
-
 extern LuaScriptEngine *TheLuaScriptEngine;
-
 // ?rva00332E60@Rva00332E60@@QAEPAXH@Z @0x00332E60 35B
 // retail 0x00332E60 35 bytes unlock search 17-entry table at +0x14 each 8 bytes
 // compares first dword to arg returns entry pointer or null caller 0x00333918
@@ -901,19 +800,16 @@ struct Rva00332E60Entry
 	unsigned int key;
 	unsigned int value;
 };
-
 struct Rva00333261Entry
 {
 	int key;
 	unsigned char pad[0x20];
 };
-
 struct Rva0033323DEntry
 {
 	int key;
 	unsigned char pad[0x98];
 };
-
 class Rva00332E60
 {
 public:
@@ -936,7 +832,6 @@ private:
 	Rva00333261Entry *m_c8Begin;
 	Rva00333261Entry *m_c8End;
 };
-
 // ??0Rva00332EC8@@QAE@ABV0@@Z @0x00332EC8 43B
 // retail 0x00332EC8 43 bytes chain copy dword at +0 plus two BfmeObject872Header at +4 and +0x14
 // via rowed BfmeObject872Header copy 0x002CF108 caller 0x003332A1 unblocks 0x00333295
@@ -949,7 +844,6 @@ public:
 private:
 	char m_data[16];
 };
-
 class Rva00332EC8
 {
 public:
@@ -959,17 +853,12 @@ private:
 	BfmeObject872Header m_a;
 	BfmeObject872Header m_b;
 };
-
 struct Rva00332EF3Element { char bytes[156]; bool operator<(const Rva00332EF3Element&)const; bool operator==(const Rva00332EF3Element&)const; };
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva00332EF3Element * _STL::__copy<Rva00332EF3Element *, Rva00332EF3Element *, int>(Rva00332EF3Element *, Rva00332EF3Element *, Rva00332EF3Element *, _STL::random_access_iterator_tag const &, int *);
-
 struct Rva00332F29Element { char bytes[36]; bool operator<(const Rva00332F29Element&)const; bool operator==(const Rva00332F29Element&)const; };
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva00332F29Element * _STL::__copy<Rva00332F29Element *, Rva00332F29Element *, int>(Rva00332F29Element *, Rva00332F29Element *, Rva00332F29Element *, _STL::random_access_iterator_tag const &, int *);
-
 // ??0Rva00332F5B@@QAE@ABVWeaponTemplateSetHead@@0@Z @0x00332F5B 38B
 // retail 0x00332F5B 38 bytes: name key at +0 plus two WeaponTemplateSetHead at +4 and +0x50
 // LuaScriptEngineParseModelConditionEvent sets +0 with EventFlagEntry::setKeyFromName.
@@ -982,7 +871,6 @@ struct Rva00336BE4Key
 	unsigned key;
 	Rva00336BE4Key();
 };
-
 class WeaponTemplateSetHead
 {
 public:
@@ -990,7 +878,6 @@ public:
 private:
 	char m_data[76];
 };
-
 class Rva00332F5B
 {
 public:
@@ -1001,9 +888,7 @@ private:
 	WeaponTemplateSetHead m_a;
 	WeaponTemplateSetHead m_b;
 };
-
 bool __cdecl Rva00045473Equal(const void *a, const void *b);
-
 class Rva00332FC1
 {
 public:
@@ -1014,38 +899,29 @@ private:
 	BfmeObject872Header m_a;
 	BfmeObject872Header m_b;
 };
-
 __declspec(nothrow) bool __cdecl Rva002634E0Equal(const void *a, const void *b);
-
 struct LuaTargetOwner;
-
 void Rva00333295Construct(Rva00332EC8 *dest, const Rva00332EC8 &src) throw();
-
 struct Rva00333374IdOwner
 {
 	unsigned char m_pad[0x74];
 	int m_id; // +0x74
 };
-
 extern "C" const char *__cdecl lua_tostring(struct lua_State *L, int idx);
-
 struct LuaDrawableLink3336AD
 {
 	char m_pad000[0x0C];
 	Drawable *m_drawable;	// +0x0C
 };
-
 struct LuaDrawableHolder3336AD
 {
 	LuaDrawableLink3336AD *m_link;
 };
-
 struct LuaDrawableState3336AD
 {
 	char m_pad000[0x9C];
 	LuaDrawableHolder3336AD m_holder;	// +0x9C
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Ported from Open-BFME-1 GameEngine/Source/Common/BfmeConv808.cpp
@@ -1059,21 +935,17 @@ struct BfmeAEFC
 	unsigned char m_bfmeHead[0x40];
 	float m_bfmeF;
 };
-
 struct BfmeBEFC
 {
 	unsigned char m_bfmeHead[8];
 	float m_bfmeF;
 };
-
 void __stdcall bfmeCallEFC(BfmeAEFC *a, float v);
-
 struct BfmeBEFD
 {
 	unsigned char m_bfmeHead[0x40];
 	float m_bfmeF;
 };
-
 struct BfmeNodeEFE
 {
 	BfmeNodeEFE *bfmeUpdEFE();
@@ -1082,7 +954,6 @@ struct BfmeNodeEFE
 	unsigned char m_bfmePad[0x18];
 	int m_bfmeX;
 };
-
 struct BfmeThingEFE
 {
 	int bfmeGoEFE();
@@ -1091,11 +962,8 @@ struct BfmeThingEFE
 	unsigned char m_bfmePad[0x18];
 	int m_bfmeX;
 };
-
 void *__cdecl bfmeOneEFF(void *a, int n);
-
 void __cdecl bfmeTwoEFF(int n, void *r);
-
 class BfmeThingEFG
 {
 public:
@@ -1104,9 +972,7 @@ public:
 	void bfmeClearEFG();
 	void bfmeCopyEFG(BfmeThingEFG *o);
 };
-
 void __cdecl bfmeTwoEFFb(int n, void *r);
-
 struct BfmeNodeEFH
 {
 	BfmeNodeEFH *bfmeUpdEFH();
@@ -1115,7 +981,6 @@ struct BfmeNodeEFH
 	unsigned char m_bfmePad[0x10c];
 	char m_bfmeC;
 };
-
 struct BfmeThingEFH
 {
 	char bfmeGoEFH();
@@ -1124,7 +989,6 @@ struct BfmeThingEFH
 	unsigned char m_bfmePad[0x10c];
 	char m_bfmeC;
 };
-
 class AudioManager {
 public:
  virtual void slot00();
@@ -1204,7 +1068,6 @@ public:
  virtual void slot4a();
  virtual Rva0036CA00Str rvaSlot12C(const AsciiString &);
 };
-
 class Rva003339CE
 {
 public:
@@ -1213,7 +1076,6 @@ public:
 private:
 	unsigned m_words[4]; // +0x00
 };
-
 class Rva000B664E
 {
 public:
@@ -1222,7 +1084,6 @@ public:
 private:
 	unsigned m_words[19]; // +0x00
 };
-
 class Rva00333B02
 {
 public:
@@ -1231,9 +1092,7 @@ public:
 private:
 	AsciiString m_10; // +0x10
 };
-
 extern "C" int __cdecl lua_getinfo(void *L, const char *what, void *ar);
-
 struct LuaAr
 {
 	int m_00;
@@ -1247,11 +1106,8 @@ struct LuaAr
 	char short_src[60];
 	int i_ci;
 };
-
 struct LuaDrawableLink;
-
 unsigned Rva00990210Lookup( lua_State *range, int index );
-
 class Rva002E6B70Object : public Object
 {
 public:
@@ -1260,7 +1116,6 @@ public:
 	// EnragedBehavior module literal, so retain an address-derived ABI view.
 	void Rva001E33FSetBool( bool flag );
 };
-
 class Rva002E6A00Object : public Object
 {
 public:
@@ -1269,9 +1124,7 @@ public:
 	// ABI view for the ObjectSetChanting binding.
 	void Rva001ED6CSetBool( bool flag );
 };
-
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/NameKeyGenerator.h
 class NameKeyGenerator
 {
@@ -1279,14 +1132,11 @@ public:
 	NameKeyType nameToKey( const char *name );
 	NameKeyType nameToKey(const AsciiString &name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 struct BfmeDelayedLuaEvent
 {
 	unsigned char m_data[0x18];
 };
-
 // DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
 // vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
 struct DelayedLuaEventList
@@ -1296,7 +1146,6 @@ struct DelayedLuaEventList
 
 	BfmeDelayedLuaEvent m_events[3];
 };
-
 struct BfmeDispatchDelayedLuaEvent
 {
 	void *m_vtable;
@@ -1307,52 +1156,31 @@ struct BfmeDispatchDelayedLuaEvent
 	AsciiString m_string;
 	unsigned m_type;
 };
-
 extern "C" void _ReadWriteBarrier( void );
-
 extern double g_bfmeSubB3;
-
 #include "../../../Include/GameLogic/WeaponTemplate.h"
-
 class WeaponStore
 {
 public:
 	const WeaponTemplate *findWeaponTemplate(const AsciiString &n) const;
 	void createAndFireTempWeapon(const WeaponTemplate *w, const Object *o, const struct Coord3D *p);
 };
-
 extern WeaponStore *TheWeaponStore;
-
 int GetClientRandomNumberReal(lua_State *state);
-
 int CurDrawableAllowToContinue(lua_State *state);
-
 int GetRandomNumber(lua_State *state);
-
 int CurDrawableModelcondition(lua_State *state);
-
 int CurDrawableObjectStatus(lua_State *state);
-
 int CurDrawableHideSubObject(lua_State *state);
-
 int CurDrawableShowSubObject(lua_State *state);
-
 int CurDrawableHideSubObjectPermanently(lua_State *state);
-
 int CurDrawableShowSubObjectPermanently(lua_State *state);
-
 int CurDrawablePrevAnimationState(lua_State *state);
-
 int CurDrawablePrevAnimation(lua_State *state);
-
 int CurDrawableIsCurrentTargetKindof(lua_State *state);
-
 int ObjectTestCanSufferFear(lua_State *L);
-
 extern "C" int __cdecl lua_getstack(void *L, int level, LuaAr *ar);
-
 extern "C" int __cdecl lua_dostring(void *L, const char *str);
-
 class Debug
 {
 public:
@@ -1396,9 +1224,7 @@ public:
 	virtual void slot37();
 	virtual int readLine(char *buffer, int maxChars, bool *more);
 };
-
 extern Debug *theDebug;
-
 // The Lua debugger's active object, retail VA 0x00E01DC0 (RVA 0x00A01DC0): the
 // rowed console body clears it and stores the state into it (retail 0x00333E27
 // `andl $0x0,0xe01dc0` and 0x00333E3A `mov %edi,0xe01dc0`), and BfmeConv's
@@ -1409,7 +1235,6 @@ extern Debug *theDebug;
 // BfmeConv824.cpp are its only writers, and this is the sole one whose rows are
 // otherwise ready to link.
 void *g_activeObj12F0610 = 0;
-
 extern "C"
 {
 	void __cdecl lua_settop( lua_State *L, int idx );
@@ -1417,38 +1242,29 @@ extern "C"
 	int __cdecl lua_gettop( lua_State *L );
 	const char *__cdecl lua_tostring( lua_State *L, int idx );
 }
-
 struct Rva00334133Template
 {
 	char m_pad00[ 0x64 ];
 	const char *m_nameText;
 };
-
 struct Rva00334133Source
 {
 	char m_pad00[ 4 ];
 	Rva00334133Template *m_template;
 };
-
 struct Rva00334133Context
 {
 	char m_pad00[ 0xC ];
 	Rva00334133Source *m_source;
 };
-
 extern "C" int lua_isnumber(lua_State *state, int index);
-
 extern "C" int lua_isstring(lua_State *state, int index);
-
 unsigned Rva00990030Lookup(Rva00990030Range*,int);
-
 unsigned Rva00990210Lookup(Rva00990210Range*,int);
-
 class ObjectStatusMask
 {
 	unsigned int m_bits[2];
 };
-
 class Parameter
 {
 public:
@@ -1469,7 +1285,6 @@ private:
 	Coord3D m_coord;
 	ObjectStatusMask m_objectStatus;
 };
-
 class ScriptAction
 {
 public:
@@ -1486,7 +1301,6 @@ public:
 	char m_pad41[0x3];
 	int m_bfmeActionTail; // +0x44
 };
-
 class Condition
 {
 public:
@@ -1506,7 +1320,6 @@ public:
  int m_tail44, m_tail48;
 	
 };
-
 class ConditionTemplate
 {
 public:
@@ -1515,7 +1328,6 @@ public:
 	AsciiString m_uiName2;
 	AsciiString m_internalName;
 };
-
 class ScriptConditionsInterface
 {
 public:
@@ -1535,14 +1347,10 @@ public:
 	virtual void slot13();
 	virtual bool evaluateCondition(Condition *action);
 };
-
 extern ScriptEngine *TheScriptEngine;
-
 // Use ScriptEngine_init's global type; the interface class is a local call view.
 class ScriptConditions;
-
 extern ScriptConditions *TheScriptConditions;
-
 class ActionTemplate
 {
 public:
@@ -1551,7 +1359,6 @@ public:
 	AsciiString m_uiName2;
 	AsciiString m_internalName;
 };
-
 class ScriptActionsInterface
 {
 public:
@@ -1571,51 +1378,38 @@ public:
 	virtual void slot13();
 	virtual void executeAction(ScriptAction *action);
 };
-
 // Use ScriptEngine_init's global type; the interface class is a local call view.
 class ScriptActions;
-
 extern ScriptActions *TheScriptActions;
-
 unsigned Rva00990210Lookup( Rva00990210Range *range, int index );
-
 #include "Common/TeamBFME2.h"
-
 class AIUpdateInterface;
-
 class LuaAllegianceAI {
     unsigned char pad00[0x240];
 public:
     unsigned int allegianceTeamID;
 };
-
 // Native lookup bodies are visible so the compiler knows they only read the
 // map and can retain TheGameLogic across both calls in ObjectCapturingObjectPlayerSide.
 // Same verified traversal as ProjectileNuggetObjectEffect.cpp: native
 // _M_find2888D4 plus pinned STLport reference; 37B/47B COMDAT owners unchanged.
 struct LuaCapturingLookupNode { LuaCapturingLookupNode *next; ObjectID key; Object *object; };
-
 struct LuaCapturingLookupBuckets {
  LuaCapturingLookupNode **begin,**end,**capacity;
  unsigned int size() const { return end-begin; }
  LuaCapturingLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
 };
-
 struct LuaCapturingLookupMap { unsigned char hashEqual[4]; LuaCapturingLookupBuckets buckets; };
-
 namespace _STL {
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::_List_base(const allocator<Rva0036ADF9Element>&);
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
 }
-
 class AsciiString;
-
 class Rva001BDA20
 {
 public:
 	void rva00331842(lua_State *state, int index);	// 0x00331842
 };
-
 class HordeContainInterface
 {
 public:
@@ -1637,7 +1431,6 @@ public:
 #undef HORDE_SLOT
 	virtual void getMemberIDs(ContainmentList *members);	// slot 67 (+0x10C)
 };
-
 class ContainModuleInterface
 {
 public:
@@ -1652,11 +1445,8 @@ public:
 #undef CONTAIN_SLOT
 	virtual HordeContainInterface *getHordeContainInterface();	// slot 31 (+0x7C)
 };
-
 struct EventFlagEntry {void setKeyFromName(const char *);};
-
 namespace _STL { template <> void vector<NameKeyType>::push_back(const NameKeyType &); }
-
 #include "../../../Include/Common/INI/FieldParse.h"
 
 struct ModelConditionWords {unsigned long words[19];
@@ -1843,11 +1633,32 @@ namespace _STL
 template <> void vector<Rva003371B1, allocator<Rva003371B1> >::push_back(const Rva003371B1 &);
 }
 
+class Rva0023DA79
+{
+public:
+	Rva0023DA79 *rva0023DA79(int ignored, int index);
+private:
+	unsigned int m_bits[4];
+};
+
+// BFME1 9cbfb551 OpenContain.cpp emits _Base_bitset<4>::_M_do_flip.
+// Native 332E83..332E8F is a complete leaf after bounded 332E60+35:
+// four consecutive 32-bit words are complemented in an unsigned loop.
+// Preserve the unknown owning type with an address-derived storage view.
+class Rva00332E83BitWords
+{
+public:
+    void flip();
+    unsigned int m_words[4];
+};
+
 // tu-skeleton: 0x00332B7A 256B ?InitializeInternalEvents@LuaScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp (not merged yet)
 
 // tu-skeleton: 0x00332C7A 117B ?ProcessInternalEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp (not merged yet)
 
 // tu-skeleton: 0x00332CEF 12B ??0Rva00332CEFHolder@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp
 
@@ -3737,24 +3548,6 @@ void LuaScriptEngine::rva003387DC(const AsciiString &mapName)
 	}
 }
 
-// tu-skeleton: 0x00332E83 12B ?flip@Rva00332E83BitWords@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp (not merged yet)
-
-// tu-skeleton: 0x00332E8F 14B ?rva00332E8F@Rva00332E8F@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x00333027 10B ?get@Rva00333027ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00333283 18B ??$_Construct@UBfmeOpaqueRecord156@@U1@@_STL@@YAXPAUBfmeOpaqueRecord156@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Object156Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x003332A7 47B ??$__uninitialized_copy@PAUBfmeOpaqueRecord156@@PAU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
-
-// tu-skeleton: 0x003332D6 40B ??$__uninitialized_fill_n@PAUBfmeOpaqueRecord156@@IU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
-
-// tu-skeleton: 0x003332FE 29B ??$__copy_ptrs@PAURva00335C62Element@@PAU1@@_STL@@YAPAURva00335C62Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00333366 14B ?Rva00333366Advance@@YAXPAPAEH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
-
-// tu-skeleton: 0x00333B36 148B ?bfmeLogMsg574@@YAXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeLogMsg574.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00333CD1Console.cpp
 
 // ?Rva00333CD1Console@@YAHPAXPAULuaAr@@@Z
@@ -3818,12 +3611,6 @@ int __cdecl Rva00333CD1Console(void *L, LuaAr *ar)
 	bfmeLogMsg574("No console input devices.  Exiting LUA debug mode.\n");
 	return 0;
 }
-
-// tu-skeleton: 0x00333E42 25B _io_debug -- matched in Code/Libraries/Source/Lua/luaB_debug.cpp (not merged yet)
-
-// tu-skeleton: 0x00334003 165B ?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
-
-// tu-skeleton: 0x003340A8 25B ??RS4Cmp002EB8E0@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp
 
@@ -3904,8 +3691,6 @@ AsciiString LuaScriptEngine::rva00334133( const char *buffer, unsigned long size
 	m_drawable = 0;
 	return result;
 }
-
-// tu-skeleton: 0x003341CD 6B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp
 
@@ -4038,8 +3823,6 @@ int ExecuteAction(lua_State *state)
 	bfmeGo1039E(state, 1);
 	return 1;
 }
-
-// tu-skeleton: 0x00334A38 5B ?rva00334A38@Rva00334A38@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp
 
@@ -4542,12 +4325,6 @@ int ObjectSpy(lua_State *state)
 	return 0;
 }
 
-// tu-skeleton: 0x00335C62 38B ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp (not merged yet)
-
-// tu-skeleton: 0x00335C88 38B ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00335C88Rva00335C88.cpp (not merged yet)
-
-// tu-skeleton: 0x00335D5B 646B ?init@LuaScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessScriptedEvent.cpp
 
 //
@@ -4620,9 +4397,7 @@ void LuaScriptEngine::rva002E9680ParseModelConditionEvent(BfmeLexEAN *parser)
 
 // The INIException catch block at 0x00336E1E (caught object at -0x28) belongs to this body; see reverse/attempt_support/00336e1e-boundary-20261019.md.
 
-// tu-skeleton: 0x00336E1E 84B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x00336E72 6B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp
 
@@ -4669,8 +4444,6 @@ void LuaScriptEngine::rva002E9AA0ParseObjectStatusEvent(BfmeLexEAN *parser)
  } catch(...) {}
  if(reinterpret_cast<XmlNameSlotList *>(parser)->finish()==2)reinterpret_cast<XmlNameSlotList *>(parser)->finish();
 }
-
-// tu-skeleton: 0x00337055 6B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp
 
@@ -4752,14 +4525,6 @@ Rva003371B1::~Rva003371B1()
 {
 }
 
-// tu-skeleton: 0x003372EC 39B ??0Rva002E9E70@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00337340 38B ??$__uninitialized_copy@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1UninitCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x00337366 37B ??$__uninitialized_fill_n@PAVRva003371B1@@IV1@@_STL@@YAPAVRva003371B1@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1FillN.cpp (not merged yet)
-
-// tu-skeleton: 0x003373D9 75B ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00337424Insert.cpp
 
 // ?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z @0x00337424 85B sorted insert.
@@ -4779,21 +4544,12 @@ void Rva00337424Insert(Rva002E9E70 *pos, Rva003371B1 value, int unused)
 	new (pos) Rva002E9E70(*(const Rva002E9E70 *)&value);
 }
 
-// tu-skeleton: 0x00337550 5B ??$iter_swap@PAUS4SortElem20@@PAU1@@_STL@@YAXPAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x00337555 46B ??$__unguarded_insertion_sort_aux@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@00US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x00337583 9B ??$_Destroy@VRva003371B1@@@_STL@@YAXPAVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00337655 101B ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp
 
 //
 // ?__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z @ 0x003376BA (23B). Calls __unguarded_insertion_sort_aux with a null value-type tag.
 // Evidence: pin ??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z; callee __unguarded_insertion_sort_aux 0x00337555 rowed; caller __final_insertion_sort matched; donor Open-BFME-1 stlport_unguarded_insertion_sort_s4sortelem20.cpp revision 6d9434269164392c5ba62aaa7c15a86b5b020d76.
 
-// tu-skeleton: 0x003376D1 25B ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00337819Insert.cpp
 
@@ -4820,12 +4576,6 @@ Rva003378D0::~Rva003378D0()
 {
 	_STL::_Destroy(m_start, m_finish);
 }
-
-// tu-skeleton: 0x0033790F 51B ?erase@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEPAVRva003371B1@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x00337942 30B ?_M_clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
-
-// tu-skeleton: 0x003379FD 165B ??0LuaScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp
 
@@ -4865,15 +4615,8 @@ LuaScriptEngine::~LuaScriptEngine()
  if(m_objectStatusEvents) Rva00030830GameFree(m_objectStatusEvents);
 }
 
-// tu-skeleton: 0x00337B4C 11B ?clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00337B57 183B ?_M_insert_overflow@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXPAVRva003371B1@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00337CEA 55B ?push_back@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXABVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00337D21.cpp
 
-// tu-skeleton: 0x00337DEF 187B ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRva00337DEF.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineProcessEventList.cpp
 
@@ -4997,6 +4740,93 @@ __declspec(noinline) char *BfmeLexEAN::getTailEAN()
 {
 	return m_tail;
 }
+
+// ---- from Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp
+
+// ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z @0x0023DA79 (44B): memset-16 plus
+// bit-set returning this. Retail: push esi; push 16; esi=ecx; push 0;
+// push esi; call memset (0x6291AE import); ecx=[esp+24] (index); edx=0;
+// eax=ecx; ecx&=31; edx=1; eax>>=5; edx<<=cl; eax=this+eax*4;
+// add esp,12; [eax]|=edx; eax=esi; pop esi; ret 8. Two int args (first
+// ignored beyond stack slot? second is index? actually [esp+24] after
+// pushes = original second arg?); memset size const 16; no EH; imports
+// resolve; address-derived.
+
+void Rva00332E83BitWords::flip()
+{
+    for (unsigned int i = 0; i < 4; ++i)
+        m_words[i] = ~m_words[i];
+}
+
+// tu-skeleton: 0x00332E8F 14B ?rva00332E8F@Rva00332E8F@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x00333027 10B ?get@Rva00333027ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00333283 18B ??$_Construct@UBfmeOpaqueRecord156@@U1@@_STL@@YAXPAUBfmeOpaqueRecord156@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Object156Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x003332A7 47B ??$__uninitialized_copy@PAUBfmeOpaqueRecord156@@PAU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
+
+// tu-skeleton: 0x003332D6 40B ??$__uninitialized_fill_n@PAUBfmeOpaqueRecord156@@IU1@@_STL@@YAPAUBfmeOpaqueRecord156@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportObject156Vector.cpp (not merged yet)
+
+// tu-skeleton: 0x003332FE 29B ??$__copy_ptrs@PAURva00335C62Element@@PAU1@@_STL@@YAPAURva00335C62Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00333366 14B ?Rva00333366Advance@@YAXPAPAEH@Z -- matched in Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp (not merged yet)
+
+// tu-skeleton: 0x00333B36 148B ?bfmeLogMsg574@@YAXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeLogMsg574.cpp (not merged yet)
+
+// tu-skeleton: 0x00333E42 25B _io_debug -- matched in Code/Libraries/Source/Lua/luaB_debug.cpp (not merged yet)
+
+// tu-skeleton: 0x00334003 165B ?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
+
+// tu-skeleton: 0x003340A8 25B ??RS4Cmp002EB8E0@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x003341CD 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00334A38 5B ?rva00334A38@Rva00334A38@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00335C62 38B ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp (not merged yet)
+
+// tu-skeleton: 0x00335C88 38B ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00335C88Rva00335C88.cpp (not merged yet)
+
+// tu-skeleton: 0x00335D5B 646B ?init@LuaScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
+
+// tu-skeleton: 0x00336E1E 84B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00336E72 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00337055 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x003372EC 39B ??0Rva002E9E70@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00337340 38B ??$__uninitialized_copy@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1UninitCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00337366 37B ??$__uninitialized_fill_n@PAVRva003371B1@@IV1@@_STL@@YAPAVRva003371B1@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1FillN.cpp (not merged yet)
+
+// tu-skeleton: 0x003373D9 75B ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337550 5B ??$iter_swap@PAUS4SortElem20@@PAU1@@_STL@@YAXPAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337555 46B ??$__unguarded_insertion_sort_aux@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@00US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337583 9B ??$_Destroy@VRva003371B1@@@_STL@@YAXPAVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00337655 101B ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x003376D1 25B ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// tu-skeleton: 0x0033790F 51B ?erase@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEPAVRva003371B1@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00337942 30B ?_M_clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// tu-skeleton: 0x003379FD 165B ??0LuaScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00337B4C 11B ?clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00337B57 183B ?_M_insert_overflow@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXPAVRva003371B1@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00337CEA 55B ?push_back@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXABVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// tu-skeleton: 0x00337DEF 187B ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRva00337DEF.cpp (not merged yet)
 
 // tu-skeleton: 0x00338317 1221B ?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
 
