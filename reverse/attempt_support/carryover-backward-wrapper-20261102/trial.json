@@ -1,0 +1,33 @@
+{
+  "rows_before": 1,
+  "missing": [],
+  "errors": [],
+  "complete_code_before": 1,
+  "complete_code_after": 2,
+  "removed": [],
+  "added": [
+    "??$__copy_backward_ptrs@PAVCarryoverUnit@@PAV1@@_STL@@YAPAVCarryoverUnit@@PAV1@00ABU__false_type@0@@Z"
+  ],
+  "changed": [],
+  "old_body": [
+    "558bec516a008d45ff50ff7510ff750cff7508e80000000083c414c9c3",
+    [
+      [
+        20,
+        20,
+        "??$__copy_backward@PAURva001EB831Element@@PAU1@H@_STL@@YAPAURva001EB831Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z"
+      ]
+    ]
+  ],
+  "typed_body": [
+    "558bec516a008d45ff50ff7510ff750cff7508e80000000083c414c9c3",
+    [
+      [
+        20,
+        20,
+        "??$__copy_backward@PAVCarryoverUnit@@PAV1@H@_STL@@YAPAVCarryoverUnit@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z"
+      ]
+    ]
+  ],
+  "raw_code_equal": true
+}

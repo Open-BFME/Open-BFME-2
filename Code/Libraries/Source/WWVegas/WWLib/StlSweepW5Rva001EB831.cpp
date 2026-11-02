@@ -11,3 +11,10 @@ namespace _STL { template <> Rva001EB831Element *__copy_backward<Rva001EB831Elem
 
 // Instantiate the recovered operation and its required template dependencies.
 template Rva001EB831Element * _STL::__copy_backward_ptrs<Rva001EB831Element *, Rva001EB831Element *>(Rva001EB831Element *, Rva001EB831Element *, Rva001EB831Element *, _STL::__false_type const &);
+
+// Native 001EB831 forwards the CarryoverUnit range to loop 001EB262.
+#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
+namespace _STL {
+template <> CarryoverUnit *__copy_backward<CarryoverUnit *, CarryoverUnit *, int>(CarryoverUnit *, CarryoverUnit *, CarryoverUnit *, const random_access_iterator_tag &, int *);
+}
+template CarryoverUnit *_STL::__copy_backward_ptrs<CarryoverUnit *, CarryoverUnit *>(CarryoverUnit *, CarryoverUnit *, CarryoverUnit *, const _STL::__false_type &);

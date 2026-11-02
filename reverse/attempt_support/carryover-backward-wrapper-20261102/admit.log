@@ -1,0 +1,12 @@
+add_match: appended: ??$__copy_backward_ptrs@PAVCarryoverUnit@@PAV1@@_STL@@YAPAVCarryoverUnit@@PAV1@00ABU__false_type@0@@Z,,0x001EB831,29,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001EB831.cpp,matched,Native fill1EBEAB passes its initialized CarryoverUnit range through wrapper1EB831 to typed backward loop1EB262; old provider retained; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001EB831.cpp
+add_match: verifying: C:\Users\clemens\scoop\apps\python\current\python.exe tools/build.py Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001EB831.cpp
+Source claims: OK (1 sources, scoped byte-verified)
+Functions: OK 2/2 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+add_match: verified OK — row is live
+add_match: recorded `landed` x1 in reverse/re_attempts.log -- stage it
+add_match: may unblock ?Rva001EC1B4Insert@@YAXXZ @ 0x001EC1B4 (blocked): mixed callees Pod172 uninit 1EBA30 plus Assign172 copy-backward 1EB831 and copy 1EBACF same 172B stride element identity unclear Pod vs Assign need donor t=5 mo
+add_match: land these, or re-record any that waited on a landed body with blocked-on=0x<its rva> so the queue serves it as untried
+add_match: claim kept until the row is on origin/master; after your push run `python3 tools/claims.py release --landed`
