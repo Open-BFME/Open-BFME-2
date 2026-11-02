@@ -24,24 +24,7 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_INVALID = -1
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(unsigned int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_IS_USING_ABILITY = 0x17

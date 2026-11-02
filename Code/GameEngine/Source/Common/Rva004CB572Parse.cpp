@@ -23,7 +23,7 @@ class MultiIniFieldParse {
  public:MultiIniFieldParse();void add(const FieldParse*,unsigned);
 };
 #include "../../Include/Common/INI/INI.h"
-class ModelConditionFlags { unsigned bits[19];public:bool rva000B3EB3()const; };
+#include "../../Include/GameClient/ModelConditionFlags.h"
 class Rva001EAE6FHelper { char bytes[128];public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80(); };
 struct UpgradeMaskType: Rva001EAE6FHelper {};
 class UpgradeMuxData {public:void getUpgradeActivationMasks(UpgradeMaskType&,UpgradeMaskType&)const;};

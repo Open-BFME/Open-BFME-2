@@ -187,9 +187,7 @@ public:
 	unsigned int m_bits[(N + 31) / 32];
 };
 
-class ModelConditionFlags : public BitFlags<591>
-{
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

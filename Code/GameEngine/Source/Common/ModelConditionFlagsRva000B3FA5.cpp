@@ -13,21 +13,14 @@
 // consume `this` before the shift and picks ECX for it instead. 19 words come
 // from the 0x4C-byte local the callers build; the class carries only the words.
 
-class ModelConditionFlags
-{
-public:
-	void rva000B3FA5(int bit, int value);
-
-private:
-	unsigned int m_words[19];
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 
 void ModelConditionFlags::rva000B3FA5(int bit, int value)
 {
 	unsigned int m = 1u << (bit & 31);
 	bit >>= 5;
-	unsigned int old = m_words[bit];
-	m_words[bit] = old ^ (((0 - (unsigned)value) ^ old) & m);
+	unsigned int old = m_bits[bit];
+	m_bits[bit] = old ^ (((0 - (unsigned)value) ^ old) & m);
 }
 
 // WeaponTemplateSetHead ICF twin is owned alongside its caller in

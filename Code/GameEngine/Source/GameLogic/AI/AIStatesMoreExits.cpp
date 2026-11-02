@@ -98,20 +98,7 @@ class AIUpdateInterface : public VSlots<143>
 public:
 	virtual CommandSourceType getLastCommandSource() const = 0;
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(unsigned int bit)
-	{
-		m_words[bit >> 5] |= (1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 class Object
 {
 public:

@@ -47,7 +47,7 @@ public:
 // address-owned call views describe the existing callees, not member types.
 template<int N> class BitFlags;
 template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
-class ModelConditionFlags { public: bool rva000B3EB3() const; private: unsigned m_bits[19]; };
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 
 class WeaponTemplate;
 

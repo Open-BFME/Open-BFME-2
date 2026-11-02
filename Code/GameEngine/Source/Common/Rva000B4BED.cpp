@@ -160,12 +160,7 @@ bool Rva000B4AFBAnchor(const Rva000B4AFBRange *range, const void *key)
 // calls to ??0WeaponTemplateSetHead@@QAE@ABV0@@Z, predicate
 // ?rva000B3EB3@ModelConditionFlags@@QBE_NXZ, memcmp wrapper
 // ?Rva00045473Equal@@YA_NPBX0@Z, neighbours 0x000B4AE4/0x000B4BED.
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;
-	unsigned m_bits[19];
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 
 struct Rva000B4B23Entry
 {

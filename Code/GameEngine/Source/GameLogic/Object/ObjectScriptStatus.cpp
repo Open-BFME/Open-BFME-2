@@ -610,11 +610,7 @@ no_sound:
 // accesses only that word. This caller bounds its disabled index to 0..10,
 // so its one-word mask uses the same witnessed prefix operation. No alias
 // name or alternate callee pin is introduced.
-class ModelConditionFlags
-{
-public:
- void rva000B3FA5(int bit, int value);
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 // Reference semantic lead: BF1 cee35b7d8 ObjectSetDisabledUntil.cpp and ZH
 // Object::setDisabledUntil; native290114..290357 independently gives timer,
 // condition, tint and audio offsets. The old bank's unowned generic setter

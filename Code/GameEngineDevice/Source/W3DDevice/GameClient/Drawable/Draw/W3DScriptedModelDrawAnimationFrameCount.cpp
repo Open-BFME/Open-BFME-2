@@ -299,15 +299,7 @@ enum
 };
 
 // ModelConditionFlags (BitFlags<591> in ZH): 19 words of condition bits.
-class ModelConditionFlags
-{
-public:
-	Bool test(Int i) const { return (m_bits[i >> 5] >> (i & 31)) & 1; }
-	bool rva000B3EB3() const;
-
-private:
-	unsigned int m_bits[19];
-};
+#include "../../../../../../GameEngine/Include/GameClient/ModelConditionFlags.h"
 
 // The loaded clip: Delete_This (slot 0), frame count (slot 5), frame rate
 // (slot 6) and its reference count at +4.

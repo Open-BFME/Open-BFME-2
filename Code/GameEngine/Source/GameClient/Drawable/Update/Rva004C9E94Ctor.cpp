@@ -13,13 +13,7 @@ public:
     Rva0036CA00Str(const Rva0036CA00Str &other);
 };
 
-class ModelConditionFlags
-{
-public:
-    bool rva000B3EB3() const;
-private:
-    unsigned int m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 class WeaponTemplateSetHead
 {

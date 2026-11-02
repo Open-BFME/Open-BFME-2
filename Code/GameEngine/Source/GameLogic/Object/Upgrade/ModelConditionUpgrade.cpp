@@ -132,13 +132,7 @@ typedef unsigned int UnsignedInt;
 
 typedef float Real;
 
-class ModelConditionFlags
-{
-public:
-	Bool rva000B3EB3() const;	// any bit set
-private:
-	UnsignedInt m_bits[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 enum ModelConditionFlagType
 {

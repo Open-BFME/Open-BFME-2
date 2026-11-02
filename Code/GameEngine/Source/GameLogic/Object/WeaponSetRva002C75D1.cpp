@@ -19,7 +19,7 @@ enum WeaponSlotType { PRIMARY_WEAPON = 0, WEAPONSLOT_COUNT = 6 };
 // Native masks shared with the parser and weapon selection views.
 template<int N> class BitFlags;
 template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
-class ModelConditionFlags { public: bool rva000B3EB3() const; private: unsigned m_bits[19]; };
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 enum WeaponChoiceCriteria
 {
  PREFER_MOST_DAMAGE=0, PREFER_LONGEST_RANGE=1, PREFER_SPECIAL=2,

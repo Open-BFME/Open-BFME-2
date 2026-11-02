@@ -327,7 +327,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 class Rva000CF0D6 { public: bool test(const Rva000CF0D6 *) const; };
-class ModelConditionFlags { public: bool rva000B3EB3() const; private: unsigned m_bits[19]; };
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 class INI;
 class WeaponTemplateSet
 {

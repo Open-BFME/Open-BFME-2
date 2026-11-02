@@ -401,11 +401,7 @@ public:
     virtual bool queryF4();
 };
 
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 class Rva00263546
 {

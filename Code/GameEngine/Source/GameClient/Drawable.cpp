@@ -2408,11 +2408,7 @@ public:
 	unsigned int m_bits[19]; // +0x00
 };
 
-class ModelConditionFlags
-{
-public:
-	unsigned int m_bits[19];
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 
 struct Rva0027930FFC
 {

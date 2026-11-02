@@ -4,11 +4,7 @@
 // +0x64 set return true, else return bit5 of dword at +0x5C. Evidence: rowed
 // pin callee ModelConditionFlags 0x000B3EB3, callers 0x00078C33 0x000BF27B,
 // LINK BONUS via 0x00078C10 (1175B file). Layout from immediates.
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 class Rva000B49F9
 {
 public:

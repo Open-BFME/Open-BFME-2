@@ -45,10 +45,7 @@ public:
 
 bool __cdecl Rva00045473Equal(const void *a, const void *b);
 
-class ModelConditionFlags
-{
-	int m_words[19];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../Include/GameClient/Drawable.h"
 

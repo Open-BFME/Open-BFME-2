@@ -12,12 +12,7 @@ public:
 	unsigned int m_bits[19];
 };
 
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;
-	unsigned int m_bits[19];
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 
 class Rva00271C8A
 {
