@@ -2,10 +2,7 @@
 // Adapted from Open-BFME-1 FrameDataManager.cpp (EA GPL-3.0-or-later).
 // BFME2 callers and retail bodies verify the ring global, 20-byte stride,
 // count accessors and quit-state offsets independently of BFME1.
-class NetCommandList {
-public:
- void reset();
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 enum FrameDataReturnType { FRAMEDATA_NOTREADY, FRAMEDATA_RESEND, FRAMEDATA_READY };
 class FrameData {
 public:

@@ -96,12 +96,7 @@ private:
     unsigned char originalPlayer;
     unsigned int originalTimestamp, originalFrame;
 };
-class NetCommandList {
-public:
-    NetCommandRef *findMessage(UnsignedShort, unsigned char, unsigned int);
-    NetCommandRef *findMessage(UnsignedShort, unsigned char, NetCommandType, unsigned int);
-    void removeMessage(NetCommandRef *);
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 bool CommandRequiresDirectSend(NetCommandMsg *msg);
 

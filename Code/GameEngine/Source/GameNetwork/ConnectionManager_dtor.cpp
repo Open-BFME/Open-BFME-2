@@ -53,11 +53,7 @@ public:
 
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
-class NetCommandList
-{
-public:
-	virtual ~NetCommandList();
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class NetCommandWrapperList
 {

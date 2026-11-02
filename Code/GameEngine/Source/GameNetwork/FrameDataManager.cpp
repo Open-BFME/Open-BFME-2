@@ -21,10 +21,7 @@ class NetCommandRef
 // only the opaque decl (resolves via the matched row) while the def stays
 // in FrameDataManagerCounts.cpp. The m_frameData[frameIndex] subscript under
 // /G7 emits the retail mov+imul+add sequence (twin-accessor precedent).
-class NetCommandList {
-public:
- void reset();
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class FrameData {
 public:

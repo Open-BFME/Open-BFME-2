@@ -119,17 +119,7 @@ class NetCommandRef
 	unsigned int m_timeLastSent;
 };
 
-class NetCommandList
-{
-public:
-	virtual ~NetCommandList();
-	NetCommandRef *getFirstMessage() { return m_first; }
-	NetCommandRef *findMessage(UnsignedShort id, unsigned char player);
-	NetCommandRef *findMessage(UnsignedShort id, unsigned char player, unsigned int frame);
-	void removeMessage(NetCommandRef *ref);
-private:
-	NetCommandRef *m_first;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 // BFME-only type 22 broadcasts router succession order. The role-derived
 // name follows producer 0x00666000 and disconnectPlayer consumer 0x00666300.

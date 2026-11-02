@@ -368,18 +368,7 @@ Rva004D6208 *Rva005922FBRead(Int data, UnsignedInt *readOffset);
 Rva004D62A9 *Rva005923C5Read(Int data, UnsignedInt *readOffset);
 
 // The rowed constructor at 0x0058B06A initializes a 0x10-byte list.
-class NetCommandList
-{
-public:
-	NetCommandList();
-	void reset();
-	NetCommandRef *addMessage(NetCommandMsg *msg);
-private:
-	const void *m_vtable;
-	NetCommandRef *m_first;
-	NetCommandRef *m_last;
-	NetCommandRef *m_lastMessageInserted;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class NetPacket
 {

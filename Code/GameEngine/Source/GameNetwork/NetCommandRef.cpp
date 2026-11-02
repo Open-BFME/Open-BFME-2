@@ -59,24 +59,7 @@ private:
 	UnsignedInt m_timeLastSent;
 };
 
-class NetCommandList
-{
-	void *m_unreconstructed_00;
-	NetCommandNode *m_first;
-	NetCommandNode *m_last;
-	NetCommandNode *m_lastMessageInserted;
-
-public:
-	void reset();
-	void appendList(NetCommandList *list);
-	NetCommandRef *addMessage(NetCommandMsg *cmdMsg);
-	NetCommandRef *getFirstMessage() { return (NetCommandRef *)m_first; }
-	void removeMessage(NetCommandRef *msg);
-	NetCommandRef *findMessage(UnsignedShort id, UnsignedByte player, UnsignedInt frame);
-	NetCommandRef *findMessage(UnsignedShort id, UnsignedByte frame, NetCommandType type, UnsignedInt timestamp);
-	NetCommandRef *findMessage(NetCommandMsg *msg);
-	bool isEqualCommandMsg(NetCommandMsg *msg1, NetCommandMsg *msg2);
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetCommandRefCtor.cpp
 

@@ -125,15 +125,7 @@ private:
 	UnsignedByte m_relay;
 };
 
-class NetCommandList
-{
-public:
-	virtual ~NetCommandList();
-	NetCommandRef *getFirstMessage() { return m_first; }
-
-private:
-	NetCommandRef *m_first;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class NetCommandWrapperList
 {

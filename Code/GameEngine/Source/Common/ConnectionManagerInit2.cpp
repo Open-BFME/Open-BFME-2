@@ -43,16 +43,7 @@ class Connection;
 class DisconnectManager;
 class FrameDataManager;
 
-class NetCommandList
-{
-public:
-	NetCommandList();
-	virtual ~NetCommandList();
-	void reset();
-	void *m_first;
-	void *m_last;
-	void *m_lastInserted;
-};
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 
 class Rva004D376A
 {

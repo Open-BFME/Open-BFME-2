@@ -1028,7 +1028,7 @@ class Object
 protected:
 	Module *findModule(NameKeyType) const;
 };
-class NetCommandList { public: void reset(); };
+#include "../../Include/GameNetwork/NetCommandListClass.h"
 #include "../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 namespace _STL
