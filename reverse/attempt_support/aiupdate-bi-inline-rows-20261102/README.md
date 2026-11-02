@@ -23,3 +23,5 @@ Slot9: ?getUpdate@UpdateModule@@UAEPAVUpdateModuleInterface@@XZ, native0x002533D
 Slot10: ?getUpgrade@BehaviorModule@@UAEPAVUpgradeModuleInterface@@XZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
 
 Slot11: ?slot11@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
+
+Slot12: ?slot12@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
