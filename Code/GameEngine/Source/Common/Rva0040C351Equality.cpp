@@ -7,13 +7,7 @@
 // caller at 0x0040CB95, callee Equal rowed, ret 4 single pointer arg.
 bool __cdecl Rva0037E0ECEqual(const void *a, const void *b);
 
-class CarryoverUnit
-{
-public:
-	CarryoverUnit();
-private:
-	char m_pad[0xac];
-};
+#include "../../Include/GameLogic/CarryoverUnit.h"
 
 struct MemberAC
 {

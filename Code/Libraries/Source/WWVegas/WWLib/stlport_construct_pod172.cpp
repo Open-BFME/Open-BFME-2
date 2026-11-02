@@ -4,11 +4,7 @@
 #include <new>
 #include <vector>
 struct BfmePod172 { int a[43]; };
-class CarryoverUnit
-{
-public:
-	CarryoverUnit(const CarryoverUnit &o);
-};
+#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
 namespace _STL {
 template <> inline void _Construct<BfmePod172, BfmePod172>(BfmePod172 *__p, const BfmePod172 &__val)
 {

@@ -1,0 +1,16 @@
+{
+  "all_native_rows_pass": true,
+  "native_rows": 30,
+  "unique_native_rvas": 30,
+  "external_code_definitions": 74,
+  "external_data_definitions": 553,
+  "all_external_definitions_identical": true,
+  "all_non_debug_runtime_sections_identical": false,
+  "all_sources_still_original": true,
+  "sources_match_head": true,
+  "header_unchanged": true,
+  "xfer_rebinding": "None needed within this six-source cohort: both original and protected-header candidate ArmySummaryEntry direct call use the established MAE spelling. Common public alias holder is not in this cohort.",
+  "data_bindings": "See data-bindings.json: both ArmySummaryEntry vtables and both FieldParse arrays have identical raw bytes and symbolic relocations. Native primary4 slots and secondary destructor entry recorded separately.",
+  "all_runtime_sections_equal_with_local_bindings_resolved": true,
+  "runtime_raw_comparison_qualification": "Two objects renumber compiler-local EH labels and COFF symbol indices in .sxdata. Actual section bytes elsewhere are equal. Resolve nonexternal local relocation targets to retained runtime-section ordinal+offset and .sxdata symbol indices to their targets; the entire runtime code/data graph is then identical. External symbolic references remain exact and unnormalized."
+}

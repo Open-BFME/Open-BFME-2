@@ -4,7 +4,6 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #pragma comment(linker, "/alternatename:?GetSnapshotName@CarryoverUnit@@UBEPBDXZ=?name@CarryoverUnit@@QBEPBDXZ")
-#pragma comment(linker, "/alternatename:?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z=?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z")
 //
 // ?Rva0037DC8AEqual@@YA_NPBX0@Z @0x0037DC8A (27B).
 // Free memcmp wrapper: returns memcmp(a b 0x80)==0 as bool. Retail pushes
@@ -60,7 +59,7 @@ class Xfer;
 // Layout from the ctor 0x0037DF2C: name +0x04 (copied from TheEmptyString),
 // float +0x08 (xorps/movss), int +0x0C, the cleared block +0x10, int +0x90,
 // the record +0x94; the dtor 0x0037DEE4 tears down +0x94 then +0x04.
-class CarryoverUnit:public Snapshot{public:CarryoverUnit();CarryoverUnit &operator=(const CarryoverUnit &);virtual ~CarryoverUnit();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);private:AsciiString name;float m_f08;int m_c0C;Rva001EAE6FHelper m_h10;int m_90;Rva001EB15A member;};
+class CarryoverUnit:public Snapshot{public:CarryoverUnit();CarryoverUnit &operator=(const CarryoverUnit &);virtual ~CarryoverUnit();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;protected:virtual void xfer(Xfer*);private:AsciiString name;float m_f08;int m_c0C;Rva001EAE6FHelper m_h10;int m_90;Rva001EB15A member;};
 
 //
 // ?rva0037DCCC@@YAXPAVObject@@H@Z @0x0037DCCC 28B

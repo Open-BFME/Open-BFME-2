@@ -1,0 +1,38 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/ArmySummaryEntry_xfer.cpp",
+    "sections_before": 2,
+    "sections_after": 2,
+    "all_runtime_sections_equal_with_local_bindings_resolved": true
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp",
+    "sections_before": 553,
+    "sections_after": 553,
+    "all_runtime_sections_equal_with_local_bindings_resolved": true
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0040C351Dtor.cpp",
+    "sections_before": 11,
+    "sections_after": 11,
+    "all_runtime_sections_equal_with_local_bindings_resolved": true
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0040C351Equality.cpp",
+    "sections_before": 1,
+    "sections_after": 1,
+    "all_runtime_sections_equal_with_local_bindings_resolved": true
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "sections_before": 65,
+    "sections_after": 65,
+    "all_runtime_sections_equal_with_local_bindings_resolved": true
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp",
+    "sections_before": 6,
+    "sections_after": 6,
+    "all_runtime_sections_equal_with_local_bindings_resolved": true
+  }
+]

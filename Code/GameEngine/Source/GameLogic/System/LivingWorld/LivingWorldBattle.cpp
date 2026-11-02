@@ -287,7 +287,7 @@ Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<ArmySummary>*vec)
 // the 172-byte carryover unit records (constructor 0x0037DF2C, rowed; virtual
 // destructor 0x0037DEE4, pinned as ??1Rva0037DF2C), reusing the rowed
 // 172-byte reserve 1EBE2D and push 1EC056 owners through the same casts.
-class CarryoverUnit { public: CarryoverUnit();virtual ~CarryoverUnit();char pad[0xA8]; };
+#include "../../../../Include/GameLogic/CarryoverUnit.h"
 struct BfmeAssignRecord172 { int data[43]; };
 struct BfmePod172 { int data[43]; };
 namespace _STL {

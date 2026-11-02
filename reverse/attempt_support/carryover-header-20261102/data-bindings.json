@@ -1,0 +1,159 @@
+{
+  "?carryoverUnitFieldParse@@3QBUFieldParse@@B": {
+    "kind": "data",
+    "length": 48,
+    "bytes": "000000000000000000000000040000000000000000000000000000009000000000000000000000000000000000000000",
+    "relocations": [
+      [
+        0,
+        6,
+        "??_C@_0O@CKNPECG@ThingTemplate?$AA@"
+      ],
+      [
+        4,
+        6,
+        "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+      ],
+      [
+        16,
+        6,
+        "??_C@_08GACJPEFO@Quantity?$AA@"
+      ],
+      [
+        20,
+        6,
+        "?parseInt@INI@@SAXPAV1@PAX1PBX@Z"
+      ]
+    ],
+    "after_equal": true
+  },
+  "?armySummaryEntryFieldParse@@3QBUFieldParse@@B": {
+    "kind": "data",
+    "length": 80,
+    "bytes": "000000000000000000000000c500000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000009000000000000000000000000000000000000000",
+    "relocations": [
+      [
+        0,
+        6,
+        "??_C@_07MCAEODGB@Default?$AA@"
+      ],
+      [
+        4,
+        6,
+        "?parseBool@INI@@SAXPAV1@PAX1PBX@Z"
+      ],
+      [
+        32,
+        6,
+        "??_C@_0O@CKNPECG@ThingTemplate?$AA@"
+      ],
+      [
+        36,
+        6,
+        "?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"
+      ],
+      [
+        48,
+        6,
+        "??_C@_08GACJPEFO@Quantity?$AA@"
+      ],
+      [
+        52,
+        6,
+        "?parseInt@INI@@SAXPAV1@PAX1PBX@Z"
+      ]
+    ],
+    "after_equal": true
+  },
+  "??_7ArmySummaryEntry@@6BRva0007DF07@@@": {
+    "kind": "data",
+    "length": 4,
+    "bytes": "00000000",
+    "relocations": [
+      [
+        0,
+        6,
+        "??_EArmySummaryEntry@@WKM@AEPAXI@Z"
+      ]
+    ],
+    "after_equal": true
+  },
+  "??_7ArmySummaryEntry@@6BCarryoverUnit@@@": {
+    "kind": "data",
+    "length": 16,
+    "bytes": "00000000000000000000000000000000",
+    "relocations": [
+      [
+        0,
+        6,
+        "??_EArmySummaryEntry@@UAEPAXI@Z"
+      ],
+      [
+        4,
+        6,
+        "?loadPostProcess@ArmySummaryEntry@@MAEXXZ"
+      ],
+      [
+        8,
+        6,
+        "?GetSnapshotName@ArmySummaryEntry@@MBEPBDXZ"
+      ],
+      [
+        12,
+        6,
+        "?xfer@ArmySummaryEntry@@MAEXPAVXfer@@@Z"
+      ]
+    ],
+    "after_equal": true
+  },
+  "ArmySummaryEntry_primary_native": {
+    "rva": "0x0083944C",
+    "bytes": "dec58000d03f4b0086c58000fec48000",
+    "words": [
+      "0x0080C5DE",
+      "0x004B3FD0",
+      "0x0080C586",
+      "0x0080C4FE"
+    ]
+  },
+  "ArmySummaryEntry_secondary_native": {
+    "rva": "0x0083945C",
+    "bytes": "d3c58000",
+    "words": [
+      "0x0080C5D3"
+    ]
+  },
+  "armySummaryEntryFieldParse_native": {
+    "rva": "0x00839474",
+    "bytes": "8073bc0050e8420000000000c500000000000000000000000000000000000000",
+    "words": [
+      "0x00BC7380",
+      "0x0042E850",
+      "0x00000000",
+      "0x000000C5",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000"
+    ]
+  },
+  "carryoverUnitFieldParse_native": {
+    "rva": "0x00818D18",
+    "bytes": "548dc1001ef142000000000004000000488dc10056ef4200000000009000000000000000000000000000000000000000",
+    "words": [
+      "0x00C18D54",
+      "0x0042F11E",
+      "0x00000000",
+      "0x00000004",
+      "0x00C18D48",
+      "0x0042EF56",
+      "0x00000000",
+      "0x00000090",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000",
+      "0x00000000"
+    ]
+  },
+  "qualification": "External definition bodies run from symbol to COFF section end. armySummaryEntryFieldParse spans32 nativebytes; its80-byte object suffix also includes following48-byte carryoverUnitFieldParse. Both exact object suffixes and symbolic relocations are preserved; native arrays are separately32/48 bytes."
+}

@@ -24,13 +24,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
 #include "../../Include/Common/XferVersion.h"
-class CarryoverUnit
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	char m_pad[0xAC - 4];
-};
+#include "../../Include/GameLogic/CarryoverUnit.h"
 class Rva004E075FObj;
 int Rva004E075FGet(Rva004E075FObj *o, int a);
 void XferLivingWorldArmyID(Xfer *xfer, int *value);

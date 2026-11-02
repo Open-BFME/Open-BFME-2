@@ -373,3 +373,4 @@ AABoxClass,Code/Libraries/Source/WWVegas/WWMath/AABoxClass.h,existing header; co
 Condition,Code/GameEngine/Include/GameLogic/ScriptCondition.h,existing header; contract class_contracts/Condition.json; 8/16 sampled units adopt
 AttackPriorityInfo,Code/GameEngine/Include/GameLogic/AttackPriorityInfo.h,existing header; contract class_contracts/AttackPriorityInfo.json; 11/16 sampled units adopt
 ToppleUpdate,Code/GameEngine/Include/GameLogic/Module/ToppleUpdateClass.h,existing header; contract class_contracts/ToppleUpdate.json; 10/16 sampled units adopt
+CarryoverUnit,Code/GameEngine/Include/GameLogic/CarryoverUnit.h,existing header; contract class_contracts/CarryoverUnit.json; 6/13 sampled units adopt

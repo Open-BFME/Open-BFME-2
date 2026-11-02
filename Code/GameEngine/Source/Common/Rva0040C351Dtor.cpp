@@ -3,13 +3,7 @@
 #include "Common/Snapshot.h"
 #include "../../Include/Common/Rva0007DF07.h"
 
-class CarryoverUnit : public Snapshot
-{
-public:
-	virtual ~CarryoverUnit();
-private:
-	char m_pad[0xAC - 4];
-};
+#include "../../Include/GameLogic/CarryoverUnit.h"
 
 class ArmySummaryEntry : public CarryoverUnit, public Rva0007DF07
 {

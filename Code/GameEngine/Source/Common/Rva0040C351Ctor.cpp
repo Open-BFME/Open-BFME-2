@@ -17,15 +17,7 @@ extern "C" const void *const __identifier("??_7Rva0007DF07@@6B@")[];  // folded 
 
 class Player;
 class Object;
-class CarryoverUnit
-{
-public:
-	CarryoverUnit();
-	CarryoverUnit(const CarryoverUnit &o);
-	Object *createSingleObject(Player *player);
-private:
-	char m_pad[0xac];
-};
+#include "../../Include/GameLogic/CarryoverUnit.h"
 struct MemberAC
 {
 	MemberAC() : m_vtable((void *)((unsigned int)__identifier("??_7Rva0007DF07@@6B@"))), m_thingTemplate(0) {}

@@ -1,0 +1,224 @@
+{
+  "scope": "Read-only immutable before Common object against archived current normal-built Common and ArmySummaryEntry objects; no compile/network/claims/Code edits.",
+  "before_source_sha256": "f28d0a64dbf9702da1be73460977417c36007bb88cfbe16a891e45a378f692ef",
+  "before_object_sha256": "b79691ee847dc72695665512d4201ae7381154b8994dd9345e12e55356fc073b",
+  "current_receipts": [
+    {
+      "source": "Code/GameEngine/Source/Common/CarryoverUnit.cpp",
+      "source_sha256": "f74b25e43d6de624705cb73685a6f9ad1dc567b8c7e4c39adf2f3e99e21b487f",
+      "object_sha256": "03c461376b8f4728f96c47e13aa1f9607a8dad5c62e6804186ec3aa295f9edcf",
+      "source_md5": "d3aafc7a40a180301f8ec257e03cfd4c",
+      "receipt_source": "d3aafc7a40a180301f8ec257e03cfd4c",
+      "object_md5": "eed89b3371884e734055a26501423ca4",
+      "receipt_object": "eed89b3371884e734055a26501423ca4",
+      "source_receipt_matches": true,
+      "object_receipt_matches": true,
+      "archived_current_object": "build\\carryover-xfer-binding-20261102\\common.current.obj"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/ArmySummaryEntry_xfer.cpp",
+      "source_sha256": "76c980becc83501106538f8a92c59fd138da67f3f40e57cfbd097b2e9b05789b",
+      "object_sha256": "fe4cb730fe8738a8bd4007fca1ee6b7ad949d021910bc4c45ef41af4bc935068",
+      "source_md5": "4f7fd7f773e393e399635794f850b7c9",
+      "receipt_source": "4f7fd7f773e393e399635794f850b7c9",
+      "object_md5": "f07124b75995c092e821841f1e19f33a",
+      "receipt_object": "f07124b75995c092e821841f1e19f33a",
+      "source_receipt_matches": true,
+      "object_receipt_matches": true,
+      "archived_current_object": "build\\carryover-xfer-binding-20261102\\army.current.obj"
+    }
+  ],
+  "code_before": 16,
+  "code_after": 16,
+  "data_before": 2,
+  "data_after": 2,
+  "unchanged_definitions": 17,
+  "changed_definitions": [
+    {
+      "name": "??_7CarryoverUnit@@6B@",
+      "before": {
+        "name": "??_7CarryoverUnit@@6B@",
+        "kind": "data",
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ECarryoverUnit@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?loadPostProcess@CarryoverUnit@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z"
+          ]
+        ]
+      },
+      "after": {
+        "name": "??_7CarryoverUnit@@6B@",
+        "kind": "data",
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ECarryoverUnit@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?loadPostProcess@CarryoverUnit@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z"
+          ]
+        ]
+      }
+    }
+  ],
+  "removed_definitions": [],
+  "added_definitions": [],
+  "current_Common_xfer_runtime_refs": [
+    {
+      "section": ".rdata",
+      "section_number": 24,
+      "offset": 12,
+      "kind": 6,
+      "target": "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z",
+      "owners": [
+        "??_7CarryoverUnit@@6B@"
+      ]
+    }
+  ],
+  "current_Army_xfer_runtime_refs": [
+    {
+      "section": ".text",
+      "section_number": 5,
+      "offset": 34,
+      "kind": 20,
+      "target": "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z",
+      "owners": [
+        "?xfer@ArmySummaryEntry@@MAEXPAVXfer@@@Z"
+      ]
+    }
+  ],
+  "Common_before_xfer_runtime_refs": [
+    {
+      "section": ".rdata",
+      "section_number": 24,
+      "offset": 12,
+      "kind": 6,
+      "target": "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z",
+      "owners": [
+        "??_7CarryoverUnit@@6B@"
+      ]
+    }
+  ],
+  "directive_aliases_removed": [
+    "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z=?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z"
+  ],
+  "directive_aliases_added": [],
+  "current_undefined_public_symbol_in_objects": false,
+  "index": {
+    "meta": {
+      "date": "2026-11-02 08:35",
+      "commit": "984a4cdc4d",
+      "clean_tree": true,
+      "census_date": "2026-11-02 06:54",
+      "census_commit": "357ce2a88f"
+    },
+    "objects": 18640,
+    "complete_touches": 18640,
+    "public_xfer_touches": [
+      "^code_^game^engine_^source_^common_^carryover^unit.obj"
+    ],
+    "public_xfer_alias_route_emitters": [
+      [
+        "^code_^game^engine_^source_^common_^carryover^unit.obj",
+        "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z"
+      ]
+    ],
+    "outside_index_public_xfer_touches": 0,
+    "qualification": "Old index contains only Common public-route holder. Current qualified Common replacement and refreshed Army caller both use protected; no indexed outside public consumer exists."
+  },
+  "protected_provider": {
+    "source": "Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp",
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^system_^snapshot^xfers^bfme.obj",
+    "source_sha256": "40a6766e6aae8a602805190d3f601cf42164902b914a8e887a946c5ae1951579",
+    "object_sha256": "f53efc50a41ada05b018af44818ed0fdf19745cc49d00bbc27ffb19ae253eb58",
+    "source_md5": "e2243d1daa86b8dda945bdf8493b2160",
+    "receipt_source": "e2243d1daa86b8dda945bdf8493b2160",
+    "object_md5": "d632b208230ebbd1c25a36ebb2db1b08",
+    "receipt_object": "d632b208230ebbd1c25a36ebb2db1b08",
+    "source_receipt_matches": true,
+    "object_receipt_matches": true,
+    "protected_body_length": 107,
+    "protected_body_sha256": "b7bab748b21691347fb9630b9c8d8261ee8652beff758825bde1e12ace8a911e",
+    "relocations": [
+      [
+        74,
+        20,
+        "?rva004E0513@Rva004E0513@@QAEXPAVXfer@@@Z"
+      ],
+      [
+        84,
+        20,
+        "?xferUpgradeMask@@YAXPAVXfer@@PAVRva00291440@@@Z"
+      ]
+    ],
+    "native_rva": "0x0037DE79",
+    "body_and_symbolic_relocations_equal_prior_witness": true,
+    "strict_log": "build/carryover-xfer-binding-20261102/provider-strict.log"
+  },
+  "native_BDF158_slots": [
+    "0x005EB815",
+    "0x004B3FD0",
+    "0x0077DC84",
+    "0x0077DE79"
+  ],
+  "complete_runtime_graph_equal_after_only_expected_public_to_protected_rebinding": true,
+  "full_runtime_graph_first_differences": [],
+  "no_Code_explicit_public_mangled_reference": "rg -n -F public symbol Code returned no matches (exit1). This supplements complete-index absence; it does not substitute for scanning indexed relocations.",
+  "qualified_verdict": "Common binding cleanup has no newly introduced code/provider loss. Both changed actual consumers are current and directly bind the existing protected owner; only table slot3 and its redundant route change. Protected owner has now been refreshed by parent strict PASS16/16; source/object receipt hashes both match, and complete107-byte body plus symbolic relocations are identical to prior witness. Stale-provider caveat resolved.",
+  "protected_provider_prior_stale_witness": {
+    "source": "Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp",
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^system_^snapshot^xfers^bfme.obj",
+    "source_md5": "e2243d1daa86b8dda945bdf8493b2160",
+    "receipt_source": "ca5511b56a20d964504e8968e79b53f0",
+    "object_md5": "b44c760624f0dc9a6fb3b502b644d43e",
+    "receipt_object": "b44c760624f0dc9a6fb3b502b644d43e",
+    "source_receipt_matches": false,
+    "object_receipt_matches": true,
+    "protected_body_length": 107,
+    "protected_body_sha256": "b7bab748b21691347fb9630b9c8d8261ee8652beff758825bde1e12ace8a911e",
+    "relocations": [
+      [
+        74,
+        20,
+        "?rva004E0513@Rva004E0513@@QAEXPAVXfer@@@Z"
+      ],
+      [
+        84,
+        20,
+        "?xferUpgradeMask@@YAXPAVXfer@@PAVRva00291440@@@Z"
+      ]
+    ],
+    "native_rva": "0x0037DE79"
+  }
+}

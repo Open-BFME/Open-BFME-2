@@ -1,0 +1,225 @@
+{
+  "scope": "Six immutable candidate object snapshots versus private Verifier builds of restored original sources; no normal/shared build, permanent Code/ledger mutation, claims or network.",
+  "head": "66b01952acb768ecd2d86585876e3762f1c20b47",
+  "header_sha256": "89611c31b06ec49db4e49d1c8423a4d397a960e9edfcd57af2674e1bd2aeb933",
+  "files": [
+    {
+      "source": "Code/GameEngine/Source/Common/ArmySummaryEntry_xfer.cpp",
+      "candidate_object": "build\\carryover-header-six-proof-20261102\\00.candidate.obj",
+      "original_source": "build\\carryover-header-six-proof-20261102\\00.original.cpp",
+      "candidate_object_sha256": "fe4cb730fe8738a8bd4007fca1ee6b7ad949d021910bc4c45ef41af4bc935068",
+      "original_source_sha256": "53ead0c386617f37a822dfa8f272b99da40435d742000630ae83e04e0b897f84",
+      "original_matches_head_bytes": true,
+      "rows": 1,
+      "unique_native_addresses": 1,
+      "matched": [
+        "0x0040C4FE"
+      ],
+      "native_missing": [],
+      "errors": [],
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\00.original.obj",
+      "original_object_sha256": "4f02b7fff3705e3251704fa049a738e12ad3d3307bb493720748e2270303f56c",
+      "detail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\00.full-definition-diff.json",
+      "definitions_before": {
+        "code": 2
+      },
+      "definitions_after": {
+        "code": 2
+      },
+      "retained_identical": 2,
+      "expected_xfer_rebinding": [],
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "directives_identical": false,
+      "seconds": 1.393
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp",
+      "candidate_object": "build\\carryover-header-six-proof-20261102\\01.candidate.obj",
+      "original_source": "build\\carryover-header-six-proof-20261102\\01.original.cpp",
+      "candidate_object_sha256": "079aaf7d751cdd0c4b4ad2a1031af60881c56c1ab9069ffc0cfa18db0474e32a",
+      "original_source_sha256": "7e507b79f814536b24305b8ccc5016d2a084265e137b1367ae692df69f3b4fca",
+      "original_matches_head_bytes": true,
+      "rows": 6,
+      "unique_native_addresses": 6,
+      "matched": [
+        "0x0040C430",
+        "0x0040C45C",
+        "0x0040C495",
+        "0x0040C5FA",
+        "0x0040C6A5",
+        "0x0040C804"
+      ],
+      "native_missing": [],
+      "errors": [],
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\01.original.obj",
+      "original_object_sha256": "15d8609a19011e91ca34006f43048a6f873beec8e598fc8fbc5c70845c5127b0",
+      "detail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\01.full-definition-diff.json",
+      "definitions_before": {
+        "data": 543,
+        "code": 9
+      },
+      "definitions_after": {
+        "data": 543,
+        "code": 9
+      },
+      "retained_identical": 552,
+      "expected_xfer_rebinding": [],
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "directives_identical": true,
+      "seconds": 0.818
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0040C351Dtor.cpp",
+      "candidate_object": "build\\carryover-header-six-proof-20261102\\02.candidate.obj",
+      "original_source": "build\\carryover-header-six-proof-20261102\\02.original.cpp",
+      "candidate_object_sha256": "5c6bbf2db97eb7c5495cd00d633cbb1b9ec3c59c5339c1b7d6d30bbd266acfc4",
+      "original_source_sha256": "a124d89434974c28682036a3a372c31adff8fdc56695b5ac6e6c3ec48c14ee92",
+      "original_matches_head_bytes": true,
+      "rows": 5,
+      "unique_native_addresses": 5,
+      "matched": [
+        "0x000B3FD0",
+        "0x0040C39E",
+        "0x0040C586",
+        "0x0040C5D3",
+        "0x0040C5DE"
+      ],
+      "native_missing": [],
+      "errors": [],
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\02.original.obj",
+      "original_object_sha256": "5d844223d88f34c937f02e7f6f7ea2e439c7dd6de3ad5543613539221974b763",
+      "detail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\02.full-definition-diff.json",
+      "definitions_before": {
+        "code": 7,
+        "data": 4
+      },
+      "definitions_after": {
+        "code": 7,
+        "data": 4
+      },
+      "retained_identical": 11,
+      "expected_xfer_rebinding": [],
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "directives_identical": false,
+      "seconds": 1.005
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva0040C351Equality.cpp",
+      "candidate_object": "build\\carryover-header-six-proof-20261102\\03.candidate.obj",
+      "original_source": "build\\carryover-header-six-proof-20261102\\03.original.cpp",
+      "candidate_object_sha256": "7d2f5e386992c63ff4b205966791eff0f3743e8601584efec7fbe00ac34d3b79",
+      "original_source_sha256": "47350a9c2d018872d7aa078eb6f486e93684e3387a40bc18aa50a81e57c324dd",
+      "original_matches_head_bytes": true,
+      "rows": 1,
+      "unique_native_addresses": 1,
+      "matched": [
+        "0x0040C3BB"
+      ],
+      "native_missing": [],
+      "errors": [],
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\03.original.obj",
+      "original_object_sha256": "27e208c1ba457b0f590ecb463dd919d9b32304faaa68e64a0fa4d0ef427227c8",
+      "detail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\03.full-definition-diff.json",
+      "definitions_before": {
+        "code": 1
+      },
+      "definitions_after": {
+        "code": 1
+      },
+      "retained_identical": 1,
+      "expected_xfer_rebinding": [],
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "directives_identical": false,
+      "seconds": 0.751
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+      "candidate_object": "build\\carryover-header-six-proof-20261102\\04.candidate.obj",
+      "original_source": "build\\carryover-header-six-proof-20261102\\04.original.cpp",
+      "candidate_object_sha256": "6366287f1af4b5e1db293c348ac124b3747fa3e56e4e895a5e2bca8f15c9ed34",
+      "original_source_sha256": "12ffff48a41a899dcfa700369749f8b39e0e20752cc7c29d4412806f6693e828",
+      "original_matches_head_bytes": true,
+      "rows": 16,
+      "unique_native_addresses": 16,
+      "matched": [
+        "0x001EC0A0",
+        "0x00211E58",
+        "0x003F427D",
+        "0x003F4A46",
+        "0x003F4E07",
+        "0x003F5397",
+        "0x003F5647",
+        "0x003F5729",
+        "0x003F6727",
+        "0x0076A60C",
+        "0x0076A617",
+        "0x00784003",
+        "0x0078400B",
+        "0x007840A0",
+        "0x007840A8",
+        "0x007840C5"
+      ],
+      "native_missing": [],
+      "errors": [],
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\04.original.obj",
+      "original_object_sha256": "24bfbe630f1642414a62ae18169ef2ecb2eb58cbebbd28433f0aa39306cd5264",
+      "detail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\04.full-definition-diff.json",
+      "definitions_before": {
+        "code": 52,
+        "data": 6
+      },
+      "definitions_after": {
+        "code": 52,
+        "data": 6
+      },
+      "retained_identical": 58,
+      "expected_xfer_rebinding": [],
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "directives_identical": true,
+      "seconds": 3.078
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp",
+      "candidate_object": "build\\carryover-header-six-proof-20261102\\05.candidate.obj",
+      "original_source": "build\\carryover-header-six-proof-20261102\\05.original.cpp",
+      "candidate_object_sha256": "2f16b4d927f3522af2e810e65a3d569319eb2ae1beef87445d43e1a32ac0ceb1",
+      "original_source_sha256": "9da7f0f103794ac9ca91f88957d51743355a58d245a277932988337922e40d82",
+      "original_matches_head_bytes": true,
+      "rows": 1,
+      "unique_native_addresses": 1,
+      "matched": [
+        "0x001EB9E6"
+      ],
+      "native_missing": [],
+      "errors": [],
+      "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\05.original.obj",
+      "original_object_sha256": "b14ff1ab3d92af8a6336b293e00617447b1b5130433fbe2ccacabb0ca12fd5a9",
+      "detail": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-six-proof-20261102\\05.full-definition-diff.json",
+      "definitions_before": {
+        "code": 3
+      },
+      "definitions_after": {
+        "code": 3
+      },
+      "retained_identical": 3,
+      "expected_xfer_rebinding": [],
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "directives_identical": false,
+      "seconds": 0.885
+    }
+  ],
+  "header_unchanged": true,
+  "complete": true
+}

@@ -1,0 +1,6 @@
+  PASS Code/GameEngine/Source/Common/ArmySummaryEntry_xfer.cpp
+  PASS Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp
+  PASS Code/GameEngine/Source/Common/Rva0040C351Dtor.cpp
+  PASS Code/GameEngine/Source/Common/Rva0040C351Equality.cpp
+  PASS Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp
+  PASS Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp
