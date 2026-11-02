@@ -12,43 +12,34 @@
 class Thing;
 class ModuleData;
 class Object;
-
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
+class Xfer;
+enum NameKeyType;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
 
 class AutoPickUpUpdateInterface
 {
 public:
-	virtual void autoPickUpAnchor();
+	virtual void anchor() = 0;
+	virtual void slot1() = 0;
+	virtual void rva00495C6E() = 0;
 };
 
 class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
 {
 public:
-	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~AutoPickUpUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva00495C6E();
+	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
-	unsigned int m_24;
-	unsigned char m_28;
-	unsigned char m_29;
+	unsigned int m_count24;
+	bool m_flag28;
+	bool m_flag29;
 };
 
 // ??1AutoPickUpUpdate@@UAE@XZ @0x00495C48

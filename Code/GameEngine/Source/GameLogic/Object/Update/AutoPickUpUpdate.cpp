@@ -226,6 +226,7 @@ struct AutoPickUpUpdateModuleData
 class Thing;
 class Xfer;
 enum NameKeyType;
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include <string.h>
 #define THROW_EAT_OBJECT_ENTRY_ERROR(format, token) \

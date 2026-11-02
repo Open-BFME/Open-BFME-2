@@ -1,3 +1,10 @@
+### AutoPickUpUpdate link repair (2026-11-02)
+
+`AutoPickUpUpdate.cpp` (2,013B) unresolved `?crc@UpdateModule@@MAEXPAVXfer@@@Z` and COMDAT conflicts `??_7AutoPickUpUpdate@@6BAutoPickUpUpdateInterface@@@` / `??_7AutoPickUpUpdate@@6BObjectModule@@@` resolved:
+1. Defined `BFME_SNAPSHOT_NAME_SLOT` before `ObjectModule.h` in `AutoPickUpUpdate.cpp` so that `Snapshot.h` correctly declares `GetSnapshotName` instead of `crc`, eliminating the unresolved symbol.
+2. Reconciled `AutoPickUpUpdateDtor.cpp` to match `AutoPickUpUpdate.cpp`'s canonical 3-slot `AutoPickUpUpdateInterface` and `UpdateModule` hierarchy, resolving the COMDAT differences.
+Verification: `tools/build.py` 29/29 matched; `tools/link_check.py` LINKS 0 -> 2,013 bytes in `AutoPickUpUpdate.cpp` and preserves 60 bytes in `AutoPickUpUpdateDtor.cpp` (total 2,073 bytes).
+
 ### ScriptActions doNamedEnterNamed link repair (2026-11-02)
 
 `ScriptActions_doNamedEnterNamed.cpp` (92B) unresolved symbol `?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z` resolved by pointing the call to the real rowed provider `AICommandInterface::rva0026C347` (`?rva0026C347@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z` at 0x0026C347 in `AICommandInterfaceAttackCommands.cpp`), which was already matched and linked.
