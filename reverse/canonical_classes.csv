@@ -323,3 +323,4 @@ VertexBufferClass,Code/Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h,existi
 IndexBufferClass,Code/Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h,existing header; contract class_contracts/IndexBufferClass.json; 14/28 sampled units adopt
 Render2DClass,Code/Libraries/Source/WWVegas/WW3D2/Render2DClass.h,existing header; contract class_contracts/Render2DClass.json; 11/28 sampled units adopt
 Render2DSentenceClass,Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h,existing header; contract class_contracts/Render2DSentenceClass.json; 13/33 sampled units adopt
+SurfaceClass,Code/Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h,existing header; contract class_contracts/SurfaceClass.json; 10/26 sampled units adopt
