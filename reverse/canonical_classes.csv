@@ -295,3 +295,4 @@ StealthUpdate,Code/GameEngine/Include/GameLogic/Module/StealthUpdate.h,existing 
 MeshMatDescClass,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.h,existing header; contract class_contracts/MeshMatDescClass.json; 8/58 sampled units adopt
 MultiplayerColorDefinition,Code/GameEngine/Include/GameNetwork/MultiplayerColorDefinition.h,existing header; contract class_contracts/MultiplayerColorDefinition.json; 25/37 sampled units adopt
 LocomotorTemplate,Code/GameEngine/Include/GameLogic/LocomotorTemplate.h,existing header; contract class_contracts/LocomotorTemplate.json; 18/36 sampled units adopt
+WW3D,Code/Libraries/Source/WWVegas/WW3D2/WW3DClass.h,existing header; contract class_contracts/WW3D.json; 59/96 sampled units adopt
