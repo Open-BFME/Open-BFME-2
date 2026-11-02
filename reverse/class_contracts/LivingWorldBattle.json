@@ -1,0 +1,416 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldBattle",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 52,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 44
+   },
+   "0x1c": {
+    "4": 22
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x40": 2
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3f6a3a",
+      "0x3f6f0d"
+     ],
+     "value": {
+      "0x8": [
+       "Rva003197EEList",
+       "Rva00330757Member"
+      ]
+     }
+    },
+    "bases_unproven": {
+     "kind": "inference",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3f6a3a",
+      "0x3f6f0d"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00575E4EBase2",
+       "offset": 4,
+       "own_vftable": "0x837088",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3f6a3a",
+      "0x3f6f0d"
+     ],
+     "value": 64
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3f6a3a",
+      "0x3f6f0d"
+     ],
+     "value": {
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3f6a3a",
+      "0x3f6f0d"
+     ],
+     "value": {
+      "0x0": [
+       "?findOrCreateRva003F6D35@Rva003F6D35Owner@@QAEPAURva003F6D35Inner@@PAX@Z"
+      ],
+      "0x18": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3f6a3a",
+      "0x3f6f0d"
+     ],
+     "value": {
+      "0x0": "0x83709c",
+      "0x4": "0x837088"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83709c"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GLivingWorldBattle@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3f6cdd"
+       },
+       {
+        "name": "?rva003F4AD8@LivingWorldBattle@@QAEXXZ",
+        "slot": 1,
+        "target": "0x3f4ad8"
+       },
+       {
+        "name": "?name@Rva003F6A8BNamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x3f6a8b"
+       },
+       {
+        "name": "?DoXfer@LivingWorldBattle@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x3f7023"
+       }
+      ],
+      "table": "0x83709c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 34,
+  "retail_vtables": {
+   "0x837088": {
+    "offset": 4,
+    "slots": {},
+    "stores": 2
+   },
+   "0x83709c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GLivingWorldBattle@@UAEPAXI@Z",
+     "1": "?rva003F4AD8@LivingWorldBattle@@QAEXXZ",
+     "2": "?name@Rva003F6A8BNamed@@QBEPBDXZ",
+     "3": "?DoXfer@LivingWorldBattle@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 27,
+   "8": 1,
+   "36": 4,
+   "40": 5,
+   "56": 1,
+   "60": 8,
+   "64": 4
+  },
+  "views": 50,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 33
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldBattle_AddArmy.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005EBCCEPermuted.cpp",
+    "Code/GameEngine/Source/Common/UpdateRva002BB7D6Farm.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicConflictResultsSetCurrentBattle.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattlePlayerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRegionArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRva003F4AD8.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva003F498ALoops.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005EBCCEPermuted.cpp",
+    "Code/GameEngine/Source/Common/UpdateRva002BB7D6Farm.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicConflictResultsSetCurrentBattle.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattlePlayerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRegionArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRva003F4AD8.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva003F498ALoops.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005EBCCEPermuted.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicConflictResultsSetCurrentBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattlePlayerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRegionArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRva003F4AD8.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva003F6A91Dtor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva003F498ALoops.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleGetResolutionOptions.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRegionArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRva003F4AD8.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicRva002B89E1.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicRva002B89E1.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005EBCCEPermuted.cpp",
+    "Code/GameEngine/Source/Common/UpdateRva002BB7D6Farm.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicConflictResultsPlayerColor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleRva003F4AD8.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicArmyVisitorRva002BA392.cpp"
+   ],
+   "views": 10
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleDoXfer.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 60,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
