@@ -2206,18 +2206,7 @@ public:
 	void rva0021B3FA(void);
 };
 
-class GameLODManager
-{
-public:
-	int getStaticLODLevel(void) const { return m_staticLODLevel; }
-	int get1774(void) const { return m_1774; }
-
-private:
-	char m_pad0000[0x1768];
-	int m_staticLODLevel;
-	char m_pad176C[0x1774 - 0x176c];
-	int m_1774;
-};
+#include "../../../Include/Common/GameLODManager.h"
 
 void bfmeClearReceiverFlag(int value);
 

@@ -196,15 +196,7 @@ struct Rva00DFE144Globals
 
 // The global at 0x009FE144: the LOD manager; +0x17C4 is the integer the
 // 0x00518FEA warning gate compares against.
-class GameLODManager
-{
-public:
-	unsigned char m_pad[0x1768];
-	int m_1768; // +0x1768, the setting AptOptions::Save stores with a static LOD change
-	unsigned char m_pad176c[0x17c4 - 0x176c];
-	int m_17c4; // +0x17C4
-	int findAudioLODLevel() const;
-};
+#include "../../../../../Include/Common/GameLODManager.h"
 
 extern GameLODManager *TheGameLODManager;
 

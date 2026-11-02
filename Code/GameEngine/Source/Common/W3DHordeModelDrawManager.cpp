@@ -557,12 +557,7 @@ public:
 	unsigned char rva000B49F9();
 };
 
-class GameLODManager
-{
-public:
-	char m_pad00[0x1788];
-	int m_1788;
-};
+#include "../../Include/Common/GameLODManager.h"
 
 extern GameLODManager *TheGameLODManager;
 

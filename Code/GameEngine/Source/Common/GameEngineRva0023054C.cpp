@@ -59,11 +59,7 @@ class AttributeModifierStore;
 
 // GameLODManager's empty destructor folds into the one-byte body at
 // 0x000B3FD0.
-class GameLODManager
-{
-public:
-	~GameLODManager();										// 0x000B3FD0
-};
+#include "../../Include/Common/GameLODManager.h"
 
 extern BfmeDfe6e4 *theBfmeDfe6e4;
 extern BfmeDfe6ec *theBfmeDfe6ec;

@@ -262,14 +262,7 @@ public:
 	void rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle);
 };
 
-class GameLODManager
-{
-public:
-	Bool isDebrisSkipped() { return ((++m_numDebrisGenerations) & m_debrisSkipMask) != m_debrisSkipMask; }
-	char m_pad[0x1794];
-	Int m_numDebrisGenerations;		// +0x1794
-	Int m_debrisSkipMask;			// +0x1798
-};
+#include "../../../Include/Common/GameLODManager.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

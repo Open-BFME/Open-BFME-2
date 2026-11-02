@@ -309,13 +309,7 @@ public:
 
 extern class AudioManager *TheAudio;
 
-class GameLODManager
-{
-public:
-	Int getAudioLODIndex(const AsciiString &name);
-public:
-	const char *getAudioLODLevelName(Int i);
-};
+#include "../../../../../Include/Common/GameLODManager.h"
 
 // Retail enum-dispatch table at 0xDBD120, defined in
 // OptionPreferences_enumDispatch.cpp; this TU only references it.

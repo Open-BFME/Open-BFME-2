@@ -374,15 +374,7 @@ private:
 };
 extern GameLogic *TheGameLogic;
 
-class GameLODManager
-{
-public:
-	Real getSlowDeathScale() const { return m_slowDeathScale; }
-
-private:
-	unsigned char m_pad00[0x179C];
-	Real m_slowDeathScale; // +0x179C
-};
+#include "../../../../Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 
 class GameEngine

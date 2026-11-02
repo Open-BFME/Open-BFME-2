@@ -8,12 +8,7 @@
 // (Lock in ctor Assert in dtor). Owner unproven so honest address name.
 // Callees by row/pin names.
 
-class GameLODManager
-{
-public:
-	char m_pad[0x177c];
-	int m_177c;
-};
+#include "../../Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 
 struct Db12
@@ -84,7 +79,7 @@ void Rva0007BA35::rva0007BA35()
 {
 	g_shadowMapSettings = g_defaultShadowMapSettings;
 	GameLODManager *mgr = TheGameLODManager;
-	int lod = mgr->m_177c;
+	int lod = mgr->word177C;
 	if (lod >= 4)
 	{
 		int minimumMapSize = 0x800;
@@ -113,7 +108,7 @@ void parseShadowMapBlock(INI *ini)
 {
 	g_shadowMapSettings = g_defaultShadowMapSettings;
 	if (*reinterpret_cast<int *>(reinterpret_cast<char *>(ini) + 8) == 2 &&
-		TheGameLODManager->m_177c >= 4)
+		TheGameLODManager->word177C >= 4)
 	{
 		int minimumMapSize = 0x800;
 		int *mapSize;

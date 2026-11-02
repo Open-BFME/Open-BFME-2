@@ -130,12 +130,7 @@ class Drawable;
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
-class GameLODManager
-{
-public:
-	unsigned char m_pad[0x1774];
-	int m_staticLODLevel;					// +0x1774
-};
+#include "../../Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 
 #include "../../Include/Common/GlobalData.h"
@@ -433,7 +428,7 @@ Drawable::Drawable(const ThingTemplate *thingTemplate, DrawableStatus statusBits
 
 	int lodLevel = 3;
 	if (TheGameLODManager)
-		lodLevel = TheGameLODManager->m_staticLODLevel;
+		lodLevel = TheGameLODManager->m_1774;
 
 	int modIdx;
 	Module **module;

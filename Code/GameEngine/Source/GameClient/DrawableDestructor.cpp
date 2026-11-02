@@ -100,12 +100,7 @@ public:
 };
 extern DisplayStringManager *TheDisplayStringManager;
 
-class GameLODManager
-{
-public:
-	unsigned char m_pad[0x1774];
-	int m_staticLODLevel;					// +0x1774
-};
+#include "../../Include/Common/GameLODManager.h"
 extern GameLODManager *TheGameLODManager;
 
 #include "../../Include/Common/GlobalData.h"

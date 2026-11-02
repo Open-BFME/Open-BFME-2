@@ -43,11 +43,7 @@ typedef bool Bool;
 
 #include "../../Include/Common/INI/INI.h"
 
-class GameLODManager
-{
-public:
-	Int getAudioLODIndex(const AsciiString &name);
-};
+#include "../../Include/Common/GameLODManager.h"
 
 extern GameLODManager *TheGameLODManager;  // defined in GameLOD.cpp
 

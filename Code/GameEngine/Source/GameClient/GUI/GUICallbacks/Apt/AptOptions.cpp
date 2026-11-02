@@ -79,15 +79,7 @@ private:
 	bool m_isWinsockInitialized;
 };
 
-class GameLODManager
-{
-public:
-	int findAudioLODLevel() const;
-	char m_pad00[0x1768];
-	int m_1768; // +0x1768 +0x1768, the setting AptOptions::Save stores with a static LOD change
-	char m_pad176C[0x58];
-	int m_17C4; // +0x17C4 +0x17C4
-};
+#include "../../../../../Include/Common/GameLODManager.h"
 
 extern GameLODManager *TheGameLODManager;
 
@@ -595,7 +587,7 @@ void AptOptions::InitGadgets(const char *name, int unused, GameWindow *window)
 		m_resolutionCombo = window;
 		AsciiString selectedResolution = OptionPreferences()["Resolution"];
 		int defaultXRes, defaultYRes, selectedXRes, selectedYRes;
-		if (TheGameLODManager->m_17C4 <= 0)
+		if (TheGameLODManager->m_17c4 <= 0)
 		{
 			defaultXRes = 800;
 			selectedXRes = defaultXRes;
