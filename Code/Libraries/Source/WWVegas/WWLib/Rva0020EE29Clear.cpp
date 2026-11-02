@@ -380,13 +380,18 @@ void Rva002104C7::rva0020E374(void *a1, void *a2)
 // when any link is null. The first stack arg is unused by retail. Evidence:
 // retail pushes [esi+4]/[esi] with this=arg into the erase; the three
 // test/je null gates in order; the final member call shape.
+// The folded four-byte-element erase at 0x00532803 is bound through an
+// existing provider spelling; the argument's element type is unproven.
+struct Rva005334A4Element;
+namespace _STL {
+template <> Rva005334A4Element *vector<Rva005334A4Element>::erase(Rva005334A4Element *, Rva005334A4Element *);
+}
+
 struct Rva0020FD42Arg
 {
-	void **m_begin;
-	void **m_end;
-	char m_pad[0x124];
+	_STL::vector<Rva005334A4Element> m_vec;
+	char m_pad[0x120];
 	int m_12C;
-	void **vecErase2(void **first, void **last);
 };
 
 struct Rva0020FD42P
@@ -415,7 +420,7 @@ private:
 void Rva0020FD42::rva0020FD42(void *a1, void *a2)
 {
 	Rva0020FD42Arg *arg = (Rva0020FD42Arg *)a2;
-	arg->vecErase2(arg->m_begin, arg->m_end);
+	arg->m_vec.erase(arg->m_vec.begin(), arg->m_vec.end());
 	Rva0020FD42P *p = m_08;
 	if (!p)
 		return;
