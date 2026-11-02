@@ -1,0 +1,480 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "LightEnvironmentClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 19,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x164": {
+    "4": 5
+   },
+   "0x168": {
+    "4": 4
+   },
+   "0x16c": {
+    "4": 4
+   },
+   "0x184": {
+    "4": 1
+   },
+   "0x1dc": {
+    "4": 1
+   },
+   "0x1e0": {
+    "4": 1
+   },
+   "0x1e4": {
+    "4": 1
+   },
+   "0x1e8": {
+    "4": 1
+   },
+   "0x1ec": {
+    "4": 1
+   },
+   "0x1f0": {
+    "4": 1
+   },
+   "0x224": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 6
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 13,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "368": 1,
+   "552": 14,
+   "556": 1
+  },
+  "views": 19,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "LightCount",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 552,
+   "type": "char[552]",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "ObjectCenter.X",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Vector3",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "InputLights",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "ObjectCenter",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Vector3",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "inputLights",
+   "name_by": "tie",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 336,
+   "type": "LightEnvironmentInputLight[336]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Vector3",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "OutputLights",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "OutputAmbient",
+   "name_by": "majority",
+   "offset": 356,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Vector3",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "outputLights",
+   "name_by": "tie",
+   "offset": 368,
+   "retail_widths": {},
+   "size": 96,
+   "type": "LightEnvironmentOutputLight[96]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:LightEnvironmentInputLight",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 12,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 16,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 20,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 24,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 28,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "DiffuseRejected",
+     "offset": 32,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "i1",
+     "name": "X",
+     "offset": 36,
+     "size": 1,
+     "type": "bool"
+    },
+    {
+     "kind": "i1",
+     "name": "point",
+     "offset": 37,
+     "size": 1,
+     "type": "bool"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 40,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 44,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_innerRadius",
+     "offset": 48,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "m_outerRadius",
+     "offset": 52,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 56,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 60,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 64,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 68,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 72,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 76,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "FillIntensity",
+     "offset": 80,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "fillLight",
+   "name_by": "majority",
+   "offset": 464,
+   "retail_widths": {},
+   "size": 84,
+   "type": "LightEnvironmentInputLight",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "fillIntensity",
+   "name_by": "tie",
+   "offset": 548,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x14",
+   "candidates": {
+    "InputLights": 1,
+    "inputLights": 1
+   },
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "name@0x170",
+   "candidates": {
+    "OutputLights": 1,
+    "outputLights": 1
+   },
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "name@0x1f5",
+   "candidates": {
+    "FillLight.Point": 1,
+    "fillLight.point": 1
+   },
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "name@0x224",
+   "candidates": {
+    "FillIntensity": 1,
+    "fillIntensity": 1
+   },
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "ObjectCenter.X": 2
+   },
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x164",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x170",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x1d0",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  },
+  {
+   "attribute": "straddle@0x224",
+   "candidates": {},
+   "class": "LightEnvironmentClass"
+  }
+ ],
+ "size": 552,
+ "size_by": "majority",
+ "vslots": {}
+}

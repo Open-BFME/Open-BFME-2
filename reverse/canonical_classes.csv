@@ -364,3 +364,4 @@ DamageModule,Code/GameEngine/Include/GameLogic/Module/DamageModuleClass.h,existi
 FrameDataManager,Code/GameEngine/Include/GameNetwork/FrameDataManagerClass.h,existing header; contract class_contracts/FrameDataManager.json; 17/19 sampled units adopt
 StateConditionInfo,Code/GameEngine/Include/Common/StateConditionInfo.h,existing header; contract class_contracts/StateConditionInfo.json; 6/19 sampled units adopt
 RadiusDecalTemplate,Code/GameEngine/Include/GameClient/RadiusDecalTemplate.h,existing header; contract class_contracts/RadiusDecalTemplate.json; 13/18 sampled units adopt
+LightEnvironmentClass,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h,existing header; contract class_contracts/LightEnvironmentClass.json; 4/19 sampled units adopt
