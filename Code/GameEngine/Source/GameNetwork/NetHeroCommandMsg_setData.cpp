@@ -15,18 +15,7 @@ enum NetCommandType
 {
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
-class NetCommandMsg
-{
-public:
-	virtual ~NetCommandMsg() {}
-protected:
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 class NetHeroCommandMsg : public NetCommandMsg
 {
 public:

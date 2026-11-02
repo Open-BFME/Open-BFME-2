@@ -3,12 +3,7 @@
 
 extern int FRAME_DATA_LENGTH;
 
-class NetCommandMsg
-{
-public:
-	char m_pad[8];
-	unsigned int m_executionFrame;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class NetCommandRef
 {

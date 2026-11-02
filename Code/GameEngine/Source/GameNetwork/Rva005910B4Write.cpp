@@ -9,18 +9,7 @@
 
 void __cdecl ji_006291a8();
 
-class NetCommandMsg
-{
-public:
-	void *m_vptr;
-	unsigned int m_timestamp;
-	unsigned int m_executionFrame;
-	unsigned int m_playerID;
-	unsigned short m_id;
-	char m_pad12[2];
-	int m_commandType;
-	int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class Rva004D6119 : public NetCommandMsg
 {

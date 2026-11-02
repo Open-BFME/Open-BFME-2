@@ -35,11 +35,7 @@ public:
 	void rva004D05D7(UnicodeString s);
 };
 
-class NetCommandMsg
-{
-public:
-	void detach();
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 enum NetCommandType { NETCOMMAND_TYPE_DUMMY };
 bool DoesCommandRequireACommandID(NetCommandType type);

@@ -11,24 +11,7 @@ class AsciiString;
 
 // NetCommandMsg as NetCommandMsgCtor.cpp declares it (retail vtable 0x860130:
 // deleting dtor, getSortNumber, the folded bool slot, getContentsAsAsciiString).
-class NetCommandMsg
-{
-public:
-	NetCommandMsg();
-protected:
-	virtual ~NetCommandMsg() {}
-public:
-	virtual int getSortNumber();
-	virtual bool vslot08() { return false; }
-	virtual AsciiString getContentsAsAsciiString();
-protected:
-	unsigned int m_timestamp;
-	unsigned int m_executionFrame;
-	unsigned int m_playerID;
-	unsigned short m_id;
-	int m_commandType;
-	int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 // Its vtable 0x00860140 overrides slot 3 with the rowed
 // NetFrameCommandMsg::getContentsAsAsciiString 0x004D5C2B; the compiler

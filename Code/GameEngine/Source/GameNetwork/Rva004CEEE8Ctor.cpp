@@ -4,10 +4,7 @@
 // Evidence: rowed base 0x004D5593 plus 2 callers 0x004D0C88 0x0058DD89; class unproven so honest Rva name.
 extern "C" const void *const __identifier("??_7NetDisconnectKeepAliveCommandMsg@@6B@")[];  // folded vftable 0x00C60244 (7 classes), by its data-ledger name
 
-class NetCommandMsg {
-public:
-    NetCommandMsg();
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 class Rva004CEEE8 : public NetCommandMsg {
 public:
     Rva004CEEE8();

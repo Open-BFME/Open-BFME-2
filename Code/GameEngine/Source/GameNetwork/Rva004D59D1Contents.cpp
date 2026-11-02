@@ -25,25 +25,7 @@ __forceinline const char *GetStr004D634E(const AsciiString &asciiString)
 	return t ? t + 8 : "";
 }
 
-class NetCommandMsg
-{
-public:
-	AsciiString rva004D5B4C();
-protected:
-	virtual ~NetCommandMsg();
-private:
-	virtual MemoryPool *getObjectMemoryPool();
-public:
-	virtual Int getSortNumber();
-	virtual AsciiString getContentsAsAsciiString();
-protected:
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class Rva004D59D1 : public NetCommandMsg
 {

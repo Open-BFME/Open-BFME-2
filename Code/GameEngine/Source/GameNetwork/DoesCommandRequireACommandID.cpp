@@ -85,15 +85,7 @@ bool IsCommandSynchronized(NetCommandType type)
 // 9,7,11,14,27,26,16,17,18,20,19,21,22,28,30 (26 early vs
 // DoesCommandRequireACommandID). Rowed before as the address-named
 // ?Rva00581229Get@@YAHPAURva00581229Msg@@@Z.
-class NetCommandMsg
-{
-public:
-	NetCommandType getNetCommandType() const { return m_commandType; }
-
-private:
-	char m_pad[0x14];
-	NetCommandType m_commandType;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 bool CommandRequiresAck(NetCommandMsg *msg)
 {

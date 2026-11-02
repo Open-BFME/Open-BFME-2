@@ -47,23 +47,7 @@ extern GameLogic *TheGameLogic;
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
-class NetCommandMsg
-{
-public:
-	UnsignedInt getExecutionFrame() const { return m_executionFrame; }
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	UnsignedShort getID() const { return m_id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
-
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 Bool DoesCommandRequireACommandID(NetCommandType type);
 

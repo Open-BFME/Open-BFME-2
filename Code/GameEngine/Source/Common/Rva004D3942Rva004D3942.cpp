@@ -16,22 +16,7 @@ enum NetCommandType
     NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class NetCommandMsg
-{
-public:
-    NetCommandMsg();
-    void detach();
-
-    unsigned int m_timestamp;
-    unsigned int m_executionFrame;
-    unsigned int m_playerID;
-    unsigned short m_id;
-    NetCommandType m_commandType;
-    int m_referenceCount;
-
-protected:
-    virtual ~NetCommandMsg();
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class NetDisconnectKeepAliveCommandMsg : public NetCommandMsg
 {

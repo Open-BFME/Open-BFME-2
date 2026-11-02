@@ -66,26 +66,7 @@ enum NetCommandType
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
-class NetCommandMsg
-{
-public:
-	NetCommandMsg();
-	virtual ~NetCommandMsg() {}
-
-	void attach();
-
-	UnsignedShort getID() { return m_id; }
-	UnsignedInt getPlayerID() { return m_playerID; }
-	UnsignedInt getExecutionFrame() { return m_executionFrame; }
-
-protected:
-	UnsignedInt m_timestamp;						// this+0x04
-	UnsignedInt m_executionFrame;					// this+0x08
-	UnsignedInt m_playerID;							// this+0x0C
-	UnsignedShort m_id;								// this+0x10
-	NetCommandType m_commandType;					// this+0x14
-	Int m_referenceCount;							// this+0x18
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 // Command types 8 and 9 have no counterpart in the reference: BFME added them.
 // Retail ships without RTTI, so the class names below are not recovered from the

@@ -89,33 +89,7 @@ enum NetCommandType
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
-class NetCommandMsg
-{
-public:
-	NetCommandMsg();
-	virtual ~NetCommandMsg();
-	virtual int getSortNumber();
-	virtual void prepareForRelay();
-	void attach();
-	void detach();
-
-	void setExecutionFrame(unsigned int frame) { m_executionFrame = frame; }
-	unsigned int getExecutionFrame() { return m_executionFrame; }
-	void setPlayerID(unsigned int playerID) { m_playerID = playerID; }
-	unsigned int getPlayerID() { return m_playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	UnsignedShort getID() { return m_id; }
-	void setNetCommandType(NetCommandType type) { m_commandType = type; }
-	NetCommandType getNetCommandType() { return m_commandType; }
-
-protected:
-	unsigned int m_timestamp;
-	unsigned int m_executionFrame;
-	unsigned int m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h
 class GameMessage;

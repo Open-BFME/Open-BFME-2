@@ -30,28 +30,7 @@ bool DoesCommandRequireACommandID(NetCommandType type);
 
 class AsciiString;
 
-class NetCommandMsg
-{
-public:
-	virtual ~NetCommandMsg();
-	virtual void *getObjectMemoryPool();
-	virtual int getSortNumber();
-	virtual AsciiString getContentsAsAsciiString();
-	void attach();
-	void detach();
-
-public:
-	UnsignedInt m_timestamp; // +4 (vtable at +0)
-	UnsignedInt m_executionFrame; // +8
-	UnsignedInt m_playerID; // +0xC
-	UnsignedShort m_id; // +0x10
-	NetCommandType m_commandType; // +0x14
-
-	UnsignedInt GetTimestamp() { return m_timestamp; }
-	UnsignedInt getPlayerID() { return m_playerID; }
-	UnsignedShort getID() { return m_id; }
-	NetCommandType getNetCommandType() { return m_commandType; }
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 // The ack getters are out of line in BFME 2; retail folds the three
 // classes' identical bodies onto 0x004543C6 (byte at +0x1E) and 0x004D5767

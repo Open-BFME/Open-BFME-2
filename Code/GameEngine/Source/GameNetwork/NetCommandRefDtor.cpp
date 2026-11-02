@@ -4,11 +4,7 @@
 // Target layout evidence: NetCommandRef and NetCommandNode both hold m_msg at
 // +0, followed by their list links. This is a real second identity folded onto
 // the identical detach body, not a rename of the node operation.
-class NetCommandMsg
-{
-public:
-	void detach();
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
 class NetCommandRef
 {
