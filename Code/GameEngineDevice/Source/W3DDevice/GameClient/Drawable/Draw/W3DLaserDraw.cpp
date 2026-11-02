@@ -51,27 +51,8 @@ class Drawable;
 
 class DrawModule;
 
-class DrawableModule
-{
-public:
-	DrawableModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~DrawableModule();
-	void xfer(Xfer *xfer);
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-protected:
-	const ModuleData *m_moduleData;
-	Drawable *m_drawable;
-};
-
-class DrawModule : public DrawableModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
 
 enum NameKeyType;
 

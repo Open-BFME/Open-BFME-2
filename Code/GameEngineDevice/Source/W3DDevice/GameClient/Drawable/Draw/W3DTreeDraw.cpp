@@ -26,15 +26,7 @@ class Thing;
 
 class ModuleData;
 
-class DrawModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	// The matched DrawModule ctor/dtor use a vfptr at +0. Keep this base
-	// polymorphic when the module-name-key donor supplies a virtual method.
-	virtual ~DrawModule();
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class W3DTreeDrawModuleDataBase {
 public:

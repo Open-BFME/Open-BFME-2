@@ -254,19 +254,7 @@ struct W3DScriptedModelDrawModuleDataView
 	int m_140;
 };
 
-class DrawModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~DrawModule();
-public:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Drawable *getDrawable() const { return m_drawable; }
-private:
-	const ModuleData *m_moduleData;
-	Drawable *m_drawable;
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 // The +0x0C and +0x10 one-slot interface bases. Their slot-0 functions are
 // rowed under these names (0x000B34D8 Rva000B34D8Fetch.cpp, 0x000BFB76

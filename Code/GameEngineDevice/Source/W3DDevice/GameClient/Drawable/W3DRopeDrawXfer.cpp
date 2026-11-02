@@ -38,14 +38,7 @@ class Object;
 
 #include "../../../../../GameEngine/Include/Common/ObjectModule.h"
 
-class DrawModule : public ObjectModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class RopeDrawInterface
 {

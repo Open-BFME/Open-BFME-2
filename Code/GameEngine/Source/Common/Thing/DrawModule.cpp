@@ -2,11 +2,7 @@
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 
 // LargeGroupAudio getter is owned by the complete subsystem unit.
-class DrawModule
-{
-protected:
-    virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Module/DrawModule.h"
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 

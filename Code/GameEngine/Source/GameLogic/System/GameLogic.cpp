@@ -3391,11 +3391,7 @@ public:
 	virtual const char *GetSnapshotName();
 };
 
-class DrawModule
-{
-protected:
-    virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/GameLogic/Module/DrawModule.h"
 
 BFME_LITERAL_NAME_GETTER(Rva002431A9Named, "InvisibilityManager")
 

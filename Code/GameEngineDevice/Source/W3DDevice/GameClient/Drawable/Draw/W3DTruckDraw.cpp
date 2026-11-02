@@ -60,13 +60,7 @@ struct Rva0010F149Handle
 	~Rva0010F149Handle() { if (m_target != 0) m_target->Release_Ref(); }
 };
 
-class DrawModule
-{
-public:
-	virtual ~DrawModule();
-private:
-	char m_pad[8];
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class DrawInterfaceC
 {

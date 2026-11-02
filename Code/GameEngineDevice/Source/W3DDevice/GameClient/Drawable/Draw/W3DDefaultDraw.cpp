@@ -23,14 +23,7 @@ class Thing;
 
 class ModuleData;
 
-class DrawModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	// Keep the matched base vfptr at +0 when hosting the virtual name key.
-	virtual ~DrawModule();
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class W3DDefaultDraw : public DrawModule
 {

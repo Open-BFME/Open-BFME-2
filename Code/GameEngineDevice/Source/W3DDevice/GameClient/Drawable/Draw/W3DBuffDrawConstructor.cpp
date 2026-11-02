@@ -11,16 +11,7 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DrawModule.h
-class DrawModule
-{
-public:
-	DrawModule( Thing *thing, const ModuleData *moduleData );
-
-	virtual void drawModuleAnchor();
-
-private:
-	unsigned char m_data[8];
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class W3DBuffDraw : public DrawModule
 {

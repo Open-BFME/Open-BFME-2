@@ -10,13 +10,7 @@
 class Thing;
 class ModuleData;
 
-class DrawModule
-{
-public:
-	virtual ~DrawModule();
-private:
-	char m_pad[8];
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class DrawInterfaceC
 {

@@ -95,19 +95,8 @@ public:
 	static RTS3DScene *m_3DScene;
 };
 
-class DrawableModule
-{
-protected:
-	virtual ~DrawableModule();
-	void *m_moduleData; // +0x04
-	Drawable *m_drawable; // +0x08
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-class DrawModule : public DrawableModule
-{
-protected:
-	virtual ~DrawModule() {}
-};
 
 struct SegInfo
 {

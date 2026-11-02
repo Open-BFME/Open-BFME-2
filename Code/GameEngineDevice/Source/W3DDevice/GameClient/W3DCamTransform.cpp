@@ -290,10 +290,7 @@ class Rva002B224BDwordField {public:int get()const;};
 class Drawable;
 class Thing {public:Drawable *getDrawable() const;};
 class ObjectDrawInterface {public:virtual void slot0();virtual void slot1();virtual bool boneTransform(const AsciiString &,Matrix3D *)const;};
-class DrawModule {public:
-    PAD_VIRTUALS10(dm0) PAD_VIRTUALS10(dm1) PAD_VIRTUALS10(dm2) PAD_VIRTUALS10(dm3)
-    virtual void dm40();virtual void dm41();virtual const ObjectDrawInterface *getObjectDrawInterface()const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class Rva00102F83Owner { public: void rva00102F83(Rva0010274F *); };
 

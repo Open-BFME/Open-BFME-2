@@ -18,11 +18,7 @@ public:
     virtual bool updateBonesForClientParticleSystems(int);
 };
 
-class DrawModule : public ParticleBoneDrawSlots<42> {
-public:
-    // Retail slot +A8; WB uses +AC.
-    virtual ObjectDrawInterface *getObjectDrawInterface();
-};
+#include "../../../../Include/GameLogic/Module/DrawModule.h"
 
 #include "../../../../Include/GameClient/Drawable.h"
 

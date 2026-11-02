@@ -53,16 +53,7 @@ class Locomotor { public: Real getMaxSpeed(Object *obj) const; };
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class DrawModule : public ObjectModule
-{
-public:
-	DrawModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-	Drawable *getDrawable() const { return (Drawable *)m_object; }
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
 class W3DBoatWakeModelDrawModuleData;
 
