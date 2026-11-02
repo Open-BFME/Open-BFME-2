@@ -278,28 +278,7 @@ public:
 	bool testHardwareSupport(void);
 };
 
-class Display
-{
-public:
-	virtual void unused00(void) = 0;
-	virtual void unused01(void) = 0;
-	virtual void unused02(void) = 0;
-	virtual void unused03(void) = 0;
-	virtual void unused04(void) = 0;
-	virtual void unused05(void) = 0;
-	virtual void unused06(void) = 0;
-	virtual void unused07(void) = 0;
-	virtual void unused08(void) = 0;
-	virtual void unused09(void) = 0;
-	virtual void unused10(void) = 0;
-	virtual void unused11(void) = 0;
-	virtual void unused12(void) = 0;
-	virtual void unused13(void) = 0;
-	virtual void unused14(void) = 0;
-	virtual void unused15(void) = 0;
-	virtual unsigned int getWidth(void) = 0;
-	virtual unsigned int getHeight(void) = 0;
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
 extern Display *TheDisplay;
 

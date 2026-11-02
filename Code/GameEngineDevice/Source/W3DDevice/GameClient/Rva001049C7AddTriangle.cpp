@@ -165,28 +165,7 @@ public:
 	void Set_View_Plane(float hfov, float vfov);
 };
 
-class Display
-{
-public:
-	virtual void f00();
-	virtual void f01();
-	virtual void f02();
-	virtual void f03();
-	virtual void f04();
-	virtual void f05();
-	virtual void f06();
-	virtual void f07();
-	virtual void f08();
-	virtual void f09();
-	virtual void f10();
-	virtual void f11();
-	virtual void f12();
-	virtual void f13();
-	virtual void f14();
-	virtual void f15();
-	virtual unsigned int getWidth(); // slot 16
-	virtual unsigned int getHeight(); // slot 17
-};
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 static float s_cameraDistance = 160.0f;
 bool Rva00118660Call(void *owner, void *camera);
