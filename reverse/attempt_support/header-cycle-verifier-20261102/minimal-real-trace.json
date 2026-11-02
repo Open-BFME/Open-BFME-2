@@ -1,0 +1,72 @@
+{
+  "include_roots": [
+    "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport",
+    "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\base",
+    "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\include"
+  ],
+  "visited": 25,
+  "first_cycle": {
+    "entry": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_prolog.h",
+    "chain": [
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-header-include-cycle-20261102\\minimal.cpp",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\string.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_prolog.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_config.h",
+        "guarded": true
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stlcomp.h",
+        "guarded": true
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_como.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\math.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_prolog.h",
+        "guarded": false
+      }
+    ],
+    "cycle_only": [
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_prolog.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_config.h",
+        "guarded": true
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stlcomp.h",
+        "guarded": true
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_como.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\math.h",
+        "guarded": false
+      },
+      {
+        "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_prolog.h",
+        "guarded": false
+      }
+    ]
+  },
+  "actual_include_problem": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_prolog.h: include cycle cannot be ordered"
+}

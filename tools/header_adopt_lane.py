@@ -371,7 +371,9 @@ def include_walk(source, text, include_roots=(), cache=None):
     """Scan the complete quoted include closure once, refusing unorderable cycles."""
     start = (ROOT / source).resolve()
     cache = {} if cache is None else cache
-    seen, active, guarded, out = set(), set(), set(), []
+    seen, active, out = set(), set(), []
+    graph, guards, invalidated = {}, {}, set()
+    unknown_macro_stack = False
     stack = [(start, text, False)]
     while stack:
         path, body, leaving = stack.pop()
@@ -379,8 +381,8 @@ def include_walk(source, text, include_roots=(), cache=None):
             active.remove(path)
             continue
         if path in active:
-            if path not in guarded:
-                return out, f"{path}: include cycle cannot be ordered"
+            # Inspect the complete graph below: a guarded intermediate header
+            # can terminate this cycle even when its repeated entry is unguarded.
             continue
         if path in seen:
             continue
@@ -392,7 +394,23 @@ def include_walk(source, text, include_roots=(), cache=None):
         out.append((str(path), body))
         code = masked(body)
         if include_guarded(code):
-            guarded.add(path)
+            guards[path] = re.search(r'(?m)^[ \t]*#[ \t]*ifndef[ \t]+([A-Za-z_]\w*)', code).group(1)
+        # A guard is a barrier only while its macro stays defined. Treat resets
+        # anywhere in the closure conservatively, including spliced directives
+        # and compiler macro-stack operations; do not evaluate conditions.
+        phase_two = SPLICE.sub("", body)
+        spliced = masked(phase_two)
+        invalidated.update(re.findall(
+            r'(?m)^[ \t\f\v\r]*(?:#|%:)[ \t\f\v\r]*undef[ \t\f\v\r]+([A-Za-z_]\w*)', spliced))
+        literal_code = masked(phase_two, keep_literals=True)
+        for operation in re.finditer(r'\bpop_macro\b', spliced):
+            arguments = re.match(r'\s*\(([^)]*)\)', literal_code[operation.end():])
+            name = (re.fullmatch(r'\s*"([A-Za-z_]\w*)"\s*', arguments.group(1))
+                    if arguments else None)
+            if name:
+                invalidated.add(name.group(1))
+            else:
+                unknown_macro_stack = True
         problem = re.search(r"\?\?[=/'()!<>-]", body)
         position = problem.start() if problem else header_comment_splice(body)
         if position is not None:
@@ -413,10 +431,32 @@ def include_walk(source, text, include_roots=(), cache=None):
             if not targets:
                 return out, f"{path}: unresolved include {name}"
             children.append(targets[0])
+        graph[path] = children
         for target in reversed(children):
             if target not in cache:
                 cache[target] = read_path(target)
             stack.append((target, cache[target], False))
+    barriers = (set() if unknown_macro_stack else
+                {path for path, macro in guards.items() if macro not in invalidated})
+    # Removing stable guard vertices must leave an acyclic graph. Checking only
+    # DFS back-edges can miss an unguarded alternate cycle through a seen node.
+    colors = {}
+    for first in graph:
+        if first in barriers or colors.get(first):
+            continue
+        pending = [(first, False)]
+        while pending:
+            node, leaving = pending.pop()
+            if leaving:
+                colors[node] = 2
+                continue
+            if node in barriers or colors.get(node) == 2:
+                continue
+            if colors.get(node) == 1:
+                return out, f"{node}: include cycle cannot be ordered"
+            colors[node] = 1
+            pending.append((node, True))
+            pending.extend((child, False) for child in reversed(graph[node]))
     return out, None
 
 

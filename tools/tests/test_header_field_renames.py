@@ -430,6 +430,84 @@ def test_r4d_transitive_include_chain_and_cycles(tmp_path, monkeypatch):
     assert lane.include_problem("u.cpp", text) is None
 
 
+def test_include_cycle_can_be_cut_by_a_guarded_intermediate(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text('#ifndef B_H\n#define B_H\n#include "a.h"\n#endif\n')
+    assert lane.include_problem("u.cpp", '#include "a.h"\n') is None
+
+
+def test_guarded_ancestor_does_not_hide_an_unguarded_inner_cycle(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "g.h").write_text('#ifndef G_H\n#define G_H\n#include "a.h"\n#endif\n')
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text('#include "a.h"\n')
+    assert "cycle" in lane.include_problem("u.cpp", '#include "g.h"\n')
+
+
+def test_seen_header_does_not_hide_an_unguarded_alternate_cycle(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n#include "c.h"\n')
+    (tmp_path / "b.h").write_text('#ifndef B_H\n#define B_H\n#include "c.h"\n#endif\n')
+    (tmp_path / "c.h").write_text('#include "a.h"\n')
+    assert "cycle" in lane.include_problem("u.cpp", '#include "a.h"\n')
+
+
+@pytest.mark.parametrize("reset", [
+    '#undef B_H\n', '#undef ' + '\\' + '\nB_H\n',
+    '#un' + '\\' + '\ndef B_H\n',
+    '%:undef B_H\n', '\v#\fundef\vB_H\n', '\f%:\vundef\fB_H\n',
+    '#pragma pop_macro("B_H")\n', '__pragma(pop_macro("B_H"))\n',
+    '#define SAVED_GUARD "B_H"\n#pragma pop_macro(SAVED_GUARD)\n',
+    '#define RESTORE __pragma(pop_macro("B_H"))\nRESTORE\n',
+    '#define RESTORE pop_macro\n__pragma(RESTORE("B_H"))\n__pragma(push_macro("B_H"))\n',
+    '#pragma po' + '\\' + '\np_macro("B_H")\n',
+])
+def test_reset_guard_cannot_cut_an_include_cycle(tmp_path, monkeypatch, reset):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text('#ifndef B_H\n#define B_H\n#include "c.h"\n#endif\n')
+    (tmp_path / "c.h").write_text(reset + '#include "a.h"\n')
+    assert "cycle" in lane.include_problem("u.cpp", '#pragma push_macro("B_H")\n#include "a.h"\n')
+
+
+def test_unrelated_macro_stack_does_not_invalidate_an_include_guard(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text('#ifndef B_H\n#define B_H\n#include "c.h"\n#endif\n')
+    (tmp_path / "c.h").write_text('#pragma pop_macro("OTHER")\n#include "a.h"\n')
+    assert lane.include_problem("u.cpp", '#include "a.h"\n') is None
+
+
+def test_saving_an_include_guard_without_resetting_it_keeps_the_barrier(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text('#ifndef B_H\n#define B_H\n#include "a.h"\n#endif\n')
+    assert lane.include_problem("u.cpp", '#pragma push_macro("B_H")\n#include "a.h"\n') is None
+
+
+@pytest.mark.parametrize("body", [
+    '#ifndef B_H\n#define B_H\n#endif\n#include "a.h"\n',
+    '#ifndef B_H\n#define B_H\n#include "a.h"\n#else\n#include "a.h"\n#endif\n',
+    '#ifndef B_H\n#define B_H\n#undef B_H\n#include "a.h"\n#endif\n',
+])
+def test_partial_else_or_self_reset_guard_cannot_cut_a_cycle(tmp_path, monkeypatch, body):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text(body)
+    assert "cycle" in lane.include_problem("u.cpp", '#include "a.h"\n')
+
+
+def test_guarded_cycle_still_exposes_watched_macros(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "a.h").write_text('#include "b.h"\n')
+    (tmp_path / "b.h").write_text(
+        '#ifndef B_H\n#define B_H\n#define m_flags hidden\n#include "a.h"\n#endif\n')
+    text = '#include "a.h"\nint flags(Object *o) { return o->m_flags; }\n'
+    assert lane.include_problem("u.cpp", text) is None
+    assert "m_flags" in lane.macro_shadow(lane.include_sources("u.cpp", text), RENAMES, text)
+
+
 def test_r4_trigraph_is_refused():
     for char in "=/'()!<>-":
         assert lane.scoped_rename("int f(Object *o) { return o->m_flags; } // ??" + char, RENAMES)[0] is None

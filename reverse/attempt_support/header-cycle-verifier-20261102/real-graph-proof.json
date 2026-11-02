@@ -1,0 +1,51 @@
+{
+  "literal_include_closure_files": 51,
+  "full_guard_files": 8,
+  "stable_full_guard_files": 8,
+  "guard_macros_undefined_in_closure": [],
+  "residual_unguarded_cycles": [],
+  "qualification": "Read-only prototype graph analysis, no production code change. Literal include universe and all-candidate angle behavior mirror current checker; macro-computed includes remain outside its existing model.",
+  "whole_file_guards": [
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_config.h",
+      "macro": "_STLP_CONFIG_H",
+      "sha256": "4f0fa8dfc63cf9b373bd32b85a1192772464100aed24c1d662d0066ecd1ad8f0"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\stl\\_abbrevs.h",
+      "macro": "_STLP_INTERNAL_ABBREVS_H",
+      "sha256": "607790357a49b229f1efa704876f23519c58c8e486505f6310a3f8d84e364d28"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_confix.h",
+      "macro": "_STLP_CONFIX_H",
+      "sha256": "0ae8eb1ac3fba9f27b274a6a9e7ed153c99754ffade71b134891c9a2a5f0b048"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stlcomp.h",
+      "macro": "_STLP_COMP_H",
+      "sha256": "eef72d99537d6c6a20211518e8f3afb3d6f6d936ace8523e11be2b2eeedb1b3a"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_mycomp.h",
+      "macro": "_STLP_MYCOMP_H",
+      "sha256": "3d3bf87384e6307c127d722df1e79540a1fa58690568f89823d1dfe24c265d4c"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_wince.h",
+      "macro": "_STLP_WINCE_H",
+      "sha256": "3577d3515021d114d1b297b52fa1553ceaa91326dcb27499d0d21af358078fa8"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_dm.h",
+      "macro": "_STLP_DMC_H",
+      "sha256": "ce714fa39cf39d9af431238c3e32affc7fae6b9aca4489582c10e2b40f43192b"
+    },
+    {
+      "file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\vendor\\stlport-4.6\\stlport\\config\\stl_icc.h",
+      "macro": "_STLP_ICC_H",
+      "sha256": "4ed012ec63a1f47a6cbcd7e2aab773c6d47faf21a001f37b2fb031c1ded2efd7"
+    }
+  ],
+  "push_pop_macro_tokens_in_visible_literal_closure": []
+}
