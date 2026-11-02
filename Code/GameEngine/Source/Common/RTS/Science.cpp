@@ -7,7 +7,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 // Shared declarations for the query and purchase-cost consumers, preserving their target
-// accesses. The opaque bytes do not assert a complete ScienceInfo layout.
+// accesses.
 enum ScienceType { SCIENCE_INVALID = -1 };
 class AsciiString;
 class Player;
@@ -15,18 +15,41 @@ class Rva0043D3A8;
 // Existing name-key operations used by the two inverse query consumers.
 enum NameKeyType { NAMEKEY_INVALID = -1 };
 #include "../../../Include/Common/NameKeyGenerator.h"
-class ScienceInfo
+// Retail next-override hop uses the established address-derived view at1E35DF.
+// The donor calls this base Overridable; the target spelling remains unproven.
+class Rva001E35DFView
 {
-    char m_opaque00[0x14];
 public:
-    UnicodeString m_name; // +0x14
-    UnicodeString m_description; // +0x18
-private:
-    char m_opaque1c[0x28 - 0x1c];
+	const Rva001E35DFView *getFinalOverride( void ) const
+	{
+		if ( m_nextOverride )
+			return m_nextOverride->getFinalOverride();
+		return this;
+	}
+
 public:
-    int m_sciencePurchasePointCost; // +0x28
-    int m_sciencePurchasePointCostMP; // +0x2c
-    bool m_grantable; // +0x30
+	void *m_unmodelled00;
+	Rva001E35DFView *m_nextOverride;
+	bool m_isOverride;
+};
+
+// One ScienceInfo view for the TU's query consumers. Offsets come from the
+// matched bodies: science key +0x10 and prerequisite groups +0x1C
+// (findScienceInfo 0x001FF3AD, playerHasPrereqsForScience 0x001FF47D), name
+// and description +0x14/+0x18, purchase costs +0x28/+0x2C and grantable
+// +0x30 (getSciencePurchaseCost 0x001FF3DC, isScienceGrantable 0x001FF432),
+// all matching the Science field table 0x00BE2650.
+class ScienceInfo : public Rva001E35DFView
+{
+public:
+	int m_unmodelled0c;
+	ScienceType m_science; // +0x10
+	UnicodeString m_name; // +0x14
+	UnicodeString m_description; // +0x18
+	_STL::vector<_STL::vector<ScienceType> > m_prereqGroups; // +0x1C
+	int m_sciencePurchasePointCost; // +0x28
+	int m_sciencePurchasePointCostMP; // +0x2C
+	bool m_grantable; // +0x30
 };
 #include "../../../Include/Common/ScienceStore.h"
 #include <map>
@@ -57,7 +80,7 @@ typedef _STL::vector<Rva001FFD6BRecord, _STL::allocator<Rva001FFD6BRecord> > Rva
 class Rva0043D3A8
 {
 public:
-	virtual bool v00(ScienceType science);
+	virtual bool v00(ScienceType science) const;
 	virtual int v01();
 };
 

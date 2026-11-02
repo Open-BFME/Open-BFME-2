@@ -10,6 +10,7 @@ extern "C" void _ReadWriteBarrier();
 #include <map>
 #include <vector>
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 // Retail already provides these concrete string-vector operations. Declare
 // them here so this caller uses those providers with their established ABI.
@@ -18,8 +19,6 @@ template <> vector<AsciiString, allocator<AsciiString> >::vector(const vector<As
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &);
 }
-
-typedef int Int;
 
 enum NameKeyType
 {
@@ -67,47 +66,47 @@ public:
 	bool m_isOverride;
 };
 
-// Preserve the existing wrapper's opaque parameter spelling. No Player
-// layout is asserted here; native only exposes the virtual science-query ABI.
-class Player;
-class Rva0043D3A8 {
-public:
-    virtual bool v00(ScienceType science) const;
-};
-
+// One ScienceInfo view for the TU's query consumers. Offsets come from the
+// matched bodies: science key +0x10 and prerequisite groups +0x1C
+// (findScienceInfo 0x001FF3AD, playerHasPrereqsForScience 0x001FF47D), name
+// and description +0x14/+0x18, purchase costs +0x28/+0x2C and grantable
+// +0x30 (getSciencePurchaseCost 0x001FF3DC, isScienceGrantable 0x001FF432),
+// all matching the Science field table 0x00BE2650.
 class ScienceInfo : public Rva001E35DFView
 {
 public:
-	Int m_unmodelled0c;
-	ScienceType m_science;
-	char m_nameAndDescription[8];
-	std::vector<std::vector<ScienceType> > m_prereqGroups;
+	int m_unmodelled0c;
+	ScienceType m_science; // +0x10
+	UnicodeString m_name; // +0x14
+	UnicodeString m_description; // +0x18
+	_STL::vector<_STL::vector<ScienceType> > m_prereqGroups; // +0x1C
+	int m_sciencePurchasePointCost; // +0x28
+	int m_sciencePurchasePointCostMP; // +0x2C
+	bool m_grantable; // +0x30
 };
 
-typedef std::vector<ScienceInfo *> ScienceInfoVec;
-
-class ScienceStore
+// Preserve the existing wrapper's opaque parameter spelling. No Player
+// layout is asserted here; native only exposes the virtual science-query ABI.
+class Player;
+class Rva0043D3A8
 {
 public:
-	std::vector<AsciiString> friend_getScienceNames() const;
-	bool playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType st) const;
-	int getSciencePurchaseCost(ScienceType) const;
-	void getPurchasableSciences(const Player *, std::vector<ScienceType> &, std::vector<ScienceType> &) const;
-private:
-	const ScienceInfo *findScienceInfo(ScienceType st) const;
-	bool rva000E7C20SciencePrereqMemo(const Player *opaqueQuery, ScienceType st, void *memo) const;
-
-private:
-	void *m_unmodelled00;
-	Int m_unmodelled04;
-	Int m_unmodelled08;
-	ScienceInfoVec m_sciences;
+	virtual bool v00(ScienceType science) const;
+	virtual int v01();
 };
+
+// The canonical store: the science pointer vector's begin and end are
+// field0c and field10 (+0x0C/+0x10), the words this unit reads.
+#include "../../../Include/Common/ScienceStore.h"
+
+typedef std::vector<ScienceInfo *> ScienceInfoVec;
 
 std::vector<AsciiString> ScienceStore::friend_getScienceNames() const
 {
 	std::vector<AsciiString> v;
-	for ( ScienceInfoVec::const_iterator it = m_sciences.begin(); it != m_sciences.end(); ++it )
+	// The store's science vector at +0x0C, read through its vector iterators.
+	const ScienceInfoVec &sciences = *reinterpret_cast<const ScienceInfoVec *>(&field0c);
+	for ( ScienceInfoVec::const_iterator it = sciences.begin(); it != sciences.end(); ++it )
 	{
 		const ScienceInfo *si = (const ScienceInfo *)( *it )->getFinalOverride();
 		NameKeyType nk = (NameKeyType)( si->m_science );
@@ -119,8 +118,8 @@ std::vector<AsciiString> ScienceStore::friend_getScienceNames() const
 // Existing 47-byte lookup keeps the same null-guarded native override hop.
 const ScienceInfo *ScienceStore::findScienceInfo(ScienceType st) const
 {
-    ScienceInfo *const *begin = m_sciences.begin();
-    ScienceInfo *const *end = m_sciences.end();
+    ScienceInfo *const *begin = field0c;
+    ScienceInfo *const *end = field10;
     for (ScienceInfo *const *it = begin; it != end; ++it) {
         const ScienceInfo *si = (const ScienceInfo *)(*it)->getFinalOverride();
         if (si->m_science == st)
@@ -210,7 +209,8 @@ void ScienceStore::getPurchasableSciences(const Player *player, std::vector<Scie
     purchasable.erase(purchasable.begin(), purchasable.end());
     potentiallyPurchasable.erase(potentiallyPurchasable.begin(), potentiallyPurchasable.end());
     const Rva0043D3A8 *holder = reinterpret_cast<const Rva0043D3A8 *>(player);
-    for (ScienceInfoVec::const_iterator it = m_sciences.begin(); it != m_sciences.end(); ++it) {
+    const ScienceInfoVec &sciences = *reinterpret_cast<const ScienceInfoVec *>(&field0c);
+    for (ScienceInfoVec::const_iterator it = sciences.begin(); it != sciences.end(); ++it) {
         const ScienceInfo *si = (const ScienceInfo *)(*it)->getFinalOverride();
         if (!getSciencePurchaseCost(si->m_science))
             continue;
