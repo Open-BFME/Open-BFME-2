@@ -3,3 +3,5 @@
 Ten ordinary C++ private trials match complete native bodies, including the wake tail-call relocation. Actual field positions and existing field names are retained. Native guard commands/xfer and a matched consumer show that slots120/121/122 need corrected team-ID/area-pointer signatures; no casts, member renaming or storage change is needed. Pointee constness follows the existing field/API policy, rather than an instruction-level claim. Each member is admitted and normally committed separately; private candidate text alone is not progress. Existing ICF representatives remain, with no new pin, unique-byte, census or runtime claim.
 
 Slot118 (vslot118): complete4B at0x00042287, all63emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
+
+Slot119 (vslot119): complete4B at0x002004A1, all64emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.

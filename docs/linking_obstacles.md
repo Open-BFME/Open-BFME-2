@@ -18703,3 +18703,5 @@ The disabled-mask package completes with the1950-row/234-source real header gate
 [Native guard-type evidence, exact private trial and incremental admissions](../reverse/attempt_support/aiupdate-field-defaults-20261102/README.md). Field storage/names and existing body owners remain; no unique bytes or census gain are asserted.
 
 Primary slot118 now supplies its complete4B typed field/wake body at0x00042287; all63consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
+
+Primary slot119 now supplies its complete4B typed field/wake body at0x002004A1; all64consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
