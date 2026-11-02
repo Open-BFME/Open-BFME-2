@@ -1,0 +1,445 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "FontLibrary",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x2c": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x218942"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e5ad0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x218942"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x218942"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x218942"
+     ],
+     "value": {
+      "0x0": [
+       "?setName@SubsystemInterface@@QAEXVAsciiString@@@Z"
+      ],
+      "0x14": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x20": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x218942"
+     ],
+     "value": {
+      "0x0": "0x7e5ad0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e5ad0"
+     ],
+     "value": {
+      "count": 16,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GFontLibrary@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2189a9"
+       },
+       {
+        "name": "?init@FontLibrary@@UAEXXZ",
+        "slot": 1,
+        "target": "0x217561"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@FontLibrary@@UAEXXZ",
+        "slot": 9,
+        "target": "0x218bef"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 15,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7e5ad0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x7e5ad0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GFontLibrary@@UAEPAXI@Z",
+     "1": "?init@FontLibrary@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@FontLibrary@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "__purecall",
+     "15": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 30,
+   "4": 2,
+   "32": 2,
+   "44": 5
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_FontLibrary.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameFont.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "20:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "FontLibrary"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "1:i1": 1,
+    "40:A": 1
+   },
+   "class": "FontLibrary"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "init()": 2,
+    "slot01()": 1,
+    "slot04()": 2
+   },
+   "class": "FontLibrary"
+  }
+ ],
+ "size": 44,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot2C()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "releaseFontData(GameFont*)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot0C()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot1C()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "reset()"
+  }
+ }
+}

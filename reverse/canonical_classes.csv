@@ -278,3 +278,4 @@ UpgradeMux,Code/GameEngine/Include/GameLogic/Module/UpgradeMux.h,existing header
 MapCache,Code/GameEngine/Include/GameClient/MapCache.h,existing header; contract class_contracts/MapCache.json; 43/51 sampled units adopt
 DisplayStringManager,Code/GameEngine/Include/GameClient/DisplayStringManager.h,existing header; contract class_contracts/DisplayStringManager.json; 33/48 sampled units adopt
 DrawModule,Code/GameEngine/Include/GameLogic/Module/DrawModule.h,existing header; contract class_contracts/DrawModule.json; 20/51 sampled units adopt
+FontLibrary,Code/GameEngine/Include/GameClient/FontLibrary.h,existing header; contract class_contracts/FontLibrary.json; 34/45 sampled units adopt
