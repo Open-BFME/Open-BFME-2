@@ -181,6 +181,11 @@ public:
     virtual void onObjectCreated();
     virtual void xfer(Xfer *);
     virtual AIUpdateInterface *getAIUpdateInterface() { return this; }
+    virtual CollideModuleInterface *getCollide()
+    {
+        // Publish the existing six-slot subobject through the collision API.
+        return reinterpret_cast<CollideModuleInterface *>(static_cast<AIUpdateInterface24 *>(this));
+    }
     virtual UpdateSleepTime update();
     virtual DisabledMaskType getDisabledTypesToProcess() const
     {
