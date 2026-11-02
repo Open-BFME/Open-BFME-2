@@ -80,26 +80,8 @@ class AIUpdateInterface : public Rva00499D23AIBase, public AICommandInterface
 {
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	const Coord3D *getPosition() const { return &m_pos; }
+#include "../object.h"
 
-private:
-	char m_pad00[0x38];
-	Coord3D m_pos; // +0x38
-};
-
-class Object : public Thing
-{
-public:
-	AIUpdateInterface *getAI() const { return m_ai; }
-
-private:
-	char m_pad44[0x258 - 0x44];
-	AIUpdateInterface *m_ai; // +0x258
-};
 
 class TerrainLogic
 {

@@ -36,11 +36,7 @@ public:
 	virtual void s04(int x);
 };
 
-class Object
-{
-public:
-	ExitInterface *getObjectExitInterface() const;
-};
+#include "../object.h"
 
 struct Rva0049D526Node
 {

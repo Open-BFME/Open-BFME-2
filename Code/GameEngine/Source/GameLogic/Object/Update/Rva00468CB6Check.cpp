@@ -5,11 +5,7 @@
 // goal via TurretStateMachine +0x30, second related compare.
 // Callers 0x471FFA 0x4726DD, prev 0x468A3F, next 0x468E26.
 
-class Object
-{
-public:
-	Object *rva002931F5(bool checkProducer);
-};
+#include "../object.h"
 
 class TurretStateMachine
 {

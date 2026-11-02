@@ -27,11 +27,7 @@ class AICommandInterface
 public:
 	void aiHunt(CommandSourceType cmdSource);
 };
-class Object
-{
-public:
-	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
-};
+#include "../object.h"
 template <int N> class Rva00495801Slots : public Rva00495801Slots<N - 1>
 {
 public:

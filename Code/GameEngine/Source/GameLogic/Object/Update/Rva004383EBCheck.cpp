@@ -24,16 +24,7 @@ enum ObjectStatusTypes
 {
 	STATUS_5F = 0x5f
 };
-class Object
-{
-public:
-	bool rva0028F518();
-	int rva002933CD();
-	bool testStatus(ObjectStatusTypes t) const;
-public:
-	char m_pad[0x304];
-	Team *m_304; // +0x304
-};
+#include "../object.h"
 class Rva004383EB
 {
 public:
@@ -43,7 +34,7 @@ public:
 int Rva004383EB::rva004383EB(Object *obj)
 {
 	PlayerList *pl = ThePlayerList;
-	Team *team1 = obj->m_304;
+	Team *team1 = obj->m_team;
 	BfmeMemberRV *mem = pl->m_10;
 	int rel;
 	if (team1) {

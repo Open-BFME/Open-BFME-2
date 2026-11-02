@@ -45,11 +45,7 @@ public:
 	virtual void s00() = 0;
 	virtual Bool isReady() const = 0;
 };
-class Object
-{
-public:
-	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
-};
+#include "../object.h"
 
 
 

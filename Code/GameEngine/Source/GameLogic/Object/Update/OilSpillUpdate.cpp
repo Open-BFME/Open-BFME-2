@@ -75,16 +75,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	Player *getControllingPlayer() const;
-
-private:
-	char m_unknown00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../object.h"
 
 #include "../../../../Include/Common/ThingFactory.h"
 

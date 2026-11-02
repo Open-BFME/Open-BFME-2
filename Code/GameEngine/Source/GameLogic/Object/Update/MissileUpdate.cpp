@@ -34,15 +34,7 @@ class ModuleData;
 // Thing supplies the cached position at +0x38.
 enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
 enum PathfindLayerEnum {GROUND_LAYER=0,BRIDGE_LAYER=1};
-class Object : public Thing
-{
-public:
-	unsigned char m_pad60[0x74 - 0x60];
-	ObjectID m_id; // +0x74
-	void setStatus(ObjectStatusTypes, bool);
-	int rva0028B511() const;
-	void setLayer(PathfindLayerEnum);
-};
+#include "../object.h"
 // The virtual layout below is MissileUpdateDtor.cpp's, slot for slot: both
 // units emit the MissileUpdate vftable COMDATs and the copies must agree.
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};

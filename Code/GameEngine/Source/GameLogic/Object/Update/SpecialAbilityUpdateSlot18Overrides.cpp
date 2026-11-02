@@ -20,11 +20,7 @@ enum WeaponSetType
 {
 	WEAPONSET_NONE = 0
 };
-class Object
-{
-public:
-	void clearWeaponSetFlag(WeaponSetType wst);
-};
+#include "../object.h"
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpecialPowerUpdateInterface

@@ -54,27 +54,7 @@ class AIUpdateInterface;
 class Rva00373EC6;
 enum DamageType { DAMAGE_SNIPER = 8 };
 enum DeathType { DEATH_NORMAL = 0 };
-class Object : public Thing
-{
-public:
-	void kill(DamageType damageType, DeathType deathType);
-	bool rva0028F518();
-	bool testStatus(ObjectStatusTypes bit) const;
-	void setStatus(ObjectStatusTypes bit, bool set);
-	Rva00373EC6 *rva0028F4BC();
-	void rva0028EC68(int kind, void *payload, int flag);
-	AIUpdateInterface *getAI() const { return m_ai; }
-private:
-	unsigned char m_pad60[0x74 - 0x60];
-public:
-	ObjectID m_id74; // +0x74
-private:
-	unsigned char m_pad78[0x258 - 0x78];
-	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x304 - 0x25C];
-public:
-	Team *m_team304; // +0x304
-};
+#include "../object.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

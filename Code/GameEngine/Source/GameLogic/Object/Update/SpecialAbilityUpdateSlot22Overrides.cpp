@@ -19,12 +19,7 @@ enum WeaponSetType
 {
 	WEAPONSET_NONE = 0
 };
-class Object
-{
-public:
-	void setWeaponSetFlag(WeaponSetType wst);
-	bool rva0029091E(unsigned int i) const;
-};
+#include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class ModuleData;

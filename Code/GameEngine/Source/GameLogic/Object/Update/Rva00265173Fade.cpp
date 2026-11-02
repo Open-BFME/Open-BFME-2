@@ -8,13 +8,7 @@ extern int BfmeLogicFramesPerSecond;
 
 #include "../../../Common/Thing/thing.h"
 
-class Object
-{
-public:
-	bool isLocallyControlled() const;
-	char _pad[0x274];
-	Thing *m_thing274;
-};
+#include "../object.h"
 
 class Rva001E3591
 {
@@ -49,7 +43,7 @@ void Rva00265173::rva00265173()
 	if (saved == 0)
 		return;
 	Drawable *drawable = saved;
-	Thing *thing = m_8->m_thing274;
+	Thing *thing = m_8->m_containedBy;
 	if (thing)
 	{
 		drawable = thing->getDrawable();
