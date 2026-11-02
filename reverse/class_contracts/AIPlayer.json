@@ -1,0 +1,932 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AIPlayer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x30": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 6
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x60": {
+    "4": 4
+   },
+   "0x68": {
+    "4": 3
+   },
+   "0x6c": {
+    "4": 2
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 4
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x78": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4f04fc"
+     ],
+     "value": 120
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4f04fc"
+     ],
+     "value": {
+      "0x10": [
+       1
+      ],
+      "0x11": [
+       1
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       1
+      ],
+      "0x44": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       1
+      ],
+      "0x65": [
+       1
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4f04fc"
+     ],
+     "value": {
+      "0x0": "0x862dc8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x862dc8"
+     ],
+     "value": {
+      "count": 27,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAIPlayer@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4f111c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Rva004F05BAGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x4f05ba"
+       },
+       {
+        "name": "?xfer@AIPlayer@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4f0dde"
+       },
+       {
+        "name": "?computeSuperweaponTarget@AIPlayer@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z",
+        "slot": 4,
+        "target": "0x4f1d38"
+       },
+       {
+        "name": "?update@AIPlayer@@UAEXXZ",
+        "slot": 5,
+        "target": "0x4f4927"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?onUnitProduced@AIPlayer@@UAEXPAVObject@@0@Z",
+        "slot": 7,
+        "target": "0x4f4962"
+       },
+       {
+        "name": "?onStructureProduced@AIPlayer@@UAEXPAVObject@@0@Z",
+        "slot": 8,
+        "target": "0x4f33ec"
+       },
+       {
+        "name": "?buildSpecificAITeam@AIPlayer@@UAEXPAVTeamPrototype@@_N@Z",
+        "slot": 9,
+        "target": "0x4f2464"
+       },
+       {
+        "name": "?recruitSpecificAITeam@AIPlayer@@UAEXPAVTeamPrototype@@MPBUCoord3D@@@Z",
+        "slot": 10,
+        "target": "0x4f437e"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 12,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+        "slot": 13,
+        "target": "0x50b5f1"
+       },
+       {
+        "name": "?repairStructure@AIPlayer@@UAEXW4ObjectID@@@Z",
+        "slot": 14,
+        "target": "0x4f2f66"
+       },
+       {
+        "name": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+        "slot": 15,
+        "target": "0x210c87"
+       },
+       {
+        "name": "?checkReadyTeams@AIPlayer@@MAEXXZ",
+        "slot": 16,
+        "target": "0x4f2fc4"
+       },
+       {
+        "name": "?checkQueuedTeams@AIPlayer@@MAEXXZ",
+        "slot": 17,
+        "target": "0x4f1653"
+       },
+       {
+        "name": "?rva004F48D8@AIPlayer@@UAEXXZ",
+        "slot": 18,
+        "target": "0x4f48d8"
+       },
+       {
+        "name": "?doUpgradesAndSkills@AIPlayer@@MAEXXZ",
+        "slot": 19,
+        "target": "0x4f31b6"
+       },
+       {
+        "name": "?findDozer@AIPlayer@@MAEPAVObject@@PBUCoord3D@@@Z",
+        "slot": 20,
+        "target": "0x4f0c85"
+       },
+       {
+        "name": "?queueDozer@AIPlayer@@MAEXXZ",
+        "slot": 21,
+        "target": "0x4f288c"
+       },
+       {
+        "name": "?selectTeamToBuild@AIPlayer@@MAE_NXZ",
+        "slot": 22,
+        "target": "0x4f35a5"
+       },
+       {
+        "name": "?selectTeamToReinforce@AIPlayer@@MAE_NH@Z",
+        "slot": 23,
+        "target": "0x4f3db1"
+       },
+       {
+        "name": "?startTraining@AIPlayer@@MAE_NPAVWorkOrder@@_NVAsciiString@@@Z",
+        "slot": 24,
+        "target": "0x4f2063"
+       },
+       {
+        "name": "?isAGoodIdeaToBuildTeam@AIPlayer@@MAE_NPAVTeamPrototype@@@Z",
+        "slot": 25,
+        "target": "0x4f1566"
+       },
+       {
+        "name": "?bfmeGoDTK@BfmeThingDTK@@QAEXXZ",
+        "slot": 26,
+        "target": "0x4ef4a1"
+       }
+      ],
+      "table": "0x862dc8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 28,
+  "retail_vtables": {
+   "0x862dc8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAIPlayer@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?Rva004F05BAGet@@YAHXZ",
+     "3": "?xfer@AIPlayer@@MAEXPAVXfer@@@Z",
+     "4": "?computeSuperweaponTarget@AIPlayer@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z",
+     "5": "?update@AIPlayer@@UAEXXZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "?onUnitProduced@AIPlayer@@UAEXPAVObject@@0@Z",
+     "8": "?onStructureProduced@AIPlayer@@UAEXPAVObject@@0@Z",
+     "9": "?buildSpecificAITeam@AIPlayer@@UAEXPAVTeamPrototype@@_N@Z",
+     "10": "?recruitSpecificAITeam@AIPlayer@@UAEXPAVTeamPrototype@@MPBUCoord3D@@@Z",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "13": "?rva0050B5F1@Rva0050B5F1@@QAE_NHH@Z",
+     "14": "?repairStructure@AIPlayer@@UAEXW4ObjectID@@@Z",
+     "15": "?setAIDifficulty@AIPlayer@@QAEXW4GameDifficulty@@@Z",
+     "16": "?checkReadyTeams@AIPlayer@@MAEXXZ",
+     "17": "?checkQueuedTeams@AIPlayer@@MAEXXZ",
+     "18": "?rva004F48D8@AIPlayer@@UAEXXZ",
+     "19": "?doUpgradesAndSkills@AIPlayer@@MAEXXZ",
+     "20": "?findDozer@AIPlayer@@MAEPAVObject@@PBUCoord3D@@@Z",
+     "21": "?queueDozer@AIPlayer@@MAEXXZ",
+     "22": "?selectTeamToBuild@AIPlayer@@MAE_NXZ",
+     "23": "?selectTeamToReinforce@AIPlayer@@MAE_NH@Z",
+     "24": "?startTraining@AIPlayer@@MAE_NPAVWorkOrder@@_NVAsciiString@@@Z",
+     "25": "?isAGoodIdeaToBuildTeam@AIPlayer@@MAE_NPAVTeamPrototype@@@Z",
+     "26": "?bfmeGoDTK@BfmeThingDTK@@QAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "4": 3,
+   "12": 4,
+   "16": 1,
+   "40": 1,
+   "68": 1,
+   "108": 4,
+   "116": 1,
+   "120": 5
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AIPlayer.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPlayer.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:Rva004F04FCDLinkHead",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_teamBuildQueue",
+     "offset": 0,
+     "size": 4,
+     "type": "TeamInQueue*"
+    }
+   ],
+   "name": "m_teamBuildQueue",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva004F04FCDLinkHead",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva004F04FCDLinkHead",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_teamReadyQueue",
+     "offset": 0,
+     "size": 4,
+     "type": "TeamInQueue*"
+    }
+   ],
+   "name": "m_teamReadyQueue",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva004F04FCDLinkHead",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_player",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "Player*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_readyToBuildTeam",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_readyToBuildStructure",
+   "name_by": "majority",
+   "offset": 17,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_teamTimer",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_structureTimer",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_teamSeconds",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_buildDelay",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_teamDelay",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_frameLastBuildingBuilt",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_difficulty",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_skillsetSelector",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_baseCenter",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_baseCenterSet",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_44",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "m_structuresToRepair",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "enum",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_4C",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_repairDozer",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_repairDozerOrigin",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_structuresInQueue",
+   "name_by": "majority",
+   "offset": 96,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_dozerQueuedForRepair",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_dozerIsRepairing",
+   "name_by": "majority",
+   "offset": 101,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bridgeTimer",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_supplySourceAttackCheckFrame",
+   "name_by": "tie",
+   "offset": 108,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_attackedSupplyCenter",
+   "name_by": "tie",
+   "offset": 112,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "enum",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_74",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x6c",
+   "candidates": {
+    "m_6C": 1,
+    "m_attackedSupplyCenter": 1,
+    "m_supplySourceAttackCheckFrame": 1
+   },
+   "class": "AIPlayer"
+  },
+  {
+   "attribute": "name@0x70",
+   "candidates": {
+    "m_70": 1,
+    "m_attackedSupplyCenter": 1,
+    "m_curWarehouseID": 1
+   },
+   "class": "AIPlayer"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 6,
+    "rva004F48D8()": 1,
+    "slot00()": 6,
+    "v00()": 1,
+    "xfer(Xfer*)": 1
+   },
+   "class": "AIPlayer"
+  }
+ ],
+ "size": 120,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "recruitSpecificAITeam(TeamPrototype*,float,Coord3D*)"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "isSkirmishAI()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "repairStructure(enum)"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "checkReadyTeams()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "checkQueuedTeams()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "doTeamBuilding()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "doUpgradesAndSkills()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "findDozer(Coord3D*)"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "queueDozer()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "selectTeamToBuild()"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "selectTeamToReinforce(int)"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "startTraining(WorkOrder*,bool,AsciiString)"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "isAGoodIdeaToBuildTeam(TeamPrototype*)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "update()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "onUnitProduced(Object*,Object*)"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "onStructureProduced(Object*,Object*)"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "buildSpecificAITeam(TeamPrototype*,bool)"
+  }
+ }
+}

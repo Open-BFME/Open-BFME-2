@@ -355,3 +355,4 @@ QuickMatchPreferences,Code/GameEngine/Include/Common/QuickMatchPreferencesClass.
 ExitInterface,Code/GameEngine/Include/GameLogic/Module/ExitInterface.h,existing header; contract class_contracts/ExitInterface.json; 10/22 sampled units adopt
 MaterialPassClass,Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h,existing header; contract class_contracts/MaterialPassClass.json; 7/22 sampled units adopt
 OptionPreferences,Code/GameEngine/Include/Common/OptionPreferences.h,existing header; contract class_contracts/OptionPreferences.json; 11/22 sampled units adopt
+AIPlayer,Code/GameEngine/Include/GameLogic/AIPlayerClass.h,existing header; contract class_contracts/AIPlayer.json; 10/22 sampled units adopt
