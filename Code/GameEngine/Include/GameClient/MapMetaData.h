@@ -32,7 +32,7 @@
 
 #include "../../../Libraries/Include/Lib/Region3D.h"
 
-class AsciiString;
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class UnicodeString;
 struct Coord3D;
 struct Region3D;
