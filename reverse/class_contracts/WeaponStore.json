@@ -1,0 +1,358 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "WeaponStore",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 48,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 5
+   },
+   "0xc": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x24": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2cc20e"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x802114",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2cc20e"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2cc20e"
+     ],
+     "value": {
+      "0x18": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2cc20e"
+     ],
+     "value": {
+      "0x0": "0x802114"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x802114"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva002CCD56@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2cd5e0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "?postProcessLoad@WeaponStore@@UAEXXZ",
+        "slot": 3,
+        "target": "0x2cadfa"
+       },
+       {
+        "name": "?rva002CAE34@Rva002CCD56@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x2cae34"
+       },
+       {
+        "name": "?rva002CAE6C@Rva002CCD56@@QAE_NXZ",
+        "slot": 5,
+        "target": "0x2cae6c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva002C941C@Rva002C941C@@QAEXH@Z",
+        "slot": 7,
+        "target": "0x2c941c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@WeaponStore@@UAEXXZ",
+        "slot": 9,
+        "target": "0x2c9a34"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x802114"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x802114": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva002CCD56@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "?postProcessLoad@WeaponStore@@UAEXXZ",
+     "4": "?rva002CAE34@Rva002CCD56@@QAE_NH@Z",
+     "5": "?rva002CAE6C@Rva002CCD56@@QAE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?rva002C941C@Rva002C941C@@QAEXH@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@WeaponStore@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 38,
+   "12": 1,
+   "24": 2,
+   "36": 3
+  },
+  "views": 44,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_WeaponStore.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Weapon.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreReset.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/WeaponStore.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponStoreNewOverride.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['Rva002CC20EBase']": 1,
+    "['SubsystemInterface']": 1
+   },
+   "class": "WeaponStore",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "36:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "WeaponStore"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "1:i1": 1,
+    "4:i4": 1,
+    "8:A": 1
+   },
+   "class": "WeaponStore"
+  },
+  {
+   "attribute": "inherited@0x8",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "WeaponStore"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "postProcessLoad()": 1,
+    "reset()": 1
+   },
+   "class": "WeaponStore"
+  }
+ ],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -266,3 +266,4 @@ Radar,Code/GameEngine/Include/Common/Radar.h,existing header; contract class_con
 DisplayString,Code/GameEngine/Include/GameClient/DisplayString.h,existing header; contract class_contracts/DisplayString.json; 30/52 sampled units adopt
 MapMetaData,Code/GameEngine/Include/GameClient/MapMetaData.h,existing header; contract class_contracts/MapMetaData.json; 22/56 sampled units adopt
 Eva,Code/GameEngine/Include/GameClient/Eva.h,existing header; contract class_contracts/Eva.json; 35/55 sampled units adopt
+WeaponStore,Code/GameEngine/Include/GameLogic/WeaponStore.h,existing header; contract class_contracts/WeaponStore.json; 39/48 sampled units adopt
