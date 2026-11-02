@@ -17444,3 +17444,12 @@ all three providers pass; preview retains LINKS3344->3344. No new pin, row,
 matched bytes or census credit. The broader consumer/census boundary remains
 open pending publication's audit; this clears the one uncertified insertion
 binding only. [Source and full proof receipts](../reverse/attempt_support/area-tree-factory-bind-20261102/readme.md).
+
+Post-rebase base80879e4e810: the incoming AssetReference header adoption in
+StlSweepW5Rva00170E3D is covered by renewed strict81/81 and the unchanged
+zero-wrong-binding identity verdict. Current published index984a4cdc4d
+(2026-11-02 08:35) still cannot support full outgoing clearance: batch audit
+returns2 because the baseline differs and affected
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry all three
+providers and their consumers into the next census; the specific insertion
+binding is cleared, broader selection remains unverified.

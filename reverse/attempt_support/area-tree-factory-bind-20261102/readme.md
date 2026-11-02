@@ -53,3 +53,22 @@ The published0156fc269e preview keeps all three units LINKS3344->3344 bytes.
 These are existing scoped bytes; no new match, headline census credit or
 runtime proof is claimed. The outgoing consumer audit and post-rebase
 verification remain required before publication.
+
+## Current master and consumer audit
+
+The source commit rebases cleanly to19915717a58fa3cb00245b5d49b814889fcb7abb
+on base80879e4e81098808542b62e5792de39c5d117bd0. The incoming canonical
+AssetReference header adoption changes one helper source, so all three
+providers are strictly verified again:81/81, one constructor fold,2 float
+literals, same exact parent cleanup placements. The current scoped identity
+scan still reports46 references,7 folds and zero wrong bindings. No new pin
+name/address, hatch-register change or row/path change accompanies the rebase.
+
+The newly fetched published index is984a4cdc4d (2026-11-02 08:35), with18203
+reusable objects imported. The explicit full outgoing audit over all three
+verified providers returns2 INCONCLUSIVE: its baseline predates the outgoing
+base, and affected consumerCommon/0CreateAHeroManager21FE49.cpp lacks a current
+receipt. Carry the atlas insertion proof, three providers and affected
+consumers into the next scheduled census; no whole-consumer clearance or
+headline credit is claimed. No whole-tree build, direct census or smoke run
+was started.
