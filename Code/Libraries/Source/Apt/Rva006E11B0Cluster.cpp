@@ -25,11 +25,7 @@ public:
     bool get() const;
 };
 
-class AptValue
-{
-public:
-    void setGCMark(bool mark);
-};
+#include "AptValue.h"
 
 class Rva006DBC30
 {

@@ -11,16 +11,7 @@
 
 #include "EAStringC.h"
 
-class AptValue
-{
-public:
-    bool isInteger() const;
-    bool isFloat() const;
-    bool isString() const;
-    bool isUndefined() const;
-    bool isNone() const;
-    void toString(EAStringC &out) const;
-};
+#include "AptValue.h"
 
 int Rva006CD220Get();
 

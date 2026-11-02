@@ -26,11 +26,7 @@ void __debugbreak();
 #include "EAStringC.h"
 
 class AptCIH;
-class AptValue
-{
-public:
-	AptCIH *c_cih(bool = false);
-};
+#include "AptValue.h"
 
 #include "BfmeAptValue006DCD20.h"
 

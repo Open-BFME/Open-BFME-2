@@ -234,7 +234,7 @@ __declspec(noinline) inline void Rva006D15B0Stack::rva006D15B0(int *const *handl
 	m_head = node;
 }
 
-class AptValue { public: void setIsDefined(bool); };
+#include "AptValue.h"
 struct AptActionInterpreter
 {
 	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int = 1, int = 1, int = 0);

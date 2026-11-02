@@ -17,7 +17,7 @@
 // interface owner. Unsupported reference cases fall through to native null.
 #include "EAStringC.h"
 
-class AptValue {public:void toString(EAStringC &)const;void SetString(const char *);bool getIsDefined()const;};
+#include "AptValue.h"
 
 class XmlNativeInterface {public:
  virtual void slot0();

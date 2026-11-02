@@ -36,15 +36,7 @@ EAStringC *Rva0070B4F0GetString(int id);
 
 class AptString;
 class AptNativeHash;
-class AptValue
-{
-    unsigned int mnValueData;
-public:
-    virtual void AddRef();
-    virtual void Release();
-    AptString *c_string() const;  // 0x006DCE50
-    EAStringC rva006DDF60();      // 0x006DDF60
-};
+#include "AptValue.h"
 class AptString : public AptValue
 {
 public:

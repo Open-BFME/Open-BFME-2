@@ -56,16 +56,7 @@ public:
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
 
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-	virtual void ForceDelete();
-	unsigned int getRefCount() const;
-	int IsReleaseAtEnd() const;
-	void ClearReleaseAtEnd();
-};
+#include "../AptValue.h"
 
 class AptValueNameEntry
 {

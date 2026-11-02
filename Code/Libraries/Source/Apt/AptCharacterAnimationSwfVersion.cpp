@@ -227,7 +227,7 @@ void Rva006E3E20Object::rva006E3E20(void *unused, void *bindContext)
 // to the donor's receiver identity; unused fields and ownership remain opaque.
 // The existing display-list provider carries other unresolved definitions;
 // this caller uses its rowed, correctly selected AptDisplayList body only.
-class AptValue { public: virtual void AddRef(); virtual void Release(); };
+#include "AptValue.h"
 class Rva006E0DE0 {
 public:
     unsigned short count;

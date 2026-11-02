@@ -29,11 +29,7 @@ struct BfmeW1229
 	int m_bfme04;
 };
 extern BfmeW1229 g_bfmeWords1229[];
-class AptValue
-{
-public:
-	AptValue *findChild(const EAStringC *s, AptValue *a);
-};
+#include "AptValue.h"
 class Rva006E0AC0
 {
 	virtual void u0();

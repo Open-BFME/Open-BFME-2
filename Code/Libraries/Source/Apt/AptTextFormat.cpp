@@ -82,11 +82,7 @@ public:
   bool rva00710810(AptValue *, const EAStringC *, AptValue *);
 };
 
-class AptValue {
-public:
-  void toString(EAStringC &) const;
-  void SetString(const char *);
-};
+#include "AptValue.h"
 class AptString {
   unsigned char unknown00[8];
 

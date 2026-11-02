@@ -57,7 +57,7 @@ struct AptTailBlock
 
 
 class EAStringC;
-class AptValue {public:AptValue *findChild(const EAStringC *,AptValue *);};
+#include "AptValue.h"
 class AptCIH;
 #include "EAStringC.h"
 struct AptFileRecord { int unknown0; int size; EAStringC name; };

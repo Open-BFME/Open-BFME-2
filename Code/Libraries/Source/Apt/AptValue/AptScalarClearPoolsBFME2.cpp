@@ -6,25 +6,7 @@
 // unlike the later Boolean donor singleton implementation.
 // Each extent is 55 bytes through RET, followed by INT3 padding; Ghidra's
 // 52-byte entries truncate the loop branch and omit POP/RET. Partial views.
-class AptValue {
-public:
-    virtual void vtableSlot0();
-    virtual void vtableSlot1();
-    virtual void vtableSlot2();
-    virtual void vtableSlot3();
-    virtual void vtableSlot4();
-    virtual void vtableSlot5();
-    virtual void vtableSlot6();
-    virtual void vtableSlot7();
-    virtual void vtableSlot8();
-    virtual void vtableSlot9();
-    virtual void vtableSlot10();
-    virtual void DestroyGCPointers();
-    virtual void vtableSlot12();
-    virtual void vtableSlot13();
-    virtual ~AptValue();
-    unsigned int flags;
-};
+#include "../AptValue.h"
 class AptInteger : public AptValue {
 public:
     AptInteger *nextFree;

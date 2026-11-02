@@ -5,18 +5,7 @@
 // Partial: target 0x006E6F80, 201 bytes. Donor identity APT0.19.03 release.
 // Caller instruction shape is reconstructed; unvalidated callee identities
 // remain a blocker. See reverse/apt_donor_01903.json for exact call targets.
-class AptValue {
-    virtual void unused0(); virtual void unused1(); virtual void unused2();
-    virtual void unused3(); virtual void unused4(); virtual void unused5();
-    virtual void unused6(); virtual void unused7(); virtual void unused8();
-public:
-    virtual void DeleteThis();
-    virtual void PreDestroy();
-    virtual void DestroyGCPointers();
-private:
-    friend class AptGC;
-    void SetDestroyedGC();
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 class AptValueVector { public: void ReleaseValues(); };
 class AptValueGC_PoolManager {
 public:

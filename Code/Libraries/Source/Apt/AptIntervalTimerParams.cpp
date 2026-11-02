@@ -10,11 +10,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class AptValue {
-public:
-    virtual void AddRef();
-    virtual void Release();
-};
+#include "AptValue.h"
 extern void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void *,unsigned int);
 class Rva006DB270 { public: void freeBlock(void *,int); };
 class Rva006DB160 { public: void *allocBlock(int); };

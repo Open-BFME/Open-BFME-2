@@ -21,7 +21,7 @@
 // original source declared them as one struct. Field labels are target keys.
 // Donor PDB supplies AptDate::CleanNativeFunctions and static void() signature.
 // Provenance: reverse/godfather_disk_evidence.json, apt_date_cleanup.
-class AptValue { public: virtual void AddRef(); virtual void Release(); void SetString(const char *); };
+#include "AptValue.h"
 
 struct AptDateNativeCache {
     AptValue *getDate;

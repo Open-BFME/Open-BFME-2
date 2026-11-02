@@ -6,12 +6,7 @@
 // Structural inference: this passes unchanged to that method, so the class
 // is modelled as deriving from a polymorphic Rva006DE150 (shared vptr at +0);
 // /O2 like the slot-13 sibling Rva006FBC30Slot13.cpp.
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 
 class AptValueWithHash
 {

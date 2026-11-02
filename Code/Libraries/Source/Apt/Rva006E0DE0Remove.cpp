@@ -7,11 +7,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class AptValue {
-public:
-    virtual void AddRef();
-    virtual void Release();
-};
+#include "AptValue.h"
 class Rva006E0DE0 {
     union {
         struct {

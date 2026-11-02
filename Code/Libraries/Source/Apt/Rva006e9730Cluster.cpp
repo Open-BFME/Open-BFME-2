@@ -12,17 +12,7 @@
 #include "EAStringC.h"
 
 class AptNativeHash;
-class AptValue
-{
-public:
-	void SetString(const char *);
-	void toString(EAStringC &)const;
-	EAStringC rva006ddde0();
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual AptNativeHash *GetNativeHashVirtual();
-};
+#include "AptValue.h"
 
 class AptString : public AptValue
 {

@@ -55,22 +55,7 @@ public:
     void rva0070B180(class BfmeAptValue006DCD20 *, EAStringC *, int);
 };
 
-class AptValue {
-public:
-    virtual void AddRef();
-    virtual void Release();
-    virtual void ForceDelete();
-    virtual AptNativeHash *GetNativeHashVirtual();
-    virtual bool ContainsNativeHashVirtual() const;
-    virtual int getHasClass() const;
-    virtual void setHasClass(int);
-    virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
-    virtual bool objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const);
-    bool isUndefined() const;
-    bool isCIH(bool = false) const;
-    bool isScriptFunction() const;
-    AptCIH *c_cih(bool = false);
-};
+#include "AptValue.h"
 
 #include "BfmeAptValue006DCD20.h"
 

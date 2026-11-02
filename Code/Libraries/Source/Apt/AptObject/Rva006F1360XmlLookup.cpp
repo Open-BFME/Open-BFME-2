@@ -33,11 +33,7 @@ __declspec(noinline) inline EAStringC::EAStringC()
   data = &g_eaEmptyStringData;
   ++data->m_uRefCount;
 }
-class AptValue {
-public:
-  void SetString(const char *);
-  void toString(EAStringC &) const;
-};
+#include "../AptValue.h"
 class BfmeAptValue006DCD20 {
 public:
   virtual void AddRef();

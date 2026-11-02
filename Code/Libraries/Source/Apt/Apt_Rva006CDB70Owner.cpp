@@ -14,15 +14,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 // The string wrapper owns one data pointer and is destroyed on scope exit.
 #include "EAStringC.h"
 class AptCIH;
-class AptValue {
-public:
- void rva006DE870(char *) const;
- virtual void AddRef();
- virtual void Release();
- void SetString(const char *);
- bool isCIH(bool) const;
- AptCIH *c_cih(bool);
-};
+#include "AptValue.h"
 class AptCIH : public AptValue {};
 class BfmeAptValue006DCD20;
 class AptBasePtrStack {public:int count,capacity;BfmeAptValue006DCD20 **elements;void Push(BfmeAptValue006DCD20 *);BfmeAptValue006DCD20 *At(int);void rva006FE920();};

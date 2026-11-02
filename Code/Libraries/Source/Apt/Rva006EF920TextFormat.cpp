@@ -50,7 +50,7 @@ struct TextInstance {char unknown00[12];TextDefinition *definition;char unknown1
 #include "BfmeAptValue006DCD20.h"
 class AptCIH {public:bool IsCharacterInst()const;char unknown00[0x4C];NativeCharacter *character;
  __forceinline NativeCharacter *getCharacter(){if(!IsCharacterInst())aptAssert("isCharacterInst()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0xA5);return character;}};
-class AptValue {public:AptCIH *c_cih(bool);};
+#include "AptValue.h"
 static __forceinline TextInstance *text(AptValue *context){return (TextInstance*)((const BfmeAptValue006DCD20*)context->c_cih(false))->rva006E0F40();}
 AptValue *Rva006EF920TextFormat(AptValue *context,int argc){
  if(argc>2)return gpUndefinedValue;

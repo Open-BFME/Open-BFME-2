@@ -636,11 +636,7 @@ public:
 	void rva006E2D60();
 };
 
-class AptValue
-{
-public:
-	void setIsDefined(bool defined);
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 
 class AptLinker;
 #include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"

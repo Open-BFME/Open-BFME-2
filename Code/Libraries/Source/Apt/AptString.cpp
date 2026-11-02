@@ -170,14 +170,7 @@ class Rva006D5E70String {void *data;public:void *rva006d5e70(int);};
 
 int rva006d3e40(const char *);
 
-class AptValue
-{
-public:
-	void toString(EAStringC&)const;
-	void SetString(const char *);
-	unsigned int getRefCount()const;
-	virtual void AddRef();
-};
+#include "AptValue.h"
 
 class AptString {public:
  static AptString *Create();

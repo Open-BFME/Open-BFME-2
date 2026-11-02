@@ -56,11 +56,7 @@ int Rva006CD3F0Get(void *);
 
 class Rva006DB270 {public:void freeBlock(void *,int);};
 
-class AptValue
-{
-public:
-	int m_value;
-};
+#include "AptValue.h"
 
 class AptValueGC_PoolManager {
 public:

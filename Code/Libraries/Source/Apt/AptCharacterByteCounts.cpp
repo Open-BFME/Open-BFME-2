@@ -19,17 +19,7 @@ public:
 	int get() const;
 };
 
-class AptValue
-{
-public:
-    AptCIH *c_cih(bool bUndefinedOK);
-    bool isCIH(bool bUndefinedOK) const;
-    bool isUndefined() const;
-    bool getIsDefined() const;
-    float toFloat() const;
-    int toInteger() const;
-    void toString(EAStringC &) const;
-};
+#include "AptValue.h"
 
 class AptCIH
 {

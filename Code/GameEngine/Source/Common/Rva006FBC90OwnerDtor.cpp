@@ -25,27 +25,7 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
 struct AptNativeHash;
 class EAStringC;
 
-class AptValue
-{
-public:
-	virtual void AddRef();
-	virtual void Release();
-	virtual void ForceDelete();
-	virtual AptNativeHash *GetNativeHashVirtual();
-	virtual bool ContainsNativeHashVirtual() const;
-	virtual int getHasClass() const;
-	virtual void setHasClass(int);
-	virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
-	virtual bool objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const);
-	virtual void DeleteThis();
-	virtual void PreDestroy();
-	virtual void DestroyGCPointers();
-	virtual bool IsGarbageCollected() const = 0;
-	virtual void RegisterReferences() const = 0;
-protected:
-	virtual ~AptValue();
-	unsigned int mnValueData;
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 
 class __declspec(novtable) AptValueGC : public AptValue
 {

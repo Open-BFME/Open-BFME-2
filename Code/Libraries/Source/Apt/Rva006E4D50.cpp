@@ -13,12 +13,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class AptValue
-{
-public:
-    virtual void AddRef();
-    virtual void Release();
-};
+#include "AptValue.h"
 struct Rva006E3230Action
 {
     int eActionType;

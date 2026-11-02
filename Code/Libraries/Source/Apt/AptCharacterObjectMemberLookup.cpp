@@ -24,13 +24,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
 #include "EAStringC.h"
 class AptCIH;
 class Rva006DBB30SarDwordField {public:int get() const;};
-class AptValue {
-public:
- bool isCIH(bool)const; AptCIH *c_cih(bool);
- bool isUndefined()const; int getVtblIndex()const;
- int toInteger()const; float toFloat()const;
- void toString(EAStringC&)const;void SetString(const char*);
-};
+#include "AptValue.h"
 class BfmeAptValue006DCD20 {
 public:BfmeAptValue006DCD20 *rva006DCF60(bool); bool isCIH(bool) const; bool isUndefined() const; virtual void AddRef();unsigned flags;int rva006E02B0()const; void *rva006E0F40()const;int isCharacterInst()const;void setGCRootCount(unsigned);
 };

@@ -35,10 +35,7 @@ public:
   int isXmlNode() const;
   BfmeAptValue006DCD20 *rva006DD220();
 };
-class AptValue {
-public:
-  void SetString(const char *);
-};
+#include "../AptValue.h"
 class AptString : public AptValue {
 public:
   static AptString *Create();
