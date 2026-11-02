@@ -74,7 +74,7 @@ void __cdecl rva007B6E54();
 void __cdecl rva007B6E5E();
 void __cdecl rva007B7280();
 void __cdecl rva007B72C0();
-void __cdecl rva007B7400();
+void __cdecl destroyVertexLoc();
 void __cdecl rva007B70AB();
 void __cdecl rva007B7B14();
 void __cdecl rva007B6C2A();
@@ -220,7 +220,7 @@ void Rva007ABEF3ArgCtorInits::rva007ACEB0()
 void Rva007ABEF3ArgCtorInits::rva007ACF20()
 {
 	( &VertexLoc )->Vector3Vector::VectorClass( 0, 0 );
-	atexit( rva007B7400 );
+	atexit( destroyVertexLoc );
 }
 
 // 0x007AEBB7 (21B): Rva00346BC0(0, 5, 0x17, 0x3C, 3) on VA 0x00E01E08

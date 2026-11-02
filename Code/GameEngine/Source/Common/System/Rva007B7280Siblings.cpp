@@ -65,7 +65,7 @@ void rva007B7380()
 	PointGroupClass::compressed_frame.VectorClass<unsigned char>::~VectorClass();
 }
 
-void rva007B7400()
+void destroyVertexLoc()
 {
 	VertexLoc.VectorClass<Vector3>::~VectorClass();
 }

@@ -8,22 +8,22 @@
 
 void Rva00605324(char *path)
 {
-    char *s = path;
-    if (*s == 0)
+    char *cursor = path;
+    if (*cursor == 0)
         goto done;
     do {
-        char c = *s;
-        if (c == '/')
-            *s = '\\';
+        char character = *cursor;
+        if (character == '/')
+            *cursor = '\\';
         else
-            *s = (char)tolower(c);
-        ++s;
-    } while (*s != 0);
-    while (s > path) {
-        if (*(s - 1) != '\\')
+            *cursor = (char)tolower(character);
+        ++cursor;
+    } while (*cursor != 0);
+    while (cursor > path) {
+        if (*(cursor - 1) != '\\')
             break;
-        --s;
+        --cursor;
     }
 done:
-    *s = 0;
+    *cursor = 0;
 }

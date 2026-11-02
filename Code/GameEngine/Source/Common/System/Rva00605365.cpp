@@ -7,26 +7,26 @@
 // IAT; sits between Rva00605324 and Rva006053AD with the same flags.
 #include <ctype.h>
 
-char *Rva00605365(char *p)
+char *Rva00605365(char *path)
 {
-    char *s = p;
-    if (*p == 0)
+    char *cursor = path;
+    if (*path == 0)
         goto done;
     do {
-        char c = *s;
-        if (c == '/')
-            *s = '\\';
+        char character = *cursor;
+        if (character == '/')
+            *cursor = '\\';
         else
-            *s = (char)tolower(c);
-        ++s;
-    } while (*s != 0);
-    while (s > p) {
-        if (*(s - 1) == '\\')
+            *cursor = (char)tolower(character);
+        ++cursor;
+    } while (*cursor != 0);
+    while (cursor > path) {
+        if (*(cursor - 1) == '\\')
             break;
-        --s;
+        --cursor;
     }
-    if (s != p)
-        *(s - 1) = 0;
+    if (cursor != path)
+        *(cursor - 1) = 0;
 done:
-    return s;
+    return cursor;
 }

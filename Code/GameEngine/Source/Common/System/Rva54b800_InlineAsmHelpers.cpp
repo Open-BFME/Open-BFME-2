@@ -4,7 +4,7 @@
 // recompiled /Os. Each is byte-identical to retail once relocations are masked,
 // at a unique masked placement on unclaimed .text:
 //
-//   ?rva54b800@@YAPAXXZ  0x00226819  16 B  mov [esp],esp  -- the stack pointer
+//   ?getStackPointer@@YAPAXXZ  0x00226819  16 B  mov [esp],esp  -- the stack pointer
 //   ?rva61b20@@YAPAXXZ   0x00226809  16 B  mov [esp],ebp  -- the frame pointer
 //   ?rva61ae0@@YAIXZ    0x0056E692  18 B  rdtsc
 //   ?rva61b40@@YAIXZ    0x0056DD9C  20 B  pushfd
@@ -36,8 +36,8 @@
 // optimiser stops tracking the slot.
 
 
-// ?rva54b800@@YAPAXXZ -- retail 0x00226819, 16 bytes
-void *rva54b800( void )
+// ?getStackPointer@@YAPAXXZ -- retail 0x00226819, 16 bytes
+void *getStackPointer( void )
 {
 	void *stackPtr = 0;
 
