@@ -2829,7 +2829,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp	?slot@ShareExperienceBehaviorInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehavior.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorCtor.cpp	??0ClearanceTestingSlowDeathBehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorModuleDataCtor.cpp	_vtbl_00BF36C0	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	?stancesInterfaceA@StancesBehavior@@UAEXXZ	1
@@ -7790,7 +7789,7 @@ pin	reverse/symbols.csv	0x0045B4F1	1
 pin	reverse/symbols.csv	0x0045BF6E	2
 pin	reverse/symbols.csv	0x0045CE54	2
 pin	reverse/symbols.csv	0x0045CEA7	1
-pin	reverse/symbols.csv	0x0045D4B4	2
+pin	reverse/symbols.csv	0x0045D4B4	1
 pin	reverse/symbols.csv	0x0045E4A5	1
 pin	reverse/symbols.csv	0x004607E1	1
 pin	reverse/symbols.csv	0x0046089D	1
