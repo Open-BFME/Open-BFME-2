@@ -2050,11 +2050,7 @@ public:
 
 BFME_DISP32_FLOAT_GETTER(Rva0028BB86FloatField, 0x1B8)
 
-class ModuleData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../Include/Common/ModuleData.h"
 
 // LargeGroupAudio getter is owned by the complete subsystem unit.
 class GeometryInfo
