@@ -119,10 +119,10 @@ struct Rva003F18F0
 };
 Rva003F18F0 *Rva003F18F0::rva003F18F0(void *sourceWordA, void *sourceWordB)
 {
-	int p;
+	int seedWord;
 	int q;
-	Rva003F1128Pick(&p, &q);
-	m_00 = p;
+	Rva003F1128Pick(&seedWord, &q);
+	m_00 = seedWord;
 	m_04 = 0x10AC50C0;
 	m_08 = 0x14804842;
 	m_0c = 0x10AC50C0;
@@ -162,19 +162,19 @@ struct Rva003F1976
 	int m_14;
 	int m_18;
 	int m_1c;
-	Rva003F1976 *rva003F1976(void *a1, void *a2);
+	Rva003F1976 *rva003F1976(void *sourceWordA, void *sourceWordB);
 };
-Rva003F1976 *Rva003F1976::rva003F1976(void *a1, void *a2)
+Rva003F1976 *Rva003F1976::rva003F1976(void *sourceWordA, void *sourceWordB)
 {
-	int p;
+	int seedWord;
 	int q;
-	Rva003F1154Pick(&p, &q);
-	m_00 = p;
+	Rva003F1154Pick(&seedWord, &q);
+	m_00 = seedWord;
 	m_04 = 0x10AC50C0;
 	m_08 = 0x14804842;
 	m_0c = 0x1ACC;
-	m_10 = *(int *)a1;
-	m_14 = *(int *)a2;
+	m_10 = *(int *)sourceWordA;
+	m_14 = *(int *)sourceWordB;
 	int multiplier = q;
 	int state = multiplier;
 	state *= multiplier;

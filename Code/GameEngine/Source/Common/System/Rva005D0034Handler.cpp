@@ -35,9 +35,9 @@ class Rva005D0034Target
 {
 public:
 	unsigned char m_pad00[0x14];
-	int m_14;				// +0x14
+	int m_objectID;				// +0x14
 	unsigned char m_pad18[0x1C - 0x18];
-	Rva000AD6F4 m_holder1C;			// +0x1C
+	Rva000AD6F4 m_callbackHolder;			// +0x1C
 };
 
 struct Rva005D0034LogicView
@@ -75,8 +75,8 @@ public:
 
 void Rva005D078B::rva005D0034(int a, int worldValue, int objectID)
 {
-	if (worldValue == ((Rva005D0034LogicView *)TheLivingWorldLogic)->m_98 && objectID == m_target->m_14)
-		m_target->m_holder1C.reset(new Rva005D0034Callback(m_target));
+	if (worldValue == ((Rva005D0034LogicView *)TheLivingWorldLogic)->m_98 && objectID == m_target->m_objectID)
+		m_target->m_callbackHolder.reset(new Rva005D0034Callback(m_target));
 }
 
 // Placeholder names this unit's own object settles.  In retail each one holds

@@ -6,9 +6,9 @@
 // 0x00603FF8; callee tolower via IAT; sibling of Rva006053AD 0x006053AD.
 #include <ctype.h>
 
-void Rva00605324(char *p)
+void Rva00605324(char *path)
 {
-    char *s = p;
+    char *s = path;
     if (*s == 0)
         goto done;
     do {
@@ -19,7 +19,7 @@ void Rva00605324(char *p)
             *s = (char)tolower(c);
         ++s;
     } while (*s != 0);
-    while (s > p) {
+    while (s > path) {
         if (*(s - 1) != '\\')
             break;
         --s;

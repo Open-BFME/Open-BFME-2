@@ -98,8 +98,8 @@ public:
 	void rva0050F290();
 	void rva0050F306();
 	void rva0050F450();
-	void InitSlider(const char *name, void *argument, GameWindow *window);
-	void InitTextEntry(const char *name, void *argument, GameWindow *window);
+	void InitSlider(const char *name, void *userData, GameWindow *window);
+	void InitTextEntry(const char *name, void *userData, GameWindow *window);
 private:
 	char m_pad04[0x64 - 0x04];
 	Player *m_64;
@@ -244,7 +244,7 @@ static int countDigits(unsigned int value)
 // Retail 0x0050E889, 54 bytes: "_InitSlider", bound as a member pointer
 // by the row's constructor 0x0050FC54: keeps the slider, ranges it
 // 0..99999 and shows the amount.
-void Rva0050F0AB::InitSlider(const char *name, void *argument, GameWindow *window)
+void Rva0050F0AB::InitSlider(const char *name, void *userData, GameWindow *window)
 {
 	m_78 = window;
 	TheWindowManager->winSendSystemMsg(window, 0x400E, 0, 99999);
@@ -254,7 +254,7 @@ void Rva0050F0AB::InitSlider(const char *name, void *argument, GameWindow *windo
 // Retail 0x0050F3A0, 128 bytes: "_InitTextEntry", bound alongside: keeps
 // the text entry, shrinks its font, takes digits only up to the slider's
 // width and shows the amount.
-void Rva0050F0AB::InitTextEntry(const char *name, void *argument, GameWindow *window)
+void Rva0050F0AB::InitTextEntry(const char *name, void *userData, GameWindow *window)
 {
 	m_7c = window;
 	if (TheFontLibrary)

@@ -95,12 +95,12 @@ int Rva005F1D06::write(char *dst)
 
 Rva005F1D06::operator AsciiString()
 {
-	AsciiString tmp;
+	AsciiString concatenatedText;
 	int extra = m_fourth.m_len;
 	int length = Rva005F1B75::length() + extra;
-	char *buffer = ((StringBase<char> *)&tmp)->getBufferForRead(length);
+	char *buffer = ((StringBase<char> *)&concatenatedText)->getBufferForRead(length);
 	write(buffer);
-	return tmp;
+	return concatenatedText;
 }
 
 // Target bytes at 0x0059B115 call the rowed AsciiStringPlusText::length
