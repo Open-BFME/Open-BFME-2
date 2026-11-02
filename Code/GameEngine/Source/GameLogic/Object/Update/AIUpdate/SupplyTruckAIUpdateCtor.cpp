@@ -79,6 +79,7 @@ protected:
     virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer);
     virtual void privateIdle(CommandSourceType source);
+    virtual void privateDock(Object *dock, CommandSourceType source);
     virtual AIStateMachine *makeStateMachine();
 private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x3E8
@@ -275,4 +276,11 @@ void SupplyTruckAIUpdate::privateIdle(CommandSourceType source)
     if (source == 0)
         rva005975D7(true);
     AIUpdateInterface::privateIdle(source);
+}
+
+void SupplyTruckAIUpdate::privateDock(Object *dock, CommandSourceType source)
+{
+    AIUpdateInterface::privateDock(dock, source);
+    if (source == 0 && dock)
+        m_preferredDock = dock->getID();
 }
