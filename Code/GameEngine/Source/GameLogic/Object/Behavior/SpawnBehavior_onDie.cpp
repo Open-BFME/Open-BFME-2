@@ -54,11 +54,7 @@ enum DeathType
 class Object;
 class DamageInfo;
 
-class DieMuxData
-{
-public:
-	Bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const;
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 class SlavedUpdateInterface
 {

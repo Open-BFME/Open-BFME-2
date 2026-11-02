@@ -15,14 +15,7 @@
 // which /O1 merges into the paired store with the pushed-4/pop-edx bound).
 // Size 0xD8 matches the rowed factory 0x002566F6.
 
-class DieMuxData
-{
-public:
-	DieMuxData();
-
-private:
-	unsigned char m_bytes[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 #include <vector>
 

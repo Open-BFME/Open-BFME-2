@@ -40,10 +40,7 @@ struct AngleFXInfo
 	const void *m_fxList;
 };
 
-struct DieMuxData
-{
-	unsigned char m_data[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 namespace _STL
 {

@@ -39,14 +39,7 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset() throw();
 }
 
-class DieMuxData
-{
-public:
-	DieMuxData();
-
-private:
-	unsigned char m_bytes[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 // Native parsers 45E533/45E5A4/45E618 establish these pointer-vector members;
 // the same types appear in the ZH SlowDeathBehavior.h reference. Retail's

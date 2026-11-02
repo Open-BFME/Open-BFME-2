@@ -16,14 +16,7 @@
 // DestroyObjectWhenDone (+0xF4) and CollapseHeight (+0xF8) zero-init per
 // the rowed parse table 0x00C52790. Size 0xFC matches the rowed factory.
 
-class DieMuxData
-{
-public:
-	DieMuxData();
-
-private:
-	unsigned char m_bytes[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 #include <vector>
 

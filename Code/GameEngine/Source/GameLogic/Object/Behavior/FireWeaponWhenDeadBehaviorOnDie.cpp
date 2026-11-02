@@ -96,13 +96,7 @@ private:
 
 extern WeaponStore *TheWeaponStore;
 
-class DieMuxData
-{
-public:
-	Bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const;
-private:
-	unsigned char m_pad[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 #include "../../../../Include/Common/ObjectModule.h"
 

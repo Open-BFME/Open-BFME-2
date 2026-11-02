@@ -151,11 +151,7 @@ public:
 	void rva004F56FC(Object *object);
 	Bool rva004F571B(const Object *object);
 };
-class DieMuxData
-{
-public:
-	Bool isDieApplicable(const Object *object, const DamageInfo *damageInfo) const;
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 // Target view: the CaveContain module-data pointer is this-0x24 for the
 // +0x28 receiver. Retail calls isDieApplicable on its +8 DieMuxData member.
 class CaveContainModuleDataView

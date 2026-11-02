@@ -14,14 +14,7 @@
 
 #include "Common/Snapshot.h"
 
-class DieMuxData
-{
-public:
-	DieMuxData();
-
-private:
-	unsigned char m_bytes[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 class CollapseOCLVec
 {

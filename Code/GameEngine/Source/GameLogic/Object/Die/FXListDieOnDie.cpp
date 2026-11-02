@@ -17,11 +17,7 @@ class Matrix3D;
 
 #include "../../../../Include/GameLogic/Damage.h"
 
-class DieMuxData
-{
-public:
-	Bool isDieApplicable(const Object *object, const DamageInfo *damageInfo) const;
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 class FXList
 {

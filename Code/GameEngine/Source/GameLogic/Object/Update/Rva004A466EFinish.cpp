@@ -14,11 +14,7 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
-class DieMuxData
-{
-public:
-	bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const;
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 struct StructureCollapseUpdateModuleData
 {

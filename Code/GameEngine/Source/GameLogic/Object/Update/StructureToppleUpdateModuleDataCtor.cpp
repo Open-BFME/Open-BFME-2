@@ -100,15 +100,7 @@ struct AngleFXInfo
 
 class ObjectCreationList;
 
-class DieMuxData
-{
-public:
-	DieMuxData();
-	DieMuxData *init();
-
-private:
-	unsigned char m_data[0x30];
-};
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
 
 enum
 {
