@@ -3,18 +3,7 @@
 #include <algorithm>
 // ?rva0042CB81@Rva0042CBB6@@QAEXH@Z @0x0042CB81 53B via conditional counter decrement plus zero-guard clear
 // Evidence: layout matches Rva0042CBB6Ctor (+8 +0x30 +0x34 +0x39); callers 5 incl 0x0042CE09 0x0042D0CD; unblocks 0x0042D068
-class Mouse
-{
-public:
-	virtual void m00(); virtual void m01(); virtual void m02(); virtual void m03();
-	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
-	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
-	virtual void m12(); virtual void m13(); virtual void m14(); virtual void m15();
-	virtual void m16(); virtual void m17(); virtual void m18();
-	virtual void m19(int x);
-	char m_pad[0x4FA0];
-	int m_4FA4;
-};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 
 class Rva0042CBB6
@@ -92,7 +81,7 @@ void Rva0042CBB6::rva0042CB57(int x)
 {
 	int cur = m_08;
 	if (cur == 0)
-		m_0C = TheMouse->m_4FA4;
+		m_0C = TheMouse->m_currentCursor;
 	if ((x & cur) == 0)
 		m_08 = cur + x;
 	m_39 = 1;
@@ -320,7 +309,7 @@ int Rva0042CBB6::rva0042CC7B(GameMessage *message)
    m_10=gameMessageArgumentType->pixel.x; m_14=gameMessageArgumentType->pixel.y;
    gameMessageArgumentType=message->getArgument(0);
    m_18=gameMessageArgumentType->pixel.x; m_1C=gameMessageArgumentType->pixel.y;
-   if(TheMouse->m_4FA4) { rva0042CB57(1); m_30=0; m_34=0; }
+   if(TheMouse->m_currentCursor) { rva0042CB57(1); m_30=0; m_34=0; }
   }
   disposition=1;
   break;
@@ -360,7 +349,7 @@ int Rva0042CBB6::rva0042CC7B(GameMessage *message)
    m_20=gameMessageArgumentType->pixel.x; m_24=gameMessageArgumentType->pixel.y;
    gameMessageArgumentType=message->getArgument(0);
    m_28=gameMessageArgumentType->pixel.x; m_2C=gameMessageArgumentType->pixel.y;
-   if(TheMouse->m_4FA4) rva0042CB57(2);
+   if(TheMouse->m_currentCursor) rva0042CB57(2);
   }
   disposition=1;
   break;

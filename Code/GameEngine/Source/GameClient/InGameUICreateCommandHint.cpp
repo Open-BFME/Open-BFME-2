@@ -28,7 +28,7 @@ class Object {public:char pad0[4];HintTemplateView *type;char pad8[0x6c];unsigne
 class Drawable {public:char padFC[0xfc];Object *object;Object *getObject() const {return object;}};
 union GameMessageArgumentType {int integer;};
 class GameMessage {public:char pad10[0x10];int type;const GameMessageArgumentType *getArgument(int) const;};
-class Mouse {public:char pad4f0c[0x4f0c];ICoord2D pos;int getCursorIndex(const AsciiString &);};
+#include "../../Include/GameClient/Mouse.h"
 extern Mouse *TheMouse;
 class Player {public:char pad54[0x54];int index;char pad58[0x6f8];int value750;bool hasRadar() const;};
 class PlayerList {public:char pad10[0x10];Player *local;};
@@ -296,7 +296,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
  GameWindow *window=0;
  unsigned char underWindow=((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva00222A53();
  if(!underWindow) {
-  const ICoord2D *io=&TheMouse->pos;
+  const ICoord2D *io=&TheMouse->field4F0C;
   if(io && TheWindowManager)window=TheWindowManager->getWindowUnderCursor(io->x,io->y,false);
   while(window) {
    if(window->rvaVirtual18()){underWindow=false;break;}
@@ -321,7 +321,7 @@ void InGameUI::createCommandHint(const GameMessage *msg)
     DNode *end=list->head;
     for(DNode *i=end->next;i!=end;i=i->next){ObjectID id=(ObjectID)i->value->getObject()->id;ids.push_back(*(void *const *)&id);}
     if(ids.size()>0){
-     Coord3D position;Coord3D *wp=&position;const ICoord2D *io=&TheMouse->pos;
+     Coord3D position;Coord3D *wp=&position;const ICoord2D *io=&TheMouse->field4F0C;
      TheTacticalView->screenToTerrain(io,wp,false);
      if(TheAiOrdersManager->rva0035538C(*wp,value,(const _STL::list<CreateAHeroData *> *)&ids)){CURSOR(0x37);return;}
     }

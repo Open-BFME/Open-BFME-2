@@ -151,13 +151,7 @@ public:
 	float m_keyboardCameraRotateSpeed;                         // +0xC2C
 };
 
-class Mouse
-{
-public:
-	void *rva001EDFE9() const;
-	char m_pad0[0x4FA4];
-	int m_4FA4;                          // +0x4FA4
-};
+#include "../../../Include/GameClient/Mouse.h"
 
 class Keyboard
 {
@@ -356,7 +350,7 @@ void BfmeOwnVVD::rva0042F213()
 		msg->appendRealArgument(currentView.m_pitch);
 		msg->appendRealArgument(currentView.m_zoom);
 		msg->appendRealArgument(currentView.m_1C);
-		msg->appendIntegerArgument(TheMouse->m_4FA4);
+		msg->appendIntegerArgument(TheMouse->m_currentCursor);
 		msg->appendPixelArgument(m_currentPos);
 	}
 
