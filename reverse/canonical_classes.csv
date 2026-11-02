@@ -330,3 +330,4 @@ MaterialInfoClass,Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoClass.h,existi
 W3DShadowManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowManager.h,existing header; contract class_contracts/W3DShadowManager.json; 13/26 sampled units adopt
 PlayerInfo,Code/GameEngine/Include/GameNetwork/PlayerInfo.h,existing header; contract class_contracts/PlayerInfo.json; 11/29 sampled units adopt
 ActiveBody,Code/GameEngine/Include/GameLogic/Module/ActiveBody.h,existing header; contract class_contracts/ActiveBody.json; 15/30 sampled units adopt
+Bridge,Code/GameEngine/Include/GameLogic/BridgeClass.h,existing header; contract class_contracts/Bridge.json; 8/28 sampled units adopt

@@ -1,0 +1,710 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Bridge",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 28,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x14": {
+    "4": 4
+   },
+   "0x18": {
+    "4": 3
+   },
+   "0x1c": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 4
+   },
+   "0x28": {
+    "4": 8
+   },
+   "0x2c": {
+    "4": 8
+   },
+   "0x30": {
+    "4": 5
+   },
+   "0x34": {
+    "4": 8
+   },
+   "0x38": {
+    "4": 8
+   },
+   "0x3c": {
+    "4": 4
+   },
+   "0x40": {
+    "4": 6
+   },
+   "0x44": {
+    "4": 6
+   },
+   "0x48": {
+    "4": 3
+   },
+   "0x4c": {
+    "4": 5
+   },
+   "0x50": {
+    "4": 4
+   },
+   "0x5c": {
+    "4": 2
+   },
+   "0x60": {
+    "4": 2
+   },
+   "0x74": {
+    "1": 3
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 3
+   },
+   "0xc4": {
+    "4": 3
+   },
+   "0xc8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xcc": 4
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x27f882",
+      "0x280c21"
+     ],
+     "value": 204
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x27f882",
+      "0x280c21"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       2
+      ],
+      "0xaa": [
+       2
+      ],
+      "0xac": [
+       2
+      ],
+      "0xae": [
+       2
+      ],
+      "0xb0": [
+       2
+      ],
+      "0xb2": [
+       2
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x27f882",
+      "0x280c21"
+     ],
+     "value": {
+      "0x0": [
+       "?createTower@Bridge@@QAEPAVObject@@PAUCoord3D@@W4BridgeTowerType@@PBVThingTemplate@@PAV2@@Z"
+      ],
+      "0x8": [
+       "?set@?$StringBase@D@@QAEXABV1@@Z"
+      ],
+      "0xc": [
+       "??0Rva0027C36A@@QAE@ABV0@@Z",
+       "??0Rva0027C36A@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x27f882",
+      "0x280c21"
+     ],
+     "value": {
+      "0x0": "0x7fb1e0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fb1e0"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GBridge@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x280c05"
+       }
+      ],
+      "table": "0x7fb1e0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 10,
+  "retail_vtables": {
+   "0x7fb1e0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GBridge@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "8": 7,
+   "76": 1,
+   "100": 1,
+   "116": 2,
+   "180": 5,
+   "196": 2,
+   "200": 1,
+   "204": 7
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Bridge.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_next",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Bridge*",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_templateName",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:BridgeInfo",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 12,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 16,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 20,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "bridgeWidth",
+     "offset": 24,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 28,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 32,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 36,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 40,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 44,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 48,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 52,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 56,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 60,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 64,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 68,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 72,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "i4",
+     "name": "bridgeIndex",
+     "offset": 76,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "curDamageState",
+     "offset": 80,
+     "size": 4,
+     "type": "enum"
+    },
+    {
+     "kind": "i4",
+     "name": "bridgeObjectID",
+     "offset": 84,
+     "size": 4,
+     "type": "enum"
+    },
+    {
+     "kind": "A",
+     "name": "towerObjectID",
+     "offset": 88,
+     "size": 16,
+     "type": "enum[16]"
+    },
+    {
+     "kind": "i1",
+     "name": "damageStateChanged",
+     "offset": 104,
+     "size": 1,
+     "type": "bool"
+    }
+   ],
+   "name": "m_bridgeInfo",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 108,
+   "type": "BridgeInfo",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_bridgeInfo.polygon",
+   "name_by": "tie",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 48,
+   "type": "Coord3DBase[48]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_bridgeInfo.triangles",
+   "name_by": "tie",
+   "offset": 168,
+   "retail_widths": {},
+   "size": 12,
+   "type": "short[12]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Region2D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 12,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_bounds",
+   "name_by": "majority",
+   "offset": 180,
+   "retail_widths": {},
+   "size": 16,
+   "type": "Region2D",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_layer",
+   "name_by": "majority",
+   "offset": 196,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_outline",
+   "name_by": "majority",
+   "offset": 200,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "PolygonTrigger*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "12:A": 3,
+    "4:P": 7,
+    "4:VPTR": 7,
+    "96:A": 1
+   },
+   "class": "Bridge"
+  },
+  {
+   "attribute": "name@0x78",
+   "candidates": {
+    "m_bridgeInfo.m_6c": 1,
+    "m_bridgeInfo.polygon": 1
+   },
+   "class": "Bridge"
+  },
+  {
+   "attribute": "name@0xa8",
+   "candidates": {
+    "m_bridgeInfo.m_9c": 1,
+    "m_bridgeInfo.triangles": 1
+   },
+   "class": "Bridge"
+  },
+  {
+   "attribute": "nested@0x78",
+   "candidates": {
+    "m_bridgeInfo.polygon": 2
+   },
+   "class": "Bridge"
+  },
+  {
+   "attribute": "nested@0xa8",
+   "candidates": {
+    "m_bridgeInfo.triangles": 2
+   },
+   "class": "Bridge"
+  }
+ ],
+ "size": 204,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
