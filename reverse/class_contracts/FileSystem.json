@@ -1,0 +1,37 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "FileSystem",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 71,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 11,
+  "retail_vtables": {},
+  "view_errors": 5,
+  "view_sizes": {
+   "1": 66
+  },
+  "views": 66,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_FileSystem.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/FileSystem.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}

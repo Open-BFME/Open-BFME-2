@@ -249,3 +249,4 @@ Waypoint,Code/GameEngine/Include/GameLogic/Waypoint.h,existing header; contract 
 PathfindCell,Code/GameEngine/Include/GameLogic/PathfindCell.h,existing header; contract class_contracts/PathfindCell.json; 14/69 sampled units adopt
 ExperienceTracker,Code/GameEngine/Include/GameLogic/ExperienceTracker.h,existing header; contract class_contracts/ExperienceTracker.json; 45/69 sampled units adopt
 Dict,Code/GameEngine/Include/Common/Dict.h,existing header; contract class_contracts/Dict.json; 45/68 sampled units adopt
+FileSystem,Code/GameEngine/Include/Common/FileSystem.h,existing header; contract class_contracts/FileSystem.json; 69/71 sampled units adopt
