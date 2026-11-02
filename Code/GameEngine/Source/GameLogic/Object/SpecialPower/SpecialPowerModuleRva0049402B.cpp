@@ -45,11 +45,7 @@ public:
 	unsigned int m_words[(N + 31) / 32];
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class AttributeModifierStore

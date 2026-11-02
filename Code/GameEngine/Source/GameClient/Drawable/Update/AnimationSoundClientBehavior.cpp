@@ -24,12 +24,7 @@ class WeaponTemplateSetHead {public:struct BfmeNoInitAnim{};WeaponTemplateSetHea
 class Rva004C9E94 {public:Rva004C9E94(const Rva0036CA00Str&,const int*,float,const WeaponTemplateSetHead&,const WeaponTemplateSetHead&);int key;Rva0036CA00Str sound;float frame;WeaponTemplateSetHead required,excluded;bool check;};
 struct AnimationSoundTreeNode;
 enum NameKeyType{KEY0=0};
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString&);
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 enum DrawableID { INVALID_DRAWABLE_ID=0 };
 // ?Range::Range present-unmatched

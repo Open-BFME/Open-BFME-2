@@ -3598,7 +3598,7 @@ class Player {public:char pad00[0x50];int nameKey;};
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 enum NameKeyType { DISPATCH_KEY_INVALID=-1 };
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString&);};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class GameInfo;extern GameInfo *TheGameInfo;
 struct DispatcherGameInfo {char pad00[0x80];int preference;};

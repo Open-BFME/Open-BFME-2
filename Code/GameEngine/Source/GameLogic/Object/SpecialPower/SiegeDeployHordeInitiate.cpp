@@ -52,11 +52,7 @@ class SpecialPowerTemplate;
 class Waypoint;
 class Module;
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ThingTemplate

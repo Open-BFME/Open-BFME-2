@@ -209,11 +209,7 @@ struct Rva004C7EC7Holder
 	ObjectCreationList *m_a8;
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

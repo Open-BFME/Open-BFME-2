@@ -24,11 +24,7 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum ObjectStatusTypes { BFME_STATUS_40 = 0x40 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct Rva004598F2Point

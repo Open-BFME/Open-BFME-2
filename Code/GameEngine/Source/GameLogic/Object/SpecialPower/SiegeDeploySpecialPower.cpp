@@ -67,11 +67,7 @@ public:
 	virtual bool allow(Object *obj);
 	BfmeFixedStorage0004543D m_08;
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 struct Coord3D;
 struct Rva004598F2Point

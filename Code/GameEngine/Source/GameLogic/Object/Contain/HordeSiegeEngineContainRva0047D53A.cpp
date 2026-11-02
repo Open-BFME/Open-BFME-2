@@ -20,7 +20,8 @@ enum CommandSourceType {COMMAND2=2};
 enum ExitDoorType {DOOR0=0};
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator *TheNameKeyGenerator;
+#include "../../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
 class AIUpdateInterface {public:void ignoreObstacle(const Object*);char pad[0x178];unsigned ignoreUntil;char pad17c[0x1cc-0x17c];LocomotorSet *locomotorView(){return (LocomotorSet*)((char*)this+0x1cc);}};
 class Rva0035149F;

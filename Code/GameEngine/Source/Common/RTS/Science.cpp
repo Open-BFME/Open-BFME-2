@@ -14,13 +14,7 @@ class Player;
 class Rva0043D3A8;
 // Existing name-key operations used by the two inverse query consumers.
 enum NameKeyType { NAMEKEY_INVALID = -1 };
-class NameKeyGenerator
-{
-public:
-    const AsciiString &keyToName(NameKeyType key);
-    NameKeyType nameToKey(const AsciiString &str);
-    NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 class ScienceInfo
 {
     char m_opaque00[0x14];
