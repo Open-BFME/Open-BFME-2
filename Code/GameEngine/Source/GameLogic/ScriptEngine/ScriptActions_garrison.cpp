@@ -216,22 +216,7 @@ public:
 	void setPosition(const Coord3D *pos);
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00();
-	virtual bool isReady();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void s07();
-	virtual void s08();
-	virtual void s09();
-	virtual void s10();
-	virtual void doSpecialPowerAtObject(Object *target, int value);
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Object : public Thing
 {

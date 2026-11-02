@@ -181,15 +181,7 @@ extern ScriptEngine *TheScriptEngine;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void slot00();
-	virtual Bool isReady() const;
-	virtual void slot08();
-	virtual void slot0C();
-	virtual unsigned int getReadyFrame() const;
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class SpecialPowerStore
 {

@@ -137,21 +137,7 @@ public:
 	char m_pad14[0x1C - 0x14];
 	SpecialPowerType m_type1C;
 };
-class SpecialPowerModuleInterface
-{
-public:
-	virtual bool isModuleForPower(const SpecialPowerTemplate *) const = 0;
-	virtual bool isReady() const = 0;
-	virtual void s02() const = 0;
-	virtual void s03() const = 0;
-	virtual void s04() const = 0;
-	virtual void s05() const = 0;
-	virtual void s06() const = 0;
-	virtual void s07() const = 0;
-	virtual void s08() const = 0;
-	virtual void s09() const = 0;
-	virtual void doSpecialPower(UnsignedInt commandOptions) = 0;
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #define TheAudioClientUpdate ((void *)TheAudio)
 extern "C" int lua_gettop(lua_State *s);
 extern "C" int lua_type(lua_State *s, int i);
