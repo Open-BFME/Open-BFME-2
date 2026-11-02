@@ -21676,3 +21676,5 @@ Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp|member|Rva003F80E6|m_begin0C,
 Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp|member|Rva003F80E6|m_end10,f8144f36e345723b9dac5d9a,claude-haiku-5-5,drz-k2-n37b,w-4cad33e49465,2026-11-02
 Code/GameEngine/Source/Common/Rva003F830F.cpp|param|Rva003F81FDProxy::rva003F830F|p,2742318cf574387070a1704e,claude-haiku-5-5,drz-k2-n37b,w-4cad33e49465,2026-11-02
 Code/GameEngine/Source/Common/Rva003F86F9Ctor.cpp|param|Base003F86F9|b,0eaedd4f8f9641e94984f584,claude-haiku-5-5,drz-k2-n37b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva004030EFFind.cpp|function|0x004030EF|rva004030EF,d26f87348f6e185d7f1a9b8e,claude-haiku-5-5,drz-k4-n37c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva004030EFFind.cpp|global||g_00DC1B68,0cf8bb061566490cc60cef99,claude-haiku-5-5,drz-k4-n37c,w-9078cc5436a9,2026-11-02
