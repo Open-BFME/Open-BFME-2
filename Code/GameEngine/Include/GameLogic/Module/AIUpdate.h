@@ -333,7 +333,7 @@ public:
     virtual Object * construct(ThingTemplate const *,Coord3D const *,float,Player *,bool,int); // 126: RVA 0x0026E9B8
     virtual Object * getEnterTarget(); // 127: RVA 0x00264EF2
     virtual bool vslot128(Coord3D *) const { return false; } // 128: RVA 0x005CB9FF
-    virtual void addTargeter(int, bool); // 129: RVA 0x0050B238
+    virtual void addTargeter(int, bool) {} // 129: RVA 0x0050B238
     virtual bool vslot130() const { return false; } // 130: RVA 0x0047A699
     virtual void setLocomotorGoalPositionOnPath(); // 131: RVA 0x00262C13
     virtual void setLocomotorGoalPositionExplicit(Coord3D const &); // 132: RVA 0x00262C35

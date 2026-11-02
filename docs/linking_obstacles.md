@@ -18868,3 +18868,5 @@ Slots36/37 final group verification: both235-source header gates pass. Strict cu
 Primary slot44 now supplies its complete3B native default at0x0050B238 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
 
 Primary slot45 now supplies its complete3B native default at0x0050B238 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
+
+Primary slot129 now supplies its complete3B native default at0x0050B238 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
