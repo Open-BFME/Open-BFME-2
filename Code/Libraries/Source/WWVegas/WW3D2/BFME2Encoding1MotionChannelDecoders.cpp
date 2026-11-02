@@ -9,8 +9,11 @@
 // frame count at +0xC.
 // Codegen: `bit` kept as an int and used for both the select and the pointer step; the vi
 // loop advances packet in its increment expression.
+// Vector3 values travel as VectorValue, a plain three-float record like ScalarValue: retail
+// copies them as a trivial 12-byte record (three movsd), while the canonical Vector3Data.h
+// declares operator= out of line (0x00169FB0) and its Set() copies through SSE registers.
 class ChunkLoadClass;
-class Vector3 { public: float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 class Quaternion { public: float X, Y, Z, W; };
 class BFME2MotionChannel {
 public:
@@ -43,20 +46,21 @@ public:
     void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
     void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
 };
+struct VectorValue { float x, y, z; };
 void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1)
 {
-    Vector3 last;
+    VectorValue last;
     if (from > frame) {
         from = 0;
-        last = *(const Vector3 *)Initial;
+        last = *(const VectorValue *)Initial;
     } else
-        last = *(const Vector3 *)state;
+        last = *(const VectorValue *)state;
     unsigned char *packet = Data + (from >> 4) * 27;
     while (from <= frame + 1) {
         if (from >= (unsigned int)Count) {
             if (value0)
-                *value0 = last;
-            *value1 = last;
+                *(VectorValue *)value0 = last;
+            *(VectorValue *)value1 = last;
             return;
         }
         unsigned int startFrame = from & 0xF;

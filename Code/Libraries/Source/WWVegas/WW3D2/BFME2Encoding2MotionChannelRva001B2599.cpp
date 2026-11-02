@@ -11,8 +11,11 @@
 // Complete near match225B: first46bytes and most outer flow exact; residual
 // byte load/index increment and x87-filter scheduling differ. Declaring fi
 // outside the loop restores target EDX frame/EDI initial-value allocation.
+// Vector3 values travel as VectorValue, a plain three-float record like ScalarValue: retail
+// copies them as a trivial 12-byte record (three movsd), while the canonical Vector3Data.h
+// declares operator= out of line (0x00169FB0) and its Set() copies through SSE registers.
 class ChunkLoadClass;
-class Vector3 { public: float X, Y, Z; };
+#include "../WWMath/Vector3Data.h"
 class Quaternion { public: float X, Y, Z, W; };
 class BFME2MotionChannel {
 public:
@@ -74,21 +77,22 @@ void BFME2Encoding2MotionChannel::rva001B2599(unsigned int *state,unsigned int f
 
 // Encoding 2 vector decoder: three 17-byte component packets per 16-frame block, each a filter
 // byte then 16 deltas biased by 128; p walks the delta bytes in step with fi.
+struct VectorValue { float x, y, z; };
 void BFME2Encoding2MotionChannel::rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1)
 {
-    Vector3 last;
+    VectorValue last;
     if (from > frame) {
         from = 0;
-        last = *(const Vector3 *)Initial;
+        last = *(const VectorValue *)Initial;
     } else
-        last = *(const Vector3 *)state;
+        last = *(const VectorValue *)state;
     unsigned char *packet = Data + (from >> 4) * 51;	// pointer to current packet
     while (from <= frame + 1) {
         // Frame Loop
         if (from >= (unsigned int)Count) {
             if (value0)
-                *value0 = last;
-            *value1 = last;
+                *(VectorValue *)value0 = last;
+            *(VectorValue *)value1 = last;
             return;
         }
         // initial filter index
