@@ -3,12 +3,7 @@
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Render2DClass
-{
-public:
-	void Add_Tri(const Vector2 &, const Vector2 &, const Vector2 &,
-		const Vector2 &, const Vector2 &, const Vector2 &, unsigned long);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 // Native 0x001049C7..0x00104A75 ends in RET: one renderer pointer and
 // six pointers to two-float coordinates, copied to six Vector2 temporaries.

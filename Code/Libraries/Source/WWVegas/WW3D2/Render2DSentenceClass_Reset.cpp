@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Reset@Render2DSentenceClass@@UAEXXZ at 0x00155A20 173B: BFME2 thread-guarded Reset.
 // Donor: reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp Render2DSentenceClass::Reset.
 // Evidence: callees Release_Pending_Surfaces 0x00154F70 and Reset_Sentence_Data 0x00154F10 (rowed),
@@ -23,11 +23,7 @@ public:
 
 // The renderer dtor 0x00119D00 is rowed as Render2DClass::~Render2DClass
 // (RendererDataStruct's renderer); the call below is a direct one.
-class Render2DClass
-{
-public:
-	~Render2DClass();
-};
+#include "Render2DClass.h"
 
 #include <new>
 

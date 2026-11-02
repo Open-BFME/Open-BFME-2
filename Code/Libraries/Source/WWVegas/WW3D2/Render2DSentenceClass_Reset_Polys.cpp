@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Reset_Polys@Render2DSentenceClass@@QAEXXZ @ 0x00154EC0 (38B).
 // Retail iterates DynamicVectorClass<RendererDataStruct> (Vector at +0x38,
 // ActiveCount at +0x44) and calls Render2DClass::Reset at 0x00119F00 directly.
@@ -6,11 +6,7 @@
 // emit a vtable-slot call ([edx+4]); the retail direct call at 0x00154ED6 proves
 // Reset is non-virtual in BFME2. This TU therefore declares it non-virtual and
 // the REL32 resolves against the pinned 0x00119F00 body.
-class Render2DClass
-{
-public:
-	void Reset();
-};
+#include "Render2DClass.h"
 
 class SurfaceClass;
 

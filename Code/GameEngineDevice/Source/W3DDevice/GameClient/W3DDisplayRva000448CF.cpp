@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?drawLine@W3DDisplay@@UAEXMMMMMK@Z @0x000448CF 89B: BFME1's W3DDisplay::drawLine
 // (x1, y1, x2, y2, width, color) at 0x006E9B90 has the same shape (clear the
@@ -19,18 +19,7 @@ bool ClipLine2D(ICoord2D *start,ICoord2D *end,ICoord2D *returnStart,ICoord2D *re
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Render2DClass
-{
-public:
-	void Add_Line(const Vector2 &a, const Vector2 &b, float width, uint32 color);
-	// Native00042C80..00042EBD RET14 independently consumes two 2-float
-	// references, float width and two unsigned colours. It normalizes the
-	// perpendicular endpoint delta, allocates4 vertices/6 indices and assigns
-	// distinct colours to each endpoint pair: donor Add_Line(a,b,width,c0,c1).
-	void Add_Line(const Vector2 &a, const Vector2 &b, float width, uint32 color0, uint32 color1);
-	char m_pad48[0x48];
-	unsigned char m_flag48;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 class Display
 {

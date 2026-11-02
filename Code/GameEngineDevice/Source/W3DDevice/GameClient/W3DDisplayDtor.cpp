@@ -23,7 +23,7 @@ class Rva009EB960 {public:virtual ~Rva009EB960();};extern Rva009EB960 *Rva0134FA
 Rva009EB960 *Rva0134FAA0 = 0;
 class W3DFileSystem {public:virtual ~W3DFileSystem();};extern W3DFileSystem *TheW3DFileSystem;
 class DebugDisplayInterface {public:virtual ~DebugDisplayInterface();};
-class Render2DClass {public:~Render2DClass();};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 class DisplayString;
 #include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Texture-holder setter at 0x000456C9 (39B): reassigns the RefCountPtr at
 // +0x40 through the rowed 0x000424D0 operator= when the referent changes,
 // then records -(ptr != 0) at +0x44. W3DDisplay vtable 0x00BC3C80 slot 31
@@ -65,11 +65,7 @@ void Rva000456C9::Set_Texture(RefCountPtr<TextureClass> const *newTexture)
 	}
 }
 
-class Render2DClass
-{
-public:
-	void Reset();
-};
+#include "Render2DClass.h"
 
 class Rva00046791Item
 {

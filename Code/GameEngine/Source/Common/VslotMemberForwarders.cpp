@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // Vtable-slot forwarders with no ledger owner: each moves `this` to a member
 // object (add ecx, N), a member pointer (mov ecx, [ecx+N]) or a global
@@ -15,7 +15,7 @@ template <class T> class StringBase { public: void set(const T *); };
 class W3DHordeModelDrawModuleData { public: int rva00079167(); int rva00079186(int); };
 class DataChunkInput; struct DataChunkInfo;
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
-class Render2DClass { public: void Reset(); };
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 class TextureFilterClass { public: void Apply(unsigned int); };
 namespace _STL { template <class T> class allocator; template <class T, class A> class _List_base { public: void clear(); }; }
 struct BfmeVectorRecord001B4A39;

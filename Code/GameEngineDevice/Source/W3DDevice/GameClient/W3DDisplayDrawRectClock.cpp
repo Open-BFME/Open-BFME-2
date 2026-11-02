@@ -1,4 +1,4 @@
-// cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?drawRectClock@W3DDisplay@@UAEXMMMMMI@Z, retail 0x00045B45..0x000463B5 (2160 bytes)
 // ?drawRemainingRectClock@W3DDisplay@@UAEXMMMMMI@Z, retail 0x000463B5..0x000465CE (537 bytes)
@@ -43,17 +43,7 @@ public:
 	float Bottom;
 };
 
-class Render2DClass
-{
-public:
-	void Enable_Texturing(bool onoff) { m_texturing = onoff; }
-	void Add_Quad(const RectClass &rect, unsigned long color);
-	void Add_Tri(const Vector2 &v0, const Vector2 &v1, const Vector2 &v2, const Vector2 &uv0, const Vector2 &uv1, const Vector2 &uv2, unsigned long color);
-
-private:
-	char m_pad00[0x48];
-	bool m_texturing;					// +0x48
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 #define W3DDISPLAY_SLOT(n) virtual void slot##n();
 
