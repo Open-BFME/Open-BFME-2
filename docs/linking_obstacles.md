@@ -18839,3 +18839,7 @@ BI slot46 now has its own verified row for the existing complete3B body at0x0047
 ### Complete AIUpdate behavior-interface table (2026-11-02)
 
 [Final47-slot/native proof](../reverse/attempt_support/aiupdate-bi-inline-rows-20261102/README.md): all45 existing shared inline bodies now have separate verified rows and the complete188B table at7FA3C0 resolves exactly to retail. The119-row consumer preserves129 code/10 data external definitions; no new unique C++ bytes or original-name/TU claim. Earlier RET8 reservation deferral is superseded by successful public file-wide reservations on the actual canonical header and emitting source; the foreign vector-destructor scope remains untouched. Primary-table closure, conditional deleting-destructor selection and global census/provider verification remain.
+
+### Native AIUpdate cluster adopts canonical StateMachine (2026-11-02)
+
+Three existing native bodies at2645FF/264E93/264F3D retain their identities and exact bytes while fake Slot110/Slot8/StateMachine copies are removed. The owning header-adoption tool passes, preserves the previously linking unit and retires one header-queue entry. [Evidence and separate naming prerequisite](../reverse/attempt_support/aiupdate-state-adoption-20261102/README.md). A private named isIdle twin was exact but is deferred because its target-name basis remains a majority slot contract; no new named provider or old donor removal is landed. Primary-table identity/global-provider/runtime checks remain open.
