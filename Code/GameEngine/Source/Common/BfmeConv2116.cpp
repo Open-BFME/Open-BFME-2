@@ -4,11 +4,7 @@
 // The same complete victim pointer is passed to Weapon as Object and to
 // native getter 0x28B511. The verified const getter reads flag +0x48C and
 // layer word +0x40C; its purpose and declaration follow that existing owner.
-class Object
-{
-public:
-	int rva0028B511() const;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameLogic/Weapon.h"
 

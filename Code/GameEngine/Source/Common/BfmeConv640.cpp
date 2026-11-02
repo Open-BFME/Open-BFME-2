@@ -27,11 +27,7 @@ public:
 
 // Native Object+8 owner call reaches the verified mobility body 0x002907A1.
 // Reuse its Object thiscall bool() identity; keep the caller layout unchanged.
-class Object
-{
-public:
-	bool isMobile() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class AIUpdateInterface
 {

@@ -58,14 +58,7 @@ public:
 	virtual bool matches();
 };
 
-class Object
-{
-public:
-	Object *rva002931F5(bool arg);
-	void *rva0028C197() const;
-	bool testStatus(ObjectStatusTypes status) const;
-	bool isKindOf(KindOfType kind) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva0028B7AELeaGetter
 {

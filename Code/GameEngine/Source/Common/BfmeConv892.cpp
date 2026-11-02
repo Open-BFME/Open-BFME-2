@@ -20,11 +20,7 @@ class BfmeObjFCD;
 // (ObjectWeaponSetFlags.cpp); the pair's two words are its arguments.
 enum WeaponSlotType { WEAPON_SLOT_INVALID = -1 };
 enum WeaponLockType { WEAPON_LOCK_INVALID = -1 };
-class Object
-{
-public:
-	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
-};
+#include "../GameLogic/Object/object.h"
 
 void bfmeGoFCD(BfmeObjFCD *o, BfmePairFCD *p)
 {

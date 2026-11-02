@@ -9,11 +9,7 @@
 // The callee is the rowed Object::setWeaponLock.
 enum WeaponSlotType { WEAPONSLOT_UNUSED940 };
 enum WeaponLockType { WEAPONLOCK_UNUSED940 };
-class Object
-{
-public:
-	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
-};
+#include "../GameLogic/Object/object.h"
 
 struct BfmeA940G
 {

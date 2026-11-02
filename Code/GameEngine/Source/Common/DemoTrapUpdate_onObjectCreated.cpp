@@ -23,12 +23,7 @@ enum WeaponLockType
 	LOCKED_TEMPORARILY = 1,
 	LOCKED_PERMANENTLY = 2
 };
-class Object
-{
-public:
-	void setWeaponSetFlag(WeaponSetType wst);
-	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
-};
+#include "../GameLogic/Object/object.h"
 class ModuleData;
 class Rva0024A797
 {

@@ -37,11 +37,7 @@ public:
 	virtual void bfmeSendBEC(int v);
 };
 
-class Object
-{
-public:
-	DockUpdateInterface *getDockUpdateInterface();
-};
+#include "../GameLogic/Object/object.h"
 
 class BfmeThing940D
 {

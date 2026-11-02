@@ -8,11 +8,7 @@
 
 #include "Thing/thing.h"
 
-class Object
-{
-public:
-	float GetRelativeAngle(const Coord3D *pos) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class TurretStateMachine
 {

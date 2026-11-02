@@ -23,11 +23,7 @@ enum CellShroudStatus
 	CELLSHROUD_SHROUDED,
 	CELLSHROUD_COUNT
 };
-class Object
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
-};
+#include "../GameLogic/Object/object.h"
 // Slot 1 (allow) of partition filter vftable 0x00C0716C.
 class Rva00261353Filter
 {

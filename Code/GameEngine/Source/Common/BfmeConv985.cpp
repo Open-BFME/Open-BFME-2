@@ -5,12 +5,7 @@ class BfmeArg985;
 // 0x00290D2B is rowed as Object::hasUpgrade(const UpgradeTemplate *) const
 // (ObjectRva00290D2B.cpp); the argument is the upgrade template.
 class UpgradeTemplate;
-class Object
-{
-public:
-	bool hasUpgrade(const UpgradeTemplate *upgrade) const;
-	bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
-};
+#include "../GameLogic/Object/object.h"
 
 // Slot 1 (allow) of partition filter vftable 0x00C51150.
 class Rva00261130Filter

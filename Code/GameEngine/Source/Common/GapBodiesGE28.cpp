@@ -149,12 +149,7 @@ Rva00524F19::Rva00524F19(int value) : m_value(value), m_flag(false), m_08(-1.0f)
 // that the local player controls, or null.
 #include "../../Include/Common/Player.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;					// 0x0028AFA9
-	const AsciiString *rva00290E67() const;					// 0x00290E67
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva005260B1Node
 {

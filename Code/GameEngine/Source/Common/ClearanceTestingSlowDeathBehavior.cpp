@@ -395,12 +395,7 @@ public:
 	virtual int v8();
 };
 
-class Object
-{
-public:
-	signed char rva0028CE7B() const;
-	bool isUsingAirborneLocomotor() const;
-};
+#include "../GameLogic/Object/object.h"
 
 // Slot 1 (allow) of partition filter vftable 0x00C49E84.
 class Rva00483C9FFilter

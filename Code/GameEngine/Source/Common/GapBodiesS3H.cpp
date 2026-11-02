@@ -55,13 +55,7 @@ enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;	// 0x0028AEBD
-	char m_pad000[0x258];
-	AIUpdateInterface *m_ai;								// +0x258
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva005D898A
 {

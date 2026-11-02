@@ -21,11 +21,7 @@ public:
 	virtual void bfmeSendBEC(int what);
 };
 
-class Object
-{
-public:
-	DockUpdateInterface *getDockUpdateInterface();
-};
+#include "../GameLogic/Object/object.h"
 
 class BfmeThingBEC
 {

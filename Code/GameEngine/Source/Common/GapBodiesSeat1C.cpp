@@ -11,13 +11,7 @@ extern GameLogic *TheGameLogic;
 
 enum ObjectStatusTypes { OBJECT_STATUS_22 = 0x16 };
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);		// 0x0023DB0E
-	void rva00346C53(ObjectStatusTypes status, bool set);	// 0x00346C53
-	void rva0037710C(ObjectStatusTypes status);
-};
+#include "../GameLogic/Object/object.h"
 
 // --- 0x0034BA7A (36B): -1 until TheGameLogic's frame reaches +0x20, then
 // clears status 0x16 on the +0x18 record's +0x14 object and returns 0.

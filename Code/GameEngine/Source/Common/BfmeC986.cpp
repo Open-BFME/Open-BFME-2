@@ -45,11 +45,7 @@ struct Rva0028AC4EEntry
 	Rva0028AC4EField *m_04;
 };
 
-class Object
-{
-public:
-	const Rva0028AC4EEntry *rva0028AC4E() const;
-};
+#include "../GameLogic/Object/object.h"
 
 struct ListNode
 {
