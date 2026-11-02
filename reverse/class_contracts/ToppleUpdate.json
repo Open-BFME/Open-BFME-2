@@ -1,0 +1,681 @@
+{
+ "bases": [
+  "UpdateModule",
+  "CollideModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ToppleUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 16,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x38": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4a8201"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x85386c",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x840818>",
+       "offset": 32,
+       "own_vftable": "0x853848",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4a8201"
+     ],
+     "value": 88
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4a8201"
+     ],
+     "value": {
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       1
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4a8201"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24f0a7"
+     ],
+     "value": 88
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4a8201"
+     ],
+     "value": {
+      "0x10": [
+       "0x853860"
+      ],
+      "0xc": [
+       "0x85a260"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4a8201"
+     ],
+     "value": {
+      "0x0": "0x85386c",
+      "0x20": "0x853848"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x85386c"
+     ],
+     "value": {
+      "count": 13,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004A8091@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4a829e"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?name@Rva004A80B1Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4a80b1"
+       },
+       {
+        "name": "?xfer@Rva004A8091@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4a86e7"
+       },
+       {
+        "name": "?getModuleNameKey@ToppleUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4a812e"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x85386c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x853848": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x85386c": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004A8091@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?name@Rva004A80B1Named@@QBEPBDXZ",
+     "3": "?xfer@Rva004A8091@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@ToppleUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 11,
+  "view_sizes": {
+   "1": 1,
+   "60": 1,
+   "88": 3
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ToppleUpdate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ToppleUpdate.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextCallFrameAndPhase",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_indexInLogic",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "velocity",
+   "name_by": "tie",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "acceleration",
+   "name_by": "tie",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "direction",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_toppleState",
+   "name_by": "tie",
+   "offset": 56,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "accumulation",
+   "name_by": "tie",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "angleDelta",
+   "name_by": "tie",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "countDelta",
+   "name_by": "tie",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "bounceFX",
+   "name_by": "tie",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "options",
+   "name_by": "tie",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "stumpID",
+   "name_by": "tie",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "state54",
+   "name_by": "tie",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1,
+    "56:A": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "inherited@0xc",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "inherited@0x10",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "inherited@0x20",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1,
+    "56:A": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "field@0xc",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "field@0x10",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "field@0x20",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x24",
+   "candidates": {
+    "m_24": 1,
+    "velocity": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "acceleration": 1,
+    "m_28": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x2c",
+   "candidates": {
+    "direction.x": 1,
+    "m_2C": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x30",
+   "candidates": {
+    "direction.y": 1,
+    "m_30": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x34",
+   "candidates": {
+    "direction.z": 1,
+    "m_34": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x38",
+   "candidates": {
+    "m_38": 1,
+    "m_toppleState": 1,
+    "state": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x3c",
+   "candidates": {
+    "accumulation": 1,
+    "m_3C": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x40",
+   "candidates": {
+    "angleDelta": 1,
+    "m_40": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x44",
+   "candidates": {
+    "countDelta": 1,
+    "m_44": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x48",
+   "candidates": {
+    "bounceFX": 1,
+    "m_48": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x4c",
+   "candidates": {
+    "m_4C": 1,
+    "options": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x50",
+   "candidates": {
+    "m_50": 1,
+    "stumpID": 1
+   },
+   "class": "ToppleUpdate"
+  },
+  {
+   "attribute": "name@0x54",
+   "candidates": {
+    "m_54": 1,
+    "state54": 1
+   },
+   "class": "ToppleUpdate"
+  }
+ ],
+ "size": 88,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
