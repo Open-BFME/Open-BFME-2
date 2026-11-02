@@ -261,3 +261,4 @@ SidesList,Code/GameEngine/Include/Common/SidesList.h,existing header; contract c
 DataChunkInput,Code/GameEngine/Include/Common/DataChunk.h,existing header; contract class_contracts/DataChunkInput.json; 40/55 sampled units adopt
 CommandSet,Code/GameEngine/Include/GameClient/CommandSet.h,existing header; contract class_contracts/CommandSet.json; 24/56 sampled units adopt
 PlayerTemplate,Code/GameEngine/Include/Common/PlayerTemplate.h,existing header; contract class_contracts/PlayerTemplate.json; 24/55 sampled units adopt
+Parameter,Code/GameEngine/Include/GameLogic/ScriptParameter.h,existing header; contract class_contracts/Parameter.json; 52/75 sampled units adopt

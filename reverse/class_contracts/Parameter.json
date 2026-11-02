@@ -1,0 +1,212 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Parameter",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 3
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x28": 2
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "20": 24,
+   "32": 2,
+   "36": 2,
+   "40": 4,
+   "44": 1
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Parameter.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "m_beforeInt",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "int",
+   "views": 19,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_initialized",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_int",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 24,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_real",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_string",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 30,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 305
+ },
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetCoord3D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterSetCoord3D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetUnitNamed.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetCoord3D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterSetCoord3D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetCoord3D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterSetCoord3D.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateSkirmishSpecialPowerIsReady.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357B82PlayerMask.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Parameter_getStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetUnitNamed.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {}
+}
