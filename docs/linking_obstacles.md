@@ -17431,3 +17431,16 @@ definition is not a new rename regression; the selected callee/provider graph
 remains unproved. Do not call this finding a proven retail-byte mismatch or
 remove a register key without its owning path. Carry this binding and all four
 providers/affected consumers into the next census; no broad clearance claimed.
+
+**2026-11-02 factory proof repair (GPT-6, pre-rebase baseaaba703c01):**
+The typed node factory's36B emitted copy inlined counted construction where
+native34B00170B70 calls _Construct00170A97. An inline-only specialization
+now calls its existing Rva00170B19 owner. Official recursive admission proves
+the existing59B insert pin and136B helper; only that pin's proof note changes,
+with an identical complete name/address multiset and byte-identical hatch
+register. Scoped identity46 references now reports7 folds and zero wrong
+bindings (formerly6 folds plus1 wrong/unknown). Ordinary/strict81/81 across
+all three providers pass; preview retains LINKS3344->3344. No new pin, row,
+matched bytes or census credit. The broader consumer/census boundary remains
+open pending publication's audit; this clears the one uncertified insertion
+binding only. [Source and full proof receipts](../reverse/attempt_support/area-tree-factory-bind-20261102/readme.md).

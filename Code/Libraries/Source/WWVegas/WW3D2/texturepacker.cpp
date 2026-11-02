@@ -69,6 +69,32 @@ struct RECT { long left,top,right,bottom; };
 extern "C" long __stdcall D3DXLoadSurfaceFromSurface(void *,void *,const RECT *,void *,void *,const RECT *,unsigned,unsigned);
 extern "C" long __stdcall D3DXFilterTexture(void *,void *,unsigned,unsigned);
 
+// The native area-tree node factory at 0x00170B70 allocates 24 bytes and
+// constructs its counted value at +0x10 through 0x00170A97. The default
+// template copy here inlines that construction and differs from retail.
+// Bind the existing rowed factory without changing the value's ownership.
+class Rva00151DAB;
+class Rva00170B19
+{
+public:
+    void *rva00170B70(const Rva00151DAB &value);
+};
+typedef _STL::_Rb_tree<unsigned int, _STL::pair<const unsigned int, AssetReference>,
+    _STL::_Select1st<_STL::pair<const unsigned int, AssetReference> >,
+    _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, AssetReference> > > AreaTree;
+namespace _STL {
+// This forwarding view is inline-only; it emits no standalone body.
+// The real 34-byte factory remains rowed under Rva00170B19 above.
+// ?_STL::AreaTree::_M_create_node absent-from-retail
+template <> __declspec(dllimport) __forceinline AreaTree::_Link_type
+AreaTree::_M_create_node(const AreaTree::value_type &value)
+{
+    return reinterpret_cast<AreaTree::_Link_type>(
+        reinterpret_cast<Rva00170B19 *>(this)->rva00170B70(
+            reinterpret_cast<const Rva00151DAB &>(value)));
+}
+}
+
 typedef _STL::map<AssetReference,Rva00170999Data> RectangleMap;
 typedef _STL::multimap<unsigned,AssetReference> AreaMap;
 // The tree's destructor is the rowed /EHs body at 0x00170D7F (it resets the EH
