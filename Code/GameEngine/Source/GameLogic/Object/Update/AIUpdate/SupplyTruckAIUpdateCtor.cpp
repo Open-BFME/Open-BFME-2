@@ -71,7 +71,7 @@ public:
     virtual ObjectID getPreferredDockID() const { return m_preferredDock; }              //15
     virtual unsigned char rva004A6A44(Coord3D *result) const;  //16
     virtual void rva0047A69C(unsigned int unusedWord);         //17
-    virtual int rva000D43D0() const;                          //18
+    virtual int rva000D43D0() const { return 0; }             //18
     virtual unsigned int getActionDelayForDock(Object *dock); //19
 private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x3E8

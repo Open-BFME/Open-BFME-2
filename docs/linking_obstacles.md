@@ -18322,3 +18322,7 @@ The ctor unit now uses canonical AIUpdateInterface storage/hierarchy and a verif
 ### LINK-089 SupplyTruck secondary ABI and StateMachine adoption (2026-11-02)
 
 The shared SupplyTruck ABI now has native's twenty slots, and its complete 80B pure table is byte/relocation verified in data_rows. All46 code rows and five EH graphs pass normal/strict checks. The ctor adopts canonical StateMachine without changing any emitted definition and retires one header key; the child no longer duplicates the base's3C storage. Companion code/data is wholly unchanged, although its bounded preview reports the existing StateMachine table conflict against984a4cdc4d. Callback providers, eleven primary overrides, the companion's header debt and current global consumer evidence remain prerequisites. No census clearance is claimed. [Final object hashes, exact verification and scope](../reverse/attempt_support/supply-truck-interface-20261102/README.md).
+
+### LINK-089 SupplyTruck secondary slot18 recovered (2026-11-02)
+
+The ordinary zero-return callback now matches the complete3B native D43D0 body and is separately admitted against the existing ControlBarInput ICF owner. All ten ctor rows pass; no pin or old provider is removed. Other secondary callbacks and canonical base providers remain open. [Exact body and ownership scope](../reverse/attempt_support/supply-truck-slot18-20261102/README.md).
