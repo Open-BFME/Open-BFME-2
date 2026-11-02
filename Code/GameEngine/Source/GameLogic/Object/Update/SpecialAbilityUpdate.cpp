@@ -685,11 +685,7 @@ public:
 	unsigned short m_options; // +0x1C
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

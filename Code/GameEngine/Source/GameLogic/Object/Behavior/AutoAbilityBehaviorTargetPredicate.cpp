@@ -41,7 +41,7 @@ public:
  bool flag138;
  char data139[3]; Rva00263546 exclude;
 };
-class ControlBar { public: const CommandButton *findCommandButton(const AsciiString&); };
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 struct AutoAbilityData {
  char data00[0xC]; float minimumRange;

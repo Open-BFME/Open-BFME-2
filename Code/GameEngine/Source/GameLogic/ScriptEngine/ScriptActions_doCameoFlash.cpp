@@ -8,11 +8,7 @@ public:
 	unsigned char m_pad[0xF8];
 	int m_00F8;
 };
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 extern int BfmeClientFramesPerSecond;

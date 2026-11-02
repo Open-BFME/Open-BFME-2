@@ -7,11 +7,7 @@
 
 #include "../../../../GameEngine/Include/GameClient/CommandButton.h"
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../GameEngine/Include/GameClient/ControlBar.h"
 
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;

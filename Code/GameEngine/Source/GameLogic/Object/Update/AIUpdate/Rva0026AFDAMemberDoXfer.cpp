@@ -103,11 +103,7 @@ private:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

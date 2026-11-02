@@ -85,11 +85,7 @@ class Rva0031D5F8
 public:
 	void *rva0031D5F8(const AsciiString *name);
 };
-class ControlBar
-{
-public:
-	const CommandSet *findCommandSet(const AsciiString &name);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 extern GameLogic *TheGameLogic;

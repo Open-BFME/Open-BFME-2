@@ -19,11 +19,7 @@ public:
 	void doCommandButton(const CommandButton *button, int a2, bool a3);
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 struct DoCommandUpgradeModuleData

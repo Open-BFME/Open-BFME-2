@@ -310,11 +310,7 @@ public:
 	unsigned char m_status438;
 };
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 class Pathfinder

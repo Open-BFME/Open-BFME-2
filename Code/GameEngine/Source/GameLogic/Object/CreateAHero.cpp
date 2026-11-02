@@ -140,11 +140,7 @@ public:
 	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
 };
 
-class ControlBar
-{
-public:
-	const CommandSet *findCommandSet(const AsciiString &name);	// 0x0031D5F8
-};
+#include "../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

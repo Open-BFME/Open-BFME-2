@@ -91,12 +91,7 @@ public:
 	AsciiString m_commandSet;
 };
 
-class ControlBar
-{
-public:
-	unsigned char m_pad000[0x28];
-	Bool m_28;
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 
@@ -337,7 +332,7 @@ void CommandSetUpgrade::upgradeRemovalImplementation()
 			AsciiString empty("");
 			object->setCommandSetStringOverride(empty);
 		}
-		TheControlBar->m_28 = true;
+		TheControlBar->field28 = true;
 		setUpgradeExecuted(false);
 	}
 }

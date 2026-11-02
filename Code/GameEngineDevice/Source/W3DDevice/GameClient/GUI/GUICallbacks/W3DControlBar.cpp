@@ -308,20 +308,7 @@ public:
 	void drawBackground(ICoord2D offset);
 };
 
-class ControlBar
-{
-public:
-	ControlBarSchemeManager *getControlBarSchemeManager(void) { return m_controlBarSchemeManager; }
-	void rva0031AE93(Int *x, Int *y);   // ZH getForegroundMarkerPos
-	void rva0031AEAE(Int *x, Int *y);   // ZH getBackgroundMarkerPos
-	Color getBorderColor(void) { return m_borderColor; }
-
-private:
-	char m_pad00[0x44];
-	ControlBarSchemeManager *m_controlBarSchemeManager;   // +0x44
-	char m_pad48[0x22C - 0x48];
-	Color m_borderColor;                                  // +0x22C
-};
+#include "../../../../../../GameEngine/Include/GameClient/ControlBar.h"
 
 class W3DDisplay
 {

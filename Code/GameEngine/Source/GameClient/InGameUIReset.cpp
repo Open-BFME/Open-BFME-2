@@ -62,7 +62,7 @@ public:
 	virtual void reset();	// slot 9
 };
 
-class ControlBar : public SubsystemResetView {};
+#include "../../Include/GameClient/ControlBar.h"
 class RadarWindowOverrideSource : public SubsystemResetView {};
 class BannerUI : public SubsystemResetView {};
 

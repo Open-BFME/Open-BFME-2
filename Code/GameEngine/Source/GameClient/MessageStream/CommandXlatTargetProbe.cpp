@@ -34,7 +34,7 @@ class TacticalView {public:
  virtual void s08();virtual Drawable*pickDrawable(const ICoord2D*,bool,int);
 };
 extern InGameUI*TheInGameUI;extern class View*TheTacticalView;extern GameLogic*TheGameLogic;
-class ControlBar {public:int rva005399D0Check(Object*);};
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar*TheControlBar;
 // Native82B3EA pushes msg then MOV ECX,EDI (CommandTranslator receiver);
 // WB E7CBE0 case18 confirms receiver. Body never reads this, so old stdcall

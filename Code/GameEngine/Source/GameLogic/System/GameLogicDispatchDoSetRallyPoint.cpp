@@ -173,7 +173,7 @@ extern AudioManager *TheAudio;
 class Rva002D9508 { public: void rva002D9508(const void *position); };		// setPosition
 class Rva0033F15DDwordSlot { public: void set(int value); };			// setPlayerIndex
 
-class ControlBar { public: unsigned char m_pad00[0x28]; Bool m_uiDirty; };
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool showFeedback, Object *positionSource)
@@ -252,7 +252,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 		TheAudio->addAudioEvent(&rallyPointSet);
 
 		if (drawable && drawable->m_selected)
-			TheControlBar->m_uiDirty = true;
+			TheControlBar->field28 = true;
 	}
 	return true;
 	}
@@ -300,6 +300,6 @@ void Rva003774ABSetGlobalRallyPoint(Object *object, const Coord3D *position)
 		TheAudio->addAudioEvent(&globalRallyPointSet);
 		Drawable *drawable = object->getDrawable();
 		if (drawable && drawable->m_selected)
-			TheControlBar->m_uiDirty = true;
+			TheControlBar->field28 = true;
 	}
 }

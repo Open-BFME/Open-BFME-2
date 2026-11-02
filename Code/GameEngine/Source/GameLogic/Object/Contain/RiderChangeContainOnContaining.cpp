@@ -95,14 +95,7 @@ extern MessageStream *TheMessageStream;
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class ControlBar
-{
-public:
-	void markUIDirty() { m_UIDirty = true; }
-private:
-	char m_pad00[0x28];
-	bool m_UIDirty;	// +0x28
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 // AIUpdateInterface: slot 142 (+0x238) chooses the locomotor set.

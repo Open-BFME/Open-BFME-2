@@ -129,7 +129,7 @@ class Player { public: char m_pad00[0x2ec]; Team *m_defaultTeam; };
 class PlayerList { public: char m_pad00[0x18]; Player *m_neutralPlayer; };
 extern PlayerList *ThePlayerList;
 
-class ControlBar { public: const CommandButton *findCommandButton(const AsciiString &name); };
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 class GameInfo

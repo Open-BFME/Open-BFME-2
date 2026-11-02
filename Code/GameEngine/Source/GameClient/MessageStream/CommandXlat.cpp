@@ -103,7 +103,7 @@ class Player { public: char pad00[4]; PlayerTemplate* m_playerTemplate;
  void countObjectsByThingTemplate(int,const ThingTemplate* const*,bool,int*,bool) const;
 };
 class PlayerList { public: char pad00[0xc]; Player* m_localPlayer; Player* getLocalPlayer() const { return m_localPlayer; } };
-class ControlBar { public: void rva0031AD94(); const CommandButton* findCommandButton(const AsciiString&); void togglePurchaseScience(); };
+#include "../../../Include/GameClient/ControlBar.h"
 // TU-local field view of retail's GlobalData; the one writable global at
 // 0x012ED5C8 is declared with EA's own class below and cast at each use.
 class RvaGlobalDataView { public:

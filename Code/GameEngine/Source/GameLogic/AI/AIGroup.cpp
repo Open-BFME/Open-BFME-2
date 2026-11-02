@@ -358,11 +358,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
-class ControlBar
-{
-public:
-	const CommandSet *findCommandSet(const AsciiString &name);	// ILT 0x00048CCA
-};
+#include "../../../Include/GameClient/ControlBar.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SpecialPower.h
 class SpecialPowerStore

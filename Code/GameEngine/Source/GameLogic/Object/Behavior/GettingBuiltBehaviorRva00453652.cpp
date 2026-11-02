@@ -158,14 +158,7 @@ extern BuildAssistant *TheBuildAssistant;
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
-class ControlBar
-{
-public:
-	void markUIDirty() { m_UIDirty = true; }
-private:
-	char m_pad00[0x28];
-	bool m_UIDirty;	// +0x28
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
 // A sound reference that releases what it holds.
