@@ -324,7 +324,7 @@ public:
     virtual void vslot122(const PolygonTrigger *area) { m_areaToGuard = area; } // 122: RVA 0x0033F15D
     virtual int vslot123() const { return m_guardTargetType[1]; } // 123: RVA 0x0009AAA4
     virtual void clearGuardTargetType(); // 124: RVA 0x0026E9AA
-    virtual int vslot125() const; // 125: RVA 0x002A98A7
+    virtual int vslot125() const { return m_guardMode; } // 125: RVA 0x002A98A7
     virtual Object * construct(ThingTemplate const *,Coord3D const *,float,Player *,bool,int); // 126: RVA 0x0026E9B8
     virtual Object * getEnterTarget(); // 127: RVA 0x00264EF2
     virtual bool vslot128(Coord3D *) const { return false; } // 128: RVA 0x005CB9FF
