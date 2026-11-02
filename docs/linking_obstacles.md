@@ -17994,3 +17994,8 @@ The approved WWLib/wwmath.cpp Random_Float donor and WWMath/wwmath.cpp seed veri
 ### Dict-record vector constructor helper repair (2026-11-02)
 
 Rva00196D90MemberConstructor_Rva0032bde7.cpp now emits an exact36B default-constructor twin at329DC2 with its real Dict member intact. The owning ICF admission adds no pin or alias; the two previous caller rows and nineteen other emitted definitions remain unchanged. Bounded current linking drops the constructor's losing/selected conflicts (three each to two each). The tagged fill at32AD58 and vector base at421D73 remain prerequisites; no unit has cleared yet. Original record name and approved TU remain unresolved. [Complete proof and ownership qualification](../reverse/attempt_support/element196d90-constructor-20261102/README.md).
+
+
+### Dict-record typed copy provider (2026-11-02)
+
+The native32A304 copy operation now has a real typed Rva00196D90Element constructor twin in its approved SidesList.cpp TU. Normal/strict57-row verification preserves all prior159 code and541 data definitions, with the two newly emitted Dict helpers also matching their existing native owners. The real Dict member is constructed normally; no new pin or alias is used. Tagged fill and vector base remain open, and the new provider's private record declaration still needs shared-header cleanup. [Proof and remaining scope](../reverse/attempt_support/element196d90-copy-20261102/README.md).

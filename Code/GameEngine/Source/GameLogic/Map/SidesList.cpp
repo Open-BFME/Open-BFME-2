@@ -2906,3 +2906,16 @@ Int Rva0032AFA4::rva0032AFA4(char *buf)
 // tu-skeleton: 0x0077BE26 8B $L5692 -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp (not merged yet)
 
 // tu-skeleton: 0x0077BE2E 10B __ehhandler$?rva0032FF91@SidesList@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp (not merged yet)
+
+// Complete typed record-copy twin, preserving the existing placeholder identity.
+struct Rva00196D90Element {
+    volatile short m_word0, m_word2, m_word4, m_word6;
+    volatile int m_word8;
+    Dict m_dict;
+    Rva00196D90Element(const Rva00196D90Element &source);
+};
+Rva00196D90Element::Rva00196D90Element(const Rva00196D90Element &source)
+    : m_word0(source.m_word0), m_word2(source.m_word2),
+      m_word4(source.m_word4), m_word6(source.m_word6),
+      m_word8(source.m_word8), m_dict(source.m_dict)
+{}
