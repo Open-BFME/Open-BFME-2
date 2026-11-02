@@ -438,12 +438,21 @@ private:
 
 void Add_Prototype(void *prototype);
 
+struct TextureAssetFactoryView
+{
+	char m_lead[0x38];
+	int m_value;
+};
+
 class TextureAsset
 {
+	TextureAssetFactoryView *m_factory;
+
 public:
 	static void Register(const char *name);
 public:
 	static void RegisterRecolorForHouseColorDecal(void *a, void *b, void *c);
+	void SetQualityLevel(int value);
 };
 
 struct Rva0090E190Inner
