@@ -1,0 +1,227 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ArmorTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 47,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x74": {
+    "4": 2
+   },
+   "0x78": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 7,
+  "view_sizes": {
+   "1": 3,
+   "4": 2,
+   "12": 2,
+   "116": 1,
+   "120": 1,
+   "124": 7,
+   "152": 24
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ArmorTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Armor.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_damageCoefficient",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 152,
+   "type": "float[152]",
+   "views": 36,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "m_damageCoefficient",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "ArmorListNode*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_check",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_damageScalar",
+   "name_by": "majority",
+   "offset": 112,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flag",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 85
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "ArmorTemplate"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "ArmorTemplate"
+  },
+  {
+   "attribute": "straddle@0x70",
+   "candidates": {},
+   "class": "ArmorTemplate"
+  },
+  {
+   "attribute": "straddle@0x74",
+   "candidates": {},
+   "class": "ArmorTemplate"
+  },
+  {
+   "attribute": "straddle@0x78",
+   "candidates": {},
+   "class": "ArmorTemplate"
+  }
+ ],
+ "size": 152,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "d0()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "d1()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "d2()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "d3()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "d4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "d5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "d6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "d7(int)"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "d8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "check(void*)"
+  }
+ }
+}
