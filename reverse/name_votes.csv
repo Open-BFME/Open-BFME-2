@@ -21638,3 +21638,10 @@ Code/GameEngine/Source/Common/Rva00222F0AFinder.cpp|function|0x00222F0A|rva00222
 Code/GameEngine/Source/Common/Rva0022D9B7Delete.cpp|function|0x0022DB29|rva0022DB29,0ae81a0fa2dd91f758e64a34,claude-haiku-5-5,drz-k3-n35g2,w-a3d394d58042,2026-11-02
 Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp|function|0x00235312|rva00235312,33c8ad76d3141b32b2107ec6,claude-haiku-5-5,drz-k3-n35g2,w-a3d394d58042,2026-11-02
 Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp|member|DisplayTick50|tick50,6d44d7057a8d66ca3f206bd0,claude-haiku-5-5,drz-k3-n35g2,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/Rva002634E0Equal.cpp|function|0x002634E0|Rva002634E0Equal,c879cc9fb35855e822a77bc6,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva002634F8NotEqual.cpp|function|0x002634F8|Rva002634F8NotEqual,7e5acab075dc8c8922d51c1f,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva00264069ObserverPrefixRva00264069.cpp|member|Rva00264069ObjectPrefix|weapons10C,cf8e5e946a96ce8d27d3220b,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva00264069ObserverPrefixRva00264069.cpp|member|Rva00264069LogicPrefix|frame40,454238a924bd06f3cacfaa8e,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva002833A3C5.cpp|function|0x0028292B|rva0028292B,b8ec8154b3cbfbad048bf6b0,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva002833A3C5.cpp|function|0x00283033|rva00283033,7c1740114f827227ebc2ae65,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva002856CF.cpp|member|Rva002DFE78C|m_40,c617a6726e24ac709d2fc9e6,claude-haiku-5-5,drz-k9-n35h2,w-2a58b1ead41e,2026-11-02
