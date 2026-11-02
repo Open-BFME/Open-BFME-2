@@ -322,7 +322,7 @@ public:
     virtual unsigned int vslot120() const { return m_field068; } // 120: RVA 0x00367508
     virtual const PolygonTrigger *vslot121() const { return m_areaToGuard; } // 121: RVA 0x0036750C
     virtual void vslot122(const PolygonTrigger *area) { m_areaToGuard = area; } // 122: RVA 0x0033F15D
-    virtual int vslot123() const; // 123: RVA 0x0009AAA4
+    virtual int vslot123() const { return m_guardTargetType[1]; } // 123: RVA 0x0009AAA4
     virtual void clearGuardTargetType(); // 124: RVA 0x0026E9AA
     virtual int vslot125() const; // 125: RVA 0x002A98A7
     virtual Object * construct(ThingTemplate const *,Coord3D const *,float,Player *,bool,int); // 126: RVA 0x0026E9B8
