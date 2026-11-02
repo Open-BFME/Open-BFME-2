@@ -11,11 +11,7 @@ class W3DFilterInterface;
 extern W3DFilterInterface *W3DFilters[10];
 class Rva000FDCD7Filter;
 extern Rva000FDCD7Filter g_00DB5BD4; // the filter object at 0x00DB5BD4 (unowned)
-class W3DShaderManager
-{
-public:
-	static bool canRenderToTexture(void);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 int Rva000FDCD7Get(void)
 {

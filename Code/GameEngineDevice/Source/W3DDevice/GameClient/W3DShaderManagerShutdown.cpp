@@ -65,18 +65,7 @@ struct IDirect3DSurface8;
 struct IDirect3DTexture8;
 // W3DShaderManager's statics under their owners' names (W3DShaderManager.cpp,
 // Rva00075A23Draw.cpp); this unit reads them through its own view types.
-class W3DShaderManager
-{
-public:
-	static void shutdown();
-	static IDirect3DSurface8 *m_oldRenderSurface;
-	static IDirect3DTexture8 *m_renderTexture;
-protected:
-	static int m_currentShader;
-	static int m_currentFilter;
-	static unsigned long m_dwGlowPixelShader;
-	static unsigned long m_dwGlowVertexShader;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 // rva012F9D1C is only an alias of the owned global g_vb (ledger names column); this unit reads the owner through its own view type.
 extern class VertexBufferClass *g_vb;
 #define rva012F9D1C (*(ShaderVertexBufferRef * *)&g_vb)

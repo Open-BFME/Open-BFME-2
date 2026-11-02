@@ -48,11 +48,7 @@ protected:	// dx8wrapper.cpp defines ?_EnableTriangleDraw@DX8Wrapper@@1_NA (data
 	static bool _EnableTriangleDraw;
 };
 
-class W3DShaderManager
-{
-public:
-	static void drawViewport(int color, bool flip, const Vector2 *uv);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class W3DShadowManager
 {

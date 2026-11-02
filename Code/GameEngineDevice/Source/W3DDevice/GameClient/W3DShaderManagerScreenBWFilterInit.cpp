@@ -24,11 +24,7 @@ enum FilterTypes
 	FT_MAX = 5
 };
 
-class W3DShaderManager
-{
-public:
-	static Bool canRenderToTexture(void);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 // The rowed shader-manager setting read at 0x00075E3C.
 Int Rva00075E3CGet();

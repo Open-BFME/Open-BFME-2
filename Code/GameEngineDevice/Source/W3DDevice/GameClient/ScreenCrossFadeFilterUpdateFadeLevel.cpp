@@ -256,14 +256,7 @@ BfmeSrcUDC *g_bfmeObjUDC = 0;
 
 
 
-class W3DShaderManager
-{
-public:
-	static Bool canRenderToTexture(void);
-	static IDirect3DTexture8 *endRenderToTexture();
- static IDirect3DTexture8 *getRenderTexture();
- static void startRenderToTexture();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 
 extern unsigned number_of_DX8_calls;

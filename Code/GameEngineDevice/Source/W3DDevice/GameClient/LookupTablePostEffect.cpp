@@ -181,7 +181,7 @@ W3DRadarResetSurface getBackBufferSurface006e(int index);
 
 struct IDirect3DTexture8;
 
-class W3DShaderManager { public: static IDirect3DTexture8 *getRenderTexture(); };
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 void Rva00075A23Draw(int width, int height);
 

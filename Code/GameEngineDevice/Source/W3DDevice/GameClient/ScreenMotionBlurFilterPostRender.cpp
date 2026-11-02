@@ -80,11 +80,7 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
-class W3DShaderManager
-{
-public:
-	static IDirect3DTexture8 *endRenderToTexture();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 typedef int Int;
 typedef float Real;

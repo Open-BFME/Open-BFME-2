@@ -149,11 +149,7 @@ class TextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-class W3DShaderManager
-{
-public:
-	static void setTexture(int stage, const TextureHandle &texture);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 void W3DShaderManager::setTexture(int stage, const TextureHandle &texture)
 {

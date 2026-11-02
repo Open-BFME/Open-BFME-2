@@ -314,7 +314,7 @@ struct Rva000FDCF1SmudgeView { unsigned char pad[0x20]; int count; };
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct Rva000FDCF1GlobalView { unsigned char pad[0xC60]; int option; };
-class W3DShaderManager { public: static void startRenderToTexture(); };
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 bool Rva000FDD1C::preRender(Bool &skipRender, CustomScenePassModes &scenePassMode)
 {
  if (g_bfmeB991) {

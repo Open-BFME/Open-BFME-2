@@ -5,11 +5,7 @@ enum FilterTypes {};
 enum FilterModes {};
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManager.h
-class W3DShaderManager
-{
-public:
-	static bool filterSetup(FilterTypes type, FilterModes mode);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class BfmeValidatedHandle
 {

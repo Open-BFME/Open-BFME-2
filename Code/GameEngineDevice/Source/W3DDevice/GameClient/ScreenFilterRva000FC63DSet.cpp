@@ -376,12 +376,7 @@ struct D3DXVECTOR4
 	operator const float *() const { return &x; }
 };
 struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
-class W3DShaderManager
-{
-public:
-	static IDirect3DTexture8 *endRenderToTexture();
-	static Bool canRenderToTexture(void);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 // The matched viewport calls use TheTacticalView at VA 0x00DFEA3C.
 class View;
 extern View *TheTacticalView;

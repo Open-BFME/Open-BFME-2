@@ -11,11 +11,7 @@ typedef float Real;
 
 // 0x000FBA0F (tables from VA 0x00BCF36C on): clears the flag out, starts the
 // pinned W3DShaderManager render-to-texture and answers true.
-class W3DShaderManager
-{
-public:
-	static void startRenderToTexture();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 class Rva000FBA0F
 {
 public:

@@ -79,12 +79,7 @@ public:
 	ShroudFilter *getFilter(void);
 };
 
-class W3DShaderManager
-{
-public:
-	static bool canRenderToTexture(void);
-	static void createGaussianVector(void *kernel, struct BfmeGaussianParams *params);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 long __cdecl Rva00077C19Load(const char *path, unsigned *shader);
 long __cdecl Rva00077D0FLoad(const char *path, unsigned long *shader);

@@ -167,13 +167,7 @@ public:
 };
 
 struct GlowSampleVector;
-class W3DShaderManager
-{
-public:
-	static void performGlow(float strength, const GlowSampleVector *samples, int size,
-		IDirect3DTexture8 *source, IDirect3DSurface8 *sourceSurface,
-		IDirect3DTexture8 *target, IDirect3DSurface8 *targetSurface);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 #include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;

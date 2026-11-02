@@ -126,7 +126,7 @@ protected:
  static IDirect3DDevice8 *D3DDevice; static unsigned TextureStageStates[16][32]; static unsigned texture_stage_state_changes,matrix_changes;
  static RenderStateStruct render_state;static unsigned render_state_changed;
 };
-class W3DShaderManager{public:static int setShroudTex(int);};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 int W3DShaderManager::setShroudTex(int stage) {
  Rva00072B3A *shroud;
  if((shroud=TheTerrainRenderObject->shroud)!=0){

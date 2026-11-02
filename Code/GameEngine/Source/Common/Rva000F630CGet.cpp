@@ -16,12 +16,7 @@ extern unsigned int g_Va009E1F6C;
 // g_Va009E1F6C: matched references place it at VA 0xde1f6c (zero-filled .bss).
 unsigned int g_Va009E1F6C;
 
-class W3DShaderManager
-{
-public:
-	static bool canRenderToTexture(void);
-	static IDirect3DSurface8 *m_oldRenderSurface;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 IDirect3DSurface8 *W3DShaderManager::m_oldRenderSurface;
 

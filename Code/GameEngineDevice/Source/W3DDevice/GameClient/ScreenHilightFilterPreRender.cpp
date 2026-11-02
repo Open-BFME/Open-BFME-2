@@ -70,12 +70,7 @@ struct BfmeGaussianParams
 	float m_1C;
 };
 
-class W3DShaderManager
-{
-public:
-	static bool canRenderToTexture();
-	static void createGaussianVector(void *kernel, BfmeGaussianParams *params);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 extern bool g_bfmeDirtyCU;
 

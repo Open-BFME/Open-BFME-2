@@ -122,11 +122,7 @@ public:
 	static void Init(Bool enable);
 };
 
-class W3DShaderManager
-{
-public:
-	static void init();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class Render2DClass
 {

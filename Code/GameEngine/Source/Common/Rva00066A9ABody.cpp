@@ -30,14 +30,7 @@ public:
 // this host calls first.
 // The glow shader handles are W3DShaderManager.cpp's m_dwGlowPixelShader
 // (0x009E1F74) and m_dwGlowVertexShader (0x009E1F78).
-class W3DShaderManager
-{
-public:
-	static void init(void);
-protected:
-	static unsigned long m_dwGlowPixelShader;
-	static unsigned long m_dwGlowVertexShader;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class Rva00066A9AHost
 {

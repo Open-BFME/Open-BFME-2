@@ -17,7 +17,7 @@ public:
 	void rva000EC9C6(int);
 	void rva000E6B99();
 };
-class W3DShaderManager { public: static void shutdown(); };
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class BaseHeightMapRenderObjClass
 {

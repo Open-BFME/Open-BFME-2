@@ -155,14 +155,7 @@ struct IDirect3DBaseTexture8 {};
 struct IDirect3DTexture8 : public IDirect3DBaseTexture8 {};
 struct IDirect3DDevice8;
 
-class W3DShaderManager
-{
-public:
-	static IDirect3DTexture8 *getRenderTexture(void);
-	static bool isRenderingToTexture(void) { return m_renderingToTexture; }
-protected:
-	static bool m_renderingToTexture;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class RefCountClass
 {

@@ -360,16 +360,7 @@ struct BfmeGaussianParams
 	float m_1C;
 };
 
-class W3DShaderManager
-{
-public:
-	static void drawViewport(int color, bool shaded, const Vector2 *viewportSize);
-public:
-	static void performGlow(float weightScale, const GlowSampleVector *samples, int textureSize, IDirect3DTexture8 *sourceTexture,
-		IDirect3DSurface8 *tempSurface, IDirect3DTexture8 *tempTexture, IDirect3DSurface8 *destSurface);
-public:
-	static void createGaussianVector(void *kernel, BfmeGaussianParams *params);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 // ?g_bfmeDirtyCU@@3_NA at 0x009FF48C: owned by
 // Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp (data row 123,

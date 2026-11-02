@@ -56,11 +56,7 @@ protected:
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class W3DShaderManager
-{
-public:
-	static void drawViewport(Int color, Bool flag, const Vector2 *scale);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 class W3DShadowManager
 {

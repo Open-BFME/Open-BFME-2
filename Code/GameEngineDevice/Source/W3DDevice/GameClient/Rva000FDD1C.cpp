@@ -14,11 +14,7 @@ struct IDirect3DDevice8;
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-struct W3DShaderManager
-{
-	static IDirect3DTexture8 *endRenderToTexture();
-	static void drawViewport(int color, bool flip, const Vector2 *uv);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 struct Rva000FDD1C;
 

@@ -104,13 +104,7 @@ struct BFME2TextureRef;
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
 struct GlowSampleVector;
-class W3DShaderManager
-{
-public:
-	static void performGlow(float strength, const GlowSampleVector *samples, int size,
-		IDirect3DTexture8 *source, IDirect3DSurface8 *sourceSurface,
-		IDirect3DTexture8 *target, IDirect3DSurface8 *targetSurface);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 int Rva00309E4BGet();
 struct Rva000F9F82Settings

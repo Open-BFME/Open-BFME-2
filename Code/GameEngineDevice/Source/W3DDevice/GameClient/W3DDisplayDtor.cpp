@@ -14,7 +14,7 @@
 void __cdecl Rva0012641FClear();void __cdecl Rva001296F0Destroy();
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 void __cdecl DX8_Assert();
-class W3DShaderManager {public:static void shutdown();};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 class CameraShakeSystemClass {public:~CameraShakeSystemClass();};
 extern CameraShakeSystemClass CameraShakerSystem;
 class Rva009EB960 {public:virtual ~Rva009EB960();};extern Rva009EB960 *Rva0134FAA0;

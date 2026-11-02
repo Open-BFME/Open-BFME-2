@@ -140,15 +140,7 @@ struct GlowSampleVector
 	const Vector3 &operator[](UnsignedInt i) const { return m_start[i]; }
 };
 
-class W3DShaderManager
-{
-public:
-	static void performGlow(Real weightScale, const GlowSampleVector *samples, Int textureSize, IDirect3DTexture8 *sourceTexture,
-		IDirect3DSurface8 *tempSurface, IDirect3DTexture8 *tempTexture, IDirect3DSurface8 *destSurface);
-protected:
-	static unsigned long m_dwGlowPixelShader;
-	static unsigned long m_dwGlowVertexShader;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
 void W3DShaderManager::performGlow(Real weightScale, const GlowSampleVector *samples, Int textureSize, IDirect3DTexture8 *sourceTexture,
 	IDirect3DSurface8 *direct3DSurface8, IDirect3DTexture8 *direct3DTexture8, IDirect3DSurface8 *destSurface)

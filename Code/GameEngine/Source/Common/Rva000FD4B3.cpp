@@ -8,11 +8,7 @@
 // this is a filter init registering itself (FT_VIEW_MOTION_BLUR_FILTER in Zero Hour).
 class W3DFilterInterface;
 extern W3DFilterInterface *W3DFilters[10];
-class W3DShaderManager
-{
-public:
-	static bool canRenderToTexture(void);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 class Rva000FD4B3
 {
 public:
