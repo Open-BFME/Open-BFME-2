@@ -257,3 +257,4 @@ NetCommandMsg,Code/GameEngine/Include/GameNetwork/NetCommandMsg.h,existing heade
 TeamFactory,Code/GameEngine/Include/Common/TeamFactory.h,existing header; contract class_contracts/TeamFactory.json; 41/62 sampled units adopt
 DamageInfo,Code/GameEngine/Include/GameLogic/Damage.h,existing header; contract class_contracts/DamageInfo.json; 19/55 sampled units adopt
 GameEngine,Code/GameEngine/Include/Common/GameEngine.h,existing header; contract class_contracts/GameEngine.json; 30/56 sampled units adopt
+SidesList,Code/GameEngine/Include/Common/SidesList.h,existing header; contract class_contracts/SidesList.json; 20/57 sampled units adopt
