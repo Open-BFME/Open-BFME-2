@@ -76,13 +76,7 @@ public:
 
 typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
 
-class RenderInfoClass
-{
-public:
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-	const RenderingMethodStackType &Get_Rendering_Method_Stack(void) const;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 // The rendering-method walkers are rowed as Rva001688FFShift 0x001688FF and
 // Rva00168952Clear 0x00168952 (pointer-sized elements); calls bind there.

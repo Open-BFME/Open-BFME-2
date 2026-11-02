@@ -102,17 +102,7 @@ private:
 	int m_0c;	// +0x0C
 };
 
-class RenderInfoClass
-{
-public:
-	RenderInfoClass(CameraClass &cam);
-	~RenderInfoClass(void);
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-
-private:
-	char m_data[0x148];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 

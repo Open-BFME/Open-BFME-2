@@ -88,16 +88,7 @@ typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<Ref
 
 class LightEnvironmentClass;
 
-class RenderInfoClass
-{
-public:
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-	const RenderingMethodStackType &Get_Rendering_Method_Stack(void) const;
-
-	char _bfme_unk_00[0x28];
-	LightEnvironmentClass *light_environment;	// +0x28
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 // Callees taking the rendering-method stack as (first element, count) around
 // the passes; their identities are not established.

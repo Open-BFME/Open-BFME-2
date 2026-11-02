@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // ?drawRiverWater@WaterRenderObjClass@@IAEXAAVRenderInfoClass@@PAVRenderableRiverArea@@@Z
@@ -88,13 +88,7 @@ public:
 
 typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<RefCountPtr<FXShader::RenderingMethod> > > RenderingMethodStackType;
 
-class RenderInfoClass
-{
-public:
-	void Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
-	void Pop_Rendering_Method(void);
-	const RenderingMethodStackType &Get_Rendering_Method_Stack(void) const;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 // Rendering-method stack walkers (element array, count): rows Rva001688FFShift
 // 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).

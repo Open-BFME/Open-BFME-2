@@ -75,11 +75,7 @@ private:
 	unsigned char m_pad[0x100];
 };
 
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 class BaseHeightMapRenderObjClass
 {

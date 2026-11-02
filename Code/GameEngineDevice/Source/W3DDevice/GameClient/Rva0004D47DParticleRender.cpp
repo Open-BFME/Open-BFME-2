@@ -78,11 +78,7 @@ public:
 	}
 };
 
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
 
 class BaseHeightMapRenderObjClass
 {
