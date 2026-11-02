@@ -253,6 +253,29 @@ Repaired (2026-11-02, lk17), blocker (2): StateID is unsigned, and the `_M_find`
   (1,050 B) links on current objects.
 - Blockers (1) SupplyTruckAIUpdate.cpp (still held by the foreign fleet) and (3) remain. The class-key
   patch must respell the new `_M_find` pin to `PAVState@@` and re-admit it with the same fold-proof.
+
+Analysed (2026-11-02, lk17), blocker (3): the 2-byte difference is the begin() fast path, but two of
+the State map's tree identities are wrong. Handoff:
+`reverse/attempt_support/link177-state-tree-helpers-20261102/`.
+- The 2 bytes: retail insert_unique 0x004D795B calls `_M_insert(__y, __y, __v)` on the begin() path.
+  `/D_BFME_RETAIL_TREE_INSERT_LAYOUT` reproduces it (134 B). With `/Ireference/shims/bfmealloc`
+  added, the unit's create_node is retail 0x00382B7F byte for byte. defineState still passes 2/2
+  (trial patch banked).
+- The identities: retail 0x004D795B calls `_M_insert` 0x004D9C49, which calls create_node 0x00382B7F.
+  The ledger rows `_M_insert<unsigned, State*>` at 0x0053479F and pins create_node at 0x00534743.
+  Those two belong to another unsigned-keyed tree: 0x00534743 allocates 0x20-byte nodes and copies a
+  12-byte map value through 0x005346D9. Its insert_unique bodies 0x00534827 and 0x005348E7 are
+  rowed as the `map<unsigned, void*>` stand-ins. The State row byte-matches only because the wrong
+  create_node pin resolves its one differing relocation.
+- Prerequisite: give 0x0053479F an honest owner first. That is the `_M_insert` of the
+  Rva00534743Record tree in StlSweepR3Rva00534743.cpp, whose key must become unsigned: 0x0053479F
+  compares `jb`. Then, in one change:
+  - apply the flags;
+  - pin the State create_node to 0x00382B7F with fold-proof;
+  - turn the State `_M_insert` row into an ICF row at 0x004D9C49 (PathDoXfer.cpp's
+    `map<unsigned,int>` precedent).
+  StateMachineDefineState.cpp (233 B, losers: insert_unique and create_node) should then link, and
+  the class-key patch can re-admit all three with fold-proofs.
 - W3DScriptedModelDrawDestructor (lk16): canonical DrawModule.h makes the dtor call
   `??1DrawModule@@MAE@XZ`. Retail inlines it: the body ends with the 0x00BC9690 store and a call to
   0x0049B47C.
