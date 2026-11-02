@@ -67,12 +67,7 @@ public:
 	int get() const;
 };
 
-class PlayerList
-{
-public:
-	int getPlayersWithRelationship(int playerIndex, unsigned int relationships, bool includeSelf);
-	Player *getNthPlayer(int);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

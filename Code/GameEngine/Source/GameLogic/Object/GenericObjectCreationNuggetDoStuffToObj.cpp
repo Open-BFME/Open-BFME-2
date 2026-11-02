@@ -290,14 +290,7 @@ public:
 	PhysicsBehaviorView *m_physics; // +0x25C
 };
 
-class PlayerList
-{
-public:
-	__declspec(dllimport) Player *getLocalPlayer() { return m_local; }
-private:
-	char m_pad[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 struct ParticleSystemTemplateView

@@ -29,16 +29,7 @@ private:
 
 enum { PLAYER_HUMAN = 0 };
 
-class PlayerList
-{
-public:
-	int getPlayerCount() const { return m_playerCount; }
-	Player *getNthPlayer(int i);
-
-private:
-	unsigned char m_pad00[0x14];
-	int m_playerCount; // +0x14
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class ScriptEngine

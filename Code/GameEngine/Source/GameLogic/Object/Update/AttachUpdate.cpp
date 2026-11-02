@@ -104,13 +104,7 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() { return m_local; }
-	char m_pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

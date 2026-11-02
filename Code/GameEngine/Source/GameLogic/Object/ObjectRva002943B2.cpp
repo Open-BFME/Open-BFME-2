@@ -83,11 +83,7 @@ public:
 	int m_val5C;
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

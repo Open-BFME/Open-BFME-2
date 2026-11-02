@@ -220,11 +220,7 @@ private:
 // jne targets the lookup, and null-sink breaks to MULT (not return).
 class Object;
 class BfmeGlob939D:public GameLogic{public:char bfmeCall939D();};
-class PlayerList
-{
-public:
-	int rva002A7C0B(bool b);			// 0x002A7C0B
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class MultiPlayMults
 {

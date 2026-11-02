@@ -132,11 +132,7 @@ public:
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-class PlayerList
-{
-public:
-	int rva002A7C0B( bool flag );
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

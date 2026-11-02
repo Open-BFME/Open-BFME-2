@@ -76,7 +76,7 @@ public:
 	char m_pad00[0x4];
 	EmotionEntry *entry; // +0x04
 };
-class PlayerList { public: int getPlayersWithRelationship(int,unsigned int,bool); };
+#include "../../../../Include/Common/PlayerList.h"
 struct BfmePointFD;
 class Rva00739830 { public: int rva00739830(const BfmePointFD *,int,unsigned int) const; };
 class PartitionManager;

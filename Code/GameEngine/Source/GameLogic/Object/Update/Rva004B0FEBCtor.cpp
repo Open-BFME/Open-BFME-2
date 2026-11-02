@@ -8,7 +8,8 @@
 #include "../../../../Include/Common/Player.h"
 class Object {public:Player *getControllingPlayer()const;char pad[0x38];Coord3D pos;};
 class EmotionTrackerUpdate {public:class TauntPointFilter;char pad[8];Object *object;};
-class PlayerList {public:int getPlayersWithRelationship(int,unsigned,bool);};extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
+extern PlayerList *ThePlayerList;
 struct BfmePointFD;
 class Rva00739830 {public:int rva00739830(const BfmePointFD *,int,unsigned)const;};// Global type follows the existing FXListDoFXPos provider.
 class PartitionManager;extern PartitionManager *TheShroudManager;

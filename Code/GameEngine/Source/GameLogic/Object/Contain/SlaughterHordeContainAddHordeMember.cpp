@@ -20,7 +20,8 @@ class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemp
  char pad284[0x3bc-0x284];ScoreKeeper score;};
 class MultiPlayMults{public:float getMoneyMult(int)const;};
 class GlobalData{public:char pad[0xec4];MultiPlayMults mults;};extern GlobalData *TheWritableGlobalData;
-class PlayerList{public:int rva002A7C0B(bool);};extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
+extern PlayerList *ThePlayerList;
 class BfmeGlob939D{public:char bfmeCall939D();};
 class ExperienceTracker{public:void rva0039B315(float,bool,bool,bool,bool);};
 class Rva0039ADF3{public:bool rva0039AE04()const;};

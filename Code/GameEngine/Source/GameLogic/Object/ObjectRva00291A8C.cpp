@@ -163,7 +163,7 @@ struct ObjectCrushLevelsView {
 #include <string.h>
 class Rva002D9508 {public:void rva002D9508(const void*);};
 class Object; class Player; class RadarWindowOverrideSource;
-class PlayerList { public: char pad[0x10]; Player *local; };
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;

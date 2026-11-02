@@ -14,7 +14,8 @@
 // retained, including -1 with untouched mask and early inactive count.
 
 class Player{public:char pad[0x54];int index;};
-class PlayerList{public:int getPlayersWithRelationship(int,unsigned,bool);};extern PlayerList *ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
+extern PlayerList *ThePlayerList;
 enum ObjectStatusTypes{STATUS2=2,STATUS38=38};
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 struct ShroudTemplateView{char pad0[0x108];unsigned char kinds[0x20];char pad128[0x4ac-0x128];float radius;char pad4B0[0x530-0x4b0];float reveal;char pad534[12];float special;char pad544[0x5d4-0x544];unsigned specialCount;char pad5d8[2];unsigned short visionCount;char pad5dc[2];unsigned short revealCount;};

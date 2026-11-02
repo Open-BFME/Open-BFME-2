@@ -89,11 +89,7 @@ public:
 	unsigned char m_pad000[0x2EC];
 	Team *m_defaultTeam; // +0x2EC
 };
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class AIInner
 {

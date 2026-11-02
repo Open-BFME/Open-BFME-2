@@ -12,11 +12,7 @@ class Object;
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool flag);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 

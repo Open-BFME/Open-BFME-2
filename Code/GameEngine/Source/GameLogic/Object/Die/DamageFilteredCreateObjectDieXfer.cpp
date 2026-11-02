@@ -122,7 +122,7 @@ class ObjectCreationList
 public:
  void create(void *,void *,void *,int);
 };
-class PlayerList { public: Player *getNthPlayer(int); };
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Rva002AA22AByteField { public: unsigned char get() const; };
 

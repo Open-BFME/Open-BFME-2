@@ -27,12 +27,7 @@ public:
 
 #include "../../../Common/Thing/thing.h"
 
-class PlayerList
-{
-public:
-	unsigned char m_pad[0x10];
-	Player *m_10;
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 extern float g_Va00BBB8D8;
@@ -70,7 +65,7 @@ void StealthUpdate::hintDetectableWhileUnstealthed()
 	const void *other = (const void *)((const char *)m_moduleData + 0x10);
 	if (!object->m_holder.test(other))
 		return;
-	Player *expected = ThePlayerList->m_10;
+	Player *expected = ThePlayerList->m_local;
 	Player *actual = object->getControllingPlayer();
 	if (actual != expected)
 		return;

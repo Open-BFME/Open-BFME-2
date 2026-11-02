@@ -339,7 +339,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 
 class Player{public:char pad[0x54];int m_index;};
 
-class PlayerList{public:char pad[0x10];Player *m_local;};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

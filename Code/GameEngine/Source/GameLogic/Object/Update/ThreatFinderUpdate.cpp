@@ -17,11 +17,7 @@ public:
  int m_playerIndex;
  int getPlayerIndex() const { return m_playerIndex; }
 };
-class PlayerList
-{
-public:
- Player *getNthPlayer(int index);
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 int Rva003ECB3DIsAlly(const Player *, const Player *);
 int Rva003ECB2AIsEnemy(const Player *, const Player *);

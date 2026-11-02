@@ -15,14 +15,7 @@ class ModuleData;
 class Player;
 #include "../object.h"
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_localPlayer; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class ControlBar;

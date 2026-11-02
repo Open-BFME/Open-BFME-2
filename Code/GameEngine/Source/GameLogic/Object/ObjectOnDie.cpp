@@ -162,12 +162,7 @@ public:
 	int m_playerIndex;	// +0x54
 };
 
-class PlayerList
-{
-public:
-	char pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

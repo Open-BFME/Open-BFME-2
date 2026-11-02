@@ -174,7 +174,7 @@ public:
     Player *player;
     bool flag;
 };
-class PlayerList { public: int getPlayersWithRelationship(int,unsigned int,bool); };
+#include "../../../../Include/Common/PlayerList.h"
 struct BfmePointFD;
 class Rva00739830 { public: int rva00739830(const BfmePointFD *,int,unsigned int) const; };
 class EmotionSystem { public: const _STL::vector<ObjectID> &getObjects() const { return objects; } char pad[0x24]; _STL::vector<ObjectID> objects; };

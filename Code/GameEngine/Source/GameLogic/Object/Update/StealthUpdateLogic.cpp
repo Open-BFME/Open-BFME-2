@@ -431,17 +431,7 @@ public:
 	unsigned char rva0028F326(UnsignedInt victim, Real range);
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-	Int getPlayerCount() const { return m_playerCount; }
-	Player *getNthPlayer(Int i);
-private:
-	char m_pad00[0x10];
-	Player *m_local; // +0x10
-	Int m_playerCount; // +0x14
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 enum RadarEventType

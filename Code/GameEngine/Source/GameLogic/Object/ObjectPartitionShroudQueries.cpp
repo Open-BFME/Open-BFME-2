@@ -59,11 +59,7 @@ private:
 	int m_playerIndex; // +0x54
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int index);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

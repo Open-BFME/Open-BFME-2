@@ -1357,12 +1357,7 @@ public:
 	NameKeyType m_nameKey; // +0x50
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-	void updateTeamStates(); // 0x002A7B1C
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

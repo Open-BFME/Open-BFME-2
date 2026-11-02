@@ -37,13 +37,7 @@ public:
 	ResourceGatheringManager *m_resourceGatheringManager;
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-	char m_pad00[0x14];
-	int m_playerCount;
-};
+#include "../../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

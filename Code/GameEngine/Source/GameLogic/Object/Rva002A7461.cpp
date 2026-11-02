@@ -17,11 +17,7 @@ class Player
 public:
 	bool rva002AB2D9(BfmeTab1026 *tab, bool flag) const;
 };
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct Rva002A7461Entry
 {

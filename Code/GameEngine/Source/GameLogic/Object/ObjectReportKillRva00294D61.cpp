@@ -14,12 +14,7 @@ class Player;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class ScoreKeeper
@@ -161,7 +156,7 @@ void Rva00294D61::report(Object *victimObj, int arg1)
 			Player *vp = victimObj->getControllingPlayer();
 			Player *kp = killer->getControllingPlayer();
 			void *sc = g_00E032F8;
-			if (sc != 0 && ThePlayerList != 0 && ThePlayerList->m_localPlayer == kp)
+			if (sc != 0 && ThePlayerList != 0 && ThePlayerList->m_local == kp)
 			{
                 if (kp && vp) {
                     switch (kp->getRelationship(vp->m_2EC)) {

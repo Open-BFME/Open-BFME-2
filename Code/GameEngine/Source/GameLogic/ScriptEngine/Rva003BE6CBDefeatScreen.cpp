@@ -52,12 +52,7 @@ public:
 	char m_pad[0x34];
 	Rva003BE6CBP34 *m_p34; // +0x34
 };
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Player *m_localPlayer; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 unsigned char Rva003BA8F3Get();
@@ -133,7 +128,7 @@ void Rva003BE6CB::rva003BE6CB()
 		((Rva001EB0CAHolder *)TheLinearCampaignManager)->rva001EB0CA();
 	((Rva003BBAD3 *)this)->rva003BBAD3();
 	if (m_flagC == 0) {
-		Player *pl = ThePlayerList->m_localPlayer;
+		Player *pl = ThePlayerList->m_local;
 		if (TheVictoryConditions != 0 && pl != 0) {
 			{
 				AsciiString s1("Gui_DefeatScreen");

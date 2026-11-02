@@ -65,14 +65,7 @@ private:
 	Int m_playerIndex;	// +0x54
 };
 
-class PlayerList
-{
-public:
-	Player *getLocalPlayer() const { return m_local; }
-private:
-	char m_pad00[0x10];
-	Player *m_local;	// +0x10
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 enum RadarEventType

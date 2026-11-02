@@ -64,12 +64,7 @@ public:
 	char m_pad439[0x3];
 };
 #include "../../../Common/Thing/thing.h"
-class PlayerList
-{
-public:
-	unsigned char m_pad000[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../../Include/Common/PlayerList.h"
 class GameMessage
 {
 public:
@@ -233,7 +228,7 @@ UpdateSleepTime TemporarilyDefectUpdate::update()
 		m_fxFired = (unsigned char)zero;
 		if (drawable != 0 && object != 0)
 		{
-			Player *localPlayer = ThePlayerList->m_localPlayer;
+			Player *localPlayer = ThePlayerList->m_local;
 			if (object->getControllingPlayer() == localPlayer)
 			{
 				GameMessage *message = TheMessageStream->appendMessage(
@@ -252,7 +247,7 @@ UpdateSleepTime TemporarilyDefectUpdate::update()
 		m_fxFired = (unsigned char)zero;
 		if (drawable != 0 && object != 0)
 		{
-			Player *localPlayer = ThePlayerList->m_localPlayer;
+			Player *localPlayer = ThePlayerList->m_local;
 			if (object->getControllingPlayer() == localPlayer)
 			{
 				GameMessage *message = TheMessageStream->appendMessage(

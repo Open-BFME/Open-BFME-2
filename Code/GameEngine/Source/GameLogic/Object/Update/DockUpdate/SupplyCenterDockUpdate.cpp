@@ -159,7 +159,7 @@ public:
 inline BFMEAIUpdateInterface *bfmeGetAI(const Object *object) { return *(BFMEAIUpdateInterface **)((char *)object + 0x258); }
 inline ExperienceTracker *bfmeGetExperienceTracker(const Object *object) { return *(ExperienceTracker **)((char *)object + 0x264); }
 class BfmeGlob939D { public: char bfmeCall939D(); };
-class PlayerList { public: int rva002A7C0B(bool); };
+#include "../../../../../Include/Common/PlayerList.h"
 class MultiPlayMults { public: float getMoneyMult(int) const; };
 extern GameLogic *TheGameLogic;
  extern PlayerList *ThePlayerList;

@@ -44,11 +44,7 @@ class BfmeGlob939D : public GameLogic
 public:
 	char bfmeCall939D();
 };
-class PlayerList
-{
-public:
-	int rva002A7C0B(bool flag); // 0x002A7C0B
-};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class MultiPlayMults
 {
