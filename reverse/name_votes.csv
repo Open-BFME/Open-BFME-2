@@ -21499,3 +21499,13 @@ Code/GameEngine/Source/Common/Rva000B5746Forwarders.cpp|function|0x000B574E|rva0
 Code/GameEngine/Source/Common/Rva000B5746Forwarders.cpp|function|0x000B5756|rva000B5756,411824120e0f4c48bc264f37,claude-haiku-5-5,drz-k3-n34g3,w-a3d394d58042,2026-11-02
 Code/GameEngine/Source/Common/Rva000B5746Forwarders.cpp|function|0x000B575E|rva000B575E,759f6602018134cb940d4c23,claude-haiku-5-5,drz-k3-n34g3,w-a3d394d58042,2026-11-02
 Code/GameEngine/Source/Common/Rva00285BECDtor.cpp|function|0x00286351|vslot07,45ed832de9998dc8600a1de9,claude-haiku-5-5,drz-k1-n36a,w-d119d30b66de,2026-11-02
+Code/GameEngine/Source/Common/Rva002B2EA0Release.cpp|local|Rva002B2EA0::rva002B2EA0|p,2fc110c637371b63f72c0daa,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B2EC7Set.cpp|param|Rva002B2EC7::rva002B2EC7|v,9bb7df3a04b93028e9d01693,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B2EC7Set.cpp|local|Rva002B2EC7::rva002B2EC7|p,c0041bc5f98304c916d9d38e,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B36BE.cpp|local|Rva002B36BE::rva002B36BE|r,215915e9b3db02093589530c,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B4623.cpp|param|rva002B4623|a,b61b041af27c6ff555ca60cb,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B4623.cpp|param|rva002B4623|b,cc4329d5a2bc620ffd42b5ef,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B4623.cpp|param|rva002B4623|c,3bf3a7a75947a25a0acc6b46,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B4948Find.cpp|member|Rva002B4948Container|m_begin1B8,38cf75db51ceae2c248d436c,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B4948Find.cpp|member|Rva002B4948Container|m_end1BC,fce0ca69f74cd6ec296843dc,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
+Code/GameEngine/Source/Common/Rva002B4CEDMethod.cpp|param|Rva002B4CED::rva002B4CED|p,722a448e21531034a222e92d,claude-haiku-5-5,drz-k2-n36b,w-4cad33e49465,2026-11-02
