@@ -68,14 +68,7 @@ template <class T> inline const T &pathfindMax(const T &lhs, const T &rhs) { ret
 #include "../../../Include/GameLogic/PathfindCell.h"
 typedef PathfindCell *PathfindCellP;
 
-class Bridge
-{
-public:
-	const Region2D *getBounds() const { return &m_bounds; }
-private:
-	unsigned char m_pad00[0xB4];
-	Region2D m_bounds;		// +0xB4
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 
 class PolygonTrigger
 {

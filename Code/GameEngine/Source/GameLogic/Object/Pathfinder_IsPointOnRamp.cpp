@@ -4,16 +4,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Bridge
-{
-public:
-	bool isPointOnBridge(const Coord3D *p);
-	Bridge *getNext() { return m_next; }
-
-private:
-	char m_pad00[4];
-	Bridge *m_next;
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 
 class Pathfinder
 {

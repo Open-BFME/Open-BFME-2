@@ -68,16 +68,7 @@ __forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vec
 __forceinline Vector3 operator+(const Vector3 &a, const Vector3 &b) { return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z); }
 __declspec(dllimport) __forceinline Vector3 operator*(const Vector3 &a, float k) { return Vector3(a.X * k, a.Y * k, a.Z * k); }
 
-class Bridge
-{
-public:
-	Bool pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos);
-	Bridge *getNext() const { return m_next; }
-
-private:
-	void *m_00;
-	Bridge *m_next; // +0x04
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 
 struct Rva002E9442Cell
 {

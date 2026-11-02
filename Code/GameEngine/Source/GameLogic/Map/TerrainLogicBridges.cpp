@@ -287,54 +287,9 @@ public:
 // Zero Hour's BridgeInfo, the 0xA8-byte record whose rowed constructor
 // (0x0027C36A) and assignment (0x00085420) keep their address-derived class
 // name. Bridge holds it at +0x0C.
-class Rva0027C36A
-{
-public:
-	Rva0027C36A();
-	Rva0027C36A &operator=(const Rva0027C36A &other);
-
-	Coord3D from; // +0x00
-	Coord3D to; // +0x0C
-	Real bridgeWidth; // +0x18
-	Coord3D fromLeft; // +0x1C
-	Coord3D fromRight; // +0x28
-	Coord3D toLeft; // +0x34
-	Coord3D toRight; // +0x40
-	Int bridgeIndex; // +0x4C
-	BodyDamageType curDamageState; // +0x50
-	ObjectID bridgeObjectID; // +0x54
-	ObjectID towerObjectID[4]; // +0x58
-	Bool damageStateChanged; // +0x68
-private:
-	char m_pad69[0xA8 - 0x69];
-};
+#include "../../../Include/GameLogic/BridgeClass.h"
 typedef Rva0027C36A BridgeInfo;
 
-class Bridge
-{
-public:
-	virtual ~Bridge();
-	Bridge *getNext() { return m_next; }
-	void setNext(Bridge *next) { m_next = next; }
-	void getBridgeInfo(BridgeInfo *info) { *info = m_bridgeInfo; }
-	const BridgeInfo *peekBridgeInfo() const { return &m_bridgeInfo; }
-	void updateDamageState();
-	__forceinline void deleteInstance() { ::delete this; }
-	Bool isPointOnBridge(const Coord3D *loc);
-	Bool pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos);
-	Int getLayer() const { return m_layer; }
-	Bool isCellOnEnd(const Region2D *cell);
-	Bool isCellOnSide(const Region2D *cell);
-	Bool isCellEntryPoint(const Region2D *cell, Real *z);
-	Real getBridgeHeight(const Coord3D *loc, Coord3D *normal);
-private:
-	Bridge *m_next; // +0x04
-	char m_pad08[0x0C - 0x08];
-	BridgeInfo m_bridgeInfo; // +0x0C
-	Region2D m_bounds; // +0xB4
-	Int m_layer; // +0xC4
-	void *m_outline; // +0xC8, the polygon isPointOnBridge tests when set
-};
 
 // 0x00281BF7: the bridge object's drawable (Zero Hour's tail of
 // Bridge::pickBridge, split out); the row keeps its address-derived name and
@@ -582,7 +537,7 @@ Bool Bridge::isCellOnEnd(const Region2D *cell)
 	fromRight.x -= endVector.x;
 	fromRight.y -= endVector.y;
 
-	if (m_outline) {
+	if (m_c8) {
 		endVector = m_bridgeInfo.toRight;
 		endVector.x -= m_bridgeInfo.toLeft.x;
 		endVector.y -= m_bridgeInfo.toLeft.y;

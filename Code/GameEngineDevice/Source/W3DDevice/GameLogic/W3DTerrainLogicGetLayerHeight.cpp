@@ -15,11 +15,7 @@ enum PathfindLayerEnum
 	LAYER_WALL = 0x10
 };
 
-class Bridge
-{
-public:
-	float getBridgeHeight(const Coord3D *loc, Coord3D *normal);
-};
+#include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
 
 class Rva002E7482
 {

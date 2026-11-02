@@ -99,28 +99,7 @@ public:
 #include "../../../../GameEngine/Include/GameLogic/PathfindPath.h"
 class Rva003F3FCEDwordField { public: int get() const; };
 class Rva003EFDD7LeaField { public: void *get() const; };
-class Rva0027C36A {
-public:
-	Rva0027C36A();
-	Rva0027C36A &operator=(const Rva0027C36A &other);
-	Coord3D from;
-	Coord3D to;
-	float bridgeWidth;
-	Coord3D fromLeft;
-	Coord3D fromRight;
-	Coord3D toLeft;
-	Coord3D toRight;
-	char m_pad4C[0xA8 - 0x4C];
-};
-class Bridge {
-public:
-	char m_pad00[4];
-	Bridge *m_next;
-	char m_pad08[4];
-	Rva0027C36A m_bridgeInfo;
-	Bridge *getNext() { return m_next; }
-	void getBridgeInfo(Rva0027C36A *info) { *info = m_bridgeInfo; }
-};
+#include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
 class Pathfinder {
 public:
 	char m_pad00[0x5C];

@@ -18,7 +18,7 @@ int Rva0058AEB6Get();
 extern GameLogic *TheGameLogic;
 class Rva004E9378 { public: bool rva004E9378(); };
 class Rva00596F18 { public: void rva00596FF5(unsigned char); };
-class Bridge { public: void setBridgeObjectID(ObjectID); };
+#include "../../../Include/GameLogic/BridgeClass.h"
 class ModuleData;
 #include <vector>
 namespace _STL {

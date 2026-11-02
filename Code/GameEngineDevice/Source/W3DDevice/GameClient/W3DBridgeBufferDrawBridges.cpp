@@ -226,29 +226,9 @@ public:
 
 // Zero Hour BridgeInfo (rowed as Rva0027C36A: ctor 0x0027C36A, operator=
 // 0x00085420): bridge index +0x4C and current damage state +0x50.
-class Rva0027C36A
-{
-public:
-	Rva0027C36A();
-	Rva0027C36A &operator=(const Rva0027C36A &other);
-	char m_pad00[0x4C];
-	Int bridgeIndex;	// +0x4C
-	Int curDamageState;	// +0x50
-	char m_pad54[0xA8 - 0x54];
-};
+#include "../../../../GameEngine/Include/GameLogic/BridgeClass.h"
 typedef Rva0027C36A BridgeInfo;
 
-class Bridge
-{
-public:
-	Bridge *getNext(void) { return m_next; }
-	void getBridgeInfo(BridgeInfo *pInfo) { *pInfo = m_bridgeInfo; }
-private:
-	char m_pad00[4];
-	Bridge *m_next;	// +0x04
-	char m_pad08[0x0C - 0x08];
-	BridgeInfo m_bridgeInfo;	// +0x0C
-};
 
 // TheTerrainLogic's slot 40 is Zero Hour's getFirstBridge.
 class TerrainLogic;
