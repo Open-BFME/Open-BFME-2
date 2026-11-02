@@ -48310,7 +48310,7 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva0020775C@Rva0020775C@@QAEXXZ,,0x0020775C,5,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,
 ?rva005026B1@Rva005026B1@@QAEXXZ,,0x005026B1,5,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp,matched,
 ??1Rva00502926@@QAE@XZ,,0x00502926,5,Code/GameEngine/Source/Common/Rva0050292BDestructor.cpp,matched,Address-derived destructor wrapper identified by exact ctor and dtor EH graph references at502C80 and50292B; native whole5B tail calls56B base5026B6. Proper inline wrapper exposes base teardown to the parent while emitting its own unwind callee; original map and payload identities remain unknown. Replaces neutral rva00502926 method at the same address; no alias or pin.
-?rva00082BE1@Rva00082BE1@@QAEIABH@Z,,0x00082BE1,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,matched,
+?erase@Rva00082BE1@@QAEIABH@Z,,0x00082BE1,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,matched,
 ?rva000D3C46@Rva000D3C46@@QAEIABH@Z,,0x000D3C46,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,matched,
 ?rva001E7E78@Rva001E7E78@@QAEIABH@Z,,0x001E7E78,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,matched,
 ?rva00362C9A@Rva00362C9A@@QAEIABH@Z,,0x00362C9A,5,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,matched,

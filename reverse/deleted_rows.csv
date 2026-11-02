@@ -4564,3 +4564,4 @@ __ehhandler$?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00
 ?Rva00050C91Dispatch@@YAXPAVAudioReceiver@@PAX@Z,0x00050C91,"Renamed to ?setMusicSystem@@YAXPAVAudioReceiver@@PAX@Z by tools/rename.py (inferred)"
 ?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,0x002C943B,"Renamed to ?copyFrom@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z by tools/rename.py (inferred)"
 ?rva00311638CatmullRom@@YAPAU_D3DXVECTOR3@@PAU1@PBU1@111M_N@Z,0x00311638,"Renamed to ?catmullRom@@YAPAU_D3DXVECTOR3@@PAU1@PBU1@111M_N@Z by tools/rename.py (inferred)"
+?rva00082BE1@Rva00082BE1@@QAEIABH@Z,0x00082BE1,"Renamed to ?erase@Rva00082BE1@@QAEIABH@Z by tools/rename.py (inferred)"

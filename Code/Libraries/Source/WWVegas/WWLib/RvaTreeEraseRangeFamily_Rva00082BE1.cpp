@@ -77,10 +77,10 @@ public:
 class Rva00082BE1
 {
 public:
-	unsigned int rva00082BE1(const int &key);
+	unsigned int erase(const int &key);
 };
 
-unsigned int Rva00082BE1::rva00082BE1(const int &key)
+unsigned int Rva00082BE1::erase(const int &key)
 {
 	return reinterpret_cast<Rva0007E971 *>(this)->rva00082536(key);
 }

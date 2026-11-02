@@ -6554,3 +6554,5 @@ param,CurveValue#3::z,CurveValue#3::zValue,inferred,agree:nl-9f4dfff4746f,Code/G
 param,Rva00318D9BFill::n,Rva00318D9BFill::count,inferred,agree:nl-427348cdf897-m2229e8b9008d0790daf3379f,Code/GameEngine/Source/Common/Rva00318D9BFill.cpp,0x00318D9B
 param,Rva00318D9BFill::x,Rva00318D9BFill::fillValue,inferred,agree:nl-075586f373ee-m1b36f1c3189956688e6b2b94,Code/GameEngine/Source/Common/Rva00318D9BFill.cpp,0x00318D9B
 class,Rva00318B1ERecord,PlayerNameRecord,inferred,agree:nl-5cf4263a1d9c,Code/GameEngine/Source/Common/Rva00318B1EPlayerName.cpp,
+function,?rva00082BE1@Rva00082BE1@@QAEIABH@Z,?erase@Rva00082BE1@@QAEIABH@Z,inferred,agree:nl-f055dd97119f,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,0x00082BE1
+carry,Rva00082BE1::rva00082BE1::key,Rva00082BE1::erase::key,inferred,scope renamed by Rename rva00082BE1 to erase (inferred),Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp,0x00082BE1
