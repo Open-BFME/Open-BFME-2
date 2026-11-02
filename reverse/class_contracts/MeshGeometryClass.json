@@ -1,0 +1,940 @@
+{
+ "bases": [
+  "Rva000657D9"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MeshGeometryClass",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "W3DMPO",
+    "RefCountClass",
+    "MultiListObjectClass"
+   ]
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x10": {
+    "4": 4
+   },
+   "0x14": {
+    "4": 5
+   },
+   "0x18": {
+    "1": 2,
+    "4": 4
+   },
+   "0x1c": {
+    "1": 2
+   },
+   "0x20": {
+    "1": 1
+   },
+   "0x24": {
+    "4": 10
+   },
+   "0x28": {
+    "4": 14
+   },
+   "0x2c": {
+    "4": 9
+   },
+   "0x30": {
+    "4": 7
+   },
+   "0x34": {
+    "4": 4
+   },
+   "0x38": {
+    "4": 2
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 3
+   },
+   "0x44": {
+    "4": 3
+   },
+   "0x48": {
+    "4": 4
+   },
+   "0x4c": {
+    "4": 4
+   },
+   "0x50": {
+    "4": 4
+   },
+   "0x54": {
+    "4": 4
+   },
+   "0x58": {
+    "4": 6
+   },
+   "0x5c": {
+    "4": 2
+   },
+   "0x60": {
+    "4": 4
+   },
+   "0x64": {
+    "4": 4
+   },
+   "0x68": {
+    "4": 4
+   },
+   "0x6c": {
+    "4": 4
+   },
+   "0x70": {
+    "4": 4
+   },
+   "0x74": {
+    "4": 4
+   },
+   "0x78": {
+    "4": 3
+   },
+   "0x7c": {
+    "4": 3
+   },
+   "0x80": {
+    "4": 3
+   },
+   "0x84": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 7
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x168f30",
+      "0x16a230"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva000657D9",
+       "offset": 8,
+       "own_vftable": "0x7d43cc",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x168f30",
+      "0x16a230"
+     ],
+     "value": 140
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x168f30",
+      "0x16a230"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x168f30",
+      "0x16a230"
+     ],
+     "value": {
+      "0x0": [
+       "??4MeshGeometryClass@@QAEAAV0@ABV0@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x168f30",
+      "0x16a230"
+     ],
+     "value": {
+      "0x0": "0x7d43d0",
+      "0x8": "0x7d43cc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d43d0"
+     ],
+     "value": {
+      "count": 6,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GMeshGeometryClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x16d790"
+       },
+       {
+        "name": "?Load_W3D@MeshGeometryClass@@UAE_NAAVChunkLoadClass@@@Z",
+        "slot": 2,
+        "target": "0x16d810"
+       },
+       {
+        "name": "?Compute_Plane_Equations@MeshGeometryClass@@MAEXPAVVector4@@@Z",
+        "slot": 3,
+        "target": "0x16a850"
+       },
+       {
+        "name": "?Compute_Vertex_Normals@MeshGeometryClass@@MAEXPAVVector3@@_N@Z",
+        "slot": 4,
+        "target": "0x16cfc0"
+       },
+       {
+        "name": "?Compute_Bounds@MeshGeometryClass@@MAEXPAVVector3@@@Z",
+        "slot": 5,
+        "target": "0x16a9f0"
+       }
+      ],
+      "table": "0x7d43d0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 42,
+  "retail_vtables": {
+   "0x7d43cc": {
+    "offset": 8,
+    "slots": {},
+    "stores": 2
+   },
+   "0x7d43d0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GMeshGeometryClass@@UAEPAXI@Z",
+     "2": "?Load_W3D@MeshGeometryClass@@UAE_NAAVChunkLoadClass@@@Z",
+     "3": "?Compute_Plane_Equations@MeshGeometryClass@@MAEXPAVVector4@@@Z",
+     "4": "?Compute_Vertex_Normals@MeshGeometryClass@@MAEXPAVVector3@@_N@Z",
+     "5": "?Compute_Bounds@MeshGeometryClass@@MAEXPAVVector3@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "16": 1,
+   "24": 1,
+   "28": 5,
+   "44": 5,
+   "48": 1,
+   "52": 3,
+   "56": 2,
+   "64": 1,
+   "76": 2,
+   "80": 1,
+   "88": 1,
+   "92": 1,
+   "140": 9
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 27,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "ListNode",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "MultiListNodeClass*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "MeshName",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<char>*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "Flags",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "ShareBufferClass<char>*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "UserText",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {
+    "1": 2,
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 18,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flagByte",
+   "name_by": "majority",
+   "offset": 25,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "SortLevel",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {
+    "1": 2
+   },
+   "size": 1,
+   "type": "char",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "W3dAttributes",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 4,
+   "type": "ulong",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "PolyCount",
+   "name_by": "zh",
+   "offset": 36,
+   "retail_widths": {
+    "4": 10
+   },
+   "size": 4,
+   "type": "int",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "VertexCount",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {
+    "4": 14
+   },
+   "size": 4,
+   "type": "int",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "Poly",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {
+    "4": 9
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3i16>*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "Vertex",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {
+    "4": 7
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3>*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "VertexNorm",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "PlaneEq",
+   "name_by": "zh",
+   "offset": 56,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector4>*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "VertexShadeIdx",
+   "name_by": "zh",
+   "offset": 60,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned long>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "VertexBoneLink",
+   "name_by": "zh",
+   "offset": 64,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned short>*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PolySurfaceType",
+   "name_by": "zh",
+   "offset": 68,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned char>*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMin.X",
+   "name_by": "zh",
+   "offset": 72,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector4>*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMin.Y",
+   "name_by": "zh",
+   "offset": 76,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned int>*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMin.Z",
+   "name_by": "zh",
+   "offset": 80,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned short>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMax.X",
+   "name_by": "zh",
+   "offset": 84,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned short>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMax.Y",
+   "name_by": "zh",
+   "offset": 88,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned char>*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMax.Z",
+   "name_by": "zh",
+   "offset": 92,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Vector3",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "BoundSphereCenter",
+   "name_by": "zh",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Vector3",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Vector3",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "BoundSphereRadius",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "CullTree",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "BoundBoxMax",
+   "name_by": "majority",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Vector3",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Vector3",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "BoundSphereCenter",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Vector3",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereRadius",
+   "name_by": "majority",
+   "offset": 132,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "CullTree",
+   "name_by": "majority",
+   "offset": 136,
+   "retail_widths": {
+    "4": 7
+   },
+   "size": 4,
+   "type": "AABTreeClass*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base@0x8",
+   "candidates": {
+    "'Rva000657D9'": 1
+   },
+   "class": "MeshGeometryClass",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "nested@0x48",
+   "candidates": {
+    "BoundBoxMin.X": 5
+   },
+   "class": "MeshGeometryClass"
+  },
+  {
+   "attribute": "nested@0x4c",
+   "candidates": {
+    "BoundBoxMin.Y": 4
+   },
+   "class": "MeshGeometryClass"
+  },
+  {
+   "attribute": "nested@0x50",
+   "candidates": {
+    "BoundBoxMin.Z": 3
+   },
+   "class": "MeshGeometryClass"
+  },
+  {
+   "attribute": "nested@0x54",
+   "candidates": {
+    "BoundBoxMax.X": 3
+   },
+   "class": "MeshGeometryClass"
+  },
+  {
+   "attribute": "nested@0x58",
+   "candidates": {
+    "BoundBoxMax.Y": 4
+   },
+   "class": "MeshGeometryClass"
+  },
+  {
+   "attribute": "nested@0x5c",
+   "candidates": {
+    "BoundBoxMax.Z": 1
+   },
+   "class": "MeshGeometryClass"
+  },
+  {
+   "attribute": "straddle@0x19",
+   "candidates": {},
+   "class": "MeshGeometryClass"
+  }
+ ],
+ "size": 140,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "s0()"
+  },
+  "1": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "2": {
+   "decided_by": "zh",
+   "member": "Load_W3D(ChunkLoadClass*)"
+  },
+  "3": {
+   "decided_by": "zh",
+   "member": "Compute_Plane_Equations(Vector4*)"
+  },
+  "4": {
+   "decided_by": "zh",
+   "member": "Compute_Vertex_Normals(Vector3*)"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "Compute_Bounds(Vector3*)"
+  }
+ }
+}
