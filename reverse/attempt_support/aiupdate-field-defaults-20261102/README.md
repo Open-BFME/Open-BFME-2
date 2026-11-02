@@ -5,3 +5,5 @@ Ten ordinary C++ private trials match complete native bodies, including the wake
 Slot118 (vslot118): complete4B at0x00042287, all63emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
 
 Slot119 (vslot119): complete4B at0x002004A1, all64emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
+
+Slot120 (vslot120): complete4B at0x00367508, all65emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.

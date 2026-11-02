@@ -18705,3 +18705,5 @@ The disabled-mask package completes with the1950-row/234-source real header gate
 Primary slot118 now supplies its complete4B typed field/wake body at0x00042287; all63consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
 
 Primary slot119 now supplies its complete4B typed field/wake body at0x002004A1; all64consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
+
+Primary slot120 now supplies its complete4B typed field/wake body at0x00367508; all65consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
