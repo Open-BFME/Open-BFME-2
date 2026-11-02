@@ -1,0 +1,478 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "TeamFactory",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 62,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0xb0": {
+    "4": 7
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xc4": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3a25b1"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x81ae2c",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x81ae1c",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a25b1"
+     ],
+     "value": 196
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a25b1"
+     ],
+     "value": {
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3a25b1"
+     ],
+     "value": {
+      "0xb0": [
+       "??0?$map@HUBfmePod8@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3a25b1"
+     ],
+     "value": {
+      "0x0": "0x81ae2c",
+      "0xc": "0x81ae1c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81ae2c"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTeamFactory@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3a398b"
+       },
+       {
+        "name": "?init@TeamFactory@@UAEXXZ",
+        "slot": 1,
+        "target": "0x3a3899"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@TeamFactory@@UAEXXZ",
+        "slot": 9,
+        "target": "0x3a389e"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x81ae2c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x81ae1c": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x81ae2c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTeamFactory@@UAEPAXI@Z",
+     "1": "?init@TeamFactory@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@TeamFactory@@UAEXXZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 49,
+   "12": 1,
+   "36": 1,
+   "176": 1,
+   "184": 1,
+   "188": 1,
+   "196": 5
+  },
+  "views": 59,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TeamFactory.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Team.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 8
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryClear.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactory_initTeamForTacticalAI.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtorThunk_Rva003a2943.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryClear.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryAddPrototype003A2B78.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryClear.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryClear.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Team.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryCtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryDtor.cpp",
+    "Code/GameEngine/Source/Common/RTS/TeamFactoryRecomputeIDs.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "196:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "TeamFactory"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "1:i1": 1,
+    "4:i4": 1
+   },
+   "class": "TeamFactory"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "tf0e()": 1
+   },
+   "class": "TeamFactory",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "tf0f()": 1
+   },
+   "class": "TeamFactory",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "tf10()": 1
+   },
+   "class": "TeamFactory",
+   "why": "beyond the retail vftable's 14 slots"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "tf11()": 1
+   },
+   "class": "TeamFactory",
+   "why": "beyond the retail vftable's 14 slots"
+  }
+ ],
+ "size": 196,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "tf0b()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "tf0c()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "tf0d()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "update()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "crc()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "xfer()"
+  }
+ }
+}
