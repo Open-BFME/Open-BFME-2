@@ -49,26 +49,26 @@ public:
 class ScriptActions
 {
 public:
-	void doSkirmishFireSpecialPowerAtMostCost(const AsciiString &a, const AsciiString &b);
+	void doSkirmishFireSpecialPowerAtMostCost(const AsciiString &a, const AsciiString &powerName);
 	bool FireSpecialPowerAtPosition(const AsciiString &playerName,
 		const SpecialPowerTemplate *power, const Coord3D *position) throw();
 };
 
-void ScriptActions::doSkirmishFireSpecialPowerAtMostCost(const AsciiString &asciiString, const AsciiString &b)
+void ScriptActions::doSkirmishFireSpecialPowerAtMostCost(const AsciiString &asciiString, const AsciiString &powerName)
 {
 	Player *enemy = TheScriptEngine->getSkirmishEnemyPlayer();
 	if (enemy == 0)
 		return;
 	void *unk54 = *(void **)((char *)enemy + 0x54);
-	const SpecialPowerTemplate *specialPowerTemplate = TheSpecialPowerStore->findSpecialPowerTemplate(b);
+	const SpecialPowerTemplate *specialPowerTemplate = TheSpecialPowerStore->findSpecialPowerTemplate(powerName);
 	if (specialPowerTemplate == 0)
 		return;
-	float f = 50.0f;
+	float costLimit = 50.0f;
 	const Overridable *ov = ((const Overridable *)specialPowerTemplate)->friend_getFinalOverride();
 	float g = ov->m_54;
 	if (g > 50.0f) {
 		ov = ((const Overridable *)specialPowerTemplate)->friend_getFinalOverride();
-		f = ov->m_54;
+		costLimit = ov->m_54;
 	}
 	int mask = TheScriptEngine->rva00357475(asciiString, 0);
 	if (mask == 0)
@@ -78,7 +78,7 @@ void ScriptActions::doSkirmishFireSpecialPowerAtMostCost(const AsciiString &asci
 		player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player != 0) {
 			char out[12];
-			player->v04(specialPowerTemplate, out, unk54, f);
+			player->v04(specialPowerTemplate, out, unk54, costLimit);
 			if (FireSpecialPowerAtPosition(asciiString, specialPowerTemplate, (const Coord3D *)out))
 				return;
 		}

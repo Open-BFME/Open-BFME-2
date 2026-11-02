@@ -6693,3 +6693,14 @@ param,rva00380869::a,rva00380869::objectOrigin,inferred,agree:nl-3a29088d3612,Co
 param,rva00380869::b,rva00380869::objectSize,inferred,agree:nl-a8718937fc40,Code/GameEngine/Source/Common/TooltipPositionDisplayString.cpp,0x00380869
 local,Rva00806400Owner::release::p,Rva00806400Owner::release::entry,inferred,agree:nl-b3e6e38fc15c,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,0x00672430
 local,Rva00806400Owner::setValue::p,Rva00806400Owner::setValue::entry,inferred,agree:nl-3124425c802d,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,0x006723A0
+member,Rva00104DE6::m_D4,Rva00104DE6::m_fontDirty,inferred,agree:nl-89050fb272e6,Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp,
+member,Rva00104DE6::m_D5,Rva00104DE6::m_extentsDirty,inferred,agree:nl-c8c104f73a79,Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp,
+param,RvaCloneResult::p,RvaCloneResult::retainedObject,inferred,agree:nl-3f5b15224b82-m83937e5c4b5f1c300a984cdb,Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp,
+local,ScriptActions::doSkirmishFireSpecialPowerAtMostCost::f,ScriptActions::doSkirmishFireSpecialPowerAtMostCost::costLimit,inferred,agree:nl-f479050eed7f,Code/GameEngine/Source/Common/ScriptActions_doSkirmishFireSpecialPowerAtMostCost.cpp,0x003C4070
+param,ScriptActions::doSkirmishFireSpecialPowerAtMostCost::b,ScriptActions::doSkirmishFireSpecialPowerAtMostCost::powerName,inferred,agree:nl-51405e0159aa,Code/GameEngine/Source/Common/ScriptActions_doSkirmishFireSpecialPowerAtMostCost.cpp,0x003C4070
+param,reduceMatrix::m,reduceMatrix::costMatrix,inferred,agree:nl-3ca55fc07aef,Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,0x006B4110
+local,Rva00808C80Owner::find::p,Rva00808C80Owner::find::slot,inferred,agree:nl-7d2a185e9227,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,0x00674BD0
+local,Rva00808E60Owner::find::p,Rva00808E60Owner::find::slot,inferred,agree:nl-71a916f74320,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,0x00674D80
+local,Rva002384C8::rva002384C8::tmp,Rva002384C8::rva002384C8::translated,inferred,agree:nl-6e9e7fc63d33,Code/GameEngine/Source/Common/version.cpp,0x002384C8
+function,?rva00104DE6@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,inferred,agree:nl-5b4745073b8d,Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp,0x00104DE6
+function,?rva00104E68@Rva00104DE6@@QAEXHHHH@Z,?addExtents@Rva00104DE6@@QAEXHHHH@Z,inferred,agree:nl-08f6584f0d73,Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp,0x00104E68

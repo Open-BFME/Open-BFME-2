@@ -4597,3 +4597,5 @@ __ehhandler$?rva000909B7@Rva007E3C20Vp6Stream@@QAEXXZ,0x0075FEDF,"Renamed to __e
 ?rva007B7400@@YAXXZ,0x007B7400,"Renamed to ?destroyVertexLoc@@YAXXZ by tools/rename.py (inferred)"
 ?rva54b800@@YAPAXXZ,0x00226819,"Renamed to ?getStackPointer@@YAPAXXZ by tools/rename.py (inferred)"
 ?rva61b20@@YAPAXXZ,0x00226809,"Renamed to ?getFramePointer@@YAPAXXZ by tools/rename.py (inferred)"
+?rva00104DE6@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,0x00104DE6,"Renamed to ?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z by tools/rename.py (inferred)"
+?rva00104E68@Rva00104DE6@@QAEXHHHH@Z,0x00104E68,"Renamed to ?addExtents@Rva00104DE6@@QAEXHHHH@Z by tools/rename.py (inferred)"

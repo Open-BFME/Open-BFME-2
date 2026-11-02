@@ -12,9 +12,9 @@
 template <class T> class RvaCloneResult
 {
 public:
- RvaCloneResult(T *p) : pointer(p)
+ RvaCloneResult(T *retainedObject) : pointer(retainedObject)
  {
-  if (p) ++p->m_ref;
+  if (retainedObject) ++retainedObject->m_ref;
  }
  ~RvaCloneResult();
 private:

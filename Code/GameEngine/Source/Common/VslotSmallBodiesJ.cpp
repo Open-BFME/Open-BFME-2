@@ -53,8 +53,8 @@ struct Rva00104DE6Font
 class Rva00104DE6
 {
 public:
-	void rva00104E68(Int left, Int top, Int right, Int bottom);
-	void rva00104DE6(const Rva00104DE6Font *font);
+	void addExtents(Int left, Int top, Int right, Int bottom);
+	void setFont(const Rva00104DE6Font *font);
 private:
 	char m_pad00[0x04];
 	Render2DSentenceClass m_sentence;
@@ -62,19 +62,19 @@ private:
 	Int m_width;
 	Int m_CC;
 	char m_padD0[0xD4 - 0xD0];
-	Bool m_D4;
-	Bool m_D5;
+	Bool m_fontDirty;
+	Bool m_extentsDirty;
 };
-void Rva00104DE6::rva00104E68(Int left, Int top, Int right, Int bottom)
+void Rva00104DE6::addExtents(Int left, Int top, Int right, Int bottom)
 {
-	m_D5 = true;
+	m_extentsDirty = true;
 	m_width += right - left;
 	m_CC += bottom - top;
 }
-void Rva00104DE6::rva00104DE6(const Rva00104DE6Font *font)
+void Rva00104DE6::setFont(const Rva00104DE6Font *font)
 {
 	m_sentence.Set_Font(font->m_font);
-	m_D4 = true;
+	m_fontDirty = true;
 }
 
 // slots at VA 0x00BC70FC and 0x00BC70EC: erase from the pointer vector at

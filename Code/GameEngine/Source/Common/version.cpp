@@ -244,9 +244,9 @@ UnicodeString Version::getUnicodeBuildUser()
 
 UnicodeString Rva002384C8::rva002384C8()
 {
-	UnicodeString tmp;
-	tmp.translate(m_str);
-	return tmp;
+	UnicodeString translated;
+	translated.translate(m_str);
+	return translated;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0023851CFormat.cpp

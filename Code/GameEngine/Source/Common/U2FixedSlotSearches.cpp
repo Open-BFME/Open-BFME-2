@@ -120,9 +120,9 @@ Rva00808C80Item *Rva00808C80Owner::find(int id)
 {
 	for (int i = 0; i < 16; ++i)
 	{
-		Rva00808C80Item *p = m_slots[i];
-		if (p != 0 && p->m_id == id)
-			return p;
+		Rva00808C80Item *slot = m_slots[i];
+		if (slot != 0 && slot->m_id == id)
+			return slot;
 	}
 	return 0;
 }
@@ -141,9 +141,9 @@ Rva00808C80Item *Rva00808E60Owner::find(int id)
 {
 	for (int i = 0; i < m_count; ++i)
 	{
-		Rva00808C80Item *p = m_slots[i];
-		if (p != 0 && p->m_id == id)
-			return p;
+		Rva00808C80Item *slot = m_slots[i];
+		if (slot != 0 && slot->m_id == id)
+			return slot;
 	}
 	return 0;
 }
