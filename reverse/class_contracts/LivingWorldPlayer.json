@@ -1,0 +1,624 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorldPlayer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 30,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x180": {
+    "4": 5
+   },
+   "0x184": {
+    "4": 1
+   },
+   "0x190": {
+    "4": 1
+   },
+   "0x19c": {
+    "4": 1
+   },
+   "0x1a8": {
+    "4": 9
+   },
+   "0x1ac": {
+    "4": 7
+   },
+   "0x1b8": {
+    "4": 8
+   },
+   "0x1bc": {
+    "4": 4
+   },
+   "0x298": {
+    "4": 2
+   },
+   "0x29c": {
+    "4": 2
+   },
+   "0x2a8": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 25,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 15,
+   "24": 2,
+   "400": 2,
+   "436": 1,
+   "452": 1,
+   "628": 1,
+   "692": 1,
+   "696": 1,
+   "956": 1,
+   "968": 4
+  },
+  "views": 29,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 20
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldLogicRemovePlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerQueuedArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUILocalPlayerData.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUILocalPlayerData.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUILocalPlayerData.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUILocalPlayerData.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 396,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattlePromptDialog.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUILocalPlayerData.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 400,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 404,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 408,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 412,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 416,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 420,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 424,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 428,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 432,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerCreateRevival.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 440,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldLogicRemovePlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerRegionMembership.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 444,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldLogicRemovePlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerRegionMembership.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 448,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldLogicRemovePlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerRegionMembership.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 472,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 604,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 608,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 612,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 616,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 620,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0020EE29Rva0020F483.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldPlayer_CheckForRemovedMultiRegionBonuses.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 692,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 712,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 752,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 756,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 760,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 764,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 768,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 772,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 776,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 780,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 784,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 788,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 792,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 796,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 860,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 864,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 868,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 880,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 884,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 888,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 928,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 932,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 936,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 940,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 944,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 948,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 952,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 964,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporter.cpp",
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp",
+    "Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldLogicRemovePlayer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 965,
+   "sources": [
+    "Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "20:A": 1,
+    "64:A": 1,
+    "712:A": 1
+   },
+   "class": "LivingWorldPlayer"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
