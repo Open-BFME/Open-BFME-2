@@ -1,0 +1,426 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Render2DClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 28,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 24
+   },
+   "0x1c": {
+    "4": 3
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 3
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 23
+   },
+   "0x40": {
+    "4": 4
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x48": {
+    "1": 1
+   },
+   "0x8": {
+    "4": 23
+   },
+   "0xc": {
+    "4": 24
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x4c": 2
+     }
+    }
+   }
+  },
+  "retail_member_rows": 12,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 8,
+   "20": 1,
+   "72": 1,
+   "73": 6,
+   "76": 9,
+   "88": 2
+  },
+  "views": 27,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2d.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:ShaderState",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "Shader",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "Shader",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShaderState",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "f4",
+   "name": "CoordinateScale.U",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 23
+   },
+   "size": 4,
+   "type": "float",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CoordinateScale.V",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 23
+   },
+   "size": 4,
+   "type": "float",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "f4",
+   "name": "CoordinateOffset.U",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {
+    "4": 24
+   },
+   "size": 4,
+   "type": "float",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CoordinateOffset.V",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {
+    "4": 24
+   },
+   "size": 4,
+   "type": "float",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "BiasedCoordinateOffset.U",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "BiasedCoordinateOffset.V",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Texture",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:ShaderClass",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "ShaderBits",
+     "offset": 0,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "Shader",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShaderClass",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Render2DRawArray",
+   "members": [
+    {
+     "kind": "P",
+     "name": "Indices",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    },
+    {
+     "kind": "i4",
+     "name": "Size",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "Count",
+     "offset": 8,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "GrowthStep",
+     "offset": 12,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "ArrayB",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 16,
+   "type": "Render2DRawArray",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<BfmeRender2DBatch,_STL::allocator<BfmeRender2DBatch> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "BfmeRender2DBatch*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "BfmeRender2DBatch*"
+    },
+    {
+     "kind": "P",
+     "name": "PreAllocatedIndices",
+     "offset": 8,
+     "size": 4,
+     "type": "BfmeRender2DBatch*"
+    }
+   ],
+   "name": "Batches",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<BfmeRender2DBatch,_STL::allocator<BfmeRender2DBatch> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RefCountPtr<TextureBaseClass>",
+   "members": [
+    {
+     "kind": "P",
+     "name": "Referent",
+     "offset": 0,
+     "size": 4,
+     "type": "TextureBaseClass*"
+    }
+   ],
+   "name": "Texture",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RefCountPtr<TextureBaseClass>",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "CurrentBatch",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "IsDirty",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_unmodelled_49",
+   "name_by": "tie",
+   "offset": 73,
+   "retail_widths": {},
+   "size": 3,
+   "type": "char[3]",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [
+  {
+   "offset": 84,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddQuadColor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x49",
+   "candidates": {
+    "Tail": 1,
+    "m_unmodelled_49": 1,
+    "tail": 1
+   },
+   "class": "Render2DClass"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "CoordinateScale.U": 12
+   },
+   "class": "Render2DClass"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "CoordinateScale.V": 9
+   },
+   "class": "Render2DClass"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "CoordinateOffset.U": 11
+   },
+   "class": "Render2DClass"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "CoordinateOffset.V": 9
+   },
+   "class": "Render2DClass"
+  },
+  {
+   "attribute": "nested@0x14",
+   "candidates": {
+    "BiasedCoordinateOffset.U": 7
+   },
+   "class": "Render2DClass"
+  },
+  {
+   "attribute": "nested@0x18",
+   "candidates": {
+    "BiasedCoordinateOffset.V": 4
+   },
+   "class": "Render2DClass"
+  }
+ ],
+ "size": 76,
+ "size_by": "majority",
+ "vslots": {}
+}
