@@ -21589,3 +21589,4 @@ Code/GameEngine/Source/Common/Rva0033F243FloatMaxTest.cpp|function|0x0033F243|rv
 Code/GameEngine/Source/Common/Rva0033F83DSetter.cpp|function|0x0033F83D|rva0033F83D,e6043eca042e989a70e24af2,claude-haiku-5-5,drz-k8-n36f,w-92c9822ecc57,2026-11-02
 Code/GameEngine/Source/Common/Rva0033F852Setter.cpp|function|0x0033F852|rva0033F852,6d02a24950d144eb8b170d02,claude-haiku-5-5,drz-k8-n36f,w-92c9822ecc57,2026-11-02
 Code/GameEngine/Source/Common/Rva0033FC42Dtor.cpp|member|Holder0033FC9D|m_38,36e37cbf51ded2ab43f1282a,claude-haiku-5-5,drz-k8-n36f,w-92c9822ecc57,2026-11-02
+Code/GameEngine/Source/Common/Rva00340D70Xfer.cpp|member|Rva00340D70|m_58,00211965b2f338672778f799,claude-haiku-5-5,drz-k10-n36g,w-a9197dfa94c6,2026-11-02
