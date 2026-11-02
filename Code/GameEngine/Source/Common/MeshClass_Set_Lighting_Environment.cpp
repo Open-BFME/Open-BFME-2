@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // MeshClass::Set_Lighting_Environment, retail 0x0014BB20 (66 bytes): the
 // REL32 callee of MeshClass::Render 0x0014BB90 (pinned). BFME 2's
 // LightEnvironmentClass starts with a flag byte: an environment that has it set
@@ -6,13 +7,7 @@
 // Layout: LightEnvironment at +0xC8 and the local copy at +0xCC, as
 // MeshClass::Render reads them.
 
-class LightEnvironmentClass
-{
-public:
-	LightEnvironmentClass &operator=(const LightEnvironmentClass &that);
-
-	bool m_flag00;		// +0x00, BFME 2 leading byte
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h"
 
 class MeshClass
 {
@@ -30,7 +25,7 @@ void MeshClass::Set_Lighting_Environment(LightEnvironmentClass *light_env)
 {
 	if (light_env)
 	{
-		if (light_env->m_flag00)
+		if (light_env->field00)
 		{
 			LightEnvironment = light_env;
 			return;

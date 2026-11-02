@@ -12,7 +12,7 @@ class W3DShroudMaterialPassClass:public RefCountClass{};
 class SimpleSceneClass{public:virtual~SimpleSceneClass();char pad[0x104];};
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class BfmeRefSceneList{public:virtual~BfmeRefSceneList();char head[20];};
-class LightEnvironmentClass{public:~LightEnvironmentClass();char data[0x228];};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h"
 struct SceneVector3{float X,Y,Z;};
 class Rva006F7BD:public SimpleSceneClass,public SubsystemInterface{public:virtual~Rva006F7BD();private:
 BfmeRefSceneList list114;bool drawTerrainOnly;LightClass*globalLight[4];LightClass*scratchLight;SceneVector3 ambient144;LightClass*infantryLight[4];int numLights;LightEnvironmentClass env164,env38C,env5B4;bool flag7DC;
