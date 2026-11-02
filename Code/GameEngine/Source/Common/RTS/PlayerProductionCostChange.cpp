@@ -14,10 +14,7 @@ class Player;
 enum KindOfType { KINDOF_COST_SKIP = 68 };
 enum ObjectStatusTypes { OBJECT_STATUS_COST_SKIP = 19 };
 #include "../../GameLogic/Object/object.h"
-class ObjectFilter {
-public:
- bool testTemplate(const ThingTemplate*, const Player*, const Player*);
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 struct ProductionCostModifier {
  ObjectFilter* filter;
  _STL::vector<float> changes;

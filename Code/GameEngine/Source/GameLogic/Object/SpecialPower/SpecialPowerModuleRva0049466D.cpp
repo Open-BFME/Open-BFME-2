@@ -215,13 +215,7 @@ private:
 	ResourceGatheringManager *m_resourceGatheringManager; // +0x2E4
 };
 
-class ObjectFilter
-{
-public:
-	bool isValid() const;
-private:
-	int m_value;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 
 class DamageInfo
 {

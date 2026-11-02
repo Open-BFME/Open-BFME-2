@@ -65,7 +65,7 @@ enum ObjectID
 void XferObjectID(Xfer *xfer, ObjectID *value);
 
 // Verified four-byte ObjectFilter ABI; retain surrounding provisional layouts.
-class ObjectFilter { public: void DoXfer(Xfer *); };
+#include "../../Include/GameLogic/ObjectFilter.h"
 class Rva003189ADSub10
 {
 public:

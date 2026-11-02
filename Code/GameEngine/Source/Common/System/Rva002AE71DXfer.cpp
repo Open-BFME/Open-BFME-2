@@ -53,7 +53,7 @@ public:
 	virtual void slot35();
 	virtual void slot36(unsigned int *);
 };
-class ObjectFilter { public: void DoXfer(Xfer *); };
+#include "../../../Include/GameLogic/ObjectFilter.h"
 class Rva002AE71D {
 public:
 	void rva002AE71D(Xfer *);

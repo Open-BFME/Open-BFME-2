@@ -5,13 +5,7 @@
 // Evidence: unlock lane, neighbours Rva002A7400Ctor/Rva002A74C3 share /O1,
 // callees getNthPlayer/isValid/Player::rva002AB2D9 rowed, ThePlayerList global.
 class BfmeTab1026;
-class ObjectFilter
-{
-public:
-	bool isValid() const;
-private:
-	int m_index;
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 class Player
 {
 public:

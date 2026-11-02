@@ -47,17 +47,7 @@ public:
 };
 template<int N> class BitFlags;
 class Player;
-class ObjectFilter
-{
-public:
-    void DoXfer(Xfer *);
-    bool testKindOf(const BitFlags<218> *, const Player *, const Player *);
-    bool testTemplate(const ThingTemplate *, const Player *, const Player *);
-    static void rva003611EFResolveNames(ObjectFilter *);
-    void DoNamesXfer(Xfer *, _STL::vector<AsciiString> *);
-    void DoTemplatesXfer(Xfer *, _STL::vector<ThingTemplate *> *, _STL::vector<ThingTemplate *> *);
-    int m_id;
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 // ?DoNamesXfer@ObjectFilter@@QAEXPAVXfer@@PAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z
 void ObjectFilter::DoNamesXfer(Xfer *xfer, _STL::vector<AsciiString> *names)
 {
@@ -121,9 +111,9 @@ void ObjectFilter::DoXfer(Xfer *xfer)
     Rva00360F55 *data;
     if (xfer->IsStoring())
     {
-        if (m_id == -1)
-            m_id = Rva00361790(&Rva00360F55());
-        data = reinterpret_cast<Rva00360F55 *>(g_validityBegin) + m_id;
+        if (m_objectFilterSlot00 == -1)
+            m_objectFilterSlot00 = Rva00361790(&Rva00360F55());
+        data = reinterpret_cast<Rva00360F55 *>(g_validityBegin) + m_objectFilterSlot00;
     }
     else
         data = &temp;
@@ -151,7 +141,7 @@ void ObjectFilter::DoXfer(Xfer *xfer)
         {
             if (reinterpret_cast<Rva00360F55 *>(g_validityBegin)[i].rva00360E64(*data))
             {
-                m_id = i;
+                m_objectFilterSlot00 = i;
                 break;
             }
         }
@@ -179,9 +169,9 @@ extern BitFlags<116> KINDOFMASK_NONE;
 bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player, const Player *context)
 {
  if(!kindOf) return false;
- if(m_id >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
- if(m_id == -1) m_id=Rva00361790(&Rva00360F55());
- Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_id;
+ if(m_objectFilterSlot00 >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
+ if(m_objectFilterSlot00 == -1) m_objectFilterSlot00=Rva00361790(&Rva00360F55());
+ Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
  int alignment=*reinterpret_cast<int*>(data->bytes+0x90);
  if(alignment) {
   bool flag=player->playerTemplate->alignment;
@@ -220,9 +210,9 @@ bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player,
 bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player *player, const Player *context)
 {
  if(!thingTemplate) return false;
- if(m_id >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
- if(m_id == -1) m_id=Rva00361790(&Rva00360F55());
- Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_id;
+ if(m_objectFilterSlot00 >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
+ if(m_objectFilterSlot00 == -1) m_objectFilterSlot00=Rva00361790(&Rva00360F55());
+ Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_objectFilterSlot00;
  int alignment=*reinterpret_cast<int*>(data->bytes+0x90);
  if(alignment) {
   bool flag=player->playerTemplate->alignment;

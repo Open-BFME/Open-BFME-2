@@ -33,7 +33,7 @@ class UpgradeTemplate { public: char pad[4]; int type; };
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 class Object { public: char pad[0x38]; Coord3D pos; Player *getControllingPlayer() const; };
-class ObjectFilter { public: bool isValid() const; int index; char rest[12]; };
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 class Rva000421C8 {
 public: Rva000421C8():next(0){} virtual ~Rva000421C8(){} virtual bool allow(Object *)=0; virtual int getPlayerMask();
 Rva000421C8 *next;

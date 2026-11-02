@@ -64,22 +64,14 @@ struct Rva00360D2ERecord
     char m_pad68[0x94 - 0x68];
 };
 
-class ObjectFilter
-{
-public:
-	Bool isValid() const;
-private:
-	int m_entryIndex;
-public:
-	void rva00360D2E(AsciiString &out) const;
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectFilter_isValid.cpp
 
 // ?isValid@ObjectFilter@@QBE_NXZ
 Bool ObjectFilter::isValid() const
 {
-    int index = m_entryIndex;
+    int index = m_objectFilterSlot00;
     if (index >= 0)
     {
         int count = (g_validityEnd - g_validityBegin) / (int)sizeof(ValidityRecord);
@@ -108,7 +100,7 @@ Bool ObjectFilter::isValid() const
 
 void ObjectFilter::rva00360D2E(AsciiString &out) const
 {
-    int index = m_entryIndex;
+    int index = m_objectFilterSlot00;
     int count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360D2ERecord);
     if (index < count && index != -1)
     {

@@ -8,12 +8,7 @@ class Player;
 class AsciiString;
 class UpgradeTemplate;
 
-class ObjectFilter
-{
-public:
-	bool testTemplate(const ThingTemplate *tmpl, const Player *a, const Player *b);
- int m_id;
-};
+#include "../../Include/GameLogic/ObjectFilter.h"
 
 #include "../../Include/Common/Upgrade.h"
 

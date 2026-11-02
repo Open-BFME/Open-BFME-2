@@ -121,13 +121,7 @@ public:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 template<int N>class BitFlags;
-class ObjectFilter
-{
-public:
-	bool testKindOf(const BitFlags<218> *mask,const Player *a,const Player *b);
-private:
-	int m_index;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 enum KindOfType { KINDOF_37 = 0x25, KINDOF_61 = 0x3D };
 enum SpecialPowerType { SPECIAL_POWER_39 = 0x27 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };

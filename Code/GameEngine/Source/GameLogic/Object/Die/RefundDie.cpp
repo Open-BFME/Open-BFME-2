@@ -52,7 +52,7 @@ __forceinline long fast_float2long_round(float value)
 class UpgradeTemplate;
 class BfmeTab1026;
 class Rva0039B7AD;
-class ObjectFilter {public:bool isValid()const;int index;};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 class Rva003B0D7C{public:unsigned pad;unsigned balance;void rva003B0D7C(int,Rva0039B7AD*,bool);};
 class Player {public:
  bool rva002AB87D(const UpgradeTemplate*)const;bool rva002AB2D9(BfmeTab1026*,bool)const;

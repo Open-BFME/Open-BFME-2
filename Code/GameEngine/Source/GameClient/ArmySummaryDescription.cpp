@@ -124,11 +124,7 @@ class Rva0037DCA5 { public: void *GetDisplayNameStrategicGame(); };
 void Rva00220DCDInit();
 class ThingTemplate;
 class Player;
-class ObjectFilter {
-public:
-    bool testTemplate(const ThingTemplate *, const Player *, const Player *);
-    int id;
-};
+#include "../../Include/GameLogic/ObjectFilter.h"
 struct DescriptionTemplateCategories {
     char pad[12];
     ObjectFilter namedIndividually;

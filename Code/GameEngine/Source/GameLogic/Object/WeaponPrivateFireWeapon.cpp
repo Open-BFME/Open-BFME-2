@@ -289,11 +289,7 @@ class GlobalData
     WeaponBonusSet *m_weaponBonusSet; // +0xAD0
 };
 extern GlobalData *TheWritableGlobalData;
-class ObjectFilter
-{
-  public:
-    bool isValid() const;
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 enum WeaponStatus
 {
     READY_TO_FIRE,

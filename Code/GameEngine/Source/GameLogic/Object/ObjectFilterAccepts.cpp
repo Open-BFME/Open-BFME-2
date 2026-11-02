@@ -13,7 +13,7 @@ public:
     const ThingTemplate *objectTemplate;
     Player *getControllingPlayer() const;
 };
-class ObjectFilter { public: bool testTemplate(const ThingTemplate *, const Player *, const Player *); };
+#include "../../../Include/GameLogic/ObjectFilter.h"
 struct Rva2225E0Filter {
     bool accepts(Object *, Player *);
 };

@@ -232,7 +232,7 @@ extern PlayerList *ThePlayerList;
 class Radar { public: void addObject(Object *obj); };
 extern Radar *TheRadar;
 
-class ObjectFilter { public: bool testTemplate(const ThingTemplate *tt, const Player *a, const Player *b); };
+#include "../../../Include/GameLogic/ObjectFilter.h"
 class GlobalData { public: unsigned char m_pad[0xEB4]; ObjectFilter m_filter; };
 extern GlobalData *TheWritableGlobalData;
 

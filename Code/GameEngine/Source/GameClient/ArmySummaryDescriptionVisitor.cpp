@@ -14,11 +14,7 @@ public:
 
 class Player;
 
-class ObjectFilter {
-public:
-	bool testTemplate(const ThingTemplate *, const Player *, const Player *);
-	int m_id;
-};
+#include "../../Include/GameLogic/ObjectFilter.h"
 
 struct ArmyDescriptionCategory220D1E {
 	AsciiString m_singular;

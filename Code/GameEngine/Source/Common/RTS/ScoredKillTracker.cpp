@@ -51,7 +51,7 @@ namespace _STL {
 template<>void _List_base<int, allocator<int> >::clear();
 template<>void list<int>::push_back(const int&);
 }
-class ObjectFilter { public: void DoXfer(Xfer *); int m_id; };
+#include "../../../Include/GameLogic/ObjectFilter.h"
 #include "../ScoredKillTrackerView.h"
 // ScoredKillTracker::friend_addTrackedKill / friend_update (WorldBuilder names, ScoredKillTracker.cpp lines 190..195 and 210: push the kill onto the +0x18 list and count; age out the front).
 // was ?rva0055AA06@Rva0055AA06@@QAEXPBUCoord3D@@@Z @ 0x0055AA06, 49 bytes.

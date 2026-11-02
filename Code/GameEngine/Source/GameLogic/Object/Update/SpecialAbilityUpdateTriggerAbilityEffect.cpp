@@ -103,10 +103,7 @@ class Rva2225E0Filter {
   public:
     bool accepts(Object *, Player *);
 };
-class ObjectFilter {
-  public:
-    bool isValid() const;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 class Overridable {
   public:
     const Overridable *friend_getFinalOverride() const;

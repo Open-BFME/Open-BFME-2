@@ -37,11 +37,7 @@ class Object { public:
 };
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class ObjectFilter { public:
-    bool isForbidden(KindOfType);
-    bool testTemplate(const ThingTemplate *,const Player *,const Player *);
-    int index;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 class Rva2225E0Filter:public ObjectFilter { public: bool accepts(Object *,Player *); };
 struct Rva00462977Data {
     char unknown00[0x40]; Rva2225E0Filter passenger;

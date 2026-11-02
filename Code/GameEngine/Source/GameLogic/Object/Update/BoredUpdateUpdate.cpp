@@ -96,12 +96,7 @@ extern ActionManager *TheActionManager;
 
 #include "../object.h"
 
-class ObjectFilter
-{
-public:
-	bool isValid() const;	// 0x00360CED
-	void *m_data;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 
 struct BoredUpdateModuleData
 {

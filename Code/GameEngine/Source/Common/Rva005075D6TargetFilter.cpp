@@ -6,7 +6,7 @@ enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 #include "../../Include/Common/ThingTemplate.h"
 class Player;
 struct Rva2225E0Filter { bool accepts(Object *, Player *); };
-class ObjectFilter { public: bool isValid() const; };
+#include "../../Include/GameLogic/ObjectFilter.h"
 //
 // ?rva00507558@Rva00507823@@QAEEPBX@Z retail 0x00507558 126B
 // Upgrade-mask prerequisite test on the Rva00507823 pair at +0x04/+0x84.

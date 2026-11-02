@@ -21,13 +21,7 @@ template<> struct _Base_bitset<4>
 
 class Player;
 
-class ObjectFilter
-{
-public:
-	bool isValid() const;
-private:
-	int m_entryIndex;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 
 class Rva00331682Holder
 {

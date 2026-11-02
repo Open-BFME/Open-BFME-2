@@ -108,13 +108,7 @@ private:
 	unsigned char m_pad000[0x2EC];
 	Team *m_defaultTeam; // +0x2EC
 };
-class ObjectFilter
-{
-public:
-	Bool isValid() const;
-private:
- int m_entryIndex; // native descriptor reads4B at0
-};
+#include "../../Include/GameLogic/ObjectFilter.h"
 class ProjectileUpdateInterface
 {
 public:

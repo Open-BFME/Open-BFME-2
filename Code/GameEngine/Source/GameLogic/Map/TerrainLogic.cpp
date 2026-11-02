@@ -195,11 +195,7 @@ public:
 };
 
 // Verified ObjectFilter transfer of the four-byte member at +0xBC.
-class ObjectFilter
-{
-public:
-	void DoXfer(Xfer *xfer);
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 
 // Zero Hour's Coord3D::zero, and a location copied member by member rather
 // than as a block.
