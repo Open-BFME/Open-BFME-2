@@ -270,12 +270,12 @@ void *Rva0020EE29::rva0020FAB4(int a1, int a2)
 }
 
 // ?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z @0x002104C7 38B
-// Looks up the second handle through the rowed-pending free 0x002104B6 and,
-// when found, runs the rowed-pending member 0x0020E374 on this with the
-// first handle and the lookup result. Answers false on a null lookup and
-// true otherwise (the member result is discarded). Evidence: retail pushes
-// the lookup arg with no ecx setup (free call) but passes this to the
-// member; the (p, a2) push order puts the lookup result first.
+// Looks up the first handle through the rowed member 0x002104B6 on this and,
+// when found, runs the member 0x0020E374 on this with the lookup result and
+// the second handle. Answers false on a null lookup and true otherwise (the
+// member result is discarded). Evidence: retail pushes the lookup arg and
+// calls 0x002104B6 with the incoming ecx (thiscall on this, which reads
+// [ecx+8]); the (p, a2) push order puts the lookup result first.
 class Rva002104C7
 {
 public:
@@ -283,11 +283,20 @@ public:
 	void rva0020E374(void *a1, void *a2);
 };
 
-void *__stdcall rva002104B6(void *a1);
+class Rva00210390;
+class Rva002104B6
+{
+public:
+	void *rva002104B6(void *a1);
+
+private:
+	char m_pad[8];
+	Rva00210390 *m_08;
+};
 
 bool Rva002104C7::ActivateRegion(void *a1, void *a2)
 {
-	void *p = rva002104B6(a1);
+	void *p = ((Rva002104B6 *)this)->rva002104B6(a1);
 	if (!p)
 		return false;
 	rva0020E374(p, a2);
@@ -340,15 +349,6 @@ void *Rva00210390::rva00210390(const AsciiString *key)
 // +0x8 with the same key, or answers null when it is absent. Evidence:
 // retail tests [ecx+8] then tail-jumps (no frame, args already in place) to
 // the rowed body; the null path zeroes eax and callee-cleans the one arg.
-class Rva002104B6
-{
-public:
-	void *rva002104B6(void *a1);
-
-private:
-	char m_pad[8];
-	Rva00210390 *m_08;
-};
 
 void *Rva002104B6::rva002104B6(void *a1)
 {
