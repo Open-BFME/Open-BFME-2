@@ -314,3 +314,4 @@ ScriptList,Code/GameEngine/Include/GameLogic/ScriptList.h,existing header; contr
 GameSpyStagingRoom,Code/GameEngine/Include/GameNetwork/GameSpyStagingRoom.h,existing header; contract class_contracts/GameSpyStagingRoom.json; 7/35 sampled units adopt
 PathfindZoneManager,Code/GameEngine/Include/GameLogic/PathfindZoneManager.h,existing header; contract class_contracts/PathfindZoneManager.json; 17/32 sampled units adopt
 AIStateMachine,Code/GameEngine/Include/GameLogic/AIStateMachineClass.h,existing header; contract class_contracts/AIStateMachine.json; 8/35 sampled units adopt
+ObjectFilter,Code/GameEngine/Include/GameLogic/ObjectFilter.h,existing header; contract class_contracts/ObjectFilter.json; 30/35 sampled units adopt
