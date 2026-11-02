@@ -5,10 +5,7 @@
 // reinitializes frame data and clears the announced frame horizon.  This is a
 // reset path, not a normal frame-advance writer.
 
-struct FrameDataManager
-{
-	void reset(void);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class Object;
 #include <windows.h>

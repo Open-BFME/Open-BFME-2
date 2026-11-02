@@ -87,13 +87,7 @@ public:
 private:
 	Int m_playerOrder[8];
 };
-class FrameDataManager
-{
-public:
-	UnsignedInt getCommandCount(UnsignedInt frame);
-	void setFrameCommandCount(UnsignedInt frame, UnsignedInt count);
-	Bool getIsQuitting();
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 class Connection
 {
 public:

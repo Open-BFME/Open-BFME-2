@@ -110,12 +110,7 @@ public:
 	UnsignedInt getLastFrame() { return ((NetWrapperCommandMsg *)this)->getDataLength(); }
 };
 
-class FrameDataManager
-{
-public:
-	NetCommandList *getFrameCommandList(UnsignedInt frame);
-	UnsignedInt getFrameCommandCount(UnsignedInt frame);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 Bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();

@@ -255,16 +255,7 @@ template <class T> const T &frameMinimum(const T &lhs, const T &rhs)
 }
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/FrameDataManager.h
-class FrameDataManager
-{
-public:
-	NetCommandList *getFrameCommandList(unsigned int frame);
-	Bool getIsQuitting();
-	unsigned int getCommandCount(unsigned int frame);
-	unsigned int getFrameCommandCount(unsigned int frame);
-	NetCommandRef *addNetCommandMsg(NetCommandMsg *msg);
-	void setFrameCommandCount(unsigned int frame, unsigned int count);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/Connection.h
 class Connection

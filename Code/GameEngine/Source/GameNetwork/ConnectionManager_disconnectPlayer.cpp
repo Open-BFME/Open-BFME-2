@@ -44,12 +44,7 @@ enum
 #include "../../Include/GameClient/InGameUI.h"
 
 // The frame data ring: deleted through its slot-0 virtual destructor.
-class FrameDataManager
-{
-public:
-	virtual ~FrameDataManager();
-	Bool getIsQuitting();
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 // Connection, held in the ledger under its destructor's address name.
 class Rva004D060B

@@ -102,10 +102,7 @@ public:
     NetCommandRef *findMessage(UnsignedShort, unsigned char, NetCommandType, unsigned int);
     void removeMessage(NetCommandRef *);
 };
-class FrameDataManager {
-public:
-    NetCommandRef *addNetCommandMsg(NetCommandMsg *msg);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 bool CommandRequiresDirectSend(NetCommandMsg *msg);
 
 class ConnectionManager {

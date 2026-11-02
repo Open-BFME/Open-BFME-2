@@ -65,11 +65,7 @@ public:
 extern UpgradeCenter *TheUpgradeCenter;
 
 // The upgrade list head getter is ICF-folded at 0x001DB0A8 (mov eax,[ecx+0Ch]).
-class FrameDataManager
-{
-public:
-	UnsignedInt getQuitFrame();
-};
+#include "../../../Include/GameNetwork/FrameDataManagerClass.h"
 
 #include "../../../Include/GameClient/GameText.h"
 

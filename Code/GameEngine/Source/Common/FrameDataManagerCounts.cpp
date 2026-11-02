@@ -40,27 +40,7 @@ __declspec(noinline) void FrameData::setFrameCommandCount(unsigned int count) {
  m_frameCommandCount = count;
 }
 
-class FrameDataManager {
-public:
- FrameDataReturnType allCommandsReady(unsigned int frame, bool debugSpewage);
- int rva00670890(unsigned int frame, int mark);
- unsigned int getAckCommandCount(unsigned int frame);
- void destroyGameMessages();
- unsigned int getCommandCount(unsigned int frame);
- NetCommandList *getFrameCommandList(unsigned int frame);
- unsigned int getFrameCommandCount(unsigned int frame);
- void setFrameCommandCount(unsigned int frame, unsigned int count);
- void resetFrame(unsigned int frame, bool isAdvancing);
- void setQuitFrame(unsigned int frame);
- bool getIsQuitting();
- unsigned int getQuitFrame();
-private:
- void *vtable;
- FrameData *m_frameData;
- bool m_isLocal;
- bool m_isQuitting;
- unsigned int m_quitFrame;
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 void FrameDataManager::destroyGameMessages() {
  int frame = 0;
  unsigned int offset = 0;

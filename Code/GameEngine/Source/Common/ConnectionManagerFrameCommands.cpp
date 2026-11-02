@@ -4,12 +4,7 @@
 // per-player frame rings.  The local ring stores the expected total; the
 // aggregate is complete only when those values agree for the requested frame.
 
-struct FrameDataManager
-{
-	bool getIsQuitting(void);
-	unsigned int getCommandCount(unsigned int frame);
-	unsigned int getFrameCommandCount(unsigned int frame);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class BFMEConnectionManager
 {

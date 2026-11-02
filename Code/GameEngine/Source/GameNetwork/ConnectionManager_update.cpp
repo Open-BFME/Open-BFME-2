@@ -169,13 +169,7 @@ public:
 	~Rva004D060B();
 };
 
-class FrameDataManager
-{
-public:
-	virtual ~FrameDataManager();
-	Bool getIsQuitting();
-	UnsignedInt getQuitFrame();
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class ConnectionManager;
 

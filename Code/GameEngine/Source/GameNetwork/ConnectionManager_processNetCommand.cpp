@@ -126,11 +126,7 @@ private:
 	UnsignedInt m_lastHeardFrom;
 };
 
-class FrameDataManager
-{
-public:
-	void setFrameCommandCount(UnsignedInt frame, UnsignedInt count);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class ConnectionManager;
 

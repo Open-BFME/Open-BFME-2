@@ -45,24 +45,7 @@ public:
 	NetCommandRef *addCommand(NetCommandMsg *msg);
 };
 
-class FrameDataManager {
-public:
-	void zeroFrames(unsigned int startingFrame, unsigned int numFrames);
-private:
-	void *vtable;
-private:
-	FrameData *m_frameData;
-private:
-	bool m_isLocal;
-private:
-	bool m_isQuitting;
-private:
-	unsigned int m_quitFrame;
-public:
-	void reset(void);
-public:
-	NetCommandRef *addNetCommandMsg(NetCommandMsg *msg);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 // tu-skeleton: 0x0058B567 113B ??0FrameDataManager@@QAE@_N@Z -- matched in Code/GameEngine/Source/Common/FrameDataManagerDtor.cpp (not merged yet)
 

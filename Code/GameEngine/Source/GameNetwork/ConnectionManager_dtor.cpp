@@ -51,11 +51,7 @@ public:
 	~Rva004D060B();
 };
 
-class FrameDataManager
-{
-public:
-	virtual ~FrameDataManager();
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class NetCommandList
 {

@@ -55,13 +55,7 @@ public:
 	unsigned int m_timeLastSent;
 };
 
-struct FrameDataManager
-{
-	bool getIsQuitting(void);
-	unsigned int getCommandCount(unsigned int frame);
-	unsigned int getFrameCommandCount(unsigned int frame);
-	NetCommandRef *addNetCommandMsg(NetCommandMsg *msg);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class Connection
 {

@@ -63,12 +63,7 @@ private:
 	Int m_quitState;
 };
 
-class FrameDataManager
-{
-public:
-	Bool getIsQuitting();
-	void setQuitFrame(UnsignedInt quitFrame);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class NetCommandMsg
 {

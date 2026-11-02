@@ -18,12 +18,7 @@ private:
 	void *m_lastMessageInserted;
 };
 
-class FrameDataManager
-{
-public:
-	NetCommandList *getFrameCommandList(unsigned int frame);
-	void resetFrame(unsigned int frame, bool isAdvancing);
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class NetworkInterface;
 struct FrameListNetworkVTable

@@ -53,15 +53,7 @@ private:
 	char m_pad000[0x358];
 };
 
-class FrameDataManager
-{
-public:
-	FrameDataManager(Bool isLocal);
-	void reset();
-
-private:
-	char m_pad00[0x10];
-};
+#include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
 class GameSlot
 {
