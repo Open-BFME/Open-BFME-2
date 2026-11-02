@@ -276,3 +276,4 @@ ModelConditionFlags,Code/GameEngine/Include/GameClient/ModelConditionFlags.h,exi
 CreateAHeroData,Code/GameEngine/Include/GameLogic/CreateAHeroData.h,existing header; contract class_contracts/CreateAHeroData.json; 30/66 sampled units adopt
 UpgradeMux,Code/GameEngine/Include/GameLogic/Module/UpgradeMux.h,existing header; contract class_contracts/UpgradeMux.json; 49/76 sampled units adopt
 MapCache,Code/GameEngine/Include/GameClient/MapCache.h,existing header; contract class_contracts/MapCache.json; 43/51 sampled units adopt
+DisplayStringManager,Code/GameEngine/Include/GameClient/DisplayStringManager.h,existing header; contract class_contracts/DisplayStringManager.json; 33/48 sampled units adopt

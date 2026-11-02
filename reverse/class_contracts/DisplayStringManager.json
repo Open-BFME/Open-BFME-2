@@ -1,0 +1,156 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "DisplayStringManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 1,
+  "retail_vtables": {},
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 1,
+   "4": 34,
+   "12": 1,
+   "20": 1
+  },
+  "views": 37,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DisplayStringManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/DisplayStringManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 36,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DisplayStringManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "newDisplayString()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "freeDisplayString(DisplayString*)"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "getNumeralString(int)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}
