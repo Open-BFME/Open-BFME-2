@@ -174,17 +174,7 @@ public:
 
 extern ThingFactory *TheThingFactory;
 
-class SidesList
-{
-public:
-	SidesInfo *getSideInfo(int ndx);
-	int getNumSides() const { return m_numSides; }
-	void rva0032A5FC(DataChunkOutput &chunkWriter);
-
-private:
-	unsigned char m_pad[0x3C];
-	int m_numSides; // +0x3C
-};
+#include "../../../Include/Common/SidesList.h"
 
 // ?getScript@BuildListInfo@@QBE?AVAsciiString@@XZ
 AsciiString BuildListInfo::getScript() const

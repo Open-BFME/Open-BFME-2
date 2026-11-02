@@ -147,11 +147,7 @@ class ThingTemplate;
 
 extern class ThingFactory *TheThingFactory;
 
-class SidesList
-{
-public:
-	bool rva0032BD25(int key, int idx, BuildListInfo *info);
-};
+#include "../../../../Include/Common/SidesList.h"
 
 extern SidesList *TheSidesList;
 

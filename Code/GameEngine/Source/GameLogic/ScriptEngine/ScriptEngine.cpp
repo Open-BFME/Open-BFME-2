@@ -1369,13 +1369,7 @@ public:
 	ScriptList m_scriptList; // +0x08
 };
 
-class SidesList
-{
-public:
-	SidesInfo *getSideInfo(int i);
-	char m_pad[0x3C];
-	int m_numSides; // +0x3C
-};
+#include "../../../Include/Common/SidesList.h"
 
 extern SidesList *TheSidesList;
 

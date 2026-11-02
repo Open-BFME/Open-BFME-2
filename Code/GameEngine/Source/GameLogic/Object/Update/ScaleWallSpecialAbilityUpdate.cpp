@@ -196,11 +196,7 @@ public:
 	void destroyAllMessages();
 };
 
-class SidesList
-{
-public:
-	void clear();
-};
+#include "../../../../Include/Common/SidesList.h"
 
 class StateMachine
 {

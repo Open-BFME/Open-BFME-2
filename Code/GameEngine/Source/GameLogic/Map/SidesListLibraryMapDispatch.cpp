@@ -10,19 +10,11 @@ public:
     LibraryMapCache() : _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >(_STL::allocator<BfmeE16>()) {}
     ~LibraryMapCache();
 };
-class SidesList {
-public:
-    void rva0032FC70(int sideIndex, LibraryMapCache *cache);
-    void rva0032FEF5();
-    void rva0032FF48(int sideIndex);
-private:
-    char m_prefix[0x3C];
-    int m_count;
-};
+#include "../../../Include/Common/SidesList.h"
 void SidesList::rva0032FEF5()
 {
     LibraryMapCache cache;
-    for(int i=0;i<m_count;++i) rva0032FC70(i,&cache);
+    for(int i=0;i<m_numSides;++i) rva0032FC70(i,&cache);
 }
 void SidesList::rva0032FF48(int sideIndex)
 {

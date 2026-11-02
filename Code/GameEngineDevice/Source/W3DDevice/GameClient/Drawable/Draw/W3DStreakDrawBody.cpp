@@ -23,11 +23,7 @@ struct Rva00167EF8Rec
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
-class SidesList
-{
-public:
-	int getNumSkirmishSides();
-};
+#include "../../../../../../GameEngine/Include/Common/SidesList.h"
 
 class Rva00168690
 {

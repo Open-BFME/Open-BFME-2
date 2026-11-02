@@ -477,11 +477,7 @@ class Rva00396A5C
 public:
     int rva00396A5C(Player*);
 };
-class SidesList
-{
-public:
-    bool rva0032BD25(int, int, BuildListInfo*);
-};
+#include "../../Include/Common/SidesList.h"
 extern SidesList* TheSidesList;
 #include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic* TheTerrainLogic;

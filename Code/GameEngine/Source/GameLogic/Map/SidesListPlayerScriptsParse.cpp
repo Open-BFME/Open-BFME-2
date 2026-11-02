@@ -35,13 +35,7 @@ class SidesInfo : public SidesInfoPrefix, public ScriptList
 {
 };
 
-class SidesList
-{
-public:
-	SidesInfo *getSideInfo(int side);
-	unsigned char m_pad00[0x3C];
-	int m_numSides;		// +0x3C
-};
+#include "../../../Include/Common/SidesList.h"
 
 class Rva003B793A
 {

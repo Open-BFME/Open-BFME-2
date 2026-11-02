@@ -131,16 +131,7 @@ public:
 };
 
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-class SidesList
-{
-public:
-	void emptySides();
-	bool validateSides();
-	void rva0032FEF5();
-	Bool rva0032F0AA(DataChunkInput &file, void *info);
-	Bool parseSidesDataChunk(DataChunkInput &file, DataChunkInfo *info);
-	Bool parseLibraryMapListsChunk(DataChunkInput &file, DataChunkInfo *info);
-};
+#include "../../../../GameEngine/Include/Common/SidesList.h"
 extern SidesList *TheSidesList;
 
 typedef Bool (SidesList::*SidesListChunkParser)(DataChunkInput &file, DataChunkInfo *info);

@@ -35,11 +35,7 @@ const char *BuildListInfo::GetSnapshotName() const
 }
 // The constructor installs Snapshot table VA 0x00C0DA88 at +0x0C.
 // Its name slot holds this getter.
-class SidesList
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/Common/SidesList.h"
 
 const char *SidesList::GetSnapshotName() const
 {

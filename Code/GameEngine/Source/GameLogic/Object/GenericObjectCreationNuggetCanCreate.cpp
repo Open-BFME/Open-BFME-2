@@ -43,7 +43,7 @@ public:
 protected: virtual ~BuildListInfo();
 private: char data[0x80-4];
 };
-class SidesList { public: bool rva0032BD25(int,int,BuildListInfo*); };
+#include "../../../Include/Common/SidesList.h"
 extern SidesList *TheSidesList;
 enum LegalBuildCode { LBC_OK=0 };
 class BuildAssistant {
