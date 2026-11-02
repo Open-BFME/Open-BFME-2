@@ -913,3 +913,6 @@ Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp|param|Rva0033BFA6::rva
 Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp|param|Rva0033BFA6::rva0033BFA6|v,c8bc7ce8585a14bf71faa7de,claude-haiku-5-5,drz-k7-n42e,w-39f33c7a085b,2026-11-02,a50e3edc8d341160906786a4
 Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp|local|Rva0033BFA6::rva0033BFA6|z,d2ef7994022a44f53c6c5c30,claude-haiku-5-5,drz-k7-n42e,w-39f33c7a085b,2026-11-02,8c5e247672b97fa02e1b772b
 Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp|param|RvaCloneResult|p,b4e5693c9dfd55f0abf1c46e,claude-haiku-5-5,drz-k9-n41f,w-2a58b1ead41e,2026-11-02,83937e5c4b5f1c300a984cdb
+Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp|param|allied|a,239764079b99c0d16ae7c8b1,claude-haiku-5-5,drz-k9-n41h,w-2a58b1ead41e,2026-11-02,4de75536a471e6aa605ea64e
+Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp|param|allied|b,c4861606dfaf49c8dd30f6cd,claude-haiku-5-5,drz-k9-n41h,w-2a58b1ead41e,2026-11-02,4c382ecdfd8fc8d5334497cf
+Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp|param|difficultyPoints|n,98cc1847cd61a50e71d85aba,claude-haiku-5-5,drz-k9-n41h,w-2a58b1ead41e,2026-11-02,e19373a9fbcd9746faadfcf7
