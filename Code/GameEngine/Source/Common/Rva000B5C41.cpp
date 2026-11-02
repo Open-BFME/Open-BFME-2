@@ -94,61 +94,61 @@ void Rva000B5C41::rva000B5C41()
 	int idx = m44;
 	if (idx == -1)
 		return;
-	Entry000B5C41 *e = (Entry000B5C41 *)((char *)base + (idx << 6));
-	if (e == 0)
+	Entry000B5C41 *entry = (Entry000B5C41 *)((char *)base + (idx << 6));
+	if (entry == 0)
 		return;
-	if (!(e->m34 > BfmeZeroRange))
+	if (!(entry->m34 > BfmeZeroRange))
 		return;
-	if (!(e->m38 > e->m34))
+	if (!(entry->m38 > entry->m34))
 		return;
 	if (m110 == 0)
 		return;
-	float f = m114;
+	float progress = m114;
 	int r1 = m110->s05();
 	float f1 = (float)r1;
 	float ref;
-	if (e->m38 > f1) {
+	if (entry->m38 > f1) {
 		int r2 = m110->s05();
 		ref = (float)r2;
 	} else {
-		ref = e->m38;
+		ref = entry->m38;
 	}
-	float baseF = e->m34;
-	if (baseF > f) {
-		if (e->m3c == 0)
+	float baseF = entry->m34;
+	if (baseF > progress) {
+		if (entry->m3c == 0)
 			goto one_assign;
-		f = 0.0f;
+		progress = 0.0f;
 		goto zero;
 	}
-	if (f > ref) {
-		if (e->m3c == 0) {
-			f = 0.0f;
+	if (progress > ref) {
+		if (entry->m3c == 0) {
+			progress = 0.0f;
 			goto zero;
 		}
 one_assign:
-		f = g_Va00BBB8D8;
+		progress = g_Va00BBB8D8;
 		goto one;
 	}
 	{
-		float t = (f - e->m34) / (ref - e->m34);
-		float t2;
-		if (e->m3c != 0)
-			t2 = t;
+		float fraction = (progress - entry->m34) / (ref - entry->m34);
+		float adjustedFraction;
+		if (entry->m3c != 0)
+			adjustedFraction = fraction;
 		else
-			t2 = g_Va00BBB8D8 - t;
-		f = t2;
-		if (t2 > BfmeZeroRange)
+			adjustedFraction = g_Va00BBB8D8 - fraction;
+		progress = adjustedFraction;
+		if (adjustedFraction > BfmeZeroRange)
 			goto one;
 		goto zero;
 	}
 zero:
 	m08->rva002707FA(0);
 	m50->s101(1);
-	m50->s23(1, f);
+	m50->s23(1, progress);
 	return;
 one:
 	m08->rva002707FA(1);
 	m50->s101(0);
-	m50->s23(1, f);
+	m50->s23(1, progress);
 	return;
 }

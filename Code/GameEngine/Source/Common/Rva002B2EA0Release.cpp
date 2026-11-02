@@ -24,12 +24,12 @@ private:
 
 void Rva002B2EA0::rva002B2EA0()
 {
-	Rva002B2EA0Item *p = m_p;
+	Rva002B2EA0Item *guardedItem = m_p;
 	void *q;
-	if (p) {
-		int *prefix = (int *)p - 1;
+	if (guardedItem) {
+		int *prefix = (int *)guardedItem - 1;
 		if (*prefix)
-			q = p->v0(2);
+			q = guardedItem->v0(2);
 		else {
 			::operator delete[](prefix);
 			q = 0;

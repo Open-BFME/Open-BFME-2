@@ -31,17 +31,17 @@ class Rva000B5916
 	char _p3[0xa8 - 0x98 - 4];
 	StringBase<char> m_str;
 public:
-	void rva000B5916(float f);
+	void rva000B5916(float scale);
 };
 
-void Rva000B5916::rva000B5916(float f)
+void Rva000B5916::rva000B5916(float scale)
 {
 	Obj000B5916 *obj = m_obj;
 	if (obj)
 	{
 		obj->s20();
 		Rva000B2FBB *base = (Rva000B2FBB *)((char *)this - 12);
-		base->rva000B2FBB(f, (const Matrix3D *)((char *)obj + 24));
+		base->rva000B2FBB(scale, (const Matrix3D *)((char *)obj + 24));
 	}
 	m_98 = 0;
 	m_94 = 1;

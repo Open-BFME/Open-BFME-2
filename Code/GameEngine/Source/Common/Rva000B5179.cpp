@@ -38,8 +38,8 @@ void Rva000B5179Apply(void *a1_, void *a2_, void *a3_)
 {
 	Flags000B5179 *flags = (Flags000B5179 *)a1_;
 	Cont000B5179 *container = (Cont000B5179 *)a2_;
-	void *a3 = a3_;
-	if (flags == 0 || container == 0 || a3 == 0)
+	void *provider = a3_;
+	if (flags == 0 || container == 0 || provider == 0)
 		return;
 	if ((container->mF4 & 8) == 0)
 		return;
@@ -47,9 +47,9 @@ void Rva000B5179Apply(void *a1_, void *a2_, void *a3_)
 	for (int i = 0; i < 6; i++, ppEnd = (Elem000B5179 **)((char *)ppEnd + 0xC)) {
 		if (flags->m_flags[i] != 0) {
 			Elem000B5179 *beg = *(ppEnd - 1);
-			for (Elem000B5179 *p = beg; p != *ppEnd; ++p) {
-				if (p->m08 != 0)
-					((Rva000B304B *)p)->setMuzzleFlashHidden(a3, true);
+			for (Elem000B5179 *elems = beg; elems != *ppEnd; ++elems) {
+				if (elems->m08 != 0)
+					((Rva000B304B *)elems)->setMuzzleFlashHidden(provider, true);
 			}
 		}
 	}
