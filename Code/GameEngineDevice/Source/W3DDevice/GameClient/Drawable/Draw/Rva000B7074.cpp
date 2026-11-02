@@ -14,12 +14,7 @@ class Rva000B2F38
 public:
 	bool rva000B2F38(float v);
 };
-class Object
-{
-public:
-	float rva0028AC7D() const;
-	Object *rva002931F5(bool b);
-};
+#include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 struct Cont000B7074
 {
 	char _p0[0xfc];

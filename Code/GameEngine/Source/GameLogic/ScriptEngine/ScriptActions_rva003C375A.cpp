@@ -22,11 +22,7 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-class Object
-{
-public:
-	void forceEmotion(int index, float value, int arg);
-};
+#include "../Object/object.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 class Parameter;

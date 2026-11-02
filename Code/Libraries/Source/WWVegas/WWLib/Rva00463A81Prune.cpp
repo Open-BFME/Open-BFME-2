@@ -19,12 +19,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	unsigned char m_pad438[0x438];
-	unsigned char m_flag438;
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -45,7 +40,7 @@ void Rva00463A81::rva00463A81()
 	{
 		int key = (*it).first;
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)key);
-		if (obj == 0 || (obj->m_flag438 & 1) != 0)
+		if (obj == 0 || (obj->m_privateStatus & 1) != 0)
 		{
 			_STL::map<int, void *>::iterator cur = it;
 			++it;

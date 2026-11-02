@@ -133,14 +133,7 @@ class AIData007446A0;
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class Object
-{
-public:
-	bool GetGoalPosition(Coord3D *pos) const;
-	bool GetPathfinderPos(Coord3D *pos) const;
-	char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
 void drawablePostDraw(Drawable *draw, void *userData);
 

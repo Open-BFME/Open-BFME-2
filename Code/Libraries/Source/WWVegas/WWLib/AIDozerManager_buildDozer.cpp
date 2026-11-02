@@ -13,11 +13,7 @@ class ThingTemplate;
 class ThingFactory;
 class SuffixObj;
 
-class Object
-{
-public:
-	void *rva0028BC58(int val);
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Rva002A8F24.h"
 

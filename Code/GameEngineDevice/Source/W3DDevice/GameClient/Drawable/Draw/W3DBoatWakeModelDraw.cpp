@@ -47,11 +47,7 @@ class Rva0008BB38FloatField { public: Real get() const; };
 
 class Locomotor { public: Real getMaxSpeed(Object *obj) const; };
 
-class Object
-{
-public:
-	const Rva0028AC4EEntry *rva0028AC4E() const;
-};
+#include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 

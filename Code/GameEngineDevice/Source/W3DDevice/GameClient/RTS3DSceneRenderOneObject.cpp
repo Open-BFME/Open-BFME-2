@@ -312,15 +312,7 @@ enum CellShroudStatus
 #include <stddef.h>
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
-	Bool isEffectivelyDead(void) const { return (m_privateStatus & 1) != 0; }
-private:
-	char m_pad000[0x438];
-	unsigned char m_privateStatus;										// +0x438
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 extern GameLogic *TheGameLogic;
 

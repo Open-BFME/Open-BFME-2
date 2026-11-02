@@ -128,15 +128,7 @@ class CommandButton;
 
 struct Coord3D;
 
-class Object
-{
-public:
-	void *rva0028BC58(Int which);
-public:
-	void doCommandButton(const CommandButton *button, Int a, bool b);
-public:
-	void doCommandButtonAtPosition(const CommandButton *button, const Coord3D *pos, Int a, Int b);
-};
+#include "../../Object/object.h"
 
 // 0x00596BA2: the unsigned +0x38 count as a Real (the argument is unused).
 // 0x005C4212 and 0x005C4221: hand this object to virtual slot 3 (resp. 2)

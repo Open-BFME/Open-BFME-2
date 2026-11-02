@@ -77,18 +77,7 @@ private:
 
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;		// 0x0028AFA9
-	bool rva0028F518();				// 0x0028F518
-	bool testStatus(ObjectStatusTypes status) const;	// 0x0004E536
-	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-
-private:
-	unsigned char m_pad000[0x438];
-	unsigned char m_privateStatus;			// +0x438
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 struct BreezeInfo;
 

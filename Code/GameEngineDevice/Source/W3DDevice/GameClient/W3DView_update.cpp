@@ -55,14 +55,7 @@ class Rva0007DA23ResourceManager;
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 class Object;
 #include "../../../../GameEngine/Include/GameClient/Drawable.h"
-class Object
-{
-public:
-	bool GetGoalPosition(Coord3D *pos) const;
-	bool GetPathfinderPos(Coord3D *pos) const;
-	char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 class ScriptEngine;
 class Rva00203B08 {public:bool rva0020424FF();};
 class Rva00203ACEByteField {public:unsigned char get()const;};
@@ -631,7 +624,7 @@ void W3DView::update()
                 W3DViewFollowFactor+=0.05f;
                 if(W3DViewFollowFactor>1.0f) W3DViewFollowFactor=1.0f;
             }
-            Coord3D objpos; objpos.x=cameraLockObj->m_position.x; objpos.y=cameraLockObj->m_position.y; objpos.z=cameraLockObj->m_position.z;
+            Coord3D objpos; objpos.x=cameraLockObj->m_cachedPos.x; objpos.y=cameraLockObj->m_cachedPos.y; objpos.z=cameraLockObj->m_cachedPos.z;
             if(drawable) objpos=*drawable->getPosition();
             CameraCoordinates curpos(m_pos);
             float snapThreshSqr=sqr(TheWritableGlobalData->m_partitionCellSize);
@@ -718,7 +711,7 @@ void W3DView::update()
             if(drawable) pos=drawable->getPosition();
             else {
                 Object *obj=TheGameLogic->findObjectByID((ObjectID)getCameraLock());
-                if(obj)pos=&obj->m_position;else pos=0;
+                if(obj)pos=&obj->m_cachedPos;else pos=0;
             }
             if(pos) {
                 float height=field0068>0.0f?field0068:TheWritableGlobalData->field0e58;

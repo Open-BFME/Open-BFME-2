@@ -115,14 +115,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-class Object
-{
-public:
-	float getVisionRange() const;	// 0x0028DDE0
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../Object/object.h"
 
 class Parameter
 {

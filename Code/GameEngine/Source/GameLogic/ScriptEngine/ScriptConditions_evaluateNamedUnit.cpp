@@ -20,16 +20,7 @@ enum NameKeyType
 {
 };
 #include "../../../Include/Common/Module.h"
-class Object
-{
-public:
-    bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-protected:
-    Module *findModule(NameKeyType key) const;
-public:
-    unsigned char m_pad000[0x438];
-    unsigned char m_privateStatus;
-};
+#include "../Object/object.h"
 class ObjectWithPub : public Object
 {
 public:

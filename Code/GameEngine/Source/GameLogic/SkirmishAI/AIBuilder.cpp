@@ -220,20 +220,7 @@ public:
     unsigned char gap110[0x10];
     unsigned char kindOf120;
 };
-class Object
-{
-public:
-    bool testStatus(ObjectStatusTypes) const;
-    void *vtable00;
-    ThingTemplate *template04;
-    unsigned char gap08[0x6c];
-    unsigned int id74;
-    ObjectID producer78;
-    unsigned char gap7c[0x204];
-    float value280;
-    unsigned char gap284[0x1b4];
-    unsigned char flags438;
-};
+#include "../Object/object.h"
 void __cdecl Rva00030830FreeAllocation(void *);
 namespace _STL
 {
@@ -346,30 +333,30 @@ void AIBuilder::moneySaverUpdate()
 // is assigned to that helper or to the order payload's other virtual slots.
 void AIBuilder::unRegisterProducedObject(Object *object)
 {
-    if (object->template04->kindOf120 & 4)
-        reinterpret_cast<Rva00599534 *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599534(object->id74);
-    if (object->template04->kindOf10f & 0x80)
-        reinterpret_cast<Rva00598149 *>(reinterpret_cast<unsigned char *>(this) + 0x38)->rva00598149(reinterpret_cast<void *>(object->id74));
-    if ((object->template04->kindOf108 & 0x80) && (object->flags438 & 1) &&
-        ((object->value280 < 0.0f && !Rva00486687Find(object)) ||
+    if (object->m_template->kindOf120 & 4)
+        reinterpret_cast<Rva00599534 *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599534(object->m_id);
+    if (object->m_template->kindOf10f & 0x80)
+        reinterpret_cast<Rva00598149 *>(reinterpret_cast<unsigned char *>(this) + 0x38)->rva00598149(reinterpret_cast<void *>(object->m_id));
+    if ((object->m_template->kindOf108 & 0x80) && (object->m_privateStatus & 1) &&
+        ((object->m_constructionPercent < 0.0f && !Rva00486687Find(object)) ||
          object->testStatus(static_cast<ObjectStatusTypes>(2))))
     {
         if (object->testStatus(static_cast<ObjectStatusTypes>(2)))
         {
-            Object *producer = TheGameLogic->findObjectByID(object->producer78);
-            if (producer && (producer->template04->kindOf109 & 0x40) && !(producer->flags438 & 1))
-                reinterpret_cast<AIDozerManager *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599825(producer->id74);
+            Object *producer = TheGameLogic->findObjectByID(object->m_producerID);
+            if (producer && (producer->m_template->kindOf109 & 0x40) && !(producer->m_privateStatus & 1))
+                reinterpret_cast<AIDozerManager *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599825(producer->m_id);
             AIBuilderOrderNode *end = *reinterpret_cast<AIBuilderOrderNode **>(&orders13c);
             for (AIBuilderOrderNode *it = end->next; it != end; it = it->next)
             {
                 AIBuilderOrder *order = it->order;
-                if (order->producedObject24 == object->id74)
+                if (order->producedObject24 == object->m_id)
                     order->slot07(3);
             }
         }
         reinterpret_cast<AIBaseBuilder *>(reinterpret_cast<unsigned char *>(this) + 4)->notifyBuildingDestroyed(object);
     }
-    if ((object->template04->kindOf109 & 0x40) && (object->flags438 & 1))
+    if ((object->m_template->kindOf109 & 0x40) && (object->m_privateStatus & 1))
         notifyDozerDead(reinterpret_cast<Rva005996FFArg *>(object));
 }
 
@@ -430,9 +417,9 @@ void AIBuilder::checkForNewUpgrades()
         do
         {
             Object *object = TheGameLogic->findObjectByID(*it);
-            if (object && (object->template04->kindOf120 & 4) &&
+            if (object && (object->m_template->kindOf120 & 4) &&
                 !(*(unsigned char *)((unsigned char *)object + 0x94) & 1) &&
-                !(object->flags438 & 1))
+                !(object->m_privateStatus & 1))
                 changed.push_back(object);
             ++it;
         } while (it != ids->end());

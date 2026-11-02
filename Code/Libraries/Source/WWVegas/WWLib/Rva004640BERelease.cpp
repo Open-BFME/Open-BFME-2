@@ -11,11 +11,7 @@
 // direct zero-argument thiscall ABI observed here; its body remains deferred.
 // Field names, owning class, and virtual-slot semantics remain address-derived.
 
-class Object
-{
-public:
-	void rva0028AE6D();
-};
+#include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
 class Rva00463A81
 {

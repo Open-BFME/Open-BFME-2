@@ -45,11 +45,7 @@ public:
     char unknown08[0x14-8]; bool flag14;
     Rva001EAFC1 &operator=(const Rva001EAFC1 &);
 };
-class Object {
-public:
-    void updateUpgradeModules();
-    Object *rva002931F5(bool);
-};
+#include "../Object/object.h"
 class CarryoverAIView {
 public:
 #define CARRYOVER_SLOT(n) virtual void slot##n() = 0;
