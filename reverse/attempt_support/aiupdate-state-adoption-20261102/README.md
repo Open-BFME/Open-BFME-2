@@ -26,3 +26,5 @@ is untouched. A future named-provider repair needs independent target identity
 evidence and coordinated retirement of that old strong definition; native
 byte equality alone does not establish the name. Whole primary-table closure,
 global provider selection and runtime remain unverified.
+
+The deferred named-provider trial and resolved87B private proof are now banked as handoff evidence only. The code text is not a live provider, approved name or progress. The private donor-removal proof preserves its nine matched bodies, but that removal is not applied. Do not land either half until independent target-name evidence and a coordinated current provider audit support it. The actual three-row canonical StateMachine adoption remains separate and already passed its owning acceptance tool.
