@@ -146,3 +146,8 @@ float SupplyTruckAIUpdate::rva004A6FEF() const
 {
     return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field78;
 }
+
+int SupplyTruckAIUpdate::rva004A6FF9() const
+{
+    return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field7C;
+}
