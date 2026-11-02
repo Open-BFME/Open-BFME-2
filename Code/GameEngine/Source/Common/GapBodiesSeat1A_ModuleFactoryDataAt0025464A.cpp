@@ -315,19 +315,7 @@ public:
 	void rva002783F6(int value);							// 0x002783F6
 };
 
-class Drawable
-{
-public:
-	void stopAmbientSound();										// 0x002743D7
-	void rva002784EB();										// 0x002784EB
-	void enableAmbientSound(bool value);
-	void rva0027862C(bool value);
-private:
-	char m_pad000[0x447];
-	bool m_447;
-	bool m_448;
-	bool m_449;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 
 

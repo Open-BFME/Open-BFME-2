@@ -191,11 +191,7 @@ public:
 
 extern AI *TheAI;
 
-class Drawable
-{
-public:
-	void fadeIn(unsigned int frames);	// 0x002707A8
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Object
 {

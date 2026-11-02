@@ -452,12 +452,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-class Drawable
-{
-public:
-	void rva00274176(bool);
-	void fadeIn(unsigned);
-};
+#include "../../../Include/GameClient/Drawable.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager* ThePartitionManager;

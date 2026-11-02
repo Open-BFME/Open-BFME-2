@@ -14,7 +14,7 @@
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Drawable {public:const Coord3D *getPosition() const;};
+#include "../../Include/GameClient/Drawable.h"
 class Rva002768AC {
 public:
  void rva002768AC();

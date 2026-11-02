@@ -6,12 +6,7 @@ static __forceinline float &matrixComponent(Matrix3D &m,int row,int col) { retur
 static __forceinline const float &matrixComponent(const Matrix3D &m,int row,int col) { return (&m.Row[row].X)[col]; }
 
 
-class Drawable
-{
-public:
-	float rva00272C9E(int key);
-	const Matrix3D *getTransformMatrix() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 #include "ascii_string.h"
 
