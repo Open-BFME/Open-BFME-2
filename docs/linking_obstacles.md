@@ -17899,3 +17899,8 @@ older984a4cdc4d index; its last missing receipt is0CreateAHeroManager21FE49.cpp.
 ### Quaternion translation-unit profile boundary (2026-11-02)
 
 The approved quat.cpp merge still cannot absorb quat_BuildMatrix4.cpp: the carried seed override is SSE2, while the donor has no baseline match in that merge. Its own normal build remains 1/1 exact (375B; four float references). Both units are census-linked; no source, ownership or row changed. This is a consolidation prerequisite, not a link regression. [Current evidence and previous-boundary reference](../reverse/attempt_support/quat-tu-profile-20261102/README.md). A common-profile exact reconstruction is still required before the owning merge tool can remove the donor.
+
+
+### Timing-log Microsoft-header cleanup (2026-11-02)
+
+Rva0023C641Write.cpp now uses the supplied stdio/string/Windows headers; its owning inventory drops from eleven copied declarations to one. All three rows, six emitted code definitions and five data definitions retain bytes and relocations; strict checks and the bounded LINKS 542-byte prediction pass. The remaining direct _mbscat declaration cannot yet become the /MD mbstring.h import without changing the native 371B setup body; a private trial confirms that boundary. SDK default-library directives are covered separately in the [verification packet](../reverse/attempt_support/timing-msheaders-20261102/README.md). Census and runtime status are unchanged.

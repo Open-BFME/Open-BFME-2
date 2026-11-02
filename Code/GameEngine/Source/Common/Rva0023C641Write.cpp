@@ -19,36 +19,14 @@
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "ascii_string.h"
 
-struct FILE;
+// platformsdk
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
 
-extern "C"
-{
-	__declspec(dllimport) int __cdecl fputs(const char *str, FILE *file);
-	__declspec(dllimport) int __cdecl fflush(FILE *file);
-	__declspec(dllimport) FILE *__cdecl fopen(const char *name, const char *mode);
-	char *__cdecl strcpy(char *dest, const char *src);
-	char *__cdecl _mbscat(char *dest, const char *src);
-	unsigned int __cdecl strlen(const char *str);
-}
-
-struct SYSTEMTIME
-{
-	unsigned short wYear;
-	unsigned short wMonth;
-	unsigned short wDayOfWeek;
-	unsigned short wDay;
-	unsigned short wHour;
-	unsigned short wMinute;
-	unsigned short wSecond;
-	unsigned short wMilliseconds;
-};
-
-extern "C"
-{
-	__declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *time);
-	__declspec(dllimport) int __stdcall GetDateFormatA(unsigned long locale, unsigned long flags, const SYSTEMTIME *date, const char *format, char *buffer, int size);
-	__declspec(dllimport) int __stdcall GetTimeFormatA(unsigned long locale, unsigned long flags, const SYSTEMTIME *time, const char *format, char *buffer, int size);
-}
+// Retail calls the game's _mbscat import thunk through REL32. The /MD
+// mbstring.h declaration would call its IAT slot directly and changes bytes.
+extern "C" char *__cdecl _mbscat(char *dest, const char *src);
 
 // The four flags the donor clears, in its order (there +0xCF4, +0x1E and
 // the shadow volume/decal pair +0x64/+0x65); BFME 2's offsets are the

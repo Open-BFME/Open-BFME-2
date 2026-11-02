@@ -1,0 +1,9 @@
+# Timing-log Microsoft headers, 2026-11-02
+
+Source: `Code/GameEngine/Source/Common/Rva0023C641Write.cpp`. Replace ten copied declarations (including the FILE forward declaration) with the supplied VS2003 `stdio.h`, `string.h` and Platform SDK `windows.h`; keep the existing direct `_mbscat` declaration. The refreshed owning inventory falls from eleven occurrences to one. No class layout, function body, ledger identity or provider changes.
+
+Private original/candidate verification: all three native rows exact; all six complete external code definitions and five data definitions retain identical bytes and symbolic relocations. Independent COFF review also found identical undefined symbols. These are code/data comparisons, not whole-object equality: SDK inclusion adds two uuid.lib default-library directives, ignored by the current /NODEFAULTLIB link driver; the seven prior alternates remain unchanged.
+
+Normal build and strict provider preparation: 3/3; literal references 4, compiler floats 1, named imports 6 pass. Frozen-file check passes. New-variant check passes. Bounded current-object prediction retains LINKS 542 bytes against the 984a4cdc4d index; no new census or runtime result is claimed.
+
+The remaining `_mbscat` copy is a measured blocker. The existing __mbscat symbol points at 0x0062988C, the rowed six-byte msvcr71.dll import thunk using slot 0x00BBA5E8. Retail's enclosing 371B rva0023D494 uses REL32 calls to that thunk. A private trial including mbstring.h and using its unsigned-char pointer prototype compiles but loses this native row; other rows remain exact. It substitutes direct IAT calls for the thunk. Trial and original objects stayed private; no macro, compiler option, pin or alias was added to evade this difference. A future repair must preserve the native calls while retiring the last copied declaration through a supported source/header representation.

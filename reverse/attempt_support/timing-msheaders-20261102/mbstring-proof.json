@@ -1,0 +1,716 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva0023C641Write.cpp",
+  "rows": 3,
+  "original_source_sha256": "6dd2d86abe7eb58c4e147a5beb06af801ae91e14c932b9c8fa1450538aecd2f8",
+  "canonical_header_sha256": "e14b51ee78348a7c2bd69a8648400f032f943784abf80a588d832a281710873d",
+  "variants": [
+    {
+      "label": "before",
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\timing-msheaders-20261102\\before.obj",
+      "object_sha256": "2e1002fe43c882ad552fa30d7b4260c400a89508ebe390f09549c1f28cee68a8",
+      "definitions": [
+        {
+          "name": "??0AsciiString@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8bc1832000c3",
+          "relocations": []
+        },
+        {
+          "name": "??1AsciiString@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        {
+          "name": "?firstTemplate@ThingFactory@@QAEPBVThingTemplate@@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8b410cc3",
+          "relocations": []
+        },
+        {
+          "name": "?rva0023C641@Rva0023C641@@QAEXPBD@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "568bf18b461885c0741750ff74240cff1500000000ff7618ff150000000083c40c5ec20400",
+          "relocations": [
+            [
+              17,
+              6,
+              "__imp__fputs"
+            ],
+            [
+              26,
+              6,
+              "__imp__fflush"
+            ]
+          ]
+        },
+        {
+          "name": "?rva0023D494@Rva0023C641@@QAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec81ec2402000053565733db538bf1e800000000a1000000008898690c0000a100000000885826a100000000885860a100000000885861e8000000006a01e800000000a1000000008b400c59894610598d45e450c6461401885e0cff150000000068040100008d85e0feffff50538d45e4506a01bf0008000057ff15000000008d85e0feffff50e80000000059c68405e0feffff2d40ba040100002bd0528d8c05e0feffff51538d45e4506a02578819ff1500000000389de0feffff741a8d85e0feffff8a0880f92f740580f93a7503c6005f40381875ec8d85dcfdffff680000000050e8000000008d85e0feffff508d85dcfdffff50e8000000008d85dcfdffff680000000050e8000000008d85dcfdffff680000000050ff150000000083c42068000000008bce894618e800000000a100000000f30f1005000000008858608b0d00000000f30f1145f4f30f1145f80f57c08d55f4f30f1145fc8b0152ff50545f895e24895e4cc64628015e5bc9c3",
+          "relocations": [
+            [
+              18,
+              20,
+              "?bfmeClearReceiverFlag@@YAXH@Z"
+            ],
+            [
+              23,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              34,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              42,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              50,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              58,
+              20,
+              "?rva0038780@@YAXXZ"
+            ],
+            [
+              65,
+              20,
+              "?HideControlBar@@YAX_N@Z"
+            ],
+            [
+              70,
+              6,
+              "?TheThingFactory@@3PAVThingFactory@@A"
+            ],
+            [
+              95,
+              6,
+              "__imp__GetLocalTime@4"
+            ],
+            [
+              126,
+              6,
+              "__imp__GetDateFormatA@24"
+            ],
+            [
+              138,
+              20,
+              "_strlen"
+            ],
+            [
+              180,
+              6,
+              "__imp__GetTimeFormatA@24"
+            ],
+            [
+              225,
+              6,
+              "??_C@_09KIJDGJJH@TimingLog?$AA@"
+            ],
+            [
+              231,
+              20,
+              "_strcpy"
+            ],
+            [
+              250,
+              20,
+              "__mbscat"
+            ],
+            [
+              261,
+              6,
+              "??_C@_04EBGNMJBD@?4csv?$AA@"
+            ],
+            [
+              267,
+              20,
+              "__mbscat"
+            ],
+            [
+              278,
+              6,
+              "??_C@_01NOFIACDB@w?$AA@"
+            ],
+            [
+              285,
+              6,
+              "__imp__fopen"
+            ],
+            [
+              293,
+              6,
+              "??_C@_0JG@DOCOFGKB@Full?0TotalVerts?1Skin?1Sort?0Less?5F@"
+            ],
+            [
+              303,
+              20,
+              "?rva0023C641@Rva0023C641@@QAEXPBD@Z"
+            ],
+            [
+              308,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              316,
+              6,
+              "__real@42480000"
+            ],
+            [
+              325,
+              6,
+              "?TheTacticalView@@3PAVView@@A"
+            ]
+          ]
+        },
+        {
+          "name": "__real@42480000",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "00004842",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_0JG@DOCOFGKB@Full?0TotalVerts?1Skin?1Sort?0Less?5F@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "46756c6c2c546f74616c56657274732f536b696e2f536f72742c4c6573732046696c6c2c4e6f5061727469636c65732c4e6f20537061776e2d4e6f506172742c4c6f6769632c5468696e672c4d6f64656c2c4b696e642c536964652c4472617743616c6c7320416c6c2c4472617743616c6c73204e6f506172742d4e6f537061776e2c4472617743616c6c73204e6f537061776e0a00",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_01NOFIACDB@w?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "7700",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_04EBGNMJBD@?4csv?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "2e63737600",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_09KIJDGJJH@TimingLog?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "54696d696e674c6f6700",
+          "relocations": []
+        },
+        {
+          "name": "??0Rva0023C641@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8bc1d9ee33c90f57c08808894804894808dd5850d9ee88480cdd5858894810d9ee884814dd5860894818d9ee89481c894820dd5868894824d9ee884828894830dd5870894834d9ee89483889483cdd5878894840d9ee894844894848dd988000000089484cf30f118088000000f30f11808c000000f30f118090000000f30f118094000000c3",
+          "relocations": []
+        }
+      ]
+    },
+    {
+      "label": "mbstring",
+      "missing": [
+        "0x0023D494"
+      ],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\timing-msheaders-20261102\\mbstring.obj",
+      "object_sha256": "b013235b7b3184bbfa6d7cdef4a3fda5b886cce1e095b2ea4876ecdfc0ad95ea",
+      "definitions": [
+        {
+          "name": "??0AsciiString@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8bc1832000c3",
+          "relocations": []
+        },
+        {
+          "name": "??1AsciiString@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        {
+          "name": "?firstTemplate@ThingFactory@@QAEPBVThingTemplate@@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8b410cc3",
+          "relocations": []
+        },
+        {
+          "name": "?rva0023C641@Rva0023C641@@QAEXPBD@Z",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "568bf18b461885c0741750ff74240cff1500000000ff7618ff150000000083c40c5ec20400",
+          "relocations": [
+            [
+              17,
+              6,
+              "__imp__fputs"
+            ],
+            [
+              26,
+              6,
+              "__imp__fflush"
+            ]
+          ]
+        },
+        {
+          "name": "?rva0023D494@Rva0023C641@@QAEXXZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "558bec81ec2402000053565733db538bf1e800000000a1000000008898690c0000a100000000885826a100000000885860a100000000885861e8000000006a01e800000000a1000000008b400c59894610598d45e450c6461401885e0cff150000000068040100008d85e0feffff50538d45e4506a01bf0008000057ff15000000008d85e0feffff50e80000000059c68405e0feffff2d40ba040100002bd0528d8c05e0feffff51538d45e4506a02578819ff1500000000389de0feffff741a8d85e0feffff8a0880f92f740580f93a7503c6005f40381875ec8d85dcfdffff680000000050e8000000008b3d000000008d85e0feffff508d85dcfdffff50ffd78d85dcfdffff680000000050ffd78d85dcfdffff680000000050ff150000000083c42068000000008bce894618e800000000a100000000f30f1005000000008858608b0d00000000f30f1145f4f30f1145f80f57c08d55f4f30f1145fc8b0152ff50545f895e24895e4cc64628015e5bc9c3",
+          "relocations": [
+            [
+              18,
+              20,
+              "?bfmeClearReceiverFlag@@YAXH@Z"
+            ],
+            [
+              23,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              34,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              42,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              50,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              58,
+              20,
+              "?rva0038780@@YAXXZ"
+            ],
+            [
+              65,
+              20,
+              "?HideControlBar@@YAX_N@Z"
+            ],
+            [
+              70,
+              6,
+              "?TheThingFactory@@3PAVThingFactory@@A"
+            ],
+            [
+              95,
+              6,
+              "__imp__GetLocalTime@4"
+            ],
+            [
+              126,
+              6,
+              "__imp__GetDateFormatA@24"
+            ],
+            [
+              138,
+              20,
+              "_strlen"
+            ],
+            [
+              180,
+              6,
+              "__imp__GetTimeFormatA@24"
+            ],
+            [
+              225,
+              6,
+              "??_C@_09KIJDGJJH@TimingLog?$AA@"
+            ],
+            [
+              231,
+              20,
+              "_strcpy"
+            ],
+            [
+              237,
+              6,
+              "__imp___mbscat"
+            ],
+            [
+              264,
+              6,
+              "??_C@_04EBGNMJBD@?4csv?$AA@"
+            ],
+            [
+              278,
+              6,
+              "??_C@_01NOFIACDB@w?$AA@"
+            ],
+            [
+              285,
+              6,
+              "__imp__fopen"
+            ],
+            [
+              293,
+              6,
+              "??_C@_0JG@DOCOFGKB@Full?0TotalVerts?1Skin?1Sort?0Less?5F@"
+            ],
+            [
+              303,
+              20,
+              "?rva0023C641@Rva0023C641@@QAEXPBD@Z"
+            ],
+            [
+              308,
+              6,
+              "?TheWritableGlobalData@@3PAVGlobalData@@A"
+            ],
+            [
+              316,
+              6,
+              "__real@42480000"
+            ],
+            [
+              325,
+              6,
+              "?TheTacticalView@@3PAVView@@A"
+            ]
+          ]
+        },
+        {
+          "name": "__real@42480000",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "00004842",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_0JG@DOCOFGKB@Full?0TotalVerts?1Skin?1Sort?0Less?5F@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "46756c6c2c546f74616c56657274732f536b696e2f536f72742c4c6573732046696c6c2c4e6f5061727469636c65732c4e6f20537061776e2d4e6f506172742c4c6f6769632c5468696e672c4d6f64656c2c4b696e642c536964652c4472617743616c6c7320416c6c2c4472617743616c6c73204e6f506172742d4e6f537061776e2c4472617743616c6c73204e6f537061776e0a00",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_01NOFIACDB@w?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "7700",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_04EBGNMJBD@?4csv?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "2e63737600",
+          "relocations": []
+        },
+        {
+          "name": "??_C@_09KIJDGJJH@TimingLog?$AA@",
+          "kind": "data",
+          "section": ".rdata",
+          "bytes": "54696d696e674c6f6700",
+          "relocations": []
+        },
+        {
+          "name": "??0Rva0023C641@@QAE@XZ",
+          "kind": "code",
+          "section": ".text",
+          "bytes": "8bc1d9ee33c90f57c08808894804894808dd5850d9ee88480cdd5858894810d9ee884814dd5860894818d9ee89481c894820dd5868894824d9ee884828894830dd5870894834d9ee89483889483cdd5878894840d9ee894844894848dd988000000089484cf30f118088000000f30f11808c000000f30f118090000000f30f118094000000c3",
+          "relocations": []
+        }
+      ]
+    }
+  ],
+  "before_code": 6,
+  "after_code": 6,
+  "before_data": 5,
+  "after_data": 5,
+  "changed": [
+    {
+      "name": "?rva0023D494@Rva0023C641@@QAEXXZ",
+      "before": {
+        "name": "?rva0023D494@Rva0023C641@@QAEXXZ",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "558bec81ec2402000053565733db538bf1e800000000a1000000008898690c0000a100000000885826a100000000885860a100000000885861e8000000006a01e800000000a1000000008b400c59894610598d45e450c6461401885e0cff150000000068040100008d85e0feffff50538d45e4506a01bf0008000057ff15000000008d85e0feffff50e80000000059c68405e0feffff2d40ba040100002bd0528d8c05e0feffff51538d45e4506a02578819ff1500000000389de0feffff741a8d85e0feffff8a0880f92f740580f93a7503c6005f40381875ec8d85dcfdffff680000000050e8000000008d85e0feffff508d85dcfdffff50e8000000008d85dcfdffff680000000050e8000000008d85dcfdffff680000000050ff150000000083c42068000000008bce894618e800000000a100000000f30f1005000000008858608b0d00000000f30f1145f4f30f1145f80f57c08d55f4f30f1145fc8b0152ff50545f895e24895e4cc64628015e5bc9c3",
+        "relocations": [
+          [
+            18,
+            20,
+            "?bfmeClearReceiverFlag@@YAXH@Z"
+          ],
+          [
+            23,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            34,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            42,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            50,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            58,
+            20,
+            "?rva0038780@@YAXXZ"
+          ],
+          [
+            65,
+            20,
+            "?HideControlBar@@YAX_N@Z"
+          ],
+          [
+            70,
+            6,
+            "?TheThingFactory@@3PAVThingFactory@@A"
+          ],
+          [
+            95,
+            6,
+            "__imp__GetLocalTime@4"
+          ],
+          [
+            126,
+            6,
+            "__imp__GetDateFormatA@24"
+          ],
+          [
+            138,
+            20,
+            "_strlen"
+          ],
+          [
+            180,
+            6,
+            "__imp__GetTimeFormatA@24"
+          ],
+          [
+            225,
+            6,
+            "??_C@_09KIJDGJJH@TimingLog?$AA@"
+          ],
+          [
+            231,
+            20,
+            "_strcpy"
+          ],
+          [
+            250,
+            20,
+            "__mbscat"
+          ],
+          [
+            261,
+            6,
+            "??_C@_04EBGNMJBD@?4csv?$AA@"
+          ],
+          [
+            267,
+            20,
+            "__mbscat"
+          ],
+          [
+            278,
+            6,
+            "??_C@_01NOFIACDB@w?$AA@"
+          ],
+          [
+            285,
+            6,
+            "__imp__fopen"
+          ],
+          [
+            293,
+            6,
+            "??_C@_0JG@DOCOFGKB@Full?0TotalVerts?1Skin?1Sort?0Less?5F@"
+          ],
+          [
+            303,
+            20,
+            "?rva0023C641@Rva0023C641@@QAEXPBD@Z"
+          ],
+          [
+            308,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            316,
+            6,
+            "__real@42480000"
+          ],
+          [
+            325,
+            6,
+            "?TheTacticalView@@3PAVView@@A"
+          ]
+        ]
+      },
+      "after": {
+        "name": "?rva0023D494@Rva0023C641@@QAEXXZ",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "558bec81ec2402000053565733db538bf1e800000000a1000000008898690c0000a100000000885826a100000000885860a100000000885861e8000000006a01e800000000a1000000008b400c59894610598d45e450c6461401885e0cff150000000068040100008d85e0feffff50538d45e4506a01bf0008000057ff15000000008d85e0feffff50e80000000059c68405e0feffff2d40ba040100002bd0528d8c05e0feffff51538d45e4506a02578819ff1500000000389de0feffff741a8d85e0feffff8a0880f92f740580f93a7503c6005f40381875ec8d85dcfdffff680000000050e8000000008b3d000000008d85e0feffff508d85dcfdffff50ffd78d85dcfdffff680000000050ffd78d85dcfdffff680000000050ff150000000083c42068000000008bce894618e800000000a100000000f30f1005000000008858608b0d00000000f30f1145f4f30f1145f80f57c08d55f4f30f1145fc8b0152ff50545f895e24895e4cc64628015e5bc9c3",
+        "relocations": [
+          [
+            18,
+            20,
+            "?bfmeClearReceiverFlag@@YAXH@Z"
+          ],
+          [
+            23,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            34,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            42,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            50,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            58,
+            20,
+            "?rva0038780@@YAXXZ"
+          ],
+          [
+            65,
+            20,
+            "?HideControlBar@@YAX_N@Z"
+          ],
+          [
+            70,
+            6,
+            "?TheThingFactory@@3PAVThingFactory@@A"
+          ],
+          [
+            95,
+            6,
+            "__imp__GetLocalTime@4"
+          ],
+          [
+            126,
+            6,
+            "__imp__GetDateFormatA@24"
+          ],
+          [
+            138,
+            20,
+            "_strlen"
+          ],
+          [
+            180,
+            6,
+            "__imp__GetTimeFormatA@24"
+          ],
+          [
+            225,
+            6,
+            "??_C@_09KIJDGJJH@TimingLog?$AA@"
+          ],
+          [
+            231,
+            20,
+            "_strcpy"
+          ],
+          [
+            237,
+            6,
+            "__imp___mbscat"
+          ],
+          [
+            264,
+            6,
+            "??_C@_04EBGNMJBD@?4csv?$AA@"
+          ],
+          [
+            278,
+            6,
+            "??_C@_01NOFIACDB@w?$AA@"
+          ],
+          [
+            285,
+            6,
+            "__imp__fopen"
+          ],
+          [
+            293,
+            6,
+            "??_C@_0JG@DOCOFGKB@Full?0TotalVerts?1Skin?1Sort?0Less?5F@"
+          ],
+          [
+            303,
+            20,
+            "?rva0023C641@Rva0023C641@@QAEXPBD@Z"
+          ],
+          [
+            308,
+            6,
+            "?TheWritableGlobalData@@3PAVGlobalData@@A"
+          ],
+          [
+            316,
+            6,
+            "__real@42480000"
+          ],
+          [
+            325,
+            6,
+            "?TheTacticalView@@3PAVView@@A"
+          ]
+        ]
+      }
+    }
+  ],
+  "removed": [],
+  "added": [],
+  "live_source_matches_immutable_original": false
+}
