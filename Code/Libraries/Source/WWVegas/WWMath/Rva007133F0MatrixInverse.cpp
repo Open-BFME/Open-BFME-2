@@ -19,11 +19,8 @@
 static __forceinline void copyVector4(Vector4 &row, const Vector4 &other)
 { row.X=other.X; row.Y=other.Y; row.Z=other.Z; row.W=other.W; }
 
-class Matrix3D
-{
-public:
-	Vector4 Row[3];
-};
+#include "Matrix3DData.h"
+
 
 class Matrix4
 {
