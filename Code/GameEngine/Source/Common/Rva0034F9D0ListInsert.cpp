@@ -14,11 +14,7 @@ struct Rva0034F9D0Head
 	Rva0034F9D0Node *m_first;
 };
 
-class ScriptList
-{
-public:
-	void addGroupRef(Rva0034F9D0Head *head, Rva0034F9D0Node *node, Rva0034F9D0Node *after);
-};
+#include "../../Include/GameLogic/ScriptList.h"
 
 void ScriptList::addGroupRef(
 	Rva0034F9D0Head *head,

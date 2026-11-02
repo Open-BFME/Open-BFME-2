@@ -38,16 +38,7 @@ private:
 	void *m_data;
 };
 
-class ScriptList
-{
-public:
-	ScriptList(const ScriptList &src);
-	virtual ~ScriptList();
-	void rva003B693A();
-
-private:
-	char m_data[0x48];
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 struct BfmeSubGE;
 class BfmeThingGE

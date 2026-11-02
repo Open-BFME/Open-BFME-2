@@ -26,12 +26,7 @@ public:
 
 class ScriptList;
 
-class ScriptList
-{
-public:
-	void *rva003B6911(const StringBase<char> &key);
-	void *rva003B68E8(const StringBase<char> &key);
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 class BfmeOwnZC : public Rva002046C0Owner
 {

@@ -207,18 +207,7 @@ private:
 
 class Gen0035B3A0 { public: void cleanup(); };
 
-class ScriptList
-{
-public:
-	ScriptList();
-	ScriptList(const ScriptList &other);	// 0x003B88DA
-	virtual ~ScriptList();
-	void swap(ScriptList *other);		// 0x003B58DF
-	void rva003B693A();					// 0x003B693A, WB discards overridden scripts
-
-private:
-	char m_data[0x4C - 4];
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 // ScriptList's merge of another list (WB 0xaa4840), rowed under its
 // address-era spelling.

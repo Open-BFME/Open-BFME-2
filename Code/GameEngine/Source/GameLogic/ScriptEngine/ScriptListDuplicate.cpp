@@ -6,15 +6,7 @@
 // 0x003B58DF) through the rowed operator new at 0x0002FDA0 then
 // copy-constructs through the pinned copy ctor at 0x003B88DA. Null-checked
 // new with EH state 0 to delete on copy throw.
-class ScriptList
-{
-public:
-	ScriptList(const ScriptList &other);
-	ScriptList *duplicate() const;
-
-private:
-	char m_data[0x4C];
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 ScriptList *ScriptList::duplicate() const
 {

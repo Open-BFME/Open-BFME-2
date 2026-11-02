@@ -13,10 +13,7 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Dict;
 #include "../../../Include/Common/DataChunkOutput.h"
-class ScriptList {
-public:
-    static void WriteScriptsDataChunk(DataChunkOutput &, ScriptList *[], int);
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 struct LibraryMapStringVector {
     AsciiString *first;
     AsciiString *last;

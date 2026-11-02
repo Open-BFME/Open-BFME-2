@@ -37,12 +37,7 @@ public:
 	void rva003B7096(int index);
 };
 
-class ScriptList
-{
-public:
-	void deleteScriptRef(void *list, struct Rva003B3204 *node);
-	void deleteGroupRef(void *list, struct Rva003B31DF *node);
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 // ?deleteGroupRef@ScriptList@@QAEXPAXPAURva003B31DF@@@Z
 void ScriptList::deleteGroupRef(void *list, struct Rva003B31DF *node)

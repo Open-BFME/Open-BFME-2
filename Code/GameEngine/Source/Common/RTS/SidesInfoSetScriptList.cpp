@@ -6,14 +6,7 @@
 // ScriptList by value at +0x08 and swaps the caller's list in.
 // ScriptEngine::reset calls it with an empty temporary for every side.
 
-class ScriptList
-{
-public:
-	void swap(ScriptList *other);
-
-private:
-	char m_body[0x4C];
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 struct SidesInfo
 {

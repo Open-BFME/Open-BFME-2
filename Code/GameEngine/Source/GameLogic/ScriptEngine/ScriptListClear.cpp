@@ -26,23 +26,7 @@ private:
 	void *m_firstScript;
 };
 
-class ScriptList : public Snapshot, public ScriptListBase
-{
-public:
-	ScriptList();
-	~ScriptList();
-	void clear();
-	void swap(ScriptList *other);
-
-protected:
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *);
-
-private:
-	Rva003B761E m_first;
-	Rva003B761E m_second;
-};
+#include "../../../Include/GameLogic/ScriptList.h"
 
 // Retail builds the empty list as an argument temporary whose constructor
 // result is the receiver of swap (mov ecx,eax; a named local gives lea), and
