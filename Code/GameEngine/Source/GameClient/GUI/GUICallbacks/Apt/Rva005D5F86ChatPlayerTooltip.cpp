@@ -70,18 +70,7 @@ public:
 };
 typedef std::map<int, BuddyInfo> BuddyInfoMap;
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21)
-    virtual PlayerInfo *rva00382CCE(const char *name) = 0; // rowed native +0x58
-    V(23)
-    virtual BuddyInfoMap *getBuddyMap() = 0; // native +0x60
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 

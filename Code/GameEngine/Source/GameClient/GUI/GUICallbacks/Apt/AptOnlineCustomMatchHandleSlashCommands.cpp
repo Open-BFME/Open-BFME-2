@@ -24,22 +24,7 @@
 
 typedef int Color;
 
-class GameSpyInfoInterface
-{
-public:
-#define GSI_SLOT(n) virtual void slot##n();
-	GSI_SLOT(00) GSI_SLOT(01) GSI_SLOT(02) GSI_SLOT(03) GSI_SLOT(04) GSI_SLOT(05) GSI_SLOT(06) GSI_SLOT(07) GSI_SLOT(08) GSI_SLOT(09)
-	GSI_SLOT(10) GSI_SLOT(11) GSI_SLOT(12) GSI_SLOT(13) GSI_SLOT(14) GSI_SLOT(15) GSI_SLOT(16) GSI_SLOT(17) GSI_SLOT(18) GSI_SLOT(19)
-	GSI_SLOT(20) GSI_SLOT(21) GSI_SLOT(22) GSI_SLOT(23) GSI_SLOT(24) GSI_SLOT(25) GSI_SLOT(26) GSI_SLOT(27) GSI_SLOT(28) GSI_SLOT(29)
-	GSI_SLOT(30) GSI_SLOT(31) GSI_SLOT(32) GSI_SLOT(33) GSI_SLOT(34) GSI_SLOT(35) GSI_SLOT(36) GSI_SLOT(37) GSI_SLOT(38) GSI_SLOT(39)
-	GSI_SLOT(40) GSI_SLOT(41) GSI_SLOT(42) GSI_SLOT(43) GSI_SLOT(44) GSI_SLOT(45) GSI_SLOT(46) GSI_SLOT(47) GSI_SLOT(48) GSI_SLOT(49)
-	GSI_SLOT(50) GSI_SLOT(51) GSI_SLOT(52) GSI_SLOT(53) GSI_SLOT(54) GSI_SLOT(55) GSI_SLOT(56) GSI_SLOT(57) GSI_SLOT(58) GSI_SLOT(59)
-	GSI_SLOT(60)
-	virtual void addText(UnicodeString message, Color color);                 // slot 61 (+0xF4)
-	GSI_SLOT(62) GSI_SLOT(63)
-	virtual void sendChat(UnicodeString message, bool isAction, void *window); // slot 64 (+0x100)
-#undef GSI_SLOT
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 enum GameSpyColors { GSCOLOR_DEFAULT = 0 };

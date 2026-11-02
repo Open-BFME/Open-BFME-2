@@ -11,12 +11,7 @@ template<int N> class DisconnectSlots : public DisconnectSlots<N - 1>
 };
 template<> class DisconnectSlots<0> {};
 
-class GameSpyInfoInterface : public DisconnectSlots<94>
-{
-public:
-    virtual int getAdditionalDisconnects() = 0;
-    virtual void clearAdditionalDisconnects() = 0;
-};
+#include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 int sumOnlineMiscPrefs(int playerID);

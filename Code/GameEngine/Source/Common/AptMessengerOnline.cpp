@@ -206,41 +206,7 @@ template<> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<int *, int
 
 class PlayerInfo {public: bool isIgnored();};
 
-class GameSpyInfoInterface {public:
- virtual void _M_slot_00();
- virtual void _M_slot_04();
- virtual void _M_slot_08();
- virtual void _M_slot_0c();
- virtual void _M_slot_10();
- virtual void _M_slot_14();
- virtual void _M_slot_18();
- virtual void _M_slot_1c();
- virtual void _M_slot_20();
- virtual void _M_slot_24();
- virtual void _M_slot_28();
- virtual void _M_slot_2c();
- virtual void _M_slot_30();
- virtual void _M_slot_34();
- virtual void _M_slot_38();
- virtual void _M_slot_3c();
- virtual void _M_slot_40();
- virtual void _M_slot_44();
- virtual void _M_slot_48();
- virtual void _M_slot_4c();
- virtual void _M_slot_50();
- virtual void _M_slot_54();
- virtual void _M_slot_58();
- virtual PlayerInfo *rva00382D0A(int profile);
- virtual void _M_slot_60();
- virtual void _M_slot_64();
- virtual void _M_slot_68();
- virtual void _M_slot_6c();
- virtual void _M_slot_70();
- virtual void _M_slot_74();
- virtual void _M_slot_78();
- virtual int getLocalProfileID();
-
-};
+#include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 

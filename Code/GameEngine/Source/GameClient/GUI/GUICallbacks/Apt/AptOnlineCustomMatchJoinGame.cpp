@@ -116,17 +116,7 @@ public:
 typedef std::map<Int, GameSpyStagingRoom *> StagingRoomMap;
 
 #define GSI_SLOT(n) virtual void slot##n();
-class GameSpyInfoInterface
-{
-public:
-	GSI_SLOT(00) GSI_SLOT(01) GSI_SLOT(02) GSI_SLOT(03) GSI_SLOT(04) GSI_SLOT(05) GSI_SLOT(06) GSI_SLOT(07)
-	GSI_SLOT(08) GSI_SLOT(09) GSI_SLOT(10) GSI_SLOT(11) GSI_SLOT(12) GSI_SLOT(13) GSI_SLOT(14) GSI_SLOT(15)
-	GSI_SLOT(16) GSI_SLOT(17) GSI_SLOT(18) GSI_SLOT(19) GSI_SLOT(20) GSI_SLOT(21) GSI_SLOT(22) GSI_SLOT(23)
-	GSI_SLOT(24) GSI_SLOT(25) GSI_SLOT(26) GSI_SLOT(27) GSI_SLOT(28) GSI_SLOT(29) GSI_SLOT(30) GSI_SLOT(31)
-	GSI_SLOT(32) GSI_SLOT(33) GSI_SLOT(34) GSI_SLOT(35) GSI_SLOT(36) GSI_SLOT(37) GSI_SLOT(38) GSI_SLOT(39)
-	GSI_SLOT(40)
-	virtual StagingRoomMap *getStagingRoomList(); // +0xA4
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 #undef GSI_SLOT
 extern GameSpyInfoInterface *TheGameSpyInfo;
 

@@ -499,40 +499,7 @@ public:
 };
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0)
-	virtual void reset() = 0;											// slot 1
-	V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	virtual void playerLeftGroupRoom(AsciiString nick) = 0;			  // slot 20
-	virtual PlayerInfoMap *getPlayerInfoMap() = 0;					   // slot 21
-	V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46)
-	virtual void leaveStagingRoom() = 0;								 // slot 47
-	virtual void markAsStagingRoomHost() = 0;							// slot 48
-	V(49) V(50)
-	virtual bool amIHost() = 0;										  // slot 51
-	V(52)
-	virtual GameSpyStagingRoom *getCurrentStagingRoom() = 0;			 // slot 53
-	V(54)
-	virtual void setGameOptions() = 0;								   // slot 55
-	V(56) V(57) V(58) V(59)
-	V(60)
-	virtual void addText(UnicodeString message, Color color) = 0;		// slot 61
-	V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
-	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
-	V(80) V(81) V(82) V(83) V(84)
-	virtual UnsignedInt getInternalIP() = 0;							 // slot 85
-	virtual UnsignedShort getInternalPort() = 0;						 // slot 86
-	V(87) V(88) V(89)
-	V(90) V(91) V(92)
-	virtual Int getMaxMessagesPerUpdate() = 0;						   // slot 93
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 // Zero Hour's GameSpyInfo::updatePlayerInfo path for a joining player.

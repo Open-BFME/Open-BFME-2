@@ -220,36 +220,7 @@ public:
 };
 typedef std::map<int, BuddyInfo> BuddyInfoMap;
 
-class GameSpyInfoInterface
-{
-public:
-#define V(n) virtual void gs##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21)
-    virtual PlayerInfo *rva00382CCE(const char *name) = 0; // rowed native +0x58
-    V(23)
-    virtual BuddyInfoMap *getBuddyMap() = 0; // native +0x60
-    V(25) V(26) V(27) V(28)
-	virtual AsciiString getLocalName() = 0; // slot 29 (+0x74)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48)
-	// RequestJoinGame passes the selected room ID through slot 49 (+0xC4).
-	virtual void gs49(int);
-	V(50)
-	virtual bool amIHost() = 0;
-	V(52)
-	virtual GameSpyStagingRoom *getCurrentStagingRoom() = 0;
-	V(54)
-	virtual void setGameOptions() = 0;
-	V(56) V(57) V(58) V(59) V(60)
-	// Slot 61 (+0xF4): text with a color (PrintMessage kinds 0 and 1).
-	virtual void v61(UnicodeString text, int color) = 0;
-	V(62) V(63) V(64)
-	// Slot 65 (+0x104): text alone (PrintMessage kind 2).
-	virtual void v65(UnicodeString text) = 0;
-#undef V
-};
+#include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
