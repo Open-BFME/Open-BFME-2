@@ -4706,7 +4706,7 @@ public:
 };
 
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 
 class XferSave
 {
@@ -5040,7 +5040,7 @@ void GameLogic::update(int phase)
 							XferSave xfer;
 							xfer.Open((Xfer *)file, 0, false);
 							((Rva00238E1B *)TheGameClient)->rva00238FF3((Rva00238FF3Arg *)&xfer);
-							((Gen009D6DD0 *)&xfer)->bfmeClose();
+							((Gen009D6DD0 *)&xfer)->Close();
 							size = file->seek(0, File::CURRENT);
 							file->seek(start, File::START);
 							file->write(&size, sizeof(size));

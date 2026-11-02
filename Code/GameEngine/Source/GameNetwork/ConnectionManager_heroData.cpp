@@ -192,7 +192,7 @@ class BfmeMade_009CB5F0;
 BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *text);
 
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 
 class XferSave
 {
@@ -276,7 +276,7 @@ void ConnectionManager::sendHero(CreateAHeroData *hero, Int seed,
 		return;
 	}
 	hero->xfer((Xfer *)&xfer);
-	((Gen009D6DD0 *)&xfer)->bfmeClose();
+	((Gen009D6DD0 *)&xfer)->Close();
 	int size;
 	unsigned char *data = (unsigned char *)stream->bfmeTakeEC(&size);
 	msg->setData(data, size);

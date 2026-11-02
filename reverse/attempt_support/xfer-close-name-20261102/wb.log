@@ -1,0 +1,91 @@
+note: read as an RVA (a function starts at VA 0xa0c8cd); va:0x0060C8CD forces the VA
+game.dat rva 0x0060C8CD (va 0xa0c8cd) size 45
+  ledger: Gen009D6DD0::bfmeClose [PLACEHOLDER]  ?bfmeClose@Gen009D6DD0@@QAEXXZ
+WB va 0x165ca40 size 153  XferSave::Close
+  file C:\Projects\bfme2\Code\Libraries\Source\xfer\xfer_save.cpp
+  assert lines 67..67
+  match score 6.0 evidence callgraph
+
+WB body (local_x = [ebp-x], arg_n = [ebp+8+4n]):
+  165ca40  push ecx
+  165ca41  push esi
+  165ca42  mov esi, ecx
+  165ca44  mov eax, dword ptr [esi + 4]
+  165ca47  test eax, eax
+  165ca49  je L_165cad6
+  165ca4f  mov eax, dword ptr [esi + 0xc]
+  165ca52  cmp eax, dword ptr [esi + 0x10]
+  165ca55  je L_165cab1
+  165ca57  push 0
+  165ca59  call 0x712780  ; sub_712780
+  165ca5e  add esp, 4
+  165ca61  test al, al
+  165ca63  jne L_165cab1
+  165ca65  mov ecx, dword ptr [0x223c49c]
+  165ca6b  mov edx, dword ptr [ecx]
+  165ca6d  call dword ptr [edx + 0x60]
+  165ca70  test al, al
+  165ca72  jne L_165cab1
+  165ca74  mov ecx, dword ptr [0x223c49c]
+  165ca7a  mov eax, dword ptr [ecx]
+  165ca7c  push 0x1f7b3f8  ; "m_blockStack.empty()"
+  165ca81  push 0x1f7b3e8  ; "XferSave::Close"
+  165ca86  push 0x43
+  165ca88  push 0x1f7b384  ; "C:\\Projects\\bfme2\\Code\\Libraries\\Source\\xfer\\xfer_save.cpp"
+  165ca8d  call dword ptr [eax + 0x64]
+  165ca90  mov edx, dword ptr [eax]
+  165ca92  push 0x1d863f8
+  165ca97  mov ecx, eax
+  165ca99  call dword ptr [edx + 0x38]
+  165ca9c  mov edx, dword ptr [eax]
+  165ca9e  push 0x1f7b00c  ; "Block stack is not empty"
+  165caa3  mov ecx, eax
+  165caa5  call dword ptr [edx + 0x38]
+  165caa8  mov edx, dword ptr [eax]
+  165caaa  push 0
+  165caac  mov ecx, eax
+  165caae  call dword ptr [edx + 0x44]
+L_165cab1:
+  165cab1  mov al, byte ptr [esi + 8]
+  165cab4  test al, al
+  165cab6  je L_165cacf
+  165cab8  mov ecx, dword ptr [esi + 4]
+  165cabb  push 4
+  165cabd  lea edx, [esp + 8]
+  165cac1  mov dword ptr [esp + 8], 0x454e44
+  165cac9  mov eax, dword ptr [ecx]
+  165cacb  push edx
+  165cacc  call dword ptr [eax + 0x10]
+L_165cacf:
+  165cacf  mov dword ptr [esi + 4], 0
+L_165cad6:
+  165cad6  pop esi
+  165cad7  pop ecx
+  165cad8  ret
+
+callees (1 distinct outside debug macros; WB callee -> game.dat):
+    1x wb 0x712780 ? (33b)  -> unmatched: inlined in retail?
+
+game.dat body:
+  a0c8cd  push ebp
+  a0c8ce  mov ebp, esp
+  a0c8d0  push ecx
+  a0c8d1  push esi
+  a0c8d2  mov esi, ecx
+  a0c8d4  mov ecx, dword ptr [esi + 4]
+  a0c8d7  test ecx, ecx
+  a0c8d9  je L_a0c8f7
+  a0c8db  cmp byte ptr [esi + 8], 0
+  a0c8df  je L_a0c8f3
+  a0c8e1  push 4
+  a0c8e3  lea edx, [ebp - 4]
+  a0c8e6  mov dword ptr [ebp - 4], 0x454e44
+  a0c8ed  mov eax, dword ptr [ecx]
+  a0c8ef  push edx
+  a0c8f0  call dword ptr [eax + 0x10]
+L_a0c8f3:
+  a0c8f3  and dword ptr [esi + 4], 0
+L_a0c8f7:
+  a0c8f7  pop esi
+  a0c8f8  leave
+  a0c8f9  ret

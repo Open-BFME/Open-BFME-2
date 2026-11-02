@@ -67,7 +67,7 @@ struct RGBAColorInt;
 #include "../../Include/Common/BfmeXfer.h"
 
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 
 class XferSave : public Xfer
 {
@@ -364,11 +364,11 @@ int GameState::saveGame(UnicodeString filename, const UnicodeString &desc, int w
 			UnicodeString msg;
 			msg.format(TheGameText->fetchPointer("GUI:ErrorSavingGame", 0), wideText(filepath));
 			MessageBoxOk(TheGameText->fetch("GUI:Error"), msg, 0);
-			((Gen009D6DD0 *)&xferSave)->bfmeClose();
+			((Gen009D6DD0 *)&xferSave)->Close();
 			file->close();
 			return 3;
 		}
-		((Gen009D6DD0 *)&xferSave)->bfmeClose();
+		((Gen009D6DD0 *)&xferSave)->Close();
 		file->close();
 
 		if (showMessage)

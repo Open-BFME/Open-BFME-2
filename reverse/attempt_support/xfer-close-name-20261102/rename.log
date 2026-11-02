@@ -1,0 +1,42 @@
+rename: function ?bfmeClose@Gen009D6DD0@@QAEXXZ -> ?Close@Gen009D6DD0@@QAEXXZ at 0x0060C8CD (canonical:wb)
+  owner source: Code/GameEngine/Source/Common/Gen009D6DD0.cpp
+  functions.csv rows renamed (1), each tombstoned:
+    0x0060C8CD ?bfmeClose@Gen009D6DD0@@QAEXXZ -> ?Close@Gen009D6DD0@@QAEXXZ
+  sources rewritten (11):
+    Code/GameEngine/Source/Common/GameEngineInit.cpp (code 2)
+    Code/GameEngine/Source/Common/Gen009D6DD0.cpp (code 2)
+    Code/GameEngine/Source/Common/Recorder.cpp (code 2)
+    Code/GameEngine/Source/Common/Rva002DBC97Get.cpp (code 3)
+    Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp (code 2)
+    Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp (code 2)
+    Code/GameEngine/Source/GameLogic/System/GameLogic.cpp (code 2)
+    Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp (code 2)
+    Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp (code 2)
+    Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp (code 3)
+    Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp (code 2)
+  verify (11): ./build.sh Code/GameEngine/Source/Common/GameEngineInit.cpp Code/GameEngine/Source/Common/Gen009D6DD0.cpp Code/GameEngine/Source/Common/Recorder.cpp Code/GameEngine/Source/Common/Rva002DBC97Get.cpp Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp Code/GameEngine/Source/GameLogic/System/GameLogic.cpp Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+  claims: 0x0060C8CD file:Code/GameEngine/Source/Common/GameEngineInit.cpp file:Code/GameEngine/Source/Common/Gen009D6DD0.cpp file:Code/GameEngine/Source/Common/Recorder.cpp file:Code/GameEngine/Source/Common/Rva002DBC97Get.cpp file:Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp file:Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp file:Code/GameEngine/Source/GameLogic/System/GameLogic.cpp file:Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp file:Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp file:Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp file:Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+  ledger files: reverse/deleted_rows.csv, reverse/functions.csv, reverse/name_basis.csv
+  mention (not rewritten): reverse/attempt_support/xfer-close-provider-link-20261013/README.md
+  mention (not rewritten): reverse/attempt_support/xfer-close-provider-link-20261013/object-proof.json
+  mention (not rewritten): reverse/name_tiers.csv
+  suggested subject: Rename bfmeClose to Close (canonical:wb)
+rename: verifying 11 source(s): ./build.sh Code/GameEngine/Source/Common/GameEngineInit.cpp Code/GameEngine/Source/Common/Gen009D6DD0.cpp Code/GameEngine/Source/Common/Recorder.cpp Code/GameEngine/Source/Common/Rva002DBC97Get.cpp Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp Code/GameEngine/Source/GameLogic/System/GameLogic.cpp Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
+Source claims: OK (11 sources, scoped byte-verified)
+Data rows: OK (19 row(s) byte-verified)
+Compile: 4 of 11 TU(s) (deps-cache: 7 current)
+Funclet pins: 788 row(s) verified past a renumbered $L label
+    $L10197 (Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp): $L10197 was renumbered; verified parent EH data places $L11209 at 0x0078524A
+    uw_00777e88 (Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp): $L4160 was renumbered; verified parent EH data places $L5521 at 0x00777E88
+    $L17808 (Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp): $L17808 was renumbered; verified parent EH data places $L20507 at 0x0077F6B0
+    $L17809 (Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp): $L17809 was renumbered; verified parent EH data places $L20508 at 0x0077F6BB
+    $L17810 (Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp): $L17810 was renumbered; verified parent EH data places $L20509 at 0x0077F6C6
+STLport folds: 15 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 1464/1464 matched across 11 source file(s)
+String-ref verify: OK (420 literals + 61 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (99 compiler literals verified)
+Import-ref verify: OK (229 named imports verified)
+rename: claims kept until the rename is pushed; then run: python3 tools/claims.py release 0x0060C8CD file/0a48318dd809b533 file/1725c7d895972d89 file/47478d3389bce4ba file/48e92743273d4d11 file/775542a468a40780 file/a31f84330de4cdc4 file/b859e66f7f62f374 file/e4dcee4e551c10ad file/e66485155c9da061 file/f882e05b1cc7b32a file/feedac32bf3ba59a
+rename: verified OK. Stage: git add Code/GameEngine/Source/Common/GameEngineInit.cpp Code/GameEngine/Source/Common/Gen009D6DD0.cpp Code/GameEngine/Source/Common/Recorder.cpp Code/GameEngine/Source/Common/Rva002DBC97Get.cpp Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp Code/GameEngine/Source/GameLogic/System/GameLogic.cpp Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp reverse/deleted_rows.csv reverse/functions.csv reverse/name_basis.csv
+rename: after every pull --rebase, before the push: python3 tools/rename.py check --range origin/master..HEAD
+rename: suggested subject: Rename bfmeClose to Close (canonical:wb)

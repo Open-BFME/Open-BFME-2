@@ -58,7 +58,7 @@ private:
     unsigned char opaque04[0x40-4];
 };
 typedef char WriterSizeCheck[sizeof(XferSave)==0x40?1:-1];
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 class Rva00406EBF { public: void rva00406EBF(Xfer *); };
 
 
@@ -914,7 +914,7 @@ bool CreateAHeroHero::rva004098BE(const AsciiString &name, bool isSystem)
         return false;
     }
     ((Rva00406EBF *)this)->rva00406EBF((Xfer *)&writer);
-    ((Gen009D6DD0 *)&writer)->bfmeClose();
+    ((Gen009D6DD0 *)&writer)->Close();
     file->close();
     return true;
 }

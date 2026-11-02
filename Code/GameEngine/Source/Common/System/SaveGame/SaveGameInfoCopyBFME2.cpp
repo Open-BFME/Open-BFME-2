@@ -291,7 +291,7 @@ struct Rva002DB9B6
 // The MD5 block writer (ctor 0x0052B42B, vtable 0x00868620). Its destructor
 // 0x52B497 keeps that address name, so the class is split to reach it.
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 
 class XferSave : public Xfer
 {
@@ -441,7 +441,7 @@ void BfmeSubobject0022CE19::xfer(Xfer *xfer)
 			BFMECRCWriter crc(TheLiteCRC);
 			Xfer *writer = &crc;
 			*writer == *(Snapshot *)(Rva0022CE19SnapshotBase *)*(Rva002BA8F1Logic **)&TheLivingWorldLogic;
-			((Gen009D6DD0 *)&crc)->bfmeClose();
+			((Gen009D6DD0 *)&crc)->Close();
 		}
 		((Rva002DB9B6 *)game)->rva002DB9B6(&object44.blockD74);
 		object44.flagD9C = game->slot12();

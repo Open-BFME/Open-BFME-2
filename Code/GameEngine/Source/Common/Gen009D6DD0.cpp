@@ -14,7 +14,7 @@ public:
 class Gen009D6DD0
 {
 public:
-	void bfmeClose();
+	void Close();
 
 private:
 	unsigned char m_pad[4];
@@ -22,7 +22,7 @@ private:
 	bool m_emitEnd;
 };
 
-void Gen009D6DD0::bfmeClose()
+void Gen009D6DD0::Close()
 {
 	if (m_channel != 0)
 	{

@@ -2031,7 +2031,7 @@ public:
 class Gen009D6DD0
 {
 public:
-	void bfmeClose();
+	void Close();
 };
 
 class Rva00210C66CmpBoolField
@@ -4556,7 +4556,7 @@ unsigned int GameLogic::getCRC(int mode)
 		xfer->xferSnapshot(TheAI);
 	if ((TheLiteCRC != 0 || g_00E02D88 == 0) && ((Rva00210C66CmpBoolField *)this)->get())
 		xfer->xferSnapshot((*(Rva002BA8F1Logic **)&TheLivingWorldLogic));
-	((Gen009D6DD0 *)&writer)->bfmeClose();
+	((Gen009D6DD0 *)&writer)->Close();
 	return writer.m_crc;
 }
 

@@ -426,7 +426,7 @@ private:
 // BFME 2's CRC writer over the block-writer base whose destructor retail
 // rows as XferSave (0x0060D0B3); full at +0x40, crc at +0x44.
 // Bind the close calls to the existing whole 45-byte provider at RVA 0x0060C8CD.
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 
 class XferSave
 {
@@ -911,7 +911,7 @@ void GameEngine::init(Int argc, char *argv[])
 		initSubsystem(TheLivingWorldAutoResolveResourceBonusScheduleStore, "TheLivingWorldAutoResolveResourceBonusScheduleStore", (Rva0022C316Subsystem *)new Rva0022DE6B, (Xfer *)&xferCRC);
 		initSubsystem(TheLivingWorldAutoResolveSciencePurchasePointBonusScheduleStore, "TheLivingWorldAutoResolveSciencePurchasePointBonusScheduleStore", new Rva0022C38BSubsystem, (Xfer *)&xferCRC);
 
-		((Gen009D6DD0 *)&xferCRC)->bfmeClose();
+		((Gen009D6DD0 *)&xferCRC)->Close();
 		TheSubsystemList->m_xfer = 0;
 		TheGlobalData->m_iniCRC = xferCRC.m_crc;
 		TheGlobalData->m_iniCRC += ((CreateAHeroCRC *)(reinterpret_cast<Rva0022C1B7Subsystem *&>(TheHeroManager)))->getCRC();

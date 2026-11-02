@@ -5662,7 +5662,7 @@ BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *owner);
 class BfmeThingEC { public: int bfmeTakeEC(int *out); };
 // XferSave (ctor 0x0060D1F7, dtor 0x0060D0B3, open 0x0060D10A); its close
 // 0x0060C8CD is rowed under an address-derived owner.
-class Gen009D6DD0 { public: void bfmeClose(); };
+class Gen009D6DD0 { public: void Close(); };
 class XferSave : public Xfer {
 public:
     XferSave();
@@ -5716,7 +5716,7 @@ void MilesAudioManager::rva0006179C(int skipRequestRefresh)
         xferSave.Open((Xfer *)writeFile, 0, false);
         Xfer *xfer = &xferSave;
         *xfer == *this;
-        ((Gen009D6DD0 *)&xferSave)->bfmeClose();
+        ((Gen009D6DD0 *)&xferSave)->Close();
     } catch (const XferException &xferException) {
         // WorldBuilder reports e here; retail keeps only its catch-object slot.
     }

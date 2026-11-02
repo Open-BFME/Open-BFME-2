@@ -14382,7 +14382,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ?clearRva00359330Nodes@@YAXPAURva00359330Record@@@Z,,0x003B578E,47,Code/GameEngine/Source/Common/Rva00359330StringRecordClearNodes.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??4Rva0034FE00@@QAEAAV0@ABV0@@Z,,0x003B270F,75,Code/GameEngine/Source/Common/Rva0034FE00Assign.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?setPositions@BridgeScaffoldBehavior@@UAEXPBUCoord3D@@00@Z,,0x00458279,37,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeScaffoldBehavior.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-?bfmeClose@Gen009D6DD0@@QAEXXZ,,0x0060C8CD,45,Code/GameEngine/Source/Common/Gen009D6DD0.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?Close@Gen009D6DD0@@QAEXXZ,,0x0060C8CD,45,Code/GameEngine/Source/Common/Gen009D6DD0.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0Gen_004E9FD0@@QAE@ABV0@@Z,,0x00415FAB,125,Code/GameEngine/Source/Common/BfmeMixedSixCopyWN.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??1NetCommandWrapperListNode@@MAE@XZ,,0x0058C00C,47,Code/GameEngine/Source/GameNetwork/NetCommandWrapperList.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0LANPlayer@@QAE@ABV0@@Z,,0x0044A901,101,Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
