@@ -12,13 +12,7 @@ struct FprintfTarget;
 
 #include "../GameLogic/Object/object.h"
 
-struct TurretStateMachine
-{
-	char m_pad[0x20 - 4];
-	int m_goalObjectID;
-	Coord3D m_goalPosition;
-	Object *getGoalObject();
-};
+#include "../../Include/GameLogic/Module/TurretStateMachine.h"
 
 struct FprintfTarget
 {

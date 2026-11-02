@@ -18,13 +18,7 @@ enum CommandSourceType
 	CST_0 = 0
 };
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-	char m_pad[ 0x14 ];
-	Object *m_14;
-};
+#include "../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class Virt0028CmdSrc
 {
@@ -96,7 +90,7 @@ bool AIAttackState::rva003413B2()
 	if (goal == 0)
 		return false;
 check:
-	Object *owner = m_18->m_14;
+	Object *owner = m_18->m_owner;
 	int src = owner->m_258->cmdSrc();
 	bool ok = owner->chooseBestWeaponForTarget(goal, WCC_5, (CommandSourceType)src);
 	owner->rva0028DB3C();

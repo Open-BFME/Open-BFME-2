@@ -6,11 +6,7 @@
 // Caller AIChargeTargetState::update 0x0034FE6E passes its own this (edi): +0x18 machine, +0x20 point.
 // /arch:SSE selects the retail fld/fxch/fcompi/jbe shape (plain /O1 emits fcomp/fnstsw); /O1 keeps push-esi framing.
 class Object;
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../Include/GameLogic/Module/TurretStateMachine.h"
 class Rva000CBA20Point
 {
 public:

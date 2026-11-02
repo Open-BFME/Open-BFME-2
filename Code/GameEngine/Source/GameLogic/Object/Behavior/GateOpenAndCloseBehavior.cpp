@@ -362,11 +362,7 @@ public:
 	void aiMoveAwayFromUnit(Object *victim, const Coord3D *pos, CommandSourceType cmdSource);
 };
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 unsigned char __cdecl Rva00498B8BGet(Object *p);
 

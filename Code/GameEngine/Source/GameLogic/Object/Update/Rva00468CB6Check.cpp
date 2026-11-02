@@ -7,11 +7,7 @@
 
 #include "../object.h"
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class Rva00468CB6A
 {

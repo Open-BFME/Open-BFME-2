@@ -170,7 +170,7 @@ public:
  Bool isWithinAttackRange(Object *, const Coord3D *, Object *, const Coord3D *, float, Bool);
 };
 
-class TurretStateMachine { public: Object *getGoalObject(); };
+#include "../../../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class __declspec(novtable) ObjectModule {
 public:

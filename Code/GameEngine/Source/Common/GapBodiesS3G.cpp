@@ -48,14 +48,7 @@ public:
 	int m_274;												// +0x274
 };
 
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();								// 0x004D7726
-	char m_pad[0x14];
-	Object *m_owner;										// +0x14
-	Object *getOwner() const { return m_owner; }
-};
+#include "../../Include/GameLogic/Module/TurretStateMachine.h"
 
 struct Rva00343EFAState
 {

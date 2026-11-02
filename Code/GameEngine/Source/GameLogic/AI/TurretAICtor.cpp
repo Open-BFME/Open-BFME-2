@@ -139,18 +139,7 @@ enum TurretTargetType
 #include "../../../Include/Common/StateMachineClass.h"
 
 // The 0x40-byte turret machine (vtable 0x00C609C8); getGoalObject is 0x004D7726.
-class TurretStateMachine : public StateMachine
-{
-public:
-	TurretStateMachine(TurretAI *tai, Object *obj, unsigned int nameKey);
-	virtual ~TurretStateMachine();
-	virtual void clear();								// slot 5
-	virtual StateReturnType resetToDefaultState();		// slot 6
-	virtual StateReturnType setState(int newStateID);	// slot 8
-	Object *getGoalObject();
-	int getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
-	TurretAI *m_turretAI;								// +0x3C
-};
+#include "../../../Include/GameLogic/Module/TurretStateMachine.h"
 
 class TurretAINotifyBase
 {
