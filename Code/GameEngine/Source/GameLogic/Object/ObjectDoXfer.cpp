@@ -187,15 +187,7 @@ public:
 
 #define OBJX_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
 
-class TerrainLogic
-{
-public:
-	OBJX_SLOTS4(a) OBJX_SLOTS4(b) OBJX_SLOTS4(c) OBJX_SLOTS4(d)
-	OBJX_SLOTS4(e) OBJX_SLOTS4(f) OBJX_SLOTS4(g) OBJX_SLOTS4(h)
-	OBJX_SLOTS4(i)
-	virtual void j0(); virtual void j1(); virtual void j2();
-	virtual PolygonTrigger *getTriggerAreaByName(const AsciiString &name); // slot 39
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class Drawable

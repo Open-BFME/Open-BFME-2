@@ -274,7 +274,7 @@ BFME_DISP_BYTE_GETTER(Rva004A768AByteField, 0xAD)
 // Full native leaf 001F350B..001F3513 ends at its own RET boundary.
 // Target evidence: receiver0C dword equals two; result in AL.
 // Original owner unresolved; the address-owned type is independent of nearby classes.
-class TerrainLogic {public:virtual ~TerrainLogic();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual float getGroundHeight(float,float,Coord3D*)const;virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D*,bool)const;PathfindLayerEnum getHighestLayerForDestination(const Coord3D*,bool);};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

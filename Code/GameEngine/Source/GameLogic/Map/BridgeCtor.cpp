@@ -229,21 +229,13 @@ struct Rva002ED236Pos;
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class TerrainLogic
-{
-public:
-	virtual void addBridgeToLogic(BridgeInfo *pInfo, Dict *props, const AsciiString &bridgeTemplateName);
-	virtual void addLandmarkBridgeToLogic(Object *bridgeObj);
-private:
-	char m_pad04[0x40 - 0x04];
-	Bridge *m_bridgeListHead; // +0x40
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 void TerrainLogic::addBridgeToLogic(BridgeInfo *pInfo, Dict *props, const AsciiString &bridgeTemplateName)
 {
 	Bridge *pBridge = new Bridge(*pInfo, props, bridgeTemplateName);
-	pBridge->setNext(m_bridgeListHead);
-	m_bridgeListHead = pBridge;
+	pBridge->setNext(field40);
+	field40 = pBridge;
 	Int layer = TheAI->pathfinder()->AddBridge((Int)pBridge);
 	pBridge->setLayer(layer);
 }
@@ -251,8 +243,8 @@ void TerrainLogic::addBridgeToLogic(BridgeInfo *pInfo, Dict *props, const AsciiS
 void TerrainLogic::addLandmarkBridgeToLogic(Object *bridgeObj)
 {
 	Bridge *pBridge = new Bridge(bridgeObj);
-	pBridge->setNext(m_bridgeListHead);
-	m_bridgeListHead = pBridge;
+	pBridge->setNext(field40);
+	field40 = pBridge;
 	Int layer = TheAI->pathfinder()->AddBridge((Int)pBridge);
 	pBridge->setLayer(layer);
 }

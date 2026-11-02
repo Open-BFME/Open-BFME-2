@@ -123,13 +123,7 @@ public:
 #include "../../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-class TerrainLogic
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6();
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal, Bool clip);	// slot 7
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 extern GameLogic *TheGameLogic;

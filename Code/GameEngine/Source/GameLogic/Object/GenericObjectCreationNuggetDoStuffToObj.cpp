@@ -350,25 +350,7 @@ template <> class OclTerrainSlots<0>
 {
 };
 
-class TerrainLogic : public OclTerrainSlots<6>
-{
-public:
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) = 0; // +0x18
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, bool clip = true) = 0; // +0x1C
-	virtual void v20() = 0;
-	virtual void v24() = 0;
-	virtual void v28() = 0;
-	virtual void v2C() = 0;
-	virtual void v30() = 0;
-	virtual void v34() = 0;
-	virtual void v38() = 0;
-	virtual void v3C() = 0;
-	virtual void v40() = 0;
-	virtual void v44() = 0;
-	virtual void v48() = 0;
-	virtual bool isUnderwater(Real x, Real y, Real *waterZ = 0, Real *terrainZ = 0, Int unused = 0) = 0; // +0x4C
-	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, bool onlyHealthyBridges = false);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 extern GameLogic *TheGameLogic;

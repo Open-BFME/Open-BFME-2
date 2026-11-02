@@ -44,16 +44,7 @@ class Waypoint { public:
  const Coord3D *getLocation() const { return &m_location; }
  Waypoint *getNext() const { return m_pNext; }
 };
-class TerrainLogic {
-public:
-#define SLOT(n) virtual void slot##n();
- SLOT(00) SLOT(04) SLOT(08) SLOT(0c) SLOT(10) SLOT(14) SLOT(18) SLOT(1c)
- SLOT(20) SLOT(24) SLOT(28) SLOT(2c) SLOT(30) SLOT(34) SLOT(38) SLOT(3c)
- SLOT(40) SLOT(44) SLOT(48) SLOT(4c) SLOT(50) SLOT(54) SLOT(58) SLOT(5c)
- SLOT(60) SLOT(64) SLOT(68) SLOT(6c) SLOT(70) SLOT(74) SLOT(78) SLOT(7c) SLOT(80)
-#undef SLOT
- virtual Waypoint *getFirstWaypoint();
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct TCreateUnitsInfo {
  int minUnits,maxUnits,experienceLevel; AsciiString upgradeList,unitThingName; char unknown14[4];

@@ -182,11 +182,7 @@ private:
 extern AI *TheAI;
 
 struct TBridgeAttackInfo { Coord3D attackPoint1,attackPoint2; };
-class TerrainLogic { public:
- virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04();virtual void s05();virtual void s06();
- virtual Real getLayerHeight(Real,Real,PathfindLayerEnum,void*,Bool);
- void getBridgeAttackPoints(const Object*,TBridgeAttackInfo*);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 Bool Rva001E3679(Int layer);

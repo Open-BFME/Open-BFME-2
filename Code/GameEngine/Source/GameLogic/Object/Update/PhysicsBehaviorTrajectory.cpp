@@ -119,11 +119,7 @@ void PhysicsBehavior::rva00390FAF()
  rva00390CCA(true);
 }
 
-class TerrainLogic { public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void slot3(); virtual void slot4(); virtual void slot5();
- virtual float getGroundHeight(float,float,Coord3D *);
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

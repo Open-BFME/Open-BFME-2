@@ -78,15 +78,7 @@ public:
 };
 
 
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *, Bool = false);
-	virtual void slot00(); virtual void slot04(); virtual void slot08();
-	virtual void slot0c(); virtual void slot10(); virtual void slot14();
-	virtual Real getGroundHeight(Real, Real, Coord3D * = 0);
-	virtual Real getLayerHeight(Real, Real, PathfindLayerEnum, Coord3D * = 0, Bool = true);
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 
 class Rva004DC1BF
 {
