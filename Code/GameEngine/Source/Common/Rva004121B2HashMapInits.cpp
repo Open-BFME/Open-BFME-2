@@ -100,11 +100,7 @@ template <typename T> struct equal_to
 };
 }
 
-class ArmorTemplate
-{
-public:
-	float m_damageCoefficient[38];
-};
+#include "../../Include/GameLogic/Armor.h"
 
 typedef std::hash_map<
 	NameKeyType,

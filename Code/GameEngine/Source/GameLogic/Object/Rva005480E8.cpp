@@ -19,9 +19,7 @@ public:
 	void rva00548984(void *first, int third);
 };
 
-class ArmorTemplate
-{
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 class Rva00355B61
 {

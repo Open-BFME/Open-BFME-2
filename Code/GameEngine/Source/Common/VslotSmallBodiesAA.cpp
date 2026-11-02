@@ -14,12 +14,7 @@ class AsciiString;
 // under this name (the rowed 0x001D901B) has a positive +0x74; reached
 // from 0x004BF8AC, the slot that applies it to the +0xF8 name (eleven
 // module tables).
-class ArmorTemplate
-{
-public:
-	char m_pad00[0x74];
-	Int m_74;
-};
+#include "../../Include/GameLogic/Armor.h"
 class Rva001D901B
 {
 public:
@@ -36,7 +31,7 @@ Int Rva001D9083::rva001D9083()
 	const ArmorTemplate *armor = (*(Rva001D901B **)&TheArmorStore)->rva001D901B(*(const AsciiString *)this);
 	if (armor)
 	{
-		bool positive = armor->m_74 > 0;
+		bool positive = armor->m_field74 > 0;
 		return positive;
 	}
 	return 0;

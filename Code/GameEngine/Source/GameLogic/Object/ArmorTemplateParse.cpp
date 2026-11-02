@@ -69,25 +69,7 @@ enum
 	ARMOR_DAMAGE_TYPES = 27
 };
 
-class ArmorTemplate
-{
-public:
-	ArmorTemplate(const AsciiString &name);
-	~ArmorTemplate();
-	static void parseArmorCoefficients(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDamageScalar(INI *ini, void *instance, void *store, const void *userData);
-	void clear();
-	bool rva001D8E7F() const;
-	float rva001D8E88() const;
-	float getDamageCoefficient(const struct Rva001D8E8BInput &input) const;
-
-private:
-	float m_head; // +0x00
-	float m_damageCoefficient[ARMOR_DAMAGE_TYPES]; // +0x04
-	float m_damageScalar; // +0x70
-	int m_flag; // +0x74
-	AsciiString m_name; // +0x78
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 // The damage request read by 0x001D8E8B: its damage type sits at +0x0C.
 struct Rva001D8E8BInput
@@ -155,9 +137,9 @@ void ArmorTemplate::clear()
 	{
 		m_damageCoefficient[i] = 1.0f;
 	}
-	m_flag |= -1;
+	m_field74 |= -1;
 	m_damageScalar = 1.0f;
-	m_head = 0.0f;
+	m_flankedPenalty = 0.0f;
 	m_name = TheDefaultArmorTemplateName;
 }
 // ?TheDefaultArmorTemplateName@@3VAsciiString@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
@@ -169,13 +151,13 @@ void ArmorTemplate::clear()
 // 0x001D8E7F (9B): whether the +0x74 flag is positive.
 bool ArmorTemplate::rva001D8E7F() const
 {
-	return m_flag > 0;
+	return m_field74 > 0;
 }
 
 // 0x001D8E88 (3B): the +0x00 float.
 float ArmorTemplate::rva001D8E88() const
 {
-	return m_head;
+	return m_flankedPenalty;
 }
 
 // 0x001D8E8B (14B): the coefficient for the request's damage type.

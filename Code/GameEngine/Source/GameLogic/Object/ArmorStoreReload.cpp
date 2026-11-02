@@ -70,15 +70,7 @@ template <> __declspec(dllimport) __forceinline void vector<void *>::clear() { e
 template <> __declspec(dllimport) __forceinline void *const &vector<void *>::operator[](size_t __n) const { return *(begin() + __n); }
 }
 
-class ArmorTemplate
-{
-public:
-	float m_head;				// +0x00
-	float m_damageCoefficient[27];		// +0x04
-	float m_damageScalar;			// +0x70
-	int m_flag;				// +0x74
-	AsciiString m_name;			// +0x78
-};
+#include "../../../Include/GameLogic/Armor.h"
 typedef _STL::hash_map<NameKeyType, ArmorTemplate *, rts::hash<NameKeyType>, _STL::equal_to<NameKeyType> > ArmorTemplateMap;
 
 class Rva001D9670Store : public RifStore

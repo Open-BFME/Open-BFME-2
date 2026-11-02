@@ -30,11 +30,7 @@ template <typename T> struct hash
 
 }
 
-class ArmorTemplate
-{
-public:
-	float m_damageCoefficient[38];
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"

@@ -165,7 +165,8 @@ extern float terrainLineOpacity;
 // Owned here (its only reader); retail .data VA 0x00DB5468 starts at 1.0f.
 float terrainLineOpacity = 1.0f;
 enum NameKeyType{NativeNameKeyUnknown=0};
-class ArmorTemplate{float payload[38];};namespace rts{template<class T>struct hash{unsigned operator()(const T&t)const{return(unsigned)t;}};}
+#include "../../Include/GameLogic/Armor.h"
+namespace rts{template<class T>struct hash{unsigned operator()(const T&t)const{return(unsigned)t;}};}
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmorPair;
 typedef _STL::hashtable<ArmorPair,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmorPair>,_STL::equal_to<NameKeyType>,_STL::allocator<ArmorPair> > ArmorTable;
 namespace _STL{template<>void ArmorTable::clear();}

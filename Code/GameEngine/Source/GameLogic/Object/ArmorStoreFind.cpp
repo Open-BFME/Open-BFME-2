@@ -37,11 +37,7 @@ template <typename T> struct hash
 // Identity hash (row 0x00169440); inlined into _M_find as retail does.
 namespace rts { template <> __declspec(dllimport) __forceinline size_t hash<NameKeyType>::operator()(const NameKeyType &value) const { return (size_t)value; } }
 
-class ArmorTemplate
-{
-public:
-	float m_damageCoefficient[38];
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 #include "ascii_string.h"
 

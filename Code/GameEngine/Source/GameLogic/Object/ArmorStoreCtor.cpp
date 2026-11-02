@@ -61,11 +61,7 @@ template <typename T> struct hash
 
 }
 
-class ArmorTemplate
-{
-public:
-	float m_damageCoefficient[38]; // DAMAGE_NUM_TYPES, ZH count
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 #include "ascii_string.h"
 // Import-inline: every __malloc_alloc<0>::deallocate use here is inlined, and this

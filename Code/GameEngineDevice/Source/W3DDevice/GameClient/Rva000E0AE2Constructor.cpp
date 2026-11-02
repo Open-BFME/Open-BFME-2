@@ -52,7 +52,7 @@ template<> void vector<Rva00390729Element>::reserve(unsigned);
 
 }
 enum NameKeyType { NativeNameKeyUnknown=0 };
-class ArmorTemplate {float donorCoefficients[38];};
+#include "../../../../GameEngine/Include/GameLogic/Armor.h"
 namespace rts {template<class T>struct hash {unsigned operator()(T)const;};template<class T>struct equal_to {bool operator()(T,T)const;};}
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmorPair;
 typedef _STL::hashtable<ArmorPair,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmorPair>,_STL::equal_to<NameKeyType>,_STL::allocator<ArmorPair> > ArmorTable;

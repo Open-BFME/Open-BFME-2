@@ -30,7 +30,7 @@ namespace _STL {template<> ReverseIndex::hash_map();}
 // provider bytes plus EH are independently verified before fold admission.
 enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 namespace rts { template<class T>struct hash {unsigned operator()(const T&v)const{return (unsigned)v;} }; }
-class ArmorTemplate {float values[38];};
+#include "../../Include/GameLogic/Armor.h"
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmorPair;
 typedef _STL::hashtable<ArmorPair,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmorPair>,_STL::equal_to<NameKeyType>,_STL::allocator<ArmorPair> > ArmorTable;
 namespace _STL {template<> void ArmorTable::clear();}

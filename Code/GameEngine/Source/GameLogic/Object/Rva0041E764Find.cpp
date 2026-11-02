@@ -9,11 +9,7 @@ enum NameKeyType
 
 class Rva0041E764;
 
-class ArmorTemplate
-{
-public:
-	float m_damageCoefficient[38];
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 namespace rts
 {

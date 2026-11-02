@@ -6,7 +6,7 @@
 struct EmitVtableTag;
 
 // ??_GArmorTemplate@@QAEPAXI@Z @0x1d8fe5
-class ArmorTemplate { public: ~ArmorTemplate(); };
+#include "../../Include/GameLogic/Armor.h"
 void famgenDelete(ArmorTemplate *armorTemplate) { delete armorTemplate; }
 
 class Rva00255CD1

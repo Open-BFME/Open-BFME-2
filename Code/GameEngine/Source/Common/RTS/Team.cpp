@@ -472,11 +472,7 @@ template <typename T> struct hash
     size_t operator()(const T &value) const { return (size_t)value; }	// Zero Hour's rts::hash<NameKeyType>, inline
 };
 }
-class ArmorTemplate
-{
-public:
-    float m_damageCoefficient[38];
-};
+#include "../../../Include/GameLogic/Armor.h"
 typedef std::hash_map<
     NameKeyType,
     ArmorTemplate,

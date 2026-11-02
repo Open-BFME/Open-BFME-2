@@ -49,7 +49,7 @@ template<>void vector<const ModuleData*>::push_back(const ModuleData*const&);
 template<>vector<Rva0021C21BElement>&vector<Rva0021C21BElement>::operator=(const vector<Rva0021C21BElement>&);
 template<>vector<ScienceType>&hash_map<int,vector<ScienceType> >::operator[](const int&);
 }
-class ArmorTemplate {char body[152];};
+#include "../../../Include/GameLogic/Armor.h"
 namespace rts {template<class T>struct hash {};template<class T>struct equal_to {};}
 typedef _STL::hashtable<_STL::pair<const NameKeyType,ArmorTemplate>,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<_STL::pair<const NameKeyType,ArmorTemplate> >,rts::equal_to<NameKeyType>,_STL::allocator<_STL::pair<const NameKeyType,ArmorTemplate> > > ArmorHashtable;
 class Object;class ObjectLookupMap {public:Object**findSlot(int*);};

@@ -36,9 +36,7 @@ enum NameKeyType
 {
 	NK_Zero = 0
 };
-class ArmorTemplate
-{
-};
+#include "../../../Include/GameLogic/Armor.h"
 namespace rts
 {
 	template<class T> struct hash
