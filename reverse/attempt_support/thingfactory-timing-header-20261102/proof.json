@@ -1,0 +1,13 @@
+{
+  "rows": 3,
+  "old_missing": [],
+  "missing": [],
+  "errors": [],
+  "old_code": 5,
+  "new_code": 6,
+  "removed": [],
+  "added": [
+    "?firstTemplate@ThingFactory@@QAEPBVThingTemplate@@XZ"
+  ],
+  "changed": []
+}

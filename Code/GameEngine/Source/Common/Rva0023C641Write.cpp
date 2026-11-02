@@ -58,12 +58,7 @@ extern "C"
 extern GlobalData *TheWritableGlobalData;
 
 // The thing factory's first template sits at +0x0C (the donor's +8).
-class ThingFactory
-{
-public:
-	unsigned char m_pad000[0x0C];
-	void *m_firstTemplate; // +0x0C
-};
+#include "../../Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
 
@@ -87,7 +82,7 @@ private:
 	bool m_enabled;
 	AsciiString m_name04, m_name08;
 	bool m_gotUnit; // +0x0C
-	void *m_curThing; // +0x10
+	const void *m_curThing; // +0x10
 	bool m_startTiming; // +0x14
 	FILE *m_file18; // +0x18
 	unsigned int m_1C, m_20;
@@ -122,7 +117,7 @@ void Rva0023C641::rva0023D494()
 	rva0038780();
 	HideControlBar(true);
 
-	m_curThing = TheThingFactory->m_firstTemplate;
+	m_curThing = TheThingFactory->firstTemplate();
 	m_startTiming = true;
 	m_gotUnit = false;
 
