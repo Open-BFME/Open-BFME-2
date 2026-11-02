@@ -32,31 +32,14 @@ typedef float Real;
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-struct AIBase00 { virtual void f00(); const ModuleData *m_moduleData; Object *m_object; };
-struct AIBase0C { virtual void f0C(); };
-struct AIBase10 { virtual void f10(); unsigned char m_pad[12]; };
-struct AIBase20 { virtual void f20(); };
-struct AIBase24 { virtual void f24(); unsigned char m_pad[0x3E4 - 0x28]; };
-
-class Rva0026E9BDBase
-	: public AIBase00
-	, public AIBase0C
-	, public AIBase10
-	, public AIBase20
-	, public AIBase24
-{
-public:
-	Rva0026E9BDBase(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva0026E9BDBase();
-	Object *getObject() { return m_object; }
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class StateMachine
 {
 public:
 	virtual ~StateMachine();
 	virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06();
+	virtual int s04(); virtual void s05(); virtual void s06();
 	virtual void initDefaultState(); // +0x1C
 };
 
@@ -86,11 +69,12 @@ public:
 	virtual Int getUpgradedSupplyBoost() const = 0;
 };
 
-class SupplyTruckAIUpdate : public Rva0026E9BDBase, public SupplyTruckAIInterface
+class SupplyTruckAIUpdate : public AIUpdateInterface, public SupplyTruckAIInterface
 {
 public:
 	SupplyTruckAIUpdate( Thing *thing, const ModuleData* moduleData );
 	virtual ~SupplyTruckAIUpdate();
+	virtual UpdateSleepTime update();
  	virtual Int getNumberBoxes() const;
 	virtual Bool loseOneBox();
 	virtual Bool gainOneBox( Int remainingStock );
@@ -114,7 +98,7 @@ private:
 	Bool m_forcedBusyPending;   // +0x405
 };
 
-SupplyTruckAIUpdate::SupplyTruckAIUpdate( Thing *thing, const ModuleData* moduleData ) : Rva0026E9BDBase( thing, moduleData )
+SupplyTruckAIUpdate::SupplyTruckAIUpdate( Thing *thing, const ModuleData* moduleData ) : AIUpdateInterface( thing, moduleData )
 {
 	m_supplyTruckStateMachine = 0;
 	m_preferredDock = INVALID_ID;
@@ -136,12 +120,16 @@ SupplyTruckAIUpdate::~SupplyTruckAIUpdate()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?f0C@AIBase0C@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f00@AIBase00@@UAEXXZ=??_GSupplyTruckAIUpdate@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?f10@AIBase10@@UAEXXZ=?update@Rva004A6A58@@QAEHXZ")
-#pragma comment(linker, "/alternatename:?f20@AIBase20@@UAEXXZ=?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z")
-#pragma comment(linker, "/alternatename:?f24@AIBase24@@UAEXXZ=?onCollide@AIUpdateInterface@@UAEXPAVObject@@PBUCoord3D@@1@Z")
+
+UpdateSleepTime SupplyTruckAIUpdate::update()
+{
+    int raw = m_supplyTruckStateMachine->s04();
+    int n = raw > 0 ? raw : 1;
+    int slept = (int)AIUpdateInterface::update();
+    if (n < slept) slept = n;
+    return (UpdateSleepTime)slept;
+}

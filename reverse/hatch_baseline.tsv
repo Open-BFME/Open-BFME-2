@@ -3032,11 +3032,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdG
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp	?slot02@State@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp	?slot03@State@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdateCtor.cpp	??1Rva0026E9BDBase@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp	?f00@AIBase00@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp	?f0C@AIBase0C@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp	?f10@AIBase10@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp	?f20@AIBase20@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp	?f24@AIBase24@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp	?_CxxThrowException@@YGXPAX0@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp	?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp	?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z	1

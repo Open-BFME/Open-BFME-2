@@ -18244,3 +18244,8 @@ A private BFME allocator-shim trial reproduces the remaining60B base and its11B 
 ### Dict-record canonical Dict lifetime boundary (2026-11-02)
 
 Canonical Dict adoption in the remaining caller requires a real member-lifetime repair: emptying the caller's explicit-release destructor avoids double cleanup but changes the native85B constructor's cleanup target. A local inline Dict destructor restores3/3 bytes privately, but was not applied because consistent destructor declarations/definitions must be reconciled across users. The existing5B SidesListDataChunks owner is implicitly inline in a private class. [Measured boundary and review](../reverse/attempt_support/element196d90-dict-header-20261102/README.md). The header key remains open; no source or census change is claimed.
+
+
+### LINK-089 SupplyTruck canonical base and update prerequisite (2026-11-02)
+
+The ctor unit now uses canonical AIUpdateInterface storage/hierarchy and a verified41B SupplyTruck update override. All nine rows pass normal/strict checks; the eight original rows and actual EH graph placements are kept. Five surrogate-vslot alternates retire through the hatch tool, and six surrogate classes disappear. The old tiny tables had hidden unresolved base names: the fuller canonical tables expose those prerequisites, so the unit remains unlinked. Native's20-slot SupplyTruck interface, eleven primary overrides and complete table binding still require reconciliation. No census or runtime clearance is claimed. [Exact scope, table inventory and provider audit qualification](../reverse/attempt_support/supply-truck-base-update-20261102/README.md).
