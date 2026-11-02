@@ -18336,3 +18336,7 @@ SupplyTruck secondary slot12's bool getter at object+404 now matches complete4B 
 SupplyTruck secondary slot13's typed bool store at object+405 matches complete10B native5975D7 with RET4. All fourteen ctor rows pass; the old scalar-store representative and legacy differently placed semantic setter remain. No pin or unit/census clearance is added.
 
 SupplyTruck secondary slot14's typed bool getter at object+405 matches complete4B native4A6A40. All fifteen ctor rows pass; the existing byte-field representative remains. No pin or unit/census clearance is added.
+
+### LINK-089 Companion AIUpdate adoption false-reject handoff (2026-11-02)
+
+A canonical AIUpdate/AICommand adoption privately and normally preserves all37rows plus every complete28code/fourdata definition and relocation. It restores real+20 command receivers and correct+10 update receiver conversion. Owning acceptance nevertheless refuses the existing census StateMachine table conflict as a predicted loss. No source adoption or debt retirement was retained and no check was altered. [Exact candidate, before/after hashes and refusal](../reverse/attempt_support/supply-truck-seed-base-20261102/README.md). State/StateMachine reconciliation and tooling treatment of unchanged pre-existing conflicts remain prerequisites.

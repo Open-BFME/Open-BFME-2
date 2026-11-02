@@ -1,0 +1,24 @@
+{
+  "scope": "Full original seed definitions against canonical AIUpdate adoption; rows and EH independently verified.",
+  "objects": [
+    {
+      "path": "interface-final-seed.obj",
+      "sha256": "b09e130bbd680bf18df4496427dd757aef1273d4476e40c0d90583341eb6142e"
+    },
+    {
+      "path": "seed-base-candidate.obj",
+      "sha256": "aeb846821018e8c3e71441c8890a5c0445744c6add026b4c93619ff97ab49f9c"
+    }
+  ],
+  "before": {
+    "code": 28,
+    "data": 4
+  },
+  "after": {
+    "code": 28,
+    "data": 4
+  },
+  "changed": [],
+  "removed": [],
+  "added": []
+}
