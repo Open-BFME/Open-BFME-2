@@ -199,3 +199,19 @@ bool SupplyTruckAIUpdate::loseOneBox()
         m_numberBoxes);
     return true;
 }
+
+bool SupplyTruckAIUpdate::gainOneBox(int remainingStock)
+{
+    (void)remainingStock;
+    const SupplyTruckModuleDataView *data =
+        reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData());
+    if (data && m_numberBoxes >= data->field64) return false;
+    Thing *object = reinterpret_cast<Thing *>(getObject());
+    ++m_numberBoxes;
+    Drawable *drawable = object->getDrawable();
+    if (!drawable) return true;
+    reinterpret_cast<Rva002716Holder *>(drawable)->Rva0027164EBroadcast(
+        reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field64,
+        m_numberBoxes);
+    return true;
+}
