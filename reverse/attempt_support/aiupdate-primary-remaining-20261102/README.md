@@ -13,3 +13,5 @@ Slot44 (vslot044): native0x0050B238/3B, exact normal admission; existing first r
 Slot45 (vslot045): native0x0050B238/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
 
 Slot129 (addTargeter): native0x0050B238/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
+
+Slot93 (getDozerAIInterface): native0x000D43D0/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
