@@ -1,0 +1,642 @@
+{
+ "bases": [
+  "Snapshot",
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Radar",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x142c": {
+    "4": 15
+   },
+   "0x1430": {
+    "4": 3
+   },
+   "0x1434": {
+    "4": 5
+   },
+   "0x1438": {
+    "4": 4
+   },
+   "0x1440": {
+    "4": 4
+   },
+   "0x1444": {
+    "4": 4
+   },
+   "0x144c": {
+    "4": 2
+   },
+   "0x1450": {
+    "4": 1
+   },
+   "0x1454": {
+    "4": 1
+   },
+   "0x1458": {
+    "4": 1
+   },
+   "0x145c": {
+    "1": 2
+   },
+   "0x1500": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 3
+   },
+   "0x24": {
+    "4": 4
+   },
+   "0x28": {
+    "4": 4
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2d87b9"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 0,
+       "own_vftable": "0x80363c",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 4,
+       "own_vftable": "0x803604",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d87b9"
+     ],
+     "value": 5220
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d87b9"
+     ],
+     "value": {
+      "0x10": [
+       1
+      ],
+      "0x11": [
+       1
+      ],
+      "0x14": [
+       4
+      ],
+      "0x1430": [
+       4
+      ],
+      "0x1434": [
+       4
+      ],
+      "0x1438": [
+       4
+      ],
+      "0x143c": [
+       4
+      ],
+      "0x1440": [
+       4
+      ],
+      "0x1444": [
+       4
+      ],
+      "0x1448": [
+       4
+      ],
+      "0x1460": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2d87b9"
+     ],
+     "value": {
+      "0x0": [
+       "?rva002D7BD3@Radar@@QAEXXZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2d87b9"
+     ],
+     "value": {
+      "0x0": "0x80363c",
+      "0x4": "0x803604"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x80363c"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRadar@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2d8888"
+       },
+       {
+        "name": "?loadPostProcess@Radar@@UAEXXZ",
+        "slot": 1,
+        "target": "0x2d7abf"
+       },
+       {
+        "name": "?name@Rva0004FA11Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4fa11"
+       },
+       {
+        "name": "?xfer@Radar@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x2d85d7"
+       },
+       {
+        "name": "?refreshTerrain@Radar@@UAEXPAVTerrainLogic@@@Z",
+        "slot": 4,
+        "target": "0x2d7aa6"
+       },
+       {
+        "name": "?queueTerrainRefresh@Radar@@UAEXXZ",
+        "slot": 5,
+        "target": "0x2d7ab0"
+       },
+       {
+        "name": "?rva002D7E68@Radar@@QAEXPAX@Z",
+        "slot": 6,
+        "target": "0x2d7e68"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 10,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x80363c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 27,
+  "retail_vtables": {
+   "0x803604": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x80363c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRadar@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Radar@@UAEXXZ",
+     "2": "?name@Rva0004FA11Named@@QBEPBDXZ",
+     "3": "?xfer@Radar@@MAEXPAVXfer@@@Z",
+     "4": "?refreshTerrain@Radar@@UAEXPAVTerrainLogic@@@Z",
+     "5": "?queueTerrainRefresh@Radar@@UAEXXZ",
+     "6": "?rva002D7E68@Radar@@QAEXPAX@Z",
+     "7": "__purecall",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "__purecall",
+     "11": "__purecall",
+     "12": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 22,
+   "4": 4,
+   "18": 3,
+   "20": 1,
+   "5168": 3,
+   "5172": 1,
+   "5216": 1,
+   "5220": 2
+  },
+  "views": 37,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Radar.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Radar.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/RadarDtor.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/RadarDtor.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/RadarDtor.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 13,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/RadarFrameTick.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/LeftHUDInput.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_handleRadiusCursor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 17,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp",
+    "Code/GameEngine/Source/Common/VictoryConditions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/LeftHUDInput.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUI_handleRadiusCursor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/GUICallbacks/W3DControlBar.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarTerrainTexture.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarFrameTick.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarDtor.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 5164,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarDtor.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 5168,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarNewMap.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 5172,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 5176,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 5184,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 5188,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 5196,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 5200,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 5204,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 5208,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 5212,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarFrameTick.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 5216,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/Radar.cpp",
+    "Code/GameEngine/Source/Common/System/RadarRva002D7BD3.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0xd",
+   "candidates": {
+    "1:i1": 1
+   },
+   "class": "Radar"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "refreshTerrain(TerrainLogic*)": 1,
+    "s04()": 1,
+    "s04(TerrainLogic*)": 1,
+    "v04()": 1
+   },
+   "class": "Radar"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "queueTerrainRefresh()": 1,
+    "s05()": 1,
+    "v05()": 1
+   },
+   "class": "Radar"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "draw(int,int,int,int,uint)": 1,
+    "s07()": 1,
+    "unk1C(int,int,int,int,int)": 1
+   },
+   "class": "Radar"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "s01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "s11()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "s12(int,int,int)"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "rva004C9CF7Slot12(char*)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "s02()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "s03()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "s06()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "s09()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "s10(int,int,int)"
+  }
+ }
+}

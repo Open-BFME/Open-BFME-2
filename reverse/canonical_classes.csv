@@ -262,3 +262,4 @@ DataChunkInput,Code/GameEngine/Include/Common/DataChunk.h,existing header; contr
 CommandSet,Code/GameEngine/Include/GameClient/CommandSet.h,existing header; contract class_contracts/CommandSet.json; 24/56 sampled units adopt
 PlayerTemplate,Code/GameEngine/Include/Common/PlayerTemplate.h,existing header; contract class_contracts/PlayerTemplate.json; 24/55 sampled units adopt
 Parameter,Code/GameEngine/Include/GameLogic/ScriptParameter.h,existing header; contract class_contracts/Parameter.json; 52/75 sampled units adopt
+Radar,Code/GameEngine/Include/Common/Radar.h,existing header; contract class_contracts/Radar.json; 28/54 sampled units adopt
