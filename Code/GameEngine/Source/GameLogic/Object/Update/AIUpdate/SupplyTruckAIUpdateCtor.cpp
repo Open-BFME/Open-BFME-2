@@ -57,7 +57,7 @@ public:
     virtual int rva004A6E29() const;                          //1
     virtual bool loseOneBox();                               //2
     virtual bool gainOneBox(int remainingStock);              //3
-    virtual bool isAvailableForSupplying() const;             //4
+    virtual bool isAvailableForSupplying() const { return true; } //4
     virtual bool isCurrentlyFerryingSupplies() const;          //5
     virtual unsigned char rva004A6FE5() const;                 //6
     virtual float rva004A6FEF() const;                        //7

@@ -1,0 +1,7 @@
+# SupplyTruck small callbacks, 2026-11-02
+
+Four measured secondary callbacks have ordinary C++ trials: slot4 returns true (3B); slot16 assigns the actual Coord3D member and returns its companion byte (20B); slot17 is an empty one-word-argument callback (3B RET4); slot5 tests the canonical state machine's current state against IDs2/4/5 (52B). State IDs are target values, not recovered enum names. Slot16/17 retain neutral address names and provisional pointer/argument types. All complete native bodies have zero relocations and match exactly.
+
+The three small callbacks privately preserve all72 existing external code and seven data definitions, adding only their own three definitions. The ferry trial preserves the same baseline, adding its52B callback and the existing canonical StateMachine::getCurrentStateID inline accessor (17B; the callback inlines its logic). No actual member lifetime changes, copying of registered classes, pin or provider removal is involved. Full added-definition records and object hashes are included; canonical accessor emission is subject to the ordinary variant gate.
+
+This packet first accompanies availability's individual ICF admission against the existing constant predicate. Each remaining candidate becomes progress only after its own admission, normal checks and commit. Original ICF owners remain. No unique-byte, original-header, unit/census or runtime clearance is claimed.

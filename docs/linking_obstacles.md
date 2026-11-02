@@ -18401,3 +18401,7 @@ SupplyTruck secondary slot7's canonical ModuleData float78 getter matches comple
 SupplyTruck secondary slot8's canonical ModuleData dword7C getter matches complete10B native4A6FF9 and all nineteen ctor rows. Existing pointer-chase representative is retained, with original signedness/type unresolved. Remaining callback/base prerequisites are unchanged.
 
 SupplyTruck secondary slot9's canonical ModuleData dword80 getter matches complete13B native4A7003; all twenty ctor rows pass. All five module-data getter candidates in the packet now have separately admitted rows and commits; original representatives remain. No pin, unique-byte or unit/census claim is added.
+
+### LINK-089 SupplyTruck availability callback (2026-11-02)
+
+Secondary slot4 now has its ordinary true-return implementation, matching complete3B native50B5C6 and all twenty-one ctor rows. Existing predicate owner remains. Four private small-callback trials preserve all72prior code/seven data definitions; each remaining body still requires separate admission. [Native bodies, canonical StateMachine accessor and object hashes](../reverse/attempt_support/supply-truck-small-callbacks-20261102/README.md). No unit/census clearance is claimed.
