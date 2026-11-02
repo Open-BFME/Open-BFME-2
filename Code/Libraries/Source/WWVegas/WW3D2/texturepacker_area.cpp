@@ -12,14 +12,7 @@ public:
         ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this)+4);
     }
 };
-class AssetReference {
-public:
-    TextureClass *object;
-    AssetReference(const AssetReference &assetReference) : object(assetReference.object) {
-        if(object) object->Add_Ref();
-    }
-    ~AssetReference() { if(object) object->Release_Ref(); }
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
 typedef _STL::pair<unsigned,AssetReference> AreaMutablePair;
 template AreaMutablePair::pair(const unsigned &,const AssetReference &);

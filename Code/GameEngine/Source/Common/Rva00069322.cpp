@@ -4,12 +4,7 @@
 // into hidden return buffer via rowed copy ctor 0x000424BB. Evidence: unlock
 // lane; same EBP frame and-zero mov-eax leave ret-4 shape as Rva0007B9EEGet
 // (0x0007B9EE) under same flags; unblocks 0x00069DB1.
-class AssetReference
-{
-public:
-	AssetReference(const AssetReference &that);
-	~AssetReference();
-};
+#include "../../Include/Common/AssetReference.h"
 class Rva00069322
 {
 public:

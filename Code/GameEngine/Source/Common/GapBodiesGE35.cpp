@@ -184,11 +184,7 @@ int Rva000AC296::rva000AC296(int unused)
 
 // --- 0x000ADC81 (18B): copy constructor of a holder whose first member is
 // an AssetReference (rowed copy ctor 0x000424BB).
-class AssetReference
-{
-public:
-	AssetReference(const AssetReference &that);
-};
+#include "../../Include/Common/AssetReference.h"
 
 class Rva000ADC81
 {

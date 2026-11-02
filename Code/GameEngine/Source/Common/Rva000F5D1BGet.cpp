@@ -10,14 +10,7 @@ public:
 	void Release_Ref();
 };
 
-class AssetReference
-{
-public:
-	AssetReference(const AssetReference &other);
-	~AssetReference();
-private:
-	CountedAsset *m_object;
-};
+#include "../../Include/Common/AssetReference.h"
 
 // Same eight native texture slots owned by W3DShroudMaterialPass.cpp.
 extern void *g_shaderTextureSlots[8];

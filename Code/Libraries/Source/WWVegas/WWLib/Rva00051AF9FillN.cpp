@@ -13,10 +13,7 @@ class Rva0036CA00Str
 	void *m_item;
 };
 
-class AssetReference
-{
-	void *m_ref;
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
 class Rva004BA1D0
 {

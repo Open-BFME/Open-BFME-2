@@ -12,12 +12,7 @@
 // class keeps m_object private
 // (Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBDC0.cpp).
 
-class AssetReference
-{
-public:
-	AssetReference(const AssetReference &that);
-	~AssetReference();
-};
+#include "../../Include/Common/AssetReference.h"
 
 class Rva0007B9EE
 {

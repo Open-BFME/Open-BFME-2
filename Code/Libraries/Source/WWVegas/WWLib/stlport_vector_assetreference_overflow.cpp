@@ -24,15 +24,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 
 class TextureClass;
-class AssetReference
-{
-public:
-	AssetReference();
-	AssetReference(const AssetReference &);
-	~AssetReference();
-	AssetReference &operator=(const AssetReference &);
-	TextureClass *m_ref; // +0x00
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
 namespace _STL {
 template <> void _Construct<AssetReference, AssetReference>(AssetReference *, const AssetReference &);

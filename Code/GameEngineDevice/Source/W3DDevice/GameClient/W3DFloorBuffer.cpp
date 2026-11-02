@@ -256,12 +256,7 @@ private:
 // The texture handle wraps an AssetReference whose out-of-line copy
 // constructor is 0x000424BB; its inline copy gives retail's argument-copy
 // order (argument home stored before ECX takes the slot).
-class AssetReference
-{
-public:
-	AssetReference(const AssetReference &that);
-	void *m_object;
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
 template <>
 class RefCountPtr<TextureClass>

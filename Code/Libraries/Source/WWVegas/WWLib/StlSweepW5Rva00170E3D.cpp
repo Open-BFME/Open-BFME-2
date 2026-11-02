@@ -21,12 +21,7 @@ template _STL::_Rb_tree_iterator<_STL::pair<unsigned int const, Rva00170E3DEleme
 // texturepacker.cpp's area multimap<unsigned,AssetReference> tree; its
 // destructor is the rowed /EHs body at 0x00170D7F.
 class TextureClass;
-class AssetReference
-{
-public:
-	TextureClass *object;
-	~AssetReference();
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 namespace _STL { template <> _Rb_tree<unsigned int, pair<const unsigned int, AssetReference>, _Select1st<pair<const unsigned int, AssetReference> >, less<unsigned int>, allocator<pair<const unsigned int, AssetReference> > >::~_Rb_tree(); }
 typedef _STL::_Rb_tree<unsigned int, _STL::pair<const unsigned int, AssetReference>, _STL::_Select1st<_STL::pair<const unsigned int, AssetReference> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, AssetReference> > > AreaTree;
 

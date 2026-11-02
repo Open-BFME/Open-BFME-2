@@ -12,11 +12,7 @@
 
 #include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
-class AssetReference
-{
-public:
-	AssetReference(const AssetReference &other);
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 
 class WeaponTemplateSetHead
 {
