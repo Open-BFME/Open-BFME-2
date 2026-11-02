@@ -62,6 +62,19 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    (struct/class) has to be decided at the class level first (header lane: predicted row-name
    changes and consumers), then the constructor units adopt both headers with the per-class
    overrides declared in the holder and in each constructor unit.
+   Class-key evidence (searched 2026-11-02 for the follow-up seat): the retail image holds 81 RTTI
+   type descriptors, all exception types and STLport stream/locale classes (`.?AVINIException@@`,
+   `.?AVXferException@@`, `.?AU_Refcount_Base@_STL@@`, ...); neither `.?AVState@@`/`.?AUState@@`,
+   `.?A?StateMachine@@` nor `.?A?GameWindow@@` occurs, and the image has no `defineState` string. The
+   WorldBuilder data (`reverse/wb/*.jsonl.xz`: 286 functions with RTTI, again only exceptions and
+   STLport) carries no mangled State signature either; WB names `StateMachine::defineState`
+   (StateMachine.cpp) only as a demangled string. So the target proves no class key. Donor and
+   reference evidence point to `class`: Zero Hour's StateMachine.h declares `class State : public
+   MemoryPoolObject, public Snapshot` and `class GameWindow : public MemoryPoolObject`, and BFME 1's
+   matched ledger spells `?defineState@StateMachine@@IAEXIPAVState@@IIPBUStateConditionInfo@@@Z`
+   (class State, protected) at its 0x000A2030. BFME 2's `PAUState@@` spelling came from the private
+   `struct State` views, not from retail; treat any key choice as inferred and verify it with the
+   header lane's predicted row-name changes.
 2. Apt GameWindow family, 4,985 B, cause `636533e29f` (Adopt canonical GameWindow in 37 more
    units): `OpaqueScalarDeletingDtorsB12.cpp` emits 11-slot `6BGameWindow` tables; losers
    AptMainMenu 3,621, Rva005173F8Dtor 1,121, _bfme_AptGameWindow 243. Their header-queue rows show
