@@ -37,11 +37,7 @@ public:
 	char m_data[16];
 };
 
-class RadiusDecalTemplate
-{
-public:
-	void createSelectionRadiusDecal(Coord3D pos, unsigned selected, int color, RadiusDecal *out, float scale);
-};
+#include "../../Include/GameClient/RadiusDecalTemplate.h"
 
 class Object
 {

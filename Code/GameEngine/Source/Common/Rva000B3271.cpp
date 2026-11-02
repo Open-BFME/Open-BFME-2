@@ -5,13 +5,7 @@
 // Copies RadiusDecalTemplate at +0x228 via rowed 0x330CDD then BIC flow via pin 0x290FC9
 // then virtual at +0x84 with field pointer float and result pointer.
 
-class RadiusDecalTemplate
-{
-public:
-	void rva00330CDD(const RadiusDecalTemplate &other);
-private:
-	char m_pad[0x34];
-};
+#include "../../Include/GameClient/RadiusDecalTemplate.h"
 
 class BfmeSubBIC
 {

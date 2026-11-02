@@ -610,7 +610,7 @@ typedef void (*ExperienceLevelFieldParser)(INI *, void *, void *, const void *);
 
 struct FieldParse { const char *token; ExperienceLevelFieldParser parse; const void *userData; int offset; };
 
-class RadiusDecalTemplate { public: static void parseRadiusDecalTemplate(INI *, void *, void *, const void *); };
+#include "../../../Include/GameClient/RadiusDecalTemplate.h"
 
 class EmotionNuggetTemplate { public: static void IniParseEmotionType(INI *, void *, void *, const void *); };
 

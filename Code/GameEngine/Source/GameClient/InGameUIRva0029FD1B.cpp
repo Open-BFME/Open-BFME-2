@@ -43,13 +43,7 @@ public:
 	const Overridable *friend_getFinalOverride() const;
 };
 class RadiusDecal {};
-class RadiusDecalTemplate
-{
-public:
-	void createRadiusDecal(const Coord3D &pos, float radius, const Player *player, RadiusDecal &decal) const;
-private:
-	char m_pad[0x10];
-};
+#include "../../Include/GameClient/RadiusDecalTemplate.h"
 
 struct RadiusDecalTemplateNode
 {

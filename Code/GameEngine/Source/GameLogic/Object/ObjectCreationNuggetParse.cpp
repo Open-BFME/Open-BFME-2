@@ -20,11 +20,7 @@ extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 
 #include "../../../Include/Common/INI/INI.h"
 
-class RadiusDecalTemplate
-{
-public:
-	static void parseRadiusDecalTemplate(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/GameClient/RadiusDecalTemplate.h"
 
 class ObjectCreationNugget
 {

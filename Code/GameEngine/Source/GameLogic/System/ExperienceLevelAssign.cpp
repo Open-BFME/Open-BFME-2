@@ -39,13 +39,7 @@ template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, al
 }
 
 
-class RadiusDecalTemplate
-{
-public:
-	void rva00330CDD(const RadiusDecalTemplate &other);
-private:
-	char m_pad[0x34];
-};
+#include "../../../Include/GameClient/RadiusDecalTemplate.h"
 
 struct Rva002898ACElement
 {

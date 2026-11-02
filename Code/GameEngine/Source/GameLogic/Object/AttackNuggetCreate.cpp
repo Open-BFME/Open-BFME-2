@@ -49,12 +49,7 @@ __forceinline void AICommandInterface::aiAttackPositionInlined(const Coord3D *po
 
 class AIUpdateInterface : public AICommandInterface {};
 
-class RadiusDecalTemplate {
-public:
-	static void parseRadiusDecalTemplate(void*, void*, void*, const void*);
-private:
-	unsigned char m_opaque[0x34];
-};
+#include "../../../Include/GameClient/RadiusDecalTemplate.h"
 
 class RadiusDecalUpdate;
 #include "../../../Include/Common/Module.h"

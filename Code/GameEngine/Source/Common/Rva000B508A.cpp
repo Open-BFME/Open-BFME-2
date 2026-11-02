@@ -11,13 +11,7 @@
 // calls slot 27 with 1 and the chosen value when either drawable flag is set.
 // Evidence: target bytes and the rowed callees; the class and field names are neutral views.
 
-class RadiusDecalTemplate
-{
-public:
-	void rva00330CDD(const RadiusDecalTemplate &other);
-private:
-	char m_pad[0x34];
-};
+#include "../../Include/GameClient/RadiusDecalTemplate.h"
 
 struct Rva000B508AGlobals
 {

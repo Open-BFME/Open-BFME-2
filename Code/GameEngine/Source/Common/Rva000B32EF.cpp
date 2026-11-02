@@ -63,11 +63,7 @@ public:
 };
 
 // The rowed RadiusDecalTemplate builder 0x0033132D.
-class RadiusDecalTemplate
-{
-public:
-	void createDeathDecal(const Coord3D *pos, Real radius, const unsigned int *color, RadiusDecal *result);
-};
+#include "../../Include/GameClient/RadiusDecalTemplate.h"
 
 struct Rva000B330COwner
 {
