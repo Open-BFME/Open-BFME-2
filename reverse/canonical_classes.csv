@@ -370,3 +370,4 @@ WindowVideoManager,Code/GameEngine/Include/GameClient/WindowVideoManagerClass.h,
 ActiveBodyModuleData,Code/GameEngine/Include/GameLogic/Module/ActiveBodyModuleData.h,existing header; contract class_contracts/ActiveBodyModuleData.json; 10/18 sampled units adopt
 NetCommandList,Code/GameEngine/Include/GameNetwork/NetCommandListClass.h,existing header; contract class_contracts/NetCommandList.json; 10/16 sampled units adopt
 AABoxClass,Code/Libraries/Source/WWVegas/WWMath/AABoxClass.h,existing header; contract class_contracts/AABoxClass.json; 9/18 sampled units adopt
+Condition,Code/GameEngine/Include/GameLogic/ScriptCondition.h,existing header; contract class_contracts/Condition.json; 8/16 sampled units adopt
