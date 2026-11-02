@@ -56,26 +56,8 @@ extern GameLogic *TheGameLogic;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 0 };
 template <int NUMBITS> class BitFlags;
 // Slot shapes from OpenContain.cpp, whose ??_7OpenContain@@6BUpdateModule@@@ this unit must reproduce.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<13> getDisabledTypesToProcess() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual BitFlags<13> getDisabledTypesToProcess() const;
-protected:
-	void setWakeFrame(Object *obj, unsigned int frame);
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 struct ContainIface20 { virtual void containIface20() = 0; };
 struct ContainIface24 { virtual void containIface24() = 0; };

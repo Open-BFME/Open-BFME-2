@@ -149,27 +149,8 @@ class BehaviorModuleOther
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 template<int NumBits> class BitFlags;
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime) = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<11> getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime);
-};
 
 class DockUpdateInterface
 {

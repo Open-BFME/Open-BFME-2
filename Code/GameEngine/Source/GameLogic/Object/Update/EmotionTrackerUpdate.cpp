@@ -287,25 +287,8 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class UpdateModuleInterface
-{
-public:
-    virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-    UpdateModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~UpdateModule();
-    void xfer(Xfer *xfer);
-protected:
-    virtual void loadPostProcess();
-private:
-    unsigned int m_nextCallFrameAndPhase; // +0x14
-    int m_indexInLogic; // +0x18
-    int m_reserved1C; // +0x1C
-};
 
 class EmotionTrackerUpdateSecondaryBase
 {

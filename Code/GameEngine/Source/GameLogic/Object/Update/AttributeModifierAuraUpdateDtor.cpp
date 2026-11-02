@@ -61,22 +61,8 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void updateSlot();
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-
-private:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_reserved1C; // +0x1C
-};
 
 class UpgradeMux
 {

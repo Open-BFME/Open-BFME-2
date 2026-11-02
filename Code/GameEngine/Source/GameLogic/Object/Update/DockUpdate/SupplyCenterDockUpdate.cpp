@@ -274,19 +274,8 @@ enum UpdateSleepTime
  UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_14;
-	int m_18;
-	int m_1C;
-};
 
 class DockUpdateInterface
 {

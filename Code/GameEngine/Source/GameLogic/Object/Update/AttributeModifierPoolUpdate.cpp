@@ -97,26 +97,8 @@ class BehaviorModuleOther
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual void update();
-	void xfer(Xfer *xfer);
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
-};
 
 // One entry of the +0x30 table: retail builds the table through the non-EH vector constructor
 // iterator 0x00001423 and the folded null constructor 0x00326BE6, and never destroys it.

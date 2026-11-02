@@ -282,28 +282,8 @@ enum NameKeyType
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual BitFlags<11> getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime frame) = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual BitFlags<11> getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime frame);
-	void xfer(Xfer *xfer);
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-	unsigned int m_nextCallFrameAndPhase;	// +0x14
-	int m_indexInLogic;					// +0x18
-	int m_reserved1C;					// +0x1C
-};
 
 // The entry list holds Rva0048BDF8Entry pointers; retail runs it through the
 // rowed list<int> bodies (construct, clear, erase, push_back, destroy).

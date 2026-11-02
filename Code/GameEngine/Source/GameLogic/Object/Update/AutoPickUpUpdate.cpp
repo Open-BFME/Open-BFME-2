@@ -305,37 +305,10 @@ typedef int Int;
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
 
 // Inherited module data is at +0x04 and the object is at +0x08.
-class BehaviorModule : public ObjectModule
-{
-public:
-	virtual ~BehaviorModule();
-	Object *getObject() const { return m_object; }
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
 
 class AutoPickUpUpdateInterface
 {

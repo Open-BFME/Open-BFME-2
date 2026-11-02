@@ -138,11 +138,7 @@ enum UpdateSleepTime
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class BridgeBehavior : public BehaviorModule, public UpdateModuleInterface
 {

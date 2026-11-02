@@ -87,23 +87,8 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-private:
-	unsigned nextWake;
-	int index;
-	int reserved;
-};
 
 class AIGateUpdate : public UpdateModule
 {

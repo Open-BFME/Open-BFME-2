@@ -190,26 +190,9 @@ enum UpdateSleepTime
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
 // +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
 class UpgradeMux
@@ -238,13 +221,6 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-public:
-	void xfer(Xfer *xfer);	// 0x0044DF9F
-protected:
-	char m_pad14[0x20 - 0x14];
-};
 
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
