@@ -30,16 +30,7 @@ struct GeometryShape {
  GeometryShape() : m_type(0),m_height(1.0f),m_majorRadius(1.0f),
   m_minorRadius(1.0f),m_enabled(true),m_flag21(true) {}
 };
-class GeometryInfo {
-public:
- void rva006BD9C0(GeometryShape &out) const;
-private:
- char unknown00[0x10];
-public:
- float m_boundingCircleRadius;
-private:
- char unknown14[0x24];
-};
+#include "../../../Include/Common/Geometry.h"
 struct Rva00422377Flag {
  char unknown00[0x11F];
  unsigned char m_11F;

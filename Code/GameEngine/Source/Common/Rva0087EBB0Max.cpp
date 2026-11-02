@@ -7,11 +7,7 @@ struct BfmeCoordEB
 	float m_z;
 };
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../Include/Common/Geometry.h"
 
 class BfmeObjEB
 {

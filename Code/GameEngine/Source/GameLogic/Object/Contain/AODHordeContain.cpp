@@ -169,11 +169,7 @@ public:
     float rva001E4845(Object *object);
 };
 
-class GeometryInfo
-{
-public:
-    float getMaxHeightAbovePosition() const;
-};
+#include "../../../../Include/Common/Geometry.h"
 
 class AIUpdateInterface;
 

@@ -33,11 +33,7 @@ class DamageInfo;
 // Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
 static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../../../Include/Common/Geometry.h"
 
 class Object
 {

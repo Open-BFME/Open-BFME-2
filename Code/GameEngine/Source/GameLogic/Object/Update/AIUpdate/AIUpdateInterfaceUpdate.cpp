@@ -87,17 +87,7 @@ struct AIUpdateThingTemplateView
 	__forceinline unsigned int isKindOf(unsigned int bit) const { return ((const unsigned char *)&m_kindOf)[bit >> 3] & (1 << (bit & 7)); }
 };
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &that);
-	virtual ~GeometryInfo();
-	float getBoundingCircleRadius() const { return m_boundingCircleRadius; }
-private:
-	char m_pad04[0x10 - 0x04];
-	float m_boundingCircleRadius;
-	char m_pad14[0x5C - 0x14];
-};
+#include "../../../../../Include/Common/Geometry.h"
 
 class Team;
 class AIUpdateInterface;

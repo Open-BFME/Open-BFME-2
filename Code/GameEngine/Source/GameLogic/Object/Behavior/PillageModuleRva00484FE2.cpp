@@ -20,7 +20,7 @@ struct PillageModuleData {char pad[8];unsigned amount,eventThreshold;Rva2225E0Fi
 class Rva0039B795;class Rva0039B7AD;
 class Rva003B0D7C {public:unsigned pad;unsigned balance;unsigned withdraw(unsigned,Rva0039B795*,bool);void rva003B0D7C(int,Rva0039B7AD*,bool);};
 class Player {public:char pad[0x90];Rva003B0D7C money;char pad98[0x280-0x98];unsigned color;char pad284[0x3bc-0x284];unsigned stats;};
-class GeometryInfo {public:float getMaxHeightAbovePosition()const;};
+#include "../../../../Include/Common/Geometry.h"
 class Object {public:Player*getControllingPlayer()const;char pad[0x38];Coord3D pos;char pad44[0xa8-0x44];GeometryInfo geometry;};
 class Rva00484FE2Text {public:
 virtual void slot0();

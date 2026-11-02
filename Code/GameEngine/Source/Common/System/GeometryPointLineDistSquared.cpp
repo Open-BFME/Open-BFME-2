@@ -63,11 +63,7 @@ static Real calcPointToLineDistSquared(const Coord3D &pt, const Coord3D &lineSta
 	return calcDistSquared(pt, closest);
 }
 
-class GeometryInfo
-{
-public:
-	Bool isIntersectedByLineSegment(const Coord3D &loc, const Coord3D &from, const Coord3D &to) const;
-};
+#include "../../../Include/Common/Geometry.h"
 
 Bool GeometryInfo::isIntersectedByLineSegment(const Coord3D &loc, const Coord3D &from, const Coord3D &to) const
 {

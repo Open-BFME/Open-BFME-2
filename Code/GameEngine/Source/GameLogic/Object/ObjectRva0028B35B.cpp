@@ -6,11 +6,7 @@
 // (WB assert strings name it); callers
 // 0x0028C0EA 0x004C601C; neighbours ObjectRva0028B31A/0028B38D.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class GeometryInfo
-{
-public:
-	bool CollidesWith(const Coord3D &, float, const GeometryInfo &, const Coord3D &, float) const;
-};
+#include "../../../Include/Common/Geometry.h"
 class Object
 {
 public:

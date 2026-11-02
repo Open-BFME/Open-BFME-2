@@ -70,23 +70,7 @@ struct BfmeCDEGeometryView
 	BfmeCDEGeometryView() : m_type(0), m_height(1), m_majorRadius(1), m_minorRadius(1), m_offsetX(0), m_offsetY(0), m_offsetZ(0), m_enabled(true), m_21(true) {}
 };
 
-class GeometryInfo
-{
-public:
-	void rva006BD9C0(GeometryShape &out) const;
-	void *m_vtbl;
-	Bool m_isSmall;
-	char m_pad05[3];
-	int m_08;
-	int m_0c;
-	Real m_10;
-	int m_14;
-	int m_18;
-	int m_1c;
-	int m_20;
-	int m_24;
-	int m_28;
-};
+#include "../../Include/Common/Geometry.h"
 
 class CountVirtualBase008FA4B0
 {

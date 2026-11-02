@@ -251,7 +251,7 @@ struct GeometryShape {
  int type; float height,major,minor; float offsetX,offsetY,offsetZ; AsciiString name; bool enabled,opaque21;
  GeometryShape() : type(0),height(1.0f),major(1.0f),minor(1.0f),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
 };
-class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
+#include "../../../Include/Common/Geometry.h"
 class NativeContain28 : public NativeSlots<28> { public: virtual int slot28()=0; };
 class NativeContain31 : public NativeSlots<31> { public: virtual void *slot31()=0; };
 class NativeContain69 : public NativeSlots<69> { public: virtual unsigned int slot69(int)=0; };

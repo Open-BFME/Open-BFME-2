@@ -19,13 +19,7 @@ struct BfmeCopyElementA
 	BfmeCopyElementA *bfmeAssign(BfmeCopyElementA *source);
 };
 
-class GeometryInfo
-{
-public:
-	GeometryInfo();
-private:
-	unsigned char m_pad[0x5C];
-};
+#include "../../Include/Common/Geometry.h"
 
 class Rva00298835
 {

@@ -73,11 +73,7 @@ public:
 	virtual bool check(Coord3D *p);
 };
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../../../Include/Common/Geometry.h"
 
 class AttachUpdateModuleData
 {

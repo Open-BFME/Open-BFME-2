@@ -305,11 +305,7 @@ void __cdecl rva007B6A6E()
 // 0x007B6A80/0x007B6A90 are WideStrLenSource.cpp's own atexit cleanups (_$E4/_$E2)
 // of its function-local static lock objects (0x009E0850/0x009E0828).
 
-class GeometryInfo
-{
-public:
-	virtual ~GeometryInfo();
-};
+#include "../../Include/Common/Geometry.h"
 
 extern unsigned g_Va00DE1D00;
 extern unsigned g_Va00DE1D60;

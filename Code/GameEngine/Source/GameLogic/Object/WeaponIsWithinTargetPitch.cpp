@@ -14,12 +14,7 @@ typedef float Real;
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class GeometryInfo
-{
-public:
-	void calcPitches(const Coord3D &thisPos, const GeometryInfo &that,
-		const Coord3D &thatPos, Real &minPitch, Real &maxPitch) const;
-};
+#include "../../../Include/Common/Geometry.h"
 
 class Object
 {

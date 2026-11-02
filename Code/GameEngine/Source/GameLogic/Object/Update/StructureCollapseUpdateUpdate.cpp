@@ -108,11 +108,7 @@ struct Rva0028F5C6
 	UnsignedInt m_bits[19];
 };
 
-class GeometryInfo
-{
-public:
-	Real getMaxHeightAbovePosition() const;
-};
+#include "../../../../Include/Common/Geometry.h"
 
 class ThingTemplate
 {

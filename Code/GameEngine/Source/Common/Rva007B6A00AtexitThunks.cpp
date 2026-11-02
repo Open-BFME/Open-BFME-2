@@ -129,11 +129,7 @@ public:
 	void bfmeGoDXB();
 };
 
-class GeometryInfo
-{
-public:
-	virtual ~GeometryInfo();
-};
+#include "../../Include/Common/Geometry.h"
 
 extern unsigned int g_00DDE0AC;
 unsigned g_Va00DEBC64;	// retail RVA 0x009EBC64 (.bss), defined here

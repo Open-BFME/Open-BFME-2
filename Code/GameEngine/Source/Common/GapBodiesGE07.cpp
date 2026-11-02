@@ -116,11 +116,7 @@ bool Rva0055B417::rva0055B417(int type) const
 // point (+0x38) and radius (+0x44) agrees with the +0x1C flag.
 struct Coord3D;
 
-class GeometryInfo
-{
-public:
-	bool CollidesWith(const Coord3D &pos, float radius, const GeometryInfo &other, const Coord3D &otherPos, float otherRadius) const;	// 0x006BEB80
-};
+#include "../../Include/Common/Geometry.h"
 
 struct Rva00261603Object
 {

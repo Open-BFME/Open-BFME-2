@@ -6,11 +6,7 @@
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../Include/Common/Geometry.h"
 
 class Object
 {

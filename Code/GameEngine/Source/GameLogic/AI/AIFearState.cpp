@@ -124,15 +124,7 @@ public:
 	Bool m_bfmeFlag3C4; // +0x3C4
 };
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &that);
-	virtual ~GeometryInfo();
-	Real getMaxHeightAbovePosition() const;
-private:
-	char m_pad04[0x5C - 0x04];
-};
+#include "../../../Include/Common/Geometry.h"
 
 class ModelConditionFlags
 {

@@ -9,11 +9,7 @@
 // ABI view, handed on as the callee's declared types.
 
 struct Coord3D;
-class GeometryInfo
-{
-public:
-	bool getBestContactPoint(Coord3D *result, const Coord3D *from, const char *trace, int a, int b, bool flag) const;
-};
+#include "../../Include/Common/Geometry.h"
 
 class Rva0033A77F
 {

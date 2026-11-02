@@ -28,11 +28,7 @@ typedef bool Bool;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
 // GeometryInfo is a class: the rowed callee 0x000EF154 spells ABVGeometryInfo.
-class GeometryInfo
-{
-public:
-	unsigned char m_opaque[0x1C];
-};
+#include "../../Include/Common/Geometry.h"
 
 class W3DPropBuffer
 {

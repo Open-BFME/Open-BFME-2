@@ -21,11 +21,7 @@ public:
 	TreeKey00242F5E(const TreeKey00242F5E &other);
 };
 
-class GeometryInfo
-{
-public:
-	GeometryInfo(const GeometryInfo &other);
-};
+#include "../../../../GameEngine/Include/Common/Geometry.h"
 
 class FXList
 {
