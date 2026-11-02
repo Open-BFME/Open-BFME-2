@@ -24,9 +24,10 @@ public:
     virtual int rva004A6FF9() const = 0;                          //8
     virtual unsigned int rva004A7003() const = 0;                 //9
     virtual float rva004A6FBF() const = 0;                        //10
-    virtual void setForceWantingState(bool value) = 0;            //11
+    // Legacy semantic setter names already own different retail bodies.
+    virtual void rva00210CD3(bool value) = 0;                    //11
     virtual bool isForcedIntoWantingState() const = 0;            //12
-    virtual void setForceBusyState(bool value) = 0;               //13
+    virtual void rva005975D7(bool value) = 0;                    //13
     virtual bool isForcedIntoBusyState() const = 0;               //14
     virtual ObjectID getPreferredDockID() const = 0;              //15
     virtual unsigned char rva004A6A44(Coord3D *result) const = 0;  //16

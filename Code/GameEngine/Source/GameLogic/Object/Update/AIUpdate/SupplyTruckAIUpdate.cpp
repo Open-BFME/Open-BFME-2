@@ -720,7 +720,7 @@ StateReturnType Rva004A6979::onEnter()
 	}
 
 	// after we dock the first time, we clear this, and then follow our normal state machine path
-	update->setForceWantingState(false);
+		update->rva00210CD3(false);
 
 	return STATE_CONTINUE;
 }

@@ -64,9 +64,9 @@ public:
     virtual int rva004A6FF9() const;                          //8
     virtual unsigned int rva004A7003() const;                 //9
     virtual float rva004A6FBF() const;                        //10
-    virtual void setForceWantingState(bool value);            //11
+    virtual void rva00210CD3(bool value) { m_forcePending = value; } //11
     virtual bool isForcedIntoWantingState() const;            //12
-    virtual void setForceBusyState(bool value);               //13
+    virtual void rva005975D7(bool value);                    //13
     virtual bool isForcedIntoBusyState() const;               //14
     virtual ObjectID getPreferredDockID() const { return m_preferredDock; }              //15
     virtual unsigned char rva004A6A44(Coord3D *result) const;  //16
