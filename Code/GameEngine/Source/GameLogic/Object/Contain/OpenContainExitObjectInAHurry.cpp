@@ -124,7 +124,7 @@ extern int BfmeLogicFramesPerSecond;
 struct OpenContainModuleData {char pad[0x74];int numberOfExitPaths;unsigned int doorOpenTime;};
 class OpenContainModule:public Slots<OpenContainModule,1>{public:OpenContainModuleData *moduleData;Object *owner;Object *getObject() const{return owner;}const OpenContainModuleData *getOpenContainModuleData() const{return moduleData;}char padC[0x20-0xc];};
 class ContainModuleInterface:public Slots<ContainModuleInterface,41>{public:virtual void removeFromContain(Object*,bool);char pad4[0x10-4];};
-class ExitInterface:public Slots<ExitInterface,1>{public:virtual void exitObjectViaDoor(Object*,ExitDoorType);virtual void exitObjectInAHurry(Object*);};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 class OpenContain:public OpenContainModule,public ContainModuleInterface,public ExitInterface{
 public:
  virtual void removeFromContain(Object*,bool);

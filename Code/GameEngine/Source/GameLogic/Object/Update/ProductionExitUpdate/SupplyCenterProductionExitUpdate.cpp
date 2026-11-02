@@ -152,13 +152,7 @@ public:
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class ExitInterface
-{
-public:
-	virtual Bool isExitBusy() const = 0;
-	virtual ExitDoorType reserveDoorForExit( const ThingTemplate *objType, Object *specificObject ) = 0;
-	virtual void exitObjectViaDoor( Object *newObj, ExitDoorType exitDoor ) = 0;
-};
+#include "../../../../../Include/GameLogic/Module/ExitInterface.h"
 
 enum NameKeyType
 {

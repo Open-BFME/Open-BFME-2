@@ -64,16 +64,7 @@ private:
 	unsigned char m_pad00[0x2E8];
 	TunnelTracker *m_tunnelSystem; // +0x2E8
 };
-class ExitInterface
-{
-public:
-	virtual bool isExitBusy() const = 0;
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
-	virtual void slot4() = 0;
-	virtual void exitObjectInAHurry(Object *obj) = 0;	// +0x14
-};
+#include "../../../Include/GameLogic/Module/ExitInterface.h"
 template <int N> class VSlotsC : public VSlotsC<N - 1>
 {
 public:

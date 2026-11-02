@@ -64,24 +64,7 @@ protected:
 	int m_bfmeReserved;
 };
 
-class ExitInterface
-{
-public:
-	// Slot order and signatures copied from ZH GameLogic/Module/UpdateModule.h
-	// (the header the kept QueueProductionExitUpdate.cpp compiles): the {for
-	// ExitInterface} vtable slice must hold these eleven refs.
-	virtual bool isExitBusy() const = 0;
-	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
-	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
-	virtual void exitObjectByBudding(Object *newObj, Object *budHost) = 0;
-	virtual void unreserveDoorForExit(ExitDoorType exitDoor) = 0;
-	virtual void exitObjectInAHurry(Object *newObj) {}
-	virtual void setRallyPoint(const Coord3D *pos) = 0;
-	virtual const Coord3D *getRallyPoint() const = 0;
-	virtual bool useSpawnRallyPoint() const { return false; }
-	virtual bool getNaturalRallyPoint(Coord3D &rallyPoint, bool offset) const = 0;
-	virtual bool getExitPosition(Coord3D &exitPosition, float &exitAngle) const = 0;
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class QueueProductionExitUpdate : public UpdateModule, public ExitInterface
 {

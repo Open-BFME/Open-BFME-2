@@ -61,13 +61,7 @@ public:
 template <> class VSlots<0>
 {
 };
-class ExitInterface
-{
-public:
-	virtual Bool isExitBusy() const = 0;
-	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
-	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
-};
+#include "../../../Include/GameLogic/Module/ExitInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 class AIUpdateInterface : public VSlots<106>
 {

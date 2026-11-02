@@ -8,11 +8,7 @@
 // Hour defines the override inline as `return this;`. Both fold onto the
 // one 13-byte body. The views give only the subobject offsets.
 
-class ExitInterface
-{
-public:
-	virtual void exitInterfaceAnchor();
-};
+#include "../../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class BehaviorModuleInterface
 {

@@ -62,11 +62,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class ExitInterface
-{
-public:
-	virtual void exitAnchor();
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class QueueProductionExitUpdate : public UpdateModule, public ExitInterface
 {

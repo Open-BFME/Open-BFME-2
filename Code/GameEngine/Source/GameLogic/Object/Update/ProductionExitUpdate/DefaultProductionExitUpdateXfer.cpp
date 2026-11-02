@@ -252,20 +252,7 @@ public:
 
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class ExitInterface
-{
-public:
-	virtual Bool isExitBusy() const = 0;
-	virtual ExitDoorType reserveDoorForExit( const ThingTemplate *objType, Object *specificObject ) = 0;
-	virtual void exitObjectViaDoor( Object *newObj, ExitDoorType exitDoor ) = 0;
-	virtual void exitObjectInAHurry( Object *newObj );
-	virtual void unreserveDoorForExit( ExitDoorType exitDoor ) = 0;
-	virtual void exitObjectByBudding( Object *newObj, Object *budHost ) = 0;
-	virtual Bool vslot06() const;
-	virtual void setRallyPoint( const Coord3D *pos ) = 0;
-	virtual const Coord3D *getRallyPoint( void ) const = 0;
-	virtual Bool getNaturalRallyPoint( Coord3D& rallyPoint, Bool offset = true ) const;
-};
+#include "../../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class DefaultProductionExitUpdate : public UpdateModule, public ExitInterface
 {

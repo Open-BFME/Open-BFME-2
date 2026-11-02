@@ -126,15 +126,7 @@ private:
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class ExitInterface
-{
-public:
-	virtual Bool isExitBusy() const;
-	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject);
-	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor);
-	virtual void exitObjectByBudding(Object *newObj, Object *budHost);
-	virtual void unreserveDoorForExit(ExitDoorType exitDoor);
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class SlavedUpdateInterface
 {
