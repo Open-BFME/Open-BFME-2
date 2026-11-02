@@ -18874,3 +18874,9 @@ Primary slot129 now supplies its complete3B native default at0x0050B238 through 
 Primary slot93 now supplies its complete3B native default at0x000D43D0 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
 
 Primary slot12 now supplies its complete3B native default at0x000D43D0 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
+
+Primary slot144 now supplies its complete1B native default at0x000B3FD0 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
+
+### AIUpdate primary defaults clear the bounded emitter link preview (2026-11-02)
+
+[Final eight-body proof and normal/strict/link receipts](../reverse/attempt_support/aiupdate-primary-remaining-20261102/README.md): all127 emitter rows and six current data rows pass; each header edit passed235 dependent sources. The final137-code/10-data object adds only the eight intended exact native defaults. The bounded preview now says LINKS, with all five prior unresolved RET8 names supplied. This is not a census/runtime result: primary slot110 name identity, conditional weak deleting-destructor selection, six existing primary base-name rows and wider provider evidence remain. Published census still154 unlinked units.

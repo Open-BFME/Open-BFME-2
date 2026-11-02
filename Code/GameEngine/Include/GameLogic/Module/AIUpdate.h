@@ -348,7 +348,7 @@ public:
     virtual void rva00263404(Rva00263404Source *); // 141: RVA 0x00263404
     virtual bool chooseLocomotorSet(int); // 142: RVA 0x00268B20
     virtual CommandSourceType vslot143() const { return m_lastCommandSource; } // 143: RVA 0x005C4AFD
-    virtual void notifyVictimIsDead(); // 144: RVA 0x000B3FD0
+    virtual void notifyVictimIsDead() {} // 144: RVA 0x000B3FD0
     virtual void rva00267E46(); // 145: RVA 0x00267E46
     virtual bool vslot146() const { return true; } // 146: RVA 0x0050B5C6
     virtual void vslot147() {  } // 147: RVA 0x000B3FD0

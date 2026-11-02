@@ -17,3 +17,9 @@ Slot129 (addTargeter): native0x0050B238/3B, exact normal admission; existing fir
 Slot93 (getDozerAIInterface): native0x000D43D0/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
 
 Slot12 (getUpdatePhase): native0x000D43D0/3B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
+
+Slot144 (notifyVictimIsDead): native0x000B3FD0/1B, exact normal admission; existing first representative retained. Full dependent-source verification runs in the normal commit.
+
+## Complete eight-default package
+
+All eight native bodies have separate verified commits. Normal build and strict current preparation pass127/127 consumer rows. All six current data rows are byte-verified. Every header edit passed its normal235-source gate. The final object has137 code/10 data definitions versus129/10 before the package: exactly the eight intended additions, with every previous external code/data definition identical. Bounded link preview now says LINKS for this consumer, eliminating its five previously unresolved primary names. This is a scoped prediction, not a census update or proof of primary-table identity, weak deleting-destructor final selection or runtime. The published census remains154 unlinked units. Six already-emitted primary base names still need ledger rows; the slot110 name prerequisite remains open.
