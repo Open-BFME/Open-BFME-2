@@ -1,0 +1,574 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GameSpyInfoInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 5,
+  "view_sizes": {
+   "4": 35
+  },
+  "views": 35,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameSpyInfoInterface.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/PeerDefs.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 35,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "_M_slot_04()": 6,
+    "f01()": 1,
+    "gs1()": 5,
+    "pad1()": 1,
+    "reset()": 3,
+    "s01()": 2,
+    "s1()": 1,
+    "slot01()": 6,
+    "slot04()": 3,
+    "slot1()": 4,
+    "v01()": 1,
+    "v1()": 1,
+    "vf1()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "_M_slot_08()": 6,
+    "clearGroupRoomList()": 1,
+    "f02()": 1,
+    "gs2()": 6,
+    "pad2()": 1,
+    "s02()": 2,
+    "s2()": 1,
+    "slot02()": 6,
+    "slot08()": 2,
+    "slot2()": 6,
+    "v02()": 1,
+    "v2()": 1,
+    "vf2()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "_M_slot_0c()": 6,
+    "f03()": 1,
+    "getGroupRoomList()": 2,
+    "gs3()": 6,
+    "pad3()": 1,
+    "s03()": 1,
+    "s3()": 1,
+    "slot03()": 6,
+    "slot0C()": 1,
+    "slot0c()": 2,
+    "slot3()": 5,
+    "v03()": 1,
+    "v3()": 1,
+    "vf3()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "_M_slot_10()": 6,
+    "addGroupRoom(AsciiUnicodePair)": 1,
+    "f04()": 1,
+    "gs4()": 6,
+    "pad4()": 1,
+    "s04()": 2,
+    "s4()": 1,
+    "slot04()": 6,
+    "slot10()": 3,
+    "slot4()": 5,
+    "v04()": 1,
+    "v4()": 1,
+    "vf4()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "_M_slot_14()": 6,
+    "f05()": 1,
+    "gs5()": 6,
+    "pad5()": 1,
+    "s05()": 2,
+    "s5()": 1,
+    "slot05()": 6,
+    "slot14()": 3,
+    "slot5()": 6,
+    "v05()": 1,
+    "v5()": 1,
+    "vf5()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "_M_slot_18()": 6,
+    "f06()": 1,
+    "gs6()": 5,
+    "gs6(int)": 1,
+    "pad6()": 1,
+    "s06()": 2,
+    "s6()": 1,
+    "slot06()": 6,
+    "slot18()": 3,
+    "slot6()": 6,
+    "v06()": 1,
+    "v6()": 1,
+    "vf6()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "_M_slot_1c()": 6,
+    "f07()": 1,
+    "gs7()": 6,
+    "pad7()": 1,
+    "s07()": 2,
+    "s7()": 1,
+    "slot07()": 6,
+    "slot1C()": 1,
+    "slot1c()": 2,
+    "slot7()": 6,
+    "v07()": 1,
+    "v7()": 1,
+    "vf7()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "_M_slot_20()": 6,
+    "f08()": 1,
+    "gs8()": 6,
+    "pad8()": 1,
+    "s08()": 2,
+    "s8()": 1,
+    "slot08()": 6,
+    "slot20()": 3,
+    "slot8()": 6,
+    "v08()": 1,
+    "v8()": 1,
+    "vf8()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "_M_slot_24()": 6,
+    "f09()": 1,
+    "gs9()": 6,
+    "joinBestGroupRoom(int)": 1,
+    "pad9()": 1,
+    "s09()": 2,
+    "s9()": 1,
+    "slot09()": 6,
+    "slot24()": 3,
+    "slot9()": 5,
+    "v09()": 1,
+    "v9()": 1,
+    "vf9()": 1
+   },
+   "class": "GameSpyInfoInterface"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "slot25()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "slot26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "slot27()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "slot29()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "getLocalProfileID()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "slot33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "slot35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "slot36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "slot42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "slot43()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "slot44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "slot45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "slot48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "slot49()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "51": {
+   "decided_by": "majority",
+   "member": "slot51()"
+  },
+  "52": {
+   "decided_by": "majority",
+   "member": "slot52()"
+  },
+  "53": {
+   "decided_by": "majority",
+   "member": "slot53()"
+  },
+  "54": {
+   "decided_by": "majority",
+   "member": "slot54()"
+  },
+  "55": {
+   "decided_by": "majority",
+   "member": "slot55()"
+  },
+  "56": {
+   "decided_by": "majority",
+   "member": "slot56()"
+  },
+  "57": {
+   "decided_by": "majority",
+   "member": "slot57()"
+  },
+  "58": {
+   "decided_by": "majority",
+   "member": "slot58()"
+  },
+  "59": {
+   "decided_by": "majority",
+   "member": "slot59()"
+  },
+  "60": {
+   "decided_by": "majority",
+   "member": "slot60()"
+  },
+  "61": {
+   "decided_by": "majority",
+   "member": "slot61()"
+  },
+  "62": {
+   "decided_by": "majority",
+   "member": "slot62()"
+  },
+  "63": {
+   "decided_by": "majority",
+   "member": "slot63()"
+  },
+  "64": {
+   "decided_by": "majority",
+   "member": "slot64()"
+  },
+  "65": {
+   "decided_by": "majority",
+   "member": "slot65()"
+  },
+  "66": {
+   "decided_by": "majority",
+   "member": "slot66()"
+  },
+  "67": {
+   "decided_by": "majority",
+   "member": "slot67()"
+  },
+  "68": {
+   "decided_by": "majority",
+   "member": "slot68()"
+  },
+  "69": {
+   "decided_by": "majority",
+   "member": "slot69()"
+  },
+  "70": {
+   "decided_by": "majority",
+   "member": "slot70()"
+  },
+  "71": {
+   "decided_by": "majority",
+   "member": "slot71()"
+  },
+  "72": {
+   "decided_by": "majority",
+   "member": "slot72()"
+  },
+  "73": {
+   "decided_by": "majority",
+   "member": "slot73()"
+  },
+  "74": {
+   "decided_by": "majority",
+   "member": "slot74()"
+  },
+  "75": {
+   "decided_by": "majority",
+   "member": "slot75()"
+  },
+  "76": {
+   "decided_by": "majority",
+   "member": "slot76()"
+  },
+  "77": {
+   "decided_by": "majority",
+   "member": "slot77()"
+  },
+  "78": {
+   "decided_by": "majority",
+   "member": "slot78()"
+  },
+  "79": {
+   "decided_by": "majority",
+   "member": "slot79()"
+  },
+  "80": {
+   "decided_by": "majority",
+   "member": "slot80()"
+  },
+  "81": {
+   "decided_by": "majority",
+   "member": "slot81()"
+  },
+  "82": {
+   "decided_by": "majority",
+   "member": "slot82()"
+  },
+  "83": {
+   "decided_by": "majority",
+   "member": "slot83()"
+  },
+  "84": {
+   "decided_by": "majority",
+   "member": "slot84()"
+  },
+  "85": {
+   "decided_by": "majority",
+   "member": "slot85()"
+  },
+  "86": {
+   "decided_by": "majority",
+   "member": "slot86()"
+  },
+  "87": {
+   "decided_by": "majority",
+   "member": "slot87()"
+  },
+  "88": {
+   "decided_by": "majority",
+   "member": "slot88()"
+  },
+  "89": {
+   "decided_by": "majority",
+   "member": "slot89()"
+  },
+  "90": {
+   "decided_by": "majority",
+   "member": "slot90()"
+  },
+  "91": {
+   "decided_by": "majority",
+   "member": "slot91()"
+  },
+  "92": {
+   "decided_by": "majority",
+   "member": "slot92()"
+  },
+  "93": {
+   "decided_by": "majority",
+   "member": "getMaxMessagesPerUpdate()"
+  },
+  "94": {
+   "decided_by": "bytes",
+   "member": "slot178()"
+  },
+  "95": {
+   "decided_by": "bytes",
+   "member": "slot17c()"
+  },
+  "96": {
+   "decided_by": "bytes",
+   "member": "readAdditionalDisconnects()"
+  }
+ }
+}

@@ -289,3 +289,4 @@ LivingWorldManager,Code/GameEngine/Include/GameLogic/LivingWorldManager.h,existi
 ArmySummary,Code/GameEngine/Include/GameLogic/ArmySummary.h,existing header; contract class_contracts/ArmySummary.json; 25/45 sampled units adopt
 ConnectionManager,Code/GameEngine/Include/GameNetwork/ConnectionManager.h,existing header; contract class_contracts/ConnectionManager.json; 28/49 sampled units adopt
 WorldHeightMap,Code/GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h,existing header; contract class_contracts/WorldHeightMap.json; 21/49 sampled units adopt
+GameSpyInfoInterface,Code/GameEngine/Include/GameNetwork/GameSpyInfoInterface.h,existing header; contract class_contracts/GameSpyInfoInterface.json; 22/52 sampled units adopt
