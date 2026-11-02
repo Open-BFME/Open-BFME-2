@@ -299,7 +299,7 @@ class ThingTemplate { public: const WeaponTemplateSet *findWeaponTemplateSet(con
 class Rva0028B7AELeaGetter { public: void *get() const; };
 class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
 struct Rva002C943BSrc;
-class Rva002C943B { public: void rva002C943B(const Rva002C943BSrc *); };
+class Rva002C943B { public: void copyFrom(const Rva002C943BSrc *); };
 struct SavedWeaponState { int fields[5]; SavedWeaponState() { ((Rva002C9424 *)this)->rva002C9424(); } };
 class WeaponTemplate { public:
  char pad0[0xc]; int m_key; char pad10[0x2c-0x10]; float m_minTargetAngle; char pad30[0x58-0x30]; int m_damageType;
@@ -362,7 +362,7 @@ void WeaponSet::updateWeaponSet(const Object *obj)
    SavedWeaponState *saved=0;
    if(m_set && m_set->m_sharedReload && set->m_sharedReload) {
      saved=state;
-     for(int i=5;i>=0;--i) if(m_weapons[i]) ((Rva002C943B *)&state[i])->rva002C943B((const Rva002C943BSrc *)m_weapons[i]);
+     for(int i=5;i>=0;--i) if(m_weapons[i]) ((Rva002C943B *)&state[i])->copyFrom((const Rva002C943BSrc *)m_weapons[i]);
    }
    if(!set->m_sharedLock) { releaseWeaponLock(LOCKED_PERMANENTLY); m_curWeapon=PRIMARY_WEAPON; }
    m_filled=0; m_anti=0; m_damage=0; m_pitch=false; m_hasDamage=false;

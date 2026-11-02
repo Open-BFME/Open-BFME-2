@@ -48,17 +48,17 @@ class Rva002B4CED
 	char m_pad[0xBC];
 	_STL::vector<void *> m_vec;
 public:
-	void rva002B4CED(void *p);
+	void rva002B4CED(void *removedItem);
 	void rva002B753B();
 };
 
-void Rva002B4CED::rva002B4CED(void *p)
+void Rva002B4CED::rva002B4CED(void *removedItem)
 {
-	if (!p)
+	if (!removedItem)
 		return;
-	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(((Rva002B4CEDItem *)p)->m_8);
+	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(((Rva002B4CEDItem *)removedItem)->m_8);
 	for (unsigned int i = 0; i < m_vec.size(); ++i) {
-		if (m_vec[i] == p)
+		if (m_vec[i] == removedItem)
 			m_vec.erase(m_vec.begin() + i);
 	}
 }

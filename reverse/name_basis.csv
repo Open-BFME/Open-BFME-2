@@ -6528,3 +6528,8 @@ local,Rva002B36BE::rva002B36BE::r,Rva002B36BE::rva002B36BE::checkPassed,inferred
 param,rva002B4623::a,rva002B4623::first,inferred,agree:nl-b61b041af27c,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
 param,rva002B4623::b,rva002B4623::last,inferred,agree:nl-cc4329d5a2bc,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
 param,rva002B4623::c,rva002B4623::destEnd,inferred,agree:nl-e5dc0d2aea41,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
+member,Rva002B52CE::m_begin8C,Rva002B52CE::m_playerBegin,inferred,agree:nl-e6fa71d37c13,Code/GameEngine/Source/Common/Rva002B52CE.cpp,
+member,Rva002B52CE::m_end90,Rva002B52CE::m_playerEnd,inferred,agree:nl-4ebb2bcedfe6,Code/GameEngine/Source/Common/Rva002B52CE.cpp,
+param,Rva002B4CED::rva002B4CED::p,Rva002B4CED::rva002B4CED::removedItem,inferred,agree:nl-0f071bd7852f,Code/GameEngine/Source/Common/Rva002B4CEDMethod.cpp,0x002B4CED
+param,Rva002B8817::rva002B8817::b,Rva002B8817::rva002B8817::matchedElements,inferred,agree:nl-fe474c706f93-m88c618d4a7cc0f9a9f9586a4,Code/GameEngine/Source/Common/Rva002B8817Filter.cpp,0x002B8817
+function,?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,?copyFrom@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,inferred,agree:nl-1ac866348fc3,Code/GameEngine/Source/Common/Rva002C943BCopy.cpp,0x002C943B

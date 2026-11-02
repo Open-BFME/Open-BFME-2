@@ -44,8 +44,8 @@ public:
 	void rva002B52CE();
 private:
 	char m_pad[0x8C];
-	int m_begin8C;
-	int m_end90;
+	int m_playerBegin;
+	int m_playerEnd;
 	int m_pad94;
 	Rva002E2903Player *m_sentinel98;
 	char m_pad9C[0xF4 - 0x9C];
@@ -54,7 +54,7 @@ private:
 
 void Rva002B52CE::rva002B52CE()
 {
-	int playerArrayBytes = m_end90 - m_begin8C;
+	int playerArrayBytes = m_playerEnd - m_playerBegin;
 	int i = 0;
 	if ((playerArrayBytes >> 2) <= 0)
 		return;
@@ -70,5 +70,5 @@ void Rva002B52CE::rva002B52CE()
 			}
 		}
 		++i;
-	} while (i < ((m_end90 - m_begin8C) >> 2));
+	} while (i < ((m_playerEnd - m_playerBegin) >> 2));
 }

@@ -46,16 +46,16 @@ typedef _STL::vector<Rva004DFCB0Element> Rva002B8817Vec;
 class Rva002B8817
 {
 public:
-	void rva002B8817(void *a, void *b);
+	void rva002B8817(void *a, void *matchedElements);
 private:
 	char m_pad00[0x130];
 	void *m_phead130;
 };
 
-void Rva002B8817::rva002B8817(void *a, void *b)
+void Rva002B8817::rva002B8817(void *a, void *matchedElements)
 {
 	Rva002B8817Filter *filter = (Rva002B8817Filter *)a;
-	Rva002B8817Vec *vec = (Rva002B8817Vec *)b;
+	Rva002B8817Vec *vec = (Rva002B8817Vec *)matchedElements;
 	typedef _STL::pair<const int, Rva004DFCB0Element> Pair130;
 	typedef _STL::_Rb_tree_node<Pair130> Node130;
 	Node130 *header = (Node130 *)m_phead130;

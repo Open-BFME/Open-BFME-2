@@ -4562,3 +4562,4 @@ __ehhandler$?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00
 ?Rva00050C61Dispatch@@YAXPAVAudioReceiver@@PAX@Z,0x00050C61,"Renamed to ?setAudioViewType@@YAXPAVAudioReceiver@@PAX@Z by tools/rename.py (inferred)"
 ?Rva00050C79Dispatch@@YAXPAVAudioReceiver@@PAX@Z,0x00050C79,"Renamed to ?setAudioViewTypeBits@@YAXPAVAudioReceiver@@PAX@Z by tools/rename.py (inferred)"
 ?Rva00050C91Dispatch@@YAXPAVAudioReceiver@@PAX@Z,0x00050C91,"Renamed to ?setMusicSystem@@YAXPAVAudioReceiver@@PAX@Z by tools/rename.py (inferred)"
+?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z,0x002C943B,"Renamed to ?copyFrom@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z by tools/rename.py (inferred)"

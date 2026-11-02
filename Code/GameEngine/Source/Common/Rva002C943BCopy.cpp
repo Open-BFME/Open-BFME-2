@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva002C943B@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z, retail 0x002C943B, 39 bytes.
+// ?copyFrom@Rva002C943B@@QAEXPBURva002C943BSrc@@@Z, retail 0x002C943B, 39 bytes.
 // Five-field copy with first field via +0x04 pointer plus +0x0C.
 // Evidence: unlock lane; caller 0x002C8D2A; prev/next TU flags.
 struct Rva002C943BInner { int m_0C[4]; int m_0C_val; };
@@ -15,7 +15,7 @@ struct Rva002C943BSrc {
 };
 class Rva002C943B {
 public:
-	void rva002C943B(const Rva002C943BSrc *src);
+	void copyFrom(const Rva002C943BSrc *src);
 private:
 	int m_00;
 	int m_04;
@@ -23,7 +23,7 @@ private:
 	int m_0C;
 	int m_10;
 };
-void Rva002C943B::rva002C943B(const Rva002C943BSrc *src)
+void Rva002C943B::copyFrom(const Rva002C943BSrc *src)
 {
 	m_00 = *(int *)((char *)src->m_04 + 0x0c);
 	m_04 = src->m_14;
