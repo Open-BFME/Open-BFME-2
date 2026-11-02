@@ -53,7 +53,7 @@ public:
 	SupplyTruckAIUpdate( Thing *thing, const ModuleData* moduleData );
 	virtual ~SupplyTruckAIUpdate();
 	virtual UpdateSleepTime update();
-    virtual int getNumberBoxes() const;                       //0
+    virtual int getNumberBoxes() const { return m_numberBoxes; } //0
     virtual int rva004A6E29() const;                          //1
     virtual bool loseOneBox();                               //2
     virtual bool gainOneBox(int remainingStock);              //3

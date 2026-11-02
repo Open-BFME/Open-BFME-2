@@ -18326,3 +18326,5 @@ The shared SupplyTruck ABI now has native's twenty slots, and its complete 80B p
 ### LINK-089 SupplyTruck secondary slot18 recovered (2026-11-02)
 
 The ordinary zero-return callback now matches the complete3B native D43D0 body and is separately admitted against the existing ControlBarInput ICF owner. All ten ctor rows pass; no pin or old provider is removed. Other secondary callbacks and canonical base providers remain open. [Exact body and ownership scope](../reverse/attempt_support/supply-truck-slot18-20261102/README.md).
+
+SupplyTruck secondary slot0 now has its ordinary typed box-count getter: native30F2C7 reads interface+1C (whole object+400), complete4B exact. Owning ICF admission retains the existing NetWrapperCommandMsg representative and adds no pin; all eleven ctor rows pass. This is another callback prerequisite, with no unit/census clearance.
