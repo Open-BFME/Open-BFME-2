@@ -48,7 +48,7 @@ SiegeDockingBehavior::SiegeDockingBehavior(Thing *thing, const ModuleData *data)
 	UpdateModule(thing, data),
 	m_enabled(false)
 {
-	setWakeFrame(m_object, 1);
+	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 }
 
 // tu-skeleton: 0x004599DF 6B ?Rva4599DFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)

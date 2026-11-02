@@ -62,6 +62,12 @@ class SiegeDockingBehavior : public UpdateModule, public SiegeDockingBehaviorSec
 {
 public:
 	virtual ~SiegeDockingBehavior();
+	// Retail primary table 0x00C414DC slots 1, 3 and 4 (rowed 0x0045A16D, 0x0045A02F,
+	// 0x004599E5), as SiegeDockingBehaviorView.h declares them.
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 
 private:
 	void stopDocking() throw();

@@ -16687,7 +16687,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | repaired (2026-11-02, lk15): the canonical header declares `protected: virtual ~BehaviorModule();` out of line; all six predict LINKS (below) |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
-| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | AutoPickUpUpdate and StructureToppleUpdateCtor repaired by other seats (2026-11-02); ReplenishUnitsBehavior and MonitorConditionUpdate repaired (lk15, below); the rest open |
+| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | AutoPickUpUpdate and StructureToppleUpdateCtor repaired by other seats (2026-11-02); ReplenishUnitsBehavior, MonitorConditionUpdate and SiegeDockingBehaviorDtor repaired (lk15, below); SpecialPowerModuleDtor_Unresolved open |
 
 **AIGate scoped repair (2026-11-01, Cortys):** the constructor now declares the
 existing UpdateModule and AIGateUpdate destructors out of line. All five strict
@@ -16774,6 +16774,17 @@ Mechanism 4, MonitorConditionUpdate (2026-11-02, lk15): the same pattern. Retail
 `./build.sh` 14/14 rows; scoped DIR32 OK (8 symbols); only the two units touch the tables and only
 the primary table changed (now one digest); `link_check` MonitorConditionUpdate.cpp 0 -> 334 B,
 FamilyDeletingDtors_muse-2c79 56 B unchanged.
+Mechanism 4, SiegeDockingBehavior (2026-11-02, lk15): SiegeDockingBehavior.cpp (first) read
+SiegeDockingBehaviorView.h, whose private BehaviorModule/UpdateModule copies (one-slot interfaces)
+gave a 10-slot primary table with `__purecall` in slots 1-3 and a one-slot BehaviorModuleInterface
+table, against the Dtor's canonical copies. The view now includes canonical UpdateModule.h (with
+`BFME_SNAPSHOT_NAME_SLOT`) and both views declare the rowed overrides retail 0x00C414DC holds in
+slots 1, 3 and 4 (`loadPostProcess` 0x0045A16D, `xfer` 0x0045A02F, `getModuleNameKey` 0x004599E5);
+slot 2 (0x004599DF, the placeholder `Rva4599DFGet`) stays UpdateModule's getter. All four
+SiegeDockingBehavior tables now have one digest across both units; the .cpp additionally emits the
+canonical inline getters, identical to the 125 existing copies. `./build.sh` 11/11 rows; scoped
+DIR32 OK (9 symbols); only the two units touch the tables; `link_check` SiegeDockingBehaviorDtor
+0 -> 129 B, SiegeDockingBehavior.cpp 204 B unchanged.
 Mechanism 2 repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`, index 08:35
 `984a4cdc4d`): `BehaviorModule.h` now declares `protected: virtual ~BehaviorModule();` with no
 body, the proposal below. Scope proof before the edit: in the census index exactly six objects
