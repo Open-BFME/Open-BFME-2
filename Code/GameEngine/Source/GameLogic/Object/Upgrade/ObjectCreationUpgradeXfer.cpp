@@ -35,14 +35,7 @@ class Snapshot;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpgradeMux
-{
-protected:
-	virtual void upgradeMuxXfer(Xfer *xfer);
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
