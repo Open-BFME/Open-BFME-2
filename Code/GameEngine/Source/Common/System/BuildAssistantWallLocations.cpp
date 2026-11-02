@@ -242,14 +242,7 @@ UnsignedShort m_refundValue;
 UnsignedShort m_pad5DE;
 UnsignedShort m_maxSimultaneousOfType;
 };
-class UpgradeTemplate
-{
-public:
-UpgradeType getUpgradeType()const{return m_type;}
-private:
-unsigned char m_pad00[4];
-UpgradeType m_type;
-};
+#include "../../../Include/Common/Upgrade.h"
 struct UpgradeTemplateList
 {
 const UpgradeTemplate**m_begin;

@@ -10,12 +10,7 @@
 // (donor shape; Player.cpp still carries that ZH body present-unmatched, so
 // this keeps the address name). Bit index is UpgradeTemplate +0x38 as in
 // rva002AB87D.
-class UpgradeTemplate
-{
-public:
-	char m_pad[0x38];
-	int m_bitIndex;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class Player
 {
@@ -31,6 +26,6 @@ bool Player::rva002AA8EF(const UpgradeTemplate *upgradeTemplate) const
 {
 	if (!upgradeTemplate)
 		return false;
-	int bit = upgradeTemplate->m_bitIndex;
+	int bit = upgradeTemplate->field38;
 	return (m_inProgressBits[(unsigned int)bit >> 5] & (1 << (bit & 31))) != 0;
 }

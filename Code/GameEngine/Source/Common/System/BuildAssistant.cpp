@@ -294,15 +294,7 @@ private:
 	UnsignedShort m_pad5DE;
 	UnsignedShort m_maxSimultaneousOfType;	// +0x5E0
 };
-class UpgradeTemplate
-{
-public:
-	UpgradeType getUpgradeType() const { return m_type; }
-
-private:
-	unsigned char m_pad00[4];
-	UpgradeType m_type;			// +0x04
-};
+#include "../../../Include/Common/Upgrade.h"
 // The upgrade list a NEED_UPGRADE button checks (+0x28): all of them must be
 // complete unless the +0x34 flag accepts any one.
 struct UpgradeTemplateList

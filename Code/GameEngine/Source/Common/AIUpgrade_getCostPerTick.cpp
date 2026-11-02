@@ -10,12 +10,7 @@ class AsciiString;
 extern GameLogic *TheGameLogic;
 
 class Player;
-class UpgradeTemplate
-{
-public:
-	unsigned int calcCostToBuild(Player *p, unsigned int u) const;
-	int rva0026EE30(void *a, void *b);
-};
+#include "../../Include/Common/Upgrade.h"
 
 class Holder
 {
