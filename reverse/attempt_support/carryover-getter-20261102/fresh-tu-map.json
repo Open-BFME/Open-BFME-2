@@ -1,0 +1,22 @@
+{
+  "stale_committed_inputs": [
+    "reverse/functions.csv",
+    "vendored-upstream:Code",
+    "zh:GeneralsMD/Code",
+    "tools/tu_map.py",
+    "tools/tu_evidence.py",
+    "reverse/tu_map.csv"
+  ],
+  "rows": [
+    {
+      "by": "N",
+      "confidence": "approved",
+      "evidence": "N=Code/GameEngine/Source/Common/CarryoverUnit.cpp provisional",
+      "kind": "code",
+      "rva": "0x0037DC84",
+      "size": "6",
+      "source": "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp",
+      "tu": "Code/GameEngine/Source/Common/CarryoverUnit.cpp"
+    }
+  ]
+}

@@ -3,7 +3,6 @@
 #include "ascii_string.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
-#pragma comment(linker, "/alternatename:?GetSnapshotName@CarryoverUnit@@UBEPBDXZ=?name@CarryoverUnit@@QBEPBDXZ")
 //
 // ?Rva0037DC8AEqual@@YA_NPBX0@Z @0x0037DC8A (27B).
 // Free memcmp wrapper: returns memcmp(a b 0x80)==0 as bool. Retail pushes
@@ -243,3 +242,9 @@ CarryoverUnit &CarryoverUnit::operator=(const CarryoverUnit &other)
 
 // Native table 00BDF158 slot 1 is the shared empty RET at 000B3FD0.
 void CarryoverUnit::loadPostProcess() {}
+
+// Native table BDF158 slot 2 returns the literal at 0037DC84.
+const char *CarryoverUnit::GetSnapshotName() const
+{
+    return "CarryoverUnit";
+}

@@ -1,0 +1,129 @@
+{
+  "scope": "Read-only final review of immutable before/candidate source+objects. No Code/Git/shared-cache/claims/network changes.",
+  "input_sha256": {
+    "build\\carryover-getter-20261102\\before.cpp": "f74b25e43d6de624705cb73685a6f9ad1dc567b8c7e4c39adf2f3e99e21b487f",
+    "build\\carryover-getter-20261102\\before.obj": "979fa9e1c03a54caae5b72d04ccb43a95d84d27fbd28637db2f5c383bc3dd36e",
+    "build\\carryover-getter-20261102\\candidate.cpp": "6caffbdd86bb823222b84be2edc9f2763276d3b9244ec19b57f33b2e62f1c932",
+    "build\\carryover-getter-20261102\\candidate.obj": "cb7c4aea3663fa57b6a766839b5b94d11cd7e905e7633067d797a8f1341838a2"
+  },
+  "code_before": 16,
+  "code_after": 17,
+  "all_prior_complete_definitions_equal": true,
+  "changed_retained": [],
+  "removed": [],
+  "added": [
+    {
+      "name": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+      "kind": "code",
+      "bytes": "b800000000c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "??_C@_0O@PFEEJIPO@CarryoverUnit?$AA@"
+        ]
+      ]
+    },
+    {
+      "name": "??_C@_0O@PFEEJIPO@CarryoverUnit?$AA@",
+      "kind": "data",
+      "bytes": "43617272796f766572556e697400",
+      "relocations": []
+    }
+  ],
+  "table_slot_2_before": [
+    {
+      "offset": 8,
+      "kind": 6,
+      "target": {
+        "name": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+        "value": 0,
+        "section": 0,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      }
+    }
+  ],
+  "table_slot_2_after": [
+    {
+      "offset": 8,
+      "kind": 6,
+      "target": {
+        "name": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+        "value": 0,
+        "section": 40,
+        "storage": 2,
+        "aux": 0,
+        "type": 32
+      }
+    }
+  ],
+  "table_note": "Vtable slot+8 bytes and symbolic target name are unchanged. Before it targets undefined GetSnapshotName routed by alternatename; after it targets the newly defined real override directly. Native final target remains RVA37DC84.",
+  "new_getter": {
+    "name": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+    "size": 6,
+    "whole_bytes_equal_old_owner": true,
+    "whole_symbolic_relocations_equal_old_owner": true,
+    "bytes": "b800000000c3",
+    "relocations": [
+      [
+        1,
+        6,
+        "??_C@_0O@PFEEJIPO@CarryoverUnit?$AA@"
+      ]
+    ],
+    "old_owner_source": "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp",
+    "old_owner_retained": true
+  },
+  "directives_removed": [
+    "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ=?name@CarryoverUnit@@QBEPBDXZ"
+  ],
+  "directives_added": [],
+  "fresh_map": {
+    "stale_committed_inputs": [
+      "reverse/functions.csv",
+      "vendored-upstream:Code",
+      "zh:GeneralsMD/Code",
+      "tools/tu_map.py",
+      "tools/tu_evidence.py",
+      "reverse/tu_map.csv"
+    ],
+    "rows": [
+      {
+        "by": "N",
+        "confidence": "approved",
+        "evidence": "N=Code/GameEngine/Source/Common/CarryoverUnit.cpp provisional",
+        "kind": "code",
+        "rva": "0x0037DC84",
+        "size": "6",
+        "source": "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp",
+        "tu": "Code/GameEngine/Source/Common/CarryoverUnit.cpp"
+      }
+    ]
+  },
+  "alias_outside_scope": {
+    "native_BDF158_slot_2_va": "0x0077DC84",
+    "native_body_rva": "0x0037DC84",
+    "native_whole_body": "b890f1bd00c3",
+    "alias": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+    "alias_index_touches": [
+      "^code_^game^engine_^source_^common_^carryover^unit.obj"
+    ],
+    "alias_route_emitters": [
+      [
+        "^code_^game^engine_^source_^common_^carryover^unit.obj",
+        "?name@CarryoverUnit@@QBEPBDXZ"
+      ]
+    ],
+    "incoming_routes_to_alias": [],
+    "old_owner": "?name@CarryoverUnit@@QBEPBDXZ",
+    "old_owner_source": "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp",
+    "old_owner_index_touches": [
+      "^code_^game^engine_^source_^common_^subsystem^name^getters.obj"
+    ],
+    "scope_limit": "No current source/object mutation; retain existing nonvirtual name owner, admission/normal and strict byte+data+link proof still required."
+  },
+  "census_qualification": "Complete index18640objects at2026-11-02 08:35. Only Common touched/emitted GetSnapshotName alias and no alias route targeted it. Current header cohort has already verified exact objects. This audit claims no global/census progress and does not retire the legacy name owner.",
+  "verdict": "No actionable blocker found. All prior complete external code/data definitions are identical; only new exact6-byte getter and its14-byte retail literal are added, and the one redundant alias is removed. Native table slot+8 now binds the same verified address directly."
+}
