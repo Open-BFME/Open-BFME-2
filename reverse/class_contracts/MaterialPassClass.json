@@ -1,0 +1,260 @@
+{
+ "bases": [
+  "RefCountClass"
+ ],
+ "bases_by": "zh",
+ "class": "MaterialPassClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 7,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2c": {
+    "4": 4
+   },
+   "0x34": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x13edd0"
+     ],
+     "value": 56
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x13edd0"
+     ],
+     "value": {
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       1
+      ],
+      "0x34": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x13edd0"
+     ],
+     "value": {
+      "0x0": [
+       "??_L@YGXPAXIHP6EX0@Z1@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x13edd0"
+     ],
+     "value": {
+      "0x0": "0x7d330c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d330c"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GMaterialPassClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x13ef80"
+       },
+       {
+        "name": "?Install_Materials@MaterialPassClass@@UBEXXZ",
+        "slot": 2,
+        "target": "0x13efa0"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 3,
+        "target": "0x69e440"
+       }
+      ],
+      "table": "0x7d330c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x7d330c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GMaterialPassClass@@UAEPAXI@Z",
+     "2": "?Install_Materials@MaterialPassClass@@UBEXXZ",
+     "3": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 4,
+   "4": 5,
+   "8": 5,
+   "48": 2,
+   "49": 1,
+   "56": 4
+  },
+  "views": 21,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/matpass.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 11,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 8
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 42,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshClassRender.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 4]]": 1,
+    "[[0, 8]]": 6
+   },
+   "class": "MaterialPassClass"
+  }
+ ],
+ "size": 56,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "Install_Materials()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "UnInstall_Materials()"
+  }
+ }
+}
