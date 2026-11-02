@@ -166,7 +166,7 @@ extern GlobalData *TheWritableGlobalData;
 // All users share this owner; its unsigned view preserves the native comparison.
 unsigned int PathfinderSearchCellsVisited;
 int isGroundOrBridgeLayer(int);
-class PathfindZoneManager {public:unsigned char IsPassable(int,int);};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 class Rva002E6DC4
 {
 public:

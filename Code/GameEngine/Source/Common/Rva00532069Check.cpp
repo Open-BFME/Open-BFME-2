@@ -9,26 +9,16 @@ public:
 	int m_3C;
 	char m_pad40[0x44 - 0x40];
 };
-class PathfindZoneManager
-{
-public:
-	bool rva00532069(int a, int b);
-	char m_pad[0x1BA30];
-	unsigned char m_flag1BA30;
-	char m_pad2[0x1BA38 - 0x1BA30 - 1];
-	Rva005312BEItem **m_ppItems;
-	int m_outer;
-	int m_inner;
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 bool PathfindZoneManager::rva00532069(int a, int b)
 {
 	if (a < 0 || b < 0)
 		return false;
 	int i = a / 16;
 	int j = b / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return false;
-	Rva005312BEItem &cell = m_ppItems[i][j];
+	Rva005312BEItem &cell = field1BA38[i][j];
 	int *p = &cell.m_38;
 	return p[0] != p[1];
 }

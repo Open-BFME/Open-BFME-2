@@ -47,13 +47,7 @@ private:
 };
 struct PathfindZoneParams;
 // WB12D2AB0/12D2C50 and native531757/5317D7 establish predicate owners.
-class PathfindZoneManager {
-public:
- static int GetCollapseIndex(const PathfindZoneParams &params);	// rowed 0x0053123A
- bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
- bool InEquivSet(unsigned equivalent, unsigned first, unsigned second);
- unsigned char rva00531720(unsigned int count, unsigned int value);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 class Rva002E99F9Sub460
 {
 public:

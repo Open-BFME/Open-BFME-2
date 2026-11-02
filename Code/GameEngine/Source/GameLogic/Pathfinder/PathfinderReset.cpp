@@ -26,11 +26,7 @@ private:
 	char storage[0x40]; // +0x00
 };
 
-class PathfindZoneManager
-{
-public:
-	void rva005335D3();
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 struct _Rva002EADB4Node;
 class Rva002EE9B7

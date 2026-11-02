@@ -22,11 +22,7 @@ class ModuleData;
 class Object;
 class DamageInfo;
 #include "../../Include/Common/BfmeXfer.h"
-class PathfindZoneManager
-{
-public:
-	class CellType;
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 
 class PathfindZoneManager::CellType
 {

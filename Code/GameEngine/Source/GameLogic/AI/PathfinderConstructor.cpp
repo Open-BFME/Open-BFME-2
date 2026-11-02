@@ -27,13 +27,7 @@ public:
 	char m_unknown[0x40];
 };
 
-class PathfindZoneManager
-{
-public:
-	PathfindZoneManager();
-	~PathfindZoneManager();
-	char m_unknown[0x1BA54];
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 // Native local registry callback2E7D28 uses its existing ledger name.
 // Passing the canonical INI callback type preserves the12B registration ABI.

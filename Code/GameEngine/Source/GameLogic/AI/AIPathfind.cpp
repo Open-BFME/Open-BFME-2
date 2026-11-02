@@ -786,12 +786,7 @@ public:
 	void *m_04; // +0x04
 };
 
-class PathfindZoneManager {
-public:
-	void Update(PathfindCell**,PathfindLayer*,const IRegion2D&);
-public:
-	void rva0053155E(int a, int b, bool add, int value);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 struct Rva002E9042Arg
 {

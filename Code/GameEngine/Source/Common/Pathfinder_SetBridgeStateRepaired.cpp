@@ -24,11 +24,7 @@ struct Rva002E7205Slot
 	char m_pad3C[0x40 - 0x3C];
 };
 
-class PathfindZoneManager
-{
-public:
-	void rva00531481();
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 
 class Pathfinder
 {

@@ -14,11 +14,7 @@ struct PathfindZoneParams
 	bool m_0C;				// +0x0C
 };
 
-class PathfindZoneManager
-{
-public:
-	static int GetCollapseIndex(const PathfindZoneParams &par);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 // PathfindZoneManager::GetCollapseIndex, retail 0x0053123A (132 bytes;
 // WorldBuilder pathfinder_zonemanager.cpp lines 683..710,

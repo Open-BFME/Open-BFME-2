@@ -120,7 +120,7 @@ class Rva00366500 { public: bool rva00366500(int);bool rva0036652D(int);};
 enum PathfindLayerEnum{LAYER_INVALID=-1,LAYER_GROUND=1,LAYER_FIRST_BRIDGE=16};
 int isGroundOrBridgeLayer(int);
 class LocomotorSet{public:char pad0[0x10];int m_surfaces;char pad14;unsigned char m_15;int getValidSurfaces()const{return m_surfaces;}};
-class PathfindZoneManager{public: void MarkDirty(int,int);};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

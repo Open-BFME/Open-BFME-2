@@ -100,15 +100,7 @@ public:
 
 struct Rva005312BERect;
 
-class PathfindZoneManager
-{
-public:
-	void rva005328E2(Rva005312BERect *extent);
-	void MarkDirty(Rva005312BERect *extent);
-	void Update(PathfindCell **map, PathfindLayer *layers, const IRegion2D &bounds);
-private:
-	char m_pad[1];
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 
 // The terrain's waypoint list: position at +0x0C, next at +0x1C.
 class Object;

@@ -21,26 +21,7 @@ public:
 	unsigned char m_35;
 	char m_pad1[0x44 - 0x34 - 2];
 };
-class PathfindZoneManager
-{
-public:
-	void rva005312BE();
-	void rva00531300();
-	void rva00531481();
-	void MarkDirty(int a, int b);
-	void rva005314C6(int worldX, int worldY, unsigned char passable);
-	unsigned char IsPassable(int worldX, int worldY);
-	void MarkDirty(struct Rva005312BERect *r);
-	void rva0053155E(int worldX, int worldY, bool add, int value);
-	int GetPortal(int worldX, int worldY, int index);
-	bool rva005315C8(int worldX, int worldY);
-	char m_pad[0x1BA30];
-	unsigned char m_flag1BA30;
-	char m_pad2[0x1BA38 - 0x1BA30 - 1];
-	Rva005312BEItem **m_ppItems;
-	int m_outer;
-	int m_inner;
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 struct Rva005312BERect
 {
 	int x0;
@@ -50,27 +31,27 @@ struct Rva005312BERect
 };
 void PathfindZoneManager::rva005312BE()
 {
-	for (int i = 0; i < m_outer; ++i)
+	for (int i = 0; i < field1BA3C; ++i)
 	{
-		for (int j = 0; j < m_inner; ++j)
-			m_ppItems[i][j].m_cleared = 0;
+		for (int j = 0; j < field1BA40; ++j)
+			field1BA38[i][j].m_cleared = 0;
 	}
 }
 void PathfindZoneManager::rva00531481()
 {
-	m_flag1BA30 = 1;
-	for (int i = 0; i < m_outer; ++i)
+	field1BA30 = 1;
+	for (int i = 0; i < field1BA3C; ++i)
 	{
-		for (int j = 0; j < m_inner; ++j)
-			m_ppItems[i][j].m_35 = 1;
+		for (int j = 0; j < field1BA40; ++j)
+			field1BA38[i][j].m_35 = 1;
 	}
 }
 void PathfindZoneManager::rva00531300()
 {
-	for (int i = 0; i < m_outer; ++i)
+	for (int i = 0; i < field1BA3C; ++i)
 	{
-		for (int j = 0; j < m_inner; ++j)
-			m_ppItems[i][j].m_cleared = 1;
+		for (int j = 0; j < field1BA40; ++j)
+			field1BA38[i][j].m_cleared = 1;
 	}
 }
 unsigned char PathfindZoneManager::IsPassable(int worldX, int worldY)
@@ -79,20 +60,20 @@ unsigned char PathfindZoneManager::IsPassable(int worldX, int worldY)
 		return 0;
 	int i = worldX / 16;
 	int j = worldY / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return 0;
-	return m_ppItems[i][j].m_cleared;
+	return field1BA38[i][j].m_cleared;
 }
 void PathfindZoneManager::MarkDirty(int a, int b)
 {
-	m_flag1BA30 = 1;
+	field1BA30 = 1;
 	if (a < 0 || b < 0)
 		return;
 	int i = a / 16;
 	int j = b / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return;
-	m_ppItems[i][j].m_35 = 1;
+	field1BA38[i][j].m_35 = 1;
 }
 // ?rva005314C6@PathfindZoneManager@@QAEXHHE@Z, retail 0x005314C6, 76 bytes.
 // Bounded setter writes byte at +0x34 with value; gap between 0x00531481 and 0x00531512.
@@ -103,9 +84,9 @@ void PathfindZoneManager::rva005314C6(int worldX, int worldY, unsigned char pass
 		return;
 	int i = worldX / 16;
 	int j = worldY / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return;
-	m_ppItems[i][j].m_cleared = passable;
+	field1BA38[i][j].m_cleared = passable;
 }
 
 void PathfindZoneManager::MarkDirty(Rva005312BERect *r)
@@ -116,21 +97,21 @@ void PathfindZoneManager::MarkDirty(Rva005312BERect *r)
 		return;
 	if (r->x1 < 0 || r->y1 < 0)
 		return;
-	if (r->x0 >= m_outer * 16 || r->y0 >= m_inner * 16)
+	if (r->x0 >= field1BA3C * 16 || r->y0 >= field1BA40 * 16)
 		return;
-	m_flag1BA30 = 1;
+	field1BA30 = 1;
 	int x0 = r->x0 < 0 ? 0 : r->x0 / 16;
 	int y0 = r->y0 < 0 ? 0 : r->y0 / 16;
 	int x1 = r->x1 / 16;
 	int y1 = r->y1 / 16;
-	if (x1 >= m_outer)
-		x1 = m_outer - 1;
-	if (y1 >= m_inner)
-		y1 = m_inner - 1;
+	if (x1 >= field1BA3C)
+		x1 = field1BA3C - 1;
+	if (y1 >= field1BA40)
+		y1 = field1BA40 - 1;
 	for (int i = x0; i <= x1; ++i)
 	{
 		for (int j = y0; j <= y1; ++j)
-			m_ppItems[i][j].m_35 = 1;
+			field1BA38[i][j].m_35 = 1;
 	}
 }
 // ?rva0053155E@PathfindZoneManager@@QAEXHH_NH@Z @ 0x0053155E (82B): bounded forward to Rva00531132 set; callers at 0x002E9033 0x002E9090.
@@ -140,9 +121,9 @@ void PathfindZoneManager::rva0053155E(int worldX, int worldY, bool add, int valu
 		return;
 	int i = worldX / 16;
 	int j = worldY / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return;
-	m_ppItems[i][j].m_set.rva00531132(add, value);
+	field1BA38[i][j].m_set.rva00531132(add, value);
 }
 
 // Ghidra83B at53161A; the direct call531660 proves the23B word accessor.
@@ -155,9 +136,9 @@ int PathfindZoneManager::GetPortal(int worldX, int worldY, int index)
 		return 0;
 	int i = worldX / 16;
 	int j = worldY / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return 0;
-	return m_ppItems[i][j].m_set.rva0053117F(index);
+	return field1BA38[i][j].m_set.rva0053117F(index);
 }
 // ?rva005315C8@PathfindZoneManager@@QAE_NHH@Z, retail 0x005315C8, 82 bytes.
 // Leaf: bounded check whether cell count is positive; shares 0x1BA38/0x1BA3C/0x1BA40 stride 0x44.
@@ -168,8 +149,8 @@ bool PathfindZoneManager::rva005315C8(int worldX, int worldY)
 		return false;
 	int i = worldX / 16;
 	int j = worldY / 16;
-	if (i >= m_outer || j >= m_inner)
+	if (i >= field1BA3C || j >= field1BA40)
 		return false;
-	return m_ppItems[i][j].m_set.m_count > 0;
+	return field1BA38[i][j].m_set.m_count > 0;
 }
 

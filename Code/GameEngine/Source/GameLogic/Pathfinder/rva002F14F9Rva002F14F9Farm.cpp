@@ -548,12 +548,7 @@ public:
 private:
 	char storage[0x40]; // +0x00
 };
-class PathfindZoneManager
-{
- public:
- void rva00531481();
- void rva005314C6(Int x, Int y, unsigned char flag);
-};
+#include "../../../Include/GameLogic/PathfindZoneManager.h"
 struct Rva002EBC7FPair
 {
 public:

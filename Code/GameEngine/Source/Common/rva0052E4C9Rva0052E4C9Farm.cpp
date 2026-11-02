@@ -63,14 +63,7 @@ public:
 
 #include "../../Include/GameLogic/PathfindCell.h"
 
-class PathfindZoneManager
-{
-public:
-	void MarkDirty(Int x,Int y);
-
-private:
-	Bool m_bfmeDirty;
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 
 static __forceinline int RealToIntFloor(float v)
 {
