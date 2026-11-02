@@ -1,0 +1,1204 @@
+{
+ "bases": [
+  "SimpleSceneClass",
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "RTS3DScene",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x130": {
+    "4": 3
+   },
+   "0x140": {
+    "4": 4
+   },
+   "0x144": {
+    "4": 1
+   },
+   "0x160": {
+    "4": 2
+   },
+   "0x164": {
+    "4": 3
+   },
+   "0x2c8": {
+    "4": 2
+   },
+   "0x2cc": {
+    "4": 2
+   },
+   "0x2d0": {
+    "4": 2
+   },
+   "0x38c": {
+    "4": 3
+   },
+   "0x4f0": {
+    "4": 2
+   },
+   "0x4f4": {
+    "4": 2
+   },
+   "0x4f8": {
+    "4": 2
+   },
+   "0x58c": {
+    "4": 1
+   },
+   "0x5b4": {
+    "4": 3
+   },
+   "0x718": {
+    "4": 2
+   },
+   "0x71c": {
+    "4": 2
+   },
+   "0x720": {
+    "4": 2
+   },
+   "0x7dc": {
+    "1": 3
+   },
+   "0x7f0": {
+    "4": 2
+   },
+   "0x814": {
+    "4": 1
+   },
+   "0x8c": {
+    "4": 1
+   },
+   "0xf4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x818": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x6f470"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SimpleSceneClass",
+       "offset": 0,
+       "own_vftable": "0x7c63c8",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 264,
+       "own_vftable": "0x7c6390",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6f470"
+     ],
+     "value": 2072
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x6f470"
+     ],
+     "value": {
+      "0x12c": [
+       1
+      ],
+      "0x130": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       4
+      ],
+      "0x160": [
+       4
+      ],
+      "0x7dc": [
+       1
+      ],
+      "0x7e0": [
+       4
+      ],
+      "0x7e4": [
+       4
+      ],
+      "0x7e8": [
+       4
+      ],
+      "0x7ec": [
+       4
+      ],
+      "0x7f0": [
+       4
+      ],
+      "0x7f4": [
+       4
+      ],
+      "0x7f8": [
+       4
+      ],
+      "0x7fc": [
+       4
+      ],
+      "0x800": [
+       4
+      ],
+      "0x804": [
+       4
+      ],
+      "0x808": [
+       4
+      ],
+      "0x80c": [
+       4
+      ],
+      "0x810": [
+       4
+      ],
+      "0x814": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x6f470"
+     ],
+     "value": {
+      "0x108": [
+       "?setName@SubsystemInterface@@QAEXVAsciiString@@@Z"
+      ],
+      "0x114": [
+       "??0GenericMultiListClass@@QAE@XZ"
+      ],
+      "0x164": [
+       "??0LightEnvironmentClass@@QAE@XZ"
+      ],
+      "0x38c": [
+       "??0LightEnvironmentClass@@QAE@XZ"
+      ],
+      "0x5b4": [
+       "??0LightEnvironmentClass@@QAE@XZ"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x6f470"
+     ],
+     "value": {
+      "0x114": [
+       "0x7c6260"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x6f470"
+     ],
+     "value": {
+      "0x0": "0x7c63c8",
+      "0x108": "0x7c6390"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c63c8"
+     ],
+     "value": {
+      "count": 28,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GRva006F7BD@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x6fb2f"
+       },
+       {
+        "name": "?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+        "slot": 2,
+        "target": "0x1413a0"
+       },
+       {
+        "name": "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+        "slot": 3,
+        "target": "0x141860"
+       },
+       {
+        "name": "?Create_Iterator@SimpleSceneClass@@UAEPAVSceneIterator@@XZ",
+        "slot": 4,
+        "target": "0x141cd0"
+       },
+       {
+        "name": "?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z",
+        "slot": 5,
+        "target": "0x6132a0"
+       },
+       {
+        "name": "?Set_Ambient_Light@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 6,
+        "target": "0x6e265"
+       },
+       {
+        "name": "?get@Rva005C4AD5LeaField@@QBEPAXXZ",
+        "slot": 7,
+        "target": "0x5c4ad5"
+       },
+       {
+        "name": "?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z",
+        "slot": 8,
+        "target": "0x6ede3"
+       },
+       {
+        "name": "?getPercentage@NetProgressCommandMsg@@QAEEXZ",
+        "slot": 9,
+        "target": "0x4c54ec"
+       },
+       {
+        "name": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 10,
+        "target": "0x49f0f"
+       },
+       {
+        "name": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+        "slot": 11,
+        "target": "0x4f5fa3"
+       },
+       {
+        "name": "?Set_Fog_Range@SceneClass@@UAEXMM@Z",
+        "slot": 12,
+        "target": "0x6eded"
+       },
+       {
+        "name": "?Get_Fog_Range@SceneClass@@UAEXPAM0@Z",
+        "slot": 13,
+        "target": "0x6ee06"
+       },
+       {
+        "name": "?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+        "slot": 14,
+        "target": "0x141400"
+       },
+       {
+        "name": "?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+        "slot": 15,
+        "target": "0x1414d0"
+       },
+       {
+        "name": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
+        "slot": 16,
+        "target": "0x1418f0"
+       },
+       {
+        "name": "?get@Rva0006EE1BDwordField@@QBEHXZ",
+        "slot": 17,
+        "target": "0x6ee1b"
+       },
+       {
+        "name": "?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z",
+        "slot": 18,
+        "target": "0x1428e0"
+       },
+       {
+        "name": "?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z",
+        "slot": 19,
+        "target": "0x1428f0"
+       },
+       {
+        "name": "?Save@SceneClass@@UAEXAAVChunkSaveClass@@@Z",
+        "slot": 20,
+        "target": "0x140cf0"
+       },
+       {
+        "name": "?Load@SceneClass@@UAEXAAVChunkLoadClass@@@Z",
+        "slot": 21,
+        "target": "0x140dc0"
+       },
+       {
+        "name": "?Render@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z",
+        "slot": 22,
+        "target": "0x71e40"
+       },
+       {
+        "name": "?Customized_Render@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z",
+        "slot": 23,
+        "target": "0x7054f"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 24,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+        "slot": 25,
+        "target": "0x141bb0"
+       },
+       {
+        "name": "?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ",
+        "slot": 26,
+        "target": "0x141370"
+       },
+       {
+        "name": "?Visibility_Check@RTS3DScene@@UAEXPAVCameraClass@@@Z",
+        "slot": 27,
+        "target": "0x71245"
+       }
+      ],
+      "table": "0x7c63c8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 14,
+  "retail_vtables": {
+   "0x7c6390": {
+    "offset": 264,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7c63c8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GRva006F7BD@@UAEPAXI@Z",
+     "2": "?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+     "3": "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+     "4": "?Create_Iterator@SimpleSceneClass@@UAEPAVSceneIterator@@XZ",
+     "5": "?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z",
+     "6": "?Set_Ambient_Light@SceneClass@@UAEXABVVector3@@@Z",
+     "7": "?get@Rva005C4AD5LeaField@@QBEPAXXZ",
+     "8": "?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z",
+     "9": "?getPercentage@NetProgressCommandMsg@@QAEEXZ",
+     "10": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+     "11": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+     "12": "?Set_Fog_Range@SceneClass@@UAEXMM@Z",
+     "13": "?Get_Fog_Range@SceneClass@@UAEXPAM0@Z",
+     "14": "?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+     "15": "?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+     "16": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
+     "17": "?get@Rva0006EE1BDwordField@@QBEHXZ",
+     "18": "?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z",
+     "19": "?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z",
+     "20": "?Save@SceneClass@@UAEXAAVChunkSaveClass@@@Z",
+     "21": "?Load@SceneClass@@UAEXAAVChunkLoadClass@@@Z",
+     "22": "?Render@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z",
+     "23": "?Customized_Render@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z",
+     "24": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "25": "?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+     "26": "?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ",
+     "27": "?Visibility_Check@RTS3DScene@@UAEXPAVCameraClass@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 8,
+   "4": 16,
+   "8": 1,
+   "152": 1,
+   "260": 1,
+   "292": 1,
+   "296": 1,
+   "301": 1,
+   "336": 1,
+   "2032": 3,
+   "2040": 1,
+   "2044": 1,
+   "2068": 1,
+   "2072": 3
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_RTS3DScene.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DScene.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 27,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlush.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_createLightsIterator.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_createLightsIterator.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRva00072109.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ED36Call.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneGetADynamicLight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneGetADynamicLight.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlush.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 332,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 336,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlush.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 712,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 716,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 720,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 908,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1264,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1268,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1272,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1460,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1816,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1820,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1824,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2012,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2016,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2020,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2024,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2028,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlush.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSceneUpdateFixedLightEnvironments.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 2032,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlushTranslucent.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2036,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlushTranslucent.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2040,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DScene_Customized_Render.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2044,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2048,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2052,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2056,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2060,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2064,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneVisibilityCheck.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2068,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0006ED36Call.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "140:A": 1,
+    "280:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "inherited@0x108",
+   "candidates": {
+    "4:S:Rva0006ED36Sub": 1,
+    "4:VPTR": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "Visibility_Check(CameraClass*)": 1,
+    "__vecDelDtor(uint)": 1,
+    "bfmeSceneSlot0()": 2,
+    "bfmeSlotQC00()": 1,
+    "s0()": 3,
+    "s00()": 1,
+    "slot0()": 3,
+    "slot00()": 2,
+    "slot000()": 2,
+    "v0()": 2,
+    "v00()": 3
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "Remove_Render_Object(RenderObjClass*)": 2,
+    "Remove_Render_Object(SegmentedLineClass*)": 2,
+    "bfmeSlotQC03()": 1,
+    "s3()": 2,
+    "s3(RefCountClass*)": 1,
+    "slot003()": 2,
+    "v3()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "Create_Iterator()": 1,
+    "bfmeSlotQC04()": 1,
+    "s4()": 2,
+    "slot004()": 2,
+    "v4()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "Destroy_Iterator(SceneIterator*)": 1,
+    "bfmeSlotQC05()": 1,
+    "s5()": 2,
+    "slot005()": 2,
+    "v5()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "bfmeSlotQC06()": 1,
+    "s6()": 2,
+    "setAmbient(Rva000443BAVec*)": 1,
+    "slot006()": 2
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "Set_Fog_Enable(bool)": 1,
+    "bfmeSlotQC08()": 1,
+    "slot008()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "bfmeSlotQC09()": 1,
+    "s9()": 1,
+    "slot009()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "Set_Fog_Color(Vector3*)": 1,
+    "bfmeSlotQC10()": 1,
+    "slot010()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "bfmeSlotQC11()": 1,
+    "s11()": 1,
+    "slot011()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "Set_Fog_Range(float,float)": 1,
+    "bfmeSlotQC12()": 1,
+    "slot012()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "bfmeSlotQC13()": 1,
+    "s13()": 1,
+    "slot013()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "bfmeSlotQC14()": 1,
+    "s14()": 1,
+    "slot014()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "bfmeSlotQC15()": 1,
+    "s15()": 1,
+    "slot015()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "bfmeSlotQC16()": 1,
+    "s16()": 1,
+    "slot016()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "bfmeSlotQC17()": 1,
+    "s17()": 1,
+    "slot017()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "bfmeOneQC(void*)": 1,
+    "s18()": 1,
+    "slot018()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "bfmeTwoQC(int)": 1,
+    "s19()": 1,
+    "slot019()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "s20()": 1,
+    "slot020()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "s21()": 1,
+    "slot021()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "s22()": 1,
+    "slot022()": 1
+   },
+   "class": "RTS3DScene"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "Render(RenderInfoClass*)": 1,
+    "slot024()": 1
+   },
+   "class": "RTS3DScene"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "majority",
+   "member": "s1()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "Add_Render_Object(RenderObjClass*)"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "Customized_Render(RenderInfoClass*)"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "slot025()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "slot026()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "Visibility_Check(RenderObjClass*)"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "Get_Ambient_Light()"
+  }
+ }
+}
