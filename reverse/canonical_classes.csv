@@ -352,3 +352,4 @@ TurretStateMachine,Code/GameEngine/Include/GameLogic/Module/TurretStateMachine.h
 ChunkLoadClass,Code/Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h,existing header; contract class_contracts/ChunkLoadClass.json; 21/24 sampled units adopt
 SphereClass,Code/Libraries/Source/WWVegas/WWMath/SphereClass.h,existing header; contract class_contracts/SphereClass.json; 7/23 sampled units adopt
 QuickMatchPreferences,Code/GameEngine/Include/Common/QuickMatchPreferencesClass.h,existing header; contract class_contracts/QuickMatchPreferences.json; 18/23 sampled units adopt
+ExitInterface,Code/GameEngine/Include/GameLogic/Module/ExitInterface.h,existing header; contract class_contracts/ExitInterface.json; 10/22 sampled units adopt

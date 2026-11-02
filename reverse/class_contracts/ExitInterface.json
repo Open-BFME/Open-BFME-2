@@ -1,0 +1,101 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ExitInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "4": 21
+  },
+  "views": 21,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ExitInterface.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 20,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "isExitBusy()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "reserveDoorForExit(ThingTemplate*,Object*)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "getExitPosition(Coord3D*,float*)"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "exitSlot11()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "exitObjectViaDoor(Object*,enum)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot3()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot4()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot5()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot6()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "setRallyPoint(Coord3D*)"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot8()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "getNaturalRallyPoint(Coord3D*,bool)"
+  }
+ }
+}
