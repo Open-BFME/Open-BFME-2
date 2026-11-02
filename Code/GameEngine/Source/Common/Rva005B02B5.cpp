@@ -13,11 +13,7 @@ extern float g_00BC4DD8;
 // g_00BC4DD8: matched references place it at VA 0xbc4dd8 (retail .rdata value 0.2f).
 float g_00BC4DD8 = 0.2f;
 
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 
 class Rva005B02B5
 {

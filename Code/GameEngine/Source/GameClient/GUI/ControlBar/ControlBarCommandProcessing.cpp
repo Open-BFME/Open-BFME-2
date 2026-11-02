@@ -63,7 +63,8 @@ class PickAndPlayInfo { public:
 bool __cdecl pickAndPlayUnitVoiceResponse(const DrawableList*,GameMessage::Type,PickAndPlayInfo*);
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Keyboard { public: bool isShift(); }; extern Keyboard *TheKeyboard;
+#include "../../../../Include/GameClient/KeyboardClass.h"
+extern Keyboard *TheKeyboard;
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;

@@ -10,11 +10,7 @@
 // GameMessage::appendIntegerArgument @0x0030F936 (m_18, m_20). MessageStream
 // slot-18 view and subsystem name reused from ReloadIniFileNotices.cpp;
 // result-check view is TU-local (slot 7 honest, dummies structural).
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 
 #include "../../Include/Common/MessageStream.h"
 

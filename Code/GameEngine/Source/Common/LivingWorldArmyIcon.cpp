@@ -243,11 +243,7 @@ public:
 	void rva003FE0B3(TreeHintRef00217D4C hint);
 };
 
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 
 class Rva0025CEEFHost : public Keyboard
 {

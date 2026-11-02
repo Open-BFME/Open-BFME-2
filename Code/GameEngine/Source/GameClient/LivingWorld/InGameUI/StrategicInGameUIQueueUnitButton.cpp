@@ -60,11 +60,7 @@ public:
 // The region lookup by id (rowed 0x005F88F4, address-named).
 int Rva005F88F4Get(int regionID);
 
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 
 #include "../../../../Include/Common/MessageStream.h"

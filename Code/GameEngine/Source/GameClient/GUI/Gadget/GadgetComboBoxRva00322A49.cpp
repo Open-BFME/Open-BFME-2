@@ -261,15 +261,7 @@ void OnComboBoxClick(GameWindow *comboBox)
 	}
 }
 
-class Keyboard
-{
-public:
-	Int getModifierFlags() { return m_modifiers; }
-
-	unsigned char m_pad00[0xC];
-	// Retail mouse callers read the modifier word at +0x0c.
-	unsigned short m_modifiers;
-};
+#include "../../../../Include/GameClient/KeyboardClass.h"
 
 extern Keyboard *TheKeyboard;
 

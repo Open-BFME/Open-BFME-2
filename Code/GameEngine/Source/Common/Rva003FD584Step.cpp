@@ -12,11 +12,7 @@
 // 0x002BECCD on g_00DFEF18. WorldBuilder twin 0x0105D6D0 has the same
 // shape. Class identity is address-derived.
 
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 
 class GlobalData;

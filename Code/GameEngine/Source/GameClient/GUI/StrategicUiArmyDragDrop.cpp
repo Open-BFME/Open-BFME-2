@@ -98,7 +98,8 @@ void ArmyMemberTransferCallback::moveSelectedMembersToSource(){
 // semantic lead. The existing range-vector constructor5E60D1 and child
 // constructor5E626D retain their owned ABI. The Ctrl query232696 is verified
 // in Keyboard.cpp. Context getters read node18/1C; pending registration uses40.
-class Keyboard {public:bool isCtrl();};extern Keyboard*TheKeyboard;
+#include "../../../Include/GameClient/KeyboardClass.h"
+extern Keyboard*TheKeyboard;
 class Rva0042D6B4PtrChaseField {public:int get()const;};
 class Rva0042D6BAPtrChaseField {public:int get()const;};
 class Object;

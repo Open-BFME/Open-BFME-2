@@ -88,11 +88,7 @@ private:
 
 extern InGameUI *TheInGameUI;
 
-class Keyboard
-{
-public:
-	WideChar getPrintableKey(UnsignedByte key, Int state);
-};
+#include "../../../Include/GameClient/KeyboardClass.h"
 
 extern Keyboard *TheKeyboard;
 

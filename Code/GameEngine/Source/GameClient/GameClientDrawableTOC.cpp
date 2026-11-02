@@ -783,13 +783,7 @@ class Image;
 #include "../../Include/GameClient/Image.h"
 
 // ZH Keyboard::createStreamMessages follows the update, here slot 15 (+0x3C).
-class Keyboard : public SubsystemInterface
-{
-public:
-	virtual ~Keyboard();
-	virtual void vf14();
-	virtual void createStreamMessages();                                // +0x3C
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 #include "../../Include/GameClient/DisplayStringManager.h"
 class SnowManager : public SubsystemInterface { public: virtual ~SnowManager(); };
 class Rva0027070CGlobal : public SubsystemInterface { public: virtual ~Rva0027070CGlobal(); };

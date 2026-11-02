@@ -153,11 +153,7 @@ public:
 
 #include "../../../Include/GameClient/Mouse.h"
 
-class Keyboard
-{
-public:
-	bool rva00232643(unsigned char key);
-};
+#include "../../../Include/GameClient/KeyboardClass.h"
 
 #include "../../../Include/Common/GameEngine.h"
 

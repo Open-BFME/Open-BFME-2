@@ -546,7 +546,7 @@ class Rva0026F0F0 { public: void* rva0026F0F0(const void*); };
 class Rva0029DE76 { public: bool rva0029DE76(const Coord3D*); };
 class ActionManager { public: GameMessage::Type rva0041CE06(const Object*); };
 extern ActionManager* TheActionManager;
-class Keyboard { public: bool isShift(); };
+#include "../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard* TheKeyboard;
 #include "../../../Include/GameLogic/AIPathfind.h"
 class AI;

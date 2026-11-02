@@ -80,12 +80,7 @@ const char *TheWeaponStatusNames[] = {
 	"PRE_ATTACK", "FIRING", "IN_FOLLOW_THRU", 0
 };
 
-class Keyboard
-{
-public:
-	Bool isShift();
-	Bool isCtrl();
-};
+#include "../../../../GameEngine/Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 
 #include "../../../../GameEngine/Include/GameClient/InGameUI.h"

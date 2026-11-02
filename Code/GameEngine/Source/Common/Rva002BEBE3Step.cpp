@@ -9,11 +9,7 @@
 // Keyboard::isShift 0x00232683, BfmeStateDF::rva002BEACD 0x002BEACD and ::rva002BEAAC 0x002BEAAC
 // (curve at +0x28), curve evaluator 0x00504BA9; shift global 0x00DFE720 is TheKeyboard.
 // The shift/flag purposes (accelerated step) and the original class name are inferred, not proven.
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 
 class GlobalData;

@@ -216,11 +216,7 @@ public:
 
 IMEManager *TheIMEManager;
 
-class Keyboard
-{
-public:
-	void resetKeys();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 
 Keyboard *TheKeyboard;
 

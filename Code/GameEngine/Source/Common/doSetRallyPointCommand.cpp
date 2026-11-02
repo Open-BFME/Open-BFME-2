@@ -103,11 +103,7 @@ extern InGameUI *TheInGameUI;
 class Rva0025CEEFHost;
 extern class Keyboard *TheKeyboard;
 
-class Keyboard
-{
-public:
-	bool isShift();
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 
 int __cdecl doSetRallyPointCommand(void *a, ICoord2D *b)
 {

@@ -116,11 +116,7 @@ extern ScriptEngine *TheScriptEngine;
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
-class Keyboard
-{
-public:
-	Bool isShift();					// 0x00232683
-};
+#include "../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 
 class Drawable

@@ -212,7 +212,7 @@ AptMyHero::~AptMyHero(){
 // DIK arrow-key handlers and the MyHeroName/Class/Type text refresh. Helper
 // names below stay address views. The transition guard's ctor is defined in
 // the class (retail still calls the rowed 0x0023C565 copy); its dtor inlines.
-class Keyboard {public:bool rva00232643(unsigned char);};
+#include "../../../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 extern int BfmeLogicFramesPerSecond;
 class Rva005B02B5 {public:void rva005B0249();void rva005B027F();void rva005B02B5();void rva005B02FD();};

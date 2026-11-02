@@ -513,7 +513,8 @@ void InGameHeroSelectInterface::Impl::BuildLocalBuilderList(_STL::list<Rva005251
  }
 }
 
-class Keyboard {public:bool isShift();};extern Keyboard *TheKeyboard;
+#include "../../../../../Include/GameClient/KeyboardClass.h"
+extern Keyboard *TheKeyboard;
 class GameClient;
 extern GameClient *TheGameClient;
 class HeroGameClientView {public:

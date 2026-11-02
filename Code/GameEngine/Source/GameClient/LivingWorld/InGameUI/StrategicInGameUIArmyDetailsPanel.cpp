@@ -57,7 +57,7 @@ void StrategicInGameUI::ArmyDetailsPanel::Impl::OnRemovingEntryFromArmySummary(c
  selected->rva005F2295(entryID);
 }
 
-class Keyboard { public: bool isCtrl(); };
+#include "../../../../Include/GameClient/KeyboardClass.h"
 extern Keyboard *TheKeyboard;
 class Rva005F2278 { public: bool rva005F2278(int) const; };
 class Rva005E4DAF { public: void Deselect(int); void Select(int); };
