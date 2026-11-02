@@ -319,3 +319,4 @@ PathfindLayer,Code/GameEngine/Include/GameLogic/PathfindLayer.h,existing header;
 GlobalLanguage,Code/GameEngine/Include/Common/GlobalLanguageClass.h,existing header; contract class_contracts/GlobalLanguage.json; 15/29 sampled units adopt
 ExperienceLevelStore,Code/GameEngine/Include/GameLogic/ExperienceLevelStore.h,existing header; contract class_contracts/ExperienceLevelStore.json; 28/29 sampled units adopt
 LivingWorldPlayer,Code/GameEngine/Include/GameLogic/LivingWorldPlayer.h,existing header; contract class_contracts/LivingWorldPlayer.json; 16/30 sampled units adopt
+VertexBufferClass,Code/Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h,existing header; contract class_contracts/VertexBufferClass.json; 15/30 sampled units adopt
