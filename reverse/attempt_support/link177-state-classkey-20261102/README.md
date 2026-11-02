@@ -182,3 +182,25 @@ Measured on v2 plus this patch:
     own tables and use `getMachineOwner`.
   - TurretStateMachineCtor needs TurretStateMachine.h and its multi-level state views.
   - SupplyTruckAIUpdate.cpp stays held.
+
+## SupplyTruckAIUpdate.cpp to-do (read-only survey, lk17, 2026-11-02)
+
+The file is still held by codex-01a1071d-root-recovery-oct11 for a link-cycle repair, so nothing
+here was edited. When it frees, the class-key part is small:
+- Line 114 `struct State;` and line 133 `struct State { public: ... }` become `class State`. The
+  view already has `public:`.
+- Its 7 rows are respelled `PAUState@@` -> `PAVState@@`, each with a deleted_rows.csv tombstone:
+  ownerIdle, ownerDocking, ownerRva004A6D15, ownerAvailableForSupplying, ownerNotDockingOrIdle,
+  isForcedIntoWantingState and isForcedIntoBusyState. These are the SupplyTruckStateMachine
+  statics at 0x004A6D38, 0x004A6CF2, 0x004A6D15, 0x004A6D5D, 0x004A6DA1, 0x004A6C92 and
+  0x004A6CC2.
+- The comment at line ~703 ("State is a struct in this view because the rowed defineState is
+  spelled with one") must be updated.
+
+Apply those together with `state-classkey-v2.patch`; then `./build.sh` the 33 units.
+
+SupplyTruck's step B is separate work, with the AIAttackMoveStateMachine shape. Its State views
+use `getMachineOwner()` through the private `m_machine` at +0x18, and
+SupplyTruckWantsToPickUpOrDeliverBoxesState defines `update`. So adopting `StateMachineClass.h`
+needs those views rebased on canonical State (pure update/GetSnapshotName/xfer declared), not the
+opaque-view recipe of the nine-unit patch.

@@ -323,6 +323,13 @@ no refused pin.
   - AIDock (2,608 B) and AIAttackMoveStateMachine (654 B): they emit State-subclass tables.
   - TurretStateMachineCtor (562 B): needs TurretStateMachine.h.
   - SupplyTruckAIUpdate (1,658 B): held.
+- SupplyTruckAIUpdate.cpp to-do, read-only survey (still held at 21:30 UTC by
+  codex-01a1071d-root-recovery-oct11):
+  - change its two `struct State` lines to `class State`;
+  - respell its 7 condition rows to `PAVState@@` with tombstones;
+  - apply v2 with them.
+  The README lists the rows and addresses. Its own step B needs State views rebased on canonical
+  State.
 
 New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
 `??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
