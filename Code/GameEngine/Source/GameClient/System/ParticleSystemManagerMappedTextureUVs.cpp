@@ -44,23 +44,8 @@ private:
 };
 }
 
-class Image
-{
-public:
-	const AsciiString &getFilename() const { return m_filename; }
-	const Region2D *getUV() const { return &m_UVCoords; }
-private:
-	char m_pad00[0x08];
-	AsciiString m_filename; // +0x08
-	char m_pad0C[0x14 - 0x0C];
-	Region2D m_UVCoords; // +0x14
-};
+#include "../../../Include/GameClient/Image.h"
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
 
 extern ImageCollection *TheMappedImageCollection;
 

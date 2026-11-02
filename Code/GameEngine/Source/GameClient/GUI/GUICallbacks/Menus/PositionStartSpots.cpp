@@ -35,11 +35,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 class Image;
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 
 struct Rva0057DA21Waypoint

@@ -77,7 +77,7 @@ public:
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;
 class Image;
-class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
+#include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 int GedgetListBoxGetDefaultHeight(GameWindow *);
 int GadgetListBoxAddEntryImage(GameWindow *,const Image *,int,int,int,int,bool,int);

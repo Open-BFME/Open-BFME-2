@@ -69,11 +69,7 @@ class Rva005B3751 {public:void rva005B3947();};
 class GameWindow;
 class Image;
 #include "../../../../../Include/GameClient/CommandButton.h"
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva002239B2

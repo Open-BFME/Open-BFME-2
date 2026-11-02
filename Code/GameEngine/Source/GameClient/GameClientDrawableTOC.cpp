@@ -806,17 +806,7 @@ private:
 };
 
 class Image;
-class ImageCollection
-{
-public:
-	ImageCollection();
-	virtual ~ImageCollection();
-	void load(int textureSize);
-	const Image *findImageByName(const AsciiString &name);
-
-private:
-	unsigned char m_pad[0x18 - 4];
-};
+#include "../../Include/GameClient/Image.h"
 
 // ZH Keyboard::createStreamMessages follows the update, here slot 15 (+0x3C).
 class Keyboard : public SubsystemInterface

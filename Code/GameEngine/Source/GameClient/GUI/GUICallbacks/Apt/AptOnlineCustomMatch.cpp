@@ -206,7 +206,8 @@ class GameSpyStagingRoom{public:
 class MapMetaData{public:UnicodeString bfme_getBaseDisplayName();char beforeOfficial[0x26];bool official;};
 class AptMapPreview{public:MapMetaData*rva0057D922(const AsciiString&);};
 class AptMpGameSetup{public:const Image*rva0043E512(int);void rva0043FA68(GameInfo *);};
-class ImageCollection{public:const Image*findImageByName(const AsciiString&);};extern ImageCollection*TheMappedImageCollection;
+#include "../../../../../Include/GameClient/Image.h"
+extern ImageCollection*TheMappedImageCollection;
 static __forceinline bool hasWide(const UnicodeString&name){const unsigned short*p=name.str();int n=name.getLength();for(int i=0;i<n;++i)if(p[i]>=256)return true;return false;}
 int AptOnlineCustomMatch::rva0059F496(GameSpyStagingRoom*game)
 {

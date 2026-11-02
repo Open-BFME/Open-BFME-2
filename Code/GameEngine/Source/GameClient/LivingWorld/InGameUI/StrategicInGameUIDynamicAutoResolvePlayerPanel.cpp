@@ -56,7 +56,7 @@ class Rva005FBBEE {public:Rva005FBBEE(unsigned,const AsciiString&);virtual ~Rva0
 class Rva005FBBFC {public:void setPlayerName(const UnicodeString&);};
 class Rva005FBB68 {public:void setPlayerColor(int);void rva005FBB55(float);};
 class Image;
-class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
+#include "../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 class Rva005FB83E {public:void rva005FB83E(const Image*);};
 class Rva005FBB96 {public:void rva005FBB96(int,const Image*);};

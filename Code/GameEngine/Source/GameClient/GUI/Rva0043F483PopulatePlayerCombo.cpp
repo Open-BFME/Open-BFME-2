@@ -219,11 +219,7 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *f
 
 class Image;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 

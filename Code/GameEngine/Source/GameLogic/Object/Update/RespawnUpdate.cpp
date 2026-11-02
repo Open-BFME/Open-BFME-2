@@ -299,11 +299,7 @@ class CreateAHeroData;
 
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &);
-};
+#include "../../../../Include/GameClient/Image.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 

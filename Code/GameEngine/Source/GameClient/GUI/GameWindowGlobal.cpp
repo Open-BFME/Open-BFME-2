@@ -41,11 +41,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 // GameWindowManager::winDestroyAll fills slot 36 of this table.
 class Image;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 

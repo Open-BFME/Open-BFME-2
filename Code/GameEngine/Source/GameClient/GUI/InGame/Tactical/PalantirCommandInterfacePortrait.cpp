@@ -123,11 +123,7 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 
 #include "../../../../Common/GameLogicObjectLookupView.h"

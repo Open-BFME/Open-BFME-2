@@ -83,7 +83,7 @@ class Rva0057E97A {public:void rva0057E9ED(unsigned int,int);};
 
 class Image;
 
-class ImageCollection {public:const Image* findImageByName(const AsciiString&);};
+#include "../../Include/GameClient/Image.h"
 
 extern ImageCollection* TheMappedImageCollection;
 

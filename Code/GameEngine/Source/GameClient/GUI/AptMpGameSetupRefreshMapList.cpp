@@ -47,7 +47,7 @@ template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflo
 }
 class GameWindow;
 class Image;
-class ImageCollection {public:const Image *findImageByName(const AsciiString &name);};
+#include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 struct ImageWidthView {char unknown[0x24];int width;};
 class MapMetaData {public:

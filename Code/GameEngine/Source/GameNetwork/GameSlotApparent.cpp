@@ -163,11 +163,7 @@ extern MapCache *TheMapCache;
 
 class Image;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../Include/GameClient/Image.h"
 
 extern ImageCollection *TheMappedImageCollection;
 

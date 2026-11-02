@@ -361,7 +361,7 @@ int AptPlayer::GetLevelIndex(GameWindow *gameWindow)
 
 bool Rva004128F0GetParam(const char *,const char *,AsciiString &);
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char *,int);
-class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
+#include "../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 struct AptImageNode { void *next; AsciiString key; const Image *image; };
 // WB B92F00 names the resolver. Native223AC4..223BF6 proves image map90

@@ -66,7 +66,7 @@ extern class ExperienceLevelSystem *TheExperienceLevelSystem;
 class CreateAHeroHero;
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
-class ImageCollection {public: const Image *findImageByName(const AsciiString&);};
+#include "../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 struct RespawnIconView {char unknown00[0x118]; AsciiString name;};
 class LivingWorldPlayer {

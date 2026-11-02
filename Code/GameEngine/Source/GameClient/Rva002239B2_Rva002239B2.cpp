@@ -20,7 +20,7 @@
 #include "../../../Libraries/Source/debug/debug.h"
 class Image;
 
-class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
+#include "../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 bool bfmeRva000387C0();
 template <typename T> Debug &operator<<(Debug &, const StringBase<T> &);

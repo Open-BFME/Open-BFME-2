@@ -156,7 +156,7 @@ void Rva004E324DParse(INI *ini,void *instance,void*,const void*) {
  ((Rva00566AB7*)instance)->rva00566AB7((const BfmePod88&)record);
 }
 
-class ImageCollection { public:const Image *findImageByName(const AsciiString&); };
+#include "../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 class CreateAHeroHero;
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"

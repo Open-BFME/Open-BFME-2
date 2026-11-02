@@ -46,7 +46,7 @@ class ColorSetupOwner {public:virtual void v00();virtual bool amIHost();};
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 class MpGameSetupComboRef {public:MpGameSetupComboRef(const MpGameSetupComboRef&);~MpGameSetupComboRef();GameWindow*window;};
 class Image;
-class ImageCollection {public:const Image*findImageByName(const AsciiString&);};
+#include "../../../Include/GameClient/Image.h"
 class MultiplayerColorDefinition {public:char pad[0x10];int color;};
 class MultiplayerSettings {public:MultiplayerColorDefinition*getColor(int);};
 extern MultiplayerSettings*TheMultiplayerSettings;

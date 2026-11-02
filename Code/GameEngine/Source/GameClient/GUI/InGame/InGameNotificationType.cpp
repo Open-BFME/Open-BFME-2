@@ -192,11 +192,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class ImageCollection
-{
-public:
-	const Image *findImageByName(const AsciiString &name);
-};
+#include "../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
 
 static __declspec(noinline) Rva002217EA rva00221920(const InGameNotificationType *type)
