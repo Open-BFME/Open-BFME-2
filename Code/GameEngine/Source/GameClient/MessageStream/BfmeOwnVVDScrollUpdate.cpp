@@ -165,12 +165,7 @@ public:
 	bool rva00232643(unsigned char key);
 };
 
-class GameEngine
-{
-	friend class BfmeOwnVVD;
-private:
-	bool rva00225D38(void);
-};
+#include "../../../Include/Common/GameEngine.h"
 
 class Rva0023C666
 {

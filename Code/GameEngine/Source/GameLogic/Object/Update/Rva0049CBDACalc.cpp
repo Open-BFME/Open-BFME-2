@@ -9,16 +9,7 @@
 // unproven so the name stays address-derived; friend grants the private row.
 class Rva0049CBDA;
 
-class GameEngine
-{
-private:
-	bool rva00225D38();
-	friend class Rva0049CBDA;
-	char m_pad00[0x34];
-	int m_pad34;
-	char m_pad38[0x3C - 0x38];
-	float m_float3C;
-};
+#include "../../../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 
@@ -37,6 +28,6 @@ int Rva0049CBDA::rva0049CBDA()
 {
 	if (TheGameEngine->rva00225D38())
 		m_int50 = m_int14;
-	float f = TheGameEngine->m_float3C * m_float18 + *(float *)&m_int50;
+	float f = TheGameEngine->m_3C * m_float18 + *(float *)&m_int50;
 	return (int)f;
 }

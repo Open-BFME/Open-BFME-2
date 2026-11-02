@@ -62,7 +62,7 @@ void Rva00271A80::rva00271A80(float x)
 }
 
 
-class GameEngine {friend class Drawable;private:bool rva00225D38();};
+#include "../../Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 extern GameLogic *TheGameLogic;
 class DrawableClientSlots {

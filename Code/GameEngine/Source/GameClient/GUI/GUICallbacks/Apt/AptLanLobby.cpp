@@ -474,14 +474,7 @@ public:
 	void rva00444362(void *unused);
 };
 
-class GameEngine
-{
-	friend class AptLanLobby;
-public:
-	void rva004443E7();
-private:
-	void stopHeadlessClients();
-};
+#include "../../../../../Include/Common/GameEngine.h"
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 

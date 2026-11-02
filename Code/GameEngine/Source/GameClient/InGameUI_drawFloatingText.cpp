@@ -140,12 +140,7 @@ enum CellShroudStatus
 
 extern PartitionManager *TheShroudManager;
 
-class GameEngine
-{
-public:
-	unsigned char m_pad[0x38];
-	int m_logicFrameRate; // +0x38
-};
+#include "../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 
@@ -217,7 +212,7 @@ void InGameUI::drawFloatingText()
 			ftd->m_dString &&
 			TheShroudManager->getShroudStatusForPlayer(playerIndex, &ftd->m_pos3D) == CELLSHROUD_CLEAR)
 		{
-			pos.y -= ftd->m_frameCount * m_floatingTextMoveUpSpeed / TheGameEngine->m_logicFrameRate;
+			pos.y -= ftd->m_frameCount * m_floatingTextMoveUpSpeed / TheGameEngine->m_38;
 
 			unsigned char r;
 			unsigned char g;

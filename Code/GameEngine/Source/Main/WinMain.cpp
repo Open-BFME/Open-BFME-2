@@ -285,36 +285,7 @@ class GameWindowTransitionsHandler;
 // actual encoded forwarder rather than giving its address to AudioManager.
 GameWindowTransitionsHandler *TheTransitionHandler;
 
-class GameEngine
-{
-public:
-	virtual void _M_slot_00();
-	virtual void _M_slot_04();
-	virtual void _M_slot_08();
-	virtual void _M_slot_0c();
-	virtual void _M_slot_10();
-	virtual void _M_slot_14();
-	virtual void _M_slot_18();
-	virtual void _M_slot_1c();
-	virtual void _M_slot_20();
-	virtual void _M_slot_24();
-	virtual void _M_slot_28();
-	virtual void _M_slot_2c();
-	virtual void _M_slot_30();
-	virtual void _M_slot_34();
-	virtual void _M_slot_38();
-	virtual void _M_slot_3c();
-	virtual void _M_slot_40();
-	virtual void _M_slot_44();
-	virtual void _M_slot_48();
-	virtual void _M_slot_4c();
-	virtual void _M_slot_50();
-	virtual void _M_slot_54();
-	virtual void _M_slot_58();
-	virtual void _M_slot_5c();
-	virtual void _M_slot_60();
-	virtual void setIsActive(bool active);
-};
+#include "../../Include/Common/GameEngine.h"
 
 GameEngine *TheGameEngine;
 

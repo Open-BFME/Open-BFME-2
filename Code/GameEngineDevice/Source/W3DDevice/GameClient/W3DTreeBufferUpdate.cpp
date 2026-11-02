@@ -107,11 +107,7 @@ public:
 
 #include "GameLogicObjectLookupView.h"
 
-class GameEngine
-{
-	bool rva00225D38();				// 0x00225D38
-	friend class Rva000EDB47;
-};
+#include "../../../../GameEngine/Include/Common/GameEngine.h"
 
 class GlobalData
 {

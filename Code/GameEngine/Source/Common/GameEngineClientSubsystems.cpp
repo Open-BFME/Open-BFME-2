@@ -111,14 +111,7 @@ public:
     virtual void liteupdate(int phase);
 };
 
-class GameEngine
-{
-public:
-    virtual void _bfme_updateClientSubsystems(void);
-
-private:
-    bool _bfme_shouldSkipClientFrame(void);
-};
+#include "../../Include/Common/GameEngine.h"
 
 extern GameLogic *TheGameLogic;
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;

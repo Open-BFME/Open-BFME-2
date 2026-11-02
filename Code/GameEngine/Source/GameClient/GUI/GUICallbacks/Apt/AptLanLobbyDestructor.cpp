@@ -176,7 +176,7 @@ public:
 };
 
 
-class GameEngine { friend class AptLanLobby; void stopHeadlessClients(); };
+#include "../../../../../Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 
 class AptLanLobby : public _bfme_AptGameWindow, public Rva004444D2 {

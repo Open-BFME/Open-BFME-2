@@ -136,12 +136,7 @@ public:
 	void rva00170EBC(bool b);
 };
 
-class GameEngine
-{
-public:
-	char m_pad[0x38];
-	int m_38;
-};
+#include "../../../../GameEngine/Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 

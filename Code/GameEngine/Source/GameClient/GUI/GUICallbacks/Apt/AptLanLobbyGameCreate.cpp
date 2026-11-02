@@ -94,11 +94,7 @@ void __cdecl Rva00511730(int unused);
 
 struct Rva00511730State;
 
-class GameEngine
-{
-	friend class AptLanLobby;
-	void stopHeadlessClients();
-};
+#include "../../../../../Include/Common/GameEngine.h"
 
 class AptLanLobby
 {

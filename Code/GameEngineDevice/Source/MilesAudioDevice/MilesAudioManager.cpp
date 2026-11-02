@@ -5563,12 +5563,7 @@ struct Rva00062690GlobalDataView
     bool m_audioOn;                      // +0x99C
 };
 
-class GameEngine
-{
-    friend class MilesAudioManager;
-private:
-    bool rva00225D38(void);              // 0x00225D38 (rowed, private)
-};
+#include "../../../GameEngine/Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 
 // The ambient-stream pass state built on the stack (rowed ctor 0x00052B3D).

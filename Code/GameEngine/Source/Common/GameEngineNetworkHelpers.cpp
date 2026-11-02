@@ -195,55 +195,7 @@ extern int BfmeLogicFramesPerSecond;
 
 void HandleBuddyResponses(void);
 
-class GameEngine
-{
-public:
-	virtual void slot00(void);
-	virtual void slot01(void);
-	virtual void slot02(void);
-	virtual void slot03(void);
-	virtual void slot04(void);
-	virtual void slot05(void);
-	virtual void slot06(void);
-	virtual void slot07(void);
-	virtual void slot08(void);
-	virtual void slot09(void);
-	virtual void slot10(void);
-	virtual void slot11(void);
-	virtual void slot12(void);
-	virtual void slot13(void);
-	virtual void slot14(void);
-	virtual void slot15(void);
-	virtual void slot16(void);
-	virtual void slot17(void);
-	virtual void slot18(void);
-	virtual void slot19(void);
-	virtual void slot20(void);
-	virtual void slot21(void);
-	virtual void slot22(void);
-	virtual void slot23(void);
-	virtual void slot24(void);
-	virtual void slot25(void);
-	virtual void slot26(void);
-	virtual void slot27(void);
-	virtual void slot28(void);
-	virtual void slot29(void);
-	virtual void slot30(void);
-	virtual void slot31(void);
-	virtual void slot32(void);
-	virtual void slot33(void);
-	virtual void slot34(void);
-	virtual void slot35(void);
-	virtual void slot36(void);
-	virtual void slot37(void);
-	virtual void _bfme_updateNetworkAndLogic(int phase);
-
-	char m_gap04[0x30];
-	int m_clientFramePeriod;					// +0x34
-
-private:
-	void updateClientFrameRatio(void);	// 0x00225D78
-};
+#include "../../Include/Common/GameEngine.h"
 
 void GameEngine::_bfme_updateNetworkAndLogic(int phase)
 {
@@ -288,9 +240,9 @@ void GameEngine::_bfme_updateNetworkAndLogic(int phase)
 			int endPhase = (((phase - 1) * clientFrameCounter) / 6 + 1) * 6 / clientFrameCounter + 1;
 			while (++phase < endPhase)
 			{
-				++m_clientFramePeriod;
+				++m_34;
 				GameLogic *logic = TheGameLogic;
-				int period = m_clientFramePeriod;
+				int period = m_34;
 				Rva00225A0C(logic->m_frame * 10 + period - 1);
 				TheGameLogic->update(phase);
 			}

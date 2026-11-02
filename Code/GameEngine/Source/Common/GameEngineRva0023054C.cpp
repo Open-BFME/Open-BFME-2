@@ -86,11 +86,7 @@ extern FileSystem *TheFileSystem;
 void Rva00270190Free();										// 0x00270190
 void Rva00419A99Cleanup();									// 0x00419A99
 
-class GameEngine
-{
-public:
-	virtual void rva0023054C();
-};
+#include "../../Include/Common/GameEngine.h"
 
 void GameEngine::rva0023054C()
 {

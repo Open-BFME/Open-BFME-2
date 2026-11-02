@@ -2567,12 +2567,7 @@ public:
 	G00DFF080Inner m_inner; // +0x04
 };
 
-class GameEngine
-{
-public:
-	unsigned char m_pad00[0x38];
-	int m_38; // +0x38
-};
+#include "../../../Include/Common/GameEngine.h"
 
 struct GameLogicObjectListView
 {

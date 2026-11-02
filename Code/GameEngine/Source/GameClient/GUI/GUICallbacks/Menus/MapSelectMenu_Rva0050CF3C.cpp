@@ -111,11 +111,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class GameEngine
-{
-public:
-	void startHeadlessClients(Int numClients);
-};
+#include "../../../../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 

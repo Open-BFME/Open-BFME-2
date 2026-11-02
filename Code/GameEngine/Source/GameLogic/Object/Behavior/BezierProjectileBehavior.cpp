@@ -609,12 +609,7 @@ extern PlayerList *ThePlayerList;
 
 extern PartitionManager *TheShroudManager;
 
-class GameEngine
-{
-public:
-	unsigned char m_pad00[0x38];
-	Int m_framesPerSecond;		// +0x38
-};
+#include "../../../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 
@@ -1119,13 +1114,13 @@ void BezierProjectileBehavior::projectileFireAtObjectOrPosition(Object *victim, 
 		if (producerShrouded)
 		{
 			if (!cellClear)
-				draw->fadeOut((Int)((Real)TheGameEngine->m_framesPerSecond * (Real)m_flightPathSegments));
+				draw->fadeOut((Int)((Real)TheGameEngine->m_38 * (Real)m_flightPathSegments));
 			else if (md->m_invisibleFrames != 0 || md->m_fadeInTime != 0)
 				draw->rva00272D77((Int)((Real)md->m_invisibleFrames * BfmeClientFramesPerMillisecond), (Int)((Real)md->m_fadeInTime * BfmeClientFramesPerMillisecond));
 		}
 		else if (cellClear)
 		{
-			draw->fadeIn((Int)((Real)TheGameEngine->m_framesPerSecond * (Real)m_flightPathSegments));
+			draw->fadeIn((Int)((Real)TheGameEngine->m_38 * (Real)m_flightPathSegments));
 		}
 		else
 		{

@@ -10,21 +10,13 @@ extern int BfmeLogicFramesPerSecond;
 #define FramesPerSecond BfmeClientFramesPerSecond
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
-class GameEngine
-{
-private:
-	bool rva00225D38(void);
-
-private:
-	char m_pad00[0x34];
-	int m_clientFramePeriod;
-};
+#include "../../Include/Common/GameEngine.h"
 
 bool GameEngine::rva00225D38(void)
 {
 	int counter = FramesPerSecond / LogicFramesPerSecond;
 	int six = 6;
 	if (counter < six)
-		return m_clientFramePeriod == six / counter;
-	return m_clientFramePeriod == 1;
+		return m_34 == six / counter;
+	return m_34 == 1;
 }

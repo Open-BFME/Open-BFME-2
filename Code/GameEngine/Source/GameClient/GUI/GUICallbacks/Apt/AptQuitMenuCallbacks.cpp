@@ -312,18 +312,7 @@ public:
 };
 
 // TheGameEngine (0x009FE710): vslots 19 and 20.
-class GameEngine
-{
-public:
-#define ENGINE_SLOT(N) virtual void slot##N();
-	ENGINE_SLOT(00) ENGINE_SLOT(01) ENGINE_SLOT(02) ENGINE_SLOT(03) ENGINE_SLOT(04)
-	ENGINE_SLOT(05) ENGINE_SLOT(06) ENGINE_SLOT(07) ENGINE_SLOT(08) ENGINE_SLOT(09)
-	ENGINE_SLOT(10) ENGINE_SLOT(11) ENGINE_SLOT(12) ENGINE_SLOT(13) ENGINE_SLOT(14)
-	ENGINE_SLOT(15) ENGINE_SLOT(16) ENGINE_SLOT(17) ENGINE_SLOT(18)
-#undef ENGINE_SLOT
-	virtual int getFramesPerSecondLimit();
-	virtual void setQuitting(bool quitting);
-};
+#include "../../../../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 

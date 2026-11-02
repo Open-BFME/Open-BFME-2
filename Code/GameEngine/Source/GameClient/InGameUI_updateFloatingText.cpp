@@ -52,12 +52,7 @@ public:
 class GameClient;
 extern GameClient *TheGameClient;
 
-class GameEngine
-{
-public:
-	unsigned char m_pad[0x38];
-	Int m_frame;
-};
+#include "../../Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 
@@ -107,7 +102,7 @@ void InGameUI::updateFloatingText()
 		if (currLogicFrame > (UnsignedInt)ftd->m_frameTimeOut)
 		{
 			GameGetColorComponents(ftd->m_color, &r, &g, &b, &a);
-			amount = (Int)((self->m_floatingTextMoveVanishRate / (Real)TheGameEngine->m_frame) * (currLogicFrame - (UnsignedInt)ftd->m_frameTimeOut));
+			amount = (Int)((self->m_floatingTextMoveVanishRate / (Real)TheGameEngine->m_38) * (currLogicFrame - (UnsignedInt)ftd->m_frameTimeOut));
 			if ((Int)a - amount < 0)
 				a = 0;
 			else

@@ -105,14 +105,7 @@ extern Shell *TheShell;
 class GameState { public: int rva002DF2F6(const UnicodeString &name); };
 extern GameState *TheGameState;
 
-class GameEngine
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08)
-#undef V
-	virtual void reset();	// +0x24
-};
+#include "../../../../../Include/Common/GameEngine.h"
 extern GameEngine *TheGameEngine;
 extern GameLogic *TheGameLogic;
 

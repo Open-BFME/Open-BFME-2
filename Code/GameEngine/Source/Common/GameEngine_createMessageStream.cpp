@@ -9,12 +9,7 @@
 
 #include "../../Include/Common/MessageStream.h"
 
-class GameEngine
-{
-public:
-protected:
-	virtual MessageStream *createMessageStream(void);
-};
+#include "../../Include/Common/GameEngine.h"
 
 MessageStream *GameEngine::createMessageStream(void)
 {

@@ -1054,20 +1054,7 @@ private:
 	Player *m_local;                                                    // +0x10
 };
 
-class GameEngine
-{
-public:
-	virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
-	virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
-	virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
-	virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
-	virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
-	virtual void vf20(); virtual void vf21(); virtual void vf22();
-	virtual void serviceWindowsOS();                                    // +0x5C
-private:
-	bool rva00225D38();
-	friend class GameClient;
-};
+#include "../../Include/Common/GameEngine.h"
 
 // ZH GhostObjectManager::updateOrphanedObjects, slot 6 (+0x18).
 class GhostObjectManager

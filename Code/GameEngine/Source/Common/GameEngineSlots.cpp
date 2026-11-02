@@ -41,13 +41,7 @@ extern SubsystemInterfaceList *TheSubsystemList;
 extern GameLogic *TheGameLogic;
 class RecorderClass; extern RecorderClass *TheRecorder;
 
-class GameEngine
-{
-public:
-	virtual Bool rva00225AD5();
-	virtual Bool rva00225AFF();
-	virtual Bool isMultiplayerSession();
-};
+#include "../../Include/Common/GameEngine.h"
 
 Bool GameEngine::rva00225AD5()
 {

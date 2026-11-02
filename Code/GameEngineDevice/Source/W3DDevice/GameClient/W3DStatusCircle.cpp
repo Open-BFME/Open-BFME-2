@@ -112,7 +112,7 @@ extern GlobalData *TheWritableGlobalData;
 
 class W3DStatusCircle;
 
-class GameEngine { friend class W3DStatusCircle; private: bool rva00225D38(); };
+#include "../../../../GameEngine/Include/Common/GameEngine.h"
 
 extern GameEngine *TheGameEngine;
 
