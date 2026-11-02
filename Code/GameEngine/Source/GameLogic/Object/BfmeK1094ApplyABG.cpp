@@ -7,11 +7,7 @@ extern class ControlBar *TheControlBar;
 
 #include "../../../Include/GameClient/CommandButton.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int index) const;
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 class Rva0031D5F8
 {

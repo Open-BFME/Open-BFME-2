@@ -20,11 +20,7 @@ public:
 };
 
 class CommandButton;
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const;
-};
+#include "../../Include/GameClient/CommandSet.h"
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 

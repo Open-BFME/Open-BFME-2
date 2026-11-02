@@ -134,11 +134,7 @@ CreateAHeroBlingEntry *rva0021D120(CreateAHeroBlingEntry *first, CreateAHeroBlin
 
 class CommandButton;
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 #include "../../../Include/GameClient/ControlBar.h"
 

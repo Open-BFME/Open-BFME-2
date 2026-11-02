@@ -54,10 +54,7 @@ public:
     void *rva0028C197() const;
     bool testStatus(ObjectStatusTypes) const;
 };
-class CommandSet {
-public:
-    const CommandButton *getCommandButton(int) const;
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 class Rva0031D5F8 {
 public:
     void *rva0031D5F8(const AsciiString *);

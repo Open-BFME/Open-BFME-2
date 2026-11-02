@@ -8,23 +8,12 @@
 #include "ascii_string.h"
 class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class CommandSet {
-    unsigned int word04;
-    unsigned char flag08;
-    unsigned int word0C;
-    AsciiString str10;
-    unsigned int arr14[32];
-    unsigned int word94;
-    unsigned int word98;
-public:
-    void ResetCommandSet();
-    virtual ~CommandSet();
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 void CommandSet::ResetCommandSet()
 {
-    if (word98 == 1) {
-        word94 = 0;
+    if (m98 == 1) {
+        m94 = 0;
         for (int i = 0; i < 32; ++i)
-            arr14[i] = 0;
+            m_command[i] = 0;
     }
 }

@@ -205,11 +205,7 @@ Rva00435CFE *Rva00435CFE::rva004360F6(int kind, unsigned short value, int data)
 // --- 0x004B3A22 (41B, cdecl): the command set named at +0x118 of the first
 // argument (ZH ControlBar::findCommandSet, rowed as Rva0031D5F8::rva0031D5F8)
 // takes the other two.
-class CommandSet
-{
-public:
-	void rva00409F1B(int a, int b);							// 0x00409F1B
-};
+#include "../../Include/GameClient/CommandSet.h"
 
 class Rva0031D5F8
 {

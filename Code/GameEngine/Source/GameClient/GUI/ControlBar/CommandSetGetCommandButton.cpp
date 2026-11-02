@@ -18,16 +18,7 @@ typedef bool Bool;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(Int i) const;
- void rva00409F1B(int,int);
-private:
-	unsigned char m_pad00[0x10];
-	AsciiString m_name; // +0x10
-	const CommandButton *m_command[32]; // +0x14: native asset walker proves32 slots
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 
 //-------------------------------------------------------------------------------------------------
 const CommandButton *CommandSet::getCommandButton(Int i) const

@@ -130,11 +130,7 @@ const CreateAHeroBlingEntry *Rva0021D120Find(const CreateAHeroBlingEntry *first,
 
 class CommandButton;
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 #include "../../../Include/GameClient/ControlBar.h"
 

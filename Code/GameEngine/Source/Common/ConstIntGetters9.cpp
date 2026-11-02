@@ -15,11 +15,7 @@ class FireEffect
 public:
 	static const FieldParse m_fieldParseTable[];
 };
-class CommandSet
-{
-public:
-	static const FieldParse m_commandSetFieldParseTable[];
-};
+#include "../../Include/GameClient/CommandSet.h"
 class ThingTemplate
 {
 	friend int Rva0033A43EGet(void);

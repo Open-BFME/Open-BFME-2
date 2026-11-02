@@ -23,11 +23,7 @@ extern const char g_00C39070[] = "Unknown command '%s' found in command set. Fil
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class CommandSet
-{
-public:
-	static void parseCommandButton(INI *ini, void *unused, const CommandButton **out, int index);
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 // WorldBuilder CommandSet::parseCommandButton, WB VA 0x00C28A00 (strings lead, score 1.0).
 void CommandSet::parseCommandButton(INI *ini, void *unused, const CommandButton **out, int index)
 {

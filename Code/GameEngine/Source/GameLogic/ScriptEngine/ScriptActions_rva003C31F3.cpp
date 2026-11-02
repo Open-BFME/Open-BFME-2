@@ -42,11 +42,7 @@ class Rva0031D5F8
 public:
 	void *rva0031D5F8(const AsciiString *name);
 };
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int index) const;
-};
+#include "../../../Include/GameClient/CommandSet.h"
 class AutoAbilityBehavior
 {
 public:

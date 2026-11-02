@@ -52,11 +52,7 @@ public:
 	void *rva0031D5F8(const AsciiString *name);
 };
 
-class CommandSet
-{
-public:
-	void rva00409F1B(int a1, int a2);
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
