@@ -21635,3 +21635,6 @@ Code/GameEngine/Source/Common/Rva00206D91Begin.cpp|function|0x001F87BF|rva001F87
 Code/GameEngine/Source/Common/Rva0020E3ADLevel.cpp|function|0x0020E3AD|rva0020E3AD,e22d4f83cda03f7bc9cc6c51,claude-haiku-5-5,drz-k9-n35f2,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/Rva00214D59Pack.cpp|function|0x00214D59|rva00214D59,f6889be136cb9b87b884a96e,claude-haiku-5-5,drz-k9-n35f2,w-2a58b1ead41e,2026-11-02
 Code/GameEngine/Source/Common/Rva00222F0AFinder.cpp|function|0x00222F0A|rva00222F0A,0e90ef0e515ef2913495dd4f,claude-haiku-5-5,drz-k9-n35f2,w-2a58b1ead41e,2026-11-02
+Code/GameEngine/Source/Common/Rva0022D9B7Delete.cpp|function|0x0022DB29|rva0022DB29,0ae81a0fa2dd91f758e64a34,claude-haiku-5-5,drz-k3-n35g2,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp|function|0x00235312|rva00235312,33c8ad76d3141b32b2107ec6,claude-haiku-5-5,drz-k3-n35g2,w-a3d394d58042,2026-11-02
+Code/GameEngine/Source/Common/Rva0025D489Ctor.cpp|member|DisplayTick50|tick50,6d44d7057a8d66ca3f206bd0,claude-haiku-5-5,drz-k3-n35g2,w-a3d394d58042,2026-11-02
