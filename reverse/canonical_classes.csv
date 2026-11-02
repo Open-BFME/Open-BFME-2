@@ -367,3 +367,4 @@ RadiusDecalTemplate,Code/GameEngine/Include/GameClient/RadiusDecalTemplate.h,exi
 LightEnvironmentClass,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h,existing header; contract class_contracts/LightEnvironmentClass.json; 4/19 sampled units adopt
 SimpleSceneClass,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h,existing header; contract class_contracts/SimpleSceneClass.json; 11/18 sampled units adopt
 WindowVideoManager,Code/GameEngine/Include/GameClient/WindowVideoManagerClass.h,existing header; contract class_contracts/WindowVideoManager.json; 15/19 sampled units adopt
+ActiveBodyModuleData,Code/GameEngine/Include/GameLogic/Module/ActiveBodyModuleData.h,existing header; contract class_contracts/ActiveBodyModuleData.json; 10/18 sampled units adopt
