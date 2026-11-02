@@ -23,15 +23,7 @@ template <> void **vector<void*>::end();
 class GameWindow;
 class WindowVideo;
 
-class WindowVideoManager
-{
-public:
-	typedef const GameWindow *ConstGameWindowPtr;
-	struct hashConstGameWindowPtr
-	{
-		size_t operator()(ConstGameWindowPtr const &) const;
-	};
-};
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 
 typedef std::hash_map<const GameWindow *, WindowVideo *, WindowVideoManager::hashConstGameWindowPtr, std::equal_to<const GameWindow *> > WindowVideoMap;
 

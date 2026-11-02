@@ -18,18 +18,7 @@ template <> void **vector<void*>::end();
 }
 class GameWindow;
 class WindowVideo;
-class WindowVideoManager
-{
-public:
-	typedef const GameWindow *ConstGameWindowPtr;
-	struct hashConstGameWindowPtr
-	{
-		size_t operator()(ConstGameWindowPtr p) const
-		{
-			return (size_t)p;
-		}
-	};
-};
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 typedef std::hash_map<const GameWindow *, WindowVideo *, WindowVideoManager::hashConstGameWindowPtr, std::equal_to<const GameWindow *> > WindowVideoMap;
 typedef void (__cdecl *WindowVideoPairDeleter)(WindowVideoMap::value_type &);
 WindowVideoPairDeleter Rva000AACE4ForEach(WindowVideoMap::iterator first, WindowVideoMap::iterator last, WindowVideoPairDeleter f)

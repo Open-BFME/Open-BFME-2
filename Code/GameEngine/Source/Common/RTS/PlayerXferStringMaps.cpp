@@ -72,11 +72,7 @@ struct XferUnknown11;
 // Iterator home for the table walk: current node then owning table.
 class GameWindow;
 class WindowVideo;
-class WindowVideoManager
-{
-public:
-	struct hashConstGameWindowPtr;
-};
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 namespace _STL
 {
 template <class T1, class T2> struct pair;

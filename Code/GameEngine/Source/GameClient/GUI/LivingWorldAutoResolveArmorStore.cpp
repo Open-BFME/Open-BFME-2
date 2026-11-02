@@ -14,14 +14,7 @@ namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::si
 
 class GameWindow;
 class WindowVideo;
-class WindowVideoManager
-{
-public:
-	struct hashConstGameWindowPtr
-	{
-		size_t operator()(const GameWindow *const &) const;
-	};
-};
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // The rowed empty-map constructor at 0x00427507 uses this neutral element

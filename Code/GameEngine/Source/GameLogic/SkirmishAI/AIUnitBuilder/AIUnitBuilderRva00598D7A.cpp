@@ -563,7 +563,7 @@ Rva00598C3AItem *AIUnitBuilder::createBestHeroToBuild()
 // before accumulation retains ECX item/EDX end and the native 14-byte frame.
 
 class GameWindow;class WindowVideo;
-class WindowVideoManager {public:struct hashConstGameWindowPtr;};
+#include "../../../../Include/GameClient/WindowVideoManagerClass.h"
 typedef _STL::pair<const GameWindow *const,WindowVideo*> WindowProviderValue;
 typedef _STL::hashtable<WindowProviderValue,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<WindowProviderValue>,_STL::equal_to<const GameWindow*>,_STL::allocator<WindowProviderValue> > WindowProvider;
 namespace _STL {

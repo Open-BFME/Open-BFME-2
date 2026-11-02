@@ -51,11 +51,7 @@ class ArmorTemplate;
 class Drawable;
 class Object;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class WindowVideoManager
-{
-public:
-	struct hashConstGameWindowPtr {};
-};
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 
 namespace rts {
 template <class T> struct hash {};

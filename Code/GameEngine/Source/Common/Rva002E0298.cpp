@@ -40,15 +40,7 @@ enum ScienceType
 class GameWindow;
 class WindowVideo;
 
-class WindowVideoManager
-{
-public:
-	typedef const GameWindow *ConstGameWindowPtr;
-	struct hashConstGameWindowPtr
-	{
-		size_t operator()(ConstGameWindowPtr const &) const;
-	};
-};
+#include "../../Include/GameClient/WindowVideoManagerClass.h"
 
 typedef _STL::hash_map<const GameWindow *, WindowVideo *, WindowVideoManager::hashConstGameWindowPtr, _STL::equal_to<const GameWindow *> > WindowVideoMap;
 

@@ -42,17 +42,7 @@ public:
 	ListNode *m_head;
 };
 
-class WindowVideoManager
-{
-public:
-	struct hashConstGameWindowPtr
-	{
-		size_t operator()(const GameWindow *const &p) const
-		{
-			return (size_t)p;
-		}
-	};
-};
+#include "../../Include/GameClient/WindowVideoManagerClass.h"
 
 typedef std::hash_map<const GameWindow *, WindowVideo *, WindowVideoManager::hashConstGameWindowPtr, std::equal_to<const GameWindow *> > WindowVideoMap;
 

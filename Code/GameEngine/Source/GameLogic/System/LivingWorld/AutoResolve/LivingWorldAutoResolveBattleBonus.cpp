@@ -85,11 +85,7 @@ class GameWindow;
 class WindowVideo;
 // Declaration view of the existing native provider's empty hash functor.
 // No WindowVideoManager object is sized or accessed in this unit.
-class WindowVideoManager {
-public: struct hashConstGameWindowPtr {
- unsigned int operator()(const GameWindow *) const;
-};
-};
+#include "../../../../../Include/GameClient/WindowVideoManagerClass.h"
 typedef _STL::pair<const GameWindow *const,WindowVideo *> NativeBeginPair;
 typedef _STL::hashtable<NativeBeginPair,const GameWindow *,
  WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<NativeBeginPair>,

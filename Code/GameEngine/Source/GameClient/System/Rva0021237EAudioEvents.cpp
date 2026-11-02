@@ -74,7 +74,7 @@ void Rva0021237E::rva0021237E()
 #include <hash_map>
 class GameWindow;
 class WindowVideo;
-class WindowVideoManager { public: struct hashConstGameWindowPtr { unsigned int operator()(const GameWindow *p) const { return (unsigned int)p; } }; };
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 typedef _STL::hash_map<const GameWindow*,WindowVideo*,WindowVideoManager::hashConstGameWindowPtr,_STL::equal_to<const GameWindow*> > UpdateMapView;
 struct UpdateSlot21123 { virtual void v00();virtual void v04();virtual void v08();virtual void v0C(); };
 struct Rva00211494 { void rva00211494(); };
