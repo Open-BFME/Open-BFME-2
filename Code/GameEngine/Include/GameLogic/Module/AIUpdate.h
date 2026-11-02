@@ -235,7 +235,7 @@ protected:
     virtual void privateHunt(CommandSourceType); // 43: RVA 0x002646E9
 public:
     virtual void vslot044(Object *, CommandSourceType) {} // 44: RVA 0x0050B238
-    virtual void vslot045(Object *, CommandSourceType); // 45: RVA 0x0050B238
+    virtual void vslot045(Object *, CommandSourceType) {} // 45: RVA 0x0050B238
 protected:
     virtual void privateGetHealed(Object *,CommandSourceType); // 46: RVA 0x0026DD89
     virtual void privateGetRepaired(Object *,CommandSourceType); // 47: RVA 0x0026DDBB
