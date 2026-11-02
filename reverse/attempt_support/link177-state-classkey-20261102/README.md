@@ -1,0 +1,110 @@
+# LINK-177 item 1: the State class-key change (banked, blocked)
+
+Seat halilkkaya-lk16, 2026-11-02. Base `bb0c2735b9` (origin/master at the time).
+
+## Why the change is needed
+
+`Rva004D759CDerived.cpp` holds 13 derived StateMachine destructors and is first in
+link order. Since `936b658f65` it includes canonical `StateMachineClass.h`, so it emits
+16-slot `??_7<X>StateMachine@@6B@` tables. The 13 constructor units still emit
+one-slot copies from private StateMachine views and lose (12,033 B on current
+objects). StateMachine is registered canonical, so the constructor units have to
+adopt `StateMachineClass.h`. That header brings canonical `class State`, and their
+`defineState` calls then mangle `PAVState@@`. Every row and caller spells
+`PAUState@@` today, so the State class key has to flip in one commit across the
+whole connected group.
+
+Class-key evidence: retail has no RTTI or string that proves the key. Zero Hour
+declares `class State`, and BFME 1's ledger spells `PAVState@@` for defineState. The
+`U` spelling came from BFME 2's private views, not from retail.
+
+MSVC 7.1 mangling rule, measured here with a scratch compile: the key of the
+definition wins when the class is defined; otherwise the first declaration's key
+wins. So respelling a unit's own `struct State` body is enough even where a shim
+declares `struct State;` earlier (DozerAIUpdateCtor.cpp, WorkerAIUpdateCtor.cpp via
+`StateMachineView.h`). No shim edit is needed.
+
+## What `state-classkey.patch` does
+
+Apply it on the base above with `git apply`.
+
+- **Sources (32 units).** Every unit whose object touches a `UState@@` name
+  (census index `touches`) respells `struct State` as `class State` (adding
+  `public:` to bodies). It covers all defineState, internalGetState and
+  condition-function units **except** SupplyTruckAIUpdate.cpp.
+- **functions.csv.** 13 rows are renamed `UState@@` -> `VState@@`: defineState, its
+  `_M_insert`, internalGetState, the Dozer, Worker and AIDock conditions,
+  rva005430E7, rva00545F10, rva0034373F and rva0047A699.
+- **symbols.csv.** The three `UState@@` pins are dropped. Their respells
+  (`state-pins-before.csv` holds the originals) behave differently:
+  - `_M_create_node` (0x00534743) was re-admitted through
+    `pin_admission.py --add` with `fold-proof=StateMachineDefineState.cpp`. It is in
+    the patch. On commit, `hatch_counters.py --update` must rerun; the admission
+    rewrote `hatch_baseline.tsv` without the 0x004D795B pin.
+  - The other two are refused. See the blockers below.
+
+Measured with the patch applied: `./build.sh` over the 32 units gives 458/463 rows.
+The 5 failures are only the unresolved callees of the two refused pins and the
+not-yet-admitted `_M_create_node` (the latter clears once admitted).
+
+## The step-B proof: `step-b-attackfirewhilecharging.patch`
+
+The proof applies on top of the class-key patch. AttackFireWhileChargingMachine.cpp
+replaces its private StateMachine view with `StateMachineClass.h`.
+
+- `./build.sh` gives 4/4 rows.
+- `link_check` over the unit, Rva004D759CDerived.cpp and StateMachineDefineState.cpp:
+  AttackFireWhileChargingMachine 114 B LINKS again, the holder's 584 B is unchanged,
+  and the `??_7AttackFireWhileChargingMachine@@6B@` conflict is gone.
+
+The other 12 constructor units need the same swap. Units that `new` State-derived
+classes also need their pads rebased from 4 to 0x20 (canonical State is 0x20 bytes)
+and the pure `update`, `GetSnapshotName` and `xfer` declared in each derived view
+(canonical State is abstract). Alternatively they can keep opaque non-State views
+with an explicit cast, as this unit already does. AIStateMachineCtor.cpp also needs
+canonical `AIStateMachineClass.h` together with AIStateMachine.cpp (the
+`??_7AIStateMachine@@6B@` pair).
+
+## Blockers, with prerequisites
+
+1. **SupplyTruckAIUpdate.cpp** is a defineState caller with 7 `UState@@` rows (its
+   SupplyTruckStateMachine conditions). It was held by
+   `codex-01a1071d-root-recovery-oct11` for the whole session (rows 0x004A69BF and
+   0x004A6A58, link-cycle repair), so it is not in the patch. It needs the same
+   respell and its 7 row renames.
+2. **The `_M_find` pin at 0x00357180** (callers hasState, internalGetState and
+   rva004D7627 in StateMachineGoal.cpp). The int-key
+   `??$_M_find@H@...HPAVState...` is refused: 0x00357180 is named, and the fold-proof
+   fails because StateMachineGoal's body differs from retail at +0x16 (signed
+   compare). code_identity_baseline already records the current U pin as `wrong`.
+   - An unsigned map key makes the body fold: the pin
+     `??$_M_find@I@...IPAVState...` was admitted with
+     `fold-proof=StateMachineGoal.cpp` in a trial.
+   - But retail passes `&param` straight to the unsigned-key find. That means
+     BFME 2's `StateID` parameters are unsigned (Zero Hour: `typedef UnsignedInt
+     StateID`). With an `int` parameter, cl adds a frame and a temporary.
+   - `typedef unsigned int StateID` in StateMachineGoal.cpp byte-matches the bodies
+     but respells the signatures: internalGetState, internalSetState, hasState,
+     rva004D7627 and the **virtual** setState go from `H` to `I`. That is a
+     signature decision across StateMachine, its overrides (AIStateMachine,
+     TurretStateMachine, ...) and their callers. It is not taken here.
+3. **The `insert_unique` pin at 0x004D795B** (defineState's call at 0x004D7B31) is
+   refused. 0x004D795B is named (`map<unsigned,int>::insert_unique`), and
+   StateMachineDefineState.cpp compiles the V body to 132 bytes against the
+   ledger's 134. The current U pin is the code_identity_baseline `wrong` key at
+   line 86. The STLport/allocator profile of that unit has to reproduce retail's
+   134-byte body first, then the V pin is admitted with `fold-proof=`.
+
+Tooling note: `pin_admission` treats a pure class-key respell of a grandfathered
+pin as a new pin (an edited line counts as added). Both refused pins already hold
+wrong bindings, so the refusal is not a false reject. The prerequisite is fixing
+the bindings, not the check.
+
+## Registers this touches when it lands
+
+- code_identity_baseline.tsv lines 86-89 (shadow mode) are keyed on the U names.
+  They must not be respelled by hand (the register never grows by hand). They
+  become stale and are retired through `repair_queue.py retire identity` once the
+  bindings are fixed.
+- header_queue.tsv diagnostics and name_basis.csv mention the U names in free text
+  only.

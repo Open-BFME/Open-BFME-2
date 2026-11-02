@@ -51,7 +51,7 @@ next scheduled census.
 [Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261102-1632.md).
 ### LINK-177: header adoptions of dtor-holder units broke 35 census-linked units (2026-11-02, seat halilkkaya-lk15)
 
-Status: Open (analysis; regression). Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
+Status: Open (analysis; regression; item 1 banked by lk16 2026-11-02). Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
 A current-object `link_check` over all 18,470 present sources the 06:54 census (`357ce2a88f`)
 records as linked: 18,435 link, 7,725,216 -> 7,696,163 B (-29,053 B). Excluding the known
 `__imp_`/`___ImageBase` modelling gaps and a sweep artifact (OpaqueScalarDeletingDtorsB11.cpp's
@@ -193,6 +193,45 @@ Checked and left (2026-11-02, lk15), with causes and prerequisites:
 - Rva001041BDASlot1 (418 B), cause `18befef11f` (canonical SimpleSceneClass in Rva001040D5Ctor.cpp,
   28-slot `??_7Rva001040D5@@6B@`) against its one-slot private view.
 - Rva0033FC0ACtor (213 B) belongs to item 1 (Rva004D759CDerived.cpp holds its destructor).
+
+Banked (2026-11-02, lk16), item 1: the State struct->class key change, base `bb0c2735b9`. Re-verified
+on current objects: the 13 constructor units still lose 12,033 B on their `??_7` tables. The change is
+banked in `reverse/attempt_support/link177-state-classkey-20261102/` (README, `state-classkey.patch`,
+`step-b-attackfirewhilecharging.patch`).
+- What the patch does: 32 units respell `struct State` as `class State`. The set is every object
+  whose census `touches` holds a `UState@@` name. 13 `UState@@` rows become `VState@@`, and the three
+  `UState@@` pins are dropped.
+- MSVC 7.1 rule, measured: the definition's class key wins, else the first declaration's. A unit's own
+  body respell is enough even after a shim's `struct State;`, so no shim edit is needed.
+- Result: `./build.sh` 458/463. The only failures are unresolved callees of the respelled pins.
+- Step-B proof: on top of the patch, AttackFireWhileChargingMachine.cpp swaps its private view for
+  `StateMachineClass.h`. `./build.sh` 4/4, and `link_check` shows 114 B LINKS again with the holder's
+  584 B unchanged.
+
+Three blockers remain:
+- (1) SupplyTruckAIUpdate.cpp, a defineState caller with 7 `UState@@` rows, was held by
+  codex-01a1071d-root-recovery-oct11 all session.
+- (2) The respelled `_M_find` pin at 0x00357180 (hasState, internalGetState, rva004D7627) is refused.
+  StateMachineGoal's int-key body differs from retail at +0x16 (a signed compare).
+  - An unsigned key folds (fold-proof admitted in a trial). But retail passes `&param` straight to the
+    unsigned find, so BFME 2's StateID parameters are unsigned (Zero Hour `UnsignedInt StateID`).
+  - Respelling internalGetState/internalSetState/hasState/rva004D7627 and the virtual setState from
+    `H` to `I` is a family-wide signature decision.
+- (3) The respelled `insert_unique` pin at 0x004D795B is refused. StateMachineDefineState compiles 132
+  bytes against the ledger body's 134.
+
+Both refused pins are grandfathered wrong bindings (code_identity_baseline lines 86-89), so these are
+real prerequisites, not false rejects. `_M_create_node` (0x00534743) re-admits with
+`fold-proof=StateMachineDefineState.cpp`.
+- W3DScriptedModelDrawDestructor (lk16): canonical DrawModule.h makes the dtor call
+  `??1DrawModule@@MAE@XZ`. Retail inlines it: the body ends with the 0x00BC9690 store and a call to
+  0x0049B47C.
+  - An in-TU `inline DrawModule::~DrawModule() {}` restores 3/3 rows and the `6BDrawModule` table.
+  - It then emits the canonical 62-slot `??_7DrawModule@@6B@` against the 4fe3271e copy that all 8
+    private-view emitters share (DrawModule.cpp first).
+  - Needs the family-wide DrawModule inline-destructor/table decision. Reverted (re_attempts.log).
+- Rva001041BDASlot1 (418 B) LINKS again on current objects (link_check, base `bb0c2735b9`). No work
+  needed.
 
 Process note: the adoption batches' own link guard predicts only the adopted units; the losers are
 untouched siblings that bind the same COMDAT names. Before adopting a header in a unit that defines

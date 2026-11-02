@@ -1,0 +1,609 @@
+diff --git a/Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp b/Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp
+index 2e421af699..3dbf6f103f 100644
+--- a/Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp
++++ b/Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp
+@@ -7,7 +7,7 @@
+ // unsigned StateID and StateReturnType spelling; target preserves the
+ // AI notification at owner+258 slot136 and the negative-frame sentinels.
+ enum StateReturnType { STATE_CONTINUE = 0, STATE_SUCCESS = -1, STATE_FAILURE = -2 };
+-struct State;
++class State;
+ 
+ class StateMachine
+ {
+@@ -15,7 +15,7 @@ public:
+ 	State *internalGetState(int id);
+ };
+ 
+-struct State
++class State
+ {
+ public:
+ 	virtual void v00();
+diff --git a/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp b/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp
+index 59f6ffc0fb..250f772f58 100644
+--- a/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp
++++ b/Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp
+@@ -12,8 +12,9 @@ class Object;
+ 
+ #include "../../Include/Common/StateConditionInfo.h"
+ 
+-struct State
++class State
+ {
++public:
+ 	virtual ~State();
+ 	char m_pad[0x20 - 4];
+ };
+diff --git a/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp b/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp
+index 5487865a19..ef40a6f642 100644
+--- a/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp
++++ b/Code/GameEngine/Source/Common/Rva00343756Ctor.cpp
+@@ -16,7 +16,7 @@
+ 
+ class Object;
+ 
+-struct State;
++class State;
+ 
+ struct StateConditionInfo
+ {
+@@ -25,8 +25,9 @@ struct StateConditionInfo
+ 	void *userData;
+ };
+ 
+-struct State
++class State
+ {
++public:
+ 	virtual ~State();
+ 	char m_pad[0x20 - 4];
+ };
+diff --git a/Code/GameEngine/Source/Common/StateMachineXfer.cpp b/Code/GameEngine/Source/Common/StateMachineXfer.cpp
+index b8b7545c9b..b932871ce9 100644
+--- a/Code/GameEngine/Source/Common/StateMachineXfer.cpp
++++ b/Code/GameEngine/Source/Common/StateMachineXfer.cpp
+@@ -34,7 +34,8 @@ class RealRange; class RGBColor; class RGBAColorReal; class RGBAColorInt;
+ class Snapshot; class Thing; class ModuleData;
+ #include "../../Include/Common/BfmeXfer.h"
+ class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
+-struct State {
++class State {
++public:
+   virtual void vslot00(); virtual void vslot04(); virtual void vslot08(); virtual void vslot0c();
+   virtual int onEnter(); virtual void onExit(int status); virtual int update();
+   virtual Bool isIdle() const; virtual Bool isAttack() const; virtual Bool isGuardIdle() const; virtual Bool isBusy() const;
+diff --git a/Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp b/Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
+index 0fc9b3a39b..b907e9ac9c 100644
+--- a/Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
++++ b/Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
+@@ -280,7 +280,7 @@ public:
+ 	char m_pad00[0x14];
+ 	Object *m_owner;
+ };
+-struct State
++class State
+ {
+ public:
+ 	char m_pad00[0x18];
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
+index 8c9660da2c..cb806ec7f0 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
+@@ -42,7 +42,7 @@ typedef UnsignedInt StateID;
+ class Object;
+ class AttackExitConditionsInterface;
+ struct StateConditionInfo;
+-struct State;
++class State;
+ enum StateReturnType
+ {
+ 	STATE_CONTINUE = 0
+@@ -91,7 +91,7 @@ class MachineStart : public MachineVSlots<7>
+ public:
+ 	virtual StateReturnType initDefaultState() = 0;
+ };
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp
+index 46dd8830d8..6e4ec2e034 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp
+@@ -36,7 +36,7 @@ struct StateConditionInfo
+ 	void *m_userData;
+ };
+ 
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp b/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+index ee798f863f..5ae4fadd6e 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+@@ -42,7 +42,7 @@ class Object;
+ 
+ class StateMachine;
+ 
+-struct State;
++class State;
+ 
+ struct StateConditionInfo
+ {
+@@ -162,8 +162,9 @@ public:
+ 	int m_approachPosition;	// +0x3C dock approach slot (-1: none)
+ };
+ 
+-struct State
++class State
+ {
++public:
+ 	State(StateMachine *machine, unsigned int hash);
+ 	virtual ~State();
+ 	virtual void slot01();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp b/Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
+index 6c5f9e72be..59d4421695 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
+@@ -384,7 +384,7 @@ enum
+ 
+ // The state base: only its virtual table matters to these bodies. The
+ // ledger spells it struct (U), as the transition conditions' rows do.
+-struct State
++class State
+ {
+ public:
+ 	State(StateMachine *machine, unsigned int hash);
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp
+index 0a3ee30179..19483f242e 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp
+@@ -18,7 +18,7 @@ struct StateConditionInfo
+ 	StateID m_toStateID;
+ 	void *m_userData;
+ };
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp
+index d63899bc36..f6f994df3b 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp
+@@ -21,7 +21,7 @@ struct StateConditionInfo
+ 	StateID m_toStateID;
+ 	void *m_userData;
+ };
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp
+index 04b154bb24..b3e6d4e770 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIStateMachineCtor.cpp
+@@ -23,7 +23,7 @@ class Waypoint;
+ class Squad;
+ class AttackExitConditionsInterface;
+ struct StateConditionInfo;
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp b/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp
+index b56e05ef5d..9693800bfa 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp
+@@ -25,7 +25,7 @@ class Snapshot; class Thing; class ModuleData;
+ #include "../../../Include/Common/BfmeXfer.h"
+ class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
+ 
+-struct State {virtual ~State();unsigned int id;};
++class State {public:virtual ~State();unsigned int id;};
+ #include "../../../Include/GameLogic/Waypoint.h"
+ class Squad {public:Squad()throw();virtual ~Squad();virtual void slot01();virtual void slot02();virtual void xfer(Xfer*);private:_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
+ #include "../../../Include/GameLogic/TerrainLogic.h"
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp b/Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
+index f49409e7c0..3616b1160a 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
+@@ -487,7 +487,7 @@ public:
+ 
+ struct DamageInfo;
+ 
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp
+index 87280439c0..e48496d283 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp
+@@ -18,7 +18,7 @@ struct StateConditionInfo
+ 	StateID m_toStateID;
+ 	void *m_userData;
+ };
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp
+index 2aeb18af7f..71a247bba5 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackFireWhileChargingMachine.cpp
+@@ -11,7 +11,7 @@
+ // to keep ebx, so the zeros ride as immediates and the dead state reset
+ // takes whatever bl holds.
+ class Object;
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ class StateMachine
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackHordeStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackHordeStateMachine.cpp
+index 942ef06651..c0840c8b12 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackHordeStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackHordeStateMachine.cpp
+@@ -22,7 +22,7 @@ typedef UnsignedInt ObjectID;
+ class Object;
+ 
+ #include "../../../Include/Common/StateConditionInfo.h"
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp
+index 38b58fe264..0563894cd6 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackMeleeStateMachine.cpp
+@@ -13,7 +13,7 @@
+ // The 0xE1 word and the zero CSE into esi/ebx; blocks 2 and 5 pass the
+ // branchless (x ? x+0x20 : 0) selector for the int-typed state ctors.
+ class Object;
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ class StateMachine
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackPositionHordeStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackPositionHordeStateMachine.cpp
+index 84d00efa7f..e702074bba 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackPositionHordeStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackPositionHordeStateMachine.cpp
+@@ -11,7 +11,7 @@
+ // esi and is recycled into 0x2BC; 0x2C0/0x2BE trade through ebx; the 0x270F
+ // pair rides transient ecx.
+ class Object;
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ class StateMachine
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
+index 117427f1a8..fec76b2877 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AttackStateMachine.cpp
+@@ -25,7 +25,7 @@ struct StateConditionInfo
+ 	StateID m_toStateID;
+ 	void *m_userData;
+ };
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/BackAwayAndCowerStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/BackAwayAndCowerStateMachine.cpp
+index d1a6c20deb..4bec407524 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/BackAwayAndCowerStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/BackAwayAndCowerStateMachine.cpp
+@@ -13,7 +13,7 @@
+ // 0x00347C38, pushes the constant 0xD944B508).
+ 
+ class Object;
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ class StateMachine
+diff --git a/Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp b/Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp
+index 5a97b54579..33d3742b01 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp
+@@ -9,7 +9,7 @@
+ // CSEs into esi; zero stays in ebx; the int-typed state takes the branchless
+ // (x ? x+0x20 : 0) selector.
+ class Object;
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ class StateMachine
+diff --git a/Code/GameEngine/Source/GameLogic/AI/Rva003438C7AttackStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/Rva003438C7AttackStateMachine.cpp
+index c0a2895faa..c4c97ddba9 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/Rva003438C7AttackStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/Rva003438C7AttackStateMachine.cpp
+@@ -23,7 +23,7 @@ struct StateConditionInfo
+ 	StateID m_toStateID;
+ 	void *m_userData;
+ };
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp b/Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp
+index 004a93b29c..55a5b27c1b 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp
+@@ -7,7 +7,7 @@
+ class Object;
+ class AttackExitConditionsInterface;
+ 
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ class StateMachine
+diff --git a/Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp
+index 89d409dfc9..6c6919e5d5 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp
+@@ -15,7 +15,7 @@ typedef UnsignedInt ObjectID;
+ class Object;
+ #include "../../../Include/Common/StateConditionInfo.h"
+ class StateMachine;
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
+index 163420edff..31b71d12b8 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
+@@ -13,7 +13,7 @@ typedef UnsignedInt StateID;
+ typedef UnsignedInt ObjectID;
+ class Object;
+ #include "../../../Include/Common/StateConditionInfo.h"
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp b/Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp
+index b645b58168..0f8778d2f5 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp
+@@ -30,8 +30,9 @@ enum { INVALID_STATE_ID = 999999 };
+ 
+ class StateMachine;
+ 
+-struct State
++class State
+ {
++public:
+ 	virtual void vslot00();
+ 	virtual void vslot04();
+ 	virtual void vslot08();
+diff --git a/Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp b/Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp
+index c9fab92d87..a8bb11f3bb 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp
+@@ -92,8 +92,9 @@ public:
+ 	Int m_id; // +0x74
+ };
+ 
+-struct State
++class State
+ {
++public:
+ 	// Retail reaches onEnter through vtable slot 4 and onExit through
+ 	// slot 5 and update through slot 6 and isBusy through slot 10; the lower
+ 	// slots belong to the Snapshot and MemoryPoolObject bases plus the State
+diff --git a/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp
+index 72eea88085..1158c34a4e 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp
+@@ -36,7 +36,7 @@ enum TurretStateType
+ 	TURRETAI_RECENTER = 4,
+ 	TURRETAI_HOLD = 5
+ };
+-struct State;
++class State;
+ class StateMachine
+ {
+ public:
+@@ -68,7 +68,7 @@ public:
+ private:
+ 	TurretAI *m_turretAI; // +0x3C
+ };
+-struct State
++class State
+ {
+ public:
+ 	State(StateMachine *machine, UnsignedInt nameKey);
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp
+index 092a3ee6c7..d4eb9c2f36 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp
+@@ -260,7 +260,7 @@ struct StateConditionInfo
+ // caller passes the name as one dword, and only a scalar parameter gives
+ // retail's push of the immediate key, so this view takes the key as one.
+ 
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp
+index 5c8894c232..968935b9dd 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdGuardMachine.cpp
+@@ -46,7 +46,7 @@ enum StateReturnType
+ 
+ class StateMachine;
+ 
+-struct State;
++class State;
+ struct StateConditionInfo;
+ 
+ #include "../../object.h"
+@@ -118,8 +118,9 @@ public:
+ 	virtual ~GiantBirdGuardMachine();
+ };
+ 
+-struct State
++class State
+ {
++public:
+ 	State(StateMachine *machine, unsigned int nameHash);
+ 	virtual ~State();
+ 	virtual void slot01();
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp
+index cdec9178ab..64f86c201b 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp
+@@ -190,7 +190,7 @@ enum { INVALID_STATE_ID = 999999 };
+ 
+ class StateMachine;
+ 
+-struct State
++class State
+ {
+ public:
+ 	virtual ~State();
+diff --git a/reverse/functions.csv b/reverse/functions.csv
+index 77f331a51b..57534019fe 100644
+--- a/reverse/functions.csv
++++ b/reverse/functions.csv
+@@ -17560,7 +17560,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
+ ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@@Z,,0x00262224,22,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,TurretAI wrapper supplying FLT_MAX default range to StateMachine worker; sole caller setTurretTargetPosition; renamed from TurretStateMachine to the StateMachine overload 10 matched callers pin
+ ?halt@StateMachine@@UAEXXZ,,0x004D73A4,9,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,BFME1 donor StateMachine halt; locks machine plus clears current state
+ ?Rva006F2890RegisterVideoBuffer@Display@@QAEXPAVVideoBuffer@@@Z,,0x0004B180,19,Code/GameEngineDevice/Source/W3DDevice/GameClient/DisplayRegisterVideoBuffer.cpp,matched,VideoBuffer registry push into list at plus 0x2A4 via rowed push_back fold; sole caller 0x0007270C per BFME1 donor; row supersedes pin
+-?internalGetState@StateMachine@@QAEPAUState@@H@Z,,0x004D764C,31,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,BFME1 donor StateMachine; map find plus null on miss; unlocks internalSetState
++?internalGetState@StateMachine@@QAEPAVState@@H@Z,,0x004D764C,31,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,BFME1 donor StateMachine; map find plus null on miss; unlocks internalSetState
+ ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z,,0x004D766B,135,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,BFME1 StateMachine donor plus BFME2 sleep and default members plus TheGameLogic frame plus onExit slot5 plus onEnter slot4 plus friend transition pins
+ ?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ,,0x004D770F,23,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,BFME1 StateMachine donor inited flag shape plus default state forward plus internalSetState row; spelled virtual: slot 7 of vftable 0x00C60740 that the class's own destructor install at +0; retail never calls it directly; the view takes the vptr at +0
+ ?hasState@StateMachine@@QAE_NH@Z,,0x004D76F2,29,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,BFME2-new state map contains check; sole caller gates on defined state 0x4E; map find plus end compare
+@@ -22074,7 +22074,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
+ ?rva001EEC4B@Rva001EEC4B@@QAEXXZ,,0x001EEC4B,76,Code/GameEngine/Source/GameClient/Input/Mouse.cpp,matched,Mouse tooltip reset via Hide plus StringBase release plus timeGetTime
+ ?rva001EE5EE@Mouse@@QAEXEPAE@Z,,0x001EE5EE,66,Code/GameEngine/Source/GameClient/Input/Mouse.cpp,matched,Mouse tooltip setter via Hide plus isEmpty plus rva001EDE26 plus release
+ ?MoveToolTip@AptGuiFX@@SAXMM@Z,,0x003807F3,118,Code/GameEngine/Source/Common/TooltipMove_muse-f8cb.cpp,matched,MoveToolTip firer via GuiScale slot 0x40 plus snprintf plus invoker
+-?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z,,0x004D7B0F,97,Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp,matched,BFME1 donor StateMachine defineState verbatim minus debug plus BFME2 transitions setter
++?defineState@StateMachine@@QAEXIPAVState@@IIPBUStateConditionInfo@@@Z,,0x004D7B0F,97,Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp,matched,BFME1 donor StateMachine defineState verbatim minus debug plus BFME2 transitions setter
+ ?Rva00503D8EEvaluate@@YAMMMMMM@Z,,0x00503D8E,93,Code/GameEngine/Source/Common/calc.cpp,matched,Catmull-Rom scalar evaluate donor calc.cpp 8 callers
+ ?Rva00503F2CCalc@@YAXPAURva00503F2CPoint@@PBU1@111M@Z,,0x00503F2C,165,Code/GameEngine/Source/Common/calc.cpp,matched,Catmull-Rom 3D wrapper 3 evaluate calls donor calc.cpp
+ ?NetworkBufferReadRaw@@YAPADPADPAXI0@Z,,0x00447909,54,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,matched,unlock checked memcpy unblocks 44793F 44796C 44799A
+@@ -24320,7 +24320,7 @@ _io_flush,,0x0074AE00,194,Code/Libraries/Source/Lua/liolib.c,matched,BFME1 byte-
+ ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHM@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHM@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHM@2@@Z,,0x005DFD8D,134,Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp,matched,exact-ambiguous fold - callee addresses decoded from the target REL32 bytes by tools/decode_calls.py then pinned; byte comparison is the judge
+ ??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@ABEPAU?$_Rb_tree_node@VAsciiString@@@1@ABVAsciiString@@@Z,,0x0002C751,86,Code/GameEngine/Source/Common/INI/INI.cpp,matched,set<AsciiString nocase>::_M_find: compares through the nocase AsciiString less 0x0002C63C; WB set<AsciiString> callers SidesList::linkLibraryMaps and Win32LocalFileSystem::getFileListInDirectory call it (wb 0x6cedf0) before set::insert 0x0002CA26; renamed from a BitFlags<11> map view
+ ?reserve@Rva005F122DVector@@QAEXI@Z,,0x005F122D,104,Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp,matched,STLport4.5.3 reserve algorithm; native three-pointer storage and stride; address-named caller with verified helper providers; repairs earlier unsupported element identity and removed pin; full body and every call target verified
+-?_M_insert@?$_Rb_tree@IU?$pair@$$CBIPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAUState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAUState@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAUState@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAUState@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIPAUState@@@2@0@Z,,0x0053479F,136,Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp,matched,exact-ambiguous fold - callee addresses decoded from the target REL32 bytes by tools/decode_calls.py then pinned; byte comparison is the judge
++?_M_insert@?$_Rb_tree@IU?$pair@$$CBIPAVState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVState@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAVState@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVState@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIPAVState@@@2@0@Z,,0x0053479F,136,Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp,matched,exact-ambiguous fold - callee addresses decoded from the target REL32 bytes by tools/decode_calls.py then pinned; byte comparison is the judge
+ ??4?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEAAV01@ABV01@@Z,,0x004FFDA5,115,Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp,matched,exact-ambiguous fold - callee addresses decoded from the target REL32 bytes by tools/decode_calls.py then pinned; byte comparison is the judge
+ ??0?$_Deque_base@UBfmeOpaqueOwnedRecord1432@@V?$allocator@UBfmeOpaqueOwnedRecord1432@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeOpaqueOwnedRecord1432@@@1@I@Z,,0x005532FF,75,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecordDeque.cpp,matched,_Deque_base<1432-byte owned record> ctor: its map initialization calls 0x005530D7 (0x598-byte nodes; rowed _M_initialize_map<Record1432>) and its callers 0x00558D41 BFMENetworkQueue ctor and 0x00553868 deque ctor are the 1432 family; was misnamed as the 492 base (whose retail body 0x00389152 calls 0x00388DA8); callee addresses decoded from the target REL32 bytes; byte comparison is the judge
+ ??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U10@00@Z,,0x00585283,63,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp,matched,STLport4.5.3 copy over deque<BfmeE12> iterators: retail callers are deque<BfmeE12>::erase 0x585B8B / operator= 0x586A9C and _M_insert_aux 0x585DAF; calls __copy_aux 0x5850FA; rehomed from the Deque2148 uninitialized_copy view whose __uninitialized_copy pin named the __copy_aux fold
+@@ -31485,7 +31485,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
+ ??1?$deque@UBfmeNarrowRecord0041A5D2@@V?$allocator@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@QAE@XZ,,0x0041A51F,87,Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp,matched,STLport reference deque destructor; native87-byte Ghidra boundary; exact range destroy41A4C8 and independently complete storage base40/nodefree33 chain; EHs retains native unwind state; target28-byte elements established by copy assignment and pop/push siblings
+ ??1?$deque@UBfmeNarrowRecord0041A617@@V?$allocator@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@QAE@XZ,,0x0041A57B,87,Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp,matched,STLport reference deque destructor; native87-byte Ghidra boundary; exact public range destroy41A4F1 and independently full40-byte storage cleanup54FAAC/nodefree33 chain; EHs preserves unwind state and all three previously rowed helpers; target16-byte record from copy assignment pop and38-byte increment
+ ?rva0029C138@Rva0029C138@@QAEXXZ,,0x0029C138,43,Code/GameEngine/Source/Common/Rva0029C138Reset.cpp,matched,native43-byte Ghidra boundary; observed list-header ABI call atreceiver910 to independently rowed node-only clear23DAA539 then four stores of -2 at914/918/91C/920; original class method scalar meanings and payload type unknown; int list is ABI call view only; zero link blockers
+-?ableToAdvance@AIDockMachine@@SA_NPAUState@@PAX@Z,,0x005440F6,61,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,matched,condition: sole entry (to state 2) of the .rdata table 0x00869C78 that the rowed AIDockMachine ctor 0x005448A1 passes for state 1; goal object via 0x004D7726 then getDockUpdateInterface 0x0028BCB4 slot 4 with owner and machine+0x3C; name and role from ZH AIDock.cpp
++?ableToAdvance@AIDockMachine@@SA_NPAVState@@PAX@Z,,0x005440F6,61,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,matched,condition: sole entry (to state 2) of the .rdata table 0x00869C78 that the rowed AIDockMachine ctor 0x005448A1 passes for state 1; goal object via 0x004D7726 then getDockUpdateInterface 0x0028BCB4 slot 4 with owner and machine+0x3C; name and role from ZH AIDock.cpp
+ ?rva007B6AF1@@YAXXZ,,0x007B6AF1,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Freelist pool clear thunk at 0x007B6AF1
+ ?rva007B6AFB@@YAXXZ,,0x007B6AFB,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Freelist pool clear thunk at 0x007B6AFB
+ ?rva007B6B0F@@YAXXZ,,0x007B6B0F,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,Freelist pool clear thunk at 0x007B6B0F
+@@ -36671,7 +36671,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
+ ?rva0030E09A@Rva0030E09A@@QAEXXZ,,0x0030E09A,16,Code/GameEngine/Source/Common/Rva0030E09AMethod.cpp,matched,wrapper calls rowed 0x0030D606 then tail-jmps pinned 0x0030DEAE caller 0x0030E266
+ ?addToContainList@OpenContain@@UAEXPAVObject@@@Z,,0x004638F1,42,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp,matched,vslot78 SlaughterHordeContain pin OpenContain callers 0x0047C155 0x0047D17E list-int slot40
+ ?q4Notify002CCC2D@@YAXPAXPAVMade002CCC2D@@HH@Z,,0x0050B8DB,77,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DParse.cpp,matched,leaf SpawnAndFade parser two-add MultiIni via q4Notify002CCBCA precedent caller 0x002CCC72
+-?supplyTruckSubMachineWantsToEnter@WorkerStateMachine@@SA_NPAUState@@PAX@Z,,0x004A9975,70,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp,matched,Zero Hour WorkerStateMachine::supplyTruckSubMachineWantsToEnter; the asDozerConditions test in retail .rdata 0x00854410
++?supplyTruckSubMachineWantsToEnter@WorkerStateMachine@@SA_NPAVState@@PAX@Z,,0x004A9975,70,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp,matched,Zero Hour WorkerStateMachine::supplyTruckSubMachineWantsToEnter; the asDozerConditions test in retail .rdata 0x00854410
+ ?rva000530DF@MilesAudioManager@@UAEXXZ,,0x000530DF,52,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000530DF.cpp,matched,guard over 0x9D4 zero 0xBE4 call row 0x512C4
+ ?rva0036E071@AIGroup@@QBE_NXZ,,0x0036E071,69,Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp,matched,same walk as isIdle AI slot 113 plus 0x438 dead bit
+ ??0Rva003F8728@@QAE@HH@Z,,0x003F86F9,47,Code/GameEngine/Source/Common/Rva003F86F9Ctor.cpp,matched,finish ctor two-int base vector at C int at 18 set -1 vtable gate-filled caller 0x003F9147
+@@ -46313,10 +46313,10 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
+ ?rva002E6D42@@YAHHH@Z,,0x002E6D42,18,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+ ?rva002E6D54@@YAHHH@Z,,0x002E6D54,14,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,
+ ?rva00524F35@Rva00524F35@@QAEAAV1@H@Z,,0x00524F35,37,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,
+-?isBuildMostImportant@DozerPrimaryStateMachine@@SA_NPAUState@@PAX@Z,,0x0048899D,75,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,Zero Hour DozerPrimaryStateMachine idle condition (entry of table 0x84B808): owner AI (+0x258) / dozer interface (vslot 93) / isIdle (vslot 110) / most recent command (dozer vslot 5) == DOZER_TASK_BUILD
+-?isRepairMostImportant@DozerPrimaryStateMachine@@SA_NPAUState@@PAX@Z,,0x004889E8,76,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,Zero Hour DozerPrimaryStateMachine idle condition (entry of table 0x84B808): owner AI (+0x258) / dozer interface (vslot 93) / isIdle (vslot 110) / most recent command (dozer vslot 5) == DOZER_TASK_REPAIR
+-?isFortifyMostImportant@DozerPrimaryStateMachine@@SA_NPAUState@@PAX@Z,,0x00488A34,77,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,Zero Hour DozerPrimaryStateMachine idle condition (entry of table 0x84B808): owner AI (+0x258) / dozer interface (vslot 93) / isIdle (vslot 110) / most recent command (dozer vslot 5) == DOZER_TASK_FORTIFY
+-?supplyTruckSubMachineReadyToLeave@WorkerStateMachine@@SA_NPAUState@@PAX@Z,,0x004A99BB,59,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp,matched,Zero Hour WorkerStateMachine::supplyTruckSubMachineReadyToLeave; the asTruckConditions test in retail .rdata 0x008543F8
++?isBuildMostImportant@DozerPrimaryStateMachine@@SA_NPAVState@@PAX@Z,,0x0048899D,75,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,Zero Hour DozerPrimaryStateMachine idle condition (entry of table 0x84B808): owner AI (+0x258) / dozer interface (vslot 93) / isIdle (vslot 110) / most recent command (dozer vslot 5) == DOZER_TASK_BUILD
++?isRepairMostImportant@DozerPrimaryStateMachine@@SA_NPAVState@@PAX@Z,,0x004889E8,76,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,Zero Hour DozerPrimaryStateMachine idle condition (entry of table 0x84B808): owner AI (+0x258) / dozer interface (vslot 93) / isIdle (vslot 110) / most recent command (dozer vslot 5) == DOZER_TASK_REPAIR
++?isFortifyMostImportant@DozerPrimaryStateMachine@@SA_NPAVState@@PAX@Z,,0x00488A34,77,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,Zero Hour DozerPrimaryStateMachine idle condition (entry of table 0x84B808): owner AI (+0x258) / dozer interface (vslot 93) / isIdle (vslot 110) / most recent command (dozer vslot 5) == DOZER_TASK_FORTIFY
++?supplyTruckSubMachineReadyToLeave@WorkerStateMachine@@SA_NPAVState@@PAX@Z,,0x004A99BB,59,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp,matched,Zero Hour WorkerStateMachine::supplyTruckSubMachineReadyToLeave; the asTruckConditions test in retail .rdata 0x008543F8
+ ??0WorkerStateMachine@@QAE@PAVObject@@@Z,,0x004A9D79,169,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp,matched,Zero Hour WorkerStateMachine ctor: StateMachine base (key 0xF80D13C5) then the ActAsDozer and ActAsSupplyTruck states with their condition tables
+ ?rva00513988@Rva00513988@@QAEXXZ,,0x00513988,40,Code/GameEngine/Source/Common/Rva00513988.cpp,matched,Ghidra 40B body clears this+0x27C then invokes virtual slot 1 on five pointers at this+0x418; identities are address-derived
+ ?rva0050FF1C@Rva0050F041@@QAEXXZ,,0x0050FF1C,57,Code/GameEngine/Source/Common/System/Rva0050EFFC.cpp,matched,caller of rowed Player::isLocalPlayer; invokes 0x002AA231 through donor-named ABI view with target meaning unproven; SetState on Rva0050F041; tail target shared with constructor 0x0050FC54; address-derived method identity
+@@ -56334,8 +56334,8 @@ _Wmt_idct1,,0x001D89C0,98,Code/Libraries/Source/VP6/Idct1Wmt.cpp,matched,Clean-r
+ ?rva0054150A@@YAPAUBfmePod20@@PAU1@0ABU1@@Z,,0x0054150A,35,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,matched,Native54150A..54152D35B; independently inspected sibling to5414C2. Its own kept66B provider5413F2 proves20B stride and key0 signed compare; same one-byte comparator/null distance-tag ABI and independently exact call relocation. Original wrapper/comparator source names remain unknown; neutral name retained. Whole35B extent exact; no pins/aliases. O1 Oy- G7 MD; t=2 model=gpt-6.1-sol
+ ?rva00541F72@LookAtCameraAnimation@@QAEXABMPAURva00540888Transform@@@Z,,0x00541F72,90,Code/GameEngine/Source/GameClient/CameraAnimation/CameraAnimationTrackLookAtCamera.cpp,matched,Native541F72..541FCB ret8; look-at camera animation transform slot in table C69510 beside free-camera sibling 540888 of the same signature; samples tracks +24 and +44 through the recovered getFrameData 541955 and 541AB0 then rowed Matrix3D Look_At with the camera roll and copies fov to +30; WB A9DEA0 callgraph t=1 model=claude-opus-5-5
+ ?reset@Rva005422CF@@QAEXXZ,,0x00542148,70,Code/GameEngine/Source/Common/Rva00542148Reset.cpp,matched,Native boundary542148..54218E; ctor5422CF owner; sibling542067 reset with20-byte Region2D vector; current541DA8 provider clears old blocker; target-derived layout and ABI
+-?rva005430E7@@YA_NPAUState@@PAX@Z,,0x005430E7,124,Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp,matched,Zero Hour AIGuard.cpp hasAttackedMeAndICanReturnFire: AIGuardMachine condition to state 5005 from the ctor 543163 table; attacker id read once (clearLastAttacker dropped); isEffectivelyDead via +0x438 bit 0; isAbleToAttack gate kept; full 124B exact (helper-agent work reviewed)
+-?rva00545F10@@YA_NPAUState@@PAX@Z,,0x00545F10,112,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,matched,Zero Hour AITNGuard.cpp hasAttackedMeAndICanReturnFire: AITNGuardMachine condition to state 5005 from the ctor 546001 table; no isAbleToAttack gate as in the donor; attacker id read once; full 112B exact (helper-agent work reviewed)
++?rva005430E7@@YA_NPAVState@@PAX@Z,,0x005430E7,124,Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp,matched,Zero Hour AIGuard.cpp hasAttackedMeAndICanReturnFire: AIGuardMachine condition to state 5005 from the ctor 543163 table; attacker id read once (clearLastAttacker dropped); isEffectivelyDead via +0x438 bit 0; isAbleToAttack gate kept; full 124B exact (helper-agent work reviewed)
++?rva00545F10@@YA_NPAVState@@PAX@Z,,0x00545F10,112,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,matched,Zero Hour AITNGuard.cpp hasAttackedMeAndICanReturnFire: AITNGuardMachine condition to state 5005 from the ctor 546001 table; no isAbleToAttack gate as in the donor; attacker id read once; full 112B exact (helper-agent work reviewed)
+ ?rva00547368@MoveToGroupOrder@@UAE_NW4ObjectID@@@Z,,0x00547368,143,Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderIsDone.cpp,matched,MoveToGroupOrder done check (vtable C6A478 slot 5): findObjectByID then rva002931BA then AI +0x258 then the +0x28 hash_map find then the Rva00547263 proximity then AI slot +0x1B8 with the +0x3C tick counter; full 143B exact (helper-agent work reviewed)
+ ?rva00547F37@MoveToFormationGroupOrder@@UAEXW4ObjectID@@@Z,,0x00547F37,81,Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp,matched,Native81B RET4 ctor-installed MoveToFormationGroupOrder vtableC6A4CC slot4; established typed ObjectID-Coord3D map30 count40; whole307B population547CB6 and219B Object-position movement547E5C ABI proven; rowed49DC5 lookup
+ ?rva005482E9@Rva0054840A@@QAEXH@Z,,0x005482E9,221,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp,matched,queue clear range; native 0x005482E9..0x005483C6; ctor/xfer/insert prove shared0x14 layout; flags select boundaries around current ID; rowed notify35 and integer-list erase52; replace old queue-view pin with actual provider
+@@ -59661,7 +59661,7 @@ __ehhandler$?rva00072A51@Rva00072A51@@UAEXVRva00072A94@@@Z,,0x0075EDA5,10,Code/G
+ ?rva0026F93C@UpgradeCenter@@QAEXXZ,,0x0026F93C,22,Code/GameEngine/Source/Common/System/UpgradeTemplateResolveSubUpgradeNames.cpp,matched,UpgradeCenter post-load iteration resolving sub-upgrade names across all templates
+ ?rva0030F2CB@Rva0030F388@@QAEXH@Z,,0x0030F2CB,21,Code/GameEngine/Source/Common/Rva0030F3BFMethod.cpp,matched,Clamps index >= 0 and delegates to Rva0030F2A9::rva0030F2A9 on m_sub (+0x10)
+ ?rva0032AFA4@Rva0032AFA4@@QAEHPAD@Z,,0x0032AFA4,40,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,matched,Lazy-initializes subobject at +4 via GameSpy Overlay allocator and forwards string query
+-?rva0034373F@@YAHPAUState@@PAX@Z,,0x0034373F,23,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,StateMachine condition predicate negating owner Object::testStatus(OBJECT_STATUS_25)
++?rva0034373F@@YAHPAVState@@PAX@Z,,0x0034373F,23,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,StateMachine condition predicate negating owner Object::testStatus(OBJECT_STATUS_25)
+ ?LoadPostProcess@GlowMaterial@@MAEXXZ,,0x003624FE,26,Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp,matched,Native C16FE8 slot1 identifies the post-load override using canonical Snapshot spelling. Whole26B and WB F13DD0 prove IsActive then guarded child40 and receiver10 stores; visible predicate preserves ECX.
+ ?rva003678D6@Rva003678D6@@QAE_NXZ,,0x003678D6,33,Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp,matched,Checks m_flag4 (+4) and queries Rva006423AF::rva006423AF for kind 1
+ ?update@RecorderClass@@UAEXXZ,,0x0037DC36,28,Code/GameEngine/Source/Common/Recorder.cpp,matched,RecorderClass vslot clearing byte +0x70 and deleting +0x154 buffer via MemoryPoolBlob::freeBytes
+@@ -68600,7 +68600,7 @@ $L4881,,0x007A3EBE,10,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Str
+ ?rva0027F1DD@BfmeThingCME@@QAEXPAUCoord3D@@M@Z,,0x0027F1DD,177,Code/GameEngine/Source/Common/Rva0027F1DDRetire.cpp,matched,retires entries within the 2D radius of a position: fire grid removal; entry reset; slot22 id; frame store; neutral names
+ ?rva0035A8D7@Rva0035A8D7@@QAEXPAX00@Z,,0x0035A8D7,167,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,matched,
+ ?rva00224296@Rva00062918Host@@QAEXXZ,,0x00224296,333,Code/GameEngine/Source/GameClient/GUI/BfmeAptWindowManagerInit.cpp,matched,WB 0xB90280 statement order; Apt parameter block + global install + emit-flag bit 1 + three apt screens + loadAptWindow slot 0x50 + +0x2FC screen-vector range erase 0x0031BD55 + window flag clear; BFME1 WindowManager::init shape
+-?rva0047A699@@YA_NPAUState@@PAX@Z,,0x0047A699,3,Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp,matched,ZH AIGuardRetaliate checkForAggressor condition; BFME2 body returns false and retail folds it into the shared xor al al / ret (ICF twin of Xfer::IsCRC); caller AIGuardRetaliateMachine ctor 0x0054551F condition table
++?rva0047A699@@YA_NPAVState@@PAX@Z,,0x0047A699,3,Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachineCtor.cpp,matched,ZH AIGuardRetaliate checkForAggressor condition; BFME2 body returns false and retail folds it into the shared xor al al / ret (ICF twin of Xfer::IsCRC); caller AIGuardRetaliateMachine ctor 0x0054551F condition table
+ ?rva00472620@Rva00472620@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z,,0x00472620,189,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainFormationPosition.cpp,matched,Native472620..4726DD RET12; existing474B51 caller establishes explicit output-pointer/ABI-word contract and receiver adjustment; measured map17C and vector188 stride28; verified rotate468E98 value ABI and point assignment/copy lifetime; canonical Coord3D; whole189B exact; no new pins
+ ?rva004BB176@HordeTransportContainDamage@@UAEXPAVDamageInfo@@@Z,,0x004BB176,539,Code/GameEngine/Source/GameLogic/Object/Damage/HordeTransportContainDamageCallback.cpp,matched,Native4BB176..4BB391 RET4; factory250E9C and ctor4BB130 secondary vtableC59E64 slot0 establish horde damage callback; target field and virtual-slot evidence; double quotient plus counted list loop restores exact x87 and branch shape; no new pins
+ ?rva002C58B3@Rva002C589B@@QAEXXZ,,0x002C58B3,92,Code/GameEngine/Source/Common/Rva002C589BDtor.cpp,matched,AITarget reset; volatile-store pairs on m_19/m_18/m_position.x order the byte stores before push edi
+diff --git a/reverse/symbols.csv b/reverse/symbols.csv
+index 75fadb874c..fb232e2b1a 100644
+--- a/reverse/symbols.csv
++++ b/reverse/symbols.csv
+@@ -233,7 +233,6 @@ name,address,notes
+ ??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_JG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_JPAG@Z,0x0000A560,STLport 4.5.3 wide num_get integer worker; the wide-tagged ICF alias of the narrow-tagged name already on this address, read by decode_calls.py from the REL32 in the do_get forwarder that calls it
+ ??$_M_do_get_integer@V?$istreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@_KG@_STL@@YA?AV?$istreambuf_iterator@GV?$char_traits@G@_STL@@@0@AAV10@0AAVios_base@0@AAHAA_KPAG@Z,0x00009F90,harvested from retail REL32 displacement at 0x00009F60
+ ??$_M_find@H@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@ABEPAU?$_Rb_tree_node@H@1@ABH@Z,0x00388F63,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
+-??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBHPAUState@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAUState@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAUState@@@_STL@@@1@ABH@Z,0x00357180,State map find for StateMachine state map; TU spelling of the rowed unsigned-int tree worker at 0x00357180
+ ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAV?$vector@HV?$allocator@H@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHPAV?$vector@HV?$allocator@H@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAV?$vector@HV?$allocator@H@_STL@@@_STL@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAV?$vector@HV?$allocator@H@_STL@@@_STL@@@_STL@@@1@ABH@Z,0x00388F63,ICF twin of rowed map-int M_find 0x00388F63 same int key and 4B value
+ ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAVGameSpyStagingRoom@@@_STL@@U?$_Select1st@U?$pair@$$CBHPAVGameSpyStagingRoom@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAVGameSpyStagingRoom@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAVGameSpyStagingRoom@@@_STL@@@1@ABH@Z,0x00388F63,ICF twin of rowed int-key _M_find at 0x00388F63; called by GameSpyInfo::findStagingRoomByID at 0x00383851 and getCurrentStagingRoom at 0x003835BF
+ ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHPAX@_STL@@@1@ABH@Z,0x00357180
+@@ -4191,7 +4190,6 @@ name,address,notes
+ ?_M_create_node@?$_Rb_tree@HU?$pair@$$CBHVGameSpyGroupRoom@@@_STL@@U?$_Select1st@U?$pair@$$CBHVGameSpyGroupRoom@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVGameSpyGroupRoom@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBHVGameSpyGroupRoom@@@_STL@@@2@ABU?$pair@$$CBHVGameSpyGroupRoom@@@2@@Z,0x00383D2D,callee read from retail REL32 at 0x00384240 and 0x00384259 in the group-room map _M_insert 0x00384218 (byte-exact modulo relocs as emitted by this TU); retail body allocates the same 0x34 node and constructs the value at +0x10 via 0x0038350D; address rowed as Rva00383D2DCreate
+ ?_M_create_node@?$_Rb_tree@HURva003F75ECValue@@URva003F75ECKey@@U?$greater@H@_STL@@V?$allocator@URva003F75ECValue@@@4@@_STL@@IAEPAU?$_Rb_tree_node@URva003F75ECValue@@@2@ABURva003F75ECValue@@@Z,0x003F753F,Rva003F75EC insertion target calls; isolated creator 34B and _Construct 21B verified against rowed providers; value type is a stand-in
+ ?_M_create_node@?$_Rb_tree@IU?$pair@$$CBII@_STL@@U?$_Select1st@U?$pair@$$CBII@_STL@@@2@URva002F0DD6Less@@V?$allocator@U?$pair@$$CBII@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBII@_STL@@@2@ABU?$pair@$$CBII@2@@Z,0x002EF25B,Full34B creator is independently rowed; new storage predicate preserves unsigned native comparison and creator ignores ECX with RET4; same proven pair-copy and pool ABI
+-?_M_create_node@?$_Rb_tree@IU?$pair@$$CBIPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAUState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAUState@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAUState@@@_STL@@@2@ABU?$pair@$$CBIPAUState@@@2@@Z,0x00534743
+ ?_M_create_node@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAVImage@@@_STL@@@2@ABU?$pair@$$CBIPAVImage@@@2@@Z,0x00382B7F,ICF twin of rowed HH create_node at 0x382B7F; PAVImage spelling emits identical 34B under bfmealloc NO_EXCEPTIONS; called twice by _M_insert at 0x4D9C49
+ ?_M_create_node@?$_Rb_tree@IURva00064A30Value@@URva00064A30KeyOfValue@@U?$less@I@_STL@@V?$allocator@URva00064A30Value@@@4@@_STL@@AAEPAU?$_Rb_tree_node@URva00064A30Value@@@2@ABURva00064A30Value@@@Z,0x005041B6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+ ?_M_create_node@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z,0x00382B7F,ICF twin of rowed HH create_node at 0x382B7F; float spelling emits identical 34B under bfmealloc NO_EXCEPTIONS; called twice by _M_insert at 0x372FF4
+@@ -5763,7 +5761,6 @@ name,address,notes
+ ?insert_unique@?$_Rb_tree@GU?$pair@$$CBGVAsciiString@@@_STL@@U?$_Select1st@U?$pair@$$CBGVAsciiString@@@_STL@@@2@U?$less@G@2@V?$allocator@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBGVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBGVAsciiString@@@_STL@@@2@@2@U32@ABU?$pair@$$CBGVAsciiString@@@2@@Z,0x0016DF60
+ ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHM@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHM@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHM@2@@Z,0x00559076
+ ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHVBuddyInfo@@@_STL@@U?$_Select1st@U?$pair@$$CBHVBuddyInfo@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVBuddyInfo@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHVBuddyInfo@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVBuddyInfo@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHVBuddyInfo@@@2@@Z,0x005DFD8D
+-?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAUState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAUState@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAUState@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAUState@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAUState@@@2@@Z,0x004D795B,State map insert_unique ICF twin of rowed Image insert at same address; call site 0x004D7B31 in defineState 0x004D7B0F
+ ?insert_unique@?$_Rb_tree@PAURva00065050Target@@PAU1@U?$_Identity@PAURva00065050Target@@@_STL@@U?$less@PAURva00065050Target@@@3@V?$allocator@PAURva00065050Target@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@PAURva00065050Target@@U?$_Nonconst_traits@PAURva00065050Target@@@_STL@@@_STL@@_N@2@ABQAURva00065050Target@@@Z,0x005045A3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+ ?insert_unique@?$_Rb_tree@U?$pair@VAsciiString@@V1@@_STL@@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@UTeamLess0019B850@@V?$allocator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@2@@Z,0x0032C4F3,callee of ?updateTeam@Rva0019BE80TeamRec@@QAEXH@Z at retail 0x0032D103 read from its REL32 displacement; ICF alias onto ?insert_unique@?$_Rb_tree@U?$pair@VAsciiString@@V1@@_STL@@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@2@U?$_Select1st@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@_STL@@@2@U?$less@U?$pair@VAsciiString@@V1@@_STL@@@2@V?$allocator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@2@@Z (matched)
+ ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@PBVFXList@@@2@@Z,0x0033D28A,REL32 callee decoded at the retail call site in 0x0033DB2F (drift-placed exact body)
+@@ -9350,3 +9347,4 @@ _atan2f,0x000422A0,math.h x86 inline atan2f (float)atan2((double)y(double)x): 0x
+ ?_M_insert_overflow@?$vector@URva0015087BElement@@V?$allocator@URva0015087BElement@@@_STL@@@_STL@@IAEXPAURva0015087BElement@@ABU3@ABU__false_type@2@I_N@Z,0x001503EC,Native polymorphic index record; complete body and relocation proof; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0015087B.cpp
+ ??0?$_Vector_base@VRva004E194E@@V?$allocator@VRva004E194E@@@_STL@@@_STL@@QAE@IABV?$allocator@VRva004E194E@@@1@@Z,0x004FF36C,Native20B count base called at52CDB0; complete60B malloc allocator body and recursive callees proven against existing row at4FF36C fold-proof=Code/GameEngine/Source/Common/System/SaveGame/Rva0052CD81Finish.cpp
+ ?insert_equal@?$_Rb_tree@IU?$pair@$$CBIVAssetReference@@@_STL@@U?$_Select1st@U?$pair@$$CBIVAssetReference@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVAssetReference@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVAssetReference@@@_STL@@@2@@2@ABU?$pair@$$CBIVAssetReference@@@2@@Z,0x00170E3D,callee of ?UpdateResultTexture@Rva00171024@@QAEXXZ; fold-proof=Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp
++?_M_create_node@?$_Rb_tree@IU?$pair@$$CBIPAVState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVState@@@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAVState@@@_STL@@@2@ABU?$pair@$$CBIPAVState@@@2@@Z,0x00534743,fold-proof=Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp; class-key respell of the struct-State pin (LINK-177)
