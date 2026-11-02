@@ -31,10 +31,6 @@ struct XferVersion
 };
 #include "../../Common/System/XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
-// TerrainLogic's bases, from the constructor 0x00283FAA's vftable stores:
-// Snapshot +0x00 (0x00BBB554, then 0x00BFB2C8), SubsystemInterface +0x04
-// (0x00BFB28C) and two listener roots +0x10/+0x14 (0x00BC6F34, then
-// 0x00BC5848/0x00BC5838).
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include "subsystem_interface.h"
@@ -162,7 +158,6 @@ public:
 	void bfmeApplyCircleWorld(const BfmePointFC *point, float radius,
 		int amount, bool absolute, int mode);
 };
-#include <math.h>
 #define PARTITIONMANAGER_VIEW_REGION_FACADES
 #include "../../Common/PartitionRangeQueryCallView.h"
 #define BFME_STRINGBASE_PUBLIC_DTOR
@@ -183,20 +178,14 @@ class Drawable;
 #include "wwmath.h"
 #include "vector3.h"
 #include "plane.h"
-
 void XferWaypointID(Xfer *xfer, Int *id);
-
 void XferObjectID(Xfer *xfer, ObjectID *id);
-
 template <int NUMBITS> class BitFlags
 {
 public:
 	void xfer(Xfer *xfer);
 };
-
-// Verified ObjectFilter transfer of the four-byte member at +0xBC.
 #include "../../../Include/GameLogic/ObjectFilter.h"
-
 // Zero Hour's Coord3D::zero, and a location copied member by member rather
 // than as a block.
 struct WaypointLocation : public Coord3D
@@ -205,14 +194,10 @@ struct WaypointLocation : public Coord3D
 	void zero() { x = 0; y = 0; z = 0; }
 	WaypointLocation(const Coord3D &that) { x = that.x; y = that.y; z = that.z; }
 };
-
 class Waypoint;
-
 Waypoint *g_waypointListHead = 0;
-
  // VA 0x00DFEC54, loader-zero list head
 extern int g_Va00DBB708;
-
  // next automatically assigned waypoint id
 
 class Rva0027F4CB
@@ -224,7 +209,6 @@ private:
 	int m_04Flag; // +0x04
 	int m_08; // +0x08
 };
-
 class Rva0024C7B3Member
 {
 public:
@@ -235,7 +219,6 @@ public:
 private:
 	unsigned int m_data[7];
 };
-
 class Rva00360D26Member
 {
 public:
@@ -245,7 +228,6 @@ public:
 private:
 	unsigned m_unknown;
 };
-
 enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0,
@@ -253,39 +235,22 @@ enum PathfindLayerEnum
 	LAYER_LAST = 15,
 	LAYER_RAMP = 16 // BFME 2: the pathfinder's ramp test reports it
 };
-
 class Bridge;
-
 class ChunkInputStream;
-
 class Object;
-
 class Pathfinder;
-
 class PolygonTrigger;
-
 class Rva0027C36A;
-
 class Rva0027D098;
-
 class Rva002834C4;
-
 struct Rva002814EFSet;
-
 class TerrainLogic;
-
 struct Triple;
-
 typedef _STL::map<unsigned int, void *, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, void *> > > WaypointIDMap;
-
 class Dict;
-
 class Vector3;
-
 class WaterHandle;
-
 struct Region3D;
-
 enum BodyDamageType
 {
 	BODY_PRISTINE = 0,
@@ -293,7 +258,6 @@ enum BodyDamageType
 	BODY_REALLYDAMAGED = 2,
 	BODY_RUBBLE = 3
 };
-
 class Rva0027C36A
 {
 public:
@@ -315,11 +279,8 @@ public:
 private:
 	char m_pad69[0xA8 - 0x69];
 };
-
 typedef Rva0027C36A BridgeInfo;
-
 extern TerrainLogic *TheTerrainLogic;
-
 //
 // Listener-list walks around 0x0027F519.  Each list's forEach packs a vcall
 // member-function pointer and its arguments into a stack call record and
@@ -358,7 +319,6 @@ public:
 		whereToRestore = valueToRestore;
 	}
 };
-
 // ---- forEach 0x00281A33, walk 0x0027F519
 class Rva00281A33Listener
 {
@@ -368,14 +328,12 @@ public:
     virtual void afterRemove(void *, int);
     virtual void beforeRemove(void *, int);
 };
-
 struct Rva0027F519Call
 {
 	void (Rva00281A33Listener::*notify)(void *, int);
 	void *arg;
 	int value;
 };
-
 class Rva00281A33List
 {
 public:
@@ -388,20 +346,17 @@ private:
 	Rva00281A33Listener **m_capacity;	// +0x08
 	unsigned int m_index;	// +0x0C
 };
-
 // ---- forEach 0x00281A15, walk 0x00280B1A
 class Rva00281A15Listener
 {
 public:
 	virtual void notify(void *);
 };
-
 struct Rva00280B1ACall
 {
 	void (Rva00281A15Listener::*notify)(void *);
 	void *arg;
 };
-
 class Rva00281A15List
 {
 public:
@@ -417,22 +372,17 @@ public:
 	Rva00281A15Listener **m_capacity; // +0x08 +0x08
 	unsigned int m_index; // +0x0C +0x0C
 };
-
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
-
 struct Rva0027EA49
 {
 	~Rva0027EA49();
 	int m_00;
 	TargetRef00217D4C *m_04;
 };
-
 template void _STL::_Destroy<Rva0027EA49 *>(Rva0027EA49 *, Rva0027EA49 *);
-
 // vector dtor (retail 0x002830D5): byte-identical explicit member
 // instantiation calling the _Destroy above and _free.
 template _STL::vector<Rva0027EA49>::~vector();
-
 // ??0Rva0027D02F@@QAE@PBIHHHGHEE@Z
 // Native 0027D02F..0027D08D (94 bytes, RET 32) returns the receiver in EAX.
 // This constructor ABI view keeps the original identity and field meanings
@@ -455,9 +405,7 @@ private:
 	unsigned char byte2C, byte2D;
 	unsigned short word2E;
 };
-
 enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
-
 class GeometryInfo
 {
 public:
@@ -471,11 +419,8 @@ public:
 	Real m_minorRadius; // +0x10
 	char m_pad14[0x5C - 0x14];
 };
-
 class BodyModuleInterface;
-
 extern class AI *TheAI;
-
 // ?rva0027D3CB@Rva0027D3CB@@QAE_NH@Z, retail 0x0027D3CB, 14 bytes.
 // WB 0x00C483B0 is a one-argument member forwarding through TheTerrainVisual.
 // Native caller 0x005450D3 passes ECX, pushes one word, and tests AL.
@@ -484,7 +429,6 @@ extern class AI *TheAI;
 // The old void/four-argument declaration confused this with TerrainLogic's
 // unrelated water-height slot. The receiver is unused in this forwarding body.
 extern class G00DFF080Obj *TheTerrainVisual;
-
 class Rva009FF080Manager0027D3CB
 {
 public:
@@ -522,13 +466,11 @@ public:
 	virtual void _slot31();
 	virtual bool _slot32(int handle);
 };
-
 class Rva0027D3CB
 {
 public:
 	bool rva0027D3CB(int handle);
 };
-
 //
 // ?rva0027D347@Rva0027D347@@QAEXPAURva0027D347Arg@@H@Z retail 0x0027D347 24 bytes.
 // Thiscall with (Arg*,int-dummy-ret8) via same global to slot29 (0x74)
@@ -538,7 +480,6 @@ struct Rva0027D347Arg
 	char m_pad00[0xc];
 	int m_field0C;
 };
-
 class Rva0027D347
 {
 public:
@@ -546,7 +487,6 @@ public:
 private:
 	int m_00; // +0x00
 };
-
 struct Rva004DFCB0Element
 {
 	unsigned word0;
@@ -559,11 +499,8 @@ struct Rva004DFCB0Element
 	bool operator<(const Rva004DFCB0Element &) const;
 	bool operator==(const Rva004DFCB0Element &) const;
 };
-
 class Rva00281A76;
-
 typedef void *(__cdecl *Rva00282B26Callback)(void *key);
-
 class Rva00283114
 {
 public:
@@ -575,7 +512,6 @@ private:
 	int m_1C; // +0x1C
 	Rva00282B26Callback m_callback; // +0x20
 };
-
 class Rva002834E6Owner
 {
 public:
@@ -584,13 +520,11 @@ public:
 private:
 	_STL::vector<Rva004DFCB0Element> m_values; // +0x04
 };
-
 class Rva002827F3
 {
 public:
 	void rva002827F3() throw();
 };
-
 class Rva0028360CHost
 {
 public:
@@ -602,12 +536,9 @@ private:
 	void **m_capacity; // +0x580
 	Rva002827F3 *m_worker; // +0x584
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> void vector<Rva004DFCB0Element,_STL::allocator<Rva004DFCB0Element> >::_M_insert_overflow(Rva004DFCB0Element *,Rva004DFCB0Element const &,_STL::__false_type const &,unsigned int,bool); }
-
 namespace _STL { template <> void vector<Rva004DFCB0Element,_STL::allocator<Rva004DFCB0Element> >::push_back(Rva004DFCB0Element const &); }
-
 // ?rva0027D1C6@Rva0027D1C6@@QAEPAV1@XZ, retail 0x0027D1C6, 41 bytes.
 // Thiscall init: clears +0/+4/+8 to 0.0f, +0xc/+0x14 to 0,
 // sets +0x10 from global float VA 0x00BC876C (data 0x007C876C).
@@ -628,7 +559,6 @@ private:
 	float m_10;
 	int m_14;
 };
-
 class Rva0027D30D
 {
 public:
@@ -637,7 +567,6 @@ private:
 	int m_count; // +0x00
 	PolygonTrigger *m_trigger; // +0x04
 };
-
 class Rva009FF080Manager0027D35F
 {
 public:
@@ -675,13 +604,11 @@ public:
 	virtual void _slot31();
 	virtual void _slot32(void *water, int a, int b, int c);
 };
-
 struct Rva0027D35FArg
 {
 	char m_pad00[0xc];
 	int m_field0C;
 };
-
 class Rva0027D35F
 {
 public:
@@ -689,11 +616,8 @@ public:
 private:
 	unsigned char m_00; // +0x00
 };
-
 extern GameLogic *TheGameLogic;
-
 class ThingTemplate;
-
 class Rva0027D098
 {
 public:
@@ -714,7 +638,6 @@ public:
 	unsigned char m_2D; // +0x2D
 	char m_pad2E[0x2];
 };
-
 struct Rva0027D378Target
 {
 	char m_pad00[0xc];
@@ -722,7 +645,6 @@ struct Rva0027D378Target
 	char m_pad10[0x18];
 	int m_field28;
 };
-
 class Rva0027D378
 {
 public:
@@ -731,7 +653,6 @@ public:
 private:
 	int m_1910; // +0x1910
 };
-
 // ?getWaterHandleByID@Rva0027F4F8@@QAEPAXH@Z @0x0027F4F8 33B. Linear search of
 // 8-byte entries from [this+0x14] to [this+0x18]: return second dword
 // where first equals int arg else NULL. Caller 0x00283845.
@@ -739,7 +660,6 @@ struct WaterHandleEntry {
 	int key;
 	void *value;
 };
-
 class Rva0027F4F8
 {
 public:
@@ -749,7 +669,6 @@ private:
 	WaterHandleEntry *m_begin; // +0x14
 	WaterHandleEntry *m_end; // +0x18
 };
-
 class Rva0027F5A6
 {
 public:
@@ -758,7 +677,6 @@ public:
 private:
 	AsciiString m_str; // +0x50
 };
-
 class Rva0027F5C1
 {
 public:
@@ -767,7 +685,6 @@ public:
 private:
 	AsciiString m_str; // +0x54
 };
-
 class Rva0027F5DC
 {
 public:
@@ -776,7 +693,6 @@ public:
 private:
 	AsciiString m_str; // +0x58
 };
-
 struct Rva0007E394Element
 {
 public:
@@ -784,11 +700,8 @@ public:
 	bool operator==(const Rva0007E394Element&)const;
 	unsigned opaque; // +0x00
 };
-
 struct Rva0028170EIterator {void *set;int index;Rva0028170EIterator(void *p,int i):set(p),index(i){} };
-
 bool Rva0030D111Contains(class Rva0030D111Shape*,const Coord2D*);
-
 class Rva0030D111Shape
 {
 public:
@@ -796,27 +709,20 @@ public:
 	virtual void point();
 	virtual int height();
 };
-
 struct Rva0028170EArea {
  char pad00[0x18];int *baseOffsets;
  Rva0030D111Shape *shape(){return reinterpret_cast<Rva0030D111Shape*>(reinterpret_cast<char*>(this)+0x18+baseOffsets[1]);}
 };
-
 struct Rva0028170EEntry {unsigned key;Rva0028170EArea *area;};
-
 struct Rva0028170ESet {char pad00[0x14];_STL::vector<Rva0028170EEntry> entries; Rva0028170EIterator begin(){return Rva0028170EIterator(this,0);} Rva0028170EIterator end(){return Rva0028170EIterator(this,entries.size());} };
-
 class Rva0028170EHost {char pad00[0x50];Rva0028170ESet *areas;public:Rva0028170EArea *rva0028170E(float x,float y,float minHeight);};
-
 typedef _STL::pair<const unsigned,Rva0007E394Element*> BfmeEqualityWords;
-
 struct Rva00281A06
 {
 	~Rva00281A06();
 	char m_pad[0x1C];
 	void *m_1C;
 };
-
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
 // COMDATs (one byte shape per TU malloc/free wiring); explicit
 // dllimport+forceinline specializations take those calls inline so this
@@ -828,7 +734,6 @@ template <> __declspec(dllimport) __forceinline
 void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
-
 namespace _STL {
 // The vector member's base dtor (constructor EH cleanup) likewise stays inline without
 // an unreferenced out-of-line copy that differs from the kept one.
@@ -836,14 +741,12 @@ template <> __declspec(dllimport) __forceinline
 _Vector_base<Object *, allocator<Object *> >::~_Vector_base()
 { if (_M_start != 0) _M_end_of_storage.deallocate(_M_start, _M_end_of_storage._M_data - _M_start); }
 }
-
 // Keep the standard inline teardown without a conflicting emitted copy.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 vector<Object *, allocator<Object *> >::~vector()
 { _Destroy(this->_M_start, this->_M_finish); }
 }
-
 // Complete native [281A76,281AB7) allocates a 40-byte group.
 // Callers establish active00 and selected18 byte flags plus a pointer vector1C.
 // The field subobject describes the observed initialization footprint; its
@@ -852,15 +755,12 @@ vector<Object *, allocator<Object *> >::~vector()
 struct Rva00281A76Fields {bool active00;float radius04,centerX08,centerY0C,centerZ10;
  __forceinline Rva00281A76Fields(){radius04=0.0f;active00=false;centerX08=0.0f;centerY0C=0.0f;centerZ10=0.0f;_ReadWriteBarrier();}
 };
-
 class Rva00281A76 {public:Rva00281A76(float);Rva00281A76Fields fields;float padding14;bool selected18;_STL::vector<Object*>objects1C;};
-
 class BuildListInfo
 {
 public:
 	int getDesiredGatherers();
 };
-
 struct Rva00281BF7
 {
 public:
@@ -868,7 +768,6 @@ public:
 	char m_pad00[0x60];
 	ObjectID m_id; // +0x60
 };
-
 // ?rva0027D1A4@TerrainLogic@@QAEXPBUCoord3D@@MH@Z retail 0x0027D1A4 (34
 // bytes ret 0xC). Null-guarded forwarder via global 0x009FF080 to its slot
 // 16 (0x40) with (pos radius int). Both callers (0x004C4A03 in
@@ -877,7 +776,6 @@ public:
 // as this: a TerrainLogic member that replaces ecx with the manager. Same
 // manager family as Rva0027D3CBForward/Rva00306769Forward.
 struct Coord3D;
-
 class Rva009FF080Manager0027D1A4
 {
 public:
@@ -899,13 +797,11 @@ public:
 	virtual void _slot15();
 	virtual void _slot16(void *a, float b, int c);
 };
-
 struct Rva0027F09FTarget
 {
 	char m_pad00[0xc];
 	int m_field0C;
 };
-
 class Rva0027F09F
 {
 public:
@@ -915,9 +811,7 @@ private:
 	Rva0027F09FTarget **m_begin578;
 	Rva0027F09FTarget **m_end57C;
 };
-
 class Rva0027D347;
-
 // The grid queries 0x0027DCF2..0x0027E79E walk TerrainLogic's record vector
 // (+0x578) and 50x50 bucket grid (+0x588) through this owner view; spelled as
 // in Rva0027DF9DGridQueries.cpp, which defines them.
@@ -934,7 +828,6 @@ struct GridEntry
 	unsigned char mode2;		// +0x2D
 	short next;			// +0x2E
 };
-
 class Rva0027GridOwner
 {
 public:
@@ -956,13 +849,11 @@ protected:
 	char _pad580[8];
 	short m_grid[1];			// +0x588, 50 x 50
 };
-
 class Rva0027E4F3 : public Rva0027GridOwner
 {
 public:
 	void rva0027E4F3(Coord3D *center, float radius, Rva0027D347 *out, bool flag, int mode);
 };
-
 struct Rva0027F2D6Target
 {
 	char m_pad00[0xc];
@@ -970,7 +861,6 @@ struct Rva0027F2D6Target
 	char m_pad10[0x18];
 	int m_field28;
 };
-
 class Rva0027F2D6
 {
 public:
@@ -980,13 +870,9 @@ private:
 	Rva0027F2D6Target **m_begin578;
 	Rva0027F2D6Target **m_end57C;
 };
-
 #include "../../../Include/Common/File.h"
-
 #include "../../../Include/Common/FileSystem.h"
-
 extern FileSystem *TheFileSystem;
-
 class Debug
 {
 public:
@@ -999,20 +885,15 @@ public:
  virtual void slot5c(); virtual void slot60(); virtual void slot64(); virtual void slot68();
  virtual Debug &slot6c(int,int,int);
 };
-
 extern Debug *theDebug;
-
 bool bfmeRva000387C0();
-
 void _bfme_debugRecordCallsite(int);
-
 class W3DTerrainLogic
 {
 public:
 	void Rva0027DA58();
 	void Rva0027D960(void *water, float *region);
 };
-
 struct AmbientTgaHeader
 {
  unsigned char idLength, colorMapType, imageType;
@@ -1020,56 +901,45 @@ struct AmbientTgaHeader
  unsigned short width, height;
  unsigned char bitsPerPixel, descriptor;
 };
-
 struct Rva00283401Node {
 	Rva00283401Node *m_prev;
 	Rva00283401Node *m_next;
 };
-
 void *__stdcall Rva00282FE0CreateNode(void const *src);
-
 // ?rva00283426@Rva00283426@@QAEXXZ @0x00283426 23B: list teardown calling clear 0x00283002 then freeing sentinel via 0x00030830. Evidence: chain from just-landed 0x00283002; abuts Insert 0x00283401; callers at 0x0028420E plus 0x00283C92.
 class Rva00283002 {
 public:
 	void rva00283002();
 };
-
 class Rva00283426 {
 public:
 	__declspec(noinline) void rva00283426();
 private:
 	void *m_head;
 };
-
 // Native0x00283C92..0x00283C97: tail JMP to sole owned cleanup0x00283426.
 // ECX/stack unchanged no stack args RET0. Original wrapper name enclosing
 // type and lifetime role unknown; reuse only the existing receiver view.
 struct Rva00283C92CleanupForward { void cleanup(); };
-
 struct Rva00283C76PointerTarget;
-
 // Instantiate the recovered member; retain only its required template dependencies.
 template void _STL::list<Rva00283C76PointerTarget *, _STL::allocator<Rva00283C76PointerTarget *> >::push_front(Rva00283C76PointerTarget *const &);
-
 //
 // retail 0x0028447F, 32 bytes. Donor game/GameEngine/Source/Common/BfmeConv1035.cpp
 // recompiled /Os emits this body byte-identically on unclaimed .text. Dedicated
 // (bfmeGo1035A, bfmeGo1035B, bfmeGo1035E, bfmeGo1035F and bfmeGo1035G) are
 // omitted -- bfmeGo1035G is recovered in its own TU.
 class BfmeX1035;
-
 class BfmeT1035
 {
 public:
 	void bfmeUse1035(BfmeX1035 *p, int b);
 	int m_bfmeV; // +0x00 +0x00
 };
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-
 class StaticNameKey
 {
 public:
@@ -1079,52 +949,37 @@ private:
 	NameKeyType m_key;
 	const char *m_name;
 };
-
 extern const StaticNameKey TheKey_waypointPathLabel1;
-
 extern const StaticNameKey TheKey_waypointPathLabel2;
-
 extern const StaticNameKey TheKey_waypointPathLabel3;
-
 extern const StaticNameKey TheKey_waypointPathBiDirectional;
-
 extern const StaticNameKey TheKey_waypointType;
-
 extern const StaticNameKey TheKey_waypointTypeOption;
-
 #include "../../../Include/Common/Dict.h"
-
 // The rowed MapObject accessors, each named for its address.
 class BfmeRetBWF;
-
 class Rva0030D631
 {
 public:
 	BfmeRetBWF *rva0030D631();
 };
-
 class Rva0030D4F2
 {
 public:
 	Int rva0030D428();
 };
-
 class Rva0030D748
 {
 public:
 	AsciiString rva0030D748();
 };
-
 class MapObject;
-
 class BfmeMapObjectListHolder
 {
 public:
 	MapObject *m_head;
 };
-
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
-
 class MapObject
 {
 	enum
@@ -1147,7 +1002,6 @@ private:
 	char m_pad28[0x44 - 0x28];
 	Int m_runtimeFlags; // +0x44
 };
-
 class ChunkInputStream
 {
 public:
@@ -1155,24 +1009,17 @@ public:
 	virtual UnsignedInt tell() = 0;
 	virtual Bool absoluteSeek(UnsignedInt pos) = 0; // +0x08
 };
-
 struct DataChunkInfo;
-
 class UserParser;
-
 class DataChunkInput;
-
 typedef Bool (*DataChunkParserPtr)(DataChunkInput &file, DataChunkInfo *info, void *userData);
-
 // The rowed isValidFileType, named for its address.
 class Rva001DBA6DByteField
 {
 public:
 	unsigned char get() const;
 };
-
 struct TerrainPoint00282CFB;
-
 class G00DFF080Obj
 {
 public:
@@ -1189,9 +1036,7 @@ public:
 	virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22();
 	virtual void rva00282CFBNotify(TerrainPoint00282CFB point, float radius);
 };
-
 extern G00DFF080Obj *TheTerrainVisual;
-
 // map/set<unsigned> internals otherwise emit the less<unsigned>::operator()
 // COMDAT in a register shape retail's 0x00758C50 does not have. The compare
 // is inlined into the map's _M_find (retail's 0x00357180 compares in place),
@@ -1200,7 +1045,6 @@ extern G00DFF080Obj *TheTerrainVisual;
 namespace _STL {
 template <> __declspec(dllimport) __forceinline bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const { return a < b; }
 }
-
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -1210,18 +1054,13 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-
 template <> int StringBase<char>::compareNoCase(const StringBase<char> &str) const throw();
-
 extern Waypoint *g_waypointListHead;
-
 struct Rva002E373CHolder
 {
 	PolygonTrigger *m_head;
 };
-
 extern Rva002E373CHolder *g_Va00DBD0F4;
-
 class PolygonTrigger
 {
 public:
@@ -1239,9 +1078,7 @@ public:
 public:
 	const AsciiString &getTriggerName() const { return m_triggerName; }
 };
-
 class Image;
-
 // The shared unsigned-key pointer-map operator[] (0x002077D6) that retail
 // calls for every such map; the id cache is subscripted through it.
 class ImageSubscriptMap
@@ -1249,7 +1086,6 @@ class ImageSubscriptMap
 public:
 	Image *&operator[](const unsigned int &key);
 };
-
 class Rva000421C8
 {
 public:
@@ -1260,24 +1096,17 @@ public:
 	virtual int getPlayerMask();
 	Rva000421C8 *m_next; // +0x04
 };
-
 extern PartitionManager *ThePartitionManager;
-
 extern BfmeTaintManager *TheTaintManager;
-
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
-
 template <int N> class BitFlags;
-
 extern BitFlags<116> KINDOFMASK_NONE;
-
 struct Rva00045411BitSet
 {
 public:
 	Rva00045411BitSet(int unused, int bit) throw(); // 0x00045411
 	unsigned int m_bits[7]; // +0x00
 };
-
 class Rva0004584D : public Rva000421C8
 {
 public:
@@ -1286,14 +1115,12 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
-
 // 0x0027F1DD, rowed as BfmeThingCME::rva0027F1DD (Rva0027F1DDRetire.cpp).
 class BfmeThingCME
 {
 public:
 	void rva0027F1DD(Coord3D *position, float radius);
 };
-
 // BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f clean source lead:
 // game/GameEngine/Source/GameLogic/Map/TerrainArea001ACCC0.cpp,
 // clearOne001AC3D0. Target facts: RET 12; mode is the final word, kind bit
@@ -1306,20 +1133,15 @@ struct TerrainPoint00282CFB
 	TerrainPoint00282CFB(float a, float b, float c) : x(a), y(b), z(c) {}
 	TerrainPoint00282CFB(const TerrainPoint00282CFB &p) : x(p.x), y(p.y), z(p.z) {}
 };
-
 class AsciiString;
-
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
-
 enum FindPositionFlags {
  FPF_IGNORE_WATER=1, FPF_WATER_ONLY=2, FPF_IGNORE_ALL_OBJECTS=4,
  FPF_IGNORE_ALLY_OR_NEUTRAL_UNITS=8, FPF_IGNORE_ALLY_OR_NEUTRAL_STRUCTURES=16,
  FPF_IGNORE_ENEMY_UNITS=32, FPF_IGNORE_ENEMY_STRUCTURES=64,
  FPF_USE_HIGHEST_LAYER=128, FPF_CLEAR_CELLS_ONLY=256
 };
-
 struct TerrainTryTemplatePrefix { char unknown[0x108]; unsigned int kindOf[7]; };
-
 struct FindPositionOptions
 {
 public:
@@ -1332,7 +1154,6 @@ public:
 	const Object *sourceToPathToDest; // +0x18
 	const Object *relationshipObject; // +0x1C
 };
-
 class Rva00261603Filter: public Rva000421C8 {
 public:
  Rva00261603Filter(const Coord3D &,const GeometryInfo &,Real,Bool);
@@ -1342,25 +1163,16 @@ public:
  Real angle;
  Bool desired;
 };
-
 extern AI *TheAI;
-
 Real Cos(Real);
-
  Real Sin(Real);
-
 typedef char GeometrySizeCheck[sizeof(GeometryInfo)==0x5c ? 1:-1];
-
 typedef char FilterSizeCheck[sizeof(Rva00261603Filter)==0x20 ? 1:-1];
-
 class Rva0027FBACHelper {
 public: virtual void *Get(int);
 };
-
 Bool LineInRegion( const Coord2D *p1, const Coord2D *p2, const Region2D *clipRegion );
-
 #include "../../../Include/GameLogic/Module/BodyModule.h"
-
 // The 0x7C-byte damage record; its constructor is the rowed 0x00263895.
 // Retail builds it through the rowed initializer Rva00263895Member
 // (Rva00263895Init.cpp); the inline forwarder binds the call there.
@@ -1377,7 +1189,6 @@ public:
 	Real m_amount; // +0x20
 	char m_pad24[0x58];
 };
-
 class BridgeBehaviorInterface
 {
 public:
@@ -1388,13 +1199,11 @@ public:
 	virtual void slot4();
 	virtual Bool isScaffoldPresent(); // +0x14
 };
-
 class BridgeBehavior
 {
 public:
 	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
 };
-
 // 0x002ED236 takes the position by value as a 12-byte type with a
 // non-trivial destructor: its caller copies the three words into the
 // argument and saves the argument's address, the callee-destroyed parameter
@@ -1408,7 +1217,6 @@ struct Rva002ED236Pos
 	Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
 	~Rva002ED236Pos() {}
 };
-
 class AI
 {
 public:
@@ -1417,9 +1225,7 @@ public:
     unsigned char m_pad00[0x10];
     Pathfinder *m_pathfinder; // +0x10
 };
-
 class G00DFF080Obj;
-
 class TerrainPlacementManagerView {public:
  virtual void p0();
  virtual void p1();
@@ -1443,7 +1249,6 @@ class TerrainPlacementManagerView {public:
  virtual void p19();
  virtual void p20(const ThingTemplate*,const Coord3D*,float,float);
 };
-
 class WaterHandle
 {
 public:
@@ -1455,7 +1260,6 @@ public:
 	virtual void slot5();
 	virtual void setHeight(Int height); // +0x18
 };
-
 class DamageInfo
 {
 public:
@@ -1469,8 +1273,8 @@ public:
 	Real m_amount; // +0x20
 	char m_pad24[0x7C - 0x24];
 };
-
 #include "../../../Include/GameLogic/AIPathfind.h"
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 
 struct TBridgeAttackInfo
 {
@@ -1771,12 +1575,14 @@ public:
  virtual void vslot3(void *, void *) = 0;
  ~TerrainLogicListenerRootA() {}
 };
+
 class TerrainLogicListenerA : public TerrainLogicListenerRootA {
 public:
  virtual void vslot1(int, WaterHandle *);
  virtual void vslot3(void *, void *);
  ~TerrainLogicListenerA();
 };
+
 class TerrainLogicListenerRootB {
 public:
  virtual void vslot0(int);
@@ -1785,6 +1591,7 @@ public:
  virtual void vslot3(void *, void *) = 0;
  ~TerrainLogicListenerRootB() {}
 };
+
 class TerrainLogicListenerB : public TerrainLogicListenerRootB {
 public:
  virtual void vslot1(int, WaterHandle *);
@@ -2067,6 +1874,126 @@ public:
  void **begin;
  void **end;
 };
+
+struct Bounds
+{
+	float minX;
+	float minY;
+	float minZ;
+	float maxX;
+	float maxY;
+	float maxZ;
+};
+
+class GameLogic;
+
+struct Rva0028449FFrameView
+{
+	char unknown00[0x40];
+	unsigned int frame;
+};
+
+struct Rva0028449FRecordView
+{
+	Coord3D pos;
+	unsigned int key;
+};
+
+class Rva002872BA
+{
+public:
+	void rva0028641F(unsigned int key, Rva0027D098 *record);
+};
+
+extern Rva002872BA *TheTriggerManager;
+
+class FireLogicSystem
+{
+public:
+	void rva00286373(int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
+	void rva0028641F(unsigned int key, const Coord3D *pos);
+};
+
+template<int N> class Rva0028449FSlots : public Rva0028449FSlots<N - 1>
+{
+public:
+	virtual void unused(char (*)[N]) = 0;
+};
+
+template<> class Rva0028449FSlots<0> {};
+
+class Rva0028449FGlobalView : public Rva0028449FSlots<18>
+{
+public:
+	virtual void slot48(const Coord3D *pos, const GeometryInfo &geom, Real angle) = 0;
+	virtual void slot4C() = 0;
+	virtual void slot50() = 0;
+	virtual void slot54() = 0;
+	virtual void slot58(unsigned int key) = 0;
+	virtual void slot5C() = 0;
+	virtual void slot60() = 0;
+	virtual void slot64() = 0;
+	virtual void slot68() = 0;
+	virtual void slot6C() = 0;
+	virtual void slot70() = 0;
+	virtual void slot74() = 0;
+	virtual void slot78() = 0;
+	virtual void slot7C() = 0;
+	virtual void slot80() = 0;
+	virtual void slot84() = 0;
+	virtual void setRawMapHeight(const ICoord2D *gridPos, int height) = 0;
+};
+
+class BfmeStrF9;
+
+class BfmeObjF9
+{
+public:
+	void setFlag(const BfmeStrF9 &name, char flag);
+};
+
+class Rva004DC1BF
+{
+public:
+	Rva004DC1BF(const GeometryInfo &geometry, float angle, const Vector3 &position);
+	bool rva004DC096(Coord2D *out);
+
+private:
+	GeometryInfo m_geometry;
+	char m_data[0xB4 - 0x5C];
+};
+
+class Rva004DC082
+{
+public:
+	void rva004DC082();
+};
+
+struct Rva0028458FObjectView
+{
+	char unknown00[0x38];
+	Coord3D pos;
+	Real angle;
+	char unknown48[0xA8 - 0x48];
+	GeometryInfo geometry;
+};
+
+struct TerrainTreeBounds {Coord3D lo,hi;};
+
+struct Rva0087DC00Vec {int x,y,z;};
+
+class Rva0087DC00 {public:void get(Rva0087DC00Vec*);};
+
+struct TerrainTreeRecord {Coord3D position;int key;char pad10[8];bool flag18;char pad19[15];int amount;bool flag2c,flag2d;short next; bool isF18() const {return flag18;}};
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
+
+// TerrainLogic's bases, from the constructor 0x00283FAA's vftable stores:
+// Snapshot +0x00 (0x00BBB554, then 0x00BFB2C8), SubsystemInterface +0x04
+// (0x00BFB28C) and two listener roots +0x10/+0x14 (0x00BC6F34, then
+// 0x00BC5848/0x00BC5838).
+
+// Verified ObjectFilter transfer of the four-byte member at +0xBC.
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 
@@ -4008,6 +3935,32 @@ void TerrainLogic::addWaypointLink(Int id1, Int id2)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva00282B26.cpp
+
+int Rva00282B26::rva00282B26(void *key)
+{
+ int count = 0;
+ Rva002829BD **it = m_begin;
+ Rva002829BD **finish = m_end;
+ for (; it != finish; ++it)
+ {
+  Rva002829BD *group = *it;
+  void **lastCandidate = group->end;
+  for (void **candidate = group->begin; candidate != lastCandidate; ++candidate)
+  {
+   if (((Rva004DFAB3 *)this)->rva004DFAB3(key, *candidate))
+   {
+    group->active = 1;
+    if (count == 0)
+     group->rva002829BD((const ModuleData *)key, m_callback);
+    ++count;
+    break;
+   }
+  }
+ }
+ return count;
+}
+
 // tu-skeleton: 0x0027C36A 166B ??0Rva0027C36A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0027C36ACtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0027C410 228B ??0Rva0027C36A@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva0027C36ACopyCtor.cpp (not merged yet)
@@ -4030,7 +3983,46 @@ void TerrainLogic::addWaypointLink(Int id1, Int id2)
 
 // tu-skeleton: 0x0027D098 62B ?rva0027D098@Rva0027D098@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
-// tu-skeleton: 0x0027D0D6 206B ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z -- matched in Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/TerrainLogic_getPartitionBucket.cpp
+
+// ?getPartitionBucket@TerrainLogic@@QAEHPAM@Z, retail 0x0027D0D6 206B. Unlock: clamp xy to bounds from vtable slot10 then grid index via floor.
+// Evidence: callees rowed floor and slot10 virtual; caller 0x00283642 unclaimed; honest address name.
+
+static __forceinline float fast_floor(float f)
+{
+	return (float)floor((double)f);
+}
+
+static __forceinline long fast_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+
+int TerrainLogic::getPartitionBucket(float *src)
+{
+	float x = src[0];
+	float y = src[1];
+	Bounds b;
+	fetchBounds(&b);
+	if (b.minX > x)
+		x = b.minX;
+	if (b.minY > y)
+		y = b.minY;
+	if (x > b.maxX)
+		x = b.maxX;
+	if (y > b.maxY)
+		y = b.maxY;
+	x = fast_floor((x - b.minX) / (b.maxX - b.minX) * 49.9f);
+	int ix = fast_round(x);
+	float fy = fast_floor((y - b.minY) / (b.maxY - b.minY) * 49.9f);
+	int iy = fast_round(fy);
+	return iy * 50 + ix;
+}
 
 // tu-skeleton: 0x0027D1EF 85B ?rva0027D1EF@Rva0027D244@@QAEXPAV1@0@Z -- matched in Code/GameEngine/Source/Common/Rva0027DF9DGridQueries.cpp (not merged yet)
 
@@ -4156,32 +4148,6 @@ void TerrainLogic::addWaypointLink(Int id1, Int id2)
 
 // tu-skeleton: 0x002829BD 361B ?rva002829BD@Rva002829BD@@QAEXPBVModuleData@@P6APAXPAX@Z@Z -- matched in Code/GameEngine/Source/Common/Rva002829BDSphereMerge.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00282B26.cpp
-
-int Rva00282B26::rva00282B26(void *key)
-{
- int count = 0;
- Rva002829BD **it = m_begin;
- Rva002829BD **finish = m_end;
- for (; it != finish; ++it)
- {
-  Rva002829BD *group = *it;
-  void **lastCandidate = group->end;
-  for (void **candidate = group->begin; candidate != lastCandidate; ++candidate)
-  {
-   if (((Rva004DFAB3 *)this)->rva004DFAB3(key, *candidate))
-   {
-    group->active = 1;
-    if (count == 0)
-     group->rva002829BD((const ModuleData *)key, m_callback);
-    ++count;
-    break;
-   }
-  }
- }
- return count;
-}
-
 // tu-skeleton: 0x00282C9B 6B (unledgered) -- unmatched, no code, never credited
 
 // tu-skeleton: 0x00282FE0 34B ?Rva00282FE0CreateNode@@YGPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00282FE0CreateNode.cpp (not merged yet)
@@ -4224,11 +4190,184 @@ int Rva00282B26::rva00282B26(void *key)
 
 // tu-skeleton: 0x0028418A 262B ??1TerrainLogic@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
 
-// tu-skeleton: 0x0028449F 240B ?rva0028449F@TerrainLogic@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp
 
-// tu-skeleton: 0x0028458F 1335B ?flattenTerrain@TerrainLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
+void TerrainLogic::rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle)
+{
+	GeometryInfo shape(GEOMETRY_CYLINDER, false, 35.0f, 14.0f, 14.0f);
+	for (Rva0027D098 **i = begin; i != end; ++i)
+	{
+		Rva0028449FRecordView *record = reinterpret_cast<Rva0028449FRecordView *>(*i);
+		if (record->key == 0)
+			continue;
+		if (geom.CollidesWith(*pos, angle, shape, record->pos, 0.0f))
+		{
+			unsigned int key = reinterpret_cast<Rva0028449FRecordView *>(*i)->key;
+			if (TheTriggerManager)
+				((FireLogicSystem *)TheTriggerManager)->rva0028641F(key, (const Coord3D *)*i);
+			(*i)->rva0027D098();
+			reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->slot58(key);
+			stamp = reinterpret_cast<Rva0028449FFrameView *>(TheGameLogic)->frame;
+		}
+	}
+	reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->slot48(pos, geom, angle);
+}
 
-// tu-skeleton: 0x00284DD2 933B ?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp (not merged yet)
+// ?flattenTerrain@TerrainLogic@@QAEXPAVObject@@@Z retail 0x0028458F..0x00284AC6
+// (1335 bytes) RET 4. Pinned ZH/BFME1 flattenTerrain twin (WorkerAIUpdate and
+// DozerAIUpdate construct callers). BFME1 TerrainLogicFlattenTerrain.cpp
+// (b1 0x001AE610) guides the order: skip small geometry, average the ground
+// height over the footprint, clamp to the centre height and write it to nine
+// neighbouring raw map cells per footprint point. BFME2 target differences:
+// the object's GeometryInfo sits at +0xA8 and takes a TERRAIN_BOUNDS flag
+// (rowed setFlag 0x006BF3C0) around the walk; the footprint sampler is the
+// rowed Rva004DC1BF ctor 0x004DC1BF with next 0x004DC096 and reset 0x004DC082;
+// grid cells are REAL_TO_INT_FLOOR(p * 0.1f) and TheTerrainVisual is the
+// TheTerrainVisual slot +0x88 receiver. The floor import goes through math.h's
+// inline floorf: the float floor overload or a double floor reorders the
+// unrolled cell stores.
+__forceinline long fast_float2long_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+
+__forceinline const BfmeStrF9 &flagName(const AsciiString &name)
+{
+	return reinterpret_cast<const BfmeStrF9 &>(name);
+}
+
+void TerrainLogic::flattenTerrain(Object *obj)
+{
+	Rva0028458FObjectView *view = reinterpret_cast<Rva0028458FObjectView *>(obj);
+	if (view->geometry.terrainShapeIsSmall())
+		return;
+	Coord3D pos;
+	pos.x = view->pos.x;
+	pos.y = view->pos.y;
+	pos.z = view->pos.z;
+	BfmeObjF9 *geom = reinterpret_cast<BfmeObjF9 *>(&view->geometry);
+	geom->setFlag(flagName(AsciiString("TERRAIN_BOUNDS")), true);
+	Rva004DC1BF iter(view->geometry, view->angle, reinterpret_cast<const Vector3 &>(pos));
+	Real totalHeight = 0.0f;
+	int count = 0;
+	Coord2D pt;
+	while (iter.rva004DC096(&pt))
+	{
+		totalHeight += getGroundHeight(pt.x, pt.y);
+		++count;
+	}
+	if (count == 0)
+	{
+		geom->setFlag(flagName(AsciiString("TERRAIN_BOUNDS")), false);
+		return;
+	}
+	Real average = totalHeight / count;
+	int height = REAL_TO_INT_FLOOR(average * 25.6f + 0.5f);
+	int center = REAL_TO_INT_FLOOR(TheTerrainLogic->getGroundHeight(pos.x, pos.y) * 25.6f);
+	if (height > center)
+		height = center;
+	reinterpret_cast<Rva004DC082 *>(&iter)->rva004DC082();
+	while (iter.rva004DC096(&pt))
+	{
+		ICoord2D grid;
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f);
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f);
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f) - 1;
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f);
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f) + 1;
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f);
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f);
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f) - 1;
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f);
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f) + 1;
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f) - 1;
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f) - 1;
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f) + 1;
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f) + 1;
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f) + 1;
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f) - 1;
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+		grid.x = REAL_TO_INT_FLOOR(pt.x * 0.1f) - 1;
+		grid.y = REAL_TO_INT_FLOOR(pt.y * 0.1f) + 1;
+		reinterpret_cast<Rva0028449FGlobalView *>(TheTerrainVisual)->setRawMapHeight(&grid, height);
+	}
+	geom->setFlag(flagName(AsciiString("TERRAIN_BOUNDS")), false);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp
+
+// TerrainLogic::iterateTreesNearAPoint, retail 0x00284DD2..0x00285177 (933 B, EH).
+// Name: WB twin C52910 (target evidence). Semantic source: BFME1 a7c38d3b
+// TerrainRecordScan001AEFF0.cpp (donor), adapted from BFME1's by-value 0x30-byte
+// records to BFME2's record pointer list at +0x578 (native evidence).
+// Native converts floor/ceil results with inline x87 FISTP; /QIfist is rejected
+// with /arch:SSE, so the same primitive as TerrainLogicFindPositionAround.cpp is used.
+// TerrainTreeRecord reads: the first record load goes through the donor's byte offset, the
+// filter tests read the list again (native reloads [esi+eax]), and the list is
+// re-read after the cylinder GeometryInfo is constructed for the CollidesWith
+// argument (native reloads +0x578 there).
+
+void TerrainLogic::iterateTreesNearAPoint(const Coord3D *position,float angle,
+ GeometryInfo *geometry,BfmeT1035 *action,bool skipFlag18,int mode) {
+ float radius=geometry->m_minorRadius;
+ Coord3D center;
+ ((Rva0087DC00*)geometry)->get((Rva0087DC00Vec*)&center);
+ center.x+=position->x;center.y+=position->y;center.z+=position->z;
+ int count=end-begin;
+ if(count==0)return;
+ radius+=7.0f;
+ TerrainTreeBounds extent;
+ fetchBounds(&extent);
+ float x=center.x-radius,y=center.y-radius;
+ if(x<extent.lo.x)x=extent.lo.x;
+ if(y<extent.lo.y)y=extent.lo.y;
+ if(x>extent.hi.x)x=extent.hi.x;
+ if(y>extent.hi.y)y=extent.hi.y;
+ int minX=fast_float2long_round((float)floor(((x-extent.lo.x)/(extent.hi.x-extent.lo.x))*49.9f));
+ int minY=fast_float2long_round((float)floor(((y-extent.lo.y)/(extent.hi.y-extent.lo.y))*49.9f));
+ x=center.x+radius;y=center.y+radius;
+ if(x<extent.lo.x)x=extent.lo.x;
+ if(y<extent.lo.y)y=extent.lo.y;
+ if(x>extent.hi.x)x=extent.hi.x;
+ if(y>extent.hi.y)y=extent.hi.y;
+ int maxX=fast_float2long_round((float)ceil(((x-extent.lo.x)/(extent.hi.x-extent.lo.x))*49.9f));
+ int maxY=fast_float2long_round((float)ceil(((y-extent.lo.y)/(extent.hi.y-extent.lo.y))*49.9f));
+ for(int i=minX;i<maxX;++i) {
+  for(int j=minY;j<maxY;++j) {
+   int index=buckets[j*50+i];
+   while(index!=-1 && index>=0 && index<count) {
+    TerrainTreeRecord **base=(TerrainTreeRecord **)begin;
+    unsigned offset=index*sizeof(TerrainTreeRecord*);
+    TerrainTreeRecord *record=*(TerrainTreeRecord**)((char*)base+offset);
+    if(!record->key) {index=record->next;continue;}
+    if(skipFlag18 && base[index]->isF18()) {index=record->next;continue;}
+    if(mode==1) {if(!base[index]->flag2c) {index=record->next;continue;}}
+    else if(mode==2) {if(!base[index]->flag2d) {index=record->next;continue;}}
+    Coord3D delta; delta.x=base[index]->position.x; delta.y=base[index]->position.y; delta.z=base[index]->position.z;
+    delta.x-=center.x;delta.y-=center.y;delta.z-=center.z;
+    GeometryInfo cylinder(GEOMETRY_CYLINDER,false,20.0f,7.0f,7.0f);
+    if(radius*radius>(delta.x*delta.x+delta.y*delta.y+delta.z*delta.z)) {
+     TerrainTreeRecord **list=(TerrainTreeRecord **)begin;
+     if(geometry->CollidesWith(*position,angle,cylinder,list[index]->position,0.0f))
+      action->bfmeUse1035((BfmeX1035*)record,(int)&center);
+    }
+    index=record->next;
+   }
+  }
+ }
+}
 
 // tu-skeleton: 0x00285177 28B ??_GTerrainLogic@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
 
@@ -4259,6 +4398,12 @@ int Rva00282B26::rva00282B26(void *key)
 // tu-skeleton: 0x00773914 8B Unwind@00b73914 -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077391C 10B __ehhandler$??0Bridge@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00773926 10B $L4877 -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00773930 10B __ehhandler$?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/BridgeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00773976 8B $L2798 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x0077399A 8B Unwind@00b7399a -- matched in Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp (not merged yet)
 
@@ -4373,21 +4518,3 @@ int Rva00282B26::rva00282B26(void *key)
 // tu-skeleton: 0x00773D92 14B uw_00773d92 -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
 
 // tu-skeleton: 0x00773DA0 10B __ehhandler$??1TerrainLogic@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicDeleter.cpp (not merged yet)
-
-// tu-skeleton: 0x00773DD2 8B Unwind@00b73dd2 -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773DDA 10B __ehhandler$?rva0028449F@TerrainLogic@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773DE4 8B Unwind@00b73de4 -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773DEC 11B $L2443 -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773DF7 8B Unwind@00b73df7 -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773DFF 8B Unwind@00b73dff -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773E07 10B __ehhandler$?flattenTerrain@TerrainLogic@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp (not merged yet)
-
-// tu-skeleton: 0x00773E36 11B Unwind@00b73e36 -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00773E41 10B __ehhandler$?iterateTreesNearAPoint@TerrainLogic@@QAEXPBUCoord3D@@MPAVGeometryInfo@@PAVBfmeT1035@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogicIterateTreesNearAPoint.cpp (not merged yet)
