@@ -1,0 +1,633 @@
+{
+ "bases": [
+  "State"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AIInternalMoveToState",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 84,
+  "inherited": {
+   "base_views": 69,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x33f279"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "State",
+       "offset": 0,
+       "own_vftable": "0x810de8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x33f279"
+     ],
+     "value": 76
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x33f279"
+     ],
+     "value": {
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       1
+      ],
+      "0x49": [
+       1
+      ],
+      "0x4a": [
+       1
+      ],
+      "0x4b": [
+       1
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x33f279"
+     ],
+     "value": {
+      "0x0": "0x810de8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x810de8"
+     ],
+     "value": {
+      "count": 18,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0033FF2B@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x34280a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva0033F2F7Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x33f2f7"
+       },
+       {
+        "name": "?xfer@AIInternalMoveToState@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x33ff76"
+       },
+       {
+        "name": "?onEnter@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ",
+        "slot": 4,
+        "target": "0x34c146"
+       },
+       {
+        "name": "?onExit@AIInternalMoveToState@@UAEXW4StateExitType@@@Z",
+        "slot": 5,
+        "target": "0x3473a4"
+       },
+       {
+        "name": "?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ",
+        "slot": 6,
+        "target": "0x347460"
+       },
+       {
+        "name": "?disable@Rva0033F2D7ByteSetter@@QAEXXZ",
+        "slot": 7,
+        "target": "0x33f2d7"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 14,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 16,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?computePath@AIInternalMoveToState@@MAE_NXZ",
+        "slot": 17,
+        "target": "0x3441f7"
+       }
+      ],
+      "table": "0x810de8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x810de8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0033FF2B@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva0033F2F7Named@@QBEPBDXZ",
+     "3": "?xfer@AIInternalMoveToState@@MAEXPAVXfer@@@Z",
+     "4": "?onEnter@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ",
+     "5": "?onExit@AIInternalMoveToState@@UAEXW4StateExitType@@@Z",
+     "6": "?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ",
+     "7": "?disable@Rva0033F2D7ByteSetter@@QAEXXZ",
+     "8": "?IsCRC@Xfer@@UBE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?IsCRC@Xfer@@UBE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?IsCRC@Xfer@@UBE_NXZ",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "??1Region2D@@QAE@XZ",
+     "17": "?computePath@AIInternalMoveToState@@MAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "4": 2,
+   "28": 11,
+   "32": 1,
+   "44": 5,
+   "68": 3,
+   "76": 61
+  },
+  "views": 84,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AIInternalMoveToState.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIStateMachine.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 83,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_successStateID",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_failureStateID",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_transitionsFirst",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_transitionsLast",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_machine",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "StateMachine*",
+   "views": 69,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_tail1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_goalPosition",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 55,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_goalLayer",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_pathGoalPosition",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_ambientPlayingHandle",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_44",
+   "name_by": "tie",
+   "offset": 68,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_adjustsDestination",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 49,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_waitingForPath",
+   "name_by": "majority",
+   "offset": 73,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_tryOneMoreRepath",
+   "name_by": "majority",
+   "offset": 74,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_4B",
+   "name_by": "majority",
+   "offset": 75,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 28]]": 63,
+    "[[0, 29]]": 4,
+    "[[0, 4]]": 2
+   },
+   "class": "AIInternalMoveToState"
+  },
+  {
+   "attribute": "name@0x44",
+   "candidates": {
+    "m_44": 7,
+    "m_pathTimestamp": 7
+   },
+   "class": "AIInternalMoveToState"
+  }
+ ],
+ "size": 76,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "xfer(Xfer*)"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "computePath()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "update()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "slot09()"
+  }
+ }
+}
