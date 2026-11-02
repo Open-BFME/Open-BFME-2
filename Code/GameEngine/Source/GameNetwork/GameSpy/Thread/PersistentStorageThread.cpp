@@ -1237,26 +1237,7 @@ template <> struct less<AsciiString> { bool operator()(const AsciiString &, cons
 }
 typedef _STL::map<AsciiString, AsciiString> StoragePreferenceMap;
 template <> AsciiString &StoragePreferenceMap::operator[](const AsciiString &);
-class UserPreferences : public StoragePreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-	virtual bool load(const AsciiString &fname);
-	virtual bool load(const UnicodeString &fname);
-	virtual bool write(void);
-	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
-	virtual float getReal(const AsciiString &key, float defaultValue) const;
-	virtual int getInt(const AsciiString &key, int defaultValue) const;
-	virtual int getEnumIndex(const char *key, const char **names, int count, int defaultValue) const;
-	virtual AsciiString getAsciiString(const AsciiString &key, const AsciiString &defaultValue) const;
-	virtual void setBool(const AsciiString &key, bool val);
-	virtual void setReal(const AsciiString &key, float val);
-	virtual void setInt(const AsciiString &key, int val);
-	virtual void setAsciiString(const AsciiString &key, const AsciiString &val);
-private:
-	void *m_filename;
-};
+#include "../../../../Include/Common/UserPreferences.h"
 
 class GameSpyMiscPreferences : public UserPreferences
 {

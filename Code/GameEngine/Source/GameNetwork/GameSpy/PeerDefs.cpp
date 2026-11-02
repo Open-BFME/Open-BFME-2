@@ -212,18 +212,7 @@ typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 namespace _STL { template <> PlayerInfo &PlayerInfoMap::operator[](const AsciiString &); }
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool load(const UnicodeString &fname);
-	virtual Bool write(void);
-	void rva003B2322(const AsciiString &val, Int num, Bool flag);
-protected:
-	UnicodeString m_filename;
-};
+#include "../../../Include/Common/UserPreferences.h"
 
 class IgnorePreferences : public UserPreferences
 {

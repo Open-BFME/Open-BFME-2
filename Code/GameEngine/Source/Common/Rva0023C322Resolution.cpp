@@ -37,15 +37,7 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-	virtual Bool write(void);
-protected:
-	UnicodeString m_filename;
-};
+#include "../../Include/Common/UserPreferences.h"
 
 class Rva002E4272 : public UserPreferences
 {

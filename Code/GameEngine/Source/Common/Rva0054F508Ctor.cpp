@@ -39,30 +39,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool load(const UnicodeString &fname);
-	virtual Bool write(void);
-
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual Real getReal(const AsciiString &key, Real defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-	virtual Int getEnumIndex(const char *key, const char **names, Int count, Int defaultValue) const;
-	virtual AsciiString getAsciiString(const AsciiString &key, const AsciiString &defaultValue) const;
-
-	virtual void setBool(const AsciiString &key, Bool val);
-	virtual void setReal(const AsciiString &key, Real val);
-	virtual void setInt(const AsciiString &key, Int val);
-	virtual void setAsciiString(const AsciiString &key, const AsciiString &val);
-
-protected:
-	UnicodeString m_filename;
-};
+#include "../../Include/Common/UserPreferences.h"
 
 class GameModePreferences : public UserPreferences
 {

@@ -66,11 +66,7 @@ struct Rva0043FE9ALess:public Rva0043FE9A {
  bool operator()(MapMetaData *const &a,MapMetaData *const &b){return rva0043FE9A(a,b);}
 };
 namespace _STL {template<> void sort<MapMetaData **,Rva0043FE9ALess>(MapMetaData **,MapMetaData **,Rva0043FE9ALess);}
-class UserPreferences {public:
- virtual ~UserPreferences();
- int rva00537190(AsciiString map,int difficulty);
- private:char unknown04[16];
-};
+#include "../../../Include/Common/UserPreferences.h"
 // Narrow ABI view of the compiler-generated scalar deleting destructor.
 // Slot0 with flags0 destroys and returns the allocation for separate free;
 // native443BB5..443BC9 demonstrates both operations and the returned pointer.

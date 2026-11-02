@@ -46,32 +46,7 @@ namespace _STL {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &);
 }
 
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-
-	// MSVC lays overloaded virtuals out in reverse declaration order, so
-	// load(UnicodeString) takes slot 1 and load(AsciiString) slot 2.
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool load(const UnicodeString &fname);
-	virtual Bool write(void);
-
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual Real getReal(const AsciiString &key, Real defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-	virtual Int getEnumIndex(const char *key, const char **names, Int count, Int defaultValue) const;
-	virtual AsciiString getAsciiString(const AsciiString &key, const AsciiString &defaultValue) const;
-
-	virtual void setBool(const AsciiString &key, Bool val);
-	virtual void setReal(const AsciiString &key, Real val);
-	virtual void setInt(const AsciiString &key, Int val);
-	virtual void setAsciiString(const AsciiString &key, const AsciiString &val);
-
-protected:
-	UnicodeString m_filename;
-};
+#include "../../Include/Common/UserPreferences.h"
 
 class GameModePreferences : public UserPreferences
 {

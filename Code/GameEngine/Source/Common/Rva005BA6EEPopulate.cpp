@@ -40,15 +40,7 @@ extern int GameSpyColor[];
 // Native one-word combo-entry count; descriptive original-name-unknown label.
 int OnlineQuickMatchMaxPingEntries = 0;
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-
-private:
-	unsigned char m_unmodelled[0x10];
-};
+#include "../../Include/Common/UserPreferences.h"
 
 class QuickMatchPreferences : public UserPreferences
 {

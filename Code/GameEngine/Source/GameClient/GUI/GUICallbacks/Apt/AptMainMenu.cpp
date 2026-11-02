@@ -177,17 +177,7 @@ extern GlobalData *TheWritableGlobalData;
 
 extern Mouse *TheMouse;
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual int getInt(const AsciiString &key, int defaultValue) const;
-	virtual void setInt(const AsciiString &key, int value);
-	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
-	virtual void setBool(const AsciiString &key, bool value);
-	virtual bool write();
-	char m_pad04[0x10];
-};
+#include "../../../../../Include/Common/UserPreferences.h"
 
 class OptionPreferences : public UserPreferences
 {

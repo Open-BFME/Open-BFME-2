@@ -165,15 +165,7 @@ inline const int &(min)(const int &__a, const int &__b)
 namespace _STL {
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &);
 }
-class UserPreferences : public _STL::map<AsciiString, AsciiString>
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-
-protected:
-	AsciiString m_filename; // +0x10
-};
+#include "../../../../../Include/Common/UserPreferences.h"
 
 // The options file (its destructor is rowed as ??1Rva002E4272 and pinned
 // under this name, as AptMainMenuCallbacks.cpp's view).

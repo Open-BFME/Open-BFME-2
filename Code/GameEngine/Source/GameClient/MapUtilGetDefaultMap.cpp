@@ -132,13 +132,7 @@ public:
 };
 extern ImageCollection *TheMappedImageCollection;
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	int rva00537190(AsciiString, int);
-	char storage[16];
-};
+#include "../../Include/Common/UserPreferences.h"
 class SkirmishPreferences : public UserPreferences
 {
 public:

@@ -136,15 +136,7 @@ class PeerResponse;
 struct BfmeOpaqueOwnedRecord492;
 struct AptOnlineQuickMatch {char prefix[0x60];int state;char at64[0x16];bool matched;char at7b[0x21];int mode;void rva005BB5F6();void rva005BBDAC(BfmeOpaqueOwnedRecord492 &);void rva005BBF15();void rva005BA39F(int);void OnMatched(PeerResponse &);Rva0054D8D8 *rva005BA36D();};
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-
-private:
-	unsigned char m_unmodelled[0x10];
-};
+#include "../../../../../Include/Common/UserPreferences.h"
 
 class QuickMatchPreferences : public UserPreferences
 {

@@ -46,20 +46,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
-class UserPreferences : public PreferenceMap
-{
-public:
-	UserPreferences();
-	virtual ~UserPreferences();
-
-	virtual Bool load(const AsciiString &fname);
-	virtual Bool write(void);
-
-protected:
-	// Wide filename member keeps the layout of the rowed class; this body
-	// never touches it.
-	void *m_filename;
-};
+#include "../../Include/Common/UserPreferences.h"
 
 // Layout-compatible throw() view of the preference-map tree, shared with
 // the SkirmishPreferences TU: the lookup resolves to the rowed _M_find
