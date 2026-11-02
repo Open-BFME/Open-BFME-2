@@ -27,6 +27,10 @@ public:
 	MonitorConditionUpdate(EmitVtableTag *);
 	virtual ~MonitorConditionUpdate();
 	virtual UpdateSleepTime update();
+	// Retail 0x0084DAD8 slots 3 and 4: the rowed overrides 0x004915C6 and 0x00491667
+	// (MonitorConditionUpdate.cpp), so both units emit one primary table.
+	virtual void xfer(Xfer *xfer);
+	virtual NameKeyType getModuleNameKey() const;
 
 private:
 	AsciiString m_str; // +0x20

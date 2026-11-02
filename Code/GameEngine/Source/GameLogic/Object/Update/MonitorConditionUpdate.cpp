@@ -51,6 +51,8 @@ class ModuleData;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
 #include "ascii_string.h"
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 template<int N> class BitFlags;
 #define BFME_STRINGBASE_PUBLIC_DTOR

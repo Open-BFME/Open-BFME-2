@@ -16667,7 +16667,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | repaired (2026-11-02, lk15): the canonical header declares `protected: virtual ~BehaviorModule();` out of line; all six predict LINKS (below) |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
-| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | AutoPickUpUpdate and StructureToppleUpdateCtor repaired by other seats (2026-11-02); ReplenishUnitsBehavior repaired (lk15, below); the rest open |
+| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | AutoPickUpUpdate and StructureToppleUpdateCtor repaired by other seats (2026-11-02); ReplenishUnitsBehavior and MonitorConditionUpdate repaired (lk15, below); the rest open |
 
 **AIGate scoped repair (2026-11-01, Cortys):** the constructor now declares the
 existing UpdateModule and AIGateUpdate destructors out of line. All five strict
@@ -16746,6 +16746,14 @@ and the Dtor declares the two rowed overrides; both emit the same table (slots 3
 1-2 still the UpdateModule defaults: the folds need identity work). `./build.sh` 25/25 rows; scoped
 DIR32 OK (20 symbols); only the two units touch the table; object definitions otherwise unchanged
 against the index; `link_check` ReplenishUnitsBehavior.cpp 0 -> 1,050 B, Dtor 60 B unchanged.
+Mechanism 4, MonitorConditionUpdate (2026-11-02, lk15): the same pattern. Retail 0x0084DAD8 (VA
+0x00C4DAD8) slots 3/4 are the rowed `MonitorConditionUpdate::xfer` 0x004915C6 and `::getModuleNameKey`
+0x00491667; MonitorConditionUpdate.cpp spelled slot 2 `crc` and FamilyDeletingDtors_muse-2c79.cpp
+(first) had slot 3 `UpdateModule::xfer` and slot 4 `__purecall`. The .cpp defines
+`BFME_SNAPSHOT_NAME_SLOT` before ObjectModule.h and the family view declares the two overrides.
+`./build.sh` 14/14 rows; scoped DIR32 OK (8 symbols); only the two units touch the tables and only
+the primary table changed (now one digest); `link_check` MonitorConditionUpdate.cpp 0 -> 334 B,
+FamilyDeletingDtors_muse-2c79 56 B unchanged.
 Mechanism 2 repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`, index 08:35
 `984a4cdc4d`): `BehaviorModule.h` now declares `protected: virtual ~BehaviorModule();` with no
 body, the proposal below. Scope proof before the edit: in the census index exactly six objects
