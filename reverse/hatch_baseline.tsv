@@ -7094,7 +7094,7 @@ pin	reverse/symbols.csv	0x003829E5	1
 pin	reverse/symbols.csv	0x00382A6E	3
 pin	reverse/symbols.csv	0x00382A92	19
 pin	reverse/symbols.csv	0x00382B3F	1
-pin	reverse/symbols.csv	0x00382B7F	4	allow=f97aa15a550e2d797a24d205e3abb8e3f6c1f073
+pin	reverse/symbols.csv	0x00382B7F	4
 pin	reverse/symbols.csv	0x00382C4A	1
 pin	reverse/symbols.csv	0x00383380	4
 pin	reverse/symbols.csv	0x003834AF	1
@@ -10303,8 +10303,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Open2Records.cpp	"s",on	3
 pragma_optimize	Code/GameEngine/Source/Common/PartitionSolver.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/PartitionSolver.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/PartitionSolver.cpp	"s",on	1
-pragma_optimize	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	"t",on	1
@@ -11858,9 +11856,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnd
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	transferAssetsFromThat@Player@@QAEXPAV1@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::crc	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerList.cpp	PlayerList::xfer	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	0ClosestKindOfData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp	body	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	init@ProductionPrerequisite@@QAEXXZ	1
