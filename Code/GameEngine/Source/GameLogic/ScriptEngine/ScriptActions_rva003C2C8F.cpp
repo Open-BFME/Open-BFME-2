@@ -15,12 +15,7 @@ public:
 	AsciiString m_string;
 };
 
-class ExperienceTracker
-{
-public:
-	char m_pad[0x10];
-	float m_10;
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class Object
 {

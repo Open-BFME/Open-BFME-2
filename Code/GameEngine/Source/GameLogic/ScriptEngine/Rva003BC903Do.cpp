@@ -6,11 +6,7 @@
 class Parameter
 {
 };
-class ExperienceTracker
-{
-public:
-	void rva0039B315(float amount, bool a, bool b, bool c, bool d);
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 class Object
 {
 public:

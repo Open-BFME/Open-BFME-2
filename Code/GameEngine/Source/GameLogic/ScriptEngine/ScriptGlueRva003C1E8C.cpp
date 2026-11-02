@@ -22,11 +22,7 @@ typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ExperienceTracker
-{
-public:
-	void rva0039B315(float amount, bool a, bool b, bool c, bool d);
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 struct Rva002886C2Object
 {

@@ -50,11 +50,7 @@ public:
 	void setDrawableHidden(Bool hidden);
 };
 
-class ExperienceTracker
-{
-public:
-	void setExperienceSink(ObjectID sink);
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class Thing
 {
