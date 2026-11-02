@@ -22,12 +22,7 @@ public:
 
 struct _D3DVIEWPORT8 {unsigned X,Y,Width,Height;float MinZ,MaxZ;};
 
-class DX8Wrapper {
-public:
- static void Set_Vertex_Buffer(const DynamicVBAccessClass&);
- static void Set_Viewport(const _D3DVIEWPORT8*);
- static void bfmeRva00120650(unsigned,unsigned);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 

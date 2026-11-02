@@ -142,12 +142,7 @@ void __cdecl rva001173f0(unsigned int renderArgument);
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
-class DX8Wrapper
-{
-public:
-	static void Set_DX8_Render_State(unsigned long state, unsigned value);
-	static unsigned Convert_Color(const Vector3 &color, float alpha);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 __forceinline unsigned DX8Wrapper::Convert_Color(const Vector3 &color, float alpha)
 {

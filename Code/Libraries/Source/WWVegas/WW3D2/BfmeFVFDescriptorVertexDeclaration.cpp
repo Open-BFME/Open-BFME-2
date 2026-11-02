@@ -5,7 +5,7 @@
 // U1 r8 (EXACT): container tests and fvf reads follow retail's register forms: `empty()` for the element check,
 // `unsigned fb=fvf; if((fb&0xff)&4)` (mov ecx,[ebp]; test cl,N) at the flag tests retail loads into ECX, the plain `fvf&N`
 // memory-form test where retail tests memory, and the texture-count read before the usage/index stores.
-// cl: /ICode/Libraries/Include /O2 /G7 /EHs /Ob2 /arch:SSE /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Op
+// cl: /ICode/Libraries/Include /O2 /G7 /EHs /Ob2 /arch:SSE /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Op C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 #include <vector>
 #include "Lib/ICoord2D.h"
@@ -40,7 +40,7 @@ template<> __forceinline void FxVertexElements::push_back(const ICoord2D &value)
 }
 struct IDirect3DDevice8;
 class BfmeFVFDescriptor;
-class DX8Wrapper {friend class BfmeFVFDescriptor;protected:static IDirect3DDevice8 *D3DDevice;};
+#include "DX8WrapperClass.h"
 struct FxDeclarationDevice {
 #define V(n) virtual void slot##n();
 #define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)

@@ -106,12 +106,7 @@ inline void HSV_To_RGB(Vector3 &rgb, const Vector3 &hsv)
 	}
 }
 
-class DX8Wrapper
-{
-public:
-	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
-	static unsigned int Convert_Color(const Vector3 &color, float alpha);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 __forceinline unsigned int DX8Wrapper::Convert_Color(const Vector3 &color, float alpha)
 {

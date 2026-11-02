@@ -83,13 +83,7 @@ public:
 };
 extern StreakLineClass *g_00E0626C;
 
-class DX8Wrapper
-{
-public:
-	static bool Get_Fog_Enable(void) { return FogEnable; }
-protected:
-	static bool FogEnable;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 namespace FXParticleSystem { class LightningDrawModule; }
 

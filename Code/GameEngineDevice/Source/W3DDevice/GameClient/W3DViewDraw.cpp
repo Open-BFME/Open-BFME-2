@@ -1,4 +1,4 @@
-// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?draw@W3DView@@UAEXXZ, retail 0x00087DA0, 3941 bytes. W3DView vtable 0x007C7530 slot 12:
 // the entry sits on the secondary base at +0xB4, so `this` is that sub-object
@@ -25,7 +25,7 @@ typedef unsigned int UnsignedInt;
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-class DX8Wrapper { public: static void Clear(bool clear_color, bool clear_z, bool clear_stencil, const Vector3 &color, float dest_alpha, float z = 1.0f, unsigned int stencil = 0); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class CameraClass;
 class RTS3DScene {

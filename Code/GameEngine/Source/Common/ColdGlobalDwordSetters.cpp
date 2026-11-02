@@ -1,4 +1,4 @@
-// cl: /GX-
+// cl: /GX- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Cold-slice global dword setters (twin-free TU).
 //
 // Ten-byte free functions with one shape:
@@ -12,13 +12,7 @@
 // 0x009B5FE0 is the data ledger's DX8Wrapper::TextureBitDepth (protected,
 // dx8wrapper.cpp). A minimal view of the real class writes it through the
 // WW3D2 inline setter.
-class DX8Wrapper
-{
-public:
-	static __forceinline void Set_Texture_Bitdepth(int depth) { TextureBitDepth = depth; }
-protected:
-	static int TextureBitDepth;	// 0x009B5FE0
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // ?Rva00116E40Set@@YAXH@Z @ 0x00116e40 (10B) over 0x00DB5FE0.
 // Int3-padded both sides (prev CC next CC), live E8 caller. Opaque

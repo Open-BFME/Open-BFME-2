@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?bfmeGo1054E@@YAXHH@Z @ 0x000753EF (35B): the D3D device global at 0xDEDA34
 // is loaded straight rather than through BFME 1's DX8Wrapper::_Get_D3D_Device8,
@@ -19,13 +20,7 @@ struct BfmeE1054
 
 // The device and per-frame counters are DX8Wrapper's protected statics
 // (dx8wrapper.cpp); number_of_DX8_calls is its file-scope counter.
-class DX8Wrapper
-{
-protected:
-	static struct IDirect3DDevice8 *D3DDevice;		// retail 0x00DEDA34
-	static unsigned matrix_changes;		// retail 0x00DEDA4C
-	friend void __cdecl bfmeGo1054E(int, int);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern unsigned number_of_DX8_calls;		// retail 0x00DEDA98
 
 void __cdecl bfmeGo1054E(int a, int b)

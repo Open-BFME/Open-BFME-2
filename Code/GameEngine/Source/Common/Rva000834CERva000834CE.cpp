@@ -1,4 +1,4 @@
-// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?rva000834CE@Rva000834CE@@QAEXXZ, retail 0x000834ce, 121 bytes. Banked partial (score 0.995) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -15,14 +15,7 @@
 class IndexBufferClass;
 class VertexBufferClass;
 
-class DX8Wrapper
-{
-public:
-	static void Set_Index_Buffer(const IndexBufferClass *buffer, unsigned short slot);
-	static void Set_Vertex_Buffer(const VertexBufferClass *buffer, unsigned stream);
-	static void Draw_Triangles(unsigned start_index, unsigned polygon_count,
-		unsigned min_vertex_index, unsigned vertex_count);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // The native refresh target is now rowed in W3DWater.cpp at 0x0008304A.
 class RenderableStandingWaterArea

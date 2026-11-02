@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva000E44BE@Rva000E44BE@@QAEXPAVRenderingMethod@FXShader@@V?$RefCountPtr@VTextureClass@@@@@Z
 // TargetE44BE..E4567 RET8. BF1 FloorBuffer006F9380Draw's floor draw guide;
 // target replaces texture stages with RenderingMethod slot4 and terrain shader.
@@ -22,7 +22,7 @@ public:
 namespace FXShader {class RenderingMethod {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4(int);};}
 class Rva000E19A3Interface {public:virtual void setRenderingMode(int);virtual void setBaseTexture(TextureArg);virtual void setNormalTexture(TextureArg);virtual void clearTextures();};
 extern Rva000E19A3Interface *g_00DEBC60;
-class DX8Wrapper {public:static void Draw_Triangles(unsigned,unsigned,unsigned,unsigned);};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 class Rva000E44BE {
 public:void rva000E44BE(FXShader::RenderingMethod*,RefCountPtr<TextureClass>);
 private:

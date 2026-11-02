@@ -18,12 +18,7 @@ extern bool bfmeCameraProjectionOverride;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
-class DX8Wrapper
-{
-public:
-	static void Apply_Render_State_Changes();
-	static void Invalidate_Cached_Render_States();
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class WorldHeightMap;
 class BaseHeightMapRenderObjClass

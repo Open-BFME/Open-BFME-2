@@ -216,7 +216,7 @@ static __forceinline void unbindEditorTrack(WaterTracksRenderSystem *system,Wate
  system->rva000FE8FC(reinterpret_cast<FeNode *>(track));
 }
 
-class DX8Wrapper { public: static void Invalidate_Cached_Render_States(); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 extern void *ApplicationHWnd;
 static Bool pauseWaves;

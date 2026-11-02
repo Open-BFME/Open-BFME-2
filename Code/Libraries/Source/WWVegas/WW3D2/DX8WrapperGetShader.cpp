@@ -12,13 +12,7 @@ struct RenderStateStruct
 	ShaderClass shader;
 };
 
-class DX8Wrapper
-{
-public:
-	static void Get_Shader(ShaderClass &shader);
-protected:
-	static RenderStateStruct render_state;
-};
+#include "DX8WrapperClass.h"
 
 // The inline is emitted as the select-any copy other units can also emit;
 // this anchor keeps it emitted here (it is not retail code).

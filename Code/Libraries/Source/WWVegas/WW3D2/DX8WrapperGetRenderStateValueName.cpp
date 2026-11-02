@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // DX8Wrapper::Get_DX8_Render_State_Value_Name (retail 0x00121A10, 651 bytes):
 // switch over the D3D render state formatting the value into a StringClass.
@@ -98,24 +99,7 @@ typedef unsigned long D3DRENDERSTATETYPE;
 #define D3DCOLORWRITEENABLE_BLUE 4
 #define D3DCOLORWRITEENABLE_ALPHA 8
 
-class DX8Wrapper
-{
-public:
-	static const char *Get_DX8_ZBuffer_Type_Name(unsigned value);
-	static const char *Get_DX8_Fill_Mode_Name(unsigned value);
-	static const char *Get_DX8_Shade_Mode_Name(unsigned value);
-	static const char *Get_DX8_Blend_Name(unsigned value);
-	static const char *Get_DX8_Cull_Mode_Name(unsigned value);
-	static const char *Get_DX8_Cmp_Func_Name(unsigned value);
-	static const char *Get_DX8_Fog_Mode_Name(unsigned value);
-	static const char *Get_DX8_Stencil_Op_Name(unsigned value);
-	static const char *Get_DX8_Material_Source_Name(unsigned value);
-	static const char *Get_DX8_Vertex_Blend_Flag_Name(unsigned value);
-	static const char *Get_DX8_Patch_Edge_Style_Name(unsigned value);
-	static const char *Get_DX8_Debug_Monitor_Token_Name(unsigned value);
-	static const char *Get_DX8_Blend_Op_Name(unsigned value);
-	static void Get_DX8_Render_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
-};
+#include "DX8WrapperClass.h"
 
 void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass &name, unsigned long state, unsigned value)
 {

@@ -23,16 +23,7 @@ unsigned char Rva0004CAB1GetByte(void)
 // (?X@WW3D@@0_NA, ?X@DX8Wrapper@@1_NA) without a second datum or an alias.
 #include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
-class DX8Wrapper
-{
-	friend unsigned char Rva00131068GetByte(void);
-	friend unsigned char Rva0006E19BGetByte(void);
-	friend unsigned char Rva00116F70GetByte(void);
-protected:
-	static bool IsInitted;
-	static bool _EnableTriangleDraw;
-	static bool IsWindowed;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 extern bool bfmeCameraProjectionOverride;
 

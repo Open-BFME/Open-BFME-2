@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // DX8Wrapper::Clamp_Color, retail 0x00126082 (250 B), and
 // DX8Wrapper::Convert_Color_Clamp, retail 0x0012617C (399 B), directly after
 // it: the same pair and order as BFME 1's 0x0090F3FA / 0x0090F460. Clamp_Color
@@ -37,15 +37,7 @@ private:
 	static bool HasCMOVSupport;
 };
 
-class DX8Wrapper
-{
-public:
-	static void Clamp_Color(Vector4 &color);
-	static unsigned int Convert_Color_Clamp(Vector4 color);
-
-private:
-	static __forceinline unsigned int Convert_Color(const Vector3 &color, float alpha);
-};
+#include "DX8WrapperClass.h"
 
 // upstream: GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
 // ?Convert_Color@DX8Wrapper@@CAIABVVector3@@M@Z present-unmatched

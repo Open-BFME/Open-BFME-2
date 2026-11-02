@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Link view first: Vector4(x,y,z,w) stays inline without emitting an SSE
 // copy that competes with retail's integer-move owner (0x006D8A30).
 #include "../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
@@ -22,21 +22,7 @@ struct RenderStateStruct
 typedef char RendererMatrixStorageSize[sizeof(Matrix4)==64 ? 1 : -1];
 class BfmeHub982 { public: void bfmeEnd982C(); };
 
-class DX8Wrapper
-{
-protected:
-	static RenderStateStruct render_state;
-private:
-
- friend class Rva00785FD0Renderer;
-protected:
- static int ResolutionWidth, ResolutionHeight;
- static unsigned render_state_changed;
-public:
-	static bool Has_Stencil();
-	static void Clear(bool clear_color, bool clear_z, bool clear_stencil,
-		const Vector3 &color, float dest_alpha, float z, unsigned stencil);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // BFME1 donor: Rva00785FD0RendererConstructor.cpp at verified revision
 // 1399ad37d42ea52a63829e417c46a1ba9ed2cd20; O1/SSE/G7 exact placement.

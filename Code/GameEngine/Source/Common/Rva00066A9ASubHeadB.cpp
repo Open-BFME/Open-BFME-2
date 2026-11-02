@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /O1 /EHsc /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?headB@Rva00066A9ASub@@QAEXXZ, retail 0x0007E89C (114B).
 //
 // Dump range 1. The 0x66A9A host body calls this subobject's headB through the
@@ -30,7 +30,7 @@ public:
 };
 
 enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
-class DX8Wrapper { public: static RefCountPtr<TextureClass> Create_Render_Target(int width, int height, WW3DFormat format); };
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class WaterTracksRenderSystem
 {

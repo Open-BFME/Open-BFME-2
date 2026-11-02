@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // W3DVideoBuffer::allocate, retail 0x00072760..0x0007280A (170 B, RET 0xC), vtable
 // 0x007C64D8 slot 2. WorldBuilder 0x0099C010 (callgraph score 1.0) carries the same body:
 // the ZH allocate spine (free, size copies, texture size validation, format
@@ -16,11 +16,7 @@ public:
 
 // retail 0x0011E670: BFME's DXWrapper::AdjustTextureSize (Zero Hour's donor text calls
 // TextureLoader::Validate_Texture_Size here).
-class DX8Wrapper
-{
-public:
-	static void AdjustTextureSize(unsigned int &width, unsigned int &height);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 int Rva0007240CGet(int kind, bool flag);
 

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy-
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Customized_Render@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z, retail 0x0007054f, 754 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -139,7 +139,7 @@ class RefRenderObjListIterator{public:RefRenderObjListIterator(GenericMultiListC
 class PlayerList;extern PlayerList*ThePlayerList;struct ScenePlayerView{char gap[0x54];int index;};struct ScenePlayerListView{char gap[0x10];ScenePlayerView*local;};
 class TerrainLogic;extern TerrainLogic*TheTerrainLogic;struct SceneTerrainView{char gap[0x1914];bool preview;};
 class GlobalData;extern GlobalData*TheWritableGlobalData;struct SceneGlobalView{char gap[0xd34];bool modeD34;char gapD35[15];bool skipTerrain;};
-class DX8Wrapper{public:__declspec(dllimport) __forceinline static bool Get_Fog_Enable() { return FogEnable; } protected:static bool FogEnable;}; // FogEnable: dx8wrapper.cpp's protected static (@@1)
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 extern bool bfmeCameraProjectionOverride,bfmeOnlyEmissiveDraws;
 // Native zero-initialized byte at VA 0x00DE1EB8; neutral name, identity unknown.
 bool SceneModeOverride = false;
