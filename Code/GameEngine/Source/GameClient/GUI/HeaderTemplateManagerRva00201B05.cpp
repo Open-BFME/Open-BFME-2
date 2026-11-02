@@ -19,11 +19,7 @@ class GlobalLanguage
 public:
 	int adjustFontSize(int value);
 };
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float size, bool bold);
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;
 extern FontLibrary *TheFontLibrary;

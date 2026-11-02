@@ -40,11 +40,7 @@ class GameFont;
 #include "ascii_string.h"
 
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float size, Bool bold);
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 
 extern FontLibrary *TheFontLibrary;
 // TheFontLibrary: matched references place it at VA 0xdfe33c (zero-filled .bss).

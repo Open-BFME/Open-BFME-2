@@ -56,11 +56,7 @@ public:
 };
 extern ImageCollection *TheMappedImageCollection;
 class GameFont;
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
-};
+#include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

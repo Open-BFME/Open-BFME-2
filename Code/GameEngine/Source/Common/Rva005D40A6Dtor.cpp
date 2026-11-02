@@ -42,7 +42,7 @@ class DisplayString { public:
  virtual void slot38(); virtual void getSize(int *,int *);
 };
 struct ChecklistFontDesc { AsciiString name; int size; bool bold; };
-class FontLibrary { public: GameFont *getFont(const AsciiString *,float,bool); };
+#include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 class BfmeAptWindowManager { public:
  virtual void slot00(); virtual void slot04(); virtual void slot08();

@@ -17,11 +17,7 @@ typedef unsigned short WChar;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0 };
 class GameFont;
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 struct MouseIO { int x, y; char m_pad8[0x18 - 8]; int leftState; char m_pad1c[0x24 - 0x1C]; int rightState; char m_pad28[0x30 - 0x28]; int middleState; };
 class Drawable;
 struct BodyView { virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual float getHealth(); };

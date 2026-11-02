@@ -25,11 +25,7 @@ typedef float Real;
 
 class GameFont;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 
 class GlobalLanguage
 {

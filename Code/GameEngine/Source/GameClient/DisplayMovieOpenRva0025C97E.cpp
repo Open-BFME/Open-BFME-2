@@ -29,11 +29,7 @@ typedef bool Bool;
 
 class GameFont;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
-};
+#include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 // The stream's subtitle record: font name +0x0C, point size +0x10.

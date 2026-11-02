@@ -26,11 +26,7 @@ struct GameFontView
 	bool m_bold; // +0x18
 };
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float size, bool bold);
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 
 extern FontLibrary *TheFontLibrary;
 

@@ -46,7 +46,7 @@ void AptGuiFX::OnInitialized(const char *unused)
 #include "ascii_string.h"
 #include "unicode_string.h"
 class GameFont;
-class FontLibrary { public: GameFont *getFont(const AsciiString *,float,bool); };
+#include "../../../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 class DisplayString {
 public:

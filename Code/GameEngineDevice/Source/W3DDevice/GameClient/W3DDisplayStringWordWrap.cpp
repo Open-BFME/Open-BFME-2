@@ -51,11 +51,7 @@ public:
 	void *fontData;																			///< 0x14
 };
 
-class FontLibrary
-{
-public:
-	GameFont *getFont( const AsciiString *name, float pointSize, Bool bold );
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 // The global owner is class GlobalLanguage; keep the class tag in its symbol.

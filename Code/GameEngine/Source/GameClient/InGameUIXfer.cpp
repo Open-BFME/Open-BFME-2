@@ -149,11 +149,7 @@ class GameFont;
 #include "../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont( const AsciiString *name, float pointSize, bool bold );
-};
+#include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 class GlobalLanguage

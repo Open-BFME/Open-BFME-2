@@ -78,11 +78,7 @@ public:
 #include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 class Rva0081D520Owner

@@ -27,18 +27,7 @@ enum INILoadType
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class FontLibrary : public SubsystemInterface
-{
-public:
-	FontLibrary();
-	~FontLibrary();
-	virtual void init();
-
-private:
-	void *m_fontList;
-	int m_count;
-	unsigned char m_tables[0x18];
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 
 void FontLibrary::init()
 {

@@ -431,7 +431,7 @@ struct Rva0026003EState {
     unsigned char m_flag60;
 };
 
-class FontLibrary { public:GameFont *getFont(const AsciiString *,float,bool); };
+#include "../../Include/GameClient/FontLibrary.h"
 
 extern FontLibrary *TheFontLibrary;
 

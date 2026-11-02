@@ -174,11 +174,7 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float size, bool bold);
-};
+#include "../../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 class GameTextInterface

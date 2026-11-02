@@ -8,7 +8,7 @@
 // mem-init list; assigning m00..m0C in the body moves them behind position.
 #include "PlaceTerrainResourceClaimantFeedbackView.h"
 class GameFont;
-class FontLibrary {public: GameFont *getFont(const AsciiString*,float,bool);};
+#include "../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 class FeedbackDisplayString {public: virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void setFont(GameFont*);virtual void s1C();virtual void s20();virtual void s24();virtual void setColor(unsigned,unsigned);};
 class DisplayStringManager;

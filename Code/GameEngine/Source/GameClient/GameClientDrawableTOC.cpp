@@ -796,20 +796,7 @@ class Rva0027070CGlobal : public SubsystemInterface { public: virtual ~Rva002707
 class CloudBreakEffectManager : public SubsystemInterface { public: virtual ~CloudBreakEffectManager(); };
 class FireManager : public SubsystemInterface { public: virtual ~FireManager(); };
 
-class FontLibrary
-{
-public:
-	virtual ~FontLibrary();
-	virtual void init();                                                // slot 1 (+4)
-	virtual bool loadIniFilesFromLegend();                              // slot 2 (+8)
-	virtual void vf03();
-	virtual void vf04();
-	virtual void vf05();
-	virtual void vf06();
-	virtual void vf07();
-	virtual void vf08();
-	virtual void reset();                                               // slot 9 (+0x24)
-};
+#include "../../Include/GameClient/FontLibrary.h"
 
 class BfmeAptWindowManager
 {

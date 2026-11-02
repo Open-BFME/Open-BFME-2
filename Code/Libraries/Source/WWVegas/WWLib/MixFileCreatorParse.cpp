@@ -62,11 +62,7 @@ public:
 	int rva00218C2B(const AsciiString &key);
 };
 
-class FontLibrary
-{
-public:
-	static void parseFontSizeMapping(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 
 extern FontLibrary *TheFontLibrary;
 

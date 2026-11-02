@@ -895,11 +895,7 @@ typedef _STL::basic_string<unsigned short, _STL::char_traits<unsigned short>, _S
 
 WideSTLString MultiByteToWideCharSingleLine(const char *orig);
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
-};
+#include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
 
 extern FontLibrary *TheFontLibrary;
 

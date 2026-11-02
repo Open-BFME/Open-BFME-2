@@ -50,11 +50,7 @@ public:
 #include "../../Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
-};
+#include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 class GlobalLanguage

@@ -18,11 +18,7 @@ typedef bool Bool;
 
 class GameFont;
 
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 // The native debug display font description of the language data.

@@ -7,11 +7,7 @@ typedef int Int;
 typedef int Color;
 typedef unsigned char UnsignedByte;
 class GameFont;
-class FontLibrary
-{
-public:
-    GameFont *getFont(const AsciiString *name, float size, bool bold);
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 #include "GameWindowGlobalView.h"
 //

@@ -64,7 +64,7 @@ public: int adjustFontSize(int);
  CreditsFontDescription m_creditsTitleFont,m_creditsPositionFont,m_creditsNormalFont;
 };
 
-class FontLibrary {public: GameFont *getFont(const AsciiString *, float, bool);};
+#include "../../Include/GameClient/FontLibrary.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;
 

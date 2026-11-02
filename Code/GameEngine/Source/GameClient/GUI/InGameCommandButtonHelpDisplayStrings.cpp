@@ -36,7 +36,7 @@ virtual ScalePair *v15();};
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameFont;
-class FontLibrary {public: GameFont *getFont(const AsciiString *,float,bool);};
+#include "../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 class DisplayString {public:
 virtual void v0();

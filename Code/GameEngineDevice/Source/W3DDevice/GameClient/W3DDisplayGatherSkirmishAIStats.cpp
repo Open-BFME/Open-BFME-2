@@ -23,11 +23,7 @@ typedef bool Bool;
 
 struct Coord3D;
 class GameFont;
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 struct FontDesc

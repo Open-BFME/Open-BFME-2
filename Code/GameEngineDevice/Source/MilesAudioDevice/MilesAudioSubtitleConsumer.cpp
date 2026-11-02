@@ -11,7 +11,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 class GameFont;
-class FontLibrary {public:GameFont *getFont(const AsciiString *,float,bool);};
+#include "../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 class GlobalLanguage;extern GlobalLanguage *TheGlobalLanguageData;
 struct SubtitleFontOptions {char at00[0x5C];AsciiString name;int size;bool bold;};

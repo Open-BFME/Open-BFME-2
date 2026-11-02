@@ -140,11 +140,7 @@ class FXListStore
 public:
 	static void parseFXListDefinition(INI *);
 };
-class FontLibrary
-{
-public:
-	static void ParseFontDefaultSettings(INI *);
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 #include "../../../Include/Common/GlobalData.h"
 class GlobalWeatherSystem
 {

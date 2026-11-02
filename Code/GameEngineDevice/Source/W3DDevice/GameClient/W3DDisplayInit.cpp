@@ -179,11 +179,7 @@ Bool InitializeAssetManager(AsciiString root, AsciiString archive, Bool flag);
 void bfmeClearReceiverFlag(Int flag);
 
 class GameFont;
-class FontLibrary
-{
-public:
-	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
-};
+#include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
 class GlobalLanguage
