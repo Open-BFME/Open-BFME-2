@@ -22434,3 +22434,4 @@ Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp|member|Rva00104DE6|m_D5,262a
 Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp|function|0x00104E68|rva00104E68,26f34ab3d8e6b06dcf1b88e1,claude-haiku-5-5,drz-k11-n42h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp|function|0x00104DE6|rva00104DE6,6c7cbc802c1d1420ddf08b75,claude-haiku-5-5,drz-k11-n42h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp|member|Rva00669410Arg|m_1C,578c36d5c2e7e27be107a3c1,claude-haiku-5-5,drz-k11-n42h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/Common/Rva009F66F0.cpp|function|0x00628A60|Rva009F66F0,5da4a3e5d881c56e3646f266,claude-haiku-5-5,drz-k3-n41e,w-a3d394d58042,2026-11-02
