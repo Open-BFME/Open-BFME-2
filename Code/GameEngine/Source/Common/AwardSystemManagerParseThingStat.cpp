@@ -111,7 +111,7 @@ class Rva0040AAD5;
 extern Rva0040AAD5 *TheAwardSystemManager;					// the award system
 
 class ThingTemplate;
-class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };	// template lookup
+#include "../../Include/Common/ThingFactory.h"
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 
