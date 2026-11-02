@@ -3,21 +3,10 @@
 // SimpleDynVecClass<Vector3>::Add, retail 0x001002C5, 65 bytes.
 // Dedicated TU so segline.cpp keeps its matched bodies.
 
-class Vector3
-{
-public:
-	Vector3 &operator=(const Vector3 &that)
-	{
-		X = that.X;
-		Y = that.Y;
-		Z = that.Z;
-		return *this;
-	}
+#include "../WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyAddedVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
 
-	float X;
-	float Y;
-	float Z;
-};
+
 
 template <class Type>
 class SimpleDynVecClass
@@ -43,7 +32,7 @@ bool SimpleDynVecClass<Type>::Add(const Type &object, int new_size_hint)
 	ActiveCount = n + 1;
 	n *= sizeof(Vector3);
 	Type *slot = (Type *)((char *)Vector + n);
-	*slot = object;
+	copyAddedVector(*slot, object);
 	return true;
 }
 

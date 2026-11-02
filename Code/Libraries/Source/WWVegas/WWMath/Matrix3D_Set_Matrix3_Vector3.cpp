@@ -3,15 +3,11 @@
 // Matrix3D::Set(const Matrix3 &, const Vector3 &), retail 0x00711E70, 118 bytes.
 // Dedicated TU so matrix3d.cpp's other matched bodies stay untouched.
 
-class Vector3
-{
-public:
-	float operator[](int i) const { return (&X)[i]; }
+#include "Vector3Data.h"
+// Preserve this unit's already rowed const subscript body and inline call shape.
+inline float Vector3::operator[](int i) const { return (&X)[i]; }
 
-	float X;
-	float Y;
-	float Z;
-};
+
 
 #include "Vector4Data.h"
 

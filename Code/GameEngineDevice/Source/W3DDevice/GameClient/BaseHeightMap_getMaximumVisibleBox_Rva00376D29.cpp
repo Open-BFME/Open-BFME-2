@@ -34,21 +34,10 @@
 // N = normal becomes three separate mov/mov pairs. Dropping that operator (as a
 // bare three-float struct does) produces push esi/push edi and three `rep movsd`
 // instead -- 25 bytes, not retail's 32.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyPlaneNormal(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
 
-	Vector3 &operator=(const Vector3 &v)
-	{
-		X = v.X;
-		Y = v.Y;
-		Z = v.Z;
-		return *this;
-	}
-};
+
 
 class PlaneClass
 {
@@ -67,7 +56,7 @@ public:
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline PlaneClass::PlaneClass(const Vector3 &normal, float dist)
 {
-	N = normal;
+	copyPlaneNormal(N, normal);
 	D = dist;
 }
 

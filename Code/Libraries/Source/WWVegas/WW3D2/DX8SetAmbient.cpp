@@ -4,14 +4,10 @@
 // verified BFME2 SceneClass_Render.cpp (donor BFME1 6583b3c1ff).
 // The saved x87 rounding-control word and four FISTP conversions require
 // the original donor inline assembler; the wrapper and vector copy are C++.
-class Vector3 {
-public:
-    float X,Y,Z;
-    Vector3 &operator=(const Vector3 &other) {
-        X=other.X; Y=other.Y; Z=other.Z;
-        return *this;
-    }
-};
+#include "../WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyAmbientVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
+
+
 class DX8Wrapper {
 public:
     static void Set_DX8_Render_State(unsigned long state,unsigned value);
@@ -89,7 +85,7 @@ not_changed:
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline void DX8Wrapper::Set_Ambient(const Vector3 &color)
 {
-    Ambient_Color = color;
+    copyAmbientVector(Ambient_Color, color);
     Set_DX8_Render_State(139, Convert_Color(color, 0.0f));
 }
 

@@ -3,20 +3,15 @@
 // BFME's LightEnvironmentClass occupies 0x228 bytes and reads OutputAmbient at
 // +0x164; the BFME1 donor RTS3DSceneRva00713780.cpp declares only the members
 // this body reads, with the header body inline as:
-//     void Set_Output_Ambient(Vector3 &oa) { OutputAmbient = oa; }
+//     void Set_Output_Ambient(Vector3 &oa) { copyAmbientVector(OutputAmbient, oa); }
 // Retail 0x0006E136 copies X, Y then Z to this+0x164. Vector3 carries the
 // WWMath user-defined operator=, whose inline scalar stores are what /Os emits
 // here instead of the movsd idiom a plain 12-byte POD would produce. Vector3 is
 // a class (retail mangling AAVVector3@@). Donor's other bodies omitted.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyAmbientVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
 
-	Vector3 & operator = ( const Vector3 &v ) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-};
+
 
 class LightEnvironmentClass
 {
@@ -32,7 +27,7 @@ private:
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline void LightEnvironmentClass::Set_Output_Ambient( Vector3 &oa )
 {
-	OutputAmbient = oa;
+	copyAmbientVector(OutputAmbient, oa);
 }
 
 // ?bfmeAnchorLightEnvironmentClassSet_Output_Ambient absent-from-retail

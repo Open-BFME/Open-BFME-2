@@ -25,14 +25,10 @@ typedef short Short;
 #define MAX_SHADOW_LIGHTS			1
 #define MAX_SHADOW_CASTER_MESHES	160
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyLightHistory(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
+
+
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
@@ -153,7 +149,7 @@ W3DVolumetricShadow::W3DVolumetricShadow( void )
 			m_shadowVolumeRenderTask[i][j].m_meshIndex = (UnsignedByte)j;
 			m_shadowVolumeRenderTask[i][j].m_lightIndex = (UnsignedByte)i;
 			m_objectXformHistory[ i ][j].Make_Identity();
-			m_lightPosHistory[ i ][j] = Vector3(0,0,0);
+			copyLightHistory(m_lightPosHistory[ i ][j], Vector3(0,0,0));
 		}
 	}  // end for i
 

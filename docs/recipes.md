@@ -797,3 +797,26 @@ Evidence: reverse/attempt_support/20261026-apt-options-crt-free.md.
 ## Canonical Vector4 and empty parent construction (2026-11-02, batch1632)
 
 In W3DDisplayDrawSkirmishAIStats.cpp (/O1 /G7 /arch:SSE /EHsc), replacing the private POD Vector4 makes the implicit Matrix3D construction emit two out-of-line constructor calls and changes the 524-byte parent. Explicitly declaring the same empty Matrix3D default constructor __forceinline removes those calls and restores all native bytes and relocations. The added unused 22-byte constructor matches the previously measured Vector4/array-iterator profile; no retained runtime/data root reaches it. ObjectWorldspaceBestContactPoint.cpp also needs its float/Vector4 union replaced by identical 48-byte row storage and all twelve scalar aliases mapped to the same Row components: MSVC7.1 refuses a nontrivial Vector4 union member. Its 636-byte parent remains exact after those local changes. Evidence: [stats](../reverse/attempt_support/w3ddisplaydrawskirmishaistats-vector4-20261102-1632.md), [contact](../reverse/attempt_support/objectworldspacebestcontactpoint-vector4-20261102-1632.md). This is bounded code-generation evidence: the analogous quadruped trial removes its added constructor call but still emits 995 versus native988 bytes with different SSE operand scheduling, so that trial remains unlanded. No shared header, compiler flag or baseline is changed.
+
+## Canonical Vector3 and already rowed accessors (2026-11-02, batch2226)
+
+- Matrix3D_Set_Matrix3_Vector3 owns both Matrix3D::Set (118B) and the const
+  Vector3 subscript (10B,0x004047D9). Replacing subscript uses by fields preserves
+  Set but drops the second row. Keep its original inline definition outside the
+  registered class and preserve the original reads: both bodies and relocations
+  match. A private intersection comparison must also reject removed ledger rows.
+- Rva0007E6F6 keeps its231B parent with local component copies. Its existing
+  /Oy- flags emit an additional38B Vector3 value constructor, independently
+  reproduced by an isolated API call with those same flags. It has no incoming
+  retained runtime/data root. This is an emitted-code profile, not a new native
+  identity; do not apply the older37B profile without checking compiler context.
+
+- BridgeGetBridgeHeight originally copies the12B PlaneClass normal into its
+  Coord3D output with three MOVSD instructions. Canonical Vector3 assignment adds
+  a call; component stores and ordinary memcpy also differ. The already present
+  Coord3DCtorView has the same proven three-float footprint and implicit block
+  assignment. Using that existing storage view for this representation copy
+  preserves all713 parent bytes and six other code bodies, with unchanged
+  non-debug sections. No intrinsic/optimization pragma or new flags are needed.
+
+Evidence: [storage batch](../reverse/attempt_support/canonical-storage-batch-20261102-2226.md).

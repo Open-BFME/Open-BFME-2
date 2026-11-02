@@ -11,18 +11,11 @@
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D &operator=(const Matrix3D &m)
-	{
-		Row[0] = m.Row[0];
-		Row[1] = m.Row[1];
-		Row[2] = m.Row[2];
-		return *this;
-	}
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+// Preserve the original inline row-by-row assignment in this unit.
+static __forceinline Matrix3D &copyLogicalBoneTransform(Matrix3D &out,const Matrix3D &in) {out.Row[0]=in.Row[0];out.Row[1]=in.Row[1];out.Row[2]=in.Row[2];return out;}
+
+
 
 class Thing
 {
@@ -70,7 +63,7 @@ bool Object::getSingleLogicalBonePosition(const char *boneName, Coord3D *positio
 		if (position)
 			*position = *getPosition();
 		if (transform)
-			*transform = *getTransformMatrix();
+			copyLogicalBoneTransform(*transform, *getTransformMatrix());
 		return false;
 	}
 }

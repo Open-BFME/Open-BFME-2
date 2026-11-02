@@ -6,15 +6,10 @@
 // Base terrain primary table VA 0x00BC5E5C slot25 points to VA 0x00469BCC.
 // Retail and WB0x758A10 agree on map37C0, dimensions8/C, heights37D8/DC.
 // Only this accessed prefix is modeled; the remainder of the class is open.
-class Vector3
-{
-public:
-    float X, Y, Z;
-    __forceinline Vector3() {}
-    __forceinline Vector3(const Vector3 &vec) : X(vec.X), Y(vec.Y), Z(vec.Z) {}
-    __forceinline Vector3 &operator=(const Vector3 &vec) { X=vec.X; Y=vec.Y; Z=vec.Z; return *this; }
-    __forceinline Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyBoundsVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
+
+
 __forceinline Vector3 operator+(const Vector3 &a, const Vector3 &b)
 {
     return Vector3(a.X+b.X, a.Y+b.Y, a.Z+b.Z);
@@ -40,8 +35,8 @@ public:
     Vector3 Center, Extent;
     __forceinline void Init(const MinMaxAABoxClass &bounds)
     {
-        Center = (bounds.MaxCorner + bounds.MinCorner) * 0.5f;
-        Extent = (bounds.MaxCorner - bounds.MinCorner) * 0.5f;
+        copyBoundsVector(Center,(bounds.MaxCorner + bounds.MinCorner) * 0.5f);
+        copyBoundsVector(Extent,(bounds.MaxCorner - bounds.MinCorner) * 0.5f);
     }
 };
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"

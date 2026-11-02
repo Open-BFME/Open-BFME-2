@@ -7,13 +7,10 @@
 // Scoped donor math below keeps assignments/arithmetic inline and suppresses
 // competing COMDAT copies. The complete target body/relocations are unchanged;
 // the compiled unit has no imported math/helper references.
-class Vector3 {
-public:
- float X,Y,Z;
- __forceinline Vector3() {}
- __declspec(dllimport) __forceinline Vector3(float x,float y,float z) {X=x;Y=y;Z=z;}
- __declspec(dllimport) __forceinline Vector3 &operator=(const Vector3 &v) {X=v.X;Y=v.Y;Z=v.Z;return *this;}
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyWaterBoxVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
+
+
 __declspec(dllimport) __forceinline Vector3 operator+(const Vector3&a,const Vector3&b) {return Vector3(a.X+b.X,a.Y+b.Y,a.Z+b.Z);}
 __declspec(dllimport) __forceinline Vector3 operator-(const Vector3&a,const Vector3&b) {return Vector3(a.X-b.X,a.Y-b.Y,a.Z-b.Z);}
 __declspec(dllimport) __forceinline Vector3 operator*(float k,const Vector3&a) {return Vector3(a.X*k,a.Y*k,a.Z*k);}
@@ -33,8 +30,8 @@ const WaterRenderBox &Rva0007E6F6::rva0007E6F6() {
   reinterpret_cast<Rva0007E02A*>(scalarBase())->rva0007E02A(rectangle);
   Vector3 minimum(rectangle[0],rectangle[1],float(reinterpret_cast<WaterAreaHeightView*>(scalarBase())->height()));
   Vector3 maximum((rectangle?rectangle:rectangle)[2],(rectangle?rectangle:rectangle)[3],float(reinterpret_cast<WaterAreaHeightView*>(scalarBase())->height()));
-  bounds.center=0.5f*(minimum+maximum);
-  bounds.extent=0.5f*(maximum-minimum);
+  copyWaterBoxVector(bounds.center,0.5f*(minimum+maximum));
+  copyWaterBoxVector(bounds.extent,0.5f*(maximum-minimum));
   ready=true;
  }
  return bounds;

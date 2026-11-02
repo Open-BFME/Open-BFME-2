@@ -45,18 +45,14 @@ public:
 	float X, Y, Z;
 };
 
-class Vector4
-{
-public:
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-	float X, Y, Z, W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
 
 class Matrix3D
 {
 public:
+	// Keep the original empty member initialization inline after Vector4 adoption.
+	__forceinline Matrix3D() {}
 	__forceinline Matrix3D &operator=(const Matrix3D &m) { Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; return *this; }
 	Vector3 Get_Translation() const { return Vector3(Row[0][3], Row[1][3], Row[2][3]); }
 	void Set_Translation(const Vector3 &t) { Row[0][3] = t[0]; Row[1][3] = t[1]; Row[2][3] = t[2]; }

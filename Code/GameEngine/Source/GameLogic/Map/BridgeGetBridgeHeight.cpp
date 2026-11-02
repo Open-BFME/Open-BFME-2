@@ -17,16 +17,8 @@ typedef float Real;
 #define COORD3D_VIEW_INLINE
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-	Real X;
-	Real Y;
-	Real Z;
-};
 
 class PlaneClass
 {
@@ -131,7 +123,8 @@ Real Bridge::getBridgeHeight(const Coord3D *pLoc, Coord3D *normal)
 		Real t;
 		plane.Compute_Intersection(bottom, top, &t);
 		if (normal)
-			*(Vector3 *)normal = plane.N;
+			// Both proven storage views are three floats; retain the existing Coord3D block copy.
+			*normal = *(const Coord3D *)&plane.N;
 		return t * factor;
 		}
 	}
