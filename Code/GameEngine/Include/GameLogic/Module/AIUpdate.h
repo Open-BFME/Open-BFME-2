@@ -293,7 +293,7 @@ public:
     virtual void *vslot095() const; // 95: RVA 0x000D43D0
     virtual void *vslot096() { return 0; } // 96: RVA 0x000D43D0
     virtual void *vslot097() const { return 0; } // 97: RVA 0x000D43D0
-    virtual void *vslot098(); // 98: RVA 0x000D43D0
+    virtual void *vslot098() { return 0; } // 98: RVA 0x000D43D0
     virtual void *vslot099() const; // 99: RVA 0x000D43D0
     virtual void *vslot100(); // 100: RVA 0x000D43D0
     virtual void *vslot101() const; // 101: RVA 0x000D43D0
