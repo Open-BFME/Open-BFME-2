@@ -17,11 +17,7 @@ public:
 	unsigned char m_10F;
 };
 
-class GeometryInfo
-{
-public:
-	float getMaxHeightAbovePosition() const;
-};
+#include "../../../Include/Common/Geometry.h"
 
 class Weapon;
 enum WeaponSlotType

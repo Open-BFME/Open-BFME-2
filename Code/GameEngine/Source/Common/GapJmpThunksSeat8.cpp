@@ -1009,7 +1009,7 @@ extern unsigned int g_Va00E04544;
 void Rva002BC5C9ClearMap() { ((Rva002BBBE7 *)&g_Va00E04544)->rva002BC39D(); }
 
 // ---- fifth group -----------------------------------------------------------
-class GeometryInfo { public: virtual ~GeometryInfo(); };
+#include "../../Include/Common/Geometry.h"
 #include "../../Include/Common/Dict.h"
 class Rva004DFC20 { public: void clear(); };
 struct BfmeOpaqueOwnedRecord492;
