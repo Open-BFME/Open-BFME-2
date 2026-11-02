@@ -1,0 +1,886 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Keyboard",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 33,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x10": {
+    "4": 3
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x1e": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x81e": {
+    "4": 1
+   },
+   "0x822": {
+    "2": 1
+   },
+   "0x824": {
+    "2": 1
+   },
+   "0x826": {
+    "2": 1
+   },
+   "0x870": {
+    "2": 1
+   },
+   "0x872": {
+    "2": 1
+   },
+   "0x874": {
+    "2": 1
+   },
+   "0x876": {
+    "2": 1
+   },
+   "0x878": {
+    "2": 1
+   },
+   "0x87a": {
+    "2": 1
+   },
+   "0x8c4": {
+    "2": 1
+   },
+   "0x8c6": {
+    "2": 1
+   },
+   "0x8c8": {
+    "2": 1
+   },
+   "0x8ca": {
+    "2": 1
+   },
+   "0x8cc": {
+    "2": 1
+   },
+   "0x8ce": {
+    "2": 1
+   },
+   "0x918": {
+    "2": 1
+   },
+   "0x91a": {
+    "2": 1
+   },
+   "0x91c": {
+    "2": 1
+   },
+   "0x95": {
+    "1": 1
+   },
+   "0x96": {
+    "2": 1
+   },
+   "0x960": {
+    "2": 1
+   },
+   "0x962": {
+    "2": 1
+   },
+   "0x964": {
+    "2": 1
+   },
+   "0x96c": {
+    "2": 1
+   },
+   "0x96e": {
+    "2": 1
+   },
+   "0x970": {
+    "2": 1
+   },
+   "0x972": {
+    "2": 1
+   },
+   "0x974": {
+    "2": 1
+   },
+   "0x976": {
+    "2": 1
+   },
+   "0x978": {
+    "2": 1
+   },
+   "0x97a": {
+    "2": 1
+   },
+   "0x97c": {
+    "2": 1
+   },
+   "0x97e": {
+    "2": 1
+   },
+   "0x98": {
+    "4": 1
+   },
+   "0x980": {
+    "2": 1
+   },
+   "0x982": {
+    "2": 1
+   },
+   "0x984": {
+    "2": 1
+   },
+   "0x986": {
+    "2": 1
+   },
+   "0x988": {
+    "2": 1
+   },
+   "0x98a": {
+    "2": 1
+   },
+   "0x98c": {
+    "2": 1
+   },
+   "0x98e": {
+    "2": 1
+   },
+   "0x990": {
+    "2": 1
+   },
+   "0x992": {
+    "2": 1
+   },
+   "0x994": {
+    "2": 1
+   },
+   "0x996": {
+    "2": 1
+   },
+   "0x998": {
+    "2": 1
+   },
+   "0x99a": {
+    "2": 1
+   },
+   "0x99c": {
+    "2": 1
+   },
+   "0x99e": {
+    "2": 1
+   },
+   "0x9a0": {
+    "2": 1
+   },
+   "0x9a2": {
+    "2": 1
+   },
+   "0x9a4": {
+    "2": 1
+   },
+   "0x9a6": {
+    "2": 1
+   },
+   "0x9a8": {
+    "2": 1
+   },
+   "0x9aa": {
+    "2": 1
+   },
+   "0x9ac": {
+    "2": 1
+   },
+   "0x9ae": {
+    "2": 1
+   },
+   "0x9b0": {
+    "2": 1
+   },
+   "0x9b2": {
+    "2": 1
+   },
+   "0x9b4": {
+    "2": 1
+   },
+   "0x9b6": {
+    "2": 1
+   },
+   "0x9b8": {
+    "2": 1
+   },
+   "0x9ba": {
+    "2": 1
+   },
+   "0x9bc": {
+    "2": 1
+   },
+   "0x9be": {
+    "2": 1
+   },
+   "0x9c0": {
+    "2": 1
+   },
+   "0x9c2": {
+    "2": 1
+   },
+   "0x9c4": {
+    "2": 1
+   },
+   "0x9c6": {
+    "2": 1
+   },
+   "0x9c8": {
+    "2": 1
+   },
+   "0x9ca": {
+    "2": 1
+   },
+   "0x9cc": {
+    "2": 1
+   },
+   "0x9ce": {
+    "2": 1
+   },
+   "0x9d0": {
+    "2": 1
+   },
+   "0x9d2": {
+    "2": 1
+   },
+   "0x9d4": {
+    "2": 1
+   },
+   "0x9d6": {
+    "2": 1
+   },
+   "0x9de": {
+    "2": 1
+   },
+   "0x9e0": {
+    "2": 1
+   },
+   "0x9e2": {
+    "2": 1
+   },
+   "0x9e4": {
+    "2": 1
+   },
+   "0x9e6": {
+    "2": 1
+   },
+   "0x9e8": {
+    "2": 1
+   },
+   "0x9ea": {
+    "2": 1
+   },
+   "0x9ec": {
+    "2": 1
+   },
+   "0x9ee": {
+    "2": 1
+   },
+   "0x9f6": {
+    "2": 1
+   },
+   "0x9f8": {
+    "2": 1
+   },
+   "0x9fa": {
+    "2": 1
+   },
+   "0x9fc": {
+    "2": 1
+   },
+   "0x9fe": {
+    "2": 1
+   },
+   "0xa00": {
+    "2": 1
+   },
+   "0xa02": {
+    "2": 1
+   },
+   "0xa04": {
+    "2": 1
+   },
+   "0xa06": {
+    "2": 1
+   },
+   "0xa08": {
+    "2": 1
+   },
+   "0xa0a": {
+    "2": 1
+   },
+   "0xa0c": {
+    "2": 1
+   },
+   "0xa26": {
+    "2": 1
+   },
+   "0xa28": {
+    "2": 1
+   },
+   "0xa2a": {
+    "2": 1
+   },
+   "0xa2c": {
+    "2": 1
+   },
+   "0xa2e": {
+    "2": 1
+   },
+   "0xa30": {
+    "2": 1
+   },
+   "0xbca": {
+    "2": 1
+   },
+   "0xbcc": {
+    "2": 1
+   },
+   "0xbce": {
+    "2": 1
+   },
+   "0xc": {
+    "1": 2,
+    "2": 1
+   },
+   "0xc66": {
+    "2": 1
+   },
+   "0xc68": {
+    "2": 1
+   },
+   "0xc6a": {
+    "2": 1
+   },
+   "0xc6c": {
+    "2": 1
+   },
+   "0xc6e": {
+    "2": 1
+   },
+   "0xc70": {
+    "2": 1
+   },
+   "0xcc6": {
+    "2": 1
+   },
+   "0xcc8": {
+    "2": 1
+   },
+   "0xcca": {
+    "2": 1
+   },
+   "0xccc": {
+    "2": 1
+   },
+   "0xcce": {
+    "2": 1
+   },
+   "0xcd0": {
+    "2": 1
+   },
+   "0xcd2": {
+    "2": 1
+   },
+   "0xcd4": {
+    "2": 1
+   },
+   "0xcd6": {
+    "2": 1
+   },
+   "0xcde": {
+    "2": 1
+   },
+   "0xce0": {
+    "2": 1
+   },
+   "0xce2": {
+    "2": 1
+   },
+   "0xcea": {
+    "2": 1
+   },
+   "0xcec": {
+    "2": 1
+   },
+   "0xcee": {
+    "2": 1
+   },
+   "0xcf6": {
+    "2": 1
+   },
+   "0xcf8": {
+    "2": 1
+   },
+   "0xcfa": {
+    "2": 1
+   },
+   "0xcfc": {
+    "2": 1
+   },
+   "0xcfe": {
+    "2": 1
+   },
+   "0xd": {
+    "1": 1
+   },
+   "0xd00": {
+    "2": 1
+   },
+   "0xd02": {
+    "2": 1
+   },
+   "0xd04": {
+    "2": 1
+   },
+   "0xd06": {
+    "2": 1
+   },
+   "0xd08": {
+    "2": 1
+   },
+   "0xd0a": {
+    "2": 1
+   },
+   "0xd0c": {
+    "2": 1
+   },
+   "0xd0e": {
+    "2": 1
+   },
+   "0xd10": {
+    "2": 1
+   },
+   "0xd12": {
+    "2": 1
+   },
+   "0xe": {
+    "1": 2
+   },
+   "0xe1c": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x232920"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e81f0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x232920"
+     ],
+     "value": 3616
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x232920"
+     ],
+     "value": {
+      "0xc": [
+       2
+      ],
+      "0xe": [
+       1
+      ],
+      "0xe1c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x232920"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x232920"
+     ],
+     "value": {
+      "0x0": "0x7e81f0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e81f0"
+     ],
+     "value": {
+      "count": 17,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GKeyboard@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2329b7"
+       },
+       {
+        "name": "?init@Keyboard@@UAEXXZ",
+        "slot": 1,
+        "target": "0x23260f"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 9,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?update@Keyboard@@UAEXXZ",
+        "slot": 10,
+        "target": "0x232bc7"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?createStreamMessages@Keyboard@@UAEXXZ",
+        "slot": 15,
+        "target": "0x2326fb"
+       },
+       {
+        "name": "__purecall",
+        "slot": 16,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7e81f0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 13,
+  "retail_vtables": {
+   "0x7e81f0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GKeyboard@@UAEPAXI@Z",
+     "1": "?init@Keyboard@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "??1Region2D@@QAE@XZ",
+     "10": "?update@Keyboard@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "__purecall",
+     "15": "?createStreamMessages@Keyboard@@UAEXXZ",
+     "16": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 18,
+   "4": 1,
+   "12": 1,
+   "13": 1,
+   "14": 2,
+   "16": 2,
+   "3612": 1,
+   "3616": 5
+  },
+  "views": 31,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Keyboard.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Keyboard.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/Input/KeyboardInitUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxRva00322A49.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetHorizontalSlider.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetImageComboBox.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxMultiInput.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004C662Factory.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 14,
+   "sources": [
+    "Code/GameEngineDevice/Source/Win32Device/GameClient/Win32DIKeyboard.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/KeyboardInitUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/Input/KeyboardRva00232AE8.cpp",
+    "Code/GameEngine/Source/GameClient/Input/rva00232B7BRva00232B7BFarm.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/KeyboardInitUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/Input/KeyboardRva00232AE8.cpp",
+    "Code/GameEngine/Source/GameClient/Input/rva00232B7BRva00232B7BFarm.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/KeyboardInitUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/Input/KeyboardRva00232AE8.cpp",
+    "Code/GameEngine/Source/GameClient/Input/rva00232B7BRva00232B7BFarm.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 30,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/KeyboardRva00232AE8.cpp",
+    "Code/GameEngine/Source/GameClient/Input/rva00232B7BRva00232B7BFarm.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 3612,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Input/KeyboardInitUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/Input/KeyboardRva00232AE8.cpp",
+    "Code/GameEngine/Source/GameClient/Input/rva00232B7BRva00232B7BFarm.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 12]]": 1,
+    "[[0, 8]]": 1
+   },
+   "class": "Keyboard"
+  }
+ ],
+ "size": 3616,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "s04()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "s28()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "s2C()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "s30()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "s34()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "s38()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot3C()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "slot40(BfmeE8*)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "s08()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "s0C()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "s10()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "s14()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "s18()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "s1C()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "s20()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "s24()"
+  }
+ }
+}
