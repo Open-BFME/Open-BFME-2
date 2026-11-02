@@ -162,11 +162,7 @@ public:
 typedef Object *(BfmeC1050::*Go1050Typed)(const Coord3D *pos, const Region3D *region, Real maxDist, Int distType,
 		Rva000421C8 *filters);
 
-class AttackPriorityInfo
-{
-public:
-	Real getPriority(const Object *hunter, const Object *target, bool flag) const;	// 0x00357CDE
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
 // The script engine's default attack priority info.
 class Rva0020391FLeaGetter

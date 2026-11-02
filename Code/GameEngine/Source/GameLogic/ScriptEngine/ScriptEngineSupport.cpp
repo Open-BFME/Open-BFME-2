@@ -23,7 +23,7 @@ struct CombatChainAIDataView { char unknown00[0x54]; float scale; };
 class AI;
 extern AI *TheAI;
 struct CombatChainAIView { char unknown00[0x18]; CombatChainAIDataView *data; };
-class AttackPriorityInfo { public: float doModPriorityByCombatChain(float,const Object *,const Object *) const; };
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 float AttackPriorityInfo::doModPriorityByCombatChain(float priority,const Object *searcher,const Object *target) const
 {
     int chain = searcher->m_template->chain;

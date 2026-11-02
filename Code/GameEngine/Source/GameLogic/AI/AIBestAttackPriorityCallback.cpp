@@ -8,11 +8,7 @@
 // Retail compares with fcompi, which MSVC 7.1 emits only under /arch:SSE.
 // Names are address-derived.
 class Object;
-class AttackPriorityInfo
-{
-public:
-	float getPriority(const Object *hunter, const Object *target, bool flag) const;
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 struct Rva002FDB93Best
 {
 	float m_bestPriority;			// +0x00

@@ -132,12 +132,7 @@ public:
 	virtual void onTeamSet();			// slot 13 (+0x34)
 };
 
-class AttackPriorityInfo
-{
-public:
-	char m_pad0[4];
-	AsciiString m_name;		// +4
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 

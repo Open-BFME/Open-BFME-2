@@ -63,11 +63,7 @@ template <> class AIHuntSlots<0>
 {
 };
 
-class AttackPriorityInfo
-{
-public:
-	Real getPriority(const Object *obj, const Object *target, Bool b) const;
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
 class AIHuntState;
 

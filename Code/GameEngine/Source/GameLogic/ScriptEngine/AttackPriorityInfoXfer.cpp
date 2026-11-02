@@ -83,20 +83,7 @@ extern ThingFactory *TheThingFactory;
 typedef _STL::map< const ThingTemplate *, Int, _STL::less< const ThingTemplate * > > AttackPriorityMap;
 
 
-class AttackPriorityInfo
-{
-public:
-	void setPriority( const ThingTemplate *tThing, Int priority );
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	AsciiString m_name;																												///< 0x04
-	Int m_defaultPriority;																										///< 0x08
-	AttackPriorityMap *m_priorityMap;																					///< 0x0C
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method

@@ -23,12 +23,7 @@ private:
 	OBJCLASS *m_cur;
 	GetNextFunc m_getNextFunc;
 };
-class AttackPriorityInfo
-{
-public:
-	unsigned int m_head;
-	StringBase<char> m_name;
-};
+#include "../../../Include/GameLogic/AttackPriorityInfo.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 #include "../../../Include/Common/TeamBFME2.h"

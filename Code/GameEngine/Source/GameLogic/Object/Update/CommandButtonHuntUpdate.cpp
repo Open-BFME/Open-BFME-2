@@ -93,11 +93,7 @@ private:
 
 class SpecialPowerModuleInterface;
 
-class AttackPriorityInfo
-{
-public:
-	Real getPriority(const Object *source, const Object *target, Bool flag) const;	// 0x00357CDE
-};
+#include "../../../../Include/GameLogic/AttackPriorityInfo.h"
 
 class AIUpdateInterface
 {

@@ -97,7 +97,7 @@ void XferLocomotorSetType(Xfer *, int *);
 void XferWhichTurretType(Xfer *, int *);
 void XferAttitudeType(Xfer *, int *);
 class PolygonTrigger { public: char m_pad[0x40]; AsciiString m_name; };
-class AttackPriorityInfo { public: char m_pad[4]; AsciiString m_name; };
+#include "../../../../Include/GameLogic/AttackPriorityInfo.h"
 #include "../../../../Include/GameLogic/Waypoint.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
