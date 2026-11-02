@@ -20897,3 +20897,9 @@ Code/GameEngine/Source/Common/io_open.cpp|member|BfmeTagVIF|m_bfme08,16548cfffaf
 Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp|class||OwnerAudioEvent003FDF1B,4fe1f5ba94546b78349bdad7,claude-haiku-5-5,drz-k9-n33g2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp|class||NarrowStrSource0059B0DD,4d34e9f842c1464d150095f2,claude-haiku-5-5,drz-k9-n33g2-review,w-2a58b1ead41e,2026-11-01
 Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB06.cpp|class||Rva002D62ABFlashState,2320746f2abdcf73ead5129c,claude-haiku-5-5,drz-k3-n33h2-review,w-a3d394d58042,2026-11-01
+Code/GameEngine/Source/GameNetwork/Rva0080A110Route.cpp|class||Rva0080A110Message,1822444540c4ab6bf7d8cf3e,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmePairVJU,3701639db4b9428887e2ffee,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeElementVJU,7141cb16e3d45df1e9aa9868,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeBrowserLookupVJU,dc5c518582f5082cdc750198,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeBrowserSenderVJU,6de266148135165c252859a8,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
+Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp|class||BfmeBrowserNotifyVJU,cc242910b258ce275bb4e338,gpt-6,network-name-review-20261102,w-c1b03bfb0a31,2026-11-02
