@@ -13,6 +13,18 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 # Linking obstacle register
 
+### Six-source rendering and transport Matrix3D batch (2026-11-02)
+
+68 native/EH rows and 174 retained external code definitions preserved; 6 owning Matrix3D queue rows retired. Strict/current and new-variant checks pass. Bounded preview remains distinct from a census; outgoing audit exit 2, complete current selection and runtime remain unproven.
+[Batch evidence](../reverse/attempt_support/six-storage-adoptions-batch-20261102-1509.md).
+
+
+### Use canonical Matrix3D storage in matrix comparisons (2026-11-02)
+
+This source removes its private Matrix3D definition. Direct access to the existing canonical rows preserves native comparison bodies and relocation targets; bounded predictions remain separate from full current linking and runtime proof.
+[Evidence](../reverse/attempt_support/matrix-comparison-matrix3d-20261102-1509.md).
+
+
 ### Use canonical Matrix3D storage in horde model-state transforms (2026-11-02)
 
 This source removes one private Matrix3D definition in favor of the existing canonical storage. Retained native code and relocation targets are checked; bounded linking predictions remain separate from full current selection and runtime proof.

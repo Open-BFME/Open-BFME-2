@@ -7,20 +7,14 @@
 #include "Vector4Data.h"
 
 
-class Matrix3D
-{
-public:
-	const Vector4 &operator[](int index) const { return m_row[index]; }
+#include "Matrix3DData.h"
 
-private:
-	Vector4 m_row[3];
-};
 
 __forceinline bool operator==(const Matrix3D &a, const Matrix3D &b)
 {
 	for (int row = 0; row < 3; ++row) {
 		for (int column = 0; column < 4; ++column) {
-			if ((&a[row].X)[column] != (&b[row].X)[column]) {
+			if ((&a.Row[row].X)[column] != (&b.Row[row].X)[column]) {
 				return false;
 			}
 		}
