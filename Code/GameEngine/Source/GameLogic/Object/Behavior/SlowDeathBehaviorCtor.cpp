@@ -144,7 +144,3 @@ SlowDeathBehavior::SlowDeathBehavior(Thing *thing, const ModuleData *moduleData)
 
 	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0ClearanceTestingSlowDeathBehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z=??0SlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z")

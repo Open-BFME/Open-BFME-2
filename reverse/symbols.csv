@@ -1324,7 +1324,6 @@ name,address,notes
 ??0ChangeStanceGroupOrder@@QAE@ABV0@@Z,0x00546B08,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/AI/ChangeStanceGroupOrderCtor.cpp (row not yet given back)
 ??0CivilianSpawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x0047F9D4,(Thing*;ModuleData*) ctor called by CivilianSpawnUpdate::friend_newModuleInstance (0x0024BF24); class from the ModuleFactory registration literal
 ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x00483D39,(Thing*;ModuleData*) ctor called by ClearanceTestingSlowDeathBehavior::friend_newModuleInstance (0x0024C50D); class from the ModuleFactory registration literal
-??0ClearanceTestingSlowDeathBehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045D4B4,callee of 0ClearanceTestingSlowDeathBehavior (0x00483D39) at the site its BFME1 donor calls it; may be an ICF alias
 ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,0x0045961D,(Thing*;ModuleData*) ctor called by ClickReactionBehavior::friend_newModuleInstance (0x0024AE9B); class from the ModuleFactory registration literal
 ??0CloudBreakSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C44D8,(Thing*;ModuleData*) ctor called by CloudBreakSpecialPower::friend_newModuleInstance (0x00251E20); class from the ModuleFactory registration literal
 ??0CombineHordeSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C87C4,(Thing*;ModuleData*) ctor called by CombineHordeSpecialPower::friend_newModuleInstance (0x002527B9); class from the ModuleFactory registration literal

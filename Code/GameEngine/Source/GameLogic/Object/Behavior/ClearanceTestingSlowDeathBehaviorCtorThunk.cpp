@@ -53,17 +53,20 @@ public:
 	virtual void clearanceTestingSlowDeathBehaviorIface5Anchor();
 };
 
-class ClearanceTestingSlowDeathBehaviorBase : public BehaviorModule,
+// The base is SlowDeathBehavior: the derived ctor 0x00483D39 calls the rowed
+// ??0SlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z at 0x0045D4B4
+// (Zero Hour: ClearanceTestingSlowDeathBehavior : public SlowDeathBehavior).
+class SlowDeathBehavior : public BehaviorModule,
 	public ClearanceTestingSlowDeathBehaviorIface1,
 	public ClearanceTestingSlowDeathBehaviorIface2,
 	public ClearanceTestingSlowDeathBehaviorIface3,
 	public ClearanceTestingSlowDeathBehaviorIface4
 {
 public:
-	ClearanceTestingSlowDeathBehaviorBase(Thing *thing, const ModuleData *moduleData);
+	SlowDeathBehavior(Thing *thing, const ModuleData *moduleData);
 };
 
-class ClearanceTestingSlowDeathBehavior : public ClearanceTestingSlowDeathBehaviorBase,
+class ClearanceTestingSlowDeathBehavior : public SlowDeathBehavior,
 	public ClearanceTestingSlowDeathBehaviorIface5
 {
 public:
@@ -72,6 +75,6 @@ public:
 
 // ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
 ClearanceTestingSlowDeathBehavior::ClearanceTestingSlowDeathBehavior(Thing *thing, const ModuleData *moduleData)
-	: ClearanceTestingSlowDeathBehaviorBase(thing, moduleData)
+	: SlowDeathBehavior(thing, moduleData)
 {
 }
