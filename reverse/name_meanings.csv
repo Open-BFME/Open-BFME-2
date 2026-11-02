@@ -916,3 +916,11 @@ Code/GameEngine/Source/Common/RvaPayloadValueFactories.cpp|param|RvaCloneResult|
 Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp|param|allied|a,239764079b99c0d16ae7c8b1,claude-haiku-5-5,drz-k9-n41h,w-2a58b1ead41e,2026-11-02,4de75536a471e6aa605ea64e
 Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp|param|allied|b,c4861606dfaf49c8dd30f6cd,claude-haiku-5-5,drz-k9-n41h,w-2a58b1ead41e,2026-11-02,4c382ecdfd8fc8d5334497cf
 Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp|param|difficultyPoints|n,98cc1847cd61a50e71d85aba,claude-haiku-5-5,drz-k9-n41h,w-2a58b1ead41e,2026-11-02,e19373a9fbcd9746faadfcf7
+Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp|param|Rva00412689SkipSpaces|p,cf467f58463b585828d1d8f0,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,a4e8a4ebf103b3edcf1bb71f
+Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp|param|Rva004126A6SkipPastEquals|p,6a4bcad5c815b463eb7a45d7,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,093462f445e077f30b8e4778
+Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp|param|Rva004126BDSkipPastAmpersand|p,26828bcdd83d0c35617c2a6f,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,f9f8b511626ffbd2a2b68de0
+Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp|local|Rva0031DCF0::~Rva0031DCF0|n,bd6d7a234652bf2c6f26a8ae,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,a81bc865ba7b3f70f253091a
+Code/GameEngine/Source/GameClient/GUI/ControlBar/UnitHelpSource.cpp|param|hasKind|n,a848a228d4b7372fd861dd3e,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,f56ddec1ebef8fbd19a764a5
+Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSetValidationFlags.cpp|local|GadgetComboBoxSetValidationFlags|f,ca8f8fbe79a65c7612ae9775,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,5283d84bae3032da25e8dffa
+Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSetValidationFlags.cpp|local|GadgetComboBoxSetValidationFlags|c,0022e18ec49e444084bf624f,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,412dd6ebd254b1060dd44374
+Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenBaseConstructor.cpp|local|BfmeAptScreenBase::BfmeAptScreenBase|p,f0d830b4a867b48b57f4e685,claude-haiku-5-5,drz-k5-n43d,w-b45613012194,2026-11-02,5b3a938e5a9f91603a57b88a
