@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 
 // ?Draw_Sentence@Render2DSentenceClass@@QAEXKKKK@Z, retail 0x00155B00, 2187 B.
 // Donor: ZH render2dsentence.cpp Render2DSentenceClass::Draw_Sentence (one colour),
@@ -73,13 +73,7 @@ class FontCharsClass;
 
 // SurfaceClass is the one-pointer native wrapper over the COM resource; the
 // sentence's current surface is read through it for the texture size.
-class SurfaceClass
-	: public W3DRadarResetSurface
-{
-public:
-	struct SurfaceDescription { int Format; unsigned Width, Height; };
-	void Get_Description(SurfaceDescription &desc);
-};
+#include "W3DSurfaceClass.h"
 
 typedef unsigned long BfmeUInt32;
 

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // W3DRadar object-list render, retail 0x00050125 (1049 B), placed with the
 // five static helpers retail calls through private register conventions (so
@@ -129,7 +129,7 @@ public:
 	Color m_color;
 };
 
-class SurfaceClass { public: void DrawPixel(UnsignedInt x, UnsignedInt y, UnsignedInt color); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 class W3DRadarResetSurface { public: ~W3DRadarResetSurface(); void *m_surface; };
 class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); void *m_texture; };
 

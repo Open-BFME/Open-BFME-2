@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Include /ICode/GameEngine/Source/Common
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Include /ICode/GameEngine/Source/Common C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native [0004FAFF,000500E5), 1510B through the native RET4.
 // Existing refreshTerrain500F7 call proves the protected terrain-builder role.
 // ZH W3DRadar::buildTerrainTexture is the semantic/loop guide (BF1 pointer
@@ -43,7 +43,7 @@ class BfmeMapPictureTexture { public: TextureClass *ptr; BfmeMapPictureTexture(c
 class BfmeResetTextureRef { public: void clear(); };
 class W3DRadarResetSurface { void *ptr; public: ~W3DRadarResetSurface(); };
 class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); };
-class SurfaceClass { public: void DrawPixel(unsigned,unsigned,unsigned); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 void BFME_DX8_Thread_Lock(); bool BFME_DX8_Thread_Assert();
 class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();} };
 class Radar { public: bool radarToWorld(const ICoord2D*,Coord3D*); float getTerrainAverageZ() const {return averageZ;} private: char pad0[0x1c];float averageZ;char pad20[0x1430-0x20]; };

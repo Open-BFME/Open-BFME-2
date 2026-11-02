@@ -30,11 +30,7 @@ typedef int Color;
 
 #include "ascii_string.h"
 #include "Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2ParticleTextureHandles.h"
-class SurfaceClass {
-public:
- struct SurfaceDescription { unsigned Format,Width,Height; };
- void Get_Description(SurfaceDescription &);
-};
+#include "../../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 class W3DRadarResetSurface
 {
 public:

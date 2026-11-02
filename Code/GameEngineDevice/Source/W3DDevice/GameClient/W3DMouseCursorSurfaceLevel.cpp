@@ -1,4 +1,4 @@
-// cl: /Oy- /MD /EHsc /DNDEBUG
+// cl: /Oy- /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 // ?Get_Surface_Level@CursorTextureSlot@@QAE?AVW3DRadarResetSurface@@XZ,
 // retail 0x00132D70, 25 bytes. Zero-level forwarder: the cursor loader keeps
@@ -28,11 +28,7 @@ public:
 
 // The holder's level-fill callee is the rowed SurfaceClass::TintSurface
 // (0x00116990, SurfaceByteSize.cpp); the holder is passed as its this.
-class SurfaceClass
-{
-public:
-	void TintSurface(float a, float b, float c);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"
 
 struct CursorTextureSlot
 {

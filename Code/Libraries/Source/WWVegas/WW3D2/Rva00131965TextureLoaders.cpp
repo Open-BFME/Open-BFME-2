@@ -90,7 +90,7 @@ extern "C" long __stdcall D3DXGetImageInfoFromFileInMemory(const void*,unsigned,
 #include "WW3DClass.h"
 class BfmeResetTextureBackend {public:void CreateTexture(int,int,int,int,int,int,int);};
 class SurfaceResource {public:virtual void slot0();virtual void slot1();virtual unsigned long __stdcall Release();};
-class SurfaceClass {public:void DrawPixel(unsigned,unsigned,unsigned);};
+#include "W3DSurfaceClass.h"
 class W3DRadarResetSurface {
 public:W3DRadarResetSurface(SurfaceResource*);~W3DRadarResetSurface();
  __forceinline void DrawPixel(unsigned x,unsigned y,unsigned c){reinterpret_cast<SurfaceClass*>(this)->DrawPixel(x,y,c);}

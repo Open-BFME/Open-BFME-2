@@ -23,14 +23,7 @@ class IDirect3DSurface9;
 #include "DX8WrapperClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/surfaceclass.h
-class SurfaceClass
-{
-public:
-	SurfaceClass(unsigned width, unsigned height, WW3DFormat format, D3DPOOL pool);
-
-private:
-	IDirect3DSurface9 *D3DSurface;
-};
+#include "W3DSurfaceClass.h"
 
 // A record made around an item it then wakes (trimmed from a five-body donor;
 // the other four are declared-only here).
@@ -150,7 +143,7 @@ public:
 
 SurfaceClass::SurfaceClass(unsigned width, unsigned height, WW3DFormat format, D3DPOOL pool)
 {
-	D3DSurface = DX8Wrapper::_Create_DX8_Surface(width, height, format, pool);
+	field00 = DX8Wrapper::_Create_DX8_Surface(width, height, format, pool);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

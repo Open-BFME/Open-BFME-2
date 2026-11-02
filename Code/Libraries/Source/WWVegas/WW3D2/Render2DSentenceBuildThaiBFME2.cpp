@@ -1,6 +1,6 @@
 // ?Rva00158E90@Render2DSentenceClass@@AAE?AVVector2@@PBGPAH1_N@Z @0x00158E90 2151B.
 // stlport
-// cl: /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE /G7 /DNDEBUG /MD /EHs /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE /G7 /DNDEBUG /MD /EHs /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // Render2DSentenceClass::Rva00158E90 (original name unknown): the Thai sentence builder that
 // Build_Sentence_Not_Centered (0x00159700) hands Thai text to. Evidence and earlier rounds:
 // reverse/attempt_support/158e90-claude3-20261020.md and the 158e90-* handoffs beside it.
@@ -166,13 +166,7 @@ typedef _D3DPOOL D3DPOOL;
 // SurfaceClass is the one-pointer native wrapper whose constructor writes
 // the COM resource at offset zero.  Its implicit destructor invokes the
 // native W3DRadarResetSurface base destructor for the temporary lifetime.
-class SurfaceClass
-	: public W3DRadarResetSurface
-{
-public:
-	SurfaceClass(unsigned width, unsigned height, WW3DFormat format, D3DPOOL pool);
-	void Unlock();
-};
+#include "W3DSurfaceClass.h"
 
 class Render2DClass;
 
