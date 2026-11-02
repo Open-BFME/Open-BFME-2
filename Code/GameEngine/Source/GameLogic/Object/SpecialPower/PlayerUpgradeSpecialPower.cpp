@@ -69,15 +69,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_opaque[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class PlayerUpgradeSpecialPowerModuleData : public SpecialPowerModuleData
 {

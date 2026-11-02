@@ -72,22 +72,8 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
-class SpecialPowerModuleData : public ModuleData
-{
-public:
-	char m_pad04[4];
-	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x08
-	char m_pad0C[1];
-	Bool m_startsPaused; // +0x0D
-	char m_pad0E[0x61 - 0x0E];
-	Bool m_readyAtCreation; // +0x61
-};
 
 #include "../../../../Include/GameClient/InGameUI.h"
 
@@ -161,7 +147,7 @@ SpecialPowerModule::SpecialPowerModule(Thing *thing, const ModuleData *moduleDat
 	if (md->m_startsPaused)
 		pauseCountdown(TRUE);
 
-	if (md->m_readyAtCreation)
+	if (md->field61)
 		m_availableOnFrame = TheGameLogic->getFrame();
 
 	// add this weapon to the UI if it has a public timer for all to see

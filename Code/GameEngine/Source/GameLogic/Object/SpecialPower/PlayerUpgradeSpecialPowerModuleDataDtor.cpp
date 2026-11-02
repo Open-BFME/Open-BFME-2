@@ -26,15 +26,7 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_opaque[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class __declspec(novtable) PlayerUpgradeSpecialPowerModuleData : public SpecialPowerModuleData
 {

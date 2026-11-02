@@ -38,11 +38,7 @@ public:
 	int getID() const { return m_id; }
 };
 
-struct SpecialPowerModuleData
-{
-	char m_pad00[8];
-	const Overridable *m_specialPowerTemplate;				// +0x08
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class InGameUI
 {

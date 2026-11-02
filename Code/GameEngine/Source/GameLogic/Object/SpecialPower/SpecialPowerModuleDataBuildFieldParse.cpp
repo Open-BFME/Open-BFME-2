@@ -40,11 +40,7 @@ extern const int g_emptyFieldParseTable[4];
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class SpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 void SpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

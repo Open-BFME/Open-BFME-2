@@ -39,15 +39,7 @@ private:
 	unsigned m_unknown;
 };
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 struct OCLUpgradePair
 {

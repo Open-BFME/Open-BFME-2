@@ -16,14 +16,7 @@
 
 #include "ascii_string.h"
 
-class SpecialPowerModuleData
-{
-public:
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class __declspec(novtable) ProductionSpeedBonusModuleData : public SpecialPowerModuleData
 {

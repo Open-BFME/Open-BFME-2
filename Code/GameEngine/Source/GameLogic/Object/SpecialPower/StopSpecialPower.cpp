@@ -44,14 +44,7 @@ extern "C" const void *const __identifier("??_7CombineHordeSpecialPowerModuleDat
 
   // folded vftable 0x00C5E7A8 (2 classes), by its data-ledger name
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class StopSpecialPowerModuleData : public SpecialPowerModuleData
 {

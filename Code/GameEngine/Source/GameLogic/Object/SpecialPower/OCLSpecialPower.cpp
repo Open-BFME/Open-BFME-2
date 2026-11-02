@@ -158,15 +158,7 @@ private:
 // Opaque intermediate base (DeliverPayloadAIUpdateCtor precedent: the pin
 // claims only the address): the rowed SpecialPowerModuleData base plus
 // 0x64 of unknown intermediate storage.
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4]; // +0x04..+0x7B
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 // BFME1 OCLSpecialPower.cpp parseOCLUpgradePair: science plus OCL pair.
 struct OCLUpgradePair

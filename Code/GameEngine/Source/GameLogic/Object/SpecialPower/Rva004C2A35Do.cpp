@@ -32,14 +32,7 @@ private:
 };
 #define OBJECT_DISABLED_MASK(object) \
 	((const BitFlags<11> *)((const char *)(object) + 0x1C8))
-class SpecialPowerModuleData
-{
-public:
-	unsigned char m_pad00[0x0C];
-	Bool m_updateModuleStartsAttack;
-	unsigned char m_pad0D[0x68 - 0x0D];
-	Bool m_data68;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"

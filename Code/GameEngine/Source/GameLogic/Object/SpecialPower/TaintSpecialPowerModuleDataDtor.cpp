@@ -15,14 +15,7 @@
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
-class SpecialPowerModuleData
-{
-public:
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class __declspec(novtable) TaintSpecialPowerModuleData : public SpecialPowerModuleData
 {

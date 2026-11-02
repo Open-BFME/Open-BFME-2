@@ -38,15 +38,7 @@ struct RvaPair004C3D4C
 	~RvaPair004C3D4C() {}
 };
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class __declspec(novtable) ElvenWoodSpecialPowerModuleData : public SpecialPowerModuleData
 {

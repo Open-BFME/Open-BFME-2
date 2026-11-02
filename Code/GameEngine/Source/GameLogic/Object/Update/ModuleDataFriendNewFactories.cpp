@@ -199,17 +199,7 @@ ModuleData *ModelConditionSoundSelectorClientBehaviorModuleData::friend_newModul
 // factory 0x0024DC54) and SpecialPowerTimerRefreshSpecialPower (0x0025B79A);
 // news 0x7C, ctor ??0SpecialPowerModuleData (rowed 0x4930A0), parse proc
 // ?buildFieldParse@SpecialPowerModuleData (rowed 0x493207).
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 // ?friend_newModuleData@SpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *SpecialPowerModuleData::friend_newModuleData(INI *ini)

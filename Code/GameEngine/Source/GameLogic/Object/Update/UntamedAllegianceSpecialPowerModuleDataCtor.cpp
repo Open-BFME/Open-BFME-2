@@ -6,15 +6,7 @@
 // 0x2526DF (ManTheWalls/SplitHorde), 0x252768 (Repair) and 0x25287D
 // (HordeDispatch); all four new 0x7C with this one folded ctor. Named after
 // the lowest-address registration; the other three classes fold here.
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-protected:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class UntamedAllegianceSpecialPowerModuleData : public SpecialPowerModuleData
 {

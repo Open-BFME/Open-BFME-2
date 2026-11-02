@@ -43,15 +43,7 @@ public:
 	void applyFilter(BfmeFixedStorage0004543D storage);
 };
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-protected:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class InvisibilitySpecialPowerModuleData : public SpecialPowerModuleData
 {

@@ -90,18 +90,8 @@ public:
 
 extern ThingFactory *TheThingFactory;
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
-class SpecialPowerModuleData : public ModuleData
-{
-public:
-	char m_pad04[4];
-	const SpecialPowerTemplate *m_specialPowerTemplate;
-};
 
 #include "../../../../Include/Common/ObjectModule.h"
 

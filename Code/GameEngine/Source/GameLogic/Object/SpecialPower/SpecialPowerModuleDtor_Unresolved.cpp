@@ -75,20 +75,8 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct SpecialPowerCreationFrameView { char m_pad[0x40]; unsigned int m_frame; };
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
-class SpecialPowerModuleData : public ModuleData
-{
-public:
-	char m_pad04[4];
-	const SpecialPowerTemplate *m_specialPowerTemplate;
-	bool m_updateModuleStartsAttack;
-	bool m_startsPaused;
-};
 
 #include "../../../../Include/GameClient/InGameUI.h"
 

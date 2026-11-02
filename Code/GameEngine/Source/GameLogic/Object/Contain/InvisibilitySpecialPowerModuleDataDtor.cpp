@@ -19,14 +19,7 @@ private:
 	unsigned char m_data[4];
 };
 
-class SpecialPowerModuleData
-{
-public:
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class __declspec(novtable) InvisibilitySpecialPowerModuleData : public SpecialPowerModuleData
 {
