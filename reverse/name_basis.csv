@@ -6453,3 +6453,10 @@ local,Rva000E459F::rva000E459F::v,Rva000E459F::rva000E459F::level,inferred,agree
 local,Rva000E459F::rva000E46DA::v,Rva000E459F::rva000E46DA::fieldValue,inferred,agree:nl-72db0e86a82e,Code/GameEngine/Source/Common/Rva000E459F.cpp,0x000E46DA
 param,Rva000E459F::rva000E46DA::a2,Rva000E459F::rva000E46DA::secondName,inferred,agree:nl-e61b9ce48de4,Code/GameEngine/Source/Common/Rva000E459F.cpp,0x000E46DA
 param,matrixComponent#2::m,matrixComponent#2::matrix,inferred,agree:nl-25d8a27a8348,Code/GameEngine/Source/Common/Rva000E459F.cpp,
+local,Rva000E48BC::rva000E49B8::c,Rva000E48BC::rva000E49B8::samplePos,inferred,agree:nl-928cac46fc0e,Code/GameEngine/Source/Common/Rva000E48BC.cpp,0x000E49B8
+local,Transform_Vector::tmp,Transform_Vector::inputCopy,inferred,agree:nl-0eb04ff377c3,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
+local,Transform_Vector::v,Transform_Vector::source,inferred,agree:nl-91e232191432,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
+local,bfme_xform_cond::tmp,bfme_xform_cond::inputCopy,inferred,agree:nl-17e2ba1cc1e8,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
+local,bfme_xform_cond::v,bfme_xform_cond::source,inferred,agree:nl-33cb1ad4e3f7,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
+local,bfme_xform::tmp,bfme_xform::inputCopy,inferred,agree:nl-10a389d06022,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
+local,bfme_xform::v,bfme_xform::source,inferred,agree:nl-60bc4909d541,Code/GameEngine/Source/Common/Rva000E48BC.cpp,

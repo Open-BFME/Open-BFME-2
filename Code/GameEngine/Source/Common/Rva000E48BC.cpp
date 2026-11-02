@@ -43,17 +43,17 @@ public:
 	WWINLINE const Vector4 &operator[](int i) const { return Row[i]; }
 	static WWINLINE void Transform_Vector(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 	{
-		Vector3 tmp;
-		Vector3 *v;
+		Vector3 inputCopy;
+		Vector3 *source;
 		if (out == &in) {
-			tmp = in;
-			v = &tmp;
+			inputCopy = in;
+			source = &inputCopy;
 		} else {
-			v = (Vector3 *)&in;
+			source = (Vector3 *)&in;
 		}
-		out->X = (vector4Component(matrix3D[0], 0) * v->X + vector4Component(matrix3D[0], 1) * v->Y + vector4Component(matrix3D[0], 2) * v->Z + vector4Component(matrix3D[0], 3));
-		out->Y = (vector4Component(matrix3D[1], 0) * v->X + vector4Component(matrix3D[1], 1) * v->Y + vector4Component(matrix3D[1], 2) * v->Z + vector4Component(matrix3D[1], 3));
-		out->Z = (vector4Component(matrix3D[2], 0) * v->X + vector4Component(matrix3D[2], 1) * v->Y + vector4Component(matrix3D[2], 2) * v->Z + vector4Component(matrix3D[2], 3));
+		out->X = (vector4Component(matrix3D[0], 0) * source->X + vector4Component(matrix3D[0], 1) * source->Y + vector4Component(matrix3D[0], 2) * source->Z + vector4Component(matrix3D[0], 3));
+		out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
+		out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
 	}
 	// LINK: same-body file-static helper (identical inlined bytes; kept inside
 	// the same optimize region so codegen matches). This TU's Transform_Vector
@@ -62,17 +62,17 @@ public:
 	// (internal linkage, fully inlined). No flags touched.
 	static WWINLINE void bfme_xform(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 	{
-		Vector3 tmp;
-		Vector3 *v;
+		Vector3 inputCopy;
+		Vector3 *source;
 		if (out == &in) {
-			tmp = in;
-			v = &tmp;
+			inputCopy = in;
+			source = &inputCopy;
 		} else {
-			v = (Vector3 *)&in;
+			source = (Vector3 *)&in;
 		}
-		out->X = (vector4Component(matrix3D[0], 0) * v->X + vector4Component(matrix3D[0], 1) * v->Y + vector4Component(matrix3D[0], 2) * v->Z + vector4Component(matrix3D[0], 3));
-		out->Y = (vector4Component(matrix3D[1], 0) * v->X + vector4Component(matrix3D[1], 1) * v->Y + vector4Component(matrix3D[1], 2) * v->Z + vector4Component(matrix3D[1], 3));
-		out->Z = (vector4Component(matrix3D[2], 0) * v->X + vector4Component(matrix3D[2], 1) * v->Y + vector4Component(matrix3D[2], 2) * v->Z + vector4Component(matrix3D[2], 3));
+		out->X = (vector4Component(matrix3D[0], 0) * source->X + vector4Component(matrix3D[0], 1) * source->Y + vector4Component(matrix3D[0], 2) * source->Z + vector4Component(matrix3D[0], 3));
+		out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
+		out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
 	}
 };
 #pragma optimize("", on)
@@ -148,11 +148,11 @@ struct BitFlagsView
 // optimize region that the 0x000E48BC row above was verified under.
 static WWINLINE void bfme_xform_cond(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 {
-	Vector3 tmp;
-	Vector3 *v = (out == &in) ? (tmp = in, &tmp) : (Vector3 *)&in;
-	out->X = (vector4Component(matrix3D[0], 0) * v->X + vector4Component(matrix3D[0], 1) * v->Y + vector4Component(matrix3D[0], 2) * v->Z + vector4Component(matrix3D[0], 3));
-	out->Y = (vector4Component(matrix3D[1], 0) * v->X + vector4Component(matrix3D[1], 1) * v->Y + vector4Component(matrix3D[1], 2) * v->Z + vector4Component(matrix3D[1], 3));
-	out->Z = (vector4Component(matrix3D[2], 0) * v->X + vector4Component(matrix3D[2], 1) * v->Y + vector4Component(matrix3D[2], 2) * v->Z + vector4Component(matrix3D[2], 3));
+	Vector3 inputCopy;
+	Vector3 *source = (out == &in) ? (inputCopy = in, &inputCopy) : (Vector3 *)&in;
+	out->X = (vector4Component(matrix3D[0], 0) * source->X + vector4Component(matrix3D[0], 1) * source->Y + vector4Component(matrix3D[0], 2) * source->Z + vector4Component(matrix3D[0], 3));
+	out->Y = (vector4Component(matrix3D[1], 0) * source->X + vector4Component(matrix3D[1], 1) * source->Y + vector4Component(matrix3D[1], 2) * source->Z + vector4Component(matrix3D[1], 3));
+	out->Z = (vector4Component(matrix3D[2], 0) * source->X + vector4Component(matrix3D[2], 1) * source->Y + vector4Component(matrix3D[2], 2) * source->Z + vector4Component(matrix3D[2], 3));
 }
 
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
@@ -170,31 +170,31 @@ int Rva000E48BC::rva000E49B8(int player)
 		const Matrix3D *mtx = drawable->getTransformMatrix();
 		bfme_xform_cond(*mtx, *in, out);
 	}
-	Coord3D c;
-	c.x = __vref(m_pos.X);
-	c.y = m_pos.Y;
-	c.z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
+	Coord3D samplePos;
+	samplePos.x = __vref(m_pos.X);
+	samplePos.y = m_pos.Y;
+	samplePos.z = m_pos.Z;
+	if (!TheShroudManager->getShroudStatusForPlayer(player, &samplePos))
 		return visible;
-	c.x = m_pos.X + m_extent;
-	c.y = m_pos.Y;
-	c.z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
+	samplePos.x = m_pos.X + m_extent;
+	samplePos.y = m_pos.Y;
+	samplePos.z = m_pos.Z;
+	if (!TheShroudManager->getShroudStatusForPlayer(player, &samplePos))
 		return visible;
-	c.x = m_pos.X - m_extent;
-	c.y = m_pos.Y;
-	c.z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
+	samplePos.x = m_pos.X - m_extent;
+	samplePos.y = m_pos.Y;
+	samplePos.z = m_pos.Z;
+	if (!TheShroudManager->getShroudStatusForPlayer(player, &samplePos))
 		return visible;
-	c.x = m_pos.X;
-	c.y = m_pos.Y + m_extent;
-	c.z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
+	samplePos.x = m_pos.X;
+	samplePos.y = m_pos.Y + m_extent;
+	samplePos.z = m_pos.Z;
+	if (!TheShroudManager->getShroudStatusForPlayer(player, &samplePos))
 		return visible;
-	c.x = m_pos.X;
-	c.y = m_pos.Y - m_extent;
-	c.z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
+	samplePos.x = m_pos.X;
+	samplePos.y = m_pos.Y - m_extent;
+	samplePos.z = m_pos.Z;
+	if (!TheShroudManager->getShroudStatusForPlayer(player, &samplePos))
 		return visible;
  }
 	return 0;
