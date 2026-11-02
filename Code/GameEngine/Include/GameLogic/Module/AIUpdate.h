@@ -297,7 +297,7 @@ public:
     virtual void *vslot099() const { return 0; } // 99: RVA 0x000D43D0
     virtual void *vslot100() { return 0; } // 100: RVA 0x000D43D0
     virtual void *vslot101() const { return 0; } // 101: RVA 0x000D43D0
-    virtual void *vslot102(); // 102: RVA 0x000D43D0
+    virtual void *vslot102() { return 0; } // 102: RVA 0x000D43D0
     virtual void joinTeam(); // 103: RVA 0x0026D478
     virtual int rva0026E988(); // 104: RVA 0x0026E988
     virtual int rva0026E999(); // 105: RVA 0x0026E999
