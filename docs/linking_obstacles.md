@@ -17894,3 +17894,8 @@ Evidence: reverse/attempt_support/factory-reset-header-20261102/ and
 reverse/attempt_support/factory-header-cohort-20261102/.
 The wider outgoing audit still requires current global evidence beyond the
 older984a4cdc4d index; its last missing receipt is0CreateAHeroManager21FE49.cpp.
+
+
+### Quaternion translation-unit profile boundary (2026-11-02)
+
+The approved quat.cpp merge still cannot absorb quat_BuildMatrix4.cpp: the carried seed override is SSE2, while the donor has no baseline match in that merge. Its own normal build remains 1/1 exact (375B; four float references). Both units are census-linked; no source, ownership or row changed. This is a consolidation prerequisite, not a link regression. [Current evidence and previous-boundary reference](../reverse/attempt_support/quat-tu-profile-20261102/README.md). A common-profile exact reconstruction is still required before the owning merge tool can remove the donor.

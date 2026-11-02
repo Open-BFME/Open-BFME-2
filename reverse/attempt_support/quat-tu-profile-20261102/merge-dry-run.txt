@@ -1,0 +1,8 @@
+tu: Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+approved: 17
+mixed: {}
+refused: {}
+accepted: []
+rejected: {'Code/Libraries/Source/WWVegas/WWMath/quat_BuildMatrix4.cpp': 'no baseline match'}
+link_guard: census-linked: Code/Libraries/Source/WWVegas/WWMath/quat.cpp, Code/Libraries/Source/WWVegas/WWMath/quat_BuildMatrix4.cpp
+blocked: no verified merge of two or more donors

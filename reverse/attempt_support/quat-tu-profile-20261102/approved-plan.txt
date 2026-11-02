@@ -1,0 +1,18 @@
+0x007173E0    116 Z ??0Quaternion@@QAE@ABVVector3@@M@Z                           pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717460    119 Z ?Normalize@Quaternion@@QAEXXZ                                pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x007174E0     99 Z ?Make_Closest@Quaternion@@QAEAAV1@ABV1@@Z                    pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717550    377 C ?BFME2_Nlerp@@YAXAAVQuaternion@@ABV1@1M@Z                    pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x007176D0    372 C ?Slerp@@YAXAAVQuaternion@@ABV1@1M@Z                          pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717850    179 C ?Slerp_Setup@@YAXABVQuaternion@@0PAUSlerpInfoStruct@@@Z      pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717910    294 C ?Cached_Slerp@@YA?AVQuaternion@@ABV1@0MPAUSlerpInfoStruct@@@ pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717A40    256 C ?Cached_Slerp@@YAXABVQuaternion@@0MPAUSlerpInfoStruct@@PAV1@ pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717B40    360 C ?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3D@@@Z          pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717CB0    372 C ?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix3@@@Z           pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717E30    353 C ?Build_Quaternion@@YA?AVQuaternion@@ABVMatrix4@@@Z           pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00717FA0    375 C ?Build_Matrix4@@YA?AVMatrix4@@ABVQuaternion@@@Z              pull Code/Libraries/Source/WWVegas/WWMath/quat_BuildMatrix4.cpp
+0x00718120    272 Z ?Rotate_X@Quaternion@@QAEXM@Z                                pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00718230    272 Z ?Rotate_Y@Quaternion@@QAEXM@Z                                pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00718340    272 Z ?Rotate_Z@Quaternion@@QAEXM@Z                                pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x00718450    130 C ?project_to_sphere@@YAMMMM@Z                                 pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+0x007184E0    217 Z ?Randomize@Quaternion@@QAEXXZ                                pull Code/Libraries/Source/WWVegas/WWMath/quat.cpp
+17 approved rows, 2 donor files, 0 mixed files, 0 refused files
