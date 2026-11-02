@@ -349,3 +349,4 @@ CreateModule,Code/GameEngine/Include/GameLogic/Module/CreateModuleClass.h,existi
 DX8IndexBufferClass,Code/Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h,existing header; contract class_contracts/DX8IndexBufferClass.json; 6/26 sampled units adopt
 ObjectTypes,Code/GameEngine/Include/GameLogic/ObjectTypesClass.h,existing header; contract class_contracts/ObjectTypes.json; 8/27 sampled units adopt
 TurretStateMachine,Code/GameEngine/Include/GameLogic/Module/TurretStateMachine.h,existing header; contract class_contracts/TurretStateMachine.json; 12/25 sampled units adopt
+ChunkLoadClass,Code/Libraries/Source/WWVegas/WWLib/ChunkLoadClass.h,existing header; contract class_contracts/ChunkLoadClass.json; 21/24 sampled units adopt
