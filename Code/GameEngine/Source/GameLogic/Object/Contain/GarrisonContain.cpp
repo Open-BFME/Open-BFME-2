@@ -24,19 +24,6 @@
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
 #include "../../../../Include/Common/TeamBFME2.h"
-//
-// ??0GarrisonContainModuleData@@QAE@XZ, retail 0x0047978F, 143 bytes
-// (pinned). Over the pinned ModuleData base 0x00465124 (whose dtor
-// 0x00257481 is state 0 of retail's unwind map): default the initial-roster
-// name at +0xA4 (state 1), reset the base's +0x40 filter through 0x00362192
-// with BitSet(0, 8) and a copy of the default storage at 0x00DFEFA4 (both
-// built in place in the argument slots), then the Zero Hour defaults:
-// mobile garrison, heal objects, frames for full heal (1.0 here),
-// clear-building immunity and roster count. Field names follow ZH
-// GarrisonContainModuleData; the +0x40 member is the Rva003623E5Member
-// filter record (its rowed initFromStorages 0x00362087 is a sibling method),
-// and 0x00362192 is pinned under an address name from this call and its three siblings (TunnelContain
-// 0x002579D5, 0x0039A14A, 0x004A045E).
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 class Rva00045411BitSet
 {
@@ -231,7 +218,6 @@ class Rva002C9400ByteField
 public:
     unsigned char get() const;
 };
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -241,9 +227,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 struct Rva0046247DPair;
-
 class HordeContainInterface
 {
 public:
@@ -266,7 +250,6 @@ public:
     virtual void h64(); virtual void h65();
     virtual Rva0046247DPair &slot108(Rva0046247DPair &p); // +0x108
 };
-
 class ContainModuleInterface
 {
 public:
@@ -280,9 +263,7 @@ public:
     virtual void c28(); virtual void c29(); virtual void c30();
     virtual HordeContainInterface *getHordeContainInterface(); // +0x7C
 };
-
 enum NameKeyType { NK_UNKNOWN = 0 };
-
 class ConditionBits
 {
 public:
@@ -291,23 +272,17 @@ public:
 private:
     unsigned int m_words[4];
 };
-
 enum ObjectStatusTypes
 {
     OBJECT_STATUS_NONE = 0
 };
-
 enum WeaponSlotType
 {
     PRIMARY_WEAPON = 0
 };
-
 class Weapon;
-
 class AIUpdateInterface;
-
 class ContainModuleInterface;
-
 // Native trackTargets reads ObjectID at +0x74 and Thing's position at +0x38;
 // validateRallyPoint 0x00478141 reads the bounding circle radius at +0xB8;
 // redeployOccupants 0x00479395 tests and sets the +0x10C condition bits
@@ -339,16 +314,11 @@ private:
     void *m_pad254;
     AIUpdateInterface *m_ai; // +0x258
 };
-
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-
 // Measured target helpers used by retail trackTargets at 0x00478ADB.
 struct Rva0046247DPair { void *first; void *second; };
-
 class Rva0046247D { public: void rva0046247D(Rva0046247DPair &result); };
-
 class Rva00264E93 { public: void *rva00264E93(); };
-
 // Retail dispatches the object-ID lookup through primary-vtable slot +0x6C.
 // The prefix records only that call slot; it does not name the implementation.
 class GarrisonContainIndexSlotView
@@ -365,18 +335,10 @@ public:
     virtual void slot60() = 0; virtual void slot64() = 0; virtual void slot68() = 0;
     virtual int objectIndex(int objectID) = 0;
 };
-
-// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
-// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
-// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva0047840CByteChase32Field, 0x1C, 0xA1)
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 // One garrison point record: 40 of them at +0x100, 0x14 bytes each (the
 // constructor 0x00477F06 zeroes five dwords per record, the matched
 // put/remove bodies store the object and target IDs and the place frame).
@@ -388,15 +350,12 @@ struct GarrisonPointData
 	unsigned int lastEffectFrame;
 	int effect;
 };
-
 enum
 {
 	MAX_GARRISON_POINTS = 40,
 	MAX_GARRISON_POINT_CONDITIONS = 3
 };
-
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
-
 enum BodyDamageType
 {
     BODY_PRISTINE = 0,
@@ -404,13 +363,9 @@ enum BodyDamageType
     BODY_REALLYDAMAGED = 2,
     BODY_RUBBLE = 3
 };
-
 class DamageInfo;
-
 struct Flags128;
-
 class ModuleData;
-
 // The garrison point element: a Coord3D with an out-of-line empty ctor and
 // dtor (the constructor's __ehvec_ctor and the destructor's vector
 // destructor iterator take the ICF-folded 0x0047A6A9 and 0x000B3FD0), unlike
@@ -420,7 +375,6 @@ struct Rva00477F06GarrisonPoint : public Coord3D
 	Rva00477F06GarrisonPoint();
 	~Rva00477F06GarrisonPoint();
 };
-
 // OpenContain's nine vftable-bearing bases, positional. The GarrisonContain
 // constructor 0x00477F06 (and the destructor 0x00478067, which restores the
 // same tables) stores nine vftables: +0x00 0x00C461F8 (28 slots), +0x0C
@@ -476,11 +430,8 @@ public:
     int m_pad4;
     Object *m_object;
 };
-
 class B1 { public: virtual void b1(); };
-
 class B2 { public: virtual UpdateSleepTime update() = 0; private: unsigned char m_pad[12]; };
-
 class B3
 {
 public:
@@ -564,11 +515,8 @@ public:
     virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, Object *victim);
     virtual bool attemptBestFirePointPosition(Object *source, Weapon *weapon, const Coord3D *targetPos);
 };
-
 class B4 { public: virtual void b4(); };
-
 class B5 { public: virtual void b5(); };
-
 class B6
 {
 public:
@@ -576,13 +524,9 @@ public:
     virtual void d01() = 0;
     virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
 };
-
 class B7 { public: virtual void b7(); };
-
 class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
-
 class Xfer;
-
 // OpenContain's own virtuals as the bodies call them by name: xfer (primary
 // slot 3) and loadPostProcess through explicit OpenContain:: calls, and
 // removeAllContained, which the matched 0x00478231 calls on its +0x20
@@ -599,7 +543,6 @@ protected:
     virtual void xfer(Xfer *xfer);
     virtual void loadPostProcess();
 };
-
 // GarrisonContain over the 0xFC-byte OpenContain. Offsets from the matched
 // bodies: +0xFC original team id (xfer 0x00478260), +0x100 point records,
 // +0x420 points in use, +0x424 the 3x40 garrison points (put 0x00477DA1,
@@ -646,20 +589,15 @@ private:
     bool m_hideGarrisonedStateFromNonallies; // +0x9DD
     bool m_rallyValid; // +0x9DE
 };
-
 class TeamFactory;
-
 #include "../../../../Include/Common/TeamFactory.h"
-
 extern TeamFactory *TheTeamFactory;
-
 class Rva004783F4Primary
 {
 public:
 	virtual void p00();
 	unsigned char m_pad[0x20 - 4];
 };
-
 class Rva004783F4ContainIface
 {
 public:
@@ -671,7 +609,6 @@ public:
 	virtual void s20();
 	virtual void setOriginalTeam(Team *team);
 };
-
 class Rva004783F4 : public Rva004783F4Primary, public Rva004783F4ContainIface
 {
 public:
@@ -682,7 +619,6 @@ private:
 	unsigned char m_pad[0xFC - 0x24];
 	unsigned int m_instance; // +0xFC team id
 };
-
 class OpenContainModuleData
 {
 public:
@@ -692,7 +628,6 @@ protected:
 	unsigned char m_pad04[0x3C];
 	Rva003623E5Member m_filter40;
 };
-
 class GarrisonContainModuleData : public OpenContainModuleData
 {
 public:
@@ -706,7 +641,6 @@ private:
 	AsciiString m_initialRosterTemplateName;	// +0xA4
 	int m_initialRosterCount;		// +0xA8
 };
-
 //
 // Retail 0x004697E1, 59 bytes, RET.
 // Virtual slot 33 on this (argument 0), a direct call to an unnamed member
@@ -720,7 +654,6 @@ public:
 	char unknown00[0x1D8];
 	bool flag;
 };
-
 class Rva004697E1Tail
 {
 public:
@@ -750,7 +683,6 @@ public:
 	virtual void slot23();
 	virtual void slot24();
 };
-
 class Rva004697E1Contain
 {
 public:
@@ -798,17 +730,13 @@ private:
 	char unknown120[0x2C5-0x120];
 	bool flag;
 };
-
 class GameLogic;
-
 extern GameLogic *TheGameLogic;
-
 struct GameLogicFrameView
 {
     char m_pad[0x40];
     unsigned int m_frame;
 };
-
 enum
 {
     GARRISON_POINT_PRISTINE = 0,
@@ -816,7 +744,6 @@ enum
     GARRISON_POINT_REALLY_DAMAGED = 2,
     GARRISON_INDEX_INVALID = -1
 };
-
 class BodyModule
 {
 public:
@@ -830,40 +757,30 @@ public:
     virtual void slot1C();
     virtual BodyDamageType getDamageState();
 };
-
 class ObjectBodyView
 {
 public:
     unsigned char m_pad[0x254];
     BodyModule *m_body;
 };
-
 class Object;
-
 class Rva00478231 : public Rva00478231Mid<48>
 {
 public:
 	virtual unsigned int getContainCount(unsigned int arg) = 0; // slot 0x114
 	void rva00478231(bool exposeStealthUnits);
 };
-
 #include "../../../../Include/Common/XferVersion.h"
-
 typedef bool Bool;
-
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
 #include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
-
 typedef unsigned short UnsignedShort;
-
 void XferObjectID( Xfer *xfer, ObjectID *value );
-
 void XferDrawableID( Xfer *xfer, Int *value );
-
 #include "../../../../Include/Common/XferException.h"
+#include <string.h>
+#pragma intrinsic(memset)
 
 class Team;
 
@@ -874,6 +791,26 @@ struct Flags128
     bool test(int i) const { return ((m_bits[i >> 5] >> (i & 31)) & 1) != 0; }
     unsigned int m_bits[4];
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
+
+//
+// ??0GarrisonContainModuleData@@QAE@XZ, retail 0x0047978F, 143 bytes
+// (pinned). Over the pinned ModuleData base 0x00465124 (whose dtor
+// 0x00257481 is state 0 of retail's unwind map): default the initial-roster
+// name at +0xA4 (state 1), reset the base's +0x40 filter through 0x00362192
+// with BitSet(0, 8) and a copy of the default storage at 0x00DFEFA4 (both
+// built in place in the argument slots), then the Zero Hour defaults:
+// mobile garrison, heal objects, frames for full heal (1.0 here),
+// clear-building immunity and roster count. Field names follow ZH
+// GarrisonContainModuleData; the +0x40 member is the Rva003623E5Member
+// filter record (its rowed initFromStorages 0x00362087 is a sibling method),
+// and 0x00362192 is pinned under an address name from this call and its three siblings (TunnelContain
+// 0x002579D5, 0x0039A14A, 0x004A045E).
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
@@ -1856,16 +1793,6 @@ void GarrisonContain::redeployOccupants()
     }
 }
 
-// tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainAddValidObjects.cpp
 
 // GarrisonContain::addValidObjectsToGarrisonPoints (0x0047894C, 399 bytes),
@@ -1948,6 +1875,78 @@ void GarrisonContain::addValidObjectsToGarrisonPoints()
         }
     }
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp
+
+//
+// ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00477F06,
+// 278 bytes. Zero Hour's GarrisonContain::GarrisonContain (GeneralsMD
+// GameLogic/Object/Contain/GarrisonContain.cpp). Target evidence: the body
+// runs the rowed OpenContain ctor 0x004649F8 and stores the nine vtables the
+// rowed dtor 0x00478067 restores (0x008461F8 primary, the table of the
+// deleting dtor 0x0047860D and the GarrisonContain pool key 0x0047801C),
+// then builds the 3x40 garrison point array at +0x424 through
+// __ehvec_ctor with an empty out-of-line element ctor/dtor (ICF-folded
+// 0x0047A6A9/0x000B3FD0; the +0x9D0 rally point is a plain Coord3D). As in
+// ZH it clears the original team (an id at +0xFC in BFME 2, per the rowed
+// xfer 0x00478844), the hide flag, the
+// in-use count and the initialized flag, zeroes the 40 point records
+// (+0x100, 0x14 each) and every condition's point, then clears the rally
+// flag and point. BFME 2 drops ZH's station-point list and evacuation
+// disposition and zeroes the 12-byte block at +0x9C4 the xfer skips.
+
+inline void zeroCoord(Coord3D &c)
+{
+	c.x = 0.0f;
+	c.y = 0.0f;
+	c.z = 0.0f;
+}
+
+// The out-of-line empty element ctor and dtor __ehvec_ctor receives; retail
+// folds them onto the shared 0x0047A6A9 (mov eax, ecx) and 0x000B3FD0 (ret).
+Rva00477F06GarrisonPoint::Rva00477F06GarrisonPoint()
+{
+}
+
+Rva00477F06GarrisonPoint::~Rva00477F06GarrisonPoint()
+{
+}
+
+GarrisonContain::GarrisonContain(Thing *thing, const ModuleData *moduleData)
+	: OpenContain(thing, moduleData)
+{
+	Int i, j;
+
+	m_originalTeamID = 0;
+	m_hideGarrisonedStateFromNonallies = false;
+	m_garrisonPointsInUse = 0;
+	m_garrisonPointsInitialized = false;
+
+	for (i = 0; i < MAX_GARRISON_POINTS; i++)
+	{
+		m_garrisonPointData[i].objectID = INVALID_OBJECT_ID;
+		m_garrisonPointData[i].targetID = INVALID_OBJECT_ID;
+		m_garrisonPointData[i].placeFrame = 0;
+		m_garrisonPointData[i].lastEffectFrame = 0;
+		m_garrisonPointData[i].effect = 0;
+
+		for (j = 0; j < MAX_GARRISON_POINT_CONDITIONS; ++j)
+			zeroCoord(m_garrisonPoint[j][i]);
+	}
+
+	memset(m_numGarrisonPoints, 0, sizeof(m_numGarrisonPoints));
+
+	m_rallyValid = false;
+	zeroCoord(m_exitRallyPoint);
+}
+
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00478629 112B ?rva00478629@GarrisonContain@@QAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x00478699 95B ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x004787B0 160B ?rva004787B0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRva004787B0.cpp (not merged yet)
 
 // tu-skeleton: 0x00478BE0 76B ?rva00478BE0@GarrisonContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainSiblingHelpers.cpp (not merged yet)
 
