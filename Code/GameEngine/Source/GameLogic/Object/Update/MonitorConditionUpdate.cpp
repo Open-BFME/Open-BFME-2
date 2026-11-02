@@ -99,14 +99,7 @@ private:
 	Rva00263546 m_mask10C; // +0x10C
 };
 
-class ControlBar
-{
-public:
-	void markUIDirty() { m_UIDirty = true; }
-private:
-	unsigned char m_pad00[0x28];
-	bool m_UIDirty; // +0x28
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 

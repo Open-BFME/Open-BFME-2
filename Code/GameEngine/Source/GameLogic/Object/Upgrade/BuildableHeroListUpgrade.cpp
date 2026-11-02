@@ -35,12 +35,7 @@ public:
 	UnitRevivalTracker m_738;			// +0x738
 };
 #include "../object.h"
-class ControlBar
-{
-public:
-	unsigned char m_pad00[0x28];
-	Bool m_28;				// +0x28
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class ObjectModuleBase
 {
@@ -89,7 +84,7 @@ void BuildableHeroListUpgrade::upgradeImplementation()
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*it);
 		player->m_738.addInitialBuildUnit(thingTemplate, player);
 	}
-	TheControlBar->m_28 = true;
+	TheControlBar->field28 = true;
 	rva004CE4A0();
 }
 void BuildableHeroListUpgrade::upgradeRemovalImplementation()
@@ -103,7 +98,7 @@ void BuildableHeroListUpgrade::upgradeRemovalImplementation()
 		rva004B83D2(thingTemplate);
 		holder->removeBuildUnit(thingTemplate);
 	}
-	TheControlBar->m_28 = true;
+	TheControlBar->field28 = true;
 	rva004CE4A8();
 }
 // TeamPrototype and DLINK walks follow the independently matched Player

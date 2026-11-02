@@ -104,7 +104,7 @@ public:
 	int m_118;						// +0x118
 	Rva002AAC9ERange m_range;		// +0x11C
 };
-class ControlBar { public: char m_pad00[0x28]; bool m_dirty; };
+#include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class Player
 {
@@ -126,7 +126,7 @@ void Player::rva002ADC03(Rva004B5A65Owner *owner, int value)
 			entries.erase(it);
 			reinterpret_cast<Rva002ADC03Pair *>(entry)->~Rva002ADC03Pair();
 			::operator delete(entry);
-			TheControlBar->m_dirty = true;
+			TheControlBar->field28 = true;
 			return;
 		}
 	}

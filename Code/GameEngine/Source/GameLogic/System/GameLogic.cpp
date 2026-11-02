@@ -97,12 +97,7 @@ public:
 	virtual void vslotEC(void);
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, int id);
 };
-class ControlBar
-{
-public:
-	void hidePurchaseScience(void);
-	void hideSpecialPowerShortcut(void);
-};
+#include "../../../Include/GameClient/ControlBar.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 #include "GameLogicObjectLookupView.h"
 #include "ascii_string.h"

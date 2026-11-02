@@ -452,7 +452,7 @@ extern InGameUI *TheInGameUI;
 
 extern MessageStream *TheMessageStream;
 
-class ControlBar { public: char pad[0x28]; bool dirty; };
+#include "../../../../Include/GameClient/ControlBar.h"
 
 extern ControlBar *TheControlBar;
 
@@ -823,7 +823,7 @@ void ToggleMountedSpecialAbilityUpdate::triggerAbilityEffect()
   obj->setArmorSetFlag((ArmorSetType)6);
  }
  Drawable *drawable=obj->getDrawable();
- if(drawable && drawable->selected) TheControlBar->dirty=true;
+ if(drawable && drawable->selected) TheControlBar->field28=true;
 }
 
 // tu-skeleton: 0x004ADAB5 74B ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp (not merged yet)

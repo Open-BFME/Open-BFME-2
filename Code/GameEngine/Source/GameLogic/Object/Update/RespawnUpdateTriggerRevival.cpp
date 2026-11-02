@@ -228,7 +228,8 @@ class ExitInterface {public:
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class ControlBar {public:char pad[0x28];bool dirty;};extern ControlBar *TheControlBar;
+#include "../../../../Include/GameClient/ControlBar.h"
+extern ControlBar *TheControlBar;
 void RespawnUpdate::triggerRevival(Object *at) {
  Object *obj=m_object;
  const RespawnUpdateModuleData *data=m_moduleData;
@@ -263,6 +264,6 @@ void RespawnUpdate::triggerRevival(Object *at) {
  m_20=*(float*)&found->m_healthBits;
  obj->body->setInitialHealth(m_20*100.0f,false);
  m_34=(unsigned)-1;m_38=(unsigned)-1;
- if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->dirty=true;
+ if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->field28=true;
  setWakeFrame(obj,(UpdateSleepTime)time);
 }

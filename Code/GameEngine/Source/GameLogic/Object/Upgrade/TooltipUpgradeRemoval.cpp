@@ -12,12 +12,7 @@ typedef bool Bool;
 class ModuleData;
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 #include "../object.h"
-class ControlBar
-{
-public:
-	unsigned char m_pad00[0x28];
-	Bool m_28;			// +0x28
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class ObjectModuleBase
 {
@@ -64,7 +59,7 @@ void TooltipUpgrade::upgradeRemovalImplementation()
 		{
 			((AsciiString *)((unsigned char *)draw + 0x348))->clear();
 			((AsciiString *)((unsigned char *)draw + 0x34C))->clear();
-			TheControlBar->m_28 = true;
+			TheControlBar->field28 = true;
 		}
 		setUpgradeExecuted(false);
 	}

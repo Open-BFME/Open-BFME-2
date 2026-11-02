@@ -142,7 +142,7 @@ extern InGameUI *TheInGameUI;
 
 
 #include "../../Include/GameClient/CommandButton.h"
-class ControlBar { public: const CommandButton *findCommandButton(const AsciiString&); };
+#include "../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
