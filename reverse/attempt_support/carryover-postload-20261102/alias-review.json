@@ -1,0 +1,240 @@
+{
+  "scope": "Read-only alias audit of immutable archived Common source/object, plus complete current local census index. No Code edits, builds, claims or network. Parent may have edited live Common source after snapshot.",
+  "index": {
+    "meta": {
+      "date": "2026-11-02 08:35",
+      "commit": "984a4cdc4d",
+      "clean_tree": true,
+      "census_date": "2026-11-02 06:54",
+      "census_commit": "357ce2a88f"
+    },
+    "objects": 18640,
+    "touches": 18640,
+    "limit": "Census snapshot; index touches over-approximate declarations/definitions/references. Absence of outside touches is stronger than lack of global reachability."
+  },
+  "archived_common": {
+    "source_sha256": "2d5d06ffa00daaa7e3588bf5836bbd3784c7ae11ce4c874caaa230deb823cb85",
+    "object_sha256": "d34038f40195295bc4198ff1e747f28a103c9733a936f3598c719bbfc0dda86b",
+    "source_receipt_matches": true,
+    "object_receipt_matches": true,
+    "runtime_data_incoming": [
+      {
+        "target": "?loadPostProcess@CarryoverUnit@@UAEXXZ",
+        "section": ".rdata",
+        "section_number": 24,
+        "offset": 4,
+        "kind": 6,
+        "external_owners": [
+          "??_7CarryoverUnit@@6B@"
+        ]
+      },
+      {
+        "target": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+        "section": ".rdata",
+        "section_number": 24,
+        "offset": 8,
+        "kind": 6,
+        "external_owners": [
+          "??_7CarryoverUnit@@6B@"
+        ]
+      },
+      {
+        "target": "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z",
+        "section": ".rdata",
+        "section_number": 24,
+        "offset": 12,
+        "kind": 6,
+        "external_owners": [
+          "??_7CarryoverUnit@@6B@"
+        ]
+      }
+    ],
+    "directives": [
+      [
+        "?concat@AsciiString@@QAEXPBD@Z",
+        "?concat@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      [
+        "?set@AsciiString@@QAEXPBD@Z",
+        "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      [
+        "?concat@AsciiString@@QAEXABV1@@Z",
+        "?concat@?$StringBase@D@@QAEXABV1@@Z"
+      ],
+      [
+        "?clear@AsciiString@@QAEXXZ",
+        "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      [
+        "?compare@AsciiString@@QBEHABV1@@Z",
+        "?compare@?$StringBase@D@@QBEHABV1@@Z"
+      ],
+      [
+        "?trim@AsciiString@@QAEXXZ",
+        "?trim@?$StringBase@D@@QAEXXZ"
+      ],
+      [
+        "?compare@AsciiString@@QBEHPBD@Z",
+        "?compare@?$StringBase@D@@QBEHPBD@Z"
+      ],
+      [
+        "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+        "?name@CarryoverUnit@@QBEPBDXZ"
+      ],
+      [
+        "?loadPostProcess@CarryoverUnit@@UAEXXZ",
+        "??1Region2D@@QAE@XZ"
+      ],
+      [
+        "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z",
+        "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z"
+      ]
+    ]
+  },
+  "native_target_facts": {
+    "table_va": "0x00BDF158",
+    "table_bytes": "15b85e00d03f4b0084dc770079de7700",
+    "slot_vas": [
+      "0x005EB815",
+      "0x004B3FD0",
+      "0x0077DC84",
+      "0x0077DE79"
+    ],
+    "slot_rvas": [
+      "0x001EB815",
+      "0x000B3FD0",
+      "0x0037DC84",
+      "0x0037DE79"
+    ],
+    "loadPostProcess_whole_body_rva": "0x000B3FD0",
+    "loadPostProcess_whole_body_hex": "c3"
+  },
+  "aliases": [
+    {
+      "name": "?loadPostProcess@CarryoverUnit@@UAEXXZ",
+      "index_touches": [
+        "^code_^game^engine_^source_^common_^carryover^unit.obj"
+      ],
+      "routes": [
+        {
+          "object": "^code_^game^engine_^source_^common_^carryover^unit.obj",
+          "target": "??1Region2D@@QAE@XZ"
+        }
+      ],
+      "incoming_alias_routes": [],
+      "strong_providers": [],
+      "comdat_providers": [],
+      "actual_non_debug_incoming": [
+        {
+          "target": "?loadPostProcess@CarryoverUnit@@UAEXXZ",
+          "section": ".rdata",
+          "section_number": 24,
+          "offset": 4,
+          "kind": 6,
+          "external_owners": [
+            "??_7CarryoverUnit@@6B@"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+      "index_touches": [
+        "^code_^game^engine_^source_^common_^carryover^unit.obj"
+      ],
+      "routes": [
+        {
+          "object": "^code_^game^engine_^source_^common_^carryover^unit.obj",
+          "target": "?name@CarryoverUnit@@QBEPBDXZ"
+        }
+      ],
+      "incoming_alias_routes": [],
+      "strong_providers": [],
+      "comdat_providers": [],
+      "actual_non_debug_incoming": [
+        {
+          "target": "?GetSnapshotName@CarryoverUnit@@UBEPBDXZ",
+          "section": ".rdata",
+          "section_number": 24,
+          "offset": 8,
+          "kind": 6,
+          "external_owners": [
+            "??_7CarryoverUnit@@6B@"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z",
+      "index_touches": [
+        "^code_^game^engine_^source_^common_^carryover^unit.obj"
+      ],
+      "routes": [
+        {
+          "object": "^code_^game^engine_^source_^common_^carryover^unit.obj",
+          "target": "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z"
+        }
+      ],
+      "incoming_alias_routes": [],
+      "strong_providers": [],
+      "comdat_providers": [],
+      "actual_non_debug_incoming": [
+        {
+          "target": "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z",
+          "section": ".rdata",
+          "section_number": 24,
+          "offset": 12,
+          "kind": 6,
+          "external_owners": [
+            "??_7CarryoverUnit@@6B@"
+          ]
+        }
+      ]
+    }
+  ],
+  "existing_empty_owner": {
+    "name": "??1Region2D@@QAE@XZ",
+    "rva": "0x000B3FD0",
+    "size": 1,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+    "index_touch_count": 45,
+    "index_incoming_alias_route_count": 17,
+    "decision": "Preserve the existing owner, all other target users and aliases. Admit CarryoverUnit true empty override as a proven ICF twin, then retire only its old route."
+  },
+  "existing_protected_xfer": {
+    "name": "?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z",
+    "rva": "0x0037DE79",
+    "size": 107,
+    "source": "Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp",
+    "index_touches": [
+      "^code_^game^engine_^source_^common_^system_^snapshot^xfers^bfme.obj",
+      "^code_^game^engine_^source_^common_^army^summary^entry_xfer.obj"
+    ],
+    "declaration": "SnapshotXfersBfme.cpp CarryoverUnit derives SnapshotBase and declares virtual void xfer(Xfer*) protected. ArmySummaryEntry_xfer.cpp similarly declares a protected base method and directly invokes it.",
+    "actual_caller": {
+      "source": "Code/GameEngine/Source/Common/ArmySummaryEntry_xfer.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^army^summary^entry_xfer.obj",
+      "object_sha256": "ac38b2171104d165e43f125eae8664f90626686e1c28f3384ab872bc77635c82",
+      "body_size": 136,
+      "qualification": "Shared object belongs to prior header-adoption trial: object hash matches receipt but SOURCE hash does NOT. Its public xfer reference is not evidence of the current source contract; it is a concrete reason to refresh the consumer before optional xfer alias retirement.",
+      "object_xfer_relocations": [
+        [
+          34,
+          20,
+          "?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z"
+        ]
+      ],
+      "source_md5": "bbea3f863ca1829f2a71b768399f91e2",
+      "receipt_source_md5": "4f7fd7f773e393e399635794f850b7c9",
+      "object_md5": "5952cc42c68161ad6ac022b0ce817723",
+      "receipt_object_md5": "5952cc42c68161ad6ac022b0ce817723",
+      "receipt_source_matches": false,
+      "receipt_object_matches": true,
+      "native_call_relocation_offset": 34,
+      "native_call_target_rva": "0x0037DE79"
+    },
+    "assessment": "Current declarations and census support rebinding Common to protected xfer, preserving the existing 107-byte owner and ArmySummaryEntry consumer. However live ArmySummaryEntry object has a public-UAExfer reference from a stale-source header trial. Refresh/verify this consumer before retiring the public route. Native matched caller at 40C4FE+33 directly calls 37DE79, confirming the real target independent of the stale object. Access changes mangled declaration, not machine calling convention or virtual slot order. No optional xfer cleanup is required for the requested loadPostProcess repair."
+  },
+  "verdict": "No outside-consumer blocker found for replacing the loadPostProcess alias with the real native empty override. GetSnapshotName route remains out of requested edit scope; unrelated seven AsciiString aliases remain unchanged."
+}

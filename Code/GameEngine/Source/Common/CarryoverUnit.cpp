@@ -4,7 +4,6 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #pragma comment(linker, "/alternatename:?GetSnapshotName@CarryoverUnit@@UBEPBDXZ=?name@CarryoverUnit@@QBEPBDXZ")
-#pragma comment(linker, "/alternatename:?loadPostProcess@CarryoverUnit@@UAEXXZ=??1Region2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?xfer@CarryoverUnit@@UAEXPAVXfer@@@Z=?xfer@CarryoverUnit@@MAEXPAVXfer@@@Z")
 //
 // ?Rva0037DC8AEqual@@YA_NPBX0@Z @0x0037DC8A (27B).
@@ -242,3 +241,6 @@ CarryoverUnit &CarryoverUnit::operator=(const CarryoverUnit &other)
         *reinterpret_cast<const Rva001EAFC1 *>(&other.member);
     return *this;
 }
+
+// Native table 00BDF158 slot 1 is the shared empty RET at 000B3FD0.
+void CarryoverUnit::loadPostProcess() {}
