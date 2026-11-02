@@ -46,7 +46,7 @@ class Rva000677CAHost
 {
 public:
     void updateView(bool partial, int minX, int maxX, int minY, int maxY);
-	bool rva000677CA(int a, int b, float f);
+	bool rva000677CA(int cellX, int cellY, float f);
 private:
     char opaque00[0x37A0];
     float slope;
@@ -56,12 +56,12 @@ private:
     _STL::vector<bool> bits;
 };
 
-bool Rva000677CAHost::rva000677CA(int a, int b, float f)
+bool Rva000677CAHost::rva000677CA(int cellX, int cellY, float f)
 {
 	bool out = false;
 	unsigned char *p = &((unsigned char *)&f)[3];
 	int fi = (int)f;
-	((BaseHeightMapRenderObjClass *)this)->CheckCorners(a, b, 0x100, 0, fi, 0, (bool *)p, &out);
+	((BaseHeightMapRenderObjClass *)this)->CheckCorners(cellX, cellY, 0x100, 0, fi, 0, (bool *)p, &out);
 	return out == false;
 }
 

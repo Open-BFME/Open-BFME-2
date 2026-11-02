@@ -26,7 +26,7 @@ class AsciiString;
 class Rva00068073Host
 {
 public:
-	void rva00068073(int a, float b, int c);
+	void rva00068073(int location, float angle, int c);
 	void rva000680D6(const Coord3D *a, const GeometryInfo &b, float c);
 
 	char m_pad[0x3854];
@@ -34,12 +34,12 @@ public:
 	W3DPropBuffer *m_3858; // +0x3858
 };
 
-void Rva00068073Host::rva00068073(int a, float b, int c)
+void Rva00068073Host::rva00068073(int location, float angle, int c)
 {
 	if (m_3854)
-		m_3854->rva000E912A((const Coord3D *)a, b, c);
+		m_3854->rva000E912A((const Coord3D *)location, angle, c);
 	if (m_3858)
-		m_3858->rva000EE04A((const Coord3D *)a, b);
+		m_3858->rva000EE04A((const Coord3D *)location, angle);
 }
 
 void Rva00068073Host::rva000680D6(const Coord3D *a, const GeometryInfo &geometryInfo, float c)

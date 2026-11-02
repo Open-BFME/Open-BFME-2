@@ -28,19 +28,19 @@ struct Rva0005E13CArg
 class Rva0005E13CHost
 {
 public:
-	bool rva0005E13C(const Rva0005E13CArg *p);
+	bool rva0005E13C(const Rva0005E13CArg *chainStart);
 	bool helper(const Rva0005E13CInner1 *a);
 };
 
-bool Rva0005E13CHost::rva0005E13C(const Rva0005E13CArg *p)
+bool Rva0005E13CHost::rva0005E13C(const Rva0005E13CArg *chainStart)
 {
-	Rva0005E13CInner1 *a = p->m_04;
-	if (!a)
+	Rva0005E13CInner1 *middle = chainStart->m_04;
+	if (!middle)
 		return true;
-	Rva0005E13CInner2 *d = a->m_08;
-	if (!d)
+	Rva0005E13CInner2 *inner = middle->m_08;
+	if (!inner)
 		return false;
-	if (d->m_B0 != 2)
+	if (inner->m_B0 != 2)
 		return true;
-	return helper(a);
+	return helper(middle);
 }
