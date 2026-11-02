@@ -767,3 +767,12 @@ Code/GameEngine/Source/Common/Rva004D65F9Set.cpp|param|Rva004D62A9::rva00590F13|
 Code/GameEngine/Source/Common/Rva004D65F9Set.cpp|param|Rva004D6208::rva00590F13|s,485e3f780559822600e7a70c,claude-haiku-5-5,drz-k1-n38a,w-d119d30b66de,2026-11-02,e4c3378ed714cd8009c28ed3
 Code/GameEngine/Source/Common/Rva004D97B0Record.cpp|param|asStruct|v,cc6642acf72755effea51613,claude-haiku-5-5,drz-k1-n38a,w-d119d30b66de,2026-11-02,52a1a2445c0a7d677d3de703
 Code/GameEngine/Source/Common/Rva0057C71F.cpp|local|AptMapPreview::GetStartPositionInfoForSlot|v10,a6ac625361bcdd0861d486ce,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02,08988040303c59082c711179
+Code/GameEngine/Source/Common/Rva005CE4B2.cpp|param|Rva005CE4B2Held|v,a7e2a6997fae2e6ae3e1e0ce,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,a4ada7ca56255e078ffb767d
+Code/GameEngine/Source/Common/Rva005CE4B2.cpp|param|Rva005CE4B2::Rva005CE4B2|arg,355ec3690628dcc767fb08b3,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,2c241f00ca4be99f734de7c6
+Code/GameEngine/Source/Common/Rva005CE4FADtor.cpp|local|StrategicInGameUI::PlanningPhaseBuildingSelection::~PlanningPhaseBuildingSelection|o,02b7e7fa9d1433897442b79f,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,fd8a7e94e6c3ff2d45319574
+Code/GameEngine/Source/Common/Rva005CECF3Clone.cpp|param|Rva005CECF3Handle|p,a094a513e680a4ca28c0eef3,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,d90b86a8239b83ec3ef5e3df
+Code/GameEngine/Source/Common/Rva005CED37.cpp|param|Rva005CED37Held|v,fe4df858397671016699ac7a,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,b06df2eb20eb55b64614aa64
+Code/GameEngine/Source/Common/Rva005CED37.cpp|param|Rva005CED37::Rva005CED37|arg,b29e0b47c1cfd64156666168,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,b3abe0f479c2eacf90330e64
+Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp|param|Rva005CEDAFHandle|p,b2a01617a55baa5e185d7114,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,571b437d855134b7abb63b79
+Code/GameEngine/Source/Common/Rva005CEFD3Dtor.cpp|local|Rva005CEFD3::~Rva005CEFD3|o,e53ade03e394f11cb12c7362,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,e1b079f057326b3de6a30628
+Code/GameEngine/Source/Common/Rva005D0C87Ctor.cpp|param|Rva005D0C87::Rva005D0C87|c,0c163be50e68b9c468a91f91,claude-haiku-5-5,drz-k11-n39h,w-eba6c619cb9e,2026-11-02,a80174213476ee4e529ad1e3
