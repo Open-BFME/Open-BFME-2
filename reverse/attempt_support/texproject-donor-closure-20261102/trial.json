@@ -1,0 +1,11 @@
+{
+  "rows": 1,
+  "missing_addresses": [],
+  "errors": [],
+  "code_definitions": [
+    "?Set_Cull_Volume@MaterialPassClass@@QAEXPAVOBBoxClass@@@Z"
+  ],
+  "native_complete_unchanged": {
+    "?Set_Cull_Volume@MaterialPassClass@@QAEXPAVOBBoxClass@@@Z": true
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "scope": "CORRECTED immutable-original provider/consumer audit. Supersedes the report that raced with root application; no live source/object or current receipt used for original population. No compiles, edits to Code/ledgers/tools, claims or network.",
+  "index": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/texproject.cpp",
+  "source_commit": "b5296ff98b",
+  "before_source_path": "build\\texproject-donor-closure-20261102\\before.cpp",
+  "before_source_sha256": "1430da445cb05e54d63bf3987c736ef7f37bc932aac5b14cc81334cab771229f",
+  "before_source_git_blob": "4d0b25bd18d8f09c9c4ed368efc894e7d335d92c",
+  "expected_commit_blob": "4d0b25bd18d8f09c9c4ed368efc894e7d335d92c",
+  "before_source_equals_original_commit": true,
+  "before_object_path": "build\\texproject-donor-closure-20261102\\before.obj",
+  "before_object_sha256": "3d476e21aae54394568921ec9ced3354e98b189ed7605659cd937512f228d83f",
+  "before_object_matches_preliminary_observed_sha256": true,
+  "before_object_currency": "Immutable archived object matches independently observed original object digest. No current .deps receipt is used to authenticate this old object; original private baseline/control build provenance belongs to root packet.",
+  "counts": {
+    "external_code_definitions": 48,
+    "all_external_defined_names": 62,
+    "primary_projector_materialpass_names": 16,
+    "outside_touched_primary_names": 0,
+    "outside_touched_all_names": 45,
+    "outside_touched_sole_providers": 0,
+    "selected_shared_names": 2,
+    "sole_retail_variants": 0,
+    "missing_touch_records": 0
+  },
+  "primary_defined_names": [
+    "??0TexProjectClass@@QAE@XZ",
+    "??_7TexProjectClass@@6BCullableClass@@@",
+    "??_7TexProjectClass@@6BMultiListObjectClass@@@",
+    "??_7TexProjectClass@@6BProjectorClass@@@",
+    "??_ETexProjectClass@@WMM@AEPAXI@Z",
+    "??_ETexProjectClass@@WPE@AEPAXI@Z",
+    "??_GTexProjectClass@@UAEPAXI@Z",
+    "?Compute_Ortho_Projection@TexProjectClass@@QAE_NABVAABoxClass@@ABVMatrix3D@@ABVVector3@@MM@Z",
+    "?Compute_Ortho_Projection@TexProjectClass@@QAE_NPAVRenderObjClass@@ABVVector3@@MM@Z",
+    "?Compute_Perspective_Projection@TexProjectClass@@QAE_NABVAABoxClass@@ABVMatrix3D@@ABVVector3@@MM@Z",
+    "?Compute_Perspective_Projection@TexProjectClass@@QAE_NPAVRenderObjClass@@ABVVector3@@MM@Z",
+    "?Compute_Texture@TexProjectClass@@QAE_NPAVRenderObjClass@@PAVSpecialRenderInfoClass@@@Z",
+    "?Get_Projection_Object_ID@TexProjectClass@@UBEPAXXZ",
+    "?Peek_Render_Target@TexProjectClass@@QAEPAVTextureClass@@PAPAV2@PAPAVZTextureClass@@@Z",
+    "?Set_Cull_Volume@MaterialPassClass@@QAEXPAVOBBoxClass@@@Z",
+    "?Set_Render_Target@TexProjectClass@@QAEXPAVTextureClass@@PAVZTextureClass@@@Z"
+  ],
+  "outside_primary_alias_routes": [],
+  "sole_provider_names": [],
+  "sole_retail_variants": [],
+  "selected_shared": [
+    {
+      "name": "?atan@@YAMM@Z",
+      "before_variants": [
+        [
+          "6be5317c60f4",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/GameEngine/Source/Common/GapBodiesGE24.cpp",
+          "digest": "6be5317c60f4",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/GameEngine/Source/Common/GapBodiesGE24.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "_atanf",
+      "before_variants": [
+        [
+          "6be5317c60f4",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/GameEngine/Source/Common/GapBodiesGE24.cpp",
+          "digest": "6be5317c60f4",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/GameEngine/Source/Common/GapBodiesGE24.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    }
+  ],
+  "owned_native_rows": [
+    {
+      "row": {
+        "name": "?Set_Cull_Volume@MaterialPassClass@@QAEXPAVOBBoxClass@@@Z",
+        "export_rva": "",
+        "target_rva": "0x003B23A5",
+        "target_size": "10",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/texproject.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 10,
+      "bytes": "8b442404894134c20400",
+      "native_bytes": "8b442404894134c20400",
+      "exact": true,
+      "relocations": [],
+      "local_runtime_data_incoming": []
+    }
+  ],
+  "canonical_header_contract": {
+    "path": "Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h",
+    "native_fact": "Setter10B stores pointer to this+34; current canonical header already declares out-of-line Set_Cull_Volume and native CullVolume field+34."
+  },
+  "conclusion": [
+    "Original48code/62externalnames population has no outside Projector/TexProject/MaterialPass consumers and no sole shared provider.",
+    "All45 shared names have outside providers. The2 selected atan spellings are globally unreferenced and have identical digest6be5317c60f4 copies in GapBodiesGE24.cpp.",
+    "The originally observed native10B setter remains exact and relocation-free. Canonical-header-only reduction has no demonstrated original-provider loss; candidate whole-code/normal consumer checks remain root-owned."
+  ],
+  "limits": [
+    "Complete index touches over-approximate definitions/uses; updated index lacks per-object reference contributions.",
+    "No current receipt is evidence for the old original object. Original source is authenticated against b5296ff98b blob and original object against preliminary independently observed SHA256.",
+    "Post-index unrelated changes remain for normal current link and batch checks."
+  ]
+}
