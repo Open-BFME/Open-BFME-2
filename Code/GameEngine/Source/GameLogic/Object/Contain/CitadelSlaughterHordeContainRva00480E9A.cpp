@@ -117,23 +117,7 @@ class AIUpdateInterface : public AIUpdateInterfaceVtbl, public AICommandInterfac
 {
 };
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	ObjectID getID() const { return m_id; }
-	AIUpdateInterface *getAI() const { return m_ai; }
-	Player *getControllingPlayer() const;
-	void rva0028CDEB(const Rva00346BC0 &mask, bool flag);
-	void rva00293077(const void *upgradeTemplate);
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_pos;            // +0x38
-	unsigned char m_pad44[0x74 - 0x44];
-	ObjectID m_id;            // +0x74
-	unsigned char m_pad78[0x258 - 0x78];
-	AIUpdateInterface *m_ai;  // +0x258
-};
+#include "../object.h"
 
 class AiOrdersManager
 {

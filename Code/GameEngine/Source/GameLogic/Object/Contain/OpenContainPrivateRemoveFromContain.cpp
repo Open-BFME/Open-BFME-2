@@ -10,15 +10,7 @@ extern GameLogic *TheGameLogic;
 enum ObjectStatusTypes { OBJECT_STATUS_63=63,OBJECT_STATUS_66=66 };
 enum PathfindLayerEnum { PATHFIND_LAYER_0=0 };
 class Rva00373EC6;
-class Object {
-public:
-    bool testStatus(ObjectStatusTypes) const;
-    void setStatus(ObjectStatusTypes,bool);
-    Rva00373EC6 *rva0028F4BC();
-    int rva0028B511() const;
-    void setLayer(PathfindLayerEnum);
-    void rva0028FB6F(void *);
-};
+#include "../object.h"
 class StealthUpdate { public: void markAsDetected(unsigned,int,Object *,bool); };
 class Rva00439E0C { public: bool detected(Object *,Object *,int,int); };
 template<int N> class Rva00462FB3Slots:public Rva00462FB3Slots<N-1> { public: virtual void gap(char (*)[N]); };

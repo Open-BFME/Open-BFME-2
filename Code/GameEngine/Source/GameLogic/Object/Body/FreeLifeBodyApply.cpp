@@ -11,12 +11,7 @@ enum ObjectID;
 enum ModelConditionFlagType;
 class DamageInfo { public: unsigned char before08[8]; ObjectID source; };
 class Player { public: bool rva002AB87D(const UpgradeTemplate *) const; };
-class Object {
-public:
-    Player *getControllingPlayer() const;
-    bool hasUpgrade(const UpgradeTemplate *) const;
-    void setSpecialModelConditionState(ModelConditionFlagType, unsigned int);
-};
+#include "../object.h"
 struct Rva00294D61 { void report(Object *, int); };
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

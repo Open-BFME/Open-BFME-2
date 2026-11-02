@@ -54,15 +54,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	void *m_vtable;
-	ThingTemplate *m_template;
-	char m_pad08[0x38 - 0x08];
-	Coord3D m_pos;		// +0x38
-};
+#include "../object.h"
 
 class OpenContain
 {

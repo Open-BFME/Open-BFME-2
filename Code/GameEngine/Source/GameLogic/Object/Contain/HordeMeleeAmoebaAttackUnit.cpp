@@ -71,17 +71,7 @@ public:
 	virtual void v136(); // slot 0x220
 };
 
-class Object
-{
-public:
-	AIUpdateInterface *getAI() const { return m_ai; }
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	void rva0028CDB6();
-
-private:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../object.h"
 
 class HordeMeleeAmoeba
 {

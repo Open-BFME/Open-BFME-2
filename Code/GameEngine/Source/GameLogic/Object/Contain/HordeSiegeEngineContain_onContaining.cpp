@@ -6,11 +6,7 @@
 // 0x00463191 with the same rider and flag. Evidence: VTABLE slot 66 plus REF
 // neighbours at 0x00847430 plus prev/next HordeSiegeEngineContain units plus
 // pin-only callees plus Rva0047CF38 sibling for +0x108 list layout.
-class Object
-{
-public:
-	void defect(Object *rider, bool flag);
-};
+#include "../object.h"
 struct Rva0047CF67Mid
 {
 	char mPad00[8];

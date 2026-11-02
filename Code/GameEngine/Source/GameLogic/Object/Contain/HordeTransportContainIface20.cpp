@@ -35,15 +35,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_26 = 0x26
 };
 
-class Object
-{
-public:
-	bool rva0029091E(unsigned int bit) const;
-	void setWeaponSetFlag(WeaponSetType wst);
-	bool testStatus(ObjectStatusTypes status) const;
-	unsigned char m_pad000[0x274];
-	Object *m_containedBy;	// +0x274
-};
+#include "../object.h"
 
 // An entry the +0x11D helper keeps per contained object (rowed lookup
 // 0x00588B8A); slot 73 (+0x124) tells it the object left.

@@ -42,12 +42,7 @@ public:
 	AICommandInterface m_commands;
 };
 
-class Object
-{
-public:
-	char m_pad[0x258];
-	AIUpdateInterface *m_aiDirect;
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -70,7 +65,7 @@ void SpawnBehavior::orderSlavesToAttackTarget(Object *target, int maxShotsToFire
 		Object *obj = TheGameLogic->findObjectByID(*it);
 		if (obj)
 		{
-			AIUpdateInterface *ai = obj->m_aiDirect;
+			AIUpdateInterface *ai = obj->m_ai;
 			if (ai)
 			{
 				ai->m_commands.aiForceAttackObject(target, maxShotsToFire, cmdSource);

@@ -19,12 +19,7 @@ public:
 	void *rva0031D5F8(const AsciiString *key);
 };
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
-	void doCommandButton(const CommandButton *button, int source, bool extra);
-};
+#include "object.h"
 
 class BfmeK1094
 {

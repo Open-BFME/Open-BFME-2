@@ -60,24 +60,8 @@ public:
 	ModelConditionFlags m_conditionFlags;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../object.h"
 
-class Object : public Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	Int getMultiLogicalBonePosition( const char *boneNamePrefix, Int maxBones, Coord3D *positions,
-		Matrix3D *transforms, Bool convertToWorld, Int unused ) const;
-	void rva0028CFB2( const int *clr, const int *set );
-	void rva0028CFF5( const int *flags, bool forceUpdate );
-	Bool isMobile() const;
-	unsigned char m_pad00[0x38];
-	Coord3D m_pos;
-};
 
 // OpenContain::getPassengerBoneName, address-named as rowed.
 class Rva00463235

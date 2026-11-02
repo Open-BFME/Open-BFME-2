@@ -17,15 +17,7 @@ public:
 	bool test(const void *other) const;
 };
 
-class Object
-{
-public:
-	bool rva002931BA();
-	unsigned char m_pad00[0x78];
-	ObjectID m_78;
-	unsigned char m_pad7C[0x94 - 0x7C];
-	unsigned int m_94[4];
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -61,12 +53,12 @@ public:
 bool CitadelSlaughterHordeContain::rva004807C7(Object *obj)
 {
 	const CitadelSlaughterHordeContainModuleData *data = m_moduleData;
-	if (data->m_EC.test(obj->m_94))
+	if (data->m_EC.test(obj->m_status))
 		return false;
 	if (obj->rva002931BA())
 	{
-		Object *producer = TheGameLogic->findObjectByID(obj->m_78);
-		if (producer && data->m_EC.test(producer->m_94))
+		Object *producer = TheGameLogic->findObjectByID(obj->m_producerID);
+		if (producer && data->m_EC.test(producer->m_status))
 			return false;
 	}
 	return true;

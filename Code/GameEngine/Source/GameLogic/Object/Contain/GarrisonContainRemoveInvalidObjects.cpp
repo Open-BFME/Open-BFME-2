@@ -23,11 +23,7 @@ private:
     void *m_vtable;
     const Rva002C9400ByteField *m_template;
 };
-class Object
-{
-public:
-    const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-};
+#include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 struct VisLookupNode { VisLookupNode *next; ObjectID key; Object *object; };
 struct VisLookupBuckets {

@@ -12,11 +12,7 @@ class DamageInfo;
 class Thing;
 class ModuleData;
 
-class Object
-{
-public:
-	void setEffectivelyDead(bool dead);
-};
+#include "../object.h"
 
 #include "../../../../Include/Common/ObjectModule.h"
 
