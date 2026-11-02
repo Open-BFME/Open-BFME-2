@@ -53,7 +53,7 @@ public:
 	virtual void _D17(float const *p, float f1, float f2, int a, int b, int c);
 	virtual void _S18(float const *m, float f, int a, int b, int c);
 	virtual void _D19(float const *p, float f, int a, int b, int c);
-	virtual void drawBox(char *base, int b, int c, int d, int e, int f);
+	virtual void drawBox(char *base, int verticalEdgeColor, int bottomEdgeColor, int topEdgeColor, int e, int f);
 
 private:
 	int m_14;
@@ -64,18 +64,18 @@ private:
 	void *m_28;
 };
 
-void Rva0007517F::drawBox(char *base, int b, int c, int d, int e, int f)
+void Rva0007517F::drawBox(char *base, int verticalEdgeColor, int bottomEdgeColor, int topEdgeColor, int e, int f)
 {
 	int i = 1;
 	int *currentCornerIndexPtr = g_boxCornerOrder;
 	char *currentCorner = base;
 	int remainingCorners = 4;
 	do {
-		_D11(currentCorner, currentCorner + 48, b, e, f);
+		_D11(currentCorner, currentCorner + 48, verticalEdgeColor, e, f);
 		int nextCornerIndex = i % 4;
 		int *nextCornerIndexPtr = g_boxCornerOrder + nextCornerIndex;
-		_D11(base + (*currentCornerIndexPtr) * 12, base + (*nextCornerIndexPtr) * 12, c, e, f);
-		_D11(base + (*currentCornerIndexPtr + 4) * 12, base + (*nextCornerIndexPtr + 4) * 12, d, e, f);
+		_D11(base + (*currentCornerIndexPtr) * 12, base + (*nextCornerIndexPtr) * 12, bottomEdgeColor, e, f);
+		_D11(base + (*currentCornerIndexPtr + 4) * 12, base + (*nextCornerIndexPtr + 4) * 12, topEdgeColor, e, f);
 		currentCorner += 12;
 		++i;
 		++currentCornerIndexPtr;

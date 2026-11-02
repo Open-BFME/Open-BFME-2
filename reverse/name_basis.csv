@@ -6599,3 +6599,15 @@ param,Rva003F25DF::a1,Rva003F25DF::iniParser,inferred,agree:nl-ceafee511680-ma24
 param,Rva003F25DF::a2,Rva003F25DF::parseInstance,inferred,agree:nl-7ab891d071a7-m87f54ead242df724a8a53d51,Code/GameEngine/Source/Common/System/LivingWorldPlayerWorldToMapParseList.cpp,0x003F25DF
 param,Rva003F25DF::a4,Rva003F25DF::userData,inferred,agree:nl-189b569d3c29-mf84024193f318880877746d0,Code/GameEngine/Source/Common/System/LivingWorldPlayerWorldToMapParseList.cpp,0x003F25DF
 function,?releaseResource0090C2D0@Rva0090C280@@QAEXXZ,?ReleaseResources@Rva0090C280@@QAEXXZ,inferred,agree:nl-d9b5b11ed371,Code/GameEngine/Source/Common/Rva0090C280Ctor.cpp,0x001310CF
+local,Rva003F287F::rva003F2818::e,Rva003F287F::rva003F2818::connectionEntry,inferred,agree:nl-501e3a9a07d5-me4ff381e37b64ced19387732,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp,0x003F2818
+local,Rva003F287F::rva003F287F::e,Rva003F287F::rva003F287F::connectionEntry,inferred,agree:nl-2085b2bb04c5-mbe3ffa75b9bcf667542fc8b3,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp,0x003F287F
+local,Rva003F287F::rva003F28DB::e,Rva003F287F::rva003F28DB::connectionEntry,inferred,agree:nl-b9d234d505ed-m51f2c5d9e3a16056848e7ebc,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionRva003F287F.cpp,0x003F28DB
+param,RadarWindowOverrideSource::rva002D3772::b,RadarWindowOverrideSource::rva002D3772::durationSeconds,inferred,agree:nl-34de90db9aae-mcc8c067ff341c44a747d6f85,Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp,0x002D3772
+param,Rva002D3772Pair::Rva002D3772Pair::b,Rva002D3772Pair::Rva002D3772Pair::durationSeconds,inferred,agree:nl-25b22dd4114c-m33ad25fb64ee9317bc3718d9,Code/GameEngine/Source/Common/System/RadarWindowOverrideRva002D3772.cpp,
+param,Rva0007517F::drawBox::b,Rva0007517F::drawBox::verticalEdgeColor,inferred,agree:nl-fb438d4fa0ef,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+param,Rva0007517F::drawBox::c,Rva0007517F::drawBox::bottomEdgeColor,inferred,agree:nl-802abb4568d5,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+param,Rva0007517F::drawBox::d,Rva0007517F::drawBox::topEdgeColor,inferred,agree:nl-ebcd90ec743c,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+param,Rva0007517F::rva000749C1::a,Rva0007517F::rva000749C1::firstCorners,inferred,agree:nl-4fe16b61a95a,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
+param,Rva0007517F::rva000749C1::b,Rva0007517F::rva000749C1::secondCorners,inferred,agree:nl-a376d08f0dea,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
+param,Rva0007517F::rva000749C1::x1,Rva0007517F::rva000749C1::verticalEdgeColor,inferred,agree:nl-fc23886be192,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1
+param,Rva0007517F::rva000749C1::x2,Rva0007517F::rva000749C1::firstRingEdgeColor,inferred,agree:nl-da8963af5a40,Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp,0x000749C1

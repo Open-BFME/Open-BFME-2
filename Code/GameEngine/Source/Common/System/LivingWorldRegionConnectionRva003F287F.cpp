@@ -69,9 +69,9 @@ namespace _STL { template <> void vector<ModuleData const *,_STL::allocator<Modu
 void Rva003F287F::rva003F287F(_STL::vector<const ModuleData *> &out)
 {
 	for (unsigned i = 0; i < m_items.size(); ++i) {
-		Rva003F287FEntry *e = m_items[i];
-		if (e->m_data != 0 && e->m_flag == 0) {
-			const ModuleData *moduleData = e->m_data;
+		Rva003F287FEntry *connectionEntry = m_items[i];
+		if (connectionEntry->m_data != 0 && connectionEntry->m_flag == 0) {
+			const ModuleData *moduleData = connectionEntry->m_data;
 			out.push_back(moduleData);
 		}
 	}
@@ -80,9 +80,9 @@ void Rva003F287F::rva003F287F(_STL::vector<const ModuleData *> &out)
 void Rva003F287F::rva003F2818(int filter, _STL::vector<const ModuleData *> &out)
 {
 	for (unsigned i = 0; i < m_items.size(); ++i) {
-		Rva003F287FEntry *e = m_items[i];
-		if (e->m_data != 0 && e->m_flag == 0) {
-			const ModuleData *moduleData = e->m_data;
+		Rva003F287FEntry *connectionEntry = m_items[i];
+		if (connectionEntry->m_data != 0 && connectionEntry->m_flag == 0) {
+			const ModuleData *moduleData = connectionEntry->m_data;
 			if (moduleData->m_keyPtr->m_key == filter) {
 				out.push_back(moduleData);
 			}
@@ -93,9 +93,9 @@ void Rva003F287F::rva003F2818(int filter, _STL::vector<const ModuleData *> &out)
 void Rva003F287F::rva003F28DB(_STL::vector<const ModuleData *> &out)
 {
 	for (unsigned i = 0; i < m_items.size(); ++i) {
-		Rva003F287FEntry *e = m_items[i];
-		if (e->m_data != 0 && e->m_flag == 0) {
-			const ModuleData *moduleData = e->m_data;
+		Rva003F287FEntry *connectionEntry = m_items[i];
+		if (connectionEntry->m_data != 0 && connectionEntry->m_flag == 0) {
+			const ModuleData *moduleData = connectionEntry->m_data;
 			if (((const Rva004E0632 *)moduleData)->rva004E0632() != 0) {
 				out.push_back(moduleData);
 			}

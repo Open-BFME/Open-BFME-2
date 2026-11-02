@@ -75,7 +75,7 @@ public:
 	virtual void _S18(float const *m, float f, int a, int b, int c);
 	virtual void rva00075016(float const *position, float f, int a, int b, int c);
 	virtual void _D20();
-	virtual void rva000749C1(char *a, char *b, int count, int x1, int x2, int x3, int x4, int x5);
+	virtual void rva000749C1(char *firstCorners, char *secondCorners, int count, int verticalEdgeColor, int firstRingEdgeColor, int x3, int x4, int x5);
 
 private:
 	int m_14;
@@ -161,19 +161,19 @@ void Rva0007517F::rva00074EA2(float const *position, float f1, float f2, int a, 
 	_D16(m, f1, f2, a, b, c);
 }
 
-void Rva0007517F::rva000749C1(char *a, char *b, int count, int x1, int x2, int x3, int x4, int x5)
+void Rva0007517F::rva000749C1(char *firstCorners, char *secondCorners, int count, int verticalEdgeColor, int firstRingEdgeColor, int x3, int x4, int x5)
 {
 	if (count <= 0)
 		return;
 	int i = 1;
-	int diff = (int)(a - b);
+	int diff = (int)(firstCorners - secondCorners);
 	int left = count;
-	char *pb = b;
+	char *pb = secondCorners;
 	do {
-		_D11(pb + diff, pb, x1, x4, x5);
+		_D11(pb + diff, pb, verticalEdgeColor, x4, x5);
 		int index = i % count;
-		_D11(pb + diff, (char *)&((RubbleFXVec *)a)[index], x2, x4, x5);
-		_D11(pb, (char *)&((RubbleFXVec *)b)[index], x3, x4, x5);
+		_D11(pb + diff, (char *)&((RubbleFXVec *)firstCorners)[index], firstRingEdgeColor, x4, x5);
+		_D11(pb, (char *)&((RubbleFXVec *)secondCorners)[index], x3, x4, x5);
 		++i;
 		pb += 12;
 		--left;

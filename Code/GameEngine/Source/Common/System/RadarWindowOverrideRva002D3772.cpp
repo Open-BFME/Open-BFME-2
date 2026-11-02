@@ -13,30 +13,30 @@ static __forceinline int LogicFrameRate() { return BfmeClientFramesPerSecond; }
 
 struct Rva002D3772Pair
 {
-	Rva002D3772Pair(int a, float b);
+	Rva002D3772Pair(int a, float durationSeconds);
 	int m_scaled;
 	int m_arg;
 };
 
 // ??0Rva002D3772Pair@@QAE@HM@Z present-unmatched
-inline Rva002D3772Pair::Rva002D3772Pair(int a, float b)
+inline Rva002D3772Pair::Rva002D3772Pair(int a, float durationSeconds)
 {
-	m_scaled = (int)((float)LogicFrameRate() * b);
+	m_scaled = (int)((float)LogicFrameRate() * durationSeconds);
 	m_arg = a;
 }
 
 class RadarWindowOverrideSource
 {
 public:
-	void rva002D3772(int a, float b);
+	void rva002D3772(int a, float durationSeconds);
 private:
 	char m_pad[0x10];
 	char *m_inner;
 };
 
-void RadarWindowOverrideSource::rva002D3772(int a, float b)
+void RadarWindowOverrideSource::rva002D3772(int a, float durationSeconds)
 {
-	Rva002D3772Pair *p = new Rva002D3772Pair(a, b);
+	Rva002D3772Pair *p = new Rva002D3772Pair(a, durationSeconds);
 	((Rva002D3389 *)(m_inner + 0xEC))->rva002D3389(p);
 }
 
