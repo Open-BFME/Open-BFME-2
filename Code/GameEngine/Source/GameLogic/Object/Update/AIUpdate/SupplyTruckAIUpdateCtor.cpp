@@ -177,3 +177,25 @@ bool SupplyTruckAIUpdate::isCurrentlyFerryingSupplies() const
     }
     return false;
 }
+
+#include "../../../../Common/Thing/thing.h"
+
+// Call-only view retaining the already-rowed broadcast symbol and argument ABI.
+// It does not define Drawable or assert the broadcaster's original class name.
+struct Rva002716Holder {
+    void Rva0027164EBroadcast(int first, int second);
+};
+
+bool SupplyTruckAIUpdate::loseOneBox()
+{
+    if (m_numberBoxes == 0) return false;
+    // Object's real Thing base is at offset zero; Object remains incomplete here.
+    Thing *object = reinterpret_cast<Thing *>(getObject());
+    --m_numberBoxes;
+    Drawable *drawable = object->getDrawable();
+    if (!drawable) return true;
+    reinterpret_cast<Rva002716Holder *>(drawable)->Rva0027164EBroadcast(
+        reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field64,
+        m_numberBoxes);
+    return true;
+}

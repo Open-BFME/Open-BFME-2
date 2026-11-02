@@ -18431,3 +18431,7 @@ SupplyTruck secondary slot16's ordinary Coord3D assignment plus companion-byte r
 SupplyTruck secondary slot17's ordinary empty one-word callback matches complete3B native47A69C RET4 and all twenty-three ctor rows. Original EmissionVelocityInfo representative remains; parameter spelling and role remain unknown. No pin or unit/census clearance is added.
 
 SupplyTruck secondary slot5 now tests canonical StateMachine state IDs2/4/5 through ordinary C++, matching complete52B native4A6A81 and all twenty-four ctor rows. Numeric IDs retain only target facts; original predicate owner is preserved. All four small-callback packet candidates now have individual admissions/commits, without pins or unit/census clearance.
+
+### LINK-089 SupplyTruck real box-count operations (2026-11-02)
+
+The56B loseOneBox callback now updates real members and calls canonical Thing::getDrawable plus the existing broadcast body. All twenty-five ctor rows pass. Private lose/gain trials preserve77prior completecode/seven data definitions and resolve every native call exactly, with no private Thing/Drawable copy. [Native bodies, call targets and existing compiler iterator](../reverse/attempt_support/supply-truck-box-callbacks-20261102/README.md). Gain still needs its separate admission; no unit/census clearance is claimed.
