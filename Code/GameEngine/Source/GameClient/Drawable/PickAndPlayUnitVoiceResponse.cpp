@@ -338,11 +338,7 @@ inline LocomotorTemplate *finalOverrideOf(LocomotorTemplate *locomotorTemplate)
 	return locomotorTemplate;
 }
 
-class LocomotorSet
-{
-public:
-	void addLocomotor(const LocomotorTemplate *t, bool b);
-};
+#include "../../../Include/GameLogic/LocomotorSet.h"
 
 class BfmeTmpCF
 {

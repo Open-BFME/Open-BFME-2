@@ -40,14 +40,7 @@ private:
 	const ModuleInfo *m_template;
 };
 
-class LocomotorSet
-{
-public:
-	void clear();
-	void addLocomotor(const LocomotorTemplate *lt, Bool flag);
-private:
-	char m_pad00[0x24];
-};
+#include "../../../../Include/GameLogic/LocomotorSet.h"
 
 // clear()'s rowed 0x001E7E25 body (the existing set.clear() spelling folds to
 // an address-named owner).

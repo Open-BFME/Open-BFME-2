@@ -26,11 +26,7 @@ public:
 };
 extern class LocomotorStore *TheLocomotorStore;
 
-class LocomotorSet
-{
-public:
-	void addLocomotor(const LocomotorTemplate *lt, bool flag);
-};
+#include "../../../../../Include/GameLogic/LocomotorSet.h"
 
 class AIUpdateInterface;
 class Rva001E7087

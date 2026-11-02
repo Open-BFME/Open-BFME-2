@@ -69,7 +69,7 @@ public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 };
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
-class LocomotorSet { public: void setLocomotorAndBaseSpeed(INI *ini, ThingTemplate *instance); };
+#include "../../../../Include/GameLogic/LocomotorSet.h"
 class Rva001EA2CFLocomotorDefinition {
 public:
 	void rva001EA3AE(INI *ini, ThingTemplate *instance);
