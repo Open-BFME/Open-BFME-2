@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 //
 // ?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z at retail 0x004D7B0F (97B).
@@ -8,14 +8,10 @@
 // Evidence: BFME1 donor StateMachine.cpp defineState verbatim minus debug plus BFME2
 // transitions-array setter; 40+ callers at 0x003431CA 0x00343204 0x003433FA; layout from
 // StateMachineGoal.cpp (+0x08 map +0x1C default) and StateCtor.cpp (+0x04/+0x08/+0x0C/+0x1C).
+// The State map's tree helpers are retail's bfmealloc bodies: insert_unique 0x004D795B
+// (the _BFME_RETAIL_TREE_INSERT_LAYOUT begin() path), _M_insert 0x004D9C49 and the
+// 34-byte node creator 0x00382B7F, each shared by ICF with other unsigned-key maps.
 #include <map>
-// Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
-// and this TU's /O1 COMDAT copy differs from the copy the link keeps.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
-{ if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
-}
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline bool less<unsigned int>::operator()(unsigned int const &x,unsigned int const &y)const  { return x < y; } }
 

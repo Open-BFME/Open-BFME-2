@@ -2,6 +2,9 @@
 
 Seat halilkkaya-lk17, 2026-11-02. Base `0ce4019422` (lk17's StateID commit on `a2e765753c`).
 
+Status: steps 1-4 below were done later the same day by lk17. See LINK-177's
+"Repaired, blocker (3)" entry. Step 5 waits for the class-key patch.
+
 ## What lk16 saw
 
 The class-key respell of `insert_unique<unsigned, State*>` (pin 0x004D795B) was refused.

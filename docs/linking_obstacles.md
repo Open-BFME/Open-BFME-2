@@ -276,6 +276,32 @@ the State map's tree identities are wrong. Handoff:
     `map<unsigned,int>` precedent).
   StateMachineDefineState.cpp (233 B, losers: insert_unique and create_node) should then link, and
   the class-key patch can re-admit all three with fold-proofs.
+
+Repaired (2026-11-02, lk17), blocker (3): the State map's tree helpers now bind retail's bodies.
+- StlSweepR3Rva00534743.cpp keys its Rva00534743Record tree by `unsigned int`. Its creator row at
+  0x00534743 is respelled `H` -> `I` and tombstoned. It also emits that tree's `_M_insert`, which
+  is now rowed at 0x0053479F (136 B, add_match verified). Retail 0x0053479F compares keys with `jb`
+  and calls 0x00534743 at 0x005347C7 and 0x005347E0.
+- StateMachineDefineState.cpp builds with `/D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc`
+  and drops its now-unused `__node_alloc` override.
+- Its `_M_insert<unsigned, State*>` row moved from 0x0053479F to an ICF row at 0x004D9C49
+  (tombstoned).
+- Its create_node pin moved from 0x00534743 to 0x00382B7F (`pin_admission.py --add`,
+  `fold-proof=StateMachineDefineState.cpp`). The existing insert_unique pin at 0x004D795B now
+  reproduces retail.
+- allowed_symbols: 0 wrong bindings in either unit. code_identity_baseline key 86 (defineState ->
+  insert_unique) retired through `repair_queue.py retire identity` (PASS).
+- `./build.sh` 20/20 rows over the two units and the three Image/void* map providers; scoped DIR32 OK;
+  pin_consistency OK; find_declared_unmatched clean.
+- `link_check` over the 53 units that touch the State, Rva00534743Record, `void*`, Image and
+  `map<unsigned,int>` tree names, plus Gen009D6DD0.cpp: 54/54 link. StateMachineDefineState.cpp
+  0 -> 233 B and StlSweepR3Rva00534743.cpp 34 -> 170 B; no unit lost. CreateAHeroHero and
+  MilesAudioManager report an unresolved `?Close@Gen009D6DD0@@QAEXXZ` only when checked without
+  their renamed provider.
+- The class-key patch must respell three State pins to `PAVState@@` and re-admit them with the
+  same fold-proofs: `_M_find`, create_node at 0x00382B7F and insert_unique at 0x004D795B. The
+  State `_M_insert` ICF row needs the same respell. Blocker (1), SupplyTruckAIUpdate.cpp, is still
+  held by the foreign fleet.
 - W3DScriptedModelDrawDestructor (lk16): canonical DrawModule.h makes the dtor call
   `??1DrawModule@@MAE@XZ`. Retail inlines it: the body ends with the 0x00BC9690 store and a call to
   0x0049B47C.
