@@ -18645,3 +18645,9 @@ Canonical AIUpdate primary slot130 now has its own exact3B false default and ver
 Canonical AIUpdate primary slot128 now has its complete5B false/RET4 body at5CB9FF and its own inline ICF admission. All44consumer rows and three data tables pass. All three primary false defaults have separate verified commits; other constant/field providers and existing StateMachine issues remain, without census clearance.
 
 The primary false-default group completes with44row verification, unchanged97prior code/ten data definitions and all1934rows in235dependent sources passing. The bounded current-object/published-index preview reduces unresolved ancestor names36->33, still unlinked. All-current-ledger preview separately refuses12759providers lacking current receipts; global linking is unverified. Constants, field accessors, disabled-mask and existing StateMachine/local-static prerequisites remain. [Final object, gates and both preview records](../reverse/attempt_support/aiupdate-primary-false-defaults-20261102/README.md). No census or runtime clearance is claimed.
+
+### Canonical AIUpdate primary constant-default recovery (2026-11-02)
+
+[Native table inventory, exact private trial and incremental admissions](../reverse/attempt_support/aiupdate-primary-constants-20261102/README.md). Original body owners remain and no callback semantics, unique bytes or census gain are claimed.
+
+Primary slot88 now supplies its complete1B native constant default at0x000B3FD0 through ordinary canonical inline C++. Its separate ICF admission passes all45consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.

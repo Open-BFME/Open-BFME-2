@@ -1,0 +1,17 @@
+
+// Native constant/default callbacks; original semantic identities remain unresolved.
+void AIUpdateInterface::vslot088() {  }
+void AIUpdateInterface::vslot089() {  }
+void AIUpdateInterface::vslot147() {  }
+void * AIUpdateInterface::vslot092() { return 0; }
+void * AIUpdateInterface::vslot096() { return 0; }
+void * AIUpdateInterface::vslot097() const { return 0; }
+void * AIUpdateInterface::vslot098() { return 0; }
+void * AIUpdateInterface::vslot099() const { return 0; }
+void * AIUpdateInterface::vslot100() { return 0; }
+void * AIUpdateInterface::vslot101() const { return 0; }
+void * AIUpdateInterface::vslot102() { return 0; }
+ObjectID AIUpdateInterface::vslot109() const { return static_cast<ObjectID>(0); }
+bool AIUpdateInterface::vslot107() const { return true; }
+bool AIUpdateInterface::vslot108() const { return true; }
+bool AIUpdateInterface::vslot146() const { return true; }

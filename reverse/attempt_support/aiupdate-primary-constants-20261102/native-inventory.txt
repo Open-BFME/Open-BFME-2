@@ -1,0 +1,58 @@
+AIUpdate next constant callback inventory -- read-only, 2026-11-02
+
+Canonical declarations: Code/GameEngine/Include/GameLogic/Module/AIUpdate.h
+Current SupplyTruck emitter includes that canonical header.
+Immutable object witness: build/supply-truck-link-20261102/primary-candidate.obj
+
+Native base primary RVA 0x007FA480 and SupplyTruck primary RVA 0x00852FB0 agree at all 15 listed indices. Each body has no relocations or receiver accesses.
+
+RVA 0x000B3FD0: complete 1B native body c3; 134 ledger rows at this address.
+Existing representative: ??1Region2D@@QAE@XZ
+Owner: Code/Libraries/Source/WWVegas/WWMath/region.cpp
+  virtual void vslot088(); // 88: RVA 0x000B3FD0
+    ?vslot088@AIUpdateInterface@@UAEXXZ; native base/derived slot 88; still undefined in immutable emitter.
+  virtual void vslot089(); // 89: RVA 0x000B3FD0
+    ?vslot089@AIUpdateInterface@@UAEXXZ; native base/derived slot 89; still undefined in immutable emitter.
+  virtual void vslot147(); // 147: RVA 0x000B3FD0
+    ?vslot147@AIUpdateInterface@@UAEXXZ; native base/derived slot 147; still undefined in immutable emitter.
+
+RVA 0x000D43D0: complete 3B native body 33 c0 c3; 11 ledger rows at this address.
+Existing representative: ?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+Owner: Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarCallback.cpp
+  virtual void *vslot092(); // 92: RVA 0x000D43D0
+    ?vslot092@AIUpdateInterface@@UAEPAXXZ; native base/derived slot 92; still undefined in immutable emitter.
+  virtual void *vslot096(); // 96: RVA 0x000D43D0
+    ?vslot096@AIUpdateInterface@@UAEPAXXZ; native base/derived slot 96; still undefined in immutable emitter.
+  virtual void *vslot097() const; // 97: RVA 0x000D43D0
+    ?vslot097@AIUpdateInterface@@UBEPAXXZ; native base/derived slot 97; still undefined in immutable emitter.
+  virtual void *vslot098(); // 98: RVA 0x000D43D0
+    ?vslot098@AIUpdateInterface@@UAEPAXXZ; native base/derived slot 98; still undefined in immutable emitter.
+  virtual void *vslot099() const; // 99: RVA 0x000D43D0
+    ?vslot099@AIUpdateInterface@@UBEPAXXZ; native base/derived slot 99; still undefined in immutable emitter.
+  virtual void *vslot100(); // 100: RVA 0x000D43D0
+    ?vslot100@AIUpdateInterface@@UAEPAXXZ; native base/derived slot 100; still undefined in immutable emitter.
+  virtual void *vslot101() const; // 101: RVA 0x000D43D0
+    ?vslot101@AIUpdateInterface@@UBEPAXXZ; native base/derived slot 101; still undefined in immutable emitter.
+  virtual void *vslot102(); // 102: RVA 0x000D43D0
+    ?vslot102@AIUpdateInterface@@UAEPAXXZ; native base/derived slot 102; still undefined in immutable emitter.
+  virtual ObjectID vslot109() const; // 109: RVA 0x000D43D0
+    ?vslot109@AIUpdateInterface@@UBE?AW4ObjectID@@XZ; native base/derived slot 109; still undefined in immutable emitter.
+Already-rowed typed sibling: ?rva000D43D0@SupplyTruckAIUpdate@@UBEHXZ; source Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp
+
+RVA 0x0050B5C6: complete 3B native body b0 01 c3; 3 ledger rows at this address.
+Existing representative: ?rva0050B5C6@Rva0050B5C6@@QAE_NXZ
+Owner: Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
+  virtual bool vslot107() const; // 107: RVA 0x0050B5C6
+    ?vslot107@AIUpdateInterface@@UBE_NXZ; native base/derived slot 107; still undefined in immutable emitter.
+  virtual bool vslot108() const; // 108: RVA 0x0050B5C6
+    ?vslot108@AIUpdateInterface@@UBE_NXZ; native base/derived slot 108; still undefined in immutable emitter.
+  virtual bool vslot146() const; // 146: RVA 0x0050B5C6
+    ?vslot146@AIUpdateInterface@@UBE_NXZ; native base/derived slot 146; still undefined in immutable emitter.
+Already-rowed typed sibling: ?isAvailableForSupplying@SupplyTruckAIUpdate@@UBE_NXZ; source Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp
+
+Exact AIUpdateInterface providers already rowed for these 15 names: 0.
+Source search found no out-of-class definitions of these 15 methods under Code/. The canonical header declares them only.
+
+The void family is empty RET. Pointer/ObjectID slots return EAX zero. The bool family returns AL one. Unrelated representative names establish existing body owners; they do not prove original AIUpdate callback semantics.
+No TU approval or new semantic identity is inferred. A future verified ICF admission must retain the existing representative and claim no unique-byte gain. vslot090/130/128 are excluded because root is handling them.
+No compiler, claims, network, shared cache, Code, ledger or header modifications. Only this scratch report was written.
