@@ -121,13 +121,18 @@ struct BfmeHilightGlobalDataView
 	bool m_D34;
 };
 enum FilterModes { FM_NULL_MODE = 0 };
+enum CustomScenePassModes
+{
+	SCENE_PASS_DEFAULT
+};
+
 class ScreenHilightFilter
 {
 public:
 	int shutdown();
-	virtual int slot00();
+	virtual int init();
 	virtual int slot04();
-	virtual bool preRender(bool &skipRender, int &scenePassMode);
+	virtual bool preRender(bool &skipRender, CustomScenePassModes &scenePassMode);
 	virtual bool postRender(int mode, Coord2D &scrollDelta, bool &doExtraRender, Coord2D *viewportSize);
 	virtual void slot10();
 protected:
@@ -307,7 +312,8 @@ struct BfmeGaussianSettings
 {
 	char m_pad00[4];
 	int m_taps; // +0x04
-	char m_pad08[0x10 - 0x08];
+	char m_pad08[0x0C - 0x08];
+	int m_size; // consumed at +0x0C by init
 	float m_10;
 	float m_14;
 	float m_18;
@@ -328,11 +334,6 @@ struct BfmeGaussianParams
 // Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp (data row 123,
 // matched); this TU only reads/clears it, so it declares extern here.
 extern bool g_bfmeDirtyCU;
-
-enum CustomScenePassModes
-{
-	SCENE_PASS_DEFAULT
-};
 
 class Rva007D85C0
 {

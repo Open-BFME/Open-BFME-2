@@ -1,0 +1,22 @@
+{
+  "ScreenHilightFilter.cpp": {
+    "before": 43,
+    "after": 43,
+    "removed": [],
+    "added": [],
+    "changed": []
+  },
+  "ScreenHilightFilterPreRender.cpp": {
+    "before": 7,
+    "after": 7,
+    "removed": [
+      "?_Get_D3D_Device8@DX8Wrapper@@SAPAUIDirect3DSurface8@@XZ"
+    ],
+    "added": [
+      "?_Get_D3D_Device8@DX8Wrapper@@SAPAUIDirect3DDevice8@@XZ"
+    ],
+    "changed": [
+      "?_Get_D3D_Device8@DX8Wrapper@@SAPAUIDirect3DSurface8@@XZ"
+    ]
+  }
+}

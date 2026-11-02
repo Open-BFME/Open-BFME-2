@@ -15,11 +15,12 @@
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 struct IDirect3DSurface8;
+struct IDirect3DDevice8;
 
 class DX8Wrapper
 {
 public:
-	static IDirect3DSurface8 *_Get_D3D_Device8() { return (IDirect3DSurface8 *)D3DDevice; }
+	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 	static void Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer);
 	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
 protected:
@@ -87,21 +88,34 @@ enum CustomScenePassModes
 	SCENE_PASS_DEFAULT
 };
 
+struct IDirect3DBaseTexture8;
+class Coord2D;
+enum FilterModes { FM_NULL_MODE = 0 };
+
 class ScreenHilightFilter
 {
 public:
+	int shutdown();
 	virtual int init();
-	virtual int shutdown();
+	virtual int slot04();
 	virtual bool preRender(bool &skipRender, CustomScenePassModes &scenePassMode);
+	virtual bool postRender(int mode, Coord2D &scrollDelta, bool &doExtraRender, Coord2D *viewportSize);
+	virtual void slot10();
+protected:
+	virtual int set(FilterModes mode);
+public:
+	virtual void reset();
 private:
-	unsigned long m_pixelShader; // +0x04
-	unsigned m_vertexShader; // +0x08
-	int m_size; // +0x0C
-	int m_current; // +0x10
-	bool m_14; // +0x14
-	int m_kernel[3]; // +0x18
-	IDirect3DTexture9 *m_textures[2]; // +0x24
-	IDirect3DSurface8 *m_surfaces[2]; // +0x2C / +0x30
+	unsigned m_pixelShader;	// +0x04
+	unsigned m_vertexShader;	// +0x08
+	int m_size;	// +0x0C
+	int m_current;	// +0x10
+	bool m_14;	// +0x14
+	int m_kernel[3];	// +0x18
+	IDirect3DBaseTexture8 *m_result;	// +0x24
+	IDirect3DBaseTexture8 *m_textures[1];	// +0x28, indexed by m_current
+	IDirect3DSurface8 *m_renderTarget;	// +0x2C
+	void *m_surfaces[2];	// +0x30
 };
 
 // ?preRender@ScreenHilightFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z @0x000FAAC5
@@ -120,7 +134,7 @@ bool ScreenHilightFilter::preRender(bool &skipRender, CustomScenePassModes &scen
 		g_bfmeDirtyCU = false;
 	}
 	if (TheWritableGlobalData && ((BfmeHilightGlobalDataView *)TheWritableGlobalData)->m_D34) {
-		IDirect3DSurface9 *dest = reinterpret_cast<IDirect3DSurface9 *>(m_surfaces[m_current + 1]);
+		IDirect3DSurface9 *dest = reinterpret_cast<IDirect3DSurface9 *>(reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[m_current + 1]);
 		IDirect3DSurface9 *backBuffer = getBackBufferSurface006e(0).peek();
 		IDirect3DDevice9 *device = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8());
 		D3DSURFACE_DESC desc;
@@ -142,7 +156,7 @@ bool ScreenHilightFilter::preRender(bool &skipRender, CustomScenePassModes &scen
 		if (m_current == 1)
 			m_current = 0;
 	} else {
-		DX8Wrapper::Set_Render_Target(m_surfaces[0], true);
+		DX8Wrapper::Set_Render_Target(reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[0], true);
 		Vector3 color(0.0f, 0.0f, 0.0f);
 		DX8Wrapper::Clear(true, false, false, color, 0.0f, 1.0f, 0);
 	}
@@ -162,36 +176,36 @@ int ScreenHilightFilter::init()
 	if (!W3DShaderManager::canRenderToTexture())
 		return 0;
 	if (Rva00077C19Load("shaders\\hilightfilter.vso", &m_vertexShader) < 0) {
-		shutdown();
+		slot04();
 		return 0;
 	}
-	if (Rva00077D0FLoad("shaders\\hilightfilter.pso", &m_pixelShader) < 0) {
-		shutdown();
+	if (Rva00077D0FLoad("shaders\\hilightfilter.pso", reinterpret_cast<unsigned long *>(&m_pixelShader)) < 0) {
+		slot04();
 		return 0;
 	}
 	m_size = ((BfmeGaussianSettings *)Rva00309E4BGet())->m_size;
 	if (FAILED(reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->CreateTexture(
-		m_size, m_size, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_textures[0], 0))) {
-		shutdown();
+		m_size, m_size, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &reinterpret_cast<IDirect3DTexture9 **>(&m_result)[0], 0))) {
+		slot04();
 		return 0;
 	}
-	if (m_textures[0]->GetSurfaceLevel(0, reinterpret_cast<IDirect3DSurface9 **>(&m_surfaces[0])) != D3D_OK) {
-		if (m_textures[0])
-			m_textures[0]->Release();
-		m_textures[0] = 0;
-		m_surfaces[0] = 0;
+	if (reinterpret_cast<IDirect3DTexture9 **>(&m_result)[0]->GetSurfaceLevel(0, reinterpret_cast<IDirect3DSurface9 **>(&reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[0])) != D3D_OK) {
+		if (reinterpret_cast<IDirect3DTexture9 **>(&m_result)[0])
+			reinterpret_cast<IDirect3DTexture9 **>(&m_result)[0]->Release();
+		reinterpret_cast<IDirect3DTexture9 **>(&m_result)[0] = 0;
+		reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[0] = 0;
 	}
 	for (int i = 0; i < 1; ++i) {
 		IDirect3DDevice9 *dev = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8());
 		if (FAILED(dev->CreateTexture(m_size, m_size, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8,
-				D3DPOOL_DEFAULT, &m_textures[i + 1], 0))) {
-			shutdown();
+				D3DPOOL_DEFAULT, &reinterpret_cast<IDirect3DTexture9 **>(&m_result)[i + 1], 0))) {
+			slot04();
 			return 0;
 		}
-		if (m_textures[i + 1]->GetSurfaceLevel(0, reinterpret_cast<IDirect3DSurface9 **>(&m_surfaces[i + 1])) != D3D_OK) {
-			m_textures[i + 1]->Release();
-			m_textures[i + 1] = 0;
-			m_surfaces[i + 1] = 0;
+		if (reinterpret_cast<IDirect3DTexture9 **>(&m_result)[i + 1]->GetSurfaceLevel(0, reinterpret_cast<IDirect3DSurface9 **>(&reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[i + 1])) != D3D_OK) {
+			reinterpret_cast<IDirect3DTexture9 **>(&m_result)[i + 1]->Release();
+			reinterpret_cast<IDirect3DTexture9 **>(&m_result)[i + 1] = 0;
+			reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[i + 1] = 0;
 		} else {
 			unsigned color = 0;
 			RECT rect;
@@ -199,7 +213,7 @@ int ScreenHilightFilter::init()
 			rect.left = 0;
 			rect.bottom = 1;
 			rect.right = 1;
-			D3DXLoadSurfaceFromMemory(reinterpret_cast<IDirect3DSurface9 *>(m_surfaces[i + 1]), 0, 0, &color,
+			D3DXLoadSurfaceFromMemory(reinterpret_cast<IDirect3DSurface9 *>(reinterpret_cast<IDirect3DSurface8 **>(&m_renderTarget)[i + 1]), 0, 0, &color,
 				D3DFMT_A8R8G8B8, 4, 0, &rect, D3DX_FILTER_POINT, 0);
 		}
 	}

@@ -56,3 +56,22 @@ and the canonical DX8Wrapper interface. No guesses applied to these satellites.
 The shared docs/linking_obstacles.md file is held by
 codex-01a1071d-root-recovery-oct11; this scoped handoff preserves the result
 for the lead to add without editing that claimed file.
+
+## Init/preRender declaration prerequisite
+
+Base3d7bb371e5. Matched native init FA935 consumes the same textures24/28,
+surfaces2C/30, shader words04/08 and kernel18 as the existing seed; its
+Gaussian settings size is +0C. Select those consumed words through the seed
+spelling and retain the native shutdown-slot dispatch at +4 (slot04). The
+seed's previously declaration-only slot0 is now its existing rowed init;
+preRender uses the existing enum signature. No table/lifetime provider is
+emitted. The seed's padding now exposes the already consumed +0C size word.
+
+15/15rows, literal/import/float and frozen-file checks pass. Strict preparation
+of both sources succeeds. All43seed definitions and six of seven PreRender
+definitions retain their full bytes/relocations. The accessor's old surface
+return decoration becomes the existing canonical device return decoration;
+the old name's only indexed touching source is PreRender itself. No outside
+consumer loses that provider. All three current candidate units retain LINKS
+(4134B total). No header_queue entry is retired. A fresh supported dry-run
+accepts seed plus PreRender,15rows; Slot6 remains rejected.
