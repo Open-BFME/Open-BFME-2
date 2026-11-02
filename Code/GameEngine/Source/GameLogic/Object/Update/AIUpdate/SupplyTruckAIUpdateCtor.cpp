@@ -156,3 +156,24 @@ unsigned int SupplyTruckAIUpdate::rva004A7003() const
 {
     return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field80;
 }
+
+bool SupplyTruckAIUpdate::isCurrentlyFerryingSupplies() const
+{
+    if (m_supplyTruckStateMachine)
+    {
+        switch (m_supplyTruckStateMachine->getCurrentStateID())
+        {
+        case 0:
+        case 1:
+            return false;
+        case 2:
+            return true;
+        case 3:
+            return false;
+        case 4:
+        case 5:
+            return true;
+        }
+    }
+    return false;
+}
