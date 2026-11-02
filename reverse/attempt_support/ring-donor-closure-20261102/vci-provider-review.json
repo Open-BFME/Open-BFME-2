@@ -1,0 +1,50 @@
+{
+  "scope": "Read-only VCI candidate/provider review; no compiler, normal gate, source/ledger/tool changes or network.",
+  "index": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "candidate_object_sha256": "92677774333212a7f52a58c3e0a596781d4917ad525499412214b91b761294e5",
+  "candidate_vci": {
+    "length": 48,
+    "bytes": "8b44240c487826538b5c2414558b6c2410568b742410578d78018d9b000000008bceffd303f54f75f75f5e5d5bc21000",
+    "relocations": [],
+    "nondebug_runtime_data_incoming": []
+  },
+  "selected_census_object": "^code_^libraries_^source_^a^t^l_atl_vector_constructor_iterator.obj",
+  "selected_census_variants": [
+    [
+      "6246c280fc30",
+      "retail"
+    ]
+  ],
+  "retail_proven_census_copy_count": 1512,
+  "current_retained_native_owner": {
+    "source": "Code/Libraries/Source/ATL/atl_vector_constructor_iterator.cpp",
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^a^t^l_atl_vector_constructor_iterator.obj",
+    "object_sha256": "ca4825e8166a946a4db33a4e58391bb4824f0e0277ac75ce1c3b6f9cf451faaa",
+    "row_rva": "0x00001423",
+    "length": 34,
+    "bytes": "8b44240c487818568b742408578d78018bceff542418037424104f75f35f5ec21000",
+    "relocations": [],
+    "raw_equals_native34": true,
+    "receipt_object_matches": true,
+    "receipt_source_matches": true
+  },
+  "selection_facts": [
+    "Native ATL owner unique placement1423 precedes ring earliest owned RVA7EBEE; existing retail selection is preserved by a new ring48B copy.",
+    "tools/link_census.py keep_rule1097 onward, retail_kept/retail_first rules: wrong discarded copies do not lose when a proven retail copy exists; actual selected holder remains independently judged.",
+    "Candidate contains no relocation to its own VCI, so none of the8native bodies or3retained helpers directly executes it.",
+    "Global referenced flag is true because other objects use VCI; candidate-local unreferenced is not a claim that the global name is dead."
+  ],
+  "stale_sphere_consumer_result": "All10 names that ring supplied alone in old index are touched outside only by the old sphereobj object. Current source/object-receipt-hash-bound sphere has no symbol or nondebug runtime relocation to any of those10 names; its closure must be included in current peer/consumer evidence.",
+  "recommendation": "No demonstrated runtime/provider reason to retain the old VCI optimization anchor. Retire its2existing pragmas if the normal current link/consumer checks pass; preserve native ATL owner and do not add another emission control.",
+  "limits": [
+    "No full strict command/dependency receipt check rerun by child.",
+    "Retained native owner current SHA differs from census SHA; current whole34B bytes and empty relocations were directly checked.",
+    "Parent complete-code-diff establishes10other retained code definitions unchanged; no claim all deleted unrowed donor code was native."
+  ]
+}

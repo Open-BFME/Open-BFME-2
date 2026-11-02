@@ -1,0 +1,29 @@
+{
+  "rows": 8,
+  "matched_addresses": 8,
+  "missing_addresses": [],
+  "errors": [],
+  "code_definitions": [
+    "??0Vector3@@QAE@XZ",
+    "?Get_Flags@RingRenderObjClass@@QAEIXZ",
+    "?Get_Inner_Extent@RingRenderObjClass@@QBEABVVector2@@XZ",
+    "?Get_Name@RingRenderObjClass@@UBEPBDXZ",
+    "?Peek_Alpha_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@M@@XZ",
+    "?Peek_Inner_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ",
+    "?Peek_Outer_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ",
+    "??0KeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z",
+    "??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QBEABVKeyClass@?$PrimitiveAnimationChannelClass@M@@H@Z",
+    "?Get_Key@?$PrimitiveAnimationChannelClass@M@@QBEABVKeyClass@1@H@Z"
+  ],
+  "native_complete_unchanged": {
+    "?Get_Key@?$PrimitiveAnimationChannelClass@M@@QBEABVKeyClass@1@H@Z": true,
+    "??0KeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ": true,
+    "?Get_Flags@RingRenderObjClass@@QAEIXZ": true,
+    "?Get_Inner_Extent@RingRenderObjClass@@QBEABVVector2@@XZ": true,
+    "?Get_Name@RingRenderObjClass@@UBEPBDXZ": true,
+    "?Peek_Alpha_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@M@@XZ": true,
+    "?Peek_Inner_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ": true,
+    "?Peek_Outer_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ": true
+  }
+}

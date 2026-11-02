@@ -11063,8 +11063,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.h	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.h	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	"",on	3
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	"s",on	3
@@ -13897,8 +13895,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	R
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Return_Render_Object@RenderObjectRecyclerClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	0SpecialRenderInfoClass@@QAE@AAVCameraClass@@H@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	1SpecialRenderInfoClass@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	0RingPrototypeClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	Get_Default_Alpha@RingRenderObjClass@@QBEMXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	0SimpleSceneIterator@@IAE@PAV?$RefMultiListClass@VRenderObjClass@@@@_N@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	1SceneClass@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	Destroy_Iterator@SimpleSceneClass@@	1

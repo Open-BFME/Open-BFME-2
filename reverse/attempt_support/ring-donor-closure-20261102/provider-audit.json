@@ -1,0 +1,1927 @@
+{
+  "scope": "Bounded read-only provider/consumer and native-inline-emission audit; no compilers, source/ledger/tool edits, claims or network.",
+  "index": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "source_sha256": "0f93ebe632b97dd14ae3b68db352e6315d546ccf05f5b0ebc3e0838c37210daa",
+  "object_sha256": "8b28073ddf5a1278b8af97588e5dbf8cce702c3f0e21ebb4a7beb71e6aee95ba",
+  "receipt_source_matches": true,
+  "receipt_object_matches": true,
+  "counts": {
+    "code_definitions": 136,
+    "all_external_defined_names": 155,
+    "Ring_class_defined_names": 21,
+    "Ring_class_outside_touched": 0,
+    "all_defined_names_touched_outside": 94,
+    "census_sole_providers": 10,
+    "selected_shared_providers": 76,
+    "selected_shared_with_non_sphere_outside_touches": 0,
+    "missing_index_touch_records": 0
+  },
+  "ring_class_names": [
+    "??0RingLoaderClass@@QAE@XZ",
+    "??0RingPrototypeClass@@QAE@PAVRingRenderObjClass@@@Z",
+    "??1RingLoaderClass@@QAE@XZ",
+    "??_7RingLoaderClass@@6B@",
+    "??_7RingPrototypeClass@@6B@",
+    "??_GRingPrototypeClass@@MAEPAXI@Z",
+    "?Chunk_Type@RingLoaderClass@@UAEHXZ",
+    "?DeleteSelf@RingPrototypeClass@@UAEXXZ",
+    "?Get_Box@RingRenderObjClass@@QAEABVAABoxClass@@XZ",
+    "?Get_Default_Alpha@RingRenderObjClass@@QBEMXZ",
+    "?Get_Flags@RingRenderObjClass@@QAEIXZ",
+    "?Get_Inner_Extent@RingRenderObjClass@@QBEABVVector2@@XZ",
+    "?Get_Name@RingRenderObjClass@@UBEPBDXZ",
+    "?Get_Outer_Extent@RingRenderObjClass@@QBEABVVector2@@XZ",
+    "?Get_Texture_Tiling@RingRenderObjClass@@QBEHXZ",
+    "?Peek_Alpha_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@M@@XZ",
+    "?Peek_Color_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ",
+    "?Peek_Inner_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ",
+    "?Peek_Outer_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ",
+    "?RingMeshArray@@3PAVRingMeshClass@@A",
+    "?_RingLoader@@3VRingLoaderClass@@A"
+  ],
+  "census_sole_provider_names": [
+    {
+      "name": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Load_Variables@?$PrimitiveAnimationChannelClass@M@@IAEXAAVChunkLoadClass@@@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "??0KeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Save@?$PrimitiveAnimationChannelClass@VVector3@@@@UAEXAAVChunkSaveClass@@@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "??0KeyClass@?$PrimitiveAnimationChannelClass@M@@QAE@XZ",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Evaluate@?$LERPAnimationChannelClass@M@@UAEMM@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Load_Variables@?$PrimitiveAnimationChannelClass@VVector3@@@@IAEXAAVChunkLoadClass@@@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Save@?$PrimitiveAnimationChannelClass@M@@UAEXAAVChunkSaveClass@@@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    },
+    {
+      "name": "?Evaluate@?$LERPAnimationChannelClass@VVector3@@@@UAE?AVVector3@@M@Z",
+      "outside_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ]
+    }
+  ],
+  "selected_shared_providers": [
+    {
+      "name": "??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAEAAVKeyClass@?$PrimitiveAnimationChannelClass@M@@H@Z",
+      "ring_variants": [
+        [
+          "7853bb870adb",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "7853bb870adb",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z",
+      "ring_variants": [
+        [
+          "e40fcab8cc92",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@6B@",
+        "??_7?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@6B@"
+      ]
+    },
+    {
+      "name": "??4KeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@QAEAAV01@ABV01@@Z",
+      "ring_variants": [
+        [
+          "7f8de6438c3d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "7f8de6438c3d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??1?$LERPAnimationChannelClass@VVector3@@@@UAE@XZ",
+      "ring_variants": [
+        [
+          "9bc4538ad0cd",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "9bc4538ad0cd",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_G?$LERPAnimationChannelClass@VVector3@@@@UAEPAXI@Z"
+      ]
+    },
+    {
+      "name": "?Resize@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z",
+      "ring_variants": [
+        [
+          "896b02710f30",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "896b02710f30",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@6B@"
+      ]
+    },
+    {
+      "name": "??1?$PrimitiveAnimationChannelClass@VVector3@@@@UAE@XZ",
+      "ring_variants": [
+        [
+          "cba0be87ac3d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "cba0be87ac3d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_G?$PrimitiveAnimationChannelClass@VVector3@@@@UAEPAXI@Z",
+        "??1?$LERPAnimationChannelClass@VVector3@@@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "?Reset@?$PrimitiveAnimationChannelClass@M@@QAEXXZ",
+      "ring_variants": [
+        [
+          "5a385e0167be",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "5a385e0167be",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE@XZ",
+      "ring_variants": [
+        [
+          "a00c1e63aa0b",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "a00c1e63aa0b",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_G?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAEPAXI@Z",
+        "??1?$PrimitiveAnimationChannelClass@M@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAEAAVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z",
+      "ring_variants": [
+        [
+          "65bb3f554f0d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "06fb30b052c2",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Load_Variables@?$PrimitiveAnimationChannelClass@M@@IAEXAAVChunkLoadClass@@@Z",
+      "ring_variants": [
+        [
+          "427f94e5d3de",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "?Load@?$PrimitiveAnimationChannelClass@M@@UAEXAAVChunkLoadClass@@@Z"
+      ]
+    },
+    {
+      "name": "??0?$LERPAnimationChannelClass@M@@QAE@XZ",
+      "ring_variants": [
+        [
+          "b2b85194ad67",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "b2b85194ad67",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Delete_All@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAEX_N@Z",
+      "ring_variants": [
+        [
+          "f4c81ad44671",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "5cefffc86464",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z",
+      "ring_variants": [
+        [
+          "c885bf8b3a80",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "c885bf8b3a80",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0KeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+      "ring_variants": [
+        [
+          "a167bb24a53b",
+          "retail"
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "?Resize@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z",
+        "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z"
+      ]
+    },
+    {
+      "name": "??_7?$LERPAnimationChannelClass@M@@6B@",
+      "ring_variants": [
+        [
+          "ac322b0b5a1a",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "ac322b0b5a1a",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??0?$LERPAnimationChannelClass@M@@QAE@XZ"
+      ]
+    },
+    {
+      "name": "?Delete_All@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAEX_N@Z",
+      "ring_variants": [
+        [
+          "f4c81ad44671",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "5cefffc86464",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??4?$LERPAnimationChannelClass@M@@QAEAAV0@ABV0@@Z",
+      "ring_variants": [
+        [
+          "d739d8af662d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d739d8af662d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??_G?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "45178717739b",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "45178717739b",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Save@?$PrimitiveAnimationChannelClass@VVector3@@@@UAEXAAVChunkSaveClass@@@Z",
+      "ring_variants": [
+        [
+          "cb136863c0ed",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$PrimitiveAnimationChannelClass@VVector3@@@@6B@",
+        "??_7?$LERPAnimationChannelClass@VVector3@@@@6B@"
+      ]
+    },
+    {
+      "name": "??_7?$LERPAnimationChannelClass@VVector3@@@@6B@",
+      "ring_variants": [
+        [
+          "1e6262a5fb00",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "1e6262a5fb00",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??0?$LERPAnimationChannelClass@VVector3@@@@QAE@XZ"
+      ]
+    },
+    {
+      "name": "??_7?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@6B@",
+      "ring_variants": [
+        [
+          "20e2797a7ae9",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "20e2797a7ae9",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??1?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE@XZ",
+        "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE@XZ",
+        "??_G?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAEPAXI@Z",
+        "??0?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z",
+        "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z"
+      ]
+    },
+    {
+      "name": "??_G?$LERPAnimationChannelClass@M@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "e7938d57a4d1",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "e7938d57a4d1",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Resize@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z",
+      "ring_variants": [
+        [
+          "d94a887579b3",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d94a887579b3",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@6B@",
+        "?Resize@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z",
+        "??0?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z",
+        "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z"
+      ]
+    },
+    {
+      "name": "??1?$PrimitiveAnimationChannelClass@M@@UAE@XZ",
+      "ring_variants": [
+        [
+          "ad445b7924c9",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "ad445b7924c9",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_G?$PrimitiveAnimationChannelClass@M@@UAEPAXI@Z",
+        "??1?$LERPAnimationChannelClass@M@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "?Add@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE_NABVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z",
+      "ring_variants": [
+        [
+          "35ee034539b1",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "a2204801447c",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Grow@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@IAE_NH@Z",
+      "ring_variants": [
+        [
+          "d346c89deec2",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "dc960d407d97",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Add@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE_NABVKeyClass@?$PrimitiveAnimationChannelClass@M@@H@Z",
+      "ring_variants": [
+        [
+          "6c8d54527216",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "ff3b6af5e337",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z",
+      "ring_variants": [
+        [
+          "fe3fb2ce048a",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "fe3fb2ce048a",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z",
+      "ring_variants": [
+        [
+          "c23246268d23",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "c23246268d23",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0KeyClass@?$PrimitiveAnimationChannelClass@M@@QAE@XZ",
+      "ring_variants": [
+        [
+          "6f2f398f93fb",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "?Resize@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z",
+        "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z"
+      ]
+    },
+    {
+      "name": "?Reset@?$PrimitiveAnimationChannelClass@VVector3@@@@QAEXXZ",
+      "ring_variants": [
+        [
+          "5a385e0167be",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "5a385e0167be",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Evaluate@?$LERPAnimationChannelClass@M@@UAEMM@Z",
+      "ring_variants": [
+        [
+          "a13bbbbdcd7d",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$LERPAnimationChannelClass@M@@6B@"
+      ]
+    },
+    {
+      "name": "?Load_Variables@?$PrimitiveAnimationChannelClass@VVector3@@@@IAEXAAVChunkLoadClass@@@Z",
+      "ring_variants": [
+        [
+          "5c377c89cd88",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "?Load@?$PrimitiveAnimationChannelClass@VVector3@@@@UAEXAAVChunkLoadClass@@@Z"
+      ]
+    },
+    {
+      "name": "?Count@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QBEHXZ",
+      "ring_variants": [
+        [
+          "96acfa69671b",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "96acfa69671b",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??_7?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@6B@",
+      "ring_variants": [
+        [
+          "6145f4eb344a",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "6145f4eb344a",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??1?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE@XZ",
+        "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE@XZ",
+        "??_G?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAEPAXI@Z",
+        "??0?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z",
+        "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z"
+      ]
+    },
+    {
+      "name": "?Resize@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE_NH@Z",
+      "ring_variants": [
+        [
+          "b608ad6f09d8",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "b608ad6f09d8",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@6B@"
+      ]
+    },
+    {
+      "name": "??_G?$PrimitiveAnimationChannelClass@VVector3@@@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "cb4114f1e1d5",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "cb4114f1e1d5",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Count@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QBEHXZ",
+      "ring_variants": [
+        [
+          "96acfa69671b",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "96acfa69671b",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??4?$PrimitiveAnimationChannelClass@M@@QAEABV0@ABV0@@Z",
+      "ring_variants": [
+        [
+          "5153a1f68754",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d9637c401e89",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??4?$LERPAnimationChannelClass@M@@QAEAAV0@ABV0@@Z",
+        "?Set_Alpha_Channel@SphereRenderObjClass@@QAEXABV?$LERPAnimationChannelClass@M@@@Z"
+      ]
+    },
+    {
+      "name": "??_G?$PrimitiveAnimationChannelClass@M@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "435686c7606d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "435686c7606d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Load@?$PrimitiveAnimationChannelClass@M@@UAEXAAVChunkLoadClass@@@Z",
+      "ring_variants": [
+        [
+          "9de24c1837f7",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "9de24c1837f7",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$PrimitiveAnimationChannelClass@M@@6B@",
+        "??_7?$LERPAnimationChannelClass@M@@6B@"
+      ]
+    },
+    {
+      "name": "?Get_Key@?$PrimitiveAnimationChannelClass@VVector3@@@@QBEABVKeyClass@1@H@Z",
+      "ring_variants": [
+        [
+          "5c4cfec34d9e",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "115e74e28659",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Length@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QBEHXZ",
+      "ring_variants": [
+        [
+          "dbc10ce76e7d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "dbc10ce76e7d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??1?$LERPAnimationChannelClass@M@@UAE@XZ",
+      "ring_variants": [
+        [
+          "d96da97fc0ce",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d96da97fc0ce",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_G?$LERPAnimationChannelClass@M@@UAEPAXI@Z"
+      ]
+    },
+    {
+      "name": "??_7?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@6B@",
+      "ring_variants": [
+        [
+          "d0b4412dbece",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d0b4412dbece",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE@XZ",
+        "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z",
+        "??0?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+        "??0?$LERPAnimationChannelClass@VVector3@@@@QAE@XZ"
+      ]
+    },
+    {
+      "name": "??4?$PrimitiveAnimationChannelClass@VVector3@@@@QAEABV0@ABV0@@Z",
+      "ring_variants": [
+        [
+          "d037b94fc519",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "af26383c3945",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??4?$LERPAnimationChannelClass@VVector3@@@@QAEAAV0@ABV0@@Z",
+        "?Set_Color_Channel@SphereRenderObjClass@@QAEXABV?$LERPAnimationChannelClass@VVector3@@@@@Z",
+        "?Set_Scale_Channel@SphereRenderObjClass@@QAEXABV?$LERPAnimationChannelClass@VVector3@@@@@Z"
+      ]
+    },
+    {
+      "name": "??_G?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "1bc0ecb38eb3",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "1bc0ecb38eb3",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "??_7?$PrimitiveAnimationChannelClass@M@@6B@",
+      "ring_variants": [
+        [
+          "8c8188256277",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "8c8188256277",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??0?$PrimitiveAnimationChannelClass@M@@QAE@XZ",
+        "??1?$PrimitiveAnimationChannelClass@M@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z",
+      "ring_variants": [
+        [
+          "e0a102161f73",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@6B@",
+        "??_7?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@6B@"
+      ]
+    },
+    {
+      "name": "??_7?$PrimitiveAnimationChannelClass@VVector3@@@@6B@",
+      "ring_variants": [
+        [
+          "5c0d69c5d658",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "5c0d69c5d658",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??0?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+        "??1?$PrimitiveAnimationChannelClass@VVector3@@@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "?Save@?$PrimitiveAnimationChannelClass@M@@UAEXAAVChunkSaveClass@@@Z",
+      "ring_variants": [
+        [
+          "f62fb9449f53",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$PrimitiveAnimationChannelClass@M@@6B@",
+        "??_7?$LERPAnimationChannelClass@M@@6B@"
+      ]
+    },
+    {
+      "name": "??_G?$LERPAnimationChannelClass@VVector3@@@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "03805c0e721e",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "03805c0e721e",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Get_Key@?$PrimitiveAnimationChannelClass@M@@QBEABVKeyClass@1@H@Z",
+      "ring_variants": [
+        [
+          "8aeb1db80b64",
+          "retail"
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "8aeb1db80b64",
+          "verdict": "retail"
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "??4?$LERPAnimationChannelClass@VVector3@@@@QAEAAV0@ABV0@@Z",
+      "ring_variants": [
+        [
+          "ba0c865162b8",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "ba0c865162b8",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??_G?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "3d937a4d7a3c",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "3d937a4d7a3c",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Length@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QBEHXZ",
+      "ring_variants": [
+        [
+          "dbc10ce76e7d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "dbc10ce76e7d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Shrink@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@IAE_NXZ",
+      "ring_variants": [
+        [
+          "0ed66d75b26d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "0ed66d75b26d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE@XZ",
+      "ring_variants": [
+        [
+          "7eed404ec440",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "7eed404ec440",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_G?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAEPAXI@Z",
+        "??1?$PrimitiveAnimationChannelClass@VVector3@@@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "??0?$LERPAnimationChannelClass@VVector3@@@@QAE@XZ",
+      "ring_variants": [
+        [
+          "50f3a08389bc",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "50f3a08389bc",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+      "ring_variants": [
+        [
+          "f2cc90067ef3",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "f2cc90067ef3",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Shrink@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@IAE_NXZ",
+      "ring_variants": [
+        [
+          "0ed66d75b26d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "0ed66d75b26d",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Get_Key_Count@?$PrimitiveAnimationChannelClass@VVector3@@@@QBEHXZ",
+      "ring_variants": [
+        [
+          "0ebf5f24c0ac",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??0?$PrimitiveAnimationChannelClass@M@@QAE@XZ",
+      "ring_variants": [
+        [
+          "b305e3f309a6",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "b305e3f309a6",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Evaluate@?$LERPAnimationChannelClass@VVector3@@@@UAE?AVVector3@@M@Z",
+      "ring_variants": [
+        [
+          "9048c5455ca2",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$LERPAnimationChannelClass@VVector3@@@@6B@"
+      ]
+    },
+    {
+      "name": "??0?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z",
+      "ring_variants": [
+        [
+          "c0ae35bf8f51",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "c0ae35bf8f51",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QBEABVKeyClass@?$PrimitiveAnimationChannelClass@M@@H@Z",
+      "ring_variants": [
+        [
+          "7853bb870adb",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "7853bb870adb",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Grow@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@IAE_NH@Z",
+      "ring_variants": [
+        [
+          "d346c89deec2",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "dc960d407d97",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QBEABVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z",
+      "ring_variants": [
+        [
+          "65bb3f554f0d",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "06fb30b052c2",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??_7?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@6B@",
+      "ring_variants": [
+        [
+          "ce5a83793b2e",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "ce5a83793b2e",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE@XZ",
+        "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE@H@Z",
+        "??0?$PrimitiveAnimationChannelClass@M@@QAE@XZ",
+        "??0?$LERPAnimationChannelClass@M@@QAE@XZ"
+      ]
+    },
+    {
+      "name": "?Get_Key_Count@?$PrimitiveAnimationChannelClass@M@@QBEHXZ",
+      "ring_variants": [
+        [
+          "0ebf5f24c0ac",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "?Load@?$PrimitiveAnimationChannelClass@VVector3@@@@UAEXAAVChunkLoadClass@@@Z",
+      "ring_variants": [
+        [
+          "d53e7d6867b1",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d53e7d6867b1",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$PrimitiveAnimationChannelClass@VVector3@@@@6B@",
+        "??_7?$LERPAnimationChannelClass@VVector3@@@@6B@"
+      ]
+    },
+    {
+      "name": "??_G?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAEPAXI@Z",
+      "ring_variants": [
+        [
+          "18a198883008",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "18a198883008",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": []
+    },
+    {
+      "name": "?Get_Value@KeyClass@?$PrimitiveAnimationChannelClass@M@@QBEABMXZ",
+      "ring_variants": [
+        [
+          "03ca90960a9c",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "03ca90960a9c",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": false,
+      "incoming": []
+    },
+    {
+      "name": "??1?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE@XZ",
+      "ring_variants": [
+        [
+          "685586edf570",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "685586edf570",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "??1?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE@XZ",
+      "ring_variants": [
+        [
+          "d083bb6dd9be",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "d083bb6dd9be",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??1?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@UAE@XZ"
+      ]
+    },
+    {
+      "name": "?Resize@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z",
+      "ring_variants": [
+        [
+          "01f90e075779",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "01f90e075779",
+          "verdict": null
+        }
+      ],
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp"
+      ],
+      "referenced": true,
+      "incoming": [
+        "??_7?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@6B@",
+        "?Resize@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z",
+        "??0?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z",
+        "??0?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE@H@Z"
+      ]
+    }
+  ],
+  "owned_native_rows": [
+    {
+      "row": {
+        "name": "?Get_Key@?$PrimitiveAnimationChannelClass@M@@QBEABVKeyClass@1@H@Z",
+        "export_rva": "",
+        "target_rva": "0x0007EBEE",
+        "target_size": "13",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 13,
+      "bytes": "8b41088b4c24048d04c8c20400",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "??0KeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@QAE@XZ",
+        "export_rva": "",
+        "target_rva": "0x006BE4B0",
+        "target_size": "10",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 10,
+      "bytes": "8bc1c7400c00000000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": [
+        {
+          "section": ".text",
+          "section_number": 154,
+          "offset": 79,
+          "kind": 6,
+          "functions": [
+            "?Resize@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z"
+          ]
+        },
+        {
+          "section": ".text",
+          "section_number": 158,
+          "offset": 83,
+          "kind": 6,
+          "functions": [
+            "?Uninitialised_Grow@?$SimpleVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@UAE_NH@Z"
+          ]
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "?Get_Flags@RingRenderObjClass@@QAEIXZ",
+        "export_rva": "",
+        "target_rva": "0x003140A4",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 7,
+      "bytes": "8b8100020000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Get_Inner_Extent@RingRenderObjClass@@QBEABVVector2@@XZ",
+        "export_rva": "",
+        "target_rva": "0x0040C943",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 7,
+      "bytes": "8d81cc010000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Get_Name@RingRenderObjClass@@UBEPBDXZ",
+        "export_rva": "",
+        "target_rva": "0x0045A218",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 7,
+      "bytes": "8d8194010000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Peek_Alpha_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@M@@XZ",
+        "export_rva": "",
+        "target_rva": "0x0043A096",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 7,
+      "bytes": "8d814c010000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Peek_Inner_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ",
+        "export_rva": "",
+        "target_rva": "0x0006E12F",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 7,
+      "bytes": "8d8164010000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Peek_Outer_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ",
+        "export_rva": "",
+        "target_rva": "0x0031A9C7",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "raw_length": 7,
+      "bytes": "8d817c010000c3",
+      "native_exact": true,
+      "relocations": [],
+      "local_runtime_or_data_incoming": []
+    }
+  ],
+  "stale_sphere_reference_check": {
+    "current_sphere_sha256": "ed95db4250f350575b71f5c4a3e7f98417537ef7416a9cb9d177b036fe30f5eb",
+    "source_receipt_matches": true,
+    "object_receipt_matches": true,
+    "census_sole_names_still_in_current_sphere_symbol_table": [],
+    "current_sphere_runtime_or_data_references_to_sole_names": []
+  },
+  "emission_facts": [
+    "The two remaining donor bodies are Get_Default_Alpha and RingPrototypeClass(RingRenderObjClass*); the latter calls native getter names and copies animation channels, retaining extensive header emission.",
+    "Header ringobj.h includes prim_anim.h. PrimitiveAnimationChannelClass<T>::KeyClass stores T m_Value then float m_Time; default construction initializes only m_Time. Native Vector3 KeyClass ctor clears+0C (10B).",
+    "Native float Get_Key loads data pointer+8 and indexes8-byte records (13B); six Ring getters expose exact existing offsets/word read. No owned native row has relocations.",
+    "Name remains virtual in its existing ledger spelling; any partial view must preserve that member ABI without inferring the rest of the Ring layout.",
+    "Current RingMeshArray and RingLODCosts globals have no outside indexed touches. Their static initialization is donor-only context, not an observed external data provider."
+  ],
+  "conclusion": [
+    "No outside Ring-class consumer blocks a private native-only closure trial.",
+    "Ten apparently sole channel providers are required only by stale sphere census contents; current source/object-hash-bound sphere has none of those names or references. Refresh sphere together in bounded link/consumer verification rather than retaining removed donor scaffolding.",
+    "All76 selected shared providers have outside touches only from stale sphere. Other outside-touched names retain alternative providers. Keep all8native bodies; the Vector3 KeyClass ctor is the one sole retail-proven variant but is an owned retained row.",
+    "No implementation, new identity or true full-class recovery is inferred from byte offsets. Native getter family names remain existing views."
+  ],
+  "limits": [
+    "Index updated984a4cdc4d has complete touches but no per-object reference contribution records; exact outside caller roots are conservatively over-approximated by touches.",
+    "Current object/source receipt hashes were checked, but strict compiler-command/dependency currency was not rerun by this child.",
+    "Current post-index outside work remains for normal LinkGuard and batch audit."
+  ]
+}
