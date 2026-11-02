@@ -33,8 +33,8 @@ void resize(unsigned int n,T value);
 };
 }
 class DrawableLocoInfo{public:virtual ~DrawableLocoInfo(){}DrawableLocoInfo();float m_pitch,m_pitchRate,m_roll,m_rollRate,m_yaw,m_accelerationPitch,m_accelerationPitchRate,m_accelerationRoll,m_accelerationRollRate,m_overlapZVel,m_overlapZ,m_wobble,m_yawModulator,m_pitchModulator;float wheels[7];};
-struct LocomotorTemplate{char pad[0x88];float accelLimit,decelLimit,pitchStiff,rollStiff,pitchDamp,rollDamp;char padA0[0x18];float axial;};
-class Locomotor{public:void*vp;const LocomotorTemplate*data;float getAccelPitchLimit()const{return data->accelLimit;}float getPitchStiffness()const{return data->pitchStiff;}float getRollStiffness()const{return data->rollStiff;}float getPitchDamping()const{return data->pitchDamp;}float getRollDamping()const{return data->rollDamp;}float getUniformAxialDamping()const{return data->axial;}};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
+class Locomotor{public:void*vp;const LocomotorTemplate*data;float getAccelPitchLimit()const{return data->m_accelerationPitchLimit;}float getPitchStiffness()const{return data->m_pitchStiffness;}float getRollStiffness()const{return data->m_rollStiffness;}float getPitchDamping()const{return data->m_pitchDamping;}float getRollDamping()const{return data->m_rollDamping;}float getUniformAxialDamping()const{return data->m_uniformAxialDamping;}};
 class Object{public:char pad[0x25C];void*physics;Int rva0028B511()const;};
 class TerrainLogic{public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual float getLayerHeight(float,float,int,Coord3D*,bool);};extern TerrainLogic*TheTerrainLogic;
 class BfmeFootDraw{public:

@@ -214,12 +214,7 @@ private:
 	AIUpdateInterface *m_ai;			// +0x258
 };
 
-struct LocomotorTemplate
-{
-	char m_pad00[0x18];
-	Real m_lookAheadMult;							// +0x18
-	Bool m_nonDirtyTransform;							// +0x1C
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 class Rva001E46E1
 {

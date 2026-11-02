@@ -4,11 +4,7 @@
 // ?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@UBE_NXZ, retail 0x00262CF2, 59 bytes.
 // ZH donor AIUpdate.cpp aircraft destination and distance-to-goal methods.
 
-struct LocomotorTemplate
-{
-	char m_pad00[0x74];
-	int m_appearance; // +0x74
-};
+#include "../../../../Include/GameLogic/LocomotorTemplate.h"
 
 class Locomotor
 {

@@ -71,13 +71,7 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class LocomotorTemplate
-{
-public:
-	char m_pad[0x2C];
-	unsigned int m_turnPeriod;
-	unsigned int m_damagedTurnPeriod;
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 
 #include "../../Include/Common/GlobalData.h"
 

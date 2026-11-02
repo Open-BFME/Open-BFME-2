@@ -139,11 +139,7 @@ char m_pad04[8];
 unsigned int m_info;			// +0x0C
 };
 
-struct LocomotorTemplate
-{
-char m_pad00[0x14];
-LocomotorSurfaceTypeMask m_surfaces;	// +0x14
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 class Locomotor
 {

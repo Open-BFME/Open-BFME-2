@@ -10,13 +10,7 @@
 
 #include "../../Include/Common/Overridable.h"
 
-class LocomotorTemplate : public Overridable
-{
-public:
-	virtual ~LocomotorTemplate();
-private:
-	AsciiString m_10;
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 
 LocomotorTemplate::~LocomotorTemplate()
 {

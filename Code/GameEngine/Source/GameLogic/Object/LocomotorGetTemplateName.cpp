@@ -2,12 +2,7 @@
 // ?getTemplateName@Locomotor@@QBE?AVAsciiString@@XZ @0x001E4A63 30B
 #include "ascii_string.h"
 
-class LocomotorTemplate
-{
-public:
-	char m_pad[0x10];
-	AsciiString m_name;
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 class Locomotor
 {

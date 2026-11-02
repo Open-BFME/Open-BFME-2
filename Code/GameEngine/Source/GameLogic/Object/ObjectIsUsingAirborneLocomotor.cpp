@@ -5,12 +5,7 @@
 // loco+0x04, surfaces at tmpl+0x14 with AIR as (1<<3). Callers include
 // 0x004671E8 0x00429903 0x00483CC0.
 
-class LocomotorTemplate
-{
-public:
-	unsigned char m_pad[0x14];
-	int m_surfaces; // +0x14, AIR is (1<<3)
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 class Locomotor
 {

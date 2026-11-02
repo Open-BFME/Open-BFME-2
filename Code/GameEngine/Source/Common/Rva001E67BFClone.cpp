@@ -10,18 +10,7 @@
 
 #include "../../Include/Common/Overridable.h"
 
-class LocomotorTemplate : public Overridable
-{
-public:
-	LocomotorTemplate(const LocomotorTemplate &o);
-	virtual ~LocomotorTemplate();
-	LocomotorTemplate rva001E67BF();
-private:
-	AsciiString m_10;
-	char m_pad14[0x13C];
-	bool m_scalesWalls;
-	char m_pad151[0x03];
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 
 LocomotorTemplate LocomotorTemplate::rva001E67BF()
 {

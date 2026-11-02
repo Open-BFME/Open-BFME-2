@@ -38,13 +38,7 @@ public:
 
 #include "object.h"
 
-class LocomotorTemplate
-{
-public:
-	char m_pad[0x2C];
-	UnsignedInt m_turnPeriod;
-	UnsignedInt m_damagedTurnPeriod;
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 #include "../../../Include/Common/GlobalData.h"
 
@@ -65,9 +59,9 @@ Real Locomotor::getMaxTurnRate(Object *object) const
 	BodyDamageType condition = object->m_body->getDamageState();
 	Real turnRate;
 	if (condition < TheGlobalData->m_movementPenaltyDamageState)
-		turnRate = 6.283185307179586f / (Real)(UnsignedInt)m_template->m_turnPeriod;
+		turnRate = 6.283185307179586f / (Real)(UnsignedInt)m_template->m_turnTime;
 	else
-		turnRate = 6.283185307179586f / (Real)(UnsignedInt)m_template->m_damagedTurnPeriod;
+		turnRate = 6.283185307179586f / (Real)(UnsignedInt)m_template->m_turnTimeDamaged;
 	if (turnRate > m_maxTurnRate)
 		turnRate = m_maxTurnRate;
 	return turnRate;

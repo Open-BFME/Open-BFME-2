@@ -48,23 +48,12 @@ public:
 	Real m_wheelInfo[7];
 };
 
-struct LocomotorTemplate
-{
-	char m_pad00[0x88];
-	Real m_accelPitchLimit;			// +0x88
-	Real m_decelPitchLimit;			// +0x8C
-	Real m_pitchStiffness;			// +0x90
-	Real m_rollStiffness;			// +0x94
-	Real m_pitchDamping;			// +0x98
-	Real m_rollDamping;				// +0x9C
-	char m_padA0[0xB8 - 0xA0];
-	Real m_uniformAxialDamping;		// +0xB8
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 
 class Locomotor
 {
 public:
-	Real getAccelPitchLimit() const { return m_template->m_accelPitchLimit; }
+	Real getAccelPitchLimit() const { return m_template->m_accelerationPitchLimit; }
 	Real getPitchStiffness() const { return m_template->m_pitchStiffness; }
 	Real getRollStiffness() const { return m_template->m_rollStiffness; }
 	Real getPitchDamping() const { return m_template->m_pitchDamping; }

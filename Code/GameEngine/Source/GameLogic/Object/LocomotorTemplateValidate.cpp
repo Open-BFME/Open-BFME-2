@@ -21,24 +21,7 @@ enum LocomotorAppearance
 	LOCO_WINGS = 3 // retail-measured value of +0x74 tested here
 };
 
-class LocomotorTemplate
-{
-public:
-	void validate();
-
-private:
-	char m_pad00[0x28];
-	Real m_minSpeed; // +0x28
-	int m_turnTime; // +0x2C
-	int m_turnTimeDamaged; // +0x30 falls back to +0x2C when zero
-	char m_pad34[0x48 - 0x34];
-	Real m_lift; // +0x48
-	Real m_liftDamaged; // +0x4C falls back to +0x48 when negative
-	char m_pad50[0x54 - 0x50];
-	Real m_minTurnSpeed; // +0x54
-	char m_pad58[0x74 - 0x58];
-	LocomotorAppearance m_appearance; // +0x74
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 
 void LocomotorTemplate::validate()
 {

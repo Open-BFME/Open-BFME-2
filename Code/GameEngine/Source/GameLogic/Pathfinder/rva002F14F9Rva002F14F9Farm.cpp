@@ -296,12 +296,7 @@ class PathfindCell
 // +0x0C
 };
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
-struct LocomotorTemplate
-{
- char m_pad00[0x14];
- LocomotorSurfaceTypeMask m_surfaces;
-// +0x14
-};
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 class Locomotor
 {
 public:

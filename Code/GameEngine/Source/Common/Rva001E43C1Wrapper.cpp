@@ -3,12 +3,7 @@
 // ObjectIsUsingAirborneLocomotor.cpp; this unit holds only the 0x001E43C1
 // flag-setter wrapper below, so it carries no second definition of it.
 
-class LocomotorTemplate
-{
-public:
-	unsigned char m_pad[0x14];
-	int m_surfaces; // +0x14, AIR is (1<<3)
-};
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 
 class Locomotor
 {
