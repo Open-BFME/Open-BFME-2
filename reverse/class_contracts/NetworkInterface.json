@@ -1,0 +1,470 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "NetworkInterface",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 34,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x10": {
+    "4": 2
+   },
+   "0x30": {
+    "1": 2
+   },
+   "0xc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 4,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 2,
+   "4": 28,
+   "16": 1,
+   "64": 1
+  },
+  "views": 32,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_NetworkInterface.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetworkInterface.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 29,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/NetworkInterfaceRouter.cpp",
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/Network.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot51",
+   "candidates": {
+    "_v51()": 1,
+    "connected(int)": 1,
+    "isPlayerConnected(int)": 1,
+    "slotcc()": 1,
+    "v0CC()": 1,
+    "v33()": 1,
+    "v51()": 1,
+    "vCC()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot52",
+   "candidates": {
+    "isReady()": 1,
+    "slotD0()": 1,
+    "slotd0()": 1,
+    "v0D0()": 1,
+    "v52()": 1,
+    "vD0()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot53",
+   "candidates": {
+    "getIncomingBytesPerSecond()": 1,
+    "slotd4()": 1,
+    "v0D4()": 1,
+    "v53()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot54",
+   "candidates": {
+    "getIncomingPacketsPerSecond()": 1,
+    "slotd8()": 1,
+    "v0D8()": 1,
+    "v54()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot55",
+   "candidates": {
+    "getOutgoingBytesPerSecond()": 1,
+    "slotdc()": 1,
+    "v0DC()": 1,
+    "v55()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot56",
+   "candidates": {
+    "getOutgoingPacketsPerSecond()": 1,
+    "slote0()": 1,
+    "v0E0()": 1,
+    "v56()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot57",
+   "candidates": {
+    "slote4()": 1,
+    "v0E4()": 1,
+    "v57()": 1,
+    "vE4()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot58",
+   "candidates": {
+    "slote8()": 1,
+    "v0E8()": 1,
+    "v58()": 1,
+    "vE8()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot60",
+   "candidates": {
+    "getRunAheadCeilingHits()": 1,
+    "slotf0()": 1,
+    "v0F0()": 1,
+    "v60()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot61",
+   "candidates": {
+    "getSequentialBuffer(int)": 1,
+    "getSequentialBufferCount(int)": 1,
+    "slotf4()": 1,
+    "v61()": 1
+   },
+   "class": "NetworkInterface"
+  },
+  {
+   "attribute": "slot62",
+   "candidates": {
+    "getPlayerLatestFrame(int)": 1,
+    "getSlotFrame(int)": 1,
+    "v62()": 1
+   },
+   "class": "NetworkInterface"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "slot00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "slot02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "slot25()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "slot26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "slot27()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "slot29()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "slot03()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "slot31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "slot33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "slot35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "slot36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "slot04()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "slot42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "isPacketRouter()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "slot44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "slot45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "slot48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "slot49()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "slot05()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "59": {
+   "decided_by": "majority",
+   "member": "getFramesBehindPacketRouter()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "slot06()"
+  },
+  "63": {
+   "decided_by": "bytes",
+   "member": "v63()"
+  },
+  "64": {
+   "decided_by": "bytes",
+   "member": "v64()"
+  },
+  "65": {
+   "decided_by": "bytes",
+   "member": "v65(int)"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "slot09()"
+  }
+ }
+}
