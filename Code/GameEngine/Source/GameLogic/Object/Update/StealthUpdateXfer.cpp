@@ -53,32 +53,7 @@ extern class ThingFactory *TheThingFactory;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class StealthUpdate : public UpdateModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_stealthAllowedFrame; // +0x20
-	unsigned int m_detectionExpiresFrame; // +0x24
-	unsigned int m_framesGranted; // +0x28, version >= 2 (donor's version>=2 member)
-	int m_2c; // +0x2C, version >= 3 (BFME2-new)
-	bool m_enabled; // +0x30
-	bool m_31; // +0x31 (BFME2-new)
-	bool m_32; // +0x32 (BFME2-new)
-	bool m_33; // +0x33 (BFME2-new)
-	bool m_34; // +0x34 (BFME2-new)
-	unsigned char m_pad35[3];
-	int m_disguiseAsPlayerIndex; // +0x38
-	const ThingTemplate *m_disguiseAsTemplate; // +0x3C
-	unsigned int m_disguiseTransitionFrames; // +0x40
-	bool m_disguiseHalfpointReached; // +0x44
-	bool m_transitioningToDisguise; // +0x45
-	bool m_disguised; // +0x46
-	unsigned char m_pad47[1];
-	unsigned char m_pad48[0x100]; // +0x48..+0x147 (upgrade masks etc, not xfer'd)
-	bool m_148; // +0x148, version >= 4 (BFME2-new)
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 
 void StealthUpdate::xfer(Xfer *xfer)
 {
@@ -112,14 +87,14 @@ void StealthUpdate::xfer(Xfer *xfer)
 	*xfer == m_disguiseHalfpointReached;
 	*xfer == m_transitioningToDisguise;
 	*xfer == m_disguised;
-	*xfer == m_34;
-	*xfer == m_32;
-	*xfer == m_33;
-	*xfer == m_31;
+	*xfer == m_field34;
+	*xfer == m_field32;
+	*xfer == m_field33;
+	*xfer == m_field31;
 	if (version.m_currentVersion >= 3)
-		*xfer == m_2c;
+		*xfer == m_field2C;
 	if (version.m_currentVersion >= 4)
-		*xfer == m_148;
+		*xfer == m_field148;
 }
 // ?g_rva008ffd18ThrowInfo@@3HA: the global at VA 0xcffd18 is ?g_guardTargetTypeThrowInfo@@3HA.
 #pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")

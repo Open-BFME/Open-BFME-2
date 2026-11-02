@@ -66,11 +66,7 @@ class Thing {
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva00373EC6;
-class StealthUpdate {
-  public:
-    void disguiseAsObject(const Object *);
-    void markAsDetected(unsigned, int, Object *, bool);
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Rva00380200 {
   public:

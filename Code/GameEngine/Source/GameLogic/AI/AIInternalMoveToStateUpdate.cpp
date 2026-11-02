@@ -357,7 +357,7 @@ public:
 };
 #include "../../Common/Thing/thing.h"
 class Object;
-class StealthUpdate { public: void markAsDetected(unsigned int, int, Object *, bool); };
+#include "../../../Include/GameLogic/Module/StealthUpdate.h"
 class Rva00373EC6
 {
 public:

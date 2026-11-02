@@ -11,7 +11,7 @@ enum ObjectStatusTypes { OBJECT_STATUS_63=63,OBJECT_STATUS_66=66 };
 enum PathfindLayerEnum { PATHFIND_LAYER_0=0 };
 class Rva00373EC6;
 #include "../object.h"
-class StealthUpdate { public: void markAsDetected(unsigned,int,Object *,bool); };
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 class Rva00439E0C { public: bool detected(Object *,Object *,int,int); };
 template<int N> class Rva00462FB3Slots:public Rva00462FB3Slots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class Rva00462FB3Slots<0> {};

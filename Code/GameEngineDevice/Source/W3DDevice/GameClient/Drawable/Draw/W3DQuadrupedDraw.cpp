@@ -162,11 +162,7 @@ class GiantBirdNormalFlightState
 public:
 	virtual void onExit(StateExitType a);
 };
-class StealthUpdate
-{
-public:
-	void rva003748BD();
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/StealthUpdate.h"
 class Rva0038404A
 {
 public:

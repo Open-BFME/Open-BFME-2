@@ -93,11 +93,7 @@ public:
 };
 
 class Object;
-class StealthUpdate
-{
-public:
-	void markAsDetected(unsigned int, int, Object *, bool);	// 0x0037446E (rowed)
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 class Rva00373EC6
 {
 public:

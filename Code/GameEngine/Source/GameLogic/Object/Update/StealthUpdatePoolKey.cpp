@@ -18,11 +18,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class StealthUpdate
-{
-public:
-	static NameKeyType rva000373CCA();
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 
 // ?rva000373CCA@StealthUpdate@@SA?AW4NameKeyType@@XZ
 NameKeyType StealthUpdate::rva000373CCA()

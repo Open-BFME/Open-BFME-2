@@ -15,11 +15,7 @@ class Rva00373EC6
 
 // LINK: 0x373D23 is rowed as StealthUpdate::rva00373D23; the Object accessor keeps returning
 // Rva00373EC6* (its row name), and the call goes through a StealthUpdate view.
-class StealthUpdate
-{
-public:
-	void rva00373D23();
-};
+#include "../../Include/GameLogic/Module/StealthUpdate.h"
 
 #include "../GameLogic/Object/object.h"
 

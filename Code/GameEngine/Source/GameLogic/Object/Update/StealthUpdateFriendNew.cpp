@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class StealthUpdate
-{
-public:
-	StealthUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x14C];
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 
 // ?friend_newModuleInstance@StealthUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *StealthUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

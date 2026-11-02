@@ -47,15 +47,7 @@ public:
 	int m_vals[4];
 };
 
-class StealthUpdate
-{
-protected:
-	void hintDetectableWhileUnstealthed();
-private:
-	const void *m_00;
-	const Rva0037441EModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 
 void StealthUpdate::hintDetectableWhileUnstealthed()
 {

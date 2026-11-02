@@ -253,10 +253,7 @@ class Rva00373EC6 {
     char pad[0x3C];
     int state;
 };
-class StealthUpdate {
-  public:
-    void markAsDetected(unsigned, int, Object *, bool);
-};
+#include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 #include "../../../Common/Thing/thing.h"
 class Rva001E4912 {
   public:
