@@ -108,6 +108,14 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
    FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
 
+Repaired (2026-11-02, lk15): AttributeModifierAuraUpdateCtor (128 B), cause `0769434026` (Adopt
+canonical UpdateModuleInterface in 21 more units): the Dtor unit now emits the +0x10 and +0x20 tables
+(0x00C50D20, 0x00C50CD8) as `??_7AttributeModifierAuraUpdate@@6BUpdateModule@@@` and
+`6BUpgradeMux@@@`, while the ctor still bound `6BUpdateModuleInterface@@@` and `6B@` by explicit
+identifier (LINK-168 mechanism 1). The ctor binds the emitted names. `./build.sh` 2/2 rows; scoped DIR32
+OK (6 symbols, with the Dtor: both names sit on the same retail tables); `link_check` ctor 128 B links
+again, Dtor 143 B unchanged.
+
 Repaired (2026-11-02, lk15): MeshLoadContextCtor (2,043 B) and matinfo (644 B), cause `ccfd564709`
 (Adopt canonical ShaderClass in 38 more units). Canonical `ShaderClass.h` declared `operator==`/`!=`
 out of line, so MaterialCollectorDestructor.cpp (first in link order) emitted

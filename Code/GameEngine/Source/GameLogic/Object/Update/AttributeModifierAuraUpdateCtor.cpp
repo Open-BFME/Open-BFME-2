@@ -18,9 +18,9 @@
 
 extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BObjectModule@@@")[];  // vftable 0x00C50D2C, as the dtor unit names it after its canonical ObjectModule base
 
-extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BUpdateModuleInterface@@@")[];  // vftable 0x00C50D20
+extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BUpdateModule@@@")[];  // vftable 0x00C50D20, as the dtor unit names it since 0769434026 (canonical UpdateModuleInterface)
 
-extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6B@")[];  // vftable 0x00C50CD8
+extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BUpgradeMux@@@")[];  // vftable 0x00C50CD8, the dtor unit's UpgradeMux-based name
 
 extern "C" const void *const __identifier("??_7AttributeModifierAuraUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00C49F78 (3 classes), by its data-ledger name
 
@@ -85,8 +85,8 @@ AttributeModifierAuraUpdate::AttributeModifierAuraUpdate(Thing *thing, const Mod
 {
 	m_vtable = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BObjectModule@@@"));
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BBehaviorModuleInterface@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BUpdateModuleInterface@@@"));
-	*(void **)&m_20 = (void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6B@"));
+	m_secondary10 = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BUpdateModule@@@"));
+	*(void **)&m_20 = (void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BUpgradeMux@@@"));
 	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 	const AttributeModifierAuraUpdateModuleData *data = (const AttributeModifierAuraUpdateModuleData *)m_moduleData;
 	if (data->m_startsActive)
