@@ -30,25 +30,7 @@ typedef int NameKeyTypeHack;
 #include <stdlib.h>
 
 class Rva003427DD { public: Rva003427DD &operator=(const Rva003427DD &src); private: char m_data[0x7C]; };
-struct AICommandParms {
-	AICommandParms(AICommandType cmd, CommandSourceType cmdSource);
-	~AICommandParms();
-	AICommandType m_cmd;
-	CommandSourceType m_cmdSource;
-	Coord3D m_pos;
-	Object *m_obj;
-	Object *m_otherObj;
-	const void *m_team;
-	void *m_coordsStart;
-	void *m_coordsFinish;
-	void *m_coordsEnd;
-	const Waypoint *m_waypoint;
-	const void *m_polygon;
-	Int m_intValue;
-	float m_float38;
-	Rva003427DD m_3C;
-	char m_tailPad[0xC0 - 0x3C - 0x7C];
-};
+#include "../../../Include/GameLogic/AICommandParms.h"
 
 class AICommandInterface {
 public:

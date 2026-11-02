@@ -300,13 +300,7 @@ enum CommandSourceType
 	CMD_FROM_AI
 };
 
-struct AICommandParms
-{
-	Int m_cmd; // +0x00
-	CommandSourceType m_cmdSource; // +0x04
-	unsigned char m_pad08[0x14 - 0x08];
-	Object *m_obj; // +0x14
-};
+#include "../../../../../Include/GameLogic/AICommandParms.h"
 
 enum
 {

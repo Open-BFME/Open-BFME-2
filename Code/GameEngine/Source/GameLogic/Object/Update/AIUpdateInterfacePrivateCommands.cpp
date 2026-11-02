@@ -1052,11 +1052,7 @@ public:
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
 // Only the head isAllowedToRespondToAiCommands reads.
-struct AICommandParms
-{
-	Int m_cmd;									// +0x00
-	CommandSourceType m_cmdSource;				// +0x04
-};
+#include "../../../../Include/GameLogic/AICommandParms.h"
 
 enum MoodMatrixParameters
 {

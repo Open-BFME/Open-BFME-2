@@ -15,12 +15,7 @@
 #include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class Object;
 class Waypoint;
-struct AICommandParms {
- int m_cmd; CommandSourceType m_cmdSource; Coord3D m_pos;
- Object *m_obj; void *m_extra18; void *m_team;
- char m_coords[12]; void *m_waypoint; void *m_polygon;
- int m_intValue; float m_floatValue; char m_damage[0x7c]; void *m_commandButton;
-};
+#include "../../../Include/GameLogic/AICommandParms.h"
 
 class AIUpdateInterface
 {

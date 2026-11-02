@@ -39,13 +39,7 @@ enum AICommandType
 class Object;
 class AIUpdateInterface;
 
-struct AICommandParms
-{
-	AICommandType m_cmd; // +0x00
-	CommandSourceType m_cmdSource; // +0x04
-	Coord3D m_pos; // +0x08
-	Object *m_obj; // +0x14
-};
+#include "../../../../../Include/GameLogic/AICommandParms.h"
 
 enum ObjectStatusTypes
 {

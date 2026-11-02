@@ -210,18 +210,7 @@ public:
 	void getUnitDirectionVector3D(Coord3D &dir) const;
 };
 
-class AICommandParms
-{
-public:
-	AICommandParms(AICommandType cmd, CommandSourceType cmdSource);
-	~AICommandParms();
-
-	AICommandType m_cmd;
-	CommandSourceType m_cmdSource;
-	char m_pad08[0x34 - 0x08];
-	Int m_intValue; // +0x34
-	char m_pad38[0xC0 - 0x38];
-};
+#include "../../../Include/GameLogic/AICommandParms.h"
 
 class AICommandInterface
 {

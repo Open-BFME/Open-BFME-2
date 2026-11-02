@@ -393,13 +393,7 @@ enum AICommandType
 	AICMD_MOVE_AWAY_FROM_UNIT = 0x34
 };
 
-struct AICommandParms
-{
-	AICommandType m_cmd; // +0x00
-	CommandSourceType m_cmdSource; // +0x04
-	Coord3D m_pos; // +0x08
-	Object *m_obj; // +0x14
-};
+#include "../../../../../Include/GameLogic/AICommandParms.h"
 
 class AICommandInterface
 {

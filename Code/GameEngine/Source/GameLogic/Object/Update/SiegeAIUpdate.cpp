@@ -31,10 +31,7 @@ enum AICommandType
 {
 	AICMD_BFME_1B = 0x1B
 };
-struct AICommandParms
-{
-	AICommandType m_cmd;	// +0x00
-};
+#include "../../../../Include/GameLogic/AICommandParms.h"
 enum SpecialPowerType
 {
 	SPECIAL_BFME_2D = 0x2D
