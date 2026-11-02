@@ -1,0 +1,10 @@
+add_match: appended: ??$uninitialized_fill_n@PAVCarryoverUnit@@IV1@@_STL@@YAPAVCarryoverUnit@@PAV1@IABV1@@Z,,0x001EBAB4,27,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp,matched,Native fill1EBEAB forwards uninitialized CarryoverUnit fill through27B wrapper to verified worker1EBA5F; standard STLport template; old provider retained; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
+add_match: verifying: C:\Users\clemens\scoop\apps\python\current\python.exe tools/build.py Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
+Source claims: OK (1 sources, scoped byte-verified)
+Functions: OK 160/160 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+add_match: verified OK — row is live
+add_match: recorded `landed` x1 in reverse/re_attempts.log -- stage it
+add_match: claim kept until the row is on origin/master; after your push run `python3 tools/claims.py release --landed`

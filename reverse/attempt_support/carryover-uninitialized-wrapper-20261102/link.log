@@ -1,0 +1,8 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp: LINKS  LINKED 8,065 -> 8,065 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 8,065)
+  diagnostic  ?_Ret@?$_BothPtrType@PADPAD@_STL@@SA?AU__true_type@2@XZ  (codegen-like: 17 bytes against the majority copy's 3; unreferenced, not a blocker)
+  diagnostic  ?_Ret@?$_OKToMemCpy@DD@_STL@@SA?AU__true_type@2@XZ  (codegen-like: 17 bytes against the majority copy's 3; unreferenced, not a blocker)
+  diagnostic  ??$_IsOKToMemCpy@DD@_STL@@YA?AU?$_OKToMemCpy@DD@0@PAD0@Z  (codegen-like: 17 bytes against the majority copy's 3; unreferenced, not a blocker)
+Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp: LINKS  LINKED 45 -> 45 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 45)
+link_check: 2 of 2 link cleanly; LINKED 8,110 -> 8,110 bytes (4.1s)

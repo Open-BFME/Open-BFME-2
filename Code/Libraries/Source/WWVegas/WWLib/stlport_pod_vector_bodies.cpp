@@ -1381,3 +1381,8 @@ template <> CarryoverUnit *__uninitialized_fill_n<CarryoverUnit *, unsigned int,
 }
 
 }
+
+template CarryoverUnit *_STL::uninitialized_fill_n<CarryoverUnit *, unsigned int, CarryoverUnit>(CarryoverUnit *, unsigned int, const CarryoverUnit &);
+namespace _STL {
+
+}
