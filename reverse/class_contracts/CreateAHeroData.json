@@ -1,0 +1,908 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "CreateAHeroData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x50": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x140": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x409c3d",
+      "0x409d4d"
+     ],
+     "value": 320
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x409c3d",
+      "0x409d4d"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x48": [
+       1
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x70": [
+       1
+      ],
+      "0x71": [
+       1
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x409c3d",
+      "0x409d4d"
+     ],
+     "value": {
+      "0x14": [
+       "??0?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x20": [
+       "??0?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x3c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+       "??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z"
+      ],
+      "0x4c": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x50": [
+       "??0?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@@_STL@@QAE@ABV01@@Z",
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x5c": [
+       "??0?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z",
+       "??0?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAE@ABV01@@Z"
+      ],
+      "0x74": [
+       "??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+       "??0?$map@HV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x8": [
+       "??0?$StringBase@G@@AAE@ABV0@@Z"
+      ],
+      "0x80": [
+       "??4BfmeHeroElement005C39DE@@QAEAAU0@ABU0@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x21928a"
+     ],
+     "value": 320
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x409c3d",
+      "0x409d4d"
+     ],
+     "value": {
+      "0x0": "0x838d88"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x838d88"
+     ],
+     "value": {
+      "count": 5,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GCreateAHeroData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x409d31"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@CreateAHeroData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x409353"
+       },
+       {
+        "name": "?DoXfer@CreateAHeroHero@@QAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x408c11"
+       },
+       {
+        "name": "?Update@CreateAHeroHero@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x4083ff"
+       }
+      ],
+      "table": "0x838d88"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x838d88": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GCreateAHeroData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@CreateAHeroData@@UBEPBDXZ",
+     "3": "?DoXfer@CreateAHeroHero@@QAEXAAVXfer@@@Z",
+     "4": "?Update@CreateAHeroHero@@QAE_NH@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 8,
+   "4": 5,
+   "8": 1,
+   "12": 1,
+   "16": 1,
+   "20": 1,
+   "36": 2,
+   "56": 1,
+   "76": 5,
+   "92": 1,
+   "308": 1,
+   "316": 1,
+   "320": 10
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "fields",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 316,
+   "type": "uchar[316]",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "text08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0c",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "map14._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<int const ,int> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "map14._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_20",
+   "name_by": "tie",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "map20._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<int>",
+   "name": "map20._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<int>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word34",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "strings3C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_48",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "text4C",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<AsciiString,TreeHintPayload001F8ACB,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const ,TreeHintPayload001F8ACB> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<AsciiString const ,TreeHintPayload001F8ACB> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<AsciiString>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<AsciiString>"
+    }
+   ],
+   "name": "map50",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<AsciiString,TreeHintPayload001F8ACB,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const ,TreeHintPayload001F8ACB> > >",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<bool,_STL::allocator<bool> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_p",
+     "offset": 0,
+     "size": 4,
+     "type": "uint*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_offset",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "P",
+     "name": "_M_p",
+     "offset": 8,
+     "size": 4,
+     "type": "uint*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_offset",
+     "offset": 12,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 16,
+     "size": 4,
+     "type": "uint*"
+    }
+   ],
+   "name": "bits5C",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 20,
+   "type": "_STL::vector<bool,_STL::allocator<bool> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag70",
+   "name_by": "majority",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "flag71",
+   "name_by": "majority",
+   "offset": 113,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<int,_STL::vector<unsigned int,_STL::allocator<unsigned int> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,_STL::vector<unsigned int,_STL::allocator<unsigned int> > > > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<int const ,_STL::vector<unsigned int,_STL::allocator<unsigned int> > > >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<int>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<int>"
+    }
+   ],
+   "name": "map74",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<int,_STL::vector<unsigned int,_STL::allocator<unsigned int> >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,_STL::vector<unsigned int,_STL::allocator<unsigned int> > > > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "elements80",
+   "name_by": "majority",
+   "offset": 128,
+   "retail_widths": {},
+   "size": 180,
+   "type": "BfmeHeroElement005C39DE[180]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_crc",
+   "name_by": "tie",
+   "offset": 308,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "word138",
+   "name_by": "majority",
+   "offset": 312,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word13C",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 93
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "field@0x1c",
+   "candidates": {
+    "1:S:_STL::less<int>": 2,
+    "4:P": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "name@0x20",
+   "candidates": {
+    "field20": 1,
+    "m_20": 2,
+    "map20._M_t._M_header._M_data": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "name@0x3c",
+   "candidates": {
+    "strings3C._M_start": 1,
+    "strings3C.m_begin": 1
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "name@0x40",
+   "candidates": {
+    "strings3C._M_finish": 1,
+    "strings3C.m_end": 1
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "name@0x44",
+   "candidates": {
+    "strings3C._M_end_of_storage._M_data": 1,
+    "strings3C.m_capacity": 1
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "name@0x134",
+   "candidates": {
+    "m_crc": 2,
+    "word134": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "nested@0x14",
+   "candidates": {
+    "map14._M_t._M_header._M_data": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "nested@0x18",
+   "candidates": {
+    "map14._M_t._M_node_count": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "nested@0x24",
+   "candidates": {
+    "map20._M_t._M_node_count": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "nested@0x28",
+   "candidates": {
+    "map20._M_t._M_key_compare": 2
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0xc",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x10",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x18",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x20",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x24",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x28",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x2c",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x30",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x34",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x38",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x3c",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x48",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x4c",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x50",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x5c",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x70",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x71",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x74",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x80",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x134",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x138",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "straddle@0x13c",
+   "candidates": {},
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "crc(Xfer*)": 1,
+    "loadPostProcess()": 1,
+    "s1()": 1
+   },
+   "class": "CreateAHeroData"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "GetSnapshotName()": 1,
+    "s2()": 1,
+    "typeName()": 1
+   },
+   "class": "CreateAHeroData"
+  }
+ ],
+ "size": 320,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "xfer(Xfer*)"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "Update(int)"
+  }
+ }
+}
