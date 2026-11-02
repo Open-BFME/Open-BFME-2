@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?read_Rva00188AF0@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,
 // retail 0x00188AF0 (190 bytes: ret C2 08 00 at 0x188BAB).
@@ -28,19 +28,7 @@ public:
 	unsigned long Read(void *buffer, unsigned long bytes);
 };
 
-class MeshMatDescClass
-{
-public:
-	void Set_Single_Rva0015A800(void *entry, int pass);
-	void Set_Rva0015D300(int index, void *entry, int pass);
-	bool Has_Rva00188AF0_Data(int pass) { return SingleEntries[pass] != 0 || ArrayEntries[pass] != 0; }
-
-private:
-	char m_pad0[0xB8];
-	void *SingleEntries[4];
-	char m_pad1[0x108 - 0xC8];
-	void *ArrayEntries[4];
-};
+#include "MeshMatDescClass.h"
 
 typedef char MeshMatDescSizeCheck[sizeof(MeshMatDescClass) == 0x118 ? 1 : -1];
 

@@ -148,18 +148,7 @@ public:
 	unsigned long Seek(unsigned long pos);
 };
 
-class MeshMatDescClass
-{
-public:
-	unsigned *Get_Color_Array(int array, bool create = true);
-
-private:
-	char m_pad0[0x50];
-
-public:
-	void *ColorArray[2];
-	int DCGSource[4];
-};
+#include "MeshMatDescClass.h"
 
 class MeshLoadContextClass
 {

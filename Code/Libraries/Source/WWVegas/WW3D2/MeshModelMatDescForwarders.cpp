@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 //
 // Out-of-line copies of the MeshModelClass forwarders that Zero Hour's
 // meshmdl.h writes inline as CurMatDesc->X(...) (GPL-3.0-or-later donor:
@@ -18,17 +18,7 @@ class TextureClass;
 template<class T> class RefCountPtr;
 class VertexMaterialClass;
 
-class MeshMatDescClass
-{
-public:
-	VertexMaterialClass *Peek_Material(int vidx, int pass) const;
-	void Set_Single_Texture(const RefCountPtr<TextureClass> &tex, int pass, int stage);
-	void Set_Single_Material(VertexMaterialClass *vmat, int pass);
-	void Set_Material(int vidx, VertexMaterialClass *vmat, int pass);
-	void Set_Texture(int pidx, const RefCountPtr<TextureClass> &tex, int pass, int stage);
-	void Make_UV_Array_Unique(int pass, int stage);
-	void Make_Color_Array_Unique(int array_index);
-};
+#include "MeshMatDescClass.h"
 
 class MeshModelClass
 {

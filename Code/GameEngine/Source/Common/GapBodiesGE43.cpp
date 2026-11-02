@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /O2 /G7 /arch:SSE /MD /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Small bodies from .text gaps no Ghidra function covers (forty-third
 // batch; see GapBodiesGE01.cpp), all from the /O2 /arch:SSE /G7 retail
 // regions 0x00137590..0x00148B41 and 0x001541E0..0x00167E59
@@ -75,12 +75,7 @@ int Rva001434A0::rva001434A0() const
 
 // --- 0x00144340 / 0x00144360 (23B each): colour / UV array i of the leading
 // model's +0x94 material description (rowed MeshMatDescClass getters).
-class MeshMatDescClass
-{
-public:
-	unsigned int *Get_Color_Array(int index, bool create);
-	Vector2 *Get_UV_Array_By_Index(int index, bool create);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.h"
 
 struct GapModelView
 {
