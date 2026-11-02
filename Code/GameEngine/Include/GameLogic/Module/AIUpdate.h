@@ -369,7 +369,7 @@ protected:
 #else
     virtual void crc(Xfer *);
 #endif
-    virtual SleepyUpdatePhase getUpdatePhase() const;
+    virtual SleepyUpdatePhase getUpdatePhase() const { return static_cast<SleepyUpdatePhase>(0); }
 
 public:
 protected:
