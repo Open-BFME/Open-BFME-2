@@ -151,6 +151,7 @@ enum FilterModes { FM_NULL_MODE = 0 };
 class ScreenHilightFilter
 {
 public:
+	int shutdown();
 	virtual int slot00();
 	virtual int slot04();
 	virtual bool preRender(bool &skipRender, int &scenePassMode);

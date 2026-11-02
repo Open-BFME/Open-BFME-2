@@ -22,38 +22,54 @@ public:
 	virtual unsigned long __stdcall Release() = 0;
 };
 
+struct IDirect3DBaseTexture8;
+struct IDirect3DSurface8;
+class Coord2D;
+enum FilterModes { FM_NULL_MODE = 0 };
+
+// Use the seed's consumed storage offsets; shutdown views the same +0x18
+// kernel header and +0x24..+0x30 COM references without adding lifetime providers.
 class ScreenHilightFilter
 {
 public:
 	int shutdown();
-
+	virtual int slot00();
+	virtual int slot04();
+	virtual bool preRender(bool &skipRender, int &scenePassMode);
+	virtual bool postRender(int mode, Coord2D &scrollDelta, bool &doExtraRender, Coord2D *viewportSize);
+	virtual void slot10();
+protected:
+	virtual int set(FilterModes mode);
+public:
+	virtual void reset();
 private:
-	void *m_vptr;
-	ScreenHilightFilterComRef *m_04;
-	ScreenHilightFilterComRef *m_08;
-	unsigned char m_pad0C[0x0c];
-	_STL::vector<Gen_p12pod> m_vec;
-	ScreenHilightFilterComRef *m_24;
-	ScreenHilightFilterComRef *m_28;
-	ScreenHilightFilterComRef *m_2C;
-	ScreenHilightFilterComRef *m_30;
+	unsigned m_pixelShader;	// +0x04
+	unsigned m_vertexShader;	// +0x08
+	int m_size;	// +0x0C
+	int m_current;	// +0x10
+	bool m_14;	// +0x14
+	int m_kernel[3];	// +0x18
+	IDirect3DBaseTexture8 *m_result;	// +0x24
+	IDirect3DBaseTexture8 *m_textures[1];	// +0x28, indexed by m_current
+	IDirect3DSurface8 *m_renderTarget;	// +0x2C
+	void *m_surfaces[2];	// +0x30
 };
 
 int ScreenHilightFilter::shutdown()
 {
-	if( m_04 ) m_04->Release();
-	if( m_08 ) m_08->Release();
-	m_04 = 0;
-	m_08 = 0;
-	m_vec.clear();
-	if( m_2C ) m_2C->Release();
-	m_2C = 0;
-	if( m_24 ) m_24->Release();
-	ScreenHilightFilterComRef **screenHilightFilterComRef = &m_24;
+	if( m_pixelShader ) ((ScreenHilightFilterComRef *)m_pixelShader)->Release();
+	if( m_vertexShader ) ((ScreenHilightFilterComRef *)m_vertexShader)->Release();
+	m_pixelShader = 0;
+	m_vertexShader = 0;
+	((_STL::vector<Gen_p12pod> *)m_kernel)->clear();
+	if( m_renderTarget ) ((ScreenHilightFilterComRef *)m_renderTarget)->Release();
+	m_renderTarget = 0;
+	if( m_result ) ((ScreenHilightFilterComRef *)m_result)->Release();
+	ScreenHilightFilterComRef **screenHilightFilterComRef = (ScreenHilightFilterComRef **)&m_result;
 	*screenHilightFilterComRef = 0;
-	if( m_28 ) m_28->Release();
-	m_28 = 0;
-	if( m_30 ) m_30->Release();
-	m_30 = 0;
+	if( m_textures[0] ) ((ScreenHilightFilterComRef *)m_textures[0])->Release();
+	m_textures[0] = 0;
+	if( m_surfaces[0] ) ((ScreenHilightFilterComRef *)m_surfaces[0])->Release();
+	m_surfaces[0] = 0;
 	return 1;
 }

@@ -1,0 +1,16 @@
+{
+  "ScreenHilightFilter.cpp": {
+    "before_definitions": 32,
+    "after_definitions": 32,
+    "removed": [],
+    "added": [],
+    "changed": []
+  },
+  "ScreenHilightFilterShutdown.cpp": {
+    "before_definitions": 11,
+    "after_definitions": 11,
+    "removed": [],
+    "added": [],
+    "changed": []
+  }
+}
