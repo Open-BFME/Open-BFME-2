@@ -28,20 +28,16 @@ public:
     Object *lookupUnitByValue(AsciiString);
 };
 
-class Rva0026C347Commands
-{
-public:
-    void Rva0026C347Command(void *, int);
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class AIUpdateInterface
+enum CommandSourceType
 {
-public:
-    char m_pad00[0x20];
-    Rva0026C347Commands m_command;
+    CMD_FROM_PLAYER = 0,
+    CMD_FROM_SCRIPT = 1
 };
 
 #include "../Object/object.h"
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ScriptActions
 {
@@ -66,5 +62,5 @@ void ScriptActions::doNamedEnterNamed(const AsciiString &unitSrcName,
         return;
     }
     theSrcUnit->leaveGroup();
-    aiUpdate->m_command.Rva0026C347Command(theTransport, 1);
+    aiUpdate->rva0026C347(theTransport, CMD_FROM_SCRIPT);
 }
