@@ -1,0 +1,395 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ExperienceTracker",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 69,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x39aebc"
+     ],
+     "value": 52
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x39aebc"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       1
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x39aebc"
+     ],
+     "value": {
+      "0x0": "0x81ad20"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81ad20"
+     ],
+     "value": {
+      "count": 5,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0039AD56@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x39af5a"
+       },
+       {
+        "name": "?rva0039AC9C@Rva0039AC9CForwarder@@QAEXXZ",
+        "slot": 1,
+        "target": "0x39ac9c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?xfer@ExperienceTracker@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x39afc8"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x81ad20"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x81ad20": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0039AD56@@UAEPAXI@Z",
+     "1": "?rva0039AC9C@Rva0039AC9CForwarder@@QAEXXZ",
+     "2": "__purecall",
+     "3": "?xfer@ExperienceTracker@@MAEXPAVXfer@@@Z",
+     "4": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 11,
+  "view_sizes": {
+   "1": 26,
+   "4": 1,
+   "8": 3,
+   "20": 2,
+   "32": 1,
+   "33": 1,
+   "40": 16,
+   "44": 2,
+   "52": 4,
+   "60": 2
+  },
+  "views": 58,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ExperienceTracker.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/ExperienceTrackerAutoResolve.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/ObjectRankValues.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2C8F.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgrade.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectExperienceGrantRva00294C1A.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRappellerCount.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainBannerTransfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00473212.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D796.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva00294759.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgradeMuxSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsPlayerUnitCounts.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionsRva003E8E23.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp"
+   ],
+   "views": 22
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "crc(Xfer*)": 1,
+    "loadPostProcess()": 1,
+    "v01()": 1
+   },
+   "class": "ExperienceTracker"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "GetSnapshotName()": 1,
+    "v02()": 1,
+    "v2()": 1
+   },
+   "class": "ExperienceTracker"
+  }
+ ],
+ "size": 40,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "rvaSlot4(Overridable*,bool)"
+  }
+ }
+}

@@ -247,3 +247,4 @@ ParticleSystemManager,Code/GameEngine/Include/GameClient/ParticleSys.h,existing 
 Path,Code/GameEngine/Include/GameLogic/PathfindPath.h,existing header; contract class_contracts/Path.json; 58/77 sampled units adopt
 Waypoint,Code/GameEngine/Include/GameLogic/Waypoint.h,existing header; contract class_contracts/Waypoint.json; 13/69 sampled units adopt
 PathfindCell,Code/GameEngine/Include/GameLogic/PathfindCell.h,existing header; contract class_contracts/PathfindCell.json; 14/69 sampled units adopt
+ExperienceTracker,Code/GameEngine/Include/GameLogic/ExperienceTracker.h,existing header; contract class_contracts/ExperienceTracker.json; 45/69 sampled units adopt
