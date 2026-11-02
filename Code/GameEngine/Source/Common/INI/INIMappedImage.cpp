@@ -15,19 +15,7 @@ struct FieldParse;
 
 extern const FieldParse m_imageFieldParseTable[];
 
-class Image
-{
-public:
-	Image();
-
-	void setName(const AsciiString &name) { m_name = name; }
-	const FieldParse *getFieldParse(void) const { return m_imageFieldParseTable; }
-
-private:
-	void *m_vptr;          // +0x00
-	AsciiString m_name;    // +0x04
-	char m_pad08[0x34 - 0x08];
-};
+#include "../../../Include/GameClient/ImageClass.h"
 
 class ImageCollection
 {

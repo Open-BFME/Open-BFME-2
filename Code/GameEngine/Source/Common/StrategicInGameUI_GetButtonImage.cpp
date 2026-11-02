@@ -11,9 +11,7 @@
 // (rowed 0x0033BA46), as retail does. The argument stays void*.
 #include "ascii_string.h"
 
-class Image
-{
-};
+#include "../../Include/GameClient/ImageClass.h"
 
 class ThingTemplate;
 #include "../../Include/Common/ThingFactory.h"

@@ -729,7 +729,7 @@ public:
 	char m_pad[0x30];
 	Rva00056F61 m_table;
 };
-class Image {public:void rva002D937E();};
+#include "../../../../Include/GameClient/ImageClass.h"
 class ThingTemplate
 {
 public:

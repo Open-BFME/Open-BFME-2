@@ -36,25 +36,7 @@ private: TextureClass *ptr;
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../Libraries/Include/Lib/Region2D.h"
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
-class Image {
-public:
- virtual ~Image();
- Image();
- void setName(const AsciiString &asciiString) { m_name=asciiString; }
- void setFilename(const AsciiString &asciiString) { m_filename=asciiString; }
- unsigned int setStatus(unsigned int);
- void bfmeSetTexture(const BfmeMapPictureTexture &);
- void setUV(const Region2D *uv) {m_UVCoords=*uv;}
- void setTextureHeight(int h) {m_textureSize.y=h;}
- void setTextureWidth(int w) {m_textureSize.x=w;}
-private:
- AsciiString m_name,m_filename;
- ICoord2D m_textureSize;
- Region2D m_UVCoords;
- ICoord2D m_imageSize;
- void *field2c;
- unsigned int m_status;
-};
+#include "../../Include/GameClient/ImageClass.h"
 class ImageCollection {public: const Image *findImageByName(const AsciiString &); void addImage(Image *);};
 extern ImageCollection *TheMappedImageCollection;
 #include "../../Include/Common/XferException.h"

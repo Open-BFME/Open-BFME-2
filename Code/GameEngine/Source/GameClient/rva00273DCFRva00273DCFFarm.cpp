@@ -62,18 +62,7 @@ typedef bool Bool;
 
 
 class Player;
-class Image
-{
-public:
-	Int getImageWidth() const
-	{
-		return *reinterpret_cast<const Int *>(reinterpret_cast<const char *>(this) + 0x24);
-	}
-	Int getImageHeight() const
-	{
-		return *reinterpret_cast<const Int *>(reinterpret_cast<const char *>(this) + 0x28);
-	}
-};
+#include "../../Include/GameClient/ImageClass.h"
 
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;

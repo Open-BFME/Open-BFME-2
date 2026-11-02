@@ -280,16 +280,7 @@ public:
 
 #include "../../../../../../Libraries/Include/Lib/IRegion2D.h"
 
-class Image
-{
-public:
-	Int getImageWidth(void) const { return m_imageSize.x; }
-	Int getImageHeight(void) const { return m_imageSize.y; }
-
-private:
-	char m_pad00[0x24];
-	ICoord2D m_imageSize;   // +0x24
-};
+#include "../../../../../../GameEngine/Include/GameClient/ImageClass.h"
 
 class ControlBarSchemeManager
 {

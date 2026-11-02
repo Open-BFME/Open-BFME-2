@@ -36,15 +36,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Image
-{
-public:
-	virtual ~Image();
-	const AsciiString &getName() const { return m_name; }
-
-private:
-	AsciiString m_name;
-};
+#include "../../../Include/GameClient/ImageClass.h"
 
 typedef _STL::map<unsigned int, Image *> ImageNameMap;
 // BFME2 SubsystemInterface (12-byte base, 14-slot vtable 0x00BD77A0) from the

@@ -74,15 +74,7 @@ class GameFont;
 class GameWindow;
 class BfmeKeyLC;
 
-class Image
-{
-public:
-	Int getImageWidth() const { return m_imageSize.x; }
-	Int getImageHeight() const { return m_imageSize.y; }
-
-	unsigned char m_pad00[0x24];
-	ICoord2D m_imageSize;
-};
+#include "../../../../Include/GameClient/ImageClass.h"
 
 class WinInstanceData
 {

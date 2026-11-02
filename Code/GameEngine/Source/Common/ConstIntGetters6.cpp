@@ -13,12 +13,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../Include/Common/INI/INI.h"
 
-class Image
-{
-public:
-	static void parseImageCoords(INI *ini, void *instance, void *store, const void *userData);
-	static void parseImageStatus(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/GameClient/ImageClass.h"
 
 // Retail VA 0x00C036E8 (.rdata): 5 field records and a zero sentinel.
 extern const FieldParse m_imageFieldParseTable[] = {

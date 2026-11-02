@@ -72,36 +72,7 @@ public:
 
 	TextureBaseClass *m_texture;
 };
-class Image
-{
-public:
-	Image();
-	virtual ~Image();
-	unsigned int setStatus(unsigned int bit);
-	unsigned int clearStatus(unsigned int bit);
-	void bfmeSetTexture(const BfmeMapPictureTexture &texture);
-	void rva002D937E();
-	const AsciiString &getName() const { return m_name; }
-	const AsciiString &bfme_image_name_fi() const { return m_name; }
-	void setImageSize(ICoord2D *size);
-	void setUV(Region2D *uv) { if (uv) m_UVCoords = *uv; }
-	const ICoord2D *getTextureSize(void) const { return &m_textureSize; }
-
-	int getImageWidth(void) const { return m_imageSize.x; }
-	int getImageHeight(void) const { return m_imageSize.y; }
-
-	static void parseImageCoords(INI *ini, void *instance, void *store, const void *userData);
-	static void parseImageStatus(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	AsciiString m_name; // +0x04
-	AsciiString m_filename; // +0x08
-	ICoord2D m_textureSize; // +0x0C
-	Region2D m_UVCoords; // +0x14
-	ICoord2D m_imageSize; // +0x24
-	BfmeMapPictureTexture *m_texture; // +0x2C
-	unsigned int m_status; // +0x30
-};
+#include "../../../Include/GameClient/ImageClass.h"
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. Taking each one's
 // address keeps this unit's copy for its row; these pointers are not retail

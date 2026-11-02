@@ -18,7 +18,7 @@ public:
     void *m_00;
     void *m_04;
 };
-class Image { public: void rva002D937E(); };
+#include "../../Include/GameClient/ImageClass.h"
 
 class Rva0035B456Owner
 {
