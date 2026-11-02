@@ -1,0 +1,16 @@
+[
+  {
+    "label": "dict_header_decl",
+    "row_count": 3,
+    "missing": [
+      "0x0032BDE7"
+    ],
+    "errors": []
+  },
+  {
+    "label": "dict_header_inline_dtor",
+    "row_count": 3,
+    "missing": [],
+    "errors": []
+  }
+]

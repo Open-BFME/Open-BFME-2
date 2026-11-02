@@ -18168,3 +18168,8 @@ The37B typed uninitialized-fill twin at32AD58 now uses the real18B placement hel
 ### Dict-record allocator prerequisite handoff (2026-11-02)
 
 A private BFME allocator-shim trial reproduces the remaining60B base and its11B proxy/28B allocation callees while preserving all three caller rows. Publication is deferred:14F3C4 is reserved by the TerrainLogic consolidation worker, and fresh2226BE placement needs explicit review. A mistakenly admitted unpublished proxy row was removed immediately and its verdict retracted; no source or public ledger changed. [Exact private boundary, reservation correction and next steps](../reverse/attempt_support/element196d90-allocator-handoff-20261102/README.md). The consumer remains blocked only by its original vector-base conflict.
+
+
+### Dict-record canonical Dict lifetime boundary (2026-11-02)
+
+Canonical Dict adoption in the remaining caller requires a real member-lifetime repair: emptying the caller's explicit-release destructor avoids double cleanup but changes the native85B constructor's cleanup target. A local inline Dict destructor restores3/3 bytes privately, but was not applied because consistent destructor declarations/definitions must be reconciled across users. The existing5B SidesListDataChunks owner is implicitly inline in a private class. [Measured boundary and review](../reverse/attempt_support/element196d90-dict-header-20261102/README.md). The header key remains open; no source or census change is claimed.
