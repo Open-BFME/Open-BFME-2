@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -155,15 +155,7 @@ private:
 	TextureMapperClass *Mapper[ 2 ];																					///< 0x20
 };
 
-class RefCountClass
-{
-public:
-	virtual void Delete_This( void );																					///< slot 0
-	virtual ~RefCountClass();																									///< slot 1
-	void Release_Ref( void ) { NumRefs--; if (NumRefs == 0) Delete_This(); }
-private:
-	int NumRefs;																															///< 0x04
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 #define REF_PTR_RELEASE(x) { if (x) { x->Release_Ref(); x = 0; } }
 
@@ -349,13 +341,6 @@ private:
 	mutable bool IsTreeValid;																									///< 0xF4
 };
 
-class RTS3DScene
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void Add_Render_Object( RenderObjClass *obj );										///< slot 2
-};
 
 class W3DDisplay
 {

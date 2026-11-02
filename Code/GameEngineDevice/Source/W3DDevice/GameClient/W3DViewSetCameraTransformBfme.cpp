@@ -1,5 +1,5 @@
 // ?setCameraTransform@W3DView@@AAEXXZ
-// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Native8BE6B..8C224 953B; WB9886F0 independently names setCameraTransform.
 // Clean BFME1 camera-transform donor at2f243e26d supplies the guide;
@@ -93,7 +93,7 @@ class Rva0006ED29
 public:
 	void rva0006ED29(void*);
 };
-class RTS3DScene{public:RefMultiListIterator<RenderObjClass>*createLightsIterator();void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*);};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class RTS2DScene;
 class W3DDisplay
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // ?reset@W3DDisplay@@UAEXXZ, retail 0x00043418..0x00043511 (249 bytes), W3DDisplay vtable
@@ -65,14 +65,7 @@ public:
 	virtual RenderObjClass *Current_Item();
 };
 
-class RTS3DScene
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02();
-	virtual void Remove_Render_Object(RenderObjClass *obj);	// +0x0C
-	virtual SceneIterator *Create_Iterator();			// +0x10
-	virtual void Destroy_Iterator(SceneIterator *it);		// +0x14
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 class Display
 {

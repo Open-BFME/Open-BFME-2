@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib
+// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // ?pickDrawable@W3DView@@UAEPAVDrawable@@PBUICoord2D@@_NH@Z, retail 0x0008B1E5..0x0008B470 (651B), thiscall RET 0xC.
@@ -218,11 +218,7 @@ Rva0008A2A3Item *Rva0008A2A3Find(void *mapArg, unsigned int mask, bool all);
 struct TreeOpaqueMapped00372FF4 { unsigned int m_bits; };
 typedef _STL::multimap<float, TreeOpaqueMapped00372FF4> RenderObjHitMap;
 
-class RTS3DScene
-{
-public:
-	void rva00072109(RayCollisionTestClass &raytest, int collisionType, RenderObjHitMap &hits);
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 class RTS2DScene;
 class W3DDisplay

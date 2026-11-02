@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy-
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // Two BFME 2 translucent-object flush passes of RTS3DScene.
 //
@@ -208,29 +208,7 @@ not_changed:
 	return col;
 }
 
-class RTS3DScene
-{
-public:
-	virtual void slot000();
-	virtual void slot001();
-	virtual void slot002();
-	virtual void slot003();
-	virtual void slot004();
-	virtual void slot005();
-	virtual void slot006();
-	virtual const Vector3 &Get_Ambient_Light(); // +0x1C
-
-protected:
-	void renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, int localPlayerIndex, int unused); // 0x0006FB59
-
-public:
-	void rva00070F80(RenderInfoClass &rinfo);
-	void rva000710D6(RenderInfoClass &rinfo);
-
-	char gap004[0x7F0 - 4];
-	int m_translucentObjectsCount;               // +0x7F0
-	RenderObjClass **m_translucentObjectsBuffer; // +0x7F4
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 // First pass: translucent objects whose render-object byte +0xBC is clear.
 void RTS3DScene::rva00070F80(RenderInfoClass &rinfo)

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7 /ICode/GameEngine/Source/Common
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7 /ICode/GameEngine/Source/Common C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva000982F9@Gen006E2310@@QAEXXZ retail 0x000982F9, 382 bytes: slot 10 of
 // Gen006E2310's vtable 0x00BC8208 (slot 0 is its scalar deleting dtor
 // 0x000982DD), the object the game client factory 0x0004C62D builds over
@@ -63,13 +63,7 @@ extern W3DShadowManager *TheW3DShadowManager;
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class RTS3DScene
-{
-public:
-	void rva0006E5A0(Vector3 *dest);
-	void rva0006E5C8(Vector3 *src);
-	void rva0006E605(Vector3 *src, bool flag);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/RTS3DScene.h"
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 

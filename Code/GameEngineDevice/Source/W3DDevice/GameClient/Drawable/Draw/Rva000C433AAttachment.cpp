@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Native C433A..C445D291B independently establishes RenderObj references,
 // renderer bone slotC8, global scene Add slot8 and record vector164.
@@ -94,7 +94,7 @@ class RenderObjClass {public:
  int references;
  void Add_Ref(){++references;}
 };
-class RTS3DScene {public:virtual void slot0();virtual void slot4();virtual void Add_Render_Object(RenderObjClass*);};
+#include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class W3DDisplay {public:static RTS3DScene*m_3DScene;};
 class GameLODManager {public:char opaque[0x1774];int level1774;};extern GameLODManager*TheGameLODManager;
 int GetGameClientRandomValue(int,int,char*,int);

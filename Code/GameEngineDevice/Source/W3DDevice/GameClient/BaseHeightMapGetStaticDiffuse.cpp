@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Op /DNDEBUG /MD /EHsc /ICode/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /Op /DNDEBUG /MD /EHsc /ICode/Libraries/Include C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?getStaticDiffuse@BaseHeightMapRenderObjClass@@QAEHHH_N@Z, retail
 // 0x0006B4CC..0x0006B76C (672B), thiscall ret 0xC.
@@ -66,11 +66,7 @@ public:
 template <class T> class RefMultiListIterator;
 class RenderObjClass;
 
-class RTS3DScene
-{
-public:
-	RefMultiListIterator<RenderObjClass> *createLightsIterator();
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class Rva0006ED29 { public: void rva0006ED29(void *iterator); };
 
 class Rva0007F944Host { public: int rva0007FA2B(Real x, Real y); };
