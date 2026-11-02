@@ -972,11 +972,7 @@ template<> struct _Base_bitset<4>
 };
 }
 
-class WeaponSet
-{
-public:
-	void updateWeaponSet(const Object *obj);
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Rva0028D86F
 {

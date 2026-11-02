@@ -37,12 +37,7 @@ enum WeaponChoiceCriteria
 class Object;
 struct Coord3D;
 
-class WeaponSet
-{
-public:
-	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType, const Object *source, const Object *victim, const Coord3D *pos, CommandSourceType commandSource) const;
-	bool chooseBestWeaponForTarget(const Object *obj, const Object *victim, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Object
 {

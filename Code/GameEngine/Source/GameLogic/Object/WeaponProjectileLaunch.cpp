@@ -147,11 +147,7 @@ class WeaponTemplate
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class WeaponSet
-{
-  public:
-    Weapon *getWeaponInWeaponSlot(WeaponSlotType wslot) const;
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class ThingTemplate
 {

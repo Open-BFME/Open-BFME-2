@@ -59,14 +59,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0
 };
-class WeaponSet
-{
-public:
-	void updateWeaponSet(const Object *obj);
-	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
-private:
-	unsigned char m_data[0x40];
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 class Rva0028C570
 {
 public:

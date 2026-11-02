@@ -67,12 +67,7 @@ extern GameLogic *TheGameLogic;
 
 class Object;
 
-class WeaponSet
-{
-public:
-	void reloadAllAmmo(const Object *obj, bool now);
-	bool isOutOfAmmo() const;
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Object
 {

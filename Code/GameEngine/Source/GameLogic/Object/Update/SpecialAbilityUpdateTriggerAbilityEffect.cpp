@@ -363,10 +363,7 @@ class Rva00263895Member {
     char pad24[0x7c - 0x24];
 };
 class Weapon;
-class WeaponSet {
-  public:
-    Weapon *getWeaponInWeaponSlot(WeaponSlotType) const;
-};
+#include "../../../../Include/GameLogic/WeaponSetClass.h"
 class ModelConditionFlags {
 public:
     unsigned words[19];

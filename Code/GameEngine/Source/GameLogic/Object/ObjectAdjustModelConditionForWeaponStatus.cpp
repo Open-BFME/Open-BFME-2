@@ -19,7 +19,7 @@ class WeaponTemplate {public:
  char p0[0x78];int idleDelay;char p7c[4];bool special80;char p81[0xe4-0x81];int clip;char pe8[0x169-0xe8];bool follow;
 };
 #include "../../../Include/GameLogic/Weapon.h"
-class WeaponSet {public:Weapon*getWeaponInWeaponSlot(WeaponSlotType)const;};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 class GameLogic;extern GameLogic*TheGameLogic;
 struct ClockView {char p0[0x40];unsigned frame;};
 class Rva002716Holder {public:void Rva00271619Broadcast(int,int,int);};

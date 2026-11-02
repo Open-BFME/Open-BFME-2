@@ -31,11 +31,7 @@ public:
 
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 
-class WeaponSet
-{
-public:
-	void releaseWeaponLock(WeaponLockType lockType);
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Object
 {

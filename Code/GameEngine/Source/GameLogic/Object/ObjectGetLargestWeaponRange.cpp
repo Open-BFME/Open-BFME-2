@@ -14,11 +14,7 @@ enum WeaponSlotType
 };
 class Object;
 #include "../../../Include/GameLogic/Weapon.h"
-class WeaponSet
-{
-public:
-	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 class Object
 {
 public:

@@ -61,44 +61,7 @@ class Object;
 struct EmitVtableTag;
 struct Coord3D;
 class WeaponTemplateSet;
-class WeaponSet : public Snapshot
-{
-public:
-	WeaponSet();
-protected:
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess(void);
-public:
-	bool isOutOfAmmo() const;
-	void reloadAllAmmo(const Object *obj, bool now);
-private:
-	bool isAnyWithinTargetPitch(const Object *obj, const Object *victim) const;
-public:
-	const Weapon *findAmmoPipShowingWeapon() const;
-	Weapon *findWaypointFollowingCapableWeapon();
-	WeaponSet(EmitVtableTag *);
-	bool rva002C75D1(int slot, int cmdSource) const;
-	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
-	void updateWeaponSet(const Object *);
-	void releaseWeaponLock(WeaponLockType);
-	bool chooseBestWeaponForTarget(const Object *, const Object *, WeaponChoiceCriteria, CommandSourceType);
-	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Object *, const Coord3D *, CommandSourceType) const;
-	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType, const Object *, const Object *, CommandSourceType) const;
-	virtual ~WeaponSet();
-private:
-	const WeaponTemplateSet *m_set; // +0x04
-	Weapon *m_weapons[6]; // +0x08
-	int m_curWeapon; // +0x20
-	int m_curWeaponLockedStatus; // +0x24
-	int m_filled; // +0x28
-	int m_anti; // +0x2C
-	int m_damage; // +0x30
-	unsigned char m_pitch; // +0x34
-	unsigned char m_hasDamage; // +0x35
-	unsigned char m_slotFlags[6]; // +0x36
-	int m_ownerID; // +0x3C
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 // ?findAmmoPipShowingWeapon@WeaponSet@@QBEPBVWeapon@@XZ (ZH WeaponSet::findAmmoPipShowingWeapon)
 const Weapon *WeaponSet::findAmmoPipShowingWeapon() const

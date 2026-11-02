@@ -1157,11 +1157,7 @@ public:
 	const ActionWeaponTemplateView *m_template;	// +0x04
 };
 
-class WeaponSet
-{
-public:
-	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;	// 0x002C7469
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Locomotor
 {

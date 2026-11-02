@@ -43,7 +43,7 @@ class Rva002930A9Holder { public: virtual void v00(); virtual void v01(); virtua
 class Rva002CA9CA { public: bool rva002CAD8B(); };
 #include "../../../Include/GameLogic/Weapon.h"
 enum WeaponSlotType { SLOT_ZERO=0 };
-class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const; };
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 class Object
 {
 public:

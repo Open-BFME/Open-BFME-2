@@ -38,7 +38,7 @@ class Object;
 
 #include "../../../../Include/GameLogic/Weapon.h"
 
-class WeaponSet {public:Weapon *getWeaponInWeaponSlot(WeaponSlotType) const;};
+#include "../../../../Include/GameLogic/WeaponSetClass.h"
 
 #include "../../../Common/Thing/thing.h"
 

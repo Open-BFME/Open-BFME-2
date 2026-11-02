@@ -21,15 +21,7 @@ struct RvaWeaponSlot
 	RvaWeaponSlotState *m_state;	// +0x004
 };
 
-class WeaponSet
-{
-	char m_pad[8];					// +0x000..+0x008 unknown
-	RvaWeaponSlot *m_slots[6];		// +0x008
-
-public:
-	const class Weapon *findAmmoPipShowingWeapon() const;
-	class Weapon *findWaypointFollowingCapableWeapon();
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 #include "../../../Include/GameLogic/Weapon.h"
 

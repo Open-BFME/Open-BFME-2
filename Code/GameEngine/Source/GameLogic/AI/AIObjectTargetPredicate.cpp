@@ -14,7 +14,7 @@ class Object;class Module;
 extern NameKeyGenerator*TheNameKeyGenerator;
 class Rva002C9400ByteField {public:unsigned char get()const;};
 class Weapon {public:bool isWithinAttackRange(const Object*,const Object*,float,int)const;char pad[4];const Rva002C9400ByteField*data;};
-class WeaponSet {public:Weapon*getWeaponInWeaponSlot(WeaponSlotType)const;char pad[8];Weapon*slots[6];};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct ThingTemplate {char pad[0x113];unsigned char flags113;char pad114;unsigned char flags115;};
 class Rva004C5772CmpBoolField {public:bool get()const;};

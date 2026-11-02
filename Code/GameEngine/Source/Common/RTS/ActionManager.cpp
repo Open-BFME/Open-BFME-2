@@ -341,7 +341,7 @@ struct BfmeContainedAttackContext
 
 class Weapon;
 
-class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType) const; };
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 struct Rva0041BB87Iface
 {

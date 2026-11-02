@@ -41,11 +41,7 @@ enum WeaponSlotType
 	WEAPONSLOT_COUNT = 6
 };
 
-class WeaponSet
-{
-public:
-	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 
 class Rva0028C428Iface
 {

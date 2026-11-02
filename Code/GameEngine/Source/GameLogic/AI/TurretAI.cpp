@@ -102,11 +102,7 @@ void XferTurretTargetType( Xfer *xfer, int *value );
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 #include <math.h>
 #define TWO_PI 6.28318548f
-class WeaponSet
-{
-public:
-	Weapon* getWeaponInWeaponSlot(WeaponSlotType wslot) const;
-};
+#include "../../../Include/GameLogic/WeaponSetClass.h"
 #define RVA004D8C23_ZERO 0.0f
 #define RVA004D8C23_TWO_PI 6.2831854820251465f
 #define RVA004D8C23_PI_OVER_FOUR 0.7853981852531433f
