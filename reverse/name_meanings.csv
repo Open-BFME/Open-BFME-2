@@ -839,3 +839,14 @@ Code/GameEngine/Source/Common/Rva005FB400.cpp|param|Rva005FB400::Rva005FB400|arg
 Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp|local|Rva005FEA62::copyVirtualValue|tmp,786249acfe5429d2307d5ba9,claude-haiku-5-5,drz-k8-n40f,w-92c9822ecc57,2026-11-02,badcad4185b30f2480f2c853
 Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp|local|Rva0060052C::copyVirtualValue|tmp,350ca29e8cbe3ea929e1fd50,claude-haiku-5-5,drz-k8-n40f,w-92c9822ecc57,2026-11-02,1aa2f6665eef85dd438c7a6b
 Code/GameEngine/Source/Common/Rva005FECFC.cpp|param|rva005FECFCInit|arg,0759e93702c30638da8b35c3,claude-haiku-5-5,drz-k8-n40f,w-92c9822ecc57,2026-11-02,7a82b8d7a2ea44230ea43bd8
+Code/GameEngine/Source/Common/Rva0087EBB0Max.cpp|local|bfmeApplyEB|c,f84737a87d4068449789c50a,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,a2e44ac98f26376c7e372d03
+Code/GameEngine/Source/Common/Rva0087F4D0Copy.cpp|local|bfmeCopyF4|d,380d99780e34885cb4e26150,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,d13dceba2b50de7986b71b28
+Code/GameEngine/Source/Common/Rva0087F520Fill.cpp|local|bfmeFillF5|d,9dad1e52033f822138b6f250,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,2e0643c3152bfacbeceac3e1
+Code/GameEngine/Source/Common/Rva0087F520Fill.cpp|local|bfmeFillF5|m,ea3180771fd6d1ee2039de2a,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,e66dc76a1be6831cbc45bded
+Code/GameEngine/Source/Common/Rva0087FCD0Overflow.cpp|local|BfmeVecCD::overflow|v,95207f344faecfbf36b5e7e6,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,4e507e3d25730bedc0729f67
+Code/GameEngine/Source/Common/Rva0087FF50Push.cpp|local|BfmeVec50::push_back|f,fc51a98736aa0aeec0a10d15,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,2f7fae8932486dbd862fcc21
+Code/GameEngine/Source/Common/Rva0087FF50Push.cpp|local|BfmeVec50::push_back|v,fc87511249f162303043c3bf,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,698495e2dfd6cf5e6451f2ea
+Code/GameEngine/Source/Common/Rva00880440Push.cpp|param|fill440|n,13d7f543b1d03b4396e3d24c,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,46ea9bc473a338ecbade4f77
+Code/GameEngine/Source/Common/Rva00880440Push.cpp|param|allocate440|n,666774a50560568d42c63933,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,812ad8dd5f5096171cda92ee
+Code/GameEngine/Source/Common/Rva009A2350Init.cpp|local|Rva009A2350::init|p,72568a045960c74f2bc27ec9,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,a41473707d274c04d5540cbf
+Code/GameEngine/Source/Common/Rva009A2350Init.cpp|local|Rva009A2350::init|q,19a32c3aa5bcf01233e32a06,claude-haiku-5-5,drz-k9-n41d,w-2a58b1ead41e,2026-11-02,2cc22e4661887ce21353e409
