@@ -15,21 +15,16 @@ Donor facts: Zero Hour's InGameUI declaration supplies the names of message togg
 #ifndef BFME2_INGAMEUI_H
 #define BFME2_INGAMEUI_H
 
-#if defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
-#error Include InGameUI.h before the short SubsystemInterface definition.
-#endif
-#ifndef BFME_SUBSYSTEM_SLOTS
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error Include InGameUI.h before the legacy Snapshot slot spelling.
-#endif
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Xfer;
 
 namespace _STL {
 template<class T> class allocator;
@@ -200,7 +195,11 @@ public:
     virtual void slot119() = 0;
 
     virtual void loadPostProcess();
+#ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
+#else
+    virtual void crc(Xfer *xfer);
+#endif
     virtual void xfer(Xfer *);
     virtual void slot10_00();
     virtual void slot10_01();
