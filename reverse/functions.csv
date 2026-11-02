@@ -4687,7 +4687,7 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ??0WeaponTemplateSet@@QAE@ABV0@@Z,,0x004AE811,33,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,matched,0x4C head copy ctor then two dwords at plus 0x4C and 0x50
 ??0WeaponTemplateSetHead@@QAE@ABV0@@Z,,0x00045455,24,Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadCopyCtor.cpp,matched,memcpy 0x4C; callee of WeaponTemplateSet copy ctor
 ??0BFME2StreamMotionChannel@@QAE@XZ,,0x001B2138,22,Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannel.cpp,matched,base ctor then Data at plus 0x28 zeroed
-??0BFME2Encoding0MotionChannel@@QAE@XZ,,0x001B2E2C,26,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp,matched,base ctor then TimeCodes and Samples zeroed
+??0BFME2Encoding0MotionChannel@@QAE@XZ,,0x001B2E2C,26,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,matched,base ctor then TimeCodes and Samples zeroed
 ??0BFME2MotionChannel@@QAE@XZ,,0x001A465B,17,Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelCtor.cpp,matched,Type and Pivot or-minus-1 then vtable
 ?bfmeSetTexture@Image@@QAEXABVBfmeMapPictureTexture@@@Z,,0x002D905E,47,Code/GameEngine/Source/GameClient/System/Image.cpp,matched,alloc 4-byte holder at plus 0x2C then RefCountPtr assign
 ?Set_Animation@Animatable3DObjClass@@UAEXPAVHAnimComboClass@@@Z,,0x001A4D90,39,Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp,matched,Release then MULTIPLE_ANIM 4 combo ptr hierarchy-valid byte
@@ -20153,8 +20153,8 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?Rva0042E8C1@BfmeOwnVVD@@QAEEXZ,,0x0042E8C1,44,Code/GameEngine/Source/Common/BfmeOwnVVD.cpp,matched,uses m_150 plus globals 0x009FE78C 0x009BA4E4 callers 0x0029F2CF 0x0037A90C
 ??1BFME2StreamMotionChannel@@UAE@XZ,,0x001B214E,26,Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannel.cpp,matched,stream dtor deletes Data via array plus twin base pin
 ??_GBFME2StreamMotionChannel@@UAEPAXI@Z,,0x001B28DE,28,Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannel.cpp,matched,scalar deleting dtor calls dtor plus delete
-??1BFME2Encoding0MotionChannel@@UAE@XZ,,0x001B2E46,35,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp,matched,encoding0 dtor deletes arrays plus twin base pin
-??_GBFME2Encoding0MotionChannel@@UAEPAXI@Z,,0x001B2FD3,28,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp,matched,scalar deleting dtor calls dtor plus delete
+??1BFME2Encoding0MotionChannel@@UAE@XZ,,0x001B2E46,35,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,matched,encoding0 dtor deletes arrays plus twin base pin
+??_GBFME2Encoding0MotionChannel@@UAEPAXI@Z,,0x001B2FD3,28,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,matched,scalar deleting dtor calls dtor plus delete
 ?xfer@Rva00482641@@MAEXPAVXfer@@@Z,,0x00482641,361,Code/GameEngine/Source/Common/Rva00482641Xfer.cpp,matched,slot3 vtable 0x0084965C ctor 0x00482803 dtor 0x00482551 plus donor BFME1 xfer
 ?rva004969E7@@YA_NPBD@Z,,0x004969E7,24,Code/GameEngine/Source/GameLogic/Object/Update/Rva004969E7ShowEq.cpp,matched,caller 0x0049735A string Show strcmpi eq
 ??0Rva0046262D@@QAE@PAXABVWeaponTemplateSetHead@@@Z,,0x0046262D,29,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046262DCtor.cpp,matched,ctor after slot129 plus vptr plus rowed head copy
