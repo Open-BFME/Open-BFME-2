@@ -71,17 +71,17 @@ public:
 
 void Rva00806400Owner::release(void *key)
 {
-	Rva00806400Pair *p = m_pairs;
+	Rva00806400Pair *entry = m_pairs;
 	Rva00806400Pair *end = m_pairs + 8;
-	while (p < end)
+	while (entry < end)
 	{
-		if ((void *)p->m_listener == key)
+		if ((void *)entry->m_listener == key)
 		{
-			p->m_listener = 0;
-			p->m_arg = 0;
+			entry->m_listener = 0;
+			entry->m_arg = 0;
 			return;
 		}
-		++p;
+		++entry;
 	}
 }
 
@@ -90,13 +90,13 @@ void Rva00806400Owner::setValue(int value, void *context)
 	if (value != m_value)
 	{
 		m_value = value;
-		Rva00806400Pair *p = m_pairs;
+		Rva00806400Pair *entry = m_pairs;
 		Rva00806400Pair *end = m_pairs + 8;
-		while (p < end)
+		while (entry < end)
 		{
-			if (p->m_listener != 0)
-				p->m_listener->notify(value, p->m_arg, context);
-			++p;
+			if (entry->m_listener != 0)
+				entry->m_listener->notify(value, entry->m_arg, context);
+			++entry;
 		}
 	}
 }

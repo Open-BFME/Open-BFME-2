@@ -6685,3 +6685,11 @@ param,boneSubmul::z,boneSubmul::pointZ,inferred,agree:nl-97411f8261ff-me30f46cde
 param,Rva0033C965::rva0033C965::a1,Rva0033C965::rva0033C965::outAssets,inferred,agree:nl-60f006639a02-m83d70d896e50d3a56eb93081,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,0x0033C965
 param,ThingTemplate::GetAssetList::a,ThingTemplate::GetAssetList::outAssets,inferred,agree:nl-4a505af908e3-ma00e66bb8ea20485016667f5,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,0x0033CF34
 param,ThingTemplate::GetAssetList::b,ThingTemplate::GetAssetList::cacheSelectFlag,inferred,agree:nl-2a9b7f7f7e71-m41dbb162af9d12a0371e2090,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,0x0033CF34
+local,Rva0033BFA6::rva0033BFA6::z,Rva0033BFA6::rva0033BFA6::newNode,inferred,agree:nl-2abb878849e7-m8c5e247672b97fa02e1b772b,Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp,0x0033BFA6
+param,Rva0033BFA6::rva0033BFA6::v,Rva0033BFA6::rva0033BFA6::insertKey,inferred,agree:nl-326ae0c00ea8-ma50e3edc8d341160906786a4,Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp,0x0033BFA6
+param,Rva0033BFA6::rva0033BFA6::y,Rva0033BFA6::rva0033BFA6::parentNode,inferred,agree:nl-bde2a29760af-mcd1a4d5f04487227fb6462df,Code/GameEngine/Source/Common/Thing/Rva0033BFA6Insert.cpp,0x0033BFA6
+local,Thing::transformPoint::tmp,Thing::transformPoint::resultPoint,inferred,agree:nl-4ac758dfd896,Code/GameEngine/Source/Common/Thing/ThingTransformPointFinish.cpp,0x0030A812
+param,rva00380869::a,rva00380869::objectOrigin,inferred,agree:nl-3a29088d3612,Code/GameEngine/Source/Common/TooltipPositionDisplayString.cpp,0x00380869
+param,rva00380869::b,rva00380869::objectSize,inferred,agree:nl-a8718937fc40,Code/GameEngine/Source/Common/TooltipPositionDisplayString.cpp,0x00380869
+local,Rva00806400Owner::release::p,Rva00806400Owner::release::entry,inferred,agree:nl-b3e6e38fc15c,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,0x00672430
+local,Rva00806400Owner::setValue::p,Rva00806400Owner::setValue::entry,inferred,agree:nl-3124425c802d,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp,0x006723A0

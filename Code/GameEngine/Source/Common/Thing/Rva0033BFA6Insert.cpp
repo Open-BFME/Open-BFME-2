@@ -46,34 +46,34 @@ struct Rva0033BFA6 {
 	int _size;
 	ModelConditionMapHelper117 _comp;
 	Rva0033BFA6Node *_M_create_node(const Rva0033BFA6Key &v);
-	Rva0033BFA6Iter rva0033BFA6(Rva0033BFA6Node *x, Rva0033BFA6Node *y, const Rva0033BFA6Key &v, Rva0033BFA6Node *w);
+	Rva0033BFA6Iter rva0033BFA6(Rva0033BFA6Node *x, Rva0033BFA6Node *parentNode, const Rva0033BFA6Key &insertKey, Rva0033BFA6Node *w);
 };
-Rva0033BFA6Iter Rva0033BFA6::rva0033BFA6(Rva0033BFA6Node *x, Rva0033BFA6Node *y, const Rva0033BFA6Key &v, Rva0033BFA6Node *w)
+Rva0033BFA6Iter Rva0033BFA6::rva0033BFA6(Rva0033BFA6Node *x, Rva0033BFA6Node *parentNode, const Rva0033BFA6Key &insertKey, Rva0033BFA6Node *w)
 {
-	Rva0033BFA6Node *z;
-	if (y == _head || (w == 0 && (x != 0 || _comp((const BitFlags<117> &)v, (const BitFlags<117> &)y->_key)))) {
-		z = _M_create_node(v);
-		y->_left = z;
-		if (y == _head) {
-			_head->_parent = z;
-			_head->_right = z;
-		} else if (y == _head->_left) {
-			_head->_left = z;
+	Rva0033BFA6Node *newNode;
+	if (parentNode == _head || (w == 0 && (x != 0 || _comp((const BitFlags<117> &)insertKey, (const BitFlags<117> &)parentNode->_key)))) {
+		newNode = _M_create_node(insertKey);
+		parentNode->_left = newNode;
+		if (parentNode == _head) {
+			_head->_parent = newNode;
+			_head->_right = newNode;
+		} else if (parentNode == _head->_left) {
+			_head->_left = newNode;
 		}
 	} else {
-		z = _M_create_node(v);
-		y->_right = z;
-		if (y == _head->_right) {
-			_head->_right = z;
+		newNode = _M_create_node(insertKey);
+		parentNode->_right = newNode;
+		if (parentNode == _head->_right) {
+			_head->_right = newNode;
 		}
 	}
-	z->_parent = y;
-	z->_left = 0;
-	z->_right = 0;
-	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z, (_STL::_Rb_tree_node_base *&)_head->_parent);
+	newNode->_parent = parentNode;
+	newNode->_left = 0;
+	newNode->_right = 0;
+	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)newNode, (_STL::_Rb_tree_node_base *&)_head->_parent);
 	++_size;
 	Rva0033BFA6Iter it;
-	it.node = z;
+	it.node = newNode;
 	return it;
 }
 

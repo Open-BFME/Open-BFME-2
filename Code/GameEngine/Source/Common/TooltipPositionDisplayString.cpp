@@ -38,13 +38,13 @@ class DisplayString;
 extern DisplayString *TheTooltipString;
 
 // ?rva00380869@@YAXPAVCoord2D@@0@Z
-void rva00380869(Coord2D *a, Coord2D *b)
+void rva00380869(Coord2D *objectOrigin, Coord2D *objectSize)
 {
 	if (!reinterpret_cast<Rva00380869Display * &>(TheTooltipString))
 		return;
 	if (!reinterpret_cast<Rva00380869Display * &>(TheTooltipString)->slot0C())
 		return;
 	reinterpret_cast<Rva00380869Display * &>(TheTooltipString)->slot34(
-		(int)(*(volatile float *)&b->x * 0.5f + a->x - TooltipStringWidth * 0.5f + 0.5f),
-		(int)(*(volatile float *)&b->y * 0.5f + a->y - TooltipStringHeight * 0.5f + 0.5f));
+		(int)(*(volatile float *)&objectSize->x * 0.5f + objectOrigin->x - TooltipStringWidth * 0.5f + 0.5f),
+		(int)(*(volatile float *)&objectSize->y * 0.5f + objectOrigin->y - TooltipStringHeight * 0.5f + 0.5f));
 }

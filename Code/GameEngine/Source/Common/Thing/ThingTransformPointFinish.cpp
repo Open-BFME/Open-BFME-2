@@ -32,9 +32,9 @@ void Thing::transformPoint(const Coord3D *in, Coord3D *out)
 	float b1 = b0 + m_transform[2][0] * x;
 	float b2 = b1 + m_transform[2][1] * y;
 	float rz = b2 + m_transform[2][3];
-	Coord3D tmp;
-	tmp.x = rx;
-	tmp.y = ry;
-	tmp.z = rz;
-	*out = tmp;
+	Coord3D resultPoint;
+	resultPoint.x = rx;
+	resultPoint.y = ry;
+	resultPoint.z = rz;
+	*out = resultPoint;
 }
