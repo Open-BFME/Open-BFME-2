@@ -4,7 +4,7 @@
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
 #define _DLL
 #include <string.h>
-#include "string_base.h"
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 #include <mbstring.h>
 #include <stdlib.h>
 #define GAP_RTS_TAG ((const void *)'str')
@@ -37,6 +37,8 @@ extern "C" GameAllocateFunction __gameMemAllocatePtr;
 
 	// VA 0x00DE0404
 
+#ifndef BFME_STRING_BYTE_ALLOCATOR_DECLARED
+#define BFME_STRING_BYTE_ALLOCATOR_DECLARED
 namespace _STL
 {
 	template <class T> class allocator;
@@ -46,6 +48,7 @@ namespace _STL
 		static char *allocate(unsigned int n, const void *hint);	// 0x000307F0
 	};
 }
+#endif
 
 // --- 0x0002FC80 (24B): _msize: the block's size through the null-guarded
 // block-size forwarder 0x00030860, with the heap word the block-heap slot

@@ -9,6 +9,8 @@
 // Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp // cl: /O2 /EHsc
 // plus char-size bytes len+9 and capacity bytes-8 (no divide).
 #include <string.h>
+#ifndef BFME_STRING_BYTE_ALLOCATOR_DECLARED
+#define BFME_STRING_BYTE_ALLOCATOR_DECLARED
 namespace _STL {
 template <class _Tp> class allocator;
 template <> class allocator<char> {
@@ -16,6 +18,7 @@ public:
     static char *allocate(unsigned int n, const void *hint);
 };
 }
+#endif
 
 template <typename T>
 class CharSource {
@@ -27,23 +30,7 @@ public:
     virtual int getChars(T *dest) const = 0;
 };
 
-template <typename T>
-class StringBase {
-private:
-    struct Header {
-        int ref_count;
-        unsigned short length;
-        unsigned short capacity;
-        T data[1];
-    };
-    Header *m_data;
-    void releaseBuffer();
-    void ensureUniqueBufferOfSize(int newLen, bool keepData, const CharSource<T> *src1, const CharSource<T> *src2);
-public:
-    void set(const T *str, int len);
-    void set(const CharSource<T> &source);
-    void concat(const T *str, int len);
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 class NarrowStrLenSource : public CharSource<char> {
     const char *m_str;

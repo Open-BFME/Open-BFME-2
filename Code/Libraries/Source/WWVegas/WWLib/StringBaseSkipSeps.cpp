@@ -16,27 +16,7 @@
 // leaves it -- and every other unit that includes it -- untouched. Access
 // matters here, not just the signature: getBufferForRead is public (QAE) and
 // releaseBuffer private (AAE) in the retail decorations both pins carry.
-template <typename T>
-class StringBase
-{
-public:
-	bool nextToken(StringBase<T> *out, const T *seps);
-	T *getBufferForRead(int len);
-	void set(const T *str, int len);
-
-private:
-	void releaseBuffer();
-
-	struct Header
-	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-
-	Header *m_data;
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 static char *skipSeps(char *p, const char *seps);
 static char *skipNonSeps(char *p, const char *seps);

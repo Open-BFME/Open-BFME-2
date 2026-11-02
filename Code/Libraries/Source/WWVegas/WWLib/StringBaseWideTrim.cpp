@@ -22,27 +22,7 @@ extern "C" {
 
 typedef unsigned short WideChar;
 
-template <typename T>
-class StringBase
-{
-private:
-    struct Header
-    {
-        int ref_count;
-        unsigned short length;
-        unsigned short capacity;
-        unsigned short data[1];
-    };
-
-    Header *m_data;
-
-public:
-    void trim();
-    void set(const T *str, int len);
-    T *peek() const { return &m_data->data[0]; }
-    T getCharAt(int index) const { return m_data ? m_data->data[index] : 0; }
-    void removeLastChar();
-};
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 template <>
 void StringBase<WideChar>::trim()

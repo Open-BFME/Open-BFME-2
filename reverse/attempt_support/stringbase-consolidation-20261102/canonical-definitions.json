@@ -1,0 +1,43 @@
+{
+  "Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp": {
+    "before": 16,
+    "after": 16,
+    "removed": [],
+    "added": [],
+    "changed": []
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/StringBaseSkipSeps.cpp": {
+    "before": 2,
+    "after": 2,
+    "removed": [],
+    "added": [],
+    "changed": []
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp": {
+    "before": 15,
+    "after": 15,
+    "removed": [],
+    "added": [],
+    "changed": []
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp": {
+    "before": 3,
+    "after": 3,
+    "removed": [
+      "?peek@?$StringBase@G@@QBEPAGXZ"
+    ],
+    "added": [
+      "?peek@?$StringBase@G@@ABEPAGXZ"
+    ],
+    "changed": [
+      "?peek@?$StringBase@G@@QBEPAGXZ"
+    ]
+  },
+  "Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp": {
+    "before": 11,
+    "after": 11,
+    "removed": [],
+    "added": [],
+    "changed": []
+  }
+}
