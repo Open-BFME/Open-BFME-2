@@ -1369,4 +1369,15 @@ template <> CarryoverUnit *__uninitialized_copy<CarryoverUnit *, CarryoverUnit *
     return current;
 }
 
+// Native1EBA5F likewise performs no unwind cleanup of prior output elements.
+template <> CarryoverUnit *__uninitialized_fill_n<CarryoverUnit *, unsigned int, CarryoverUnit>(
+    CarryoverUnit *first, unsigned int count, const CarryoverUnit &value,
+    const __false_type &)
+{
+    CarryoverUnit *current = first;
+    for (; count > 0; --count, ++current)
+        _Construct(current, value);
+    return current;
+}
+
 }

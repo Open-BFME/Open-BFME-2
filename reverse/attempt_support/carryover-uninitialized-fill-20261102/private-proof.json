@@ -1,0 +1,93 @@
+{
+  "scope": "Separate staged candidates, immutable private objects. Stage2 is the only additional compiler run; stage1/3 reuse completed authorized private trials. All new loops have no exception promise and no cleanup-on-throw. Wrapper uses existing standard template instantiation.",
+  "original_state": {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+    "source_sha256": "5890e9b1ee22d10124b302544971e064fb900cecb70da94d1987f68eab837d07",
+    "object_sha256": "992a4fc72b53062eac470bee388c772aa2713095af03e8d41fb86be47b2b7b80",
+    "source_receipt_matches": true,
+    "object_receipt_matches": true
+  },
+  "stages": [
+    {
+      "stage": 2,
+      "source_candidate": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-uninitialized-20261102\\stage2-fill.cpp",
+      "source_sha256": "afb2dfe6f9ee10de62f91f4c0775486853ea040754c4e49dbb85a45509dacf98",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-uninitialized-20261102\\stage2-fill.obj",
+      "object_sha256": "7b40a8aef59def407d8217f08e3fd2479068a17fd3a8747531a69e47ffad12bb",
+      "old_native_rows": 157,
+      "old_unique_native_rvas": 157,
+      "old_native_missing": [],
+      "old_complete_code_count": 511,
+      "retained_complete_code_count": 511,
+      "changed_retained": [],
+      "removed": [],
+      "added": [
+        {
+          "name": "??$__uninitialized_copy@PAVCarryoverUnit@@PAV1@@_STL@@YAPAVCarryoverUnit@@PAV1@00ABU__false_type@0@@Z",
+          "kind": "code",
+          "bytes": "538b5c24083b5c240c578b7c2414741a56beac0000005357e80000000003de5903fe3b5c24185975ed5e8bc75f5bc3",
+          "relocations": [
+            [
+              25,
+              20,
+              "??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z"
+            ]
+          ]
+        },
+        {
+          "name": "??$__uninitialized_fill_n@PAVCarryoverUnit@@IV1@@_STL@@YAPAVCarryoverUnit@@PAV1@IABV1@ABU__false_type@0@@Z",
+          "kind": "code",
+          "bytes": "568b742408578b7c241085ff7615ff74241456e8000000005981c6ac0000004f5975eb5f8bc65ec3",
+          "relocations": [
+            [
+              20,
+              20,
+              "??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z"
+            ]
+          ]
+        }
+      ],
+      "old_EH_verdict_counts": {
+        "EXACT": 10
+      },
+      "typed_rows": [
+        {
+          "name": "??$__uninitialized_copy@PAVCarryoverUnit@@PAV1@@_STL@@YAPAVCarryoverUnit@@PAV1@00ABU__false_type@0@@Z",
+          "rva": "0x001EBA30",
+          "size": 47,
+          "full_size": 47,
+          "native_bytes_match_with_verified_provider_mapping": true,
+          "relocations": [
+            [
+              25,
+              20,
+              "??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z"
+            ]
+          ],
+          "actual_native_callee": "0x001EB9E6",
+          "callee_matches_preverified_provider": true,
+          "eh": null
+        },
+        {
+          "name": "??$__uninitialized_fill_n@PAVCarryoverUnit@@IV1@@_STL@@YAPAVCarryoverUnit@@PAV1@IABV1@ABU__false_type@0@@Z",
+          "rva": "0x001EBA5F",
+          "size": 40,
+          "full_size": 40,
+          "native_bytes_match_with_verified_provider_mapping": true,
+          "relocations": [
+            [
+              20,
+              20,
+              "??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z"
+            ]
+          ],
+          "actual_native_callee": "0x001EB9E6",
+          "callee_matches_preverified_provider": true,
+          "eh": null
+        }
+      ]
+    }
+  ],
+  "source_still_unchanged": true,
+  "in_memory_provider_mapping_qualification": "Only stage2/3 proof adds the independently verified new40B worker name\u21921EBA5F to a local symbol-map copy. No ledger/pin/cache edit. Admit stage2 before stage3; the actual row then supplies that resolution normally."
+}
