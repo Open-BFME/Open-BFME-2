@@ -51,7 +51,7 @@ next scheduled census.
 [Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261102-1632.md).
 ### LINK-177: header adoptions of dtor-holder units broke 35 census-linked units (2026-11-02, seat halilkkaya-lk15)
 
-Status: Open (analysis; regression; item 1 banked by lk16 2026-11-02; State slots provided and the last three step-B units banked by lk18 2026-11-02). Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
+Status: Open (analysis; regression). Item 1 (StateMachine family, 13 units plus Rva0033FC0ACtor) was repaired by lk18 on 2026-11-02: the class key, step B and the SupplyTruck step B landed, +12,246 B on current objects. Items 2 and 3 are as recorded below. Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
 A current-object `link_check` over all 18,470 present sources the 06:54 census (`357ce2a88f`)
 records as linked: 18,435 link, 7,725,216 -> 7,696,163 B (-29,053 B). Excluding the known
 `__imp_`/`___ImageBase` modelling gaps and a sweep artifact (OpaqueScalarDeletingDtorsB11.cpp's

@@ -301,3 +301,17 @@ Still blocked: everything above waits on `state-classkey-v2.patch`, which waits 
 SupplyTruckAIUpdate.cpp. That file is still held by codex-01a1071d-root-recovery-oct11 at 22:40.
 Apply order once it frees: v2 (with SupplyTruck's respell), then `step-b-v2-nine-ctors.patch`,
 `step-b-v2-aistatemachinector.patch` and this patch.
+
+## Landed (lk18, 2026-11-02)
+
+SupplyTruckAIUpdate.cpp was freed at 22:38. All the patches above are now applied on master, in
+four commits:
+- the class key: the 32 v2 units plus SupplyTruck, 20 rows respelled with tombstones, and the 3
+  pins renamed in place;
+- step B for the ten constructor units (the nine-unit patch plus AIStateMachineCtor);
+- step B for AIDock, AIAttackMove and Turret (`step-b-v2-dock-attackmove-turret.patch`);
+- SupplyTruck's own step B.
+
+`link_check` over 527 State-family units: 482 -> 496 link, 584,501 -> 596,747 B. The patches here
+are kept as history only.
+
