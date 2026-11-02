@@ -17751,7 +17751,7 @@ replacement, A/B the full touched-consumer set: `link_check` in a base
 worktree (`worktree_setup.py create`, copy a fetched index, `--update-index`)
 against the tip, then diff per unit. The exact-base `link_batch_audit.py`
 cannot conclude while most consumers lack strict receipts.
-=======
+
 - `DieModule.cpp` (19 B; LINK-175's `scanIndexList`/`s_bitNameList` unit): both blockers came
   from Zero Hour's DieMuxData field table, which reached `BitFlags<45>::parse` through
   `ObjectStatusMaskType::parseFromINI`. Retail's table (0x00C5FFA0, returned by the
@@ -17792,7 +17792,6 @@ cannot conclude while most consumers lack strict receipts.
     member is an AsciiString. Both identities need a naming decision before the units can drop
     the AudioEventRTS spelling; neither unit is near linking (ThingTemplate 16, ThingFactory 13
     blockers).
->>>>>>> 27d0e3de15 (Link DieModule.cpp: give DieMuxData retail's field table)
 - Handoff for the next seat (checked on current objects, not landed):
   - `RegionDetailsStructuresIconCtor.cpp` (217 B; 3 U): the Icon dtor is rowed as
     `??1Rva005E278E@@UAE@XZ` 0x005E278E (+ `??_G` 0x005E283B), the same split as
