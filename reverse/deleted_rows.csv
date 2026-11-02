@@ -4542,3 +4542,5 @@ __ehhandler$??1Rva004E0D67@@UAE@XZ,0x00791927,"Renamed to __ehhandler$??1LivingW
 ?bfmeUnlink8F7C00@Gen_008F7BE0@@QAEXXZ,0x0073A1A0,"Renamed to ?unlink@Gen_008F7BE0@@QAEXXZ by tools/rename.py (inferred)"
 ?rva0009CD9B@Rva0009C134Host@@QAEXXZ,0x0009CD9B,"Renamed to ?setupSunRays@Rva0009C134Host@@QAEXXZ by tools/rename.py (inferred)"
 __ehhandler$?rva0009CD9B@Rva0009C134Host@@QAEXXZ,0x0076062E,"Renamed to __ehhandler$?setupSunRays@Rva0009C134Host@@QAEXXZ by tools/rename.py (inferred)"
+?Rva001F4A37IsEmpty@@YA_NABV?$StringBase@D@@@Z,0x001F4A37,"Renamed to ?isEmptyString@@YA_NABV?$StringBase@D@@@Z by tools/rename.py (inferred)"
+?Rva000D1A9AGet@@YAMXZ,0x000D1A9A,"Renamed to ?getProjectionBias@@YAMXZ by tools/rename.py (inferred)"

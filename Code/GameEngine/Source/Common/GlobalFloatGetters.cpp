@@ -99,10 +99,10 @@ float Rva00041457Get(void)
 
 extern float bfmeProjectionBias;
 
-// ?Rva000D1A9AGet@@YAMXZ @ 0x000d1a9a (7B) over 0x00DEDA74 (0.0f).
+// ?getProjectionBias@@YAMXZ @ 0x000d1a9a (7B) over 0x00DEDA74 (0.0f).
 // Follows a ret (prev C3); next is a frameless fn start; no direct callers,
 // no branch sources. Opaque address-derived name.
-float Rva000D1A9AGet(void)
+float getProjectionBias(void)
 {
 	return bfmeProjectionBias;
 }

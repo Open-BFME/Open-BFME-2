@@ -57,7 +57,7 @@ public:
 private:
 	T *m_data;
 };
-bool Rva001F4A37IsEmpty(const StringBase<char> &text)
+bool isEmptyString(const StringBase<char> &text)
 {
 	return text.isEmpty();
 }

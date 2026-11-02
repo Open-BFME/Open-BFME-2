@@ -17434,7 +17434,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?Rva00050EA0Get@@YAMXZ,,0x00050EA0,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over FLT_MAX; pair with Rva00050EA7Get
 ?Rva00050EA7Get@@YAMXZ,,0x00050EA7,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over inf; pair with Rva00050EA0Get
 ?Rva00041457Get@@YAMXZ,,0x00041457,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over NaN; prev C3 and phase-clean
-?Rva000D1A9AGet@@YAMXZ,,0x000D1A9A,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over 0.0f; prev C3 and phase-clean
+?getProjectionBias@@YAMXZ,,0x000D1A9A,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over 0.0f; prev C3 and phase-clean
 ?Rva00154310Get@@YAMXZ,,0x00154310,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over 1.0f; CC-padded and phase-clean
 ?Rva0018BD82Get@@YAMXZ,,0x0018BD82,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,Global float getter over 0.0f; adjacent to sibling getter and phase-clean
 ?rva002BFBF0@Rva002BFBF0@@QAEMXZ,,0x002BFBF0,7,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp,matched,virtual member over 0.0f (thiscall with this unused): 28 .rdata vtable slots and the vtordisp thunk 0x0030C4AE reach it; renamed from the free-function placeholder Rva002BFBF0Get
@@ -95799,7 +95799,7 @@ $L396,,0x007874CF,8,Code/GameEngine/Source/Common/VersionBlockParser.cpp,matched
 ??$_Destroy@VRva00200667@@@_STL@@YAXPAVRva00200667@@@Z,,0x00282922,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 282922..28292B cdecl STLport _Destroy tail jump to rowed ICF-shared dtor 200667; twin 5BC6F5; migrated=stlport-4.6
 ??$_Destroy@VRva0032C2F7@@@_STL@@YAXPAVRva0032C2F7@@@Z,,0x0032CD10,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 32CD10..32CD19 cdecl STLport _Destroy tail jump to rowed dtor 32C2F7; twin 5BC6F5; migrated=stlport-4.6
 ??$_Destroy@VRva0032E83A@@@_STL@@YAXPAVRva0032E83A@@@Z,,0x0032EA76,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 32EA76..32EA7F cdecl STLport _Destroy tail jump to rowed dtor 32E83A; twin 5BC6F5; migrated=stlport-4.6
-?Rva001F4A37IsEmpty@@YA_NABV?$StringBase@D@@@Z,,0x001F4A37,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 1F4A37..1F4A40 cdecl tail jump to rowed StringBase<char> isEmpty 1E2F on the argument; migrated=stlport-4.6
+?isEmptyString@@YA_NABV?$StringBase@D@@@Z,,0x001F4A37,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 1F4A37..1F4A40 cdecl tail jump to rowed StringBase<char> isEmpty 1E2F on the argument; migrated=stlport-4.6
 ?Rva0026AFD1Run@@YAXPAVRva00268B04@@@Z,,0x0026AFD1,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 26AFD1..26AFDA cdecl tail jump to rowed member 268B04 on the argument; migrated=stlport-4.6
 ?Rva002C7515Any@@YA_NPBV?$BitFlags@$0NK@@@@Z,,0x002C7515,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 2C7515..2C751E cdecl tail jump to rowed BitFlags<218> any 2C7501 on the argument; migrated=stlport-4.6
 ?rva002E74AC@Rva002E74ACFlags@@QAEXXZ,,0x002E74AC,9,Code/GameEngine/Source/Common/GapThunksSeat8.cpp,matched,Native9 2E74AC..2E74B5 sets byte +0x1E and clears byte +0x1F; twin 3FF296; migrated=stlport-4.6
