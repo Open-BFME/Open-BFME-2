@@ -29,8 +29,8 @@ private:
 
 void Rva002B36BE::rva002B36BE(void *a1, void *a2, bool c)
 {
-	bool r = m_b0->rva0020F832(a1, a2);
-	m_flagE9 = r;
+	bool checkPassed = m_b0->rva0020F832(a1, a2);
+	m_flagE9 = checkPassed;
 	if (c == 0)
 		((Rva002B296F *)this)->rva002B35DF();
 	m_B8 = -1;

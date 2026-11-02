@@ -15,21 +15,21 @@ struct Item002B2EC7
 class Rva002B2EC7
 {
 public:
-	void rva002B2EC7(Item002B2EC7 *v);
+	void rva002B2EC7(Item002B2EC7 *newItem);
 
 private:
 	Item002B2EC7 *m_p;
 };
 
-void Rva002B2EC7::rva002B2EC7(Item002B2EC7 *v)
+void Rva002B2EC7::rva002B2EC7(Item002B2EC7 *newItem)
 {
-	Item002B2EC7 *p = m_p;
-	if (v != p) {
+	Item002B2EC7 *oldItem = m_p;
+	if (newItem != oldItem) {
 		void *q;
-		if (p) {
-			int *prefix = (int *)p - 1;
+		if (oldItem) {
+			int *prefix = (int *)oldItem - 1;
 			if (*prefix)
-				q = p->v0(2);
+				q = oldItem->v0(2);
 			else {
 				::operator delete[](prefix);
 				q = 0;
@@ -38,6 +38,6 @@ void Rva002B2EC7::rva002B2EC7(Item002B2EC7 *v)
 			q = 0;
 		}
 		::operator delete[](q);
-		m_p = v;
+		m_p = newItem;
 	}
 }

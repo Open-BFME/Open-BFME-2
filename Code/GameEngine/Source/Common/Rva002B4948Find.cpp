@@ -20,8 +20,8 @@ public:
 struct Rva002B4948Container
 {
 	char m_pad[0x1B8];
-	Rva00318C79Owner **m_begin1B8;
-	Rva00318C79Owner **m_end1BC;
+	Rva00318C79Owner **m_begin;
+	Rva00318C79Owner **m_end;
 };
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
@@ -33,7 +33,7 @@ void *LivingWorldLogic::rva002B4948(void *container, void *a2, void *a3)
 	Rva00318C79Owner *exclude = (Rva00318C79Owner *)a3;
 	Rva00318C79Owner **begin;
 	Rva00318C79Owner **end;
-	for (unsigned int i = 0; (begin = c->m_begin1B8, end = c->m_end1BC, i < (unsigned)(end - begin)); ++i) {
+	for (unsigned int i = 0; (begin = c->m_begin, end = c->m_end, i < (unsigned)(end - begin)); ++i) {
 		Rva00318C79Owner *cur = begin[i];
 		if (cur == exclude)
 			continue;

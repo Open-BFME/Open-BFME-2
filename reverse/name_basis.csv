@@ -6520,3 +6520,11 @@ local,Rva000B5C41::rva000B5C41::f,Rva000B5C41::rva000B5C41::progress,inferred,ag
 local,Rva000B5C41::rva000B5C41::t,Rva000B5C41::rva000B5C41::fraction,inferred,agree:nl-c47179baf8ea,Code/GameEngine/Source/Common/Rva000B5C41.cpp,0x000B5C41
 local,Rva000B5C41::rva000B5C41::t2,Rva000B5C41::rva000B5C41::adjustedFraction,inferred,agree:nl-1c9315fe11ee,Code/GameEngine/Source/Common/Rva000B5C41.cpp,0x000B5C41
 local,Rva002B2EA0::rva002B2EA0::p,Rva002B2EA0::rva002B2EA0::guardedItem,inferred,agree:nl-83f05867941f,Code/GameEngine/Source/Common/Rva002B2EA0Release.cpp,0x002B2EA0
+member,Rva002B4948Container::m_begin1B8,Rva002B4948Container::m_begin,inferred,agree:nl-a5d80b9624d7,Code/GameEngine/Source/Common/Rva002B4948Find.cpp,
+member,Rva002B4948Container::m_end1BC,Rva002B4948Container::m_end,inferred,agree:nl-f5b63cf748f9,Code/GameEngine/Source/Common/Rva002B4948Find.cpp,
+local,Rva002B2EC7::rva002B2EC7::p,Rva002B2EC7::rva002B2EC7::oldItem,inferred,agree:nl-1f110cb2f6eb,Code/GameEngine/Source/Common/Rva002B2EC7Set.cpp,0x002B2EC7
+param,Rva002B2EC7::rva002B2EC7::v,Rva002B2EC7::rva002B2EC7::newItem,inferred,agree:nl-c54b6ff99702,Code/GameEngine/Source/Common/Rva002B2EC7Set.cpp,0x002B2EC7
+local,Rva002B36BE::rva002B36BE::r,Rva002B36BE::rva002B36BE::checkPassed,inferred,agree:nl-8103785327e3,Code/GameEngine/Source/Common/Rva002B36BE.cpp,0x002B36BE
+param,rva002B4623::a,rva002B4623::first,inferred,agree:nl-b61b041af27c,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
+param,rva002B4623::b,rva002B4623::last,inferred,agree:nl-cc4329d5a2bc,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623
+param,rva002B4623::c,rva002B4623::destEnd,inferred,agree:nl-e5dc0d2aea41,Code/GameEngine/Source/Common/Rva002B4623.cpp,0x002B4623

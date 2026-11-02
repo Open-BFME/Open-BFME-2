@@ -18,8 +18,8 @@ struct random_access_iterator_tag;
 template <class I1, class I2, class D> I2 __copy_backward(I1 first, I1 last, I2 result, const random_access_iterator_tag &tag, D *distance);
 }
 
-void rva002B4623(int a, int b, int c)
+void rva002B4623(int first, int last, int destEnd)
 {
 	unsigned char touched;
-	_STL::__copy_backward<Rva002B2F97 *, Rva002B2F97 *, int>((Rva002B2F97 *)a, (Rva002B2F97 *)b, (Rva002B2F97 *)c, *(const _STL::random_access_iterator_tag *)&touched, (int *)0);
+	_STL::__copy_backward<Rva002B2F97 *, Rva002B2F97 *, int>((Rva002B2F97 *)first, (Rva002B2F97 *)last, (Rva002B2F97 *)destEnd, *(const _STL::random_access_iterator_tag *)&touched, (int *)0);
 }
