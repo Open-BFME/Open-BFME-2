@@ -21,33 +21,16 @@ class Thing;
 class ModuleData;
 class Object;
 
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
 
+// The canonical UpdateModule, as GettingBuiltBehaviorCtor.cpp (first in link
+// order) reads it, so both units emit the same GettingBuilt primary,
+// BehaviorModuleInterface and +0x10 tables (LINK-168 mechanism 4).
 // Retail table 0x00C40434 (+0x10) slot 0 is the rowed override 0x00454DF9.
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-protected:
-	void setWakeFrame(Object *obj, unsigned int frame);
-	Object *getObject(void) const { return m_object; }
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class GettingBuiltBehaviorSecondary
 {

@@ -16848,7 +16848,12 @@ is the mirror case: `c5692cd910` moved GettingBuiltBehaviorCtor.cpp (first in li
 canonical UpdateModule.h while the Dtor keeps a private UpdateModule, so the Dtor's 12-slot primary
 table (slots 1-4 `__purecall`) and 1-slot `6BUpdateModule` table differ from the Ctor's 13-slot and
 3-slot copies and lose. Including the canonical header in the Dtor, as above, should make them
-equal (file held by StarkillerHDX at 21:50 UTC+3). HordeMeleeSwarm.cpp (1,947 B) reports a duplicate
+equal (file held by StarkillerHDX at 21:50 UTC+3). Applied 2026-11-02 (lk15, base `1765dc430d`): the
+Dtor drops its private UpdateModuleInterface/UpdateModule and includes canonical UpdateModule.h; no
+other view change. `./build.sh` 2/2 rows; scoped DIR32 OK (8 symbols, with the Ctor); only the two
+units touch `??_7GettingBuiltBehavior@@` names (index); `link_check` GettingBuiltBehaviorDtor 0 -> 142 B,
+GettingBuiltBehaviorCtor 188 B unchanged LINKS. Both copies still lack GettingBuiltBehavior's native
+primary overrides (parity, not native table correctness). HordeMeleeSwarm.cpp (1,947 B) reports a duplicate
 `?erase@?$vector@UBfmePod28@@...`: a `link_check` artifact, since the 14:31 index still holds the
 object of Rva005842F7Finish.cpp, which `ab58bb88df` merged into HordeMeleeSwarm.cpp at 17:49 (after
 the index); the next census will not see that object.
