@@ -1,0 +1,282 @@
+{
+ "bases": [
+  "BehaviorModule",
+  "DamageModuleInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "DamageModule",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 21,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4b9704"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "BehaviorModule",
+       "offset": 0,
+       "own_vftable": "0x8598e4",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<polymorphic base>",
+       "offset": 16,
+       "own_vftable": "0x7e2b78",
+       "rule": "retail-secondary-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b9704"
+     ],
+     "value": 20
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4b9704"
+     ],
+     "value": {
+      "0xc": [
+       "0x8597f8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4b9704"
+     ],
+     "value": {
+      "0x0": "0x8598e4",
+      "0x10": "0x7e2b78"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8598e4"
+     ],
+     "value": {
+      "count": 12,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004B96CC@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4b973b"
+       },
+       {
+        "name": "?loadPostProcess@UpdateModule@@MAEXXZ",
+        "slot": 1,
+        "target": "0x58b03e"
+       },
+       {
+        "name": "?GetSnapshotName@DamageModule@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x4b9735"
+       },
+       {
+        "name": "?xfer@Rva004CE56D@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4ce56d"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       }
+      ],
+      "table": "0x8598e4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7e2b78": {
+    "offset": 16,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8598e4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004B96CC@@UAEPAXI@Z",
+     "1": "?loadPostProcess@UpdateModule@@MAEXXZ",
+     "2": "?GetSnapshotName@DamageModule@@MBEPBDXZ",
+     "3": "?xfer@Rva004CE56D@@QAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 11,
+  "view_sizes": {
+   "1": 1,
+   "4": 1,
+   "16": 1,
+   "20": 7
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DamageModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DamageModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "12": 2,
+    "14": 1
+   },
+   "class": "DamageModule"
+  }
+ ],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
