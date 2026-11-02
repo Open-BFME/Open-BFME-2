@@ -340,3 +340,4 @@ BuildAssistant,Code/GameEngine/Include/Common/BuildAssistantClass.h,existing hea
 ModuleFactory,Code/GameEngine/Include/Common/ModuleFactoryClass.h,existing header; contract class_contracts/ModuleFactory.json; 22/25 sampled units adopt
 ActionManager,Code/GameEngine/Include/GameLogic/ActionManager.h,existing header; contract class_contracts/ActionManager.json; 19/26 sampled units adopt
 Image,Code/GameEngine/Include/GameClient/ImageClass.h,existing header; contract class_contracts/Image.json; 14/38 sampled units adopt
+SpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/SpecialPowerModuleData.h,existing header; contract class_contracts/SpecialPowerModuleData.json; 27/42 sampled units adopt

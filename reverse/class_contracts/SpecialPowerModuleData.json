@@ -1,0 +1,1305 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "SpecialPowerModuleData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 42,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x84e318"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x49334f",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x7c": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4930a0"
+     ],
+     "value": 124
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4930a0"
+     ],
+     "value": {
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       1
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       1
+      ],
+      "0x30": [
+       4
+      ],
+      "0x40": [
+       1
+      ],
+      "0x41": [
+       1
+      ],
+      "0x42": [
+       1
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       1
+      ],
+      "0x5d": [
+       1
+      ],
+      "0x5e": [
+       1
+      ],
+      "0x5f": [
+       1
+      ],
+      "0x60": [
+       1
+      ],
+      "0x61": [
+       1
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       1
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       1
+      ],
+      "0x78": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       1
+      ],
+      "0xd": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4930a0"
+     ],
+     "value": {
+      "0x10": [
+       "??0Upgrades@CashHackSpecialPowerModuleData@@QAE@XZ"
+      ],
+      "0x18": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0x24": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x34": [
+       "??0?$BitFlags@$0L@@@QAE@XZ"
+      ],
+      "0x38": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x3c": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x6c": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4930a0"
+     ],
+     "value": {
+      "0x0": "0x84e318"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x84e318"
+     ],
+     "value": {
+      "count": 31,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GSpecialPowerModuleData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x493333"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x65212"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 4,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 7,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+        "slot": 14,
+        "target": "0xb69a1"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 16,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 17,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 18,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 19,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 20,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 21,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 22,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 23,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 24,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 25,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 26,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 27,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 29,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 30,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x84e318"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x84e318": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GSpecialPowerModuleData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+     "3": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "4": "?IsCRC@Xfer@@UBE_NXZ",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?IsCRC@Xfer@@UBE_NXZ",
+     "7": "?IsCRC@Xfer@@UBE_NXZ",
+     "8": "?IsCRC@Xfer@@UBE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?IsCRC@Xfer@@UBE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "17": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "18": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "19": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "20": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "21": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "22": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "23": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "24": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "25": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "26": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "27": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "30": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "4": 1,
+   "12": 4,
+   "16": 2,
+   "100": 2,
+   "105": 2,
+   "116": 1,
+   "124": 23,
+   "128": 1,
+   "148": 1
+  },
+  "views": 42,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_SpecialPowerModuleData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 33,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_opaque",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 120,
+   "type": "uchar[120]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_specialPowerTemplate",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "SpecialPowerTemplate*",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_updateModuleStartsAttack",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_startsPaused",
+   "name_by": "majority",
+   "offset": 13,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva004CEE6EMember",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_first",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 4,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_pair10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 8,
+   "type": "Rva004CEE6EMember",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_string18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_value1C",
+   "name_by": "tie",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_includeSelf",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003623E5Member",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_record",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_filter24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003623E5Member",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value2C",
+   "name_by": "tie",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value30",
+   "name_by": "tie",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BitFlags<11>",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_words",
+     "offset": 0,
+     "size": 4,
+     "type": "uint[4]"
+    }
+   ],
+   "name": "m_mask",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "BitFlags<11>",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003623E5Member",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_record",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_filter38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003623E5Member",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003623E5Member",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_record",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_filter3C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003623E5Member",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value40",
+   "name_by": "tie",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value41",
+   "name_by": "tie",
+   "offset": 65,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_reEnableAntiCategory",
+   "name_by": "majority",
+   "offset": 66,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_fx4C",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "FXList*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value50",
+   "name_by": "tie",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_value54",
+   "name_by": "tie",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value58",
+   "name_by": "tie",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value5C",
+   "name_by": "tie",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value5D",
+   "name_by": "tie",
+   "offset": 93,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value5E",
+   "name_by": "tie",
+   "offset": 94,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value5F",
+   "name_by": "tie",
+   "offset": 95,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value60",
+   "name_by": "tie",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_readyAtCreation",
+   "name_by": "tie",
+   "offset": 97,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value64",
+   "name_by": "tie",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_data68",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_string6C",
+   "name_by": "majority",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value70",
+   "name_by": "tie",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_value74",
+   "name_by": "tie",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_value78",
+   "name_by": "tie",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x84e318"
+    },
+    "dtor": {
+     "0x0": "0x7bb554"
+    }
+   },
+   "class": "SpecialPowerModuleData",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "name@0x18",
+   "candidates": {
+    "m_attributeModifier.m_text": 1,
+    "m_attributeModifierName.m_text": 1,
+    "m_str18.m_text": 1,
+    "m_string18.m_text": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x1c",
+   "candidates": {
+    "m_radius": 1,
+    "m_value1C": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x24",
+   "candidates": {
+    "m_attributeModifierAffects": 1,
+    "m_filter24.m_data": 1,
+    "m_filter24.m_record": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "field@0x28",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x2c",
+   "candidates": {
+    "m_attributeModifierWeatherBased": 1,
+    "m_value2C": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x30",
+   "candidates": {
+    "m_30": 1,
+    "m_value30": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x38",
+   "candidates": {
+    "m_filter38.m_data": 1,
+    "m_filter38.m_objectFilterSlot00": 1,
+    "m_filter38.m_record": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x3c",
+   "candidates": {
+    "m_filter3C.m_data": 1,
+    "m_filter3C.m_objectFilterSlot00": 1,
+    "m_filter3C.m_record": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x40",
+   "candidates": {
+    "m_targetEnemy": 1,
+    "m_value40": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x41",
+   "candidates": {
+    "m_targetAllSides": 1,
+    "m_value41": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "field@0x44",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "field@0x48",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x50",
+   "candidates": {
+    "m_setModelCondition": 1,
+    "m_value50": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x54",
+   "candidates": {
+    "m_setModelConditionTime": 1,
+    "m_value54": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x58",
+   "candidates": {
+    "m_levels": 1,
+    "m_value58": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x5c",
+   "candidates": {
+    "m_disableDuringAnimDuration": 1,
+    "m_value5C": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x5d",
+   "candidates": {
+    "m_idleWhenStartingPower": 1,
+    "m_value5D": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x5e",
+   "candidates": {
+    "m_affectGood": 1,
+    "m_skipFlaggedPlayers": 1,
+    "m_value5E": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x5f",
+   "candidates": {
+    "m_affectEvil": 1,
+    "m_onlyFlaggedPlayers": 1,
+    "m_value5F": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x60",
+   "candidates": {
+    "m_anyPlayer": 1,
+    "m_value60": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x61",
+   "candidates": {
+    "m_readyAtCreation": 1,
+    "m_value61": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x64",
+   "candidates": {
+    "m_changeWeather": 1,
+    "m_value64": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x6c",
+   "candidates": {
+    "m_onTriggerRechargeSpecialPower.m_text": 1,
+    "m_str6C.m_text": 1,
+    "m_string6C.m_text": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x70",
+   "candidates": {
+    "m_burnDecayModifier": 1,
+    "m_value70": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x74",
+   "candidates": {
+    "m_useDistanceFromCommandCenter": 1,
+    "m_value74": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "name@0x78",
+   "candidates": {
+    "m_distanceFromCommandCenter": 1,
+    "m_value78": 1
+   },
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0xc",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0xd",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x10",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x18",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x1c",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x20",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x24",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x2c",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x30",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x34",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x38",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x3c",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x40",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x41",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x42",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x4c",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x50",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x54",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x58",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x5c",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x5d",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x5e",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x5f",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x60",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x61",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x64",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x68",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x6c",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x70",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x74",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  },
+  {
+   "attribute": "straddle@0x78",
+   "candidates": {},
+   "class": "SpecialPowerModuleData"
+  }
+ ],
+ "size": 124,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
