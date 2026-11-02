@@ -1,0 +1,480 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MaterialInfoClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 28,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 7
+   },
+   "0x20": {
+    "4": 2
+   },
+   "0x24": {
+    "4": 3
+   },
+   "0x30": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 3
+   },
+   "0xc": {
+    "4": 7
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x38": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x16ffd0",
+      "0x1708d0"
+     ],
+     "value": 56
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x16ffd0",
+      "0x1708d0"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       1
+      ],
+      "0x15": [
+       1
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x16ffd0",
+      "0x1708d0"
+     ],
+     "value": {
+      "0x20": [
+       "??0TextureVectorBaseCtorShim@@QAE@HPBV?$RefCountPtr@VTextureClass@@@@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x16ffd0",
+      "0x1708d0"
+     ],
+     "value": {
+      "0x20": [
+       "0x7d4688"
+      ],
+      "0x8": [
+       "0x7d4658"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x16ffd0",
+      "0x1708d0"
+     ],
+     "value": {
+      "0x0": "0x7d46b8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d46b8"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GMaterialInfoClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x170960"
+       }
+      ],
+      "table": "0x7d46b8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x7d46b8": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GMaterialInfoClass@@UAEPAXI@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "8": 4,
+   "28": 4,
+   "32": 2,
+   "40": 1,
+   "48": 1,
+   "52": 4,
+   "56": 8
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/matinfo.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 19,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "S:DynamicVectorClass<VertexMaterialClass *>",
+   "name": "VertexMaterials",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 24,
+   "type": "DynamicVectorClass<VertexMaterialClass *>",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "VertexMaterials.Vector",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 7
+   },
+   "size": 4,
+   "type": "VertexMaterialClass**",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "VertexMaterials.VectorMax",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "VertexMaterials.IsValid",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "VertexMaterials.IsAllocated",
+   "name_by": "majority",
+   "offset": 21,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "VertexMaterials.ActiveCount",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 7
+   },
+   "size": 4,
+   "type": "int",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "VertexMaterials.GrowthStep",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "Textures",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "Textures",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "RefCountPtr<TextureClass>*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_28",
+   "name_by": "tie",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_2C",
+   "name_by": "tie",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "TextureCount",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 3
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "m_28": 1,
+    "m_2C": 1
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "name@0x2c",
+   "candidates": {
+    "TextureCount": 1,
+    "m_2C": 1
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "VertexMaterials.Vector": 9
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "VertexMaterials.VectorMax": 6
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "nested@0x14",
+   "candidates": {
+    "VertexMaterials.IsValid": 5
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "nested@0x15",
+   "candidates": {
+    "VertexMaterials.IsAllocated": 3
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "nested@0x18",
+   "candidates": {
+    "VertexMaterials.ActiveCount": 10
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "nested@0x1c",
+   "candidates": {
+    "VertexMaterials.GrowthStep": 5
+   },
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "straddle@0xc",
+   "candidates": {},
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "straddle@0x10",
+   "candidates": {},
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "straddle@0x15",
+   "candidates": {},
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "straddle@0x18",
+   "candidates": {},
+   "class": "MaterialInfoClass"
+  },
+  {
+   "attribute": "straddle@0x1c",
+   "candidates": {},
+   "class": "MaterialInfoClass"
+  }
+ ],
+ "size": 56,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "Delete_This()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
