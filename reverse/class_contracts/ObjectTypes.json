@@ -1,0 +1,260 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ObjectTypes",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 27,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x8": {
+    "4": 5
+   },
+   "0xc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x818630"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x376adf",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x14": 4
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3769f9",
+      "0x376a1f"
+     ],
+     "value": 8
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3769f9",
+      "0x376a1f"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3769f9",
+      "0x376a1f"
+     ],
+     "value": {
+      "0x4": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ],
+      "0x8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3769f9",
+      "0x376a1f"
+     ],
+     "value": {
+      "0x0": "0x818630"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x818630"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GObjectTypes@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x376ac3"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@ObjectTypes@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x376a19"
+       },
+       {
+        "name": "?xfer@ObjectTypes@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x376b70"
+       }
+      ],
+      "table": "0x818630"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x818630": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GObjectTypes@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@ObjectTypes@@QBEPBDXZ",
+     "3": "?xfer@ObjectTypes@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 5,
+   "4": 1,
+   "16": 4,
+   "20": 16
+  },
+  "views": 26,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ObjectTypes.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ObjectTypes.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_listName",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_objectTypes",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 18,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 29
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x818630"
+    },
+    "dtor": {
+     "0x0": "0x7bb554"
+    }
+   },
+   "class": "ObjectTypes",
+   "why": "the class's retail constructors or destructors disagree"
+  }
+ ],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
