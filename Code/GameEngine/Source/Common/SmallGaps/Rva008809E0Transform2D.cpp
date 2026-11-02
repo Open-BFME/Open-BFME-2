@@ -12,18 +12,18 @@ Rva008809E0Transform2D::Rva008809E0Transform2D(const Rva008809E0Vec2* pos, float
 {
 	m_x = pos->x;
 	m_y = pos->y;
-	float c;
+	float cosine;
 	float sine;
 	__asm {
 		fld angle
 		fsincos
-		fstp c
+		fstp cosine
 		fstp sine
 	}
 	m_negSin = -sine;
 	m_a = a;
 	m_b = b;
-	m_cos = c;
+	m_cos = cosine;
 	m_sin = sine;
-	m_cos2 = c;
+	m_cos2 = cosine;
 }

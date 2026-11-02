@@ -74,9 +74,9 @@ extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class StatsReporter {public:static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);};
 template<class T>inline const T&counterMax(const T&a,const T&b){return a>b?a:b;}
-inline bool allied(const LivingWorldPlayer*a,const LivingWorldPlayer*b){return reinterpret_cast<const Rva002E071E*>(a)->rva002E071E(reinterpret_cast<const Rva002E071E*>(b));}
+inline bool allied(const LivingWorldPlayer*firstPlayer,const LivingWorldPlayer*secondPlayer){return reinterpret_cast<const Rva002E071E*>(firstPlayer)->rva002E071E(reinterpret_cast<const Rva002E071E*>(secondPlayer));}
 inline const int&clampPoints(const int&points,const int&minimum){return points<minimum?minimum:points;}
-inline int difficultyPoints(const int*n){int middle=n[3];middle+=n[5]*2;return middle*2+n[4]*3+n[2];}
+inline int difficultyPoints(const int*difficultyCounts){int middle=difficultyCounts[3];middle+=difficultyCounts[5]*2;return middle*2+difficultyCounts[4]*3+difficultyCounts[2];}
 void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
  if(player->isGuarded())return;
  LivingWorldScoreKeeper*m_scoreKeeper=player->getScoreKeeper();

@@ -9,13 +9,13 @@ struct Rva009F2FA0Reader {
 };
 int Rva009F2FA0Reader::popSqrt(float* out)
 {
-	Rva009F2FA0Elem* e = m_queue->m_read;
-	if (e == m_queue->m_end)
+	Rva009F2FA0Elem* readElement = m_queue->m_read;
+	if (readElement == m_queue->m_end)
 		return 0;
 	// sqrt(double) directly: the float overload emits sqrt/sqrtf COMDATs that lose the link.
-	*out = (float)sqrt((double)e->m_value);
-	e = m_queue->m_read;
-	int key = e->m_key;
-	m_queue->m_read = e + 1;
+	*out = (float)sqrt((double)readElement->m_value);
+	readElement = m_queue->m_read;
+	int key = readElement->m_key;
+	m_queue->m_read = readElement + 1;
 	return key;
 }

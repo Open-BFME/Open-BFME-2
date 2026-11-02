@@ -46,7 +46,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 extern GameTextInterface *TheGameText;
 
-void __cdecl StrategicHUD::SetCommandPointsString(int level, Rva005EF096Outer *outer, int a, int b)
+void __cdecl StrategicHUD::SetCommandPointsString(int level, Rva005EF096Outer *outer, int currentPoints, int maximumPoints)
 {
 	UnicodeString commandPointsText;
 	Bool exists;
@@ -54,7 +54,7 @@ void __cdecl StrategicHUD::SetCommandPointsString(int level, Rva005EF096Outer *o
 	if (exists)
 	{
 		const wchar_t *fmt = fetched.str();
-		commandPointsText.format(fmt, a, b);
+		commandPointsText.format(fmt, currentPoints, maximumPoints);
 	}
 	AsciiString key;
 	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";

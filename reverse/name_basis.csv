@@ -6704,3 +6704,14 @@ local,Rva00808E60Owner::find::p,Rva00808E60Owner::find::slot,inferred,agree:nl-7
 local,Rva002384C8::rva002384C8::tmp,Rva002384C8::rva002384C8::translated,inferred,agree:nl-6e9e7fc63d33,Code/GameEngine/Source/Common/version.cpp,0x002384C8
 function,?rva00104DE6@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,inferred,agree:nl-5b4745073b8d,Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp,0x00104DE6
 function,?rva00104E68@Rva00104DE6@@QAEXHHHH@Z,?addExtents@Rva00104DE6@@QAEXHHHH@Z,inferred,agree:nl-08f6584f0d73,Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp,0x00104E68
+local,Rva008809E0Transform2D::Rva008809E0Transform2D::c,Rva008809E0Transform2D::Rva008809E0Transform2D::cosine,inferred,agree:nl-be994391bb2a,Code/GameEngine/Source/Common/SmallGaps/Rva008809E0Transform2D.cpp,0x006C03F0
+local,Rva009F2FA0Reader::popSqrt::e,Rva009F2FA0Reader::popSqrt::readElement,inferred,agree:nl-4a507df0e4b4,Code/GameEngine/Source/Common/SmallGaps/Rva009F2FA0PopSqrt.cpp,0x00625B70
+local,reduceMatrix::c,reduceMatrix::column,inferred,agree:nl-c0519828a95b,Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,0x006B4110
+local,reduceMatrix::r,reduceMatrix::row,inferred,agree:nl-94ea193ebcde,Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,0x006B4110
+param,allied::a,allied::firstPlayer,inferred,agree:nl-8bcfee550505-m4de75536a471e6aa605ea64e,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp,
+param,allied::b,allied::secondPlayer,inferred,agree:nl-96c719501326-m4c382ecdfd8fc8d5334497cf,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp,
+param,difficultyPoints::n,difficultyPoints::difficultyCounts,inferred,agree:nl-3c36712d8626-me19373a9fbcd9746faadfcf7,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp,
+param,StrategicHUD::SetCommandPointsString::a,StrategicHUD::SetCommandPointsString::currentPoints,inferred,agree:nl-90ead6a4fca3,Code/GameEngine/Source/Common/StrategicHUD_SetCommandPointsString.cpp,0x005EF096
+param,StrategicHUD::SetCommandPointsString::b,StrategicHUD::SetCommandPointsString::maximumPoints,inferred,agree:nl-98d702a191ab,Code/GameEngine/Source/Common/StrategicHUD_SetCommandPointsString.cpp,0x005EF096
+local,StrategicInGameUI::GetSelectionPortrait::s2,StrategicInGameUI::GetSelectionPortrait::imageName,inferred,agree:nl-0069f0e62cc5,Code/GameEngine/Source/Common/StrategicInGameUI.cpp,0x005D2355
+local,StrategicInGameUI::GetSelectionPortrait::v,StrategicInGameUI::GetSelectionPortrait::thingTemplate,inferred,agree:nl-2b81f04c83bb,Code/GameEngine/Source/Common/StrategicInGameUI.cpp,0x005D2355

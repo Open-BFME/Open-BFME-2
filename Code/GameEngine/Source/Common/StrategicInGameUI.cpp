@@ -57,17 +57,17 @@ const Image *StrategicInGameUI::GetSelectionPortrait(Rva005D2355In *in)
 {
     const AsciiString &asciiString = in->str18;
     if (!((const StringBase<char> *)&asciiString)->isEmpty()) {
-        void *v = (void *)TheThingFactory->findTemplate(asciiString);
-        if (v != 0)
-            return ((ThingTemplate *)v)->rva0033BA46();
+        void *thingTemplate = (void *)TheThingFactory->findTemplate(asciiString);
+        if (thingTemplate != 0)
+            return ((ThingTemplate *)thingTemplate)->rva0033BA46();
     }
     int id = in->id54;
     Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, 0);
     if (p != 0) {
         Rva005D2355Holder *h = *(Rva005D2355Holder **)((char *)p + 0x40);
-        const AsciiString &s2 = *(const AsciiString *)((char *)h + 0x30);
-        if (!((const StringBase<char> *)&s2)->isEmpty())
-            return TheMappedImageCollection->findImageByName(s2);
+        const AsciiString &imageName = *(const AsciiString *)((char *)h + 0x30);
+        if (!((const StringBase<char> *)&imageName)->isEmpty())
+            return TheMappedImageCollection->findImageByName(imageName);
     }
     return 0;
 }
