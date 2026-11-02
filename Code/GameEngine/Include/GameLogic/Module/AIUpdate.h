@@ -304,7 +304,7 @@ public:
     virtual int vslot106(const Object *) const; // 106: RVA 0x005DAA6C
     virtual bool vslot107() const; // 107: RVA 0x0050B5C6
     virtual bool vslot108() const; // 108: RVA 0x0050B5C6
-    virtual ObjectID vslot109() const; // 109: RVA 0x000D43D0
+    virtual ObjectID vslot109() const { return static_cast<ObjectID>(0); } // 109: RVA 0x000D43D0
     virtual bool isIdle() const; // 110: RVA 0x002645FF
     virtual bool rva00262D8F()const; // 111: RVA 0x00262D8F
     virtual bool isClearingMines()const; // 112: RVA 0x00264656
