@@ -212,3 +212,8 @@ template <> void _Destroy<Rva002BBB96Element *>(Rva002BBB96Element *first, Rva00
 		_Destroy(static_cast<BfmeAssignRecord52 *>(first));
 }
 }
+
+// Native fill 001EB84E receives the live CarryoverUnit temporary made by
+// copy 001EB79E in fill-insert 001EBEAB; assignment is the real 001EB20E.
+#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
+template void _STL::fill<CarryoverUnit *, CarryoverUnit>(CarryoverUnit *, CarryoverUnit *, const CarryoverUnit &);

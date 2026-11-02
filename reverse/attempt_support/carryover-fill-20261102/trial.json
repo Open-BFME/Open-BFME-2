@@ -1,0 +1,33 @@
+{
+  "rows_before": 43,
+  "missing": [],
+  "errors": [],
+  "complete_code_before": 93,
+  "complete_code_after": 94,
+  "removed": [],
+  "added": [
+    "??$fill@PAVCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@0ABV1@@Z"
+  ],
+  "changed": [],
+  "old_body": [
+    "568b742408eb11ff7424108bcee80000000081c6ac0000003b74240c75e95ec3",
+    [
+      [
+        14,
+        20,
+        "??4BfmeAssignRecord172@@QAEAAU0@ABU0@@Z"
+      ]
+    ]
+  ],
+  "typed_body": [
+    "568b742408eb11ff7424108bcee80000000081c6ac0000003b74240c75e95ec3",
+    [
+      [
+        14,
+        20,
+        "??4CarryoverUnit@@QAEAAV0@ABV0@@Z"
+      ]
+    ]
+  ],
+  "raw_code_equal": true
+}
