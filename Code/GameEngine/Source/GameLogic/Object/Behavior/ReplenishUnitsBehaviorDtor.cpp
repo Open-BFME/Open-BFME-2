@@ -54,6 +54,11 @@ class ReplenishUnitsBehavior : public UpdateModule, public SpawnBehaviorFourthBa
 public:
 	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~ReplenishUnitsBehavior();
+	// Primary slot 4 of retail 0x00C4A034 (rowed 0x00484187, ReplenishUnitsBehavior.cpp).
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	// Primary slot 3 of retail 0x00C4A034 (rowed 0x00484365, ReplenishUnitsBehavior.cpp).
+	virtual void xfer(Xfer *xfer);
 };
 
 ReplenishUnitsBehavior::~ReplenishUnitsBehavior()

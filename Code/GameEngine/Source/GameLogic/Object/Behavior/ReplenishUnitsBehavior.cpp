@@ -40,6 +40,9 @@ class ModuleData;
 class Object;
 class Xfer;
 class ReplenishUnitsBehaviorModuleData;
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2, as
+// ReplenishUnitsBehaviorDtor.cpp's canonical view emits it).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Include/Common/Module.h"

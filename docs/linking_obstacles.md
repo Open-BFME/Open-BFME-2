@@ -16667,7 +16667,7 @@ with a one-slot anchor) by `GameLogic/Module/BehaviorModule.h`. Four mechanisms:
 | UpdateModuleCtor, RunOffMapBehaviorCtor, DamageModuleCtor, SpecialPowerModuleCtor, BodyModuleCtor, FireWeaponCollide | 1,167 | 2 | repaired (2026-11-02, lk15): the canonical header declares `protected: virtual ~BehaviorModule();` out of line; all six predict LINKS (below) |
 | AIGateUpdateCtor, DestroyEnvironmentUpdateCtor | 132 | 3 (+2) | Both corrected by explicit existing destructor declarations (2026-11-01, Cortys). Historical held-scope blocker retained below. |
 | AIGateUpdateDtor, DestroyEnvironmentUpdate, Rva0024A797DeletingDtor | 413 | 3 (victims) | All three now predict LINKS after the three constructor units reference their existing destructors |
-| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | open; several first copies are in held Dtor files |
+| ReplenishUnitsBehavior, SiegeDockingBehaviorDtor, SpecialPowerModuleDtor_Unresolved, MonitorConditionUpdate, StructureToppleUpdateCtor, AutoPickUpUpdate | 3,940 | 4 | AutoPickUpUpdate and StructureToppleUpdateCtor repaired by other seats (2026-11-02); ReplenishUnitsBehavior repaired (lk15, below); the rest open |
 
 **AIGate scoped repair (2026-11-01, Cortys):** the constructor now declares the
 existing UpdateModule and AIGateUpdate destructors out of line. All five strict
@@ -16735,6 +16735,17 @@ Rva0024A797Grandchildren.cpp (1,280 B, linked in the 07:56 census) now loses the
 `??_7StructureToppleUpdate@@6BUpdateModule/BehaviorModuleInterface/ObjectModule@@@`
 copies to StructureToppleUpdate.cpp's Zero Hour tables (first in link order), after
 `c3e8f0752f` moved it onto canonical UpdateModule (mechanism 4).
+Mechanism 4, ReplenishUnitsBehavior (2026-11-02, lk15): the two `??_7ReplenishUnitsBehavior@@6BObjectModule@@@`
+copies differed in primary slots 2-4. Retail 0x00C4A034: slot 1 0x004B7BAA (rowed as the
+AudioLoopUpgrade loadPostProcess fold), 2 0x00484181 (`Rva00484181Named::name` placeholder, the name
+getter), 3 0x00484365 `ReplenishUnitsBehavior::xfer`, 4 0x00484187 `ReplenishUnitsBehavior::getModuleNameKey`.
+ReplenishUnitsBehavior.cpp read Snapshot without the name slot (slot 2 `crc@UpdateModule`) and
+ReplenishUnitsBehaviorDtor.cpp (first) lacked both overrides (slot 3 `xfer@UpdateModule`, slot 4
+`__purecall`). The .cpp now defines `BFME_SNAPSHOT_NAME_SLOT` before ObjectModule.h (as AutoPickUpUpdate)
+and the Dtor declares the two rowed overrides; both emit the same table (slots 3-4 now retail, slots
+1-2 still the UpdateModule defaults: the folds need identity work). `./build.sh` 25/25 rows; scoped
+DIR32 OK (20 symbols); only the two units touch the table; object definitions otherwise unchanged
+against the index; `link_check` ReplenishUnitsBehavior.cpp 0 -> 1,050 B, Dtor 60 B unchanged.
 Mechanism 2 repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`, index 08:35
 `984a4cdc4d`): `BehaviorModule.h` now declares `protected: virtual ~BehaviorModule();` with no
 body, the proposal below. Scope proof before the edit: in the census index exactly six objects
