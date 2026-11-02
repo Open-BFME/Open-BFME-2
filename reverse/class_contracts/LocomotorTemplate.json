@@ -1,0 +1,1527 @@
+{
+ "bases": [
+  "Overridable"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "LocomotorTemplate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 36,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 2
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x4c": {
+    "4": 2
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x74": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x154": 3
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1e4abe",
+      "0x1e4deb"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Overridable",
+       "offset": 0,
+       "own_vftable": "0x7de8b4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1e4abe",
+      "0x1e4deb"
+     ],
+     "value": 338
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1e4abe",
+      "0x1e4deb"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x100": [
+       1
+      ],
+      "0x104": [
+       4
+      ],
+      "0x108": [
+       1
+      ],
+      "0x109": [
+       1
+      ],
+      "0x10a": [
+       1
+      ],
+      "0x10b": [
+       1
+      ],
+      "0x10c": [
+       4
+      ],
+      "0x110": [
+       4
+      ],
+      "0x114": [
+       4
+      ],
+      "0x118": [
+       4
+      ],
+      "0x11c": [
+       4
+      ],
+      "0x120": [
+       4
+      ],
+      "0x124": [
+       4
+      ],
+      "0x128": [
+       4
+      ],
+      "0x12c": [
+       4
+      ],
+      "0x130": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       1
+      ],
+      "0x14": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       1
+      ],
+      "0x151": [
+       1
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       1
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       1
+      ],
+      "0xd1": [
+       1
+      ],
+      "0xd2": [
+       1
+      ],
+      "0xd3": [
+       1
+      ],
+      "0xd4": [
+       1
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       1
+      ],
+      "0xe0": [
+       4
+      ],
+      "0xe4": [
+       4
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       1
+      ],
+      "0xed": [
+       1
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf4": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1e4abe",
+      "0x1e4deb"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1e4abe",
+      "0x1e4deb"
+     ],
+     "value": {
+      "0x0": "0x7de8b4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7de8b4"
+     ],
+     "value": {
+      "count": 2,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GLocomotorTemplate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1e67a3"
+       },
+       {
+        "name": null,
+        "slot": 1,
+        "target": "0x90052"
+       }
+      ],
+      "table": "0x7de8b4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x7de8b4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GLocomotorTemplate@@UAEPAXI@Z",
+     "1": "0x90052"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "20": 3,
+   "24": 8,
+   "32": 1,
+   "52": 2,
+   "120": 3,
+   "188": 2,
+   "204": 1,
+   "228": 1,
+   "238": 1,
+   "252": 3,
+   "292": 1,
+   "337": 1,
+   "340": 9
+  },
+  "views": 36,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_LocomotorTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Locomotor.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_nextOverride",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Overridable*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_isOverride",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_surfaces",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_lookAheadMult",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_nonDirtyTransform",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_speed",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_minSpeed",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_turnTime",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_turnTimeDamaged",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_slowTurnRadius",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_fastTurnRadius",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_turnThresholdHS",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_acceleration",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_lift",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_liftDamaged",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_braking",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_speedLimitZ",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_maxThrustAngle",
+   "name_by": "majority",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_zAxisBehavior",
+   "name_by": "majority",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_appearance",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_formationPriority",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_accelerationPitchLimit",
+   "name_by": "tie",
+   "offset": 136,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_bounceAmount",
+   "name_by": "majority",
+   "offset": 140,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_pitchStiffness",
+   "name_by": "majority",
+   "offset": 144,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_rollStiffness",
+   "name_by": "majority",
+   "offset": 148,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_pitchDamping",
+   "name_by": "majority",
+   "offset": 152,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_rollDamping",
+   "name_by": "majority",
+   "offset": 156,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_pitchInDirectionOfZVelFactor",
+   "name_by": "majority",
+   "offset": 160,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_maxOverlappedHeight",
+   "name_by": "majority",
+   "offset": 164,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_AC",
+   "name_by": "majority",
+   "offset": 172,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_uniformAxialDamping",
+   "name_by": "majority",
+   "offset": 184,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_airborneTargetingHeight",
+   "name_by": "majority",
+   "offset": 192,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_closeEnoughDist3D",
+   "name_by": "majority",
+   "offset": 200,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_CC",
+   "name_by": "majority",
+   "offset": 204,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_locomotorWorksWhenDead",
+   "name_by": "majority",
+   "offset": 208,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_allowAirborneMotiveForce",
+   "name_by": "majority",
+   "offset": 209,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_apply2DFrictionWhenAirborne",
+   "name_by": "majority",
+   "offset": 210,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_downhillOnly",
+   "name_by": "majority",
+   "offset": 211,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_stickToGround",
+   "name_by": "majority",
+   "offset": 212,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_canMoveBackwards",
+   "name_by": "majority",
+   "offset": 216,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_DC",
+   "name_by": "majority",
+   "offset": 220,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_maximumWheelCompression",
+   "name_by": "majority",
+   "offset": 228,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_frontWheelTurnAngle",
+   "name_by": "majority",
+   "offset": 232,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_EC",
+   "name_by": "majority",
+   "offset": 236,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_ED",
+   "name_by": "majority",
+   "offset": 237,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_wanderWidthFactor",
+   "name_by": "majority",
+   "offset": 240,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_wanderLengthFactor",
+   "name_by": "majority",
+   "offset": 244,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "m_wanderAboutPointRadius",
+   "name_by": "majority",
+   "offset": 248,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_FC",
+   "name_by": "majority",
+   "offset": 252,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_burningDeathIsCavalry",
+   "name_by": "majority",
+   "offset": 256,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_chargeAvailable",
+   "name_by": "majority",
+   "offset": 264,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_chargeIgnoresCondition",
+   "name_by": "majority",
+   "offset": 265,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_enableHighSpeedTurnModelconditions",
+   "name_by": "majority",
+   "offset": 266,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_waitForFormation",
+   "name_by": "majority",
+   "offset": 267,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_rudderCorrectionDegree",
+   "name_by": "majority",
+   "offset": 268,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_rudderCorrectionRate",
+   "name_by": "majority",
+   "offset": 272,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_swoopStandoffRadius",
+   "name_by": "majority",
+   "offset": 292,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_swoopStandoffHeight",
+   "name_by": "majority",
+   "offset": 296,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_swoopTerminalVelocity",
+   "name_by": "majority",
+   "offset": 300,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_swoopAccelerationRate",
+   "name_by": "majority",
+   "offset": 304,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_swoopSpeedTuningFactor",
+   "name_by": "majority",
+   "offset": 308,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_backingUpSpeed",
+   "name_by": "majority",
+   "offset": 312,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_backingUpStopWhenTurning",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_backingUpDistanceMin",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_backingUpDistanceMax",
+   "name_by": "majority",
+   "offset": 324,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_backingUpAngle",
+   "name_by": "majority",
+   "offset": 328,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_scalesWalls",
+   "name_by": "majority",
+   "offset": 336,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_turnWhileMoving",
+   "name_by": "majority",
+   "offset": 337,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 179
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 16]]": 4,
+    "[[0, 8]]": 1
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x24",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x3c",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x54",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x58",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x5c",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x60",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x64",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x7c",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x80",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x84",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "name@0x88",
+   "candidates": {
+    "accelLimit": 1,
+    "m_accelPitchLimit": 3,
+    "m_accelerationPitchLimit": 3
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0xa8",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0xb0",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0xb4",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0xbc",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0xc4",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0xe0",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x104",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x114",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x118",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x11c",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x120",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  },
+  {
+   "attribute": "field@0x14c",
+   "candidates": {
+    "4:f4": 2,
+    "4:i4": 2
+   },
+   "class": "LocomotorTemplate"
+  }
+ ],
+ "size": 340,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
