@@ -83,7 +83,8 @@ its full consumed storage, and preserved all14seed/Slot6rows. The supported
 merge still rejects Slot6 on declaration ordering and DX8Wrapper composition
 (C2143 before a reference parameter and C2660). A forward texture declaration
 clears the first unknown-pointer error but does not clear that boundary.
-The trial is saved as slot6-unlanded.patch, then restored from dbdd412ab3;
+The trial is saved as zero-context slot6-unlanded.patch (apply with
+git apply --unidiff-zero in a claimed future trial), then restored from dbdd412ab3;
 no guessed interface, guard workaround or nonmatching body stays in Code.
 Native slot identity and static-wrapper composition remain prerequisites;
 the actual PreRender merge proceeds independently.

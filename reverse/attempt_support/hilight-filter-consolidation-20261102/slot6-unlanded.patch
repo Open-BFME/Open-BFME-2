@@ -1,11 +1,6 @@
-diff --git a/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Slot6.cpp b/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Slot6.cpp
-index be446612a5..737d6f12e9 100644
 --- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Slot6.cpp
 +++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Slot6.cpp
-@@ -65,10 +65,30 @@ __forceinline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBase
- 	texture_changes++;
- }
- 
+@@ -67,0 +68,7 @@
 +typedef int Int;
 +typedef bool Bool;
 +class Coord2D;
@@ -13,16 +8,14 @@ index be446612a5..737d6f12e9 100644
 +enum FilterModes { FM_NULL_MODE = 0 };
 +enum CustomScenePassModes { SCENE_PASS_DEFAULT };
 +
- class Rva007D85C0
- {
- public:
+@@ -70,0 +78,6 @@
 +	virtual Int init();
 +	virtual Int shutdown();
 +	virtual bool preRender(bool &skipRender, CustomScenePassModes &scenePassMode);
 +	virtual Bool postRender(FilterModes, Coord2D &, Bool &, Coord2D *);
 +	virtual Bool setup(FilterModes);
 +	virtual Int set(FilterModes);
- 	virtual void rva000FB0BC();
+@@ -71,0 +85,7 @@
 +private:
 +	Int m_04, m_08;
 +	bool m_0C; // +0x0C
@@ -30,45 +23,16 @@ index be446612a5..737d6f12e9 100644
 +	IDirect3DBaseTexture8 *m_20;
 +	char m_pad24[4];
 +	IDirect3DSurface8 *m_renderTarget; // +0x28
- };
- 
- // ?rva000FB0BC@Rva007D85C0@@UAEXXZ @0x000FB0BC
-diff --git a/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp b/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp
-index 20c067ff7a..2a55cdc6ef 100644
 --- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp
 +++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilter.cpp
-@@ -23,6 +23,7 @@ typedef bool Bool;
- #include <vector>
- #include <stdlib.h>
- struct IDirect3DSurface8;
+@@ -25,0 +26 @@
 +struct IDirect3DBaseTexture8;
- struct IDirect3DBaseTexture8 {};
- // The device and textures keep their D3D8 type names (DX8Wrapper's static
- // decorations) but are Direct3D 9 objects: SetRenderState 57, SetTexture 65, SetSamplerState 69,
-@@ -344,7 +345,7 @@ public:
- 	virtual Bool postRender(FilterModes, Coord2D &, Bool &, Coord2D *);
- 	virtual Bool setup(FilterModes);
- 	virtual Int set(FilterModes);
+@@ -347 +348 @@
 -	virtual void reset();
 +	virtual void rva000FB0BC();
- private:
- 	Int m_04, m_08;
- 	bool m_0C; // +0x0C
-@@ -600,7 +601,7 @@ Bool Rva007D85C0::postRender(FilterModes mode, Coord2D &scrollDelta,
- 	if (m_0C)
- 	{
- 		DX8Wrapper::Set_Render_Target(0, true);
+@@ -603 +604 @@
 -		reset();
 +		rva000FB0BC();
- 		doExtraRender = true;
- 		m_0C = 0;
- 		return true;
-@@ -711,7 +712,7 @@ Bool Rva007D85C0::postRender(FilterModes mode, Coord2D &scrollDelta,
- 	vertex[3].v1 = (1.0f / displaySize->y) * (Real)ypos + finalHalfTexel;
- 	pDev->v->DrawPrimitiveUP(pDev, 5, 2, vertex, sizeof(Vertex));
- 
+@@ -714 +715 @@
 -	reset();
 +	rva000FB0BC();
- 	return true;
- }
- 
