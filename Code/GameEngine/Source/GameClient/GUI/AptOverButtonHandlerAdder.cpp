@@ -5,21 +5,15 @@
 
 struct Gen_t_001db910_p4cd;
 
+#include <vector>
+
+// The callers use the existing out-of-line erase and AsciiString push-back
+// providers. Keep those contracts while sharing STLport's vector definition
+// with the approved push-back fragment.
 namespace _STL
 {
-template <class T> class allocator;
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	T *erase(T *pos);
-	void push_back(const T &x);
-	T *begin() { return _M_start; }
-	T *end() { return _M_finish; }
-private:
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end;
-};
+template <> Gen_t_001db910_p4cd *vector<Gen_t_001db910_p4cd>::erase(Gen_t_001db910_p4cd *pos);
+template <> void vector<AsciiString>::push_back(const AsciiString &x);
 }
 
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);

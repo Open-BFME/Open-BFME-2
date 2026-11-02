@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
+approved: 10
+mixed: {'Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp': 14}
+refused: {}
+accepted: []
+rejected: {'Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp': "compile: C:\\Users\\nleig\\.codex\\worktrees\\bce2\\Open-BFME-2\\vendor\\stlport\\stl\\_vector.h(549) : error C2953: '_STL::vector' : template class has already been defined | C:\\Users\\nleig\\.codex\\worktrees\\bce2\\Open-BFME-2\\vendor\\stlport\\stl\\_relops_cont.h(6) : error C2955: '_STL::vector' : use of class template req"}
+link_guard: census-linked: Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp, Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp
+blocked: no verified merge of two or more donors
