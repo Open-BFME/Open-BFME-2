@@ -18653,3 +18653,5 @@ The primary false-default group completes with44row verification, unchanged97pri
 Primary slot88 now supplies its complete1B native constant default at0x000B3FD0 through ordinary canonical inline C++. Its separate ICF admission passes all45consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.
 
 Primary slot89 now supplies its complete1B native constant default at0x000B3FD0 through ordinary canonical inline C++. Its separate ICF admission passes all46consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.
+
+Primary slot147 now supplies its complete1B native constant default at0x000B3FD0 through ordinary canonical inline C++. Its separate ICF admission passes all47consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.

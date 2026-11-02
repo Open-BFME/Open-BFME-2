@@ -7,3 +7,5 @@ This packet records incremental admissions; only members with an actual ledger r
 Slot88: complete1B native body at0x000B3FD0; normal45consumer rows and all three data tables pass. Full dependent-source gate runs in the normal commit.
 
 Slot89: complete1B native body at0x000B3FD0; normal46consumer rows and all three data tables pass. Full dependent-source gate runs in the normal commit.
+
+Slot147: complete1B native body at0x000B3FD0; normal47consumer rows and all three data tables pass. Full dependent-source gate runs in the normal commit.
