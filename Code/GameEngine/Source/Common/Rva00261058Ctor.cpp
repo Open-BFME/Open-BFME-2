@@ -3,13 +3,7 @@
 // Player-filter ctor: base clears +4, vtable 0x007F8FE4, +8 controlling player or 0, +0xC flag.
 // Evidence: caller 0x002FDCBE lea temp plus push 0 push esi; vtable store; rowed getControllingPlayer 0x0028AFA9; neighbours 0x00261046/0x0026115D.
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool rva00294471(void *player, int flag);
-	bool rva0028C1CC() const;
-};
+#include "../GameLogic/Object/object.h"
 // Partition filter base 0x00BC26E0 (rowed ~Rva000421C8 0x0049C38A, getPlayerMask 0x0036CC7A);
 // retail vtable 0x007F8FE4 is [deleting dtor 0x00395A19, allow, getPlayerMask].
 class Rva000421C8

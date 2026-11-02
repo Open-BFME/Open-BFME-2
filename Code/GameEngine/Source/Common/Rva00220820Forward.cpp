@@ -2,11 +2,7 @@
 // Retail 0x00220820 forwards the second argument's dword at +4 to the first.
 // The callee is the rowed Object::releaseWeaponLock.
 enum WeaponLockType { WEAPONLOCK_UNUSED1005 };
-class Object
-{
-public:
-	void releaseWeaponLock(WeaponLockType lock);
-};
+#include "../GameLogic/Object/object.h"
 
 class BfmeItem1005
 {

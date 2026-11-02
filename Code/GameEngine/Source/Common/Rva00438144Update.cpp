@@ -5,12 +5,7 @@
 // args plus ret (no ret-N, __cdecl); arg1 in ecx to rowed Object
 // rva0028C1CC 0x0028C1CC (Object owner proven); arg2 byte flag read plus
 // 0-or-1 store; no callers; name stays address-derived.
-class Object
-{
-public:
-	bool rva0028C1CC() const;
-	class Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 void Rva00438144Update(const Object *obj, unsigned char *flag)
 {

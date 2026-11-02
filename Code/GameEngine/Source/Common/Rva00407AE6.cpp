@@ -13,11 +13,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_INVALID = -1
 };
 
-class Object
-{
-public:
-	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva004076EE
 {

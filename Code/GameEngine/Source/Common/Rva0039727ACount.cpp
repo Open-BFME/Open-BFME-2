@@ -24,11 +24,7 @@ public:
 	virtual bool s3();
 };
 
-class Object
-{
-public:
-	void *rva0028BCF4() const;
-};
+#include "../GameLogic/Object/object.h"
 
 
 class Rva0039727A

@@ -14,12 +14,7 @@ enum KindOfType
 
 class Rva00373EC6;
 
-class Object
-{
-public:
-	bool isKindOf(KindOfType kind) const;
-	Rva00373EC6 *rva0028F4BC();
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva0044E7A8Req
 {

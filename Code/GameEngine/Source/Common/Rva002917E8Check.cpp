@@ -5,12 +5,7 @@
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 
-class Object
-{
-public:
-	int rva0028ADF7(int slot) const;
-	const AsciiString *rva00290E67(void) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva0031D5F8
 {

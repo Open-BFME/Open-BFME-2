@@ -22,12 +22,7 @@ public:
 	const CommandButton *getCommandButton(int i) const;	// 0x00409EE8
 };
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;	// 0x00290E67
-	bool rva00291837() const;
-};
+#include "../GameLogic/Object/object.h"
 
 bool Object::rva00291837() const
 {

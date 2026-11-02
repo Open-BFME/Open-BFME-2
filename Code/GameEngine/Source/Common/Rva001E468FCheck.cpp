@@ -10,11 +10,7 @@ enum ObjectStatusTypes {
 enum KindOfType {
 	KINDOF_84 = 0x84
 };
-class Object {
-public:
-	bool testStatus(ObjectStatusTypes s) const;
-	bool rva00293926(KindOfType k);
-};
+#include "../GameLogic/Object/object.h"
 struct Rva001E468FInner {
 	char m_pad[0x108];
 	unsigned char m_108;

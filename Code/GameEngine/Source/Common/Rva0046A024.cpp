@@ -8,11 +8,7 @@ enum KindOfType
 	K_1BB = 0x1BB
 };
 
-class Object
-{
-public:
-	bool isKindOf(KindOfType kind) const;
-};
+#include "../GameLogic/Object/object.h"
 
 struct ListNode
 {

@@ -16,12 +16,7 @@ class ArmySummary
 public:
 	int rva0040CA24();
 };
-class Object : public Thing
-{
-public:
-	void setCustomIndicatorColor(int v);
-	void rva0028BAAE(int v);
-};
+#include "../GameLogic/Object/object.h"
 class ArmySummarySystem
 {
 public:

@@ -15,14 +15,7 @@ struct Rva003972D3Range
 	ObjectID *m_end;
 };
 
-class Object
-{
-public:
-	void rva00293003(const void *arg);
-	void *rva0028BCF4() const;
-	bool hasUpgrade(const UpgradeTemplate *templ) const;
-	bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
-};
+#include "../GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

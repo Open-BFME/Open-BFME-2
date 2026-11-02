@@ -81,11 +81,7 @@ void Rva0028CBFD::rva0028CBFD()
 // ?rva0028FC18@Object@@QAEXXZ @0x0028FC18 5B: a forwarder that runs the walk
 // above on the same object (tail jmp to 0x0028CBFD, `this` unchanged); the
 // script actions' object creation calls it after placing the new object.
-class Object
-{
-public:
-	void rva0028FC18();
-};
+#include "../GameLogic/Object/object.h"
 
 void Object::rva0028FC18()
 {
