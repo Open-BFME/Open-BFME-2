@@ -10,13 +10,13 @@ Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *dest, void **srcpp, int
 	void *p = *srcpp;
 	int baseCount = p ? *(unsigned short *)((char *)p + 4) : 0;
 	int remaining = baseCount - val;
-	void *q = *srcpp;
-	int w2 = q ? *(unsigned short *)((char *)q + 4) : 0;
-	Rva000B2B42Clamp(&remaining, &val, w2);
-	Rva000B6AF5Rec tmpRec;
-	tmpRec.p = (void *)srcpp;
-	tmpRec.a = remaining;
-	tmpRec.b = val;
-	*dest = tmpRec;
+	void *record = *srcpp;
+	int limit = record ? *(unsigned short *)((char *)record + 4) : 0;
+	Rva000B2B42Clamp(&remaining, &val, limit);
+	Rva000B6AF5Rec packedRec;
+	packedRec.p = (void *)srcpp;
+	packedRec.a = remaining;
+	packedRec.b = val;
+	*dest = packedRec;
 	return dest;
 }

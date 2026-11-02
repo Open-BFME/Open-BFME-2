@@ -6438,3 +6438,11 @@ local,Rva000B6AA9Build::tmp,Rva000B6AA9Build::packedRec,inferred,agree:nl-fb4848
 local,Rva000B6AA9Build::w,Rva000B6AA9Build::limit,inferred,agree:nl-23f85674ed70,Code/GameEngine/Source/Common/Rva000B6AA9Build.cpp,0x000B6AA9
 local,Rva000B6AF5Build::tmp,Rva000B6AF5Build::remaining,inferred,agree:nl-a5f25eda8118,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5
 local,Rva000B6AF5Build::w1,Rva000B6AF5Build::baseCount,inferred,agree:nl-6ec29f056d7b,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5
+local,Rva000B6AF5Build::q,Rva000B6AF5Build::record,inferred,agree:nl-f3edd1d194b6,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5
+local,Rva000B6AF5Build::tmpRec,Rva000B6AF5Build::packedRec,inferred,agree:nl-8edcb2e39a83,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5
+local,Rva000B6AF5Build::w2,Rva000B6AF5Build::limit,inferred,agree:nl-99170b2f3635,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5
+local,Rva000BBDDF::rva000BBE29::tmp,Rva000BBDDF::rva000BBE29::position,inferred,agree:nl-cef9b98221de,Code/GameEngine/Source/Common/Rva000BBE29.cpp,0x000BBE29
+local,Rva000BC834::write::n,Rva000BC834::write::written,inferred,agree:nl-21ae77724f2b,Code/GameEngine/Source/Common/Rva000BC834Write.cpp,0x000BC834
+local,Rva000BD268::write::n,Rva000BD268::write::written,inferred,agree:nl-ae469f2322e0,Code/GameEngine/Source/Common/Rva000BC834Write.cpp,0x000BD268
+local,Rva000C0D13Copy::c,Rva000C0D13Copy::remaining,inferred,agree:nl-fb03f4fba912,Code/GameEngine/Source/Common/Rva000C0D13Copy.cpp,0x000C0D13
+local,Rva000C0D13Copy::n,Rva000C0D13Copy::count,inferred,agree:nl-c5779afda573,Code/GameEngine/Source/Common/Rva000C0D13Copy.cpp,0x000C0D13

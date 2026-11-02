@@ -41,8 +41,8 @@ struct Rva000BC834
 
 int Rva000BC834::write(char *dst)
 {
-	int n = m_first.rva000BBD66(dst);
-	return n + m_second.write(dst + n);
+	int written = m_first.rva000BBD66(dst);
+	return written + m_second.write(dst + written);
 }
 
 // ?write@Rva000BD268@@QAEHPAD@Z retail 0x000BD268 37B
@@ -60,6 +60,6 @@ struct Rva000BD268
 
 int Rva000BD268::write(char *dst)
 {
-	int n = m_first.write(dst);
-	return n + m_second.rva000BBD66(dst + n);
+	int written = m_first.write(dst);
+	return written + m_second.rva000BBD66(dst + written);
 }

@@ -45,11 +45,11 @@ bool Rva000BBDDF::rva000BBE29(int key, Vector3 *out)const
 	Rva000BBDDFNode *node = (Rva000BBDDFNode *)rva000BBDDF(key, 0);
 	if (node != 0)
 	{
-		Vector3 tmp;
-		tmp.x = node->m_0C;
-		tmp.y = node->m_1C;
-		tmp.z = node->m_2C;
-		*out = tmp;
+		Vector3 position;
+		position.x = node->m_0C;
+		position.y = node->m_1C;
+		position.z = node->m_2C;
+		*out = position;
 		return true;
 	}
 	out->x = 0.0f;

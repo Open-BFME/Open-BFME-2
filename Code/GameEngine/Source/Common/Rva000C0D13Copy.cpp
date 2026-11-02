@@ -11,15 +11,15 @@ struct BfmeVectorRecord000BDF17 *Rva000C0D13Copy(struct BfmeVectorRecord000BDF17
 
 struct BfmeVectorRecord000BDF17 *Rva000C0D13Copy(struct BfmeVectorRecord000BDF17 *first, struct BfmeVectorRecord000BDF17 *last, struct BfmeVectorRecord000BDF17 *dest)
 {
-	int n = last - first;
-	if (n <= 0)
+	int count = last - first;
+	if (count <= 0)
 		return dest;
-	int c = n;
+	int remaining = count;
 	do {
 		*dest = *first;
 		++first;
 		++dest;
-		--c;
-	} while (c != 0);
+		--remaining;
+	} while (remaining != 0);
 	return dest;
 }
