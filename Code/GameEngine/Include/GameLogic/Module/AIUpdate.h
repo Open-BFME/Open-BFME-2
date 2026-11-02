@@ -188,7 +188,7 @@ public:
     virtual bool vslot24_02() { return false; }
     virtual bool vslot24_03() { return false; }
     virtual bool vslot24_04() { return false; }
-    virtual bool vslot24_05();
+    virtual bool vslot24_05() { return false; }
 
 protected:
     virtual void privateMoveToPosition(Coord3D const *,float,CommandSourceType); // 13: RVA 0x0026B487
