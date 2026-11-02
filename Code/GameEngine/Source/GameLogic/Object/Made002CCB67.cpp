@@ -4,11 +4,7 @@
 
 class Player;
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "object.h"
 
 extern GameLogic *TheGameLogic;
 

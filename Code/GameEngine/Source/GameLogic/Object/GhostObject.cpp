@@ -148,13 +148,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 // copy constructor and destructor (see Common/System/XferException.cpp).
 #include "../../../Include/Common/XferException.h"
 
-class Object
-{
-public:
-	ObjectID getID() const { return m_id; }
-	unsigned char m_pad[0x74];
-	ObjectID m_id;
-};
+#include "object.h"
 
 extern GameLogic *TheGameLogic;
 

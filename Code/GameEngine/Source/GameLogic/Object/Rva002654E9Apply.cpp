@@ -6,11 +6,7 @@
 // 0x0026893A; body abuts the next row 0x002654FC in this directory.
 enum ObjectStatusTypes;
 
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool flag);
-};
+#include "object.h"
 
 class Rva002654E9
 {

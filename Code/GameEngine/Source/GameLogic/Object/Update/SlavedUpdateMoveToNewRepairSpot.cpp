@@ -98,17 +98,7 @@ private:
 	Locomotor *m_curLocomotor;
 };
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position;
-	unsigned char m_pad44[0x258 - 0x44];
-	AIUpdateInterface *m_ai;
-};
+#include "../object.h"
 
 class SlavedUpdateModuleData
 {

@@ -81,11 +81,7 @@ protected:
 	char m_unrecovered04[0x3E8 - 0x04];
 };
 
-class Object
-{
-public:
-	void *rva0028C197() const;
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

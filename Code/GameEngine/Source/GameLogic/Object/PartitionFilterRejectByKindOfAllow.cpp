@@ -20,9 +20,7 @@ public:
 
 #include "../../Common/Thing/thing.h"
 
-class Object : public Thing
-{
-};
+#include "object.h"
 
 class Object;
 class Rva000421C8 {

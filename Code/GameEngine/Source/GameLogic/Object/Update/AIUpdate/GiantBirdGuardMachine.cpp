@@ -49,14 +49,7 @@ class StateMachine;
 struct State;
 struct StateConditionInfo;
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../object.h"
 
 #include "../../../../../Include/Common/TeamBFME2.h"
 

@@ -50,11 +50,7 @@ public:
  unsigned int m_bits[7]; // native and existing ThingIsAnyKindOf view
 };
 #include "../../../Common/Thing/thing.h"
-class Object : public Thing
-{
-public:
- Player *getControllingPlayer() const;
-};
+#include "../object.h"
 class Rva000421C8
 {
 public:

@@ -41,15 +41,7 @@ private:
 	unsigned char m_pad04[0x20 - 0x04];
 	AICommandInterface m_commandInterface;	// +0x20
 };
-class Object
-{
-public:
-	void setStatus(ObjectStatusTypes status, bool set);
-	AIUpdateInterface *getAI() { return m_ai; }
-private:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../object.h"
 extern GameLogic *TheGameLogic;
 class ModuleData;
 class SpecialAbilityUpdate

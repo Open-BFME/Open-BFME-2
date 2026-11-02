@@ -27,11 +27,7 @@ enum CanAttackResult
 	ATTACKRESULT_POSSIBLE = 3
 };
 
-class Object
-{
-public:
-	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType t, const Object *target, CommandSourceType commandSource) const;
-};
+#include "object.h"
 
 // BFME 2's partition filter base (ctor 0x000421C8): a vptr and the +0x04
 // link to the next filter; slot 0 deleting dtor, slot 1 allow, slot 2 the

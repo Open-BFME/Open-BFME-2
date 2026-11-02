@@ -39,11 +39,7 @@ public:
 // Ghidra FUN_00762437 42B) needs a pin. The store global is DIR32-copied.
 
 class Player;
-class Object
-{
-public:
-	Player *getControllingPlayer(void) const;
-};
+#include "../object.h"
 // The table probe is the rowed Rva2225E0Filter::accepts.
 class Rva2225E0Filter
 {

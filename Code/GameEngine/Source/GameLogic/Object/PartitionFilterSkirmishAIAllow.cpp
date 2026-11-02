@@ -16,15 +16,7 @@ typedef int Int;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Object
-{
-public:
-	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
-
-private:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai;			// +0x258
-};
+#include "object.h"
 
 class TacticalAI
 {

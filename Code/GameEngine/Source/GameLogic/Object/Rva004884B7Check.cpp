@@ -112,18 +112,13 @@ public:
 	virtual int isSecondCheck() = 0;		// slot 100 (0x190)
 };
 
-class Object
-{
-public:
-	unsigned char m_pad[0x258];
-	AIUpdateInterface *m_aiUpdate;			// +0x258 (retail-measured)
-};
+#include "object.h"
 
 // ?rva004884B7@@YA_NPAVObject@@@Z
 bool rva004884B7(Object *obj)
 {
 	int ok = 0;
-	AIUpdateInterface *ai = obj->m_aiUpdate;
+	AIUpdateInterface *ai = obj->m_ai;
 	if (ai != 0) {
 		if (ai->isFirstCheck() != 0)
 			ok = ai->isSecondCheck();

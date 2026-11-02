@@ -36,12 +36,7 @@ public:
 	virtual BodyDamageType getDamageState() const;
 };
 
-class Object
-{
-public:
-	char m_pad[0x254];
-	BodyModuleInterface *m_body;
-};
+#include "object.h"
 
 class LocomotorTemplate
 {

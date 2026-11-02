@@ -25,11 +25,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes status) const;
-};
+#include "../object.h"
 
 class UpdateModule
 {

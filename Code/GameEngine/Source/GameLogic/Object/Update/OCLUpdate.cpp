@@ -103,15 +103,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_2 = 2
 };
 
-class Object
-{
-public:
-	bool testStatus(ObjectStatusTypes s) const;
-	const Coord3D *getPosition() const { return &m_position; }
-private:
-	char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../object.h"
 
 // OCLUpdate.cpp: the pool key and the module-data ctor retail links from this TU
 // (tu_map approved), folded from two split units with these exact flags.

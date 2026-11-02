@@ -38,12 +38,7 @@ class BfmeVirtualSlots<0>
 class Team;
 class AIGroup;
 
-class Object
-{
-public:
-	char m_pad[0x304];
-	Team *m_team;
-};
+#include "../object.h"
 
 class AIUpdateInterface : public BfmeVirtualSlots<110>
 {

@@ -27,17 +27,7 @@ typedef bool Bool;
 
 class AIUpdateInterface;
 
-class Object
-{
-	char m_pad0[0x74];
-	ObjectID m_id;
-	char m_pad1[0x258 - 0x78];
-	AIUpdateInterface *m_ai;
-
-public:
-	AIUpdateInterface *getAI() const { return m_ai; }
-	ObjectID getID() const { return m_id; }
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

@@ -36,12 +36,7 @@ public:
 	void rva0043B8C0(int id, const Rva0043B163 *dot);
 };
 
-class Object
-{
-public:
-	unsigned char m_pad00[0x74];
-	int m_id;	// +0x74
-};
+#include "object.h"
 
 extern GameLogic *TheGameLogic;
 

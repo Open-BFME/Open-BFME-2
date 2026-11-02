@@ -8,12 +8,7 @@
 // address, like ToggleDeploySpecialAbilityUpdateSlot8.cpp.
 typedef bool Bool;
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Object
-{
-public:
-	unsigned char m_pad000[0x438];
-	unsigned char m_438; // +0x438
-};
+#include "../object.h"
 extern GameLogic *TheGameLogic;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
@@ -44,5 +39,5 @@ Bool GiveUpgradeUpdate::rva0044EDA6(int value)
 	if (m_40 == INVALID_OBJECT_ID)
 		return true;
 	Object *obj = TheGameLogic->findObjectByID(m_40);
-	return obj == 0 || (obj->m_438 & 1) != 0;
+	return obj == 0 || (obj->m_privateStatus & 1) != 0;
 }

@@ -15,10 +15,7 @@ public:
 enum ObjectStatusTypes {
 	Status46_00493805 = 0x46
 };
-class Object {
-public:
-	bool testStatus(ObjectStatusTypes s) const;
-};
+#include "../object.h"
 class Sub10_00493805 {
 public:
 	virtual void v0();

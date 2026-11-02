@@ -47,12 +47,7 @@ public:
 	Coord3D m_pos08;
 };
 
-class Object
-{
-public:
-	unsigned char m_pad00[0x38];
-	Coord3D m_pos38;
-};
+#include "../object.h"
 
 class PartTheHeavensUpdateModuleData
 {
@@ -126,7 +121,7 @@ void PartTheHeavensUpdate::rva004ACADA()
 	m_shadow = mgr->createEmitter(type, &ev, &ev);
 	if (m_shadow != 0)
 	{
-		Object *obj=m_object;const Coord3D *pos = &obj->m_pos38;
+		Object *obj=m_object;const Coord3D *pos = &obj->m_cachedPos;
 		Coord3D *dest = &m_shadow->m_pos08;
 		*dest = *pos;
 		m_shadow->setColor(data->m_color0C);

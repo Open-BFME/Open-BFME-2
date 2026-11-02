@@ -20,12 +20,7 @@ enum WeaponSlotType
 	WEAPON_SLOT_PRIMARY = 0
 };
 
-class Object
-{
-public:
-	char m_pad00[0x74];
-	int m_id; // +0x74
-};
+#include "object.h"
 
 class Weapon
 {

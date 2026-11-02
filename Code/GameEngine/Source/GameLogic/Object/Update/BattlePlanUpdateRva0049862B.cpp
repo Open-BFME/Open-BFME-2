@@ -27,12 +27,7 @@ public:
 	AICommandInterface m_commands;
 };
 
-class Object
-{
-public:
-	char m_pad[0x258];
-	AIUpdateInterface *m_ai;
-};
+#include "../object.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 

@@ -116,23 +116,8 @@ public:
 	Bool bfme_drawable_hidden() const { return ((Rva00270260 *)this)->rva00270260(); }
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
-		Coord3D *worldPos, Matrix3D *worldTransform) const;
-};
+#include "../object.h"
 
-class Object : public Thing
-{
-public:
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-
-private:
-	char m_unknown00[0x254];
-	BodyModuleInterface *m_body; // +0x254
-};
 
 // The particle system's setters, rowed under placeholder names: position copy
 // 0x001F3899, attached object ID (+0xB4, from the object's +0x74) 0x001F3C43

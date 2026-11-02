@@ -22,11 +22,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
 class Rva004CEAB7{public:float x,y,z;__forceinline Rva004CEAB7(const Rva004CEAB7&r){x=r.x;y=r.y;z=r.z;} __forceinline ~Rva004CEAB7(){}};
 
-class Object
-{
-public:
-	void *rva0028C197() const;
-};
+#include "../object.h"
 
 class ModuleData;
 

@@ -28,11 +28,7 @@ typedef float Real;
 class Drawable;
 #include "../../../../Include/GameClient/Drawable.h"
 
-class Object
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

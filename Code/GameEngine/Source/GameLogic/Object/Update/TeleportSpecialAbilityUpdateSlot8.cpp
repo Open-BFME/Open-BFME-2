@@ -12,12 +12,7 @@
 typedef bool Bool;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 typedef float Real;
-class Object
-{
-public:
-	unsigned char m_pad000[0x38];
-	Coord3D m_38; // +0x38
-};
+#include "../object.h"
 struct Rva00492C59ModuleData
 {
 	unsigned char m_pad000[0xD4];
@@ -60,9 +55,9 @@ Bool Rva00492C59::rva0044EDA6(int value)
 			Object *obj = m_object;
 			if (obj)
 			{
-				Real dx = pos->x - obj->m_38.x;
-				Real dy = pos->y - obj->m_38.y;
-				Real dz = pos->z - obj->m_38.z;
+				Real dx = pos->x - obj->m_cachedPos.x;
+				Real dy = pos->y - obj->m_cachedPos.y;
+				Real dz = pos->z - obj->m_cachedPos.z;
 				if (dz * dz + dy * dy + dx * dx > data->m_maxDistance * data->m_maxDistance)
 					return false;
 			}

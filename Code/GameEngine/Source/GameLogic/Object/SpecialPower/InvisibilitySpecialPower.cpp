@@ -70,11 +70,7 @@ public:
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class ModuleData;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-};
+#include "../object.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 struct InvisibilitySpecialPowerModuleData

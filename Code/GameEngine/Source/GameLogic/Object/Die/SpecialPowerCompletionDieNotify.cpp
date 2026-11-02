@@ -17,11 +17,7 @@ class AsciiString;
 
 #include "../../../../Include/Common/Overridable.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-};
+#include "../object.h"
 
 class Player
 {
