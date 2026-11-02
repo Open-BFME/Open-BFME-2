@@ -391,12 +391,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	char m_pad[0x10];
-	Pathfinder *m_shim;
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 
@@ -717,7 +712,7 @@ void Rva004ADC88::rva004AD9E0()
 	if (obj->getDrawable() != 0)
 		obj->getDrawable()->setDrawableHidden(true);
 	if (TheAI != 0)
-		TheAI->m_shim->RemoveObjectFromPathfindMap(obj);
+		TheAI->m_pathfinder->RemoveObjectFromPathfindMap(obj);
 	TheGameLogic->destroyObject(obj);
 }
 

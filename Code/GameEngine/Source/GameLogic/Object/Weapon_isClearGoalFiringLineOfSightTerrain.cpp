@@ -12,11 +12,7 @@ class Pathfinder;
 class TerrainLogic;
 #include "../../../Include/GameLogic/Weapon.h"
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
-class AI {
-public:
-    char m_pad[0x10];
-    Pathfinder *m_pathfinder;
-};
+#include "../../../Include/GameLogic/AI.h"
 extern class AI *TheAI;
 #include "../../../Include/GameLogic/AIPathfind.h"
 class TerrainLogic {
