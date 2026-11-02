@@ -10,32 +10,22 @@ typedef bool Bool;
 #include <stddef.h>
 #define SEEK_SET 0
 #include "../../../Include/Common/BfmeAccessorMacros.h"
-
 extern "C" __declspec(dllimport) struct _iobuf *__cdecl _wfopen(const wchar_t *, const wchar_t *);
-
 extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *);
-
 extern "C" __declspec(dllimport) int __cdecl fseek(struct _iobuf *, long, int);
-
 extern "C" __declspec(dllimport) size_t __cdecl fread(void *, size_t, size_t, struct _iobuf *);
-
 extern "C" __declspec(dllimport) int __cdecl _wunlink(const wchar_t *);
-
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file);
-
 typedef unsigned short WideChar;
-
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *chunkBuffer, unsigned int elementSize, unsigned int elementCount, struct _iobuf *file) throw();
-
 // Zero Hour's Common/Errors.h (ERROR_BASE 0xDEAD0001 + 4). Retail throws the enum:
 // its ThrowInfo is __TI1?AW4ErrorCode@@ (0x00CFEEE4), not int's __TI1H (0x00CFE2C8).
 enum ErrorCode
 {
 	ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005
 };
-
 //
 // DataChunkOutput::writeNameKey, retail 0x00307D29 (true 92 bytes; the 10B
 // reloc row covers only the SEH-prologue head: mov eax,cookie + call
@@ -61,29 +51,18 @@ struct InputChunk
 	unsigned char m_unknown0E[0x0A];
 	unsigned int m_dataLeft;		// +0x18
 };
-
 class ChunkInputStream;
-
 class UnicodeString;
-
 class Mapping;
-
 class OutputStream;
-
 class AsciiString;
-
 #include "../../../Include/Common/DataChunk.h"
-
 struct InputChunk;
-
 class Dict;
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-
-
 // Table of contents for the chunk-name registry. Layout mirrors the ZH
 // DataChunkTableOfContents (list head, entry count, next ID allocator,
 // header-open flag); declaration order is what the bytes prove: retail
@@ -97,7 +76,6 @@ public:
 	AsciiString m_name;			// +0x08
 	unsigned int m_id;			// +0x0C
 };
-
 // The concrete 0x10-byte mapping object retail news in read(): its vtable
 // 0x00C07EAC is the one rowed for the address-named Rva0030714F (virtual
 // destructor 0x0030714F, deleting destructor 0x00307133).
@@ -111,13 +89,10 @@ private:
 	AsciiString m_name;			// +0x08
 	unsigned int m_id;			// +0x0C
 };
-
 void operator delete(void *ptr);
-
 // Ordinary member-address datum emits the real method; no retail data
 // address or original global identity is claimed for this datum.
 bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile;
-
 // ?slot00@Rva0023DB34@@UAEHPAXH@Z @0x00306C15 45B
 // Slot 0 of the four-slot table at VA 0x00BEDAA8, whose other slots are the
 // rowed 0x00306C42 (cursor minus base), 0x00306C49 (seek from base, true)
@@ -130,7 +105,6 @@ bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile
 // siblings. The class is the one whose constructor 0x0023DB34 installs this table
 // (RvaSmallVtableCtors.cpp); the original name is unknown.
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // DataChunkOutput::writeInt, retail 0x00306CFF (24 bytes).
@@ -141,14 +115,10 @@ extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
 // byte writes a single byte with the same shape and a smaller size immediate.
 
 struct _iobuf;
-
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(
 	const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
-
 typedef unsigned char WriteByteValue;
-
 class OutputChunk;
-
 class DataChunkOutput
 {
 public:
@@ -169,7 +139,6 @@ private:
     DataChunkTableOfContents m_contents;
     OutputChunk *m_chunkStack;
 };
-
 // Open-BFME: Q1Forwardee0000871A::handle, retail 0x00102610, 37 bytes.
 //
 // An intrusive unlink and a delete, on the node the argument names -- `this' is
@@ -183,7 +152,6 @@ private:
 // delete itself -- the code ::delete emits.
 
 typedef int Int;
-
 class BfmeIntrusiveNode
 {
 public:
@@ -192,15 +160,12 @@ public:
 	BfmeIntrusiveNode *m_next;				// +0x04
 	BfmeIntrusiveNode **m_prevNext;				// +0x08
 };
-
 class Q1Forwardee0000871A
 {
 public:
 	void handle(Int node);
 };
-
 struct BfmeE12 { float x, y, z; };
-
 namespace _STL {
 template <>
 __declspec(dllimport) __forceinline vector<BfmeE12, allocator<BfmeE12> >::~vector()
@@ -208,7 +173,6 @@ __declspec(dllimport) __forceinline vector<BfmeE12, allocator<BfmeE12> >::~vecto
     _Destroy(this->_M_start, this->_M_finish);
 }
 }
-
 class Rva003079ED
 {
 public:
@@ -222,7 +186,6 @@ private:
     void *m_p18;
     void *m_p1c;
 };
-
 class Rva00307A2C
 {
 	struct Node
@@ -235,7 +198,6 @@ class Rva00307A2C
 public:
 	void *rva00307A2C(const AsciiString &s);
 };
-
 // Five errands made through a table: a question forwarded, two counts let go
 // of, a thing dropped, and a pair of steps taken in turn.
 
@@ -245,13 +207,11 @@ public:
 	virtual void bfmeSpare000CW(void) = 0;
 	virtual unsigned char bfmeDoCW(void *first, void *second) = 0;
 };
-
 class BfmeTargetCX
 {
 public:
 	virtual void bfmeDoCX(int how) = 0;
 };
-
 class BfmeThingCX
 {
 public:
@@ -261,7 +221,6 @@ private:
 	unsigned char m_bfmeHead[0x24];		// 0x00
 	BfmeTargetCX *m_bfmeTarget;		// 0x24
 };
-
 class BfmeCountedCY
 {
 public:
@@ -269,7 +228,6 @@ public:
 
 	int m_bfmeCount;			// 0x4
 };
-
 class BfmeThingCY
 {
 public:
@@ -279,7 +237,6 @@ private:
 	unsigned char m_bfmeHead[4];		// 0x0
 	BfmeCountedCY *m_bfmeHeld;		// 0x4
 };
-
 class BfmeCountedCZ
 {
 public:
@@ -287,13 +244,11 @@ public:
 
 	int m_bfmeCount;			// 0x4
 };
-
 struct BfmeOwnerCZ
 {
 	unsigned char m_bfmeHead[0x24];		// 0x00
 	BfmeCountedCZ m_bfmeSub;		// 0x24
 };
-
 class BfmeThingCZ
 {
 public:
@@ -302,9 +257,7 @@ public:
 private:
 	BfmeOwnerCZ *m_bfmeOwner;		// 0x0
 };
-
 class BfmeOtherDA;
-
 class BfmeThingDA
 {
 public:
@@ -336,7 +289,6 @@ public:
 	virtual void bfmeSpare025DA(void) = 0;
 	virtual BfmeOtherDA *bfmeMakeDA(int *where) = 0;
 };
-
 class BfmeOtherDA
 {
 public:
@@ -371,7 +323,6 @@ public:
 	virtual void bfmeSpare028DB(void) = 0;
 	virtual void bfmeDoDA(int *where) = 0;
 };
-
 class BfmeTargetEF
 {
 public:
@@ -379,7 +330,6 @@ public:
 	virtual void bfmeSpare001EF(void) = 0;
 	virtual void bfmeDoEF(void) = 0;
 };
-
 class BfmeThingEF
 {
 public:
@@ -388,7 +338,6 @@ public:
 private:
 	BfmeTargetEF *m_bfmeTarget;		// 0x0
 };
-
 //
 // DataChunkInput::getChunkLabel, retail 0x003074D7, 51 bytes.
 //
@@ -400,18 +349,16 @@ private:
 // AsciiString char ctor at 0x00037BA0; getName row 0x003070F1.
 
 typedef unsigned int UnsignedInt;
-
 #include "../../../Include/Common/GlobalData.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 class OutputStream
 {
 public:
     virtual int write(const void *data, int count) = 0;
 };
-
 #include "../../../Include/Common/NameKeyGenerator.h"
+typedef unsigned char Byte;
+#include <new>
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -471,6 +418,8 @@ private:
 	char *m_cursor08;
 	char *m_end0C;
 };
+
+// ---- from Code/GameEngine/Source/Common/System/DataChunk.cpp
 
 // BF1 9cbfb551fe Common/Rva0029BC30Bump.cpp is the clean semantic donor.
 // Full native leaf 0049CB66..0049CB6E ends at its own RET boundary.
@@ -1056,7 +1005,12 @@ int Rva0023DB34::slot04()
 
 // tu-skeleton: 0x00306C88 119B ?closeDataChunk@DataChunkOutput@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
 
-// tu-skeleton: 0x00306D2F 25B ?writeArrayOfBytes@DataChunkOutput@@QAEXPADH@Z -- matched in Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/DataChunk_writeArrayOfBytes_DataChunkOutput_QAEXPADH_Z.cpp
+
+void DataChunkOutput::writeArrayOfBytes(char *ptr, int len)
+{
+	::fwrite(ptr, 1, len, file);
+}
 
 // tu-skeleton: 0x00306DCC 20B ?reset@DataChunkInput@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
@@ -1070,7 +1024,16 @@ int Rva0023DB34::slot04()
 
 // tu-skeleton: 0x00306E40 22B ?decrementDataLeft@DataChunkInput@@IAEXH@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
-// tu-skeleton: 0x00306E78 34B ?readInt@DataChunkInput@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Map/TerrainLogic_parseWaypointData.cpp
+
+// ?readInt@DataChunkInput@@QAEHXZ @0x00306E78
+int DataChunkInput::readInt()
+{
+	int value;
+	m_file->read(&value, 4);
+	decrementDataLeft(4);
+	return value;
+}
 
 // tu-skeleton: 0x00306F01 82B ??1DataChunkInput@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
@@ -1080,9 +1043,75 @@ int Rva0023DB34::slot04()
 
 // tu-skeleton: 0x0030714F 14B ??1Rva0030714F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
 
-// tu-skeleton: 0x0030715D 140B ?write@DataChunkTableOfContents@@QAEXAAVOutputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp
 
-// tu-skeleton: 0x003071E9 301B ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp (not merged yet)
+// ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z @0x003071E9 301B via BFME1 donor DataChunkTableOfContents.cpp
+// Evidence: pinned name; caller DataChunkInput ctor 0x307351; donor game/GameEngine/Source/Common/System/DataChunkTableOfContents.cpp read plus DataChunk.cpp; retail inlines tag CkMp check and the 0x10-byte mapping new (as allocateID) with StringBase getBufferForRead row.
+
+void DataChunkTableOfContents::read(ChunkInputStream &s)
+{
+	Int count, i;
+	UnsignedInt maxID = 0;
+	unsigned char len;
+	Mapping *m;
+
+	Byte tag[4] = {'x', 'x', 'x', 'x'};
+	s.read(tag, sizeof(tag));
+	if (tag[0] != 'C' || tag[1] != 'k' || tag[2] != 'M' || tag[3] != 'p')
+		return;
+
+	s.read((char *)&count, sizeof(Int));
+
+	for (i = 0; i < count; i++)
+	{
+		m = (Mapping *)new Rva0030714F;
+		s.read((char *)&len, sizeof(unsigned char));
+
+		if (len > 0)
+		{
+			char *str = ((StringBase<char> *)&m->m_name)->getBufferForRead(len);
+			s.read(str, len);
+			str[len] = '\0';
+		}
+
+		s.read((char *)&m->m_id, sizeof(UnsignedInt));
+		m->m_next = m_list;
+		m_list = m;
+		m_listLength++;
+
+		if (m->m_id > maxID)
+			maxID = m->m_id;
+	}
+
+	m_headerOpened = count > 0 && !s.eof();
+	m_nextID = max(m_nextID, maxID + 1);
+}
+
+// ?write@DataChunkTableOfContents@@QAEXAAVOutputStream@@@Z
+// BFME1 donor: 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
+// game/GameEngine/Source/Common/System/DataChunkTableOfContents.cpp.
+// Retail 0x0030715D..0x003071E8 is the complete 140-byte RET 4 body:
+// it writes CkMp, the count at +4, then each node's byte length, text, and
+// id. The native list walk proves next +4, string +8, id +C; its virtual
+// stream calls use slot zero. Donor supplies the writer's semantic name;
+// those offsets and the canonical string header are target evidence.
+// Native caller 0x003076A5 passes [esi] as stream and esi+8 as the table;
+// the following code closes the output's temporary FILE at receiver+4.
+void DataChunkTableOfContents::write(OutputStream &s)
+{
+	Mapping *m;
+	unsigned char len;
+	Byte tag[4] = {'C', 'k', 'M', 'p'};
+	s.write(tag, sizeof(tag));
+	s.write((void *)&m_listLength, sizeof(Int));
+	for (m = m_list; m; m = m->m_next)
+	{
+		len = m->m_name.getLength();
+		s.write((char *)&len, sizeof(unsigned char));
+		s.write(m->m_name.str(), len);
+		s.write((char *)&m->m_id, sizeof(UnsignedInt));
+	}
+}
 
 // tu-skeleton: 0x00307371 17B ??0UserParser@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
@@ -1100,13 +1129,34 @@ int Rva0023DB34::slot04()
 
 // tu-skeleton: 0x003079C1 44B ?swap@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXAAV12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x00307A53 23B ?getID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/DataChunk_ID_DataChunkTableOfContents_QAEIABVAsciiString_Z.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/DataChunk_ID_DataChunkTableOfContents_QAEIABVAsciiString_Z.cpp
+
+// ?getID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z, retail 0x00307A53
+// (23 bytes): Zero Hour's DataChunkTableOfContents::getID. findMapping
+// (0x00307A2C) on the name, then the mapping's id at +0x0C or zero; Zero Hour's
+// DEBUG_CRASH is compiled out. Spelled on DataChunk.cpp's Mapping and table of
+// contents views, the TU retail built it in; it replaces the Zero Hour donor
+// compile (Common/DataChunk.h through PreRTS.h) this body was first placed with.
+
+unsigned int DataChunkTableOfContents::getID(const AsciiString &name)
+{
+	Mapping *mapping = findMapping(name);
+
+	if (mapping)
+		return mapping->m_id;
+
+	return 0;
+}
 
 // tu-skeleton: 0x00307AC0 387B ?parse@DataChunkInput@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
 // tu-skeleton: 0x00307C43 51B ??0?$vector@DV?$allocator@D@_STL@@@_STL@@QAE@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x00307C76 179B ?openDataChunk@DataChunkOutput@@QAEXPADG@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00779BA3 11B uw_00779ba3 -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
+
+// tu-skeleton: 0x00779BAE 10B __ehhandler$??1DataChunkInput@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
 // tu-skeleton: 0x00779BB8 11B Unwind@00b79bb8 -- matched in Code/GameEngine/Source/Common/System/DataChunkInput.cpp (not merged yet)
 
