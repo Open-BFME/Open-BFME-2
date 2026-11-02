@@ -12,10 +12,7 @@
 #ifndef BFME2_UPGRADE_H
 #define BFME2_UPGRADE_H
 
-#if defined(CANONICAL_SUBSYSTEMINTERFACE_H)
-#error Include Upgrade.h before SubsystemInterface so its named reload slots are declared.
-#endif
-#ifndef BFME_SUBSYSTEM_SLOTS
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #define vslot04 attemptReload
