@@ -27,63 +27,8 @@ class RenderObjClass;
 class HAnimClass;
 
 // The five-slot interface at +0x10 (InGameUICtor.cpp).
-class InGameUIInterface10
-{
-public:
-#define SLOT(N) virtual void slot##N() = 0;
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04)
-#undef SLOT
-};
+#include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 
-class InGameUI : public SubsystemInterface, public Snapshot, public InGameUIInterface10
-{
-public:
-	InGameUI();
-	virtual ~InGameUI();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-#define SLOT(N) virtual void slot##N();
-	SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
-	SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29)
-	SLOT(30) SLOT(31) SLOT(32) SLOT(33) SLOT(34) SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39)
-	SLOT(40) SLOT(41) SLOT(42) SLOT(43) SLOT(44) SLOT(45) SLOT(46) SLOT(47) SLOT(48) SLOT(49)
-	SLOT(50) SLOT(51) SLOT(52) SLOT(53) SLOT(54) SLOT(55) SLOT(56) SLOT(57) SLOT(58) SLOT(59)
-#undef SLOT
-	virtual bool isPlacementAnchored(void);					// +0xF0
-	virtual void getPlacementPoints(ICoord2D *start, ICoord2D *end);	// +0xF4
-
-protected:
-	// BFME's lasso selection: points in screen order, closed to the cursor.
-	struct LassoPointNode
-	{
-		LassoPointNode *next;
-		LassoPointNode *prev;
-		ICoord2D point;
-	};
-
-	char m_opaque14[0x2C - 0x14];
-	ICoord2D m_dragSelectRegionLo;	// +0x2C
-	ICoord2D m_dragSelectRegionHi;	// +0x34
-	char m_opaque3C[0x40 - 0x3C];
-	// BFME 2's move hint record (0x14 bytes): Zero Hour's MoveHintStruct with
-	// the source ID dropped and a byte that suppresses the hint (labels are
-	// descriptive; the offsets are what 0x0008F48E reads).
-	struct MoveHint
-	{
-		Coord3D pos;		// +0x00
-		unsigned int frame;	// +0x0C
-		bool suppressed;	// +0x10
-	};
-	MoveHint m_moveHint[25];	// +0x40
-	char m_opaque234[0x544 - 0x234];
-	Drawable **m_placeIcon;		// +0x544
-	char m_opaque548[0x910 - 0x548];
-	LassoPointNode *m_lassoPoints;	// +0x910, list sentinel
-	char m_opaque914[0x924 - 0x914];
-	bool m_lassoSelecting;		// +0x924
-	char m_opaque925[0x9F0 - 0x925];
-};
 
 class Rva0008EF3FProduct : public InGameUI
 {

@@ -160,11 +160,7 @@ public:
 	virtual UnsignedInt getFrame();
 };
 extern GameClient *TheGameClient;
-class InGameUI
-{
-public:
-	Real rva0029B3C1(const Object *obj) const;
-};
+#include "../../../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"

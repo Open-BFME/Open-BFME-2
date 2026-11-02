@@ -526,14 +526,7 @@ private:
 
 // --- 0x0029F72F (51B): whether the selection can do any action but the
 // first (rowed InGameUI::canSelectedObjectsDoAction over types 2..20).
-class InGameUI
-{
-public:
-	enum ActionType { ACTIONTYPE_NONE = 0 };
-	enum SelectionRules { SELECTION_ANY = 0 };
-	bool canSelectedObjectsDoAction(ActionType action, const Object *obj, SelectionRules rule, bool additional) const;	// 0x0029C823
-	bool canSelectedObjectsNonAttackInteractWithObject(const Object *obj, SelectionRules rule) const;
-};
+#include "../../../Include/GameClient/InGameUI.h"
 // --- 0x0059F0F7 (17B): vtable 0x00C7122C over two cleared words;
 // 0x0059F108 (34B): nothing to check is fine, else TheGameSpyInfo's virtual
 // slot 54 decides.

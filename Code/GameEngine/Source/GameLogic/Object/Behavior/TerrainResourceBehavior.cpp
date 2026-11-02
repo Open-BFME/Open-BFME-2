@@ -490,17 +490,7 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-class InGameUI
-{
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-	V10(0) V10(1) V10(2) V10(3) V10(4) V10(5) V10(6) V10(7) V10(8) V10(9)
-	V(100) V(101) V(102) V(103)
-	virtual void addFloatingText(const UnicodeString &text, const Coord3D *pos, Color color);	// slot 104
-#undef V10
-#undef V
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
