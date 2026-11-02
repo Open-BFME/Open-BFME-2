@@ -197,11 +197,7 @@ protected:
 	int m_curPos;		// +0x28
 };
 
-class FileSystem
-{
-public:
-	File *openFile( const char *filename, int access, int flags );
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

@@ -61,11 +61,7 @@ void Rva0060126D::rva00601522(NativeNestedTree *group,const char *name)
 // nextLine slot6 and convertToRAMFile slot14; native calls are +18/+38.
 class AsciiString;
 #include "../../../Include/Common/File.h"
-class FileSystem {
-public:
- File *openFile(const char *,int,int);
- static void initialiseRestrictedFilelist(const char *);
-};
+#include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class FilePathGate { public: unsigned char treeHeader[12]; bool inclusion; };
 extern FilePathGate *TheFilePathGate;

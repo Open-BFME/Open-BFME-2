@@ -3,11 +3,7 @@
 // File CRC: copy second arg string via _mbscpy using empty global fallback, strip 4-char extension, set local path, open via TheFileSystem, loop read plus ComputeCRC; first arg unused but destroyed; callers 0x00304FDD.
 #include "ascii_string.h"
 class File;
-class FileSystem
-{
-public:
-	File *openFile(const char *path, int a, int b);
-};
+#include "../../Include/Common/FileSystem.h"
 class File
 {
 public:

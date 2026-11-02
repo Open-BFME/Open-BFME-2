@@ -75,11 +75,7 @@ class Rva0021DA13 : public Rva0021C459
 {
 };
 
-class FileSystem
-{
-public:
-	void getFileListInDirectory(const AsciiString &directory, const AsciiString &searchName, FilenameList &filenameList, bool searchSubdirectories) const;	// 0x00600FC9
-};
+#include "../../Include/Common/FileSystem.h"
 
 class Rva006007DAFileSystem
 {

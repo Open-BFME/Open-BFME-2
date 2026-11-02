@@ -118,7 +118,7 @@ public:
  virtual void v12(); virtual void v13(); virtual Rva0060C3C3Stream *getStream();
 };
 class File;
-class FileSystem { public: File *rva00600676(const unsigned short*,int,int); };
+#include "../../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class AudioManager; extern AudioManager *TheAudio;
 class GameLoadAudioView {

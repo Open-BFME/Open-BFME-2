@@ -9,11 +9,7 @@
 // format string at 0x007DF034 and FileSystem row are annotated.
 class AsciiString;
 #include "ascii_string.h"
-class FileSystem
-{
-public:
-    bool doesFileExist(const char *filename) const;
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class Rva003F0FD1
 {

@@ -756,17 +756,7 @@ namespace _STL { template <> _Rb_tree<AsciiString,AsciiString,_Identity<AsciiStr
 
 typedef std::set<AsciiString, BfmeStringNoCaseLess> FilenameList;
 
-class FileSystem
-{
-public:
-// The donor API is FileSystem::getFileListInDirectory. The third argument
-// is passed by address at retail. BFME1's FilenameList uses
-// rts::less_than_nocase; BFME2's call to the set constructor at 0x000D3A71 and
-// cleanup through the rowed no-case tree dtor at 0x0002CC38 support this local
-// BFME2 FilenameList comparator view.
-	void getFileListInDirectory(const AsciiString &directory,
-		const AsciiString &searchName, FilenameList &filenameList, bool searchSubdirectories) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

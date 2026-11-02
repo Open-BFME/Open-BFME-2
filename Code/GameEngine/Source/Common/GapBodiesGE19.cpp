@@ -61,12 +61,7 @@ bool Rva0002C7E8::rva0002C7E8(const AsciiString &asciiString, const AsciiString 
 // callee's class; the member name is address-derived.
 class File;
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
-	File *rva0002BA86(const char *filename, int access);
-};
+#include "../../Include/Common/FileSystem.h"
 
 File *FileSystem::rva0002BA86(const char *filename, int access)
 {

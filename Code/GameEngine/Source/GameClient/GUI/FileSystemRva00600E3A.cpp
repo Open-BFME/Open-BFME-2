@@ -11,11 +11,7 @@
 
 struct FileInfo;
 
-class FileSystem
-{
-public:
-	bool getFileInfo(const char *filename, FileInfo *fileInfo) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 class FilePathGate
 {

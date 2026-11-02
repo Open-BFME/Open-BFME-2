@@ -37,10 +37,7 @@ typedef _STL::map<UnicodeString, bool, UnicodeStringLessThan,
     _STL::allocator<LanguageFilterValue> > LanguageFilterMap;
 
 #include "../../Include/Common/File.h"
-class FileSystem {
-public:
-    File *openFile(const char *filename, Int access, Int extra);
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 static const char BadWordFileName[] = "langdata.dat";

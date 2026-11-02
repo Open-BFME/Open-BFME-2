@@ -70,11 +70,7 @@ enum INILoadType
 
 #include "../../../Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unknown);
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 AsciiString BfmeINICurrentFilename;

@@ -86,11 +86,7 @@ protected:
 	int m_size;	// +0x1c
 };
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int flags);
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

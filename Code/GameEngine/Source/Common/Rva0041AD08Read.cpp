@@ -45,12 +45,7 @@ struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../Include/Common/BfmeXfer.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
- bool doesFileExist(const char*)const;
-};
+#include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 extern int g_guardTargetTypeThrowInfo;

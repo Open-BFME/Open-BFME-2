@@ -474,12 +474,7 @@ Rva0046AC52Pair Rva0046AC52::rva002D644C(const Rva0046AC52Key &key)
 // 0x00600676 with a zero third argument.
 class File;
 
-class FileSystem
-{
-public:
-	File *rva00600676(const unsigned short *name, int mode, int flags);	// 0x00600676
-	File *rva002DBA07(const unsigned short *name, int mode);
-};
+#include "../../Include/Common/FileSystem.h"
 
 File *FileSystem::rva002DBA07(const unsigned short *name, int mode)
 {

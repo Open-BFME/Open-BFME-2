@@ -150,11 +150,7 @@ inline void vector<char, allocator<char> >::_M_fill_insert(char *position, size_
 
 #include "../../Include/Common/File.h"
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int flags);
-};
+#include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

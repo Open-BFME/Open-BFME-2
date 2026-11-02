@@ -40,11 +40,7 @@ extern ArchiveFileSystem *TheArchiveFileSystem;
 // TheLangDir (VA 0xe06948) is defined in FileSystemOpenFile.cpp.
 extern char TheLangDir[256];
 
-class FileSystem
-{
-public:
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 // ?doesFileExist@FileSystem@@QBE_NPBD@Z
 bool FileSystem::doesFileExist(const char *filename) const

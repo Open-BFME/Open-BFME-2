@@ -14,12 +14,7 @@
 
 class File;
 
-class FileSystem
-{
-public:
-	File *rva00600676(const unsigned short *path, int a2, int a3);
-	bool rva006006A9(const unsigned short *path);
-};
+#include "../../Include/Common/FileSystem.h"
 
 class Rva00600676Target
 {

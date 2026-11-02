@@ -62,12 +62,7 @@ extern char TheLangDir[];
 extern char g_00DD509C[];
 extern FilePathGate *TheFilePathGate;
 
-class FileSystem
-{
-public:
-	void getFileListInDirectory(const AsciiString &directory, const AsciiString &searchName,
-		FilenameList &filenameList, bool searchSubdirectories) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 // BFME2's AsciiString::str() is StringBase<char>::str(): an empty string reads
 // StringBase's shared TheNullChr.

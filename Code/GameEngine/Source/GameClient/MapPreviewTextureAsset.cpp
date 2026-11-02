@@ -12,11 +12,7 @@
 #include <new>
 
 class File;
-class FileSystem
-{
-public:
-    File *openFile(const char *filename, int access, int bufferSize);
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 struct MapPreviewFileFlags

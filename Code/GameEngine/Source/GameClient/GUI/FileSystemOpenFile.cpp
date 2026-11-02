@@ -66,11 +66,7 @@ extern ArchiveFileSystem *TheArchiveFileSystem;
 char TheLangDir[256];
 extern bool BFME2PreferLocalFiles;
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
-};
+#include "../../../Include/Common/FileSystem.h"
 
 File *FileSystem::openFile(const char *filename, int access, int unk)
 {

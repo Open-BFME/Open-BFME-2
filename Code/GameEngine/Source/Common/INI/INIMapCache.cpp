@@ -76,7 +76,7 @@ class StaticNameKey {public:NameKeyType key()const;};
 
 extern const StaticNameKey TheKey_InitialCameraPosition;
 
-class FileSystem {public:bool doesFileExist(const char*)const;};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

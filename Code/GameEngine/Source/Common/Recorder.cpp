@@ -12,7 +12,7 @@
 #include "../../../Libraries/Include/Lib/IRegion2D.h"
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 typedef int Int;
-class FileSystem {public:bool rva0037BD2B(const UnicodeString &);};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem*TheFileSystem;
 UnicodeString Rva0037B9D4Get();
  UnicodeString GetLastReplayDisplayName();

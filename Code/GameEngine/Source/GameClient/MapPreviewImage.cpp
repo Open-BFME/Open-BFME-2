@@ -17,12 +17,7 @@ public:
  virtual void slot0();virtual void slot4();virtual void close();
  virtual int read(void *,int);virtual int write(const void *,int);virtual int seek(int,int);
 };
-class FileSystem {
-public:
- File *openFile(const char *,int,int=0);
- bool doesFileExist(const char *) const;
- 
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 // Native300F6E passes TheGameState and3010A4 uses TheWritableGlobalData's
 // existing narrow path getter. These declaration-only views preserve their

@@ -175,12 +175,7 @@ public:
 	virtual int getSize();
 };
 
-class FileSystem
-{
-public:
-	bool doesFileExist(const char *filename) const;
-	File *openFile(const char *filename, int access, int unk);
-};
+#include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

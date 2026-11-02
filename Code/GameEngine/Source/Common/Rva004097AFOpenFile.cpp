@@ -18,12 +18,7 @@ typedef unsigned short WideChar;
 
 class File;
 
-class FileSystem
-{
-public:
-	File *rva00600676(const WideChar *name, int access, int bufferSize);
-	File *openFile(const char *name, int access, int bufferSize);
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 class Rva002DC74A

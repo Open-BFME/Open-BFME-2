@@ -829,11 +829,7 @@ AsciiString Rva0043D35AMakeAsciiString(const Rva002226E5TextPlusString &text)
 	return const_cast<Rva002226E5TextPlusString &>(text);
 }
 
-class FileSystem
-{
-public:
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

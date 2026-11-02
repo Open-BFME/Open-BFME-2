@@ -54,7 +54,7 @@ public:
     virtual int read(void *,int); virtual void slot4();
     virtual void seek(int,int);
 };
-class FileSystem { public: File *openFile(const char *,int,int); };
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class InputStream { public: virtual int read(void *,int)=0; };
 class GDIFileStream : public InputStream {

@@ -10,12 +10,7 @@
 typedef unsigned short WideChar;
 
 
-class FileSystem
-{
-public:
-	bool rva0037BD2B(const UnicodeString &path);
-	bool rva006006A9(const WideChar *path);	// 0x006006A9, same receiver
-};
+#include "../../Include/Common/FileSystem.h"
 
 bool FileSystem::rva0037BD2B(const UnicodeString &path)
 {

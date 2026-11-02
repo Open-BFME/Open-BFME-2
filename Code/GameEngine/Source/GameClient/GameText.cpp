@@ -94,13 +94,7 @@ struct FileInfo
 	int timestampLow;
 };
 
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int bufferSize);
-	bool getFileInfo(const AsciiString &filename, FileInfo *fileInfo) const;
-	bool getFileInfo(const char *filename, FileInfo *fileInfo) const;
-};
+#include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

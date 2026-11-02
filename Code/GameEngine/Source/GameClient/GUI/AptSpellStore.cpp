@@ -522,11 +522,7 @@ Rva002226E5TextPlusString operator+(const char *left, const AsciiString &right);
 
 AsciiString Rva0043D35AMakeAsciiString(const Rva002226E5TextPlusString &text);
 
-class FileSystem
-{
-public:
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 

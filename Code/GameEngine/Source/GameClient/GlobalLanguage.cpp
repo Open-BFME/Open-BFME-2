@@ -20,7 +20,7 @@ class File{public:
  char unknown04[9];bool deleteWhenClosed;
  void deleteOnClose(){deleteWhenClosed=true;}
 };
-class FileSystem{public:File *openFile(const char*,int,int=0);};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 typedef bool Bool;
 #include "subsystem_interface.h"

@@ -13,11 +13,7 @@ class AsciiString;
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-class FileSystem
-{
-public:
-    bool doesFileExist(const char *) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 class TextureClass

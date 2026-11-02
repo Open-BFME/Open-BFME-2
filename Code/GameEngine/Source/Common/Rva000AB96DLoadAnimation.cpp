@@ -9,11 +9,7 @@
 // at605682 independently proves the char* result and slot13. NativeAA557
 // saves that entire-file buffer at owner+4.
 #include "../../Include/Common/File.h"
-class FileSystem
-{
-public:
-	File *openFile(const char *filename, int access, int unk);
-};
+#include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 #include <string.h>
 

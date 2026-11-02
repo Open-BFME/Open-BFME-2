@@ -195,11 +195,7 @@ private:
 
 // TheFileSystem (VA 0x00E06A48); 0x00600676 forwards to the archive file
 // system's slot 2 without reading this.
-class FileSystem
-{
-public:
-	File *rva00600676(const WideChar *filename, int access, int bufferSize);
-};
+#include "../../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);

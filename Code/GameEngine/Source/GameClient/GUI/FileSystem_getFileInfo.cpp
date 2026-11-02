@@ -6,12 +6,7 @@
 // 0x00600E3A.
 #include "ascii_string.h"
 struct FileInfo;
-class FileSystem
-{
-public:
-	bool getFileInfo(const AsciiString &filename, FileInfo *fileInfo) const;
-	bool getFileInfo(const char *filename, FileInfo *fileInfo) const;
-};
+#include "../../../Include/Common/FileSystem.h"
 
 bool FileSystem::getFileInfo(const AsciiString &a, FileInfo *b) const
 {

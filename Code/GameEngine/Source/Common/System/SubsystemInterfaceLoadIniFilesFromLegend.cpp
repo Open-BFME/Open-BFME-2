@@ -37,7 +37,7 @@ struct BfmeLegendLoadRecord {
  unsigned loader;AsciiString debugFile;
 };
 struct BfmeSubsystemLoadXfer {char prefix[0x24];Xfer *xfer;};
-class FileSystem {public:bool doesFileExist(const char*)const;};
+#include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 class CopyProtect {public:static void setVerified(bool);};
 struct Rva0002C5E6Range {const StringBase<char> *begin,*end;};

@@ -27,11 +27,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class FileSystem
-{
-public:
-	bool doesFileExist(const char *filename) const;
-};
+#include "../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
 
