@@ -64,11 +64,7 @@ extern GlobalData *TheWritableGlobalData;
 template<int N> class GameClientSlots : public GameClientSlots<N-1> { public: virtual void unusedSlot(GameClientSlots<N> *); };
 template<> class GameClientSlots<0> {};
 
-class GameClient : public GameClientSlots<30>
-{
-public:
-	virtual void setTimeOfDay(TimeOfDay tod);	// slot +0x78
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 

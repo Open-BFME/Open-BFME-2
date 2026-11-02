@@ -133,12 +133,7 @@ extern RayEffectSystem *TheRayEffects;
 // Slots 19 and 20 of 0x00BC4738 (0x00238F34, 0x00238F29) are Zero Hour's
 // GameClient ray-effect pass-throughs to TheRayEffects (VA 0x00DFEFF4),
 // lone tail jumps.
-class GameClient
-{
-public:
-	virtual void removeFromRayEffects(Drawable *draw);
-	virtual void getRayEffectData(Drawable *draw, RayEffectData *effectData);
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 class Rva004C743
 {

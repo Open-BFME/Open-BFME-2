@@ -103,15 +103,7 @@ private:
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 
-class GameClient
-{
-public:
-	void incrementRenderedObjectCount() { m_renderedObjectCount++; }
-
-private:
-	unsigned char m_pad00[0xC4];
-	Int m_renderedObjectCount;			// +0xC4
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 extern TerrainLogic *TheTerrainLogic;
 extern Display *TheDisplay;
