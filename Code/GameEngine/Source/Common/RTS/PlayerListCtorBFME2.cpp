@@ -8,13 +8,16 @@
 #include "ascii_string.h"
 typedef bool Bool;
 #include "subsystem_interface.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
 class Player {public:Player(int);private:char bytes[0x758];};
 class PlayerList : public SubsystemInterface, public Snapshot {
 public:
  PlayerList();virtual ~PlayerList();virtual void init();virtual void reset();virtual void update();
  virtual void newGame();virtual void newMap();virtual void rva002A7ACE();
-protected:virtual void crc(Xfer*);virtual void xfer(Xfer*);virtual void loadPostProcess();
+ virtual void DoXfer(Xfer*);
+protected:virtual void LoadPostProcess();virtual const char*GetSnapshotName()const;
 private:Player*local;int count;Player*players[20];
 };
 PlayerList::PlayerList():local(0),count(0) {for(int i=0;i<20;++i)players[i]=new Player(i);init();}

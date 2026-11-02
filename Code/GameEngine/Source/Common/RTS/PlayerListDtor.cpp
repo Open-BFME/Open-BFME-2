@@ -25,6 +25,11 @@ typedef bool Bool;
 // BFME 2's Snapshot has a virtual destructor (the deleting-destructor
 // adjustor thunk at 0x002A7ECD sits in PlayerList's Snapshot table) whose
 // inline body only restores Snapshot's vptr (??_7Snapshot@@6B@, 0x00BBB554).
+// Spell Snapshot's slots as PlayerList's retail owners: slot 1 the empty
+// post-load fold 0x000B3FD0, slot 2 the name getter 0x002A7A23, slot 3
+// DoXfer 0x002A7D63 (table 0x00BFD604).
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
 
 class Player
@@ -44,10 +49,11 @@ public:
 	virtual void newMap();	// retail slot 15, 0x002A7AE6
 	virtual void rva002A7ACE();	// retail slot 16, 0x002A7ACE
 
+	virtual void DoXfer(Xfer *xfer);	// Snapshot slot 3, 0x002A7D63
+
 protected:
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
+	virtual void LoadPostProcess();	// Snapshot slot 1, 0x000B3FD0
+	virtual const char *GetSnapshotName() const;	// Snapshot slot 2, 0x002A7A23
 
 private:
 	Player *m_local; // +0x10
@@ -66,4 +72,10 @@ PlayerList::~PlayerList()
 	}
 
 	ThePlayerList = 0;
+}
+
+// Retail Snapshot slot 1 of table 0x00BFD604 is the shared one-byte RET at
+// 0x000B3FD0 (identical-code fold).
+void PlayerList::LoadPostProcess()
+{
 }

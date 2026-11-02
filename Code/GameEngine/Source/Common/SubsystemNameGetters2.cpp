@@ -90,7 +90,6 @@ const char *LivingWorldRegionManager::GetSnapshotName() const
 BFME_LITERAL_NAME_GETTER(SkirmishGameInfo, "SkirmishGameInfo")
 BFME_LITERAL_NAME_GETTER(Rva0028CBDBNamed, "ObjectWeaponStatusHelper")
 BFME_LITERAL_NAME_GETTER(ObjectSMCHelper, "ObjectSMCHelper")
-BFME_LITERAL_NAME_GETTER(Rva002A7A23Named, "PlayerList")
 BFME_LITERAL_NAME_GETTER(Rva002A92E4Named, "SkirmishAIManager")
 BFME_LITERAL_NAME_GETTER(Rva002AC360Named, "LightPointSystem")
 BFME_SNAPSHOT_NAME_GETTER(PlayerRelationMap, "PlayerRelationMap")

@@ -20,6 +20,7 @@ class UpgradeTemplate;
 enum Relationship;
 enum UpgradeStatusType;
 class Player;
+class Team;
 class AIPlayer;
 class Object;
 class Waypoint;
@@ -60,6 +61,7 @@ public:
  virtual bool rslot05();
  // Existing matched nonvirtual Player row signatures; no new layout or slots.
  Relationship getRelationship(const Player *) const;
+ Relationship getRelationship(const Team *) const; // 0x002AD0C6
  float getProductionCostChangeBasedOnUpgradeDiscount(AsciiString) const;
  void becomingLocalPlayer(bool);
  int iterateObjects(int (*)(Object *, void *), void *) const;
