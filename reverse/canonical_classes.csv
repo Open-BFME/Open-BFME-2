@@ -304,3 +304,4 @@ RenderInfoClass,Code/Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h,existing h
 Keyboard,Code/GameEngine/Include/GameClient/KeyboardClass.h,existing header; contract class_contracts/Keyboard.json; 23/33 sampled units adopt
 NetworkInterface,Code/GameEngine/Include/GameNetwork/NetworkInterfaceClass.h,existing header; contract class_contracts/NetworkInterface.json; 5/34 sampled units adopt
 DataChunkOutput,Code/GameEngine/Include/Common/DataChunkOutput.h,existing header; contract class_contracts/DataChunkOutput.json; 34/38 sampled units adopt
+MultiplayerSettings,Code/GameEngine/Include/GameNetwork/MultiplayerSettingsClass.h,existing header; contract class_contracts/MultiplayerSettings.json; 21/31 sampled units adopt

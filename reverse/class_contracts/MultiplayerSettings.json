@@ -1,0 +1,803 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MultiplayerSettings",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 31,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x84": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xc4": 2
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3811d8"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x8191b8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3811d8"
+     ],
+     "value": 68
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3811d8"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       1
+      ],
+      "0x1d": [
+       1
+      ],
+      "0x1e": [
+       1
+      ],
+      "0x1f": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3811d8"
+     ],
+     "value": {
+      "0x34": [
+       "??0?$map@HVMultiplayerColorDefinition@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x44": [
+       "??0MultiplayerColorDefinition@@QAE@XZ"
+      ],
+      "0x84": [
+       "??0MultiplayerColorDefinition@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3811d8"
+     ],
+     "value": {
+      "0x0": "0x8191b8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8191b8"
+     ],
+     "value": {
+      "count": 15,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GMultiplayerSettings@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x381277"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 9,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": null,
+        "slot": 14,
+        "target": "0x25006d"
+       }
+      ],
+      "table": "0x8191b8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x8191b8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GMultiplayerSettings@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "??1Region2D@@QAE@XZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "0x25006d"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 5,
+  "view_sizes": {
+   "1": 8,
+   "24": 1,
+   "68": 13,
+   "196": 4
+  },
+  "views": 26,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_MultiplayerSettings.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MultiplayerSettings.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_pre38",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 56,
+   "type": "uchar[56]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_name.m_text",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_startCountdownTimerSeconds",
+   "name_by": "tie",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maxBeaconsPerPlayer",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_isShroudInMultiplayer",
+   "name_by": "tie",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_showRandomPlayerTemplate",
+   "name_by": "majority",
+   "offset": 29,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_showRandomStartPos",
+   "name_by": "majority",
+   "offset": 30,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_showRandomColor",
+   "name_by": "majority",
+   "offset": 31,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_initialCredits",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 20,
+   "type": "int[20]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_colorList._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<int const ,MultiplayerColorDefinition> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_colorCount",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_3c",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numColors",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 15,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiplayerSettings.cpp",
+    "Code/GameEngine/Source/Common/MultiplayerSettingsFindColorByName.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "196:A": 1,
+    "4:VPTR": 1,
+    "52:A": 1,
+    "56:A": 1
+   },
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "name@0x14",
+   "candidates": {
+    "m_maxBeaconsPerPlayer": 1,
+    "m_startCountdownTimerSeconds": 1
+   },
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "name@0x1c",
+   "candidates": {
+    "m_isShroudInMultiplayer": 1,
+    "m_shroudInMultiplayer": 1
+   },
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "m_name.m_text": 1
+   },
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "m_colorList._M_t._M_header._M_data": 2
+   },
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x8",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x14",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x18",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x1c",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x1d",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x1e",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x1f",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x20",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  },
+  {
+   "attribute": "straddle@0x34",
+   "candidates": {},
+   "class": "MultiplayerSettings"
+  }
+ ],
+ "size": 68,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
