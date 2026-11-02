@@ -383,6 +383,17 @@ codex-01a1071d at 22:38, and lk18 claimed it.
   - `link_check` over 527 State-family units gives 482/527 and 584,501 B both before and after. The
     class key moves no bytes by itself.
 
+Landed (2026-11-02, lk18), item 1 step B for ten units. These are lk17's banked
+`step-b-v2-nine-ctors.patch` and `step-b-v2-aistatemachinector.patch`, applied unchanged on the class
+key: AttackFireWhileChargingMachine, AIGuardMachineCtor, AIGuardRetaliateMachineCtor,
+Rva00544C51MachineCtor, AttackStateMachine, AttackMeleeStateMachine, AITNGuardMachineCtor,
+Rva00343756Ctor, Rva0033FC0ACtor and AIStateMachineCtor.
+- Each unit includes `StateMachineClass.h`, so its `??_7` machine table equals
+  Rva004D759CDerived.cpp's 16-slot copy. Its `new`-only states keep opaque, size-preserving views.
+- Verified: `./build.sh` passes 141/141 rows; find_declared_unmatched and class_gate are clean.
+- `link_check` over 527 State-family units: 482 -> 492 link, 584,501 -> 591,265 B (+6,764). All ten
+  link again, and none is lost.
+
 New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
 `??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
 under the name `??_7BridgeBehavior@@6BBehaviorModuleInterface@@@`. Rebinding the ctor's

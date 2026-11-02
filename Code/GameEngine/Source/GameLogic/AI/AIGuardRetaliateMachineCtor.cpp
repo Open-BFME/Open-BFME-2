@@ -15,26 +15,8 @@ typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
-class State
-{
-public:
-	virtual ~State();
-};
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-protected:
-	unsigned char m_pad04[0x3C - 0x04];
-};
+#include "../../../Include/Common/StateConditionInfo.h"
+#include "../../../Include/Common/StateMachineClass.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &c)
@@ -49,19 +31,19 @@ enum
 	AI_GUARD_RETALIATE_ATTACK_AGGRESSOR = 5005,
 	EXIT_MACHINE_WITH_SUCCESS = 9998
 };
-class AIGuardRetaliateAttackAggressorState : public State
+class AIGuardRetaliateAttackAggressorState
 {
 public:
 	AIGuardRetaliateAttackAggressorState(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x44 - 0x04];
+	unsigned char m_pad00[0x44];
 };
-class AIGuardRetaliateReturnState : public State
+class AIGuardRetaliateReturnState
 {
 public:
 	AIGuardRetaliateReturnState(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x50 - 0x04];
+	unsigned char m_pad00[0x50];
 };
 class AIGuardRetaliateMachine : public StateMachine
 {
@@ -84,13 +66,13 @@ AIGuardRetaliateMachine::AIGuardRetaliateMachine(Object *owner) : StateMachine(o
 {
 	static const StateConditionInfo attackAggressors[] =
 	{
-		{ (void *)rva0047A699, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, NULL },
+		{ rva0047A699, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 
 	zeroCoord3D(m_positionToGuard);
 
 	// order matters: first state is the default state.
-	defineState( AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, new AIGuardRetaliateAttackAggressorState( this ), AI_GUARD_RETALIATE_RETURN, AI_GUARD_RETALIATE_RETURN );
-	defineState( AI_GUARD_RETALIATE_RETURN, new AIGuardRetaliateReturnState( this ), EXIT_MACHINE_WITH_SUCCESS, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, attackAggressors );
+	defineState( AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, (State *)new AIGuardRetaliateAttackAggressorState( this ), AI_GUARD_RETALIATE_RETURN, AI_GUARD_RETALIATE_RETURN );
+	defineState( AI_GUARD_RETALIATE_RETURN, (State *)new AIGuardRetaliateReturnState( this ), EXIT_MACHINE_WITH_SUCCESS, AI_GUARD_RETALIATE_ATTACK_AGGRESSOR, attackAggressors );
 }

@@ -25,20 +25,7 @@ struct StateConditionInfo
 	StateID m_toStateID;
 	void *m_userData;
 };
-class State
-{
-public:
-	virtual ~State();
-};
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-protected:
-	unsigned char m_pad04[0x3C - 0x04];
-};
+#include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_26 = 0x26
@@ -83,54 +70,54 @@ public:
 class Rva00346D17Attack : public Rva00346D17AttackHead, public Rva00346D17AttackInterface
 {
 };
-class Rva0033F3B6 : public State
+class Rva0033F3B6
 {
 public:
 	Rva0033F3B6(StateMachine *machine, Bool attackingObject, Bool forceAttacking);
 private:
-	unsigned char m_pad04[0x24 - 0x04];
+	unsigned char m_pad00[0x24];
 };
-class Rva0033F483 : public State
+class Rva0033F483
 {
 public:
 	Rva0033F483(StateMachine *machine, int attackInterface);
 private:
-	unsigned char m_pad04[0x28 - 0x04];
+	unsigned char m_pad00[0x28];
 };
-class Rva0033F43D : public State
+class Rva0033F43D
 {
 public:
 	Rva0033F43D(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x20 - 0x04];
+	unsigned char m_pad00[0x20];
 };
-class Rva004D74AC : public State
+class Rva004D74AC
 {
 public:
 	Rva004D74AC(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x20 - 0x04];
+	unsigned char m_pad00[0x20];
 };
-class Rva004D7491 : public State
+class Rva004D7491
 {
 public:
 	Rva004D7491(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x20 - 0x04];
+	unsigned char m_pad00[0x20];
 };
-class AIAttackPursueTargetState : public State
+class AIAttackPursueTargetState
 {
 public:
 	AIAttackPursueTargetState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking);
 private:
-	unsigned char m_pad04[0x64 - 0x04];
+	unsigned char m_pad00[0x64];
 };
-class AIAttackApproachTargetState : public State
+class AIAttackApproachTargetState
 {
 public:
 	AIAttackApproachTargetState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking);
 private:
-	unsigned char m_pad04[0x74 - 0x04];
+	unsigned char m_pad00[0x74];
 };
 class AttackStateMachine : public StateMachine
 {
@@ -195,9 +182,9 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 		{ NULL, 0, NULL }	// keep last
 	};
 
-	defineState( AIM_AT_TARGET, new Rva0033F3B6( this, attackingObject, forceAttacking ), FIRE_WEAPON, EXIT_MACHINE_WITH_FAILURE, attackingObject ? objectConditions : positionConditions );
-	defineState( FIRE_WEAPON, new Rva0033F483( this, (int)static_cast<Rva00346D17AttackInterface *>(att) ), REAIM_TARGET, CHASE_TARGET, attackingObject ? objectConditions : positionConditions );
-	defineState( REAIM_TARGET, new Rva0033F43D( this ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+	defineState( AIM_AT_TARGET, (State *)new Rva0033F3B6( this, attackingObject, forceAttacking ), FIRE_WEAPON, EXIT_MACHINE_WITH_FAILURE, attackingObject ? objectConditions : positionConditions );
+	defineState( FIRE_WEAPON, (State *)new Rva0033F483( this, (int)static_cast<Rva00346D17AttackInterface *>(att) ), REAIM_TARGET, CHASE_TARGET, attackingObject ? objectConditions : positionConditions );
+	defineState( REAIM_TARGET, (State *)new Rva0033F43D( this ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
 	// A same-valued template expression preserves retail's separate bit tests.
 	if (((this ? obj->m_template : obj->m_template)->m_kind108 & 4) == 0)
 	{
@@ -208,21 +195,21 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 				{ (void *)inWeaponRangeObject, AIM_AT_TARGET, NULL },
 				{ NULL, 0, NULL }	// keep last
 			};
-			defineState( CHASE_TARGET, new Rva004D74AC( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE, portableStructureChaseConditions );
+			defineState( CHASE_TARGET, (State *)new Rva004D74AC( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE, portableStructureChaseConditions );
 		}
 		else if (attackingObject)
 		{
-			defineState( CHASE_TARGET, new AIAttackPursueTargetState( this, follow, attackingObject, forceAttacking ), APPROACH_TARGET, APPROACH_TARGET );
-			defineState( APPROACH_TARGET, new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+			defineState( CHASE_TARGET, (State *)new AIAttackPursueTargetState( this, follow, attackingObject, forceAttacking ), APPROACH_TARGET, APPROACH_TARGET );
+			defineState( APPROACH_TARGET, (State *)new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
 		}
 		else
 		{
-			defineState( CHASE_TARGET, new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
-			defineState( APPROACH_TARGET, new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+			defineState( CHASE_TARGET, (State *)new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
+			defineState( APPROACH_TARGET, (State *)new AIAttackApproachTargetState( this, follow, attackingObject, forceAttacking ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
 		}
 	}
 	else
 	{
-		defineState( CHASE_TARGET, new Rva004D7491( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE );
+		defineState( CHASE_TARGET, (State *)new Rva004D7491( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE );
 	}
 }

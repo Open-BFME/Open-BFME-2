@@ -12,26 +12,8 @@ typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
-class State
-{
-public:
-	virtual ~State();
-};
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-protected:
-	unsigned char m_pad04[0x3C - 0x04];
-};
+#include "../../../Include/Common/StateConditionInfo.h"
+#include "../../../Include/Common/StateMachineClass.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &c)
@@ -41,47 +23,47 @@ static __forceinline void zeroCoord3D(Coord3D &c)
 	c.z = 0.0f;
 }
 
-class Rva00545DB0 : public State
+class Rva00545DB0
 {
 public:
 	Rva00545DB0(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x58 - 0x04];
+	unsigned char m_pad00[0x58];
 };
-class Rva00545B4F : public State
+class Rva00545B4F
 {
 public:
 	Rva00545B4F(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x30 - 0x04];
+	unsigned char m_pad00[0x30];
 };
-class AITNGuardInnerState : public State
+class AITNGuardInnerState
 {
 public:
 	AITNGuardInnerState(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x30 - 0x04];
+	unsigned char m_pad00[0x30];
 };
-class Rva00545D7E : public State
+class Rva00545D7E
 {
 public:
 	Rva00545D7E(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x2C - 0x04];
+	unsigned char m_pad00[0x2C];
 };
-class Rva0036804F : public State
+class Rva0036804F
 {
 public:
 	Rva0036804F(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x50 - 0x04];
+	unsigned char m_pad00[0x50];
 };
-class AITNGuardAttackAggressorState : public State
+class AITNGuardAttackAggressorState
 {
 public:
 	AITNGuardAttackAggressorState(StateMachine *machine);
 private:
-	unsigned char m_pad04[0x2C - 0x04];
+	unsigned char m_pad00[0x2C];
 };
 class AITNGuardMachine : public StateMachine
 {
@@ -99,17 +81,17 @@ AITNGuardMachine::AITNGuardMachine(Object *owner) : StateMachine(owner, 0x91632a
 {
 	static const StateConditionInfo g_condC6A2FC[] =
 	{
-		{ (void *)rva00545F10, 5005, NULL },
+		{ rva00545F10, 5005, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 	m_nemesisToAttack = 0;
 	m_4C = 0;
 	zeroCoord3D(m_positionToGuard);
 	// order matters: first state is the default state.
-	defineState( 5003, new Rva00545DB0( this ), 5001, 5000, g_condC6A2FC );
-	defineState( 5001, new Rva00545B4F( this ), 5000, 5003 );
-	defineState( 5000, new AITNGuardInnerState( this ), 5002, 5002, g_condC6A2FC );
-	defineState( 5002, new Rva00545D7E( this ), 5004, 5004 );
-	defineState( 5004, new Rva0036804F( this ), 5003, 5003 );
-	defineState( 5005, new AITNGuardAttackAggressorState( this ), 5003, 5003 );
+	defineState( 5003, (State *)new Rva00545DB0( this ), 5001, 5000, g_condC6A2FC );
+	defineState( 5001, (State *)new Rva00545B4F( this ), 5000, 5003 );
+	defineState( 5000, (State *)new AITNGuardInnerState( this ), 5002, 5002, g_condC6A2FC );
+	defineState( 5002, (State *)new Rva00545D7E( this ), 5004, 5004 );
+	defineState( 5004, (State *)new Rva0036804F( this ), 5003, 5003 );
+	defineState( 5005, (State *)new AITNGuardAttackAggressorState( this ), 5003, 5003 );
 }

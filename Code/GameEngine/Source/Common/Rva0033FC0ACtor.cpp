@@ -12,48 +12,37 @@ class Object;
 
 #include "../../Include/Common/StateConditionInfo.h"
 
-class State
-{
-public:
-	virtual ~State();
-	char m_pad[0x20 - 4];
-};
-
 class StateMachine;
 
 
-class Rva00342EAC : public State
+class Rva00342EAC
 {
+	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
 public:
 	Rva00342EAC(StateMachine *machine);
 private:
 	char m_extra[0x54 - 0x20];
 };
 
-class Rva0033F6C0 : public State
+class Rva0033F6C0
 {
+	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
 public:
 	Rva0033F6C0(StateMachine *machine);
 private:
 	char m_extra[0x28 - 0x20];
 };
 
-class Rva0034005D : public State
+class Rva0034005D
 {
+	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
 public:
 	Rva0034005D(StateMachine *machine);
 private:
 	char m_extra[0x50 - 0x20];
 };
 
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-	void defineState(unsigned int id, State *state, unsigned int successID,
-		unsigned int failureID, const StateConditionInfo *conditions);
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 extern const void *const g_00C11D50[];
 
@@ -69,10 +58,10 @@ public:
 Rva0033FC0A::Rva0033FC0A(Object *owner, unsigned int key)
 	: StateMachine(owner, key, false)
 {
-	State *state = new Rva00342EAC((StateMachine *)(void *)this);
+	State *state = (State *)new Rva00342EAC((StateMachine *)(void *)this);
 	((StateMachine *)(void *)this)->defineState(0, state, 1, 0x270F, 0);
-	State *s1 = new Rva0033F6C0((StateMachine *)(void *)this);
+	State *s1 = (State *)new Rva0033F6C0((StateMachine *)(void *)this);
 	((StateMachine *)(void *)this)->defineState(1, s1, 2, 0x270F, 0);
-	State *s2 = new Rva0034005D((StateMachine *)(void *)this);
+	State *s2 = (State *)new Rva0034005D((StateMachine *)(void *)this);
 	((StateMachine *)(void *)this)->defineState(2, s2, 0x270E, 0x270E, 0);
 }

@@ -18,19 +18,7 @@ class Object;
 
 class State;
 
-struct StateConditionInfo
-{
-	bool (*test)(State *thisState, void *userData);
-	unsigned int toStateID;
-	void *userData;
-};
-
-class State
-{
-public:
-	virtual ~State();
-	char m_pad[0x20 - 4];
-};
+#include "../../Include/Common/StateConditionInfo.h"
 
 class StateMachine;
 class Rva00343F8A;
@@ -38,8 +26,9 @@ class Rva00343F8A;
 int rva0034373F(State *state, void *);
 bool rva0033FDEB(Rva00343F8A *state, void *data);
 
-class Rva0033F483 : public State
+class Rva0033F483
 {
+	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
 public:
 	Rva0033F483(StateMachine *machine, int arg);
 
@@ -48,20 +37,14 @@ private:
 	int m_24;
 };
 
-class Rva0033F43D : public State
+class Rva0033F43D
 {
+	unsigned char m_stateBytes[0x20]; // the 0x20-byte State base this view stands in for
 public:
 	Rva0033F43D(StateMachine *machine);
 };
 
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-	void defineState(unsigned int id, State *state, unsigned int successID,
-		unsigned int failureID, const StateConditionInfo *conditions);
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class AttackContesterStateMachine : public StateMachine
 {
@@ -80,8 +63,8 @@ AttackContesterStateMachine::AttackContesterStateMachine(Object *owner, int val,
 		{ 0, 0, 0 } // keep last
 	};
 
-	State *state = new Rva0033F483((StateMachine *)(void *)this, val ? val + 0x20 : 0);
+	State *state = (State *)new Rva0033F483((StateMachine *)(void *)this, val ? val + 0x20 : 0);
 	((StateMachine *)(void *)this)->defineState(0x1F4, state, 0x1F5, 0x270F, conditions);
-	State *s2 = new Rva0033F43D((StateMachine *)(void *)this);
+	State *s2 = (State *)new Rva0033F43D((StateMachine *)(void *)this);
 	((StateMachine *)(void *)this)->defineState(0x1F5, s2, 0x1F4, 0x270F, conditions);
 }

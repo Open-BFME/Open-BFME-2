@@ -10,18 +10,7 @@
 // feeding rowed defineState directly (B952-family shape). Too few constants
 // to keep ebx, so the zeros ride as immediates and the dead state reset
 // takes whatever bl holds.
-class Object;
-class State;
-struct StateConditionInfo;
-
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
-};
-
+#include "../../../Include/Common/StateMachineClass.h"
 
 // Rowed 0x00343042 as AIChargeTargetState::AIChargeTargetState (AIStateRva0034005DCtor.cpp).
 class AIChargeTargetState
