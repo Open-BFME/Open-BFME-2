@@ -17132,7 +17132,7 @@ donors defined:
 | Unit | B | Missing name | Status |
 |---|---:|---|---|
 | Common/RTS/PlayerList.cpp | 292 | `?removeTeamRelationship@Player@@QAE_NPBVTeam@@@Z` | repaired (below) |
-| Common/RTS/RelationMapXfer.cpp | 654 | `??A?$hash_map@IW4Relationship@@...` (`hash_map<unsigned,Relationship>::operator[]`) | blocked: file held by StarkillerHDX |
+| Common/RTS/RelationMapXfer.cpp | 654 | `??A?$hash_map@IW4Relationship@@...` (`hash_map<unsigned,Relationship>::operator[]`) | repaired 2026-11-02 (lk15, below) |
 | Object/SpecialPower/SpecialPowerModule.cpp | 36 | `?getOrStartSpecialPowerReadyFrame@Player@@...`, `?resetOrStartSpecialPowerReadyFrame@Player@@...` | repaired (below) |
 
 PlayerList.cpp: the only caller was its own unrowed Zero Hour `PlayerList::teamAboutToBeDeleted`
@@ -17148,6 +17148,15 @@ RelationMapXfer.cpp declares `template <> Relationship &hash_map<unsigned int, R
 that provider's only emitter (index: one COMDAT, two touching objects). Next check (needs the file):
 drop that declaration-only specialization so the unit emits its own subscript, then recheck the
 helpers it instantiates against their declared-only suppressions.
+Repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`): dropping the specialization alone
+is not enough: the emitted subscript then needs `resize` and `_M_new_node` for the unsigned-key
+table, whose own declaration-only suppressions also had the removed Player donors as their only
+provider (index: no object defines either). symbols.csv pins the subscript itself at 0x0041F4E5,
+the ICF-shared find-or-insert rowed as `?findSlot@ObjectLookupMap@@QAEPAPAVObject@@PAH@Z`
+(ObjectLookupMapFindSlot.cpp, retail-proven copy), the provider PlayerRelationMap::xfer and
+rva002ADE71 in the same unit already call through that view. TeamRelationMap::xfer now does the
+same and the dead specialization is gone. `./build.sh` 6/6 rows (same bytes, same 0x0041F4E5
+callee); scoped DIR32 OK; `link_check` RelationMapXfer 0 -> 654 B. Census confirmation: pending.
 
 SpecialPowerModule.cpp: three unrowed Zero Hour bodies (getPercentReady, startPowerRecharge,
 getReadyFrame) called the two removed donor timers. Dropping them is not an option: the linked

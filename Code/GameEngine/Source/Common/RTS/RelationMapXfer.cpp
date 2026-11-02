@@ -139,10 +139,6 @@ void XferRelationship( Xfer *xfer, Int *value );
 typedef _STL::hash_map< Int, Relationship, _STL::hash<Int>, _STL::equal_to<Int> > PlayerRelationMapType;
 typedef _STL::hash_map< UnsignedInt, Relationship, _STL::hash<UnsignedInt>, _STL::equal_to<UnsignedInt> > TeamRelationMapType;
 
-// Player.cpp supplies the same team-relation subscript provider.
-namespace _STL {
-template <> Relationship &hash_map<unsigned int, Relationship>::operator[](const unsigned int &);
-}
 
 // ------------------------------------------------------------------------------------------------
 // Copy helper views use existing ICF-owned hash providers. The lookup's
@@ -290,8 +286,9 @@ void TeamRelationMap::xfer( Xfer *xfer )
 			// read relationship
 			XferRelationship( xfer, &r );
 
-			// assign relationship
-			m_map[ teamID ] = (Relationship)r;
+			// The retail find-or-insert at 41F4E5 owns this four-byte slot (symbols.csv pins
+			// this map's operator[] there; its only other emitter was a removed Player donor).
+			*reinterpret_cast<Relationship*>(reinterpret_cast<ObjectLookupMap*>(&m_map)->findSlot(reinterpret_cast<Int*>(&teamID))) = (Relationship)r;
 
 		}  // end for, i
 
