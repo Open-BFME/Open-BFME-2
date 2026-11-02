@@ -9,7 +9,7 @@
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
 class MemoryPoolObject;
-class AsciiString;
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 struct Coord3D;
 class Object;
 class Xfer;
