@@ -786,7 +786,7 @@ Code/GameEngine/Source/Common/ConstIntGetters6.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters8.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters8Addr.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/ConstIntGetters9.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,no,0,0,0,195,0
+Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,no,0,0,0,130,0
 Code/GameEngine/Source/Common/Containers/BfmeVectorRecord000BDF17Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Containers/Rva000C781ERecordGrowth.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Containers/Rva00311974SplineGet.cpp,yes,0,0,0,0,0
@@ -4246,8 +4246,6 @@ Code/GameEngine/Source/Common/Rva004A1855Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004A33EEWalk.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004A3F8BXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004A4580Mark.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004A7E43Slot.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva004A7FC5Slot.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004A8091Xfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004A82F5Topple.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva004A9660Delay.cpp,yes,0,0,0,0,0
@@ -10524,7 +10522,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieFriendN
 Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DestroyDie.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDeletingDtors.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp,yes,0,0,0,0,0
@@ -11603,16 +11601,14 @@ Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateModuleDataFr
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateComputeApproachPosition.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateXfer.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp,no,13,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp,no,11,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RepairDockUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Rva005839A7IdResize.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp,no,7,0,2,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdateXfer.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateInstanceNew.cpp,yes,0,0,0,0,0
@@ -12130,7 +12126,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/SupplyTruckAIUpdateInstanceNew.cp
 Code/GameEngine/Source/GameLogic/Object/Update/SupplyWarehouseCripplingBehaviorCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SupplyWarehouseDockUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SupplyWarehouseDockUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/SupplyWarehouseDockUpdatePoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SwayClientUpdateFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
@@ -13153,7 +13148,7 @@ Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp,
 Code/GameEngine/Source/GameLogic/System/GameLogicSetFPMode.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/GameLogic_clearGameData.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystem.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystemCtorDeferred.cpp,no,2,0,0,0,0
+Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystemCtorDeferred.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LightPointSystem.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignCarryoverInsert.cpp,yes,0,0,0,0,0
