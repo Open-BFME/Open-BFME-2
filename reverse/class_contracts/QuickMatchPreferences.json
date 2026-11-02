@@ -1,0 +1,296 @@
+{
+ "bases": [
+  "UserPreferences"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "QuickMatchPreferences",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [
+    "_STL::map<AsciiString,AsciiString,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const ,AsciiString> > >"
+   ],
+   "zh": null
+  },
+  "census": 23,
+  "inherited": {
+   "base_views": 7,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5df1a3"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UserPreferences",
+       "offset": 0,
+       "own_vftable": "0x8776dc",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5df1a3"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5df1a3"
+     ],
+     "value": {
+      "0x0": [
+       "?load@UserPreferences@@UAE_NABVAsciiString@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5df1a3"
+     ],
+     "value": {
+      "0x0": "0x8776dc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8776dc"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GQuickMatchPreferences@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5df187"
+       },
+       {
+        "name": "?load@UserPreferences@@UAE_NABVUnicodeString@@@Z",
+        "slot": 1,
+        "target": "0x3b2026"
+       },
+       {
+        "name": "?load@UserPreferences@@UAE_NABVAsciiString@@@Z",
+        "slot": 2,
+        "target": "0x3b1a09"
+       },
+       {
+        "name": "?write@UserPreferences@@UAE_NXZ",
+        "slot": 3,
+        "target": "0x3b1bf3"
+       },
+       {
+        "name": "?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z",
+        "slot": 4,
+        "target": "0x3b1dbe"
+       },
+       {
+        "name": "?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z",
+        "slot": 5,
+        "target": "0x3b1a67"
+       },
+       {
+        "name": "?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z",
+        "slot": 6,
+        "target": "0x3b1ac7"
+       },
+       {
+        "name": "?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z",
+        "slot": 7,
+        "target": "0x3b1cee"
+       },
+       {
+        "name": "?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z",
+        "slot": 8,
+        "target": "0x3b1fa1"
+       },
+       {
+        "name": "?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z",
+        "slot": 9,
+        "target": "0x3b1b20"
+       },
+       {
+        "name": "?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z",
+        "slot": 10,
+        "target": "0x3b1b65"
+       },
+       {
+        "name": "?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z",
+        "slot": 11,
+        "target": "0x3b1bae"
+       },
+       {
+        "name": "?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z",
+        "slot": 12,
+        "target": "0x3b21a6"
+       }
+      ],
+      "table": "0x8776dc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 23,
+  "retail_vtables": {
+   "0x8776dc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GQuickMatchPreferences@@UAEPAXI@Z",
+     "1": "?load@UserPreferences@@UAE_NABVUnicodeString@@@Z",
+     "2": "?load@UserPreferences@@UAE_NABVAsciiString@@@Z",
+     "3": "?write@UserPreferences@@UAE_NXZ",
+     "4": "?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z",
+     "5": "?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z",
+     "6": "?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z",
+     "7": "?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z",
+     "8": "?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z",
+     "9": "?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z",
+     "10": "?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z",
+     "11": "?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z",
+     "12": "?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 1,
+   "8": 1,
+   "16": 14,
+   "20": 6
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_QuickMatchPreferences.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/QuickmatchPreferences.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "_M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<AsciiString const ,AsciiString> >*",
+   "views": 19,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "_M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<AsciiString>",
+   "name": "_M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<AsciiString>",
+   "views": 15,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp",
+    "Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 20]]": 3,
+    "[[16, 20]]": 2,
+    "[[4, 20]]": 1,
+    "[[4, 8]]": 1
+   },
+   "class": "QuickMatchPreferences"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "_M_t._M_header._M_data": 19
+   },
+   "class": "QuickMatchPreferences"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "_M_t._M_node_count": 15
+   },
+   "class": "QuickMatchPreferences"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "_M_t._M_key_compare": 15
+   },
+   "class": "QuickMatchPreferences"
+  }
+ ],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
