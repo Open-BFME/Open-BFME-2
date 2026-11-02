@@ -1,0 +1,278 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MultiplayerColorDefinition",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 37,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x380c4e",
+      "0x380d30"
+     ],
+     "value": {
+      "0x0": [
+       "?$StringBase@D"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 5,
+   "4": 3,
+   "20": 11,
+   "36": 2,
+   "60": 1,
+   "61": 1,
+   "64": 11
+  },
+  "views": 34,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_MultiplayerColorDefinition.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MultiplayerSettings.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_tooltipName",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:RGBColor",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_rgbValue",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "RGBColor",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_color",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 24,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RGBColor",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_rgbValueNight",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 12,
+   "type": "RGBColor",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_colorNight",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RGBColor",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_rgbExtra1",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 12,
+   "type": "RGBColor",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RGBColor",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "red",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "green",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "blue",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_rgbExtra2",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 12,
+   "type": "RGBColor",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_extraFlag",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 12,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 75
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 64,
+ "size_by": "majority",
+ "vslots": {}
+}
