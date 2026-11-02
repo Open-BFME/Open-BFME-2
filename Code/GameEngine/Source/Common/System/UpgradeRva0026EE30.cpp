@@ -13,14 +13,7 @@ extern class Rva002A8F24 *TheSkirmishAIManager;
 extern float g_Va00BBB8D8;
 extern int BfmeLogicFramesPerSecond;
 
-class UpgradeTemplate
-{
-public:
-	int rva0026EE30(void *, void *);
-private:
-	char m_pad[0x30];
-	float m_factor30;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 int UpgradeTemplate::rva0026EE30(void *arg1, void *arg2)
 {
@@ -36,12 +29,12 @@ int UpgradeTemplate::rva0026EE30(void *arg1, void *arg2)
 			else
 				v = base;
 			float r = base - v;
-			r *= m_factor30;
+			r *= m_buildTime;
 			r *= (float)BfmeLogicFramesPerSecond;
 			return (int)r;
 		}
 	}
 	float r2 = (float)BfmeLogicFramesPerSecond;
-	r2 *= m_factor30;
+	r2 *= m_buildTime;
 	return (int)r2;
 }

@@ -49,19 +49,7 @@ enum UpgradeType
     UPGRADE_TYPE_OBJECT
 };
 
-class UpgradeTemplate
-{
-public:
-    virtual ~UpgradeTemplate();
-
-    UpgradeType getUpgradeType() const
-    {
-        return m_type;
-    }
-
-private:
-    UpgradeType m_type;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class ProductionPrerequisite
 {

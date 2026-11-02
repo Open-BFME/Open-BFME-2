@@ -10,21 +10,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 AsciiString __cdecl getVetUpgradeName(VeterancyLevel v);
-class UpgradeTemplate
-{
-public:
-	void friend_makeVeterancyUpgrade(VeterancyLevel v);
-private:
-	char m_pad00[4];
-	int m_type;
-	AsciiString m_name;
-	int m_nameKey;
-	char m_pad10[0x18];
-	AsciiString m_displayNameLabel;
-	char m_pad2c[4];
-	float m_buildTime;
-	int m_cost;
-};
+#include "../../../Include/Common/Upgrade.h"
 void UpgradeTemplate::friend_makeVeterancyUpgrade(VeterancyLevel v)
 {
 	m_type = UPGRADE_TYPE_OBJECT;
