@@ -86,12 +86,7 @@ public:
 
 typedef void (*IterateSaveFileCallback)(UnicodeString filename, void *userData);
 
-class GameState
-{
-public:
-	void *rva002DBC97Get(int saveType);
-	void iterateSaveFiles(IterateSaveFileCallback callback, void *userData, int saveType);
-};
+#include "../../../../Include/Common/GameState.h"
 
 void GameState::iterateSaveFiles(IterateSaveFileCallback callback, void *userData, int saveType)
 {

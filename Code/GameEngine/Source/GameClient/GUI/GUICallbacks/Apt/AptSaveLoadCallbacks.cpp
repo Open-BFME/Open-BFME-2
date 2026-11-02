@@ -110,12 +110,7 @@ private:
 // The 0x00436FF6 else branch loads the singleton at 0x00DFF08C into ECX and
 // passes the screen's two list pointers, the +0x294 comparison, and +0x2A0
 // to populateSaveGameListbox (rowed in GameStateAutoSave.cpp).
-class GameState
-{
-public:
-	void populateSaveGameListbox(GameWindow *gameList, GameWindow *autoSaveList,
-		bool newSave, int filter);
-};
+#include "../../../../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 
 // TheLivingWorldLogic (Rva003F03C9Fetch.cpp's g_00DFEF10); its rowed

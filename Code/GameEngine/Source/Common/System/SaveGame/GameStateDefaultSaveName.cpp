@@ -35,12 +35,7 @@ public:
 #include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class GameState
-{
-public:
-	UnicodeString rva002DD282(int mode);
-	void *rva002DBC97Get(int mode);
-};
+#include "../../../../Include/Common/GameState.h"
 
 UnicodeString GameState::rva002DD282(int mode)
 {

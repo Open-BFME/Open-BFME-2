@@ -102,7 +102,7 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
-class GameState { public: int rva002DF2F6(const UnicodeString &name); };
+#include "../../../../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 
 #include "../../../../../Include/Common/GameEngine.h"

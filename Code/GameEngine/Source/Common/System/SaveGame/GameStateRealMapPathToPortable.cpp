@@ -42,12 +42,7 @@ extern const char *g_00DBD060;
 
 AsciiString *Rva0030062CGet();
 
-class GameState
-{
-public:
-	AsciiString getMapLeafName(const AsciiString &in) const;
-	AsciiString realMapPathToPortableMapPath(const AsciiString &in) const;
-};
+#include "../../../../Include/Common/GameState.h"
 
 // Local static with same signature as the rowed 0x002DC2DD helper. Defined in
 // this TU so the caller uses the retail static-internal esi-edi convention

@@ -139,12 +139,7 @@ union NativeSaveEnumerationCall {
     void (Rva006007DAFileSystem::*member)(const UnicodeString *, const UnicodeString *, Rva0021C459 *, bool);
 };
 
-class GameState
-{
-public:
-    void *rva002DBC97Get(int saveType);
-    bool getSaveGameInfoFromFile(UnicodeString filename, BfmeSubobject0022CE19 *metadata);
-};
+#include "../../../../GameEngine/Include/Common/GameState.h"
 class FileSystem;
 extern GameState *TheGameState;
 extern FileSystem *TheFileSystem;

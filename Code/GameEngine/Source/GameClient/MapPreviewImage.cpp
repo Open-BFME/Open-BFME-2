@@ -24,7 +24,7 @@ extern FileSystem *TheFileSystem;
 // established ABI; no donor global address or additional pin is carried over.
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
-class GameState {public: AsciiString realMapPathToPortableMapPath(const AsciiString &) const;};
+#include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 class TextureClass {public: void Release_Ref();};
 class BfmeMapPictureTexture {

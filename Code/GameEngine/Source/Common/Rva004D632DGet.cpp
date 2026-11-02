@@ -8,11 +8,7 @@
 
 #include "ascii_string.h"
 
-class GameState
-{
-public:
-	AsciiString portableMapPathToRealMapPath(const AsciiString &in) const;
-};
+#include "../../Include/Common/GameState.h"
 
 extern GameState *TheGameState;
 

@@ -12,11 +12,7 @@
 // The narrow teardown is rowed at 0x00036410 (StringBaseWideReleaseBuffer.cpp).
 template <> StringBase<char>::~StringBase();
 
-class GameState
-{
-public:
-	AsciiString realMapPathToPortableMapPath(const AsciiString &in) const;
-};
+#include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 class Rva004D632D
 {

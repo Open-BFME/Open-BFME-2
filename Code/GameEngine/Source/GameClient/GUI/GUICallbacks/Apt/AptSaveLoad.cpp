@@ -9,15 +9,7 @@
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 class UnicodeString;
 struct TreeHintOpaque0043671B;
-class GameState
-{
-public:
-	void *rva002DBC97Get(int saveType);
-	int determineCurrentGameSaveFileMode();
-	UnicodeString rva002DD282(int mode);
-	void rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm);
-	int rva002DE3C1(TreeHintOpaque0043671B info);
-};
+#include "../../../../../Include/Common/GameState.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #include <stdlib.h>
 #include <windows.h>

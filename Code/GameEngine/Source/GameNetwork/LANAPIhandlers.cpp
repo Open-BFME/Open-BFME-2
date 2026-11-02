@@ -195,11 +195,7 @@ private:
 	UnsignedInt crc;
 };
 
-class GameState
-{
-public:
-	AsciiString realMapPathToPortableMapPath( const AsciiString &in ) const;
-};
+#include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 
 enum

@@ -11,12 +11,7 @@ struct GameLogicFieldView
 	unsigned char m_70;
 };
 extern GameLogic *TheGameLogic;
-class GameState
-{
-public:
-	char m_pad00[0xE18];
-	unsigned char m_E18;
-};
+#include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 int __cdecl Rva000B2CBDGet()
 {
@@ -24,7 +19,7 @@ int __cdecl Rva000B2CBDGet()
 	if (logic != 0 && logic->m_70 != 0)
 		return 1;
 	GameState *state = TheGameState;
-	if (state == 0 || state->m_E18 == 0)
+	if (state == 0 || state->m_isInLoadGame == 0)
 		return 0;
 	return 1;
 }

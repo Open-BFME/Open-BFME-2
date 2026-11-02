@@ -239,7 +239,7 @@ public:
     virtual const UnicodeString *fetchFormat(const char *label, bool *exists = 0);
 };
 extern GameTextInterface *TheGameText;
-class GameState { public: AsciiString portableMapPathToRealMapPath(const AsciiString &path) const; };
+#include "../../../../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 int g_lastJoinedGroupRoomID = -1; // 0x00DD3938: -1 after leaving, 0 in a staging room
 extern int GameSpyColor[2];

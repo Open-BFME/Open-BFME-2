@@ -22,10 +22,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class SnapshotSubsystemPrefix { public: virtual ~SnapshotSubsystemPrefix(); private: char opaque04[8]; };
 class SnapshotSubsystemView : public SnapshotSubsystemPrefix, public Snapshot {};
 enum SnapshotType { SNAPSHOT_SAVELOAD=0, SNAPSHOT_DEEPCRC_LOGICONLY=1, SNAPSHOT_NATIVE3=3, SNAPSHOT_NATIVE4=4 };
-class GameState : public SnapshotSubsystemPrefix, public Snapshot {
-public: virtual void init();
-private: void addSnapshotBlock(AsciiString, Snapshot *, SnapshotType); char opaque10[0xE08]; bool m_isInLoadGame;
-};
+#include "../../../../Include/Common/GameState.h"
 void *Rva0043CCC2Get(); void *Rva004E4312GetRoute();
 class Rva002BA8F1Logic; 
 class AudioManager; extern AudioManager *TheAudio;

@@ -131,14 +131,7 @@ extern GameTextInterface *TheGameText;
 
 extern GameState *TheGameState;
 
-class GameState
-{
-public:
-	AsciiString realMapPathToPortableMapPath(const AsciiString &in) const;
-	AsciiString packPortableMapPath(const AsciiString &in) const;
-	AsciiString unpackPortableMapPath(const AsciiString &path) const;
-	AsciiString portableMapPathToRealMapPath(const AsciiString &path) const;
-};
+#include "../../Include/Common/GameState.h"
 
 extern MapCache *TheMapCache;
 

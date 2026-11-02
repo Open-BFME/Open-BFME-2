@@ -202,11 +202,7 @@ public:
 AsciiString GameInfoToAsciiString(const GameInfo *game, Bool flag);
 _STL::string WideCharStringToMultiByte(const unsigned short *orig);
 
-class GameState
-{
-public:
-	AsciiString realMapPathToPortableMapPath(const AsciiString &in) const;
-};
+#include "../../../Include/Common/GameState.h"
 
 extern GameState *TheGameState;
 

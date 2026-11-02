@@ -72,12 +72,7 @@ struct XferUnknown11;
 // in the string-unit bodies these declarations pin.
 #include "ascii_string.h"
 
-class GameState
-{
-public:
-	AsciiString realMapPathToPortableMapPath(const AsciiString &path) const;
-	AsciiString portableMapPathToRealMapPath(const AsciiString &path) const;
-};
+#include "../../Include/Common/GameState.h"
 
 extern GameState *TheGameState;
 

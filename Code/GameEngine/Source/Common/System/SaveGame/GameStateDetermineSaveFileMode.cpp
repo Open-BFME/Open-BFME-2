@@ -29,11 +29,7 @@ class Rva00210C66CmpBoolField
 public:
 	bool get() const;
 };
-class GameState
-{
-public:
-	int determineCurrentGameSaveFileMode();
-};
+#include "../../../../Include/Common/GameState.h"
 int GameState::determineCurrentGameSaveFileMode()
 {
 	GameLogic *logic = TheGameLogic;

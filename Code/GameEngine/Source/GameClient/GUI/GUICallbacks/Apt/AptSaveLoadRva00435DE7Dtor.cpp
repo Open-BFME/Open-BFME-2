@@ -88,11 +88,7 @@ public:
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
-class GameState
-{
-public:
-	int rva002DE3C1(TreeHintOpaque0043671B info);
-};
+#include "../../../../../Include/Common/GameState.h"
 
 class RecorderClass
 {

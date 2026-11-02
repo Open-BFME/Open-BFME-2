@@ -26,12 +26,7 @@ extern const char *g_00DBD070;
 extern const char *g_00DBD074;
 #include <string.h>
 
-class GameState
-{
-public:
-	AsciiString packPortableMapPath(const AsciiString &in) const;
-	AsciiString unpackPortableMapPath(const AsciiString &in) const;
-};
+#include "../../../../Include/Common/GameState.h"
 
 AsciiString GameState::packPortableMapPath(const AsciiString &in) const
 {

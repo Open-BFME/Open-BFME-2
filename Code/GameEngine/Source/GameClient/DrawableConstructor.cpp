@@ -150,12 +150,7 @@ extern GlobalData *TheWritableGlobalData;
 
 extern GameLogic *TheGameLogic;
 
-class GameState
-{
-public:
-	unsigned char m_pad[0xE18];
-	bool m_isInLoadGame;					// +0xE18
-};
+#include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 
 void Rva00274E7DInit();

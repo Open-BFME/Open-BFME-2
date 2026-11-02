@@ -212,7 +212,7 @@ class Rva001EB73C { public: bool rva001EB73C(); };
 
 class Rva001EB0CAHolder { public: unsigned char rva001EB0D9(); };
 
-class GameState { public: int rva002DD7E6AutoSave(); };
+#include "../../../../../Include/Common/GameState.h"
 
 extern GameState *TheGameState;
 

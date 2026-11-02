@@ -8,12 +8,7 @@
 // saveGame pin 0x002DD38D; address-derived wrapper name.
 #include "unicode_string.h"
 
-class GameState
-{
-public:
-	int saveGame(UnicodeString name, const UnicodeString &text, int save, bool showMessage, int param5);
-	void rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm);
-};
+#include "../../../../Include/Common/GameState.h"
 
 void GameState::rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm)
 {

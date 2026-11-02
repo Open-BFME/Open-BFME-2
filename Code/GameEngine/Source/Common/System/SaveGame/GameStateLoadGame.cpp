@@ -173,18 +173,7 @@ public:
  ~GameLoadLogicFlagScope() { ((GameLoadLogicFlags*)TheGameLogic)->inLoad=false; }
 };
 
-class GameState {
- char m_opaque[0x48];
- int m_saveType;
- char m_toE18[0xE18-0x4C];
- bool m_isInLoadGame;
-public:
- void xferSaveData(Xfer*,SnapshotType);
- void gameStatePostProcessLoad();
- int rva002DE3C1(TreeHintOpaque0043671B);
- int doLoadGame(TreeHintOpaque0043671B);
- static bool s_inLoadGame;
-};
+#include "../../../../Include/Common/GameState.h"
 bool GameState::s_inLoadGame=false;
 int GameState::rva002DE3C1(TreeHintOpaque0043671B info)
 {
@@ -261,8 +250,8 @@ failed:
    ((GameLoadVideoView*)TheVideoPlayer)->slot28();
    return 3;
   }
-  if(m_saveType==4 || m_saveType==6) {
-   InitRandom(0);m_saveType=0;
+  if(m_saveFileType==4 || m_saveFileType==6) {
+   InitRandom(0);m_saveFileType=0;
    ((GameLoadLogicFlags*)TheGameLogic)->suspended=true;
   }
   ((GameLoadAudioView*)TheAudio)->slot17(0x3F,7,0);

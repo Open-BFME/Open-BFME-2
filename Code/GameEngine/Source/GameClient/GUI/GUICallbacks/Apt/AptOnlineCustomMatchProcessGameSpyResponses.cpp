@@ -157,11 +157,7 @@ public:
 };
 extern MapCache *TheMapCache;
 
-class GameState
-{
-public:
-	AsciiString getMapLeafName(const AsciiString &in) const;
-};
+#include "../../../../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 
 struct GameSlotConnectInfo

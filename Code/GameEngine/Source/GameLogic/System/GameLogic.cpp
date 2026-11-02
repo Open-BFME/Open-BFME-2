@@ -760,14 +760,7 @@ public:
 
 };
 extern NetworkInterface *TheNetwork;
-class GameState
-{
-	char m_pad00[0x2c];
-public:
- void rva002DDE43(const UnicodeString&,const UnicodeString&,int,int);
-
-	AsciiString m_pristineMapName;                                       // +0x2C
-};
+#include "../../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

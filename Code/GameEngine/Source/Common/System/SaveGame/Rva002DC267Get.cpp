@@ -113,7 +113,7 @@ bool Rva002DCCFB::rva002DCCFB(UnicodeString filename)
 // reverseFind('\\') at 0x00035930 selects the substring constructor at
 // 0x00037BA0 or copy constructor at 0x000365F0. RET 8 cleans the hidden
 // return buffer and input reference; the body reads no receiver fields.
-class GameState { public: AsciiString getMapLeafName(const AsciiString &in) const; };
+#include "../../../../Include/Common/GameState.h"
 
 AsciiString GameState::getMapLeafName(const AsciiString &in) const
 {
