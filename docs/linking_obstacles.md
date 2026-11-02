@@ -29,6 +29,58 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 6 existing source units adopt registered storage; 10 native/EH rows and 48 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.
 [Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261102-1632.md).
+### LINK-177: header adoptions of dtor-holder units broke 35 census-linked units (2026-11-02, seat halilkkaya-lk15)
+
+Status: Open (analysis; regression). Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
+A current-object `link_check` over all 18,470 present sources the 06:54 census (`357ce2a88f`)
+records as linked: 18,435 link, 7,725,216 -> 7,696,163 B (-29,053 B). Excluding the known
+`__imp_`/`___ImageBase` modelling gaps and a sweep artifact (OpaqueScalarDeletingDtorsB11.cpp's
+`??1LivingWorldBuilding@@UAE@XZ` is defined by Rva004E0D67Dtor.cpp, which the census-linked path
+list omits; checked together they link), the losses share one mechanism: a bulk canonical-header
+adoption (StarkillerHDX, landed after the 06:54 census) moved a unit that holds a family of
+derived destructors onto the canonical base, so it now emits full canonical tables, while each
+class's constructor unit keeps its grandfathered one-slot private base view and emits a one-slot
+copy of the same `??_7` name. The holder sits first in link order (its rows are the lowest), so
+every constructor unit loses (`differs from the first copy`, no retail address).
+
+1. StateMachine family, 12,033 B, cause `936b658f65` (Adopt canonical StateMachine in 34 more
+   units): `Rva004D759CDerived.cpp` (13 derived machine destructors) and `AIStateMachine.cpp` now
+   include `StateMachineClass.h` (16 slots). Losers: AIStateMachineCtor 3,825, AIDock 2,608,
+   SupplyTruckAIUpdate 1,658, AttackStateMachine 654, AIAttackMoveStateMachine 654,
+   TurretStateMachineCtor 562, AttackMeleeStateMachine 479, AIGuardMachineCtor 451,
+   AITNGuardMachineCtor 417, Rva00544C51MachineCtor 214, AIGuardRetaliateMachineCtor 199,
+   Rva00343756Ctor 198, AttackFireWhileChargingMachine 114. Retail (e.g. SupplyTruck 0x008532A8,
+   Turret 0x008609C8, AIGuard 0x00869680, AIDock 0x008699A0) has 16 slots with per-class overrides:
+   slot 2 the class name getter, slot 3 an xfer override, Turret also 5/6/8, AIDock 15. Neither copy
+   is retail's. A private StateMachine copy cannot return to the holder (class registered), so the
+   constructor units must adopt `StateMachineClass.h`. Blockers found: (a) it pulls canonical
+   `class State` (0x20 bytes, abstract: update/GetSnapshotName/xfer pure) over the units' private
+   4-byte `struct State` views, so their derived-state pads and pure overrides need rework;
+   (b) every one of the 25 `defineState` callers and the row 0x004D7B0F spell
+   `?defineState@StateMachine@@QAEXIPAUState@@IIPBUStateConditionInfo@@@Z` (struct State), while the
+   canonical declaration mangles `PAVState@@`: nothing defines that name. The State class-key
+   (struct/class) has to be decided at the class level first (header lane: predicted row-name
+   changes and consumers), then the constructor units adopt both headers with the per-class
+   overrides declared in the holder and in each constructor unit.
+2. Apt GameWindow family, 4,985 B, cause `636533e29f` (Adopt canonical GameWindow in 37 more
+   units): `OpaqueScalarDeletingDtorsB12.cpp` emits 11-slot `6BGameWindow` tables; losers
+   AptMainMenu 3,621, Rva005173F8Dtor 1,121, _bfme_AptGameWindow 243. Their header-queue rows show
+   adoption failures in other classes of the same units (AptCommandMapAdder field renames,
+   BfmeAptWindowManager data row, GlobalData include cycle).
+3. Others of the same shape: AptScriptFunction 3,535 (`??_7Rva006FBC90Owner@@6B@`, 17 vs 15
+   slots, AptValue adoption `1d9e653c6e`), AptMyHero_Unresolved 1,067 (`??_7AptMyHero@@6B@` slot 3
+   `xfer` vs `DoXfer(Xfer&)`: the unit reads a capitalized Snapshot first), MeshLoadContextCtor 2,043
+   and matinfo 644 (`VectorClass<ShaderClass>` copies), MapCacheAddMap 1,191 and
+   MapCacheLoadUserMapsBFME2 1,198 (duplicate and non-retail `MapCache::addMap`),
+   W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
+   FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
+
+Process note: the adoption batches' own link guard predicts only the adopted units; the losers are
+untouched siblings that bind the same COMDAT names. Before adopting a header in a unit that defines
+a class family's destructors, run `link_check` over every unit touching the family's `??_7` names
+(index `touches`), as LINK-168 recommends. Census confirmation: pending (the next census will
+record these losses).
+
 
 ### Six-source rendering and transport Matrix3D batch (2026-11-02)
 
@@ -17393,7 +17445,6 @@ would clear UnitRevivalTracker, GlobalWeatherSystem and WeaponStore), an `rename
 that accepts an MI class's adjustor thunk on its secondary table, and the identity of
 0x0046F7E4 and 0x00674870.
 Clearance: none. Census confirmation: not claimed.
-<<<<<<< HEAD
 
 ### LINK-176: GlobalWeatherSystem destructors folded out of `Rva00318637`; shared-blocker names traced (2026-11-01, seat halilkkaya-lk14)
 
@@ -17417,8 +17468,6 @@ Follows LINK-175's GlobalWeatherSystem row.
   link_check: `GlobalWeatherSystemCtorDeferred.cpp` 0 -> 155 B LINKS; `GlobalWeatherSystem.cpp`
   (303), `CreateAHeroParseBlingBinder.cpp` (419), `Rva007ABBF6BlockParseInits.cpp` (2,728) and
   `SubsystemInterface.cpp` (22,023) keep linking. Census confirmation: pending.
-<<<<<<< HEAD
-=======
 
 
 ### SupplyWarehouseDockUpdate native seed prerequisites (2026-11-01, halilkkaya-codex)
@@ -17542,7 +17591,6 @@ replacement, A/B the full touched-consumer set: `link_check` in a base
 worktree (`worktree_setup.py create`, copy a fetched index, `--update-index`)
 against the tip, then diff per unit. The exact-base `link_batch_audit.py`
 cannot conclude while most consumers lack strict receipts.
->>>>>>> 432ae046db (Record the ZH-seed link lane handoff and next candidates)
 =======
 - `DieModule.cpp` (19 B; LINK-175's `scanIndexList`/`s_bitNameList` unit): both blockers came
   from Zero Hour's DieMuxData field table, which reached `BitFlags<45>::parse` through
@@ -17584,9 +17632,7 @@ cannot conclude while most consumers lack strict receipts.
     member is an AsciiString. Both identities need a naming decision before the units can drop
     the AudioEventRTS spelling; neither unit is near linking (ThingTemplate 16, ThingFactory 13
     blockers).
-<<<<<<< HEAD
 >>>>>>> 27d0e3de15 (Link DieModule.cpp: give DieMuxData retail's field table)
-=======
 - Handoff for the next seat (checked on current objects, not landed):
   - `RegionDetailsStructuresIconCtor.cpp` (217 B; 3 U): the Icon dtor is rowed as
     `??1Rva005E278E@@UAE@XZ` 0x005E278E (+ `??_G` 0x005E283B), the same split as
@@ -17609,7 +17655,6 @@ cannot conclude while most consumers lack strict receipts.
     Verifier-Change commit. Not regenerated here; `class --fold` no longer depends on it.
   - Held, not touched: `FamilyDeletingDtors_muse-cd13.cpp` (28 B; class
     DeflectSpecialPowerModuleData held by StarkillerHDX).
->>>>>>> 6a5d160da4 (LINK-176: hand off the remaining placeholder-destructor and data blockers)
 
 ### Renderer record naming: missing current consumer receipt (2026-11-01, GPT-6)
 
