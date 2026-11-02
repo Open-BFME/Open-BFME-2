@@ -241,7 +241,7 @@ public:
 public:
 	void rva001B4FE9();
 	void rva001B5018(SubsystemInterface *subsystem);
-	unsigned char rva001B505F();
+	unsigned char notifySubsystems();
 	void resetAll();
 private:
 	_STL::vector<BfmePod8> m_00;
@@ -411,7 +411,7 @@ SubsystemInterfaceList::SubsystemInterfaceList()
 
 // tu-skeleton: 0x001B5018 71B ?rva001B5018@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListAdd.cpp (not merged yet)
 
-// tu-skeleton: 0x001B505F 225B ?rva001B505F@SubsystemInterfaceList@@QAEEXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
+// tu-skeleton: 0x001B505F 225B ?notifySubsystems@SubsystemInterfaceList@@QAEEXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/SubsystemInterfaceListDtor.cpp
 
@@ -463,7 +463,7 @@ void SubsystemInterfaceList::rva001B51C0()
 
 // tu-skeleton: 0x007694F7 8B Unwind@00b694f7 -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
 
-// tu-skeleton: 0x007694FF 10B __ehhandler$?rva001B505F@SubsystemInterfaceList@@QAEEXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
+// tu-skeleton: 0x007694FF 10B __ehhandler$?notifySubsystems@SubsystemInterfaceList@@QAEEXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
 
 // tu-skeleton: 0x00769531 8B Unwind@00b69531 -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
 

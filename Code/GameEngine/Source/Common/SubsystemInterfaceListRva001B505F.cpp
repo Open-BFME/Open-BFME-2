@@ -1,6 +1,6 @@
 // cl: /O1 /EHs /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva001B505F@SubsystemInterfaceList@@QAEEXZ @0x001B505F 225B (WB 0xA755A0, unnamed).
+// ?notifySubsystems@SubsystemInterfaceList@@QAEEXZ @0x001B505F 225B (WB 0xA755A0, unnamed).
 // Sibling of the SubsystemInterfaceList members around it (0x001B4FE9, 0x001B5018,
 // 0x001B51C0): every non-null subsystem of the 8-byte records at +0x00 and of the
 // pointer vector at +0x0C is offered to the member 0x001B4E21 (retail passes ECX=this,
@@ -70,7 +70,7 @@ void Rva0002BBC9Update();
 class SubsystemInterfaceList
 {
 public:
-	unsigned char rva001B505F();
+	unsigned char notifySubsystems();
 	unsigned char rva001B4E21(SubsystemInterface *obj, unsigned char *flag);
 
 private:
@@ -78,7 +78,7 @@ private:
 	_STL::vector<SubsystemInterface *> m_pending;
 };
 
-unsigned char SubsystemInterfaceList::rva001B505F()
+unsigned char SubsystemInterfaceList::notifySubsystems()
 {
 	unsigned char flag;
 	const ModuleData *obj;

@@ -4599,3 +4599,5 @@ __ehhandler$?rva000909B7@Rva007E3C20Vp6Stream@@QAEXXZ,0x0075FEDF,"Renamed to __e
 ?rva61b20@@YAPAXXZ,0x00226809,"Renamed to ?getFramePointer@@YAPAXXZ by tools/rename.py (inferred)"
 ?rva00104DE6@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z,0x00104DE6,"Renamed to ?setFont@Rva00104DE6@@QAEXPBURva00104DE6Font@@@Z by tools/rename.py (inferred)"
 ?rva00104E68@Rva00104DE6@@QAEXHHHH@Z,0x00104E68,"Renamed to ?addExtents@Rva00104DE6@@QAEXHHHH@Z by tools/rename.py (inferred)"
+?rva001B505F@SubsystemInterfaceList@@QAEEXZ,0x001B505F,"Renamed to ?notifySubsystems@SubsystemInterfaceList@@QAEEXZ by tools/rename.py (inferred)"
+__ehhandler$?rva001B505F@SubsystemInterfaceList@@QAEEXZ,0x007694FF,"Renamed to __ehhandler$?notifySubsystems@SubsystemInterfaceList@@QAEEXZ by tools/rename.py (inferred)"

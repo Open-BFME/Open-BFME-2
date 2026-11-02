@@ -205,7 +205,7 @@ Bool FormationAssistant::rva0042481E(FormationRowList *rows, const FormationTemp
 	Int step = 1;
 	Int sign = 1;
 	unsigned int idx = (cells->size() - 1) / 2;
-	for (Int n = cells->size(); n > 0; --n)
+	for (Int remainingCells = cells->size(); remainingCells > 0; --remainingCells)
 	{
 		const FormationCandidateVector &candidates = (*cells)[idx];
 		for (Int j = 0; j < candidates.size(); ++j)

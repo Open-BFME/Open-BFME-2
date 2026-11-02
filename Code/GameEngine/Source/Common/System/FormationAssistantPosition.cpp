@@ -7,5 +7,5 @@
 // The y and x temporaries remain live until the x/y/z stores, matching retail.
 void __cdecl rva004216A2(float *out, const float *base, const float *other)
 {
-float y=other[7]+base[1];float x=other[6]+base[0];out[0]=x;out[1]=y;out[2]=0;
+float positionY=other[7]+base[1];float positionX=other[6]+base[0];out[0]=positionX;out[1]=positionY;out[2]=0;
 }

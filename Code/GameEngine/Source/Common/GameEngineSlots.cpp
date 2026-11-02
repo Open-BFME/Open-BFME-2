@@ -24,7 +24,7 @@ class SubsystemInterfaceList
 {
 public:
 	// Returns a byte its caller normalises to Bool (test al, al; setne al).
-	unsigned char rva001B505F();/* the rowed Rva001B5140::rva001B5140 */ __declspec(dllimport) __forceinline Bool rva001B5140() { return ((Rva001B5140 *)this)->rva001B5140(); }
+	unsigned char notifySubsystems();/* the rowed Rva001B5140::rva001B5140 */ __declspec(dllimport) __forceinline Bool rva001B5140() { return ((Rva001B5140 *)this)->rva001B5140(); }
 	void rva001B4FE9();
 };
 
@@ -45,7 +45,7 @@ Bool GameEngine::rva00225AD5()
 	{
 		if (TheSubsystemList == 0)
 			return false;
-		return TheSubsystemList->rva001B505F();
+		return TheSubsystemList->notifySubsystems();
 	}
 	return false;
 }
