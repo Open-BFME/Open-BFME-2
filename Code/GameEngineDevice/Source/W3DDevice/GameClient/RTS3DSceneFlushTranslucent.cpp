@@ -140,11 +140,7 @@ struct ScenePlayerListView { char gap[0x10]; ScenePlayerView *local; };
 
 void __cdecl rva001173f0(unsigned int renderArgument);
 
-class WW3D
-{
-public:
-	static void Render_And_Clear_Static_Sort_Lists(RenderInfoClass &rinfo);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class DX8Wrapper
 {

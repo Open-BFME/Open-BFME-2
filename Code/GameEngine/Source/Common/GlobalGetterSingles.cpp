@@ -1,4 +1,4 @@
-// cl: /GX-
+// cl: /GX- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Scattered global dword getters, each `mov eax,[mem]; ret` (6B), ported from
 // Open-BFME-1 Code/GameEngine/Source/Common/GlobalDwordGetters.cpp.
 // Unlike the adjacent runs (Rva000752BDGetters etc.), these stand alone with
@@ -131,15 +131,7 @@ void Rva00149570Set(int value)
 
 // ww3d.cpp defines this datum (initial NPATCHES_GAP_FILLING_ENABLED, 1) as the
 // private ?NPatchesGapFillingMode@WW3D@@0W4NPatchesGapFillingModeEnum@1@A.
-class WW3D
-{
-public:
-	static int Get_Texture_Reduction(void);	// 0x00117C00
-private:
-	friend int Rva00171660Get(void);
-	enum NPatchesGapFillingModeEnum {};
-	static NPatchesGapFillingModeEnum NPatchesGapFillingMode;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 int Rva00171660Get(void)
 {

@@ -68,11 +68,7 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
-class WW3D
-{
-	friend class W3DSnowManager;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Overridable
 {

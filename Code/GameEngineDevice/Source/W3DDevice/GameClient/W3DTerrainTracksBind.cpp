@@ -219,10 +219,7 @@ void Rva00084C05System::setDetail() {
  ((TerrainTracksRenderObjClassSystem *)this)->ReAcquireResources();
 }
 
-class WW3D {
- static unsigned int SyncTime;
-public: static unsigned int Get_Sync_Time() { return SyncTime; }
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 // Existing providers moved from TerrainTrackEdgeInfoO1.cpp so the caller
 // sees their verified register usage. Their native names and bodies remain.
 class Rva00083CB2

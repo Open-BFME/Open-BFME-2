@@ -1,12 +1,8 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Rva0006297CClamp@@YGXPBM0PAM1@Z @0x0006297C 160B
 // Evidence: vslot 17 of 0x007C57E0 class Rva00628FD; single callee
 // Get_Render_Target_Resolution rowed; neighbours VslotSmallBodiesAJ/B.
-class WW3D
-{
-public:
-	static void Get_Render_Target_Resolution(int &a, int &b, int &c, bool &d);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 void __stdcall Rva0006297CClamp(const float *pos, const float *size, float *outPosition, float *outSize)
 {

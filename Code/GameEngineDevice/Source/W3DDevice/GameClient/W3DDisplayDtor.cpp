@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /EHc-
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /EHc- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ZH W3DDisplay.cpp destructor is the semantic guide. Native493B DT
 // 49FCB..4A1B8 changes scenes to static globals and adds camera-shake,
 // asset-registry and three display-string groups. The owned base111B
@@ -12,7 +12,8 @@
 #undef _CRTIMP
 
 void __cdecl Rva0012641FClear();void __cdecl Rva001296F0Destroy();
-class WW3D {public:static bool Shutdown();};void __cdecl DX8_Assert();
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
+void __cdecl DX8_Assert();
 class W3DShaderManager {public:static void shutdown();};
 class CameraShakeSystemClass {public:~CameraShakeSystemClass();};
 extern CameraShakeSystemClass CameraShakerSystem;

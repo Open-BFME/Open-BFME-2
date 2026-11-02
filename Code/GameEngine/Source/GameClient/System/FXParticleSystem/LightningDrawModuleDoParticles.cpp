@@ -93,11 +93,7 @@ protected:
 
 namespace FXParticleSystem { class LightningDrawModule; }
 
-class WW3D
-{
-	friend class FXParticleSystem::LightningDrawModule;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva001F4D2D { public: float rva001F4D2D(); };
 class Rva001F4E1BSlot { public: const RGBColor *get() const; };

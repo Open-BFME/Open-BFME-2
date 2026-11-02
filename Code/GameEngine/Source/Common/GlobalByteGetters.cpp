@@ -1,4 +1,4 @@
-// cl: /GX-
+// cl: /GX- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Global byte getters, each `mov al,[mem]; ret` (6B), ported from Open-BFME-1
 // (same shape as its GlobalDwordGetters file, byte-width). Each reads one
 // .data byte global into AL; identity unrecoverable, so functions are
@@ -21,17 +21,7 @@ unsigned char Rva0004CAB1GetByte(void)
 // Reuse ww3d.cpp's and dx8wrapper.cpp's private/protected static bytes through
 // TU-scoped friend views: the friends keep each member's real decoration
 // (?X@WW3D@@0_NA, ?X@DX8Wrapper@@1_NA) without a second datum or an alias.
-class WW3D
-{
-	friend unsigned char Rva0004CAB7GetByte(void);
-	friend unsigned char Rva00131062GetByte(void);
-	friend unsigned char Rva00110094GetByte(void);
-	friend unsigned char Rva00171670GetByte(void);
-	static bool AreStaticSortListsEnabled;
-	static bool IsTexturingEnabled;
-	static bool IsScreenUVBiased;
-	static bool MungeSortOnLoad;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class DX8Wrapper
 {

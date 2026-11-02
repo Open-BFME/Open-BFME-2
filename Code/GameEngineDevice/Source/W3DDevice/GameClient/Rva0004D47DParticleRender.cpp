@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva0004D47D@Rva0004D47D@@QAEXAAVRenderInfoClass@@@Z
 // Retail 0x0004D47D..0x0004D636 (441 bytes) RET4: the particle render pass.
@@ -97,13 +97,7 @@ public:
 	static void Flush();
 };
 
-class WW3D
-{
-	// Private in retail's class (mangling @@0): matches the definition ww3d.cpp
-	// compiles, which is the only object that provides this bool.
-	static bool AreStaticSortListsEnabled;
-	friend class Rva0004D47D;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 // The byte owned by GlobalByteGetters.cpp; cleared while deferred layers draw.
 extern unsigned char g_Va00DB5F7D;

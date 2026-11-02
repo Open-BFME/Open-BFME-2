@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Primary semantic guide: ZH GameLODManager::applyStaticLODLevel and BF1 575ba2 GameLODManagerApplyStaticLODLevel.cpp.
 // BF2 native2022E9..2025AA carries a 76-byte preset and target-specific render refreshes.
 // LODTextureReduction is the existing DB5FA0 selector read as lodLimit by fxshadersetup.
@@ -262,7 +262,7 @@ extern Shell *TheShell;
 extern int LODTextureReduction;
 extern unsigned char LODMeshCacheSetting;
 void rva00117120();
-class WW3D {public:static void Set_Texture_Reduction(int);static void _Invalidate_Mesh_Cache();};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 void Rva0012641FClear();
 class SimpleStreakRendererClass {public:static void Init(bool);};
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();

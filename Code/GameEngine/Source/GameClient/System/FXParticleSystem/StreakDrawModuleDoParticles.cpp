@@ -117,11 +117,7 @@ protected:
 
 namespace FXParticleSystem { class StreakDrawModule; }
 
-class WW3D
-{
-	friend class FXParticleSystem::StreakDrawModule;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 namespace FXParticleSystem { class CPUParticle { public: bool rva001F4E2D(); }; }
 class Rva001F4D2D { public: float rva001F4D2D(); };

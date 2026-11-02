@@ -1,4 +1,4 @@
-// cl: /GX- /O1 /G7 /arch:SSE /Ob2
+// cl: /GX- /O1 /G7 /arch:SSE /Ob2 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 // Cold-slice global dword getters without vtable carriage (twin-free TU).
 //
@@ -12,11 +12,7 @@
 // ?Light_Environment@DX8Wrapper@@1PAVLightEnvironmentClass@@A, read through
 // TU-scoped friend views: real decorations, no alias, no second datum.
 class LightEnvironmentClass;
-class WW3D
-{
-	friend int Rva00083B7BGet(void);
-	static unsigned int SyncTime;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class DX8Wrapper
 {
 	friend int Rva0014D241Get(void);

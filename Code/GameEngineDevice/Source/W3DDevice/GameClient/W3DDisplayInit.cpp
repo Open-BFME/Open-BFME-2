@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // W3DDisplay::init, retail 0x00046A50 (1594B, slot of W3DDisplay's vtable,
 // EH frame). WorldBuilder's debug build names it; Zero Hour's
@@ -94,24 +94,7 @@ public:
 	static void Shutdown();
 };
 
-class WW3D
-{
-public:
-	enum PrelitModeEnum { PRELIT_MODE_VERTEX = 0, PRELIT_MODE_LIGHTMAP_MULTI_PASS };
-	static Bool Init(void *hwnd, char *defaultpal, Bool lite);
-	static Bool Shutdown(void);
-	static Bool Set_Render_Device(Int dev, Int resx, Int resy, Int bits, Int windowed, Bool resize_window, Bool reset_device, Bool restore_assets);
-	static void Set_Ext_Swap_Interval(long swap);
-	static void Set_Prelit_Mode(PrelitModeEnum mode) { PrelitMode = mode; }
-	static void Enable_Static_Sort_Lists(Bool onoff) { AreStaticSortListsEnabled = onoff; }
-	static void Set_Thumbnail_Enabled(Bool onoff) { ThumbnailEnabled = onoff; }
-	static void Set_Screen_UV_Bias(Bool onoff) { IsScreenUVBiased = onoff; }
-private:
-	static PrelitModeEnum PrelitMode;
-	static Bool AreStaticSortListsEnabled;
-	static Bool ThumbnailEnabled;
-	static Bool IsScreenUVBiased;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 void Rva00116E40Set(Int value);
 void clipCursorToClient();

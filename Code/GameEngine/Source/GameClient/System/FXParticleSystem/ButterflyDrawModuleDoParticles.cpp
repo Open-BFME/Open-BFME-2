@@ -124,7 +124,7 @@ protected:
 	static RenderStateStruct render_state;
 private:
 friend class FXParticleSystem::ButterflyDrawModule;protected:static unsigned render_state_changed;static Matrix4 DeviceProjectionMatrix;static bool FogEnable;public:static __forceinline void Get_Transform(int t,Matrix4&m){switch((int)t){case 0x100:if(render_state_changed&0x40000)m.identity();else m=DX8Wrapper::render_state.world.Transpose();break;case 2:if(render_state_changed&0x80000)m.identity();else m=DX8Wrapper::render_state.view.Transpose();break;case 3:m=DeviceProjectionMatrix.Transpose();break;default:m.identity();break;}}};
-class WW3D {friend class FXParticleSystem::ButterflyDrawModule;static bool IsCurrentlyRenderingShadowMap;};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva001F4E2D {public:bool rva001F4E2D();};
 class Rva001F4D2D {public:float rva001F4D2D();};
 class Rva001F4DC4 {public:float rva001F4DC4();};

@@ -91,11 +91,7 @@ protected:
 
 namespace FXParticleSystem { template<int CATEGORY> class DefaultModule; }
 
-class WW3D
-{
-	friend class FXParticleSystem::DefaultModule<6>;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 class Rva001F4E2D { public: bool rva001F4E2D(); };
 class Rva001F4D2D { public: float rva001F4D2D(); };

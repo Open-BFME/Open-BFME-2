@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Effect-parameter callbacks bound by the name dispatcher at 0x000806F3. Each
 // is a cdecl (effect, handle) function whose address the dispatcher stores
 // after a strcmp against a shader parameter name, and each ends in
@@ -41,14 +41,7 @@ struct ID3DXEffect
 	virtual long __stdcall SetVector(D3DXHANDLE parameter, const Rva000806F3Vector4 *vector);
 };
 
-class WW3D
-{
-public:
-	static unsigned int Get_Sync_Time( void ) { return SyncTime; }
-
-private:
-	static unsigned int SyncTime;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 extern int BfmeClientFramesPerSecond;
 

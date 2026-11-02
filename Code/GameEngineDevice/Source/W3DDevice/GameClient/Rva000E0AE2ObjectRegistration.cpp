@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native 0x000E0584..0x000E07F4 (624B), the 0xE07F4 object callback's receiver.
 // Target evidence: parent BaseHeightMap +0x3868 allocates the same 0x26C owner;
 // 0xE0AE2 initializes its four SegmentedLineClass objects and coordinate vector.
@@ -32,7 +32,7 @@ virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual 
 };
 class SegmentedLineClass;
 class RenderInfoClass;
-class WW3D {public:static bool Render(RenderObjClass&,RenderInfoClass&);};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva000E04CE {public:void rva000E04CE(SegmentedLineClass*);};
 struct Rva000E007DPair {int m00,m04;};
 struct NativeNode {NativeNode*next;Rva000E007DPair key;};

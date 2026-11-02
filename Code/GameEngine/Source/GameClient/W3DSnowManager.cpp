@@ -1,6 +1,6 @@
 // ?updateIniSettings@W3DSnowManager@@UAEXXZ
 // partial score=0.983 date=2026-10-05
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later
@@ -88,12 +88,7 @@ typedef char W3DSnowExtent[sizeof(W3DSnowManager) == 0xB0 ? 1 : -1];
 // WW3D keeps its sync clock private (?SyncTime@WW3D@@0IA); its public
 // Get_Frame_Time() inline reorders this body's float temporaries, so the
 // update reads the two statics directly.
-class WW3D {
-    friend class W3DSnowManager;
-private:
-    static unsigned int SyncTime;
-    static unsigned int PreviousSyncTime;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 extern float __cdecl Rva000930C0(float, float);
 
 void W3DSnowManager::update()

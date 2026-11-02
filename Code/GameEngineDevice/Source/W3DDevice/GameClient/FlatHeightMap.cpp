@@ -408,7 +408,7 @@ public:
 	virtual void s16(); virtual void s17();
 	virtual Vector3 getDimming();			// slot 18
 };
-class WW3D { public: static bool Is_Currently_Rendering_Shadow_Map() { return IsCurrentlyRenderingShadowMap; } private: static bool IsCurrentlyRenderingShadowMap; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 extern bool bfmeOnlyEmissiveDraws;
 extern bool bfmeCameraProjectionOverride;
 extern unsigned char g_00DFE7A8;

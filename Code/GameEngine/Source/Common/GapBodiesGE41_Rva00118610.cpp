@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /O2 /G7 /arch:SSE /MD /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Split from GapBodiesGE41.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 // Small bodies from .text gaps no Ghidra function covers (forty-first
@@ -71,15 +71,7 @@ unsigned int rva0011F620();
 // --- 0x00118610 (48B): WW3D::Toggle_Movie_Capture (ZH ww3d.cpp): stop a
 // running capture, else start one; BFME 2 forwards a frame count and a
 // compression flag and returns whether it started.
-class WW3D
-{
-public:
-	static bool Toggle_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed);
-	static void Start_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed);
-	static void Stop_Movie_Capture();
-private:
-	static bool IsCapturing;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 bool WW3D::Toggle_Movie_Capture(const char *filename_base, float frame_rate, int count, bool compressed)
 {

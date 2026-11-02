@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 //
@@ -75,14 +75,7 @@ public:
 // (SetRenderState slot 57, SetVertexShader slot 92).
 struct IDirect3DDevice8;
 extern unsigned number_of_DX8_calls;
-class WW3D
-{
-	friend class RTS3DScene;
-	friend void bfmeSetRS(unsigned long, unsigned);
-	static bool SnapshotActivated;
-public:
-	static void Render_And_Clear_Static_Sort_Lists(RenderInfoClass &rinfo);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class DX8Wrapper
 {
 	friend class RTS3DScene;

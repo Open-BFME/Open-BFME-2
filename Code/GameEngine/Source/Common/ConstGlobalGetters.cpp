@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Cold-slice global-int returners without vtable carriage (twin-free TU).
 //
 // Same discipline as ConstZeroGetters.cpp (opaque address-derived names for
@@ -30,12 +31,7 @@ protected:
 
 // 0x009B5F9C is the data ledger's WW3D::TextureFilter (ww3d.cpp's private
 // static, @@0).
-class WW3D {
-public:
-	static __forceinline int Get_Texture_Filter() { return TextureFilter; }
-private:
-	static int TextureFilter;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 // ?Rva000752F2Get@@YAHXZ @ 0x000752F2 (6B): returns global at 0x9EDA30.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,

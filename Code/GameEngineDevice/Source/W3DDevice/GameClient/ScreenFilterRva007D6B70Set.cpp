@@ -26,7 +26,7 @@ struct RenderStateStruct { ShaderClass shader; };
 // name but is a Direct3D 9 device (SetRenderState, slot 57).
 struct IDirect3DDevice8;
 extern unsigned number_of_DX8_calls;
-class WW3D { friend class DX8Wrapper; static bool SnapshotActivated; };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class DX8Wrapper {
 public:
  static void Apply_Render_State_Changes();

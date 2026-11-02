@@ -282,11 +282,7 @@ struct RenderStateStruct
 };
 
 // WW3D::SnapshotActivated (ww3d.cpp, ?SnapshotActivated@WW3D@@0_NA).
-class WW3D
-{
-	friend class DX8Wrapper;
-	static bool SnapshotActivated;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 
 extern unsigned number_of_DX8_calls;
 

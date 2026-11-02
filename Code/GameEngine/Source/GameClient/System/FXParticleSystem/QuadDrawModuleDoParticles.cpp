@@ -80,7 +80,7 @@ class DX8Wrapper {public:enum {WORLD_IDENTITY=1<<18,VIEW_IDENTITY=1<<19};static 
 }
 protected:static bool FogEnable;static unsigned render_state_changed;static RenderStateStruct render_state;static Matrix4 DeviceProjectionMatrix;};
 namespace FXParticleSystem {class QuadDrawModule;}
-class WW3D {friend class FXParticleSystem::QuadDrawModule;static bool IsCurrentlyRenderingShadowMap;};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 class Rva001F4E2D {public:bool rva001F4E2D();};
 class Rva001F4D2D {public:float rva001F4D2D();};
 class Rva001F4DC4 {public:float rva001F4DC4();};
