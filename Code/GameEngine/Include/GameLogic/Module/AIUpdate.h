@@ -225,7 +225,7 @@ protected:
     virtual void bfmePrivateCommand39(Object *,CommandSourceType); // 35: RVA 0x0026BE86
 public:
     virtual void vslot036(void *, int) {} // 36: RVA 0x0050B238
-    virtual void vslot037(void *, int); // 37: RVA 0x0050B238
+    virtual void vslot037(void *, int) {} // 37: RVA 0x0050B238
 protected:
     virtual void privateForceAttackObject(Object *,int,CommandSourceType); // 38: RVA 0x0026BEE6
     virtual void privateAttackTeam(Team const *,int,CommandSourceType); // 39: RVA 0x0026BFD9

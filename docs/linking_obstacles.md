@@ -18849,3 +18849,7 @@ Three existing native bodies at2645FF/264E93/264F3D retain their identities and 
 [Private native trials and per-body normal admissions](../reverse/attempt_support/aiupdate-primary-remaining-20261102/README.md). Public file-wide reservations cover the actual header/emitter; no foreign destructor work is changed.
 
 Primary slot36 now supplies its complete3B native default at0x0050B238 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
+
+Primary slot37 now supplies its complete3B native default at0x0050B238 through ordinary canonical inline C++, with its own verified row/commit. Existing name spelling and first ICF representative remain, without unique bytes or census clearance. Remaining primary provider identity, conditional deleting-destructor and global provider selection stay open.
+
+Slots36/37 final group verification: both235-source header gates pass. Strict current receipts cover124 rows across the emitter/native cluster. The bounded emitter preview now lists only addTargeter and slots44/45 as unresolved, with native-cluster linked bytes preserved155 -> 155. Private object comparison adds only the two intended functions; all prior code/data definitions remain identical. Global census and remaining provider-name/weak-selection prerequisites remain open.
