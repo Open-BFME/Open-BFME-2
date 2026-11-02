@@ -23,11 +23,7 @@ public:
 };
 
 class FXList;
-class FXListStore
-{
-public:
-	const FXList *findFXList(const char *) const;
-};
+#include "../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 
 class Rva000B664E

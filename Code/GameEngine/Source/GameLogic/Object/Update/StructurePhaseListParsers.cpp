@@ -59,11 +59,7 @@ namespace _STL
 template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &);
 }
 
-class FXListStore
-{
-public:
-	const FXList *findFXList(const char *name) const;
-};
+#include "../../../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 
 class ObjectCreationListStore

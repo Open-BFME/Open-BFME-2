@@ -17,7 +17,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char*,const char*);
 #include "../../../Include/Common/INI/INI.h"
 class FXList;
-class FXListStore {public:const FXList*findFXList(const char*)const;};
+#include "../../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 namespace _STL {template<> inline __declspec(noinline) void vector<const FXList*>::push_back(const FXList*const& v){
  if(_M_finish!=_M_end_of_storage._M_data){_Construct(_M_finish,v);++_M_finish;}else _M_insert_overflow(_M_finish,v,_IsPODType(),1UL,true);

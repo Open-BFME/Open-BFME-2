@@ -107,11 +107,7 @@ public:
 		float primarySpeed, const Coord3D *secondary);
 };
 
-class FXListStore
-{
-public:
-	const FXList *findFXList(const char *name) const;
-};
+#include "../../Include/GameClient/FXListStore.h"
 extern FXListStore *TheFXListStore;
 
 class WWMath

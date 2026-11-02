@@ -251,7 +251,8 @@ void W3DScriptedModelDraw::rva000BB3E6(Rva000BB491 event)
 #include <string.h>
 #include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 class FXList;
-class FXListStore {public:const FXList*findFXList(const char*)const;};extern FXListStore*TheFXListStore;
+#include "../../../../../../GameEngine/Include/GameClient/FXListStore.h"
+extern FXListStore*TheFXListStore;
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva000B3F15Payload {char pad[0x28];TargetRef00217D4C ref;};

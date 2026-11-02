@@ -131,11 +131,7 @@ public:
 };
 #include "../../../Include/GameClient/Eva.h"
 #include "../../../Include/GameLogic/ExperienceLevelStore.h"
-class FXListStore
-{
-public:
-	static void parseFXListDefinition(INI *);
-};
+#include "../../../Include/GameClient/FXListStore.h"
 #include "../../../Include/GameClient/FontLibrary.h"
 #include "../../../Include/Common/GlobalData.h"
 class GlobalWeatherSystem

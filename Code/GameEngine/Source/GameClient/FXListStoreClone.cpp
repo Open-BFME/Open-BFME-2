@@ -17,7 +17,7 @@ class Rva000B3F15 {public:
 class Rva0005548FNativeList {public:void append(void *const &);};
 struct FxNode {FxNode *next,*previous;void *nugget;};
 class FXList {public:char opaque00[4];FxNode *head04;};
-class FXListStore {public:const FXList *findFXList(const char *)const;};
+#include "../../Include/GameClient/FXListStore.h"
 class Rva001E28B8 {public:Rva001E28B8(const AsciiString &);char opaque00[0x30];};
 class Rva001E2BB0:public FXListStore {public:Rva000B3F15 rva001E2BB0(const char *);};
 Rva000B3F15 Rva001E2BB0::rva001E2BB0(const char *name){
