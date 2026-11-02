@@ -1,0 +1,482 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Shell",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 63,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4c": {
+    "4": 6
+   },
+   "0x50": {
+    "1": 2
+   },
+   "0x51": {
+    "1": 2
+   },
+   "0x54": {
+    "1": 1
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x5c": {
+    "1": 1
+   },
+   "0x60": {
+    "4": 4
+   },
+   "0x68": {
+    "4": 1
+   },
+   "0x70": {
+    "4": 3
+   },
+   "0x74": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x78": 2
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x35bfbc"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x816208",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x35bfbc"
+     ],
+     "value": 120
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x35bfbc"
+     ],
+     "value": {
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       1
+      ],
+      "0x51": [
+       1
+      ],
+      "0x52": [
+       1
+      ],
+      "0x53": [
+       1
+      ],
+      "0x54": [
+       1
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       1
+      ],
+      "0x5d": [
+       1
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       1
+      ],
+      "0x6d": [
+       1
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x35bfbc"
+     ],
+     "value": {
+      "0x58": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x35bfbc"
+     ],
+     "value": {
+      "0x0": "0x816208"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x816208"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GShell@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x35c54a"
+       },
+       {
+        "name": "?rva0035BD00@Rva0035BD00NullForwarder@@QAEXXZ",
+        "slot": 1,
+        "target": "0x35bd00"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@Shell@@UAEXXZ",
+        "slot": 9,
+        "target": "0x35c16a"
+       },
+       {
+        "name": "?update@Shell@@UAEXXZ",
+        "slot": 10,
+        "target": "0x35c566"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x816208"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 22,
+  "retail_vtables": {
+   "0x816208": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GShell@@UAEPAXI@Z",
+     "1": "?rva0035BD00@Rva0035BD00NullForwarder@@QAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@Shell@@UAEXXZ",
+     "10": "?update@Shell@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 5,
+  "view_sizes": {
+   "1": 43,
+   "80": 1,
+   "89": 1,
+   "93": 5,
+   "94": 1,
+   "104": 1,
+   "109": 3,
+   "120": 3
+  },
+  "views": 58,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Shell.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Shell.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 81,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 82,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 83,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeOwnVVD.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/BfmeOwnVVDTranslateGameMessage.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/WindowXlat.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 93,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks_ExitGame.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 109,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Shell/Shell.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "92:A": 1
+   },
+   "class": "Shell"
+  },
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "4:VPTR": 3,
+    "92:A": 3
+   },
+   "class": "Shell"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  }
+ }
+}
