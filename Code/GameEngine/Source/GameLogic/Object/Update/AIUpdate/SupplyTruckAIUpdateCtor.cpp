@@ -151,3 +151,8 @@ int SupplyTruckAIUpdate::rva004A6FF9() const
 {
     return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field7C;
 }
+
+unsigned int SupplyTruckAIUpdate::rva004A7003() const
+{
+    return reinterpret_cast<const SupplyTruckModuleDataView *>(getModuleData())->field80;
+}

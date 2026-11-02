@@ -18373,3 +18373,5 @@ SupplyTruck secondary slot6's canonical ModuleData byte74 getter matches complet
 SupplyTruck secondary slot7's canonical ModuleData float78 getter matches complete10B native4A6FEF including the x87 return; all eighteen ctor rows pass. Original float-chase owner remains, without a pin or new semantic claim. Broader callback/base prerequisites remain.
 
 SupplyTruck secondary slot8's canonical ModuleData dword7C getter matches complete10B native4A6FF9 and all nineteen ctor rows. Existing pointer-chase representative is retained, with original signedness/type unresolved. Remaining callback/base prerequisites are unchanged.
+
+SupplyTruck secondary slot9's canonical ModuleData dword80 getter matches complete13B native4A7003; all twenty ctor rows pass. All five module-data getter candidates in the packet now have separately admitted rows and commits; original representatives remain. No pin, unique-byte or unit/census claim is added.
