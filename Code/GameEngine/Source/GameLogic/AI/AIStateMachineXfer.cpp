@@ -26,7 +26,7 @@ class Snapshot; class Thing; class ModuleData;
 class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
 
 struct State {virtual ~State();unsigned int id;};
-class Waypoint {public:char unknown00[8];AsciiString name;};
+#include "../../../Include/GameLogic/Waypoint.h"
 class Squad {public:Squad()throw();virtual ~Squad();virtual void slot01();virtual void slot02();virtual void xfer(Xfer*);private:_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -40,7 +40,7 @@ void AIStateMachine::xfer(Xfer *xfer)
  int count=goalPath.size();*xfer==count;
  Coord3D pos={0,0,0};
  for(int i=0;i<count;++i){if(xfer->IsStoring())pos=goalPath[i];*xfer==(Coord3DBase&)pos;if(xfer->IsLoading())goalPath.push_back(pos);}
- AsciiString waypointName;if(goalWaypoint)waypointName=goalWaypoint->name;
+ AsciiString waypointName;if(goalWaypoint)waypointName=goalWaypoint->m_name;
  *xfer==waypointName;
  if(xfer->IsLoading()&&!waypointName.isEmpty())goalWaypoint=TheTerrainLogic->getWaypointByName(waypointName);
  bool hasSquad=goalSquad!=0;*xfer==hasSquad;

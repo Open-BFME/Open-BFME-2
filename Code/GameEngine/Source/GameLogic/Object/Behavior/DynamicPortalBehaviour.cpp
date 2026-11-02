@@ -454,14 +454,7 @@ struct Rva004618D4AI
 	Rva002E9042 *m_p10;
 };
 
-class Waypoint
-{
-public:
-	int getID() const { return m_id; }
-private:
-	void *m_unknown00;
-	int m_id;
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
 
 class ObjectModuleBase
 {

@@ -332,15 +332,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return &m_location; }
-
-private:
-	unsigned char m_pad[0x0C];
-	Coord3D m_location;
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 class TerrainLogic
 {

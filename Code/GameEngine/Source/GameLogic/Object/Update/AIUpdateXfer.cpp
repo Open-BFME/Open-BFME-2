@@ -98,7 +98,7 @@ void XferWhichTurretType(Xfer *, int *);
 void XferAttitudeType(Xfer *, int *);
 class PolygonTrigger { public: char m_pad[0x40]; AsciiString m_name; };
 class AttackPriorityInfo { public: char m_pad[4]; AsciiString m_name; };
-class Waypoint { public: char m_pad[4]; unsigned int m_id; };
+#include "../../../../Include/GameLogic/Waypoint.h"
 class TerrainLogic { public:
  virtual void slot0();
  virtual void slot1();

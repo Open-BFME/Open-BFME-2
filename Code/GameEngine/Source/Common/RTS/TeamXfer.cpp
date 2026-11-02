@@ -96,15 +96,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class Waypoint
-{
-public:
-	unsigned int getID() const { return m_id; }
-
-private:
-	unsigned char m_pad00[0x04];
-	unsigned int m_id; // +0x04
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 class TerrainLogic
 {

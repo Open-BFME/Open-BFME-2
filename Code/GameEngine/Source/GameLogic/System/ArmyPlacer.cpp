@@ -11,12 +11,7 @@
 struct Rva0037FE3DNode{Rva0037FE3DNode*next;};
 struct Rva0037FE3DList{Rva0037FE3DNode*head;};
 
-class Waypoint
-{
-public:
-	char m_pad[12];
-	Coord3D m_position;
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
@@ -182,8 +177,8 @@ bool ArmyPlacer::GetDefenderReinforcementWaypointLocations(Coord3D *spawn, Coord
 	Waypoint *gatherWaypoint = findNamedWaypoint(gatherName);
 	if (!spawnWaypoint || !gatherWaypoint)
 		return false;
-	*spawn = spawnWaypoint->m_position;
-	*gather = gatherWaypoint->m_position;
+	*spawn = spawnWaypoint->m_location;
+	*gather = gatherWaypoint->m_location;
 	return true;
 }
 
@@ -212,13 +207,13 @@ bool ArmyPlacer::GetStartPosWaypointLocations(int player, Coord3D *start, Coord3
 	Waypoint *startWaypoint = findNamedWaypoint(startName);
 	if (!startWaypoint)
 		return false;
-	*start = startWaypoint->m_position;
+	*start = startWaypoint->m_location;
 	AsciiString rallyName;
 	rallyName.format("Player_%d_Start_Rally", player + 1);
 	Coord3D *rallyOutput = rally;
 	Waypoint *rallyWaypoint = findNamedWaypoint(rallyName);
 	if (rallyWaypoint)
-		*rallyOutput = rallyWaypoint->m_position;
+		*rallyOutput = rallyWaypoint->m_location;
 	else
 	{
 		*rallyOutput = *start;
@@ -323,8 +318,8 @@ bool ArmyPlacer::GetWalkOnWaypointLocations(Rva0037F7B6Record *record, Coord3D *
 	Waypoint *gatherWaypoint = findNamedWaypoint(gatherName);
 	if (!spawnWaypoint || !gatherWaypoint)
 		return false;
-	*spawn = spawnWaypoint->m_position;
-	*gather = gatherWaypoint->m_position;
+	*spawn = spawnWaypoint->m_location;
+	*gather = gatherWaypoint->m_location;
 	return true;
 }
 

@@ -84,14 +84,7 @@ private:
 };
 }
 
-class Waypoint
-{
-public:
-	UnsignedInt getID() const { return m_id; }
-private:
-	void *m_vtable;
-	UnsignedInt m_id;		// +0x04
-};
+#include "../../../../../Include/GameLogic/Waypoint.h"
 
 class PolygonTrigger
 {

@@ -167,15 +167,7 @@ void XferWaypointID(Xfer *xfer, int *id);
 
 struct Coord3D;
 
-class Waypoint
-{
-public:
-	virtual ~Waypoint();
-	void addLink(Waypoint *link);
-	int getID() const { return m_id; }
-private:
-	int m_id;	// +0x04
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 

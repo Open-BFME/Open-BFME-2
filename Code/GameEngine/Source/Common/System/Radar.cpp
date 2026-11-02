@@ -915,11 +915,7 @@ public:
 	bool testStatus(ObjectStatusTypes status) const;
 };
 
-class Waypoint
-{
-public:
-	virtual void *deleteInstance(Int pool);
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 extern Waypoint *g_waypointListHead;
 
