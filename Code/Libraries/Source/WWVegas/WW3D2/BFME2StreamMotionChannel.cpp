@@ -18,7 +18,9 @@
 // component; slot 5 decodes two
 // quaternions and blends them through BFME2_Nlerp (0x00717550). Slot and
 // decoder names are positional: the original API names are not recovered.
-// The class layouts are the factory unit's (BFME2MotionChannelFactory.cpp).
+// The class layouts are the factory unit's (BFME2MotionChannelFactory.cpp), with the
+// decoders' field names for its 20-byte EncodedHeader: the scale at +0x14 and the
+// initial values at +0x18, which a decode without a cursor starts from.
 class ChunkLoadClass;
 
 #include "../WWMath/Vector3Data.h"
@@ -48,7 +50,8 @@ class BFME2StreamMotionChannel : public BFME2MotionChannel
 public:
 	BFME2StreamMotionChannel();
 	virtual ~BFME2StreamMotionChannel();
-	unsigned char EncodedHeader[20];
+	float Scale;
+	float Initial[4];
 	unsigned char *Data;
 };
 
@@ -57,9 +60,9 @@ public:
     virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
     virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
     virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
-    void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
-    void decompress(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1);
-    void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
+    inline void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
+    inline void decompress(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1);
+    inline void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
 };
 
 class BFME2Encoding2MotionChannel : public BFME2StreamMotionChannel {
@@ -67,10 +70,15 @@ public:
     virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
     virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
     virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
-    void rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
-    void rva001B2599(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1);
-    void rva001B27AB(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
+    inline void rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
+    inline void rva001B2599(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1);
+    inline void rva001B27AB(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
 };
+
+// The six decoders are inline members: retail emits them as COMDAT copies ahead of
+// the slots, and each slot spills `this`, the whole frame and the fraction around the
+// decoder call as it would around any replaceable callee. Defined non-inline in this TU,
+// cl 7.1 keeps those values in registers across the call and slots 3 and 4 differ.
 
 struct BFME2StreamCache
 {
@@ -139,7 +147,7 @@ void BFME2Encoding1MotionChannel::UnknownSlot3(float frame, float *value, unsign
         *cursor += Components * 8 + 4;
     } else {
         float value0, value1;
-        decompress((unsigned int *)(EncodedHeader + 4), 0, whole, &value0, &value1);
+        decompress((unsigned int *)Initial, 0, whole, &value0, &value1);
         *value = Bfme_Lerp(value0, value1, frame);
     }
 }
@@ -158,7 +166,7 @@ void BFME2Encoding2MotionChannel::UnknownSlot3(float frame, float *value, unsign
         *cursor += Components * 8 + 4;
     } else {
         float value0, value1;
-        rva001B2599((unsigned int *)(EncodedHeader + 4), 0, whole, &value0, &value1);
+        rva001B2599((unsigned int *)Initial, 0, whole, &value0, &value1);
         *value = Bfme_Lerp(value0, value1, frame);
     }
 }
@@ -176,7 +184,7 @@ void BFME2Encoding1MotionChannel::UnknownSlot5(float frame, Quaternion *value, u
         *cursor += Components * 8 + 4;
     } else {
         Quaternion quaternion, value1;
-        rva001B2450((unsigned int *)(EncodedHeader + 4), 0, whole, &quaternion, &value1);
+        rva001B2450((unsigned int *)Initial, 0, whole, &quaternion, &value1);
         BFME2_Nlerp(*value, quaternion, value1, frame);
     }
 }
@@ -197,7 +205,7 @@ void BFME2Encoding1MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsi
         *cursor += Components * 8 + 4;
     } else {
         Vector3 value0, value1;
-        rva001B230A((unsigned int *)(EncodedHeader + 4), 0, whole, &value0, &value1);
+        rva001B230A((unsigned int *)Initial, 0, whole, &value0, &value1);
         value->X = Bfme_Lerp(value0.X, value1.X, frame);
         value->Y = Bfme_Lerp(value0.Y, value1.Y, frame);
         value->Z = Bfme_Lerp(value0.Z, value1.Z, frame);
@@ -219,7 +227,7 @@ void BFME2Encoding2MotionChannel::UnknownSlot5(float frame, Quaternion *value, u
         *cursor += Components * 8 + 4;
     } else {
         Quaternion quaternion, value1;
-        rva001B27AB((unsigned int *)(EncodedHeader + 4), 0, whole, &quaternion, &value1);
+        rva001B27AB((unsigned int *)Initial, 0, whole, &quaternion, &value1);
         BFME2_Nlerp(*value, quaternion, value1, frame);
     }
 }
@@ -240,7 +248,7 @@ void BFME2Encoding2MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsi
         *cursor += Components * 8 + 4;
     } else {
         Vector3 value0, value1;
-        rva001B267B((unsigned int *)(EncodedHeader + 4), 0, whole, &value0, &value1);
+        rva001B267B((unsigned int *)Initial, 0, whole, &value0, &value1);
         value->X = Bfme_Lerp(value0.X, value1.X, frame);
         value->Y = Bfme_Lerp(value0.Y, value1.Y, frame);
         value->Z = Bfme_Lerp(value0.Z, value1.Z, frame);
