@@ -5,24 +5,16 @@
 #ifndef CANONICAL_RVA002A8F24_H
 #define CANONICAL_RVA002A8F24_H
 
-#if defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
-#error Include Rva002A8F24.h before the short SubsystemInterface definition.
-#endif
-#ifndef BFME_SUBSYSTEM_SLOTS
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error Include Rva002A8F24.h before Snapshot's alternate slot declaration.
-#endif
-#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
-#error Rva002A8F24 requires lowercase Snapshot slots and a const name getter.
-#endif
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Xfer;
 
 class Object;
 class Player;
@@ -42,7 +34,11 @@ public:
     virtual void reset(); // 0x002A9072
     virtual void update(); // 0x002A8E7B
     virtual void loadPostProcess(); // 0x000B3FD0
+#ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const; // 0x002A92E4
+#else
+    virtual void crc(Xfer *xfer);
+#endif
     virtual void xfer(Xfer *xfer); // 0x002A8C44
 
     Rva002A8AB1Record *rva002A8AB1(void *owner); // 0x002A8AB1
