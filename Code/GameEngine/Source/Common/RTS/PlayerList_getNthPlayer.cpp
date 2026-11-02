@@ -99,11 +99,7 @@ enum
 };
 
 
-class PlayerTemplate
-{
-public:
-	UnicodeString getDisplayName() const;
-};
+#include "../../../Include/Common/PlayerTemplate.h"
 
 class Player
 {

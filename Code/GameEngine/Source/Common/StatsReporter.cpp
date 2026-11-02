@@ -292,7 +292,7 @@ class GameSpyGameSlot:public GameSlot {public:char gap48[0x18];bool hasHero;char
 
 class GameInfo {public:GameSlot*getSlot(int);const GameSlot*getConstSlot(int)const;};
 
-class PlayerTemplate {public:int rva001FD234()const;};
+#include "../../Include/Common/PlayerTemplate.h"
 
 class ScoreKeeper {public:int getTotalBuildingsDestroyed();int getTotalUnitsDestroyed();char pad0[4];int value04,value08;char padC[0x64];int value70,value74;char pad78[0x50];int valueC8,valueCC;};
 

@@ -50,11 +50,7 @@ public:
 };
 
 class Image;
-class PlayerTemplate
-{
-public:
-	const Image *rva001FD23F() const;
-};
+#include "../../../../../Include/Common/PlayerTemplate.h"
 class Player
 {
 public:

@@ -12,12 +12,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PlayerTemplate
-{
-public:
-	char m_pad[0x1BC];
-	unsigned char m_1BC;
-};
+#include "../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {
@@ -85,7 +80,7 @@ void LivingWorldLogic::ShowEndGameSplashScreen()
 	const PlayerTemplate *playerTemplate = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(m_98->m_40->m_name));
 	if (!playerTemplate)
 		return;
-	unsigned char isEvil = playerTemplate->m_1BC;
+	unsigned char isEvil = playerTemplate->m_isEvil;
 	bool isVictory = m_98->m_3C4 == 0;
 	AsciiString screen(isVictory ? "Gui_VictoryScreen" : "Gui_DefeatScreen");
 	AsciiString cheer(isEvil ? "Gui_VictoryCheerEvil" : "Gui_VictoryCheerGood");

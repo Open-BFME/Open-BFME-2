@@ -360,12 +360,7 @@ struct Rva00219F8EMask
 // TheCreateAHeroManager (0x00DFE344), spelled as Rva00406E65.cpp does.
 #include "../../../Include/GameLogic/CreateAHeroManager.h"
 
-class PlayerTemplate
-{
-public:
-	int rva001FD234() const;
-	UnicodeString getDisplayName() const;
-};
+#include "../../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {

@@ -39,7 +39,7 @@ class GameInfo {public:
  GameSlot *getSlot(int);
 };
 extern GameInfo *TheGameInfo;
-class PlayerTemplate {public:int rva001FD234() const;};
+#include "../../Include/Common/PlayerTemplate.h"
 class PlayerTemplateStore {public:const PlayerTemplate *getNthPlayerTemplate(int) const;};
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int,int,char *,int);

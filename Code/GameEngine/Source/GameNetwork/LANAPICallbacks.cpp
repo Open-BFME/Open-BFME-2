@@ -563,10 +563,7 @@ public:
 extern "C" __declspec(dllimport) char * __cdecl getenv( const char *name );
 struct LANMessage;
 
-class PlayerTemplate
-{
-	UnsignedByte m_data[0x1DC];
-};
+#include "../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {

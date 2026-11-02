@@ -3804,20 +3804,7 @@ void GameLogic::SetUpCampaignPlayers(void)
 // not local) and its singleton teamReplayObserver, then 0x0032E02B on
 // TheSidesList where BFME 1 calls validateSides.
 // ---------------------------------------------------------------------------
-class PlayerTemplate
-{
-public:
-	NameKeyType getNameKey(void) const { return m_nameKey; }
-	int rva001FD234() const;
-	AsciiString getName() const;
-	bool isPlayableSide() const { return m_playableSide; }
-
-private:
-	char m_pad00[0x10];
-	NameKeyType m_nameKey;                                               // +0x10
-	char m_pad14[0x151 - 0x14];
-	bool m_playableSide;                                                 // +0x151
-};
+#include "../../../Include/Common/PlayerTemplate.h"
 
 class MultiplayerColorDefinition
 {

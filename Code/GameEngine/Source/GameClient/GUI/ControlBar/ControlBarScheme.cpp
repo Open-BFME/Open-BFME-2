@@ -26,14 +26,7 @@ class ControlBarScheme;
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "ControlBarSchemeManagerView.h"
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
-class PlayerTemplate
-{
-public:
-	const AsciiString &getSide() const { return m_side; }
-private:
-	char m_pad[0x18];
-	AsciiString m_side;
-};
+#include "../../../../Include/Common/PlayerTemplate.h"
 #include "../../../../Include/GameClient/Display.h"
 extern Display *TheDisplay;
 enum NameKeyType

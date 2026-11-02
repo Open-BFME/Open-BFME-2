@@ -14,14 +14,7 @@
 
 #include "ascii_string.h"
 
-class PlayerTemplate
-{
-public:
-	char m_pad[0x18];
-	AsciiString m_name18;
-	char m_pad2[0x1BC - 0x18 - 4];
-	bool m_flag1BC;
-};
+#include "../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {
@@ -55,8 +48,8 @@ static bool rva0027900B(char *self)
 			const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(i);
 			if (pt == 0)
 				continue;
-			if (needle->compare(*(const StringBase<char> *)&pt->m_name18) == 0)
-				return pt->m_flag1BC;
+			if (needle->compare(*(const StringBase<char> *)&pt->m_side) == 0)
+				return pt->m_isEvil;
 		}
 	}
 	return false;

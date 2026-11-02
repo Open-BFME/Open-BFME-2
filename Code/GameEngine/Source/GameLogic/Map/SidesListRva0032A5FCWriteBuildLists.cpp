@@ -138,16 +138,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PlayerTemplate
-{
-public:
-	const AsciiString &getDefaultAIType() const { return m_defaultAIType; }
-	char m_pad00[0x18];
-	AsciiString m_side; // +0x18
-	char m_pad1C[0x194];
-private:
-	AsciiString m_defaultAIType; // +0x1B0
-};
+#include "../../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {

@@ -38,7 +38,7 @@ struct HandicapStore; extern HandicapStore *TheLivingWorldAutoResolveHandicapSto
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator*TheNameKeyGenerator;
-class PlayerTemplate {public:char gap[0x154];};
+#include "../../../../Include/Common/PlayerTemplate.h"
 class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};extern PlayerTemplateStore*ThePlayerTemplateStore;
 struct SetupPlayer {
  char gap00[0x14];int playerID;char gap18[0x38-0x18];int handicap;int opaque3C;int faction;

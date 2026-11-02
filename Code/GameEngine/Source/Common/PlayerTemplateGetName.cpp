@@ -15,16 +15,10 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PlayerTemplate
-{
-public:
-	unsigned char m_pad[0x10];
-	NameKeyType m_key;
-	AsciiString getName() const;
-};
+#include "../../Include/Common/PlayerTemplate.h"
 
 // ?getName@PlayerTemplate@@QBE?AVAsciiString@@XZ
 AsciiString PlayerTemplate::getName() const
 {
-	return TheNameKeyGenerator->keyToName(m_key);
+	return TheNameKeyGenerator->keyToName(m_nameKey);
 }

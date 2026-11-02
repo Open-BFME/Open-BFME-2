@@ -190,12 +190,7 @@ private:
 	unsigned char m_rest[0x20 - 0x04];
 };
 
-class PlayerTemplate
-{
-public:
-	unsigned char m_pad000[0x14C];
-	AsciiString m_loadScreenMusic; // +0x14C
-};
+#include "../../../../../Include/Common/PlayerTemplate.h"
 
 enum NameKeyType;
 

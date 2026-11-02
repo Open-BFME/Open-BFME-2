@@ -129,12 +129,7 @@ GameWindow *staticTextPlayerName = 0;
 // (CONTROLBAR fetchPtr format, the team string fetched by label) and fills
 // the single-player list from the first human. Native [50E08E,50E3E5),855B;
 // callers pass TheControlBar (0x0050E70D).
-class PlayerTemplate
-{
-public:
-	const Image *getEnabledImage() const;	// ZH getEnabledImage
-	const Image *getFlagWaterMarkImage() const;	// ZH getFlagWaterMarkImage
-};
+#include "../../../Include/Common/PlayerTemplate.h"
 class ScoreKeeper
 {
 public:

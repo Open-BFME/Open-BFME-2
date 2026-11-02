@@ -61,7 +61,7 @@ void SelectRandomHero();
 bool Rva0044C277Wait();
 
 
-class PlayerTemplate {public:int rva001FD234() const;};
+#include "../../Include/Common/PlayerTemplate.h"
 class PlayerTemplateStore {public:const PlayerTemplate *getNthPlayerTemplate(int) const;};
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int,int,char *,int);

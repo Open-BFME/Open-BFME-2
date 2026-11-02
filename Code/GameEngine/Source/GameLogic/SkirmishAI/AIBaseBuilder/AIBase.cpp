@@ -133,12 +133,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class PlayerTemplate
-{
-public:
-	char m_pad00[0x44];
-	AsciiString m_side;	// +0x44
-};
+#include "../../../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {

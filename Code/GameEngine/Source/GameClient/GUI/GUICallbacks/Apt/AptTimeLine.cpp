@@ -120,14 +120,7 @@ enum NameKeyType
 };
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class PlayerTemplate
-{
-public:
-	unsigned char m_pad000[0x18];
-	AsciiString m_side; // +0x18
-	unsigned char m_pad01C[0x1BC - 0x1C];
-	Bool m_isEvil; // +0x1BC
-};
+#include "../../../../../Include/Common/PlayerTemplate.h"
 class PlayerTemplateStore
 {
 public:

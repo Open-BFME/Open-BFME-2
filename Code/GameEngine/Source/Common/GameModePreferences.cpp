@@ -324,13 +324,7 @@ Int GameModePreferences::rva0044D836(void)
 // default map at 0x18 begin-first; PlayerTemplate byte 0x151;
 // callers 0x00249DE4 0x00446861 0x005A22AC 0x005A24F9;
 // prev 0x0044D836 next 0x0044DBA5.
-class PlayerTemplate
-{
-public:
-	char m_pad151[0x151];
-	unsigned char m_151;
-	char m_rest[0x1DC - 0x152];
-};
+#include "../../Include/Common/PlayerTemplate.h"
 
 class PlayerTemplateStore
 {
@@ -369,7 +363,7 @@ Int GameModePreferences::rva0044D88C(void)
 		const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(v);
 		if (!pt)
 			v = -1;
-		else if (pt->m_151 == 0)
+		else if (pt->m_playableSide == 0)
 			v = -1;
 	}
 	if (v == -1 && (TheWritableGlobalData->m_flag9D4 & 3) != 0)

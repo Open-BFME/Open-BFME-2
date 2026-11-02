@@ -419,11 +419,7 @@ private:
 };
 
 
-class PlayerTemplate
-{
-public:
-    UnicodeString getDisplayName() const;
-};
+#include "../../Include/Common/PlayerTemplate.h"
 
 
 PlayerTemplateStore *ThePlayerTemplateStore;
