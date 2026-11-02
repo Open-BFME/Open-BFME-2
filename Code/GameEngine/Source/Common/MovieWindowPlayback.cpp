@@ -40,7 +40,7 @@ struct TargetRef00217D4C;
 // Keep that extra flag in a distinct record instead of widening the prefix.
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
-class HotKeyManager { public: unsigned int removeMessageAction(int); };
+#include "../../Include/GameClient/HotKeyManager.h"
 int GetAssociatedMessageType(int);
 class Xfer;
 enum StateReturnType

@@ -53,7 +53,7 @@ class Rva00200667 : public _STL::list<int> {public:~Rva00200667();};
 Rva00200667 *Rva005680F9GetInstances();
 void *GadgetButtonGetData(GameWindow *);
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
-class HotKeyManager {public:AsciiString searchHotKey(const AsciiString &);};
+#include "../../../../../Include/GameClient/HotKeyManager.h"
 class Rva00E01E28Owner;class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
 struct Rva003597C3Element {char bytes[8];};

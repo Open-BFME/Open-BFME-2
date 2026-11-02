@@ -126,11 +126,7 @@ private:
 
 // The hot key lookup (Zero Hour HotKeyManager::searchHotKey) on the manager at
 // retail [0x00E01E28]; pinned at 0x00358B9E.
-class HotKeyManager
-{
-public:
-	AsciiString searchHotKey( const UnicodeString &uStr );
-};
+#include "../../../../GameEngine/Include/GameClient/HotKeyManager.h"
 
 class HotKeyManager;
 

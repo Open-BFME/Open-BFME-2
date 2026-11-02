@@ -61,7 +61,7 @@ class Rva005C3E79 { public: void rva005C3E79(); };
 class Rva00E01E28Owner { public: void rva003591F4(Rva003591F4Arg); };
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
-class HotKeyManager { public: unsigned int removeMessageAction(int); };
+#include "../../Include/GameClient/HotKeyManager.h"
 int GetAssociatedMessageType(int);
 class InGameToggleStanceCommandButton {
 public:

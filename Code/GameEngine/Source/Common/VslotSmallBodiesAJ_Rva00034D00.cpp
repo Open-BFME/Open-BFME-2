@@ -28,7 +28,7 @@ struct TargetRef00217D4C;
 // Keep that extra flag in a distinct record instead of widening the prefix.
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
-class HotKeyManager { public: unsigned int removeMessageAction(int); };
+#include "../../Include/GameClient/HotKeyManager.h"
 int GetAssociatedMessageType(int);
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AJ:

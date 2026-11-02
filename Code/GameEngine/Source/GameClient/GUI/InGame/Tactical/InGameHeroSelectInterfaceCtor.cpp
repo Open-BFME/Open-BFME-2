@@ -294,12 +294,7 @@ public:
 	HotKeyActionBase *m_ptr;
 };
 
-class HotKeyManager
-{
-public:
-	AsciiString searchHotKey(const AsciiString &name);
-	Rva00359302Result addHotKey(const TreeHintRef00217D4C &action, const AsciiString &key, bool flag);
-};
+#include "../../../../../Include/GameClient/HotKeyManager.h"
 
 class Rva00E01E28Owner;
 extern HotKeyManager *TheHotKeyManager;

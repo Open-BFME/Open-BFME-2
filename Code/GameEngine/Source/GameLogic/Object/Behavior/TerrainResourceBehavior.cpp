@@ -265,11 +265,7 @@ enum GameMessageDisposition
 	DESTROY_MESSAGE
 };
 
-class HotKeyManager
-{
-public:
-	GameMessageDisposition translate(const GameMessage *msg);
-};
+#include "../../../../Include/GameClient/HotKeyManager.h"
 
 extern HotKeyManager *TheHotKeyManager;
 
