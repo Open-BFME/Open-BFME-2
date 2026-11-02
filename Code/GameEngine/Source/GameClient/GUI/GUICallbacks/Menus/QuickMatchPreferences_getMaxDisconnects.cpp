@@ -35,12 +35,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
-class QuickMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~QuickMatchPreferences();
-	Int getMaxDisconnects();
-};
+#include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
 
 Int QuickMatchPreferences::getMaxDisconnects(void)
 {

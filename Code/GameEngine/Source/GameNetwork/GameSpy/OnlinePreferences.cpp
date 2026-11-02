@@ -62,20 +62,7 @@ typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-	virtual ~QuickMatchPreferences();
-	void setColor(Int val);
-	Int getColor(void);
-	void setSide(Int val);
-	Int getSide(void);
-	void setHighest1vs1Rank(Int val);
-	Int getHighest1vs1Rank(void);
-	void setHighest2vs2Rank(Int val);
-	Int getHighest2vs2Rank(void);
-};
+#include "../../../Include/Common/QuickMatchPreferencesClass.h"
 
 class GameSpyMiscPreferences : public UserPreferences
 {

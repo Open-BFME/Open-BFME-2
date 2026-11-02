@@ -32,12 +32,7 @@ template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, alloca
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 
-class QuickMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~QuickMatchPreferences();
-	void setMapSelected(const AsciiString &mapName, Bool selected);
-};
+#include "../../Include/Common/QuickMatchPreferencesClass.h"
 
 void QuickMatchPreferences::setMapSelected(const AsciiString &mapName, Bool selected)
 {

@@ -42,27 +42,7 @@ int OnlineQuickMatchMaxPingEntries = 0;
 
 #include "../../Include/Common/UserPreferences.h"
 
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-public:
-	virtual ~QuickMatchPreferences();
-public:
-	void setLastLadder(const AsciiString &address, unsigned short port);
-public:
-	void setNumPlayers(int value);
-public:
-	void setMaxPing(int value);
-public:
-	void setSide(int value);
-public:
-	void setColor(int value);
-public:
-	int getNumPlayers();
-	int getMaxPing();
-	int getSide();
-};
+#include "../../Include/Common/QuickMatchPreferencesClass.h"
 
 class Rva005BA6EE
 {

@@ -127,27 +127,7 @@ struct AptOnlineQuickMatch {char prefix[0x60];int state;char at64[0x16];bool mat
 
 #include "../../../../../Include/Common/UserPreferences.h"
 
-class QuickMatchPreferences : public UserPreferences
-{
-public:
-	QuickMatchPreferences();
-public:
-	virtual ~QuickMatchPreferences();
-public:
-	void setLastLadder(const AsciiString &address, unsigned short port);
-public:
-	void setNumPlayers(int value);
-public:
-	void setMaxPing(int value);
-public:
-	void setSide(int value);
-public:
-	void setColor(int value);
-public:
-	int getNumPlayers();
-	int getMaxPing();
-	int getSide();
-};
+#include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
 
 class Rva005BB3A1
 {

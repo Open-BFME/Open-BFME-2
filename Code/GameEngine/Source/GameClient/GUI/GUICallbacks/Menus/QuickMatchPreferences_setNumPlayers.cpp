@@ -40,12 +40,7 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class QuickMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~QuickMatchPreferences();
-	void setNumPlayers(Int value);
-};
+#include "../../../../../Include/Common/QuickMatchPreferencesClass.h"
 
 // ?setNumPlayers@QuickMatchPreferences@@QAEXH@Z
 void QuickMatchPreferences::setNumPlayers(Int value)
