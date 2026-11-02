@@ -108,6 +108,13 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
    FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
 
+Repaired (2026-11-02, lk15): FloodUpdateDtor (180 B), cause `0769434026` (Adopt canonical
+UpdateModuleInterface in 21 more units; it moved FloodUpdateCtor.cpp onto the canonical chain) while
+the Dtor (first in link order) kept a private UpdateModule with a one-slot interface. Same recipe:
+the Dtor includes canonical UpdateModule.h. `./build.sh` 5/5 rows; scoped DIR32 OK; only the two units
+touch the FloodUpdate tables, now one digest each; `link_check` FloodUpdateDtor 180 B links again,
+FloodUpdateCtor 95 B unchanged.
+
 Repaired (2026-11-02, lk15): SpawnBehaviorDtor (174 B). SpawnBehaviorCtor.cpp moved onto canonical
 UpdateModule.h (`a9be158d99`, landed after the 06:54 census) while the Dtor (first in link order) kept a
 private UpdateModule with a one-slot interface (primary slots 1-3 `__purecall`, 12 slots). The Dtor now
