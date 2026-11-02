@@ -189,11 +189,7 @@ protected:
 };
 
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-class DamageModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
 class LivingWorldCampaign
 {

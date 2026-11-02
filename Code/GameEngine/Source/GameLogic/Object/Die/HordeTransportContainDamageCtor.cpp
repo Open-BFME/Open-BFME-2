@@ -22,11 +22,7 @@ extern "C" const void *const __identifier("??_7Rva004BB0CC@@6BRva004B96CC@@@")[]
 class Thing;
 class ModuleData;
 
-class DamageModule
-{
-public:
-	DamageModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
 class HordeTransportContainDamage : public DamageModule
 {

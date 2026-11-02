@@ -114,11 +114,7 @@ protected:
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-class DamageModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/DamageModuleClass.h"
 
 class Xfer;
 

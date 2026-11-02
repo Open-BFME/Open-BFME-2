@@ -1267,11 +1267,7 @@ int Rva004B9452Get(void)
 }
 
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-class DamageModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/Module/DamageModuleClass.h"
 
 // ?Rva004BA431Get@@YAHXZ @ 0x004ba431 (6B): returns 0x00bf49ec.
 // Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,

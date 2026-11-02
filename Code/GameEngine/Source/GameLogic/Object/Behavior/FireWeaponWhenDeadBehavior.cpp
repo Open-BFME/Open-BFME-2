@@ -180,11 +180,7 @@ protected:
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-class DamageModule
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 
 // Existing verified getters rehomed after naming their actual providers.
 // Integer return representation retained; provider addresses now relocate.
