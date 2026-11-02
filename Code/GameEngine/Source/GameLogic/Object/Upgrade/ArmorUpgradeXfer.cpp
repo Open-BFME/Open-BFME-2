@@ -29,14 +29,7 @@ class Snapshot;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class UpgradeModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad[0x1C - 4];
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class ArmorUpgrade : public UpgradeModule
 {

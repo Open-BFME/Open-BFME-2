@@ -78,9 +78,7 @@ protected:
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
 };
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class CommandPointsUpgrade : public UpgradeModule
 {
 protected:

@@ -9,11 +9,7 @@
 
 #include "../GameLogic/Object/object.h"
 
-class UpgradeModule
-{
-public:
-	void rva004CE4A0();
-};
+#include "../../Include/GameLogic/Module/UpgradeModule.h"
 
 #include "../../Include/GameLogic/Rva002A8F24.h"
 

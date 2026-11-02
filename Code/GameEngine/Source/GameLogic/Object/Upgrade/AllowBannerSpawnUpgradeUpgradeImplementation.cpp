@@ -39,12 +39,7 @@ protected:
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
 };
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-public:
-	void rva004CE4A0();
-	void rva004CE4A8();
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class AllowBannerSpawnUpgrade : public UpgradeModule
 {
 protected:

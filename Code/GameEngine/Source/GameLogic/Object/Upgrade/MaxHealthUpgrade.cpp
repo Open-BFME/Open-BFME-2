@@ -118,9 +118,7 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class MaxHealthUpgradeModuleData : public Rva00253487Base
 {

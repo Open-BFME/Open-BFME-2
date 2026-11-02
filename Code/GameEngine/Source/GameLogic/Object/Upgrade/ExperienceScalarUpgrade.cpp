@@ -106,9 +106,7 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class ExperienceScalarUpgradeModuleData : public Rva00253487Base
 {

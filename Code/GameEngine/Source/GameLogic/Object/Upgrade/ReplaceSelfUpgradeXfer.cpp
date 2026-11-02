@@ -31,14 +31,7 @@ class Snapshot;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class UpgradeModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad[0x1C - 4];
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class ReplaceSelfUpgrade : public UpgradeModule
 {

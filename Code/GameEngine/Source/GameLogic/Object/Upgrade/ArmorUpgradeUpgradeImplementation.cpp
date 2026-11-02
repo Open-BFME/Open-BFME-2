@@ -129,12 +129,7 @@ protected:
 	virtual void slot09() = 0;
 	virtual void upgradeImplementation() = 0;
 };
-class UpgradeModule : public BehaviorModule, public UpgradeMuxIface
-{
-public:
-	void rva004CE4A0();
-	void rva004CE4A8();
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class ArmorUpgrade : public UpgradeModule
 {
 protected:

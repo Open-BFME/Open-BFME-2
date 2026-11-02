@@ -70,17 +70,7 @@ struct CastleUpgradeModuleData
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-protected:
-	virtual void upgradeImplementation() = 0;
-
-private:
-	bool m_upgradeExecuted;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class ModuleInterface
 {
@@ -88,13 +78,6 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class UpgradeModule : public BehaviorModule,
-	public UpgradeMux,
-	public ModuleInterface
-{
-public:
-	UpgradeModule( Thing *thing, const ModuleData *moduleData );
-};
 
 class CastleUpgrade : public UpgradeModule
 {

@@ -18,14 +18,7 @@
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
-class UpgradeModule
-{
-protected:
-	virtual ~UpgradeModule();
-
-private:
-	unsigned char m_pad[0x1C - 4];
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class __declspec(novtable) GeometryUpgrade : public UpgradeModule
 {

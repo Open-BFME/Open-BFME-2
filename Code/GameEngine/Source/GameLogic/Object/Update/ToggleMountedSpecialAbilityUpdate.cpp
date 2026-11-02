@@ -562,14 +562,7 @@ public:
 // 0x00C5FE50: +0x10C RequiresAllTriggers, +0x10D RequiresAllConflictingTriggers)
 // that the rowed wouldUpgrade 0x004CE2B0 reads through +0x34 and +0x38; slot 13
 // is ZH's requiresAllActivationUpgrades, slot 14's spelling follows its INI key.
-class UpgradeModule : public Rva00452EDDPrimary<0x10>, public Rva00452460Iface
-{
-protected:
-	void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
-	void performUpgradeFX();
-	bool requiresAllActivationUpgrades() const;
-	bool requiresAllConflictingUpgrades() const;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 // 0x004839F9 (interface at +0x20): virtual slot 14 of the complete object
 // when the third argument is 2, else slot 15 when the second is 2.

@@ -31,19 +31,8 @@ struct DoCommandUpgradeModuleData
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class UpgradeMux
-{
-public:
-	virtual void gap0() = 0; virtual void gap1() = 0; virtual void gap2() = 0; virtual void gap3() = 0;
-	virtual void gap4() = 0; virtual void gap5() = 0; virtual void gap6() = 0; virtual void gap7() = 0;
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void gap9() = 0;
-	virtual void upgradeImplementation() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
-class UpgradeModule : public BehaviorModule, public UpgradeMux
-{
-};
 
 class DoCommandUpgrade : public UpgradeModule
 {

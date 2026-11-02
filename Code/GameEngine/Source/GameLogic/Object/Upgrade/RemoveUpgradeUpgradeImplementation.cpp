@@ -165,11 +165,7 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-public:
-	void rva004CE4A0();
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class RemoveUpgradeUpgrade : public UpgradeModule
 {

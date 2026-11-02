@@ -26,17 +26,7 @@ struct ControlBarView
 	bool m_uiDirty;
 };
 
-class UpgradeModule
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~UpgradeModule();
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x1C - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class Rva004B70F0Iface1C
 {
