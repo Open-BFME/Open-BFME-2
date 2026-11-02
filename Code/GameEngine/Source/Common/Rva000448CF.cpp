@@ -19,14 +19,14 @@ public:
 class Rva000448CF
 {
 public:
-	void rva000448CF(float x1, float y1, float x2, float y2, float width, unsigned long color);
+	void rva000448CF(float startX, float y1, float x2, float y2, float width, unsigned long color);
 private:
 	char m_lead[0x168];
 	Render2DClass *m_target;
 };
 
-void Rva000448CF::rva000448CF(float x1, float y1, float x2, float y2, float width, unsigned long color)
+void Rva000448CF::rva000448CF(float startX, float y1, float x2, float y2, float width, unsigned long color)
 {
 	m_target->m_ready = 0;
-	m_target->Add_Line(Vector2(x1, y1), Vector2(x2, y2), width, color);
+	m_target->Add_Line(Vector2(startX, y1), Vector2(x2, y2), width, color);
 }

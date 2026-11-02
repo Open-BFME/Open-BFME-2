@@ -6,14 +6,14 @@
 
 #include <math.h>
 
-double __cdecl Rva000422A0Atan2(float y, float x)
+double __cdecl Rva000422A0Atan2(float yValue, float xValue)
 {
-	return atan2((double)(y), (double)(x));
+	return atan2((double)(yValue), (double)(xValue));
 }
 
-double __cdecl Rva000422BBCeil(float x)
+double __cdecl Rva000422BBCeil(float xValue)
 {
-	return ceil((double)(x));
+	return ceil((double)(xValue));
 }
 
 // W3DMouseCursorDirection.cpp already emits the complete retail float overload

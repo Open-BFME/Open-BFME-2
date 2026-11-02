@@ -61,7 +61,7 @@ inline Rva00030DD0Lock::~Rva00030DD0Lock()
 {
 	DeleteCriticalSection(&m_cs);
 }
-void famgenDelete(Rva00030DD0Lock *p) { delete p; }
+void famgenDelete(Rva00030DD0Lock *lock) { delete lock; }
 
 // ?Rva00030EF0Get@@YAKXZ @0x00030EF0 21B.
 // Free function returning SYSTEM_INFO dwPageSize (+4) via IAT
@@ -90,8 +90,8 @@ Rva00030DD0Lock::Rva00030DD0Lock()
 // this unit emit it.
 #pragma inline_depth(0)
 // ?bfmeEmitRva00030DD0LockDtor@@YAXPAURva00030DD0Lock@@@Z present-unmatched
-void bfmeEmitRva00030DD0LockDtor(Rva00030DD0Lock *p)
+void bfmeEmitRva00030DD0LockDtor(Rva00030DD0Lock *lock)
 {
-	p->~Rva00030DD0Lock();
+	lock->~Rva00030DD0Lock();
 }
 #pragma inline_depth()

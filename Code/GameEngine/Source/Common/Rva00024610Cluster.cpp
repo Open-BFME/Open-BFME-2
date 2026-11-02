@@ -113,12 +113,12 @@ void rva0024780Forward(const void *first, const void *last, void *destination)
 	_STL::__copy_trivial_backward(first, last, destination);
 }
 
-int rva0024A00Sub(const int *a, const int *b)
+int rva0024A00Sub(const int *subtrahend, const int *minuend)
 {
 	int y;
 	int x;
 
-	x = *b;
-	y = *a;
+	x = *minuend;
+	y = *subtrahend;
 	return x - y;
 }
