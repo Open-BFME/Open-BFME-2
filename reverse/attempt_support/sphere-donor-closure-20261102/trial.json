@@ -1,0 +1,18 @@
+{
+  "rows": 3,
+  "matched": 3,
+  "errors": [],
+  "code_definitions": [
+    "??_H@YGXPAXIHP6EPAX0@Z@Z",
+    "??AQuaternion@@QBEABMH@Z",
+    "??4Quaternion@@QAEAAV0@ABV0@@Z",
+    "??4AlphaVectorStruct@@QAEABU0@ABU0@@Z",
+    "?Peek_Color_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ",
+    "?Peek_Vector_Channel@SphereRenderObjClass@@QAEABVAlphaVectorChannel@@XZ"
+  ],
+  "native_complete_unchanged": {
+    "?Peek_Color_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ": true,
+    "?Peek_Vector_Channel@SphereRenderObjClass@@QAEABVAlphaVectorChannel@@XZ": true,
+    "??4AlphaVectorStruct@@QAEABU0@ABU0@@Z": true
+  }
+}

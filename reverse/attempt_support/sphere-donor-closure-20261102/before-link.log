@@ -1,0 +1,26 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 51)
+  unresolved  ??0DynamicVBAccessClass@@QAE@IIG@Z
+  unresolved  ??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z
+  unresolved  ??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ
+  unresolved  ?Add_Object@PredictiveLODOptimizerClass@@SAXPAVRenderObjClass@@@Z
+  unresolved  ?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z
+  unresolved  ?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z
+  unresolved  ?Set_Model_Transform@VisRasterizerClass@@QAEXABVMatrix3D@@@Z
+  comdat      ??1RenderObjClass@@UAE@XZ  (retail: not retail's body)
+  comdat      ??_7RenderObjClass@@6BRefCountClass@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Native_Screen_Size@RenderObjClass@@UBEMXZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ??4?$PrimitiveAnimationChannelClass@VVector3@@@@QAEABV0@ABV0@@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ??4?$PrimitiveAnimationChannelClass@M@@QAEABV0@ABV0@@Z  (first: differs from the first copy in link order (no retail address))
+  diagnostic  ?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z  (codegen-like: 69 bytes against the majority copy's 63; unreferenced, not a blocker)
+  diagnostic  ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z  (codegen-like: 1425 bytes against the majority copy's 1107; unreferenced, not a blocker)
+  diagnostic  ??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAEAAVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z  (codegen-like: 13 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ??A?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QBEABVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z  (codegen-like: 13 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ?Grow@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@IAE_NH@Z  (codegen-like: 67 bytes against the majority copy's 68; unreferenced, not a blocker)
+  diagnostic  ?Grow@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@IAE_NH@Z  (codegen-like: 67 bytes against the majority copy's 68; unreferenced, not a blocker)
+  diagnostic  ?Get_Key@?$PrimitiveAnimationChannelClass@VVector3@@@@QBEABVKeyClass@1@H@Z  (codegen-like: 13 bytes against the majority copy's 15; unreferenced, not a blocker)
+  diagnostic  ?Add@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAE_NABVKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@H@Z  (codegen-like: 105 bytes against the majority copy's 108; unreferenced, not a blocker)
+  diagnostic  ?Delete_All@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@VVector3@@@@@@QAEX_N@Z  (codegen-like: 46 bytes against the majority copy's 47; unreferenced, not a blocker)
+  diagnostic  ?Add@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAE_NABVKeyClass@?$PrimitiveAnimationChannelClass@M@@H@Z  (codegen-like: 92 bytes against the majority copy's 93; unreferenced, not a blocker)
+  diagnostic  ?Delete_All@?$SimpleDynVecClass@VKeyClass@?$PrimitiveAnimationChannelClass@M@@@@QAEX_N@Z  (codegen-like: 46 bytes against the majority copy's 47; unreferenced, not a blocker)
+link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (8.1s)

@@ -1,0 +1,299 @@
+{
+  "scope": "Bounded read-only current sphere closure/provider audit; no Code/ledger/tool edits, claims, compiler or network.",
+  "index": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "index_model": {
+    "objects": 18640,
+    "touches": 18640,
+    "missing_touches": 0,
+    "per_object_reference_records": 0
+  },
+  "source_sha256": "dc7715ad88244c9a616012bc69a2f1a3c5dacbf436bdd02f1530c7e1fd7dc543",
+  "current_object_sha256": "c55318b956788a1c9e8b347b760de21a179cb0d1974f9fc4eb5ec458176fd860",
+  "census_object_sha256": "7a56399deb2221e592b540c636850cccf233541efa413e1714981d58a14d7494",
+  "receipt": {
+    "source_recorded_md5": "4c83b4fb3f587988e9d8ee75c9031aa7",
+    "source_actual_md5": "4c83b4fb3f587988e9d8ee75c9031aa7",
+    "object_recorded_md5": "4b476152101f24529cb6e5ac5e843d7c",
+    "object_actual_md5": "4b476152101f24529cb6e5ac5e843d7c"
+  },
+  "counts": {
+    "source_unrowed_present_unmatched_markers": 57,
+    "all_external_defined_names": 445,
+    "all_external_code_definitions": 406,
+    "sphere_class_external_code_and_data": 94,
+    "sphere_class_outside_touch_count": 0,
+    "all_defined_names_touched_outside": 298,
+    "outside_touched_names_without_alternate_provider": 0,
+    "only_sphere_retail_proven_variant": 0,
+    "outside_touch_count_note": "Corrected report-only count: touching absent defaultdict entries while counting the94 untouchable Sphere names had inflated len() by94. Actual outside-touched shared names are298; all other stored findings/selected cases were computed before that access and remain unchanged."
+  },
+  "sphere_class_names": [
+    "??0SphereLoaderClass@@QAE@XZ",
+    "??0SphereMeshClass@@QAE@MHH@Z",
+    "??0SphereMeshClass@@QAE@XZ",
+    "??0SpherePrototypeClass@@QAE@PAVSphereRenderObjClass@@@Z",
+    "??0SpherePrototypeClass@@QAE@XZ",
+    "??0SphereRenderObjClass@@QAE@ABUW3dSphereStruct@@@Z",
+    "??0SphereRenderObjClass@@QAE@ABV0@@Z",
+    "??0SphereRenderObjClass@@QAE@XZ",
+    "??1SphereLoaderClass@@QAE@XZ",
+    "??1SphereMeshClass@@QAE@XZ",
+    "??1SpherePrototypeClass@@MAE@XZ",
+    "??1SphereRenderObjClass@@UAE@XZ",
+    "??4SphereRenderObjClass@@QAEAAV0@ABV0@@Z",
+    "??_7SphereLoaderClass@@6B@",
+    "??_7SpherePrototypeClass@@6B@",
+    "??_7SphereRenderObjClass@@6BMultiListObjectClass@@@",
+    "??_7SphereRenderObjClass@@6BRefCountClass@@@",
+    "??_ESphereRenderObjClass@@W7AEPAXI@Z",
+    "??_GSpherePrototypeClass@@MAEPAXI@Z",
+    "??_GSphereRenderObjClass@@UAEPAXI@Z",
+    "?Calculate_Cost_Value_Arrays@SphereRenderObjClass@@UBEHMPAM0@Z",
+    "?Chunk_Type@SphereLoaderClass@@UAEHXZ",
+    "?Class_ID@SphereRenderObjClass@@UBEHXZ",
+    "?Clone@SphereRenderObjClass@@UBEPAVRenderObjClass@@XZ",
+    "?Create@SpherePrototypeClass@@UAEPAVRenderObjClass@@XZ",
+    "?Decrement_LOD@SphereRenderObjClass@@UAEXXZ",
+    "?DeleteSelf@SpherePrototypeClass@@UAEXXZ",
+    "?Free@SphereMeshClass@@AAEXXZ",
+    "?Generate@SphereMeshClass@@QAEXMHH@Z",
+    "?Generate_Shared_Mesh_Arrays@SphereRenderObjClass@@KAXABUAlphaVectorStruct@@@Z",
+    "?Get_Box@SphereRenderObjClass@@QAEABVAABoxClass@@XZ",
+    "?Get_Class_ID@SpherePrototypeClass@@UBEHXZ",
+    "?Get_Cost@SphereRenderObjClass@@UBEMXZ",
+    "?Get_Default_Alpha@SphereRenderObjClass@@QBEMXZ",
+    "?Get_Default_Color@SphereRenderObjClass@@QBE?AVVector3@@XZ",
+    "?Get_Default_Scale@SphereRenderObjClass@@QBE?AVVector3@@XZ",
+    "?Get_Default_Vector@SphereRenderObjClass@@QBE?AUAlphaVectorStruct@@XZ",
+    "?Get_Flags@SphereRenderObjClass@@QAEIXZ",
+    "?Get_LOD_Count@SphereRenderObjClass@@UBEHXZ",
+    "?Get_LOD_Level@SphereRenderObjClass@@UBEHXZ",
+    "?Get_Name@SpherePrototypeClass@@UBEPBDXZ",
+    "?Get_Name@SphereRenderObjClass@@UBEPBDXZ",
+    "?Get_Num_Polys@SphereMeshClass@@QAEHXZ",
+    "?Get_Num_Polys@SphereRenderObjClass@@UBEHXZ",
+    "?Get_Obj_Space_Bounding_Box@SphereRenderObjClass@@UBEXAAVAABoxClass@@@Z",
+    "?Get_Obj_Space_Bounding_Sphere@SphereRenderObjClass@@UBEXAAVSphereClass@@@Z",
+    "?Get_Post_Increment_Value@SphereRenderObjClass@@UBEMXZ",
+    "?Get_Value@SphereRenderObjClass@@UBEMXZ",
+    "?Increment_LOD@SphereRenderObjClass@@UAEXXZ",
+    "?Init_Material@SphereRenderObjClass@@IAEXXZ",
+    "?Is_Animating@SphereRenderObjClass@@QAE_NXZ",
+    "?Load@SpherePrototypeClass@@QAE_NAAVChunkLoadClass@@@Z",
+    "?Load_W3D@SphereLoaderClass@@UAEPAVPrototypeClass@@AAVChunkLoadClass@@@Z",
+    "?Peek_Alpha_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@M@@XZ",
+    "?Peek_Color_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ",
+    "?Peek_Scale_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ",
+    "?Peek_Vector_Channel@SphereRenderObjClass@@QAEABVAlphaVectorChannel@@XZ",
+    "?Prepare_LOD@SphereRenderObjClass@@UAEXAAVCameraClass@@@Z",
+    "?Render@SphereRenderObjClass@@UAEXAAVRenderInfoClass@@@Z",
+    "?Restart_Animation@SphereRenderObjClass@@QAEXXZ",
+    "?Save@SpherePrototypeClass@@QAE_NAAVChunkSaveClass@@@Z",
+    "?Scale@SphereRenderObjClass@@UAEXM@Z",
+    "?Scale@SphereRenderObjClass@@UAEXMMM@Z",
+    "?Set_Alpha_Channel@SphereRenderObjClass@@QAEXABV?$LERPAnimationChannelClass@M@@@Z",
+    "?Set_Alpha_Vector@SphereMeshClass@@QAEXABUAlphaVectorStruct@@_N11@Z",
+    "?Set_Animation_Duration@SphereRenderObjClass@@QAEXM@Z",
+    "?Set_Animation_Hidden@SphereRenderObjClass@@UAEXH@Z",
+    "?Set_Color_Channel@SphereRenderObjClass@@QAEXABV?$LERPAnimationChannelClass@VVector3@@@@@Z",
+    "?Set_DCG@SphereMeshClass@@AAEX_NHM@Z",
+    "?Set_Flags@SphereRenderObjClass@@QAEXI@Z",
+    "?Set_Force_Visible@SphereRenderObjClass@@UAEXH@Z",
+    "?Set_Hidden@SphereRenderObjClass@@UAEXH@Z",
+    "?Set_LOD_Bias@SphereRenderObjClass@@UAEXM@Z",
+    "?Set_LOD_Level@SphereRenderObjClass@@UAEXH@Z",
+    "?Set_Local_Center_Extent@SphereRenderObjClass@@QAEXABVVector3@@0@Z",
+    "?Set_Name@SphereRenderObjClass@@UAEXPBD@Z",
+    "?Set_Position@SphereRenderObjClass@@UAEXABVVector3@@@Z",
+    "?Set_Scale_Channel@SphereRenderObjClass@@QAEXABV?$LERPAnimationChannelClass@VVector3@@@@@Z",
+    "?Set_Texture@SphereRenderObjClass@@QAEXPAVTextureClass@@@Z",
+    "?Set_Transform@SphereRenderObjClass@@UAEXABVMatrix3D@@@Z",
+    "?Set_Vector_Channel@SphereRenderObjClass@@QAEXABVAlphaVectorChannel@@@Z",
+    "?Set_Visible@SphereRenderObjClass@@UAEXH@Z",
+    "?Special_Render@SphereRenderObjClass@@QAEXAAVSpecialRenderInfoClass@@@Z",
+    "?SphereMeshArray@@3PAVSphereMeshClass@@A",
+    "?Start_Animating@SphereRenderObjClass@@QAEXXZ",
+    "?Stop_Animating@SphereRenderObjClass@@QAEXXZ",
+    "?Update_Cached_Bounding_Volumes@SphereRenderObjClass@@MBEXXZ",
+    "?Update_On_Visibilty@SphereRenderObjClass@@IAEXXZ",
+    "?_SphereLoader@@3VSphereLoaderClass@@A",
+    "?animate@SphereRenderObjClass@@IAEXXZ",
+    "?calculate_value_array@SphereRenderObjClass@@IBEXMPAM@Z",
+    "?render_sphere@SphereRenderObjClass@@IAEXXZ",
+    "?update_cached_box@SphereRenderObjClass@@MAEXXZ",
+    "?vis_render_sphere@SphereRenderObjClass@@IAEXAAVSpecialRenderInfoClass@@ABVVector3@@1@Z"
+  ],
+  "outside_sphere_alias_routes": [],
+  "shared_provider_exceptions": [
+    {
+      "name": "?Rotate_Z@Matrix3@@QAEXMM@Z",
+      "sphere_variants": [
+        [
+          "088c1a00d80a",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^particle^control^ctor^family.obj",
+          "source": "Code/GameEngine/Source/Common/System/ParticleControlCtorFamily.cpp",
+          "digest": "e3cf333455ab",
+          "verdict": null
+        }
+      ],
+      "referenced": false,
+      "aggregate_incoming": []
+    },
+    {
+      "name": "?Rotate_Z@Matrix3@@QAEXM@Z",
+      "sphere_variants": [
+        [
+          "f87b6456440a",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "object": "^code_^game^engine_^source_^common_^system_^particle^control^ctor^family.obj",
+          "source": "Code/GameEngine/Source/Common/System/ParticleControlCtorFamily.cpp",
+          "digest": "8b1ce65de02d",
+          "verdict": null
+        }
+      ],
+      "referenced": false,
+      "aggregate_incoming": []
+    },
+    {
+      "name": "??D@YA?AVVector3@@ABVMatrix3@@ABV0@@Z",
+      "sphere_variants": [
+        [
+          "fb2a4dab478c",
+          "retail"
+        ]
+      ],
+      "outside_variants": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_^collision^math^line^box.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/CollisionMathLineBox.cpp",
+          "digest": "fb2a4dab478c",
+          "verdict": "retail"
+        }
+      ],
+      "referenced": true,
+      "aggregate_incoming": []
+    },
+    {
+      "name": "?Make_Identity@Matrix3@@QAEXXZ",
+      "sphere_variants": [
+        [
+          "da7bab178f3e",
+          "retail"
+        ]
+      ],
+      "outside_variants": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_matrix3.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/matrix3.cpp",
+          "digest": "da7bab178f3e",
+          "verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^math_colmathobbobb.obj",
+          "source": "Code/Libraries/Source/WWVegas/WWMath/colmathobbobb.cpp",
+          "digest": "da7bab178f3e",
+          "verdict": "retail"
+        }
+      ],
+      "referenced": true,
+      "aggregate_incoming": []
+    }
+  ],
+  "no_alternate_provider_names": [],
+  "only_sphere_retail_variant_names": [],
+  "native_owned_rows": [
+    {
+      "row": {
+        "name": "?Peek_Color_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ",
+        "export_rva": "",
+        "target_rva": "0x001DFAA6",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "actual_emitted_length": 7,
+      "actual_emitted_bytes": "8d810c010000c3",
+      "native_bytes": "8d810c010000c3",
+      "exact": true,
+      "relocations": [],
+      "local_nondebug_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Peek_Vector_Channel@SphereRenderObjClass@@QAEABVAlphaVectorChannel@@XZ",
+        "export_rva": "",
+        "target_rva": "0x002A982F",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+        "status": "matched",
+        "notes": "placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "actual_emitted_length": 7,
+      "actual_emitted_bytes": "8d8154010000c3",
+      "native_bytes": "8d8154010000c3",
+      "exact": true,
+      "relocations": [],
+      "local_nondebug_runtime_or_data_incoming": []
+    },
+    {
+      "row": {
+        "name": "??4AlphaVectorStruct@@QAEABU0@ABU0@@Z",
+        "export_rva": "",
+        "target_rva": "0x0019BCE0",
+        "target_size": "37",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+        "status": "matched",
+        "notes": "located by tools/locate.py masked byte search in its already-compiling TU; unique placement with every REL32 call site resolving to a known start"
+      },
+      "actual_emitted_length": 37,
+      "actual_emitted_bytes": "8bc18b4c24048b1189108b51048950048b51088950088b510c89500c8b4910894810c20400",
+      "native_bytes": "8bc18b4c24048b1189108b51048950048b51088950088b510c89500c8b4910894810c20400",
+      "exact": true,
+      "relocations": [],
+      "local_nondebug_runtime_or_data_incoming": []
+    }
+  ],
+  "header_facts": [
+    "Resolved sphereobj.h defines public inline Peek_Color_Channel returning ColorChannel and Peek_Vector_Channel returning VectorChannel.",
+    "Both getters are called by unrowed SpherePrototypeClass(SphereRenderObjClass*) at source1323/1326 and inlined, leaving no runtime relocation to their emitted out-of-line copies.",
+    "Resolved AlphaVectorStruct stores Quaternion angle plus float intensity:20bytes. Its ordinary assignment copies angle and intensity; native37B copies five dwords. The assignment is used in unrowed SphereMesh::Set_Alpha_Vector, default/vector operations and animation paths, generally inlined.",
+    "No canonical_classes entry currently names SphereRenderObjClass or AlphaVectorStruct."
+  ],
+  "rotate_z_followup": {
+    "names": [
+      "?Rotate_Z@Matrix3@@QAEXM@Z",
+      "?Rotate_Z@Matrix3@@QAEXMM@Z"
+    ],
+    "outside_source": "Code/GameEngine/Source/Common/System/ParticleControlCtorFamily.cpp",
+    "current_outside_runtime_relocations_to_either": 0,
+    "index_is_referenced_both": false,
+    "aggregate_incoming_both": [],
+    "conclusion": "Differing unused no-address COMDAT copies, not an observed sole externally consumed provider. Preserve this distinction in closure evidence."
+  },
+  "conclusion": [
+    "No externally consumed Sphere-class donor provider or sole shared provider was found. A private3-body closure reduction is justified to test; current3exactrows must remain emitted in Code with supported TU ownership and no new runtime anchor storage.",
+    "Removing shared header copies still requires normal LinkGuard/batch audit. Two selected generic helpers retain identical retail alternatives; two selected Rotate_Z copies differ but have no observed runtime incoming references.",
+    "All current native rows are relocation-free, so their exact body preservation can be checked directly. Retain existing class/type spellings as current views; native byte offsets do not prove original donor class identity."
+  ],
+  "limits": [
+    "Updated index984a4cdc4d retains complete touches but not per-object reference contributions; outside-touch absence proves no indexed outside symbol reference, while touching a symbol alone does not distinguish definition from use.",
+    "Current sphere object differs from census digest; source/object receipt hashes match, and the3rowbytes were independently read exactly. Full strict command/dependency currency was not rerun by child.",
+    "New or changed outside objects after the index remain for required current consumer verification; no full game/census clearance claimed."
+  ]
+}

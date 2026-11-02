@@ -1,0 +1,55 @@
+{
+  "index": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "candidate_sha256": "38514059d59bd070153cab90a1048973294600cd4d9d9d379f5bca7d4803ee99",
+  "helpers": [
+    {
+      "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+      "length": 50,
+      "bytes": "8b44240c83e8017826538b5c2414558b6c2410568b742410578d78018d6424008bceffd303f583ef0175f55f5e5d5bc21000",
+      "relocs": [],
+      "candidate_comdat_digest": "4a16af1679c7",
+      "census_sphere_variants": [
+        [
+          "4a16af1679c7",
+          "wrong"
+        ]
+      ],
+      "candidate_nondebug_runtime_incoming": []
+    },
+    {
+      "name": "??AQuaternion@@QBEABMH@Z",
+      "length": 10,
+      "bytes": "8b4424048d0481c20400",
+      "relocs": [],
+      "candidate_comdat_digest": "d75bd894e707",
+      "census_sphere_variants": [
+        [
+          "d75bd894e707",
+          null
+        ]
+      ],
+      "candidate_nondebug_runtime_incoming": []
+    },
+    {
+      "name": "??4Quaternion@@QAEAAV0@ABV0@@Z",
+      "length": 31,
+      "bytes": "8bc18b4c24048b1189108b51048950048b51088950088b490c89480cc20400",
+      "relocs": [],
+      "candidate_comdat_digest": "7f8de6438c3d",
+      "census_sphere_variants": [
+        [
+          "7f8de6438c3d",
+          null
+        ]
+      ],
+      "candidate_nondebug_runtime_incoming": []
+    }
+  ],
+  "scope": "Read-only comparison to current census fingerprint; original pre-closure raw object was not retained by this child."
+}

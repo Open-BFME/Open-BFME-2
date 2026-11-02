@@ -17466,3 +17466,35 @@ returns2 because the baseline differs and affected
 Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry all three
 providers and their consumers into the next census; the specific insertion
 binding is cleared, broader selection remains unverified.
+
+### Publication and census follow-up (2026-11-02)
+
+The final absorption landed as c9f1a00d82 with the separate verifier repair
+a88a0030f1. The intervening Get_Shader fold landed as 93c5672365, so final
+pre-push verification covered 28 rows and both EH graphs. Get_Shader is now
+rowed; only Set_Texture remains an unrowed external donor provider in this
+scope. Its pointer-word ABI still needs coordinated caller/header recovery.
+
+The committed 2026-11-02 06:54 census at 357ce2a88f records linegrp.cpp
+linked=yes with zero unresolved, duplicate, losing-COMDAT, address or
+wrong-selected findings. This confirms the merged unit's census scope. The
+publication audit itself remained INCONCLUSIVE against its older dae306bc9d
+index and missing linegrp receipt; it did not establish global clearance.
+The required flag profile remains: the fresh premerge 27-row default-profile
+trial lost 13 matches, while the retained profile matched all 27. No flag
+override is retired on the strength of the merge.
+
+### Sphere donor closure (2026-11-02)
+
+Current-object repair, census pending: sphereobj.cpp's three native rows
+(51 B) and all six retained complete code definitions/relocations remain
+unchanged, while 57 unverified donor bodies and their helper closure are
+removed. The 08:35 index at 984a4cdc4d previews U7/C5 -> LINKS (0 -> 51 B).
+All 18,640 index touches records were checked; no outside unit touches the
+94 Sphere class definitions, and every outside-touched shared name has an
+alternate provider. Two differing Rotate_Z variants are unused; their
+limits and the current/census object distinction remain in the evidence.
+Normal, strict and new-variants checks pass. The owning tools retire 63
+local hatch occurrences and the obsolete DX row. Global current-consumer
+clearance and the linking headline await the outgoing audit and census.
+Evidence: reverse/attempt_support/sphere-donor-closure-20261102/.
