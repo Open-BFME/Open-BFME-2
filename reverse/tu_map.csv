@@ -2091,12 +2091,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00035720,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00035740,22,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00035760,23,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
-0x00035780,7,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
+0x00035780,7,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00035790,4,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x000357A0 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x000357A0,19,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x000357C0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp
 0x000357C0,42,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x000357F0 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x000357F0,5,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035800 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
-0x00035800,46,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035830 provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp
+0x00035800,46,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035830 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00035830,9,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035840 provisional,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x00035840,21,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035860 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00035860,28,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035880 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
@@ -2116,15 +2116,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00035BD0,84,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035C30 provisional,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00035C30,84,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035C90 provisional,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00035C90,93,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035780..0x00035CF0 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
-0x00035CF0,25,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/NarrowStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp
-0x00035D10,40,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/NarrowStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp
-0x00035D40,36,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/NarrowStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp
-0x00035D70,54,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035D40..0x00035DB0 provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseSkipSeps.cpp
-0x00035DB0,49,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035D40..0x00035DF0 provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseSkipSeps.cpp
+0x00035CF0,25,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/NarrowStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x00035D10,40,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/NarrowStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x00035D40,36,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/NarrowStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x00035D70,54,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035D40..0x00035DB0 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x00035DB0,49,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035D40..0x00035DF0 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00035DF0,93,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,C,C=0x00035D40..0x00035E50 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
-0x00035E50,25,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
-0x00035E70,43,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
-0x00035EA0,38,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
+0x00035E50,25,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x00035E70,43,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x00035EA0,38,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00035ED0,67,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseSkipSepsW.cpp
 0x00035F20,64,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseSkipSepsW.cpp
 0x00035F60,67,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
@@ -2147,24 +2147,24 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000365F0,66,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp
 0x00036640,173,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseGetBufferForRead.cpp
 0x000366F0,132,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp
-0x00036780,320,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp
-0x000368C0,216,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp
-0x000369A0,134,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp
+0x00036780,320,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x000368C0,216,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x000369A0,134,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00036A30,60,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCharSourceConcat.cpp
 0x00036A70,233,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowToLower.cpp
 0x00036B60,233,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowToUpper.cpp
 0x00036C50,228,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowRemoveLastChar.cpp
 0x00036D40,71,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
-0x00036D90,186,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseSkipSeps.cpp
+0x00036D90,186,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00036E50,19,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00036E70,133,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp
 0x00036F00,336,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp
 0x00037050,66,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopyCtor.cpp
 0x000370A0,174,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseGetBufferForRead.cpp
 0x00037150,132,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp
-0x000371E0,321,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
+0x000371E0,321,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00037330,220,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCharSourceSet.cpp
-0x00037410,134,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
+0x00037410,134,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x000374A0,60,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCharSourceSet.cpp
 0x000374E0,251,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideToLower.cpp
 0x000375E0,251,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideToUpper.cpp
@@ -2194,7 +2194,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00037E70,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00037E90,96,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideSet.cpp
 0x00037EF0,120,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideSet.cpp
-0x00037F70,127,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideTrim.cpp
+0x00037F70,127,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x00037FF0,70,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
 0x00038040,16,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp
 0x00038050,17,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp
@@ -61473,8 +61473,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075CCCE,10,code,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp,approved,P,P=0x00035DF0@FuncInfo0x008FEA28 provisional,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x0075CCE0,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp
 0x0075CCE8,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp
-0x0075CD00,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
-0x0075CD08,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp
+0x0075CD00,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
+0x0075CD08,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp
 0x0075CD20,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/AsciiFromUnicode.cpp
 0x0075CD28,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/AsciiFromUnicode.cpp
 0x0075CD40,8,code,,,-,,Code/Libraries/Source/debug/debug_cmd.cpp

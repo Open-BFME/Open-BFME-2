@@ -485,7 +485,7 @@
 /// cannot contain a token with an embedded space; callers that need one
 /// pass their own separators.
 
-/// \file WWVegas/WWLib/StringBaseSkipSeps.cpp
+/// \file WWVegas/WWLib/WideStrLenSource.cpp
 /// \ingroup grp_w1021_stringbase_compare_search
 /// \brief StringBase<char>::nextToken and the two file-static helpers that
 ///        scan for separators, skipSeps and skipNonSeps.

@@ -14032,13 +14032,13 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportUcharMaps005538CE.c
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlportVector104Assignment.cpp	Rva003F5254Vector104::operator=	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	0NarrowLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowCopySet.cpp	1NarrowLock@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp	1NarrowStrLenSource@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowStrLenSet.cpp	getLength@NarrowStrLenSource@@UBEHXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	0WideLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	1WideLock@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	0WideLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	1WideLock@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp	getLength@WideStrLenSource@@UBEHXZ	1
+present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	1NarrowStrLenSource@@QAE@XZ	1
+present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	getLength@NarrowStrLenSource@@UBEHXZ	1
+present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	getLength@WideStrLenSource@@UBEHXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp	bfmeEmitAsciiStringInlines@@YAXPAVAsciiString@@ABV1@PBD@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp	ChunkLoadClass::Cur_Chunk_Depth	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp	Get_L1_Data_Cache_Line_Size@CPUDetectClass@@SAIXZ	1
