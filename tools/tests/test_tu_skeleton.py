@@ -104,6 +104,42 @@ class SavedMergePlanTests(unittest.TestCase):
                 self.assertEqual(len(applied), 1)
 
 
+class VerifierFoldedAddressTests(unittest.TestCase):
+    """An ICF address two donors' rows share is matched only when every row there
+    matches (Science.cpp merge, 0x001FF743: the ScienceType tree dtor matched and
+    hid the folded int-tree dtor that ./build.sh failed)."""
+
+    def verifier(self, results):
+        import hashlib
+        v = T.Verifier.__new__(T.Verifier)
+        v.sm, v.cache = {}, {}
+        v.effective = lambda text, rows: text
+        v.cache[hashlib.sha1(b"tu").hexdigest()[:16]] = (Path("x.obj"), [])
+
+        def compile_function(row, sm, obj):
+            if results[row["name"]] is None:
+                raise SystemExit("symbol not found in object")
+            return {"bytes": results[row["name"]], "target": b"ok"}
+        v.B = SimpleNamespace(compile_function=compile_function)
+        return v
+
+    def rows(self):
+        return [{"name": "fold_a", "target_rva": "0x1000"}, {"name": "fold_b", "target_rva": "0x1000"},
+                {"name": "plain", "target_rva": "0x2000"}]
+
+    def test_a_missed_twin_unmatches_the_shared_address(self):
+        v = self.verifier({"fold_a": b"ok", "fold_b": b"bad", "plain": b"ok"})
+        self.assertEqual(v.matched("tu", self.rows()), {"0x2000"})
+
+    def test_an_absent_twin_unmatches_the_shared_address(self):
+        v = self.verifier({"fold_a": b"ok", "fold_b": None, "plain": b"ok"})
+        self.assertEqual(v.matched("tu", self.rows()), {"0x2000"})
+
+    def test_every_twin_matching_keeps_the_address(self):
+        v = self.verifier({"fold_a": b"ok", "fold_b": b"ok", "plain": b"bad"})
+        self.assertEqual(v.matched("tu", self.rows()), {"0x1000"})
+
+
 class RedefinitionTests(unittest.TestCase):
     def test_reads_type_typedef_and_enum_redefinitions(self):
         errors = [

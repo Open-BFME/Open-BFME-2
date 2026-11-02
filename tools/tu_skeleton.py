@@ -980,18 +980,20 @@ class Verifier:
         self.obj = obj          # the candidate's object, for LinkGuard.judge
         self.all_errors = list(errors)
         self.errors = self.all_errors[:3]
-        out = set()
+        out, missed = set(), set()
         if obj is None:
             return None
         with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             for r in rows:
                 try:
                     res = self.B.compile_function(r, self.sm, obj)
-                    if res["bytes"] == res["target"]:
-                        out.add(r["target_rva"])
+                    (out if res["bytes"] == res["target"] else missed).add(r["target_rva"])
                 except BaseException:   # build.py reports misses by SystemExit
-                    pass
-        return out
+                    missed.add(r["target_rva"])
+        # An ICF address two rows share (one per donor) counts only when every row
+        # there matches: one folded twin must not vouch for the other (./build.sh
+        # checks each row).
+        return out - missed
 
 
 # ---------------------------------------------------------------- link guard
