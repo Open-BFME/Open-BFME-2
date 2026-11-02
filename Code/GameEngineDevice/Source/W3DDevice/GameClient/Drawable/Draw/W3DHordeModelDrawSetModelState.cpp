@@ -53,7 +53,8 @@ struct BfmeNarrowRecord00079C23 {
  ~BfmeNarrowRecord00079C23();
  BfmeNarrowRecord00079C23 &operator=(const BfmeNarrowRecord00079C23&);
 };
-class Matrix3D {public:float m[12];};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class Rva0013101E {public:unsigned words[4];};
 struct HordeTexturePair {AsciiString original,replacement;};
 struct HordeModelState {char pad[0x64];_STL::vector<HordeTexturePair> textures;};
