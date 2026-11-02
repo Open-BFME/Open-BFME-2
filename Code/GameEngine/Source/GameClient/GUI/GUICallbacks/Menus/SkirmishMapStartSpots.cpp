@@ -20,9 +20,7 @@ class MapCache:public _STL::map<AsciiString,MapMetaData> {};
 typedef char MapMetaDataSizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 extern MapCache *TheMapCache;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
-class GameWindow {
-public: int winHide(bool); void winSetTooltip(UnicodeString);
-};
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetButtonSetText(GameWindow*,UnicodeString);
 class GameTextInterface {
 public:

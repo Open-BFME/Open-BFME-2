@@ -735,25 +735,7 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
 class WinInstanceData;
 
-class GameWindow
-{
-protected:
-    virtual ~GameWindow();
-public:
-    virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
-    virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
-    virtual int draw(void *);
-    virtual int tooltip(WinInstanceData *, unsigned int);
-    virtual int rva0009FD78();
-    virtual bool vslot6() const;
-    virtual void *fetchCreateInstance() = 0;
-    virtual bool vslot8() const;
-    virtual bool vslot9() const;
-    virtual void vslot10() = 0;
-private:
-    unsigned char m_unmodelled04[0x1EC - 4];
-    void *m_tooltip;
-};
+#include "../../Include/GameClient/Bfme2GameWindow.h"
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
