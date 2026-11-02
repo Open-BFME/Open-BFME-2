@@ -21975,3 +21975,16 @@ Code/GameEngine/Source/Common/Rva005748B7Method.cpp|local|Rva005748B7::rva005748
 Code/GameEngine/Source/Common/Rva00574E0E.cpp|local|Rva00574E0E::rva00574E0E|h,2eb5d203c7dc1897e776d39f,claude-haiku-5-5,drz-k1-n39a,w-d119d30b66de,2026-11-02
 Code/GameEngine/Source/Common/Rva00574E2E.cpp|member|Rva00574E2E|m_holder68,b137aedc1e47fc1fca4af37c,claude-haiku-5-5,drz-k1-n39a,w-d119d30b66de,2026-11-02
 Code/GameEngine/Source/Common/Rva00574E2E.cpp|local|Rva00574E2E::rva00574E2E|h,2d47b123b96f1e018b93ea38,claude-haiku-5-5,drz-k1-n39a,w-d119d30b66de,2026-11-02
+Code/GameEngine/Source/Common/Rva0057A7CEApt.cpp|member|Rva0057A7CE|m_level0C,95fd72324abe261affaae869,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0057C71F.cpp|function|0x0043DC07|rva0043DC07,bf111af6db35af73f1451ff0,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0057C71F.cpp|local|AptMapPreview::GetStartPositionInfoForSlot|v10,a6ac625361bcdd0861d486ce,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva00583015Destroy.cpp|local|Rva00583015Destroy|p,92514bfd2a7bd688e598b62f,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva00583A72Set.cpp|param|Rva00583A72Set|a,bc9ce5063e78a6aaf9f13a2f,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva00583A72Set.cpp|param|Rva00583A72Set|b,82417f9fa7a2b37aaf57d915,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0058ADA8.cpp|local|Rva0058ADA8::rva0058ADA8|c,8a489bf1741733bc4f1d3534,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0058ADA8.cpp|local|Rva0058ADA8::rva0058ADA8|r,cb455757726a5db76121cfd2,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0059675ADtor.cpp|local|FadeInTextRender::~FadeInTextRender|tmp,fe6718abfdf6d7539794339d,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva005997CDNearestPick.cpp|local|Rva005997CD::rva00599870|d2,05cacb71d6f10ee66db53456,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0059B3C1Write.cpp|function|0x0059B3C1|rva0059B3C1,238ac876994b944eccf0d59d,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0059B3C1Write.cpp|local|Rva0059B3C1::rva0059B3C1|n1,95ad4110f81136528a36fa20,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
+Code/GameEngine/Source/Common/Rva0059B3C1Write.cpp|local|Rva0059B3C1::rva0059B3C1|n2,75b4204711b7efb0619837b0,claude-haiku-5-5,drz-k4-n39c,w-9078cc5436a9,2026-11-02
