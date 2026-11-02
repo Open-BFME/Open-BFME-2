@@ -365,3 +365,4 @@ FrameDataManager,Code/GameEngine/Include/GameNetwork/FrameDataManagerClass.h,exi
 StateConditionInfo,Code/GameEngine/Include/Common/StateConditionInfo.h,existing header; contract class_contracts/StateConditionInfo.json; 6/19 sampled units adopt
 RadiusDecalTemplate,Code/GameEngine/Include/GameClient/RadiusDecalTemplate.h,existing header; contract class_contracts/RadiusDecalTemplate.json; 13/18 sampled units adopt
 LightEnvironmentClass,Code/Libraries/Source/WWVegas/WW3D2/LightEnvironmentClass.h,existing header; contract class_contracts/LightEnvironmentClass.json; 4/19 sampled units adopt
+SimpleSceneClass,Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass.h,existing header; contract class_contracts/SimpleSceneClass.json; 11/18 sampled units adopt

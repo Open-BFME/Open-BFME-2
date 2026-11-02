@@ -1,0 +1,917 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "SimpleSceneClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 18,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x108": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x142960"
+     ],
+     "value": 264
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x142960"
+     ],
+     "value": {
+      "0x100": [
+       4
+      ],
+      "0x104": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       4
+      ],
+      "0xe0": [
+       4
+      ],
+      "0xe4": [
+       4
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       4
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf4": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x142960"
+     ],
+     "value": {
+      "0x34": [
+       "?rva00141F90@BfmeSceneVector@@QAEXABURva00141F90Bounds@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x142960"
+     ],
+     "value": {
+      "0x0": "0x7d33d0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d33d0"
+     ],
+     "value": {
+      "count": 28,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GSimpleSceneClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x1426b0"
+       },
+       {
+        "name": "?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+        "slot": 2,
+        "target": "0x1413a0"
+       },
+       {
+        "name": "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+        "slot": 3,
+        "target": "0x141860"
+       },
+       {
+        "name": "?Create_Iterator@SimpleSceneClass@@UAEPAVSceneIterator@@XZ",
+        "slot": 4,
+        "target": "0x141cd0"
+       },
+       {
+        "name": "?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z",
+        "slot": 5,
+        "target": "0x6132a0"
+       },
+       {
+        "name": "?Set_Ambient_Light@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 6,
+        "target": "0x6e265"
+       },
+       {
+        "name": "?get@Rva005C4AD5LeaField@@QBEPAXXZ",
+        "slot": 7,
+        "target": "0x5c4ad5"
+       },
+       {
+        "name": "?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z",
+        "slot": 8,
+        "target": "0x6ede3"
+       },
+       {
+        "name": "?getPercentage@NetProgressCommandMsg@@QAEEXZ",
+        "slot": 9,
+        "target": "0x4c54ec"
+       },
+       {
+        "name": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+        "slot": 10,
+        "target": "0x49f0f"
+       },
+       {
+        "name": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+        "slot": 11,
+        "target": "0x4f5fa3"
+       },
+       {
+        "name": "?Set_Fog_Range@SceneClass@@UAEXMM@Z",
+        "slot": 12,
+        "target": "0x6eded"
+       },
+       {
+        "name": "?Get_Fog_Range@SceneClass@@UAEXPAM0@Z",
+        "slot": 13,
+        "target": "0x6ee06"
+       },
+       {
+        "name": "?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+        "slot": 14,
+        "target": "0x141400"
+       },
+       {
+        "name": "?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+        "slot": 15,
+        "target": "0x1414d0"
+       },
+       {
+        "name": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
+        "slot": 16,
+        "target": "0x1418f0"
+       },
+       {
+        "name": "?get@Rva0006EE1BDwordField@@QBEHXZ",
+        "slot": 17,
+        "target": "0x6ee1b"
+       },
+       {
+        "name": "?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z",
+        "slot": 18,
+        "target": "0x1428e0"
+       },
+       {
+        "name": "?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z",
+        "slot": 19,
+        "target": "0x1428f0"
+       },
+       {
+        "name": "?Save@SceneClass@@UAEXAAVChunkSaveClass@@@Z",
+        "slot": 20,
+        "target": "0x140cf0"
+       },
+       {
+        "name": "?Load@SceneClass@@UAEXAAVChunkLoadClass@@@Z",
+        "slot": 21,
+        "target": "0x140dc0"
+       },
+       {
+        "name": "?Render@SceneClass@@MAEXAAVRenderInfoClass@@@Z",
+        "slot": 22,
+        "target": "0x141170"
+       },
+       {
+        "name": "?Customized_Render@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+        "slot": 23,
+        "target": "0x141a30"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 24,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+        "slot": 25,
+        "target": "0x141bb0"
+       },
+       {
+        "name": "?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ",
+        "slot": 26,
+        "target": "0x141370"
+       },
+       {
+        "name": "?Visibility_Check@SimpleSceneClass@@UAEXPAVCameraClass@@@Z",
+        "slot": 27,
+        "target": "0x1426d0"
+       }
+      ],
+      "table": "0x7d33d0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7d33d0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GSimpleSceneClass@@UAEPAXI@Z",
+     "2": "?Add_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+     "3": "?Remove_Render_Object@SimpleSceneClass@@UAEXPAVRenderObjClass@@@Z",
+     "4": "?Create_Iterator@SimpleSceneClass@@UAEPAVSceneIterator@@XZ",
+     "5": "?Return_File@RawFileFactoryClass@@QAEXPAVFileClass@@@Z",
+     "6": "?Set_Ambient_Light@SceneClass@@UAEXABVVector3@@@Z",
+     "7": "?get@Rva005C4AD5LeaField@@QBEPAXXZ",
+     "8": "?setDisconnectSlot@NetDisconnectPlayerCommandMsg@@QAEXE@Z",
+     "9": "?getPercentage@NetProgressCommandMsg@@QAEEXZ",
+     "10": "?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z",
+     "11": "?get@Rva004F5FA3LeaGetter@@QBEPAXXZ",
+     "12": "?Set_Fog_Range@SceneClass@@UAEXMM@Z",
+     "13": "?Get_Fog_Range@SceneClass@@UAEXPAM0@Z",
+     "14": "?Register@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+     "15": "?Unregister@SimpleSceneClass@@UAEXPAVRenderObjClass@@W4RegType@SceneClass@@@Z",
+     "16": "?Compute_Point_Visibility@SimpleSceneClass@@UAEMAAVRenderInfoClass@@ABVVector3@@@Z",
+     "17": "?get@Rva0006EE1BDwordField@@QBEHXZ",
+     "18": "?rva001428E0@Rva001428E0Forwarder@@QAEXH@Z",
+     "19": "?rva001428F0@Rva001428F0Forwarder@@QAEXH@Z",
+     "20": "?Save@SceneClass@@UAEXAAVChunkSaveClass@@@Z",
+     "21": "?Load@SceneClass@@UAEXAAVChunkLoadClass@@@Z",
+     "22": "?Render@SceneClass@@MAEXAAVRenderInfoClass@@@Z",
+     "23": "?Customized_Render@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+     "24": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "25": "?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z",
+     "26": "?Remove_All_Render_Objects@SimpleSceneClass@@UAEXXZ",
+     "27": "?Visibility_Check@SimpleSceneClass@@UAEXPAVCameraClass@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "4": 4,
+   "104": 1,
+   "188": 1,
+   "260": 1,
+   "264": 9
+  },
+  "views": 16,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_SimpleSceneClass.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/scene.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "AmbientLight.X",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "AmbientLight.Y",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "AmbientLight.Z",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "PolyRenderMode",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "ExtraPassPolyRenderMode",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "FogEnabled",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "FogColor.X",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "FogColor.Y",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "FogColor.Z",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "FogStart",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "FogEnd",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "scene_vector.bounds.m_00",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "scene_vector.bounds.m_04",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "scene_vector.bounds.m_08",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "scene_vector.bounds.m_0C",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "scene_vector.bounds.m_10",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "scene_vector.vector",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "BfmeSceneVectorElement*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "scene_vector.vector_max",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "scene_vector.level_mask",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_render_list.m_first",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:RefMultiListClass<RenderObjClass>",
+   "name": "list_a4",
+   "name_by": "tie",
+   "offset": 164,
+   "retail_widths": {},
+   "size": 24,
+   "type": "RefMultiListClass<RenderObjClass>",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BfmeNonRefSceneList",
+   "name": "list_bc",
+   "name_by": "majority",
+   "offset": 188,
+   "retail_widths": {},
+   "size": 24,
+   "type": "BfmeNonRefSceneList",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BfmeNonRefSceneList",
+   "name": "list_d4",
+   "name_by": "majority",
+   "offset": 212,
+   "retail_widths": {},
+   "size": 24,
+   "type": "BfmeNonRefSceneList",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_104",
+   "name_by": "majority",
+   "offset": 260,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "field@0x48",
+   "candidates": {
+    "4:P": 1,
+    "4:f4": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "field@0x54",
+   "candidates": {
+    "4:f4": 1,
+    "4:i4": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "field@0x5c",
+   "candidates": {
+    "24:S:BfmeRefSceneList": 1,
+    "24:S:RefMultiListClass<RenderObjClass>": 1,
+    "8:A": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "field@0x74",
+   "candidates": {
+    "24:S:BfmeRefSceneList": 1,
+    "24:S:RefMultiListClass<RenderObjClass>": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "field@0x8c",
+   "candidates": {
+    "24:S:BfmeRefSceneList": 1,
+    "24:S:RefMultiListClass<RenderObjClass>": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "name@0xa4",
+   "candidates": {
+    "list_a4": 1,
+    "release_list": 1,
+    "render_list": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "field@0xec",
+   "candidates": {
+    "24:S:BfmeRefSceneList": 1,
+    "24:S:RefMultiListClass<RenderObjClass>": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "AmbientLight.X": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "AmbientLight.Y": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "AmbientLight.Z": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x20",
+   "candidates": {
+    "FogColor.X": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x24",
+   "candidates": {
+    "FogColor.Y": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x28",
+   "candidates": {
+    "FogColor.Z": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "scene_vector.bounds.m_00": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x38",
+   "candidates": {
+    "scene_vector.bounds.m_04": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x3c",
+   "candidates": {
+    "scene_vector.bounds.m_08": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x40",
+   "candidates": {
+    "scene_vector.bounds.m_0C": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x44",
+   "candidates": {
+    "scene_vector.bounds.m_10": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x4c",
+   "candidates": {
+    "scene_vector.vector": 2
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x50",
+   "candidates": {
+    "scene_vector.vector_max": 2
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x58",
+   "candidates": {
+    "scene_vector.level_mask": 1
+   },
+   "class": "SimpleSceneClass"
+  },
+  {
+   "attribute": "nested@0x64",
+   "candidates": {
+    "m_render_list.m_first": 1
+   },
+   "class": "SimpleSceneClass"
+  }
+ ],
+ "size": 264,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "Remove_All_Render_Objects()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "Visibility_Check(CameraClass*)"
+  }
+ }
+}
