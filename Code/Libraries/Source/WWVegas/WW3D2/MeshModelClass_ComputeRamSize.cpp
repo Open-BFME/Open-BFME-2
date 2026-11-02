@@ -3,13 +3,7 @@
 // BFME2 repair: geometry base is 0x8C (retail reads +0x8C/+0x90/+0x98),
 // 8 less than BFME1's 0x94; tail layout otherwise identical.
 
-class MeshGeometryClass
-{
-	char m_base[0x8C];
-
-public:
-	int Compute_Ram_Size();
-};
+#include "MeshGeometryClass.h"
 
 #include "MeshMatDescClass.h"
 

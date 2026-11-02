@@ -1,4 +1,4 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
 // RenderStateStruct (bfmestages/dx8wrapper.h); index_base_offset, the 16-bit
 // cache at 0x00DEE864, is its last field (+0x28C).
@@ -22,7 +22,7 @@ class DX8Wrapper {
 // arguments remain32-bit; the BFME1 ushort declarations truncate them.
 // The 16-bit index base cache at DEE864 is render_state.index_base_offset;
 // the scope and its two buffers are independently decoded, not SDK spelling.
-class MeshGeometryClass { public: const char *Get_Name() const; };
+#include "MeshGeometryClass.h"
 // Descriptive role; original profiler class spelling has not been recovered.
 class BFME2ScopedRenderEvent {
  char Label[256]; char Group[64];

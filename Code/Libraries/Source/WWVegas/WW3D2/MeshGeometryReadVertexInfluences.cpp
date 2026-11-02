@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 //
 // ?read_vertex_influences@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z
 // retail 0x0016B1A0..0x0016B3BA (538 bytes ret 4).  Chunk 0x0E reader
@@ -29,19 +29,7 @@ struct VertInfPair {
     unsigned short Second;
 };
 
-class MeshGeometryClass {
-    char BeforeFlags[0x18];
-    int Flags;
-    char BeforeVertexCount[0x28 - 0x1C];
-    int VertexCount;
-public:
-    int Get_Vertex_Count() const { return VertexCount; }
-    void Set_Flag(int flag, bool onoff) { if (onoff) Flags |= flag; else Flags &= ~flag; }
-protected:
-    unsigned short *get_bone_links(bool create);
-    unsigned short *get_buffer54(int count);
-    bool read_vertex_influences(ChunkLoadClass &cload);
-};
+#include "MeshGeometryClass.h"
 
 bool MeshGeometryClass::read_vertex_influences(ChunkLoadClass &cload)
 {

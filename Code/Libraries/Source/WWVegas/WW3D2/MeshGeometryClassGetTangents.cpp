@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva0016ABC0@MeshGeometryClass@@QAEPAVVector3@@XZ
 //
 // MeshGeometryClass::rva0016ABC0 at 0x0016ABC0 (20 bytes): returns
@@ -22,23 +22,7 @@ private:
 	int m_align;	// +0x14
 };
 
-class MeshGeometryClass
-{
-public:
-	virtual void s0(); virtual void s1(); virtual void s2();
-	virtual void onPlanes(Vector4 *planes);
-public:
-	Vector3 *rva0016ABC0();
-	Vector3 *rva0016ABE0();
-	char m_pad[0x18 - 4];
-	unsigned int m_flags;			// +0x18
-	char m_pad1C[0x24 - 0x1C];
-	int PolyCount;				// +0x24
-	char m_pad28[0x40 - 0x28];		// +0x28..+0x40
-	ShareBufferClass<Vector3> *VertexTangents;	// +0x40
-	ShareBufferClass<Vector3> *VertexBinormals;	// +0x44
-	ShareBufferClass<Vector4> *PlaneEq;		// +0x48
-};
+#include "MeshGeometryClass.h"
 
 Vector3 *MeshGeometryClass::rva0016ABC0()
 {
