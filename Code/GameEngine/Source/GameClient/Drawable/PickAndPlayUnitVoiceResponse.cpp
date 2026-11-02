@@ -456,13 +456,7 @@ struct ExperienceLevelHandle
 };
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
-class ExperienceLevelStore
-{
-public:
-	static ExperienceLevelStore *get() { return reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem); }
-	bool IsValid(ExperienceLevelHandle handle) const;
-	int GetLevelRank(ExperienceLevelHandle handle) const;
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 
 class Rva002390CB

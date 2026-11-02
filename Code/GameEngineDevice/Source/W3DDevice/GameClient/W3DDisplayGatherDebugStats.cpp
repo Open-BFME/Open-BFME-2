@@ -455,7 +455,7 @@ class GlobalData { public: char m_pad0[0x26]; bool m_useFpsLimit; char m_pad27; 
 class Keyboard { public: bool isShift(); bool isCtrl(); bool isAlt(); char m_pad[0xC]; unsigned char m_modifiers; };
 class Mouse { public: char m_pad[0x4F0C]; MouseIO m_currMouse; };
 class ExperienceTracker { public: char m_pad[0x10]; float m_experience; char m_pad14[0x24 - 0x14]; int m_level; };
-class ExperienceLevelStore { public: int rva00289BE0(const ExperienceTracker *tracker, int *out); };
+#include "../../../../GameEngine/Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
 class ThingTemplate { public: char m_pad[0x64]; char *m_nameData; const char *getNameText() const { return m_nameData ? m_nameData + 8 : ""; } char m_pad68[0x5E7 - 0x68]; bool m_showLevel; };
 #include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"

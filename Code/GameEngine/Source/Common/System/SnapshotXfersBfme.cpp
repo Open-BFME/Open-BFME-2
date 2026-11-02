@@ -107,11 +107,7 @@ public:
 	AsciiString m_name;			// +0x0C
 };
 
-class ExperienceLevelStore
-{
-public:
-	ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &name) const;	// 0x00288AF2
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;

@@ -55,11 +55,7 @@ struct ExperienceLevelHandle {
  ExperienceLevelHandle(){} ExperienceLevelHandle(const ExperienceLevelHandle&o):list(o.list),iter(o.iter){}
  ExperienceLevelList *list; ExperienceLevelIterator iter;
 };
-class ExperienceLevelStore {public:
- ExperienceLevelHandle rva00288E21(const ThingTemplate*,int)const;
- bool IsValid(ExperienceLevelHandle)const;
- int GetRequiredExperience(ExperienceLevelHandle)const;
-};
+#include "../../../../Include/GameLogic/ExperienceLevelStore.h"
 // TheExperienceLevelStore is only an alias of the owned global TheExperienceLevelSystem (ledger names column); this unit reads the owner through its own view type.
 extern class ExperienceLevelSystem *TheExperienceLevelSystem;
 #define TheExperienceLevelStore (*(ExperienceLevelStore * *)&TheExperienceLevelSystem)

@@ -6014,11 +6014,7 @@ private:
 // rank lookup 0x00288CA6.
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-class ExperienceLevelStore
-{
-public:
-	int rva00288CA6(const ExperienceTracker *tracker, int level, int *required) const;
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 
 class ExperienceTracker
 {

@@ -94,13 +94,7 @@ struct ExperienceLevelHandle
 };
 extern "C" bool rva0007E394CursorEqual(const ExperienceLevelHandle &a, const ExperienceLevelHandle &b);
 class ThingTemplate;
-class ExperienceLevelStore
-{
-public:
-    ExperienceLevelHandle rva00288D88(int object, int limit);
-    ExperienceLevelHandle rva00288E21(const ThingTemplate *object, int rank) const;
-    ExperienceLevelList *rva00288C68(int object);
-};
+#include "../../Include/GameLogic/ExperienceLevelStore.h"
 ExperienceLevelHandle ExperienceLevelStore::rva00288D88(int object, int limit)
 {
     ExperienceLevelList *list = rva00288C68(object);

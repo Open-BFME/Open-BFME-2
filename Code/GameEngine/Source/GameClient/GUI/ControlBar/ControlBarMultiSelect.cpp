@@ -22,11 +22,7 @@ struct ExperienceLevelHandle {
     void *m_iter;
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-class ExperienceLevelStore {
-public:
-    bool IsValid(ExperienceLevelHandle) const;
-    int GetLevelRank(ExperienceLevelHandle) const;
-};
+#include "../../../../Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 class Image;

@@ -75,13 +75,7 @@ struct ExperienceLevelHandle
 };
 
 class ExperienceTracker;
-class ExperienceLevelStore
-{
-public:
-	ExperienceLevelHandle FindCurrentLevel( const ExperienceTracker *tracker ) const;	// 0x00288D2F
-	ExperienceLevelList *FindExperienceLevelList( const ExperienceTracker *tracker ) const;	// 0x00288C34
-	int rva00288CA6( const ExperienceTracker *tracker, int rank, int *pastEnd ) const;	// 0x00288CA6
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class Overridable;
 // The store as the rowed 0x002897A8 names it: the next level of a list
 // above the one keyed by the given NameKeyType.

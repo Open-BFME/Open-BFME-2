@@ -160,14 +160,7 @@ private:
 	int m_18;
 };
 struct ExperienceLevelHandle;
-class ExperienceLevelStore
-{
-public:
-	ExperienceLevelList *FindExperienceLevelList(const ExperienceTracker *tracker) const;
-	int rva00289BE0(const ExperienceTracker *tracker, int *out);
-	ExperienceLevelHandle FindCurrentLevel( const ExperienceTracker *tracker ) const; // 0x00288D2F
-	int rva00288CA6( const ExperienceTracker *tracker, int rank, int *pastEnd ) const; // 0x00288CA6
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class Overridable
 {
 public:

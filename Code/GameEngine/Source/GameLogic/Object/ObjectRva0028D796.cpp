@@ -22,11 +22,7 @@ public:
 
 class ExperienceLevelList;
 
-class ExperienceLevelStore
-{
-public:
-	ExperienceLevelList *FindExperienceLevelList(const ExperienceTracker *tracker) const;
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 
 class Rva00288CFA : public ExperienceLevelStore
 {

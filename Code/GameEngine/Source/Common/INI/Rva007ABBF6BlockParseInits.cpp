@@ -130,11 +130,7 @@ public:
 	static void friend_parseEmotionNugget(INI *);
 };
 #include "../../../Include/GameClient/Eva.h"
-class ExperienceLevelStore
-{
-public:
-	static void friend_parseExperienceLevelDefinition(INI *);
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class FXListStore
 {
 public:

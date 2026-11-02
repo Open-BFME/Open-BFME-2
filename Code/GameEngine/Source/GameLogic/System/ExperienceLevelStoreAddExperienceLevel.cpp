@@ -39,7 +39,7 @@ template<> list<Rva00289FBCRecord> &list<Rva00289FBCRecord>::operator=(const lis
 enum NameKeyType { NAMEKEY_UNKNOWN=0 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class ExperienceLevelStore { public: void AddExperienceLevel(void *,const BfmePod264 *); };
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 // WorldBuilder ExperienceLevelStore::AddExperienceLevel, WB VA 0x00BE9FF0 (callgraph lead, score 3).
 void ExperienceLevelStore::AddExperienceLevel(void *table,const BfmePod264 *level)
 {

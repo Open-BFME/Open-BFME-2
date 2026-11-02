@@ -31,12 +31,7 @@ struct ExperienceLevelHandle
 	ExperienceLevelList *m_list;
 	ExperienceLevelIterator m_iter;
 };
-class ExperienceLevelStore
-{
-public:
-	ExperienceLevelHandle rva00288D88(int value, int experience);
-	int GetExperienceAwardForLevel(ExperienceLevelHandle level) const;
-};
+#include "../../Include/GameLogic/ExperienceLevelStore.h"
 class Rva00288CFA;
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;

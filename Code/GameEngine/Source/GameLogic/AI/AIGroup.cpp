@@ -970,12 +970,7 @@ public:
 	ExperienceLevelIterator m_iter; // +0x04
 };
 
-class ExperienceLevelStore
-{
-public:
-	bool IsValid(ExperienceLevelHandle handle) const;
-	Int GetLevelRank(ExperienceLevelHandle handle) const;
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 
 class ExperienceLevelSystem;
 

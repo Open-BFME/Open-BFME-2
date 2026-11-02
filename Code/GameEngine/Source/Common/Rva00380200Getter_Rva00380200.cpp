@@ -93,9 +93,7 @@ public:
 // neutral class name; WB supplies the method identity independently.
 
 class ExperienceScalarTable;
-class ExperienceLevelStore {
- public: ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &)const;
-};
+#include "../../Include/GameLogic/ExperienceLevelStore.h"
 // TheExperienceLevelStore is only an alias of the owned global TheExperienceLevelSystem (ledger names column); this unit reads the owner through its own view type.
 extern class ExperienceLevelSystem *TheExperienceLevelSystem;
 #define TheExperienceLevelStore (*(ExperienceLevelStore * *)&TheExperienceLevelSystem)

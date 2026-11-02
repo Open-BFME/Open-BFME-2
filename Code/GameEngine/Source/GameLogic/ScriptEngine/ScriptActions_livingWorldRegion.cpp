@@ -173,13 +173,7 @@ struct ExperienceLevelHandle
 	ExperienceLevelIterator m_iter;
 };
 
-class ExperienceLevelStore
-{
-public:
-	int GetLevelRank(ExperienceLevelHandle levelHandle) const;
-	int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
-	ExperienceLevelHandle rva00288E21(const ThingTemplate *thingTemplate, int level) const;
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 

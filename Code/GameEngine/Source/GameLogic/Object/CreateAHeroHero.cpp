@@ -361,12 +361,7 @@ public:
 	virtual void v40(); virtual void v41();
 	virtual CreateAHeroAnimInterface *vA8();
 };
-class ExperienceLevelStore
-{
-public:
-	Bool CreateNewExpLevel(const AsciiString &source, const AsciiString &name,
-		const AsciiString &experience, const AsciiString &upgrades, const AsciiString &attributes);
-};
+#include "../../../Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
 class Rva004074B6 { public: void rva004074B6(const AsciiString &); };
 enum NameKeyType { NAMEKEY_INVALID = 0 };

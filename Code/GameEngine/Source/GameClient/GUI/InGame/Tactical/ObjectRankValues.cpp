@@ -43,17 +43,7 @@ struct ExperienceLevelHandle
 class ExperienceLevelSystem;
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
-class ExperienceLevelStore
-{
-public:
-	// The store is the global at 0x00DFECC4 (pinned TheExperienceLevelSystem).
-	static ExperienceLevelStore *get() { return reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem); }
-
-	bool IsValid(ExperienceLevelHandle handle) const;
-	Int GetLevelRank(ExperienceLevelHandle handle) const;
-	ExperienceLevelHandle GetNextLevel(ExperienceLevelHandle handle) const;
-	Int GetRequiredExperience(ExperienceLevelHandle handle) const;
-};
+#include "../../../../../Include/GameLogic/ExperienceLevelStore.h"
 
 class Rva005CB9FF
 {
