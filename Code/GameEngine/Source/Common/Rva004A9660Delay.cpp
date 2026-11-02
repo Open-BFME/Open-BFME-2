@@ -18,11 +18,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Module;
 
-class Object
-{
-protected:
-	Module *findModule(NameKeyType key) const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva004A9660 : public Object
 {

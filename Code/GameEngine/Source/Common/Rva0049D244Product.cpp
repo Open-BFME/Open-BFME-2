@@ -19,11 +19,7 @@ public:
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-class Object
-{
-public:
-	bool hasUpgrade(const UpgradeTemplate *upgrade) const;
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva0049D244Value
 {

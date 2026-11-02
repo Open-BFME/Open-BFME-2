@@ -21,11 +21,7 @@ public:
 	void rva00373D23();
 };
 
-class Object
-{
-public:
-	Rva00373EC6 *rva0028F4BC();
-};
+#include "../GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

@@ -7,11 +7,7 @@
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class Object
-{
-public:
-	void setCommandSetStringOverride(const AsciiString &name);
-};
+#include "../GameLogic/Object/object.h"
 
 class UpgradeModule
 {

@@ -22,12 +22,7 @@ public:
 
 enum SpecialPowerType {};
 class SpecialAbilityUpdate;
-class Object
-{
-public:
-	SpecialAbilityUpdate *findSpecialAbilityUpdate(SpecialPowerType type) const;
-	void rva00297000(const CommandButton *btn, Object *target, int kind, int zero);
-};
+#include "../GameLogic/Object/object.h"
 
 class Arg
 {

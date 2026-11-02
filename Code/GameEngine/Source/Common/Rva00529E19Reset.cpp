@@ -17,11 +17,7 @@ class Object;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva00528F30Target
 {

@@ -8,13 +8,7 @@
 // Native caller0042AF97 loads TheControlBar into ECX before this call;
 // the member receiver is unused within the body. This corrects the earlier
 // free-function ABI inference; the target name remains address-derived.
-class Object
-{
-public:
-	bool isLocallyControlled() const;
-	bool isSelectable() const;
-	bool isStructure() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class InGameUI
 {

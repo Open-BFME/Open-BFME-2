@@ -36,11 +36,7 @@ public:
 
 #include "Thing/thing.h"
 
-class Object : public Thing
-{
-public:
-	char rva00294815();
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva00483C35ClearanceData
 {
