@@ -1,0 +1,443 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GameLODManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 23,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x17d8": {
+    "4": 1
+   },
+   "0x17f0": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x17f8": 1
+     }
+    }
+   }
+  },
+  "retail_member_rows": 8,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 3,
+   "5996": 1,
+   "6004": 2,
+   "6008": 4,
+   "6012": 3,
+   "6016": 1,
+   "6024": 1,
+   "6028": 1,
+   "6044": 1,
+   "6048": 1,
+   "6088": 2,
+   "6132": 1,
+   "6136": 1
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameLODManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameLOD.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "dynamicInfo",
+   "name_by": "majority",
+   "offset": 456,
+   "retail_widths": {},
+   "size": 80,
+   "type": "Rva00201E2BLODInfo[80]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "audioInfo",
+   "name_by": "tie",
+   "offset": 536,
+   "retail_widths": {},
+   "size": 16,
+   "type": "AudioLODInfo[16]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "entries",
+   "name_by": "majority",
+   "offset": 541,
+   "retail_widths": {},
+   "size": 24,
+   "type": "GameLODManager::Entry[24]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "benchmarks",
+   "name_by": "majority",
+   "offset": 5672,
+   "retail_widths": {},
+   "size": 320,
+   "type": "Rva00201D79BenchProfile[320]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_1768",
+   "name_by": "tie",
+   "offset": 5992,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word176C",
+   "name_by": "majority",
+   "offset": 5996,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_1770",
+   "name_by": "tie",
+   "offset": 6000,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "word1774",
+   "name_by": "tie",
+   "offset": 6004,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 6008,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawDistanceOpacity.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFire.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewDraw.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 6012,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0007BA35Method.cpp",
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 6016,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6020,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawRiverWater.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 6024,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 6028,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6032,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6036,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 6040,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 6044,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 6048,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6052,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6056,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6057,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6058,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6060,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6080,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6084,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 6088,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6092,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6096,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6100,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6108,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6112,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6116,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6120,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6124,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 6128,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "456:A": 1,
+    "536:A": 1,
+    "6004:A": 1,
+    "6008:A": 1,
+    "6136:A": 1
+   },
+   "class": "GameLODManager"
+  },
+  {
+   "attribute": "name@0x218",
+   "candidates": {
+    "audioInfo": 1,
+    "m_audioLODSettings": 1
+   },
+   "class": "GameLODManager"
+  },
+  {
+   "attribute": "field@0x228",
+   "candidates": {
+    "5120:A": 1,
+    "5448:A": 1
+   },
+   "class": "GameLODManager"
+  },
+  {
+   "attribute": "name@0x1768",
+   "candidates": {
+    "m_1768": 2,
+    "m_staticLODLevel": 2,
+    "word1768": 1
+   },
+   "class": "GameLODManager"
+  },
+  {
+   "attribute": "name@0x1770",
+   "candidates": {
+    "m_1770": 1,
+    "m_audioLOD": 1,
+    "word1770": 1
+   },
+   "class": "GameLODManager"
+  },
+  {
+   "attribute": "name@0x1774",
+   "candidates": {
+    "level1774": 1,
+    "m_1774": 1,
+    "m_detailVariant": 1,
+    "m_staticLODLevel": 1,
+    "word1774": 1
+   },
+   "class": "GameLODManager"
+  },
+  {
+   "attribute": "straddle@0x21d",
+   "candidates": {},
+   "class": "GameLODManager"
+  }
+ ],
+ "size": 6008,
+ "size_by": "majority",
+ "vslots": {}
+}
