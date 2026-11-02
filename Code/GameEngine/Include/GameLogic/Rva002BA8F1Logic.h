@@ -4,20 +4,11 @@
 #ifndef BFME2_RVA002BA8F1LOGIC_H
 #define BFME2_RVA002BA8F1LOGIC_H
 
-#if defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
-#error Include Rva002BA8F1Logic.h before the short SubsystemInterface definition.
-#endif
-#ifndef BFME_SUBSYSTEM_SLOTS
+#if !defined(CANONICAL_SUBSYSTEMINTERFACE_H) && !defined(BFME_SUBSYSTEM_SLOTS)
 #define BFME_SUBSYSTEM_SLOTS
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
-#if defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
-#error Rva002BA8F1Logic requires Snapshot's name slot.
-#endif
-#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
-#error Rva002BA8F1Logic requires lowercase Snapshot slots and the const name getter.
-#endif
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
