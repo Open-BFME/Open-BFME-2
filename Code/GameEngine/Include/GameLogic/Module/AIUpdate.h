@@ -335,7 +335,7 @@ public:
     virtual void setLocomotorGoalPositionExplicitSmart(Coord3D const &); // 133: RVA 0x00262C53
     virtual void appendPositionToLocomotorPath(Coord3D const &,int); // 134: RVA 0x00267266
     virtual void setLocomotorGoalOrientation(float); // 135: RVA 0x00262C9B
-    virtual void setLocomotorGoalNone(); // 136: RVA 0x00262CB6
+    virtual void setLocomotorGoalNone() { m_field1FC = 0; } // 136: RVA 0x00262CB6
     virtual bool isDoingGroundMovement()const; // 137: RVA 0x0026731C
     virtual bool rva00262BA9(); // 138: RVA 0x00262BA9
     virtual void micropathToPosition(Coord3D const *); // 139: RVA 0x0026412B
