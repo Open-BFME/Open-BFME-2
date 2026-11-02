@@ -21,7 +21,7 @@ extern "C" void _ReadWriteBarrier();
 class Object;class SpecialPowerTemplate;class SpecialPowerModuleInterface;class Waypoint;
 template<int N> class BitFlags {public:bool any()const;unsigned words[(N+31)/32];};
 #include "../../../../Include/Common/Overridable.h"
-class SpecialPowerTemplate:public Overridable {};
+#include "../../../../Include/Common/SpecialPower.h"
 struct GrabFinalTemplateView {char head[0x1C];int type;};
 enum SpecialPowerType { GRAB_POWER27=0x27 };
 enum ObjectStatusTypes { GRAB_STATUS63=0x3F };

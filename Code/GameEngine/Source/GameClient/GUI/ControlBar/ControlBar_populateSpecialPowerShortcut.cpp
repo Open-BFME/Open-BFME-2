@@ -95,7 +95,7 @@ public:
 };
 
 class Rva0029FCB4 { public: _STL::vector<ScienceType> rva0029FCB4(); };
-class SpecialPowerTemplate {};
+#include "../../../../Include/Common/SpecialPower.h"
 
 typedef _STL::vector<ScienceType> ScienceVec;
 

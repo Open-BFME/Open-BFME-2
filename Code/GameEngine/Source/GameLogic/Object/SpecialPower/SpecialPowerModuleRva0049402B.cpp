@@ -62,12 +62,7 @@ struct Rva0049402BFrameView { char pad[0x40]; unsigned frame; };
 
 #include "../../../../Include/Common/Overridable.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	char m_pad10[0x1C - 0x10];
-	int m_type;
-};
+#include "../../../../Include/Common/SpecialPower.h"
 
 class ThingTemplate
 {

@@ -34,19 +34,7 @@
 
 #include "../../../../Include/Common/Overridable.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const AsciiString &getName() const { return getFO()->m_name; }
-	__declspec(dllimport) __forceinline bool hasPublicTimer() const { return getFO()->m_publicTimer; }
-	__declspec(dllimport) __forceinline bool isSharedNSync() const { return getFO()->m_sharedNSync; }
-private:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	AsciiString m_name;
-	char m_pad14[0x58 - 0x14];
-	bool m_publicTimer;
-	bool m_sharedNSync;
-};
+#include "../../../../Include/Common/SpecialPower.h"
 
 class Player
 {

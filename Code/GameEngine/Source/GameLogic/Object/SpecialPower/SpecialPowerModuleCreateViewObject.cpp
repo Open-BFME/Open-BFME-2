@@ -26,23 +26,8 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../../Include/Common/SpecialPower.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	Real getViewObjectRange() const { return getFO()->m_viewObjectRange; }
-	UnsignedInt getViewObjectDuration() const { return getFO()->m_viewObjectDuration; }
-private:
-	char m_pad[0x4C];
-	UnsignedInt m_viewObjectDuration;
-	Real m_viewObjectRange;
-};
 
 class Team;
 class Module;

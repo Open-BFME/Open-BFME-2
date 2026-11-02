@@ -252,19 +252,7 @@ struct BfmeHeroElement005C39DE
 
 // Target offsets read by native4078A8; WB names the command-button,
 // special-power and upgrade paths. The two command values remain numeric.
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-private:
-	void *m_vtbl;
-};
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	unsigned char m_pad04[0x10 - 4];
-	AsciiString m_name;
-};
+#include "../../../Include/Common/SpecialPower.h"
 class UpgradeTemplate
 {
 public:

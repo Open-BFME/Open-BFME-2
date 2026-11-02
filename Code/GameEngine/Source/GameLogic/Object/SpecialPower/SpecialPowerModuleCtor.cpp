@@ -42,18 +42,7 @@ enum ObjectStatusTypes
 
 #include "../../../../Include/Common/Overridable.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	__declspec(dllimport) __forceinline Bool hasPublicTimer() const { return getFO()->m_publicTimer; }
-	__declspec(dllimport) __forceinline Bool isSharedNSync() const { return getFO()->m_sharedNSync; }
-private:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	AsciiString m_name;
-	char m_pad14[0x58 - 0x14];
-	Bool m_publicTimer; // +0x58
-	Bool m_sharedNSync; // +0x59
-};
+#include "../../../../Include/Common/SpecialPower.h"
 
 class ThingTemplate
 {
