@@ -317,3 +317,4 @@ AIStateMachine,Code/GameEngine/Include/GameLogic/AIStateMachineClass.h,existing 
 ObjectFilter,Code/GameEngine/Include/GameLogic/ObjectFilter.h,existing header; contract class_contracts/ObjectFilter.json; 30/35 sampled units adopt
 PathfindLayer,Code/GameEngine/Include/GameLogic/PathfindLayer.h,existing header; contract class_contracts/PathfindLayer.json; 22/30 sampled units adopt
 GlobalLanguage,Code/GameEngine/Include/Common/GlobalLanguageClass.h,existing header; contract class_contracts/GlobalLanguage.json; 15/29 sampled units adopt
+ExperienceLevelStore,Code/GameEngine/Include/GameLogic/ExperienceLevelStore.h,existing header; contract class_contracts/ExperienceLevelStore.json; 28/29 sampled units adopt
