@@ -69,7 +69,7 @@ public:
     virtual void rva005975D7(bool value) { m_forcedBusyPending = value; } //13
     virtual bool isForcedIntoBusyState() const { return m_forcedBusyPending; } //14
     virtual ObjectID getPreferredDockID() const { return m_preferredDock; }              //15
-    virtual unsigned char rva004A6A44(Coord3D *result) const;  //16
+    virtual unsigned char rva004A6A44(Coord3D *result) const { *result = m_3F0; return m_3FC; } //16
     virtual void rva0047A69C(unsigned int unusedWord);         //17
     virtual int rva000D43D0() const { return 0; }             //18
     virtual unsigned int getActionDelayForDock(Object *dock); //19

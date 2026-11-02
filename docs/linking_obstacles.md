@@ -18405,3 +18405,5 @@ SupplyTruck secondary slot9's canonical ModuleData dword80 getter matches comple
 ### LINK-089 SupplyTruck availability callback (2026-11-02)
 
 Secondary slot4 now has its ordinary true-return implementation, matching complete3B native50B5C6 and all twenty-one ctor rows. Existing predicate owner remains. Four private small-callback trials preserve all72prior code/seven data definitions; each remaining body still requires separate admission. [Native bodies, canonical StateMachine accessor and object hashes](../reverse/attempt_support/supply-truck-small-callbacks-20261102/README.md). No unit/census clearance is claimed.
+
+SupplyTruck secondary slot16's ordinary Coord3D assignment plus companion-byte return now matches complete20B native4A6A44, including all three MOVSD copies and RET4. All twenty-two ctor rows pass. Original copy-view owner remains; callback meaning and pointer spelling remain provisional. No pin, unit/census or lifetime change is claimed.
