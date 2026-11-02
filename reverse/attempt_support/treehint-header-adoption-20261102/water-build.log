@@ -1,0 +1,12 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 7 row(s) verified past a renumbered $L label
+    uw_0075fa08 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp): $L6703 was renumbered; verified parent EH data places $L6551 at 0x0075FA08
+    uw_0075fa2c (Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp): $L6778 was renumbered; verified parent EH data places $L6626 at 0x0075FA2C
+    $L6627 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp): $L6627 was renumbered; verified parent EH data places $L6501 at 0x0075F9E4
+    Unwind@00b5f9ee (Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp): $L6478 was renumbered; verified parent EH data places $L6502 at 0x0075F9EE
+    Unwind@00b5fa12 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp): $L6528 was renumbered; verified parent EH data places $L6552 at 0x0075FA12
+STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 23/23 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

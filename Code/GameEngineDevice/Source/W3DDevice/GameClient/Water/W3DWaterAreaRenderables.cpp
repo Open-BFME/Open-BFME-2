@@ -34,7 +34,7 @@ namespace _STL { template <> void __destroy_aux<Rva00082C1DElement *>(Rva00082C1
 struct Rva00082BE6Element;
 namespace _STL { template <> void __destroy_aux<Rva00082BE6Element *>(Rva00082BE6Element *,Rva00082BE6Element *,__false_type const &); }
 
-struct TreeHintRef00217D4C {void *p; ~TreeHintRef00217D4C();};
+#include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 namespace _STL {template<> vector<TreeHintRef00217D4C>::~vector();
 template<> TreeHintRef00217D4C*vector<TreeHintRef00217D4C>::erase(TreeHintRef00217D4C*,TreeHintRef00217D4C*);}
 

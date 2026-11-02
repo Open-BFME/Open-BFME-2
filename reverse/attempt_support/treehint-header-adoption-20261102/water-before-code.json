@@ -1,0 +1,1323 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterAreaRenderables.cpp",
+  "source_sha256": "07bc9a1dc407997478d4035dcf47aaa4f3d2c4301fb791e8634a72d58d1a6a94",
+  "native_rows": 23,
+  "matched": 22,
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\treehint-header-adoption-20261102\\before-03-ac1c609533.obj",
+  "object_sha256": "5b6f42c2a3ca9c281b7cd73d7a5f4a21734bc7da4a424cdb5e0de8391b7504e4",
+  "definitions": [
+    {
+      "name": "??2@YAPAXIPAX@Z",
+      "section": 3,
+      "value": 0,
+      "bytes": "8b442408c3",
+      "length": 5,
+      "relocations": [],
+      "sha256": "03b3346273162294dad4722428b33b97db3efae48ecaa4b813e6f6d8c40a516b"
+    },
+    {
+      "name": "??3@YAXPAX0@Z",
+      "section": 5,
+      "value": 0,
+      "bytes": "c3",
+      "length": 1,
+      "relocations": [],
+      "sha256": "3b5bd2d2d06866a0a44988e6d63ffebd7d454e02320c7f14f073c1d384f49bfc"
+    },
+    {
+      "name": "??0Rva00082BE6Element@@QAE@PAVRva008291D@@@Z",
+      "section": 7,
+      "value": 0,
+      "bytes": "8b54240485d28bc189107403ff4204c20400",
+      "length": 18,
+      "relocations": [],
+      "sha256": "71c93d0fdd65c7ef24eee8b8eb0c9d9476b15ded22ee37287499c5506502884d"
+    },
+    {
+      "name": "??0Rva00082BE6Element@@QAE@ABU0@@Z",
+      "section": 9,
+      "value": 0,
+      "bytes": "8bc18b4c24048b1185d289107403ff4204c20400",
+      "length": 20,
+      "relocations": [],
+      "sha256": "85ce6eda79f0818a1fa8edffddb331f1eba3ff9989a3f06b50f580f2909dafa0"
+    },
+    {
+      "name": "??1Rva00082BE6Element@@QAE@XZ",
+      "section": 11,
+      "value": 0,
+      "bytes": "8b0985c97405e900000000c3",
+      "length": 12,
+      "relocations": [
+        [
+          7,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ]
+      ],
+      "sha256": "3cd1cf8684c8f6d17ef712dd9b6b4e7abdfacc815628aa127da303b23d340b02"
+    },
+    {
+      "name": "??0Rva00082C1DElement@@QAE@PAVRenderableRiverArea@@@Z",
+      "section": 13,
+      "value": 0,
+      "bytes": "8b54240485d28bc189107403ff4204c20400",
+      "length": 18,
+      "relocations": [],
+      "sha256": "71c93d0fdd65c7ef24eee8b8eb0c9d9476b15ded22ee37287499c5506502884d"
+    },
+    {
+      "name": "??0Rva00082C1DElement@@QAE@ABU0@@Z",
+      "section": 15,
+      "value": 0,
+      "bytes": "8bc18b4c24048b1185d289107403ff4204c20400",
+      "length": 20,
+      "relocations": [],
+      "sha256": "85ce6eda79f0818a1fa8edffddb331f1eba3ff9989a3f06b50f580f2909dafa0"
+    },
+    {
+      "name": "??1Rva00082C1DElement@@QAE@XZ",
+      "section": 17,
+      "value": 0,
+      "bytes": "8b0985c97405e900000000c3",
+      "length": 12,
+      "relocations": [
+        [
+          7,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ]
+      ],
+      "sha256": "3cd1cf8684c8f6d17ef712dd9b6b4e7abdfacc815628aa127da303b23d340b02"
+    },
+    {
+      "name": "??0WaterAreaCursor@@QAE@PBXH@Z",
+      "section": 19,
+      "value": 0,
+      "bytes": "8bc18b4c240489088b4c2408894804c20800",
+      "length": 18,
+      "relocations": [],
+      "sha256": "b2e3c0617cefc6a5683fef852791bb67f7f0735f56c781175d2244b7cfc4e031"
+    },
+    {
+      "name": "_rva0007E394CursorEqual",
+      "section": 21,
+      "value": 0,
+      "bytes": "8b4424048b108b4c24083b11750c8b40043b4104750433c040c333c0c3",
+      "length": 29,
+      "relocations": [],
+      "sha256": "1aec86651ae13017304a25d5f4edfa25ba72e31ee620df9bb1980897c7791eb1"
+    },
+    {
+      "name": "?rva000B3FD0@WaterRenderObjClass@@QAEXXZ",
+      "section": 23,
+      "value": 0,
+      "bytes": "c3",
+      "length": 1,
+      "relocations": [],
+      "sha256": "3b5bd2d2d06866a0a44988e6d63ffebd7d454e02320c7f14f073c1d384f49bfc"
+    },
+    {
+      "name": "?begin@?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAEPAUTreeHintRef00217D4C@@XZ",
+      "section": 25,
+      "value": 0,
+      "bytes": "8b01c3",
+      "length": 3,
+      "relocations": [],
+      "sha256": "6d6ef72caf98135eadfb58194d388b16d944c2e554e6bddf8796fe050aa81249"
+    },
+    {
+      "name": "?end@?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAEPAUTreeHintRef00217D4C@@XZ",
+      "section": 27,
+      "value": 0,
+      "bytes": "8b4104c3",
+      "length": 4,
+      "relocations": [],
+      "sha256": "1daea4da37cdf6a4853ba263369c1455c59cd2a41f513b66d9928bac2a437d5f"
+    },
+    {
+      "name": "?begin@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEPAURva00082BE6Element@@XZ",
+      "section": 29,
+      "value": 0,
+      "bytes": "8b01c3",
+      "length": 3,
+      "relocations": [],
+      "sha256": "6d6ef72caf98135eadfb58194d388b16d944c2e554e6bddf8796fe050aa81249"
+    },
+    {
+      "name": "?end@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEPAURva00082BE6Element@@XZ",
+      "section": 31,
+      "value": 0,
+      "bytes": "8b4104c3",
+      "length": 4,
+      "relocations": [],
+      "sha256": "1daea4da37cdf6a4853ba263369c1455c59cd2a41f513b66d9928bac2a437d5f"
+    },
+    {
+      "name": "?removeObserver@?$AreaSet@VStandingWaveArea@@@@QAEXPAX@Z",
+      "section": 33,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z"
+        ]
+      ],
+      "sha256": "70d04a63d303550c2b67b59b7bc2ce3a7f6c47529ad33cf4275072d31e9a1b45"
+    },
+    {
+      "name": "?size@?$AreaSet@VStandingWaveArea@@@@QBEIXZ",
+      "section": 35,
+      "value": 0,
+      "bytes": "8b41182b4114c1f803c3",
+      "length": 10,
+      "relocations": [],
+      "sha256": "d77d445f98bab5f05d523cd083afcdc5c5792d1240ad0f849054cbe8cc7313e5"
+    },
+    {
+      "name": "??1?$WaterAreaRenderableList@URva00082BE6Element@@VRva00081BAFVector@@@@QAE@XZ",
+      "section": 37,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "??1?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@XZ"
+        ]
+      ],
+      "sha256": "9c794632414f22e335594af2e508d7ecf1534269e494801a211357b7d1eb5f1e"
+    },
+    {
+      "name": "?reserve@?$WaterAreaRenderableList@URva00082BE6Element@@VRva00081BAFVector@@@@QAEXI@Z",
+      "section": 39,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?reserve@Rva00081BAFVector@@QAEXI@Z"
+        ]
+      ],
+      "sha256": "af1b663a9b191f63274a675d1b3e6413e8a0f004a194551db7ea3ed87f4fe81f"
+    },
+    {
+      "name": "?removeObserver@?$AreaSet@VRiverArea@@@@QAEXPAX@Z",
+      "section": 41,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z"
+        ]
+      ],
+      "sha256": "70d04a63d303550c2b67b59b7bc2ce3a7f6c47529ad33cf4275072d31e9a1b45"
+    },
+    {
+      "name": "?size@?$AreaSet@VRiverArea@@@@QBEIXZ",
+      "section": 43,
+      "value": 0,
+      "bytes": "8b41182b4114c1f803c3",
+      "length": 10,
+      "relocations": [],
+      "sha256": "d77d445f98bab5f05d523cd083afcdc5c5792d1240ad0f849054cbe8cc7313e5"
+    },
+    {
+      "name": "??1?$WaterAreaRenderableList@URva00082C1DElement@@VRva00081C17Vector@@@@QAE@XZ",
+      "section": 45,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "??1?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@XZ"
+        ]
+      ],
+      "sha256": "9c794632414f22e335594af2e508d7ecf1534269e494801a211357b7d1eb5f1e"
+    },
+    {
+      "name": "?reserve@?$WaterAreaRenderableList@URva00082C1DElement@@VRva00081C17Vector@@@@QAEXI@Z",
+      "section": 47,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?reserve@Rva00081C17Vector@@QAEXI@Z"
+        ]
+      ],
+      "sha256": "56a06cf2d0a2c9183e493ac427e12d0b7ba8fb0a70e7a5a4cec68a9da341105f"
+    },
+    {
+      "name": "?removeObserver@?$AreaSet@VWaterWaveArea@@@@QAEXPAX@Z",
+      "section": 49,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z"
+        ]
+      ],
+      "sha256": "70d04a63d303550c2b67b59b7bc2ce3a7f6c47529ad33cf4275072d31e9a1b45"
+    },
+    {
+      "name": "??0?$allocator@UTreeHintRef00217D4C@@@_STL@@QAE@XZ",
+      "section": 51,
+      "value": 0,
+      "bytes": "8bc1c3",
+      "length": 3,
+      "relocations": [],
+      "sha256": "ff5a8b336271b74cd84a07ada58f7c7dcfe82a9320aa077b8bcd28e3e57e02ed"
+    },
+    {
+      "name": "??1?$allocator@UTreeHintRef00217D4C@@@_STL@@QAE@XZ",
+      "section": 53,
+      "value": 0,
+      "bytes": "c3",
+      "length": 1,
+      "relocations": [],
+      "sha256": "3b5bd2d2d06866a0a44988e6d63ffebd7d454e02320c7f14f073c1d384f49bfc"
+    },
+    {
+      "name": "?size@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QBEIXZ",
+      "section": 55,
+      "value": 0,
+      "bytes": "8b41042b01c1f802c3",
+      "length": 9,
+      "relocations": [],
+      "sha256": "63950e95439b5e4476012c4c68f69c4ea82e9010908efcc13fa5c3cc90ca4230"
+    },
+    {
+      "name": "?_M_set@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@00@Z",
+      "section": 57,
+      "value": 0,
+      "bytes": "8b44240489018b4424088941048b44240c894108c20c00",
+      "length": 23,
+      "relocations": [],
+      "sha256": "14e73662b4cb1a98d2e2d09180735fe57849d781fa36850b9586a1b6da26a489"
+    },
+    {
+      "name": "?size@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QBEIXZ",
+      "section": 59,
+      "value": 0,
+      "bytes": "8b41042b01c1f802c3",
+      "length": 9,
+      "relocations": [],
+      "sha256": "63950e95439b5e4476012c4c68f69c4ea82e9010908efcc13fa5c3cc90ca4230"
+    },
+    {
+      "name": "?_M_set@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@00@Z",
+      "section": 61,
+      "value": 0,
+      "bytes": "8b44240489018b4424088941048b44240c894108c20c00",
+      "length": 23,
+      "relocations": [],
+      "sha256": "14e73662b4cb1a98d2e2d09180735fe57849d781fa36850b9586a1b6da26a489"
+    },
+    {
+      "name": "??1?$_STLP_alloc_proxy@PAUTreeHintRef00217D4C@@U1@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@XZ",
+      "section": 63,
+      "value": 0,
+      "bytes": "c3",
+      "length": 1,
+      "relocations": [],
+      "sha256": "3b5bd2d2d06866a0a44988e6d63ffebd7d454e02320c7f14f073c1d384f49bfc"
+    },
+    {
+      "name": "?allocate@?$allocator@URva00082BE6Element@@@_STL@@QBEPAURva00082BE6Element@@IPBX@Z",
+      "section": 65,
+      "value": 0,
+      "bytes": "8b44240485c0740fc1e0026a0050e8000000005959eb0233c0c20800",
+      "length": 28,
+      "relocations": [
+        [
+          15,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ]
+      ],
+      "sha256": "fd89195581bda88227c45b1b06d7927a8e720fe9224f02ae620a71afc5b022f4"
+    },
+    {
+      "name": "?allocate@?$allocator@URva00082C1DElement@@@_STL@@QBEPAURva00082C1DElement@@IPBX@Z",
+      "section": 67,
+      "value": 0,
+      "bytes": "8b44240485c0740fc1e0026a0050e8000000005959eb0233c0c20800",
+      "length": 28,
+      "relocations": [
+        [
+          15,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ]
+      ],
+      "sha256": "fd89195581bda88227c45b1b06d7927a8e720fe9224f02ae620a71afc5b022f4"
+    },
+    {
+      "name": "??0?$allocator@UTreeHintRef00217D4C@@@_STL@@QAE@ABV01@@Z",
+      "section": 69,
+      "value": 0,
+      "bytes": "8bc1c20400",
+      "length": 5,
+      "relocations": [],
+      "sha256": "33968e814e5cc5c45bd6ce3019acf6c0637dea2d7ae20d1a92f640a3c8e63b23"
+    },
+    {
+      "name": "?deallocate@?$allocator@UTreeHintRef00217D4C@@@_STL@@QBEXPAUTreeHintRef00217D4C@@I@Z",
+      "section": 71,
+      "value": 0,
+      "bytes": "837c240400740aff742404e80000000059c20800",
+      "length": 20,
+      "relocations": [
+        [
+          12,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "fa8e76b614a094df9141f0fd3eff1a90f08aa6eeb510d80d6d5febe13c77993b"
+    },
+    {
+      "name": "?deallocate@?$allocator@URva00082BE6Element@@@_STL@@QBEXPAURva00082BE6Element@@I@Z",
+      "section": 73,
+      "value": 0,
+      "bytes": "837c240400740aff742404e80000000059c20800",
+      "length": 20,
+      "relocations": [
+        [
+          12,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "fa8e76b614a094df9141f0fd3eff1a90f08aa6eeb510d80d6d5febe13c77993b"
+    },
+    {
+      "name": "?deallocate@?$allocator@URva00082C1DElement@@@_STL@@QBEXPAURva00082C1DElement@@I@Z",
+      "section": 75,
+      "value": 0,
+      "bytes": "837c240400740aff742404e80000000059c20800",
+      "length": 20,
+      "relocations": [
+        [
+          12,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "fa8e76b614a094df9141f0fd3eff1a90f08aa6eeb510d80d6d5febe13c77993b"
+    },
+    {
+      "name": "??$_Construct@URva00082BE6Element@@U1@@_STL@@YAXPAURva00082BE6Element@@ABU1@@Z",
+      "section": 77,
+      "value": 0,
+      "bytes": "8b4c240485c9740f8b4424088b0085c089017403ff4004c3",
+      "length": 24,
+      "relocations": [],
+      "sha256": "e892c2fbc98aff3716be1bdb42e8bc6d769239516cb015eaa4edaaab10e1f616"
+    },
+    {
+      "name": "??$_Construct@URva00082C1DElement@@U1@@_STL@@YAXPAURva00082C1DElement@@ABU1@@Z",
+      "section": 79,
+      "value": 0,
+      "bytes": "8b4c240485c9740f8b4424088b0085c089017403ff4004c3",
+      "length": 24,
+      "relocations": [],
+      "sha256": "e892c2fbc98aff3716be1bdb42e8bc6d769239516cb015eaa4edaaab10e1f616"
+    },
+    {
+      "name": "??$__uninitialized_copy@PAURva00082BE6Element@@PAU1@@_STL@@YAPAURva00082BE6Element@@PAU1@00ABU__false_type@0@@Z",
+      "section": 81,
+      "value": 0,
+      "bytes": "568b742410578b7c240ceb0f5756e8000000005983c7045983c6043b7c241075eb5f8bc65ec3",
+      "length": 38,
+      "relocations": [
+        [
+          15,
+          20,
+          "??$_Construct@URva00082BE6Element@@U1@@_STL@@YAXPAURva00082BE6Element@@ABU1@@Z"
+        ]
+      ],
+      "sha256": "4fc8314651d30e495dc6356f2ed5d9499f9a097dfb3c4a4b785ed1d6028dc7dd"
+    },
+    {
+      "name": "??$__uninitialized_fill_n@PAURva00082BE6Element@@IU1@@_STL@@YAPAURva00082BE6Element@@PAU1@IABU1@ABU__false_type@0@@Z",
+      "section": 83,
+      "value": 0,
+      "bytes": "568b742408578b7c241085ff7612ff74241456e8000000005983c6044f5975ee5f8bc65ec3",
+      "length": 37,
+      "relocations": [
+        [
+          20,
+          20,
+          "??$_Construct@URva00082BE6Element@@U1@@_STL@@YAXPAURva00082BE6Element@@ABU1@@Z"
+        ]
+      ],
+      "sha256": "7a93c4fc9cc060faccdad4aa2db1c2f780c6319b931faf10bd0785202362a11f"
+    },
+    {
+      "name": "??$__uninitialized_copy@PAURva00082C1DElement@@PAU1@@_STL@@YAPAURva00082C1DElement@@PAU1@00ABU__false_type@0@@Z",
+      "section": 85,
+      "value": 0,
+      "bytes": "568b742410578b7c240ceb0f5756e8000000005983c7045983c6043b7c241075eb5f8bc65ec3",
+      "length": 38,
+      "relocations": [
+        [
+          15,
+          20,
+          "??$_Construct@URva00082C1DElement@@U1@@_STL@@YAXPAURva00082C1DElement@@ABU1@@Z"
+        ]
+      ],
+      "sha256": "8171b6e58716611d86bbe216da9bdecac7ceb6d5add4ccaf307a152fd039808d"
+    },
+    {
+      "name": "??$__uninitialized_fill_n@PAURva00082C1DElement@@IU1@@_STL@@YAPAURva00082C1DElement@@PAU1@IABU1@ABU__false_type@0@@Z",
+      "section": 87,
+      "value": 0,
+      "bytes": "568b742408578b7c241085ff7612ff74241456e8000000005983c6044f5975ee5f8bc65ec3",
+      "length": 37,
+      "relocations": [
+        [
+          20,
+          20,
+          "??$_Construct@URva00082C1DElement@@U1@@_STL@@YAXPAURva00082C1DElement@@ABU1@@Z"
+        ]
+      ],
+      "sha256": "e6593e1022cfaf533883d494c5bc79ba2564fff1e53ba06efba20a7708dfae58"
+    },
+    {
+      "name": "??$swap@PAH@_STL@@YAXAAPAH0@Z",
+      "section": 89,
+      "value": 0,
+      "bytes": "8b5424088b4424048b08568b328930890a5ec3",
+      "length": 19,
+      "relocations": [],
+      "sha256": "07170567f04a1b543b047f839454ae44e114747eb34178d12432a7983a63260d"
+    },
+    {
+      "name": "??$__stl_alloc_rebind@URva00082BE6Element@@U1@@_STL@@YAAAV?$allocator@URva00082BE6Element@@@0@AAV10@PBURva00082BE6Element@@@Z",
+      "section": 91,
+      "value": 0,
+      "bytes": "8b442404c3",
+      "length": 5,
+      "relocations": [],
+      "sha256": "328e99b0c010a285a20eb2fef857e3402b0118bcc316c77e114bb9d0b255740e"
+    },
+    {
+      "name": "??$__stl_alloc_rebind@URva00082C1DElement@@U1@@_STL@@YAAAV?$allocator@URva00082C1DElement@@@0@AAV10@PBURva00082C1DElement@@@Z",
+      "section": 93,
+      "value": 0,
+      "bytes": "8b442404c3",
+      "length": 5,
+      "relocations": [],
+      "sha256": "328e99b0c010a285a20eb2fef857e3402b0118bcc316c77e114bb9d0b255740e"
+    },
+    {
+      "name": "??$__stl_alloc_rebind@UTreeHintRef00217D4C@@U1@@_STL@@YAAAV?$allocator@UTreeHintRef00217D4C@@@0@AAV10@PBUTreeHintRef00217D4C@@@Z",
+      "section": 95,
+      "value": 0,
+      "bytes": "8b442404c3",
+      "length": 5,
+      "relocations": [],
+      "sha256": "328e99b0c010a285a20eb2fef857e3402b0118bcc316c77e114bb9d0b255740e"
+    },
+    {
+      "name": "??0?$allocator@H@_STL@@QAE@ABV01@@Z",
+      "section": 97,
+      "value": 0,
+      "bytes": "8bc1c20400",
+      "length": 5,
+      "relocations": [],
+      "sha256": "33968e814e5cc5c45bd6ce3019acf6c0637dea2d7ae20d1a92f640a3c8e63b23"
+    },
+    {
+      "name": "??1?$allocator@H@_STL@@QAE@XZ",
+      "section": 99,
+      "value": 0,
+      "bytes": "c3",
+      "length": 1,
+      "relocations": [],
+      "sha256": "3b5bd2d2d06866a0a44988e6d63ffebd7d454e02320c7f14f073c1d384f49bfc"
+    },
+    {
+      "name": "?allocate@?$_STLP_alloc_proxy@PAURva00082BE6Element@@U1@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEPAURva00082BE6Element@@I@Z",
+      "section": 101,
+      "value": 0,
+      "bytes": "6a00ff742408e800000000c20400",
+      "length": 14,
+      "relocations": [
+        [
+          7,
+          20,
+          "?allocate@?$allocator@URva00082BE6Element@@@_STL@@QBEPAURva00082BE6Element@@IPBX@Z"
+        ]
+      ],
+      "sha256": "70d137bd4caab148e609213cf7eff28a8902aed630c8c6471a5f4e94a064f46e"
+    },
+    {
+      "name": "?allocate@?$_STLP_alloc_proxy@PAURva00082C1DElement@@U1@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QAEPAURva00082C1DElement@@I@Z",
+      "section": 103,
+      "value": 0,
+      "bytes": "6a00ff742408e800000000c20400",
+      "length": 14,
+      "relocations": [
+        [
+          7,
+          20,
+          "?allocate@?$allocator@URva00082C1DElement@@@_STL@@QBEPAURva00082C1DElement@@IPBX@Z"
+        ]
+      ],
+      "sha256": "06397930d86b1925946b5e493b02c25eb8f381afd9d4e743fd3f0fe05b551e0b"
+    },
+    {
+      "name": "??0?$_STLP_alloc_proxy@PAUTreeHintRef00217D4C@@U1@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@PAUTreeHintRef00217D4C@@@Z",
+      "section": 105,
+      "value": 0,
+      "bytes": "8bc18b4c24088908c20800",
+      "length": 11,
+      "relocations": [],
+      "sha256": "df6f3c22bd5dd87c63fc300e5ec4be8cf873ae86044895ea99e584e2f8496350"
+    },
+    {
+      "name": "?deallocate@?$_STLP_alloc_proxy@PAUTreeHintRef00217D4C@@U1@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAEXPAUTreeHintRef00217D4C@@I@Z",
+      "section": 107,
+      "value": 0,
+      "bytes": "837c240400740aff742404e80000000059c20800",
+      "length": 20,
+      "relocations": [
+        [
+          12,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "fa8e76b614a094df9141f0fd3eff1a90f08aa6eeb510d80d6d5febe13c77993b"
+    },
+    {
+      "name": "?deallocate@?$_STLP_alloc_proxy@PAURva00082BE6Element@@U1@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEXPAURva00082BE6Element@@I@Z",
+      "section": 109,
+      "value": 0,
+      "bytes": "837c240400740aff742404e80000000059c20800",
+      "length": 20,
+      "relocations": [
+        [
+          12,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "fa8e76b614a094df9141f0fd3eff1a90f08aa6eeb510d80d6d5febe13c77993b"
+    },
+    {
+      "name": "?deallocate@?$_STLP_alloc_proxy@PAURva00082C1DElement@@U1@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QAEXPAURva00082C1DElement@@I@Z",
+      "section": 111,
+      "value": 0,
+      "bytes": "837c240400740aff742404e80000000059c20800",
+      "length": 20,
+      "relocations": [
+        [
+          12,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "fa8e76b614a094df9141f0fd3eff1a90f08aa6eeb510d80d6d5febe13c77993b"
+    },
+    {
+      "name": "??0?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAE@ABV01@@Z",
+      "section": 113,
+      "value": 0,
+      "bytes": "8bc18b4c24048b098908c20400",
+      "length": 13,
+      "relocations": [],
+      "sha256": "5aca73dfb10fa5bf9cdb5789887ea2cf7e3cd2d2917ffab6b094bc610009488d"
+    },
+    {
+      "name": "??1?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAE@XZ",
+      "section": 115,
+      "value": 0,
+      "bytes": "c3",
+      "length": 1,
+      "relocations": [],
+      "sha256": "3b5bd2d2d06866a0a44988e6d63ffebd7d454e02320c7f14f073c1d384f49bfc"
+    },
+    {
+      "name": "??0?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z",
+      "section": 117,
+      "value": 0,
+      "bytes": "5633c08bf150ff74240c8d4e088906894604e8000000008bc65ec20400",
+      "length": 29,
+      "relocations": [
+        [
+          19,
+          20,
+          "??0?$_STLP_alloc_proxy@PAUTreeHintRef00217D4C@@U1@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@PAUTreeHintRef00217D4C@@@Z"
+        ]
+      ],
+      "sha256": "f007a08d147a5fb2b1077f2f1abb70e4089f7f526fa34299ac4c1e3ca72972ea"
+    },
+    {
+      "name": "??1?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@XZ",
+      "section": 119,
+      "value": 0,
+      "bytes": "8b0185c0740750e80000000059c3",
+      "length": 14,
+      "relocations": [
+        [
+          8,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "761955e3d6709f9484eb8d7a4aac00ec091645e42b928bf4e2ebb7466e46ad43"
+    },
+    {
+      "name": "?_M_clear@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXXZ",
+      "section": 121,
+      "value": 0,
+      "bytes": "568bf1ff7604ff36e8000000008b3685f65959740756e800000000595ec3",
+      "length": 30,
+      "relocations": [
+        [
+          9,
+          20,
+          "??$_Destroy@PAURva00082BE6Element@@@_STL@@YAXPAURva00082BE6Element@@0@Z"
+        ],
+        [
+          23,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "2fd6e5b1953f5b19550e856ac8100ade6e1f4876102393e2eea543f5dccea653"
+    },
+    {
+      "name": "?_M_clear@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXXZ",
+      "section": 123,
+      "value": 0,
+      "bytes": "568bf1ff7604ff36e8000000008b3685f65959740756e800000000595ec3",
+      "length": 30,
+      "relocations": [
+        [
+          9,
+          20,
+          "??$_Destroy@PAURva00082C1DElement@@@_STL@@YAXPAURva00082C1DElement@@0@Z"
+        ],
+        [
+          23,
+          20,
+          "_free"
+        ]
+      ],
+      "sha256": "ee9b86c126d4300a46cce58228940bc8bc626f6e5e0d552c6a444bd0783efad6"
+    },
+    {
+      "name": "??$swap@V?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@0@0@Z",
+      "section": 125,
+      "value": 0,
+      "bytes": "558bec568b7508568d4d08e8000000008b450c8b08890e8b4d0889085e5dc3",
+      "length": 31,
+      "relocations": [
+        [
+          12,
+          20,
+          "??0?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAE@ABV01@@Z"
+        ]
+      ],
+      "sha256": "feeb885a351d97d5e7d4ec99f86e042dc57f6c5a32c226f7f74b6a780c76d34d"
+    },
+    {
+      "name": "??0?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z",
+      "section": 126,
+      "value": 0,
+      "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+      "length": 18,
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z"
+        ]
+      ],
+      "sha256": "863b35e4bfa2ac6a9ed8aecbb2f99ff1d78777a555937cda99f5569a16b1f205"
+    },
+    {
+      "name": "?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z",
+      "section": 128,
+      "value": 0,
+      "bytes": "558bec83ec0c53568bf18b46042b0657c1f8028945f88d4514508d45f850e8000000008b38037df859596a008d5e08578bcbe8000000008d4d1b5150ff75088945f4ff36e80000000083c410837d14018945fc7511ff750c50e8000000008345fc045959eb168d4d1b51ff750cff751450e80000000083c4108945fc807d180075188d451b50ff75fcff7604ff7508e80000000083c4108945fc8bcee8000000008b45f48b4dfc89068d04b85f894e045e89035bc9c21400",
+      "length": 184,
+      "relocations": [
+        [
+          31,
+          20,
+          "??$max@I@_STL@@YAABIABI0@Z"
+        ],
+        [
+          51,
+          20,
+          "?allocate@?$allocator@URva00082BE6Element@@@_STL@@QBEPAURva00082BE6Element@@IPBX@Z"
+        ],
+        [
+          69,
+          20,
+          "??$__uninitialized_copy@PAURva00082BE6Element@@PAU1@@_STL@@YAPAURva00082BE6Element@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          90,
+          20,
+          "??$_Construct@URva00082BE6Element@@U1@@_STL@@YAXPAURva00082BE6Element@@ABU1@@Z"
+        ],
+        [
+          114,
+          20,
+          "??$__uninitialized_fill_n@PAURva00082BE6Element@@IU1@@_STL@@YAPAURva00082BE6Element@@PAU1@IABU1@ABU__false_type@0@@Z"
+        ],
+        [
+          144,
+          20,
+          "??$__uninitialized_copy@PAURva00082BE6Element@@PAU1@@_STL@@YAPAURva00082BE6Element@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          157,
+          20,
+          "?_M_clear@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXXZ"
+        ]
+      ],
+      "sha256": "5874378f849b75c6f98d7b4090250c062e60f560f7d9223bd1dfeeffe0618b1a"
+    },
+    {
+      "name": "?_M_insert_overflow@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@ABU3@ABU__false_type@2@I_N@Z",
+      "section": 129,
+      "value": 0,
+      "bytes": "558bec83ec0c53568bf18b46042b0657c1f8028945f88d4514508d45f850e8000000008b38037df859596a008d5e08578bcbe8000000008d4d1b5150ff75088945f4ff36e80000000083c410837d14018945fc7511ff750c50e8000000008345fc045959eb168d4d1b51ff750cff751450e80000000083c4108945fc807d180075188d451b50ff75fcff7604ff7508e80000000083c4108945fc8bcee8000000008b45f48b4dfc89068d04b85f894e045e89035bc9c21400",
+      "length": 184,
+      "relocations": [
+        [
+          31,
+          20,
+          "??$max@I@_STL@@YAABIABI0@Z"
+        ],
+        [
+          51,
+          20,
+          "?allocate@?$allocator@URva00082C1DElement@@@_STL@@QBEPAURva00082C1DElement@@IPBX@Z"
+        ],
+        [
+          69,
+          20,
+          "??$__uninitialized_copy@PAURva00082C1DElement@@PAU1@@_STL@@YAPAURva00082C1DElement@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          90,
+          20,
+          "??$_Construct@URva00082C1DElement@@U1@@_STL@@YAXPAURva00082C1DElement@@ABU1@@Z"
+        ],
+        [
+          114,
+          20,
+          "??$__uninitialized_fill_n@PAURva00082C1DElement@@IU1@@_STL@@YAPAURva00082C1DElement@@PAU1@IABU1@ABU__false_type@0@@Z"
+        ],
+        [
+          144,
+          20,
+          "??$__uninitialized_copy@PAURva00082C1DElement@@PAU1@@_STL@@YAPAURva00082C1DElement@@PAU1@00ABU__false_type@0@@Z"
+        ],
+        [
+          157,
+          20,
+          "?_M_clear@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXXZ"
+        ]
+      ],
+      "sha256": "314a5da13467a7e67d5afe61317f826a8f7c0712ba23766e6bfab1297ae33731"
+    },
+    {
+      "name": "?swap@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXAAV12@@Z",
+      "section": 130,
+      "value": 0,
+      "bytes": "8b4424048b11568b30893189108b70048b510489710489500483c0085083c10851e80000000059595ec20400",
+      "length": 44,
+      "relocations": [
+        [
+          34,
+          20,
+          "??$swap@V?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@@_STL@@YAXAAV?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@0@0@Z"
+        ]
+      ],
+      "sha256": "b6845e31333b0d4f98cb55c76be819c781e8207d1a9af1d2f8d118dd9d0b3121"
+    },
+    {
+      "name": "?push_back@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEXABURva00082BE6Element@@@Z",
+      "section": 132,
+      "value": 0,
+      "bytes": "558bec568bf18b46043b46087411ff750850e800000000834604045959eb136a016a018d4d0b51ff75088bce50e8000000005e5dc20400",
+      "length": 55,
+      "relocations": [
+        [
+          19,
+          20,
+          "??$_Construct@URva00082BE6Element@@U1@@_STL@@YAXPAURva00082BE6Element@@ABU1@@Z"
+        ],
+        [
+          46,
+          20,
+          "?_M_insert_overflow@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@IAEXPAURva00082BE6Element@@ABU3@ABU__false_type@2@I_N@Z"
+        ]
+      ],
+      "sha256": "5f2fe9d634306a536b5e2dfd03776112a8d174c27ac2571f1c99812a42f3684a"
+    },
+    {
+      "name": "?push_back@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QAEXABURva00082C1DElement@@@Z",
+      "section": 133,
+      "value": 0,
+      "bytes": "558bec568bf18b46043b46087411ff750850e800000000834604045959eb136a016a018d4d0b51ff75088bce50e8000000005e5dc20400",
+      "length": 55,
+      "relocations": [
+        [
+          19,
+          20,
+          "??$_Construct@URva00082C1DElement@@U1@@_STL@@YAXPAURva00082C1DElement@@ABU1@@Z"
+        ],
+        [
+          46,
+          20,
+          "?_M_insert_overflow@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@IAEXPAURva00082C1DElement@@ABU3@ABU__false_type@2@I_N@Z"
+        ]
+      ],
+      "sha256": "ce0b4b0bf912bb776effe3cfa9859fdd889b4bbf08ffeae947d2af9a5ffb1dca"
+    },
+    {
+      "name": "??0?$WaterAreaRenderableList@URva00082BE6Element@@VRva00081BAFVector@@@@QAE@XZ",
+      "section": 134,
+      "value": 0,
+      "bytes": "51568d442407508bf1e8000000008bc65e59c3",
+      "length": 19,
+      "relocations": [
+        [
+          10,
+          20,
+          "??0?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z"
+        ]
+      ],
+      "sha256": "5a40d125f979cf57577fcffd6ab7693cad88deaf2b908b773eaf9ac4e6e53e91"
+    },
+    {
+      "name": "?push_back@?$WaterAreaRenderableList@URva00082BE6Element@@VRva00081BAFVector@@@@QAEXABURva00082BE6Element@@@Z",
+      "section": 136,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?push_back@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEXABURva00082BE6Element@@@Z"
+        ]
+      ],
+      "sha256": "fb8befae8991db0fc16dde538267f610ff823f7274a8cb895ec0ddf841d122d2"
+    },
+    {
+      "name": "?swapInto@?$WaterAreaRenderableList@URva00082BE6Element@@VRva00081BAFVector@@@@QAEXPAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z",
+      "section": 138,
+      "value": 0,
+      "bytes": "518b4c2408e800000000c20400",
+      "length": 13,
+      "relocations": [
+        [
+          6,
+          20,
+          "?swap@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXAAV12@@Z"
+        ]
+      ],
+      "sha256": "7d531e19e641eadecf7052f37d7596e46c913ff6ae0fa71a6f92d9c0e63c114e"
+    },
+    {
+      "name": "??0?$WaterAreaRenderableList@URva00082C1DElement@@VRva00081C17Vector@@@@QAE@XZ",
+      "section": 140,
+      "value": 0,
+      "bytes": "51568d442407508bf1e8000000008bc65e59c3",
+      "length": 19,
+      "relocations": [
+        [
+          10,
+          20,
+          "??0?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z"
+        ]
+      ],
+      "sha256": "5a40d125f979cf57577fcffd6ab7693cad88deaf2b908b773eaf9ac4e6e53e91"
+    },
+    {
+      "name": "?push_back@?$WaterAreaRenderableList@URva00082C1DElement@@VRva00081C17Vector@@@@QAEXABURva00082C1DElement@@@Z",
+      "section": 142,
+      "value": 0,
+      "bytes": "e900000000",
+      "length": 5,
+      "relocations": [
+        [
+          1,
+          20,
+          "?push_back@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QAEXABURva00082C1DElement@@@Z"
+        ]
+      ],
+      "sha256": "58a907c87cd9c4f348458ea3025db76c66de65dd8176e2387194691f6742a7e0"
+    },
+    {
+      "name": "?swapInto@?$WaterAreaRenderableList@URva00082C1DElement@@VRva00081C17Vector@@@@QAEXPAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z",
+      "section": 144,
+      "value": 0,
+      "bytes": "518b4c2408e800000000c20400",
+      "length": 13,
+      "relocations": [
+        [
+          6,
+          20,
+          "?swap@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXAAV12@@Z"
+        ]
+      ],
+      "sha256": "7d531e19e641eadecf7052f37d7596e46c913ff6ae0fa71a6f92d9c0e63c114e"
+    },
+    {
+      "name": "?onAreaAdded@WaterRenderObjClass@@UAEXHPAVStandingWaveArea@@@Z",
+      "section": 146,
+      "value": 0,
+      "bytes": "b800000000e80000000051565768a40000008bf9e800000000598bc8894df08365fc0085c9740cff750ce8000000008bf0eb0233f685f689750c7403ff46048d450c508d4f40c745fc01000000e800000000834dfcff85f674078bcee8000000008b4df45f5e64890d00000000c9c20800",
+      "length": 113,
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?onAreaAdded@WaterRenderObjClass@@UAEXHPAVStandingWaveArea@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          21,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          43,
+          20,
+          "??0Rva008291D@@QAE@PAX@Z"
+        ],
+        [
+          78,
+          20,
+          "?push_back@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEXABURva00082BE6Element@@@Z"
+        ],
+        [
+          93,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ],
+        [
+          105,
+          6,
+          "__except_list"
+        ]
+      ],
+      "sha256": "ea8927299758163b8706bf3515c911aed05458db47bbc3be8dbe23b2bdee0998"
+    },
+    {
+      "name": "?onAreaAdded@WaterRenderObjClass@@UAEXHPAVRiverArea@@@Z",
+      "section": 150,
+      "value": 0,
+      "bytes": "b800000000e8000000005156576a5c8bf9e800000000598bc8894df08365fc0085c9740cff750ce8000000008bf0eb0233f685f689750c7403ff46048d450c508d4f4cc745fc01000000e800000000834dfcff85f674078bcee8000000008b4df45f5e64890d00000000c9c20800",
+      "length": 110,
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?onAreaAdded@WaterRenderObjClass@@UAEXHPAVRiverArea@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          18,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          40,
+          20,
+          "??0RenderableRiverArea@@QAE@PAX@Z"
+        ],
+        [
+          75,
+          20,
+          "?push_back@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QAEXABURva00082C1DElement@@@Z"
+        ],
+        [
+          90,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ],
+        [
+          102,
+          6,
+          "__except_list"
+        ]
+      ],
+      "sha256": "aebbaa479580c2fd36df12131af78ca1ddf1c0fe73d1661fd255abfaa3a44ddf"
+    },
+    {
+      "name": "?rva0008385F@WaterRenderObjClass@@QAEXPAV?$AreaSet@VStandingWaveArea@@@@PAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z",
+      "section": 153,
+      "value": 0,
+      "bytes": "b800000000e80000000083ec1c53568b7508578b7e182b7e148d450b8bd9508d4dd8c1ff03e8000000008365fc00578d4dd8e8000000008b46182b46148975e4c1f8038365f0008945e88975eceb5968a4000000e800000000598bc8894d0885c9c645fc0174138b46148b55f0ff74d004e8000000008bf8eb0233ff85ff897d087403ff47048d4508508d4dd8c645fc02e80000000085ffc645fc0074078bcfe800000000ff45f08d45e4508d45ec50e80000000084c0595974948bc381c3c8000000f7d81bc023c3508bcee8000000008b4d0c8d45d850e800000000834dfcff8d4dd8e8000000008b4df45f5e5b64890d00000000c9c20800",
+      "length": 250,
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?rva0008385F@WaterRenderObjClass@@QAEXPAV?$AreaSet@VStandingWaveArea@@@@PAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          38,
+          20,
+          "??0?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z"
+        ],
+        [
+          51,
+          20,
+          "?reserve@Rva00081BAFVector@@QAEXI@Z"
+        ],
+        [
+          85,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          114,
+          20,
+          "??0Rva008291D@@QAE@PAX@Z"
+        ],
+        [
+          146,
+          20,
+          "?push_back@?$vector@URva00082BE6Element@@V?$allocator@URva00082BE6Element@@@_STL@@@_STL@@QAEXABURva00082BE6Element@@@Z"
+        ],
+        [
+          161,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ],
+        [
+          177,
+          20,
+          "_rva0007E394CursorEqual"
+        ],
+        [
+          205,
+          20,
+          "?append@Rva005A0B4CList@@QAEXPAURva002BA8F1Listener@@@Z"
+        ],
+        [
+          217,
+          20,
+          "?swap@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXAAV12@@Z"
+        ],
+        [
+          229,
+          20,
+          "??1?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@XZ"
+        ],
+        [
+          242,
+          6,
+          "__except_list"
+        ]
+      ],
+      "sha256": "8e52b0988f8162e4d6a4917fd53554e36c29c84340d5aa539474f1482e093b03"
+    },
+    {
+      "name": "?rva00083959@WaterRenderObjClass@@QAEXPAV?$AreaSet@VRiverArea@@@@PAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z",
+      "section": 156,
+      "value": 0,
+      "bytes": "b800000000e80000000083ec1c53568b7508578b7e182b7e148d450b8bd9508d4dd8c1ff03e8000000008365fc00578d4dd8e8000000008b46182b46148975e4c1f8038365f0008945e88975eceb566a5ce800000000598bc8894d0885c9c645fc0174138b46148b55f0ff74d004e8000000008bf8eb0233ff85ff897d087403ff47048d4508508d4dd8c645fc02e80000000085ffc645fc0074078bcfe800000000ff45f08d45e4508d45ec50e80000000084c0595974978bc381c3cc000000f7d81bc023c3508bcee8000000008b4d0c8d45d850e800000000834dfcff8d4dd8e8000000008b4df45f5e5b64890d00000000c9c20800",
+      "length": 247,
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?rva00083959@WaterRenderObjClass@@QAEXPAV?$AreaSet@VRiverArea@@@@PAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          38,
+          20,
+          "??0?$_Vector_base@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintRef00217D4C@@@1@@Z"
+        ],
+        [
+          51,
+          20,
+          "?reserve@Rva00081C17Vector@@QAEXI@Z"
+        ],
+        [
+          82,
+          20,
+          "??2@YAPAXI@Z"
+        ],
+        [
+          111,
+          20,
+          "??0RenderableRiverArea@@QAE@PAX@Z"
+        ],
+        [
+          143,
+          20,
+          "?push_back@?$vector@URva00082C1DElement@@V?$allocator@URva00082C1DElement@@@_STL@@@_STL@@QAEXABURva00082C1DElement@@@Z"
+        ],
+        [
+          158,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ],
+        [
+          174,
+          20,
+          "_rva0007E394CursorEqual"
+        ],
+        [
+          202,
+          20,
+          "?append@Rva005A0B4CList@@QAEXPAURva002BA8F1Listener@@@Z"
+        ],
+        [
+          214,
+          20,
+          "?swap@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXAAV12@@Z"
+        ],
+        [
+          226,
+          20,
+          "??1?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAE@XZ"
+        ],
+        [
+          239,
+          6,
+          "__except_list"
+        ]
+      ],
+      "sha256": "c1b5c373b82748bdcd54b1b563ed432ec0901c2678399b4bac57042a4b1cdff1"
+    },
+    {
+      "name": "?rva00083A7A@WaterRenderObjClass@@QAEXPAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z",
+      "section": 159,
+      "value": 0,
+      "bytes": "b800000000e80000000053568bf18b8e0401000033db3bcb57743e8d86c800000050e8000000008d86cc0000008dbe140100008b0f50899e04010000e800000000891f8d86d00000008dbe240100008b0f50e800000000891f8dbe080100008b47048b0f50518bcfe8000000008d9e180100008b43048b0b50518bcbe80000000057ff75088bcee8000000008b4508538b5d0c538bce898604010000e800000000899e140100008b5d108d86d0000000508bcbe8000000008b3f899e24010000eb268b1f85db895d087403ff43048b4b408365fc00e800000000834dfcff8bcbe80000000083c7043bbe0c01000075d28b4df45f5e5b64890d00000000c9c20c00",
+      "length": 257,
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?rva00083A7A@WaterRenderObjClass@@QAEXPAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          35,
+          20,
+          "?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z"
+        ],
+        [
+          61,
+          20,
+          "?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z"
+        ],
+        [
+          83,
+          20,
+          "?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z"
+        ],
+        [
+          105,
+          20,
+          "?erase@?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAEPAUTreeHintRef00217D4C@@PAU3@0@Z"
+        ],
+        [
+          125,
+          20,
+          "?erase@?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@QAEPAUTreeHintRef00217D4C@@PAU3@0@Z"
+        ],
+        [
+          136,
+          20,
+          "?rva0008385F@WaterRenderObjClass@@QAEXPAV?$AreaSet@VStandingWaveArea@@@@PAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z"
+        ],
+        [
+          157,
+          20,
+          "?rva00083959@WaterRenderObjClass@@QAEXPAV?$AreaSet@VRiverArea@@@@PAV?$vector@UTreeHintRef00217D4C@@V?$allocator@UTreeHintRef00217D4C@@@_STL@@@_STL@@@Z"
+        ],
+        [
+          180,
+          20,
+          "?append@Rva005A0B4CList@@QAEXPAURva002BA8F1Listener@@@Z"
+        ],
+        [
+          214,
+          20,
+          "?loadFXShaderSetup@StandingWaterArea@@QAEXXZ"
+        ],
+        [
+          225,
+          20,
+          "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z"
+        ],
+        [
+          249,
+          6,
+          "__except_list"
+        ]
+      ],
+      "sha256": "6afcca521e50629c6b6eb12a40dad66c5b7445e3dce1721fcfd50c0aa01b1ce7"
+    }
+  ],
+  "code_definition_count": 79,
+  "duplicate_names": {},
+  "seconds": 2.2261772000056226,
+  "expected_unique_rvas": 22,
+  "all_native_addresses_matched": true,
+  "row_alias_groups": {
+    "0x005F8F96": [
+      "??1Rva00082BE6Element@@QAE@XZ",
+      "??1Rva00082C1DElement@@QAE@XZ"
+    ]
+  }
+}
