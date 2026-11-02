@@ -1,0 +1,333 @@
+{
+  "scope": "Immutable-original dynamesh provider/consumer audit only. No live dynamesh inputs, compiler, Code/tool/ledger edits, claims or network.",
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+  "snapshot_state": {
+    "head": "0e9d33df779d8214e7f7e7ebef70e1854d689359",
+    "source_sha256": "a1b1789124ab7e3c70575639ee968137630b9fde2b1c094b7eedc1503a5086a8",
+    "object_sha256": "29fea35d29c35946ecd35a6bb4e9a63de3279dd8136fc6c4b78d036fd59d3d5d"
+  },
+  "before_source_path": "build\\dynamesh-donor-closure-20261102\\before.cpp",
+  "before_object_path": "build\\dynamesh-donor-closure-20261102\\before.obj",
+  "source_hash_matches_snapshot": true,
+  "object_hash_matches_snapshot": true,
+  "index": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "counts": {
+    "external_code_definitions": 165,
+    "all_external_defined_names": 175,
+    "outside_touched_names": 135,
+    "sole_providers": 2,
+    "selected_shared": 7,
+    "missing_touches": 0
+  },
+  "outside_primary_touch_owners": {
+    "??0DynamicMeshClass@@QAE@HH@Z": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ],
+    "?Peek_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ],
+    "?Set_Dirty_Planes@DynamicMeshClass@@QAEXXZ": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ],
+    "?Set_Dirty_Bounds@DynamicMeshClass@@QAEXXZ": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ],
+    "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ],
+    "?Get_Pass_Count@MeshMatDescClass@@QBEHXZ": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapMesh.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/MeshClassCollision.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescFXShaderConversion.cpp"
+    ],
+    "?Vertex_Material_Count@MaterialInfoClass@@QBEHXZ": [
+      "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawUpdateTreadObjects.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapMesh.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapperClassCtor.cpp"
+    ],
+    "?Get_Material_Info@RenderObjClass@@UAEPAVMaterialInfoClass@@XZ": [
+      "Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/camera.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/distlod.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapConstructor.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3B41Dtor.cpp",
+      "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/collect.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/composite.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/MeshClassLifetime.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/segline.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/line3d.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Ctor.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/Rva001684D6Copy.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/Null3DObjClassCopyCtor.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/streak.cpp"
+    ],
+    "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ],
+    "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z": [
+      "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+    ]
+  },
+  "sole_provider_blockers": [
+    {
+      "name": "??0DynamicMeshClass@@QAE@HH@Z",
+      "owned_row": false,
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+      ],
+      "aggregate_incoming": []
+    },
+    {
+      "name": "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z",
+      "owned_row": false,
+      "outside_touch_sources": [
+        "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp"
+      ],
+      "aggregate_incoming": []
+    }
+  ],
+  "outside_primary_alias_routes": [],
+  "selected_shared_risks": [
+    {
+      "name": "??0DynamicMeshClass@@QAE@HH@Z",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "4cd0a0692cb0",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "referenced": true
+    },
+    {
+      "name": "??_GPostLoadableClass@@UAEPAXI@Z",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "158a690f1796",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+          "digest": "158a690f1796",
+          "verdict": null
+        }
+      ],
+      "referenced": true
+    },
+    {
+      "name": "?Get_Formatted_Vertex_Array@WriteLockClass@DynamicVBAccessClass@@QAEPAUVertexFormatXYZNDUV2@@XZ",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "78e4fbf1d9d9",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp",
+          "digest": "78e4fbf1d9d9",
+          "verdict": null
+        }
+      ],
+      "referenced": false
+    },
+    {
+      "name": "??_7PostLoadableClass@@6B@",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "a0a40987490c",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+          "digest": "a0a40987490c",
+          "verdict": null
+        }
+      ],
+      "referenced": true
+    },
+    {
+      "name": "??1PostLoadableClass@@UAE@XZ",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "d8ab53d14dee",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+          "digest": "d8ab53d14dee",
+          "verdict": null
+        }
+      ],
+      "referenced": false
+    },
+    {
+      "name": "??1PersistClass@@UAE@XZ",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "d8ab53d14dee",
+          null
+        ]
+      ],
+      "outside_variants": [
+        {
+          "source": "Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp",
+          "digest": "d8ab53d14dee",
+          "verdict": null
+        }
+      ],
+      "referenced": true
+    },
+    {
+      "name": "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z",
+      "owned_row": false,
+      "self_variants": [
+        [
+          "8430fd8f5717",
+          null
+        ]
+      ],
+      "outside_variants": [],
+      "referenced": true
+    }
+  ],
+  "only_original_retail_proven_variants": [
+    "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z",
+    "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z"
+  ],
+  "native_owned_rows": [
+    {
+      "row": {
+        "name": "?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z",
+        "export_rva": "",
+        "target_rva": "0x00189670",
+        "target_size": "85",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+        "status": "matched",
+        "notes": "ported from the Open-BFME-1 conversion; the unit needs /G7"
+      },
+      "whole_length": 85,
+      "bytes": "538b5c240885db56577404834304018b41103941188b79188d71087c21807e0d00750485c075268b4e1485c97e1f8b1603c86a00518bceff520884c0740f8b46108b56048d4801894e10891c828bc75f5e5bc20400",
+      "relocations": [],
+      "native_unmasked_equal": true,
+      "local_runtime_incoming": [
+        {
+          "section": 347,
+          "offset": 370,
+          "kind": 20,
+          "functions": [
+            "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z"
+          ]
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z",
+        "export_rva": "",
+        "target_rva": "0x002C8ECF",
+        "target_size": "14",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+        "status": "matched",
+        "notes": "stlport 4.5.3; placed by masked whole-.text search of the compiled body - single hit"
+      },
+      "whole_length": 14,
+      "bytes": "8b4424048b8481a4000000c20400",
+      "relocations": [],
+      "native_unmasked_equal": true,
+      "local_runtime_incoming": []
+    },
+    {
+      "row": {
+        "name": "?Get_Num_Polys@DynamicMeshClass@@UBEHXZ",
+        "export_rva": "",
+        "target_rva": "0x005BE1BC",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+        "status": "matched",
+        "notes": "BFME2 exact BFME1-derived DynamicMesh getter"
+      },
+      "whole_length": 7,
+      "bytes": "8b81e4000000c3",
+      "relocations": [],
+      "native_unmasked_equal": true,
+      "local_runtime_incoming": [
+        {
+          "section": 287,
+          "offset": 32,
+          "kind": 6,
+          "functions": []
+        }
+      ]
+    },
+    {
+      "row": {
+        "name": "?Get_Num_Vertices@DynamicMeshClass@@UBEHXZ",
+        "export_rva": "",
+        "target_rva": "0x005BE1C3",
+        "target_size": "7",
+        "source": "Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp",
+        "status": "matched",
+        "notes": "BFME2 exact BFME1-derived DynamicMesh getter"
+      },
+      "whole_length": 7,
+      "bytes": "8b81e8000000c3",
+      "relocations": [],
+      "native_unmasked_equal": true,
+      "local_runtime_incoming": [
+        {
+          "section": 287,
+          "offset": 480,
+          "kind": 6,
+          "functions": []
+        }
+      ]
+    }
+  ],
+  "current_outside_witness": "build/dynamesh-donor-closure-20261102/shatter-consumer-witness.json",
+  "conclusions": [
+    "Hard outside provider blocker: unrowed DynamicMeshClass(int,int) and Set_Vertex_Material(VertexMaterialClass*,bool,int) have no indexed alternate definitions and are actually called by current shattersystem Process_Clip_Pools.",
+    "The two REL32 sites are offset122/392 in the current unrowed Process_Clip_Pools body. shattersystem has only a matched Matrix3D::Scale133B row; the provider requirement is real emitted donor context rather than a proved native callsite.",
+    "Four selected PostLoadable/Persist destructor/table helpers have identical outside twiddler copies; formatted DynamicVB vertex-array helper has a stale sphere alternative and is globally unreferenced. Current required provider closure remains subject to normal consumer checks.",
+    "Do not remove the two sole providers in dynamesh alone. Separately claim/audit/reduce the shatter donor closure, or retain these providers and their necessary context. No missing native function is implied merely by the donor unresolved names.",
+    "The two canonical MaterialInfo/MeshMatDesc native methods and DynamicMesh getter bodies remain independently owned native rows and must be retained. Canonical-header substitution still needs full byte/relocation proof including helper/provider selection; it does not itself repair the outside donor calls."
+  ],
+  "limits": [
+    "Complete touches table over-approximates definitions/uses and updated index lacks per-object reference contribution records. Actual sole-provider caller attribution came from current outside COFF relocation scan.",
+    "Original hashes match root snapshot; no current receipt was used to authenticate the old object. Outside witness source/object receipt hashes match but strict command/dependency freshness was not rerun.",
+    "native_unmasked_equal may be false for legitimate relocatable bodies; raw byte/relocation archive plus root normal4/4 proof is the authoritative byte-check evidence."
+  ]
+}

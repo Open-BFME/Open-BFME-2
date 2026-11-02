@@ -1,0 +1,34 @@
+{
+  "scope": "Qualified current outside-object witness, no compile or strict receipt refresh",
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp",
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_shattersystem.obj",
+  "object_sha256": "d057f56009ae4464c99273393e6786b2e47996a4cd7368db358f3cd8a242a048",
+  "source_sha256": "adead2dfa88d65ce174ee19cf56746f9cc9d95467d28edcc0a199bf553aefdd7",
+  "receipt_object_matches": true,
+  "receipt_source_matches": true,
+  "ledger_rows": 1,
+  "runtime_relocations": [
+    {
+      "target": "??0DynamicMeshClass@@QAE@HH@Z",
+      "section": ".text",
+      "section_number": 289,
+      "offset": 122,
+      "kind": "0x14",
+      "owners": [
+        "?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z"
+      ],
+      "owned_rows": []
+    },
+    {
+      "target": "?Set_Vertex_Material@DynamicMeshClass@@QAEHPAVVertexMaterialClass@@_NH@Z",
+      "section": ".text",
+      "section_number": 289,
+      "offset": 392,
+      "kind": "0x14",
+      "owners": [
+        "?Process_Clip_Pools@ShatterSystem@@KAXABVMatrix3D@@PAVMeshClass@@AAVMeshMtlParamsClass@@@Z"
+      ],
+      "owned_rows": []
+    }
+  ]
+}

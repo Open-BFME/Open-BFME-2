@@ -1,0 +1,41 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-11-02 08:35 at 984a4cdc4d; file's own bytes 113)
+  unresolved  ??0DynamicMeshModel@@QAE@II@Z
+  unresolved  ??0DynamicVBAccessClass@@QAE@IIG@Z
+  unresolved  ??0WriteLockClass@DynamicVBAccessClass@@QAE@PAV1@@Z
+  unresolved  ??1DynamicMeshClass@@UAE@XZ
+  unresolved  ??1WriteLockClass@DynamicVBAccessClass@@QAE@XZ
+  unresolved  ?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBD@Z
+  unresolved  ?Build_Dependency_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+  unresolved  ?Build_Texture_List@RenderObjClass@@UAE_NAAV?$DynamicVectorClass@VStringClass@@@@_N@Z
+  unresolved  ?Clone@DynamicMeshClass@@UBEPAVRenderObjClass@@XZ
+  unresolved  ?Draw_Triangles@DX8Wrapper@@SAXGGGG@Z
+  unresolved  ?Get_Factory@RenderObjClass@@UBEABVPersistFactoryClass@@XZ
+  unresolved  ?Get_Vertex@DynamicMeshClass@@UAEXHAAM00@Z
+  unresolved  ?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@XZ
+  unresolved  ?Initialize_Material_Array@DynamicMeshModel@@QAEXHPAVVertexMaterialClass@@@Z
+  unresolved  ?Insert_Triangles@SortingRendererClass@@SAXABVSphereClass@@GGGG@Z
+  unresolved  ?Load@RenderObjClass@@UAE_NAAVChunkLoadClass@@@Z
+  unresolved  ?Location@DynamicMeshClass@@UAEXMMM@Z
+  unresolved  ?Move_Vertex@DynamicMeshClass@@UAEXHMMM@Z
+  unresolved  ?Render@DynamicMeshClass@@UAEXAAVRenderInfoClass@@@Z
+  unresolved  ?Reset@DynamicMeshModel@@QAEXXZ
+  unresolved  ?Save@RenderObjClass@@UAE_NAAVChunkSaveClass@@@Z
+  comdat      ??1RenderObjClass@@UAE@XZ  (retail: not retail's body)
+  comdat      ??_7RenderObjClass@@6BMultiListObjectClass@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ??_7RenderObjClass@@6BRefCountClass@@@  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Is_Visible@RenderObjClass@@UBEHXZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Set_Collision_Type@RenderObjClass@@UAEXH@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@PBD@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Get_Bone_Transform@RenderObjClass@@UAEABVMatrix3D@@H@Z  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Set_Dirty_Bounds@DynamicMeshClass@@QAEXXZ  (first: differs from the first copy in link order (no retail address))
+  comdat      ?Set_Dirty_Planes@DynamicMeshClass@@QAEXXZ  (first: differs from the first copy in link order (no retail address))
+  selected    ?Add_Vertex_Material@MaterialInfoClass@@QAEHPAVVertexMaterialClass@@@Z  (the definition the link keeps is not retail's)
+  selected    ?Peek_Single_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@H@Z  (the definition the link keeps is not retail's)
+  diagnostic  ?Get_Location_Offset@FVFInfoClass@@QBEIXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_Tex_Offset@FVFInfoClass@@QBEII@Z  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_Diffuse_Offset@FVFInfoClass@@QBEIXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Get_FVF_Size@FVFInfoClass@@QBEIXZ  (layout-like: 1 byte(s) differ from the majority copy, same length -- a stale private class view?; unreferenced, not a blocker)
+  diagnostic  ?Set_Texture@DX8Wrapper@@SAXIPAVTextureBaseClass@@@Z  (codegen-like: 73 bytes against the majority copy's 63; unreferenced, not a blocker)
+  diagnostic  ?Peek_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z  (codegen-like: 5 of 18 bytes differ from the majority copy; unreferenced, not a blocker)
+link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.2s)
