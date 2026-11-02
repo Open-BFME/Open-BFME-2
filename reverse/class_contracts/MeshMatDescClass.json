@@ -1,0 +1,400 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MeshMatDescClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 58,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x10": {
+    "4": 5
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x50": {
+    "4": 3
+   },
+   "0x54": {
+    "4": 1
+   },
+   "0x78": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 5
+   },
+   "0x98": {
+    "4": 2
+   },
+   "0xa8": {
+    "4": 3
+   },
+   "0xb8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 3
+   },
+   "0xcc": {
+    "4": 1
+   },
+   "0xe8": {
+    "4": 3
+   },
+   "0xf8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x118": 5
+     }
+    }
+   }
+  },
+  "retail_member_rows": 46,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 14,
+   "4": 1,
+   "16": 1,
+   "44": 1,
+   "48": 1,
+   "80": 1,
+   "84": 1,
+   "88": 4,
+   "104": 1,
+   "152": 2,
+   "172": 1,
+   "200": 2,
+   "232": 1,
+   "248": 4,
+   "264": 2,
+   "268": 2,
+   "272": 1,
+   "280": 17
+  },
+  "views": 57,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "PassCount",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "int",
+   "views": 27,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "VertexCount",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "PolyCount",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "int",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "RendererState",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "MeshMatDescRendererState*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "UV",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "Rva000E7DF3ArrayHolder*",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "UVSource",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 32,
+   "type": "int[8][32]",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "ColorArray",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "Rva000E7DF3ArrayHolder*",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "DCGSource",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 16,
+   "type": "int[16]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "DIGSource",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 16,
+   "type": "int[16]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "Texture",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 32,
+   "type": "RefCountPtr<TextureClass>[8][32]",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "Shader",
+   "name_by": "majority",
+   "offset": 152,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 16,
+   "type": "ShaderClass[16]",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "Material",
+   "name_by": "majority",
+   "offset": 168,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "VertexMaterialClass*",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "FXShader",
+   "name_by": "majority",
+   "offset": 184,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 16,
+   "type": "void*[16]",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "TextureArray",
+   "name_by": "majority",
+   "offset": 200,
+   "retail_widths": {},
+   "size": 32,
+   "type": "void*[8][32]",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "TextureArray00",
+   "name_by": "majority",
+   "offset": 204,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "MaterialArray",
+   "name_by": "majority",
+   "offset": 232,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 16,
+   "type": "void*[16]",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "ShaderArray",
+   "name_by": "majority",
+   "offset": 248,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 16,
+   "type": "void*[16]",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "FXShaderArray",
+   "name_by": "tie",
+   "offset": 264,
+   "retail_widths": {},
+   "size": 16,
+   "type": "void*[16]",
+   "views": 12,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x108",
+   "candidates": {
+    "ArrayEntries": 1,
+    "FXShaderArray": 2,
+    "OpaqueTailBuffers": 2,
+    "PassBuffer108": 1,
+    "TextureArray": 1,
+    "field_108": 1,
+    "m_108": 1,
+    "m_dedupBypassB": 1,
+    "m_tail": 1,
+    "setupArray": 1
+   },
+   "class": "MeshMatDescClass"
+  },
+  {
+   "attribute": "straddle@0xcc",
+   "candidates": {},
+   "class": "MeshMatDescClass"
+  }
+ ],
+ "size": 280,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

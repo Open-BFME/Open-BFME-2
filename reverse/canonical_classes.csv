@@ -292,3 +292,4 @@ WorldHeightMap,Code/GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap
 GameSpyInfoInterface,Code/GameEngine/Include/GameNetwork/GameSpyInfoInterface.h,existing header; contract class_contracts/GameSpyInfoInterface.json; 22/52 sampled units adopt
 RTS3DScene,Code/GameEngineDevice/Include/W3DDevice/GameClient/RTS3DScene.h,existing header; contract class_contracts/RTS3DScene.json; 12/48 sampled units adopt
 StealthUpdate,Code/GameEngine/Include/GameLogic/Module/StealthUpdate.h,existing header; contract class_contracts/StealthUpdate.json; 24/37 sampled units adopt
+MeshMatDescClass,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.h,existing header; contract class_contracts/MeshMatDescClass.json; 8/58 sampled units adopt
