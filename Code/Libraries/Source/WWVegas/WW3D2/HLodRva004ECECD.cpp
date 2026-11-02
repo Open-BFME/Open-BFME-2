@@ -72,12 +72,7 @@ enum CommandSourceType;
 struct Rva00372571Params;
 #include "../../../../GameEngine/Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-	void destroyGroup(AIGroup *);
-};
+#include "../../../../GameEngine/Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
