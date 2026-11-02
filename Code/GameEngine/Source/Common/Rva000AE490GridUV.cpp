@@ -59,12 +59,7 @@ struct Rva000AE6ADBlendTileInfo
 };
 
 // The helper at 0x000AC2F6, called by its row name (WorldHeightMapGetUVForNdx.cpp).
-class WorldHeightMap
-{
-public:
-	void getUVForNdx(int ndx, float *minU, float *minV, float *maxU,
-		float *maxV, bool fullTile);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

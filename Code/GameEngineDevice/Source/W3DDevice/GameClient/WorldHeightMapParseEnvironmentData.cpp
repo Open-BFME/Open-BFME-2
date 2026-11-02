@@ -54,11 +54,7 @@ public:
 
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
-class WorldHeightMap
-{
-public:
-	static Bool ParseEnvironmentDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 Bool WorldHeightMap::ParseEnvironmentDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
 {

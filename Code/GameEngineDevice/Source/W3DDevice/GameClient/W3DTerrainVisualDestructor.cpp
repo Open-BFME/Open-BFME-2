@@ -45,9 +45,7 @@ class BaseHeightMapRenderObjClass : public RefCountClass
 {
 };
 
-class WorldHeightMap : public RefCountClass
-{
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 class WaterRenderObjClassBase
 {

@@ -144,13 +144,7 @@ struct TileRecord
 	Bool m_culled;
 };
 
-class WorldHeightMap
-{
-public:
-	unsigned char m_pad0[0x120E8];
-	Int m_width;	// +0x120E8
-	Int m_height;	// +0x120EC
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 class BaseHeightMapRenderObjClass
 {
@@ -348,8 +342,8 @@ void Rva000E3B41::rva000E3CE1(const Rva000E3A8D &cameras, Int arg)
 
 	if (m_limitTiles)
 	{
-		Int budget = (m_map->m_width / 16) * m_map->m_height / 16;
-		Int needed = (m_map->m_width / 16 + 1) * (m_map->m_height / 16 + 1);
+		Int budget = (m_map->m_drawWidthX / 16) * m_map->m_drawHeightY / 16;
+		Int needed = (m_map->m_drawWidthX / 16 + 1) * (m_map->m_drawHeightY / 16 + 1);
 		if (needed < m_numTiles)
 		{
 			m_tileBudget = budget;

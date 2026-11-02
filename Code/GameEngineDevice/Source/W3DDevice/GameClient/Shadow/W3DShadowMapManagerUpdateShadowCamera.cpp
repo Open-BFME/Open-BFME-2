@@ -241,15 +241,7 @@ public:
 	Vector3 Extent;
 };
 
-class WorldHeightMap
-{
-public:
-	int getXExtent() { return m_width; }
-	int getYExtent() { return m_height; }
-	char m_pad00[8];
-	int m_width;
-	int m_height;
-};
+#include "../../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 class BaseHeightMapRenderObjClass
 {

@@ -39,10 +39,7 @@ public:
 
 #include <string.h>
 struct TBlendTileInfo { int blendNdx; unsigned char horiz,vert,rightDiagonal,leftDiagonal,inverted,longDiagonal; int customBlendEdgeClass; };
-class WorldHeightMap {
- friend void Rva000AC6F9SetupAlphaTiles();
-protected: static TileData *m_alphaTiles[12];
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 #define NUM_ALPHA_TILES 12
 #define TILE_PIXEL_EXTENT 64
 #define K_HORIZ 0

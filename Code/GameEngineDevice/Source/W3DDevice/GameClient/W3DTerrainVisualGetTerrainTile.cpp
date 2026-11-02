@@ -29,11 +29,7 @@ public:
 // TheTerrainTypes: matched references place it at VA 0xe01cdc (retail .data initial value 0).
 TerrainTypeCollection * TheTerrainTypes = 0;
 
-class WorldHeightMap
-{
-public:
-	AsciiString getTerrainNameAt(Real x, Real y);
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 class W3DTerrainVisual
 {

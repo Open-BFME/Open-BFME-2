@@ -56,12 +56,7 @@ struct GlobalDataNormalMapView
 	Bool m_useNormalMaps;
 };
 
-class WorldHeightMap
-{
-public:
-	static Int countTiles(InputStream *pStr, Bool *halfTile);
-	static Bool readTiles(InputStream *pStr, InputStream *pNormalStr, TileData **tiles, Int numRows);
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 typedef struct {
 	UnsignedByte	idLength;

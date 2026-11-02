@@ -17,7 +17,7 @@ float g_00DB4D40 = 0.00390625f;	// retail RVA 0x009B4D40 (.data), defined here
 float g_00DB4D3C = 0.5f;	// retail RVA 0x009B4D3C (.data), defined here
 
 // LINK: the second test is rowed as WorldHeightMap::rva000AE37E (same receiver).
-class WorldHeightMap { public: bool rva000AE37E(int x, int y); };
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 class Rva000ABD19
 {
 public:

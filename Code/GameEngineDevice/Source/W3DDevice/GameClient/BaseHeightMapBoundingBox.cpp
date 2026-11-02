@@ -44,15 +44,7 @@ public:
         Extent = (bounds.MaxCorner - bounds.MinCorner) * 0.5f;
     }
 };
-class WorldHeightMap
-{
-public:
-    int getXExtent() const { return m_xExtent; }
-    int getYExtent() const { return m_yExtent; }
-private:
-    char m_unreconstructed[8];
-    int m_xExtent, m_yExtent;
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 class BaseHeightMapRenderObjClass
 {
 public:

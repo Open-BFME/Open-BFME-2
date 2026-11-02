@@ -16,20 +16,7 @@ enum
 };
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
-class WorldHeightMap
-{
-public:
-	Bool setDrawOrg(Int xOrg, Int yOrg);
-private:
-	unsigned char m_pad00[0x08];
-	Int m_width;			// +0x08
-	Int m_height;			// +0x0C
-	unsigned char m_pad10[0x120E0 - 0x10];
-	Int m_drawOriginX;		// +0x120E0
-	Int m_drawOriginY;		// +0x120E4
-	Int m_drawWidthX;		// +0x120E8
-	Int m_drawHeightY;		// +0x120EC
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 Bool WorldHeightMap::setDrawOrg(Int xOrg, Int yOrg)
 {
 	Int newX, newY;

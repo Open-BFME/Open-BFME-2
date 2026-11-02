@@ -14,7 +14,7 @@ typedef int Int;
 template <class T> class StringBase { public: void set(const T *); };
 class W3DHordeModelDrawModuleData { public: int rva00079167(); int rva00079186(int); };
 class DataChunkInput; struct DataChunkInfo;
-class WorldHeightMap { public: bool ParseHeightMapData(DataChunkInput &, DataChunkInfo *); };
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
 class Render2DClass { public: void Reset(); };
 class TextureFilterClass { public: void Apply(unsigned int); };
 namespace _STL { template <class T> class allocator; template <class T, class A> class _List_base { public: void clear(); }; }

@@ -10,7 +10,7 @@
 struct TilePosition { int x,y; };
 struct BfmeTileDataLocation { char pad[0x2ab8]; TilePosition m_tileLocationInTexture; };
 struct BfmeUVLayout { char pad[0xb0]; BfmeTileDataLocation *sourceTiles[4096]; char pad1[0x120d4-0xb0-4096*4]; int terrainTexHeight; };
-class WorldHeightMap { public: void getUVForNdx(int,float*,float*,float*,float*,bool); };
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 void WorldHeightMap::getUVForNdx(int tileNdx, float *minU, float *minV, float *maxU, float*maxV, bool fullTile)
 {
 	BfmeUVLayout *self = (BfmeUVLayout *)this;

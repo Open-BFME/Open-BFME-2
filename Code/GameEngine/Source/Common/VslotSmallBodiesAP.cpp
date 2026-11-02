@@ -10,11 +10,7 @@ typedef int Int;
 
 class DataChunkInput;
 struct DataChunkInfo;
-class WorldHeightMap
-{
-public:
-	bool ParseSizeOnly(DataChunkInput &firstValue, DataChunkInfo *secondValue);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
 typedef WorldHeightMap Rva000B0F82;
 class Rva000B197C
 {

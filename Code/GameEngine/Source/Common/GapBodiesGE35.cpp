@@ -201,30 +201,15 @@ Rva000ADC81::Rva000ADC81(const Rva000ADC81 &that) : m_ref(that.m_ref)
 // --- 0x000ADC93 (80B): a height-map cell's class through the rowed
 // WorldHeightMap::rva000AC4C6, or -1 off the map or (unless forced) when
 // either +0x9C / +0xA4 per-cell word is set.
-class WorldHeightMap
-{
-public:
-	int rva000AC4C6(int value);								// 0x000AC4C6
-	int rva000ADC93(int x, int y, bool force);
-private:
-	char m_pad00[8];
-	int m_width;											// +0x08
-	char m_pad0C[0x20 - 0x0C];
-	int m_cellCount;										// +0x20
-	char m_pad24[0x98 - 0x24];
-	short *m_cells;											// +0x98
-	int *m_9C;												// +0x9C
-	int m_A0;
-	int *m_A4;												// +0xA4
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 int WorldHeightMap::rva000ADC93(int x, int y, bool force)
 {
 	int index = m_width * y + x;
-	if (index >= 0 && index < m_cellCount)
+	if (index >= 0 && index < m_dataSize)
 	{
-		int value = m_cells[index];
-		if (force || (m_9C[index] == 0 && m_A4[index] == 0))
+		int value = m_tileNdxes[index];
+		if (force || (m_blendTileNdxes[index] == 0 && m_extraBlendTileNdxes[index] == 0))
 			return rva000AC4C6(value);
 	}
 	return -1;

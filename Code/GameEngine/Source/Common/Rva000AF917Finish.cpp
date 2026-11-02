@@ -80,14 +80,7 @@ public:
 	char m_pad18[0x10];
 };
 class TileData;
-class WorldHeightMap {
-public:
-    static int countTiles(InputStream *,bool *);
-    // ?readTiles@WorldHeightMap@@SA_NPAVInputStream@@0PAPAVTileData@@H@Z present-unmatched
-    static bool readTiles(InputStream *,InputStream *,TileData **,int);
-protected:
-    void readTexClass(TXTextureClass *,TileData **);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
 // ?WorldHeightMap::readTexClass present-unmatched
 void WorldHeightMap::readTexClass(TXTextureClass *texClass,TileData **tileData)
 {

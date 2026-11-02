@@ -43,18 +43,7 @@ __forceinline void unpackRGB555(unsigned short color, unsigned int *dest)
 #include "Lib/RGBColor.h"
 class Rva000ABD00 { public: int rva000ABD00(unsigned int); };
 struct Rva000AC514Tile { char pad[0x2ab0]; unsigned short pixel; };
-class WorldHeightMap
-{
-public:
-	void getTerrainColorAt(float x, float y, RGBColor *pColor);
-private:
-	char m_pad0[8];
-	int m_width, m_height, m_borderSize;
-	char m_pad14[0x20 - 0x14];
-	int m_dataSize;
-	char m_pad24[0x98 - 0x24];
-	short *m_tileNdxes;
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 void WorldHeightMap::getTerrainColorAt(float x, float y, RGBColor *pColor)
 {
 	int xIndex = REAL_TO_INT_FLOOR(x / 10.0f);

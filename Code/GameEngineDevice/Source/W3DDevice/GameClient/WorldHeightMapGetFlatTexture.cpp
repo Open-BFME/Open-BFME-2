@@ -93,12 +93,7 @@ extern void _bfme_debugRecordCallsite(int kind);
 		} \
 	} while (0)
 
-class WorldHeightMap
-{
-public:
-	RefCountPtr<TextureClass> getFlatTexture(int xCell, int yCell, int cellWidth,
-		int pixelsPerCell, int format, int tileKind);
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 RefCountPtr<TextureClass> WorldHeightMap::getFlatTexture(int xCell, int yCell,
 	int cellWidth, int pixelsPerCell, int format, int tileKind)

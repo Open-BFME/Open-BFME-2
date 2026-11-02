@@ -69,11 +69,7 @@ struct GlobalDataWeatherView
 extern Dict g_Va00E00944;								// the world dict
 StaticNameKey TheKey_weather = { NAMEKEY_INVALID, "weather" };	// VA 0x00DBDEB4, retail .data {0, "weather"}
 
-class WorldHeightMap
-{
-public:
-	static Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 Bool WorldHeightMap::ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
 {

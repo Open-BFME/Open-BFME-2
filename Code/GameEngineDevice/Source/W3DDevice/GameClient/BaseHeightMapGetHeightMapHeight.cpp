@@ -90,16 +90,7 @@ public:
 	UnsignedShort rva0006653B(Int x, Int y);
 };
 
-class WorldHeightMap
-{
-public:
-	char m_unknown00[8];
-	Int m_width;	// +0x08
-	Int m_height;	// +0x0C
-	Int m_borderSize;	// +0x10
-	char m_unknown14[0x10];
-	UnsignedShort *m_data;	// +0x24
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 class BaseHeightMapRenderObjClass
 {
