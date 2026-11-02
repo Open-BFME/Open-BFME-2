@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Target362B6F7BD..6F927; ctor6F470 independently establishes Scene108,
 // Subsystem12 at108, ref-list114, lights130/150 and environments164/38C/5B4.
 // ZH W3DScene.cpp RTS3DScene destructor supplies the release and buffer order.
@@ -7,7 +7,7 @@
 class RenderObjClass;
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class LightClass:public RefCountClass{};
-class MaterialPassClass:public RefCountClass{};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 class W3DShroudMaterialPassClass:public RefCountClass{};
 class SimpleSceneClass{public:virtual~SimpleSceneClass();char pad[0x104];};
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"

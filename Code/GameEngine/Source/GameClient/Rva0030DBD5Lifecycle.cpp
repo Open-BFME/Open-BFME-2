@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Target lifecycle at 0x0030DA25 (432B) and 0x0030DBD5 (158B).
 // The ctor installs table C08A2C; its slot-zero deleting dtor 30DE92
 // calls 30DBD5. Base ctor 30D346 initializes the eight-byte prefix (table
@@ -91,7 +91,7 @@ public:
 };
 
 class VertexMaterialClass;
-class MaterialPassClass { public: void Set_Material(VertexMaterialClass *); };
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 class RenderObjClass;
 enum BridgeTowerType { BRIDGE_TOWER_FIRST=0 };
 class MapObject { public: void setBridgeRenderObject(BridgeTowerType, RenderObjClass *); };

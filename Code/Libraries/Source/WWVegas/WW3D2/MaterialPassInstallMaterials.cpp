@@ -66,19 +66,7 @@ protected:
 	static DX8Caps *CurrentCaps;
 };
 
-class MaterialPassClass
-{
-public:
-	virtual void Install_Materials(void) const;
-	VertexMaterialClass *Peek_Material(void) const { return Material; }
-	ShaderClass Peek_Shader(void) const { return Shader; }
-	__forceinline BFME2TextureRef Peek_Texture(int stage) const { return ((Rva0013EF40Category *)this)->Get_Texture(stage); }
-private:
-	int NumRefs;
-	void *Stages[8];
-	ShaderClass Shader;
-	VertexMaterialClass *Material;
-};
+#include "MaterialPassClass.h"
 
 void MaterialPassClass::Install_Materials(void) const
 {

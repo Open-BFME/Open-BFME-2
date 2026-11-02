@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva0029FD1B@InGameUI@@QAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z, retail 0x0029FD1B, 387 bytes.
 // Lever: the m_890 decal call is an equal-arm conditional on the member (m_890 ? call : call), which makes cl
 // compute the colour before the null test like retail.
@@ -36,11 +36,7 @@ public:
 #include "Lib/Coord3D.h"
 
 class TextureClass;
-class MaterialPassClass
-{
-public:
-	TextureClass *Peek_Texture(int arg) const;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 class Overridable
 {
 public:
