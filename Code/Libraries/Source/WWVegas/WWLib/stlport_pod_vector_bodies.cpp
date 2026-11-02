@@ -1352,3 +1352,21 @@ template _STL::vector<char>::~vector();
 // ?swap@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXAAV12@@Z @0x003079C1 44B: swaps the three
 // pointers and calls the proxy swap 0x00025AD0; the byte-vector loader 0x00307EDC calls it.
 template void _STL::vector<char>::swap(_STL::vector<char> &);
+
+#include "../../../../GameEngine/Include/GameLogic/CarryoverUnit.h"
+namespace _STL {
+template <> void _Construct<CarryoverUnit, CarryoverUnit>(CarryoverUnit *, const CarryoverUnit &);
+
+// Native1EBA30 has no cleanup-on-failure path. Earlier constructed output
+// elements remain alive if the called copy construction throws.
+template <> CarryoverUnit *__uninitialized_copy<CarryoverUnit *, CarryoverUnit *>(
+    CarryoverUnit *first, CarryoverUnit *last, CarryoverUnit *result,
+    const __false_type &)
+{
+    CarryoverUnit *current = result;
+    for (; first != last; ++first, ++current)
+        _Construct(current, *first);
+    return current;
+}
+
+}
