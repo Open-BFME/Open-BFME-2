@@ -8,7 +8,7 @@ struct Rva0030F3BFSpec
 	virtual void v2();
 	virtual void v3(float *val, int arg);
 	char m_pad04[0x18];
-	int m_1c;
+	int m_maxValue;
 };
 
 class Rva0030F388
@@ -37,7 +37,7 @@ void Rva0030F388::rva0030F3BF(float value)
 	if (!m_flag)
 		return;
 	float newVal = m_18 + value;
-	float limit = (float)m_14->m_1c;
+	float limit = (float)m_14->m_maxValue;
 	if (newVal > limit)
 	{
 		newVal = limit;

@@ -98,9 +98,9 @@ struct Rva002F4491FireCell
 class Rva002872BA
 {
 public:
-	static __forceinline Int realToIntFloor(Real f)
+	static __forceinline Int realToIntFloor(Real realValue)
 	{
-		Real floored = (Real)floor(f);
+		Real floored = (Real)floor(realValue);
 		long i;
 		__asm {
 			fld [floored]

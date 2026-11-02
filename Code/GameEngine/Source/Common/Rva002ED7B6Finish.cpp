@@ -10,7 +10,7 @@ void __cdecl Rva002EBCA7Split(void *p, int *outHalf, unsigned char *outOdd);
 class Rva002ED7B6
 {
 public:
-	Rva002ED7B6 *rva002ED7B6(int pathfinder, void *b, int c, int d, int e, int f);
+	Rva002ED7B6 *rva002ED7B6(int pathfinder, void *sourceBuffer, int c, int d, int e, int f);
 private:
 	int m_00;
 	void *m_04;
@@ -23,10 +23,10 @@ private:
 	int m_1C;
 };
 
-Rva002ED7B6 *Rva002ED7B6::rva002ED7B6(int pathfinder, void *b, int c, int d, int e, int f)
+Rva002ED7B6 *Rva002ED7B6::rva002ED7B6(int pathfinder, void *sourceBuffer, int c, int d, int e, int f)
 {
 	m_00 = pathfinder;
-	m_04 = b;
+	m_04 = sourceBuffer;
 	m_10 = f;
 	m_14 = c;
 	m_18 = d;

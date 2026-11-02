@@ -29,7 +29,7 @@ static __forceinline CurveValue operator*(const CurveValue &a,float k){return Cu
 // ?operatorLeftTimes present-unmatched
 static __forceinline CurveValue operator*(float k,const CurveValue &a){return CurveValue(a.X*k,a.Y*k,a.Z*k);}
 }
-D3DXVECTOR3 *rva00311638CatmullRom(D3DXVECTOR3 *out,const D3DXVECTOR3 *d3DXVECTOR3,const D3DXVECTOR3 *point1,const D3DXVECTOR3 *point2,const D3DXVECTOR3 *point3,float t,bool imported)
+D3DXVECTOR3 *catmullRom(D3DXVECTOR3 *out,const D3DXVECTOR3 *d3DXVECTOR3,const D3DXVECTOR3 *point1,const D3DXVECTOR3 *point2,const D3DXVECTOR3 *point3,float t,bool imported)
 {
  if(imported) return rva0062AFC8D3DXVec3CatmullRom(out,d3DXVECTOR3,point1,point2,point3,t);
  float tSquared=t*t;
