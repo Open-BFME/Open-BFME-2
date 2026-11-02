@@ -40,14 +40,7 @@ public:
 
 extern const StaticNameKey TheKey_uniqueID;		// retail 0x00DBDDB4
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(NameKeyType key, Bool *exists = 0) const;
-	void setAsciiString(int key, const AsciiString &value);
-private:
-	void *m_data;
-};
+#include "../../../../GameEngine/Include/Common/Dict.h"
 
 // Retail reads the template's name as `add eax,0x64; mov eax,[eax]`, not
 // [eax+0x64]: the +0x64 is materialised like a base-class this adjustment.

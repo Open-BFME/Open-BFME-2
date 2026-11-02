@@ -41,11 +41,7 @@ private:
  const char *m_name;
 };
 extern Rva00148F5ECache g_objectThreatFinderRadiusKey;
-class Dict
-{
-public:
- float getReal(int key, bool *exists) const;
-};
+#include "../../../../Include/Common/Dict.h"
 struct ModuleData
 {
  unsigned char m_pad000[8];

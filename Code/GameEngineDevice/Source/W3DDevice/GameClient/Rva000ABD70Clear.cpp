@@ -5,11 +5,7 @@
 // slot-0 call with push 0 returning pointer freed via ??3@YAXPAX@Z, and
 // dword [eax] nulled with /O1 and-idiom, globals g_00E00940/g_00E00944.
 
-class Dict
-{
-public:
-	void clear();
-};
+#include "../../../../GameEngine/Include/Common/Dict.h"
 
 struct Inner
 {

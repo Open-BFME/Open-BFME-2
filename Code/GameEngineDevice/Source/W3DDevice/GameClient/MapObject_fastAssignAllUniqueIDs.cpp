@@ -56,13 +56,7 @@ public:
 
 extern const StaticNameKey TheKey_uniqueID;		// retail 0x00DBDDB4
 
-class Dict
-{
-public:
-	void setAsciiString(int key, const AsciiString &value);
-private:
-	void *m_data;
-};
+#include "../../../../GameEngine/Include/Common/Dict.h"
 
 class ThingTemplateHead
 {

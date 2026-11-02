@@ -29,12 +29,7 @@ public:
 
 extern const StaticNameKey TheKey_originalOwner;
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(int key, bool *exists = 0) const;
-	bool remove(int key);
-};
+#include "../../../../GameEngine/Include/Common/Dict.h"
 
 class MapObject
 {
