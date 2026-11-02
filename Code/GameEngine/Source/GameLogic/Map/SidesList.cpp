@@ -274,11 +274,7 @@ public:
 	void rva00384E8E();
 };
 
-class CreateModule
-{
-protected:
-	virtual void xfer(Xfer *a);
-};
+#include "../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 class Rva000B56F0Object
 {

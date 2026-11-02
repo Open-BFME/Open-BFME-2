@@ -19,19 +19,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class CreateModuleInterface
-{
-public:
-	virtual void c00() = 0;
-	virtual void onBuildComplete() = 0;
-	virtual void c02() = 0;
-	virtual Bool shouldDoOnBuildComplete() = 0;
-};
-class CreateModule : public ModuleBase, public BehaviorModuleInterface, public CreateModuleInterface
-{
-protected:
-	Bool m_needToRunOnBuildComplete;	// +0x14
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 class InheritUpgradeCreate : public CreateModule
 {
 public:

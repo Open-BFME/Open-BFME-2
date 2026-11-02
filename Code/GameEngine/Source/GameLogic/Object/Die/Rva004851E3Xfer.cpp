@@ -22,11 +22,7 @@ class Snapshot;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class CreateModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 class Rva004851E3 : public CreateModule
 {

@@ -27,16 +27,7 @@ protected:
 	Object *m_object;		// +0x08
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-class CreateModuleInterface
-{
-public:
-	virtual void onCreate() = 0;
-};
-class CreateModule : public ModuleBase, public BehaviorModuleInterface, public CreateModuleInterface
-{
-protected:
-	bool m_needToRunOnBuildComplete;	// +0x14
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 #include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 class AnnounceBirthAndDeathBehavior : public CreateModule, public DieModuleInterface
 {

@@ -46,20 +46,8 @@ extern PlayerList *ThePlayerList;
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class CreateModuleInterface
-{
-public:
-	virtual void onCreate() = 0;
-	virtual void onBuildComplete() = 0;
-	virtual void createSlot2() = 0;
-	virtual bool shouldDoOnBuildComplete() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
-class CreateModule : public ObjectModule, public BehaviorModuleInterface, public CreateModuleInterface
-{
-protected:
-	bool m_needToRunOnBuildComplete;
-};
 
 class SupplyCenterCreate : public CreateModule
 {

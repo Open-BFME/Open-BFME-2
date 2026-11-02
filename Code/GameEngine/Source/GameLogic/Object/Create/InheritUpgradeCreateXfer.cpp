@@ -32,14 +32,7 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class CreateModule
-{
-public:
-	CreateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
 class InheritUpgradeCreate : public CreateModule
 {

@@ -80,16 +80,8 @@ protected:
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class CreateModuleInterface
-{
-public:
-	virtual void c00() = 0;
-	virtual void onBuildComplete() = 0;
-};
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
-class CreateModule : public ModuleBase, public BehaviorModuleInterface, public CreateModuleInterface
-{
-};
 
 class ExperienceLevelCreate : public CreateModule
 {
