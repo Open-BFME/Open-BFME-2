@@ -26,8 +26,8 @@ private:
 
 void Rva001F823D::rva001F823D()
 {
-	Helper001F823D *p = m_ptr;
-	if (p)
-		p->tick();
+	Helper001F823D *helperComponent = m_ptr;
+	if (helperComponent)
+		helperComponent->tick();
 	m_next.rva001F64D2();
 }

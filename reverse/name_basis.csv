@@ -6662,3 +6662,14 @@ local,T2WideCtype::toLowerRange::c,T2WideCtype::toLowerRange::wideChar,inferred,
 local,T2WideCtype::toUpperRange::c,T2WideCtype::toUpperRange::wideChar,inferred,agree:nl-7e400576dee2,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,0x00016D60
 local,ModuleInfo::getNthData::b,ModuleInfo::getNthData::recordBegin,inferred,agree:nl-388f4076cd47,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,0x0033ACE8
 function,?rva61b20@@YAPAXXZ,?getFramePointer@@YAPAXXZ,inferred,agree:nl-1360a53ce61a,Code/GameEngine/Source/Common/System/Rva54b800_InlineAsmHelpers.cpp,0x00226809
+local,ModuleInfo::getNthData::e,ModuleInfo::getNthData::recordEnd,inferred,agree:nl-34fd16642dc6,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,0x0033ACE8
+local,ModuleInfo::getNthData::n,ModuleInfo::getNthData::recordCount,inferred,agree:nl-bff32cfaaeae,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,0x0033ACE8
+local,Rva001F823D::rva001F823D::p,Rva001F823D::rva001F823D::helperComponent,inferred,agree:nl-ffebfd02aa69,Code/GameEngine/Source/Common/Thing/Rva001F823D.cpp,0x001F823D
+local,Rva001F8E45::rva001F8E45::e,Rva001F8E45::rva001F8E45::entry,inferred,agree:nl-9d67f582a8a9-m3788d46d1a7dff9e84da9cee,Code/GameEngine/Source/Common/Thing/Rva001F8E45.cpp,0x001F8E45
+param,Rva001F8E45::rva001F8E45::a1,Rva001F8E45::rva001F8E45::dataContext,inferred,agree:nl-34ca2f99038a-mb297100a591be4db599f17f1,Code/GameEngine/Source/Common/Thing/Rva001F8E45.cpp,0x001F8E45
+param,Rva001F8E45::rva001F8E45::a2,Rva001F8E45::rva001F8E45::sourceOwner,inferred,agree:nl-2c497dd683c6-m5033fb311906b4c8d0b700f6,Code/GameEngine/Source/Common/Thing/Rva001F8E45.cpp,0x001F8E45
+local,Rva002629EACheck::d,Rva002629EACheck::thingDirection,inferred,agree:nl-526cbc9ba566-m0ef8233effe55bc9ebff17d3,Code/GameEngine/Source/Common/Thing/Rva002629EAThingFacingCheck.cpp,0x002629EA
+param,Rva002629EACheck::b,Rva002629EACheck::otherThing,inferred,agree:nl-b2a3d3b66b5a-m8d3d16f8bc02a62ff8faeae3,Code/GameEngine/Source/Common/Thing/Rva002629EAThingFacingCheck.cpp,0x002629EA
+param,bfmeCopyV3::d,bfmeCopyV3::destinationVector,inferred,agree:nl-de1222fe5e10-m48235da5c542d551121cc596,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,bfmeCopyV3::s,bfmeCopyV3::sourceVector,inferred,agree:nl-cff37f7c5fdc-mc0d96cd799afeea935846bde,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,
+param,bfmeSetV3::v,bfmeSetV3::targetVector,inferred,agree:nl-ac0c20058c38-m096d86131f04e0ab42a75230,Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp,

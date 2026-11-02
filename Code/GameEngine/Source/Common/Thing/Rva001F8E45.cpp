@@ -51,20 +51,20 @@ struct Rva001F8E45Elem
 class Rva001F8E45
 {
 public:
-	void rva001F8E45(void* a1, void* a2);
+	void rva001F8E45(void* dataContext, void* sourceOwner);
 private:
 	_STL::vector<void*> m_vec;
 };
 
-void Rva001F8E45::rva001F8E45(void* a1, void* a2)
+void Rva001F8E45::rva001F8E45(void* dataContext, void* sourceOwner)
 {
-	_STL::vector<void*>& src = *(_STL::vector<void*>*)((char*)a2 + 0x1cc);
+	_STL::vector<void*>& src = *(_STL::vector<void*>*)((char*)sourceOwner + 0x1cc);
 	m_vec.clear();
 	for (void** it = (void**)src.begin(); it != (void**)src.end(); ++it) {
-		Rva001F8E45Elem* e = (Rva001F8E45Elem*)*it;
-		if (!e->m_flag)
+		Rva001F8E45Elem* entry = (Rva001F8E45Elem*)*it;
+		if (!entry->m_flag)
 			continue;
-		const ModuleData* md = e->m_iface.getData(a1);
+		const ModuleData* md = entry->m_iface.getData(dataContext);
 		((_STL::vector<const ModuleData*>&)m_vec).push_back(md);
 	}
 }

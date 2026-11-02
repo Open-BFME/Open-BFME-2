@@ -254,3 +254,5 @@ agree:nl-ae5d09b29e52,UpgradeTemplate::rva0026EE30::r2,UpgradeTemplate::rva0026E
 agree:nl-775208f34bb3,UpgradeTemplate::rva0026EE30::v,UpgradeTemplate::rva0026EE30::cappedBase,Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp,ab5009580394fb238c5eb5ac8d3c6c5984952e06bf0754c32117db1f05ada18b
 agree:nl-4f226d56b817,T2WideCtype::narrowRange::v,T2WideCtype::narrowRange::narrowValue,Code/GameEngine/Source/Common/T2CtypeTableFacets.cpp,4930c86be89a98571b317b7cc218609a77daeb97b00eccbd74b45871e2665320
 agree:nl-388f4076cd47,ModuleInfo::getNthData::b,ModuleInfo::getNthData::recordBegin,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,211bb8a67a512f5a3c4a7354832dd8462f7f19b89925f267be97c1dde8da4385
+agree:nl-34fd16642dc6,ModuleInfo::getNthData::e,ModuleInfo::getNthData::recordEnd,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,211bb8a67a512f5a3c4a7354832dd8462f7f19b89925f267be97c1dde8da4385
+agree:nl-bff32cfaaeae,ModuleInfo::getNthData::n,ModuleInfo::getNthData::recordCount,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,211bb8a67a512f5a3c4a7354832dd8462f7f19b89925f267be97c1dde8da4385

@@ -55,9 +55,9 @@ inline const ModuleData *ModuleInfo::getNthData(int i) const
 	if (i >= 0)
 	{
 		const char *recordBegin = (const char *)m_begin;
-		const char *e = (const char *)m_end;
-		unsigned int n = (e - recordBegin) / 20;
-		if (i < n)
+		const char *recordEnd = (const char *)m_end;
+		unsigned int recordCount = (recordEnd - recordBegin) / 20;
+		if (i < recordCount)
 			return *(const ModuleData * const *)(recordBegin + i * 20 + 8);
 	}
 	return 0;

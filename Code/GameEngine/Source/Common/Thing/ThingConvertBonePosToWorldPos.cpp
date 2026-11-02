@@ -15,8 +15,8 @@
 // LINK: file-static helpers and direct Row fields replace Vector3's MMM ctor and
 // operator=, Vector4/Matrix3D operator[] and Matrix3D::mul: identical inlined
 // bytes, but this TU no longer emits their loser COMDAT copies. No flags touched.
-static __forceinline void bfmeCopyV3(Vector3 &d,const Vector3 &s) {d.X=s.X;d.Y=s.Y;d.Z=s.Z;}
-static __forceinline void bfmeSetV3(Vector3 &v,float x,float y,float z) {v.X=x;v.Y=y;v.Z=z;}
+static __forceinline void bfmeCopyV3(Vector3 &destinationVector,const Vector3 &sourceVector) {destinationVector.X=sourceVector.X;destinationVector.Y=sourceVector.Y;destinationVector.Z=sourceVector.Z;}
+static __forceinline void bfmeSetV3(Vector3 &targetVector,float x,float y,float z) {targetVector.X=x;targetVector.Y=y;targetVector.Z=z;}
 static __forceinline float boneSubmul(const Vector4 &row,float x,float y,float z) {return row.Z*z+row.Y*y+row.X*x;}
 class Matrix3D {public:
  Vector4 Row[3];

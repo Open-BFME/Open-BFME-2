@@ -21,14 +21,14 @@
 
 #include "thing.h"
 
-bool Rva002629EACheck(const Thing *thing, const Thing *b)
+bool Rva002629EACheck(const Thing *thing, const Thing *otherThing)
 {
-	const Coord3D *d = thing->getUnitDirectionVector2D();
+	const Coord3D *thingDirection = thing->getUnitDirectionVector2D();
 	Coord3D dirA;
-	dirA.x = d->x;
-	dirA.y = d->y;
-	dirA.z = d->z;
-	const Coord3D *e = b->getUnitDirectionVector2D();
+	dirA.x = thingDirection->x;
+	dirA.y = thingDirection->y;
+	dirA.z = thingDirection->z;
+	const Coord3D *e = otherThing->getUnitDirectionVector2D();
 	Coord3D dirB;
 	dirB.x = e->x;
 	dirB.y = e->y;
@@ -37,8 +37,8 @@ bool Rva002629EACheck(const Thing *thing, const Thing *b)
 	sum.X = dirA.x + dirB.x;
 	sum.Y = dirA.y + dirB.y;
 	Vector2 delta(0.0f, 0.0f);
-	delta.X = b->getPosition()->x - thing->getPosition()->x;
-	delta.Y = b->getPosition()->y - thing->getPosition()->y;
+	delta.X = otherThing->getPosition()->x - thing->getPosition()->x;
+	delta.Y = otherThing->getPosition()->y - thing->getPosition()->y;
 	if (Vector2::Dot_Product(sum, delta) < 0.0f)
 		return true;
 	return false;
