@@ -819,11 +819,7 @@ public:
 
 #include "../../../Include/Common/MessageStream.h"
 
-class ActionManager
-{
-public:
-	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *list);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 
 class ArmorTemplate;

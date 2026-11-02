@@ -182,33 +182,7 @@ public:
 class DrawableList;
 #include "../../../Include/Common/MessageStream.h"
 
-class ActionManager
-{
-public:
-	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *allDraws);
-	bool canRepairObject(const Object *, const Object *, CommandSourceType);
- bool rva0041C79C(const Object *, const Object *, CommandSourceType, class CapturePowerView *);
-	bool canHijackVehicle(const Object *, const Object *, CommandSourceType);
-	bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
-	bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
-	bool canMakeObjectDefector(const Object *, const Object *, CommandSourceType);
-	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
-	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
-	bool validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
-	bool rva0041CA9E(const Coord3D *pos, const Coord3D *center, const SpecialPowerTemplate *sp);
-	bool rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *sp);
-	bool rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *pos);
-	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
-		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
-	bool rva0041BA61(const Object *obj);
-	bool Rva0041CE27Check(Object *obj, Object *target, int);	// rowed 0x0041CE27 (Rva0041CE27Check.cpp); same address+ABI as the old rva0041CE27 spelling
-	bool canTransferSuppliesAt(const Object *obj, const Object *transferDest);
-	bool canDockAt(const Object *obj, const Object *dockDest, CommandSourceType commandSource,
-		bool checkDockUpdate);
-	bool canFireWeaponAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
-		WeaponSlotType slot, const Object *objectInWay);
-	bool rva0041C138(const Object *obj, const Object *target, CommandSourceType commandSource);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
 {

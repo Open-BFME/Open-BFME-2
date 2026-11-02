@@ -45,15 +45,7 @@ public:
     virtual const ProductionEntry *nextProduction(const ProductionEntry *entry);
 };
 #include "../../../GameLogic/Object/object.h"
-class ActionManager {
-public:
-    bool canDoSpecialPowerAtObject(const Object *, const Object *, CommandSourceType,
-        const SpecialPowerTemplate *, unsigned, bool);
-    bool rva0041BAD2(const Object *, const Object *, CommandSourceType, WeaponSlotType);
-    bool canDoSpecialPowerAtLocation(const Object *, const Coord3D *, CommandSourceType,
-        const SpecialPowerTemplate *, const Object *, unsigned, bool);
-    bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, unsigned, bool);
-};
+#include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 #include "../../../../Include/GameClient/CommandButton.h"
 class Rva0035B2C3 {

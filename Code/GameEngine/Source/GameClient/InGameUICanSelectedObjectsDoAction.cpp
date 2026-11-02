@@ -72,24 +72,7 @@ class Rva0041B8D2Obj;
 
 
 
-class ActionManager { public:
- unsigned char canFireWeapon(const Object*,WeaponSlotType,CommandSourceType);
- bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType);
- bool canFireWeaponAtLocation(const Object*,const Coord3D*,CommandSourceType,WeaponSlotType,const Object*);
- CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);
- unsigned char Rva0041BB87IsRelated(Object*,Object*,int);
- bool Rva0041CE27Check(Object*,Object*,int);
- bool Rva0041B94AGet(Object*,Object*,int);
- unsigned char Rva0041B8D2Check(Rva0041B8D2Obj*,Rva0041B8D2Obj*,int);
- bool canGetRepairedAt(const Object*,const Object*,CommandSourceType);
- bool canDockAt(const Object*,const Object*,CommandSourceType,bool);
- bool canGetHealedAt(const Object*,const Object*,CommandSourceType);
- bool canRepairObject(const Object*,const Object*,CommandSourceType);
- bool canHijackVehicle(const Object*,const Object*,CommandSourceType);
- bool canConvertObjectToCarBomb(const Object*,const Object*,CommandSourceType);
- bool canMakeObjectDefector(const Object*,const Object*,CommandSourceType);
- bool rva0041C79C(const Object*,const Object*,CommandSourceType,CapturePowerView*);
-};
+#include "../../Include/GameLogic/ActionManager.h"
 class BFMEActionManager { public:
  bool canEnterObject(const Object*,const Object*,CommandSourceType,CanEnterType,bool,bool*);
  bool rva0041D435(const Object*,const Object*,CommandSourceType);

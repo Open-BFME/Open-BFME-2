@@ -264,7 +264,7 @@ public:
 enum IterOrderType {ITER_FASTEST, ITER_SORTED_NEAR_TO_FAR, ITER_SORTED_FAR_TO_NEAR};
 class SimpleObjectIterator {public: SimpleObjectIterator(); virtual ~SimpleObjectIterator(); virtual int first(); virtual int next(); void insert(int,float); void sort(IterOrderType); private: char m_pad04[0x3C-4];};
 struct Coord3DCopy: Coord3D {Coord3DCopy(const Coord3D &p){x=p.x;y=p.y;z=p.z;}};
-class ActionManager {public: CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);};
+#include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 class AIGroup
 {

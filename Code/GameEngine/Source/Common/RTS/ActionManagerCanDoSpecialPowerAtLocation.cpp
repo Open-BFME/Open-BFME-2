@@ -138,17 +138,7 @@ public:
  PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *);
 };
 extern TerrainLogic *TheTerrainLogic;
-class ActionManager {
-public:
- bool canDoSpecialPowerAtLocation(const Object *,const Coord3D *,CommandSourceType,const SpecialPowerTemplate *,const Object *,unsigned,bool);
- bool rva0041BA61(const Object *);
- bool rva0041C9C4(const Object *,const Coord3D *,const SpecialPowerTemplate *);
- bool rva0041CC65(const SpecialPowerTemplate *,const Coord3D *);
- bool rva0041CA9E(const Coord3D *,const Coord3D *,const SpecialPowerTemplate *);
- bool rva0041CB10(const Coord3D *,const SpecialPowerTemplate *);
- bool validLocationForCastingOnObjectFilter(const Object *,const Coord3D *,const SpecialPowerTemplate *);
- bool validateLocationForForbiddenObjects(const Object *,const Coord3D *,const SpecialPowerTemplate *);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 #include "XYDistanceCallView.h"
 class BfmeThingCME { public: int rva0027F108(void *, float, int, int); };
 #define STORAGE(X) (*(const BfmeFixedStorage0004543D *)&(X))

@@ -964,14 +964,7 @@ enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIB
 
 enum AbleToAttackType { ATTACK_NEW_TARGET=0, ATTACK_NEW_TARGET_FORCED=1 };
 
-class ActionManager
-{
-public:
-	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
-	bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, unsigned int, bool);
-	bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, const Object *objectInWay, unsigned int commandOptions, bool checkSourceRequirements);
-	CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 
 extern ActionManager *TheActionManager;
 

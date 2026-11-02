@@ -222,11 +222,7 @@ private:
 	AIUpdateInterface *m_ai;
 };
 
-class ActionManager
-{
-public:
-	Bool canTransferSuppliesAt(const Object *object, const Object *destination);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 
 extern ActionManager *TheActionManager;
 extern GameLogic *TheGameLogic;

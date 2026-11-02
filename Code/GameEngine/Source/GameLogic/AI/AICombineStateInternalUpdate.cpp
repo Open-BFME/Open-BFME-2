@@ -21,7 +21,8 @@ class Object{public:
  char pad00[0x38];Coord3D m_position;char pad44[0x250-0x44];ContainModuleInterface*m_contain;char pad254[4];AIUpdateInterface*m_ai;char pad25c[0x438-0x25c];unsigned char m_flags;
 };
 class StateMachine{public:Object*getGoalObject();char pad00[0x14];Object*m_owner;};
-class ActionManager{public:bool Rva0041B94AGet(Object*,Object*,int);};extern ActionManager*TheActionManager;
+#include "../../../Include/GameLogic/ActionManager.h"
+extern ActionManager*TheActionManager;
 #include <math.h>
 class AICombineState{public:virtual ~AICombineState();StateReturnType internalUpdate();char pad04[0x18-4];StateMachine*m_machine;char pad1c[4];Coord3D m_goalPosition;};
 StateReturnType AICombineState::internalUpdate(){

@@ -46,13 +46,7 @@ enum CommandSourceType
 
 #include "../../Include/GameClient/CommandButton.h"
 
-class ActionManager
-{
-public:
-	Bool canDoSpecialPower(const Object *obj, const SpecialPowerTemplate *spTemplate, CommandSourceType commandSource, UnsignedInt commandOptions, Bool checkSourceRequirements);
-	Bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, UnsignedInt commandOptions, Bool checkSourceRequirements);
-	Bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate, const Object *objectInWay, UnsignedInt commandOptions, Bool checkSourceRequirements);
-};
+#include "../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 
 #include <list>

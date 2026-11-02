@@ -34,11 +34,7 @@ extern AI *TheAI;
 #include "../../Include/GameLogic/AIPathfind.h"
 
 class SpecialPowerTemplate : public Overridable {};
-class ActionManager
-{
-public:
-	bool rva0041C9C4(const Object *, const Coord3D *, const SpecialPowerTemplate *);
-};
+#include "../../Include/GameLogic/ActionManager.h"
 
 bool ActionManager::rva0041C9C4(const Object *obj, const Coord3D *coord, const SpecialPowerTemplate *over)
 {

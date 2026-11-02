@@ -184,13 +184,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class ActionManager
-{
-public:
-	Bool canDoSpecialPowerAtObject(const Object *obj, const Object *target,
-		CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate,
-		UnsignedInt commandOptions, Bool checkSourceRequirements);	// 0x0041CFCC
-};
+#include "../../../../Include/GameLogic/ActionManager.h"
 
 extern ActionManager *TheActionManager;
 

@@ -499,32 +499,7 @@ public:
 
 class DrawableList;
 
-class ActionManager
-{
-public:
-	unsigned char Rva0041B8D2Check(Rva0041B8D2Obj*, Rva0041B8D2Obj*, int);
-	CanAttackResult bfmeGetCanAttackContained( const Object *obj, const Object *objectToAttack, CommandSourceType commandSource, AbleToAttackType attackType );
-	CanAttackResult getCanAttackObject( const Object *obj, const Object *objectToAttack, CommandSourceType commandSource, AbleToAttackType attackType );
-	unsigned char canFireWeapon(const Object*,WeaponSlotType,CommandSourceType);
-	unsigned char Rva0041BB87IsRelated(Object*, Object*, int);
-	bool canDoSpecialPower(const Object *obj, const SpecialPowerTemplate *spTemplate, CommandSourceType commandSource, unsigned int commandOptions, bool checkSourceRequirements);
-	bool rva0041BA61(const Object *obj);
-	bool canOverrideSpecialPowerDestination(Object *obj, const Coord3D *pos, int idx, int unused);
-	bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType);
-	bool Rva0041B94AGet(Object*, Object*, int);
-	bool canResumeConstructionOf(const Object *a, const Object *b, CommandSourceType);
-	bool canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource);
-	bool rva0041C9C4(const Object *, const Coord3D *, const SpecialPowerTemplate *);
-	bool Rva0041CE27Check(Object *, Object *, int);
-	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *allDraws);
-	GameMessage::Type rva0041CE06(const Object *obj);
-	bool canDoSpecialPowerAtLocation(const Object *,const Coord3D *,CommandSourceType,const SpecialPowerTemplate *,const Object *,unsigned,bool);
-	bool rva0041CC65(const SpecialPowerTemplate *,const Coord3D *);
-	bool rva0041CA9E(const Coord3D *,const Coord3D *,const SpecialPowerTemplate *);
-	bool rva0041CB10(const Coord3D *,const SpecialPowerTemplate *);
-	bool validLocationForCastingOnObjectFilter(const Object *,const Coord3D *,const SpecialPowerTemplate *);
-	bool validateLocationForForbiddenObjects(const Object *,const Coord3D *,const SpecialPowerTemplate *);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 
 struct Provider28
 {

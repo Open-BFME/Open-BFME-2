@@ -27,7 +27,7 @@ enum SpecialPowerType { GRAB_POWER27=0x27 };
 enum ObjectStatusTypes { GRAB_STATUS63=0x3F };
 enum CommandSourceType { GRAB_SOURCE0=0,GRAB_SOURCE1=1 };
 class Object {public:char head[0x1C8];BitFlags<11> disabled;public:bool isDisabled()const{return disabled.any();}SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType)const;void setStatus(ObjectStatusTypes,bool);};
-class ActionManager {public:bool canDoSpecialPowerAtObject(const Object*,const Object*,CommandSourceType,const SpecialPowerTemplate*,unsigned,bool);};
+#include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 class SpecialPowerModule;
 class SpecialPowerModuleInterface {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual const SpecialPowerTemplate *s6()const;virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void doSpecialPowerAtObject(Object*,unsigned);};

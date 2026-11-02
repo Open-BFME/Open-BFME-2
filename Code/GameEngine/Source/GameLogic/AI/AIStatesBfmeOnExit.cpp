@@ -416,12 +416,7 @@ enum Relationship
 	ENEMIES = 0
 };
 
-class ActionManager
-{
-public:
-	CanAttackResult getCanAttackObject(const Object *obj, const Object *objectToAttack,
-		CommandSourceType commandSource, AbleToAttackType attackType);
-};
+#include "../../../Include/GameLogic/ActionManager.h"
 
 class BFMEActionManager : public ActionManager
 {

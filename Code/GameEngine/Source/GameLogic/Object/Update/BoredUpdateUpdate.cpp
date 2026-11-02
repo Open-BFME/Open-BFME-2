@@ -84,14 +84,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class ActionManager
-{
-public:
-	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType source,
-		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);	// 0x0041CFCC
-	bool canDoSpecialPower(const Object *obj, const SpecialPowerTemplate *spTemplate, CommandSourceType source,
-		unsigned int commandOptions, bool checkSourceRequirements);	// 0x0041CCD5
-};
+#include "../../../../Include/GameLogic/ActionManager.h"
 extern ActionManager *TheActionManager;
 
 #include "../object.h"

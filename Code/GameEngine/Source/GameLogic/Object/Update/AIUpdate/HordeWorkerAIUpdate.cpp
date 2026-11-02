@@ -30,11 +30,7 @@ enum CommandSourceType
 
 class Object;
 
-class ActionManager
-{
-public:
-	bool canRepairObject(const Object *obj, const Object *objectToRepair, CommandSourceType cmdSource);
-};
+#include "../../../../../Include/GameLogic/ActionManager.h"
 
 extern ActionManager *TheActionManager;
 
