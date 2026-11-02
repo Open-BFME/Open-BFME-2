@@ -1,0 +1,289 @@
+{
+ "bases": [
+  "UserPreferences"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "OptionPreferences",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 22,
+  "inherited": {
+   "base_views": 6,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2e434e"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UserPreferences",
+       "offset": 0,
+       "own_vftable": "0x804ce8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2e434e"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2e434e"
+     ],
+     "value": {
+      "0x0": [
+       "?load@UserPreferences@@UAE_NABVAsciiString@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2e434e"
+     ],
+     "value": {
+      "0x0": "0x804ce8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x804ce8"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva002E4272@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2e42d2"
+       },
+       {
+        "name": "?load@UserPreferences@@UAE_NABVUnicodeString@@@Z",
+        "slot": 1,
+        "target": "0x3b2026"
+       },
+       {
+        "name": "?load@UserPreferences@@UAE_NABVAsciiString@@@Z",
+        "slot": 2,
+        "target": "0x3b1a09"
+       },
+       {
+        "name": "?write@UserPreferences@@UAE_NXZ",
+        "slot": 3,
+        "target": "0x3b1bf3"
+       },
+       {
+        "name": "?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z",
+        "slot": 4,
+        "target": "0x3b1dbe"
+       },
+       {
+        "name": "?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z",
+        "slot": 5,
+        "target": "0x3b1a67"
+       },
+       {
+        "name": "?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z",
+        "slot": 6,
+        "target": "0x3b1ac7"
+       },
+       {
+        "name": "?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z",
+        "slot": 7,
+        "target": "0x3b1cee"
+       },
+       {
+        "name": "?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z",
+        "slot": 8,
+        "target": "0x3b1fa1"
+       },
+       {
+        "name": "?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z",
+        "slot": 9,
+        "target": "0x3b1b20"
+       },
+       {
+        "name": "?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z",
+        "slot": 10,
+        "target": "0x3b1b65"
+       },
+       {
+        "name": "?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z",
+        "slot": 11,
+        "target": "0x3b1bae"
+       },
+       {
+        "name": "?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z",
+        "slot": 12,
+        "target": "0x3b21a6"
+       }
+      ],
+      "table": "0x804ce8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 52,
+  "retail_vtables": {
+   "0x804ce8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva002E4272@@UAEPAXI@Z",
+     "1": "?load@UserPreferences@@UAE_NABVUnicodeString@@@Z",
+     "2": "?load@UserPreferences@@UAE_NABVAsciiString@@@Z",
+     "3": "?write@UserPreferences@@UAE_NXZ",
+     "4": "?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z",
+     "5": "?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z",
+     "6": "?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z",
+     "7": "?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z",
+     "8": "?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z",
+     "9": "?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z",
+     "10": "?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z",
+     "11": "?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z",
+     "12": "?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "16": 3,
+   "20": 18
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_OptionPreferences.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UserPreferences.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<AsciiString,AsciiString,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const ,AsciiString> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<AsciiString const ,AsciiString> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<AsciiString>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<AsciiString>"
+    }
+   ],
+   "name": "settings",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<AsciiString,AsciiString,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const ,AsciiString> > >",
+   "views": 20,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:UnicodeString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "m_filename",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "UnicodeString",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 4]]": 1,
+    "[[4, 16]]": 1,
+    "[[4, 20]]": 4
+   },
+   "class": "OptionPreferences"
+  }
+ ],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
