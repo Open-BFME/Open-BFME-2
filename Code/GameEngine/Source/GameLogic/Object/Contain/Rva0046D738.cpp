@@ -9,11 +9,7 @@
 class Object;
 #include "../../../Common/Thing/thing.h"
 extern GameLogic *TheGameLogic;
-class Object : public Thing
-{
-public:
-	float GetRelativeAngle(const Coord3D *pos) const;
-};
+#include "../object.h"
 class HordeContainIface11C
 {
 public:

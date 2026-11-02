@@ -20,14 +20,7 @@ public:
 	unsigned char m_pad00[0x24];
 	int m_level;			// +0x24
 };
-class Object
-{
-public:
-	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
-private:
-	unsigned char m_pad000[0x264];
-	ExperienceTracker *m_experienceTracker;	// +0x264
-};
+#include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 // ?getModuleNameKey@ExperienceLevelCreate@@UBE?AW4NameKeyType@@XZ @0x4B91AB

@@ -117,15 +117,7 @@ public:
 	virtual void slot10C(Drawable *d);
 };
 extern InGameUI *TheInGameUI;
-class Object
-{
-public:
-	void rva0028BAC0(); // 0x0028BAC0
-	Player *getControllingPlayer() const;
-	void setStatus(ObjectStatusTypes bit, bool flag);
-	bool testStatus(ObjectStatusTypes bit) const;
-	void rva0028DCC4();
-};
+#include "../object.h"
 struct ObjectLayout
 {
 	char _00[0x74];

@@ -39,12 +39,7 @@ public:
 class Player : public Rva002AA22AByteField
 {
 };
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	void setSpecialModelConditionState(ModelConditionFlagType a, unsigned int b);
-};
+#include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class Radar

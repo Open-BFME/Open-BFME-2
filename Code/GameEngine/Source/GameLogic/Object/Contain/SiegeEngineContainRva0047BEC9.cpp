@@ -3,11 +3,7 @@
 // Walks circular list at +0xFC calling Object::rva0029A12B on node+8 then
 // tail-calls SlaughterHordeContain::rva004631C9. Layout from neighbours
 // 0x0047BD4C and 0x0047BF43. Evidence: chain via row 0x004631C9 plus pin.
-class Object
-{
-public:
-	void rva0029A12B();
-};
+#include "../object.h"
 
 struct Rva0047BEC9Node
 {

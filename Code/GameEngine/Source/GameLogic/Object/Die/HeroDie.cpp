@@ -38,12 +38,7 @@ public:
 	virtual void setReadyFrame(unsigned int frame) = 0;
 };
 #include "../../../../Include/Common/Player.h"
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *spTemplate) const;	// 0x0028BB9E
-};
+#include "../object.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 struct HeroDieModuleData

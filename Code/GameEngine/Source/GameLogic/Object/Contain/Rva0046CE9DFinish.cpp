@@ -12,12 +12,7 @@
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	float rva00263763(const void *other) const;
-	Object *rva002931F5(bool checkProducer);
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

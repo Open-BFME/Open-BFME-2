@@ -33,14 +33,7 @@ enum WeaponSetType
 	WST_0 = 0
 };
 
-class Object
-{
-public:
-	void setWeaponSetFlag(WeaponSetType t);
-	void clearWeaponSetFlag(WeaponSetType t);
-	unsigned char m_pad[0x74];
-	int m_id;
-};
+#include "../object.h"
 
 class Rva00469294
 {

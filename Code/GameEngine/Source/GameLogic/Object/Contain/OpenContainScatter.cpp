@@ -28,12 +28,7 @@ public:
 };
 class AIUpdateInterface { public: void ignoreObstacle(const Object *); };
 #include "../../../Common/Thing/thing.h"
-class Object : public Thing {
-public:
-    float GetRelativeAngle(const Coord3D *) const;
-    int rva0028B511() const;
-    void rva0023D3AF(void *);
-};
+#include "../object.h"
 template <int N> class Rva00464B96Slots : public Rva00464B96Slots<N - 1> {
 public: virtual void gap(char (*)[N]);
 };

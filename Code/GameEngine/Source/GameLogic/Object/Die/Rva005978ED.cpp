@@ -16,11 +16,7 @@
 // one int arg ret 4; used as int(int) with the arg pushed early.
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	int rva00294ADD(int x);
-};
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;

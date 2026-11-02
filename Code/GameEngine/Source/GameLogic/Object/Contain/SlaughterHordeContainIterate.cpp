@@ -23,15 +23,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 
 class Matrix3D;
-class Object
-{
-public:
-	bool getSingleLogicalBonePosition(const char *boneName, Coord3D *position, Matrix3D *transform) const;
-	const Coord3D *getPosition() const
-	{
-		return (const Coord3D *)((const char *)this + 0x38);
-	}
-};
+#include "../object.h"
 typedef void (__cdecl *ContainIterateFunc)(Object *obj, void *userData);
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();

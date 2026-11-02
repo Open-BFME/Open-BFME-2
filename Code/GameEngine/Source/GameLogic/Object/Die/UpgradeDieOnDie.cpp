@@ -33,20 +33,7 @@ class Player;
 
 #include "../../../../Include/Common/Upgrade.h"
 
-class Object
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
-	ObjectID getProducerID() const { return m_producerID; }
-	bool hasUpgrade(const UpgradeTemplate *tmpl) const;
-	void removeUpgrade(const UpgradeTemplate *upgrade);
-
-private:
-	unsigned char m_pad00[0x04];
-	const void *m_template04;	// +0x04 (opaque; DEBUG path compiled out)
-	unsigned char m_pad08[0x78 - 0x08];
-	ObjectID m_producerID;		// +0x78
-};
+#include "../object.h"
 
 class Player
 {

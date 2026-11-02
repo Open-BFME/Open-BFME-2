@@ -47,15 +47,7 @@ public:
 	__declspec(dllimport) __forceinline DamageInfo() throw() {}
 };
 
-class Object
-{
-public:
-	ObjectID getID() const { return m_id; }
-	void attemptDamage(DamageInfo *damageInfo);
-private:
-	unsigned char m_pad00[0x74];
-	ObjectID m_id; // +0x74
-};
+#include "../object.h"
 extern GameLogic *TheGameLogic;
 
 struct ReflectDamageModuleData
