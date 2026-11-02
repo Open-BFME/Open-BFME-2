@@ -21,15 +21,7 @@
 #include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 
-class MapMetaData
-{
-public:
-	UnicodeString bfme_getDisplayName(bool withPlayerCount);
-	UnicodeString rva00300D0E();
-
-	unsigned char m_pad00[0x20];
-	int m_numPlayers;	// +0x20
-};
+#include "../../../../GameEngine/Include/GameClient/MapMetaData.h"
 
 struct Rva0030145CCmp
 {
