@@ -272,3 +272,4 @@ ArmorTemplate,Code/GameEngine/Include/GameLogic/Armor.h,existing header; contrac
 GameState,Code/GameEngine/Include/Common/GameState.h,existing header; contract class_contracts/GameState.json; 30/46 sampled units adopt
 VertexMaterialClass,Code/Libraries/Source/WWVegas/WW3D2/VertexMaterialClass.h,existing header; contract class_contracts/VertexMaterialClass.json; 42/72 sampled units adopt
 ShaderClass,Code/Libraries/Source/WWVegas/WW3D2/ShaderClass.h,existing header; contract class_contracts/ShaderClass.json; 51/76 sampled units adopt
+ModelConditionFlags,Code/GameEngine/Include/GameClient/ModelConditionFlags.h,existing header; contract class_contracts/ModelConditionFlags.json; 21/75 sampled units adopt
