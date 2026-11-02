@@ -18629,3 +18629,7 @@ Canonical AIUpdate collision slot1 now has its complete5B false/RET4 body at5CB9
 ### Canonical AIUpdate collision group completed (2026-11-02)
 
 All five canonical collision defaults now have separately verified bodies and inline ICF rows. The complete24B table at852F88 is byte/relocation verified through all six rowed targets and recorded in data_rows. Final strict41rows, three tables and the1931-row/235-source header gate pass; all92prior code/ten data definitions remain unchanged. The current bounded SupplyTruck preview drops definite ancestor gaps41->36, still unlinked. [Complete table proof and final scope](../reverse/attempt_support/aiupdate-collision-defaults-20261102/README.md). Other default/field providers and the existing state-machine/local-static issues remain; only the next census can move LINKED/LINKING.
+
+### Canonical AIUpdate primary false defaults (2026-11-02)
+
+Primary slot90 now supplies the complete3B false default at47A699 through ordinary canonical inline C++. All42consumer rows and three data tables pass; the original Xfer ICF owner remains. [Three exact private candidates and scope](../reverse/attempt_support/aiupdate-primary-false-defaults-20261102/README.md). Slots130/128 and other ancestor providers remain; header gates and census measurement are separate prerequisites.
