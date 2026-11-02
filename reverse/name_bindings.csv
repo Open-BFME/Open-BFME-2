@@ -219,3 +219,6 @@ agree:nl-67cd3114e8da-m8ad2dfc90e21278cfdf12386,Rva0036658B::rva0036658B::tmp,Rv
 agree:nl-b24c2cfce96a,Rva005EA33D::rva005EA33D::v,Rva005EA33D::rva005EA33D::scaledDifference,Code/Libraries/Source/WWVegas/WWMath/Rva005EA33DMethod.cpp,c0b952d130167d1508c0d3df7e97a7f18e40b00bbd72c12191e61144ca2f4aef
 agree:nl-6d6e396d361e-mb0d037a9bb883079717d7ae4,Rva00171024::rva001711a6::x,Rva00171024::rva001711a6::placementColumn,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,291e02c3d916e810d1aee76b53dcf1bf7ba1e8b8a09b73399c037752a5080f95
 agree:nl-f5be9d78cc67-m8611dde044ea130bad22034b,Rva00171024::rva001711a6::y,Rva00171024::rva001711a6::placementRow,Code/Libraries/Source/WWVegas/WW3D2/texturepacker.cpp,291e02c3d916e810d1aee76b53dcf1bf7ba1e8b8a09b73399c037752a5080f95
+agree:nl-23f85674ed70,Rva000B6AA9Build::w,Rva000B6AA9Build::limit,Code/GameEngine/Source/Common/Rva000B6AA9Build.cpp,0c3b5d072e8d41a34edfe1ed24e83d046d89b6aec104e2afca71e677bcd99047
+agree:nl-a5f25eda8118,Rva000B6AF5Build::tmp,Rva000B6AF5Build::remaining,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,ac41b5ba3a7352e01eb1d6ec6b3fed762304b894a41dee38a8955aa85a95c845
+agree:nl-6ec29f056d7b,Rva000B6AF5Build::w1,Rva000B6AF5Build::baseCount,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,ac41b5ba3a7352e01eb1d6ec6b3fed762304b894a41dee38a8955aa85a95c845

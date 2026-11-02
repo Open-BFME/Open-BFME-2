@@ -6433,3 +6433,8 @@ class,Rva0041516C,CrowdResponseReloader,inferred,agree:nl-fd4a0da11e70,Code/Game
 class,Rva005114C6,AptMessengerFactory,inferred,agree:nl-4ba8697b50b2,Code/GameEngine/Source/Common/GapBodiesS3L.cpp,
 carry,?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,?createMessenger@AptMessengerFactory@@UAEPAVRva005114C6Messenger@@PAX@Z,inferred,scope renamed by Rename Rva005114C6 to AptMessengerFactory (inferred),Code/GameEngine/Source/Common/GapBodiesS3L.cpp,0x005114C6
 class,Rva0045A22EQuery,ObjectQuery,inferred,agree:nl-3a2a90fd5878,Code/GameEngine/Source/Common/INI/INIInlineTableParsers.cpp,
+param,Rva000B6253::rva000B6253::a,Rva000B6253::rva000B6253::reserved,inferred,agree:nl-8de99e27bf9c,Code/GameEngine/Source/Common/Rva000B6253.cpp,0x000B6253
+local,Rva000B6AA9Build::tmp,Rva000B6AA9Build::packedRec,inferred,agree:nl-fb4848d4a3b2,Code/GameEngine/Source/Common/Rva000B6AA9Build.cpp,0x000B6AA9
+local,Rva000B6AA9Build::w,Rva000B6AA9Build::limit,inferred,agree:nl-23f85674ed70,Code/GameEngine/Source/Common/Rva000B6AA9Build.cpp,0x000B6AA9
+local,Rva000B6AF5Build::tmp,Rva000B6AF5Build::remaining,inferred,agree:nl-a5f25eda8118,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5
+local,Rva000B6AF5Build::w1,Rva000B6AF5Build::baseCount,inferred,agree:nl-6ec29f056d7b,Code/GameEngine/Source/Common/Rva000B6AF5Build.cpp,0x000B6AF5

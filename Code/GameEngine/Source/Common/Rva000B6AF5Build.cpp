@@ -8,14 +8,14 @@ struct Rva000B6AF5Rec { void *p; int a; int b; };
 Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *dest, void **srcpp, int val)
 {
 	void *p = *srcpp;
-	int w1 = p ? *(unsigned short *)((char *)p + 4) : 0;
-	int tmp = w1 - val;
+	int baseCount = p ? *(unsigned short *)((char *)p + 4) : 0;
+	int remaining = baseCount - val;
 	void *q = *srcpp;
 	int w2 = q ? *(unsigned short *)((char *)q + 4) : 0;
-	Rva000B2B42Clamp(&tmp, &val, w2);
+	Rva000B2B42Clamp(&remaining, &val, w2);
 	Rva000B6AF5Rec tmpRec;
 	tmpRec.p = (void *)srcpp;
-	tmpRec.a = tmp;
+	tmpRec.a = remaining;
 	tmpRec.b = val;
 	*dest = tmpRec;
 	return dest;

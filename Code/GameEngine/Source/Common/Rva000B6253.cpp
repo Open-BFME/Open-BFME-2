@@ -13,11 +13,11 @@
 class Rva000B6253
 {
 public:
-	Rva000B6253 *rva000B6253(int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f);
+	Rva000B6253 *rva000B6253(int reserved, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f);
 	unsigned m_bits[19];
 };
 
-Rva000B6253 *Rva000B6253::rva000B6253(int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f)
+Rva000B6253 *Rva000B6253::rva000B6253(int reserved, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f)
 {
 	memset(this, 0, 0x4c);
 	m_bits[b >> 5] |= 1u << (b & 31);

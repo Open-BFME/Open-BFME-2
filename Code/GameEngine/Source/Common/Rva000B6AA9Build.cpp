@@ -9,12 +9,12 @@ Rva000B6AA9Rec *__cdecl Rva000B6AA9Build(Rva000B6AA9Rec *dest, void **srcpp, int
 {
 	int local = 0;
 	void *p = *srcpp;
-	int w = p ? *(unsigned short *)((char *)p + 4) : 0;
-	Rva000B2B42Clamp(&local, &val, w);
-	Rva000B6AA9Rec tmp;
-	tmp.p = (void *)srcpp;
-	tmp.a = local;
-	tmp.b = val;
-	*dest = tmp;
+	int limit = p ? *(unsigned short *)((char *)p + 4) : 0;
+	Rva000B2B42Clamp(&local, &val, limit);
+	Rva000B6AA9Rec packedRec;
+	packedRec.p = (void *)srcpp;
+	packedRec.a = local;
+	packedRec.b = val;
+	*dest = packedRec;
 	return dest;
 }
