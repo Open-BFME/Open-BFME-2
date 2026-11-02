@@ -242,21 +242,10 @@ class Rva002C56F0
 public:
 	char copy(Rva002C56F0Vec *dst) const;
 };
-class SupplyTruckAIInterface
-{
-public:
-	virtual Int getNumberBoxes() const; // slot 0
-	virtual void v01(); virtual void v02(); virtual void v03();
-	virtual Bool isAvailableForSupplying() const; // slot 4 (+0x10), ownerAvailableForSupplying
-	virtual void v05();
-	virtual Bool v06() const; // slot 6 (+0x18)
-	virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10();
-	virtual void setForceWantingState(Bool v); // +0x2C
-	virtual Bool isForcedIntoWantingState() const; // +0x30
-	virtual void setForceBusyState(Bool v); // +0x34
-	virtual Bool isForcedIntoBusyState() const; // +0x38
-};
+enum ObjectID;
+#include "../../../../../Include/GameLogic/Module/SupplyTruckAIUpdate.h"
+
+
 enum UpdateSleepTime
 {
 	USLEEP_MIN = 0
@@ -996,7 +985,7 @@ float Rva004A6FBF::rva004A6FBF()
 // fall-through returns STATE_CONTINUE instead of STATE_FAILURE.
 // The classes spell SupplyTruckStateMachine.cpp's views (both join the
 // SupplyTruckAIUpdate.cpp TU): the AI module is read as Object's member and
-// the supply truck interface's slot 6 keeps that view's v06 name.
+// Slot 6 now uses the shared ABI view's address-based callback name.
 
 StateReturnType SupplyTruckWantsToPickUpOrDeliverBoxesState::update()
 {
@@ -1035,7 +1024,7 @@ StateReturnType SupplyTruckWantsToPickUpOrDeliverBoxesState::update()
 			ownerAI->m_commands.aiDock(bestWarehouse, CMD_FROM_AI);
 			return STATE_SUCCESS;
 		}
-		if (update->v06())
+		if (update->rva004A6FE5())
 		{
 			Coord3D pos;
 			if (manager->rva004F5A67(owner, &pos))

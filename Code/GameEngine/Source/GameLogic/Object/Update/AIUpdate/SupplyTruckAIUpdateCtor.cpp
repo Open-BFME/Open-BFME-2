@@ -34,40 +34,18 @@ typedef float Real;
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void s01(); virtual void s02(); virtual void s03();
-	virtual int s04(); virtual void s05(); virtual void s06();
-	virtual void initDefaultState(); // +0x1C
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 class SupplyTruckStateMachine : public StateMachine
 {
 public:
 	SupplyTruckStateMachine(Object *owner);
 	virtual ~SupplyTruckStateMachine();
-	unsigned char m_pad04[0x3C - 4];
 };
 
-class SupplyTruckAIInterface
-{
-public:
-	virtual Int getNumberBoxes() const = 0;
-	virtual Bool loseOneBox() = 0;
-	virtual Bool gainOneBox( Int remainingStock ) = 0;
-	virtual Bool isAvailableForSupplying() const = 0;
-	virtual Bool isCurrentlyFerryingSupplies() const = 0;
-	virtual Real getWarehouseScanDistance() const = 0;
-	virtual void setForceWantingState(Bool v) = 0;
-	virtual Bool isForcedIntoWantingState() const = 0;
-	virtual void setForceBusyState(Bool v) = 0;
-	virtual Bool isForcedIntoBusyState() const = 0;
-	virtual ObjectID getPreferredDockID() const = 0;
-	virtual UnsignedInt getActionDelayForDock( Object *dock ) = 0;
-	virtual Int getUpgradedSupplyBoost() const = 0;
-};
+enum ObjectID;
+#include "../../../../../Include/GameLogic/Module/SupplyTruckAIUpdate.h"
+
 
 class SupplyTruckAIUpdate : public AIUpdateInterface, public SupplyTruckAIInterface
 {
@@ -75,19 +53,26 @@ public:
 	SupplyTruckAIUpdate( Thing *thing, const ModuleData* moduleData );
 	virtual ~SupplyTruckAIUpdate();
 	virtual UpdateSleepTime update();
- 	virtual Int getNumberBoxes() const;
-	virtual Bool loseOneBox();
-	virtual Bool gainOneBox( Int remainingStock );
-	virtual Bool isAvailableForSupplying() const;
-	virtual Bool isCurrentlyFerryingSupplies() const;
-	virtual Real getWarehouseScanDistance() const;
- 	virtual void setForceWantingState(Bool v);
- 	virtual Bool isForcedIntoWantingState() const;
- 	virtual void setForceBusyState(Bool v);
- 	virtual Bool isForcedIntoBusyState() const;
-	virtual ObjectID getPreferredDockID() const { return m_preferredDock; }
-	virtual UnsignedInt getActionDelayForDock( Object *dock );
-	virtual Int getUpgradedSupplyBoost() const { return 0; }
+    virtual int getNumberBoxes() const;                       //0
+    virtual int rva004A6E29() const;                          //1
+    virtual bool loseOneBox();                               //2
+    virtual bool gainOneBox(int remainingStock);              //3
+    virtual bool isAvailableForSupplying() const;             //4
+    virtual bool isCurrentlyFerryingSupplies() const;          //5
+    virtual unsigned char rva004A6FE5() const;                 //6
+    virtual float rva004A6FEF() const;                        //7
+    virtual int rva004A6FF9() const;                          //8
+    virtual unsigned int rva004A7003() const;                 //9
+    virtual float rva004A6FBF() const;                        //10
+    virtual void setForceWantingState(bool value);            //11
+    virtual bool isForcedIntoWantingState() const;            //12
+    virtual void setForceBusyState(bool value);               //13
+    virtual bool isForcedIntoBusyState() const;               //14
+    virtual ObjectID getPreferredDockID() const { return m_preferredDock; }              //15
+    virtual unsigned char rva004A6A44(Coord3D *result) const;  //16
+    virtual void rva0047A69C(unsigned int unusedWord);         //17
+    virtual int rva000D43D0() const;                          //18
+    virtual unsigned int getActionDelayForDock(Object *dock); //19
 private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x3E8
 	ObjectID m_preferredDock;   // +0x3EC
@@ -127,7 +112,7 @@ SupplyTruckAIUpdate::~SupplyTruckAIUpdate()
 
 UpdateSleepTime SupplyTruckAIUpdate::update()
 {
-    int raw = m_supplyTruckStateMachine->s04();
+    int raw = (int)m_supplyTruckStateMachine->updateStateMachine();
     int n = raw > 0 ? raw : 1;
     int slept = (int)AIUpdateInterface::update();
     if (n < slept) slept = n;
