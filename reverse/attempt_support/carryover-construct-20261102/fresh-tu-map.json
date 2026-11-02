@@ -1,0 +1,169 @@
+{
+  "stale_committed_map_inputs": [
+    "reverse/functions.csv",
+    "vendored-upstream:Code",
+    "zh:GeneralsMD/Code",
+    "tools/tu_map.py",
+    "tools/tu_evidence.py",
+    "reverse/tu_map.csv"
+  ],
+  "fresh_in_memory_current_rows": [
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EB20E",
+      "size": "84",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord172Assign.cpp",
+      "tu": "",
+      "names": [
+        "??4BfmeAssignRecord172@@QAEAAU0@ABU0@@Z",
+        "??4Rva001EB86EElement@@QAEAAU0@ABU0@@Z",
+        "??4CarryoverUnit@@QAEAAV0@ABV0@@Z"
+      ],
+      "homeless_by_template_contract": false
+    },
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EB831",
+      "size": "29",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001EB831.cpp",
+      "tu": "",
+      "names": [
+        "??$__copy_backward_ptrs@PAURva001EB831Element@@PAU1@@_STL@@YAPAURva001EB831Element@@PAU1@00ABU__false_type@0@@Z"
+      ],
+      "homeless_by_template_contract": true
+    },
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EB84E",
+      "size": "32",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp",
+      "tu": "",
+      "names": [
+        "??$fill@PAUBfmeAssignRecord172@@U1@@_STL@@YAXPAUBfmeAssignRecord172@@0ABU1@@Z"
+      ],
+      "homeless_by_template_contract": true
+    },
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EB9E6",
+      "size": "45",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp",
+      "tu": "",
+      "names": [
+        "??$_Construct@UBfmePod172@@U1@@_STL@@YAXPAUBfmePod172@@ABU1@@Z"
+      ],
+      "homeless_by_template_contract": true
+    },
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EBA30",
+      "size": "47",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+      "tu": "",
+      "names": [
+        "??$__uninitialized_copy@PBUBfmePod172@@PAU1@@_STL@@YAPAUBfmePod172@@PBU1@0PAU1@ABU__false_type@0@@Z"
+      ],
+      "homeless_by_template_contract": true
+    },
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EBA5F",
+      "size": "40",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+      "tu": "",
+      "names": [
+        "??$__uninitialized_fill_n@PAUBfmePod172@@IU1@@_STL@@YAPAUBfmePod172@@PAU1@IABU1@ABU__false_type@0@@Z"
+      ],
+      "homeless_by_template_contract": true
+    },
+    {
+      "by": "-",
+      "confidence": "",
+      "evidence": "",
+      "kind": "code",
+      "rva": "0x001EBAB4",
+      "size": "27",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp",
+      "tu": "",
+      "names": [
+        "??$uninitialized_fill_n@PAUBfmePod172@@IU1@@_STL@@YAPAUBfmePod172@@PAU1@IABU1@@Z"
+      ],
+      "homeless_by_template_contract": true
+    },
+    {
+      "by": "C",
+      "confidence": "approved",
+      "evidence": "C=0x001EBB73..0x001EBDFA provisional",
+      "kind": "code",
+      "rva": "0x001EBD3B",
+      "size": "191",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva001EBD3BFinish.cpp",
+      "tu": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+      "names": [
+        "?_M_insert_overflow@?$vector@UBfmePod172@@V?$allocator@UBfmePod172@@@_STL@@@_STL@@IAEXPAUBfmePod172@@ABU3@ABU__false_type@2@I_N@Z"
+      ],
+      "homeless_by_template_contract": false
+    },
+    {
+      "by": "C",
+      "confidence": "approved",
+      "evidence": "C=0x001EBB73..0x001EBFC9 provisional",
+      "kind": "code",
+      "rva": "0x001EBEAB",
+      "size": "286",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp",
+      "tu": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+      "names": [
+        "?_M_fill_insert@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@QAEXPAURva001EBEABElement@@IABU3@@Z"
+      ],
+      "homeless_by_template_contract": false
+    },
+    {
+      "by": "P",
+      "confidence": "approved",
+      "evidence": "P=0x001EBEAB@FuncInfo0x0090F9FC provisional",
+      "kind": "code",
+      "rva": "0x0076A5CC",
+      "size": "11",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp",
+      "tu": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+      "names": [
+        "uw_0076a5cc"
+      ],
+      "homeless_by_template_contract": false
+    },
+    {
+      "by": "P",
+      "confidence": "approved",
+      "evidence": "P=0x001EBEAB@FuncInfo0x0090F9FC provisional",
+      "kind": "code",
+      "rva": "0x0076A5D7",
+      "size": "10",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001EBEAB.cpp",
+      "tu": "Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp",
+      "names": [
+        "__ehhandler$?_M_fill_insert@?$vector@URva001EBEABElement@@V?$allocator@URva001EBEABElement@@@_STL@@@_STL@@QAEXPAURva001EBEABElement@@IABU3@@Z"
+      ],
+      "homeless_by_template_contract": false
+    }
+  ],
+  "no_committed_map_write": true
+}

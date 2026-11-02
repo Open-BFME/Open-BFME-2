@@ -13,3 +13,5 @@ template <> inline void _Construct<BfmePod172, BfmePod172>(BfmePod172 *__p, cons
 }
 
 template void _STL::_Construct<BfmePod172, BfmePod172>(BfmePod172 *, const BfmePod172 &);
+
+template void _STL::_Construct<CarryoverUnit, CarryoverUnit>(CarryoverUnit *, const CarryoverUnit &);

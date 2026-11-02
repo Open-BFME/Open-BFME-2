@@ -1,0 +1,95 @@
+{
+  "scope": "Two private Verifier builds only; no normal/shared compilation, source/ledger edits, claims or network.",
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp",
+  "source_sha256": "01381a516ec2a9ea1e1873949e2737a7a63749c3eb3ed9654481765ca044766d",
+  "source_unchanged": true,
+  "existing_rows": [
+    {
+      "name": "??$_Construct@UBfmePod172@@U1@@_STL@@YAXPAUBfmePod172@@ABU1@@Z",
+      "export_rva": "",
+      "target_rva": "0x001EB9E6",
+      "target_size": "45",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod172.cpp",
+      "status": "matched",
+      "notes": "placement copy via rowed Rva0037DF2C copy ctor callers uninitcopy filln pushback"
+    }
+  ],
+  "original_native_matched": [
+    "0x001EB9E6"
+  ],
+  "candidate_retains_old_native_matches": true,
+  "original_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-next-helper-20261102\\construct-before.obj",
+  "original_object_sha256": "2397a1ed8044b86d1f1f91f6ed7c875d5bf8046220b0278256af809d5f346c20",
+  "candidate_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-next-helper-20261102\\construct-candidate.obj",
+  "candidate_object_sha256": "3fad0a7777b0898de9b31fc4e52e5bd5c5b5987830bf9eab12ae2e5188bf6d66",
+  "original_code_count": 3,
+  "candidate_code_count": 4,
+  "retained_unchanged": [
+    "??2@YAPAXIPAX@Z",
+    "??$_Construct@UBfmePod172@@U1@@_STL@@YAXPAUBfmePod172@@ABU1@@Z",
+    "??3@YAXPAX0@Z"
+  ],
+  "changed_retained": [],
+  "removed": [],
+  "added": [
+    {
+      "name": "??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z",
+      "kind": "code",
+      "bytes": "b800000000e800000000518b4d08894df08365fc0085c97408ff750ce8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          29,
+          20,
+          "??0CarryoverUnit@@QAE@ABV0@@Z"
+        ],
+        [
+          39,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  ],
+  "typed_construct": [
+    {
+      "name": "??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z",
+      "size": 45,
+      "native_matched": true,
+      "whole_bytes_equal_old_owner": true,
+      "whole_symbolic_relocations_equal_old_owner": false,
+      "bytes": "b800000000e800000000518b4d08894df08365fc0085c97408ff750ce8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??$_Construct@VCarryoverUnit@@V1@@_STL@@YAXPAVCarryoverUnit@@ABV1@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          29,
+          20,
+          "??0CarryoverUnit@@QAE@ABV0@@Z"
+        ],
+        [
+          39,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  ]
+}

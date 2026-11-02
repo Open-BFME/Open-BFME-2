@@ -1,0 +1,23 @@
+[
+  {
+    "label": "old-before",
+    "result": [
+      "EXACT",
+      ""
+    ]
+  },
+  {
+    "label": "old-retained",
+    "result": [
+      "EXACT",
+      ""
+    ]
+  },
+  {
+    "label": "typed",
+    "result": [
+      "EXACT",
+      ""
+    ]
+  }
+]
