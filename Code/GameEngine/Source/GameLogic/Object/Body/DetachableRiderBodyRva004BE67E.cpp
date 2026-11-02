@@ -21,11 +21,7 @@
 #include "ascii_string.h"
 
 
-struct ActiveBodyModuleData
-{
-	char m_pad00[0x2C];
-	AsciiString m_grabObject; // +0x2C (ActiveBodyModuleDataDtor.cpp)
-};
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 class DetachableRiderBodyPrimary
 {
@@ -78,5 +74,5 @@ public:
 
 AsciiString DetachableRiderBody::Rva004BE67E() const
 {
-	return m_moduleData->m_grabObject;
+	return m_moduleData->field2C;
 }

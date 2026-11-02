@@ -19,11 +19,7 @@
 #include "../../../../../Include/Common/INI/FieldParse.h"
 
 
-class ActiveBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 class DetachableRiderBodyModuleData
 {

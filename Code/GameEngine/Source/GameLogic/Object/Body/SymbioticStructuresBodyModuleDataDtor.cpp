@@ -10,15 +10,7 @@
 // untracked (or-minus1) exactly as retail.
 #include "ascii_string.h"
 
-class __declspec(novtable) ActiveBodyModuleData
-{
-public:
-	ActiveBodyModuleData();
-	virtual ~ActiveBodyModuleData();
-
-private:
-	unsigned char m_opaque[0x64 - 4];
-};
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 class __declspec(novtable) SymbioticStructuresBodyModuleData : public ActiveBodyModuleData
 {

@@ -25,11 +25,7 @@ extern const FieldParse g_00C5C2D8[] = {
 };
 
 
-class ActiveBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 class PorcupineFormationBodyModuleData
 {

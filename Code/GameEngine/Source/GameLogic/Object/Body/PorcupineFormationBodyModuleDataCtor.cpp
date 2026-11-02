@@ -55,17 +55,7 @@ extern "C" const void *const vtbl_00BF4028[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class ActiveBodyModuleData
-{
-public:
-	ActiveBodyModuleData();
-
-private:
-	// No virtuals are declared (Defector law), so the pad spans the full
-	// 0x64 base: the rowed base carries its own vtable plus members, and
-	// the derived tail sits at +0x64.
-	unsigned char m_opaque[0x64];
-};
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 class PorcupineFormationBodyModuleData : public ActiveBodyModuleData
 {
