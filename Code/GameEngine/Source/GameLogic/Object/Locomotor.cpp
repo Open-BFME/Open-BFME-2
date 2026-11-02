@@ -1,17 +1,122 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oi- /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /ICode/Libraries/Include /Ireference/shims/moduledata /I. /ICode /Ireference/shims/iniexception
 // stlport
-// TU Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp (retail TU of the
-// Locomotor, LocomotorTemplate, LocomotorSet and LocomotorStore rows).
-//
-// The seed keeps its two matched rows over native views. Of the Zero Hour
-// port that compiled here only Locomotor's empty destructor, crc and
-// loadPostProcess stay: LocomotorCtor.cpp's Locomotor table (??_7Locomotor,
-// ??_G) references them and no other object defines them. The rest, bodies
-// with no row, is gone, so the donors' retail-matched bodies compose here.
+// TU Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <utility>
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include <map>
+#include <vector>
+class Rva001E72B4Owned;
+void __cdecl Rva00030830GameFree(void *);
+namespace _STL {
+struct _Rb_tree_node_base;
+// The +0x18 vector holds owned-object pointers (retail unwinds it through the shared 14-byte
+// body 0x0007FAB3); only its range erase is reached through the vector<void *> row 0x0031BD55.
+template<> inline _Vector_base<Rva001E72B4Owned *, allocator<Rva001E72B4Owned *> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
+template<> vector<void *>::iterator vector<void *>::erase(iterator first, iterator last);
+}
+// Rva001E7E25Clear.cpp spells the same begin/end specializations: one shared block.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void *>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void *>::end() { return this->_M_finish; }
+}
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+void Rva00030830FreeAllocation(void *);
+namespace _STL {
+template<> inline void allocator<void *>::deallocate(void **p, unsigned int) const
+{ if (p) ::Rva00030830FreeAllocation(p); }
+}
+#pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
+#include "ascii_string.h"
+#pragma comment(linker, "/alternatename:?rvaClear@Rva001E7087@@AAEXXZ=?rva001E7E25@Rva001E7E25@@QAEXXZ")
+#include "../../../../Libraries/Include/Lib/Region3D.h"
+extern int g_Va00DFDC64;
+class Rva001E3E43Element
+{
+public:
+	Rva001E3E43Element();
+private:
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+};
+Rva001E3E43Element::Rva001E3E43Element()
+{
+}
+class Xfer;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord3D.h"
+typedef bool Bool;
+#include "../../Common/Thing/thing.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+#pragma function(memset)
+#include <string.h>
+//
+// ?rva001E4954@Rva001E4954@@QAEXPAURva001E4954Node@@@Z @0x001E4954 45B
+// __thiscall void (Node *): destroy a sibling-linked tree; for each node in the
+// +8 chain, recurse on the +0xc child with the same this, then free the node.
+// Evidence: self-recursive call; _free row 0x00030830; callers 0x00263FA7
+// 0x002E74C6; neighbours Rva001E4912Init stlport_map_int_int_os.
+struct Rva001E4954Node
+{
+	char _00[8];
+	struct Rva001E4954Node *m_08;
+	struct Rva001E4954Node *m_0c;
+};
+class Rva001E4954
+{
+public:
+	void rva001E4954(Rva001E4954Node *p);
+};
+#define _CRTIMP
+#include <stdlib.h>
+#undef _CRTIMP
+// __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
+// COMDATs (one byte shape per TU malloc/free wiring); explicit
+// dllimport+forceinline specializations take those calls inline so this
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void *__malloc_alloc<0>::allocate(size_t __n)
+{ void *__r = malloc(__n); if (!__r) __r = _S_oom_malloc(__n); return __r; }
+template <> __declspec(dllimport) __forceinline
+void __malloc_alloc<0>::deallocate(void *__p, size_t)
+{ free((char *)__p); }
+}
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+#include "../../../Include/Common/Overridable.h"
+//
+// Dump-lane range 5: forwarder at 0x1E702E (37B). Forwards (obj,b,c) with
+// this to 0x1E685F, then runs obj->setTransformMatrix on the +0x68 member.
+// Address-derived names; 0x1E685F takes (Object*, const Coord3D*, float*)
+// (its body in LocomotorMoveTowardsPositionHorde.cpp).
+
+class Matrix3D;
+// vector<void*> begin/end/clear are expanded inline here; their out-of-line copies
+// would differ from retail's. Declared imported and force-inlined, they are not emitted.
+namespace _STL {
+template <> void **vector<void *>::erase(void **first, void **last);
+}
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void vector<void *>::clear() { erase(begin(), end()); }
+template <> __declspec(dllimport) __forceinline
+size_t vector<void *>::size() const { return this->_M_finish - this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+void *&vector<void *>::operator[](size_t n) { return this->_M_start[n]; }
+}
+#include <new>
+#pragma comment(linker, "/alternatename:??$_Construct@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@0@ABU10@@Z=?Rva001E7243Construct@@YAXPAXPBX@Z")
 
 enum NameKeyType;
+
 class LocomotorTemplate
 {
 public:
@@ -29,22 +134,1199 @@ private:
 	T *m_node;
 };
 
-// Locomotor as 0x002BEDBE reads it (an override at +0x08); its Snapshot
-// slots are LocomotorCtor.cpp's, so both units emit one table.
+// The store singleton (0x00DFDC5C, .data, zero-initialised as Zero Hour's
+// `LocomotorStore *TheLocomotorStore = NULL`).
+class LocomotorStore;
+
+LocomotorStore *TheLocomotorStore = 0;
+
+// LocomotorStore::parseLocomotorTemplateDefinition (0x001E8A94, in
+// Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp) inserts into its
+// template map; that insertion instantiated this pair constructor here
+// (0x00363B35, 22 bytes).
+template _STL::pair<const NameKeyType, LocomotorTemplate *>::pair(const NameKeyType &, LocomotorTemplate *const &);
+
+class Rva001E72B4Owned
+{
+public:
+	virtual ~Rva001E72B4Owned();
+};
+
+struct Rva001E72B4Node
+{
+	int m_color;
+	Rva001E72B4Node *m_parent;
+	Rva001E72B4Node *m_left;
+	Rva001E72B4Node *m_right;
+	int m_key;
+	Rva001E72B4Owned *m_value;
+};
+
+struct Rva001E6731Head;
+
+class Rva001E6731
+{
+public:
+	unsigned rva001E71FA(const int &);
+	void rva001E6731();
+	~Rva001E6731();
+	Rva001E6731Head *m_00; // +0x00
+	int m_04; // +0x04
+	int m_compare; // +0x08
+};
+
+struct Rva001E6FE5
+{
+	~Rva001E6FE5() {}
+	Rva001E72B4Node *header() const { return reinterpret_cast<Rva001E72B4Node *>(m_tree.m_00); }
+	void clear() { m_tree.rva001E6731(); }
+	Rva001E6731 m_tree;
+};
+
+class Rva001E72B4 : public SubsystemInterface
+{
+public:
+	virtual ~Rva001E72B4();
+private:
+	Rva001E6FE5 m_map;			// +0x0C
+	_STL::vector<Rva001E72B4Owned *> m_owned;	// +0x18
+};
+
+// The Snapshot-shaped base (its dtor folds into 0x0049B47C, storing BBB554): only the
+// destructor slot, so the vtable is the ctor unit's one ??_E slot.
+class Rva001E7087Base
+{
+public:
+    virtual ~Rva001E7087Base() {}
+};
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() {} }
+
+// bfme link decl-only begin
+namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
+
+// bfme link decl-only end
+class Rva001E7087 : public Rva001E7087Base {
+public:
+    Rva001E7087();
+protected:
+    virtual ~Rva001E7087();
+private:
+    void rvaClear();
+    _STL::vector<void *> m_vec04;
+    int m_10;
+    unsigned char m_14, m_15;
+    AsciiString m_18, m_1c;
+    float m_20;
+};
+
+class Rva001E3E43 : public Snapshot
+{
+public:
+	~Rva001E3E43();	// rowed out of line; this view must not emit its own
+	Rva001E3E43(const Rva001E3E43 &rhs);
+	Rva001E3E43 &operator=(const Rva001E3E43 &rhs);
+private:
+	int m_04;
+	struct Vec12 { int a, b, c; } m_08, m_14;
+	int m_20, m_24, m_28, m_2C;
+	int m_30, m_34, m_38, m_3C, m_40, m_44, m_48, m_4C;
+	int m_50, m_54, m_58, m_5C, m_60, m_64;
+	Rva001E3E43Element m_68[3];
+	unsigned char m_98, m_99, m_9A;
+	int m_9C, m_A0, m_A4, m_A8, m_AC;
+};
+
+// g_Va00DFDC64: matched references place it at VA 0xdfdc64 (zero-filled .bss).
+int g_Va00DFDC64;
+
+// The 33-byte target bodies at 0x001E7C2B and 0x001E9045 forward the same
+// four stack dwords to distinct direct callees. Target x87 loads identify the
+// final two arguments as floats; the meanings of the first two dwords and the
+// owning class are unknown. Both callee entries are Ghidra boundaries and are
+// pinned by their exact REL32 calls below.
+
+class Rva001E7053 {
+public:
+	void rva001e7053(unsigned int, unsigned int, float, float);
+};
+
+class Thing;
+
+struct Coord3D;
+
+class Object;
+
+class Rva001E8C1B {
+public:
+	void rva001E8C1B(int, int, float, float);
+};
+
+class Rva001E7C2B {
+public:
+	void rva001e7c2b(unsigned int, unsigned int, float, float);
+};
+
+class Rva001E9045 {
+public:
+	void rva001e9045(unsigned int, unsigned int, float, float);
+};
+
+// Native1E41D3..1E41FA and WB AF0DB0 establish12B result and hidden
+// return-storage construction bit; this corrects the old void/out bank.
+// Matrix68 row-translation floats at74/84/94 are target facts. Original
+// result class/PODity and constructor form are unresolved structural views.
+// Default construction followed by named-result return and copy construction
+// emits the native all-SSE direct result stores. The original result name
+// and constructor API remain structural inferences rather than target names.
+struct Rva001E41D3Result
+{
+    float x, y, z;
+    Rva001E41D3Result() {}
+    Rva001E41D3Result(const Rva001E41D3Result &r)
+    {
+        x = r.x; y = r.y; z = r.z;
+    }
+};
+
+struct Rva001E41D3Matrix
+{
+    float m[3][4];
+    __forceinline Rva001E41D3Result get()
+    {
+        Rva001E41D3Result result;
+        result.x = m[0][3];
+        result.y = m[1][3];
+        result.z = m[2][3];
+        return result;
+    }
+    __forceinline void set(const Rva001E41D3Result &v)
+    {
+        m[0][3] = v.x;
+        m[1][3] = v.y;
+        m[2][3] = v.z;
+    }
+};
+
+class Rva001E41D3
+{
+    char prefix[0x68];
+    Rva001E41D3Matrix matrix;
+public:
+    Rva001E41D3Result rva001E41D3();
+    void rva001E41AC(const Rva001E41D3Result &position);
+};
+
+// ?rva001E3E5C@Rva001E3E5C@@QBE_NXZ, retail 0x001E3E5C (17 bytes).
+// Target evidence: thiscall bool getter (pin in reverse/symbols.csv, called
+// from Object::rva0028C428 on a Rva0028AC4EEntry): load the pointer at this+4,
+// result 0 unless it is non-null, else its int at +0x0C is >= 1.
+// Codegen finding: the retail xor eax,eax / setge al pair needs the result held
+// in an int-width local whose low byte is returned (bool locals give xor al,al,
+// a bool/!= 0 normalisation costs seven more bytes).
+// Identity of the receiver and the pointed-to record is address-derived.
+
+struct Rva001E3E5CRecord
+{
+	int m_unread[3];
+	int m_value0C;	// +0x0C
+};
+
+class Rva001E3E5C
+{
+public:
+	bool rva001E3E5C() const;
+
+private:
+	int m_unread00;
+	const Rva001E3E5CRecord *m_record04;	// +0x04
+};
+
+//
+// ?rva001E3E6D@Rva001E3E6D@@QAEMPAURva001E3E6DArg@@@Z, retail 0x001E3E6D, 50 bytes.
+// Same arg+this offsets as sibling 0x001E3F08 ([arg+0x258]->+0x1f8, [this+4]).
+// Null arg or null +0x258 returns BfmeZeroRange else [this+4]+0x138 *
+// [arg+0x258]+0x1f8 * g_secondsPerLogicFrame (x87 fld/fmul). Called at 0x0026C890.
+// Owner identity unproven, honest Rva name.
+
+// The data ledger identifies the shared read-only operand as float +0.0.
+extern float g_secondsPerLogicFrame;
+
+struct Rva001E3E6DMidA
+{
+	int m_pad00[78]; // +0x00..+0x137
+	float m_val138; // +0x138
+};
+
+struct Rva001E3E6DMidB
+{
+	int m_pad00[126]; // +0x00..+0x1F7
+	float m_val1F8; // +0x1F8
+};
+
+struct Rva001E3E6DArg
+{
+	int m_pad00[150]; // +0x00..+0x257
+	Rva001E3E6DMidB *m_p258; // +0x258
+};
+
+class Rva001E3E6D
+{
+public:
+	float rva001E3E6D(Rva001E3E6DArg *p);
+private:
+	int m_pad00; // +0x00
+	Rva001E3E6DMidA *m_p04; // +0x04
+};
+
+struct Rva001E3F08MidA
+{
+	int m_pad00[10]; // +0x00..+0x27
+	float m_val28; // +0x28
+	int m_pad2C[10]; // +0x2C..+0x53
+	float m_val54; // +0x54
+};
+
+struct Rva001E3F08MidB
+{
+	int m_pad00[126]; // +0x00..+0x1F7
+	float m_val1F8; // +0x1F8
+};
+
+struct Rva001E3F08Arg
+{
+	int m_pad00[150]; // +0x00..+0x257
+	Rva001E3F08MidB *m_p258; // +0x258
+};
+
+class Rva001E3F08
+{
+public:
+	float rva001E3F2E(Rva001E3F08Arg *p);
+private:
+	int m_pad00; // +0x00
+	Rva001E3F08MidA *m_p04; // +0x04
+};
+
+struct Direction4015Template {
+    char pad00[0x74];
+    int mode74;
+    char pad78[0xD8 - 0x78];
+    int flagD8;
+};
+
+struct Direction4015Entry {
+    void *word0;
+    Direction4015Template *settings;
+};
+
+struct Direction4015Object {
+    char pad00[0x38];
+    Coord3D pos;
+};
+
+struct DirectionMath : Coord3D {
+    DirectionMath() {}
+    DirectionMath(const Coord3D &v) { x = v.x; y = v.y; z = v.z; }
+    void sub(const Coord3D *v) { x -= v->x; y -= v->y; z -= v->z; }
+};
+
+class Rva001E46E1 {
+public:
+	void rva001E6007(Object *, const Coord3D *, float, float);
+public:
+	Bool rva001E4015(Object *, const Coord3D *);
+};
+
+// ?rva001E4147@Rva001E4147@@QAEXPAURva001E4147Twelve@@@Z @0x001E4147 24B: copy 12B from src+0x38 to this+0x14 if src.
+// Evidence: 12 callers e.g. 0x0026457D 0x0026B4C1 0x0026D588; 3x movsd shape.
+struct Rva001E4147Twelve { int a; int b; int c; };
+
+class Rva001E4147
+{
+public:
+	void rva001E4147(Rva001E4147Twelve *src);
+	char _0[0x14];
+	Rva001E4147Twelve m_14;
+};
+
+extern GameLogic *TheGameLogic;
+
+class Rva001E415F
+{
+public:
+	void rva001E415F(float f, int i);
+	char _0[0x5c];
+	float m_5c;
+	int m_60;
+};
+
+// ?rva001E4194@Locomotor@@QAE_NPAVObject@@@Z @0x001E4194 24B, RET4.
+// Native 471500 passes unitAI->loco in ECX and Object* on the stack.
+// WB AF0CF0 retains that receiver and reads Object+264 (native +25C), then
+// the nullable component's byte+5C. The receiver is unused inside the body;
+// its presence still matters to callers. Original method spelling is unknown.
+class Rva001E4194Component { public: char pad00[0x5c]; bool value; };
+
+class Object { public: char pad00[0x25c]; Rva001E4194Component *component; };
+
+ 
+ 
 class Locomotor : public Snapshot
 {
 public:
 	int getLegalSurfaces() const;
 protected:
 	virtual ~Locomotor();
+protected:
 	virtual void crc(Xfer *xfer);
+protected:
 	virtual void xfer(Xfer *xfer);
+protected:
 	virtual void loadPostProcess();
 private:
 	char m_pad04[0x08 - 0x04];
 public:
-	OVERRIDE<LocomotorTemplate> m_template;	// +0x08
+	OVERRIDE<LocomotorTemplate> m_template;
+public:
+	bool rva001E4194(Object *object);
 };
+
+//
+// ?rva001E48E8@Rva001E48E8@@QAEPAXI@Z @0x001E48E8 42B
+// __thiscall void *(unsigned): scan pointer range [this+4,this+8) for the first
+// non-null entry whose sub-object at +4 has mask bit(s) set at +0x14; else null.
+// Evidence: self-contained loop shape; callers 0x00263FA7 0x002E74C6;
+// neighbours Rva001E3E43Dtor Rva001E4912Init.
+struct Rva001E48E8Inner
+{
+	char _00[0x14];
+	unsigned m_surfaces;
+};
+
+struct Rva001E48E8Elem
+{
+	char _00[4];
+	Rva001E48E8Inner *m_04;
+};
+
+class Rva001E48E8
+{
+public:
+	void *rva001E48E8(unsigned mask);
+	char _00[4];
+	Rva001E48E8Elem **m_04;
+	Rva001E48E8Elem **m_08;
+};
+
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int a, unsigned int b, unsigned int c);
+	unsigned m_bits[19];
+};
+
+//
+// ?rva001E4A4E@Rva001E4A4E@@QAE_NH@Z @0x001E4A4E 21B
+// __thiscall bool(int bit): return Rva001E4426Test(bits at this+0x1c8, bit).
+// Evidence: push arg then add ecx 0x1c8 push ecx call rowed 0x001E4426,
+// callers 0x00290288 0x00290369 0x00291CD8, neighbours Rva001E4954Destroy.
+bool __cdecl Rva001E4426Test(unsigned int *bits, int bit);
+
+class Rva001E4A4E
+{
+public:
+	bool rva001E4A4E(int bit);
+private:
+	char _00[0x1c8];
+	unsigned int m_1c8;
+};
+
+struct Rva001E6731Head
+{
+	int _00;
+	Rva001E4954Node *m_04;
+	struct Rva001E6731Head *m_08;
+	struct Rva001E6731Head *m_0c;
+};
+
+class LocomotorStore : public SubsystemInterface
+{
+public:
+	virtual void init();
+	virtual void reset();
+
+private:
+	_STL::map<int, void *> m_locomotorTemplates;
+};
+
+class Rva001E685F
+{
+public:
+	void rva001E685F(Object *obj, const Coord3D *pos, float *angle);
+};
+
+class Rva001E702E
+{
+public:
+	void rva001E702E(Thing *o, int b, int c);
+private:
+	char m_pad[0x68];
+	char m_mat[64];
+};
+
+class Rva001E7E25Elem
+{
+public:
+	virtual void *rvaGet(int arg);
+};
+
+class Rva001E7E25
+{
+public:
+	void rva001E7E25();
+private:
+	char m_pad00[4];
+	_STL::vector<void *> m_vec04;
+	int m_10;
+	unsigned char m_14;
+	unsigned char m_15;
+};
+
+// Suppress this TU's non-retail copy of ??0?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemp:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+enum LocomotorSetType;
+
+ class LocomotorTemplate;
+
+namespace _STL { template <> map<LocomotorSetType,vector<LocomotorTemplate const *,allocator<LocomotorTemplate const *> >,less<LocomotorSetType>,allocator<pair<LocomotorSetType const ,vector<LocomotorTemplate const *,allocator<LocomotorTemplate const *> > > > >::map(); }
+
+enum LocomotorSetType
+{
+	LOCOMOTORSET_INVALID = -1,
+
+	LOCOMOTORSET_NORMAL = 0,
+	LOCOMOTORSET_NORMAL_UPGRADED,
+	LOCOMOTORSET_FREEFALL,
+	LOCOMOTORSET_WANDER,
+	LOCOMOTORSET_PANIC,
+	LOCOMOTORSET_TAXIING,
+	LOCOMOTORSET_SUPERSONIC,
+	LOCOMOTORSET_SLUGGISH,
+
+	LOCOMOTORSET_COUNT
+};
+
+typedef _STL::vector<const LocomotorTemplate *> BfmeLocomotorTemplateVector;
+
+typedef _STL::pair<const LocomotorSetType, BfmeLocomotorTemplateVector> LocomotorMapValue;
+
+typedef _STL::_Rb_tree<LocomotorSetType, LocomotorMapValue, _STL::_Select1st<LocomotorMapValue>, _STL::less<LocomotorSetType>, _STL::allocator<LocomotorMapValue> > LocomotorMapTree;
+
+typedef _STL::map<LocomotorSetType, BfmeLocomotorTemplateVector, _STL::less<LocomotorSetType>, _STL::allocator<LocomotorMapValue> > LocomotorMap;
+
+namespace _STL {
+// Declared only; the gate resolves this reference to the ICF-folded body at
+// 0x1E7243 (rowed as dup_001E7243, same 45B shape via rowed copy 0x795C1).
+template <>
+void _Construct<LocomotorMapValue, LocomotorMapValue>(LocomotorMapValue *, const LocomotorMapValue &);
+}
+
+template LocomotorMapTree::iterator LocomotorMapTree::insert_unique(LocomotorMapTree::iterator, const LocomotorMapValue &);
+
+template void LocomotorMapTree::_M_erase(LocomotorMapTree::_Link_type);
+
+template void LocomotorMapTree::clear();
+
+template _STL::_Rb_tree_base<LocomotorMapValue, _STL::allocator<LocomotorMapValue> >::_Rb_tree_base(const _STL::allocator<LocomotorMapValue> &);
+
+template LocomotorMapTree::_Rb_tree(const _STL::less<LocomotorSetType> &, const _STL::allocator<LocomotorMapValue> &);
+
+template LocomotorMap::map();
+
+// tu-skeleton: 0x001E3459 31B ?setFlag@Locomotor@@AAEXW4LocoFlag@1@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp (not merged yet)
+
+// tu-skeleton: 0x001E38B9 64B ?validate@LocomotorTemplate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorTemplateValidate.cpp (not merged yet)
+
+// tu-skeleton: 0x001E38F9 53B ?parseCanMoveBackwards@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/SmallIniParseCallbacks_CanMoveBackwards.cpp (not merged yet)
+
+// tu-skeleton: 0x001E392E 6B ?Rva001E392EGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x001E3934 33B ?rva001E3934@Rva001E72B4@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp (not merged yet)
+
+// tu-skeleton: 0x001E3955 927B ??4LocomotorTemplate@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva001E3955Assign.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E3E43Dtor.cpp
+
+// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
+// the anchor keeps the noinline body emitted.
+__declspec(noinline) inline Rva001E3E43::~Rva001E3E43()
+{
+	--g_Va00DFDC64;
+}
+
+// ?bfmeAnchorRva001E3E43Dtor absent-from-retail
+void bfmeAnchorRva001E3E43Dtor(Rva001E3E43 *p)
+{
+	p->Rva001E3E43::~Rva001E3E43();
+}
+
+Rva001E3E43 &Rva001E3E43::operator=(const Rva001E3E43 &rhs)
+{
+	if (this != &rhs) {
+		m_04 = rhs.m_04;
+		m_08 = rhs.m_08;
+		m_14 = rhs.m_14;
+		m_20 = rhs.m_20;
+		m_24 = rhs.m_24;
+		m_28 = rhs.m_28;
+		m_30 = rhs.m_30;
+		m_34 = rhs.m_34;
+		m_38 = rhs.m_38;
+		m_3C = rhs.m_3C;
+		m_40 = rhs.m_40;
+		m_44 = rhs.m_44;
+		m_48 = rhs.m_48;
+		m_4C = rhs.m_4C;
+		m_50 = rhs.m_50;
+		m_54 = rhs.m_54;
+		m_58 = rhs.m_58;
+		m_5C = rhs.m_5C;
+		m_60 = rhs.m_60;
+		m_64 = rhs.m_64;
+		{
+			const int *src = (const int *)&rhs.m_68[0];
+			int *dst = (int *)&m_68[0];
+			dst[0] = src[0];
+			dst[1] = src[1];
+			dst[2] = src[2];
+			dst[3] = src[3];
+		}
+		{
+			const int *src = (const int *)&rhs.m_68[1];
+			int *dst = (int *)&m_68[1];
+			dst[0] = src[0];
+			dst[1] = src[1];
+			dst[2] = src[2];
+			dst[3] = src[3];
+		}
+		{
+			const int *src = (const int *)&rhs.m_68[2];
+			int *dst = (int *)&m_68[2];
+			dst[0] = src[0];
+			dst[1] = src[1];
+			dst[2] = src[2];
+			dst[3] = src[3];
+		}
+		m_98 = rhs.m_98;
+		m_99 = rhs.m_99;
+		m_9C = rhs.m_9C;
+		m_A0 = rhs.m_A0;
+		m_A4 = rhs.m_A4;
+		m_2C = rhs.m_2C;
+		m_9A = rhs.m_9A;
+		m_A8 = rhs.m_A8;
+		m_AC = rhs.m_AC;
+	}
+	return *this;
+}
+
+// tu-skeleton: 0x001E3E56 6B ?name@Rva001E3E56Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001E3E5CGetter.cpp
+
+bool Rva001E3E5C::rva001E3E5C() const
+{
+	const Rva001E3E5CRecord *record = m_record04;
+	int result = 0;
+	if (record)
+		result = record->m_value0C >= 1;
+	return *(bool *)&result;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001E3E6DCalc.cpp
+
+float Rva001E3E6D::rva001E3E6D(Rva001E3E6DArg *p)
+{
+	if (p == 0)
+		return 0.0f;
+	Rva001E3E6DMidB *mid = p->m_p258;
+	if (mid == 0)
+		return 0.0f;
+	return m_p04->m_val138 * mid->m_val1F8 * g_secondsPerLogicFrame;
+}
+
+// tu-skeleton: 0x001E3E9F 105B ?getMaxTurnRate@Locomotor@@QBEMPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorGetMaxTurnRate.cpp (not merged yet)
+
+// tu-skeleton: 0x001E3F08 31B ?rva001E3F08@Rva001E3F08@@QAEMPAURva001E3F08Arg@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E4073Ratio.cpp (not merged yet)
+
+// tu-skeleton: 0x001E3F27 7B ?get@Rva001E3F27FloatChaseField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E3F08Calc.cpp
+
+// ?rva001E3F2E@Rva001E3F08@@QAEMPAURva001E3F08Arg@@@Z, retail 0x001E3F2E,
+// 31 bytes: the same product over the [this+4]->+0x54 field (sibling after
+// the 0x001E3F27 getter). Owner identity unproven.
+float Rva001E3F08::rva001E3F2E(Rva001E3F08Arg *p)
+{
+	return p->m_p258->m_val1F8 * m_p04->m_val54 * g_secondsPerLogicFrame;
+}
+
+// tu-skeleton: 0x001E3F4D 96B ?rva001E3F4D@Rva001E46E1@@QAEMPAVObject@@H@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E3FADCalc.cpp
+
+// ?Rva001E3FADGet@@YAMPBUCoord3D@@0@Z, retail 0x001E3FAD, 80 bytes.
+// Diff of two Coord3D then normalize then (y+x)*BfmeZeroRange+z.
+// Evidence: calls rowed ?normalize@Coord3D@@QAEXXZ 0x000035B6, uses BfmeZeroRange VA 0x00BBAEAC.
+// Callers at 0x001E9BEC 0x001E9C51 in FUN_005e9a00. Owner unproven honest Rva name.
+
+// The data ledger identifies the shared read-only operand as float +0.0.
+
+float __cdecl Rva001E3FADGet(const Coord3D *lhs, const Coord3D *rhs)
+{
+	Coord3D d;
+	d.x = rhs->x;
+	d.y = rhs->y;
+	d.z = rhs->z;
+	d.x -= lhs->x;
+	d.y -= lhs->y;
+	d.z -= lhs->z;
+	d.normalize();
+	return (d.y + d.x) * 0.0f + d.z;
+}
+
+// tu-skeleton: 0x001E3FFD 24B ?Rva001E3FFDGet@@YAPAXPAURva001E3FFDOuter@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Pathfinder/PathDirectionCheck.cpp
+
+// Native 001E4015..001E4073 RET8; WB AE7CA0; caller Path::rva00365E98.
+// The entry's mode74==1 and flagD8 permit a destination-versus-heading test.
+// WB copies the destination into a coordinate, subtracts Object's position,
+// then takes the XY dot product. Keeping that coordinate operation order
+// reproduces retail's SSE allocation. No original method name is asserted.
+
+Bool Rva001E46E1::rva001E4015(Object *obj, const Coord3D *dest)
+{
+    Direction4015Entry *entry = (Direction4015Entry *)this;
+    if (entry->settings->mode74 == 1) {
+        if (entry->settings->flagD8) {
+            DirectionMath direction;
+            ((const Thing *)obj)->getUnitDirectionVector2D(direction);
+            const Coord3D *pos = &((const Direction4015Object *)obj)->pos;
+            DirectionMath delta(*dest);
+            delta.sub(pos);
+            float dot = direction.x * delta.x + direction.y * delta.y;
+            if (dot < 0.0f)
+                return true;
+        }
+    }
+    return false;
+}
+
+// tu-skeleton: 0x001E4073 102B ?rva001E4073@Rva001E4073@@QAEMPAVObject@@PAM@Z -- matched in Code/GameEngine/Source/Common/Rva001E4073Ratio.cpp (not merged yet)
+
+// tu-skeleton: 0x001E40D9 89B ?Rva001E40D9Get@@YGMMM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorTerrainHeight.cpp (not merged yet)
+
+// tu-skeleton: 0x001E4132 21B ?rva001E4132@Rva001E4132@@QAEMMMMM@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E4147Copy.cpp
+
+void Rva001E4147::rva001E4147(Rva001E4147Twelve *src)
+{
+	if (src)
+		m_14 = *(Rva001E4147Twelve *)((char *)src + 0x38);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001E415FSet.cpp
+
+// ?rva001E415F@Rva001E415F@@QAEXMH@Z @0x001E415F 29B: store float +0x5c and frame+int +0x60.
+// Evidence: 3 callers 0x00292D33 0x00295FEA 0x0029605A; TheGameLogic 0xDFE78C frame +0x40.
+
+void Rva001E415F::rva001E415F(float f, int i)
+{
+	m_5c = f;
+	m_60 = TheGameLogic->getFrame() + i;
+}
+
+// tu-skeleton: 0x001E417C 24B ?rva001E417C@Rva001E417C@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E4194Get.cpp
+
+bool Locomotor::rva001E4194(Object *object)
+{
+    Rva001E4194Component *component = object->component;
+    if (component)
+        return component->value;
+    return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001E41D3Position.cpp
+
+Rva001E41D3Result Rva001E41D3::rva001E41D3()
+{
+    return matrix.get();
+}
+
+// Native1E41AC..1E41D3 (39B), just ahead of the getter: the setter twin. All
+// three incoming floats load before the matrix stores, so the argument is
+// copied into a local first.
+void Rva001E41D3::rva001E41AC(const Rva001E41D3Result &position)
+{
+    Rva001E41D3Result copy(position);
+    matrix.set(copy);
+}
+
+// tu-skeleton: 0x001E41FA 241B ?rva001E41FA@Locomotor@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E41FASetOrientation.cpp (not merged yet)
+
+// tu-skeleton: 0x001E449A 395B ??0Locomotor@@QAE@PBVLocomotorTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E3E43CopyCtor.cpp
+
+//
+// ??0Rva001E3E43@@QAE@ABV0@@Z, retail 0x001E4641, 78 bytes.
+// Copy ctor: default-constructs a 3x0x10 element array at +0x68 via rowed
+// vector iterator then stores vtable 0x00BDE888 plus inc global 0x009FDC64
+// plus rowed copy assignment 0x001E3CF4.
+// Evidence: chain lane calls rowed 0x001E3CF4 plus prev Rva001E3E43Dtor
+// plus next Rva001E468FCheck plus EH prolog plus the shared 3B empty ctor
+// 0x0047A6A9. The 16B elements are not Region3D (24 B): an opaque neutral
+// element emits that empty ctor here, rowed as a genuine ICF fold.
+//
+
+Rva001E3E43::Rva001E3E43(const Rva001E3E43 &rhs)
+{
+	++g_Va00DFDC64;
+	*this = rhs;
+}
+
+// tu-skeleton: 0x001E468F 82B ?rva001E468F@Rva001E468F@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E468FCheck.cpp (not merged yet)
+
+// tu-skeleton: 0x001E46E1 356B ?getMaxSpeed@Locomotor@@QBEMPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E4845 69B ?rva001E4845@Rva001E46E1@@QAEMPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E488A 69B ?rva001E488A@Rva001E46E1@@QAEMPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E48CF 25B ?rva001E48CF@Rva001E46E1@@QAEMPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E48E8Find.cpp
+
+void *Rva001E48E8::rva001E48E8(unsigned mask)
+{
+	Rva001E48E8Elem **it = m_04;
+	Rva001E48E8Elem **end = m_08;
+	for (; it != end; ++it) {
+		Rva001E48E8Elem *p = *it;
+		if (p && (p->m_04->m_surfaces & mask))
+			return p;
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001E4912Init.cpp
+
+// ?rva001E4912@Rva001E4912@@QAEPAV1@HII@Z @0x001E4912 66B: memset 0x4c-bitfield init plus two bit sets.
+// Evidence: 24 callers pushing (0 bit1 bit2) e.g. 0x001E5E7E (0 0x8a 0x86) 0x001E5E93 (0 0x89 0x85) 0x001E5FA5 (0 0xf0 0xef) 0x00275DBA (0 0x43 0x45); returns this.
+
+Rva001E4912 *Rva001E4912::rva001E4912(int a, unsigned int b, unsigned int c)
+{
+	memset(this, 0, 0x4c);
+	m_bits[b >> 5] |= 1u << (b & 31);
+	m_bits[c >> 5] |= 1u << (c & 31);
+	return this;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001E4954Destroy.cpp
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+void Rva001E4954::rva001E4954(Rva001E4954Node *p)
+{
+	if (!p)
+		return;
+	do {
+		rva001E4954(p->m_0c);
+		Rva001E4954Node *next = p->m_08;
+		free(p);
+		p = next;
+	} while (p);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001E4A4ETest.cpp
+
+bool Rva001E4A4E::rva001E4A4E(int bit)
+{
+	return Rva001E4426Test(&m_1c8, bit);
+}
+
+// tu-skeleton: 0x001E4A63 30B ?getTemplateName@Locomotor@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorGetTemplateName.cpp (not merged yet)
+
+// tu-skeleton: 0x001E4A81 61B ?newLocomotor@LocomotorStore@@QAEPAVLocomotor@@PBVLocomotorTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.cpp (not merged yet)
+
+// tu-skeleton: 0x001E4ABE 754B ??0LocomotorTemplate@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E4DB0 59B ??1LocomotorTemplate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E4DEB 961B ??0LocomotorTemplate@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LocomotorTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x001E51AC 96B ?rva001E51AC@Rva001E72B4@@QAE_NPA_N@Z -- matched in Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp (not merged yet)
+
+// tu-skeleton: 0x001E520C 78B ?newOverride@LocomotorStore@@QAEPAVLocomotorTemplate@@PAV2@@Z -- matched in Code/GameEngine/Source/Common/LocomotorStore_newOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x001E525A 382B ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E3E43Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x001E53D8 103B ?rva001E53D8@Rva001E46E1@@QAEXMPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E543F 44B ?rva001E543F@Rva001E46E1@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E546B 625B ?rva001E546B@Rva001E46E1@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E56DC 2113B ?rva001E56DC@Rva001E46E1@@QAEXPAVObject@@PBUCoord3D@@MPAM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E5F1D 234B ?rva001E5F1D@Rva001E46E1@@QAE_NPAVObject@@PBUCoord3D@@PAM@Z -- matched in Code/GameEngine/Source/Common/Rva001E46E1Ratios.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6007 1295B ?rva001E6007@Rva001E46E1@@QAEXPAVObject@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6516 28B ?rva001E6516@Rva001E6516@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E6516ConditionClear.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6532 511B ?rva001E6532@Locomotor@@QAEMPAVObject@@PBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/LocomotorHeight.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E6731.cpp
+
+void Rva001E6731::rva001E6731()
+{
+	if (m_04 == 0)
+		return;
+	((Rva001E4954 *)this)->rva001E4954(m_00->m_04);
+	m_00->m_08 = m_00;
+	m_00->m_04 = 0;
+	m_00->m_0c = m_00;
+	m_04 = 0;
+}
+
+// tu-skeleton: 0x001E675A 68B ?rva001E675A@Rva001E6731@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x001E679E 5B ?rva001E679E@Rva001E679E@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x001E67BF 94B ?rva001E67BF@LocomotorTemplate@@QAE?AV1@XZ -- matched in Code/GameEngine/Source/Common/Rva001E67BFClone.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/LocomotorStoreReset.cpp
+
+//
+// ?reset@LocomotorStore@@UAEXXZ retail 0x001E681D (66 bytes), from the
+// WorldBuilder lead (LocomotorStore::reset in Locomotor.cpp) and Zero Hour's
+// Locomotor.cpp: drop each template's overrides and erase the entries whose
+// template goes away with them (erase(it++)).
+//
+// Target facts: m_locomotorTemplates sits at +0xC (as in the sibling
+// LocomotorStoreFindTemplate.cpp view); the member is spelled map<int, void*>
+// so the emitted erase names the rowed int/void* tree erase 0x005530A8
+// (identical tree mechanics), and the stored pointer is the template's
+// Overridable base (deleteOverrides 0x001E35ED).
+
+void LocomotorStore::reset()
+{
+	_STL::map<int, void *>::iterator it;
+	for (it = m_locomotorTemplates.begin(); it != m_locomotorTemplates.end(); ) {
+		Overridable *locoTemp = ((Overridable *)(*it).second)->deleteOverrides();
+		if (!locoTemp)
+			m_locomotorTemplates.erase(it++);
+		else
+			++it;
+	}
+}
+
+// tu-skeleton: 0x001E685F 120B ?rva001E685F@Rva001E685F@@QAEXPAVObject@@PBUCoord3D@@PAM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E68D7 692B ?rva001E68D7@Locomotor@@QAEXPAVObject@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6B8B 919B ?rva001E6B8B@Locomotor@@QAEXPAVObject@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6F22 5B ?j_001e6f22@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6F27 56B ??1Rva001E6731@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6F5F 134B ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHH@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6FE5 5B ?rva001E6FE5@Rva001E6FE5@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
+
+// tu-skeleton: 0x001E6FEA 38B ?findLocomotorTemplate@LocomotorStore@@QAEPAVLocomotorTemplate@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplate.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7010 30B ?findLocomotorTemplate@LocomotorStore@@QAEPAVLocomotorTemplate@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorStoreFindTemplateByName.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E702EForward.cpp
+
+// ?rva001E702E@Rva001E702E@@QAEXPAVThing@@HH@Z
+void Rva001E702E::rva001E702E(Thing *thing, int b, int c)
+{
+	((Rva001E685F *)this)->rva001E685F((Object *)thing, (const Coord3D *)b, (float *)c);
+	thing->setTransformMatrix((const Matrix3D *)&m_mat);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva001E7C2BForwarders.cpp
+
+// ?rva001e7053@Rva001E7053@@QAEXIIMM@Z
+void Rva001E7053::rva001e7053(unsigned int a, unsigned int position, float c, float d)
+{
+	reinterpret_cast<Rva001E702E *>(this)->rva001E702E(reinterpret_cast<Thing *>(a), (int)position, 0);
+	reinterpret_cast<Rva001E46E1 *>(this)->rva001E6007(reinterpret_cast<Object *>(a), reinterpret_cast<const Coord3D *>(position), c, d);
+}
+
+void Rva001E7C2B::rva001e7c2b(unsigned int a, unsigned int position, float c, float d)
+{
+	reinterpret_cast<Rva001E7053 *>(this)->rva001e7053(a, position, c, d);
+}
+
+void Rva001E9045::rva001e9045(unsigned int a, unsigned int b, float c, float d)
+{
+	reinterpret_cast<Rva001E8C1B *>(this)->rva001E8C1B((int)a, (int)b, c, d);
+}
+
+// tu-skeleton: 0x001E7087 53B ??0Rva001E7087@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E70BC 6B ?name@Rva001E70BCNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x001E70C2 312B ?xferSelfAndCurLocoPtr@LocomotorSet@@QAEXPAVXfer@@PAPAVLocomotor@@@Z -- matched in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (not merged yet)
+
+// tu-skeleton: 0x001E71FA 73B ?rva001E71FA@Rva001E6731@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7243 45B ?Rva001E7243Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7270 68B ??0Rva001E72B4@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7270Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001E72B4Dtor.cpp
+
+// ??1Rva001E72B4@@UAE@XZ, retail 0x001E72B4..0x001E7389 (213 bytes, EH):
+// a subsystem's destructor (opaque pin of its scalar deleting destructor;
+// table 0x00BDE970), sibling of Rva001FF909Dtor.cpp. It ::deletes the value
+// of every node of its int-keyed tree at +0x0C and clears it (rowed
+// 0x001E6731), ::deletes every object of its pointer vector at +0x18 by
+// index and empties it (rowed vector<void *> erase 0x0031BD55); then the
+// vector storage goes to GameFree, the tree wrapper dies (its inline
+// destructor runs the rowed tree destructor 0x001E6F27; its out-of-line copy
+// for the unwind map is the rowed 0x001E6FE5), and SubsystemInterface last.
+// Owner and element identities are not established.
+
+// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
+// the anchor keeps the noinline body emitted.
+__declspec(noinline) inline Rva001E72B4::~Rva001E72B4()
+{
+	for (Rva001E72B4Node *node = m_map.header()->m_left; node != m_map.header();
+	     node = reinterpret_cast<Rva001E72B4Node *>(
+		     _STL::_Rb_global<bool>::_M_increment(reinterpret_cast<_STL::_Rb_tree_node_base *>(node))))
+		::delete node->m_value;
+	m_map.clear();
+	for (unsigned int i = 0; i < m_owned.size(); ++i)
+		::delete m_owned[i];
+	_STL::vector<void *> &owned = reinterpret_cast<_STL::vector<void *> &>(m_owned);
+	owned.erase(owned.begin(), owned.end());
+}
+
+// ?bfmeAnchorRva001E72B4Dtor absent-from-retail
+void bfmeAnchorRva001E72B4Dtor(Rva001E72B4 *p)
+{
+	p->Rva001E72B4::~Rva001E72B4();
+}
+
+// Native76A05E: complete11B tree-wrapper member+C destructor unwind.
+// Whole213B parent and native EH graph bind this action; the same object
+// emits the whole5B wrapper destructor1E6FE5 forwarding to native tree1E6F27.
+
+// tu-skeleton: 0x001E7389 484B ?moveTowardsPositionHordeOnClimbPortal@Locomotor@@QAE_NPAVObject@@PAVWaypoint@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E756D 1726B ?moveTowardsPositionHorde@Locomotor@@QAEXPAVObject@@ABUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7C2B 33B ?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z -- matched in Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7C4C 147B ?rva001E7C4C@Rva001E7C4C@@QAEXPAVObject@@IMM@Z -- matched in Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7CDF 326B ?maintainCurrentPositionWings@Locomotor@@IAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Locomotor_maintainCurrentPositionWings.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001E7E25Clear.cpp
+
+// ?rva001E7E25@Rva001E7E25@@QAEXXZ retail 0x001E7E25 83B: clears pointer array via virtual slot 0 plus delete then vector erase plus flag clears.
+// Evidence: frameless thiscall with ebx index esi vector plus loop test ecx je plus push 0 call [eax] push eax call 0x0002FD60 then push end push begin call 0x0031BD55 erase then and [edi+0x10] 0 plus bytes [edi+0x14] [edi+0x15] 0; callers 0x001E86EE 0x00268364 0x00268A59 0x0026E87A 0x0026EBD4.
+
+void Rva001E7E25::rva001E7E25()
+{
+	for (unsigned int i = 0; i < m_vec04.size(); ++i)
+	{
+		Rva001E7E25Elem *elem = (Rva001E7E25Elem *)m_vec04[i];
+		if (elem)
+		{
+			void *p = elem->rvaGet(0);
+			::operator delete(p);
+		}
+	}
+	m_vec04.clear();
+	m_10 = 0;
+	m_14 = 0;
+	m_15 = 0;
+}
+
+// tu-skeleton: 0x001E7E78 5B ?rva001E7E78@Rva001E7E78@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_locomotor_create_node.cpp
+
+//
+// LocomotorSetType to template-vector map node factory (AIUpdate parse cluster).
+// Companion to LocomotorSetMapInstantiation.cpp: that TU carries the EH
+// members (_M_insert, insert_unique); this TU carries the frameless
+// _M_create_node 34B @0x1E7E7D under _STLP_NO_EXCEPTIONS, mirroring
+// stlport_rb_tree_int_colormap.cpp. The pair _Construct folds to the rowed
+// int-pair body at 0x1E7243 (same 16B layout, same vector copy 0x2CFAB9).
+
+// ?_M_create_node@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z
+template <>
+LocomotorMapTree::_Link_type LocomotorMapTree::_M_create_node(const LocomotorMapValue &value)
+{
+	_Link_type node = (_Link_type)_STL::allocator<char>::allocate(sizeof(_STL::_Rb_tree_node<LocomotorMapValue>), 0);
+	_STL::_Construct(&node->_M_value_field, value);
+	return node;
+}
+
+// Names this unit references that no unit defines under that spelling. Each is
+// bound to the row that owns the pinned retail address (same address, same
+// body); the pin keeps the name, the row supplies the definition.
+
+// tu-skeleton: 0x001E7EAE 28B ??_GRva001E72B4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7270Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E7ECA 1563B ?rva001E7ECA@Locomotor@@QAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp (not merged yet)
+
+// tu-skeleton: 0x001E84E5 491B ?locoUpdate_maintainCurrentPosition@Locomotor@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMaintainCurrentPosition.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp
+
+// ??1Rva001E7087@@MAE@XZ @0x001E86D0 96B
+// Banked attempt reverse/attempts/0x001e86d0.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
+// Scratch layout proof only. The native four-slot table at BDE950 has a
+// no-argument empty slot then a name getter and a413B worker, so this view
+// must not be landed as proof of the canonical Snapshot virtual interface.
+// Native96B dtor and53B ctor prove pointer-vector4 and string18/1C cleanup.
+
+Rva001E7087::~Rva001E7087() { rvaClear(); }
+
+// Banked byte proof: [1E86D0,1E8730)96B, original53B ctor1E7087,
+// complete29B pointer-vector base211E58, complete11B proxy14F3C4 exact.
+// Clear call has the full83B independently rowed provider1E7E25; its
+// consumed pointer-vector4 and flags10/14/15 agree with this native view.
+// C++ free30830/17 reproduces the EH-state store before vector deallocation.
+// Native virtual table7DE950 has28B delete1E8F03;1B empty B3FD0;
+// 6B name getter1E70BC returning LocomotorSet;413B worker1E8730.
+// The canonical Snapshot view instead declares crc(Xfer*),xfer(Xfer*),
+// loadPostProcess(). Neither its virtual signatures nor this class's
+// inherited relationship is proved by the identical final BBB554 store.
+// Landing must reconcile that interface and all kept provider definitions;
+// do not emit a guessed purecall table or claim vector<BfmeE16> semantics.
+
+// tu-skeleton: 0x001E8730 413B ?DoXfer@LocomotorSet@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetDoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x001E88CE 92B ?addLocomotor@LocomotorSet@@QAEXPBVLocomotorTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSet_addLocomotor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E892A 136B ?_M_insert@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
+
+// tu-skeleton: 0x001E89B2 134B ?insert_unique@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
+
+// tu-skeleton: 0x001E8A94 391B ?parseLocomotorTemplateDefinition@LocomotorStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp (not merged yet)
+
+// tu-skeleton: 0x001E8C1B 744B ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E8C1BSteering.cpp (not merged yet)
+
+// tu-skeleton: 0x001E8F03 28B ??_GRva001E7087@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x001E8F1F 294B ?insert_unique@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@U32@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
+
+// tu-skeleton: 0x001E9045 33B ?rva001E9045@Rva001E9045@@QAEXHHMM@Z -- matched in Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp (not merged yet)
+
+// tu-skeleton: 0x001E9066 29B ?insert@?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@U32@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
+
+// tu-skeleton: 0x001E9083 2429B ?rva001E9083@Locomotor@@QAEXPAVObject@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x001E9A00 1627B ?rva001E9A00@Locomotor@@QAE_NPAVObject@@MPAMPAVRva00375A73Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E9A00AerialMove.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA05B 153B ??A?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEAAV?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@1@ABW4LocomotorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA0F4 475B ?locoUpdate_moveTowardsAngle@Locomotor@@QAEXPAVObject@@M@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsAngle.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA2CF 223B ?setLocomotorAndBaseSpeed@LocomotorSet@@QAEXPAVINI@@PAVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetSetLocomotorAndBaseSpeed.cpp (not merged yet)
+
+// tu-skeleton: 0x00769F9A 10B uw_00769f9a -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FA4 10B __ehhandler$?newLocomotor@LocomotorStore@@QAEPAVLocomotor@@PBVLocomotorTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorStore_newLocomotor_Rva001E4A81.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FAE 8B $L1182 -- matched in Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FB6 10B __ehhandler$??1LocomotorTemplate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001E4DB0Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FC0 11B uw_00769fc0 -- matched in Code/GameEngine/Source/Common/Rva001E67BFClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FCB 25B uw_00769fcb -- matched in Code/GameEngine/Source/Common/Rva001E67BFClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FE4 10B __ehhandler$?rva001E67BF@LocomotorTemplate@@QAE?AV1@XZ -- matched in Code/GameEngine/Source/Common/Rva001E67BFClone.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FEE 10B __ehhandler$?rva001E6B8B@Locomotor@@QAEXPAVObject@@PBUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x00769FF8 8B $L2678 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A000 10B __ehhandler$??1Rva001E6731@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A00A 8B Unwind@00b6a00a -- matched in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A012 8B Unwind@00b6a012 -- matched in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A01A 8B Unwind@00b6a01a -- matched in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A022 10B __ehhandler$?xferSelfAndCurLocoPtr@LocomotorSet@@QAEXPAVXfer@@PAPAVLocomotor@@@Z -- matched in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A02C 14B $L6680 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A03A 10B __ehhandler$??$_Construct@U?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A044 8B $L6226 -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7270Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A04C 10B __ehhandler$??0Rva001E72B4@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7270Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A07E 8B Unwind@00b6a07e -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A086 10B __ehhandler$?moveTowardsPositionHordeOnClimbPortal@Locomotor@@QAE_NPAVObject@@PAVWaypoint@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A090 8B Unwind@00b6a090 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A098 8B Unwind@00b6a098 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A0A0 10B __ehhandler$?moveTowardsPositionHorde@Locomotor@@QAEXPAVObject@@ABUCoord3D@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A0AA 11B $L2658 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A0B5 8B $L2659 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A0BD 10B __ehhandler$?rva001E7ECA@Locomotor@@QAE_NPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A0CF 11B uw_0076a0cf -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A0FA 8B Unwind@00b6a0fa -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetDoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A102 8B Unwind@00b6a102 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetDoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A10A 10B __ehhandler$?DoXfer@LocomotorSet@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetDoXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A129 8B $L7639 -- matched in Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A131 10B __ehhandler$?parseLocomotorTemplateDefinition@LocomotorStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A13B 11B $L1741 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E9A00AerialMove.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A146 10B __ehhandler$?rva001E9A00@Locomotor@@QAE_NPAVObject@@MPAMPAVRva00375A73Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E9A00AerialMove.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A150 8B $L14885 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A158 8B Unwind@00b6a158 -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
+
+// tu-skeleton: 0x0076A160 10B __ehhandler$??A?$map@W4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAEAAV?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@1@ABW4LocomotorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
 
 // ?Locomotor::~Locomotor present-unmatched
 Locomotor::~Locomotor()
@@ -70,14 +1352,3 @@ int Locomotor::getLegalSurfaces() const
 {
 	return m_template->m_surfaces;
 }
-
-// The store singleton (0x00DFDC5C, .data, zero-initialised as Zero Hour's
-// `LocomotorStore *TheLocomotorStore = NULL`).
-class LocomotorStore;
-LocomotorStore *TheLocomotorStore = 0;
-
-// LocomotorStore::parseLocomotorTemplateDefinition (0x001E8A94, in
-// Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp) inserts into its
-// template map; that insertion instantiated this pair constructor here
-// (0x00363B35, 22 bytes).
-template _STL::pair<const NameKeyType, LocomotorTemplate *>::pair(const NameKeyType &, LocomotorTemplate *const &);

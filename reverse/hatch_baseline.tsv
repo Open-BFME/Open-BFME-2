@@ -198,8 +198,6 @@ address_global	Code/GameEngine/Source/Common/Rva000F630CGet.cpp	g_Va009E1F6C	3
 address_global	Code/GameEngine/Source/Common/Rva001363A1Get.cpp	g_Va00DF29B4	2
 address_global	Code/GameEngine/Source/Common/Rva0013676DClear.cpp	g_Va00DF29B4	2
 address_global	Code/GameEngine/Source/Common/Rva00136B5EHouseColorTexture.cpp	g_Va00DF29B4	2
-address_global	Code/GameEngine/Source/Common/Rva001E3E43CopyCtor.cpp	g_Va00DFDC64	2
-address_global	Code/GameEngine/Source/Common/Rva001E3E43Dtor.cpp	g_Va00DFDC64	3
 address_global	Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp	g_Va00DFDC60	5
 address_global	Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp	g_Va00DFDC61	4
 address_global	Code/GameEngine/Source/Common/Rva001F5300Finish.cpp	g_Va00BBB8D8	3
@@ -945,6 +943,7 @@ address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUp
 address_global	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E01E74	3
 address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E01E7C	3
+address_global	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	g_Va00DFDC64	4
 address_global	Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp	g_Va00DFDC64	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00DFEFD8	2
@@ -2983,6 +2982,9 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp	?
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieMuxDataInit.cpp	??0DieMuxData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	??1ExperienceTracker@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	?bfmeCalcEFC@@YGMH@Z	2
+alternatename	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	??$_Construct@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@0@ABU10@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	?rvaClear@Rva001E7087@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Object.cpp	?hasSpecialPower@Object@@QBE_NW4SpecialPowerType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp	?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z	1
@@ -2996,8 +2998,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Object_setGeometryInfoZ.cp
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp	?allow@Rva00260FD0Filter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilterSameMapStatusAllow.cpp	?allow@Rva002611BFFilter@@UAE_NPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp	?allow@Rva0026137EFilter@@UAE_NPAVObject@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?rvaClear@Rva001E7087@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	?g_00DFE490@@3VRva00575674@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00355BDADtor.cpp	??1ArmorTemplateMap@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva0041E764Find.cpp	??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@PAVArmorTemplate@@@_STL@@@1@ABW4NameKeyType@@@Z	1
@@ -4133,7 +4133,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.cpp	??$__pop_heap@PAHHHVRva00422CA8@@@_STL@@YAXPAH00HVRva00422CA8@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp	?insertUnique@BFME2RespawnRuleTree@@QAEPAURespawnInsertResult@@PAU2@ABURespawnRule@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_insert_003f75ec.cpp	?_M_create_node@?$_Rb_tree@HURva003F75ECValue@@URva003F75ECKey@@U?$greater@H@_STL@@V?$allocator@URva003F75ECValue@@@4@@_STL@@IAEPAU?$_Rb_tree_node@URva003F75ECValue@@@2@ABURva003F75ECValue@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_locomotor_create_node.cpp	??$_Construct@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@0@ABU10@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_treekey00242F5E_lower.cpp	??RRva000A7AA7Less@@QBE_NABUTreeKey00242F5E@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_treekey00242F5E_upper.cpp	??RRva000A7AA7Less@@QBE_NABUTreeKey00242F5E@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_sort_e16_helpers.cpp	??RRva005B26CECmp@@QBE_NPBX0@Z	1
