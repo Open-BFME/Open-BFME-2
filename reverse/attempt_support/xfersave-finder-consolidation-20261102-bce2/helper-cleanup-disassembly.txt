@@ -1,0 +1,215 @@
+before ?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@@Z
+size=80
+000: mov eax, 0
+005: call 0xa
+00a: sub esp, 0x10
+00d: push esi
+00e: mov esi, ecx
+010: lea ecx, [ebp - 0x1c]
+013: call 0x18
+018: and dword ptr [ebp - 4], 0
+01c: push eax
+01d: push ecx
+01e: mov ecx, dword ptr [ebp + 0xc]
+021: mov eax, esp
+023: mov dword ptr [ebp - 0x10], esp
+026: push dword ptr [ebp + 8]
+029: mov dword ptr [eax], ecx
+02b: mov ecx, esi
+02d: call 0x32
+032: or dword ptr [ebp - 4], 0xffffffff
+036: lea ecx, [ebp - 0x1c]
+039: call 0x3e
+03e: mov ecx, dword ptr [ebp - 0xc]
+041: mov eax, dword ptr [ebp + 8]
+044: mov dword ptr fs:[0], ecx
+04b: pop esi
+04c: leave
+04d: ret 8
+reloc 1 6 __ehhandler$?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@@Z
+reloc 6 20 __EH_prolog
+reloc 14 20 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+reloc 2e 20 ?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+reloc 3a 20 ??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ
+reloc 47 6 __except_list
+before ?resize@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXI@Z
+size=66
+000: mov eax, 0
+005: call 0xa
+00a: sub esp, 0xc
+00d: push esi
+00e: mov esi, ecx
+010: lea ecx, [ebp - 0x18]
+013: call 0x18
+018: and dword ptr [ebp - 4], 0
+01c: push eax
+01d: push dword ptr [ebp + 8]
+020: mov ecx, esi
+022: call 0x27
+027: or dword ptr [ebp - 4], 0xffffffff
+02b: lea ecx, [ebp - 0x18]
+02e: call 0x33
+033: mov ecx, dword ptr [ebp - 0xc]
+036: pop esi
+037: mov dword ptr fs:[0], ecx
+03e: leave
+03f: ret 4
+reloc 1 6 __ehhandler$?resize@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXI@Z
+reloc 6 20 __EH_prolog
+reloc 14 20 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+reloc 23 20 ?resize@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+reloc 2f 20 ??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ
+reloc 3a 6 __except_list
+before ??0?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@I@Z
+size=96
+000: mov eax, 0
+005: call 0xa
+00a: sub esp, 0x10
+00d: push esi
+00e: lea eax, [ebp + 0xb]
+011: mov esi, ecx
+013: push eax
+014: mov dword ptr [ebp - 0x10], esi
+017: call 0x1c
+01c: and dword ptr [ebp - 4], 0
+020: lea ecx, [ebp - 0x1c]
+023: call 0x28
+028: push eax
+029: push dword ptr [ebp + 8]
+02c: mov byte ptr [ebp - 4], 1
+030: push ecx
+031: mov ecx, dword ptr [esi]
+033: mov ecx, dword ptr [ecx]
+035: mov eax, esp
+037: mov dword ptr [eax], ecx
+039: mov ecx, esi
+03b: mov dword ptr [ebp + 8], esp
+03e: call 0x43
+043: lea ecx, [ebp - 0x1c]
+046: mov byte ptr [ebp - 4], 0
+04a: call 0x4f
+04f: mov ecx, dword ptr [ebp - 0xc]
+052: mov eax, esi
+054: mov dword ptr fs:[0], ecx
+05b: pop esi
+05c: leave
+05d: ret 4
+reloc 1 6 __ehhandler$??0?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@I@Z
+reloc 6 20 __EH_prolog
+reloc 18 20 ??0?$_List_base@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@ABV?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@1@@Z
+reloc 24 20 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+reloc 3f 20 ?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@IABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+reloc 4b 20 ??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ
+reloc 57 6 __except_list
+after ?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@@Z
+size=87
+000: mov eax, 0
+005: call 0xa
+00a: sub esp, 0x10
+00d: push esi
+00e: mov esi, ecx
+010: lea ecx, [ebp - 0x1c]
+013: call 0x18
+018: and dword ptr [ebp - 4], 0
+01c: push eax
+01d: push ecx
+01e: mov ecx, dword ptr [ebp + 0xc]
+021: mov eax, esp
+023: mov dword ptr [ebp - 0x10], esp
+026: push dword ptr [ebp + 8]
+029: mov dword ptr [eax], ecx
+02b: mov ecx, esi
+02d: call 0x32
+032: or dword ptr [ebp - 4], 0xffffffff
+036: cmp dword ptr [ebp - 0x1c], 0
+03a: je 0x45
+03c: push dword ptr [ebp - 0x1c]
+03f: call 0x44
+044: pop ecx
+045: mov ecx, dword ptr [ebp - 0xc]
+048: mov eax, dword ptr [ebp + 8]
+04b: mov dword ptr fs:[0], ecx
+052: pop esi
+053: leave
+054: ret 8
+reloc 1 6 __ehhandler$?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@@Z
+reloc 6 20 __EH_prolog
+reloc 14 20 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+reloc 2e 20 ?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@U32@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+reloc 40 20 _free
+reloc 4e 6 __except_list
+after ?resize@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXI@Z
+size=73
+000: mov eax, 0
+005: call 0xa
+00a: sub esp, 0xc
+00d: push esi
+00e: mov esi, ecx
+010: lea ecx, [ebp - 0x18]
+013: call 0x18
+018: and dword ptr [ebp - 4], 0
+01c: push eax
+01d: push dword ptr [ebp + 8]
+020: mov ecx, esi
+022: call 0x27
+027: or dword ptr [ebp - 4], 0xffffffff
+02b: cmp dword ptr [ebp - 0x18], 0
+02f: pop esi
+030: je 0x3b
+032: push dword ptr [ebp - 0x18]
+035: call 0x3a
+03a: pop ecx
+03b: mov ecx, dword ptr [ebp - 0xc]
+03e: mov dword ptr fs:[0], ecx
+045: leave
+046: ret 4
+reloc 1 6 __ehhandler$?resize@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXI@Z
+reloc 6 20 __EH_prolog
+reloc 14 20 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+reloc 23 20 ?resize@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+reloc 36 20 _free
+reloc 41 6 __except_list
+after ??0?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@I@Z
+size=103
+000: mov eax, 0
+005: call 0xa
+00a: sub esp, 0x10
+00d: push esi
+00e: lea eax, [ebp + 0xb]
+011: mov esi, ecx
+013: push eax
+014: mov dword ptr [ebp - 0x10], esi
+017: call 0x1c
+01c: and dword ptr [ebp - 4], 0
+020: lea ecx, [ebp - 0x1c]
+023: call 0x28
+028: push eax
+029: push dword ptr [ebp + 8]
+02c: mov byte ptr [ebp - 4], 1
+030: push ecx
+031: mov ecx, dword ptr [esi]
+033: mov ecx, dword ptr [ecx]
+035: mov eax, esp
+037: mov dword ptr [eax], ecx
+039: mov ecx, esi
+03b: mov dword ptr [ebp + 8], esp
+03e: call 0x43
+043: cmp dword ptr [ebp - 0x1c], 0
+047: mov byte ptr [ebp - 4], 0
+04b: je 0x56
+04d: push dword ptr [ebp - 0x1c]
+050: call 0x55
+055: pop ecx
+056: mov ecx, dword ptr [ebp - 0xc]
+059: mov eax, esi
+05b: mov dword ptr fs:[0], ecx
+062: pop esi
+063: leave
+064: ret 4
+reloc 1 6 __ehhandler$??0?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@I@Z
+reloc 6 20 __EH_prolog
+reloc 18 20 ??0?$_List_base@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAE@ABV?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@1@@Z
+reloc 24 20 ??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+reloc 3f 20 ?insert@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXU?$_List_iterator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@U?$_Nonconst_traits@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@2@IABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z
+reloc 51 20 _free
+reloc 5e 6 __except_list
