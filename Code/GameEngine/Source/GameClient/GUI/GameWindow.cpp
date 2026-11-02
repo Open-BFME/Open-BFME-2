@@ -82,7 +82,6 @@
 	{ \
 		return m_value; \
 	}
-
 // Clean Open-BFME-1 6d9434269164392c5ba62aaa7c15a86b5b020d76 reference transfer.
 // Native font dispatcher313D73 and helper boundaries establish target operation/ABI.
 // Target field and call facts are distinct from donor names: row16/cell28/payload0C,
@@ -108,69 +107,41 @@
 // was the address-named list link/unlink pair at 0x0031455E/0x00314581.
 
 typedef int Int;
-
 typedef unsigned char UnsignedByte;
-
 class GameFont;
-
 class DisplayString;
-
 enum { GWS_SCROLL_LISTBOX = 0x20 };
-
 enum { GWS_COMBO_BOX=0x8000, GWS_ENTRY_FIELD=0x40, GWS_STATIC_TEXT=0x80 };
-
 struct WindowPickCoord { int x; int y; };
-
 enum { WIN_STATUS_TAB_STOP = 0x100 };
-
 enum { WIN_STATUS_HIDDEN = 0x10 };
-
 typedef unsigned int UnsignedInt;
-
 typedef UnsignedInt WindowMsgData;
-
 enum WindowMsgHandledType
 {
 	MSG_IGNORED,
 	MSG_HANDLED
 };
-
 enum { WIN_ERR_OK = 0 };
-
 enum
 {
 	WIN_ERR_INVALID_PARAMETER = -3,
 	GGM_RESIZED = 16388
 };
-
 class GameWindow;
-
 class GameWindowManager;
-
 void GadgetComboBoxSetEnabledTextColors(GameWindow *, int, int);
-
 void GadgetListBoxSetFont(GameWindow *, GameFont *);
-
 void GadgetComboBoxSetFont(GameWindow *, GameFont *);
-
 void GadgetTextEntrySetFont(GameWindow *, GameFont *);
-
 void GadgetStaticTextSetFont(GameWindow *, GameFont *);
-
 void GadgetComboBoxSetDisabledTextColors(GameWindow *, int, int);
-
 void GadgetComboBoxSetHiliteTextColors(GameWindow *, int, int);
-
 void GadgetComboBoxSetIMECompositeTextColors(GameWindow *, int, int);
-
 typedef WindowMsgHandledType (*GameWinInputFunc)(GameWindow *, UnsignedInt, WindowMsgData, WindowMsgData);
-
 #include "../../../Include/GameClient/Bfme2WinInstanceData.h"
-
 typedef void (*GameWinDrawFunc)(GameWindow *, WinInstanceData *);
-
 typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, UnsignedInt);
-
 class GameWindowChild
 {
 public:
@@ -178,11 +149,8 @@ public:
 	virtual void draw(GameWindow *window, void *instanceData);
 	virtual void onChildPosition(int curX, int curY, int newX, int newY);
 };
-
 extern GameWindowManager *TheWindowManager;
-
 class Gadget210;
-
 class BfmeWindowDisplayString
 {
 public:
@@ -194,7 +162,6 @@ public:
 	virtual void _pad5( void ) = 0;
 	virtual void setFont( GameFont *font ) = 0;			///< vtable +0x18
 };
-
 // Shape only: whatever sits at GameWindow+0x04, BFME hands it the font through
 // its own vtable slot +0x10 every time the font changes, after whichever branch
 // ran. The reference makes no such call.
@@ -207,7 +174,6 @@ public:
 	virtual void _pad3( void ) = 0;
 	virtual void setFont( GameFont *font ) = 0;			///< vtable +0x10
 };
-
 struct BfmeWindowFontLayout
 {
 	void *vtable;
@@ -220,7 +186,6 @@ struct BfmeWindowFontLayout
 	DisplayString *text;								///< this+0x1CC
 	DisplayString *tooltip;								///< this+0x1D0
 };
-
 // ?Rva0031455ELink@Rva0031455E@@QAEXPAV1@@Z @ 0x0031455E (35B).
 // Honest address-derived list link: virtual slot 2 then insert this into list headed at arg plus 0x1DC with next at plus 0x04 and owner at plus 0x08.
 // Evidence: neighbors 0x0031450A plus 0x003145F0 plus twin unlink 0x00314581 sharing plus 0x04 plus 0x08 plus 0x1DC layout.
@@ -239,7 +204,6 @@ private:
     char m_pad[0x1DC - 0x0C];
     void *m_1DC;
 };
-
 class Rva00478180
 {
 	char m_pad[0x24];
@@ -249,7 +213,6 @@ class Rva00478180
 public:
 	int set(int a, int b);
 };
-
 // Five more: a guarded four-word copy, an indexed read behind a size test, a
 // two-flag global check, a three-argument constructor, and a visibility
 // test.
@@ -262,7 +225,6 @@ public:
 	int m_bfmeThird;					// +0x08
 	int m_bfmeFourth;					// +0x0C
 };
-
 class Gen_00478220
 {
 public:
@@ -272,7 +234,6 @@ private:
 	int m_bfmeHead[5];					// +0x00
 	BfmeQuadDO m_bfmeQuad;					// +0x14
 };
-
 // ?setFlag@Rva004784A0FlagBit@@QAEXE@Z
 // retail 0x00313D14, 20 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/FlagBitSetters.cpp (reference/open-bfme-1 @
@@ -280,7 +241,6 @@ private:
 // on unclaimed .text). Only the placed body is defined here; the donor's other
 // five setters are omitted.
 BFME_FLAG_BIT_SETTER( Rva004784A0FlagBit, 0x38, 0x2u );
-
 class Rva004784F0
 {
 	char pad[0x1AC];
@@ -290,7 +250,6 @@ class Rva004784F0
 public:
 	void get(int *a, int *b);
 };
-
 //
 // ?rva003140AB@Rva003140AB@@QAE_NPAV1@@Z @0x003140AB (29B).
 // Searches intrusive list starting at head->m_next (stride +0x200) for this.
@@ -306,7 +265,6 @@ private:
 	unsigned char m_pad[0x200];
 	Rva003140AB *m_next;
 };
-
 // The +0x34 setter at 0x0031404A is now GameWindow::winSetWindowId in
 // GameClient/GUI/GameWindowFields.cpp, identified by the script and Apt callers.
 // ?rva003140CF@Rva003140CF@@QAEHH@Z, retail 0x003140CF, 21 bytes.
@@ -322,7 +280,6 @@ private:
 	char m_pad[0x44];
 	int m_44;
 };
-
 class Rva00478E50
 {
 	char m_lead[0x1E4];
@@ -331,7 +288,6 @@ class Rva00478E50
 public:
 	int apply(void *p);
 };
-
 //
 // 18-byte flag + virtual: test byte [this+8], 0x10; if clear, call
 // vtable[+0x0C](this+0x30); always xor eax,eax / ret.
@@ -352,24 +308,17 @@ private:
 	char m_pad9[0x27];
 	char m_sub;
 };
-
 class GameMessage;
-
 enum { GWM_LEFT_UP = 6, GWM_CHAR = 0x15, GWM_MOUSE_POS = 0x18 };
-
 class SelectionTranslator;
-
 extern SelectionTranslator *TheSelectionTranslator;
-
 class BfmeSelectionTranslator
 {
 public:
 	void setLeftMouseButton( bool state );
 	void setDragSelecting( void );
 };
-
 #include "../../../Include/GameLogic/Module/UpgradeMux.h"
-
 class View
 {
 public:
@@ -480,13 +429,9 @@ public:
 	virtual void slot104();
 	virtual void setMouseLock( bool mouseLocked );	// slot 105
 };
-
 extern View *TheTacticalView;
-
 #include "../../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 // ?Rva003145B1Dispatch@Rva003145B1@@QAEHHHH@Z @ 0x003145B1 (63B).
 // Honest address-derived dispatch: if plus 0x04 then slot 4 with three args else slot 2 with three args then if first arg is 2 call own slot 2.
 // Evidence: neighbors 0x00314581 plus 0x003145F0 plus twin 0x00314596 sharing plus 0x04 plus 0x08 layout.
@@ -499,7 +444,6 @@ public:
     virtual int a3(int x, int y, int z);
     virtual int a4(int x, int y, int z);
 };
-
 class TargetB
 {
 public:
@@ -507,7 +451,6 @@ public:
     virtual int b1(int x, int y, int z);
     virtual int b2(int x, int y, int z);
 };
-
 class Rva003145B1
 {
 public:
@@ -520,7 +463,6 @@ private:
     TargetA *m_04;
     TargetB *m_08;
 };
-
 class Gadget210
 {
 public:
@@ -529,15 +471,10 @@ public:
 	virtual void Virtual18(GameWindow *win);
 	virtual void Virtual1C(GameWindow *win);
 };
-
  typedef bool Bool;
-
 enum { WIN_STATUS_ABOVE=0x20, WIN_STATUS_BELOW=0x40, WIN_STATUS_ENABLED=8, WIN_STATUS_NO_INPUT=0x200 };
-
 struct CursorCoord { int x,y; };
-
 struct CursorRegion { CursorCoord lo,hi; };
-
 class Rva003141BCWindowView {
 public:
  unsigned char opaque0[8]; unsigned m_status; CursorCoord m_size;
@@ -545,13 +482,9 @@ public:
  Rva003141BCWindowView*m_next; void*unknown1FC; Rva003141BCWindowView*m_parent; Rva003141BCWindowView*m_child;
  Rva003141BCWindowView*rva003142E1(int,int,bool,bool);
 };
-
 class AudioManager;
-
  extern AudioManager *TheAudio;
-
 struct Rva003141BCMiscView { char unknown[0x88]; OpaqueRefElement4 disabledClick; };
-
 class Rva003141BCAudioView { public:
  virtual void slot0();
  virtual void slot1();
@@ -633,7 +566,6 @@ class Rva003141BCAudioView { public:
  virtual void slot77();
  virtual const Rva003141BCMiscView *getMiscAudio();
 };
-
 // Native2C1629-2C176C; capture/grab/modal precedence and three status passes
 // follow ZH GameWindowManager donor; manager accessed prefix only.
 struct WindowBlockTail
@@ -643,9 +575,7 @@ struct WindowBlockTail
 	Int m_clear1;
 	Int m_clear2;
 };
-
 class GameWindowChild;
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
 
@@ -656,7 +586,17 @@ class GameWindowChild;
 
 
 BFME_TWO_DWORD_SETTER( Rva004784D0PairSlot, 0x1AC )
-
+enum
+{
+	WIN_ERR_INVALID_WINDOW = -2,
+	WIN_STATUS_BORDER = 0x1000,
+	WIN_STATUS_SEE_THRU = 0x10000
+};
+#include "../../../Include/GameClient/Bfme2GameWindow.h"
+WindowMsgHandledType LeftHUDInput(GameWindow *, unsigned int, unsigned int, unsigned int);
+WindowMsgHandledType GadgetPushButtonInput(GameWindow *, unsigned int, unsigned int, unsigned int);
+typedef WindowMsgHandledType (__cdecl *GameWinInputFunc)(GameWindow *, unsigned int, unsigned int, unsigned int);
+class WinInstanceData;
 class Rva0031468C
 {
 public:
@@ -668,16 +608,57 @@ private:
 	AsciiString m_str08; // +0x08
 	AsciiString m_str0C; // +0x0C
 };
-
-enum
+class GameWindowInputData
 {
-	WIN_ERR_INVALID_WINDOW = -2,
-	WIN_STATUS_BORDER = 0x1000,
-	WIN_STATUS_SEE_THRU = 0x10000
 };
-
-#include "../../../Include/GameClient/Bfme2GameWindow.h"
-inline int GameWindow::winSetTooltipFunc(GameWinTooltipFunc tooltip) { m_tooltipFunc = tooltip; return WIN_ERR_OK; }
+class GameWindowAnchor
+{
+public:
+	virtual void a00() = 0;
+	virtual void a04() = 0;
+	virtual void a08() = 0;
+	virtual void a0C() = 0;
+	virtual void a10() = 0;
+	virtual void *a14( int x ) = 0;
+};
+// The global read at 0x00DFE728 is TheIMEManager (WinMain WndProc reads it as
+// such); the other GUI bodies put TheWindowManager at 0x00DFEF1C. Generals
+// ~GameWindow likewise detaches the IME manager when it owns this window.
+// Slot names stay offset placeholders.
+class IMEManager
+{
+public:
+	virtual void m00() = 0;
+	virtual void m04() = 0;
+	virtual void m08() = 0;
+	virtual void m0C() = 0;
+	virtual void m10() = 0;
+	virtual void m14() = 0;
+	virtual void m18() = 0;
+	virtual void m1C() = 0;
+	virtual void m20() = 0;
+	virtual void m24() = 0;
+	virtual void m28() = 0;
+	virtual void m2C() = 0;
+	virtual void m30() = 0;
+	virtual void m34() = 0;
+	virtual void m38() = 0;
+	virtual void m3C() = 0;
+	virtual void m40() = 0;
+	virtual void m44() = 0;
+	virtual void m48() = 0;
+	virtual void m4C() = 0;
+	virtual GameWindow *m50() = 0;
+};
+extern IMEManager *TheIMEManager;
+void __cdecl BFME_DX8_Thread_Lock();
+bool __cdecl BFME_DX8_Thread_Assert();
+class BFMEDX8DeviceLock
+{
+public:
+	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
 
 class GameWindowManager
 {
@@ -810,17 +791,32 @@ BFME_DISP_DWORD_GETTER(Rva00314126DwordField, 0x210)
 
 BFME_DISP_DWORD_GETTER(Rva00314105DwordField, 0x1FC)
 
+// ---- from Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp
+
+bool GameWindow::vslot6() const
+{
+    return m_inputFunc == LeftHUDInput;
+}
+
+bool GameWindow::vslot8() const
+{
+    return m_inputFunc == GadgetPushButtonInput;
+}
+
+// tu-skeleton: 0x00313923 23B ?rva00313923@Rva00313923@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
+
+inline int GameWindow::winSetTooltipFunc(GameWinTooltipFunc tooltip) { m_tooltipFunc = tooltip; return WIN_ERR_OK; }
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
 // Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
 // Original owner and complete bounds unresolved; independent address-owned view.
-// tu-skeleton: 0x00313913 16B ?vslot6@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
 
-// tu-skeleton: 0x00313923 23B ?rva00313923@Rva00313923@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0031393A 16B ?vslot8@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
@@ -1841,7 +1837,6 @@ void GameWindow::winDrawBorder()
 // above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
 // negative byte offset from `this`, which folds to the same disp8 lea.
 
-// tu-skeleton: 0x00313D64 8B ?winGetTextLength@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
 
@@ -1859,6 +1854,8 @@ void GameWindow::winDrawBorder()
 // pioneered the same family in
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
 // No // cl: line (defaults match the frameless 7-byte shape).
+
+// tu-skeleton: 0x00313D64 8B ?winGetTextLength@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
 // tu-skeleton: 0x00313E8C 7B ?winGetEnabledTextColor@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
@@ -1910,18 +1907,41 @@ void GameWindow::winDrawBorder()
 
 // tu-skeleton: 0x003148A2 68B ?winSetTooltip@GameWindow@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp (not merged yet)
 
-// tu-skeleton: 0x00314926 28B ??_GRva0031468C@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp
+
+// ??1GameWindow@@MAE@XZ @0x00314A0C 184B
+// GameWindow dtor: vtable 0x0080BBCC slot0 deleting dtor at 0x00314AC4 calls here.
+// Evidence: BFME1 GameWindowDestructorThunk donor (global check, inputData/editData deletes,
+// anchor with lock), page 00314xxx sibling of GameWindow ctor 0x003145F0 (same vtable),
+// callers at 0x00104E33/0x0051273C (derived dtors), callees rowed 0x31468C/0x2FD60/0x11F520/0x120F50/0x3222B8.
+
+// GameWindow.cpp's virtual list, so both units emit the same ??_7GameWindow.
+
+GameWindow::~GameWindow()
+{
+	if ( TheIMEManager && TheIMEManager->m50() == this )
+		TheIMEManager->m3C();
+
+	if ( m_inputData )
+		delete (GameWindowInputData *)m_inputData;
+	m_inputData = 0;
+
+	if ( m_editData )
+		delete (Rva0031468C *)m_editData;
+	m_editData = 0;
+
+	if ( m_positionSink )
+	{
+		BFMEDX8DeviceLock guard;
+		void *p = m_positionSink ? ((GameWindowAnchor *)m_positionSink)->a14( 0 ) : 0;
+		delete p;
+	}
+}
 
 // tu-skeleton: 0x00314942 26B ?winGetText@GameWindow@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowWinSetInstanceData_Rva0031495c.cpp (not merged yet)
 
 // tu-skeleton: 0x0031495C 142B ?winSetInstanceData@GameWindow@@QAEHPAVWinInstanceData@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowWinSetInstanceData_Rva0031495c.cpp (not merged yet)
 
-// tu-skeleton: 0x00314A0C 184B ??1GameWindow@@MAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
+// tu-skeleton: 0x0077A514 8B Unwind@00b7a514 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp (not merged yet)
 
-// tu-skeleton: 0x00314AC4 28B ??_GGameWindow@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A526 11B Unwind@00b7a526 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A531 8B uw_0077a531 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A539 10B __ehhandler$??1GameWindow@@MAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
+// tu-skeleton: 0x0077A51C 10B __ehhandler$?winSetText@GameWindow@@UAEHVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp (not merged yet)
