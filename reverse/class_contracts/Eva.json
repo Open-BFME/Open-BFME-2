@@ -1,0 +1,755 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Eva",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 55,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 6
+   },
+   "0x20": {
+    "4": 3
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x48": {
+    "4": 1
+   },
+   "0x5c": {
+    "4": 9
+   },
+   "0x60": {
+    "4": 7
+   },
+   "0x68": {
+    "4": 3
+   },
+   "0x6c": {
+    "4": 5
+   },
+   "0x70": {
+    "4": 2
+   },
+   "0x90": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x98": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1df91b"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7dc5b8",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x7dc5a8",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1df91b"
+     ],
+     "value": 125
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1df91b"
+     ],
+     "value": {
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1df91b"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$map@HURva001DDBC6Record@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva001DDBC6Record@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x1c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x28": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x34": [
+       "??0?$hash_map@HURva001DE80FElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x48": [
+       "??0?$hash_map@HURva001DE80FElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva001DE80FElement@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x5c": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x68": [
+       "??0?$_List_base@UupgradePair@@V?$allocator@UupgradePair@@@_STL@@@_STL@@QAE@ABV?$allocator@UupgradePair@@@1@@Z"
+      ],
+      "0x80": [
+       "?rva001DCF82@Rva001DCF82@@QAEPAXXZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1df91b"
+     ],
+     "value": {
+      "0x0": "0x7dc5b8",
+      "0xc": "0x7dc5a8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7dc5b8"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GEva@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1df3d5"
+       },
+       {
+        "name": "?init@Eva@@UAEXXZ",
+        "slot": 1,
+        "target": "0x1df0f9"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@Eva@@QAEXXZ",
+        "slot": 9,
+        "target": "0x1df1a4"
+       },
+       {
+        "name": "?update@Eva@@UAEXXZ",
+        "slot": 10,
+        "target": "0x1de156"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7dc5b8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 16,
+  "retail_vtables": {
+   "0x7dc5a8": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7dc5b8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GEva@@UAEPAXI@Z",
+     "1": "?init@Eva@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@Eva@@QAEXXZ",
+     "10": "?update@Eva@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 36,
+   "4": 2,
+   "12": 1,
+   "16": 2,
+   "53": 1,
+   "72": 1,
+   "84": 1,
+   "96": 1,
+   "104": 1,
+   "108": 1,
+   "124": 1,
+   "132": 1,
+   "140": 1,
+   "144": 1,
+   "148": 1,
+   "152": 1
+  },
+  "views": 53,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Eva.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Eva.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp",
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB03.cpp",
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/EvaMessageName.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DE78E.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 53,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 54,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaMessageName.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 73,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaInit.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DD670.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001DF057Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaRva001DDF04.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp",
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/EvaCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/EvaUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Eva.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "6": 1
+   },
+   "class": "Eva"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 36,
+    "4": 2,
+    "12": 1,
+    "16": 2,
+    "53": 1,
+    "72": 1,
+    "84": 1,
+    "96": 1,
+    "104": 1,
+    "108": 1,
+    "124": 1,
+    "132": 1,
+    "140": 1,
+    "144": 1,
+    "148": 1,
+    "152": 1
+   },
+   "class": "Eva"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "init()"
+  }
+ }
+}

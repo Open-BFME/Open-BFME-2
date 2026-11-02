@@ -265,3 +265,4 @@ Parameter,Code/GameEngine/Include/GameLogic/ScriptParameter.h,existing header; c
 Radar,Code/GameEngine/Include/Common/Radar.h,existing header; contract class_contracts/Radar.json; 28/54 sampled units adopt
 DisplayString,Code/GameEngine/Include/GameClient/DisplayString.h,existing header; contract class_contracts/DisplayString.json; 30/52 sampled units adopt
 MapMetaData,Code/GameEngine/Include/GameClient/MapMetaData.h,existing header; contract class_contracts/MapMetaData.json; 22/56 sampled units adopt
+Eva,Code/GameEngine/Include/GameClient/Eva.h,existing header; contract class_contracts/Eva.json; 35/55 sampled units adopt
