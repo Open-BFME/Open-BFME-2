@@ -1,0 +1,109 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "HotKeyManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 24,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 9,
+  "retail_vtables": {},
+  "view_errors": 15,
+  "view_sizes": {
+   "1": 7,
+   "48": 2
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_HotKeyManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/HotKey.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
