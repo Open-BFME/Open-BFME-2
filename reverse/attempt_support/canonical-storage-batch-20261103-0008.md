@@ -1,7 +1,7 @@
 # 8 verified BFME2 declaration cleanup and queue item(s)
 
 Base `c55cddf26377555521449e646a4cc1efb04db6f9`. 2 separately claimed source units replace private
-storage definitions with existing registered headers. 3 other source units adopt real standard headers or remove redundant declarations already supplied by existing headers. 3 other
+storage definitions with existing registered headers. 4 other source units adopt real standard headers or remove redundant declarations already supplied by existing headers. 2 other
 item(s) refresh already-completed queue evidence without changing source.
 Normal gates preserve 137 native function/EH rows, 18631 ledger-extent
 bytes, 255 retained external code bodies/relocation lists and
@@ -14,7 +14,7 @@ No native/authored-byte or runtime improvement is claimed.
 - [Use real Microsoft declarations in EAStringCConcat](eastringcconcat-microsoft-headers-20261103-0008.md): 16 existing rows, 13 retained external definitions.
 - [Use real Microsoft declarations in AptMovieFrameControls](aptmovieframecontrols-microsoft-headers-20261103-0008.md): 20 existing rows, 15 retained external definitions.
 - [Refresh completed Microsoft-header key for InGameHeroSelectInterface](ingameheroselectinterface-microsoft-headers-20261103-0008.md): 32 existing rows, 78 retained external definitions.
-- [Refresh completed Microsoft-header key for PlayerInitFromDict](playerinitfromdict-microsoft-headers-20261103-0008.md): 31 existing rows, 46 retained external definitions.
+- [Repair PlayerInitFromDict include inventory and refresh its completed Microsoft key](playerinitfromdict-microsoft-headers-20261103-0008.md): 31 existing rows, 46 retained external definitions.
 - [Refresh completed Microsoft-header key for PolygonTrigger](polygontrigger-microsoft-headers-20261103-0008.md): 26 existing rows, 38 retained external definitions.
 - [Remove redundant scalar-delete declaration in MeshModelReset](meshmodelreset-microsoft-headers-20261103-0008.md): 3 existing rows, 4 retained external definitions.
 
@@ -94,4 +94,21 @@ Immutable outgoing audit at `c55cddf26377555521449e646a4cc1efb04db6f9` -> `d5b1e
 ```text
 link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base c55cddf26377555521449e646a4cc1efb04db6f9; findings below are provisional since-index changes
 link batch audit: INCONCLUSIVE: 1 source object(s) lack current receipts; first: Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
+```
+
+## Include-inventory follow-up
+
+The initial audit's own-source missing receipt for PlayerInitFromDict is
+explained by its whole-checkout include root. The bounded repair removes that
+redundant root, anchors the same header, and preserves every native row and
+complete non-debug section. The eight tasks now comprise two canonical-storage
+adoptions, three standard-declaration cleanups, one include-inventory repair
+and two maintenance-only queue refreshes. The initial audit above is retained
+as history; the follow-up audit below supersedes its own-source finding.
+
+Follow-up audit at `f9d80791fbee55243090c30df3e52da0ea323503`, exit 2:
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base c55cddf26377555521449e646a4cc1efb04db6f9; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
 ```

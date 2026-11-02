@@ -12,11 +12,11 @@
 // FF404040 and the null-template branch copies it into both color fields.
 // WB debug labels on reset include an inlined BitFlags::SetBit; its scoring
 // masks, map resets, player-index store and native call site identify reset.
-// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 #include "ascii_string.h"
 #include "unicode_string.h"
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <list>
 #include <vector>
 #include <hash_map>
