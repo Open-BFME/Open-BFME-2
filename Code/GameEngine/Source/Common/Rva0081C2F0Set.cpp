@@ -9,7 +9,7 @@ static int Rva0081C2F0VTableAnchor;
 class Rva0081C2F0
 {
 	void *m_vt;
-	int m_04, m_08, m_0C, m_10, m_14, m_18, m_1C;
+	int m_04, m_08, m_width, m_10, m_14, m_18, m_1C;
 	float m_20;
 	int m_24;
 	char m_28;
@@ -24,7 +24,7 @@ Rva0081C2F0 &Rva0081C2F0::set(int n)
 	m_vt = (void *)&Rva0081C2F0VTableAnchor;
 	m_04 = 0;
 	m_08 = 0;
-	m_0C = 0;
+	m_width = 0;
 	m_10 = 0;
 	m_14 = 0;
 	m_18 = 0;

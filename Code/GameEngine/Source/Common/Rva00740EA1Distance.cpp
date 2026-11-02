@@ -5,9 +5,9 @@
 typedef unsigned char Byte;
 int __cdecl Rva00740EA1DistanceSquared(const Byte *lhs, const Byte *rhs)
 {
-	int d0 = (int)rhs[0] - (int)lhs[0];
-	int d1 = (int)rhs[1] - (int)lhs[1];
-	int d2 = (int)rhs[2] - (int)lhs[2];
-	int d3 = (int)rhs[3] - (int)lhs[3];
-	return d0 * d0 + d1 * d1 + d2 * d2 + d3 * d3;
+	int componentDelta0 = (int)rhs[0] - (int)lhs[0];
+	int componentDelta1 = (int)rhs[1] - (int)lhs[1];
+	int componentDelta2 = (int)rhs[2] - (int)lhs[2];
+	int componentDelta3 = (int)rhs[3] - (int)lhs[3];
+	return componentDelta0 * componentDelta0 + componentDelta1 * componentDelta1 + componentDelta2 * componentDelta2 + componentDelta3 * componentDelta3;
 }

@@ -73,9 +73,9 @@ Rva006ED2A0::~Rva006ED2A0()
         g_pChainBlockAllocator->freeBlock(eAStringC, 0x20);
         m_68 = 0;
     }
-    void *p20 = m_20;
-    if (p20 && p20 != (void *)&g_00DDC2E0) {
-        g_00E17774(p20, 2);
+    void *ownedBlock = m_20;
+    if (ownedBlock && ownedBlock != (void *)&g_00DDC2E0) {
+        g_00E17774(ownedBlock, 2);
         m_20 = 0;
     }
     if (m_74 & 1) {

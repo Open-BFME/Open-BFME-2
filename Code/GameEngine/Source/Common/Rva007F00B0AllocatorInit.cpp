@@ -26,33 +26,33 @@ extern class GenAlloc *g_genAlloc;
 
 void Rva007F00B0(void *allocate, void *release)
 {
-	Rva007F00B0Allocator *p;
+	Rva007F00B0Allocator *allocator;
 
 	if ((*(Rva007F00B0Allocator **)&g_genAlloc))
 		return;
 
 	if (allocate)
 	{
-		p = (Rva007F00B0Allocator *)((Rva007F00B0Allocate)allocate)(12, 0);
-		if (p)
-			p->m_allocate = allocate;
+		allocator = (Rva007F00B0Allocator *)((Rva007F00B0Allocate)allocate)(12, 0);
+		if (allocator)
+			allocator->m_allocate = allocate;
 		else
 			goto clear;
 	}
 	else
 	{
-		p = (Rva007F00B0Allocator *)::operator new(12);
-		if (p)
-			p->m_allocate = reinterpret_cast<void *>(&Rva0065CEC0Allocate);
+		allocator = (Rva007F00B0Allocator *)::operator new(12);
+		if (allocator)
+			allocator->m_allocate = reinterpret_cast<void *>(&Rva0065CEC0Allocate);
 		else
 			goto clear;
 	}
 
-	p->m_vtable = (void *)((unsigned int)__identifier("??_7Rva007F0080Owner@@6B@"));
+	allocator->m_vtable = (void *)((unsigned int)__identifier("??_7Rva007F0080Owner@@6B@"));
 	if (!release)
 		release = reinterpret_cast<void *>(&Rva0065CED0Release);
-	p->m_release = release;
-	(*(Rva007F00B0Allocator **)&g_genAlloc) = p;
+	allocator->m_release = release;
+	(*(Rva007F00B0Allocator **)&g_genAlloc) = allocator;
 	return;
 
 clear:

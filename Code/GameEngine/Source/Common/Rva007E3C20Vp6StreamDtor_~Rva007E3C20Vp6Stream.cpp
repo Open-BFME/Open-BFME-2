@@ -130,7 +130,7 @@ class Rva007E3C20Vp6Stream : public Gen_0081E480
 public:
 	virtual ~Rva007E3C20Vp6Stream();
 	void rva000908F6();
-	void rva000909B7();
+	void uploadFrame();
 	__forceinline void renderAlpha(VP6YUVConfig &frame, VP6YUVConfig &alpha, void *bits, int pitch);
 	__forceinline void renderOpaque(VP6YUVConfig &frame, void *bits, int pitch);
 
@@ -212,7 +212,7 @@ void Rva007E3C20Vp6Stream::rva000908F6()
 	++m_at48;
 }
 
-// ?rva000909B7@Rva007E3C20Vp6Stream@@QAEXXZ, retail 0x000909B7..0x00090F72
+// ?uploadFrame@Rva007E3C20Vp6Stream@@QAEXXZ, retail 0x000909B7..0x00090F72
 // (1467 bytes, EH): table 0x00BC7F20 slot 3, the frame upload. Under the
 // device lock (0x0011F520/0x00120F50) it locks the +0x2C texture (format 5 or
 // 2), fetches the decoded planes through VP6_GetYUVConfig (0x001B5C60; a
