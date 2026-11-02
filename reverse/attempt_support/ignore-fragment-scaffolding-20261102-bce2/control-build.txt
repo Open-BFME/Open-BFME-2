@@ -1,0 +1,11 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 5 row(s) verified past a renumbered $L label
+    ?rva0078228f@@YAXXZ (Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp): $L10031 was renumbered; verified parent EH data places $L7956 at 0x0078228F
+    Unwind@00b82277 (Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp): $L9816 was renumbered; verified parent EH data places $L7953 at 0x00782277
+    Unwind@00b8227f (Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp): $L9817 was renumbered; verified parent EH data places $L7954 at 0x0078227F
+    Unwind@00b82287 (Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp): $L9818 was renumbered; verified parent EH data places $L7955 at 0x00782287
+    Unwind@00b7fa69 (Code/GameEngine/Source/Common/UserPreferencesDeferredIgnores.cpp): $L9695 was renumbered; verified parent EH data places $L7866 at 0x0077FA69
+Functions: OK 13/13 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)

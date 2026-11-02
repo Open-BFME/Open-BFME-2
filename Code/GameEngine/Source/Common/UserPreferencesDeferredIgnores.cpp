@@ -17,14 +17,9 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// UserPreferences, reconciled from Zero Hour's Common/UserPreferences.cpp.
-// Retail tells: the vtable at 0x00C1EF0C lists thirteen slots -- the
-// deleting destructor, load(UnicodeString), load(AsciiString), write, the
-// four typed getters plus a name-table lookup, getAsciiString, three typed
-// setters and setAsciiString -- so BFME 2 made every accessor virtual and
-// passes keys by const reference. The file name is a UnicodeString at +0x10
-// (the map occupies +4..+0xF); load(AsciiString) widens its leaf name and
-// forwards to the wide overload.
+// IgnorePreferences::getIgnores, reconciled from Zero Hour's UserPreferences.cpp.
+// The independent preference methods and their string-keyed map remain in
+// UserPreferences.cpp; the canonical header supplies the shared base layout.
 
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #include <utility>
@@ -51,11 +46,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include <stdlib.h>
 
-#include <stdio.h>
-
-typedef bool Bool;
 typedef int Int;
-typedef float Real;
 
 #include "../../Include/Common/BfmeStringData.h"
 
@@ -71,22 +62,6 @@ namespace _STL { template <> _Rb_tree<int, pair<int const, AsciiString>, _Select
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString;
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<int const ,AsciiString> > >::deallocate(_Rb_tree_node<pair<int const ,AsciiString> > *,unsigned int) const; }
-// Suppress this TU's non-retail copy of ??0?$_Rb_tree_base@U?$pair@$$CBVAsciiString@@V1@@_STL@@V?$allocator@U?$pair@$$CBVAsciiStri:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
-namespace _STL { template <> _Rb_tree_base<pair<AsciiString const ,AsciiString>,allocator<pair<AsciiString const ,AsciiString> > >::_Rb_tree_base(allocator<pair<AsciiString const ,AsciiString> > const &); }
-// Suppress this TU's non-retail copy of ??1?$_Rb_tree_base@U?$pair@$$CBVAsciiString@@V1@@_STL@@V?$allocator@U?$pair@$$CBVAsciiStri:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
-namespace _STL { template <> _Rb_tree_base<pair<AsciiString const ,AsciiString>,allocator<pair<AsciiString const ,AsciiString> > >::~_Rb_tree_base(); }
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@_STL@@@_STL@@Q:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
-namespace _STL { template <> _Rb_tree_node<pair<AsciiString const ,AsciiString> > * allocator<_Rb_tree_node<pair<AsciiString const ,AsciiString> > >::allocate(unsigned int,void const *) const; }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@_STL@@@_STL@:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class AsciiString;
-namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const ,AsciiString> > >::deallocate(_Rb_tree_node<pair<AsciiString const ,AsciiString> > *,unsigned int) const; }
 // Suppress this TU's non-retail copy of ??0?$_Rb_tree_base@U?$pair@$$CBHVAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBHVAsciiStrin:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString;
@@ -105,34 +80,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
-namespace _STL
-{
-template <> struct less<AsciiString>
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const
-	{
-		return left < right;
-	}
-};
-}
-
-// The two-string tree's destructor, _M_erase, erase(iterator) and _M_create_node are the
-// rowed stlport_string_pair_cleanup.cpp and stlport_rb_tree_hint_asciistring_pair.cpp bodies.
-// bfme link decl-only begin
-namespace _STL { template <> _Rb_tree<AsciiString,pair<AsciiString const,AsciiString>,_Select1st<pair<AsciiString const,AsciiString> >,less<AsciiString>,allocator<pair<AsciiString const,AsciiString> > >::~_Rb_tree(); }
-namespace _STL { template <> void _Rb_tree<AsciiString,pair<AsciiString const,AsciiString>,_Select1st<pair<AsciiString const,AsciiString> >,less<AsciiString>,allocator<pair<AsciiString const,AsciiString> > >::_M_erase(_Rb_tree_node<pair<AsciiString const,AsciiString> > *); }
-namespace _STL { template <> void _Rb_tree<AsciiString,pair<AsciiString const,AsciiString>,_Select1st<pair<AsciiString const,AsciiString> >,less<AsciiString>,allocator<pair<AsciiString const,AsciiString> > >::erase(_Rb_tree_iterator<pair<AsciiString const,AsciiString>,_Nonconst_traits<pair<AsciiString const,AsciiString> > >); }
-namespace _STL { template <> _Rb_tree_node<pair<AsciiString const,AsciiString> > * _Rb_tree<AsciiString,pair<AsciiString const,AsciiString>,_Select1st<pair<AsciiString const,AsciiString> >,less<AsciiString>,allocator<pair<AsciiString const,AsciiString> > >::_M_create_node(pair<AsciiString const,AsciiString> const &); }
-// bfme link decl-only end
-
-typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
-
 #include "../../Include/Common/UserPreferences.h"
-
-// BFME 2's user-data path getter (rowed by address at 0x002360FC).
-#include "../../Include/Common/GlobalData.h"
-
-extern class GlobalData *TheWritableGlobalData;
 
 // The int-keyed map contracts are deferred here until their existing
 // identity conflicts are repaired; independent string-keyed preferences stay
