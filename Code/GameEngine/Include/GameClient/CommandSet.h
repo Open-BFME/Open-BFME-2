@@ -7,7 +7,7 @@
 #include "../Common/Overridable.h"
 #include "CommandButton.h"
 
-class AsciiString;
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class CommandButton;
 class INI;
 struct FieldParse;
