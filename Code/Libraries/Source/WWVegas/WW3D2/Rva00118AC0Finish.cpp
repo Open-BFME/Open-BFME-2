@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Rva00118AC0@@YAXXZ
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118AC0@@YAXXZ @ 0x00118AC0 (138B): stencil-gated Clear unlock.
@@ -17,12 +18,7 @@ public:
 	float Y;
 	float Z;
 };
-class DX8Wrapper
-{
-public:
-	static bool Has_Stencil();
-	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
-};
+#include "DX8WrapperClass.h"
 extern unsigned char g_Va00DB5FB8;
 extern int g_Va00DB5FB4;
 void __cdecl Rva00118AC0()

@@ -1,10 +1,7 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118810@@YAXXZ 0x00118810 129 unlock DX8 render-state setup via Set_DX8_Render_State caller 0x00155AD0
-class DX8Wrapper
-{
-public:
-	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
-};
+#include "DX8WrapperClass.h"
 extern unsigned int g_Va00DEC4A8;
 #define g_00DEC4A8 g_Va00DEC4A8
 // Native RVA 0x009B5FB0 is a mutable four-byte render-state value initially

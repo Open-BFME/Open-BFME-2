@@ -1,4 +1,4 @@
-// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // DX8Wrapper::Set_Render_Target_With_Z retail 0x00120850 (228 B).
 // Donor: reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/
 // DX8Wrapper_Set_Render_Target_With_Z.cpp (BFME 1 0x00906F10). BFME 2 keeps
@@ -57,16 +57,7 @@ class ZTextureClass : public CursorTextureSlot
 {
 };
 
-class DX8Wrapper
-{
-public:
-	static void Set_Render_Target_With_Z(TextureClass *texture, ZTextureClass *ztexture);
-	static void Set_Render_Target(IDirect3DSurface8 *renderTarget, IDirect3DSurface8 *depthBuffer);
-	static void Set_Render_Target(IDirect3DSurface8 *renderTarget, bool useDefaultDepthBuffer);
-
-protected:
-	static bool IsRenderToTexture;
-};
+#include "DX8WrapperClass.h"
 
 // ?Set_Render_Target_With_Z@DX8Wrapper@@SAXPAVTextureClass@@PAVZTextureClass@@@Z
 void DX8Wrapper::Set_Render_Target_With_Z(TextureClass *texture, ZTextureClass *ztexture)

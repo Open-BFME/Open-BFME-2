@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // The DX8Wrapper enum-to-string helpers from WW3D2/dx8wrapper.cpp, taken
 // verbatim from the reference tree. Each is a switch over a D3D enum
@@ -218,30 +219,7 @@
 // (D3DRENDERSTATETYPE)195 DEPTHBIAS spelling through this alias.
 typedef unsigned long D3DRENDERSTATETYPE;
 
-class DX8Wrapper
-{
-public:
-    static const char *Get_DX8_Blend_Name(unsigned value);
-    static const char *Get_DX8_Blend_Op_Name(unsigned value);
-    static const char *Get_DX8_Cmp_Func_Name(unsigned value);
-    static const char *Get_DX8_Cull_Mode_Name(unsigned value);
-    static const char *Get_DX8_Debug_Monitor_Token_Name(unsigned value);
-    static const char *Get_DX8_Fill_Mode_Name(unsigned value);
-    static const char *Get_DX8_Fog_Mode_Name(unsigned value);
-    static const char *Get_DX8_Material_Source_Name(unsigned value);
-    static const char *Get_DX8_Patch_Edge_Style_Name(unsigned value);
-    static const char *Get_DX8_Render_State_Name(unsigned long state);
-    static const char *Get_DX8_Shade_Mode_Name(unsigned value);
-    static const char *Get_DX8_Stencil_Op_Name(unsigned value);
-    static const char *Get_DX8_Texture_Address_Name(unsigned value);
-    static const char *Get_DX8_Texture_Arg_Name(unsigned value);
-    static const char *Get_DX8_Texture_Filter_Name(unsigned value);
-    static const char *Get_DX8_Texture_Op_Name(unsigned value);
-    static const char *Get_DX8_Texture_Stage_State_Name(unsigned long state);
-    static const char *Get_DX8_Texture_Transform_Flag_Name(unsigned value);
-    static const char *Get_DX8_Vertex_Blend_Flag_Name(unsigned value);
-    static const char *Get_DX8_ZBuffer_Type_Name(unsigned value);
-};
+#include "DX8WrapperClass.h"
 
 const char* DX8Wrapper::Get_DX8_Texture_Op_Name(unsigned value)
 {

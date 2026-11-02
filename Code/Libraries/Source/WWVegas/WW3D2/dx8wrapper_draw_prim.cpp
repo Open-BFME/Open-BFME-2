@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // DX8Wrapper 4-arg draw wrappers. Both tail into landed
 // DX8Wrapper::Draw at 0x001203C0 with a trailing true.
@@ -6,21 +6,7 @@
 //   Draw_Strip      0x001206D0  33 bytes  type=5 (TRIANGLESTRIP)
 // Kept out of dx8wrapper.cpp so its other claimed bodies stay put.
 
-class DX8Wrapper
-{
-public:
-	static void Draw_Triangles(unsigned start_index, unsigned polygon_count,
-		unsigned min_vertex_index, unsigned vertex_count);
-	static void Draw_Strip(unsigned start_index, unsigned polygon_count,
-		unsigned min_vertex_index, unsigned vertex_count);
-	// Two-argument, non-indexed siblings with no Zero Hour counterpart, so
-	// their names are address-derived.
-	static void bfmeRva00120650(unsigned start_vertex, unsigned polygon_count);
-	static void bfmeRva00120700(unsigned start_vertex, unsigned polygon_count);
-private:
-	static void Draw(unsigned type, unsigned start_index, unsigned polygon_count,
-		unsigned min_vertex_index, unsigned vertex_count, bool extra);
-};
+#include "DX8WrapperClass.h"
 
 // 0x00120650, 29 bytes: a non-indexed triangle list -- three vertices per
 // polygon from start_vertex, Draw's trailing flag false.

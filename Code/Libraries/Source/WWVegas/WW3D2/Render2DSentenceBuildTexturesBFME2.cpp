@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 #include "vector2i.h"
 // BFME1 9cbfb551fe20 render2dsentence.cpp Build_Textures semantic source.
 // Target 154FD0..1551C0/496B: one-pointer surface and texture owners;
@@ -130,12 +130,7 @@ public:
 struct IDirect3DDevice8;
 // dx8wrapper.cpp's protected static (?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A), read through
 // dx8wrapper.h's accessor; dllimport keeps the accessor inline-only.
-class DX8Wrapper {
-public:
- __declspec(dllimport) __forceinline static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-protected:
- static IDirect3DDevice8 *D3DDevice;
-};
+#include "DX8WrapperClass.h"
 extern unsigned number_of_DX8_calls;
 class Rva00154FD0 {
 public:

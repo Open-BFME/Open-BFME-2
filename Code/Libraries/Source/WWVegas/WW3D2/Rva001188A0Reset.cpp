@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva001188A0@@YAXXZ @ 0x001188A0 (22B): conditional DX8 render-state reset
 // cmp dword [0x00DEC4A8],0; je; push 0; push 0x34; call
@@ -15,11 +16,7 @@ extern unsigned int g_Va00DEC4A8;
 // g_Va00DEC4A8: matched references place it at VA 0xdec4a8 (zero-filled .bss).
 unsigned int g_Va00DEC4A8;
 
-class DX8Wrapper
-{
-public:
-	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
-};
+#include "DX8WrapperClass.h"
 
 void Rva001188A0(void)
 {

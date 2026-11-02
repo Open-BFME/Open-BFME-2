@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // DX8Wrapper::Get_DX8_Texture_Stage_State_Value_Name (retail 0x00120B90,
 // 266 bytes): switch over the D3D texture-stage state formatting the value
@@ -52,14 +53,7 @@ enum D3DTEXTURESTAGESTATETYPE
 #define D3DTSS_TCI_CAMERASPACEPOSITION 0x00020000
 #define D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR 0x00030000
 
-class DX8Wrapper
-{
-public:
-	static const char *Get_DX8_Texture_Op_Name(unsigned value);
-	static const char *Get_DX8_Texture_Arg_Name(unsigned value);
-	static const char *Get_DX8_Texture_Transform_Flag_Name(unsigned value);
-	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
-};
+#include "DX8WrapperClass.h"
 
 void DX8Wrapper::Get_DX8_Texture_Stage_State_Value_Name(StringClass &name, unsigned long state, unsigned value)
 {

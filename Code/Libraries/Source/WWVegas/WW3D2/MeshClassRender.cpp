@@ -347,14 +347,7 @@ class RenderObjClass;
 
 #include "WW3DClass.h"
 
-class DX8Wrapper
-{
-public:
-	static bool Get_Fog_Enable(void) { return FogEnable; }
-
-protected:
-	static bool FogEnable;
-};
+#include "DX8WrapperClass.h"
 
 extern bool bfmeOnlyEmissiveDraws;
 

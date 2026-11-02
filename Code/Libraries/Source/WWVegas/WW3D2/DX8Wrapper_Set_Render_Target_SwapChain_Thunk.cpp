@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Open-BFME5: DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8*) lifted to standalone
 // C++. Retail calls the swap chain's GetBackBuffer through vtable slot 0x14, one slot
 // later than the stock D3D8 header (QueryInterface/AddRef/Release/Present/GetBackBuffer
@@ -34,18 +34,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
-class DX8Wrapper
-{
-public:
-	static void Set_Render_Target(IDirect3DSwapChain8 *swap_chain);
-	static void Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer);
-
-protected:
-	// BFME 2's existing owner is ?IsRenderToTexture@DX8Wrapper@@1_NA,
-	// defined by dx8wrapper.cpp at retail VA 0x00DEDA48. The access level
-	// is part of the data symbol; the BFME 1 donor uses private instead.
-	static bool IsRenderToTexture;
-};
+#include "DX8WrapperClass.h"
 
 // ?Set_Render_Target@DX8Wrapper@@SAXPAUIDirect3DSwapChain8@@@Z
 void DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8 *swap_chain)

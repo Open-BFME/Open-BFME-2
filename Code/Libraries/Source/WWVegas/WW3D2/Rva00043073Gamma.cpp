@@ -1,4 +1,4 @@
-// cl: /EHsc /DNDEBUG /MD
+// cl: /EHsc /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Gamma-setter at 0x00043073 (85B): when the +0x18 flag is clear, takes the
 // DX8 device lock, sets the gamma ramp, and releases. The inline unwind guard
 // couples the rowed acquire 0x0011F520 with the rowed release 0x00120F50, and
@@ -7,11 +7,7 @@
 // parameter is the bool Set_Gamma slot and the fifth is a literal 0, which is
 // what orders the pushes as push-0 then push-f.
 void BFME_DX8_Thread_Lock();
-class DX8Wrapper
-{
-public:
-	static void Set_Gamma(float r, float g, float b, bool f, bool x);
-};
+#include "DX8WrapperClass.h"
 bool BFME_DX8_Thread_Assert();
 
 struct Rva00043073Guard

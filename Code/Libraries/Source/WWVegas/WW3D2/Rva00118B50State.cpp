@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva00118B50@@YAXXZ @ 0x00118B50 (68B): conditional float plus triple stores
 // call ?Has_Stencil@DX8Wrapper@@SA_NXZ; test al,al;
@@ -23,11 +24,7 @@ extern unsigned int g_Va00DEC4A8;
 extern unsigned int g_Va00DEC4A4;
 extern unsigned int g_Va00DEC4A0;
 
-class DX8Wrapper
-{
-public:
-	static bool Has_Stencil(void);
-};
+#include "DX8WrapperClass.h"
 
 void Rva00118B50(void)
 {
