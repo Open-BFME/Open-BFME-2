@@ -23,17 +23,13 @@ typedef unsigned int UnsignedInt;
 static __forceinline void ContactSet(Coord3D *out,float x,float y,float z){out->x=x;out->y=y;out->z=z;}
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-struct Vector4
-{
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
 
 class Matrix3D
 {
 public:
+	__forceinline Matrix3D() {}
 	void Get_Orthogonal_Inverse(Matrix3D &inverse) const;
 
 	static __forceinline void Transform_Vector(
@@ -66,11 +62,7 @@ public:
 			+ matrix.Row[2].W;
 	}
 
-	union
-	{
-		float m_rows[3][4];
-		Vector4 Row[3];
-	};
+	Vector4 Row[3];
 };
 
 __forceinline Vector3 operator *(const Matrix3D &matrix, const Vector3 &input)
@@ -186,18 +178,18 @@ Bool Object::getWorldspaceBestContactPoint(Coord3D *pointOut,
 	const Matrix3D *transform = &m_transform;
 	Matrix3D inverseTransform;
 	transform->Get_Orthogonal_Inverse(inverseTransform);
-	float localY = inverseTransform.m_rows[1][0] * localCallerVector.X
-		+ inverseTransform.m_rows[1][1] * localCallerVector.Y
-		+ inverseTransform.m_rows[1][2] * localCallerVector.Z
-		+ inverseTransform.m_rows[1][3];
-	float localZ = inverseTransform.m_rows[2][0] * localCallerVector.X
-		+ inverseTransform.m_rows[2][1] * localCallerVector.Y
-		+ inverseTransform.m_rows[2][2] * localCallerVector.Z
-		+ inverseTransform.m_rows[2][3];
-	float localX = inverseTransform.m_rows[0][0] * localCallerVector.X
-		+ inverseTransform.m_rows[0][1] * localCallerVector.Y
-		+ inverseTransform.m_rows[0][2] * localCallerVector.Z
-		+ inverseTransform.m_rows[0][3];
+	float localY = inverseTransform.Row[1].X * localCallerVector.X
+		+ inverseTransform.Row[1].Y * localCallerVector.Y
+		+ inverseTransform.Row[1].Z * localCallerVector.Z
+		+ inverseTransform.Row[1].W;
+	float localZ = inverseTransform.Row[2].X * localCallerVector.X
+		+ inverseTransform.Row[2].Y * localCallerVector.Y
+		+ inverseTransform.Row[2].Z * localCallerVector.Z
+		+ inverseTransform.Row[2].W;
+	float localX = inverseTransform.Row[0].X * localCallerVector.X
+		+ inverseTransform.Row[0].Y * localCallerVector.Y
+		+ inverseTransform.Row[0].Z * localCallerVector.Z
+		+ inverseTransform.Row[0].W;
 	localCallerVector.X = localX;
 	localCallerVector.Y = localY;
 	localCallerVector.Z = localZ;

@@ -11,13 +11,8 @@
 // emit `add eax,0xFFFFFFFF` where retail emits `sub eax,1`.
 // WWMath's Vector3 is a class with three float components. The native
 // 0x11D330 Clear provider consumes this same 12B view (class-tagged ABI).
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../WWMath/Vector3Data.h"
+
 #include "DX8WrapperClass.h"
 extern unsigned char g_Va00DB5FB8;
 extern int g_Va00DB5FB4;
@@ -31,12 +26,12 @@ void __cdecl Rva00118AC0()
 			g_Va00DB5FB4 = 0xff;
 		else if (v != 0xff)
 			return;
-		Vector3 black = { 0.0f, 0.0f, 0.0f };
+		Vector3 black(0.0f, 0.0f, 0.0f);
 		DX8Wrapper::Clear(false, false, true, black, 0.0f, 0.0f, 0);
 	}
 	else
 	{
-		Vector3 black = { 0.0f, 0.0f, 0.0f };
+		Vector3 black(0.0f, 0.0f, 0.0f);
 		DX8Wrapper::Clear(false, true, true, black, 0.0f, 0.0f, 0);
 	}
 }

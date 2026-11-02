@@ -30,13 +30,8 @@ void Rva001049C7AddTriangle(Render2DClass *renderer,
 // The same word is passed to final cdecl flush1173F0; its unused parameter
 // is corroborated by BFME1 WW3D::Flush(RenderInfoClass&), while the original
 // wrapper and receiver names/types remain unknown target views.
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 void __cdecl rva001173f0(unsigned int);
 
@@ -197,7 +192,7 @@ void Rva001040D5::rva0010473F(int viewportX, int viewportY, int width, int heigh
 void Rva001040D5::rva00104956(unsigned int arg)
 {
 	DX8Wrapper::Apply_Render_State_Changes();
-	Vector3 black = { 0.0f, 0.0f, 0.0f };
+	Vector3 black(0.0f, 0.0f, 0.0f);
 	DX8Wrapper::Clear(false, true, true, black, 0.0f, 1.0f, 0);
 	ListNode *listNode = m_list.m_next;
 	while (listNode != &m_list)

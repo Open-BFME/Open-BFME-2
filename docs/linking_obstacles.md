@@ -25,6 +25,11 @@ Recorded `blocked` in reverse/re_attempts.log.
 
 # Linking obstacle register
 
+### Canonical vector storage batch 20261102-1632
+
+6 existing source units adopt registered storage; 10 native/EH rows and 48 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.
+[Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261102-1632.md).
+
 ### Six-source rendering and transport Matrix3D batch (2026-11-02)
 
 68 native/EH rows and 174 retained external code definitions preserved; 6 owning Matrix3D queue rows retired. Strict/current and new-variant checks pass. Bounded preview remains distinct from a census; outgoing audit exit 2, complete current selection and runtime remain unproven.

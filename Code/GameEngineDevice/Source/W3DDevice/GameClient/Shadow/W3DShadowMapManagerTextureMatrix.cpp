@@ -10,18 +10,8 @@
 // them (fxshadernamespacesas.cpp's views).
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float &operator[](int i) { return (&X)[i]; }
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
 
 class Matrix3D
 {

@@ -44,15 +44,8 @@ struct SailCoord3D : Coord3D
 	Real dot(const Coord3D &c3dIn) const { return x * c3dIn.x + y * c3dIn.y + z * c3dIn.z; }
 };
 
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-	__forceinline float &operator[](int i) { return (&X)[i]; }
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
 
 class Matrix3D
 {

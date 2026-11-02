@@ -792,3 +792,8 @@ the combined change passes all nine consumer/provider rows and the complete
 EH graph under MSVC 7.1. This is a measured per-TU setting, not permission to
 redirect other callers to this allocator.
 Evidence: reverse/attempt_support/20261026-apt-options-crt-free.md.
+
+
+## Canonical Vector4 and empty parent construction (2026-11-02, batch1632)
+
+In W3DDisplayDrawSkirmishAIStats.cpp (/O1 /G7 /arch:SSE /EHsc), replacing the private POD Vector4 makes the implicit Matrix3D construction emit two out-of-line constructor calls and changes the 524-byte parent. Explicitly declaring the same empty Matrix3D default constructor __forceinline removes those calls and restores all native bytes and relocations. The added unused 22-byte constructor matches the previously measured Vector4/array-iterator profile; no retained runtime/data root reaches it. ObjectWorldspaceBestContactPoint.cpp also needs its float/Vector4 union replaced by identical 48-byte row storage and all twelve scalar aliases mapped to the same Row components: MSVC7.1 refuses a nontrivial Vector4 union member. Its 636-byte parent remains exact after those local changes. Evidence: [stats](../reverse/attempt_support/w3ddisplaydrawskirmishaistats-vector4-20261102-1632.md), [contact](../reverse/attempt_support/objectworldspacebestcontactpoint-vector4-20261102-1632.md). This is bounded code-generation evidence: the analogous quadruped trial removes its added constructor call but still emits 995 versus native988 bytes with different SSE operand scheduling, so that trial remains unlanded. No shared header, compiler flag or baseline is changed.

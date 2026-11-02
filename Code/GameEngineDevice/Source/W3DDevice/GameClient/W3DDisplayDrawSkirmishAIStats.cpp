@@ -32,16 +32,13 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
-class Vector4
-{
-public:
-	float X, Y, Z, W;
-	void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
 
 class Matrix3D
 {
 public:
+	__forceinline Matrix3D() {}
 	// Matrix3DO1Inlines owns the translation constructor; use its inlined Set here.
 	void Set(const Vector3 &position)
 	{
