@@ -18593,3 +18593,5 @@ Canonical AIUpdate collision slot3 now shares the exact3B native false default a
 Canonical AIUpdate collision slot4 now has the complete3B native false default and its own inline ICF row; all39consumer rows pass. Slots2/3 and original Xfer owners are retained. Slot5 and the one-argument collision default remain, with other ancestor providers and census measurement still pending.
 
 Canonical AIUpdate collision slot5 now supplies its exact3B false default, with all40consumer rows passing. All four no-argument collision defaults have individual verified admissions/commits; the one-word collision default and other ancestor groups remain. No original interface-name, layout, pin or census claim is added.
+
+Canonical AIUpdate collision slot1 now has its complete5B false/RET4 body at5CB9FF, with all41consumer rows passing. The parameter retains only its measured word width. All five collision defaults have individual admissions/commits; together with the existing onCollide provider they cover the six native callback slots. Other ancestor groups and census measurement remain pending; no pin or original-name claim is added.
