@@ -1,0 +1,534 @@
+{
+ "bases": [
+  "Snapshot",
+  "ScriptListBase"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ScriptList",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 34,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 6
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x4c": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3b7720",
+      "0x3b88da"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 0,
+       "own_vftable": "0x81faac",
+       "rule": "retail-inlined-base-vptr"
+      },
+      {
+       "kind": "target",
+       "name": "Rva003525E0Pair",
+       "offset": 4,
+       "own_vftable": null,
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3b7720",
+      "0x3b88da"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3b7720",
+      "0x3b88da"
+     ],
+     "value": {
+      "0x2c": [
+       "??0Rva003B761E@@QAE@XZ",
+       "??0Rva003B8802Set@@QAE@ABV0@@Z"
+      ],
+      "0xc": [
+       "??0Rva003B761E@@QAE@XZ",
+       "??0Rva003B872ASet@@QAE@ABV0@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3b7720",
+      "0x3b88da"
+     ],
+     "value": {
+      "0x0": "0x81faac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81faac"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GScriptList@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3b7d90"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@ScriptList@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x3b7745"
+       },
+       {
+        "name": "?xfer@ScriptList@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x3b4716"
+       }
+      ],
+      "table": "0x81faac"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 21,
+  "retail_vtables": {
+   "0x81faac": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GScriptList@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@ScriptList@@MBEPBDXZ",
+     "3": "?xfer@ScriptList@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "12": 2,
+   "60": 1,
+   "76": 22
+  },
+  "views": 34,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ScriptList.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 20,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_firstGroup",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_firstScript",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003B573E",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "m_records",
+     "offset": 12,
+     "size": 4,
+     "type": "Rva003B675BRecord*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 16,
+     "size": 4,
+     "type": "Rva003B675BRecord*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 20,
+     "size": 4,
+     "type": "Rva003B675BRecord*"
+    },
+    {
+     "kind": "i4",
+     "name": "freeHead",
+     "offset": 24,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "m_tail",
+     "offset": 28,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_groups",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 32,
+   "type": "Rva003B573E",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003B573E",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "void**"
+    },
+    {
+     "kind": "P",
+     "name": "m_records",
+     "offset": 12,
+     "size": 4,
+     "type": "Rva003B675BRecord*"
+    },
+    {
+     "kind": "P",
+     "name": "opaque3C",
+     "offset": 16,
+     "size": 4,
+     "type": "Rva003B675BRecord*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 20,
+     "size": 4,
+     "type": "Rva003B675BRecord*"
+    },
+    {
+     "kind": "i4",
+     "name": "freeHead",
+     "offset": 24,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "first",
+     "offset": 28,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_scripts",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 32,
+   "type": "Rva003B573E",
+   "views": 11,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 11
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "12:A": 1,
+    "4:P": 1,
+    "4:VPTR": 1,
+    "56:A": 1,
+    "76:A": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1,
+    "72:A": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "inherited@0x8",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "groups.sorted._M_finish": 1,
+    "groups.sortedEnd": 1,
+    "m_first.m_sorted._M_finish": 1,
+    "m_groups.m_sorted._M_finish": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x14",
+   "candidates": {
+    "groups.sorted._M_end_of_storage._M_data": 1,
+    "groups.sortedStorageEnd": 1,
+    "m_first.m_sorted._M_end_of_storage._M_data": 1,
+    "m_groups.m_sorted._M_end_of_storage._M_data": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x18",
+   "candidates": {
+    "first.records": 1,
+    "groupSet.records": 1,
+    "groups.records._M_start": 1,
+    "groups.recordsBegin": 1,
+    "m_earlyTable.m_records": 1,
+    "m_first.m_records._M_start": 1,
+    "m_groups.m_records._M_start": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x1c",
+   "candidates": {
+    "groupSet.suffix": 1,
+    "groups.records._M_finish": 1,
+    "groups.recordsEnd": 1,
+    "m_first.m_records._M_finish": 1,
+    "m_groups.m_records._M_finish": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x20",
+   "candidates": {
+    "groups.records._M_end_of_storage._M_data": 1,
+    "groups.recordsStorageEnd": 1,
+    "m_first.m_records._M_end_of_storage._M_data": 1,
+    "m_groups.m_records._M_end_of_storage._M_data": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "groups.head": 1,
+    "groups.tail": 1,
+    "m_first.m_tail": 1,
+    "m_groups.m_tail": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x30",
+   "candidates": {
+    "m_scripts.m_sorted._M_finish": 1,
+    "m_second.m_sorted._M_finish": 1,
+    "scripts.sorted._M_finish": 1,
+    "scripts.sortedEnd": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x34",
+   "candidates": {
+    "m_scripts.m_sorted._M_end_of_storage._M_data": 1,
+    "m_second.m_sorted._M_end_of_storage._M_data": 1,
+    "scripts.sorted._M_end_of_storage._M_data": 1,
+    "scripts.sortedStorageEnd": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x38",
+   "candidates": {
+    "entries": 1,
+    "m_scripts.m_records._M_start": 1,
+    "m_second.m_records._M_start": 1,
+    "m_table.m_records": 1,
+    "scripts.records._M_start": 1,
+    "scripts.recordsBegin": 1,
+    "second.records": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x3c",
+   "candidates": {
+    "m_scripts.m_records._M_finish": 1,
+    "m_second.m_records._M_finish": 1,
+    "opaque3C": 1,
+    "scripts.records._M_finish": 1,
+    "scripts.recordsEnd": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x40",
+   "candidates": {
+    "m_scripts.m_records._M_end_of_storage._M_data": 1,
+    "m_second.m_records._M_end_of_storage._M_data": 1,
+    "scripts.records._M_end_of_storage._M_data": 1,
+    "scripts.recordsStorageEnd": 1
+   },
+   "class": "ScriptList"
+  },
+  {
+   "attribute": "name@0x48",
+   "candidates": {
+    "first": 1,
+    "m_scripts.m_tail": 1,
+    "m_second.m_tail": 1,
+    "scripts.head": 1,
+    "scripts.tail": 1
+   },
+   "class": "ScriptList"
+  }
+ ],
+ "size": 76,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
