@@ -8953,7 +8953,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00132C28,85,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/TextureAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00132C7D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C28..0x00132C8D,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00132C8D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C28..0x00132C9D,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
-0x00132C9D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureAsset.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureAssetSetQualityLevel.cpp
+0x00132C9D,16,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/TextureAsset.cpp,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
 0x00132CAD,44,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_device.cpp
 0x00132CD9,54,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_recreate_device.cpp
 0x00132D0F,52,code,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,approved,C,C=0x00132C9D..0x00132D43,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_recreate_device.cpp
