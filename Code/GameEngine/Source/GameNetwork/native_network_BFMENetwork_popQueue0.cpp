@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
 // ?popQueue0@BFMENetwork@@UAE_NPAVBFMENetworkQueueItem@@@Z
@@ -79,25 +79,7 @@ struct BFMENetworkList
 	int allocatorStorage;
 };
 
-class ThreadClass
-{
-public:
-    ThreadClass(const char *name);
-    virtual ~ThreadClass();
-    virtual void Execute();
-    void Set_Priority(int priority);
-    __declspec(noinline) bool Is_Running();
-    __declspec(noinline) void Stop();
-
-protected:
-    virtual void Thread_Function() = 0;
-
-private:
-    char m_name[0x40];
-    unsigned int m_threadId;
-    void *m_handle;
-    int m_priority;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 class BFMENetworkBackend : public ThreadClass
 {

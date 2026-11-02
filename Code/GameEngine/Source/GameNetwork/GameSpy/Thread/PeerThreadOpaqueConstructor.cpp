@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /O1 /G7 /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // BFME 1 donor f98983a7d; retail startThread allocates 0x4B0 bytes.
 // Native table C1989C identifies PeerThreadClass; teardown fixes its layout.
@@ -54,7 +54,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
 class MutexClass;
-class __declspec(novtable) ThreadClass{public:ThreadClass(const char*);virtual ~ThreadClass();virtual void Execute();protected:virtual void Thread_Function()=0;private:char pad[0x4c];};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 struct BfmeOpaqueOwnedRecord492{BfmeOpaqueOwnedRecord492();~BfmeOpaqueOwnedRecord492();char bytes[492];};
 typedef std::map<int, int> WorkerMap;
 namespace _STL {template<> map<int,int>::map();template<> map<string,int>::map();}

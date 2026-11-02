@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Retail 0038ADE2..0038AF29: aggregate teardown preceding the WB-named
 // PeerThreadClass::pushStatsToRoom. Constructor38AAEB installs C1989C;
@@ -47,21 +47,7 @@ public:
 typedef basic_string<char> string;
 }
 namespace std = _STL;
-class ThreadClass {
-public:
-    ThreadClass(const char *name);
-    virtual ~ThreadClass();
-    virtual void Execute();
-    bool Is_Running();
-    static void Switch_Thread();
-protected:
-    virtual void Thread_Function() = 0;
-private:
-    char m_name[0x40];
-    unsigned int m_threadId;
-    void *m_handle;
-    int m_priority;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 struct BfmeOpaqueOwnedRecord492 { ~BfmeOpaqueOwnedRecord492(); char bytes[492]; };
 struct Rva00388EAE { ~Rva00388EAE(); char bytes[12]; };
 class __declspec(novtable) PeerThreadClass : public ThreadClass {

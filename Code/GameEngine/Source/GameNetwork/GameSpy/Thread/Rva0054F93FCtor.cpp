@@ -1,26 +1,11 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva0054F93F@@QAE@H@Z retail 0x0054F93F 29B.
 // ThreadClass-derived ctor: base ThreadClass(NULL) plus int at +0x50.
 // Evidence: base ctor 0x00610430; vtable 0x0086AB40; member +0x50;
 // caller 0x0054FBE9; prev Disp0 setter 0x0054F91B; next PingThread 0x0054F99E.
 #include <string.h>
 
-class ThreadClass
-{
-public:
-	ThreadClass(const char *name);
-	virtual ~ThreadClass();
-	virtual void Execute();
-
-protected:
-	virtual void Thread_Function() = 0;
-
-private:
-	char m_name[0x40];
-	unsigned int m_threadId;
-	void *m_handle;
-	int m_priority;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 class Rva0054F93F : public ThreadClass
 {

@@ -1,4 +1,4 @@
-// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva005543D5@Rva005543D5@@QAEXXZ @0x005543D5 142B
 // Guarded lazy init: if m_64 nonzero return; else new LockClass(m_9C -1)
@@ -7,20 +7,7 @@
 // new 0x0002FDA0 into m_64 plus virtual slot +4 call. Evidence: chain from
 // 0x0055436A; no callers; sizes 8 and 0x6C match news.
 #include <map>
-class ThreadClass
-{
-public:
-	ThreadClass(const char *name);
-	virtual ~ThreadClass();
-	virtual void Execute();
-protected:
-	virtual void Thread_Function();
-private:
-	char m_name[0x40];
-	unsigned int m_threadId;
-	void *m_handle;
-	int m_priority;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 class MutexClass
 {
 public:

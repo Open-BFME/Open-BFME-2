@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /MD /DNDEBUG
+// cl: /O2 /G7 /arch:SSE /MD /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Small bodies from .text gaps no Ghidra function covers (forty-first
 // batch; see GapBodiesGE01.cpp), from the /O2 /arch:SSE /G7 retail region
 // 0x001164F5..0x0012617B (reverse/retail_inventory/flag_regions.csv), plus two
@@ -106,11 +106,7 @@ void rva001206B0(unsigned int start, unsigned int count)
 
 // --- 0x0011F620 (19B): the DX8 device recursion depth when this thread
 // owns the device, else the calling thread's id (rowed ThreadClass call).
-class ThreadClass
-{
-public:
-	static unsigned int _Get_Current_Thread_ID();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 extern volatile unsigned long bfmeDX8DeviceOwner;
 extern volatile int bfmeDX8DeviceRecursion;

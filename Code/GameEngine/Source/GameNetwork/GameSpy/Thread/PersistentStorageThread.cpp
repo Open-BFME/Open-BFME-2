@@ -1,4 +1,4 @@
-// cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // PersistentStorageThread.cpp -- GameSpy persistent-stats members recovered
 // from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names
 // each function; retail supplies the bytes.
@@ -45,20 +45,7 @@ template<> __declspec(dllimport) __forceinline SVIntIter &SVIntIter::operator--(
 // in: one-argument constructor 0x00610430, virtual destructor 0x00610480 and
 // a virtual Execute (vftable slot 1), 0x50 bytes.
 #define THREAD_H
-class ThreadClass
-{
-public:
-	ThreadClass(const char *name);
-	virtual ~ThreadClass();
-	virtual void Execute();
-protected:
-	virtual void Thread_Function() = 0;
-private:
-	char m_name[0x40];
-	unsigned int m_threadId;
-	void *m_handle;
-	int m_priority;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 #include <mutex.h>
 // Inline the stock integer comparison without emitting an /O1 COMDAT
 // that competes with the independently rowed /Od less<int> provider.

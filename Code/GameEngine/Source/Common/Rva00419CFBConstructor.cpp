@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /MD
+// cl: /O1 /arch:SSE /G7 /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva00419CFB@@QAE@PAX@Z at 0x00419CFB (29 bytes). The caller allocates
 // 0x54 bytes and passes its LockClass address; retail calls the ThreadClass
 // null-name constructor, stores that pointer at +0x50, and installs vtable
@@ -17,25 +17,7 @@ extern const void *const g_00C3AD60[3] = {
 	(const void *)&__identifier("?Thread_Function@GameResultsThreadClass@@UAEXXZ"), // slot 2 0x0041A843
 };
 
-class __declspec(novtable) ThreadClass
-{
-public:
-    ThreadClass(const char *name);
-    virtual ~ThreadClass();
-    virtual void Execute();
-    void Set_Priority(int priority);
-    __declspec(noinline) bool Is_Running();
-    __declspec(noinline) void Stop();
-
-protected:
-    virtual void Thread_Function() = 0;
-
-private:
-    char m_name[0x40];
-    unsigned int m_threadId;
-    void *m_handle;
-    int m_priority;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 class __declspec(novtable) Rva00419CFB : public ThreadClass
 {

@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Disp0 dword immediate setters: seven-byte __thiscall members with one shape:
 //
 //     mov dword ptr [ecx],<IMM32> / ret
@@ -666,11 +667,7 @@ void Rva00576456DwordImmSetter::apply()
 
 // Native419E38 tail JMP610480; scalar deleting419E1C and retail vtable
 // slots witness destruction. Pointer-only view: complete owner type unknown.
-class ThreadClass
-{
-public:
-    virtual ~ThreadClass();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/ThreadClass.h"
 
 class __declspec(novtable) Rva00419E38
 {
