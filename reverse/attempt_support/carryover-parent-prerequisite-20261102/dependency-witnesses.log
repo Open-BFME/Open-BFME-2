@@ -1,0 +1,15 @@
+Source claims: OK (86 sources, scoped byte-verified)
+Data rows: OK (49 row(s) byte-verified)
+Compile: 69 of 86 TU(s) (deps-cache: 17 current)
+Object store: 57 of 69 stale TU(s) restored
+Funclet pins: 846 row(s) verified past a renumbered $L label
+    uw_0075c460 (Code/GameEngine/Source/Common/StdioStreambufBase.cpp): $L2286 was renumbered; verified parent EH data places $L3192 at 0x0075C460
+    uw_007a74d0 (Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp): $L4266 was renumbered; verified parent EH data places $L9980 at 0x007A74D0
+    uw_0075c468 (Code/GameEngine/Source/Common/StdioStreambufBase.cpp): $L2287 was renumbered; verified parent EH data places $L3193 at 0x0075C468
+    uw_007675f0 (Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector3_resize.cpp): $L1047 was renumbered; verified parent EH data places $L1202 at 0x007675F0
+    uw_0075cbc9 (Code/GameEngine/Source/Common/INI/INI.cpp): $L1203 was renumbered; verified parent EH data places $L69287 at 0x0075CBC9
+STLport folds: 20 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 2502/2502 matched across 86 source file(s)
+String-ref verify: OK (582 literals + 59 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (191 compiler literals verified)
+Import-ref verify: OK (198 named imports verified)

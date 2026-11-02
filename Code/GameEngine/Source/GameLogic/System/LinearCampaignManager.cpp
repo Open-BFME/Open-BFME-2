@@ -42,7 +42,6 @@ namespace _STL { template <> void _Destroy<Rva001ED0DE *>(Rva001ED0DE *,Rva001ED
 // Declared only: the rowed copy (StlportVectorDtorFamily.cpp, 0x001ED363) serves the call.
 namespace _STL { template <> vector<Rva001ED0DE, allocator<Rva001ED0DE> >::~vector(); }
 // This unit's own row: the single-element _Destroy the vector dtor used to pull in.
-template void _STL::_Destroy<Rva001ED0DE>(Rva001ED0DE *);
 #include "../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -136,6 +135,8 @@ namespace _STL { template <> void _Construct<Rva001ED03C, Rva001ED03C>(Rva001ED0
 namespace _STL { template <> void vector<Rva001ED03C, allocator<Rva001ED03C> >::_M_insert_overflow(Rva001ED03C *, const Rva001ED03C &, const __false_type &, size_t, bool); template <> void vector<Rva001ED03C, allocator<Rva001ED03C> >::_M_clear(); template <> void vector<Rva001ED03C, allocator<Rva001ED03C> >::push_back(const Rva001ED03C &); }
 
 class Rva001ED0DE : public Rva001ED03C { public: ~Rva001ED0DE(); };
+
+template void _STL::_Destroy<Rva001ED0DE>(Rva001ED0DE *);
 
 class Rva001ED0A9 : public Rva001ED0DE { public: Rva001ED0A9(const AsciiString &name); };
 
@@ -988,7 +989,7 @@ void LinearCampaign::beginCampaign()
 	{
 		const AsciiString &name = m_campaign->rva001EAFFE(i);
 		carryovers[i].m_name = name;
-		carryovers[i].m_quantity = 1;
+		carryovers[i].CarryoverUnit::m_quantity = 1;
 		const CarryoverThingTemplateView *thing = static_cast<const CarryoverThingTemplateView *>(
 			reinterpret_cast<Rva0037DCA5 *>(&carryovers[i])->GetThingTemplate());
 		if (thing && (thing->m_kindOf[0x5A >> 3] & (1 << (0x5A & 7))))
