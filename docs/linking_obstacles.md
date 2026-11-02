@@ -88,6 +88,16 @@ every constructor unit loses (`differs from the first copy`, no retail address).
    W3DScriptedModelDrawDestructor 506 (`6BDrawModule`), Rva001041BDASlot1 418, Rva0033FC0ACtor 213,
    FloodUpdateDtor 180, SpawnBehaviorDtor 174, XferSaveOpen 169, AttributeModifierAuraUpdateCtor 128.
 
+Repaired (2026-11-02, lk15): AptMyHero_Unresolved.cpp (1,067 B), cause `b056878e3e` (Adopt
+canonical CreateAHeroData in 30 more units): AptMyHeroCtor.cpp (first) now spells CreateAHeroData's
+slot 3 `xfer(Xfer *)` while the unit's private view kept `DoXfer(Xfer &)`; both names already
+reach retail 0x00408C11 through existing alternatenames (`?xfer@CreateAHeroData` in
+CreateAHeroDataCopy.cpp, `?DoXfer@CreateAHeroData` in both AptMyHero units, now unused here). The
+view now spells the slot as the canonical header does. `./build.sh` 16/16 rows; scoped DIR32 OK
+(20 symbols); only the two units touch `??_7AptMyHero@@6B@`, which now has one digest; `link_check`
+AptMyHero_Unresolved 1,067 B (census-linked, lost on current objects) LINKS again, AptMyHeroCtor
+1,152 B unchanged.
+
 Process note: the adoption batches' own link guard predicts only the adopted units; the losers are
 untouched siblings that bind the same COMDAT names. Before adopting a header in a unit that defines
 a class family's destructors, run `link_check` over every unit touching the family's `??_7` names

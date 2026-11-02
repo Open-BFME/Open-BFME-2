@@ -37,7 +37,9 @@ protected:
  virtual void loadPostProcess();
 public:
  virtual const char *GetSnapshotName() const;
- virtual void DoXfer(class Xfer &);
+ // Slot 3 as canonical CreateAHeroData.h spells it (AptMyHeroCtor.cpp's table, first in link
+ // order since b056878e3e); both names reach retail 0x00408C11 through existing alternatenames.
+ virtual void xfer(class Xfer *);
  virtual bool Update(int);
  CreateAHeroData &operator=(const CreateAHeroData &);
 protected:
