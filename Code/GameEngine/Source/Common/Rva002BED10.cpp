@@ -23,11 +23,7 @@ struct GameLogicFieldView
 	Rva0023D2D8DwordClearer m_clear;
 };
 extern GameLogic *TheGameLogic;
-class LivingWorldManager
-{
-public:
-	void rva0021427A();
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002BED10
 {

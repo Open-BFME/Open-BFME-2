@@ -54,11 +54,7 @@ class ModuleData;
 
 // LINK: 0x00213171 is rowed as LivingWorldManager::CreateBeaconObject(int, Coord2D const*, int) (LivingWorldManagerCreateBeaconObject.cpp).
 class Coord2D;
-class LivingWorldManager
-{
-public:
-	void CreateBeaconObject(int a, const Coord2D *b, int c);
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 
 struct Rva002B8767Counter

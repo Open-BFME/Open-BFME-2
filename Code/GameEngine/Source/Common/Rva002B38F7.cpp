@@ -99,12 +99,7 @@ public:
 	void rva003EF041();
 };
 
-class LivingWorldManager
-{
-public:
-	char m_pad[0x268];
-	void *m_268;
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 // 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
 extern LivingWorldManager *TheLivingWorldManager;
 
@@ -122,8 +117,8 @@ void Rva002BA8F1Logic::setLocal(Rva002E2903Player *player)
 	((AudioManager *)TheAudio)->s35(1, 1, 0);
 	m_98 = player;
 	((Mouse *)TheMouse)->m19(1);
-	((LivingWorldRegionEffectsManager *)TheLivingWorldManager->m_268)->rva003EF2FF();
-	((Rva003EF041 *)TheLivingWorldManager->m_268)->rva003EF041();
+	((LivingWorldRegionEffectsManager *)TheLivingWorldManager->field268)->rva003EF2FF();
+	((Rva003EF041 *)TheLivingWorldManager->field268)->rva003EF041();
 	Rva002E2903Player *cur = m_98;
 	if (cur == 0)
 		return;

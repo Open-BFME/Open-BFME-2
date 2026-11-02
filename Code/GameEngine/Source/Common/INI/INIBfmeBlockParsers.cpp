@@ -61,13 +61,7 @@ extern const FieldParse SkirmishAIDataFields[];
 // 0x00210F64 (40B): "LivingWorldMapInfo" (registration VA 0x00DB9A2C). Skips
 // without TheLivingWorldManager, else initFromINI its +0x14 member against
 // VA 0x00BE4560 and sets the +0x1C4 flag.
-class LivingWorldManager
-{
-public:
-	char m_unreconstructed_00[0x14];
-	char m_mapInfo[0x1B0];
-	Bool m_mapInfoParsed;
-};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 extern const FieldParse LivingWorldMapInfoFields[];

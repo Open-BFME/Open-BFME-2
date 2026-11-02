@@ -385,12 +385,7 @@ public:
 	void rva003EF2FF();
 };
 
-class LivingWorldManager
-{
-public:
-	char m_pad[0x268];
-	LivingWorldRegionEffectsManager *m_268;
-};
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 
 // 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
 extern LivingWorldManager *TheLivingWorldManager;
@@ -1170,7 +1165,7 @@ bool Rva0052C036::rva0052C036()
 	++m_8;
 	if (m_8 > m_18) {
 		m_8 = m_18;
-		TheLivingWorldManager->m_268->rva003EF2FF();
+		TheLivingWorldManager->field268->rva003EF2FF();
 		return false;
 	}
 	((Glo012F1024Item *)((char *)m_c + m_8 * 0xB8))->bfmeEnter();

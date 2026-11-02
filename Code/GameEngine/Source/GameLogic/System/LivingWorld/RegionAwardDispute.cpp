@@ -74,11 +74,7 @@ public:
 	Rva0020F27EHost *m_hostB0;	// +0xB0
 };
 
-class LivingWorldManager
-{
-public:
-	void CreateBeaconObject(int id, const Coord2D *pos, int kind);	// 0x00213171
-};
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 

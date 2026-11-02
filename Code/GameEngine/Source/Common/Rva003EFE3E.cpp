@@ -9,12 +9,7 @@ public:
 	void SyncRegion(int value);
 };
 
-class LivingWorldManager
-{
-public:
-	char m_pad[0x268];
-	LivingWorldRegionEffectsManager *m_268;
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 // 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
 extern LivingWorldManager *TheLivingWorldManager;
@@ -31,7 +26,7 @@ private:
 void Rva003EFE3E::rva003EFE3E(int value)
 {
 	m_140 = value;
-	LivingWorldRegionEffectsManager *obj = TheLivingWorldManager->m_268;
+	LivingWorldRegionEffectsManager *obj = TheLivingWorldManager->field268;
 	if (!obj)
 		return;
 	obj->SyncRegion((int)this);

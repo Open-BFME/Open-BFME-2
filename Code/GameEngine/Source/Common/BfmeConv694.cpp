@@ -25,11 +25,7 @@ public:
 	void rva003FD690(const Coord *value);
 };
 
-class LivingWorldManager
-{
-public:
-	void rva00212183(void *key, void *value);
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 void LivingWorldManager::rva00212183(void *key, void *value)
 {

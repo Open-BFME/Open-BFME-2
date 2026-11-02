@@ -213,7 +213,7 @@ class Rva0009C134Host { public: void rva0009BAA4(); void rva0009CD9B(); void rva
 // +0x1A0..+0x1A8 and adds the shadows (rowed 0x0009DB47); deactivation runs
 // the manager's 0x002141D1 and resets the view again.
 class Rva0009D9BD { public: void rva0009DA28(); void rva0009DB47(); };
-class LivingWorldManager { public: void rva002142EA(); };
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002141D1 { public: void rva002141D1(); };
 class GlobalData;

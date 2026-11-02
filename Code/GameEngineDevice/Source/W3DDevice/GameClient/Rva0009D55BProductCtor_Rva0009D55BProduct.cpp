@@ -225,7 +225,7 @@ void Rva0009D55BProduct::rva0009D862()
 // manager's +0x1E4 word into the shadow manager, places its light at
 // +0x1A0..+0x1A8 and adds the shadows (rowed 0x0009DB47); deactivation runs
 // the manager's 0x002141D1 and resets the view again.
-class LivingWorldManager { public: void rva002142EA(); };
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

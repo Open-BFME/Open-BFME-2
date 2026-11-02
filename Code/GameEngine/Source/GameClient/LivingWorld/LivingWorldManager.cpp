@@ -37,10 +37,7 @@ struct ArmySwapView {
  char unknown7C[0x88-0x7c];LivingWorldArmyIcon *m_armyIcon;
  bool hasName()const{return !((const StringBase<char> *)&m_name)->isEmpty();}
 };
-class LivingWorldManager {
-public:
- void OnSwapArmyMembers(ArmySwapView *,const ArmyMemberRangeView &,ArmySwapView *,const ArmyMemberRangeView &);
-};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 void LivingWorldManager::OnSwapArmyMembers(ArmySwapView *armyA,const ArmyMemberRangeView &unitsA,ArmySwapView *armyB,const ArmyMemberRangeView &unitsB)
 {
  if(unitsA.empty() && unitsB.empty())return;

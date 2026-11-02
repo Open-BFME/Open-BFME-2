@@ -58,11 +58,7 @@ extern bool _bfme_debugReportingEnabled();
 extern void _bfme_debugRecordCallsite(int kind);
 
 class Rva003FAE68Base;
-class LivingWorldManager
-{
-public:
-	Rva003FAE68Base *CreateSound(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 
 // Retail's LivingWorldSound parse table, VA 0x00C37938 (.rdata, file offset

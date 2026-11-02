@@ -20,7 +20,7 @@ struct Rva0020F1F3Record
  char pad[0x2C-4];
  Rva0020F1F3Vector<Rva003F3F27 *> children;
 };
-class LivingWorldManager { public: void SetUpRegionEffectsManager(); };
+#include "../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class LivingWorldRegionManager
 {

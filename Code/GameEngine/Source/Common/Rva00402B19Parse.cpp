@@ -40,13 +40,7 @@ class Rva00402BE3;
 class Rva003F9FA9;
 class Rva00402EFA;
 
-class LivingWorldManager
-{
-public:
-	Rva00402BE3 *rva002140DB(const AsciiString &name);
-	Rva003F9FA9 *rva00214060(const AsciiString &name);
-	Rva00402EFA *rva00214156(const AsciiString &name);
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 

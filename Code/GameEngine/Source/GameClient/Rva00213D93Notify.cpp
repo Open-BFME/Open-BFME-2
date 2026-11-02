@@ -22,13 +22,7 @@ public:
     virtual void slot24() = 0;
     virtual void slot28(const Rva00213D93Flags *) = 0;
 };
-class LivingWorldManager
-{
-public:
-    void rva0021219E(Rva00213D93Target *target);
-    void rva00213C6E(Rva00213D93Target *target);
-    void SetUpRegionEffectsManager();
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 class Rva00213D93Observer
 {
 public:

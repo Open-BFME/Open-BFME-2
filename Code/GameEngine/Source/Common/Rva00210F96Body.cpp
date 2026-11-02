@@ -71,22 +71,14 @@ public:
 	void rva003EF2FF();
 };
 
-class LivingWorldManager
-{
-public:
-	void rva00210F96();
-	void SetUpRegionEffectsManager();
-private:
-	char m_pad[0x268];
-	LivingWorldRegionEffectsManager *m_ptr268;
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 void LivingWorldManager::rva00210F96()
 {
 	theRadarWindowOverrideSource->rva002D43A0();
 	SetUpRegionEffectsManager();
-	if (!m_ptr268)
+	if (!field268)
 		return;
-	m_ptr268->rva003EF008();
-	return m_ptr268->rva003EF2FF();
+	field268->rva003EF008();
+	return field268->rva003EF2FF();
 }

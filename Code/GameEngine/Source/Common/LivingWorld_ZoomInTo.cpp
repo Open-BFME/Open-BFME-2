@@ -89,11 +89,7 @@ public:
 };
 extern Mouse *TheMouse;
 
-class LivingWorldManager
-{
-public:
-	char m_pad[0x204];
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 
 struct Rva002BE8F9Pair

@@ -12,11 +12,7 @@
 #include <math.h>
 extern int BfmeClientFramesPerSecond;
 extern float opacityLogicStepSeconds;
-class LivingWorldManager {
-public:
- struct Settings {char pad[0x1bc];float rate0;char pad1c0[4];float rate1,limit;};
- char unknown00[0x14];Settings settings;
-};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host {
 public:

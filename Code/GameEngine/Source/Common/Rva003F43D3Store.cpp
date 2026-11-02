@@ -8,11 +8,7 @@ class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 // the coord, so this resolves to the rowed body instead of the unrowed
 // spelling (sole U on this unit).
 class Coord2D;
-class LivingWorldManager
-{
-public:
-	void CreateBeaconObject(int a, const Coord2D *p, int b);
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 class Rva003F409F {
 public:

@@ -461,11 +461,7 @@ public:
 	void rva0020F3E8(LivingWorldRegionManager *mgr);		// 0x0020F3E8
 };
 
-class LivingWorldManager
-{
-public:
-	void rva00210F96();										// 0x00210F96
-};
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 
 class LivingWorldLogic;
 

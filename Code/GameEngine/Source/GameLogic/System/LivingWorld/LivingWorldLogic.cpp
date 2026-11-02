@@ -3683,7 +3683,7 @@ static __forceinline void dispatchShow(int kind,const UnicodeString&title,const 
 static __forceinline void dispatchChange(int kind,const UnicodeString&title,const UnicodeString&body){AptMessageBox::Change((void*)kind,(void*)&title,(void*)&body);}
 class Rva0023D26F {public:void rva0023D26F(bool);};
 class Rva0023D2DD {public:void rva0023D2DD();};
-class LivingWorldManager {public:void rva0021100E();};
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 class Rva0021237E {public:void rva0021246D(struct Rva0021246DInput*);};
 struct DispatcherResolver {void*logic;LivingWorldBattle*battle;};
 class DispatcherSpawn {

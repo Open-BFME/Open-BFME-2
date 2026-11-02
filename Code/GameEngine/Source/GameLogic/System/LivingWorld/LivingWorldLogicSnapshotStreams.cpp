@@ -75,7 +75,7 @@ class Coord2D;
 // Owned CreateBeaconObject identifies id8 and coordinate prefix0.
 // Keeping the separate stored pointer before transfer gives native EBX
 // lifetime and the EBP-C temporary; direct pointer-reference casts reload it.
-class LivingWorldManager{public:void CreateBeaconObject(int,const Coord2D*,int);};
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager*TheLivingWorldManager;
 // Native2BBA45..2BBB18 RET4 returns the version widened in EAX.
 class Rva002BBA45{public:virtual void slot0();virtual void reset();unsigned int rva002BBA45(Xfer*);char pad[0xBC-4];RecVec records;char gap[4];RecVec first,second;};

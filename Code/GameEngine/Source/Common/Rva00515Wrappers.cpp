@@ -100,11 +100,7 @@ int rva0051573A(float, bool);
 // Defined here, in the only unit that assigns it, with the value retail holds.
 int g_Va00DD1538 = 1;
 
-class LivingWorldManager
-{
-public:
-	void rva0021427A();
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 
 class LivingWorldLogic;

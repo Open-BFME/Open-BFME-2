@@ -652,11 +652,7 @@ public:
 // The manager behind bfmeGoDGH (0x00212183): the caller loads ECX from
 // TheLivingWorldManager and the body hands ECX on to 0x002120C2, which walks
 // this+0x24C, so it is a member here (pinned under a placeholder name).
-class LivingWorldManager
-{
-public:
-	void rva00212183(void *first, void *second);
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 

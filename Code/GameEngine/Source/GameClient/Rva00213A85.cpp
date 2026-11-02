@@ -87,9 +87,7 @@ public:
 	void rva002110DF(int value);
 };
 
-class LivingWorldManager
-{
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva00213A85

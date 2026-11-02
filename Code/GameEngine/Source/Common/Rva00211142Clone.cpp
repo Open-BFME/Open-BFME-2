@@ -26,11 +26,7 @@ public:
 	Rva003FA776();
 };
 
-class LivingWorldManager
-{
-public:
-	Rva00210F3D *rva00211142(Rva00210F3D *src);
-};
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 Rva00210F3D *LivingWorldManager::rva00211142(Rva00210F3D *src)
 {
