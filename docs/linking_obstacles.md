@@ -16790,6 +16790,18 @@ SiegeDockingBehavior tables now have one digest across both units; the .cpp addi
 canonical inline getters, identical to the 125 existing copies. `./build.sh` 11/11 rows; scoped
 DIR32 OK (9 symbols); only the two units touch the tables; `link_check` SiegeDockingBehaviorDtor
 0 -> 129 B, SiegeDockingBehavior.cpp 204 B unchanged.
+Checked and left (2026-11-02, lk15): BridgeBehaviorCtor (196 B) is on canonical UpdateModule now,
+but binding `extern __identifier("??_7BridgeBehavior@@6BBehaviorModuleInterface@@@")` (the Dtor's name
+for 0x00C40920) fails C3861: the compiler resolves that identifier as its own vftable. The remaining
+route is compiler vptr stores through real BridgeBehaviorInterface/DamageModuleInterface/
+DieModuleInterface bases, which first needs the +0x20/+0x28 folded tables (0x00C40818, 0x00C1C780,
+today bound through other classes' ledger names) and the Dtor's primary overrides (retail 0x00C409DC
+slots 1-4) reconciled; re_attempts verdict on 0x00457472. SpecialPowerModuleDtor_Unresolved (222 B):
+~SpecialPowerModule (0x00493DEF) inlines ~BehaviorModule (stores 0x00BEEA7C/0x00BEE9C0), so a canonical
+view must define the empty destructor inline in that unit and then emits the 47-slot
+`??_7BehaviorModule@@6B...` tables, which lose to the nine Zero Hour units' 34-slot copies exactly as
+mechanism 2 did. Prerequisite (family-wide): those ZH copies go (their units move onto BFME views)
+or the two retail tables get proven names so the canonical copies win.
 Mechanism 2 repair (2026-11-02, seat halilkkaya-lk15, base `1765dc430d`, index 08:35
 `984a4cdc4d`): `BehaviorModule.h` now declares `protected: virtual ~BehaviorModule();` with no
 body, the proposal below. Scope proof before the edit: in the census index exactly six objects
