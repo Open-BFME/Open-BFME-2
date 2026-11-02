@@ -31,15 +31,7 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class ActiveBody
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-	char m_unrecovered04[0x100 - 0x04];
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
 class DetachableRiderBody;
 

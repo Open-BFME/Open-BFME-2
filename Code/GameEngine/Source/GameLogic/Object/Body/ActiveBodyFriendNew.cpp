@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class ActiveBody
-{
-public:
-	ActiveBody(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x100];
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
 // ?friend_newModuleInstance@ActiveBody@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *ActiveBody::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

@@ -120,17 +120,10 @@ public:
 	virtual void s32();
 	virtual void setIndestructible(bool v) = 0;
 };
-class ActiveBody : public B00, public B0C, public Iface10
-{
-public:
-	virtual void setIndestructible(bool v);
-private:
-	unsigned char m_pad014[0xC7 - 0x14];
-	bool m_C7;
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 void ActiveBody::setIndestructible(bool v)
 {
-	m_C7 = v;
+	m_indestructible = v;
 	Object *obj = m_object;
 	if (((const unsigned char *)obj->m_template->m_kindof)[2] & 0x40)
 	{

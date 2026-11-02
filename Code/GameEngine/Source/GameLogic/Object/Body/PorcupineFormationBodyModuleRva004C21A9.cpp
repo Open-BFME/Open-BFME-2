@@ -119,11 +119,7 @@ protected:
 };
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
-class ActiveBody : public ModuleBase, public BehaviorModuleInterface, public BodyModuleInterface
-{
-public:
-	virtual void attemptDamage(DamageInfo *damageInfo);
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 class PorcupineFormationBodyModule : public ActiveBody
 {
 public:

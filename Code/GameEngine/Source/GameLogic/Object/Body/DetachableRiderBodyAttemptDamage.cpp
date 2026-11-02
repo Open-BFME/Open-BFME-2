@@ -94,17 +94,8 @@ protected:
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class BodyModule : public ModuleBase, public BehaviorModuleInterface, public BodyModuleInterface
-{
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
-class ActiveBody : public BodyModule
-{
-public:
-	virtual void attemptDamage(DamageInfo *damageInfo);
-protected:
-	unsigned char m_pad014[0x100 - 0x14];
-};
 
 class DetachableRiderBody : public ActiveBody, public UpgradeMux
 {

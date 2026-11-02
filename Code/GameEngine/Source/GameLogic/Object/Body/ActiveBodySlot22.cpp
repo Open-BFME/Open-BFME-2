@@ -101,19 +101,7 @@ public:
 	float m_cheerRadius;		// +0x4C the radius
 };
 
-class ActiveBody
-{
-public:
-	virtual void rva004BF9ED();
-protected:
-	const ActiveBodyModuleData *getActiveBodyModuleData() const
-	{
-		return (const ActiveBodyModuleData *)m_moduleData;
-	}
-	Object *getObject() const { return m_object; }
-	const void *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ActiveBody.h"
 
 void ActiveBody::rva004BF9ED()
 {
