@@ -107,7 +107,7 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
-class RefCountClass { public: virtual void Delete_This(); virtual ~RefCountClass(); int refs; };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class MultiListObjectClass { public: virtual ~MultiListObjectClass(); void *node; };
 class RenderObjClass : public RefCountClass,public MultiListObjectClass {
 public: RenderObjClass(); virtual ~RenderObjClass();
@@ -121,7 +121,7 @@ struct WaterCountedRef {
  RefCountClass *ptr;
  WaterCountedRef():ptr(0){}
  WaterCountedRef(RefCountClass *refCount):ptr(refCount){}
- __forceinline ~WaterCountedRef(){ RefCountClass *refCount=ptr; if(refCount && --refCount->refs==0)refCount->Delete_This(); }
+ __forceinline ~WaterCountedRef(){ RefCountClass *refCount=ptr; if(refCount && --refCount->NumRefs==0)refCount->Delete_This(); }
 };
 #include "../../../../../Libraries/Source/Apt/AptRefTarget.h"
 // The unit's vectors use STLport's own empty construction; their destructor
@@ -422,12 +422,6 @@ class GameLODManager;
 extern GameLODManager *TheGameLODManager;
 void BFME_DX8_Thread_Lock();
 
-class IndexBufferClass {public:
- class WriteLockClass {
-  IndexBufferClass *buffer; public: unsigned short *indices; private: BFMEDX8DeviceLock lock;
-  public:WriteLockClass(IndexBufferClass*,int);~WriteLockClass();
- };
-};
 class DX8IndexBufferClass {
  public:enum UsageType{USAGE_DEFAULT=0};
  char record[24];

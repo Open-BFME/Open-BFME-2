@@ -28,13 +28,7 @@ public:
 
 #include "VertexBufferClass.h"
 
-class IndexBufferClass
-{
-public:
-	unsigned char pad[0x0C];
-	unsigned index_count;			// +0x0C
-	unsigned Get_Index_Count() const { return index_count; }
-};
+#include "IndexBufferClass.h"
 
 class __declspec(novtable) DX8FVFCategoryContainer
 {

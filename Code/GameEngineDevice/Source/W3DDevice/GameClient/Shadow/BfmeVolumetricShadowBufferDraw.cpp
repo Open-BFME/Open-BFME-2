@@ -3,15 +3,7 @@
 // Evidence: frees vertex/index WriteLocks at +0xc/+0x10 via rowed dtors plus operator delete; 30000 compares at +0x14/+0x18 with div; rowed Record_DX8_Polys plus CurrentCaps+0x90 check plus rowed Set_DX8_Render_State plus D3DDevice Draw slot 82; BFME1 donor BfmeVolumetricShadowBufferDraw.cpp names drawAndRelease.
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		~WriteLockClass();
-	};
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 
 #include <new>
 

@@ -21,21 +21,7 @@ public:
 	BFMEDX8DeviceLock();
 	~BFMEDX8DeviceLock();
 };
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(IndexBufferClass *b, int flags);
-		~WriteLockClass();
-		UShort *Get_Index_Array() { return m_indices; }
-	private:
-		IndexBufferClass *m_buf;
-		UShort *m_indices;
-		BFMEDX8DeviceLock m_lock;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class DX8IndexBufferClass : public RefCountClass
 {
 public:

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native687EF..68D431364. ZH updateScorches supplies terrain-grid mesh semantics;
 // BFME2 uses tree queryEAFA4 for radius and atlas transforms, clips outside UVs
 // to the projection edge and samples the terrain virtual height there.
@@ -11,7 +11,7 @@ struct Rva000EAFA4Coord3 {float x,y,z;};struct Rva000EAFA4Coord2 {float x,y;};
 class W3DTreeBuffer {public:bool rva000EAFA4(int,Rva000EAFA4Coord3*,float*,Rva000EAFA4Coord2*,Rva000EAFA4Coord2*);char pad00[0x44540];int count;};
 struct ProjectionVertex687EF {float x,y,z;unsigned diffuse;float u,v;};
 class VertexBufferClass {public:class WriteLockClass {public:WriteLockClass(VertexBufferClass*,int);~WriteLockClass();VertexBufferClass*buffer;ProjectionVertex687EF*vertices;char mutex[4];};};
-class IndexBufferClass {public:class WriteLockClass {public:WriteLockClass(IndexBufferClass*,int);~WriteLockClass();IndexBufferClass*buffer;unsigned short*indices;char mutex[4];};};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class Rva0006653B {public:
  unsigned short rva0006653B(int x,int y) {
   if(x<0)x=0;else if(x>=width)x=width-1;

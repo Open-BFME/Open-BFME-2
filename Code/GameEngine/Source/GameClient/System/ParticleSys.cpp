@@ -165,13 +165,7 @@ public:
 BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}
  ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}};
 
-class IndexBufferClass:public RefCountClass {
-public:class WriteLockClass {IndexBufferClass *index_buffer;unsigned short *indices;BFMEDX8DeviceLock device_lock;
-public:
-WriteLockClass(IndexBufferClass*,int);
- ~WriteLockClass();unsigned short*Get_Index_Array(){return indices;}};
-private:unsigned engine_refs,index_count,type;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 
 class DX8IndexBufferClass:public IndexBufferClass {
 public:

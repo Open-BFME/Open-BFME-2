@@ -66,21 +66,7 @@ class DX8VertexBufferClass : public VertexBufferClass
 {
 };
 
-class IndexBufferClass
-{
-public:
-	class AppendLockClass
-	{
-	public:
-		AppendLockClass(IndexBufferClass *index_buffer, unsigned start_index, unsigned index_range, int flags = 0);
-		~AppendLockClass();
-		unsigned short *Get_Index_Array(void) { return indices; }
-	private:
-		IndexBufferClass *IndexBuffer;
-		unsigned short *indices;
-		void *device_lock;
-	};
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 
 class DX8IndexBufferClass : public IndexBufferClass
 {

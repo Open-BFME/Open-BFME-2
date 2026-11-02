@@ -32,20 +32,7 @@ public:
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 
-class IndexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-		BFMEDX8DeviceLock device_lock;
-		unsigned short *indices;
-		IndexBufferClass *index_buffer;
-	public:
-		WriteLockClass(IndexBufferClass *index_buffer, int flags = 0);
-		~WriteLockClass();
-		unsigned short *Get_Index_Array() { return indices; }
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 

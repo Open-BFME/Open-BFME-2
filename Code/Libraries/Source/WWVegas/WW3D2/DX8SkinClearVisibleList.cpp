@@ -248,14 +248,7 @@ class VertexBufferClass;
 
 // Only the index count matters here: BFME's is a full unsigned at +0x0C (the
 // retail compare is unsigned), where Zero Hour's header has an unsigned short.
-class IndexBufferClass
-{
-public:
-    unsigned char pad[0x0C];
-    unsigned index_count;
-    unsigned Get_Index_Count() const
-    { return index_count; }
-};
+#include "IndexBufferClass.h"
 
 #include "DX8WrapperClass.h"
 
