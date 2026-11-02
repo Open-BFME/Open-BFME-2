@@ -1,0 +1,107 @@
+{
+  "scope": "Private local-row/Verifier proof only. Uses immutable previously verified original object. No Code/global ledger/shared object/Git/network/claims mutation.",
+  "original_source_sha256": "577569e6a2d23df37e72a494d93bf05466ccf5fccb9230bf445b87ab12cea430",
+  "original_object_sha256": "9fd58da15872f8f81603989cc56aea214ae7db4538449f2a550be00599ad480e",
+  "renames": {
+    "?resize@Rva001EC9BDVector@@QAEXIUCarryoverUnit@@@Z": "?resize@Rva001EC9BDVector@@QAEXIVCarryoverUnit@@@Z",
+    "__ehhandler$?resize@Rva001EC9BDVector@@QAEXIUCarryoverUnit@@@Z": "__ehhandler$?resize@Rva001EC9BDVector@@QAEXIVCarryoverUnit@@@Z"
+  },
+  "variants": [
+    {
+      "label": "ordering-qualified",
+      "missing": [],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-parent-migration-20261102\\ordering-qualified.obj",
+      "object_sha256": "76611f49cfafe689b1c90ceb0f7c67a61899f0b6f27c3b6f2e28876104006d32",
+      "old_code_count": 73,
+      "new_code_count": 73,
+      "old_data_count": 14,
+      "new_data_count": 14,
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "EH": {
+        "??1Rva001EBFE5@@UAE@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?resize@Rva001EC9BDVector@@QAEXIUCarryoverUnit@@@Z": [
+          "EXACT",
+          ""
+        ],
+        "?DoXfer@LinearCampaignManager@@QAEXPAVXfer@@@Z": [
+          "EXACT",
+          ""
+        ],
+        "?parseLinearCampaignIniBlock@LinearCampaignManager@@SAXPAVINI@@@Z": [
+          "EXACT",
+          ""
+        ],
+        "?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z": [
+          "EXACT",
+          ""
+        ],
+        "?onCurrentMissionWon@LinearCampaign@@QAEXXZ": [
+          "EXACT",
+          ""
+        ],
+        "??1Rva001ED41B@@UAE@XZ": [
+          "EXACT",
+          ""
+        ]
+      }
+    },
+    {
+      "label": "ordering-qualified-canonical",
+      "missing": [
+        "0x0076A670"
+      ],
+      "errors": [],
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\carryover-parent-migration-20261102\\ordering-qualified-canonical.obj",
+      "object_sha256": "335c578c876fcbc09bf52505ae0d4c221a95c1377c4b0a30bc406434b17dbb09",
+      "old_code_count": 73,
+      "new_code_count": 73,
+      "old_data_count": 14,
+      "new_data_count": 14,
+      "changed": [],
+      "removed": [],
+      "added": [],
+      "EH": {
+        "??1Rva001EBFE5@@UAE@XZ": [
+          "EXACT",
+          ""
+        ],
+        "?resize@Rva001EC9BDVector@@QAEXIVCarryoverUnit@@@Z": [
+          "EXACT",
+          ""
+        ],
+        "?DoXfer@LinearCampaignManager@@QAEXPAVXfer@@@Z": [
+          "EXACT",
+          ""
+        ],
+        "?parseLinearCampaignIniBlock@LinearCampaignManager@@SAXPAVINI@@@Z": [
+          "EXACT",
+          ""
+        ],
+        "?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z": [
+          "EXACT",
+          ""
+        ],
+        "?onCurrentMissionWon@LinearCampaign@@QAEXXZ": [
+          "EXACT",
+          ""
+        ],
+        "??1Rva001ED41B@@UAE@XZ": [
+          "EXACT",
+          ""
+        ]
+      },
+      "resize_funclet_locations": {
+        "$L10975": 7775856
+      }
+    }
+  ],
+  "owning_layout_prefix_compiles_after_ordering": true,
+  "owning_layout_prefix_errors": [],
+  "source_unchanged": true
+}
