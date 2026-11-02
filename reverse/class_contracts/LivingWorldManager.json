@@ -1,0 +1,917 @@
+{
+ "bases": [
+  "<polymorphic base>",
+  "<polymorphic base>"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "LivingWorldManager",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 50,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x264": {
+    "4": 1
+   },
+   "0x268": {
+    "4": 4
+   },
+   "0x2c0": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [],
+     "value": [
+      {
+       "kind": "inference",
+       "name": "<polymorphic base>",
+       "offset": 12,
+       "own_vftable": "0x7e5224",
+       "rule": "retail-secondary-vptr"
+      },
+      {
+       "kind": "inference",
+       "name": "<polymorphic base>",
+       "offset": 16,
+       "own_vftable": "0x7e5220",
+       "rule": "retail-secondary-vptr"
+      }
+     ]
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x214405"
+     ],
+     "value": {
+      "0x0": "0x7e5234",
+      "0x10": "0x7e5220",
+      "0xc": "0x7e5224"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e5234"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00214405@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2146b8"
+       },
+       {
+        "name": "?disable@Rva00210D0DByteZeroSetter@@QAEXXZ",
+        "slot": 1,
+        "target": "0x210d0d"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?disable@Rva00210D0DByteZeroSetter@@QAEXXZ",
+        "slot": 9,
+        "target": "0x210d0d"
+       },
+       {
+        "name": "?rva002123BE@Rva0021237E@@QAEXXZ",
+        "slot": 10,
+        "target": "0x2123be"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7e5234"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 17,
+  "retail_vtables": {
+   "0x7e5220": {
+    "offset": 16,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7e5224": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7e5234": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00214405@@UAEPAXI@Z",
+     "1": "?disable@Rva00210D0DByteZeroSetter@@QAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?disable@Rva00210D0DByteZeroSetter@@QAEXXZ",
+     "10": "?rva002123BE@Rva0021237E@@QAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 7,
+  "view_sizes": {
+   "1": 21,
+   "4": 1,
+   "453": 1,
+   "480": 1,
+   "516": 1,
+   "517": 1,
+   "556": 1,
+   "564": 1,
+   "588": 1,
+   "600": 1,
+   "620": 9,
+   "680": 1,
+   "693": 1,
+   "708": 1,
+   "720": 1
+  },
+  "views": 43,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp",
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 332,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 336,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 384,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 388,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 392,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 396,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 440,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerDoomSetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 452,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 464,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/Rva002BEDCAMovementDuration.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 472,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/Rva002BEDCAMovementDuration.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/Rva002BEDCAMovementDuration.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 516,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateSound.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 532,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 537,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 538,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 544,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 548,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 552,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 556,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 560,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 572,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 576,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 580,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 584,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 588,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 592,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 596,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 604,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 608,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 612,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 616,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/Common/LivingWorldManager_SetUpRegionEffectsManager.cpp",
+    "Code/GameEngine/Source/Common/Rva00210F96Body.cpp",
+    "Code/GameEngine/Source/Common/Rva002B38F7.cpp",
+    "Code/GameEngine/Source/Common/Rva003EFDF5.cpp",
+    "Code/GameEngine/Source/Common/Rva003EFE3E.cpp",
+    "Code/GameEngine/Source/Common/Rva004FF28ECtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseRegionSelectionImplCtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 620,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorldManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 688,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 692,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldObjectParser.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 696,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 700,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 704,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCleanup.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 708,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 712,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 716,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base@0xc",
+   "candidates": {
+    "'<polymorphic base>'": 1
+   },
+   "class": "LivingWorldManager",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "base@0x10",
+   "candidates": {
+    "'<polymorphic base>'": 1
+   },
+   "class": "LivingWorldManager",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "s00()": 1
+   },
+   "class": "LivingWorldManager"
+  }
+ ],
+ "size": 620,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "s01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "rva000453B4Slot()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "s02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "s03()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "s10()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "s11()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "s12()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "s13()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "s20()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "s21()"
+  }
+ }
+}

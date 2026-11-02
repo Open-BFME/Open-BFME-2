@@ -285,3 +285,4 @@ LivingWorldRegion,Code/GameEngine/Include/GameLogic/LivingWorldRegion.h,existing
 AssetReference,Code/GameEngine/Include/Common/AssetReference.h,existing header; contract class_contracts/AssetReference.json; 14/42 sampled units adopt
 LivingWorldRegionManager,Code/GameEngine/Include/GameLogic/LivingWorldRegionManager.h,existing header; contract class_contracts/LivingWorldRegionManager.json; 34/50 sampled units adopt
 LivingWorldBattle,Code/GameEngine/Include/GameLogic/LivingWorldBattle.h,existing header; contract class_contracts/LivingWorldBattle.json; 19/52 sampled units adopt
+LivingWorldManager,Code/GameEngine/Include/GameLogic/LivingWorldManager.h,existing header; contract class_contracts/LivingWorldManager.json; 31/50 sampled units adopt
