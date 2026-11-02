@@ -7,12 +7,7 @@
 class Parameter;
 class AsciiString;
 class AttackPriorityInfo;
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x70];
-	const AttackPriorityInfo *m_info70;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
@@ -24,5 +19,5 @@ void ScriptActions::Rva003BB1FFAttack(Parameter *unit, const AsciiString &infoNa
 	AIUpdateInterface *ai = obj->m_ai;
 	if (ai == 0)
 		return;
-	ai->m_info70 = TheScriptEngine->getAttackInfo(infoName);
+	ai->m_attackInfo = TheScriptEngine->getAttackInfo(infoName);
 }
