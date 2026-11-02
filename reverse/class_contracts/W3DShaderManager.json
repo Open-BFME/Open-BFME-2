@@ -1,0 +1,41 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "W3DShaderManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 32,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 32
+  },
+  "views": 32,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DShaderManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManager.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
