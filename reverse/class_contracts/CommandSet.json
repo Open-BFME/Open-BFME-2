@@ -1,0 +1,247 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "CommandSet",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 56,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 3
+   },
+   "0x94": {
+    "4": 2
+   },
+   "0x98": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x9c": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x409ffa"
+     ],
+     "value": 156
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x409ffa"
+     ],
+     "value": {
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x409ffa"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x409ffa"
+     ],
+     "value": {
+      "0x0": "0x83906c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83906c"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GCommandSet@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x40a13f"
+       }
+      ],
+      "table": "0x83906c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x83906c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GCommandSet@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 45,
+   "148": 1,
+   "156": 6
+  },
+  "views": 52,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_CommandSet.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandSetGetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandSetGetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_ResetCommandSet.cpp",
+    "Code/GameEngine/Source/Common/System/SaveGame/CommandSet_SetCommandButton.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandSetCtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [],
+ "size": 156,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
