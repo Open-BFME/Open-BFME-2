@@ -56,15 +56,7 @@ typedef unsigned int UnsignedInt;
 
 typedef int Int;
 
-class AIInternalMoveToState
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-	char m_unrecovered04[ 0x4C - 0x04 ];
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIWanderInPlaceState : public AIInternalMoveToState
 {

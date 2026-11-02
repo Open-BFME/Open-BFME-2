@@ -5,11 +5,7 @@
 // AIInternalMoveToState ctor pin; caller 0x00544F16; prev 0x00544E3B same dir.
 class StateMachine;
 
-class __declspec(novtable) AIInternalMoveToState
-{
-public:
-	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
-};
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 // The retail table at RVA 0x00869E08: 18 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

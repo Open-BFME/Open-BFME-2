@@ -42,24 +42,7 @@ private:
 	char m_pad04[8];
 };
 
-class AIInternalMoveToState : public Rva0049B47C
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	char m_pad0C[0x20 - 0x0C];
-	Coord3DBase m_20;
-	float m_2C;
-	int m_30;
-	Coord3DBase m_34;
-	AudioHandle m_40;
-	unsigned int m_44;
-	bool m_48;
-	bool m_49;
-	char m_pad4A;
-	bool m_4B;
-};
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00340D1F : public AIInternalMoveToState
 {

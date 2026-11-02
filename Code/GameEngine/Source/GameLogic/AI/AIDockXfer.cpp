@@ -72,11 +72,7 @@ protected:
 	virtual void xfer( Xfer *xfer );
 };
 
-class AIInternalMoveToState : public State
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 // ------------------------------------------------------------------------------------------------
 class AIDockMachine : public StateMachine

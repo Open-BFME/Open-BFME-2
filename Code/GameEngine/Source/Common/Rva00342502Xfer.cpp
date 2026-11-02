@@ -33,17 +33,7 @@ class Object;
 
 #include "../../Include/Common/XferVersion.h"
 
-class AIInternalMoveToState
-{
-public:
-	virtual ~AIInternalMoveToState();
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	char m_pad04[0x4C - 0x04];
-};
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00342502 : public AIInternalMoveToState
 {

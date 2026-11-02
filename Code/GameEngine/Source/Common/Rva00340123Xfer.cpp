@@ -36,23 +36,7 @@ private:
 	char m_pad04[8];
 };
 
-class AIInternalMoveToState : public Rva0049B47C
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	char m_pad0C[0x20 - 0x0C];
-	float m_20[3];
-	float m_2C;
-	int m_30;
-	float m_34[3];
-	unsigned int m_40;
-	unsigned int m_44;
-	bool m_48;
-	bool m_49;
-	char m_pad4A;
-	bool m_4B;
-};
+#include "../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00340123 : public AIInternalMoveToState
 {
