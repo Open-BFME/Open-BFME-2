@@ -33,11 +33,7 @@ enum KindOfType
 	KINDOF_44 = 0x44
 };
 
-class Object
-{
-public:
-	bool isKindOf(KindOfType kind) const;
-};
+#include "../../GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

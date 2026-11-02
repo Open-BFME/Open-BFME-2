@@ -13,11 +13,7 @@ class ThingTemplate;
 class Player;
 enum KindOfType { KINDOF_COST_SKIP = 68 };
 enum ObjectStatusTypes { OBJECT_STATUS_COST_SKIP = 19 };
-class Object {
-public:
- bool isKindOf(KindOfType) const;
- bool testStatus(ObjectStatusTypes) const;
-};
+#include "../../GameLogic/Object/object.h"
 class ObjectFilter {
 public:
  bool testTemplate(const ThingTemplate*, const Player*, const Player*);

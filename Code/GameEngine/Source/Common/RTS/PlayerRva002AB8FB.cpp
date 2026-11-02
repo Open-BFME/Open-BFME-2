@@ -21,13 +21,7 @@ enum NameKeyType
 	NK_Invalid = 0
 };
 
-class Object
-{
-public:
-	bool rva0028AFBB() const;
-	Player *getControllingPlayer() const;
-	void rva00293077(const void *upgrade);
-};
+#include "../../GameLogic/Object/object.h"
 
 class BfmeGlob939D
 {

@@ -13,11 +13,7 @@
 // ?callHandleShroud@@YAHPAVObject@@PAX@Z @0x002AA20F 13B: the BFME callback
 // marks the object dirty (rowed Object::makeDirty 0x0028BB44) and continues.
 
-class Object
-{
-public:
-	void makeDirty();
-};
+#include "../../GameLogic/Object/object.h"
 
 int callHandleShroud(Object *obj, void *userData)
 {

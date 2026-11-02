@@ -165,12 +165,7 @@ public:
 	bool rva002AB87D(const UpgradeTemplate *tmpl) const;
 };
 
-class Object
-{
-public:
-	bool hasUpgrade(const UpgradeTemplate *tmpl) const;
-	Player *getControllingPlayer() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class OldSchoolHelpBoxContentSource : public Rva00405A45
 {

@@ -9,11 +9,7 @@
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	bool isMobile() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Waypoint
 {

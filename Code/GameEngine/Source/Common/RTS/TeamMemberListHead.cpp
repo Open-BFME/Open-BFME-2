@@ -18,13 +18,7 @@ typedef bool Bool;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Object
-{
-public:
-	Bool dlink_isInList_TeamMemberList(Object * const *pListHead) const;
-	void dlink_prependTo_TeamMemberList(Object **pListHead);
-	void dlink_removeFrom_TeamMemberList(Object **pListHead);
-};
+#include "../../GameLogic/Object/object.h"
 
 void Team::prependTo_TeamMemberList(Object *object)
 {

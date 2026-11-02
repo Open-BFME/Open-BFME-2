@@ -9,11 +9,7 @@
 #include <string.h>
 #pragma function(memset)
 
-class Object
-{
-public:
-	void rva0028CFB2(const int *a, const int *b);
-};
+#include "../GameLogic/Object/object.h"
 
 struct Rva001E42F2
 {

@@ -13,11 +13,7 @@ typedef bool Bool;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Object
-{
-public:
-	Bool dlink_isInList_TeamMemberList(Object * const *pListHead) const;
-};
+#include "../../GameLogic/Object/object.h"
 
 Bool Team::isInList_TeamMemberList(Object *object) const
 {

@@ -101,13 +101,7 @@ public:
 	char m_pad00[0x20];
 	AICommandInterface m_command;
 };
-class Object
-{
-public:
-	Bool testStatus(ObjectStatusTypes bit) const;
-	void setSelectable(Bool selectable);
-	AIUpdateInterface *getAIUpdateInterface();
-};
+#include "../GameLogic/Object/object.h"
 
 
 

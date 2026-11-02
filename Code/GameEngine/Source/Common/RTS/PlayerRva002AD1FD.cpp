@@ -62,12 +62,7 @@ public:
 	Object *rva002AC629();
 	void rva002AD1FD();
 };
-class Object
-{
-public:
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
-	const AsciiString *rva00290E67() const;
-};
+#include "../../GameLogic/Object/object.h"
 
 void Player::rva002AD1FD()
 {

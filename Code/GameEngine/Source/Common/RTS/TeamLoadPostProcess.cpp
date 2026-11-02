@@ -46,11 +46,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include "../GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	bool dlink_isInList_TeamMemberList(Object * const *pListHead) const;
-};
+#include "../../GameLogic/Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

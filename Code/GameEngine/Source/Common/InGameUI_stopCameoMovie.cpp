@@ -87,11 +87,7 @@ public:
 
 class PartitionData;
 
-class Object
-{
-public:
-	void friend_setPartitionData(PartitionData *partition);
-};
+#include "../GameLogic/Object/object.h"
 
 class Rva0029F4ABPeer
 {

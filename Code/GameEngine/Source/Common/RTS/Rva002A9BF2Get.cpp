@@ -66,13 +66,7 @@ struct BfmeWorldRV
 
 extern class ControlBar *TheControlBar;
 
-class Object
-{
-public:
-	void friend_adjustPowerForPlayer(bool flag);
-	void *rva0028BD17() const;
-	void rva0028DA67();
-};
+#include "../../GameLogic/Object/object.h"
 
 class GameWindowVirt
 {
