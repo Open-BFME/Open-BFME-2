@@ -139,8 +139,15 @@ Commit and push hooks also batch retired header-queue rows through the trusted
 base's adoption checks: one byte gate per bounded cohort, individual structural
 verdicts and combined link previews of byte-passing consumers. Byte failures are
 isolated by the lane's normal bisection; missing link results still refuse
-retirement. Staged/outgoing input checks run before and after judgment. This
-does not reuse verdicts across commits or rebases.
+retirement. Staged/outgoing input checks run before and after judgment. The
+hooks also record successful header-debt verdicts in this clone's receipt store.
+A retry can reuse them only when the tracked verification inputs, trusted and
+working verifiers, ordinary compiler/dependency currency, exact objects and
+dependency receipts, retail image, census index and environment still match.
+Structural/include checks and staged/outgoing tree binding always run afresh.
+Documentation and raw naming-vote changes alone do not invalidate them.
+Missing proof runs the normal
+checks; changed inputs during reuse refuse retirement. Other push audits still run.
 
 Before probing a class-key change (`struct`/`class`), the lane predicts its row-name
 changes and uses `name_dependents` to discover code and data consumers in one shared

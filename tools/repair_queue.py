@@ -1936,7 +1936,7 @@ def _header_verdicts(lane, rows):
     return judged
 
 
-def _head_header_verdicts(rows):
+def _head_header_verdicts(rows, *, structural_only=False):
     """Load acceptance and layout helpers from the trusted base, never the edit being judged."""
     import types
     rows = list(dict.fromkeys(rows))
@@ -1957,6 +1957,8 @@ def _head_header_verdicts(rows):
             exec(compile(got.stdout, module.__file__, "exec"), module.__dict__)
             modules[module_name] = module
         lane = modules["header_adopt_lane"]
+        if structural_only:
+            return {row: lane.adoption_problems(*row, gate=lambda source: None) for row in rows}
         if len(rows) == 1:
             return {rows[0]: lane.verdict(*rows[0])}
         return _header_verdicts(lane, rows)
@@ -1966,6 +1968,31 @@ def _head_header_verdicts(rows):
                 sys.modules.pop(module_name, None)
             else:
                 sys.modules[module_name] = previous
+
+
+def _header_debt_receipts():
+    """A receipt may skip checks only through the trusted base's helper.
+
+    Decline caching while the working verifier differs; staged verifier edits
+    cannot install their own receipt approval in the hook judging those edits.
+    """
+    import types
+    if _git("diff", "--no-ext-diff", "--quiet", DEBT_BASE, "--", "tools", ".githooks").returncode:
+        return None
+    extra = _git("ls-files", "--others", "--exclude-standard", "-z", "--", "tools", ".githooks")
+    if extra.returncode or extra.stdout:
+        return None
+    got = _git("show", f"{DEBT_BASE}:tools/push_receipts.py")
+    if got.returncode:
+        return None
+    module = types.ModuleType("_header_debt_receipts")
+    module.__file__ = str(ROOT / "tools/push_receipts.py")
+    try:
+        exec(compile(got.stdout, module.__file__, "exec"), module.__dict__)
+    except Exception:
+        return None
+    return module if all(hasattr(module, name) for name in
+                         ("header_debt_key", "header_debt_hit", "record_header_debt")) else None
 
 
 def _debt_objects(kind, source, ledger_rows):
@@ -2114,7 +2141,17 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
             continue
         judged.add(source)
         header_plan.append((name, source))
-    if header_verdict is None and len(header_plan) > 1:
+    receipt_key, receipt_hit, receipts = None, False, None
+    if header_plan and header_verdict is None:
+        receipts = _header_debt_receipts()
+        if receipts is not None:
+            receipt_key = receipts.header_debt_key(header_plan, tree, DEBT_BASE)
+            receipt_hit = receipts.header_debt_hit(receipt_key, header_plan)
+    if receipt_hit:
+        # Only byte/link work is reusable. Resolve current includes and private
+        # bodies afresh, including untracked/ignored include-shadowing changes.
+        header_results = _head_header_verdicts(header_plan, structural_only=True)
+    elif header_verdict is None and len(header_plan) > 1:
         header_results = _head_header_verdicts(header_plan)
     else:
         verdict = header_verdict or _head_header_verdict
@@ -2124,7 +2161,16 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
         if problems:
             failures.append(f"{source}: {HEADER_QUEUE} row ({name}) removed but acceptance fails: "
                             + "; ".join(problems))
-    return failures + (_verification_problems(tree, judged) if judged else [])
+    failures += _verification_problems(tree, judged) if judged else []
+    if receipt_key and not failures:
+        after = receipts.header_debt_key(header_plan, tree, DEBT_BASE)
+        if after != receipt_key:
+            failures.append("header debt: verification inputs changed during receipt judgment; rerun")
+        elif receipt_hit:
+            print(f"header debt: reused {len(header_plan)} unchanged verdict(s)", file=sys.stderr)
+        else:
+            receipts.record_header_debt(receipt_key, header_plan)
+    return failures
 
 
 def verify_debt_range(base, target, missing=False):

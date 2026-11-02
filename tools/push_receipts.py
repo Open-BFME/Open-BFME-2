@@ -45,6 +45,7 @@ trusted from another clone.
   python3 tools/push_receipts.py stale --units-from LIST     # those whose object here is not current
 """
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -58,6 +59,12 @@ import full_gate_receipt  # noqa: E402
 
 EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 KEEP_HOURS = 48
+
+# Documentation and raw naming votes do not feed the ordinary header-debt
+# byte/structural/link verdict. Everything else is conservatively bound.
+HEADER_METADATA = ("docs/", "reverse/name_votes.csv")
+HEADER_TRANSIENT_ENV = {"BFME_GATE_LOADS", "BFME_PUSH_PREVIOUS", "BFME_PUSH_LOST_RACE",
+                        "GIT_REFLOG_ACTION", "CODEX_TOOL_CALL_ID"}
 
 
 def git(*args, check=True):
@@ -261,6 +268,92 @@ def stale(units):
     compiled = [ROOT / u for u in units if not u.lower().endswith(".lib")]
     return sorted(s.relative_to(ROOT).as_posix()
                   for s in build.stale_sources(compiled, {c: build.obj_path(c) for c in compiled}))
+
+
+def _stable_digest(path):
+    """Hash the actual file, refusing a concurrent rewrite (never memoise proof)."""
+    def stamp():
+        s = Path(path).stat()
+        return s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns
+    before = stamp()
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    if stamp() != before:
+        raise ValueError(f"receipt input moved: {path}")
+    return digest.hexdigest()
+
+
+def header_debt_key(rows, tree, trusted_base):
+    """Content proof for a successful ordinary header-debt verdict, or no reuse.
+
+    Bind the whole tracked input tree except known non-verification metadata,
+    both verifiers, working-tree cleanliness, ordinary compiler/dependency
+    currency, exact objects/sidecars, retail image and census index.
+    HEAD itself is deliberately absent: a docs/vote-only rebase can reuse it.
+    An unavailable proof merely sends the caller through the normal checks.
+    """
+    try:
+        if not rows:
+            return None
+        exclusions = [":(exclude)docs/**", ":(exclude)reverse/name_votes.csv"]
+        if git("diff", "--no-ext-diff", "--quiet", "--ignore-submodules=none", tree,
+               "--", ".", *exclusions, check=False).returncode:
+            return None
+        if git("ls-files", "--others", "--exclude-standard", "-z", "--", ".", *exclusions).stdout:
+            return None
+        entries = git("ls-tree", "-r", "-z", tree).stdout.split("\0")
+        inputs = [entry for entry in entries if entry and not any(
+            entry.partition("\t")[2].startswith(path) if path.endswith("/")
+            else entry.partition("\t")[2] == path for path in HEADER_METADATA)]
+        trusted = git("ls-tree", "-r", "-z", trusted_base, "--", "tools", ".githooks").stdout
+        if not inputs or not trusted:
+            return None
+        import build
+        import link_check
+        if build.ROOT.resolve() != ROOT.resolve():
+            return None
+        objects = []
+        for source in sorted({source for _, source in rows}):
+            path = (ROOT / source).resolve()
+            if not path.is_relative_to(ROOT.resolve()) or path.suffix.lower() not in (".cpp", ".c", ".asm"):
+                return None
+            obj = build.obj_path(source)
+            if not build.compile_is_current(path, obj):
+                return None
+            objects.append([source, _stable_digest(obj), _stable_digest(build._deps_sidecar(obj))])
+        environment = {k: v for k, v in os.environ.items() if k not in HEADER_TRANSIENT_ENV}
+        payload = ["header-debt-v1", str(ROOT.resolve()), sorted(set(rows)), inputs, trusted,
+                   git("config", "--null", "--list").stdout, environment, objects,
+                   _stable_digest(build.EXE), _stable_digest(link_check.INDEX)]
+        return hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()
+    except (Exception, SystemExit):
+        # A missing input, stale object, unsupported compiler or unreadable proof
+        # never grants credit and never suppresses the ordinary verifier.
+        return None
+
+
+def header_debt_hit(key, rows):
+    if not key:
+        return False
+    try:
+        receipt = _read(f"header-{key}.json")
+        return bool(receipt and receipt.get("kind") == "header-debt-v1" and receipt.get("key") == key
+                    and receipt.get("units") == sorted({source for _, source in rows})
+                    and receipt.get("rows") == sorted([list(row) for row in set(rows)]))
+    except (OSError, ValueError):
+        return False
+
+
+def record_header_debt(key, rows):
+    """Only the caller's successful, stable before/after verdict may reach here."""
+    try:
+        _write(f"header-{key}.json", {"kind": "header-debt-v1", "key": key,
+                                    "rows": sorted([list(row) for row in set(rows)]),
+                                    "units": sorted({source for _, source in rows})})
+    except OSError:
+        pass  # Missing receipt costs another verification, never its checks.
 
 
 def main(argv=None):

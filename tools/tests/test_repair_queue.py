@@ -2762,6 +2762,50 @@ def test_header_debt_batch_bounds_preview_commands():
     assert all(sum(len(s) + 1 for s in chunk) <= 6000 for chunk in previews)
 
 
+@pytest.mark.parametrize("case", ["hit", "miss", "no-proof", "failure", "changed-proof", "changed-tree", "changed-structure"])
+def test_header_debt_receipt_reuse_never_credits_failures_or_moved_inputs(tmp_path, monkeypatch, case):
+    from types import SimpleNamespace
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
+    git = _git_repo(tmp_path)
+    queue = rev / "header_queue.tsv"
+    queue.write_text("".join(line for line in queue.read_text().splitlines(True)
+                             if "Code/GameEngine/" not in line), newline="\n")
+    git("add", str(queue))
+    calls, recorded, keys = [], [], []
+    def key(*args):
+        keys.append(True)
+        return None if case == "no-proof" else "changed" if case == "changed-proof" and len(keys) > 1 else "same"
+    def hit(*args):
+        if case == "changed-tree":
+            (tmp_path / "Code/GameEngine/Body.cpp").write_text("// changed during reuse\n")
+        return case in ("hit", "changed-proof", "changed-tree", "changed-structure")
+    def judge(rows, *, structural_only=False):
+        calls.append(structural_only)
+        return {row: ["refused"] if case in ("failure", "changed-structure") else [] for row in rows}
+    receipts = SimpleNamespace(header_debt_key=key, header_debt_hit=hit,
+                               record_header_debt=lambda *args: recorded.append(args))
+    monkeypatch.setattr(rq, "_header_debt_receipts", lambda: receipts)
+    monkeypatch.setattr(rq, "_head_header_verdicts", judge)
+    failures = rq.verify_removed_debt()
+    assert bool(failures) == (case in ("failure", "changed-proof", "changed-tree", "changed-structure"))
+    assert calls == [case in ("hit", "changed-proof", "changed-tree", "changed-structure")]
+    assert bool(recorded) == (case == "miss")
+
+
+def test_header_receipt_helper_cannot_approve_its_own_worktree_edit(tmp_path):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    helper = tools / "push_receipts.py"
+    helper.write_text('def header_debt_key(*args): return "HEAD"\n'
+                      'def header_debt_hit(*args): return False\n'
+                      'def record_header_debt(*args): pass\n')
+    _git_repo(tmp_path)
+    assert rq._header_debt_receipts().header_debt_key() == "HEAD"
+    helper.write_text('raise AssertionError("untrusted receipt approval executed")\n')
+    assert rq._header_debt_receipts() is None
+
+
 @pytest.mark.parametrize("case", ["failure", "missing-verdict", "source", "header", "index"])
 def test_header_debt_hook_batches_rows_and_rechecks_the_verification_tree(tmp_path, monkeypatch, case):
     rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES + [("Code/Include/C.h", "// original\n")])

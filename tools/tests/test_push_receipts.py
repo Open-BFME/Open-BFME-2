@@ -155,3 +155,100 @@ def test_a_stale_or_foreign_receipt_is_ignored(repo):
     old = time.time() - (P.KEEP_HOURS + 1) * 3600
     os.utime(path, (old, old))
     assert P.cover(base, c1) == set()
+
+
+@pytest.fixture
+def header_inputs(repo, monkeypatch):
+    import build
+    import link_check
+    from types import SimpleNamespace
+    commit(repo, ".gitignore", "build/\nbaselines/\n")
+    for path, text in [("Code/a.cpp", "// matched\n"), ("Code/a.h", "// canonical\n"),
+                       ("reverse/functions.csv", "ledger\n")]:
+        commit(repo, path, text)
+    output = repo / "build/a.obj"
+    output.parent.mkdir()
+    output.write_bytes(b"verified object")
+    output.with_suffix(".deps.json").write_text("compiler receipt")
+    retail, index = repo / "baselines/game.dat", repo / "build/link_index.pkl"
+    retail.parent.mkdir()
+    retail.write_bytes(b"retail")
+    index.write_bytes(b"census")
+    state = SimpleNamespace(current=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "EXE", retail)
+    monkeypatch.setattr(build, "obj_path", lambda source: output)
+    monkeypatch.setattr(build, "compile_is_current", lambda *a: state.current)
+    monkeypatch.setattr(link_check, "INDEX", index)
+    return repo, [("C", "Code/a.cpp")], state
+
+
+def test_header_debt_receipts_survive_documentation_vote_and_retry_metadata_changes(header_inputs, monkeypatch):
+    root, rows, _ = header_inputs
+    before = git(root, "rev-parse", "HEAD")
+    key = P.header_debt_key(rows, tree(root, before), before)
+    assert key
+    P.record_header_debt(key, rows)
+    commit(root, "docs/status.md", "unrelated documentation")
+    after = commit(root, "reverse/name_votes.csv", "raw vote only")
+    assert before != after
+    monkeypatch.setenv("BFME_PUSH_PREVIOUS", before)
+    monkeypatch.setenv("BFME_PUSH_LOST_RACE", "1")
+    monkeypatch.setenv("BFME_GATE_LOADS", "different temporary folder")
+    monkeypatch.setenv("CODEX_TOOL_CALL_ID", "different command session")
+    assert P.header_debt_key(rows, tree(root, after), after) == key
+    assert P.header_debt_hit(key, rows)
+    assert not P.header_debt_hit(key, [("OtherClass", "Code/a.cpp")])
+
+
+@pytest.mark.parametrize("change", ["source", "header", "ledger", "verifier", "new-provider",
+                                    "object", "sidecar", "retail", "index", "environment"])
+def test_header_debt_receipt_invalidates_every_verification_input(header_inputs, monkeypatch, change):
+    root, rows, state = header_inputs
+    base = git(root, "rev-parse", "HEAD")
+    key = P.header_debt_key(rows, tree(root, base), base)
+    assert key
+    tracked = {"source": "Code/a.cpp", "header": "Code/a.h", "ledger": "reverse/functions.csv",
+               "verifier": "tools/build.py", "new-provider": "Code/new.cpp"}
+    if change in tracked:
+        commit(root, tracked[change], "changed verification input")
+    elif change == "environment":
+        monkeypatch.setenv("INCLUDE", "different compiler include search")
+    else:
+        path = {"object": "build/a.obj", "sidecar": "build/a.deps.json", "retail": "baselines/game.dat",
+                "index": "build/link_index.pkl"}[change]
+        (root / path).write_bytes(b"changed bytes")
+    assert P.header_debt_key(rows, tree(root, "HEAD"), "HEAD") != key
+
+
+@pytest.mark.parametrize("missing", ["stale-object", "object", "index", "dirty-input", "untracked-provider"])
+def test_header_debt_receipt_declines_unprovable_inputs(header_inputs, missing):
+    root, rows, state = header_inputs
+    if missing == "stale-object":
+        state.current = False
+    elif missing == "dirty-input":
+        (root / "Code/a.h").write_text("unstaged header")
+    elif missing == "untracked-provider":
+        (root / "Code/new.cpp").write_text("untracked provider")
+    else:
+        (root / ("build/a.obj" if missing == "object" else "build/link_index.pkl")).unlink()
+    assert P.header_debt_key(rows, tree(root, "HEAD"), "HEAD") is None
+
+
+def test_header_debt_receipts_ignore_corruption_expiry_and_write_failure(header_inputs, monkeypatch):
+    import os
+    import time
+    root, rows, _ = header_inputs
+    key = P.header_debt_key(rows, tree(root, "HEAD"), "HEAD")
+    assert key and not P.header_debt_hit(key, rows)
+    P.record_header_debt(key, rows)
+    path = P.folder() / f"header-{key}.json"
+    path.write_text("invalid json")
+    assert not P.header_debt_hit(key, rows)
+    P.record_header_debt(key, rows)
+    old = time.time() - (P.KEEP_HOURS + 1) * 3600
+    os.utime(path, (old, old))
+    assert not P.header_debt_hit(key, rows)
+    monkeypatch.setattr(P, "_write", lambda *a: (_ for _ in ()).throw(PermissionError("cache denied")))
+    P.record_header_debt(key, rows)
+    assert not P.header_debt_hit(key, rows)
