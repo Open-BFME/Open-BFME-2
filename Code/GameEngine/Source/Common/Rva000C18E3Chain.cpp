@@ -96,15 +96,15 @@ struct SrcArg000C18E3
 class Rva000C18E3
 {
 public:
-	void rva000C18E3(SrcArg000C18E3 *p);
+	void rva000C18E3(SrcArg000C18E3 *source);
 private:
 	char m_pad[0xC8];
 	_STL::vector<Dst12, _STL::allocator<Dst12> > m_dst[6];
 };
 
-void Rva000C18E3::rva000C18E3(SrcArg000C18E3 *p)
+void Rva000C18E3::rva000C18E3(SrcArg000C18E3 *source)
 {
-	if (!p)
+	if (!source)
 	{
 		for (int i = 0; i < 6; ++i)
 		{
@@ -115,7 +115,7 @@ void Rva000C18E3::rva000C18E3(SrcArg000C18E3 *p)
 	}
 	for (int i = 0; i < 6; ++i)
 	{
-		_STL::vector<Src60, _STL::allocator<Src60> > &s = p->m_src[i];
+		_STL::vector<Src60, _STL::allocator<Src60> > &s = source->m_src[i];
 		_STL::vector<Dst12, _STL::allocator<Dst12> > &d = m_dst[i];
 		unsigned int sn = (unsigned int)(s.m_finish - s.m_start);
 		unsigned int dn = (unsigned int)(d.m_finish - d.m_start);
@@ -127,11 +127,11 @@ void Rva000C18E3::rva000C18E3(SrcArg000C18E3 *p)
 			zero.c = 0;
 			((Rva000C0513 *)&d)->rva000C0513(sn, *(Coord3D *)&zero);
 		}
-		for (Dst12 *q = d.m_start; q != d.m_finish; ++q)
+		for (Dst12 *element = d.m_start; element != d.m_finish; ++element)
 		{
-			q->a = 0;
-			q->b = 0;
-			q->c = 0;
+			element->a = 0;
+			element->b = 0;
+			element->c = 0;
 		}
 	}
 }

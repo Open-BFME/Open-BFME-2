@@ -3,7 +3,7 @@
 // Evidence: chain from 0x00272C9E Drawable::rva00272C9E plus pin getTransformMatrix; callers 0x000E5B57; matrix at +0x50 floats +0x84 +0x88 flag +0x98 Drawable +0x2C
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 static __forceinline float &matrixComponent(Matrix3D &m,int row,int col) { return (&m.Row[row].X)[col]; }
-static __forceinline const float &matrixComponent(const Matrix3D &m,int row,int col) { return (&m.Row[row].X)[col]; }
+static __forceinline const float &matrixComponent(const Matrix3D &matrix,int row,int col) { return (&matrix.Row[row].X)[col]; }
 
 
 #include "../../Include/GameClient/Drawable.h"
@@ -20,7 +20,7 @@ class Rva000E459F
 {
 public:
 	bool rva000E459F();
-	void rva000E46DA(Drawable *d, const AsciiString &a1, const AsciiString &a2, bool b82, bool b81);
+	void rva000E46DA(Drawable *d, const AsciiString &a1, const AsciiString &secondName, bool b82, bool b81);
 private:
 	char m_pad00[0x2C];
 	Drawable *m_2C;
@@ -45,15 +45,15 @@ bool Rva000E459F::rva000E459F()
 	if (!m_2C || m_98 != 1)
 		return false;
 	bool changed = false;
-	float v;
+	float level;
 	if (m_88 != 0.0f) {
-		v = m_84 + m_88;
-		if (v < 0.0f)
-			v = 0.0f;
-		if (v > 1.0f)
-			v = 1.0f;
+		level = m_84 + m_88;
+		if (level < 0.0f)
+			level = 0.0f;
+		if (level > 1.0f)
+			level = 1.0f;
 	} else {
-		v = m_2C->rva00272C9E(0);
+		level = m_2C->rva00272C9E(0);
 		const Matrix3D *matrix3D = m_2C->getTransformMatrix();
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 4; ++j) {
@@ -81,24 +81,24 @@ bool Rva000E459F::rva000E459F()
 	}
 	have_v:;
 	}
-	if (m_84 != v) {
-		m_84 = v;
+	if (m_84 != level) {
+		m_84 = level;
 		changed = true;
 	}
 	return changed;
 }
 
-void Rva000E459F::rva000E46DA(Drawable *drawable, const AsciiString &asciiString, const AsciiString &a2, bool b82, bool b81)
+void Rva000E459F::rva000E46DA(Drawable *drawable, const AsciiString &asciiString, const AsciiString &secondName, bool b82, bool b81)
 {
 	m_2C = drawable;
-	int v;
+	int fieldValue;
 	if (drawable)
-		v = ((Rva0055A88BDwordField *)drawable)->get();
+		fieldValue = ((Rva0055A88BDwordField *)drawable)->get();
 	else
-		v = 0;
-	m_4C = v;
+		fieldValue = 0;
+	m_4C = fieldValue;
 	m_8C = asciiString;
-	m_90 = a2;
+	m_90 = secondName;
 	m_80 = (drawable != 0);
 	m_81 = b81;
 	m_82 = b82;

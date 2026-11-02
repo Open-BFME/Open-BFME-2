@@ -58,9 +58,9 @@ public:
 void Rva000D19F9::rva000D19F9()
 {
 	Drawable *obj = m_obj;
-	int *at8 = &m_node->m_at8;
-	float value = *(float *)((char *)at8 + 0x24);
-	((W3DTornadoDraw *)this)->rva000D18F8((const RadiusDecalTemplate *)at8, value, *obj->getPosition(), m_node->m_at3C);
+	int *decal = &m_node->m_at8;
+	float value = *(float *)((char *)decal + 0x24);
+	((W3DTornadoDraw *)this)->rva000D18F8((const RadiusDecalTemplate *)decal, value, *obj->getPosition(), m_node->m_at3C);
 	m_obj->m_flags |= 0x20;
 	RGBColor00271779 color = {1.5f, 1.5f, 1.5f};
 	((Rva00271779 *)m_obj)->rva00271779(color, 0x1E, 0xFFFFFF, 0xFFFFFF, 0.0f, 0.0f);

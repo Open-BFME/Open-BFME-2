@@ -227,3 +227,5 @@ agree:nl-21ae77724f2b,Rva000BC834::write::n,Rva000BC834::write::written,Code/Gam
 agree:nl-ae469f2322e0,Rva000BD268::write::n,Rva000BD268::write::written,Code/GameEngine/Source/Common/Rva000BC834Write.cpp,aff03e7957d96a36167fc1a99c07c46310044bab212486e0375cd9359e86a7b2
 agree:nl-fb03f4fba912,Rva000C0D13Copy::c,Rva000C0D13Copy::remaining,Code/GameEngine/Source/Common/Rva000C0D13Copy.cpp,c13126c3ecacbb44dfac49c731179ff595251e517c38613e53705b49b1dba6c5
 agree:nl-c5779afda573,Rva000C0D13Copy::n,Rva000C0D13Copy::count,Code/GameEngine/Source/Common/Rva000C0D13Copy.cpp,c13126c3ecacbb44dfac49c731179ff595251e517c38613e53705b49b1dba6c5
+agree:nl-b58d4355a239,Rva000D19F9::rva000D19F9::at8,Rva000D19F9::rva000D19F9::decal,Code/GameEngine/Source/Common/Rva000D19F9.cpp,84d868ffd4d5e41eb21fd9838b2e69d197223d3befcb98a5cb199c7d2644e1b0
+agree:nl-72db0e86a82e,Rva000E459F::rva000E46DA::v,Rva000E459F::rva000E46DA::fieldValue,Code/GameEngine/Source/Common/Rva000E459F.cpp,b789af391371c7f9e6a3f2e55fd46525a935ff46f0da9008ee4b523200b8f67b
