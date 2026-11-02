@@ -12,11 +12,7 @@ enum ScienceType
 	SCIENCE_INVALID = 0
 };
 
-class ScienceStore
-{
-public:
-	ScienceType lookupScience(const char *token) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 
 extern ScienceStore *TheScienceStore;
 

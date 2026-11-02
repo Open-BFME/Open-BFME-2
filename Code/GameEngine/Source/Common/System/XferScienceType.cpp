@@ -17,11 +17,7 @@ enum ScienceType { SCIENCE_0 = 0 };
 enum NameKeyType { NAMEKEY_INVALID = -1 };
 #include "XferVectorTypes.h"
 #include "../../../Include/Common/BfmeXfer.h"
-class ScienceStore {
-public:
- AsciiString getInternalNameForScience(ScienceType science) const;
- ScienceType getScienceFromInternalName(const AsciiString &name) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 #include "../../../Include/Common/XferException.h"
 

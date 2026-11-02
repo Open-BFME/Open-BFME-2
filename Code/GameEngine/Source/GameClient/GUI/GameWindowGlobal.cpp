@@ -119,15 +119,7 @@ class Object;
 // +0xC (STLport erase(begin, end), 0x0031BD55). WorldBuilder names the body
 // ScienceStore::init (Science.cpp:29); the other stores' identical init
 // bodies fold onto it.
-class ScienceStore
-{
-public:
-	virtual ~ScienceStore();
-	virtual void init();
-private:
-	char m_pad04[0x08];
-	_STL::vector<void *> m_0C;
-};
+#include "../../../Include/Common/ScienceStore.h"
 
 // vtable 0x00C0DB34#2 and #0: write the four-character code 'free' and
 // 'look' through the ledger's DataChunkOutput::writeInt of the object at +4.

@@ -47,12 +47,7 @@ public:
 	virtual void withdraw(int amount);
 };
 
-class ScienceStore
-{
-public:
-	bool isScienceGrantable(ScienceType science) const;
-	int getSciencePurchaseCost(ScienceType science) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 
 extern ScienceStore *TheScienceStore;
 

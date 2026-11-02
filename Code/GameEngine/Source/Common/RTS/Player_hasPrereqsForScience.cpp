@@ -34,11 +34,7 @@ public:
 	bool hasPrereqsForScience(ScienceType t) const;
 };
 
-class ScienceStore
-{
-public:
-	bool playerHasPrereqsForScience(const Rva0043D3A8 *player, ScienceType st) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 
 extern ScienceStore *TheScienceStore;	// retail [0x00DFE0E0]
 

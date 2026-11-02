@@ -29,11 +29,7 @@ public:
 };
 }
 
-class ScienceStore
-{
-public:
-	bool isScienceGrantable(ScienceType st) const;
-};
+#include "../../Include/Common/ScienceStore.h"
 
 extern ScienceStore *TheScienceStore;
 

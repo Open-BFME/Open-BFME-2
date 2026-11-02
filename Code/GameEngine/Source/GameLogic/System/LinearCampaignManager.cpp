@@ -243,7 +243,7 @@ public:
 
 extern PlayerList*ThePlayerList;
 
-class ScienceStore {public:bool isScienceGrantable(ScienceType)const;};
+#include "../../../Include/Common/ScienceStore.h"
 
 extern ScienceStore*TheScienceStore;
 

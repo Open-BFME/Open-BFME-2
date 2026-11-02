@@ -224,11 +224,7 @@ class Rva00425F10
 public:
 	static void parseStanceTemplateDefinition(INI *);
 };
-class ScienceStore
-{
-public:
-	static void friend_parseScienceDefinition(INI *);
-};
+#include "../../../Include/Common/ScienceStore.h"
 class ScoredKillEvaAnnouncerController
 {
 public:

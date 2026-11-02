@@ -74,10 +74,8 @@ class UpgradeCenter { public:
  const UpgradeTemplate *findUpgrade(const AsciiString&) const;
  bool rva0026F11A(Player*,const UpgradeTemplate*,Object*,bool);
 }; extern UpgradeCenter *TheUpgradeCenter;
-class ScienceStore { public:
- bool playerHasPrereqsForScience(const Rva0043D3A8*,ScienceType) const;
- int getSciencePurchaseCost(ScienceType) const;
-}; extern ScienceStore *TheScienceStore;
+#include "../../../../Include/Common/ScienceStore.h"
+extern ScienceStore *TheScienceStore;
 class Rva0035B164 { public: int rva0035B164(int); };
 class Rva0028B7C1DwordField { public: int get() const; };
 class Thing { public: Drawable *getDrawable() const; };

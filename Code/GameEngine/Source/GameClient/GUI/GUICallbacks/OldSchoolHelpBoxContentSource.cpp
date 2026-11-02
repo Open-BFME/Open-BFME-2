@@ -156,12 +156,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class ScienceStore
-{
-public:
-	bool playerHasRootPrereqsForScience(const Player *player, ScienceType science) const;
-	int getSciencePurchaseCost(ScienceType science) const;
-};
+#include "../../../../Include/Common/ScienceStore.h"
 
 extern ScienceStore *TheScienceStore;
 

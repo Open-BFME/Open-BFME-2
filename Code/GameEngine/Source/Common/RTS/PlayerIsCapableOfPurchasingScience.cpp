@@ -12,11 +12,7 @@ enum ScienceType
 	SCIENCE_INVALID = -1
 };
 
-class ScienceStore
-{
-public:
-	Int getSciencePurchaseCost(ScienceType science) const;
-};
+#include "../../../Include/Common/ScienceStore.h"
 extern ScienceStore *TheScienceStore;
 
 class Player

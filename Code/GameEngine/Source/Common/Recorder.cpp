@@ -231,7 +231,7 @@ enum NameKeyType {NAMEKEY_INVALID=-1};
 
 enum ScienceType {};
 
-class ScienceStore {public:AsciiString getInternalNameForScience(ScienceType science) const;};
+#include "../../Include/Common/ScienceStore.h"
 
 extern ScienceStore*TheScienceStore;
 
