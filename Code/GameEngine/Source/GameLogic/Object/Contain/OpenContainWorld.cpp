@@ -34,7 +34,7 @@ public:
     void rva0028BAC0();
 };
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI { public: char unknown00[0x10]; Pathfinder *pathfinder10; };
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 template <int N> class Rva00462E3ASlots : public Rva00462E3ASlots<N - 1> {
 public: virtual void gap(char (*)[N]);
@@ -75,12 +75,12 @@ void Rva00462E3A::rva00462E3A(Object *object, int add, int unused)
         object->teleportTo(&reinterpret_cast<Rva00462E3AObject *>(owner8)->position38, true);
         if (!view->flag454) object->rva0028DCC4();
         if (object->getDrawable()) object->getDrawable()->setDrawableHidden(false);
-        TheAI->pathfinder10->AddObjectToPathfindMap(object);
+        TheAI->m_pathfinder->AddObjectToPathfindMap(object);
     } else {
         object->leaveGroup();
         if (view->flag454) object->rva0028BAC0();
         if (object->getDrawable()) object->getDrawable()->setDrawableHidden(true);
-        TheAI->pathfinder10->RemoveObjectFromPathfindMap(object);
+        TheAI->m_pathfinder->RemoveObjectFromPathfindMap(object);
     }
     Rva00462E3AModule *module = view->module250;
     if (module) {

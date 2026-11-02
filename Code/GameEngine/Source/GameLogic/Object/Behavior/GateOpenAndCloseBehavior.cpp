@@ -508,12 +508,7 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_10; // +0x10
-};
+#include "../../../../Include/GameLogic/AI.h"
 
 extern AI *TheAI;
 
@@ -964,7 +959,7 @@ void GateOpenAndCloseBehavior::rva0049924B(bool flag)
 		return;
 	if (flag)
 		rva00498FAA();
-	Pathfinder *shim = TheAI->m_10;
+	Pathfinder *shim = TheAI->m_pathfinder;
 	Object *obj = m_object;
 	shim->RemoveObjectFromPathfindMapKeepingGateFlags(obj);
 	m_2C = 1;
@@ -976,7 +971,7 @@ void GateOpenAndCloseBehavior::rva0049924B(bool flag)
 	for (const AsciiString *p = data->m_geometryForClosed.begin(); p != data->m_geometryForClosed.end(); ++p)
 		f9->setFlag(*(const BfmeStrF9 *)p, 1);
 	obj->rva0028AB75(true);
-	TheAI->m_10->AddObjectToPathfindMap(obj);
+	TheAI->m_pathfinder->AddObjectToPathfindMap(obj);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorRva004992D5.cpp
@@ -999,7 +994,7 @@ void GateOpenAndCloseBehavior::rva004992D5(bool a, bool b)
 	}
 	if (b)
 		rva00498FAA();
-	Pathfinder *shim = TheAI->m_10;
+	Pathfinder *shim = TheAI->m_pathfinder;
 	Object *obj = m_object;
 	shim->RemoveObjectFromPathfindMapKeepingGateFlags(obj);
 	m_2C = 2;
@@ -1010,7 +1005,7 @@ void GateOpenAndCloseBehavior::rva004992D5(bool a, bool b)
 	for (const AsciiString *p = data->m_geometryForClosed.begin(); p != data->m_geometryForClosed.end(); ++p)
 		(&obj->m_objA8)->setFlag(*(const BfmeStrF9 *)p, 0);
 	obj->rva0028AB75(true);
-	TheAI->m_10->AddObjectToPathfindMap(obj);
+	TheAI->m_pathfinder->AddObjectToPathfindMap(obj);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorOnObjectCreated.cpp

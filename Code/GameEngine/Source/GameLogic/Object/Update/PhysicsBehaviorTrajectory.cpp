@@ -183,7 +183,7 @@ void PhysicsBehavior::rva00390E61(bool skipWake)
 #include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI { public: char pad00[0x10]; Pathfinder *pathfinder; };
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 // Select-any like the PhysicsUpdate.cpp donor copy (this retail body comes
 // first in link order, so it is the copy the link keeps); the anchor keeps the
@@ -237,7 +237,7 @@ inline UpdateSleepTime PhysicsBehavior::update()
   nextPoint=&next;
  }
  obj->setNextPosition(nextPoint);
- TheAI->pathfinder->AdjustLayer(m_object);
+ TheAI->m_pathfinder->AdjustLayer(m_object);
  ++index;
  return rva00390601();
 }

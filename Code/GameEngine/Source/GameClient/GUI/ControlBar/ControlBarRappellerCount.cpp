@@ -448,7 +448,7 @@ extern GameLogic *TheGameLogic;
 class PlayerList;
 extern PlayerList *ThePlayerList;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI { public: char m_pad000[0x10]; Pathfinder *m_pathfinder; };
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 struct DrawableNode { DrawableNode *m_next; DrawableNode *m_prev; Drawable *m_data; };
 struct DrawableList { DrawableNode *m_node; };

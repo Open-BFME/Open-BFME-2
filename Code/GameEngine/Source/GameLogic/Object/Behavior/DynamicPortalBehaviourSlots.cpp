@@ -157,12 +157,7 @@ public:
     void rva00272C42(const char *text);
 };
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI
-{
-public:
-    char pad[0x10];
-    Pathfinder *pathfinder;
-};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 struct Rva0046129AData
 {
@@ -192,8 +187,8 @@ void DynamicPortalBehaviour::upgradeImplementation()
         if (data->name.getLength() > 0)
         {
             ((Rva00272C42 *)drawable)->rva00272C42(data->name.str());
-            TheAI->pathfinder->RemoveObjectFromPathfindMap(object);
-            TheAI->pathfinder->AddObjectToPathfindMap(object);
+            TheAI->m_pathfinder->RemoveObjectFromPathfindMap(object);
+            TheAI->m_pathfinder->AddObjectToPathfindMap(object);
         }
     }
     createWaypoints();

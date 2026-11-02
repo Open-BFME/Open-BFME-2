@@ -30,7 +30,8 @@ class Thing {public:void setPosition(const Coord3D*);void setOrientation(float);
 class Object:public Thing {protected:friend class HordeSiegeEngineContain;Module*findModule(NameKeyType) const;public:Player*getControllingPlayer() const;bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*) const;void rva0028D412(const Matrix3D*);void setLayer(PathfindLayerEnum);void setStatus(ObjectStatusTypes,bool);void rva0028ACDC(int);
  void *vtable;void *type;char pad8[0x38-8];Coord3D position;float angle;char pad48[0xcc-0x48];float radius;char padd0[0x258-0xd0];AIUpdateInterface *ai;};
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder *pathfinder;};extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
+extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 class Rva004C5772CmpBoolField {public:bool get() const;};
@@ -53,11 +54,11 @@ void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
   delta.normalize();
   float dx=delta.x*50.0f;float dy=delta.y*50.0f;destination.x+=dx;destination.y+=dy;destination.z=0; }
   AIUpdateInterface *ai=rider->ai;
-  TheAI->pathfinder->AddObjectToPathfindMap(rider);
+  TheAI->m_pathfinder->AddObjectToPathfindMap(rider);
   if(ai){
    ai->ignoreObstacle(0);
    ai->ignoreUntil=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;
-   Pathfinder *finder=TheAI->pathfinder;finder->adjustToPossibleDestination(rider,*ai->locomotorView(),&destination);
+   Pathfinder *finder=TheAI->m_pathfinder;finder->adjustToPossibleDestination(rider,*ai->locomotorView(),&destination);
    _STL::vector<Coord3D> path;path.push_back(destination);path.push_back(destination);
    ((AICommandInterface*)((char*)ai+0x20))->rva0036EE16((const Rva0035149F*)&path,me,COMMAND2);
    rider->rva0028ACDC((int)&destination);
@@ -72,18 +73,18 @@ void HordeSiegeEngineContain::rva0047D53A(Object *rider,ExitDoorType arg)
    rider->rva0028D412(&transform);
    rider->setLayer(LAYER17);
    AIUpdateInterface *ai=rider->ai;
-   TheAI->pathfinder->AddObjectToPathfindMap(rider);
+   TheAI->m_pathfinder->AddObjectToPathfindMap(rider);
    if(ai){ai->ignoreObstacle(0);ai->ignoreUntil=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;((AICommandInterface*)((char*)ai+0x20))->aiHunt(COMMAND2);}
   }else{
    position=me->position;
    Coord3D direction;const Coord3D *dir=me->getUnitDirectionVector2D();float radius=me->radius;direction.x=dir->x;direction.y=dir->y;
    position.x+=direction.x*radius;position.y+=direction.y*radius;
-   Pathfinder *wallFinder=TheAI->pathfinder;position.z=wallFinder->GetWallHeight(LAYER17,&position,0);
+   Pathfinder *wallFinder=TheAI->m_pathfinder;position.z=wallFinder->GetWallHeight(LAYER17,&position,0);
    Coord3D start=position;
    position.x+=direction.x*20.0f;position.y+=direction.y*20.0f;
    start.x+=direction.x*40.0f;start.y+=direction.y*40.0f;
    rider->setPosition(&start);rider->setPosition(&start);rider->setOrientation(angle);rider->setLayer(LAYER17);
-   TheAI->pathfinder->AddObjectToPathfindMap(rider);
+   TheAI->m_pathfinder->AddObjectToPathfindMap(rider);
    AIUpdateInterface *ai=rider->ai;
    if(ai){ai->ignoreUntil=TheGameLogic->getFrame()+3*BfmeLogicFramesPerSecond;ai->ignoreObstacle(0);((AICommandInterface*)((char*)ai+0x20))->aiHunt(COMMAND2);}
   }

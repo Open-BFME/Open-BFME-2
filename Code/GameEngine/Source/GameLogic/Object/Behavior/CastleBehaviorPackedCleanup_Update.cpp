@@ -38,7 +38,7 @@ extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI{public:char prefix[0x10];Pathfinder*pathfinder;};
+#include "../../../../Include/GameLogic/AI.h"
 extern AI*TheAI;
 
 
