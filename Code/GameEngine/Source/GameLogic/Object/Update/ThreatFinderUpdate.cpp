@@ -21,7 +21,7 @@ public:
 // UpdateModule.h overrides; PlayerList.h would otherwise select the capitalized spellings,
 // and UpdateModule's loadPostProcess/xfer then appended slots to ThreatFinderUpdate's table.
 #define BFME_SNAPSHOT_NAME_SLOT
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 int Rva003ECB3DIsAlly(const Player *, const Player *);

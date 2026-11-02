@@ -18441,3 +18441,7 @@ SupplyTruck secondary slot3's typed gainOneBox matches complete68B native4A6EC6 
 ### LINK-089 SupplyTruck scalar callback through draft Object (2026-11-02)
 
 Secondary slot10 now uses actual Object::getControllingPlayer and bounded field views, matching the full38B native4A6FBF body and its28AFA9 call. All twenty-seven ctor rows and all80prior code/seven data definitions remain exact; the added const getObject accessor is canonical. No private Object/Player copy or lifetime change is introduced. [Complete proof and unresolved field semantics](../reverse/attempt_support/supply-truck-scalar-callback-20261102/README.md). Remaining dock/primary/base prerequisites and census status are unchanged.
+
+### ThreatFinder consolidated Snapshot include repaired (2026-11-02)
+
+The ordinary Object-header gate exposed ThreatFinderUpdate.cpp's stale five-parent Snapshot include, which pointed under nonexistent Code/reference. Using the correct six-parent path restores all20code rows and both data rows without changing any body, policy or owner. [Normal/strict evidence and exact path scope](../reverse/attempt_support/threatfinder-snapshot-include-20261102/README.md). This clears the compile obstacle; census/runtime and broader linking status are not remeasured here.
