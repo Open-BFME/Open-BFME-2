@@ -9,12 +9,7 @@
 // Rva003C2CD8 0x003C2CD8 Rva003C2E61 0x003C2E61; globals g_Va009FE16C; copy 0x365F0.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-	char m_pad[0x10];
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ObjectMid
 {

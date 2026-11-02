@@ -54,11 +54,7 @@ public:
 extern ScriptEngine *TheScriptEngine;
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Parameter
-{
-public:
-	void WriteParameter(DataChunkOutput &chunkWriter);
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 enum { MAX_PARMS = 12 };
 

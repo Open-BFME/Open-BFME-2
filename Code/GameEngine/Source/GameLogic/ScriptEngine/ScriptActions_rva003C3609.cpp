@@ -34,14 +34,7 @@ extern GameLogic *TheGameLogic;
 extern class ScriptEngine *TheScriptEngine;
 
 // A script parameter: its string at +0x10, as in Zero Hour's Parameter.
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-private:
-	unsigned char m_pad[0x10];
-	AsciiString m_string; // +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ScriptActions
 {

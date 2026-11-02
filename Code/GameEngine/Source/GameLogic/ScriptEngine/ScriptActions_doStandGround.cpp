@@ -58,17 +58,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_STAND_GROUND = 0x44
 };
 
-class Parameter
-{
-public:
-	__forceinline Int getInt() const { return m_int; }
-	const AsciiString &getString() const { return m_string; }
-private:
-	unsigned char m_pad00[8];
-	Int m_int;		// +0x08
-	unsigned char m_pad0C[4];
-	AsciiString m_string;	// +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class ThingTemplate
 {

@@ -314,15 +314,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 { return a._M_node != b._M_node; }
 }
 
-class Parameter
-{
-public:
-	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
-	float getReal() const { return m_real; }
-	const AsciiString &getString() const { return m_string; }
-	unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
-	unsigned char m_afterString[8];
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 template <class OBJCLASS>
 class DLINK_ITERATOR

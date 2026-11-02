@@ -4,9 +4,7 @@
 // ?Rva003BC996Do@ScriptActions@@QAEXPAVParameter@@ABV?$StringBase@D@@M@Z @0x003BC996 63B: Script unit to Drawable anim via getUnitNamed getDrawable and slot10; neighbours Rva003BC96FDo Rva003BCA12Do; caller 0x003CD629.
 #include "ascii_string.h"
 
-class Parameter
-{
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/GameClient/Drawable.h"
 

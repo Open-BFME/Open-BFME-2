@@ -177,15 +177,7 @@ void ScriptActions::doSpeechPlay(const AsciiString &speechName, bool allowOverla
 	reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->addAudioEvent(&speech);
 }
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-
-private:
-	unsigned char m_pad[0x10];
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

@@ -38,14 +38,7 @@ private:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class Parameter
-{
-public:
-    const AsciiString &getString() const { return m_string; }
-private:
-    char beforeString[16];
-    AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 class ScriptAction
 {
 private:

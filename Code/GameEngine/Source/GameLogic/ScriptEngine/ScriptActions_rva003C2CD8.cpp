@@ -12,12 +12,7 @@
 // 0x002A7461's value less the member's +8), pinned by address.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-	char m_pad[0x10];
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Rva002A7389
 {

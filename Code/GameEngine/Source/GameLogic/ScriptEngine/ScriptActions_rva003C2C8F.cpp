@@ -8,12 +8,7 @@
 // callers 0x003CE1AF, neighbours Rva003C2A29 0x003C2A29 Rva003C2E61 0x003C2E61.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-	char m_pad[0x10];
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 

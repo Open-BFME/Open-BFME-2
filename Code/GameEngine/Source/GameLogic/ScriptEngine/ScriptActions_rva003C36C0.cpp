@@ -6,14 +6,7 @@
 
 class Object;
 #include "../../../Include/GameClient/DrawableBFME2.h"
-class Parameter
-{
-public:
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 class Rva00358752Opaque
 {
 public:

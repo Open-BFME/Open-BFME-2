@@ -49,15 +49,7 @@ extern ScriptEngine *TheScriptEngine;
 inline const float &FloatMinRef(const float &a, const float &b) { return a < b ? a : b; }
 inline const float &FloatMaxRef(const float &a, const float &b) { return a > b ? a : b; }
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 void ScriptActions::Rva003C301DDo(Parameter *teamParm, Parameter *floatParm)
 {

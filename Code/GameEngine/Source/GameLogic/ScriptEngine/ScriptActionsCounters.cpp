@@ -73,17 +73,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
-class Parameter
-{
-public:
-	__forceinline Int getInt() const { return m_int; }
-	const AsciiString &getString() const { return m_string; }
-
-	unsigned char m_beforeInt[8];
-	Int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Money.h
 struct Money

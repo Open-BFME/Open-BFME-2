@@ -35,34 +35,22 @@ public:
 	void writeAsciiString(const AsciiString &textValue);
 };
 
-class Parameter
-{
-public:
-	void WriteParameter(DataChunkOutput &chunkWriter);
-
-private:
-	Int paramType; ///< retail this+0x00
-	unsigned char gapParam04[4];
-	Int intValue; ///< retail this+0x08
-	Real realValue; ///< retail this+0x0C
-	AsciiString stringValue; ///< retail this+0x10
-	Coord3D coordValue; ///< retail this+0x14
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 // ?WriteParameter@Parameter@@QAEXAAVDataChunkOutput@@@Z
 void Parameter::WriteParameter(DataChunkOutput &chunkWriter)
 {
-	chunkWriter.writeInt(paramType);
-	if (paramType == KIND_OF_PARAM) {
-		stringValue.set(KindOfMaskType::getNameFromSingleBit(intValue));
+	chunkWriter.writeInt(m_paramType);
+	if (m_paramType == KIND_OF_PARAM) {
+		m_string.set(KindOfMaskType::getNameFromSingleBit(m_int));
 	}
-	if (paramType == COORD3D) {
-		chunkWriter.writeReal(coordValue.x);
-		chunkWriter.writeReal(coordValue.y);
-		chunkWriter.writeReal(coordValue.z);
+	if (m_paramType == COORD3D) {
+		chunkWriter.writeReal(m_coord.x);
+		chunkWriter.writeReal(m_coord.y);
+		chunkWriter.writeReal(m_coord.z);
 	} else {
-		chunkWriter.writeInt(intValue);
-		chunkWriter.writeReal(realValue);
-		chunkWriter.writeAsciiString(stringValue);
+		chunkWriter.writeInt(m_int);
+		chunkWriter.writeReal(m_real);
+		chunkWriter.writeAsciiString(m_string);
 	}
 }

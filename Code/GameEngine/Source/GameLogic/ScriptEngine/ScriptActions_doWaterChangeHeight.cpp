@@ -4,9 +4,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?doWaterChangeHeight@ScriptActions@@QAEXPAVParameter@@M@Z @0x003BC306 55B: script TerrainLogic slot 0x74 then slot 0x7c with floats.
 // Evidence: mov ecx,[0xDFEC50]=TheTerrainLogic push [esp+4] mov eax,[ecx] call [eax+0x74] test eax je; mov ecx,[TheTerrainLogic] fld [0xC1FE44]=g_00C1FE44 mov edx,[ecx] push 1 push ecx push ecx fstp [esp+4] fld [esp+0x14] fstp [esp] push eax call [edx+0x7c] ret 8; caller 0x003CCFFF; sibling doUnitStopSequentialScript same stdcall shape.
-class Parameter
-{
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class TerrainLogic
 {

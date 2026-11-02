@@ -9,13 +9,7 @@
 // unit lookup takes the Parameter itself (rowed getUnitNamed 0x003588E7), and
 // isEffectivelyDead reads bit 0 of the Object byte at +0x438.
 #include "ascii_string.h"
-class Parameter
-{
-public:
-    const AsciiString &getString() const { return m_string; }
-    unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
-    unsigned char m_afterString[8];
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 enum NameKeyType
 {
 };

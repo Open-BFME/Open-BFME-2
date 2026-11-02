@@ -42,17 +42,7 @@ public:
 		_STL::vector<Drawable *> &slots);
 };
 
-class Parameter
-{
-public:
-	int getInt() const { return m_int; }
-	const AsciiString &getString() const { return m_string; }
-private:
-	unsigned char m_beforeInt[8];
-	int m_int;	// +0x08
-	float m_real;	// +0x0C
-	AsciiString m_string;	// +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 enum { MAX_PARMS = 12 };
 

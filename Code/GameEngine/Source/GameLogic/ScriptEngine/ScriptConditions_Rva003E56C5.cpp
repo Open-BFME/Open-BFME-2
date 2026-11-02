@@ -117,15 +117,7 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../Object/object.h"
 
-class Parameter
-{
-public:
-	__declspec(dllimport) __forceinline int getInt() const { return m_int; }
-	unsigned char m_beforeInt[8];
-	int m_int;		// +0x08
-	float m_real;
-	AsciiString m_string;	// +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class PlayerList
 {

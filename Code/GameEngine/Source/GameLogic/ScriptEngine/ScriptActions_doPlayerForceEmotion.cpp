@@ -105,14 +105,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-private:
-	unsigned char m_pad[0x10];
-	AsciiString m_string; // +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

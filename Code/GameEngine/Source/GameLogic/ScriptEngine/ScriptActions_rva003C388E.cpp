@@ -5,14 +5,7 @@
 #include "ascii_string.h"
 
 class Object;
-class Parameter
-{
-public:
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 typedef int (__cdecl *TeamPredicate)(Object *obj, void *userData);
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"

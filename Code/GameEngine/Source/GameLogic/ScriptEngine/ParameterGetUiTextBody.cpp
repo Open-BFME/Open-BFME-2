@@ -27,19 +27,7 @@ public:
 	static const char *getNameFromSingleBit(int bit);	// 0x00306218
 };
 
-class Parameter
-{
-public:
-	AsciiString getUiText() const;
-	void getCoord3D(Coord3D *pos) const;	// 0x003B27BB
-
-private:
-	int m_paramType;
-	int m_pad04;
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 // EmotionNames and the read-only TheStanceNames table have real data owners.
 // The other tables below are this TU's copies of the retail contents.

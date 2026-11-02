@@ -286,14 +286,7 @@ extern AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Parameter
-{
-public:
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;	// +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Rva002046C0Owner
 {

@@ -26,11 +26,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 enum { ALLOW_ENEMIES = 0x04 };
 enum { NO_MAX_SHOTS_LIMIT = 0x7fffffff };
 
-class Parameter
-{
-public:
-	enum { LESS_THAN = 0, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER, NOT_EQUAL };
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/Common/Player.h"
 

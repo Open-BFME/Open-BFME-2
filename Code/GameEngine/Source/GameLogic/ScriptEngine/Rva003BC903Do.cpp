@@ -3,9 +3,7 @@
 #include "GameLogic/ScriptActionsBFME2.h"
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BC903Do@ScriptActions@@QAEXPAVParameter@@H@Z @0x003BC903 57B: script getUnitNamed then ExperienceTracker at Object+0x264 add with int as float. Evidence: push [esp+4] mov ecx,[0x00DFE16C]=g_Va009FE16C call getUnitNamed test eax je then mov ecx,[eax+0x264] test je then cvtsi2ss xmm0,[esp+8] push 0 push 1 push 1 push 1 push ecx movss [esp],xmm0 call rva0039B315 ret 8; callee pin ExperienceTracker float bool bool bool int; caller 0x003CDBFC; sibling Rva003BC96FDo same +0x264 Parameter int shape.
-class Parameter
-{
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 class Object
 {

@@ -41,15 +41,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 void ScriptActions::Rva003C36FEDo(Parameter *parm, bool flag)
 {

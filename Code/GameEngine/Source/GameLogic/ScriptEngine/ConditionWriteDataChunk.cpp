@@ -103,11 +103,7 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
-class Parameter
-{
-public:
-	void WriteParameter(DataChunkOutput &chunkWriter);
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 enum { K_SCRIPT_CONDITION_DATA_VERSION_6 = 6 };
 enum { MAX_CONDITION_PARMS = 12 };

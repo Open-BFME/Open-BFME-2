@@ -44,15 +44,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

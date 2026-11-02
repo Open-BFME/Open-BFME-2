@@ -10,11 +10,7 @@
 #include "ascii_string.h"
 
 
-class Parameter
-{
-public:
-	AsciiString getUiText() const;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 enum { MAX_PARMS = 12 };
 

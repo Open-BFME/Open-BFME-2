@@ -118,15 +118,7 @@ extern PartitionManager *ThePartitionManager;
 
 #define REALLY_FAR (100000 * 10.0f)
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;	// +0x10
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class AIGroup;
 

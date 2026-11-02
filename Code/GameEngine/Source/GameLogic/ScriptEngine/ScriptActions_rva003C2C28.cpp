@@ -9,12 +9,7 @@
 // globals g_Va009FE16C ThePlayerList; StringBase copy 0x000365F0 temporary.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-	char m_pad[0x10];
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Rva002A9ED2DwordField
 {

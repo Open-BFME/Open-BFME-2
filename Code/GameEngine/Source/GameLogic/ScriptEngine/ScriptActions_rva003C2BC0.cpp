@@ -9,12 +9,7 @@
 // Rva003C2C28 0x003C2C28; globals g_Va009FE16C ThePlayerList; StringBase 0x000365F0.
 #include "ascii_string.h"
 
-class Parameter
-{
-public:
-	char m_pad[0x10];
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 struct PlayerInner003C2BC0
 {
