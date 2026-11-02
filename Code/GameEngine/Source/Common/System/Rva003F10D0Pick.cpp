@@ -44,44 +44,44 @@ int g_Va00DC163C[4] = {
 void __cdecl Rva003F10D0Pick(int *out1, int *out2);
 void __cdecl Rva003F10D0Pick(int *out1, int *out2)
 {
-	unsigned int t = 0;
+	unsigned int framePointer = 0;
 	__asm {
-		mov t, ebp
+		mov framePointer, ebp
 	}
-	unsigned int i = t & 3;
+	unsigned int i = framePointer & 3;
 	*out1 = g_Va00DC15EC[i];
 	*out2 = g_Va00DC15DC[i];
 }
 void __cdecl Rva003F10FCPick(int *out1, int *out2);
 void __cdecl Rva003F10FCPick(int *out1, int *out2)
 {
-	unsigned int t = 0;
+	unsigned int framePointer = 0;
 	__asm {
-		mov t, ebp
+		mov framePointer, ebp
 	}
-	unsigned int i = t & 3;
+	unsigned int i = framePointer & 3;
 	*out1 = g_Va00DC160C[i];
 	*out2 = g_Va00DC15FC[i];
 }
 void __cdecl Rva003F1128Pick(int *out1, int *out2);
 void __cdecl Rva003F1128Pick(int *out1, int *out2)
 {
-	unsigned int t = 0;
+	unsigned int stackPointer = 0;
 	__asm {
-		mov t, esp
+		mov stackPointer, esp
 	}
-	unsigned int i = t & 3;
+	unsigned int i = stackPointer & 3;
 	*out1 = g_Va00DC162C[i];
 	*out2 = g_Va00DC161C[i];
 }
 void __cdecl Rva003F1154Pick(int *out1, int *out2);
 void __cdecl Rva003F1154Pick(int *out1, int *out2)
 {
-	unsigned int t = 0;
+	unsigned int stackPointer = 0;
 	__asm {
-		mov t, esp
+		mov stackPointer, esp
 	}
-	unsigned int i = t & 3;
+	unsigned int i = stackPointer & 3;
 	*out1 = g_Va00DC164C[i];
 	*out2 = g_Va00DC163C[i];
 }

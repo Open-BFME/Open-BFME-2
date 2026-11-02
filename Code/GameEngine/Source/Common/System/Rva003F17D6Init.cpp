@@ -21,19 +21,19 @@ struct Rva003F17D6
 	int m_14;
 	int m_18;
 	int m_1c;
-	Rva003F17D6 *rva003F17D6(void *a1, void *a2);
+	Rva003F17D6 *rva003F17D6(void *sourceWordA, void *sourceWordB);
 };
-Rva003F17D6 *Rva003F17D6::rva003F17D6(void *a1, void *a2)
+Rva003F17D6 *Rva003F17D6::rva003F17D6(void *sourceWordA, void *sourceWordB)
 {
-	int p;
+	int seedWord;
 	int q;
-	Rva003F10D0Pick(&p, &q);
-	m_00 = p;
+	Rva003F10D0Pick(&seedWord, &q);
+	m_00 = seedWord;
 	m_04 = 0x10AC50C0;
 	m_08 = 0x14804842;
 	m_0c = 0x004241A4F;
-	m_10 = *(int *)a1;
-	m_14 = *(int *)a2;
+	m_10 = *(int *)sourceWordA;
+	m_14 = *(int *)sourceWordB;
 	int multiplier = q;
 	int state = multiplier;
 	state *= multiplier;
@@ -68,19 +68,19 @@ struct Rva003F1863
 	int m_14;
 	int m_18;
 	int m_1c;
-	Rva003F1863 *rva003F1863(void *a1, void *a2);
+	Rva003F1863 *rva003F1863(void *sourceWordA, void *sourceWordB);
 };
-Rva003F1863 *Rva003F1863::rva003F1863(void *a1, void *a2)
+Rva003F1863 *Rva003F1863::rva003F1863(void *sourceWordA, void *sourceWordB)
 {
-	int p;
+	int seedWord;
 	int q;
-	Rva003F10FCPick(&p, &q);
-	m_00 = p;
+	Rva003F10FCPick(&seedWord, &q);
+	m_00 = seedWord;
 	m_04 = 0x10AC50C0;
 	m_08 = 0x14804842;
 	m_0c = 0x14804843;
-	m_10 = *(int *)a1;
-	m_14 = *(int *)a2;
+	m_10 = *(int *)sourceWordA;
+	m_14 = *(int *)sourceWordB;
 	int multiplier = q;
 	int state = multiplier;
 	state *= multiplier;
@@ -115,9 +115,9 @@ struct Rva003F18F0
 	int m_14;
 	int m_18;
 	int m_1c;
-	Rva003F18F0 *rva003F18F0(void *a1, void *a2);
+	Rva003F18F0 *rva003F18F0(void *sourceWordA, void *sourceWordB);
 };
-Rva003F18F0 *Rva003F18F0::rva003F18F0(void *a1, void *a2)
+Rva003F18F0 *Rva003F18F0::rva003F18F0(void *sourceWordA, void *sourceWordB)
 {
 	int p;
 	int q;
@@ -126,8 +126,8 @@ Rva003F18F0 *Rva003F18F0::rva003F18F0(void *a1, void *a2)
 	m_04 = 0x10AC50C0;
 	m_08 = 0x14804842;
 	m_0c = 0x10AC50C0;
-	m_10 = *(int *)a1;
-	m_14 = *(int *)a2;
+	m_10 = *(int *)sourceWordA;
+	m_14 = *(int *)sourceWordB;
 	int multiplier = q;
 	int state = multiplier;
 	state *= multiplier;
