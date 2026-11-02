@@ -107,11 +107,7 @@ public:
 	void ReAcquireResources();
 };
 
-class W3DShadowManager
-{
-public:
-	bool ReAcquireResources();
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 
 class W3DShroud
 {

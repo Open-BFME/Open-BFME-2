@@ -141,11 +141,7 @@ public:
 	Vector3 Get_Position(void) const;
 };
 
-class W3DShadowManager
-{
-public:
-	Vector3 &getLightPosWorld(Int lightIndex);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
 struct Coord3D;

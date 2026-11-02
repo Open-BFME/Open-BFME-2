@@ -36,11 +36,7 @@ public:
 	Real m_z;
 };
 
-class W3DShadowManager
-{
-public:
-	Vector3 &getLightPosWorld(int which);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
 #include "../../../../../GameEngine/Include/GameLogic/TerrainLogic.h"

@@ -58,13 +58,7 @@ protected:
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
-class W3DShadowManager
-{
-public:
-	UnsignedInt getStencilShadowMask() const { return m_stencilShadowMask; }
-	char m_pad00[8];
-	UnsignedInt m_stencilShadowMask;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
 enum {

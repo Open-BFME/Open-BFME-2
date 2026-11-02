@@ -12,11 +12,7 @@
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Row name ?getLightPosWorld@W3DShadowManager@@ (ZH/BFME1 name; W3DProjectedShadow::update calls it with ECX = TheW3DShadowManager).
-class W3DShadowManager
-{
-public:
-	Vector3 &getLightPosWorld(int lightIndex);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowManager.h"
 
 class Gen0003AC38;
 class W3DShadowManager; extern W3DShadowManager *TheW3DShadowManager;

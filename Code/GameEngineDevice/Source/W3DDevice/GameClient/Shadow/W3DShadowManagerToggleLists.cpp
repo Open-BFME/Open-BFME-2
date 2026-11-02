@@ -68,11 +68,7 @@ public:
     void invalidateCachedLightPositions();
 };
 class Rva00109DCF { public: void rva00108E28(); };
-class W3DShadowManager
-{
-public:
-    void invalidateCachedLightPositions();
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 void W3DShadowManager::invalidateCachedLightPositions()
 {
     if(TheW3DVolumetricShadowManager)

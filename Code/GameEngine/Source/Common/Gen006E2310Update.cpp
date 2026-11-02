@@ -41,12 +41,7 @@ public:
 };
 extern GlobalWeatherSystem *TheGlobalWeatherSystem;
 
-class W3DShadowManager
-{
-public:
-	int m_00;
-	unsigned int m_shadowColor;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"

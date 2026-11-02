@@ -102,13 +102,7 @@ protected:
 };
 extern unsigned number_of_DX8_calls;
 
-class W3DShadowManager
-{
-public:
-	int getStencilShadowMask() const { return m_stencilShadowMask; }
-	char m_pad00[8];
-	int m_stencilShadowMask;
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
 typedef long (__stdcall *BfmeDeviceSetDword)(IDirect3DDevice8 *, unsigned);

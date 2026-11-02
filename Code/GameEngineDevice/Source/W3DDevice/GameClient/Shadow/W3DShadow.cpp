@@ -9,7 +9,7 @@
 // Native ctor callback47A6A9 is empty; native iterator initializes one12B
 // coordinate at receiver+C. Element original type unknown; this address view
 // inherits canonical Coord3D storage and emits the proven3B ICF callback.
-struct Rva0009A710LightPosition : Coord3D { __declspec(noinline) Rva0009A710LightPosition(); };
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 
 class Rva000F1A32 {public:Rva000F1A32();private:char body[12];};
 
@@ -90,21 +90,6 @@ W3DProjectedShadowManager * TheW3DProjectedShadowManager;
 // Rva00DE1FF8Manager: matched references place it at VA 0xde1ff8 (zero-filled .bss).
 Rva0007DA23ResourceManager * Rva00DE1FF8Manager;
 
-class W3DShadowManager
-{
-public:
-	W3DShadowManager();
-	bool ReAcquireResources();
-	bool rva0009A254();
-	void rva0009A348(RenderInfoClass &rinfo);
-	Vector3 &getLightPosWorld(int lightIndex);
-private:
-	bool m_isShadowScene;
-	char padding[3];
-	unsigned m_shadowColor;
-	int m_stencilShadowMask;
-	Rva0009A710LightPosition m_lightPos[1];
-};
 
 // ?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManager@@A: matched references place it at VA 0xdec2d8; also referenced as ?R2Ptr01306DF0@@3PAVR2GlobalReceiver@@A.
 Rva00108660ResourceManager * Rva00DEC2D8Manager = 0;

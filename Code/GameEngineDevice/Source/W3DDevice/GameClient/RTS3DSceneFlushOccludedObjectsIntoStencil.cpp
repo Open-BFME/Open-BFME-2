@@ -241,13 +241,7 @@ public:
 
 class RenderInfoClass;
 
-class W3DShadowManager
-{
-public:
-	void setStencilShadowMask(Int mask) { m_stencilShadowMask = mask; }
-	char m_pad00[8];
-	Int m_stencilShadowMask;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"

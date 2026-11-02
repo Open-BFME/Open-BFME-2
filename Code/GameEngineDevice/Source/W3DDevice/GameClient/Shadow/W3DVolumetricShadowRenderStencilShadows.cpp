@@ -50,16 +50,7 @@ protected:	// dx8wrapper.cpp defines ?_EnableTriangleDraw@DX8Wrapper@@1_NA (data
 
 #include "../../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
-class W3DShadowManager
-{
-public:
-	unsigned getShadowColor(void) { return m_shadowColor; }
-	unsigned getStencilShadowMask(void) { return m_stencilShadowMask; }
-private:
-	void *m_vtable;
-	unsigned m_shadowColor;
-	unsigned m_stencilShadowMask;
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
 extern W3DShadowManager *TheW3DShadowManager;
 
 class W3DVolumetricShadowManager
