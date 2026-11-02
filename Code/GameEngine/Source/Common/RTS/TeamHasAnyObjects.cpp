@@ -67,10 +67,10 @@ bool Team::hasAnyObjects(bool bfmeFlag)
 		if (bfmeFlag) {
 			ThingTemplate *thingTemplate = cur->m_template;
 			if ((thingTemplate->m_kind0 & 0x80) != 0) {
-				UnsignedInt s = cur->m_status114;
-				bool b3 = ((s >> 3) & 1) != 0;
-				bool b4 = ((s >> 4) & 1) != 0;
-				if (b3)
+				UnsignedInt status = cur->m_status114;
+				bool bit3Set = ((status >> 3) & 1) != 0;
+				bool b4 = ((status >> 4) & 1) != 0;
+				if (bit3Set)
 					continue;
 				if (b4)
 					continue;

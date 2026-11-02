@@ -6460,3 +6460,9 @@ local,bfme_xform_cond::tmp,bfme_xform_cond::inputCopy,inferred,agree:nl-17e2ba1c
 local,bfme_xform_cond::v,bfme_xform_cond::source,inferred,agree:nl-33cb1ad4e3f7,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
 local,bfme_xform::tmp,bfme_xform::inputCopy,inferred,agree:nl-10a389d06022,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
 local,bfme_xform::v,bfme_xform::source,inferred,agree:nl-60bc4909d541,Code/GameEngine/Source/Common/Rva000E48BC.cpp,
+local,TeamFactory::findTeamPrototype::a,TeamFactory::findTeamPrototype::playerName,inferred,agree:nl-b4ffe5449631,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A2659
+local,TeamFactory::findTeamPrototype::b,TeamFactory::findTeamPrototype::teamName,inferred,agree:nl-0613cbf8b988,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A2659
+local,TeamFactory::findTeam::a,TeamFactory::findTeam::playerName,inferred,agree:nl-a6c49dddb896,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A40F5
+local,TeamFactory::findTeam::b,TeamFactory::findTeam::teamName,inferred,agree:nl-353903b2b0b7,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A40F5
+local,Team::hasAnyObjects::b3,Team::hasAnyObjects::bit3Set,inferred,agree:nl-bf3d2324e827,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
+local,Team::hasAnyObjects::s,Team::hasAnyObjects::status,inferred,agree:nl-1374af2e3e18,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042

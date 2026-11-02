@@ -62,10 +62,10 @@ struct BfmePairEL __cdecl Rva00194810(const BfmeWordEL &name);
 
 TeamPrototype *TeamFactory::findTeamPrototype(const AsciiString &word)
 {
-	AsciiString a;
-	AsciiString b;
-	Rva000DF920(a, b) = Rva00194810((const BfmeWordEL &)word);
-	return findTeamPrototype(a, b);
+	AsciiString playerName;
+	AsciiString teamName;
+	Rva000DF920(playerName, teamName) = Rva00194810((const BfmeWordEL &)word);
+	return findTeamPrototype(playerName, teamName);
 }
 
 // Qualified team lookup (ZH TeamFactory::findTeam(name), 0x003A40F5):
@@ -74,8 +74,8 @@ TeamPrototype *TeamFactory::findTeamPrototype(const AsciiString &word)
 // lookup, singleton reuse, and inactive-team creation semantics.
 Team *TeamFactory::findTeam(const AsciiString &word)
 {
-	AsciiString a;
-	AsciiString b;
-	Rva000DF920(a, b) = Rva00194810((const BfmeWordEL &)word);
-	return findTeam(a, b);
+	AsciiString playerName;
+	AsciiString teamName;
+	Rva000DF920(playerName, teamName) = Rva00194810((const BfmeWordEL &)word);
+	return findTeam(playerName, teamName);
 }
