@@ -1,0 +1,556 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "DamageInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 55,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 13,
+   "16": 1,
+   "20": 6,
+   "28": 2,
+   "32": 1,
+   "36": 6,
+   "40": 1,
+   "44": 1,
+   "108": 1,
+   "116": 2,
+   "120": 1,
+   "121": 1,
+   "124": 17,
+   "132": 1,
+   "136": 1
+  },
+  "views": 55,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DamageInfo.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Damage.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "prefix",
+   "name_by": "tie",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 8,
+   "type": "char[8]",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_head.m_b",
+   "name_by": "tie",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:DamageInfo::In",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_sourceID",
+     "offset": 0,
+     "size": 4,
+     "type": "enum"
+    }
+   ],
+   "name": "in",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "DamageInfo::In",
+   "views": 39,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0C",
+   "name_by": "tie",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_damageType",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_deathType",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_amount",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 20,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_tail",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "report",
+   "name_by": "tie",
+   "offset": 37,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "delay28",
+   "name_by": "tie",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "tail",
+   "name_by": "tie",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_sourceObjectID",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_direction",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_40",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_44",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_48",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_4C",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_50",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_54",
+   "name_by": "majority",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_58",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Coord3D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_center",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Coord3D",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_68",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_ptr",
+   "name_by": "majority",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_actualDamageDealt",
+   "name_by": "majority",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_actualDamageClipped",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:DamageInfo::__unnamed",
+   "members": [
+    {
+     "kind": "i1",
+     "name": "m_noEffect",
+     "offset": 0,
+     "size": 1,
+     "type": "bool"
+    }
+   ],
+   "name": "out",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 1,
+   "type": "DamageInfo::__unnamed",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 102,
+  "struct": 6
+ },
+ "outliers": [
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DOTManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DOTManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/DOTManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x0",
+   "candidates": {
+    "__vfptr": 1,
+    "before08": 2,
+    "m_00": 1,
+    "m_head.m_a": 1,
+    "m_lead": 2,
+    "m_vptr": 1,
+    "prefix": 2
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "in.m_field00": 1,
+    "in.m_vptr": 1,
+    "m_04": 1,
+    "m_head.m_b": 1
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "name@0xc",
+   "candidates": {
+    "in.m_08": 1,
+    "in.m_field08": 1,
+    "m_0C": 2,
+    "m_sourcePlayerMask": 2,
+    "playerMask": 1,
+    "playerMask0C": 1
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "name@0x25",
+   "candidates": {
+    "flag25": 1,
+    "report": 1
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "delay28": 1,
+    "m_amount": 1,
+    "m_x28": 1
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "name@0x2c",
+   "candidates": {
+    "in.m_creationType": 1,
+    "tail": 1,
+    "value2C": 1
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "m_head.m_b": 4
+   },
+   "class": "DamageInfo"
+  },
+  {
+   "attribute": "straddle@0x4",
+   "candidates": {},
+   "class": "DamageInfo"
+  }
+ ],
+ "size": 124,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}
