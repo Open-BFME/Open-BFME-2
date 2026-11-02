@@ -20,23 +20,10 @@ template <typename T> struct BfmeStringData;
 #include "ascii_string.h"
 
 
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-
-	FontDesc();
-	FontDesc &operator=(const FontDesc &other);
-};
+#include "../../../Include/Common/GlobalLanguageClass.h"
 
 #include "../../../Include/Common/INI/INI.h"
 
-class GlobalLanguage
-{
-public:
-	static void parseFontDesc(INI *ini, void *instance, void *store, const void *userData);
-};
 
 // ??0FontDesc@@QAE@XZ
 FontDesc::FontDesc() : name("Arial Unicode MS"), size(12), bold(false)

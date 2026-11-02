@@ -31,11 +31,7 @@ private:
 struct FieldParse;
 
 #include "../../Include/Common/INI/INI.h"
-class GlobalLanguage
-{
-public:
-	static void parseFontDesc(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 
 struct FieldParse
 {

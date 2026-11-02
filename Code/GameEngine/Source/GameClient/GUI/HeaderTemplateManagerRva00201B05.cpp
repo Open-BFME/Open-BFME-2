@@ -14,11 +14,7 @@
 #include "HeaderTemplateView.h"
 
 class GameFont;
-class GlobalLanguage
-{
-public:
-	int adjustFontSize(int value);
-};
+#include "../../../Include/Common/GlobalLanguageClass.h"
 #include "../../../Include/GameClient/FontLibrary.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;

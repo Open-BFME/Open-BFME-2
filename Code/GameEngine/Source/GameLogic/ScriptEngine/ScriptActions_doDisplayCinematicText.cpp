@@ -27,11 +27,7 @@ class GameFont;
 
 #include "../../../Include/GameClient/FontLibrary.h"
 
-class GlobalLanguage
-{
-public:
-	Int adjustFontSize(Int pointSize);
-};
+#include "../../../Include/Common/GlobalLanguageClass.h"
 
 class Display
 {

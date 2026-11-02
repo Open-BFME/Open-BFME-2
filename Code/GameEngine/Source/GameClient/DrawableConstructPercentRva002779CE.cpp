@@ -53,11 +53,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-class GlobalLanguage
-{
-public:
-	Int adjustFontSize(Int size);
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 class Rva00274DB6AsciiField

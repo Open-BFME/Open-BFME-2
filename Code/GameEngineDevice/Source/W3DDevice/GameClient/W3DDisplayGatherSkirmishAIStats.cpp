@@ -26,18 +26,7 @@ class GameFont;
 #include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-struct FontDesc
-{
-	AsciiString name;	// +0x00
-	Int size;		// +0x04
-	Bool bold;		// +0x08
-};
-class GlobalLanguage
-{
-public:
-	char m_pad00[0xC8];
-	FontDesc m_nativeDebugDisplay;	// +0xC8
-};
+#include "../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"

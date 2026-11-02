@@ -152,11 +152,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-class GlobalLanguage
-{
-public:
-	int adjustFontSize( int theFontSize );
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 class Overridable

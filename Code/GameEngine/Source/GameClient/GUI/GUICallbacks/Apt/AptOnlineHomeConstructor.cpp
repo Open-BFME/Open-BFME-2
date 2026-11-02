@@ -107,12 +107,7 @@ private:
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
-class GlobalLanguage
-{
-public:
-	unsigned char m_pad00[0x0C];
-	AsciiString m_0C; // +0x0C
-};
+#include "../../../../../Include/Common/GlobalLanguageClass.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;
 
@@ -186,7 +181,7 @@ AptOnline::OnlineHome::OnlineHome(AptOnline *shell)
 		return;
 	g_Va00E06480 = (int)this;
 	if (TheGlobalLanguageData)
-		m_64.translate(TheGlobalLanguageData->m_0C);
+		m_64.translate(TheGlobalLanguageData->m_decimalSeparator);
 	TheRva00222A8BTarget->rva002239FA(AsciiString(s_gadgets[0]), AsciiString("ScrollShroud"));
 	TheRva00222A8BTarget->rva002239FA(AsciiString(s_gadgets[1]), AsciiString("ScrollShroud"));
 	TheRva00222A8BTarget->rva002239FA(AsciiString(s_gadgets[2]), AsciiString("AptIconMen"));

@@ -713,12 +713,7 @@ int Rva002162CFInvoke(Rva00222A8BTarget *target, void *movie, const char *name, 
 
 extern int BfmeLogicFramesPerSecond;
 
-class GlobalLanguage
-{
-public:
-	char m_pad00[0x14];
-	AsciiString m_timeSeparator;
-};
+#include "../../../../../Include/Common/GlobalLanguageClass.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;
 

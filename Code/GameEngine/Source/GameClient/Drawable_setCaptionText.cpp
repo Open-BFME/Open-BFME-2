@@ -24,7 +24,7 @@ class GameFont;
 extern DisplayStringManager *TheDisplayStringManager;
 class LanguageFilter { public: void filterLine(UnicodeString &line); };
 extern LanguageFilter *TheLanguageFilter;
-class GlobalLanguage { public: int adjustFontSize(int size); };
+#include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;

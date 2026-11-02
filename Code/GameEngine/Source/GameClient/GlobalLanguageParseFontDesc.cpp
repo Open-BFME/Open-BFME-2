@@ -15,20 +15,10 @@ template <typename T> struct BfmeStringData;
 #include "ascii_string.h"
 
 
-struct FontDesc
-{
-	AsciiString name;
-	Int size;
-	bool bold;
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 
 #include "../../Include/Common/INI/INI.h"
 
-class GlobalLanguage
-{
-public:
-	static void parseFontDesc(INI *ini, void *instance, void *store, const void *userData);
-};
 
 // ?parseFontDesc@GlobalLanguage@@SAXPAVINI@@PAX1PBX@Z
 void GlobalLanguage::parseFontDesc(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)

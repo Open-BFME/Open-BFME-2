@@ -320,12 +320,7 @@ extern GlobalData *TheWritableGlobalData;
 
 // The native query reads this float directly; no full GlobalData layout is
 // asserted. WB reads the corresponding score option at its own +0x115C.
-class GlobalLanguage
-{
-public:
-	char m_pad00[0x10];
-	AsciiString m_sep010;
-};
+#include "../../../../../Include/Common/GlobalLanguageClass.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;
 
@@ -748,7 +743,7 @@ AsciiString __stdcall Rva0051CC8DFormat(AsciiString text)
 			allDigits = false;
 		single = c;
 		if (i % 3 == 0 && i != 0 && allDigits)
-			single += TheGlobalLanguageData->m_sep010;
+			single += TheGlobalLanguageData->m_thousandSeparator;
 		single += acc;
 		acc.setCopyInline(single);
 	}
@@ -766,7 +761,7 @@ AsciiString Rva0051D009::rva0051CC8DFormat(AsciiString text)
 			allDigits = false;
 		single = c;
 		if (i % 3 == 0 && i != 0 && allDigits)
-			single += TheGlobalLanguageData->m_sep010;
+			single += TheGlobalLanguageData->m_thousandSeparator;
 		single += acc;
 		acc.setCopyInline(single);
 	}

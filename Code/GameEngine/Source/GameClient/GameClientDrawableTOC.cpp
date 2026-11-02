@@ -544,19 +544,8 @@ struct DrawGroupInfo
 };
 
 // ZH GlobalLanguage FontDesc; init reads the draw-group font at +0xD4.
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 
-class GlobalLanguage
-{
-public:
-	unsigned char m_pad00[0xd4];
-	FontDesc m_drawGroupInfoFont;                                       // +0xD4
-};
 
 enum INILoadType
 {

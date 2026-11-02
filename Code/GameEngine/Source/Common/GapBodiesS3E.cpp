@@ -24,11 +24,7 @@ extern Rva0022AD10Subsystem *TheFormationAssistant;
 // --- 0x005742A1 / 0x0057A260 (18B each): table slots parsing an INI block
 // into this object through a static field table (retail 0x00C6E36C and
 // 0x00C6EE98; the field names are retail's).
-class GlobalLanguage
-{
-public:
-	static void parseFontDesc(INI *ini, void *instance, void *store, const void *userData);	// 0x0037691C
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 
 class Rva005742A1
 {
