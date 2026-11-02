@@ -20,17 +20,7 @@ public:
 namespace _STL { template <> __declspec(dllimport) __forceinline const unsigned int &max<unsigned int>(const unsigned int &__a, const unsigned int &__b) { return __a < __b ? __b : __a; } }
 
 
-class ObjectTypes {
-public:
- ObjectTypes(const AsciiString &);
- virtual ~ObjectTypes();
- void addObjectType(const AsciiString &);
- void remove(const AsciiString &);
- unsigned getListSize() const { return m_types.size(); }
-private:
- AsciiString m_name;
- _STL::vector<AsciiString> m_types;
-};
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 class ScriptEngine
 {

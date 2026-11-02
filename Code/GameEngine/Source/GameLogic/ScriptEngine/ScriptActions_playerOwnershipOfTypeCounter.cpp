@@ -63,15 +63,7 @@ private:
 	unsigned int m_customFrame;	// +0x44 (BFME2; the ctor zeroes it)
 };
 
-class ObjectTypes
-{
-public:
-	ObjectTypes();
-	virtual ~ObjectTypes();
-private:
-	AsciiString m_listName; // +0x04
-	_STL::vector<AsciiString> m_objectTypes; // +0x08
-};
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 // Zero Hour's ScriptConditions.cpp helper, inline there; retail calls its one
 // out-of-line copy (0x003BA7FF).

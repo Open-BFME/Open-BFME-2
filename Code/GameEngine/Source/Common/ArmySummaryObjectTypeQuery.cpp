@@ -7,18 +7,7 @@
 #include "ascii_string.h"
 #include "../GameLogic/System/ArmySummary.h"
 
-class ObjectTypes
-{
-public:
-    ObjectTypes();
-    virtual ~ObjectTypes();
-    void addObjectType(const AsciiString &name);
-
-private:
-    // Verified 0x14-byte stack object: vptr, name and three vector pointers.
-    AsciiString m_listName;
-    void *m_objectTypes[3];
-};
+#include "../../Include/GameLogic/ObjectTypesClass.h"
 
 enum ObjectID { INVALID_OBJECT_ID = 0 };
 

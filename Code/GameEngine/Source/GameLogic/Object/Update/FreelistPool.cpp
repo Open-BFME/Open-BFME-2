@@ -27,10 +27,7 @@ typedef unsigned short WideChar;
 		return scale * IMM + m_value; \
 	}
 
-class ObjectTypes {
-public:
-	bool isInSet(const AsciiString &name) const;
-};
+#include "../../../../Include/GameLogic/ObjectTypesClass.h"
 
 struct Rva001EB023Elem {
 	unsigned char m_pad[4];

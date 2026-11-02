@@ -125,7 +125,7 @@ struct ArmySummaryObjectTypesRange {
  _STL::vector<AsciiString> types;
  bool empty()const{return types.size()==0;}
 };
-class ObjectTypes { public: bool isInSet(const AsciiString&) const; };
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 bool ArmySummary::HasDelayedCarryoverUnitOfTypes(ObjectTypes *types)
 {
  if(reinterpret_cast<const ArmySummaryObjectTypesRange*>(types)->empty())return false;

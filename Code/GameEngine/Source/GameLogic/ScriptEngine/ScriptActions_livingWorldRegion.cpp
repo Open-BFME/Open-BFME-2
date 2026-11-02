@@ -211,18 +211,7 @@ private:
 	UnitRevivalTracker m_unitRevivalTracker;
 };
 
-class ObjectTypes
-{
-public:
-	ObjectTypes();
-	virtual ~ObjectTypes();
-	int getListSize() const { return m_objectTypes.size(); }
-	void addObjectType(const AsciiString &objectType);
-
-private:
-	AsciiString m_listName;
-	_STL::vector<AsciiString> m_objectTypes;
-};
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 class LinearCampaignManager
 {

@@ -18,12 +18,7 @@
 #include <algorithm>
 #include <vector>
 
-class ObjectTypes
-{
-public:
-	virtual ~ObjectTypes();
-
-};
+#include "../../../Include/GameLogic/ObjectTypesClass.h"
 
 class SequentialScript
 {
