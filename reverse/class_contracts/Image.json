@@ -1,0 +1,449 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Image",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 38,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x34": 4
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d8fe4"
+     ],
+     "value": 52
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d8fe4"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2d8fe4"
+     ],
+     "value": {
+      "0x4": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x8": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2d8fe4"
+     ],
+     "value": {
+      "0x0": "0x8037b8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8037b8"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GImage@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2d9262"
+       }
+      ],
+      "table": "0x8037b8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x8037b8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GImage@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 7,
+   "8": 4,
+   "12": 1,
+   "40": 4,
+   "44": 13,
+   "52": 5,
+   "68": 1
+  },
+  "views": 35,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Image.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Image.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_filename",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:ICoord2D",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_textureSize",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 8,
+   "type": "ICoord2D",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Region2D",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "x",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "y",
+     "offset": 12,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "m_UVCoords",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 16,
+   "type": "Region2D",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:ICoord2D",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "x",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "y",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_imageSize",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 8,
+   "type": "ICoord2D",
+   "views": 19,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 276
+ },
+ "outliers": [
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptMapPreviewPictureImage.cpp",
+    "Code/GameEngine/Source/GameClient/MapPreviewImage.cpp",
+    "Code/GameEngine/Source/GameClient/System/Image.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptMapPreviewPictureImage.cpp",
+    "Code/GameEngine/Source/GameClient/MapPreviewImage.cpp",
+    "Code/GameEngine/Source/GameClient/System/Image.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "unused01()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "unused02()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "unused03()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "unused04()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "unused05()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "unused06()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "unused07()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "unused08()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "unused09()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "getSurface()": 1
+   },
+   "class": "Image",
+   "why": "beyond the retail vftable's 1 slots"
+  }
+ ],
+ "size": 44,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

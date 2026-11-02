@@ -339,3 +339,4 @@ HotKeyManager,Code/GameEngine/Include/GameClient/HotKeyManager.h,existing header
 BuildAssistant,Code/GameEngine/Include/Common/BuildAssistantClass.h,existing header; contract class_contracts/BuildAssistant.json; 11/25 sampled units adopt
 ModuleFactory,Code/GameEngine/Include/Common/ModuleFactoryClass.h,existing header; contract class_contracts/ModuleFactory.json; 22/25 sampled units adopt
 ActionManager,Code/GameEngine/Include/GameLogic/ActionManager.h,existing header; contract class_contracts/ActionManager.json; 19/26 sampled units adopt
+Image,Code/GameEngine/Include/GameClient/ImageClass.h,existing header; contract class_contracts/Image.json; 14/38 sampled units adopt
