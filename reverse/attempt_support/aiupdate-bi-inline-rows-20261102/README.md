@@ -45,3 +45,5 @@ Slot21: ?slot21@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal a
 Slot22: ?slot22@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
 
 Slot23: ?slot23@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
+
+Slot24: ?slot24@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
