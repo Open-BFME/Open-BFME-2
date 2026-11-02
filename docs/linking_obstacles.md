@@ -5740,6 +5740,19 @@ Whole-unit clearance and census confirmation remain pending.
 
 - **Network, audio and library Xfer package (2026-10-27; inspected `32db0f683ab`):** The compatible assigned units adopt the canonical Xfer header through the owning acceptance tool. Individual and combined ordinary previews preserve every adopted unit against index `5ce093a71a` (`retail-truth-4`); final byte, declaration, EH and data checks pass. [The local worker report](../build/header-report.md) maps every source, raw receipt and verdict under `build/hx6-xfer/`. Remaining prerequisites are concrete save/load interfaces in ConnectionManager, PersistentStorageThread and MilesAudioManager, the typed slot-0x2C operation for the timer-list and ASCII/real-map helpers, the stream identity in XferSaveOpen, and block operations plus protected transfer state in xfer_load. Stopped sources are restored exactly and retain their queue rows. The shared header and ledgers are unchanged; census confirmation is not claimed.
 
+  **Canonical close name (2026-11-02, GPT-6; base `c48f42754c8`):**
+  Normal rename replaces `Gen009D6DD0::bfmeClose` with the self-asserted WB
+  method name `Close` at retail `0x0060C8CD` (45 B). All eleven direct source
+  views follow; the receiver and ABI stay unchanged. Normal and strict
+  1,464/1,464 rows, 19 data rows and 15 constructor folds pass. The bounded
+  index984a4cdc4d preview retains all eleven units, LINKS136945->136945.
+  The full outgoing consumer audit remains INCONCLUSIVE: its index predates
+  the base and affected Common/0CreateAHeroManager21FE49.cpp lacks a current
+  receipt. Carry all eleven providers/consumers into the next scheduled
+  census; this clears the placeholder method name only, with no matched or
+  census gain and no class/layout clearance.
+  [Name proof and publication boundary](../reverse/attempt_support/xfer-close-name-20261102/readme.md).
+
   **Native identity follow-up (2026-10-30):** XferSaveOpen still verifies169 B
   and retains LINKS, but its stream is a File-family object: two independent
   native callers pass the unchanged6023C1 factory result, whose MemoryWriteFile

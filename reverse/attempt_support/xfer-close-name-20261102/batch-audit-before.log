@@ -1,0 +1,2 @@
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base c48f42754c8456af12e73b3f50468f970fbe02fe; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 10 source object(s) lack current receipts; first: Code/GameEngine/Source/Common/GameEngineInit.cpp

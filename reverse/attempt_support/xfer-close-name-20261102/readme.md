@@ -31,3 +31,26 @@ The publication audit still decides its broader affected scope.
 receipts. No new matched bytes or measured linking gain is claimed.
 
 `t=8 model=gpt-6 lane=R budget=30m`
+
+## Post-rebase publication check
+
+Code tip `6d5d88854b70f0b5b19537a2fa35551c14d8dfe6` is based on
+`c48f42754c8456af12e73b3f50468f970fbe02fe`. The pull/rebase succeeded and
+changed none of the eleven sources. Worktree preparation and CSV checks pass;
+`rename.py check` finds one rename and zero problems. Header dependency check
+returns 0.
+
+The initial outgoing audit reports ten missing current source receipts.
+Supported `link_check.py --prepare-current` explicitly prepares these eleven
+reserved providers, verifies all 1,464 rows, 19 data rows and 15 constructor
+folds, and writes strict reusable receipts without changing census status.
+
+The renewed audit still returns 2 INCONCLUSIVE: index `984a4cdc4d` predates
+the base, and affected consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. That unowned consumer was not rebuilt. Carry the eleven-source
+provider/consumer scope into the next scheduled census. This is not a proved
+loss or whole-consumer clearance. The obstacle register retains that boundary.
+
+Additional receipts: `strict-current.log`, `batch-audit-before.log`,
+`batch-audit-current.log`, `range-check.log` and `header-check.log`.

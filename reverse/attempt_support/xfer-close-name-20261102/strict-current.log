@@ -1,0 +1,17 @@
+link_check: preparing 11 explicit safe provider(s), no extra sources
+Compile: 10 of 11 TU(s) (deps-cache: 1 current)
+Source claims: OK (11 sources, scoped byte-verified)
+Data rows: OK (19 row(s) byte-verified)
+Compile: 0 of 11 TU(s) (deps-cache: 11 current)
+Funclet pins: 788 row(s) verified past a renumbered $L label
+    $L10197 (Code/GameEngine/Source/GameLogic/Object/CreateAHeroHero.cpp): $L10197 was renumbered; verified parent EH data places $L11209 at 0x0078524A
+    uw_00777e88 (Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp): $L4160 was renumbered; verified parent EH data places $L5521 at 0x00777E88
+    $L17808 (Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp): $L17808 was renumbered; verified parent EH data places $L20507 at 0x0077F6B0
+    $L17809 (Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp): $L17809 was renumbered; verified parent EH data places $L20508 at 0x0077F6BB
+    $L17810 (Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp): $L17810 was renumbered; verified parent EH data places $L20509 at 0x0077F6C6
+STLport folds: 15 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 1464/1464 matched across 11 source file(s)
+String-ref verify: OK (420 literals + 61 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (99 compiler literals verified)
+Import-ref verify: OK (229 named imports verified)
+link_check: 11 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked
