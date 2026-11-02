@@ -311,3 +311,4 @@ DrawableList,Code/GameEngine/Include/GameClient/DrawableList.h,existing header; 
 ScriptAction,Code/GameEngine/Include/GameLogic/ScriptAction.h,existing header; contract class_contracts/ScriptAction.json; 17/36 sampled units adopt
 WeaponSet,Code/GameEngine/Include/GameLogic/WeaponSetClass.h,existing header; contract class_contracts/WeaponSet.json; 23/36 sampled units adopt
 ScriptList,Code/GameEngine/Include/GameLogic/ScriptList.h,existing header; contract class_contracts/ScriptList.json; 13/34 sampled units adopt
+GameSpyStagingRoom,Code/GameEngine/Include/GameNetwork/GameSpyStagingRoom.h,existing header; contract class_contracts/GameSpyStagingRoom.json; 7/35 sampled units adopt
