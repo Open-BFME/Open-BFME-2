@@ -108,11 +108,7 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 
-class Player
-{
-public:
-	int iterateObjects(int (*func)(Object *obj, void *userData), void *userData) const;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

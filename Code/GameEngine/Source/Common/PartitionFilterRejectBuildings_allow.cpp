@@ -57,12 +57,7 @@ public:
 	Provider *m_provider250;
 };
 
-class Player
-{
-public:
-	char m_pad[0x5C];
-	int m_field5C;
-};
+#include "../../Include/Common/Player.h"
 
 class Rva002611F2Base
 {

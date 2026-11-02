@@ -36,14 +36,7 @@
 
 #include "../../../../Include/Common/SpecialPower.h"
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../../../Include/Common/Player.h"
 
 enum ObjectID { INVALID_ID = 0 };
 

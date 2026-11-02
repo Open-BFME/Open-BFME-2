@@ -40,13 +40,7 @@ class LocomotorSet
  Bool m_downhillOnly;
  Bool m_scalesWalls;
 };
-class Player
-{
- public:
- char m_pad00[0x5c];
- Int m_playerType;
-// +0x5C (1: computer)
-};
+#include "../../../Include/Common/Player.h"
 // Relationship order is established by the rowed Object::getRelationship.
 class AIUpdateInterface;
 struct PathfinderTemplateView

@@ -210,11 +210,7 @@ enum
 #include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
-class Player
-{
-public:
-	Bool isSkirmishAIPlayer();
-};
+#include "../../../Include/Common/Player.h"
 class LocomotorSet;
 // What the path's 0x003642DF returns by value (16 bytes): a node and a
 // position (as in AIUpdateInterfacePrivateCommands.cpp). Unnamed.

@@ -35,12 +35,7 @@ template <> struct _Base_bitset<32>
 };
 }
 
-class Player
-{
-public:
-	char m_pad00[0x13c];
-	BfmeFixedStorage128 m_mask13c;
-};
+#include "../../Include/Common/Player.h"
 
 class Object
 {

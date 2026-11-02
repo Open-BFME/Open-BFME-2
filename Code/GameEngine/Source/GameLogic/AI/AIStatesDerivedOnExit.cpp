@@ -213,11 +213,7 @@ private:
 #include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
-class Player
-{
-public:
-	Bool isSkirmishAIPlayer();
-};
+#include "../../../Include/Common/Player.h"
 class LocomotorSet;
 typedef UnsignedInt AudioHandle;
 enum AudioHandleSpecialValues

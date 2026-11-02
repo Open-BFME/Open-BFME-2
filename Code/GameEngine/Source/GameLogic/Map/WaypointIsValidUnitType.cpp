@@ -68,13 +68,7 @@ public:
 };
 
 class Team;
-class Player
-{
-public:
-	bool rva002AA245() const; // 0x002AA245
-	char m_pad00[0x2EC];
-	Team *m_2EC; // +0x2EC +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva002A8AB1Record;
 

@@ -35,13 +35,7 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff 
 enum ObjectStatusTypes {};
 enum Relationship { REL_ENEMY = 0, REL_NEUTRAL = 1, REL_ALLY = 2 };
 
-class Player
-{
-public:
-	__forceinline int getPlayerIndex() const { return index; }
-	char m_pad00[0x54];
-	int index; // +0x54
-};
+#include "../../../../Include/Common/Player.h"
 class ThingTemplate {
 public:
     bool isEquivalentTo(const ThingTemplate *) const;
