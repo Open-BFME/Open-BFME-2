@@ -1,0 +1,977 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "GlobalLanguage",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 29,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x13c": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1ea9b5"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7defc8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1ea9b5"
+     ],
+     "value": 312
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1ea9b5"
+     ],
+     "value": {
+      "0x134": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x24": [
+       1
+      ],
+      "0x28": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1ea9b5"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0x104": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x110": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x11c": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x128": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x138": [
+       "??0?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod8@@@1@@Z"
+      ],
+      "0x14": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0x18": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x1c": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x2c": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x38": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x44": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x50": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x5c": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x68": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x74": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x80": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x8c": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0x98": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xa4": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xb0": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xbc": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xc": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xc8": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xd4": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xe0": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xec": [
+       "??0FontDesc@@QAE@XZ"
+      ],
+      "0xf8": [
+       "??0FontDesc@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1ea9b5"
+     ],
+     "value": {
+      "0x0": "0x7defc8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7defc8"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GGlobalLanguage@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1eadd4"
+       },
+       {
+        "name": "?init@GlobalLanguage@@UAEXXZ",
+        "slot": 1,
+        "target": "0x1ea55a"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 9,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 10,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7defc8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x7defc8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GGlobalLanguage@@UAEPAXI@Z",
+     "1": "?init@GlobalLanguage@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "??1Region2D@@QAE@XZ",
+     "10": "??1Region2D@@QAE@XZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 11,
+   "16": 1,
+   "20": 1,
+   "24": 2,
+   "37": 1,
+   "164": 1,
+   "188": 1,
+   "212": 5,
+   "224": 1,
+   "260": 1,
+   "308": 1,
+   "316": 2
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GlobalLanguage.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GlobalLanguage.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_opaque00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 200,
+   "type": "char[200]",
+   "views": 8,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreen.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIPostDraw.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Credits.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0029F8B8.cpp",
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GlobalLanguage.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "176:A": 1,
+    "200:A": 1,
+    "20:A": 1,
+    "316:A": 1,
+    "36:A": 1,
+    "4:VPTR": 1,
+    "56:A": 1
+   },
+   "class": "GlobalLanguage"
+  }
+ ],
+ "size": 212,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
