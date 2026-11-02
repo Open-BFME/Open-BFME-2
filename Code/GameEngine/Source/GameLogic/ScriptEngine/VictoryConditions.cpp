@@ -200,7 +200,7 @@ Bool VictoryConditions::hasBeenDefeated(Player *player)
 struct VictoryUpdateGameLogicView { char m_pad[0x40]; UnsignedInt m_frame; char pad44[0x98 - 0x44]; Bool m_isScoringEnabled; char pad99[0x110 - 0x99]; Int m_mode; Int m_network; };
 struct Rva00420388GlobalData { char pad[0x110C]; float m_110C; };
 extern int BfmeLogicFramesPerSecond;
-class RecorderClass { public: Bool isMultiplayer(); };
+#include "../../../Include/Common/RecorderClass.h"
 extern RecorderClass *TheRecorder;
 class Rva0023C6A4 { public: Bool rva00200084(); };
 class Rva0023C666 { public: bool rva0023C666(); };

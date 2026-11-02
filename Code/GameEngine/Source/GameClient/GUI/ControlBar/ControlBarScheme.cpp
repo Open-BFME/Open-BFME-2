@@ -57,11 +57,7 @@ enum ControlBarStages { CONTROL_BAR_STAGE_DEFAULT=0 };
 class Image;
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
-class RecorderClass
-{
-public:
-	bool isMultiplayer();
-};
+#include "../../../../Include/Common/RecorderClass.h"
 struct Bfme939Helper : public RecorderClass
 {
 };

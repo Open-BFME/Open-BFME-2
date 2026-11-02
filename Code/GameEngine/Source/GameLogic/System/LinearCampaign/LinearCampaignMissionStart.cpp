@@ -28,7 +28,7 @@ class Rva001EB3A6 { public: BfmeAssignRecord36 *rva001EB3A6(int); };
 AsciiString __cdecl Rva001EB2CCGetMapPath(const char *);
 #include "../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
-class RecorderClass { public: void stopRecording(); };
+#include "../../../../Include/Common/RecorderClass.h"
 class NetWrapperCommandMsg { public: unsigned char *getData(); };
 struct Bfme939Helper;
 class RecorderClass; extern RecorderClass *TheRecorder;

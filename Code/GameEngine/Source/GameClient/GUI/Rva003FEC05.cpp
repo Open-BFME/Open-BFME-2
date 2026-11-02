@@ -19,11 +19,7 @@ public:
 	unsigned char *getData();
 };
 
-class RecorderClass
-{
-public:
-	void stopRecording();
-};
+#include "../../../Include/Common/RecorderClass.h"
 
 class GameWindowTransitionsHandler
 {

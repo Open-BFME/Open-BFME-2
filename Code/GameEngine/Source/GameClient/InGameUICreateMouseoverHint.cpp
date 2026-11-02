@@ -350,7 +350,7 @@ extern View* TheTacticalView;
 // Retain its established facade call view from FXListDoFXPos.cpp.
 extern PartitionManager* TheShroudManager;
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
-class RecorderClass { public: bool isMultiplayer(); RecorderModeType getMode(); };
+#include "../../Include/Common/RecorderClass.h"
 extern RecorderClass* TheRecorder;
 class LookAtTranslator;
 class BfmeOwnVVD { public: unsigned char Rva0042E8C1(); };

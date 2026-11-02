@@ -30,11 +30,7 @@ public:
 
 #include "GameLogicObjectLookupView.h"
 
-class RecorderClass
-{
-public:
-	Bool isMultiplayer();						///< matched 0x0037B18C
-};
+#include "../../Include/Common/RecorderClass.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern SubsystemInterfaceList *TheSubsystemList;

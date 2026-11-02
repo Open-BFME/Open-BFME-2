@@ -55,11 +55,7 @@ const unsigned int COMMAND_OPTION_NEED_TARGET = 0x227;
 
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
 
-class RecorderClass
-{
-public:
-	RecorderModeType getMode();
-};
+#include "../../Include/Common/RecorderClass.h"
 
 extern RecorderClass *TheRecorder;
 

@@ -90,11 +90,7 @@ public:
 
 #include "../../../../../Include/Common/GameState.h"
 
-class RecorderClass
-{
-public:
-	bool playbackFile(UnicodeString name);	// 0x0037D1E6
-};
+#include "../../../../../Include/Common/RecorderClass.h"
 
 #include "../../../../../Include/GameClient/Shell.h"
 

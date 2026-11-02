@@ -280,13 +280,7 @@ enum RecorderModeType
 	RECORDERMODETYPE_PLAYBACK
 };
 
-class RecorderClass
-{
-public:
-	RecorderModeType getMode();
-	void stopRecording();
-	bool playbackFile(UnicodeString filename);
-};
+#include "../../../../../Include/Common/RecorderClass.h"
 
 extern RecorderClass *TheRecorder;
 

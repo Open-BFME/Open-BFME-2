@@ -37,11 +37,7 @@ extern GameInfo *TheGameInfo;
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class RecorderClass
-{
-public:
-	bool isMultiplayer();
-};
+#include "../../Include/Common/RecorderClass.h"
 
 struct Bfme939Helper : public RecorderClass
 {

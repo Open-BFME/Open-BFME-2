@@ -316,7 +316,7 @@ void AptTimeLine::rva0051ED7E()
 // rowed predicates let cl 7.1 keep it (and the game type) in registers across
 // those calls, as retail does.
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
-class RecorderClass { public: RecorderModeType getMode(); };	// 0x0030F2C7
+#include "../../../../../Include/Common/RecorderClass.h"
 extern RecorderClass *TheRecorder;
 
 class Rva0023C666 { public: bool rva0023C666(); };

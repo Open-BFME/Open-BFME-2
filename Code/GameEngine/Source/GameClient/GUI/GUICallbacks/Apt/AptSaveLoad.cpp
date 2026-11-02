@@ -366,12 +366,7 @@ public:
 extern InGameUI *TheInGameUI;
 
 // Rowed at 0x0037D6E8 (RecorderCopyCurrentRecording.cpp).
-class RecorderClass
-{
-public:
-	bool copyCurrentRecordingToFile(UnicodeString *name, UnicodeString *title);
-	bool playbackFile(UnicodeString name); // 0x0037D1E6
-};
+#include "../../../../../Include/Common/RecorderClass.h"
 
 extern RecorderClass *TheRecorder;
 

@@ -254,11 +254,7 @@ typedef _STL::vector<int, _STL::allocator<int> > SciVec;
 
 SciVec *__cdecl Rva00339A8DCopy(SciVec *first, SciVec *last, SciVec *dest, void *tag, int extra);
 
-class RecorderClass
-{
-public:
-	bool isMultiplayer();
-};
+#include "../../../Include/Common/RecorderClass.h"
 
 extern GameLogic *TheGameLogic;
 

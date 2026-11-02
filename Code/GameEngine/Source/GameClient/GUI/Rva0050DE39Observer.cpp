@@ -192,11 +192,7 @@ public:
 	const GameSlot *getConstSlot(Int index) const;
 };
 extern GameInfo *TheGameInfo;
-class RecorderClass
-{
-public:
-	bool isMultiplayer();
-};
+#include "../../../Include/Common/RecorderClass.h"
 extern RecorderClass *TheRecorder;
 #include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;

@@ -132,7 +132,7 @@ void Rva0021237E::rva002123BE()
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 struct Bfme939Helper { int get()const; }; class RecorderClass; extern RecorderClass *TheRecorder;
-class RecorderClass { public:void stopRecording(); };
+#include "../../../Include/Common/RecorderClass.h"
 class Rva00210C66CmpBoolField { public: bool get() const; };
 extern class GameInfo *TheGameInfo;
 #include "../../../Include/GameNetwork/GameInfo.h"

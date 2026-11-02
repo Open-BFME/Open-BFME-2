@@ -380,20 +380,7 @@ class Rva0037B7C7
 public:
 	void rva0037BC65();
 };
-class RecorderClass
-{
-public:
-	virtual ~RecorderClass();
-	virtual void init();
-	virtual void postProcessLoad();
-	virtual void reset();
-	virtual void update();
-protected:
-	void updateRecord();
-private:
-	char m_pad04[0x1C - 4];
-	Int m_mode;
-};
+#include "../../Include/Common/RecorderClass.h"
 
 
 #include <new>

@@ -1035,7 +1035,7 @@ Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
 // those calls, as retail does.
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
 
-class RecorderClass { public: RecorderModeType getMode(); };
+#include "../../../../../Include/Common/RecorderClass.h"
 
 	// 0x0030F2C7
 extern RecorderClass *TheRecorder;
