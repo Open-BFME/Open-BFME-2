@@ -1,0 +1,395 @@
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp b/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
+index cb806ec7f0..68e76a52a3 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp
+@@ -36,35 +36,17 @@ typedef bool Bool;
+ typedef float Real;
+ typedef int Int;
+ typedef unsigned int UnsignedInt;
+-typedef UnsignedInt StateID;
+ #include <windows.h>
+ #include "../../../../Libraries/Include/Lib/Coord3D.h"
+ class Object;
+ class AttackExitConditionsInterface;
+-struct StateConditionInfo;
+-class State;
+-enum StateReturnType
+-{
+-	STATE_CONTINUE = 0
+-};
++#include "../../../Include/Common/StateMachineClass.h"
+ enum
+ {
+ 	AI_IDLE = 0,
+ 	AI_ATTACK_OBJECT = 0xA,
+ 	AI_PICK_UP_CRATE = 0x27
+ };
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt name, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-	Object *getOwner() const { return m_owner; }
+-protected:
+-	unsigned char m_pad04[0x14 - 0x04];
+-	Object *m_owner; // +0x14
+-	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
+-};
+ // BFME 2's StateMachine constructor (owner, name, flag), rowed by address.
+ // Like the other machine views, the class declares only its destructor
+ // (0x0034004C, defined in Rva004D759CDerived.cpp), so the vtable copy this
+@@ -75,60 +57,37 @@ public:
+ 	AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey);
+ 	virtual ~AIAttackMoveStateMachine();
+ };
+-// Declaration-only call view of a machine's vtable, never constructed here:
+-// the states start their machine through vslot 7 (initDefaultState,
+-// 0x004D770F).
+-template <int N> class MachineVSlots : public MachineVSlots<N - 1>
+-{
+-public:
+-	virtual void slot(char (*)[N]) = 0;
+-};
+-template <> class MachineVSlots<0>
+-{
+-};
+-class MachineStart : public MachineVSlots<7>
+-{
+-public:
+-	virtual StateReturnType initDefaultState() = 0;
+-};
+-class State
+-{
+-public:
+-	virtual ~State();
+-	Object *getMachineOwner() const { return m_machine->getOwner(); }
+-protected:
+-	unsigned char m_pad04[0x18 - 0x04];
+-	StateMachine *m_machine; // +0x18
+-	unsigned char m_pad1C[0x20 - 0x1C];
+-};
+-class Rva0033FE65 : public State
++// The machine's three states are only created here, through their rowed
++// constructors: opaque views that keep each allocation size, cast to State
++// at defineState.
++class Rva0033FE65
+ {
+ public:
+ 	Rva0033FE65(StateMachine *machine, int val);
+ private:
+-	unsigned char m_pad20[0x28 - 0x20];
++	unsigned char m_pad00[0x28];
+ };
+-class Rva00342B87 : public State
++class Rva00342B87
+ {
+ public:
+ 	Rva00342B87(StateMachine *machine);
+ private:
+-	unsigned char m_pad20[0x50 - 0x20];
++	unsigned char m_pad00[0x50];
+ };
+-class AIAttackState : public State
++class AIAttackState
+ {
+ public:
+ 	AIAttackState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking, AttackExitConditionsInterface *attackParameters);
+ private:
+-	unsigned char m_pad20[0x50 - 0x20];
++	unsigned char m_pad00[0x50];
+ };
+ 
+ AIAttackMoveStateMachine::AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey) : StateMachine(owner, nameKey, false)
+ {
+ 	// order matters: first state is the default state.
+-	defineState( AI_IDLE, new Rva0033FE65( this, 1 ), AI_IDLE, AI_IDLE );
+-	defineState( AI_PICK_UP_CRATE, new Rva00342B87( this ), AI_IDLE, AI_IDLE );
+-	defineState( AI_ATTACK_OBJECT, new AIAttackState( this, false, true, false, NULL ), AI_IDLE, AI_IDLE );
++	defineState( AI_IDLE, (State *)new Rva0033FE65( this, 1 ), AI_IDLE, AI_IDLE );
++	defineState( AI_PICK_UP_CRATE, (State *)new Rva00342B87( this ), AI_IDLE, AI_IDLE );
++	defineState( AI_ATTACK_OBJECT, (State *)new AIAttackState( this, false, true, false, NULL ), AI_IDLE, AI_IDLE );
+ }
+ 
+ // Zero Hour's Coord3D::zero(); VC7.1 keeps an inlined call's stores in
+@@ -175,7 +134,7 @@ AIAttackMoveToState::AIAttackMoveToState(StateMachine *machine) : Rva0034005D(ma
+ 	m_58 = 0;
+ 	m_5C = 5;
+ 	m_attackMoveMachine = new AIAttackMoveStateMachine(getMachineOwner(), 0xc586154eu);
+-	((MachineStart *)m_attackMoveMachine)->initDefaultState();
++	m_attackMoveMachine->initDefaultState();
+ 	zeroCoord3D(m_60);
+ 	m_6C = 0;
+ }
+@@ -199,7 +158,7 @@ private:
+ AIAttackFollowWaypointPathState::AIAttackFollowWaypointPathState(StateMachine *machine, Bool asGroup) : Rva00342BAE(machine, asGroup, false)
+ {
+ 	m_attackFollowMachine = new AIAttackMoveStateMachine(getMachineOwner(), 0x1b42b558u);
+-	((MachineStart *)m_attackFollowMachine)->initDefaultState();
++	m_attackFollowMachine->initDefaultState();
+ }
+ 
+ class AIFollowPathAsTeamState : public AIInternalMoveToState
+@@ -234,6 +193,6 @@ AIFollowPathAsTeamState::AIFollowPathAsTeamState(StateMachine *machine, Bool att
+ 	if (attackMove)
+ 	{
+ 		m_attackMoveMachine = new AIAttackMoveStateMachine(getMachineOwner(), 0xc586154eu);
+-		((MachineStart *)m_attackMoveMachine)->initDefaultState();
++		m_attackMoveMachine->initDefaultState();
+ 	}
+ }
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp b/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+index 5ae4fadd6e..c68e33d51b 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+@@ -25,24 +25,11 @@ extern "C" void _ReadWriteBarrier(void);
+ // AIDockMachine approach position +0x3C; State machine +0x18, a 0x20-byte base;
+ // AIInternalMoveToState goal position +0x20 and adjustsDestination +0x48 in a
+ // 0x4C-byte object; Object id +0x74 and AI +0x258.
+-enum StateExitType
+-{
+-	EXIT_NORMAL = 0,
+-	EXIT_RESET
+-};
+-
+-enum StateReturnType
+-{
+-	STATE_CONTINUE = 0,
+-	STATE_SUCCESS = -1,
+-	STATE_FAILURE = -2
+-};
+-
+ class Object;
+ 
+-class StateMachine;
+-
+-class State;
++// Player.h below needs the Snapshot name-slot surface that State uses.
++#define BFME_SNAPSHOT_NAME_SLOT
++#include "../../../Include/Common/StateMachineClass.h"
+ 
+ struct StateConditionInfo
+ {
+@@ -123,27 +110,11 @@ public:
+ 	AIUpdateInterface *m_ai; // +0x258
+ };
+ 
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-	Object *getOwner() const { return m_owner; }
+-	Object *getGoalObject();
+-	void unlock() { m_locked = false; }
+-	// LINK: same-body helper under a TU-unique name (identical inlined
+-	// bytes). This TU's unlock copy loses to the first-in-order copy (no
+-	// retail address); the onExit call inlines it but still emits the
+-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
+-	// copy. No flags touched.
+-	void bfme_unlock() { m_locked = false; }
+-	unsigned char m_pad04[0x14 - 0x04];
+-	Object *m_owner; // +0x14
+-	unsigned char m_pad18[0x38 - 0x18];
+-	Bool m_locked; // +0x38
+-	unsigned char m_pad39[0x3C - 0x39];
+-};
++// LINK: StateMachine::unlock under a TU-local name (identical inlined
++// bytes). This TU's unlock COMDAT lost to the first-in-order copy (no retail
++// address); the onExit call inlines it but still emitted the loser COMDAT.
++// File-static, so it emits no external COMDAT. No flags touched.
++static inline void bfme_unlock(StateMachine *machine) { machine->m_locked = false; }
+ 
+ class TurretStateMachine : public StateMachine
+ {
+@@ -162,40 +133,6 @@ public:
+ 	int m_approachPosition;	// +0x3C dock approach slot (-1: none)
+ };
+ 
+-class State
+-{
+-public:
+-	State(StateMachine *machine, unsigned int hash);
+-	virtual ~State();
+-	virtual void slot01();
+-	virtual void slot02();
+-	virtual void slot03();
+-	virtual StateReturnType onEnter();
+-	virtual void onExit(StateExitType status);
+-	virtual StateReturnType update();
+-	virtual void slot07();
+-	virtual Bool isIdle() const;
+-	virtual void slot09();
+-	virtual void slot10();
+-	virtual void slot11();
+-	virtual void slot12();
+-	virtual void slot13();
+-	virtual void slot14();
+-	virtual void slot15();
+-	virtual void slot16();
+-	StateMachine *getMachine() const { return m_machine; }
+-	Object *getMachineOwner() const { return m_machine->getOwner(); }
+-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
+-	int m_id;
+-	int m_successStateID;
+-	int m_failureStateID;
+-	void *m_transitionsFirst;
+-	void *m_transitionsLast;
+-	StateMachine *m_machine; // +0x18
+-	bool m_tail1C;
+-	unsigned char m_pad1D[0x20 - 0x1D];
+-};
+-
+ class AIInternalMoveToState : public State
+ {
+ public:
+@@ -204,6 +141,10 @@ public:
+ 	virtual StateReturnType onEnter();
+ 	virtual void onExit(StateExitType status);
+ 	virtual StateReturnType update();
++protected:
++	virtual const char *GetSnapshotName() const;
++	virtual void xfer(Xfer *xfer);
++public:
+ 	Coord3D m_goalPosition; // +0x20
+ 	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3D))];
+ 	Bool m_adjustsDestination; // +0x48
+@@ -224,12 +165,14 @@ public:
+ 	virtual StateReturnType update();
+ };
+ 
+-class Rva00544095 : public State
++// Created here only through its rowed constructor: an opaque view that keeps
++// the allocation size, cast to State at defineState.
++class Rva00544095
+ {
+ public:
+ 	Rva00544095(StateMachine *machine);
+ private:
+-	unsigned char m_pad20[0x24 - 0x20];
++	unsigned char m_pad00[0x24];
+ };
+ 
+ class AIDockWaitForClearanceState : public State
+@@ -276,6 +219,10 @@ class Rva005445D4 : public State
+ {
+ public:
+ 	Rva005445D4(StateMachine *machine);
++	virtual StateReturnType update();
++protected:
++	virtual const char *GetSnapshotName() const;
++	virtual void xfer(Xfer *xfer);
+ private:
+ 	int m_20;
+ 	int m_24;
+@@ -852,7 +799,7 @@ void AIDockWaitForClearanceState::onExit( StateExitType status )
+ void AIDockProcessDockState::onExit( StateExitType status )
+ {
+ 	// unlock the machine
+-	getMachine()->bfme_unlock();
++	bfme_unlock(getMachine());
+ }
+ 
+ // ---- from Code/GameEngine/Source/GameLogic/AI/Rva005442CCOnEnter.cpp
+@@ -1249,7 +1196,7 @@ AIDockMachine::AIDockMachine(Object *owner) : StateMachine(owner, 0x2b638eb7u, f
+ 
+ 	// order matters: first state is the default state.
+ 	defineState( 0, new Rva005447ED( this ), 1, 9999 );
+-	defineState( 1, new Rva00544095( this ), 3, 9999, g_condC69C78 );
++	defineState( 1, (State *)new Rva00544095( this ), 3, 9999, g_condC69C78 );
+ 	defineState( 2, new Rva00544810( this ), 1, 9999 );
+ 	defineState( 3, new Rva0054482D( this ), 4, 6 );
+ 	defineState( 4, new Rva0054484A( this ), 5, 6 );
+diff --git a/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp b/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp
+index 1158c34a4e..8145b8339c 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/TurretStateMachineCtor.cpp
+@@ -36,16 +36,7 @@ enum TurretStateType
+ 	TURRETAI_RECENTER = 4,
+ 	TURRETAI_HOLD = 5
+ };
+-class State;
+-class StateMachine
+-{
+-public:
+-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+-	virtual ~StateMachine();
+-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+-protected:
+-	unsigned char m_pad04[0x3C - 0x04];
+-};
++#include "../../../Include/Common/StateMachineClass.h"
+ // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
+ class TurretAIAttackInterface
+ {
+@@ -60,6 +51,9 @@ public:
+ class TurretAI : public TurretAIBase, public TurretAIAttackInterface
+ {
+ };
++// Like the other machine views, the class declares only its constructor,
++// destructor and member, so the vtable copy this constructor emits agrees
++// with Rva004D759CDerived.cpp's (which defines the destructor 0x004D7E61).
+ class TurretStateMachine : public StateMachine
+ {
+ public:
+@@ -68,20 +62,17 @@ public:
+ private:
+ 	TurretAI *m_turretAI; // +0x3C
+ };
+-class State
+-{
+-public:
+-	State(StateMachine *machine, UnsignedInt nameKey);
+-	virtual ~State();
+-protected:
+-	unsigned char m_pad04[0x20 - 0x04];
+-};
+-// The rowed turret-state base constructor 0x004D7B70.
+-class Rva004D7B70 : public State
++// The rowed turret-state base constructor 0x004D7B70 (a 0x20-byte State
++// prefix). The five states are created here with plain operator new, so
++// they keep an opaque base that preserves the State layout, not canonical
++// State, which is abstract; each new is cast to State at defineState.
++class Rva004D7B70
+ {
+ public:
+ 	Rva004D7B70(StateMachine *machine, UnsignedInt nameKey);
+ 	virtual ~Rva004D7B70();
++protected:
++	unsigned char m_pad04[0x20 - 0x04];
+ };
+ class TurretAIIdleState : public Rva004D7B70
+ {
+@@ -120,12 +111,12 @@ private:
+ 	UnsignedInt m_timestamp; // +0x20
+ };
+ // The rowed attack-fire state (0x0033F483): machine and attack interface.
+-class Rva0033F483 : public State
++class Rva0033F483
+ {
+ public:
+ 	Rva0033F483(StateMachine *machine, int attackInterface);
+ private:
+-	unsigned char m_pad20[0x28 - 0x20];
++	unsigned char m_pad00[0x28];
+ };
+ 
+ TurretAIIdleState::TurretAIIdleState(TurretStateMachine *machine) : Rva004D7B70(machine, 0x2722c825u)
+@@ -164,10 +155,10 @@ TurretStateMachine::TurretStateMachine(TurretAI *tai, Object *obj, UnsignedInt n
+ 	};
+ 
+ 	// order matters: first state is the default state.
+-	defineState( TURRETAI_IDLE, new TurretAIIdleState( this ), TURRETAI_IDLE, TURRETAI_IDLESCAN );
+-	defineState( TURRETAI_IDLESCAN, new TurretAIIdleScanState( this ), TURRETAI_HOLD, TURRETAI_HOLD );
+-	defineState( TURRETAI_AIM, new TurretAIAimTurretState( this ), TURRETAI_FIRE, TURRETAI_HOLD );
+-	defineState( TURRETAI_FIRE, new Rva0033F483( this, (int)static_cast<TurretAIAttackInterface *>(tai) ), TURRETAI_AIM, TURRETAI_AIM, fireConditions );
+-	defineState( TURRETAI_RECENTER, new TurretAIRecenterTurretState( this ), TURRETAI_IDLE, TURRETAI_IDLE );
+-	defineState( TURRETAI_HOLD, new TurretAIHoldTurretState( this ), TURRETAI_RECENTER, TURRETAI_RECENTER );
++	defineState( TURRETAI_IDLE, (State *)new TurretAIIdleState( this ), TURRETAI_IDLE, TURRETAI_IDLESCAN );
++	defineState( TURRETAI_IDLESCAN, (State *)new TurretAIIdleScanState( this ), TURRETAI_HOLD, TURRETAI_HOLD );
++	defineState( TURRETAI_AIM, (State *)new TurretAIAimTurretState( this ), TURRETAI_FIRE, TURRETAI_HOLD );
++	defineState( TURRETAI_FIRE, (State *)new Rva0033F483( this, (int)static_cast<TurretAIAttackInterface *>(tai) ), TURRETAI_AIM, TURRETAI_AIM, fireConditions );
++	defineState( TURRETAI_RECENTER, (State *)new TurretAIRecenterTurretState( this ), TURRETAI_IDLE, TURRETAI_IDLE );
++	defineState( TURRETAI_HOLD, (State *)new TurretAIHoldTurretState( this ), TURRETAI_RECENTER, TURRETAI_RECENTER );
+ }

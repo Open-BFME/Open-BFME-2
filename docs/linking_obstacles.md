@@ -51,7 +51,7 @@ next scheduled census.
 [Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261102-1632.md).
 ### LINK-177: header adoptions of dtor-holder units broke 35 census-linked units (2026-11-02, seat halilkkaya-lk15)
 
-Status: Open (analysis; regression; item 1 banked by lk16 2026-11-02). Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
+Status: Open (analysis; regression; item 1 banked by lk16 2026-11-02; State slots provided and the last three step-B units banked by lk18 2026-11-02). Base `ae61e35305`, index 2026-11-02 08:35 (`984a4cdc4d`).
 A current-object `link_check` over all 18,470 present sources the 06:54 census (`357ce2a88f`)
 records as linked: 18,435 link, 7,725,216 -> 7,696,163 B (-29,053 B). Excluding the known
 `__imp_`/`___ImageBase` modelling gaps and a sweep artifact (OpaqueScalarDeletingDtorsB11.cpp's
@@ -336,6 +336,36 @@ no refused pin.
   - apply v2 with them.
   The README lists the rows and addresses. Its own step B needs State views rebased on canonical
   State.
+
+Repaired (2026-11-02, lk18), the State-slot blocker: canonical State's slots 7-16, plus slots 1 and
+4, now have base bodies, so a unit that emits a State-derived table no longer references names no
+unit defines. Base `9e271b3526`.
+- Target facts: base table 0x00C605D8 (ctor 0x004D73FC) holds:
+  - slots 1, 7 and 16: the bare RET 0x000B3FD0;
+  - slot 4: `xor eax,eax; ret` 0x000D43D0;
+  - slot 5: RET 4 0x0047A69C (pinned);
+  - slots 2, 3 and 6: `__purecall`;
+  - slots 8-15: `xor al,al; ret` 0x0047A699.
+  No slot from 7 to 16 is pure. Every base body is a shared ICF fold rowed under other classes'
+  names, so `StateMachine.h` defines them inline, as Zero Hour does.
+- Names: slot 8 is `isAttack`. The rowed overrides (0x003422EF, 0x00341D81, 0x0034141F) sit in
+  slot 8, and `isInAttackState` 0x002621B8 calls `[eax+20h]`. The other slots keep placeholders,
+  because the private views conflict (slot 10 vs 14 for `isBusy`).
+- State also gains Zero Hour's `getMachine`, `getMachineOwner` and `getMachineGoalObject` (const).
+  The last two are defined in `StateMachineClass.h`. Eleven private views already emit identical
+  COMDATs under these names.
+- Verified: the 120 includers rebuild 907/907, and 0 objects change (symbols and COMDAT digests).
+  No current object emits a canonical-State-derived table.
+- Step B for the last three units is banked:
+  `reverse/attempt_support/link177-state-classkey-20261102/step-b-v2-dock-attackmove-turret.patch`,
+  after v2. The units are AIAttackMoveStateMachine (State-derived views on the new slots), AIDock
+  (canonical accessors; opaque `new`-only states) and TurretStateMachineCtor (opaque turret-state
+  views).
+- Trial over 473 State-family units (v2 + nine + AIStateMachineCtor + this): 442 -> 455 link,
+  566,226 -> 576,814 B (+10,588), none lost. AIDock 2,608, AIAttackMove 654 and Turret 562 B are
+  this patch's share.
+- Every step-B patch still waits on v2, and v2 waits on SupplyTruckAIUpdate.cpp. That file was
+  still held by codex-01a1071d-root-recovery-oct11 at 22:40.
 
 New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
 `??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
@@ -18502,3 +18532,4 @@ SupplyTruck primary slot95 now has the same ordinary null-preserving base conver
 ### LINK-089 SupplyTruck primary package complete; ancestor handoff (2026-11-02)
 
 All seven primary bodies have separate verified commits; with three existing-provider bindings, the ten repaired primary targets match native. Strict36rows, both secondary tables, three literals, three EH graphs and the frozen check pass. The deleting-dtor compiler SEARCH_LIBRARY default remains unchanged and maps to its native scalar dtor; final library selection and whole-table ownership are not asserted. Current bounded linking still has41ancestor gaps and an unreferenced canonical-StateMachine majority warning. [Final target proof, current preview and next-family prerequisites](../reverse/attempt_support/supply-truck-primary-20261102/README.md). The nine-row AIUpdate TU uses a donor-shaped shim and must adopt/reconcile the real view before new base definitions; proposed TU placement is not approval. Census status remains authoritative.
+The ordinary Object-header gate exposed ThreatFinderUpdate.cpp's stale five-parent Snapshot include, which pointed under nonexistent Code/reference. Using the correct six-parent path restores all20code rows and both data rows without changing any body, policy or owner. [Normal/strict evidence and exact path scope](../reverse/attempt_support/threatfinder-snapshot-include-20261102/README.md). This clears the compile obstacle; census/runtime and broader linking status are not remeasured here.

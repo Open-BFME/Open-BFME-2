@@ -222,3 +222,82 @@ Trial on v2 plus both step-B patches:
 Left after this: AIDock 2,608, AIAttackMoveStateMachine 654 and TurretStateMachineCtor 562 B.
 These units define State-subclass constructors and emit their own tables, so their views need
 rebasing on canonical State. Also left: SupplyTruckAIUpdate 1,658 B, which is held.
+
+## State's slots and step B for AIDock, AIAttackMove and Turret (lk18, 2026-11-02): `step-b-v2-dock-attackmove-turret.patch`
+
+Seat halilkkaya-lk18, base `9e271b3526`.
+
+### The State header change (landed, not in a patch)
+
+The landed commit that adds this section also edits canonical `StateMachine.h` and
+`StateMachineClass.h`. Retail's base State table 0x00C605D8 (installed by 0x004D73FC) gives each
+slot's base body:
+- slots 1, 7 and 16: the bare RET 0x000B3FD0;
+- slot 4: `xor eax,eax; ret` 0x000D43D0 (STATE_CONTINUE);
+- slot 5: RET 4 0x0047A69C, pinned as `?onExit@State@@UAEXW4StateExitType@@@Z`;
+- slots 2, 3 and 6: `__purecall`;
+- slots 8-15: `xor al,al; ret` 0x0047A699 (false).
+
+None of slots 7-16 is `__purecall`, so none can be declared pure. Each base body is a shared ICF
+fold rowed under other classes' names (`??1Region2D`, `Xfer::IsCRC`, ...), so no State name can
+point at it. The header now defines the base bodies inline, as Zero Hour's StateMachine.h does:
+`loadPostProcess() {}`, `onEnter() { return STATE_CONTINUE; }`, `_bfme_state_slot7() {}`,
+`isAttack() const { return false; }`, `_bfme_state_slot9..15() const { return false; }` and
+`_bfme_state_slot16() {}`. A unit that emits a State-derived table then defines every base slot it
+does not override as a COMDAT. Before, the table referenced names that no unit defines.
+- Slot 8 is named `isAttack`. The rowed overrides `?isAttack@AIAttackAreaState/AIGuardState/
+  AIAttackState@@UBE_NXZ` (0x003422EF, 0x00341D81, 0x0034141F) sit in slot 8 of their tables, and
+  `StateMachine::isInAttackState` 0x002621B8 calls `[eax+20h]`.
+- The other slots keep their placeholder names: their overrides are rowed only under address
+  names, and the private views disagree (slot 10 vs 14 for `isBusy`).
+- WorkerAIUpdate.cpp's private view already emits `?isAttack@State@@UBE_NXZ` and
+  `?onEnter@State@@...` as COMDATs. Their census digests (bbc58e31feea, 2c49700537) are the same
+  bytes these inline bodies compile to.
+- The canonical State also gains Zero Hour's `getMachine()`, `getMachineOwner() const` and
+  `getMachineGoalObject() const`. The last two are defined after StateMachine in
+  `StateMachineClass.h`. Eleven units' private views already emit these three COMDATs under the
+  same names, and their digests agree. Retail inlines them: findMyDrone 0x00544B5B reads +0x18,
+  then +0x14.
+
+Verified on current objects: all 120 units that include `StateMachine.h` rebuild, 907/907 rows
+pass, and **0 objects change** (external symbols and COMDAT digests compared before and after).
+No current object emits a canonical-State-derived table, so the change moves no bytes by itself.
+
+### The banked step B
+
+`step-b-v2-dock-attackmove-turret.patch` applies after `state-classkey-v2.patch`. It touches none
+of the files the nine-unit and AIStateMachineCtor patches touch.
+- **AIAttackMoveStateMachine.cpp**: includes `StateMachineClass.h`. Its three `new`-only states
+  become opaque, size-keeping views. The private AIInternalMoveToState view now derives from
+  canonical State, so the three state tables it emits (AIAttackMoveToState,
+  AIAttackFollowWaypointPathState, AIFollowPathAsTeamState; this unit alone emits them) use the
+  canonical slots. `initDefaultState` is called through canonical StateMachine's slot 7. This part
+  needs the landed slot bodies.
+- **AIDock.cpp**: includes `StateMachineClass.h`, defining `BFME_SNAPSHOT_NAME_SLOT` first because
+  Player.h requires it. The private StateMachine and State views go:
+  - the canonical accessors replace the State helpers;
+  - a file-static `bfme_unlock(StateMachine *)` keeps the TU-local unlock (the previous LINK note);
+  - the instantiated `Rva005445D4` and the private AIInternalMoveToState view declare
+    `GetSnapshotName`/`xfer` (and `update`) so they are not abstract. Their tables are never
+    emitted, because the vptrs come from the address-named data rows;
+  - `Rva00544095` (`new` only) becomes opaque.
+  This part needs the landed accessors.
+- **TurretStateMachineCtor.cpp**: includes `StateMachineClass.h`. TurretStateMachine keeps a
+  ctor/dtor/member view, so its 16-slot table equals Rva004D759CDerived.cpp's. The turret-state
+  base `Rva004D7B70` and the fire state `Rva0033F483` become opaque, layout-keeping views, because
+  the five states are `new`ed here and canonical State is abstract. Each `new` is cast to `State *`.
+
+Trial (v2 + nine + AIStateMachineCtor + this patch, on the landed header):
+- `./build.sh`: 463/463 rows over the 32 v2 units. AIDock is 41/41 rows plus 7 data rows,
+  AIAttackMove 15/15 and Turret 15/15. Funclet `$L` rows verify through the parent EH data after
+  renumbering.
+- `link_check` over 473 units that touch State/StateMachine names (census index touches):
+  - master: 442/473 link, 566,226 B;
+  - trial: 455/473 link, 576,814 B (**+10,588 B**, 13 units, none lost);
+  - this patch's share: AIDock 2,608 + AIAttackMoveStateMachine 654 + TurretStateMachineCtor 562 =
+    3,824 B.
+
+Still blocked: everything above waits on `state-classkey-v2.patch`, which waits on
+SupplyTruckAIUpdate.cpp. That file is still held by codex-01a1071d-root-recovery-oct11 at 22:40.
+Apply order once it frees: v2 (with SupplyTruck's respell), then `step-b-v2-nine-ctors.patch`,
+`step-b-v2-aistatemachinector.patch` and this patch.

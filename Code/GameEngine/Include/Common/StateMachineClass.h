@@ -72,4 +72,7 @@ public:
     bool field3A;
 };
 
+inline Object *State::getMachineOwner() const { return m_machine->getOwner(); }
+inline Object *State::getMachineGoalObject() const { return m_machine->getGoalObject(); }
+
 #endif
