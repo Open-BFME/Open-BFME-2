@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Two guarded forwarders at 0x00091E83 and 0x00091FBA (90 bytes each, ret 0x2C):
 // when the target at +0x14 is set, the nine-argument terrain add is passed on to
 // BaseHeightMapRenderObjClass::addTree (0x0006813B) and its shrub twin
@@ -35,18 +35,7 @@ class Matrix3D;
 struct Rva000ECF79Data;
 struct Rva000E91CEData;
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void addProp( int id, Coord3D location, Real angle, Real scale, const AsciiString &modelName, bool bfmeFlag );
-	void addTree( unsigned int id, Rva000ECF79Coord location, Real scale, const Matrix3D *transform, Real randomScaleAmount,
-		const Rva000ECF79Data *data, int shadowKind, const AsciiString &textureName, const AsciiString &nameD );
-	void rva00068223( unsigned int id, Coord3D location, Real scale, const Matrix3D *transform, Real randomScaleAmount,
-		const Rva000E91CEData *data, int shadowKind, const AsciiString &textureName, const AsciiString &nameD );
-	void rva00069C5F( Vector3 pos, Real radius );
-	void rva0006ABE7( AsciiString name, bool flag );
-	void rva0006ACBD( AsciiString name );
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 class GeometryInfo;
 // The rowed terrain callees 0x00068073/0x000680D6 and 0x00068119, under
 // their ledger owners.

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 // BaseHeightMapRenderObjClass::CheckCorners, retail 0x00067494..0x000677CA
 // (822 bytes, RET 0x20). WorldBuilder's debug build names it and places it in
@@ -30,20 +30,7 @@ typedef bool Bool;
 	CHECK_CORNERS_V(n##3) CHECK_CORNERS_V(n##4) CHECK_CORNERS_V(n##5) CHECK_CORNERS_V(n##6) \
 	CHECK_CORNERS_V(n##7) CHECK_CORNERS_V(n##8) CHECK_CORNERS_V(n##9)
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	CHECK_CORNERS_V(0) CHECK_CORNERS_V(1) CHECK_CORNERS_V(2) CHECK_CORNERS_V(3) CHECK_CORNERS_V(4)
-	CHECK_CORNERS_V(5) CHECK_CORNERS_V(6) CHECK_CORNERS_V(7) CHECK_CORNERS_V(8) CHECK_CORNERS_V(9)
-	CHECK_CORNERS_V10(1) CHECK_CORNERS_V10(2) CHECK_CORNERS_V10(3) CHECK_CORNERS_V10(4)
-	CHECK_CORNERS_V10(5) CHECK_CORNERS_V10(6) CHECK_CORNERS_V10(7) CHECK_CORNERS_V10(8)
-	CHECK_CORNERS_V10(9) CHECK_CORNERS_V10(10) CHECK_CORNERS_V10(11) CHECK_CORNERS_V10(12)
-	CHECK_CORNERS_V10(13)
-	CHECK_CORNERS_V(140) CHECK_CORNERS_V(141) CHECK_CORNERS_V(142) CHECK_CORNERS_V(143)
-	CHECK_CORNERS_V(144)
-	virtual Real getHeightMapHeight(Real x, Real y, Coord3D *normal) const;	// slot 145 (+0x244)
-	void CheckCorners(Int x, Int y, Int heightMax, Int heightMin, Int slopeMax, Int slopeMin, Bool *heightIn, Bool *slopeIn);
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 #undef CHECK_CORNERS_V10
 #undef CHECK_CORNERS_V

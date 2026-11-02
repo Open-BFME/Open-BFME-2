@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1W3DFloorDraw@@UAE@XZ @0x000CF1A6 102B
 // Dtor over W3DFloorDraw: restores both vptrs (+0 via Rva000CEB6F line and
 // +0x10 second base) then if moduleData (+4) and drawable (+8) are non-null
@@ -22,11 +22,7 @@ struct FloorDrawModuleData
 
 class Rva0055A88BDwordField;
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void rva0006B76C(const Rva0055A88BDwordField *id, AsciiString name);
-};
+#include "../../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 // TheTerrainRenderObject: matched references place it at VA 0xde1eac (zero-filled .bss).

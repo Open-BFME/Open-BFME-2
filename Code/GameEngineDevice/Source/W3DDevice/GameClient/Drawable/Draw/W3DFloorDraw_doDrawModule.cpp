@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?doDrawModule@W3DFloorDraw@@UAEXPBVMatrix3D@@@Z, retail 0x000CF3BA (94
 // bytes, RET 4): slot 11 (+0x2C) of W3DFloorDraw's vtable 0x007CD4E0, the
@@ -25,11 +25,7 @@ private:
 
 class Rva0055A88BDwordField;
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void rva0006B7BF(const Rva0055A88BDwordField *id, StringBase<char> name, float value);
-};
+#include "../../../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 #include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"

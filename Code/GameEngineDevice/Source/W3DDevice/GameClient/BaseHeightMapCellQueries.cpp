@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BaseHeightMapRenderObjClass per-cell terrain queries.
 //
 // isCliffCell is ZH BaseHeightMap.cpp's body: null-check m_map, turn the world
@@ -55,20 +55,7 @@ private:
 	unsigned short *m_data;
 };
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	bool isCliffCell(float x, float y);
-	bool rva00067298(float x, float y);
-	unsigned char rva00067225(float x, float y);
-	unsigned char rva0006730B(float x, float y);
-	bool rva0006B114(float x, float y);
-	unsigned char rva0006B187(float x, float y);
-	virtual float getMaxCellHeight(float x, float y) const;
-private:
-	char m_unknown0004[0x37C0 - 4];
-	WorldHeightMap *m_map;
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 bool BaseHeightMapRenderObjClass::isCliffCell(float x, float y)
 {
