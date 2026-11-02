@@ -18163,3 +18163,8 @@ The approved SidesList.cpp now emits the complete typed18B _Construct twin at32A
 ### Dict-record tagged fill repaired (2026-11-02)
 
 The37B typed uninitialized-fill twin at32AD58 now uses the real18B placement helper and58B copy in the approved SidesList.cpp TU. Normal/strict62-row verification preserves the consumer's original85B constructor and27B wrapper plus the provider's prior163 code/541 data definitions. Its scoped construction contract is justified by the complete call graph; no blanket exception assumption is used. Bounded linking preserves SidesList's LINKS2103B and leaves only the vector-base conflict at421D73 in the consumer. [Full proof and negative controls](../reverse/attempt_support/element196d90-fill-20261102/README.md). Unit/census clearance remains pending.
+
+
+### Dict-record allocator prerequisite handoff (2026-11-02)
+
+A private BFME allocator-shim trial reproduces the remaining60B base and its11B proxy/28B allocation callees while preserving all three caller rows. Publication is deferred:14F3C4 is reserved by the TerrainLogic consolidation worker, and fresh2226BE placement needs explicit review. A mistakenly admitted unpublished proxy row was removed immediately and its verdict retracted; no source or public ledger changed. [Exact private boundary, reservation correction and next steps](../reverse/attempt_support/element196d90-allocator-handoff-20261102/README.md). The consumer remains blocked only by its original vector-base conflict.

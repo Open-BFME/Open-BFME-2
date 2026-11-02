@@ -1,0 +1,23 @@
+{
+  "scope": "Private full-body trial with native-call-derived addresses for three candidate bodies; no pin/ledger admission. Each candidate must itself match.",
+  "row_count": 6,
+  "missing": [],
+  "errors": [],
+  "candidates": [
+    [
+      "??0?$_STLP_alloc_proxy@PAURva00196D90Element@@U1@V?$allocator@URva00196D90Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva00196D90Element@@@1@PAURva00196D90Element@@@Z",
+      1373124,
+      11
+    ],
+    [
+      "?allocate@?$allocator@URva00196D90Element@@@_STL@@QAEPAURva00196D90Element@@IPBX@Z",
+      2238142,
+      28
+    ],
+    [
+      "??0?$_Vector_base@URva00196D90Element@@V?$allocator@URva00196D90Element@@@_STL@@@_STL@@QAE@IABV?$allocator@URva00196D90Element@@@1@@Z",
+      4332915,
+      60
+    ]
+  ]
+}
