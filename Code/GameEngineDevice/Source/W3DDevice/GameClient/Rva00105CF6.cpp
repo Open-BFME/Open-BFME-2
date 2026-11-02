@@ -1,3 +1,4 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Target evidence: the 69-byte body at RVA 0x00105CF6 reads the first pointer
 // from its first argument, advances non-null data by 8 bytes, and calls the
 // routine at 0x00158BA0 on the subobject at this+4 with a two-float output.
@@ -9,11 +10,7 @@ extern unsigned short g_Va007BB5C4;
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Render2DSentenceClass
-{
-public:
-	Vector2 Get_Text_Extents(const unsigned short *text);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 class Rva00105CF6
 {

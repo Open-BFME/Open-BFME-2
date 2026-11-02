@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /G7
+// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /G7 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?append@Rva00540B48@@QAEXHABVRva0053FDE6@@@Z @0x0054098B 155B (ret 8):
 // insert-or-update on the sorted key map the chunk reader 0x00540B48 fills.
@@ -18,14 +18,7 @@
 // Retail calls the 9-dword assignment at 0x0053FFCE, rowed as
 // Render2DSentenceClass::SentenceDataStruct::operator= (render2dsentence.cpp);
 // this /Oy- unit would emit a framed copy, so it calls the row by name.
-class Render2DSentenceClass
-{
-public:
-	struct SentenceDataStruct
-	{
-		SentenceDataStruct &operator=(const SentenceDataStruct &o);
-	};
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 class Rva0053FDE6
 {

@@ -1,4 +1,4 @@
-// cl: /O1
+// cl: /O1 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ??4Rva0054000B@@QAEAAV0@ABV0@@Z @0x00540053 29B (ret 4): the camera-track
 // key's copy assignment. Retail stores the int key at +0, then calls the
@@ -11,14 +11,7 @@
 // Retail calls the 9-dword frame assignment at 0x0053FFCE, rowed as
 // Render2DSentenceClass::SentenceDataStruct::operator= (render2dsentence.cpp),
 // as GameEngine/Source/Common/Rva00540B48Append.cpp does.
-class Render2DSentenceClass
-{
-public:
-	struct SentenceDataStruct
-	{
-		SentenceDataStruct &operator=(const SentenceDataStruct &o);
-	};
-};
+#include "../WW3D2/Render2DSentenceClass.h"
 
 class Rva0053FDE6
 {

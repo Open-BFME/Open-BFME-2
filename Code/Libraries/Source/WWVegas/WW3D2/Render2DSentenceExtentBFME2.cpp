@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /DNDEBUG /MD /EHsc /arch:SSE /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /O2 /G7 /DNDEBUG /MD /EHsc /arch:SSE /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // ZH render2dsentence.cpp Get_Text_Extents; BFME1 donor 9cbfb551fe20.
 // Native 158BA0..158C60/192B returns Vector2 through a hidden result pointer.
 // The reference Vector2 copy constructor explains the SSE stores, unlike
@@ -48,13 +48,7 @@ private:
 };
 
 #include "vector2.h"
-class Render2DSentenceClass {
-public:
-    Vector2 Get_Text_Extents(const unsigned short *text);
-private:
-    char m_pad00[0x4C];
-    FontCharsClass *Font;
-};
+#include "Render2DSentenceClass.h"
 Vector2 Render2DSentenceClass::Get_Text_Extents(const unsigned short *text) {
     Vector2 extent(0,Font->Get_Char_Height());
     while (*text) {

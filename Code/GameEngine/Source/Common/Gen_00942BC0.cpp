@@ -1,13 +1,10 @@
+// cl: C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Clean reconstruction of the conditional forwarding helper at retail RVA
 // 0x00942BC0.  The owning type is not recovered; the callee is the rowed
 // Render2DSentenceClass::Build_Sentence_Not_Centered at 0x00159700.
 #include "../../../../reference/shims/wwmath/Vector2.h"
 
-class Render2DSentenceClass
-{
-	friend class Gen_00942BC0;
-	Vector2 Build_Sentence_Not_Centered(const unsigned short *text, int *hkX, int *hkY, bool justCalcExtents);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 class Gen_00942BC0
 {

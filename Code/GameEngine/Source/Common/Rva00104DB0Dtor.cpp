@@ -1,11 +1,7 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1Rva00104DB0@@UAE@XZ, retail 0x00104DB0, 54 bytes.
 // Evidence: leaf lane pin dtor, callers in Rva00104E03Dtor and deleting dtor, callee Render2DSentenceClass dtor pin 0x00157C70.
-class Render2DSentenceClass
-{
-public:
-	~Render2DSentenceClass();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 class Rva00104DB0Base
 {

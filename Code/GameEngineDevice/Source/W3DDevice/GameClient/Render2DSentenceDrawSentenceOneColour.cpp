@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Draw_Sentence@Render2DSentenceClass@@QAEXK@Z, retail 0x00104D97 (16 bytes,
 // RET 4): BFME 2's one-colour Draw_Sentence, which forwards its colour to all
 // four corners of the four-colour overload (pinned 0x00155B00, the 2187-byte
@@ -9,12 +9,7 @@
 // No retail caller of this copy was found. View of only the two overloads.
 typedef unsigned long uint32;
 
-class Render2DSentenceClass
-{
-public:
-	void Draw_Sentence(uint32 color);
-	void Draw_Sentence(uint32 color0, uint32 color1, uint32 color2, uint32 color3);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 void Render2DSentenceClass::Draw_Sentence(uint32 color)
 {

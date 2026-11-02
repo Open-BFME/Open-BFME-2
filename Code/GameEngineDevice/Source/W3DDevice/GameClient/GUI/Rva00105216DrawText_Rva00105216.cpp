@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Split from Rva00105216DrawText.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 //
@@ -26,15 +26,7 @@ class Image;
 
 #include "../../../../../../reference/shims/wwmath/Vector2.h"
 
-class Render2DSentenceClass
-{
-public:
-	void Reset_Polys();
-	void Set_Location(const Vector2 &loc);
-	void Draw_Sentence(unsigned long color0, unsigned long color1, unsigned long color2, unsigned long color3);
-
-	char m_body[0xC4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 
 class Rva00155AD0
 {
