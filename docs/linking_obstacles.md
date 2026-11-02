@@ -18888,3 +18888,5 @@ Primary slot144 now supplies its complete1B native default at0x000B3FD0 through 
 Primary base slot6 now has its own verified matched row for the unchanged complete1B body at0x000B3FD0. Existing spelling and first representative remain; no new bytes or census clearance. The slot110 provider-name prerequisite and conditional weak deleting-destructor selection remain open.
 
 Primary base slot7 now has its own verified matched row for the unchanged complete1B body at0x000B3FD0. Existing spelling and first representative remain; no new bytes or census clearance. The slot110 provider-name prerequisite and conditional weak deleting-destructor selection remain open.
+
+Primary base slot8 now has its own verified matched row for the unchanged complete1B body at0x000B3FD0. Existing spelling and first representative remain; no new bytes or census clearance. The slot110 provider-name prerequisite and conditional weak deleting-destructor selection remain open.

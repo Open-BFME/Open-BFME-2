@@ -5,3 +5,5 @@ Six already-emitted shared inline bodies gain qualified ledger rows in separate 
 Slot6: ?onDrawableBoundToObject@Module@@UAEXXZ, native0x000B3FD0/1B. Existing C++ body is unchanged; separate normal row admission and commit.
 
 Slot7: ?preloadAssets@Module@@UAEXXZ, native0x000B3FD0/1B. Existing C++ body is unchanged; separate normal row admission and commit.
+
+Slot8: ?onDelete@Module@@UAEXXZ, native0x000B3FD0/1B. Existing C++ body is unchanged; separate normal row admission and commit.
