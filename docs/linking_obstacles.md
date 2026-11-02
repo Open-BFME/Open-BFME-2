@@ -318,8 +318,9 @@ no refused pin.
   `link_check` LINKED 221,890 -> 225,062 B over the family, with the nine units (2,939 B) and
   StateMachineDefineState (233 B) linking.
 - Left after step B:
-  - AIStateMachineCtor (3,825 B): canonical AIStateMachineClass.h must carry the goal-path
-    vector first.
+  - AIStateMachineCtor (3,825 B): solved later in the trial. It needs no header change, because
+    the holder's table is the base one. `step-b-v2-aistatemachinector.patch` makes it link, and
+    the family total becomes 221,890 -> 228,887 B (+6,997).
   - AIDock (2,608 B) and AIAttackMoveStateMachine (654 B): they emit State-subclass tables.
   - TurretStateMachineCtor (562 B): needs TurretStateMachine.h.
   - SupplyTruckAIUpdate (1,658 B): held.

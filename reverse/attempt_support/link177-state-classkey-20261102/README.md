@@ -204,3 +204,21 @@ use `getMachineOwner()` through the private `m_machine` at +0x18, and
 SupplyTruckWantsToPickUpOrDeliverBoxesState defines `update`. So adopting `StateMachineClass.h`
 needs those views rebased on canonical State (pure update/GetSnapshotName/xfer declared), not the
 opaque-view recipe of the nine-unit patch.
+
+### Step B for AIStateMachineCtor (lk17): `step-b-v2-aistatemachinector.patch`
+
+This applies after v2 and the nine-unit patch. AIStateMachine.cpp's `??_7AIStateMachine@@6B@` is the
+plain 16-slot base table; it declares only the destructor. So AIStateMachineCtor.cpp needs neither
+canonical AIStateMachineClass.h nor a header change. It keeps its private AIStateMachine view,
+with the real `vector<Gen_p12pod>` goal path its constructor builds, and gets the same recipe:
+`StateMachineClass.h` plus 62 opaque, size-preserving state views. This corrects the earlier note
+that the header has to carry the vector first.
+
+Trial on v2 plus both step-B patches:
+- `./build.sh` passes 81/81 rows in the unit and 463/463 over the 32.
+- `link_check` over the 263 family units plus StateMachineDefineState: LINKED 221,890 -> 228,887 B
+  (+6,997). AIStateMachineCtor's 3,825 B links.
+
+Left after this: AIDock 2,608, AIAttackMoveStateMachine 654 and TurretStateMachineCtor 562 B.
+These units define State-subclass constructors and emit their own tables, so their views need
+rebasing on canonical State. Also left: SupplyTruckAIUpdate 1,658 B, which is held.
