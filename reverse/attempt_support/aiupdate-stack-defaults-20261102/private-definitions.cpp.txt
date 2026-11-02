@@ -1,0 +1,2 @@
+void AIUpdateInterface::vslot074(void *, void *, void *) {}
+int AIUpdateInterface::vslot106(const Object *) const { return 0; }

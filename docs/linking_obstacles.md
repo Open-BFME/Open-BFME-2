@@ -18681,3 +18681,9 @@ Primary slot108 now supplies its complete3B native constant default at0x0050B5C6
 Primary slot146 now supplies its complete3B native constant default at0x0050B5C6 through ordinary canonical inline C++. Its separate ICF admission passes all59consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.
 
 The fifteen-member primary constant group is complete: strict59consumer rows, three tables, all1947rows across234dependent sources, and unchanged100prior external code/ten data definitions. The bounded current-object/published-index preview drops unresolved ancestor names33->18, still unlinked. Five RET8 callbacks at peer-held50B238, stack/field providers and the disabled-mask shared-type placement remain. [Final native bodies, object proof and preview](../reverse/attempt_support/aiupdate-primary-constants-20261102/README.md). Current global linking and census status remain unverified/unchanged; no runtime claim is made.
+
+### Canonical AIUpdate stack-cleanup defaults (2026-11-02)
+
+[Exact private trial and incremental admissions](../reverse/attempt_support/aiupdate-stack-defaults-20261102/README.md). Original body owners remain and no callback semantics, unique bytes or census gain are claimed.
+
+Primary slot74 now supplies its complete3B native constant default at0x000D1407 through ordinary canonical inline C++. Its separate ICF admission passes all60consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.

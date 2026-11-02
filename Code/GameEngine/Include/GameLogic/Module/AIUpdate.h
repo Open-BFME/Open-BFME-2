@@ -261,7 +261,7 @@ protected:
     virtual void privateCommandButton(CommandButton const *,CommandSourceType); // 72: RVA 0x0026DE77
     virtual void privateCommandButtonPosition(CommandButton const *,Coord3D const *,CommandSourceType); // 73: RVA 0x00267E8E
 public:
-    virtual void vslot074(void *, void *, void *); // 74: RVA 0x000D1407
+    virtual void vslot074(void *, void *, void *) {} // 74: RVA 0x000D1407
     virtual void bfmeGoCSG(void *,void *); // 75: RVA 0x00264A4E
     virtual void bfmeGoCSA(void *); // 76: RVA 0x00264A86
 protected:
