@@ -33,6 +33,18 @@ class DamageInfo;
 // Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
 static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
+
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #include "../../../../Include/Common/Geometry.h"
 
 class Object
@@ -42,47 +54,6 @@ public:
 	{
 		return *(const GeometryInfo *)((const char *)this + 0xA8);
 	}
-};
-
-#include "GameLogic/Module/UpdateModuleInterface.h"
-
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual DisabledMaskType getDisabledTypesToProcess() const;
-	virtual void rva0044DF8D(UpdateSleepTime wakeDelay);
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
-	Object *getObject(void) const { return m_object; }
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
-
-class DieModuleInterface
-{
-public:
-	DieModuleInterface() {}
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
 };
 
 enum StructureToppleStateType
@@ -101,7 +72,6 @@ public:
 	// Retail's dtor 0x004A54A8 stores the four vptrs this ctor installs
 	// and tail-jumps UpdateModule::~UpdateModule.
 	virtual ~StructureToppleUpdate();
-	virtual UpdateSleepTime update();
 	virtual void onDie(const DamageInfo *damageInfo);
 private:
 	const Object *getObject(void) const { return m_object; }
