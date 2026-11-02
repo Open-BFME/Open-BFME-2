@@ -11,3 +11,5 @@ Slot3: ?getCreate@BehaviorModule@@UAEPAVCreateModuleInterface@@XZ, native0x000D4
 Slot4: ?getDamage@BehaviorModule@@UAEPAVDamageModuleInterface@@XZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
 
 Slot5: ?slot05@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
+
+Slot6: ?slot06@BehaviorModule@@UAEPAXXZ, native0x000D43D0/3B. Separate normal admission and commit; existing first representative retained.
