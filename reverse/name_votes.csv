@@ -21447,3 +21447,4 @@ Code/GameEngine/Source/Common/Rva002858E5Read.cpp|param|FloatToLong|f,df10468100
 Code/GameEngine/Source/Common/Rva002858E5Read.cpp|param|Rva002858E5::rva002858E5|p,cb0968e986c73e55b12b1748,claude-haiku-5-5,drz-k11-n35h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/Common/Rva002858E5Read.cpp|param|Rva002858E5::rva002858E5|o1,337f1ee6eb8b96aa8bee08ec,claude-haiku-5-5,drz-k11-n35h,w-eba6c619cb9e,2026-11-02
 Code/GameEngine/Source/Common/Rva002858E5Read.cpp|param|Rva002858E5::rva002858E5|o2,5797b193d9c93a7b1157ddf7,claude-haiku-5-5,drz-k11-n35h,w-eba6c619cb9e,2026-11-02
+Code/GameEngine/Source/Common/PortNegotiationSchema_sentAPingPacket.cpp|global||g_00DD35C4,81496cfa919a9e4ba7a33541,claude-haiku-5-5,drz-k3-n34a2,w-a3d394d58042,2026-11-02
