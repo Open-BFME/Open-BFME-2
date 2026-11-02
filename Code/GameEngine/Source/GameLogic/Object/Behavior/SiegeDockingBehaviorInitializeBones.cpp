@@ -1,6 +1,6 @@
 // STLport 4.5.3: typed pointer-vector instantiations preserve full retail bodies.
 // BFME1 donor cee35b7d8: game/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingInitialize00206CB0.cpp.
-// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport46
 // Retail 0x00459E05, 554B: SiegeDockingBehavior::rva00459E05 (name pinned:
 // the no-argument member that loadPostProcess 0x0045A16D calls before the
@@ -24,7 +24,7 @@
 namespace _STL { static inline const unsigned &max(const unsigned&a,const unsigned&b) { return a<b?b:a; } }
 #include <vector>
 
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 // Reuse the existing 12-byte inherited lifetime ABI from W3DRadarCornerLifetimes.cpp;
 // the array callbacks are owned ctor47A6A9/dtorB3FD0, with no new alias or pin.
 struct BfmeRadarWorldPoint : Coord3D { BfmeRadarWorldPoint(); ~BfmeRadarWorldPoint(); };
@@ -35,12 +35,8 @@ struct BfmeRadarWorldPoint : Coord3D { BfmeRadarWorldPoint(); ~BfmeRadarWorldPoi
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 // The bone transform: three 16-byte rows and an empty inline constructor.
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	Vector4 row[3];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 
 struct Rva00459E05Position
 {
@@ -95,7 +91,7 @@ void SiegeDockingBehavior::rva00459E05()
 		entry->m_type = 0;
 		entry->m_position = *(Rva00459E05Position *)&positions[ index ];
 		Matrix3D *transform = &transforms[ index ];
-		entry->m_direction.setNegated( transform->row[ 0 ].X, transform->row[ 1 ].X, transform->row[ 2 ].X );
+		entry->m_direction.setNegated( transform->Row[ 0 ].X, transform->Row[ 1 ].X, transform->Row[ 2 ].X );
 		entry->m_objectID = 0;
 		m_entries.push_back( entry );
 	}
@@ -108,7 +104,7 @@ void SiegeDockingBehavior::rva00459E05()
 		entry->m_type = 1;
 		entry->m_position = *(Rva00459E05Position *)&positions[ i ];
 		Matrix3D *transform = &transforms[ i ];
-		entry->m_direction.setNegated( transform->row[ 0 ].X, transform->row[ 1 ].X, transform->row[ 2 ].X );
+		entry->m_direction.setNegated( transform->Row[ 0 ].X, transform->Row[ 1 ].X, transform->Row[ 2 ].X );
 		entry->m_objectID = 0;
 		m_entries.push_back( entry );
 		++index;

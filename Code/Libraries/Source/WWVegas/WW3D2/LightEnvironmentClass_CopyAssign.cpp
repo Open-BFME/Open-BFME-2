@@ -2,20 +2,10 @@
 // ??4LightEnvironmentClass@@QAEAAV0@ABV0@@Z
 // BFME adds a leading byte before the Zero Hour light-environment layout.
 
-struct Vector3
-{
-	float X;
-	float Y;
-	float Z;
+#include "../WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyStorageVector3(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
 
-	Vector3 &operator=(const Vector3 &that)
-	{
-		X = that.X;
-		Y = that.Y;
-		Z = that.Z;
-		return *this;
-	}
-};
+
 
 class LightEnvironmentClass
 {
@@ -63,13 +53,14 @@ LightEnvironmentClass &LightEnvironmentClass::operator=(
 {
 	BfmeLeadingByte = that.BfmeLeadingByte;
 	LightCount = that.LightCount;
-	ObjectCenter = that.ObjectCenter;
+	copyStorageVector3(ObjectCenter,that.ObjectCenter);
 	for (int i = 0; i < 4; ++i) {
 		InputLights[i] = that.InputLights[i];
 	}
-	OutputAmbient = that.OutputAmbient;
+	copyStorageVector3(OutputAmbient,that.OutputAmbient);
 	for (int i = 0; i < 4; ++i) {
-		OutputLights[i] = that.OutputLights[i];
+		copyStorageVector3(OutputLights[i].Direction,that.OutputLights[i].Direction);
+		copyStorageVector3(OutputLights[i].Diffuse,that.OutputLights[i].Diffuse);
 	}
 	FillLight = that.FillLight;
 	FillIntensity = that.FillIntensity;

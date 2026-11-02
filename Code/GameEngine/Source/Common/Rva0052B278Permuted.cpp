@@ -18,12 +18,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // body 0x002B712E (ModuleFactoryVectorReserve.cpp); calls bind there.
 class ModuleData;
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::reserve(size_t n); }
-class Vector3 {
-public:
- Vector3() {}
- Vector3(float x,float y,float z):X(x),Y(y),Z(z){}
- float X,Y,Z;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+#include "W:/OpenBFME/Open-BFME-2/Code/Libraries/Include/Lib/Coord3D.h"
+
+
 class Rva0053947D {public:Rva0053947D(void *,const Vector3 *);virtual ~Rva0053947D();};
 class Rva00539411 {
 public:
@@ -69,7 +67,8 @@ Rva0052B278::Rva0052B278(void *lookup,void *owner,void *point)
  Vector3 position;
  position.X=xy->X;position.Y=xy->Y;position.Z=0;
  ((Rva002BF4F3 *)((Rva002D3627Host *)TheLivingWorld))->rva002BF5B0(xy,&position);
- *(Vector3 *)((char *)this+0x18)=position;
+ // Retain the original12B block copy through the existing POD storage view.
+ *(Coord3D *)((char *)this+0x18)=*(const Coord3D *)&position;
  IconTemplate *source=(IconTemplate *)lookup;
  if(source) {
   ((_STL::vector<const ModuleData *> *)&items)->reserve(source->items.size());

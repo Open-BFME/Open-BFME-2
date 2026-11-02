@@ -820,3 +820,14 @@ In W3DDisplayDrawSkirmishAIStats.cpp (/O1 /G7 /arch:SSE /EHsc), replacing the pr
   non-debug sections. No intrinsic/optimization pragma or new flags are needed.
 
 Evidence: [storage batch](../reverse/attempt_support/canonical-storage-batch-20261102-2226.md).
+
+## Whole-checkout include roots and strict receipts (2026-11-02, batch2256)
+
+SiegeDockingBehaviorInitializeBones kept8/8 native/EH rows and all18 external
+bodies when adopting Matrix3D, but its existing /I. root combined with generated
+STLport overlays prevented a strict include inventory. Changing the include
+spellings alone was insufficient. Remove that redundant root and anchor the
+three project headers relative to the source. The ordinary8/8 gate, complete
+non-debug-section comparison, EH check, strict version2 receipt and owning
+acceptance then pass. No optimization/ABI switch, shared header or checker edit.
+[Evidence](../reverse/attempt_support/siegedockingbehaviorinitializebones-matrix3d-20261102-2256.md).

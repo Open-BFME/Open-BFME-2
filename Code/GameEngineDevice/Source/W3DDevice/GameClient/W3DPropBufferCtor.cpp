@@ -25,23 +25,16 @@ typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
-class Vector3
-{
-public:
-	Vector3() {}
-	__forceinline Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	float X;
-	float Y;
-	float Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyStorageVector3(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
+
+
 
 class SphereClass
 {
 public:
 	SphereClass() {}
-	void Init(const Vector3 &pos, float radius) { Center = pos; Radius = radius; }
+	void Init(const Vector3 &pos, float radius) { copyStorageVector3(Center,pos); Radius = radius; }
 	Vector3 Center;
 	float Radius;
 };

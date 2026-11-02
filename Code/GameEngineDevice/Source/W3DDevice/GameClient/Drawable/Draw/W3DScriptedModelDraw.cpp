@@ -37,24 +37,13 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Vector4
-{
-public:
-	Real X, Y, Z, W;
-	__forceinline Vector4 &operator=(const Vector4 &other)
-	{
-		X = other.X; Y = other.Y; Z = other.Z; W = other.W;
-		return *this;
-	}
-	__forceinline void Set(Real x, Real y, Real z, Real w)
-	{
-		X = x; Y = y; Z = z; W = w;
-	}
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
 
 class Matrix3D
 {
 public:
+	__forceinline Matrix3D() {}
 	__forceinline Matrix3D &operator=(const Matrix3D &other)
 	{
 		Row[0] = other.Row[0];

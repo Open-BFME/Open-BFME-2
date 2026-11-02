@@ -26,21 +26,10 @@ enum WeaponSlotType
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
-class Matrix3D
-{
-public:
-	__declspec(dllimport) __forceinline explicit Matrix3D(bool init)
-	{
-		if (init)
-		{
-			m_row[0][0] = 1.0f; m_row[0][1] = 0.0f; m_row[0][2] = 0.0f; m_row[0][3] = 0.0f;
-			m_row[1][0] = 0.0f; m_row[1][1] = 1.0f; m_row[1][2] = 0.0f; m_row[1][3] = 0.0f;
-			m_row[2][0] = 0.0f; m_row[2][1] = 0.0f; m_row[2][2] = 1.0f; m_row[2][3] = 0.0f;
-		}
-	}
-private:
-	float m_row[3][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline void initLaunchTransform(Matrix3D &m) {m.Row[0].X=1.0f;m.Row[0].Y=0.0f;m.Row[0].Z=0.0f;m.Row[0].W=0.0f;m.Row[1].X=0.0f;m.Row[1].Y=1.0f;m.Row[1].Z=0.0f;m.Row[1].W=0.0f;m.Row[2].X=0.0f;m.Row[2].Y=0.0f;m.Row[2].Z=1.0f;m.Row[2].W=0.0f;}
+
+
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -91,7 +80,8 @@ extern GameLogic *TheGameLogic;
 		return;
 	}
 
-	Matrix3D worldTransform(true);
+	Matrix3D worldTransform;
+	initLaunchTransform(worldTransform);
 	Coord3D worldPos;
 
 	Weapon::calcProjectileLaunchPosition(launcher, wslot, specificBarrelToUse, worldTransform, worldPos);

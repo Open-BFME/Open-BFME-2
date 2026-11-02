@@ -879,17 +879,8 @@ public:
 	{ return a.X * b.X + a.Y * b.Y + a.Z * b.Z; }
 };
 
-class Vector4
-{
-public:
-	float X, Y, Z, W;
-	Vector4() {}
-	Vector4(const Vector4 &vector4) { X = vector4.X; Y = vector4.Y; Z = vector4.Z; W = vector4.W; }
-	__forceinline Vector4 &operator=(const Vector4 &r)
-	{ X = r.X; Y = r.Y; Z = r.Z; W = r.W; return *this; }
-	float &operator[](int i) { return (&X)[i]; }
-	const float &operator[](int i) const { return (&X)[i]; }
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+
 
 class Matrix3D
 {

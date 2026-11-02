@@ -6,34 +6,10 @@
 // unused bool third param). BFME2 deltas: m_minHeight at this+0x37D8,
 // Compute_Intersection rowed at 0x00069168. Callers at 0x00107FB5 0x0004D4B3
 // pass TheTerrainRenderObject as this with (frustum+0x100, local box, 1).
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+static __forceinline Vector3 &copyStorageVector3(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
 
-	Vector3() {}
-	Vector3(const Vector3 &vec)
-	{
-		X = vec.X;
-		Y = vec.Y;
-		Z = vec.Z;
-	}
-	Vector3(float x, float y, float z)
-	{
-		X = x;
-		Y = y;
-		Z = z;
-	}
-	Vector3 &operator=(const Vector3 &vec)
-	{
-		X = vec.X;
-		Y = vec.Y;
-		Z = vec.Z;
-		return *this;
-	}
-};
+
 
 inline Vector3 operator+(const Vector3 &a, const Vector3 &b)
 {
@@ -60,7 +36,7 @@ public:
 
 	__declspec(dllimport) __forceinline PlaneClass(const Vector3 &normal, float dist)
 	{
-		N = normal;
+		copyStorageVector3(N, normal);
 		D = dist;
 	}
 
@@ -102,8 +78,8 @@ public:
 				Max.Z = points[i].Z;
 		}
 
-		Center = (Max + Min) * 0.5f;
-		Extent = (Max - Min) * 0.5f;
+		copyStorageVector3(Center,(Max + Min) * 0.5f);
+		copyStorageVector3(Extent,(Max - Min) * 0.5f);
 	}
 };
 
@@ -123,16 +99,16 @@ bool BaseHeightMapRenderObjClass::getMaximumVisibleBox(const FrustumClass &frust
 
 	float clipFraction;
 	Vector3 ClippedCorners[8];
-	ClippedCorners[0] = frustum.Corners[0];
+	copyStorageVector3(ClippedCorners[0],frustum.Corners[0]);
 	for (int i = 0; i < 4; i++)
 	{
-		ClippedCorners[i] = frustum.Corners[i];
+		copyStorageVector3(ClippedCorners[i],frustum.Corners[i]);
 		if (groundPlane.Compute_Intersection(frustum.Corners[i], frustum.Corners[i + 4], &clipFraction))
 		{
-			ClippedCorners[i + 4] = frustum.Corners[i] + (frustum.Corners[i + 4] - frustum.Corners[i]) * clipFraction;
+			copyStorageVector3(ClippedCorners[i + 4],frustum.Corners[i] + (frustum.Corners[i + 4] - frustum.Corners[i]) * clipFraction);
 		}
 		else
-			ClippedCorners[i + 4] = frustum.Corners[i + 4];
+			copyStorageVector3(ClippedCorners[i + 4],frustum.Corners[i + 4]);
 	}
 
 	if (box)

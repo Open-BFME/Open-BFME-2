@@ -9,7 +9,10 @@
 // by native accesses. Forced inline matrix/vector assignment supplies the
 // complete twelve-word copies in both branches. Original method name unknown.
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
-class Matrix3D {public:Vector4 row[3];__forceinline Matrix3D&operator=(const Matrix3D&o){row[0]=o.row[0];row[1]=o.row[1];row[2]=o.row[2];return *this;}};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline Matrix3D &copyRenderTransform(Matrix3D &out,const Matrix3D &in) {out.Row[0]=in.Row[0];out.Row[1]=in.Row[1];out.Row[2]=in.Row[2];return out;}
+
+
 class Drawable {public:const Matrix3D*getTransformMatrix()const;};
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
 class DX8Scope {public:DX8Scope(){BFME_DX8_Thread_Lock();}~DX8Scope(){BFME_DX8_Thread_Assert();}};
@@ -144,8 +147,8 @@ class RTS3DScene {public:virtual void s0();virtual void s1();virtual void s2();v
 class ShadowView {public:virtual void s0();virtual void s1();virtual void release();};
 class Rva000B3348 {public:void rva000B3348(Matrix3D*);private:char pad0[8];Drawable*drawable;char pad1[0x50-0xC];RenderView*render;int word54;ShadowView*shadow,*decal;char pad2[0x81-0x60];bool paused;};
 void Rva000B3348::rva000B3348(Matrix3D*out){paused=false;if(shadow)shadow->release();shadow=0;if(decal)decal->release();decal=0;
-if(render){DX8Scope lock;if(out)*out=render->Get_Transform();if(render->Is_In_Scene()){RTS3DScene*scene=W3DDisplay::m_3DScene;scene->Remove_Render_Object(render);}if(render){render->Release_Ref();render=0;}render=0;}
-else if(out){*out=*drawable->getTransformMatrix();}}
+if(render){DX8Scope lock;if(out)copyRenderTransform(*out,render->Get_Transform());if(render->Is_In_Scene()){RTS3DScene*scene=W3DDisplay::m_3DScene;scene->Remove_Render_Object(render);}if(render){render->Release_Ref();render=0;}render=0;}
+else if(out){copyRenderTransform(*out,*drawable->getTransformMatrix());}}
 
 // ?rva000B348E@Rva000B348E@@QAEX_N@Z retail 0x000B348E, 74 bytes RET4: the
 // render-slot provider refresh this unit's 0xB3348 body belongs to. The

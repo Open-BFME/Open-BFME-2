@@ -1,5 +1,10 @@
 # Linking target checklist
 
+### Canonical vector storage batch 20261102-2256
+
+14 existing source units adopt registered storage; 1 stale completed Microsoft-header queue key(s) refreshed; 209 native/EH rows and 535 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.
+[Batch evidence](../reverse/attempt_support/canonical-storage-batch-20261102-2256.md).
+
 ### Canonical vector storage batch 20261102-2226
 
 12 existing source units adopt registered storage; 26 native/EH rows and 141 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.

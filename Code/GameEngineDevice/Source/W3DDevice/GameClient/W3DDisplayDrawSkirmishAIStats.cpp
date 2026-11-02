@@ -35,19 +35,10 @@ public:
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	// Matrix3DO1Inlines owns the translation constructor; use its inlined Set here.
-	void Set(const Vector3 &position)
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, position.X);
-		Row[1].Set(0.0f, 1.0f, 0.0f, position.Y);
-		Row[2].Set(0.0f, 0.0f, 1.0f, position.Z);
-	}
-	Vector4 Row[3];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline void setStatsTranslation(Matrix3D &tm,const Vector3 &p) {tm.Row[0].Set(1.0f,0.0f,0.0f,p.X);tm.Row[1].Set(0.0f,1.0f,0.0f,p.Y);tm.Row[2].Set(0.0f,0.0f,1.0f,p.Z);}
+
+
 
 struct SkirmishAIStatsMarker
 {
@@ -159,7 +150,7 @@ void W3DDisplay::drawSkirmishAIStats()
 			for (SkirmishAIStatsMarker **it = markers.begin(); it != end; ++it) {
 				Vector3 pos = (*it)->m_position;
 				Matrix3D tm;
-				tm.Set(pos);
+				setStatsTranslation(tm,pos);
 				((SkirmishAIStatsDisplayView *)TheDisplay)->m_debugDraw->drawSphere(tm, (*it)->m_radius, GameMakeColor(255, 0, 0, 255), 0, 1);
 			}
 		}
@@ -169,7 +160,7 @@ void W3DDisplay::drawSkirmishAIStats()
 				Vector3 tmp;
 				Vector3 pos = *(Vector3 *)dTree->rva00049D20(&tmp, j);
 				Matrix3D tm;
-				tm.Set(pos);
+				setStatsTranslation(tm,pos);
 				((SkirmishAIStatsDisplayView *)TheDisplay)->m_debugDraw->drawSphere(tm, dTree->getRadius(j), player->m_color, 0, 1);
 			}
 		}

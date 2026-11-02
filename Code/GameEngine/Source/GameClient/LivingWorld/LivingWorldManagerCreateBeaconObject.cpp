@@ -85,23 +85,11 @@ void rva0010E4F6(void *robj, bool flag);
 
 class RenderObjClass;
 
-class Matrix3D
-{
-public:
-	__declspec(dllimport) __forceinline Matrix3D(bool identity)
-	{
-		Row[0][0] = 1.0f; Row[0][1] = 0.0f; Row[0][2] = 0.0f; Row[0][3] = 0.0f;
-		Row[1][0] = 0.0f; Row[1][1] = 1.0f; Row[1][2] = 0.0f; Row[1][3] = 0.0f;
-		Row[2][0] = 0.0f; Row[2][1] = 0.0f; Row[2][2] = 1.0f; Row[2][3] = 0.0f;
-	}
-	void Set_Translation(float x, float y, float z)
-	{
-		Row[0][3] = x;
-		Row[1][3] = y;
-		Row[2][3] = z;
-	}
-	float Row[3][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+static __forceinline void initBeaconTransform(Matrix3D &m) {m.Row[0].X=1.0f;m.Row[0].Y=0.0f;m.Row[0].Z=0.0f;m.Row[0].W=0.0f;m.Row[1].X=0.0f;m.Row[1].Y=1.0f;m.Row[1].Z=0.0f;m.Row[1].W=0.0f;m.Row[2].X=0.0f;m.Row[2].Y=0.0f;m.Row[2].Z=1.0f;m.Row[2].W=0.0f;}
+static __forceinline void setBeaconTranslation(Matrix3D &tm,float x,float y,float z) {tm.Row[0].W=x;tm.Row[1].W=y;tm.Row[2].W=z;}
+
+
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
@@ -246,10 +234,11 @@ void LivingWorldManager::CreateBeaconObject(int id, const Coord2D *pos, int type
 		rva0010E4F6(beacon->getRenderObject(), false);
 		if (beacon->m_primaryRObj != 0)
 		{
-			Matrix3D tm(true);
+			Matrix3D tm;
+	initBeaconTransform(tm);
 			Vector3 ground(pos->x, pos->y, 0.0f);
 			((Rva002BF4F3 *)((Rva002D3627Host *)TheLivingWorld))->rva002BF5B0((const Vector3 *)pos, &ground);
-			tm.Set_Translation(pos->x, pos->y, ground.Z + m_data.m_beaconHeight);
+			setBeaconTranslation(tm,pos->x,pos->y,ground.Z + m_data.m_beaconHeight);
 			((Rva00213171RenderObj *)beacon->m_primaryRObj)->Set_Transform(tm);
 			((Rva00213171Scene *)((Rva002D3627Host *)TheLivingWorld))->addRenderObject(beacon->getRenderObject());
 			beacon->m_30 = 1;

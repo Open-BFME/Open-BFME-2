@@ -106,16 +106,8 @@ int Rva004E075FGet(Rva004E075FObj *xfer, int value);
 class Rva0028C5CC;
 Rva0028C5CC *Rva0028C5CCGet(Rva0028C5CC *xfer, char *bytes);
 
-class Vector4
-{
-public:
-	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
 
 class Matrix3D
 {
