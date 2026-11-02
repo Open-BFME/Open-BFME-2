@@ -81,16 +81,7 @@ extern Shell *TheShell;
 extern GameTextInterface *TheGameText;
 
 // The options file (0x14 bytes; its destructor is the pinned ~OptionPreferences).
-class OptionPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-	int getFirewallBehavior();
-
-private:
-	unsigned char m_rest[0x14 - 0x04];
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 enum SlotState { SLOT_OPEN = 0 };
 

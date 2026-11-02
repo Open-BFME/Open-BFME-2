@@ -46,12 +46,7 @@ public:
 
 extern class GlobalData *TheWritableGlobalData;
 
-class OptionPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~OptionPreferences();
-	Short getFirewallPortAllocationDelta();
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 // ?getFirewallPortAllocationDelta@OptionPreferences@@QAEFXZ
 Short OptionPreferences::getFirewallPortAllocationDelta()

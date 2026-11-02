@@ -2129,20 +2129,8 @@ template <> struct less<AsciiString>
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class UserPreferences : public _STL::map<AsciiString, AsciiString>
-{
-public:
-	virtual ~UserPreferences();
-	virtual bool write();
-};
+#include "../../Include/Common/OptionPreferences.h"
 
-class OptionPreferences : public UserPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-	unsigned char m_rest[0x14 - 0x10];
-};
 
 // Callback 2 (0x0023BDD7): BFME 2's logo movies in place of ZH's EALogoMovie.
 // Three movies play through display slot 67 (+0x10C, where ZH has

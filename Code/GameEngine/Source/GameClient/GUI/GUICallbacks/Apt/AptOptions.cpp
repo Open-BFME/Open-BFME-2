@@ -135,28 +135,7 @@ public:
 	bool rva005183A0();
 };
 
-class OptionPreferences : public _STL::map<AsciiString, AsciiString>
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-
-	float getVolume(int which);
-	float getBrightness();
-	float getScrollFactor();
-	bool getAlternateMouseSetup();
-	unsigned int getOnlineIPAddress();
-	unsigned short getFirewallPortOverride();
-	bool getSendDelay();
-	bool getDisplayForeignLanguage();
-	bool getTurnOffMessengerInGame();
-	bool getLanguageFilter();
-	bool getUseEAX3();
-	int getAudioLOD();
-
-private:
-	UnicodeString m_filename; // +0x10
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 

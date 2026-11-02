@@ -45,12 +45,7 @@ public:
 	virtual ~Rva002E4272();
 };
 
-class OptionPreferences : public Rva002E4272
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-};
+#include "../../Include/Common/OptionPreferences.h"
 
 #include "../../Include/Common/GlobalData.h"
 

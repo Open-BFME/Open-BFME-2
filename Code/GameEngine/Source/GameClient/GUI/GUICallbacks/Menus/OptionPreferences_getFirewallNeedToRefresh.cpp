@@ -35,12 +35,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
-class OptionPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~OptionPreferences();
-	Bool getFirewallNeedToRefresh();
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 // ?getFirewallNeedToRefresh@OptionPreferences@@QAE_NXZ
 Bool OptionPreferences::getFirewallNeedToRefresh()

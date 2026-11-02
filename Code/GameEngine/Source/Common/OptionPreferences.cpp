@@ -57,12 +57,7 @@ public:
 };
 extern BfmeEnumTableEntry BfmeEnumTable[];
 
-class OptionPreferences : public PreferenceMap
-{
-public:
-    virtual ~OptionPreferences();
-    void setSetting(int setting, int value);
-};
+#include "../../Include/Common/OptionPreferences.h"
 
 void OptionPreferences::setSetting(int setting, int value)
 {

@@ -179,12 +179,7 @@ extern Mouse *TheMouse;
 
 #include "../../../../../Include/Common/UserPreferences.h"
 
-class OptionPreferences : public UserPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 // The menu's title/version text block at +0x290 (constructor 0x005B6ED1).
 class BfmeThingTTD

@@ -195,15 +195,7 @@ public:
 extern Version *TheVersion;
 
 // The 0x14-byte UserPreferences layout as OptionPreferences_ctor.cpp has it.
-class OptionPreferences : public _STL::map<AsciiString, AsciiString>
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-
-private:
-	UnicodeString m_filename; // +0x10
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 class Rva00DFE144Globals
 {

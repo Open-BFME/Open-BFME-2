@@ -169,21 +169,7 @@ template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, alloca
 
 // The options file (its destructor is rowed as ??1Rva002E4272 and pinned
 // under this name, as AptMainMenuCallbacks.cpp's view).
-class OptionPreferences : public UserPreferences
-{
-public:
-	OptionPreferences();
-	virtual ~OptionPreferences();
-
-	void setVolume(int which, float volume);
-	void rva002E53FA(int value);
-	void setOnlineIPAddress(unsigned int ip);
-	void rva002E4438(unsigned short port);
-	void rva002E43A6(int value);
-	void rva002E43EE(short value);
-	void rva002E54EA();
-	void rva002E52FC(int value);
-};
+#include "../../../../../Include/Common/OptionPreferences.h"
 
 // The global at 0x00DFE144 (Rva00202BB2Parse.cpp's TheGameLODManager): its
 // unrowed 0x00202244 writes advanced option preset N into the options,
