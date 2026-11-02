@@ -79,13 +79,7 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 class Object;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-typedef UnsignedInt StateID;
+#include "../../../../../Include/Common/StateMachineClass.h"
 enum
 {
 	ST_IDLE = 0,
@@ -111,34 +105,11 @@ enum NameKeyType
 };
 class ResourceGatheringManager;
 class Module;
-class State;
 struct StateConditionInfo
 {
 	Bool (*test)(State *thisState, void *userData);
 	StateID toStateID;
 	void *userData;
-};
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
-	Object *getOwner() const { return m_owner; }
-protected:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
-};
-class State
-{
-public:
-	virtual ~State();
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-	unsigned char m_pad1C[0x20 - 0x1C];
 };
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
 // address as ??0StateMachine@@QAE@PAVObject@@I_N@Z; the key is
@@ -149,32 +120,51 @@ class Rva004A6BCA : public State
 {
 public:
 	Rva004A6BCA(StateMachine *machine);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 // ZH's SupplyTruckIdleState (rowed ctor 0x004A6C13).
 class Rva004A6C13 : public State
 {
 public:
 	Rva004A6C13(StateMachine *machine);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 // ZH's SupplyTruckWantsToPickUpOrDeliverBoxesState (rowed ctor 0x004A6933).
 class Rva004A6933 : public State
 {
 public:
 	Rva004A6933(StateMachine *machine);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 // ZH's RegroupingState (rowed ctor 0x004A6956).
 class Rva004A6956 : public State
 {
 public:
 	Rva004A6956(StateMachine *machine);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 // ZH's DockingState (rowed ctor 0x004A6979).
 class Rva004A6979 : public State
 {
 public:
 	Rva004A6979(StateMachine *machine);
-	virtual void s01(); virtual void s02(); virtual void s03();
 	virtual StateReturnType onEnter(); // slot 4
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 // BFME 2's sixth supply truck state (rowed ctor 0x004A699C); it shares the
 // docking state's onEnter.
@@ -182,6 +172,10 @@ class Rva004A699C : public State
 {
 public:
 	Rva004A699C(StateMachine *machine);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 };
 class SupplyTruckStateMachine : public StateMachine
 {

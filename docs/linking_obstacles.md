@@ -403,6 +403,20 @@ the State slot bodies and accessors landed above.
   link again, and none is lost.
 - Left in item 1: SupplyTruckAIUpdate.cpp (1,658 B; `??_7SupplyTruckStateMachine@@6B@` still loses).
 
+Landed (2026-11-02, lk18), item 1 step B for SupplyTruckAIUpdate.cpp, the last of the 13 losers.
+- The unit includes `StateMachineClass.h`, so SupplyTruckStateMachine, with its ctor, dtor and
+  condition statics, emits the holder's 16-slot table.
+- The private StateMachine and State views and the duplicate StateReturnType enum go. The
+  conditions and Rva004A6979::onEnter use canonical `getMachineOwner()`.
+- The six machine states are created here with plain operator new, while their ctors are rowed
+  elsewhere. They stay State-derived and declare the update/GetSnapshotName/xfer overrides, so they
+  are not abstract. No table is emitted here.
+- Verified: `./build.sh` passes 37/37 rows; find_declared_unmatched and class_gate are clean.
+- `link_check` over 527 State-family units: 495 -> 496 link, 595,089 -> 596,747 B (+1,658), none
+  lost.
+- Item 1 total, base `36e2341322` -> this commit: 482 -> 496 link, 584,501 -> 596,747 B (+12,246).
+  All 13 LINK-177 item-1 losers link again, and Rva0033FC0ACtor does too.
+
 New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
 `??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
 under the name `??_7BridgeBehavior@@6BBehaviorModuleInterface@@@`. Rebinding the ctor's
