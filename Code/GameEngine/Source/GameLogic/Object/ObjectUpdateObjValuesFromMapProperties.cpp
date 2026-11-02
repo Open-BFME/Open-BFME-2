@@ -67,14 +67,7 @@ Rva00148F5ECache TheKey_objectStoppingDistance = { NAMEKEY_INVALID, "objectStopp
 Rva00148F5ECache TheKey_objectGrantUpgrade = { NAMEKEY_INVALID, "objectGrantUpgrade" };	// RVA 0x009BDDAC
 Rva00148F5ECache TheKey_objectExperienceLevel = { NAMEKEY_INVALID, "objectExperienceLevel" };	// RVA 0x009BDE0C
 
-class Dict
-{
-public:
-	Bool getBool(Int key, Bool *exists) const;
-	Int getInt(Int key, Bool *exists) const;
-	Real getReal(Int key, Bool *exists) const;
-	AsciiString getAsciiString(Int key, Bool *exists) const;
-};
+#include "../../../Include/Common/Dict.h"
 
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

@@ -1143,13 +1143,7 @@ void Rva003297B3::rva003297B3(Rva003297B3 &other)
 	other.m_00 = value;
 }
 
-class Dict
-{
-public:
-	Dict(int numPairsToPreAllocate);						// 0x00313581
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 class Rva003297C9
 {

@@ -57,16 +57,7 @@ private:
 extern const StaticNameKey TheKey_teamOwner;	// VA 0x00DBD9FC
 extern const StaticNameKey TheKey_teamName;	// VA 0x00DBD9F4
 
-class Dict
-{
-public:
-	~Dict() { releaseData(); }
-	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
-
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 typedef _STL::pair<AsciiString, AsciiString> TeamKey;
 typedef _STL::map<TeamKey, int> TeamIndex;

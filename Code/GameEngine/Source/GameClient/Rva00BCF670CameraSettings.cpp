@@ -64,15 +64,7 @@ public:
 	const char *m_name;
 };
 
-class Dict
-{
-public:
-	float getReal(int key, bool *exists) const;
-
-private:
-	struct DictPairData;
-	DictPairData *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 extern Dict g_Va00E00944;	// VA 0x00E00944
 

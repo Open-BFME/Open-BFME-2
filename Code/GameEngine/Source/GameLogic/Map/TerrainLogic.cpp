@@ -1096,15 +1096,7 @@ extern const StaticNameKey TheKey_waypointType;
 
 extern const StaticNameKey TheKey_waypointTypeOption;
 
-class Dict
-{
-public:
-	Bool getBool(Int key, Bool *exists = NULL) const;
-	Int getInt(Int key, Bool *exists = NULL) const;
-	AsciiString getAsciiString(Int key, Bool *exists = NULL) const;
-private:
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 // The rowed MapObject accessors, each named for its address.
 class BfmeRetBWF;

@@ -32,12 +32,7 @@ enum PlayerType { PLAYER_HUMAN = 0, PLAYER_COMPUTER = 1 };
 class Object;
 class BuildListInfo;
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(Int key, Bool *exists = 0) const;
-	Bool getBool(Int key, Bool *exists = 0) const;
-};
+#include "../../../Include/Common/Dict.h"
 
 class SidesInfo
 {

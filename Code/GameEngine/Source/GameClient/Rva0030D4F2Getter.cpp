@@ -43,15 +43,7 @@ Rva00148F5ECache g_objectThreatFinderRadiusKey = { NAMEKEY_INVALID, "objectThrea
 Rva00148F5ECache TheKey_playerFaction = { NAMEKEY_INVALID, "playerFaction" };	// RVA 0x009BDE44 (TheKey_playerFaction)
 extern Rva00148F5ECache g_00DBDC6C;
 
-class Dict
-{
-public:
-	int getInt(int key, bool *exists) const;
-	void setInt(int key, int value);						// 0x00313716
-	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 class Rva0030D4F2
 {

@@ -301,18 +301,7 @@ extern const StaticNameKey TheKey_objectName;
 extern const StaticNameKey TheKey_objectInitialHealth;
 extern const StaticNameKey TheKey_objectUnsellable;
 
-class Dict
-{
-public:
-	Dict(Int numPairsToPreAllocate = 0);
-	~Dict() { releaseData(); }
-	void setBool(Int key, Bool value);
-	void setInt(Int key, Int value);
-	void setAsciiString(Int key, const AsciiString &value);
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 class BuildListInfo
 {

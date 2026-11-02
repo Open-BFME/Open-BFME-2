@@ -15,7 +15,7 @@ typedef _STL::map<TeamKey, int> TeamIndex;
 typedef _STL::_Rb_tree<TeamKey, TeamIndexValue, _STL::_Select1st<TeamIndexValue>, _STL::less<TeamKey>, _STL::allocator<TeamIndexValue> > TeamTree;
 template<> void TeamTree::erase(TeamTree::iterator);
 
-class Dict { public: void clear(); private: void *m_data; };
+#include "../../Include/Common/Dict.h"
 struct BfmeIndexedNodeFM
 {
 	short m_previous;

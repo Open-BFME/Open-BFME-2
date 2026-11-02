@@ -8,52 +8,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class Dict
-{
-public:
-	Dict &operator=(const Dict &src);
-private:
-	struct DictPairData
-	{
-		unsigned short m_refCount;
-	};
-private:
-	void validate() const {}
-private:
-	void releaseData();
-private:
-	DictPairData *m_data;
-public:
-	enum DataType
-	{
-		DICT_NONE = -1,
-		DICT_BOOL,
-		DICT_INT,
-		DICT_REAL,
-		DICT_ASCIISTRING,
-		DICT_UNICODESTRING
-	};
-public:
-	struct DictPair
-	{
-		int m_key;
-		void *m_value;
-
-		void clear();
-		void setNameAndType(int key, DataType type);
-		void copyFrom(DictPair *that);
-	};
-public:
-	void setReal(int key, float value);
-private:
-	DictPair *findPairByKey(int key) const;
-private:
-	void sortPairs();
-private:
-	DictPair *ensureUnique(int numPairsNeeded, bool preserveData, DictPair *pairToTranslate);
-private:
-	DictPair *setPrep(int key, DataType type);
-};
+#include "../../Include/Common/Dict.h"
 
 // tu-skeleton: 0x0031313B 65B ?findPairByKey@Dict@@ABEPAUDictPair@1@H@Z -- matched in Code/GameEngine/Source/Common/DictPairClear.cpp (not merged yet)
 

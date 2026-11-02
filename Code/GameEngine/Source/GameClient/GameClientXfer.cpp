@@ -180,16 +180,7 @@ public:
 	const char *m_name;
 };
 
-class Dict
-{
-public:
-	float getReal(int key, bool *exists) const;
-	void setReal(int key, float value);
-
-private:
-	struct DictPairData;
-	DictPairData *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 extern Dict g_Va00E00944;
 extern Rva00148F5ECache g_00DBDEEC;

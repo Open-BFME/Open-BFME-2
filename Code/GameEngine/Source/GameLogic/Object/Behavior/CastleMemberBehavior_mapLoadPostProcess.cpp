@@ -39,11 +39,7 @@ public:
 // TheKey_objectIsABase and TheKey_objectPowered); no unit defined it.
 extern const StaticNameKey TheKey_objectBaseName = { NAMEKEY_INVALID, "objectBaseName" };
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(int key, bool *exists = 0) const;
-};
+#include "../../../../Include/Common/Dict.h"
 
 class Module;
 class CastleMemberBehavior;

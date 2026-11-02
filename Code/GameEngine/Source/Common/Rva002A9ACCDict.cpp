@@ -27,13 +27,7 @@ class StaticNameKey;
 extern const StaticNameKey TheKey_playerColor;
 extern const StaticNameKey TheKey_playerNightColor;
 
-class Dict
-{
-public:
-	int getInt(int key, bool *exists) const;
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 class Rva002A9ACC
 {

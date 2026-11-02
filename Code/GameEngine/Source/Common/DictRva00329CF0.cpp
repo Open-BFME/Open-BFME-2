@@ -7,15 +7,7 @@
 // in esi across both calls. Caller at 0x0032DAB0 (unclaimed copy loop).
 // Class proven by identical ecx for both Dict calls. Honest address name (no donor).
 
-class Dict
-{
-public:
-	void clear();
-	Dict &operator=(const Dict &src);
-	void Rva00329CF0(const Dict *src);
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 void Dict::Rva00329CF0(const Dict *src)
 {

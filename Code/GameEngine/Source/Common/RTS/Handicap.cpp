@@ -26,11 +26,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Dict
-{
-public:
-	float getReal(int key, bool *exists) const;
-};
+#include "../../../Include/Common/Dict.h"
 
 class Handicap
 {

@@ -24,15 +24,7 @@ public:
 Rva00148F5ECache g_00DBDF1C = { NAMEKEY_INVALID, "isLivingWorldScriptHolder" };
 #define TheRva00148F5ECache g_00DBDF1C
 
-class Dict
-{
-public:
-	bool getBool(int key, bool *exists) const;
-
-private:
-	struct DictPairData;
-	DictPairData *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 // g_Va00E00944: VA 0x00e00944 (.data/bss); retail initial bytes 00 00 00 00.
 Dict g_Va00E00944;

@@ -33,14 +33,7 @@ extern const StaticNameKey TheKey_playerName;
 class StaticNameKey;
 extern const StaticNameKey TheKey_teamName;
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(int key, bool *exists = 0) const;
-
-private:
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 class SidesInfo
 {

@@ -21,13 +21,7 @@ private:
 
 extern Rva00148F5ECache g_00DBDC64;
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(int key, bool *exists) const;
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 class Rva0030D748
 {

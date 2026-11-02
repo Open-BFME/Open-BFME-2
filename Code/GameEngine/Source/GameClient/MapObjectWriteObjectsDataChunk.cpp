@@ -19,11 +19,7 @@ typedef bool Bool;
 
 #include "ascii_string.h"
 
-class Dict
-{
-private:
-	unsigned char m_data[1];
-};
+#include "../../Include/Common/Dict.h"
 
 class MapObject
 {

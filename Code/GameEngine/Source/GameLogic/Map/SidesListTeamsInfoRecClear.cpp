@@ -104,13 +104,7 @@ private:
 };
 }
 
-class Dict
-{
-public:
-	~Dict();
-private:
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 class BfmeThingUBB
 {

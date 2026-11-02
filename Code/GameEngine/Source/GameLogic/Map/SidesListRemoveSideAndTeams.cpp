@@ -23,16 +23,7 @@
 
 #include "ascii_string.h"
 
-class Dict
-{
-public:
-	~Dict() { releaseData(); }
-	AsciiString getAsciiString(int key, bool *exists = 0) const;	// 0x0031359F
-
-private:
-	void releaseData();
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 

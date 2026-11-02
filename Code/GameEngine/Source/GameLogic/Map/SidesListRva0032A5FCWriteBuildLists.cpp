@@ -43,14 +43,7 @@ public:
 
 extern Rva00148F5ECache TheKey_playerFaction;
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(int key, bool *exists = 0) const;
-
-private:
-	void *m_data;
-};
+#include "../../../Include/Common/Dict.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

@@ -6285,20 +6285,7 @@ void __cdecl rva007B6E7C()
 // Minimal Dict view for the teardown below. releaseData stays private so the
 // call mangles as the rowed ?releaseData@Dict@@AAEXXZ (0x0031339C); the thunk
 // is friended. Layout follows Rva00329D0EDtor.cpp.
-class Dict
-{
-	struct DictPairData
-	{
-		unsigned short m_refCount;
-		unsigned short m_numPairsAllocated;
-		unsigned short m_numPairsUsed;
-	};
-
-	void releaseData();
-	friend void __cdecl rva007B7B14();
-
-	DictPairData *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 // 0x00A00944: defined elsewhere as ?g_Va00E00944@@3VDict@@A.
 class Dict;

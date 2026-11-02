@@ -55,11 +55,7 @@ public:
 	SimpleDynVecClass(int size);
 };
 
-class Dict
-{
-public:
-	Dict(int numPairsToPreAllocate);
-};
+#include "../../Include/Common/Dict.h"
 
 class Rva00559A11
 {

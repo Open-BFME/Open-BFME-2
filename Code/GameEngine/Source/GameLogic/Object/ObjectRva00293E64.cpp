@@ -29,11 +29,7 @@ public:
 // is not asserted. The next named cache global begins at VA 0x00DBDE24.
 extern Rva00148F5ECache TheKey_objectUpgradesList = { NAMEKEY_INVALID, "objectUpgradesList" };
 
-class Dict
-{
-public:
-	AsciiString getAsciiString(int index, Bool *exists) const;
-};
+#include "../../../Include/Common/Dict.h"
 
 class Rva00271AEA
 {

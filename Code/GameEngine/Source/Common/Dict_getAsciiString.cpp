@@ -14,22 +14,7 @@
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Dict.h
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-class Dict
-{
-public:
-	enum DataType
-	{
-		DICT_NONE = -1,
-		DICT_BOOL,
-		DICT_INT,
-		DICT_REAL,
-		DICT_ASCIISTRING,
-		DICT_UNICODESTRING
-	};
-
-	DataType getType(int key) const;
-	bool known(NameKeyType key, DataType type) const;
-};
+#include "../../Include/Common/Dict.h"
 
 bool Dict::known(NameKeyType key, DataType type) const
 {

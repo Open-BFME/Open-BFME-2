@@ -33,13 +33,7 @@ public: mutable int m_key; const char *m_name;
 static __forceinline NameKeyType teamKey(const StaticNameKey &cache) { return ((Rva00148F5ECache *)&cache)->get(); }
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Dict {
-public:
- int getInt(int,bool *exists=0) const;
- float getReal(int,bool *exists=0) const;
- bool getBool(int,bool *exists=0) const;
- AsciiString getAsciiString(int,bool *exists=0) const;
-};
+#include "../../../Include/Common/Dict.h"
 static __forceinline void copyHome(Coord3D &destination, const Coord3D &source)
 {
  destination = source;

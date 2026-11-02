@@ -23,13 +23,7 @@ private:
 class StaticNameKey;
 extern const StaticNameKey TheKey_GenericAIObjectType;
 
-class Dict
-{
-public:
-	void setInt(int key, int value);
-private:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 class ThingTemplate;
 #include "../../Include/Common/ThingFactory.h"

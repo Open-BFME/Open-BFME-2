@@ -21,75 +21,7 @@ enum NameKeyType
 
 #include "unicode_string.h"
 
-class Dict
-{
-    friend struct Rva000ABB82CleanupForward;
-public:
-	enum DataType
-	{
-		DICT_NONE = -1,
-		DICT_BOOL,
-		DICT_INT,
-		DICT_REAL,
-		DICT_ASCIISTRING,
-		DICT_UNICODESTRING
-	};
-
-	struct DictPair
-	{
-		int m_key;
-		void *m_value;
-
-		void clear();
-		void setNameAndType(int key, DataType type);
-		void copyFrom(DictPair *that);
-        static unsigned int Rva00306B8FNameBits(unsigned int key);
-        unsigned int Rva00306B97TypeBits() const;
-        unsigned int Rva00306B9FNameBits() const;
-		AsciiString *asAsciiString() { return (AsciiString *)&m_value; }
-	};
-
-	struct DictPairData
-	{
-		unsigned short m_refCount;
-		unsigned short m_numPairsAllocated;
-		unsigned short m_numPairsUsed;
-	};
-
-public:
-  Dict(int numPairsToPreAllocate);
-  void clear();
-  DataType getType(int key) const;
-  bool getBool(int key, bool *exists) const;
-  int getInt(int key, bool *exists) const;
-  float getReal(int key, bool *exists) const;
- bool getNthBool(int n) const;
- int getNthInt(int n) const;
- float getNthReal(int n) const;
- AsciiString getNthAsciiString(int n) const;
- NameKeyType getNthKey(int n) const;
- DataType getNthType(int n) const;
- UnicodeString getNthUnicodeString(int n) const;
- AsciiString getAsciiString(int key, bool *exists) const;
- AsciiString getAsciiString(NameKeyType key, bool *exists) const;
- UnicodeString getUnicodeString(int key, bool *exists) const;
- void setBool(int key, bool value);
- void setInt(int key, int value);
- void setReal(int key, float value);
- void setAsciiString(int key, const AsciiString &value);
- void setUnicodeString(int key, const UnicodeString &value);
- bool remove(int key);
- void copyPairFrom(const Dict &that, int key);
-
-private:
-	void releaseData();
-	DictPair *findPairByKey(int key) const;
-	void sortPairs();
-	DictPair *ensureUnique(int numPairsNeeded, bool preserveData, DictPair *pairToTranslate);
-	DictPair *setPrep(int key, DataType type);
-
-	DictPairData *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 // ?clear@DictPair@Dict@@QAEXXZ @0x0031334A
 void Dict::DictPair::clear()

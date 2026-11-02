@@ -25,14 +25,7 @@
 
 #include "ascii_string.h"
 
-class Dict
-{
-public:
-	bool getBool(int key, bool *exists = 0) const;
-	int getInt(int key, bool *exists = 0) const;
-	float getReal(int key, bool *exists = 0) const;
-	AsciiString getAsciiString(int key, bool *exists = 0) const;
-};
+#include "../../../Include/Common/Dict.h"
 
 enum NameKeyType
 {

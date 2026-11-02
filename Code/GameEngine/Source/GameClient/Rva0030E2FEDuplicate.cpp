@@ -15,11 +15,7 @@
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class Dict
-{
-public:
-	void *m_data;
-};
+#include "../../Include/Common/Dict.h"
 
 class BfmeNodeEYE
 {

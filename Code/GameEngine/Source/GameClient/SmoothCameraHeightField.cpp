@@ -25,7 +25,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 typedef unsigned short R3HeightSample;
 enum NameKeyType {NAMEKEY_INVALID=0};
 class StaticNameKey { public: NameKeyType key() const; mutable NameKeyType cached; const char*name; };
-class Dict { public: float getReal(int,bool*) const; };
+#include "../../Include/Common/Dict.h"
 class MapObject { public: static Dict TheWorldDict; };
 static StaticNameKey TheKey_cameraMapHeightSmoothnessScalar={NAMEKEY_INVALID,"cameraMapHeightSmoothnessScalar"};
 static StaticNameKey TheKey_cameraGroundMinHeight={NAMEKEY_INVALID,"cameraGroundMinHeight"};
