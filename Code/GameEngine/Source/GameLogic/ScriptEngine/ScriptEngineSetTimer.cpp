@@ -29,21 +29,7 @@ __forceinline long fast_float2long_round(float f)
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class ScriptAction
-{
-public:
-	Parameter *getParameter(int ndx)
-	{
-		if (ndx >= 0 && ndx < m_numParms)
-			return m_parms[ndx];
-		return 0;
-	}
-
-private:
-	char m_unknown[8];
-	int m_numParms;
-	Parameter *m_parms[12];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 struct ScriptCounter
 {

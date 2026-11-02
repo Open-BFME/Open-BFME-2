@@ -42,21 +42,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
-class ScriptAction
-{
-public:
-	Parameter *getParameter(int index)
-	{
-		if (index >= 0 && index < m_parameterCount)
-			return m_parameters[index];
-		return 0;
-	}
-
-private:
-	char m_unknown[8];
-	int m_parameterCount;
-	Parameter *m_parameters[12];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 struct ScriptCounter
 {

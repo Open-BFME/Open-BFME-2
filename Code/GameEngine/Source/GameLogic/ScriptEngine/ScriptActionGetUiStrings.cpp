@@ -23,14 +23,7 @@ class ActionTemplate : public Template
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptAction
-{
-public:
-	int getUiStrings(AsciiString * const strings);
-private:
-	char _pad[4];
-	int m_actionType;
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 int ScriptAction::getUiStrings(AsciiString * const strings)
 {

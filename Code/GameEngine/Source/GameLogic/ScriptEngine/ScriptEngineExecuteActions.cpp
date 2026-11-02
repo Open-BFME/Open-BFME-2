@@ -32,19 +32,7 @@ public:
 	int rva003B2832();
 };
 
-class ScriptAction
-{
-public:
-	int getActionType() { return m_actionType; }
-	ScriptAction *getNext() { return m_nextAction; }
-	void rva003B3D75(void *a, void *b);	// 0x003B3D75
-
-private:
-	char m_unknown0[4];
-	int m_actionType;				// +0x04
-	char m_unknown8[0x3c - 8];
-	ScriptAction *m_nextAction;		// +0x3C
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 class ScriptActions
 {

@@ -625,7 +625,7 @@ class AIGroup;
 class AI {public:AIGroup *createGroup();};
 extern AI *TheAI;
 class Rva0036E2A7 {public:void rva0036E2A7(SequentialScript *,int);};
-class ScriptAction {public:void rva003B3D75(void *,void *);};
+#include "../../../Include/GameLogic/ScriptAction.h"
 void ScriptAction::rva003B3D75(void *script,void *mode) {
  const Rva003B3AE2ActionPrefix *view=reinterpret_cast<const Rva003B3AE2ActionPrefix *>(this);
  if(!view->rva003B2D03())return;

@@ -14,21 +14,7 @@
 
 enum { MAX_PARMS = 12 };
 
-class ScriptAction
-{
-public:
-	AsciiString getUiText();
-	int getUiStrings(AsciiString * const strings);
-private:
-	void *m_vtable;
-	int m_actionType;
-	int m_numParms;
-	Parameter *m_parms[MAX_PARMS];
-	void *m_nextAction;
-	unsigned char m_hasWarnings;
-	unsigned char m_tailByte;
-	char m_pad[2];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 static __forceinline void appendUiText(AsciiString &dst, const AsciiString &src)
 {
@@ -46,7 +32,7 @@ AsciiString ScriptAction::getUiText()
 	if (m_hasWarnings) {
 		((StringBase<char> *)&uiText)->concat("[???]");
 	}
-	if (m_tailByte == 0) {
+	if (field41 == 0) {
 		((StringBase<char> *)&uiText)->concat("(DISABLED) ");
 	}
 

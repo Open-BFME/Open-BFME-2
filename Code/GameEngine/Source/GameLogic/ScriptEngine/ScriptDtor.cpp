@@ -47,11 +47,7 @@ public:
 	virtual ~OrCondition();
 };
 
-class ScriptAction
-{
-public:
-	virtual ~ScriptAction();
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 struct Rva003B3536
 {

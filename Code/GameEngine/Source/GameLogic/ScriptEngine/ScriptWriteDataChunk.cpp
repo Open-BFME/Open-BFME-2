@@ -138,13 +138,7 @@ public:
     AsciiString name;
     void rva003B3536(DataChunkInput &file, unsigned short version);
 };
-class ScriptAction
-{
-public:
-    ScriptAction *duplicate() const;
-    static bool ParseActionDataChunk(DataChunkInput &, DataChunkInfo *, void *);
-    static bool ParseActionFalseDataChunk(DataChunkInput &, DataChunkInfo *, void *);
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 class Script : public Snapshot

@@ -16,21 +16,7 @@ typedef int Int;
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class ScriptAction
-{
-public:
-    Parameter *getParameter(Int index)
-    {
-        if (index >= 0 && index < m_parameterCount)
-            return m_parameters[index];
-        return 0;
-    }
-
-private:
-    char m_unknown[8];
-    Int m_parameterCount;
-    Parameter *m_parameters[12];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 enum KindOfType { KINDOF_FIRST = 0 };
 

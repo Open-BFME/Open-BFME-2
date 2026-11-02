@@ -62,21 +62,7 @@ void _bfme_debugRecordCallsite(int kind);
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class ScriptAction
-{
-public:
-	Parameter *getParameter(int index)
-	{
-		if (index >= 0 && index < m_parameterCount)
-			return m_parameters[index];
-		return 0;
-	}
-
-private:
-	char m_unknown[8];
-	int m_parameterCount;
-	Parameter *m_parameters[12];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 class ObjectTypes
 {

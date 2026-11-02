@@ -121,39 +121,7 @@ extern ScriptEngine *TheScriptEngine;
 
 enum { MAX_PARMS = 12 };
 
-class __declspec(novtable) ScriptAction
-{
-public:
-	enum { NO_OP = 5, NUM_ITEMS = 0x21f };
-	virtual ~ScriptAction();
-
-protected:
-	ScriptAction() :
-		m_actionType(NO_OP),
-		m_numParms(0),
-		m_nextAction(0),
-		m_hasWarnings(false),
-		m_bfmeActionTail(0)
-	{
-		Int i;
-		for (i = 0; i < MAX_PARMS; i++) {
-			m_parms[i] = 0;
-		}
-	}
-
-	static ScriptAction *ParseAction(DataChunkInput &file, DataChunkInfo *info, void *userData);
-	friend void bfmeEmitScriptActionParseAction(void);
-
-	Int getActionType() const { return m_actionType; }
-	Int getNumParameters() const { return m_numParms; }
-
-	Int m_actionType;
-	Int m_numParms;
-	Parameter *m_parms[MAX_PARMS];
-	ScriptAction *m_nextAction;
-	Bool m_hasWarnings;
-	Int m_bfmeActionTail;
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 // ScriptAction::ParseAction is rowed at 0x003B5EA5 in Rva003b6d92Finish.cpp; this
 // unit no longer carries a second (inline) copy of it.

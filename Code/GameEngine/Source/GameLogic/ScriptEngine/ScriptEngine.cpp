@@ -98,27 +98,7 @@ struct ScriptCounter
 	bool m_isCountdownTimer;
 	bool m_isMillisecondTimer;
 };
-class ScriptAction
-{
-public:
-    enum FadeActionType {
-        CAMERA_FADE_ADD = 0x7C, CAMERA_FADE_SUBTRACT,
-        CAMERA_FADE_SATURATE, CAMERA_FADE_MULTIPLY
-    };
-    int getActionType() const { return m_actionType; }
-	Parameter *getParameter(int ndx)
-	{
-		if (ndx >= 0 && ndx < m_numParms)
-			return m_parms[ndx];
-		return 0;
-	}
-
-private:
-	char m_unknown[4];
-	int m_actionType;			// +0x04, the fade action type for the fade setter
-	int m_numParms;
-	Parameter *m_parms[12];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct BreezeInfo
 {

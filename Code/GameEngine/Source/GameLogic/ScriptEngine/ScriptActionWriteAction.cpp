@@ -51,18 +51,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 enum { MAX_PARMS = 12 };
 
-class ScriptAction
-{
-public:
-	virtual ~ScriptAction();
-
-	Int m_actionType; // +0x04
-	Int m_numParms; // +0x08
-	Parameter *m_parms[MAX_PARMS]; // +0x0C
-	ScriptAction *m_nextAction; // +0x3C
-	Bool m_hasWarnings; // +0x40
-	Byte m_tailByte; // +0x41
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 // ?WriteActionDataChunk@@YAXPADAAVDataChunkOutput@@PAVScriptAction@@@Z
 void WriteActionDataChunk(char *chunkName, DataChunkOutput &chunkWriter, ScriptAction *action)
@@ -80,7 +69,7 @@ void WriteActionDataChunk(char *chunkName, DataChunkOutput &chunkWriter, ScriptA
 		for (i = 0; i < scriptAction->m_numParms; i++) {
 			scriptAction->m_parms[i]->WriteParameter(chunkWriter);
 		}
-		chunkWriter.writeInt(scriptAction->m_tailByte);
+		chunkWriter.writeInt(scriptAction->field41);
 		chunkWriter.closeDataChunk();
 	}
 }
