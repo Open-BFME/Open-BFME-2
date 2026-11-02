@@ -18,15 +18,7 @@ enum CommandSourceType { CMD_FROM_AI = 2 };
 struct AICommandParms;
 class Rva0035149F;
 class Object;
-class AICommandInterface
-{
-public:
-	void aiMoveToPosition(const Coord3D *, CommandSourceType);
-	void rva0036EE16(const Rva0035149F*,Object*,CommandSourceType);
-	void rva0036EF09(const Rva0035149F*,Object*,float,CommandSourceType);
-	virtual void aiDoCommand(const AICommandParms*);
-};
-class AIUpdateInterface { public: void ignoreObstacle(const Object *); };
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Common/Thing/thing.h"
 #include "../object.h"
 template <int N> class Rva00464B96Slots : public Rva00464B96Slots<N - 1> {

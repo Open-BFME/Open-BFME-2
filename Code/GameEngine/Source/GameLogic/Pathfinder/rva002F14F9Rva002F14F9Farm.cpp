@@ -577,14 +577,7 @@ class Rva001E46E1
 {
  public: float rva001E46E1(Object *);
 };
-class AIUpdateInterface
-{
- public:
- bool isAircraftThatAdjustsDestination() const;
- int rva0026417F(bool);
- char gap[0x1f0];
- Rva001E46E1 *locomotor;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 // Native 0x002EC0A2 reads Object nodes at cell-info +0x14, +0x20 and +0x24.
 // The list-role labels below describe the three observed conflict passes;
 // their original member spellings are not established. Nodes link at +0 and

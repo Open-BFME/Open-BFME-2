@@ -64,11 +64,7 @@ template<int N> class BannerSlots : public BannerSlots<N-1> { public: virtual vo
 
 template<> class BannerSlots<0> {};
 
-class AIUpdateInterface : public BannerSlots<142> { public:
- virtual void chooseLocomotorSet(int set); // slot 142, 0x238
- bool isMoving() const;
- char pad04[0x3B1-4]; bool pending; // +0x3B1
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class BannerContainResult : public BannerSlots<36> { public: virtual bool testRefresh(int *,unsigned)=0; };
 
@@ -552,7 +548,7 @@ UpdateSleepTime BannerCarrierUpdate::update() {
  if(obj->isKindOf((KindOfType)0x45) || obj->testStatus((ObjectStatusTypes)0x57)
   || obj->isKindOf((KindOfType)0x220) || obj->testStatus((ObjectStatusTypes)0x3E)) return (UpdateSleepTime)bannerCarrierUpdateModuleData->m_idleSpawnRate;
  AIUpdateInterface *ai=obj->m_ai;
- if(ai && (ai->isMoving() || ai->pending)) return (UpdateSleepTime)bannerCarrierUpdateModuleData->m_idleSpawnRate;
+ if(ai && (ai->isMoving() || ai->m_field3B1)) return (UpdateSleepTime)bannerCarrierUpdateModuleData->m_idleSpawnRate;
  Object *resolved=obj->rva002931F5(false);
  Gen_0028EF10 *stats=resolved?resolved->m_stats:obj->m_stats;
  if(stats && stats->rva004B0FA0()) return (UpdateSleepTime)bannerCarrierUpdateModuleData->m_idleSpawnRate;

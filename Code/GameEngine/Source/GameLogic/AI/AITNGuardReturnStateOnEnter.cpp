@@ -25,15 +25,7 @@ enum StateReturnType
 
 class Object;
 class Player;
-class AIUpdateInterface
-{
-public:
-	void friend_setGoalObject(Object *obj);
-	ObjectID getCrateID() const { return m_crateID; }
-private:
-	unsigned char m_pad00[0x238];
-	ObjectID m_crateID; // +0x238
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 struct ObjectIDListNode
 {
