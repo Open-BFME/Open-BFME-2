@@ -70,13 +70,7 @@ public:
 	void rva00290AC1(const Rva0028C570 &other);
 };
 
-class UpgradeModule : public BehaviorModule, public UpgradeModuleInterface, public UpgradeMuxIface
-{
-public:
-	void rva004CE4A0();
-public:
-	void rva004CE4A8();
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class WeaponSetUpgradeSecondary
 {
