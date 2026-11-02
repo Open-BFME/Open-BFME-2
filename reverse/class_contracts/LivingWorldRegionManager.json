@@ -1,0 +1,392 @@
+{
+ "bases": [
+  "Rva0020E346"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "LivingWorldRegionManager",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 20
+   },
+   "0x18": {
+    "4": 13
+   },
+   "0x20": {
+    "4": 4
+   },
+   "0x24": {
+    "4": 3
+   },
+   "0x34": {
+    "4": 3
+   },
+   "0x38": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x21042d"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva0020E346",
+       "offset": 4,
+       "own_vftable": "0x7e4350",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x21042d"
+     ],
+     "value": 52
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x21042d"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x21042d"
+     ],
+     "value": {
+      "0x14": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x20": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x34": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x21042d"
+     ],
+     "value": {
+      "0x0": "0x7e4358",
+      "0x4": "0x7e4350"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e4358"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GLivingWorldRegionManager@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x210c17"
+       },
+       {
+        "name": "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ",
+        "slot": 1,
+        "target": "0x2102ca"
+       },
+       {
+        "name": "?GetSnapshotName@LivingWorldRegionManager@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x2104b0"
+       },
+       {
+        "name": "?xfer@LivingWorldRegionManager@@UAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x210202"
+       }
+      ],
+      "table": "0x7e4358"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 23,
+  "retail_vtables": {
+   "0x7e4350": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7e4358": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GLivingWorldRegionManager@@UAEPAXI@Z",
+     "1": "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ",
+     "2": "?GetSnapshotName@LivingWorldRegionManager@@UBEPBDXZ",
+     "3": "?xfer@LivingWorldRegionManager@@UAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 24,
+   "4": 2,
+   "12": 3,
+   "16": 1,
+   "20": 1,
+   "28": 2,
+   "32": 1,
+   "40": 1,
+   "44": 2,
+   "64": 2
+  },
+  "views": 39,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerValidateArmyRegionEntry.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager_GetDefaultArmyPlacementPos.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerCompleteBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerUpdateBattleMarkers.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerValidateArmyRegionEntry.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerCompleteBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerUpdateBattleMarkers.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerValidateArmyRegionEntry.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerCompleteBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerCompleteBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager_EnumerateCompletedBattles.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerCompleteBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/LivingWorldRegionManager_EnumerateCompletedBattles.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerCompleteBattle.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManagerPendingBattleLookup.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base@0x4",
+   "candidates": {
+    "'Rva0020E346'": 1
+   },
+   "class": "LivingWorldRegionManager",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

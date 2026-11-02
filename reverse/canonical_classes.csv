@@ -283,3 +283,4 @@ SpecialPowerTemplate,Code/GameEngine/Include/Common/SpecialPower.h,existing head
 UserPreferences,Code/GameEngine/Include/Common/UserPreferences.h,existing header; contract class_contracts/UserPreferences.json; 28/45 sampled units adopt
 LivingWorldRegion,Code/GameEngine/Include/GameLogic/LivingWorldRegion.h,existing header; contract class_contracts/LivingWorldRegion.json; 18/47 sampled units adopt
 AssetReference,Code/GameEngine/Include/Common/AssetReference.h,existing header; contract class_contracts/AssetReference.json; 14/42 sampled units adopt
+LivingWorldRegionManager,Code/GameEngine/Include/GameLogic/LivingWorldRegionManager.h,existing header; contract class_contracts/LivingWorldRegionManager.json; 34/50 sampled units adopt
