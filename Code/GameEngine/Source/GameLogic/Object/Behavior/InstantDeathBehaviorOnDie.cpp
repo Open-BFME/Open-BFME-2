@@ -16,7 +16,8 @@ class AIUpdateInterface { public:char pad[0x3BD];bool dead;void markAsDead();};
 class Object{public:char pad[0x38];char position[12];char pad44[0x30];ObjectID id;char pad78[0x1e0];AIUpdateInterface*ai;};
 class FXList{public:static void doFXObj(const FXList*,const Object*,const Object*);};
 class ObjectCreationList {public:void create(void*,void*,void*);};
-class WeaponStore {public:void createAndFireTempWeapon(const WeaponTemplate*,const Object*,const Coord3D*);};extern WeaponStore*TheWeaponStore;
+#include "../../../../Include/GameLogic/WeaponStore.h"
+extern WeaponStore*TheWeaponStore;
 extern GameLogic*TheGameLogic;
 int GetGameLogicRandomValue(int,int,char*,int);
 class Rva0036CA00Str {public:OpaqueRefCounted*item;__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(item)item->Release_Ref();}};

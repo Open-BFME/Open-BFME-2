@@ -40,11 +40,7 @@ public:
 };
 extern ObjectCreationListStore *TheObjectCreationListStore;
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 // Same 4-byte element the rowed push_back 0x0005A084 is instantiated on.

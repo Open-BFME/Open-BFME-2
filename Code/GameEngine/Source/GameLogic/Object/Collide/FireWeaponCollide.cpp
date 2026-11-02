@@ -67,11 +67,7 @@ public:
 	unsigned char m_pad04[4];
 	unsigned int m_status; // +0x08
 };
-class WeaponStore
-{
-public:
-	Weapon *allocateNewWeapon(const WeaponTemplate *weaponTemplate, WeaponSlotType slot) const;
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 // Status mask copy and overlap test over Object's status bits (rowed
 // 0x002CF108 and 0x00331682).

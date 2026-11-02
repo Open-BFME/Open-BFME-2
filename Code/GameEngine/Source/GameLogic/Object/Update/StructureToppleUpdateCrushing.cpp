@@ -419,12 +419,7 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-	void createAndFireTempWeapon(const WeaponTemplate *wt, const Object *source, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;
 

@@ -306,11 +306,7 @@ struct ProjectileLookupMap { unsigned char hashEqual[4]; ProjectileLookupBuckets
 
 #include "../../Include/GameLogic/WeaponTemplate.h"
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-};
+#include "../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;
 

@@ -64,11 +64,7 @@ private:
 	unsigned char m_pad000[0x108];
 	unsigned char m_kindOf[0x0C];	// +0x108
 };
-class WeaponStore
-{
-public:
-	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *target);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 template <int N> class Rva004C2095Slots : public Rva004C2095Slots<N - 1>
 {

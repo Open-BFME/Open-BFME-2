@@ -37,7 +37,7 @@ public:
  unsigned char pad258[0x280-0x258];float progress;
  unsigned char pad284[0x438-0x284];unsigned char privateStatus;
 };
-class WeaponStore {public:void createAndFireTempWeapon(const WeaponTemplate *,const Object *,const Coord3D *);};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 class Pathfinder {public:void RemoveObjectFromPathfindMap(Object *);void AddObjectToPathfindMap(Object *);};
 #include "../../../../Include/GameLogic/AI.h"

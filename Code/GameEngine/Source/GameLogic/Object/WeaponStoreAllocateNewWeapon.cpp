@@ -17,11 +17,7 @@ enum WeaponSlotType
 // only the size and ctor matter here.
 #include "../../../Include/GameLogic/Weapon.h"
 
-class WeaponStore
-{
-public:
-	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 
 inline Weapon *WeaponStore::allocateNewWeapon(const WeaponTemplate *weaponTemplate, WeaponSlotType slot) const
 {

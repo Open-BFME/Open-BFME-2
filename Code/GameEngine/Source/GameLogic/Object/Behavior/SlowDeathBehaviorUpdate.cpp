@@ -131,11 +131,7 @@ public:
 };
 
 class WeaponTemplate;
-class WeaponStore
-{
-public:
-	void createAndFireTempWeapon(const WeaponTemplate *wt, const Object *source, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 #include "../../../../Include/Common/GameAudio.h"

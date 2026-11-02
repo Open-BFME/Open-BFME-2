@@ -20,7 +20,7 @@ template<> void _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement
 class Object {public:char pad[0x438];unsigned char status;};
 struct ArrowStormUpdateModuleData {char pad[0xC8];AsciiString weapon;float radius;int shotsPerTarget,shotsPerBurst,maxShots;bool emptyGround;};
 class WeaponTemplate;
-class WeaponStore {public:const WeaponTemplate *findWeaponTemplate(const AsciiString&)const;void createAndFireTempWeapon(const WeaponTemplate*,const Object*,const Coord3D*);void rva002CE964(const WeaponTemplate*,const Object*,const Object*);};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/TerrainLogic.h"

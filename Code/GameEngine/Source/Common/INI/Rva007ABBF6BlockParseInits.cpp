@@ -244,11 +244,7 @@ public:
 	static void parseSpecialPowerDefinition(INI *);
 };
 #include "../../../Include/Common/Upgrade.h"
-class WeaponStore
-{
-public:
-	static void parseWeaponTemplateDefinition(INI *);
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 // ControlBarResizer points to the shared one-byte RET at 0x000B3FD0.
 // Reuse an existing cdecl owner without assigning a recovered callback name.
 // The Apt tooltip node keeps its existing 44-byte owner in Rva00224A3F.cpp.

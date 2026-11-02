@@ -199,12 +199,7 @@ enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 extern GameLogic *TheGameLogic;
 // One FireWeaponNugget block of the module data (0x18 bytes, parsed by

@@ -28,11 +28,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 class WeaponTemplate;
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 

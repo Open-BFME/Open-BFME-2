@@ -24,12 +24,7 @@ public:
 	Coord3D m_position;
 };
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-	void createAndFireTempWeapon(const WeaponTemplate *wt, const Object *source, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 #include "../../../Common/GameLogicObjectLookupView.h"

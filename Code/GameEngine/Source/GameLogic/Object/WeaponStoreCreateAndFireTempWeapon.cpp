@@ -37,15 +37,7 @@ public:
 extern GameLogic *TheGameLogic;
 
 
-class WeaponStore
-{
-public:
-	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
-	void createAndFireTempWeapon(const WeaponTemplate *wt, const Object *source, const Coord3D *pos);
-	void handleProjectileDetonation(const WeaponTemplate *wt, const Coord3D *pos1, const Object *source, const Coord3D *pos2, int x);
-	void rva002CE964(const WeaponTemplate *wt, const Object *source, const Object *victim);
-	void rva002CE9C8(const WeaponTemplate *wt, const Object *source, const Object *victim);
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 

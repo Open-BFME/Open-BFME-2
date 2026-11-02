@@ -32,11 +32,7 @@ public:
 
 class WeaponTemplate;
 class Object;
-class WeaponStore
-{
-public:
-	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *target);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 template <int N> class Rva004C2095Slots : public Rva004C2095Slots<N - 1>
 {

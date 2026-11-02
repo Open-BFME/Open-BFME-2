@@ -324,10 +324,8 @@ class Weapon { public:
  char padC[0x4c-0xc]; bool m_pitch;
 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class WeaponStore { friend class WeaponSet; protected:
- WeaponTemplate *findWeaponTemplatePrivate(NameKeyType) const; public:
- Weapon *allocateNewWeapon(const WeaponTemplate *,WeaponSlotType) const;
-}; extern WeaponStore *TheWeaponStore;
+#include "../../../Include/GameLogic/WeaponStore.h"
+extern WeaponStore *TheWeaponStore;
 class Rva000CF0D6 { public: bool test(const Rva000CF0D6 *) const; };
 class ModelConditionFlags { public: bool rva000B3EB3() const; private: unsigned m_bits[19]; };
 class INI;

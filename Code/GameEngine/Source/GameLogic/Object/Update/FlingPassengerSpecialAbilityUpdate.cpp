@@ -61,11 +61,7 @@ class WeaponTemplate;
 
 class ModuleData;
 
-class WeaponStore
-{
-public:
-	void rva002CE964(const WeaponTemplate *wt, const Object *source, const Object *victim);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;
 

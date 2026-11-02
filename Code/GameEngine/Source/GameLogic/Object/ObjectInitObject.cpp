@@ -54,11 +54,7 @@ class Object;
 class Weapon;
 class WeaponTemplate;
 
-class WeaponStore
-{
-public:
-	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 #include "../../../Include/GameLogic/Weapon.h"

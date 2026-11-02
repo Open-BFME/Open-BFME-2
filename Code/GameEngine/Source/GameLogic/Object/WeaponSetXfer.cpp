@@ -211,11 +211,7 @@ class Weapon : public Snapshot
 {
 };
 
-class WeaponStore
-{
-public:
-	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType wslot) const;
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;
 

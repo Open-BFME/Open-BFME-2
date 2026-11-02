@@ -48,11 +48,7 @@ public:
 class WeaponStore;
 extern WeaponStore *TheWeaponStore;
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 
 class SpecialAbilityUpdate
 {

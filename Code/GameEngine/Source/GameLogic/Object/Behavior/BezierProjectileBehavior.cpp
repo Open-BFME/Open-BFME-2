@@ -312,14 +312,7 @@ public:
 	bool m_hitStoredTarget;			// +0x131 fire at the victim
 };
 
-class WeaponStore
-{
-public:
-	void handleProjectileDetonation(const WeaponTemplate *tmpl, const Coord3D *launchPos, const Object *source, const Coord3D *pos, int bonus); // 0x002CE8AA
-	void rva002CE964(const WeaponTemplate *tmpl, const Object *source, const Object *victim); // 0x002CE964
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-	void createAndFireTempWeapon(const WeaponTemplate *tmpl, const Object *source, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 
 extern WeaponStore *TheWeaponStore;
 

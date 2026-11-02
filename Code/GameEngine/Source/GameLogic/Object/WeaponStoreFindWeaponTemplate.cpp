@@ -26,14 +26,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
-class WeaponStore
-{
-public:
-	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
-
-protected:
-	WeaponTemplate *findWeaponTemplatePrivate(NameKeyType key) const;
-};
+#include "../../../Include/GameLogic/WeaponStore.h"
 
 // ?findWeaponTemplate@WeaponStore@@QBEPBVWeaponTemplate@@ABVAsciiString@@@Z
 const WeaponTemplate *WeaponStore::findWeaponTemplate(const AsciiString &name) const

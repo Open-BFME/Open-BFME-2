@@ -143,11 +143,7 @@ public:
 	bool accepts(Object *obj, Player *player);
 };
 
-class WeaponStore
-{
-public:
-	void createAndFireTempWeapon(const WeaponTemplate *wt, const Object *source, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 
 extern GameLogic *TheGameLogic;
