@@ -9,3 +9,5 @@ Slot119 (vslot119): complete4B at0x002004A1, all64emitter rows and three data ta
 Slot120 (vslot120): complete4B at0x00367508, all65emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
 
 Slot121 (vslot121): complete4B at0x0036750C, all66emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.
+
+Slot122 (vslot122): complete10B at0x0033F15D, all67emitter rows and three data tables pass. Normal header-dependent gate runs before its commit completes.

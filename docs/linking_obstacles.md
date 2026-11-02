@@ -18709,3 +18709,5 @@ Primary slot119 now supplies its complete4B typed field/wake body at0x002004A1; 
 Primary slot120 now supplies its complete4B typed field/wake body at0x00367508; all65consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
 
 Primary slot121 now supplies its complete4B typed field/wake body at0x0036750C; all66consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.
+
+Primary slot122 now supplies its complete10B typed field/wake body at0x0033F15D; all67consumer rows and three data tables pass. Its ICF owner is retained. Guard slot120/121/122 signatures follow independently checked team-ID and area-pointer flow, with no field relabeling. Remaining defaults and existing StateMachine/local-static issues stay open.

@@ -321,7 +321,7 @@ public:
     virtual ObjectID vslot119() const { return m_objectToGuard; } // 119: RVA 0x002004A1
     virtual unsigned int vslot120() const { return m_field068; } // 120: RVA 0x00367508
     virtual const PolygonTrigger *vslot121() const { return m_areaToGuard; } // 121: RVA 0x0036750C
-    virtual void vslot122(int); // 122: RVA 0x0033F15D
+    virtual void vslot122(const PolygonTrigger *area) { m_areaToGuard = area; } // 122: RVA 0x0033F15D
     virtual int vslot123() const; // 123: RVA 0x0009AAA4
     virtual void clearGuardTargetType(); // 124: RVA 0x0026E9AA
     virtual int vslot125() const; // 125: RVA 0x002A98A7
