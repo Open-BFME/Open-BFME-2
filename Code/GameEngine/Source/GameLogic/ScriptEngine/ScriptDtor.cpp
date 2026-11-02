@@ -49,36 +49,8 @@ public:
 
 #include "../../../Include/GameLogic/ScriptAction.h"
 
-struct Rva003B3536
-{
-	bool a, b;
-	int value;
-	bool c;
-	AsciiString name;
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
-class Script : public Snapshot
-{
-public:
-	// The virtual slots match ScriptWriteDataChunk.cpp's view (loadPostProcess,
-	// GetSnapshotName, xfer) so both units emit the same Script vtable COMDAT;
-	// only the destructor is defined here.
-protected:
-	virtual ~Script();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *);
-private:
-	AsciiString m_text0, m_text1, m_text2;	// +0x04/+0x08/+0x0C
-	Rva003B3536 m_subrecord;		// +0x10 (string name at +0x1C)
-	char m_pad20[0x10];			// +0x20: m_delay, m_mask, m_active..m_flag (untouched)
-	OrCondition *m_condition;		// +0x30
-	ScriptAction *m_actions[2];		// +0x34
-	char m_pad3C[0x08];			// +0x3C: m_frame, m_currentActive, m_otherFlag (untouched)
-	AsciiString m_runtimeName44;		// +0x44
-	float m_conditionTime, m_currentTime;	// (untouched)
-	int m_conditionExecutedCount;		// (untouched)
-};
 
 Script::~Script()
 {

@@ -61,11 +61,7 @@ public:
 	bool isSubroutine() const { return *(const unsigned char *)((const char *)this + 0x0D) != 0; }
 };
 
-class Script
-{
-public:
-	bool isSubroutine() const { return *(const unsigned char *)((const char *)this + 0x2A) != 0; }
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 // Scope latch: saves *a1 at +4, installs a2, restores on destruction.
 struct Rva002048A2

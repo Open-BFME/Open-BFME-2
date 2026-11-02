@@ -3,14 +3,7 @@
 // supplies BFME2 side count3C, embedded pool8, receiver chains10/14.
 class AssetList;
 struct AssetLoadMode;
-class Script
-{
-public:
-    void rva003B3836(AssetList *assets, AssetLoadMode *mode);
-private:
-    char beforeActions[0x34];
-    void *actions[2];
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 struct Rva00205358Chain;
 class ScriptEngine
 {

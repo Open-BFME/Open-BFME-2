@@ -11,15 +11,7 @@
 #include "ascii_string.h"
 
 
-class Script
-{
-public:
-    AsciiString getConditionTeamName() const;
-
-private:
-    char pad[0x44];
-    AsciiString m_conditionTeamName;   // +0x44
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 AsciiString Script::getConditionTeamName() const
 {

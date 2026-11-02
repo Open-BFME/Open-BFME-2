@@ -906,14 +906,7 @@ extern GlobalData *TheWritableGlobalData;
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
 
-class Script
-{
-public:
-	void *getAction() const { return m_action; }
-private:
-	char m_pad00[0x34];
-	void *m_action;				// +0x34
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

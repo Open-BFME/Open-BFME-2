@@ -3,11 +3,7 @@
 // 0x003B7448 member entry on +4 with arg+4. Evidence: single pointer arg
 // (ret 4), arg advances one int element, ecx stays member address; no vtable.
 // 0x003B7448 is matched as the copy constructor ??0Script@@QAE@ABV0@@Z.
-class Script
-{
-public:
-	Script(const Script &that);
-};
+#include "../../Include/GameLogic/ScriptClass.h"
 
 class Rva003B7448
 {

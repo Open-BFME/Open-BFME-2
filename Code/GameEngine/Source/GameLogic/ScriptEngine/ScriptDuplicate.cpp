@@ -7,15 +7,7 @@
 // 0x54 bytes and runs the one-argument constructor at 0x003B7448 on this
 // object, i.e. BFME 2's duplicate is a copy construction (inference: the
 // constructor is taken as Script's copy constructor from that shape).
-class Script
-{
-public:
-	Script(const Script &that);
-	Script *duplicate() const;
-
-private:
-	unsigned char m_pad00[0x54];
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 Script *Script::duplicate() const
 {

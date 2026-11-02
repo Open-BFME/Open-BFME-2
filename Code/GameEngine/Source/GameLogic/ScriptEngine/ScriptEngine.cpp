@@ -70,14 +70,7 @@ private:
 	OrCondition *m_nextOr;			// +0x04
 	Condition *m_firstAnd;			// +0x08
 };
-class Script
-{
-public:
-	// evaluateConditions reads this target field inline. A getOrCondition
-	// body here would compete with Scripts.cpp's different +0x24 view.
-	char m_unknown[0x30];
-	OrCondition *m_condition;		// +0x30
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 class Player;
 #include "../../../Include/Common/TeamBFME2.h"
 // TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types

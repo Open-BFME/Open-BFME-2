@@ -228,7 +228,7 @@ class TerrainRoadType;
 // already rowed under other owners: 0x000DE59C (+0x34), 0x004DC8E7 (+0x3C),
 // 0x002041E1 Script::getConditionTeamName (+0x44), 0x0023E943 GameInfo::getMap
 // (+0x40), 0x000DE5B7 (+0x48) and 0x0027F5A6 (+0x50); the calls name those rows.
-class Script { public: AsciiString getConditionTeamName() const; };
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 #include "../../../Include/GameNetwork/GameInfo.h"
 

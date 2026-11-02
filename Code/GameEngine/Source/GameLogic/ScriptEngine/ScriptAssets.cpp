@@ -68,14 +68,7 @@ private:
     Parameter *parameters[12];
     ScriptAction *next;
 };
-class Script
-{
-public:
-    void rva003B3836(AssetList *assets, AssetLoadMode *mode);
-private:
-    char beforeActions[0x34];
-    ScriptAction *actions[2];
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 static __forceinline void CollectScriptAsset(const ThingTemplate *thing, AssetList *assets, AssetLoadMode *mode)
 {
     if (thing)
@@ -83,7 +76,7 @@ static __forceinline void CollectScriptAsset(const ThingTemplate *thing, AssetLi
 }
 void Script::rva003B3836(AssetList *assets, AssetLoadMode *mode)
 {
-    ScriptAction **slot = &actions[0];
+    ScriptAction **slot = &m_actions[0];
     int remaining = 2;
     do
     {

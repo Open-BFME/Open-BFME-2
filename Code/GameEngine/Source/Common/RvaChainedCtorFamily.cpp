@@ -13,11 +13,7 @@
 // Names are address-derived. One ledger row per ctor.
 
 
-class Script
-{
-public:
-	Script();
-};
+#include "../../Include/GameLogic/ScriptClass.h"
 
 
 

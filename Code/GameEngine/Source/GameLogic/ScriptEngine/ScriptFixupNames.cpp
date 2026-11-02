@@ -203,11 +203,7 @@ bool Rva003B3485::read(DataChunkInput &file, DataChunkInfo *info)
     return result;
 }
 
-class Script
-{
-public:
-    bool parse(DataChunkInput &file, unsigned short version);
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 class Rva003B40B6Holder
 {
 public:

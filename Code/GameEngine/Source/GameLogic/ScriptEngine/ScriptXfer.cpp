@@ -54,21 +54,7 @@ typedef unsigned int UnsignedInt;
 
 typedef unsigned int UnsignedInt;
 
-class Script
-{
-public:
-	__declspec(dllimport) __forceinline Bool isActive( void ) const { return m_isActive; }
-	__declspec(dllimport) __forceinline void setActive( Bool active ) { m_isActive = active; }
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x3C - 0x04 ];
-	UnsignedInt m_bfmeValue3C;																								///< 0x3C
-	Bool m_isActive;																													///< 0x40
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -89,6 +75,6 @@ void Script::xfer( Xfer *xfer )
 	setActive( active );
 
 	if( version.m_minimum >= 2 )
-		*xfer == m_bfmeValue3C;
+		*xfer == m_frame;
 
 }  // end xfer

@@ -5,12 +5,7 @@
 // chains (clearRva00359330Nodes, ScriptListSubrecordRemove rva003B71B4) and
 // delete through ??_GBfmeNodeZ at 0x003B4470 which calls this body.
 
-class Script
-{
-	friend class BfmeNodeZ;
-protected:
-	virtual ~Script();
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 class BfmeNodeZ
 {
