@@ -252,3 +252,4 @@ Dict,Code/GameEngine/Include/Common/Dict.h,existing header; contract class_contr
 FileSystem,Code/GameEngine/Include/Common/FileSystem.h,existing header; contract class_contracts/FileSystem.json; 69/71 sampled units adopt
 UpgradeModule,Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h,existing header; contract class_contracts/UpgradeModule.json; 44/66 sampled units adopt
 Shell,Code/GameEngine/Include/GameClient/Shell.h,existing header; contract class_contracts/Shell.json; 47/63 sampled units adopt
+SpecialPowerModuleInterface,Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h,existing header; contract class_contracts/SpecialPowerModuleInterface.json; 45/71 sampled units adopt
