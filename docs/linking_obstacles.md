@@ -17989,3 +17989,8 @@ Rva0023C641Write.cpp now uses the supplied stdio/string/Windows headers; its own
 ### WWMath random-helper consolidation boundary (2026-11-02)
 
 The approved WWLib/wwmath.cpp Random_Float donor and WWMath/wwmath.cpp seed verify separately but not under the same tested compiler profile. O1 changes the native26B random helper's import/frame; O2 preserves it but grows areApproxEqual42B to44B. MD, Oy, Os and four source-control-flow trials establish the remaining boundary; no source or provider changed and both units remain census-linked. [Trial matrix and handoff](../reverse/attempt_support/wwmath-tu-profile-20261102/README.md). WWMathInit remains mixed and outside this attempted merge.
+
+
+### Dict-record vector constructor helper repair (2026-11-02)
+
+Rva00196D90MemberConstructor_Rva0032bde7.cpp now emits an exact36B default-constructor twin at329DC2 with its real Dict member intact. The owning ICF admission adds no pin or alias; the two previous caller rows and nineteen other emitted definitions remain unchanged. Bounded current linking drops the constructor's losing/selected conflicts (three each to two each). The tagged fill at32AD58 and vector base at421D73 remain prerequisites; no unit has cleared yet. Original record name and approved TU remain unresolved. [Complete proof and ownership qualification](../reverse/attempt_support/element196d90-constructor-20261102/README.md).

@@ -1,0 +1,137 @@
+before {'0x0032B565', '0x0032BDE7'}
+??0Rva00196D90Element@@QAE@XZ 36 [(28, 20, '??0Dict@@QAE@H@Z')]
+0000 xor eax, eax
+0002 push esi
+0003 mov esi, ecx
+0005 push eax
+0006 lea ecx, [esi + 0xc]
+0009 mov word ptr [esi], ax
+000c mov word ptr [esi + 2], ax
+0010 mov word ptr [esi + 4], ax
+0014 mov word ptr [esi + 6], ax
+0018 mov dword ptr [esi + 8], eax
+001b call 0x20
+0020 mov eax, esi
+0022 pop esi
+0023 ret 
+?__uninitialized_fill_n@_STL@@YAPAURva00196D90Element@@PAU2@IABU2@ABU__false_type@1@@Z 40 [(25, 20, '??0Rva00196D90Element@@QAE@ABU0@@Z')]
+0000 push esi
+0001 mov esi, dword ptr [esp + 8]
+0005 push edi
+0006 mov edi, dword ptr [esp + 0x10]
+000a test edi, edi
+000c jbe 0x23
+000e test esi, esi
+0010 je 0x1d
+0012 push dword ptr [esp + 0x14]
+0016 mov ecx, esi
+0018 call 0x1d
+001d add esi, 0x10
+0020 dec edi
+0021 jne 0xe
+0023 pop edi
+0024 mov eax, esi
+0026 pop esi
+0027 ret 
+??0?$_Vector_base@URva00196D90Element@@V?$allocator@URva00196D90Element@@@_STL@@@_STL@@QAE@IABV?$allocator@URva00196D90Element@@@1@@Z 71 [(23, 20, '??0?$_STLP_alloc_proxy@PAURva00196D90Element@@U1@V?$allocator@URva00196D90Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva00196D90Element@@@1@PAURva00196D90Element@@@Z'), (42, 20, '?allocate@?$__node_alloc@$00$0A@@_STL@@SAPAXI@Z')]
+0000 push ebx
+0001 push esi
+0002 mov esi, ecx
+0004 xor eax, eax
+0006 push edi
+0007 push eax
+0008 push dword ptr [esp + 0x18]
+000c lea ebx, [esi + 8]
+000f mov ecx, ebx
+0011 mov dword ptr [esi], eax
+0013 mov dword ptr [esi + 4], eax
+0016 call 0x1b
+001b mov edi, dword ptr [esp + 0x10]
+001f test edi, edi
+0021 je 0x31
+0023 mov eax, edi
+0025 shl eax, 4
+0028 push eax
+0029 call 0x2e
+002e pop ecx
+002f jmp 0x33
+0031 xor eax, eax
+0033 shl edi, 4
+0036 add edi, eax
+0038 mov dword ptr [ebx], edi
+003a mov dword ptr [esi], eax
+003c mov dword ptr [esi + 4], eax
+003f pop edi
+0040 mov eax, esi
+0042 pop esi
+0043 pop ebx
+0044 ret 8
+native 0x329dc2 36
+00729dc2 xor eax, eax
+00729dc4 push esi
+00729dc5 mov esi, ecx
+00729dc7 mov word ptr [esi], ax
+00729dca mov word ptr [esi + 2], ax
+00729dce mov word ptr [esi + 4], ax
+00729dd2 mov word ptr [esi + 6], ax
+00729dd6 push eax
+00729dd7 lea ecx, [esi + 0xc]
+00729dda mov dword ptr [esi + 8], eax
+00729ddd call 0x713581
+00729de2 mov eax, esi
+00729de4 pop esi
+00729de5 ret 
+native 0x32ad58 37
+0072ad58 push esi
+0072ad59 mov esi, dword ptr [esp + 8]
+0072ad5d push edi
+0072ad5e mov edi, dword ptr [esp + 0x10]
+0072ad62 test edi, edi
+0072ad64 jbe 0x72ad78
+0072ad66 push dword ptr [esp + 0x14]
+0072ad6a push esi
+0072ad6b call 0x72acea
+0072ad70 pop ecx
+0072ad71 add esi, 0x10
+0072ad74 dec edi
+0072ad75 pop ecx
+0072ad76 jne 0x72ad66
+0072ad78 pop edi
+0072ad79 mov eax, esi
+0072ad7b pop esi
+0072ad7c ret 
+native 0x421d73 60
+00821d73 push ebx
+00821d74 push esi
+00821d75 push edi
+00821d76 mov esi, ecx
+00821d78 xor edi, edi
+00821d7a push edi
+00821d7b push dword ptr [esp + 0x18]
+00821d7f lea ebx, [esi + 8]
+00821d82 mov ecx, ebx
+00821d84 mov dword ptr [esi], edi
+00821d86 mov dword ptr [esi + 4], edi
+00821d89 call 0x54f3c4
+00821d8e push edi
+00821d8f mov edi, dword ptr [esp + 0x14]
+00821d93 push edi
+00821d94 mov ecx, ebx
+00821d96 call 0x6226be
+00821d9b shl edi, 4
+00821d9e add edi, eax
+00821da0 mov dword ptr [ebx], edi
+00821da2 mov dword ptr [esi], eax
+00821da4 mov dword ptr [esi + 4], eax
+00821da7 pop edi
+00821da8 mov eax, esi
+00821daa pop esi
+00821dab pop ebx
+00821dac ret 8
+native 0x32acea 18
+0072acea mov ecx, dword ptr [esp + 4]
+0072acee test ecx, ecx
+0072acf0 je 0x72acfb
+0072acf2 push dword ptr [esp + 8]
+0072acf6 call 0x72a304
+0072acfb ret 

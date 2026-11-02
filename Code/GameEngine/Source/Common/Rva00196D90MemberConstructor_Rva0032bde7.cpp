@@ -31,13 +31,15 @@ private:
 	void releaseData();
 };
 
+// Preserve the individual native initialization stores. The address-derived
+// record identity remains unknown; no donor or ICF type identity is asserted.
 struct Rva00196D90Element
 {
-	short m_word0;
-	short m_word2;
-	short m_word4;
-	short m_word6;
-	int m_word8;
+	volatile short m_word0;
+	volatile short m_word2;
+	volatile short m_word4;
+	volatile short m_word6;
+	volatile int m_word8;
 	Dict m_dict;
 
 	Rva00196D90Element()
