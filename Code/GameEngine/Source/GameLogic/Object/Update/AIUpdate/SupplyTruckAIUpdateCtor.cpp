@@ -80,6 +80,7 @@ protected:
     virtual void xfer(Xfer *xfer);
     virtual void privateIdle(CommandSourceType source);
     virtual void privateDock(Object *dock, CommandSourceType source);
+    virtual void privateHarvest(const Coord3D *position, CommandSourceType source);
     virtual AIStateMachine *makeStateMachine();
 private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x3E8
@@ -283,4 +284,14 @@ void SupplyTruckAIUpdate::privateDock(Object *dock, CommandSourceType source)
     AIUpdateInterface::privateDock(dock, source);
     if (source == 0 && dock)
         m_preferredDock = dock->getID();
+}
+
+void SupplyTruckAIUpdate::privateHarvest(const Coord3D *position, CommandSourceType source)
+{
+    AIUpdateInterface::privateHarvest(position, source);
+    if (source == 0 && position)
+    {
+        m_3F0 = *position;
+        m_3FC = true;
+    }
 }

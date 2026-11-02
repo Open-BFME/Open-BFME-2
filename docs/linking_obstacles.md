@@ -18492,3 +18492,5 @@ SupplyTruck primary slot2's canonical GetSnapshotName override now matches compl
 SupplyTruck primary slot24 now implements native command-value0 handling through the actual secondary slot13 before the real base idle call. Complete38B at4A6AB5, virtual receiver adjustment and all32ctor rows match. Old representative remains; four primary bodies plus canonical base-provider prerequisites remain, without a pin or census clearance.
 
 SupplyTruck primary slot51's ordinary base dock call plus conditional canonical Object::getID store matches complete43B native4A6ADB and all33ctor rows. The canonical inline ID accessor preserves the target field read; no private Object view is added. Three primary bodies plus canonical base providers remain; the original representative stays.
+
+SupplyTruck primary slot52's actual base harvest call and conditional Coord3D/flag assignment now match complete52B native4A6B06 and all34ctor rows. No asm or private position class is used. The two interface accessor bodies and canonical base providers remain; original representative and census status are kept.
