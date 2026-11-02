@@ -80,12 +80,7 @@ extern GameLogic *TheGameLogic;
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
 
-class GameClient
-{
-public:
-	PAD_VIRTUALS10(s0) PAD_VIRTUALS10(s1) PAD_VIRTUALS10(s2)
-	virtual void setTimeOfDay(TimeOfDay tod);	// slot 30
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 #include "../../../../GameEngine/Include/GameClient/View.h"

@@ -11,17 +11,7 @@ enum Scorches { SCORCH_1, SCORCH_2, SCORCH_3, SCORCH_4, SHADOW_SCORCH };
 
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
 
-class GameClient
-{
-public:
-    virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-    virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-    virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-    virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-    virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-    virtual void s20(); virtual void s21();
-    virtual void addScorch(const Coord3D *position, float radius, Scorches type);
-};
+#include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 class TerrainScorchFXNugget

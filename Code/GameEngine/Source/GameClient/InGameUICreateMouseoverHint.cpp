@@ -163,27 +163,7 @@ class WindowManager { public:
 // TheWindowManager is only an alias of the owned global TheWindowManager (ledger names column); this unit reads the owner through its own view type.
 extern class GameWindowManager *TheWindowManager;
 #define TheWindowManager (*(WindowManager* *)&TheWindowManager)
-class GameClient { public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual void slot14();
- virtual void slot15();
- virtual Drawable* findDrawableByID(DrawableID);
-
-
-};
+#include "../../Include/GameClient/GameClientClass.h"
 extern GameClient* TheGameClient;
 union GameMessageArgumentType { DrawableID drawableID; };
 #include "../../Include/Common/MessageStream.h"

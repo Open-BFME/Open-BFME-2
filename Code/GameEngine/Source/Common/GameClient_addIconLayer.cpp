@@ -14,13 +14,7 @@ public:
 	void pushBack(const Drawable *&d);
 };
 
-class GameClient
-{
-public:
-	void addIconLayer(int index, Drawable *value);
-private:
-	char m_pad[0xF8];
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 // was ?rva00239FCC@Rva00239FCC@@QAEXHPAVDrawable@@@Z
 void GameClient::addIconLayer(int index, Drawable *value)

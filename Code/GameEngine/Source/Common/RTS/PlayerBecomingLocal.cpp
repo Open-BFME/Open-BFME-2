@@ -14,7 +14,7 @@ enum Relationship { ALLIES=2 };
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 template<int N> class PlayerLocalSlots:public PlayerLocalSlots<N-1>{public:virtual void slot(char(*)[N])=0;};
 template<> class PlayerLocalSlots<0>{};
-class GameClient:public PlayerLocalSlots<32>{public:virtual void setTeamColor(int,int,int)=0;};
+#include "../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"

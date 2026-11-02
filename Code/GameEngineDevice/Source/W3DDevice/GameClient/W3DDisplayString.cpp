@@ -145,15 +145,7 @@ extern int g_Va00DB5FC8;
 
 typedef Int (*BfmeColorCallback)( Color color );
 
-class GameClient
-{
-public:
-#define S(n) virtual void slot##n();
-	S(00) S(01) S(02) S(03) S(04) S(05) S(06) S(07) S(08) S(09) S(10) S(11) S(12) S(13) S(14) S(15)
-	S(16) S(17) S(18) S(19) S(20) S(21) S(22) S(23) S(24) S(25) S(26) S(27) S(28) S(29) S(30)
-#undef S
-	virtual unsigned int getFrame( void );	// slot 31
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 

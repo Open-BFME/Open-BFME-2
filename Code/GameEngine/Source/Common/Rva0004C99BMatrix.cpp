@@ -10,11 +10,7 @@ class Matrix3D
 public:
 	void Get_Inverse(Matrix3D &inverse) const;
 };
-class GameClient
-{
-public:
-	virtual void init();
-};
+#include "../../Include/GameClient/GameClientClass.h"
 class Rva0004C99B
 {
 public:

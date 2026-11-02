@@ -100,42 +100,7 @@ public:
 	virtual void setObjectDiffuse(int index, float red, float green, float blue);	// slot 0xC8
 };
 
-class GameClient
-{
-public:
-	virtual void v00(void);
-	virtual void v01(void);
-	virtual void v02(void);
-	virtual void v03(void);
-	virtual void v04(void);
-	virtual void v05(void);
-	virtual void v06(void);
-	virtual void v07(void);
-	virtual void v08(void);
-	virtual void v09(void);
-	virtual void v0a(void);
-	virtual void v0b(void);
-	virtual void v0c(void);
-	virtual void v0d(void);
-	virtual void v0e(void);
-	virtual void v0f(void);
-	virtual void v10(void);
-	virtual void v11(void);
-	virtual void v12(void);
-	virtual void v13(void);
-	virtual void v14(void);
-	virtual void v15(void);
-	virtual void v16(void);
-	virtual void v17(void);
-	virtual void v18(void);
-	virtual void v19(void);
-	virtual void v1a(void);
-	virtual void v1b(void);
-	virtual void v1c(void);
-	virtual void v1d(void);
-	virtual void v1e(void);
-	virtual unsigned int getFrame(void);	// slot 0x7C
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 

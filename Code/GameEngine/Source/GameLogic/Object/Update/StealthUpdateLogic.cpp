@@ -474,11 +474,7 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-class GameClient : public StealthUpdateSlots<29>
-{
-public:
-	virtual void destroyDrawable(Drawable *draw); // slot 29
-};
+#include "../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 enum DrawableStatus

@@ -234,23 +234,7 @@ public:
  void rva0043CEC0();
 
 };
-class GameClient {
-public:
-    virtual void slot00(); // vtable +0x0
-    virtual void slot01(); // vtable +0x4
-    virtual void slot02(); // vtable +0x8
-    virtual void slot03(); // vtable +0xC
-    virtual void slot04(); // vtable +0x10
-    virtual void slot05(); // vtable +0x14
-    virtual void slot06(); // vtable +0x18
-    virtual void slot07(); // vtable +0x1C
-    virtual void slot08(); // vtable +0x20
-    virtual void slot09(); // vtable +0x24
-    virtual void slot0A(); // vtable +0x28
-    virtual Drawable* findDrawableByID(unsigned); // vtable +0x2C
-    virtual Drawable* firstDrawable(); // vtable +0x30
-
-};
+#include "../../../Include/GameClient/GameClientClass.h"
 #include "../../../Include/GameClient/View.h"
 class WindowLayout {
 public:

@@ -843,13 +843,7 @@ private:
 
 extern PlayerList *ThePlayerList;
 
-class GameClient
-{
-public:
-	RENDOBJ_SLOTS4(00) RENDOBJ_SLOTS4(04) RENDOBJ_SLOTS4(08) RENDOBJ_SLOTS4(12) RENDOBJ_SLOTS4(16)
-	RENDOBJ_SLOTS4(20) RENDOBJ_SLOTS4(24) virtual void slot28(); virtual void slot29(); virtual void slot30();
-	virtual unsigned int getFrame(); // slot 31
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 

@@ -96,12 +96,7 @@ public:
 void rva0010E4F6(void *robj, bool flag);
 bool Rva0010E676_SetEmissive(RenderObjClass *robj, float r, float g, float b);
 
-class GameClient
-{
-public:
-	SLOTS16(s0) SLOTS4(s10) SLOTS4(s14) SLOTS4(s18) virtual void s1c0(); virtual void s1c1(); virtual void s1c2();
-	virtual unsigned int getFrame();				// +0x7C
-};
+#include "../../../../../../GameEngine/Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 class Player

@@ -74,11 +74,7 @@ private:
 };
 
 // vtable 0x00BC4738#24: an empty body taking an AsciiString by value.
-class GameClient
-{
-public:
-	virtual void unloadMap(AsciiString text);
-};
+#include "../../../Include/GameClient/GameClientClass.h"
 
 // vtable 0x00BC7C90#73: an empty body taking seven arguments, the second a
 // UnicodeString by value.

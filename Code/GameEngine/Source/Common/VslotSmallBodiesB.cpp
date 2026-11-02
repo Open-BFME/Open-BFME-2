@@ -84,11 +84,7 @@ public:
 void Rva001524BE::rva001524BE(Rva00087A93) {}
 
 // vtable 0x00BC4738#24: an empty body taking an AsciiString by value.
-class GameClient
-{
-public:
-	virtual void unloadMap(AsciiString text);
-};
+#include "../../Include/GameClient/GameClientClass.h"
 void GameClient::unloadMap(AsciiString) {}
 
 // vtable 0x00BC7C90#73: an empty body taking seven arguments, the second a

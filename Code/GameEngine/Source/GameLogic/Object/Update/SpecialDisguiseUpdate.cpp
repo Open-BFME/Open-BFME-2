@@ -88,15 +88,7 @@ class ThingTemplate;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 extern GameLogic *TheGameLogic;
-class GameClient
-{
-public:
-	SLOT08(s00,s01,s02,s03,s04,s05,s06,s07)
-	SLOT08(s08,s09,s0A,s0B,s0C,s0D,s0E,s0F)
-	SLOT08(s10,s11,s12,s13,s14,s15,s16,s17)
-	virtual void s18(); virtual void s19(); virtual void s1A(); virtual void s1B(); virtual void s1C();
-	virtual void destroyDrawable(Drawable *draw); // slot 29 (+0x74)
-};
+#include "../../../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;

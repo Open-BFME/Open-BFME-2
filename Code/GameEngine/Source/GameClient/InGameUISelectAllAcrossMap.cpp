@@ -89,14 +89,7 @@ private:
 
 #define V(n) virtual void r##n() = 0;
 
-class GameClient
-{
-public:
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16)
-	virtual Drawable *firstDrawable() = 0; // slot 17
-};
+#include "../../Include/GameClient/GameClientClass.h"
 
 extern GameClient *TheGameClient;
 

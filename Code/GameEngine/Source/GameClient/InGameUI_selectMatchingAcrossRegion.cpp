@@ -174,12 +174,7 @@ class Rva002A1B07 {public: Rva002A1B07(); const ThingTemplate *type; DrawableLis
 int Rva002A1EF5(Drawable*,void*);
 #include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
-class GameClient {public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16)
-#undef V
- virtual Drawable *firstDrawable();
-};
+#include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 class GameMessage { public:
  enum Type {CREATE_GROUP=0x3ea};

@@ -46,7 +46,7 @@ extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 template<int N>class PreviewSlots:public PreviewSlots<N-1>{public:virtual void slot(char(*)[N]);};
 template<>class PreviewSlots<0>{};
-class GameClient:public PreviewSlots<31>{public:virtual unsigned getFrame();};
+#include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 extern int BfmeClientFramesPerSecond;
 

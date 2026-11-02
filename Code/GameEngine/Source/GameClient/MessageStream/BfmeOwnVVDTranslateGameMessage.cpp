@@ -95,13 +95,7 @@ public:
 
 #include "../../../Include/GameClient/Display.h"
 
-class GameClient
-{
-public:
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E) V(0F)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(1A) V(1B) V(1C) V(1D) V(1E)
-	virtual unsigned int getFrame(); // +0x7C
-};
+#include "../../../Include/GameClient/GameClientClass.h"
 
 class GameTextInterface
 {

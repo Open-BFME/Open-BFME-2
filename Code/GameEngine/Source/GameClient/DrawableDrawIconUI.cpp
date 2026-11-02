@@ -113,11 +113,7 @@ private:
 };
 extern ScriptEngine *TheScriptEngine;
 
-class GameClient
-{
-public:
-	void addIconLayer(Int layer, Drawable *draw);	// 0x00239FCC
-};
+#include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
 class Keyboard
