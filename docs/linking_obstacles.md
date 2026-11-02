@@ -18651,3 +18651,5 @@ The primary false-default group completes with44row verification, unchanged97pri
 [Native table inventory, exact private trial and incremental admissions](../reverse/attempt_support/aiupdate-primary-constants-20261102/README.md). Original body owners remain and no callback semantics, unique bytes or census gain are claimed.
 
 Primary slot88 now supplies its complete1B native constant default at0x000B3FD0 through ordinary canonical inline C++. Its separate ICF admission passes all45consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.
+
+Primary slot89 now supplies its complete1B native constant default at0x000B3FD0 through ordinary canonical inline C++. Its separate ICF admission passes all46consumer rows and three tables. Remaining constant/field providers and existing StateMachine/local-static obstacles stay open.

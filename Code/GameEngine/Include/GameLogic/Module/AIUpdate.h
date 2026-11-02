@@ -284,7 +284,7 @@ protected:
     virtual void rva002631A6(float,int); // 87: RVA 0x002631A6
 public:
     virtual void vslot088() {  } // 88: RVA 0x000B3FD0
-    virtual void vslot089(); // 89: RVA 0x000B3FD0
+    virtual void vslot089() {  } // 89: RVA 0x000B3FD0
     virtual bool vslot090() const { return false; } // 90: RVA 0x0047A699
     virtual bool isBusy()const; // 91: RVA 0x00262B39
     virtual void *vslot092(); // 92: RVA 0x000D43D0
