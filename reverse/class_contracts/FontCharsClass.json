@@ -1,0 +1,689 @@
+{
+ "bases": [
+  "W3DMPO",
+  "RefCountClass"
+ ],
+ "bases_by": "zh",
+ "class": "FontCharsClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 26,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0x2c": {
+    "4": 4
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 4
+   },
+   "0x3c": {
+    "4": 3
+   },
+   "0x40": {
+    "4": 4
+   },
+   "0x44": {
+    "4": 2
+   },
+   "0x44c": {
+    "4": 5
+   },
+   "0x450": {
+    "4": 2
+   },
+   "0x45c": {
+    "2": 4
+   },
+   "0x45e": {
+    "2": 5
+   },
+   "0x460": {
+    "1": 3
+   },
+   "0x48": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x464": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x157950"
+     ],
+     "value": 1121
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x157950"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       1
+      ],
+      "0x1d": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x44c": [
+       4
+      ],
+      "0x450": [
+       4
+      ],
+      "0x454": [
+       4
+      ],
+      "0x45c": [
+       2
+      ],
+      "0x45e": [
+       2
+      ],
+      "0x460": [
+       1
+      ],
+      "0x48": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x157950"
+     ],
+     "value": {
+      "0x44": [
+       "?Get_String@StringClass@@AAEXH_N@Z"
+      ],
+      "0xc": [
+       "?Get_String@StringClass@@AAEXH_N@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x157950"
+     ],
+     "value": {
+      "0x10": [
+       "0x7d3be8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x157950"
+     ],
+     "value": {
+      "0x0": "0x7d3c60"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d3c60"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GFontCharsClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x157ab0"
+       }
+      ],
+      "table": "0x7d3c60"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 17,
+  "retail_vtables": {
+   "0x7d3c60": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GFontCharsClass@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "8": 1,
+   "48": 3,
+   "60": 7,
+   "1108": 1,
+   "1116": 1,
+   "1120": 5,
+   "1124": 4
+  },
+  "views": 26,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "AlternateUnicodeFont",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "FontCharsClass*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "S:StringClass",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_Buffer",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "Name",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "StringClass",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BufferList.items",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "FontCharsBuffer**",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "BufferList.capacity",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "BufferList.valid",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "BufferList.allocated",
+   "name_by": "majority",
+   "offset": 29,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "BufferList.activeCount",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "BufferList.growth",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "CurrPixelOffset",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "CharHeight",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "CharAscent",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "CharOverhang",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "PixelOverlap",
+   "name_by": "zh",
+   "offset": 56,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 11,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 60,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassCreateGDIFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassIsFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass_Initialize_GDI_Font.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassCreateGDIFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassIsFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass_Initialize_GDI_Font.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassIsFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass_Initialize_GDI_Font.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassCreateGDIFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharacterData.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharacterData.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1100,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassEnsureCharPage.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharacterData.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1104,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassDestructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassEnsureCharPage.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassGetCharData.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharacterData.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 1108,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1112,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1116,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassEnsureCharPage.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharacterData.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1118,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassEnsureCharPage.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassFreeCharacterArrays.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassLoadCharBitmap.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 1120,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassCreateGDIFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassIsFont.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass_Initialize_GDI_Font.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "44:A": 1,
+    "4:P": 1,
+    "4:VPTR": 1,
+    "52:A": 1
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "field@0x10",
+   "candidates": {
+    "24:S:DynamicVectorClass<Rva00155940Element *>": 2,
+    "4:i4": 2
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "nested@0x14",
+   "candidates": {
+    "BufferList.items": 3
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "nested@0x18",
+   "candidates": {
+    "BufferList.capacity": 2
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "nested@0x1c",
+   "candidates": {
+    "BufferList.valid": 2
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "nested@0x1d",
+   "candidates": {
+    "BufferList.allocated": 2
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "nested@0x20",
+   "candidates": {
+    "BufferList.activeCount": 3
+   },
+   "class": "FontCharsClass"
+  },
+  {
+   "attribute": "nested@0x24",
+   "candidates": {
+    "BufferList.growth": 2
+   },
+   "class": "FontCharsClass"
+  }
+ ],
+ "size": 60,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
