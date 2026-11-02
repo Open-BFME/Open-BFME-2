@@ -12880,7 +12880,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncher
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdateCtor.cpp	1StoreObjectsSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors2.cpp	Rva004907C0::~Rva004907C0	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp	1TeleportToCasterSpecialPower@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/POWTruckAIUpdateCtor.cpp	1UnleashSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp	1TemporarilyDefectUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdate.cpp	getExitPosition@DefaultProductionExitUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdate.cpp	getNaturalRallyPoint@DefaultProductionExitUpdate@@	1
@@ -12922,6 +12921,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureTopple
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp	1EvacuateGarrisonSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyTruckAIUpdateCtor.cpp	1HordeDispatchSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp	1TeleportToCasterSpecialPowerModuleData@@	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UnleashSpecialPower.cpp	1UnleashSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UntamedAllegianceSpecialPowerModuleDataCtor.cpp	1UntamedAllegianceSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofModuleDataDtor.cpp	1StatusBitsUpgradeModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataDtor.cpp	0UpgradeModuleData@@QAE@XZ	1
