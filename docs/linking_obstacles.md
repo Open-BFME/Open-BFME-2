@@ -394,6 +394,15 @@ Rva00343756Ctor, Rva0033FC0ACtor and AIStateMachineCtor.
 - `link_check` over 527 State-family units: 482 -> 492 link, 584,501 -> 591,265 B (+6,764). All ten
   link again, and none is lost.
 
+Landed (2026-11-02, lk18), item 1 step B for AIAttackMoveStateMachine, AIDock and
+TurretStateMachineCtor. This is lk18's `step-b-v2-dock-attackmove-turret.patch`, unchanged; it needs
+the State slot bodies and accessors landed above.
+- Verified: `./build.sh` passes 71/71 rows plus AIDock's 7 data rows; find_declared_unmatched and
+  class_gate are clean.
+- `link_check` over 527 State-family units: 492 -> 495 link, 591,265 -> 595,089 B (+3,824). All three
+  link again, and none is lost.
+- Left in item 1: SupplyTruckAIUpdate.cpp (1,658 B; `??_7SupplyTruckStateMachine@@6B@` still loses).
+
 New obstacle (2026-11-02, lk17), BridgeBehaviorCtor.cpp (196 B): unresolved
 `??_7BridgeBehavior@@6BMiBase1@@@`. BridgeBehaviorDtor.cpp stores retail 0x00C40920 at +0x0C
 under the name `??_7BridgeBehavior@@6BBehaviorModuleInterface@@@`. Rebinding the ctor's

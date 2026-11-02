@@ -25,24 +25,11 @@ extern "C" void _ReadWriteBarrier(void);
 // AIDockMachine approach position +0x3C; State machine +0x18, a 0x20-byte base;
 // AIInternalMoveToState goal position +0x20 and adjustsDestination +0x48 in a
 // 0x4C-byte object; Object id +0x74 and AI +0x258.
-enum StateExitType
-{
-	EXIT_NORMAL = 0,
-	EXIT_RESET
-};
-
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-
 class Object;
 
-class StateMachine;
-
-class State;
+// Player.h below needs the Snapshot name-slot surface that State uses.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../Include/Common/StateMachineClass.h"
 
 struct StateConditionInfo
 {
@@ -123,27 +110,11 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	void unlock() { m_locked = false; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's unlock copy loses to the first-in-order copy (no
-	// retail address); the onExit call inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	void bfme_unlock() { m_locked = false; }
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x38 - 0x18];
-	Bool m_locked; // +0x38
-	unsigned char m_pad39[0x3C - 0x39];
-};
+// LINK: StateMachine::unlock under a TU-local name (identical inlined
+// bytes). This TU's unlock COMDAT lost to the first-in-order copy (no retail
+// address); the onExit call inlines it but still emitted the loser COMDAT.
+// File-static, so it emits no external COMDAT. No flags touched.
+static inline void bfme_unlock(StateMachine *machine) { machine->m_locked = false; }
 
 class TurretStateMachine : public StateMachine
 {
@@ -162,40 +133,6 @@ public:
 	int m_approachPosition;	// +0x3C dock approach slot (-1: none)
 };
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual Bool isIdle() const;
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine; // +0x18
-	bool m_tail1C;
-	unsigned char m_pad1D[0x20 - 0x1D];
-};
-
 class AIInternalMoveToState : public State
 {
 public:
@@ -204,6 +141,10 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+public:
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - (0x20 + sizeof(Coord3D))];
 	Bool m_adjustsDestination; // +0x48
@@ -224,12 +165,14 @@ public:
 	virtual StateReturnType update();
 };
 
-class Rva00544095 : public State
+// Created here only through its rowed constructor: an opaque view that keeps
+// the allocation size, cast to State at defineState.
+class Rva00544095
 {
 public:
 	Rva00544095(StateMachine *machine);
 private:
-	unsigned char m_pad20[0x24 - 0x20];
+	unsigned char m_pad00[0x24];
 };
 
 class AIDockWaitForClearanceState : public State
@@ -276,6 +219,10 @@ class Rva005445D4 : public State
 {
 public:
 	Rva005445D4(StateMachine *machine);
+	virtual StateReturnType update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 private:
 	int m_20;
 	int m_24;
@@ -852,7 +799,7 @@ void AIDockWaitForClearanceState::onExit( StateExitType status )
 void AIDockProcessDockState::onExit( StateExitType status )
 {
 	// unlock the machine
-	getMachine()->bfme_unlock();
+	bfme_unlock(getMachine());
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva005442CCOnEnter.cpp
@@ -1249,7 +1196,7 @@ AIDockMachine::AIDockMachine(Object *owner) : StateMachine(owner, 0x2b638eb7u, f
 
 	// order matters: first state is the default state.
 	defineState( 0, new Rva005447ED( this ), 1, 9999 );
-	defineState( 1, new Rva00544095( this ), 3, 9999, g_condC69C78 );
+	defineState( 1, (State *)new Rva00544095( this ), 3, 9999, g_condC69C78 );
 	defineState( 2, new Rva00544810( this ), 1, 9999 );
 	defineState( 3, new Rva0054482D( this ), 4, 6 );
 	defineState( 4, new Rva0054484A( this ), 5, 6 );

@@ -36,34 +36,16 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
-typedef UnsignedInt StateID;
 #include <windows.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class AttackExitConditionsInterface;
-struct StateConditionInfo;
-class State;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
+#include "../../../Include/Common/StateMachineClass.h"
 enum
 {
 	AI_IDLE = 0,
 	AI_ATTACK_OBJECT = 0xA,
 	AI_PICK_UP_CRATE = 0x27
-};
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt name, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-	Object *getOwner() const { return m_owner; }
-protected:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
 };
 // BFME 2's StateMachine constructor (owner, name, flag), rowed by address.
 // Like the other machine views, the class declares only its destructor
@@ -75,60 +57,37 @@ public:
 	AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey);
 	virtual ~AIAttackMoveStateMachine();
 };
-// Declaration-only call view of a machine's vtable, never constructed here:
-// the states start their machine through vslot 7 (initDefaultState,
-// 0x004D770F).
-template <int N> class MachineVSlots : public MachineVSlots<N - 1>
-{
-public:
-	virtual void slot(char (*)[N]) = 0;
-};
-template <> class MachineVSlots<0>
-{
-};
-class MachineStart : public MachineVSlots<7>
-{
-public:
-	virtual StateReturnType initDefaultState() = 0;
-};
-class State
-{
-public:
-	virtual ~State();
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-	unsigned char m_pad1C[0x20 - 0x1C];
-};
-class Rva0033FE65 : public State
+// The machine's three states are only created here, through their rowed
+// constructors: opaque views that keep each allocation size, cast to State
+// at defineState.
+class Rva0033FE65
 {
 public:
 	Rva0033FE65(StateMachine *machine, int val);
 private:
-	unsigned char m_pad20[0x28 - 0x20];
+	unsigned char m_pad00[0x28];
 };
-class Rva00342B87 : public State
+class Rva00342B87
 {
 public:
 	Rva00342B87(StateMachine *machine);
 private:
-	unsigned char m_pad20[0x50 - 0x20];
+	unsigned char m_pad00[0x50];
 };
-class AIAttackState : public State
+class AIAttackState
 {
 public:
 	AIAttackState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking, AttackExitConditionsInterface *attackParameters);
 private:
-	unsigned char m_pad20[0x50 - 0x20];
+	unsigned char m_pad00[0x50];
 };
 
 AIAttackMoveStateMachine::AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey) : StateMachine(owner, nameKey, false)
 {
 	// order matters: first state is the default state.
-	defineState( AI_IDLE, new Rva0033FE65( this, 1 ), AI_IDLE, AI_IDLE );
-	defineState( AI_PICK_UP_CRATE, new Rva00342B87( this ), AI_IDLE, AI_IDLE );
-	defineState( AI_ATTACK_OBJECT, new AIAttackState( this, false, true, false, NULL ), AI_IDLE, AI_IDLE );
+	defineState( AI_IDLE, (State *)new Rva0033FE65( this, 1 ), AI_IDLE, AI_IDLE );
+	defineState( AI_PICK_UP_CRATE, (State *)new Rva00342B87( this ), AI_IDLE, AI_IDLE );
+	defineState( AI_ATTACK_OBJECT, (State *)new AIAttackState( this, false, true, false, NULL ), AI_IDLE, AI_IDLE );
 }
 
 // Zero Hour's Coord3D::zero(); VC7.1 keeps an inlined call's stores in
@@ -175,7 +134,7 @@ AIAttackMoveToState::AIAttackMoveToState(StateMachine *machine) : Rva0034005D(ma
 	m_58 = 0;
 	m_5C = 5;
 	m_attackMoveMachine = new AIAttackMoveStateMachine(getMachineOwner(), 0xc586154eu);
-	((MachineStart *)m_attackMoveMachine)->initDefaultState();
+	m_attackMoveMachine->initDefaultState();
 	zeroCoord3D(m_60);
 	m_6C = 0;
 }
@@ -199,7 +158,7 @@ private:
 AIAttackFollowWaypointPathState::AIAttackFollowWaypointPathState(StateMachine *machine, Bool asGroup) : Rva00342BAE(machine, asGroup, false)
 {
 	m_attackFollowMachine = new AIAttackMoveStateMachine(getMachineOwner(), 0x1b42b558u);
-	((MachineStart *)m_attackFollowMachine)->initDefaultState();
+	m_attackFollowMachine->initDefaultState();
 }
 
 class AIFollowPathAsTeamState : public AIInternalMoveToState
@@ -234,6 +193,6 @@ AIFollowPathAsTeamState::AIFollowPathAsTeamState(StateMachine *machine, Bool att
 	if (attackMove)
 	{
 		m_attackMoveMachine = new AIAttackMoveStateMachine(getMachineOwner(), 0xc586154eu);
-		((MachineStart *)m_attackMoveMachine)->initDefaultState();
+		m_attackMoveMachine->initDefaultState();
 	}
 }

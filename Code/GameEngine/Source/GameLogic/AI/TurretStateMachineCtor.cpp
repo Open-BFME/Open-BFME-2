@@ -36,16 +36,7 @@ enum TurretStateType
 	TURRETAI_RECENTER = 4,
 	TURRETAI_HOLD = 5
 };
-class State;
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~StateMachine();
-	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
-protected:
-	unsigned char m_pad04[0x3C - 0x04];
-};
+#include "../../../Include/Common/StateMachineClass.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
 class TurretAIAttackInterface
 {
@@ -60,6 +51,9 @@ public:
 class TurretAI : public TurretAIBase, public TurretAIAttackInterface
 {
 };
+// Like the other machine views, the class declares only its constructor,
+// destructor and member, so the vtable copy this constructor emits agrees
+// with Rva004D759CDerived.cpp's (which defines the destructor 0x004D7E61).
 class TurretStateMachine : public StateMachine
 {
 public:
@@ -68,20 +62,17 @@ public:
 private:
 	TurretAI *m_turretAI; // +0x3C
 };
-class State
-{
-public:
-	State(StateMachine *machine, UnsignedInt nameKey);
-	virtual ~State();
-protected:
-	unsigned char m_pad04[0x20 - 0x04];
-};
-// The rowed turret-state base constructor 0x004D7B70.
-class Rva004D7B70 : public State
+// The rowed turret-state base constructor 0x004D7B70 (a 0x20-byte State
+// prefix). The five states are created here with plain operator new, so
+// they keep an opaque base that preserves the State layout, not canonical
+// State, which is abstract; each new is cast to State at defineState.
+class Rva004D7B70
 {
 public:
 	Rva004D7B70(StateMachine *machine, UnsignedInt nameKey);
 	virtual ~Rva004D7B70();
+protected:
+	unsigned char m_pad04[0x20 - 0x04];
 };
 class TurretAIIdleState : public Rva004D7B70
 {
@@ -120,12 +111,12 @@ private:
 	UnsignedInt m_timestamp; // +0x20
 };
 // The rowed attack-fire state (0x0033F483): machine and attack interface.
-class Rva0033F483 : public State
+class Rva0033F483
 {
 public:
 	Rva0033F483(StateMachine *machine, int attackInterface);
 private:
-	unsigned char m_pad20[0x28 - 0x20];
+	unsigned char m_pad00[0x28];
 };
 
 TurretAIIdleState::TurretAIIdleState(TurretStateMachine *machine) : Rva004D7B70(machine, 0x2722c825u)
@@ -164,10 +155,10 @@ TurretStateMachine::TurretStateMachine(TurretAI *tai, Object *obj, UnsignedInt n
 	};
 
 	// order matters: first state is the default state.
-	defineState( TURRETAI_IDLE, new TurretAIIdleState( this ), TURRETAI_IDLE, TURRETAI_IDLESCAN );
-	defineState( TURRETAI_IDLESCAN, new TurretAIIdleScanState( this ), TURRETAI_HOLD, TURRETAI_HOLD );
-	defineState( TURRETAI_AIM, new TurretAIAimTurretState( this ), TURRETAI_FIRE, TURRETAI_HOLD );
-	defineState( TURRETAI_FIRE, new Rva0033F483( this, (int)static_cast<TurretAIAttackInterface *>(tai) ), TURRETAI_AIM, TURRETAI_AIM, fireConditions );
-	defineState( TURRETAI_RECENTER, new TurretAIRecenterTurretState( this ), TURRETAI_IDLE, TURRETAI_IDLE );
-	defineState( TURRETAI_HOLD, new TurretAIHoldTurretState( this ), TURRETAI_RECENTER, TURRETAI_RECENTER );
+	defineState( TURRETAI_IDLE, (State *)new TurretAIIdleState( this ), TURRETAI_IDLE, TURRETAI_IDLESCAN );
+	defineState( TURRETAI_IDLESCAN, (State *)new TurretAIIdleScanState( this ), TURRETAI_HOLD, TURRETAI_HOLD );
+	defineState( TURRETAI_AIM, (State *)new TurretAIAimTurretState( this ), TURRETAI_FIRE, TURRETAI_HOLD );
+	defineState( TURRETAI_FIRE, (State *)new Rva0033F483( this, (int)static_cast<TurretAIAttackInterface *>(tai) ), TURRETAI_AIM, TURRETAI_AIM, fireConditions );
+	defineState( TURRETAI_RECENTER, (State *)new TurretAIRecenterTurretState( this ), TURRETAI_IDLE, TURRETAI_IDLE );
+	defineState( TURRETAI_HOLD, (State *)new TurretAIHoldTurretState( this ), TURRETAI_RECENTER, TURRETAI_RECENTER );
 }
