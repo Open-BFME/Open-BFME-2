@@ -473,7 +473,8 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
 
-namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
+// Keep the primary string destructor visible: the approved finder composition
+// needs its inline cleanup to retain retail's 128-byte body at 0x0060D269.
 
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(basic_string<char, char_traits<char>, allocator<char> > const &); }
 

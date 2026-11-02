@@ -1,0 +1,3 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/System/XferSave.cpp: LINKS  LINKED 1,156 -> 1,156 bytes (census 2026-11-01 09:19 at 0d24c60eef; file's own bytes 1,156)
+link_check: 1 of 1 link cleanly; LINKED 1,156 -> 1,156 bytes (3.6s)
