@@ -15,10 +15,7 @@
 #include "ascii_string.h"
 class INI;typedef void(*Parser)(INI*,void*,void*,const void*);
 #include "../../../Include/Common/INI/FieldParse.h"
-class INI {public:void initFromINI(void*,const FieldParse*);
- static void parseAsciiString(INI*,void*,void*,const void*);
- static void Rva002F592_ParseArmyPlacementPos(INI*,void*,void*,const void*);
-};
+#include "../../../Include/Common/INI/INI.h"
 class LivingWorldRegionConnection {public:
  LivingWorldRegionConnection();virtual ~LivingWorldRegionConnection();
  private:unsigned char nativeFields[20];

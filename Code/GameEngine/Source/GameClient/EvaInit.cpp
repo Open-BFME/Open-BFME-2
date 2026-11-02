@@ -23,16 +23,7 @@ enum INILoadType
 	INI_LOAD_CREATE_OVERRIDES = 2
 };
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
-
-private:
-	char m_storage[0x87C];
-};
+#include "../../Include/Common/INI/INI.h"
 
 struct EvaEventRecord
 {

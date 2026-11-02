@@ -46,11 +46,7 @@ private:
 };
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-};
+#include "../../Include/Common/INI/INI.h"
 class Rva004E0632
 {
 public:

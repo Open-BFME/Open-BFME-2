@@ -35,16 +35,7 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 
 class Xfer;
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
- INI();
- ~INI();
- void load(AsciiString, INILoadType, Xfer*, void(*)(INI*));
-private:
- char m_body[0x87C];
-};
+#include "../../../Include/Common/INI/INI.h"
 
 void iniParseSpecialPowerTemplateVector(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
 {

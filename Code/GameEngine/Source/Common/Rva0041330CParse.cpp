@@ -6,13 +6,7 @@
 // caller 0x00413586.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-  void initFromINI(void *what, const FieldParse *table);
-  static void parseInt(INI *, void *, void *, const void *);
-  static void parseReal(INI *, void *, void *, const void *);
-};
+#include "../../Include/Common/INI/INI.h"
 // The retail table at 0x00839968: 4 entries and the null terminator; every parser is rowed.
 extern const FieldParse g_00C39968[5] = {
 	{ "GUIDisplayedLevel", (FieldParseProc)&INI::parseInt, 0, 0x0 },

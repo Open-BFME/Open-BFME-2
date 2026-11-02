@@ -42,14 +42,7 @@ void free(void *);
 extern float g_secondsPerLogicFrame;
 class INI;
 struct FieldParse;
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	void initFromINI(void *what, const FieldParse *parseTable);
-	char m_pad00[8];
-	int m_loadType;	// +0x08
-};
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 int Rva0056A983Get();
 	// LargeGroupAudioSoundKeyPair field-parse table

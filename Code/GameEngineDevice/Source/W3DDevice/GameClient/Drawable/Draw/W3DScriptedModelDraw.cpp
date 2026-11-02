@@ -197,35 +197,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps); // 0x0002DEED
-	void initFromINI(void *what, const FieldParse *parseTable); // 0x0002DE78
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C2B23_ParseModelName(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B6E5A_ParseLowercasedString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C3824_ParseTexturePair(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C3AB3Parse(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B9AFF_ParseShadowEvent(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B2D93_ParseShadowReal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B2DBB_ParseShadowAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B2DE3_ParseShadowBool(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C2C5FParseBoneRecord(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B6E9E_ParseTurretArtAngle(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000C2CA4ParseTurretPitch(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva000B6EBE_ParseTurretArtPitch(INI *ini, void *instance, void *store, const void *userData);
-	AsciiString getNextAsciiString();
-	const char *getNextToken(const char *delimiter = 0);
-	static void parseAsciiStringVector(INI*,void*,void*,const void*);
-	static void parseIndexList(INI*,void*,void*,const void*);
-	static void parseInt(INI*,void*,void*,const void*);
-	char m_pad00[0x420];
-	const char *m_420; // +0x420
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 void ParseScriptedModelParticleSysBone(INI *ini, void *instance, void *store, const void *userData);
 

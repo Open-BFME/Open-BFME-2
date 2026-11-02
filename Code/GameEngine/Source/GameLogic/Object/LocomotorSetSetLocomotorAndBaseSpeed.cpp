@@ -53,11 +53,7 @@ template<> void BfmeLocomotorTemplateVector::push_back(const value_type&);
 // Reference1281192f68 GeneralsMD AIUpdate.cpp parseLocomotorSet validation/assignment.
 // Target adaptation: stored name+18, set-name+1C and speed+20, method(INI*,ThingTemplate*).
 #include "ascii_string.h"
-class INI {
-public: int scanIndexList(const char *, const char *const *);
- int getLoadType() const { return loadType; }
-private: char unknown00[8]; int loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 class AIUpdateModuleData {
 public: char unknown00[8]; BfmeLocomotorSetMap templates;
 };

@@ -234,15 +234,7 @@ class MultiIniFieldParse;
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../../Include/Common/INI/INI.h"
 // Retail VA 0x00C49368 (.rdata): 7 field records and a zero sentinel.
 extern const FieldParse g_00C49368[] = {
 	{ "Radius", &INI::parseReal, 0, 0x8 },

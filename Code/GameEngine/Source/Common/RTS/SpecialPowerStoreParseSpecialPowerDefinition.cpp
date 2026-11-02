@@ -46,29 +46,7 @@ inline const char *specialPowerNameText(const AsciiString &name) {
 }
 // BFME keeps the load type at INI+0x08.
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextToken( const char *seps = 0 );
-	void initFromINI( void *what, const FieldParse *parseTable );
-	int getLoadType() const { return m_loadType; }
-
-	// The rowed field parsers m_specialPowerFieldParse names.
-	static void parseBool( INI *ini, void *instance, void *store, const void *userData );
-	static void parseInt( INI *ini, void *instance, void *store, const void *userData );
-	static void parseReal( INI *ini, void *instance, void *store, const void *userData );
-	static void parseAsciiString( INI *ini, void *instance, void *store, const void *userData );
-	static void parseBitString32( INI *ini, void *instance, void *store, const void *userData );
-	static void parseIndexList( INI *ini, void *instance, void *store, const void *userData );
-	static void parseDurationUnsignedInt( INI *ini, void *instance, void *store, const void *userData );
-	static void parseScienceVector( INI *ini, void *instance, void *store, const void *userData );
-
-private:
-	int m_unmodelled00;
-	int m_unmodelled04;
-	int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 enum { INI_LOAD_CREATE_OVERRIDES = 2 };
 

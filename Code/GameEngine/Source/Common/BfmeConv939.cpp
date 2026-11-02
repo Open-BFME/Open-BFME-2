@@ -110,11 +110,7 @@ extern GameLogic *TheGameLogic;
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../Include/Common/INI/INI.h"
 struct Coord3D;
 struct PathfinderDebugColor;
 void Rva000B3FD0PathDebug(const Coord3D *, float, int, PathfinderDebugColor);

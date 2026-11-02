@@ -4,7 +4,7 @@
 #include "ascii_string.h"
 class Xfer;
 enum INILoadType {INI_LOAD_INVALID,INI_LOAD_OVERWRITE,INI_LOAD_CREATE_OVERRIDES,INI_LOAD_MULTIFILE};
-class INI {public:INI();~INI();void load(AsciiString,INILoadType,Xfer*,void(*)(INI*));static void parseMapCacheDefinition(INI*);private:char bytes[0x87C];};
+#include "../../Include/Common/INI/INI.h"
 class Rva00300489 {public:virtual AsciiString getMapDir()const;};
 class MapCache {public:void loadStandardMaps();};
 void MapCache::loadStandardMaps()

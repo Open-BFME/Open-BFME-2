@@ -12,17 +12,7 @@ typedef float Real;
 #include <string.h>
 
 // INI layout follows the verified PC token/scanner bodies; colon separators at +0x420.
-class INI
-{
-public:
-	const char *getNextToken( const char *seps );
-	const char *getNextTokenOrNull( const char *seps );
-	Real scanReal( const char *token );
-	static void parseInt( INI *ini, void *instance, void *store, const void *userData );
-
-	char m_unreconstructed_000[ 0x420 ];
-	const char *m_sepsColon;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class MultiPlayMults
 {

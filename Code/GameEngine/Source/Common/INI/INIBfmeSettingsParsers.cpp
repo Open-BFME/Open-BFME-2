@@ -29,24 +29,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *what, const FieldParse *parseTable);
-	Int getLoadType() const { return m_loadType; }
-
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char m_unreconstructed_00[0x08];
-	Int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 struct S12
 {

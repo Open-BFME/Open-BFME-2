@@ -52,18 +52,7 @@ struct LookupListRec { const char *name; int value; };
 
 enum INILoadType { INI_LOAD_OVERWRITE=1 };
 
-class INI {
-public:
- INI(); ~INI();
- void load(AsciiString, INILoadType, Xfer *, void (*)(INI *));
- void initFromINI(void *, const FieldParse *);
- static void parseCredits(INI *);
- static void parseInt(INI *, void *, void *, const void *);
- static void parseBool(INI *, void *, void *, const void *);
- static void parseColorInt(INI *, void *, void *, const void *);
- static void parseLookupList(INI *, void *, void *, const void *);
-private: char m_storage[0x87C];
-};
+#include "../../Include/Common/INI/INI.h"
 
 class GameFont { public: char pad00[0x10]; int height; };
 

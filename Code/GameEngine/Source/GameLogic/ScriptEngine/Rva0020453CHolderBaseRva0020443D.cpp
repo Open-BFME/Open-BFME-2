@@ -30,32 +30,7 @@ private:
 	char m_body[0x30];
 };
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	bool loadBlock(AsciiString filename, AsciiString blockType, AsciiString blockName, INILoadType loadType, Xfer *pXfer);
-
-private:
-	void *m_file;
-	AsciiString m_filename;
-	unsigned int m_readBufferNext;
-	unsigned int m_readBufferUsed;
-	unsigned int m_lineNum;
-	char m_buffer[0x418 - 0x14];
-	const char *m_seps;
-	const char *m_sepsPercent;
-	const char *m_sepsColon;
-	const char *m_sepsQuote;
-	const char *m_blockEndToken;
-	const char *m_endScriptToken;
-	unsigned char m_endOfFile;
-	char m_curBlockStart[0x838 - 0x431];
-	Rva00601BBCHelper m_helper;
-	AsciiString m_str86C;
-	_STL::vector<AsciiString> m_vec870;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // The 0xD4-byte particle system template (rowed copy constructor 0x001FCE6B)
 // and TheParticleSystemManager's 0x001FCF11, which takes a name and a new

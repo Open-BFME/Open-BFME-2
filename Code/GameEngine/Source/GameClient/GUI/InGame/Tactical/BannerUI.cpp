@@ -81,12 +81,7 @@ template <> __declspec(dllimport) __forceinline less<unsigned int> __less(unsign
 }
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const FieldParse *parseTable);
-};
+#include "../../../../../Include/Common/INI/INI.h"
 class Rva00217194Types
 {
 public:

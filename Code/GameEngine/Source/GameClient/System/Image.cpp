@@ -49,19 +49,7 @@ enum INILoadType
 	INI_LOAD_OVERWRITE = 1,
 	INI_LOAD_CREATE_OVERRIDES = 2
 };
-class INI
-{
-public:
-	INI();
-	~INI();
-	bool loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer *xfer, int extra);
-	const char *getNextSubToken(const char *expected);
-	int scanInt(const char *token);
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char m_unported[0x87C];
-};
+#include "../../../Include/Common/INI/INI.h"
 // Zero Hour's file-static imageStatusNames table ("ROTATED_90_CLOCKWISE",
 // "RAW_TEXTURE", NULL) lives at retail 0x00DBCEDC; only its address is used.
 const char *imageStatusNames[] = { "ROTATED_90_CLOCKWISE", "RAW_TEXTURE", 0 };

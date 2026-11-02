@@ -566,16 +566,7 @@ enum INILoadType
 	INI_LOAD_MULTIFILE
 };
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);
-
-private:
-	unsigned char m_unported[0x87C];
-};
+#include "../../Include/Common/INI/INI.h"
 
 class RayEffectSystem : public SubsystemInterface
 {

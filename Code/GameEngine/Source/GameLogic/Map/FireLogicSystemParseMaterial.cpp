@@ -7,14 +7,7 @@
 class INI;
 typedef void (*INIFieldParseProc)(INI *,void *,void *,const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
-class INI {
-public:
- const char *getNextToken(const char *);
- void initFromINI(void *,const FieldParse *);
- static void parseColorInt(INI *,void *,void *,const void *);
- static void parseAsciiString(INI *,void *,void *,const void *);
- static void parseUnsignedInt(INI *,void *,void *,const void *);
-};
+#include "../../../Include/Common/INI/INI.h"
 static inline const void *materialMask(unsigned mask) { return reinterpret_cast<const void *>(mask); }
 void Rva00285FA9Parse(INI *ini,void *,void *store,const void *) {
  const char *token=ini->getNextToken(0);

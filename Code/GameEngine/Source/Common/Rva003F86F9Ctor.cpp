@@ -46,12 +46,7 @@ Rva003F8728::Rva003F8728(int a, int phase) : Base003F86F9(a, phase), m_0C(), m_1
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
-class INI {
-public:
- AsciiString getNextQuotedAsciiString();
- int scanIndexList(const char *,const char *const *);
- void initFromINI(void *,const FieldParse *);
-};
+#include "../../Include/Common/INI/INI.h"
 class ModuleData;
 struct Rva003F9004 {
  char pad[4]; int field04;

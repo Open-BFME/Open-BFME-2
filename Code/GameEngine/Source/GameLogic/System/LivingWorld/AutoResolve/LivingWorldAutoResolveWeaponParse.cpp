@@ -11,7 +11,7 @@
 class INI;
 typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
 #include "../../../../../Include/Common/INI/FieldParse.h"
-class INI {public: const char* getNextToken(const char*); void initFromINI(void*,const FieldParse*); static void parseBool(INI*,void*,void*,const void*); static void parseInt(INI*,void*,void*,const void*);};
+#include "../../../../../Include/Common/INI/INI.h"
 class LivingWorldAutoResolveWeaponTemplate
 {
 public:

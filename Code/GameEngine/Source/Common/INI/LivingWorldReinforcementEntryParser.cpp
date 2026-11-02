@@ -16,7 +16,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline pair<const int,
 #include <string.h>
 template<class T> struct StringInlineData { int m_refCount,m_length;T m_text[1]; };
 #include "ascii_string.h"
-class INI { public: const char *getNextToken(const char *);int scanInt(const char *);AsciiString getFilename() const;int getLineNum() const; };
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 typedef _STL::pair<const int,int> Value;
 typedef _STL::_Rb_tree<int,Value,_STL::_Select1st<Value>,_STL::less<int>,_STL::allocator<Value> > Tree;

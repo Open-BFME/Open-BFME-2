@@ -23,20 +23,7 @@ enum INILoadType
 	INI_LOAD_CREATE_OVERRIDES = 2
 };
 
-class INI
-{
-public:
-	INI();
-	~INI();
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);	// 0x0002DC75 returns 1
-	const char *getNextToken(const char *seps);
-	int scanIndexList(const char *token, const char * const *names);
-	AsciiString getFilename() const;
-	int getLineNum() const;
-	void initFromINI(void *what, const struct FieldParse *parseTable);
-private:
-	char m_storage[0x87C];
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 

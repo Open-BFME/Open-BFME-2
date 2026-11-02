@@ -41,12 +41,7 @@ template<> void BfmeLocomotorTemplateVector::push_back(const value_type&);
 #include "ascii_string.h"
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../../../Include/Common/INI/FieldParse.h"
-class INI {
-public: void initFromINI(void *, const FieldParse *);
- int scanIndexList(const char *, const char *const *);
- int getLoadType() const { return loadType; }
-private: char unknown00[8]; int loadType;
-};
+#include "../../../../Include/Common/INI/INI.h"
 // FieldParse table for the LocomotorDefinition parse, read from retail at 0x00BDEA60.
 extern "C" {
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();

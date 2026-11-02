@@ -54,12 +54,7 @@ namespace _STL { template <> void allocator<BfmeE16>::deallocate(BfmeE16 *, size
 class INI;
 typedef void (*FieldParseProc)(INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
-class INI {
-public:
- AsciiString getNextQuotedAsciiString();
- int scanInt(const char *);
- void initFromINI(void *,const FieldParse *);
-};
+#include "../../Include/Common/INI/INI.h"
 class ModuleData;
 struct Rva003F9048 {
  void rva003F9048(const ModuleData *);

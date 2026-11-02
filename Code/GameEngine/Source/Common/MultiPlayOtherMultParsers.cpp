@@ -11,16 +11,7 @@ typedef int Int;
 typedef float Real;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
-class INI
-{
-public:
-	const char *getNextToken( const char *seps );
-	const char *getNextTokenOrNull( const char *seps );
-	Real scanReal( const char *token );
-
-	char m_unreconstructed_000[ 0x420 ];
-	const char *m_sepsColon;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class MultiPlayMults
 {

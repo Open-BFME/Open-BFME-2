@@ -20,30 +20,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 class Xfer;
 class AsciiString;
 enum INILoadType { INI_LOAD_INVALID = 0, INI_LOAD_OVERWRITE = 1, INI_LOAD_CREATE_OVERRIDES = 2 };
-class INI {
-public:
-	INI();
-	~INI();
-	void load(AsciiString filename, int loadType, int reload, void* xfer);
-	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer* xfer);
-	bool loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer* xfer, int extra);
-	static bool loadSubsystemFiles(const char* subsystem, void* xfer);
-	const char* getNextToken(const char* seps = 0);
-	void initFromINI(void* what, const struct FieldParse* parseTable);
-	const char* getNextTokenOrNull(const char* seps = 0);
-	static float scanReal(const char* token);
-	static int scanInt(const char* token);
-	static int scanBool(const char* token);
-	static int scanIndexList(const char* token, const char* const* names);
-	static void parseAsciiString(INI* ini, void* instance, void* store, const void* userData);
-	static void parseAsciiStringVectorAppend(INI* ini, void* instance, void* store, const void* userData);
-	static void parseLookupList(INI* ini, void* instance, void* store, const void* userData);
-	static void parseICoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseMappedImage(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-private:
-	char m_unported[0x87C];
-};
+#include "../../../../Include/Common/INI/INI.h"
 struct LookupListRec { const char* name; int value; };
 class ControlBarScheme;
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"

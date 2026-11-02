@@ -11,14 +11,7 @@
 
 struct FieldParse;
 #include "../../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-    const char *getNextToken(const char *separators = 0);
-    void initFromINI(void *what, const FieldParse *parseTable);
-    static void parseTerrainRoadDefinition(INI *ini);
-    static void parseTerrainBridgeDefinition(INI *ini);
-};
+#include "../../../Include/Common/INI/INI.h"
 class TerrainRoadType
 {
 public:

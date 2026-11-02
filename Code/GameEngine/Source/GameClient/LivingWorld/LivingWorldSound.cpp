@@ -17,15 +17,7 @@
 // declare, and every declaration kept here is one the already-verified body
 // needs with the same spelling.
 typedef void (*INIFieldParseProc)(class INI *ini, void *instance, void *store, const void *userData);
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const struct FieldParse *parseTable);
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-	static void parseCoord3D(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 
 // Retail's audio-event token parser, rowed and matched at RVA 0x00339900.

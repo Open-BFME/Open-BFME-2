@@ -7,24 +7,7 @@
 class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../../../Include/Common/INI/FieldParse.h"
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-    static void parseAsciiString(INI *, void *, void *, const void *);
-    static void parseAsciiStringVector(INI *, void *, void *, const void *);
-    static void parseAsciiStringVectorAppend(INI *, void *, void *, const void *);
-    static void parseBitString32(INI *, void *, void *, const void *);
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseCoord2D(INI *, void *, void *, const void *);
-    static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
-    static void parseFXList(INI *, void *, void *, const void *);
-    static void parseInt(INI *, void *, void *, const void *);
-    static void parsePercentToReal(INI *, void *, void *, const void *);
-    static void parseReal(INI *, void *, void *, const void *);
-    static void parseUnsignedInt(INI *, void *, void *, const void *);
-    static void parseVelocityReal(INI *, void *, void *, const void *);
-};
+#include "../../../../Include/Common/INI/INI.h"
 void Rva001DEE74Parse(INI *, void *, void *, const void *);
 void iniParseObjectFilter(INI *, void *, void *, const void *);
 

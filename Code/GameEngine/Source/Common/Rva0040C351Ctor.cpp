@@ -71,11 +71,7 @@ extern const FieldParse carryoverUnitFieldParse[3] = {
 	{ "Quantity", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x90 },
 	{ 0, 0, 0, 0 }
 };
-class INI
-{
-public:
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-};
+#include "../../Include/Common/INI/INI.h"
 class Rva004E0632
 {
 public:

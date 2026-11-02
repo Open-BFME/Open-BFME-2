@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <algorithm>
 #include "ascii_string.h"
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class INI { public: const char *getNextTokenOrNull(const char *); };
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 // The existing 31-byte search provider compares four-byte values only.

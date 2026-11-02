@@ -14,13 +14,7 @@
 class INI;
 typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
 #include "../../../Include/Common/INI/FieldParse.h"
-class INI {public:
- const char *getNextToken(const char*);
- void initFromINI(void*,const FieldParse*);
- static void parseAsciiStringVectorAppend(INI*,void*,void*,const void*);
- static void parseLookupList(INI*,void*,void*,const void*);
- static void parseAsciiString(INI*,void*,void*,const void*);
-};
+#include "../../../Include/Common/INI/INI.h"
 struct BfmeVectorRecord001B4A39 {
  AsciiString text0;_STL::vector<AsciiString> names0,names1,names2,names3,names4;
  unsigned word40;AsciiString text1;
