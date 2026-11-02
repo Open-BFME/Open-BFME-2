@@ -20,36 +20,10 @@ private:
 	bool m_executed;
 };
 
-class BehaviorModule
-{
-public:
-	virtual void behaviorAnchor();
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-private:
-	unsigned char m_data[8];
-};
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void ifaceAnchor();
-};
 
-class UpdateModuleInterface
-{
-public:
-	virtual void updateAnchor();
-};
-
-class UpdateModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpdateModuleInterface
-{
-protected:
-	virtual void loadPostProcess();
-public:
-	virtual ~UpdateModule();
-};
 
 template <typename T> class StringBase
 {

@@ -74,25 +74,8 @@ class ModuleData;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 template <int NUM_BITS> class BitFlags { unsigned int m_bits[(NUM_BITS + 31) / 32]; };
 typedef BitFlags<11> DisabledMaskType;
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime sleep) = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual void rva0044DF8D(UpdateSleepTime sleep);
-private:
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-};
 
 class Rva0049E03AIface20
 {

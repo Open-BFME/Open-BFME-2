@@ -66,29 +66,8 @@ extern DisabledMaskType DISABLEDMASK_ALL;
 
 // Slot order: update, getDisabledTypesToProcess (ZH), then a BFME 2 slot
 // that wakes the module (0x0044DF8D; no donor name).
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-	virtual DisabledMaskType getDisabledTypesToProcess() const = 0;
-	virtual void rva0044DF8D(UpdateSleepTime wakeDelay) = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14 (ctor TU precedent)
-	int m_indexInLogic; // +0x18, native scheduler and ctor
-	int m_phaseInLogic; // +0x1C, native scheduler and ctor
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
-	UpdateSleepTime getWakeFrame() const;
-
-public:
-	DisabledMaskType getDisabledTypesToProcess() const;
-	void rva0044DF8D(UpdateSleepTime wakeDelay);
-	int rva0023C3DA(int *phase);
-};
 
 // ?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z @0x0044DF71
 void UpdateModule::setWakeFrame(Object *obj, UpdateSleepTime wakeDelay)
@@ -162,6 +141,6 @@ DisabledMaskType Rva004DF396::getDisabledTypesToProcess() const
 // ?rva0023C3DA@UpdateModule@@QAEHPAH@Z
 int UpdateModule::rva0023C3DA(int *phase)
 {
-    *phase = m_phaseInLogic;
+    *phase = m_field1C;
     return m_indexInLogic;
 }

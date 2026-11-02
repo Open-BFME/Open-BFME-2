@@ -25,36 +25,12 @@ private:
 	bool m_executed;
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-private:
-	unsigned char m_data[8];
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void ifaceAnchor();
-};
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
 
-class UpdateModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpdateModuleInterface
-{
-public:
-	virtual ~UpdateModule();
-};
 
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {

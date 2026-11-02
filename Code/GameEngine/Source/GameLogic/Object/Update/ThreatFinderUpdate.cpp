@@ -162,24 +162,8 @@ public:
 	StringBase<char> m_name; // +0x88
 };
 
-class UpdateModuleInterface
-{
-public:
-    virtual void f2() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-    UpdateModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~UpdateModule();
-    void xfer(Xfer *xfer);
-
-private:
-    unsigned int m_nextCallFrameAndPhase;
-    int m_indexInLogic;
-    int m_updateState;
-};
 
 class ThreatFinderUpdate : public UpdateModule
 {
