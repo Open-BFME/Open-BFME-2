@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // Retail dx8renderer.cpp's Vertex_Split_Table closure (BFME 2, WW3D2 region
 // /O2 /arch:SSE /G7): DX8RigidFVFCategoryContainer::Add_Mesh (0x00148180) and
 // every function its local split table is passed to, directly or through a
@@ -212,7 +212,7 @@ static inline VertexMaterialClass *Model_Peek_Material(const MeshModelClass *mod
 
 class DX8Caps {public: char pad[0x13b]; bool npatches; bool Support_NPatches() const {return npatches;}};
 class DX8Wrapper {protected:static DX8Caps *CurrentCaps; public:static DX8Caps *Get_Current_Caps() {return CurrentCaps;}};
-class WW3D {private:static unsigned NPatchesLevel; public:static unsigned Get_NPatches_Level(){return NPatchesLevel;}};
+#include "WW3DClass.h"
 
 class Vertex_Split_Table
 {

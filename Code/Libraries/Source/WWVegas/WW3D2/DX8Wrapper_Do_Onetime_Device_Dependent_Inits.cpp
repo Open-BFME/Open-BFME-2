@@ -85,11 +85,7 @@ public:
 };
 
 // The texture filter mode at 0x00DB5F9C is WW3D's private static (ww3d.cpp).
-class WW3D
-{
-	friend class DX8Wrapper;
-	static int TextureFilter;
-};
+#include "WW3DClass.h"
 
 // Only the type's name matters here: the display format is passed on as is.
 enum _D3DFORMAT

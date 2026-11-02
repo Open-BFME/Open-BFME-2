@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /arch:SSE /G7 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
+// cl: /DNDEBUG /MD /EHsc /arch:SSE /G7 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // MeshClass::Render (MeshClass vtable 0xBD35A8), 0x0014BB90, and the two
 // RefCountPtr Create_Peek instances it calls (0x0014BA40, 0x0014BAB0).
@@ -345,17 +345,7 @@ public:
 
 class RenderObjClass;
 
-class WW3D
-{
-public:
-	static bool Are_Static_Sort_Lists_Enabled(void) { return AreStaticSortListsEnabled; }
-	static bool Is_Currently_Rendering_Shadow_Map(void) { return IsCurrentlyRenderingShadowMap; }
-	static void Add_To_Static_Sort_List(RenderObjClass *robj, unsigned int sort_level);
-
-private:
-	static bool AreStaticSortListsEnabled;
-	static bool IsCurrentlyRenderingShadowMap;
-};
+#include "WW3DClass.h"
 
 class DX8Wrapper
 {

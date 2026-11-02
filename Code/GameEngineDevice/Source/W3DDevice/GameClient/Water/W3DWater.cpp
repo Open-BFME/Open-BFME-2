@@ -1,4 +1,4 @@
-// cl: /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
+// cl: /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // RenderableStandingWaterArea::createTexture: native 0x0007EDBC..0x0007EEB0,
 // 244 bytes, RET4. WB 0x0073EFF0 identifies the method and W3DWater.cpp.
@@ -226,11 +226,7 @@ WaterRenderObjClass::~WaterRenderObjClass() {
 // the default render target restored. WB 0x007492F0 (unnamed) has the same
 // call chain. The method name stays address-derived.
 
-class WW3D {
-public:
- static bool Begin_Render(bool clear, bool clearZ, const Vector3 &color, float alpha);
- static bool End_Render(bool flip);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
 bool Rva00118660Call(void *scene, void *camera);
 extern bool bfmeCameraProjectionOverride;
 class Rva0007F0FBOwner {public: void rva0007F0FB(CameraClass *camera, bool flag);};

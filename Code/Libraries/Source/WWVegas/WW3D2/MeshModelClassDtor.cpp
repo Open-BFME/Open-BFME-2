@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
 // ??1MeshModelClass@@UAE@XZ at retail 0x00172AB0 (306 bytes).
@@ -149,14 +149,7 @@ extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 
 class GapFillerClass;
 
-class WW3D
-{
-public:
-	static bool Is_Munge_Sort_On_Load_Enabled(void) { return MungeSortOnLoad; }
-
-private:
-	static bool MungeSortOnLoad;
-};
+#include "WW3DClass.h"
 
 class MeshModelClass : public MeshGeometryClass
 {

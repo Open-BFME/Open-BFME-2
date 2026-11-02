@@ -46,13 +46,7 @@ void bfmeSetProjectionDepthBias(float bias);
 extern float g_Va00DEDA28;
 extern float g_Va00DEDA2C;
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/ww3d.h
-class WW3D
-{
-	static bool IsTexturingEnabled;	// ww3d.cpp ?IsTexturingEnabled@WW3D@@0_NA
-public:
-	static bool Is_Texturing_Enabled() { return IsTexturingEnabled; }
-	static void Enable_Texturing(bool b);
-};
+#include "WW3DClass.h"
 
 // TU-local copy of dx8wrapper.h's Convert_Color(const Vector3&,float), which retail's
 // SceneClass::Render inlines through Set_Fog. As a DX8Wrapper member this unit emitted a COMDAT

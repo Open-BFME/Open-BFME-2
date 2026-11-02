@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /G7 /MD /EHs
+// cl: /O2 /arch:SSE /G7 /MD /EHs C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native Ghidra 00118660..001186FB, 155B, cdecl RET0. Existing
 // callback 0006EE46 supplies owner and camera pointers. The native result
 // is bool (AL), correcting the earlier void-only caller declaration.
@@ -86,15 +86,7 @@ public:
 	static void Set_Light_Environment(LightEnvironmentClass *light_env);
 };
 bool Rva00118660Call(void *owner, void *camera);
-class WW3D
-{
-public:
-    static bool Render(const LayerClass &layer);
-    static bool Render(const LayerListClass &layer_list);
-    friend bool Rva00118660Call(void *owner, void *camera);
-private:
-    static bool IsInitted;
-};
+#include "WW3DClass.h"
 bool Rva001182A0(void *owner, RenderInfoClass &info);
 
 bool Rva00118660Call(void *owner, void *camera)

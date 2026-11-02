@@ -9,7 +9,7 @@
 // against retail. Native GUID bytes equal580ca87e-1d3c-4d54-991d-b7d3e3c298ce.
 // Method names remain descriptive target-derived names; class owner is the
 // rowed Rva0013107A constructor and surrounding refresh methods.
-// cl: /O1 /G7 /MD /EHs
+// cl: /O1 /G7 /MD /EHs C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 extern void BFME_DX8_Thread_Lock();
 extern bool BFME_DX8_Thread_Assert();
 // Native normal and unwind paths share the existing device guard at 0x00042F8C.
@@ -87,7 +87,7 @@ void Rva0013107A::loadVolumeSlices() {
 
 struct TextureImageInfo {unsigned width,height,depth,mips;int format,type,imageMode;};
 extern "C" long __stdcall D3DXGetImageInfoFromFileInMemory(const void*,unsigned,TextureImageInfo*);
-class WW3D {public:static int Get_Texture_Reduction();};
+#include "WW3DClass.h"
 class BfmeResetTextureBackend {public:void CreateTexture(int,int,int,int,int,int,int);};
 class SurfaceResource {public:virtual void slot0();virtual void slot1();virtual unsigned long __stdcall Release();};
 class SurfaceClass {public:void DrawPixel(unsigned,unsigned,unsigned);};

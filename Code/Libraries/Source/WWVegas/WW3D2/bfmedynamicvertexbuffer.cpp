@@ -1,6 +1,6 @@
 // dxsdk
 // platformsdk
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // Copyright 2025 Electronic Arts Inc.
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Reconstructed from BFME2 and the GPL-3.0-or-later EA reference
@@ -294,7 +294,7 @@ BfmeDynamicVBBase::BfmeDynamicVBBase(unsigned type_,unsigned fvf,unsigned short 
 
 inline IDirect3DDevice9 *bfmeGetDynamicDevice() { return (IDirect3DDevice9 *)DX8Wrapper::Get_D3D_Device(); }
 
-class WW3D { public:static void _Invalidate_Mesh_Cache(); };
+#include "WW3DClass.h"
 __declspec(noinline) void bfmeEvictManagedResources();
 extern void Log_DX8_ErrorCode(unsigned);
 void BfmeDynamicNativeVB::Create(unsigned usage)
