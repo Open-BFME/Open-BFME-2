@@ -41,12 +41,7 @@ _Vector_base<unsigned short, allocator<unsigned short> >::~_Vector_base()
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"
 
 // The shell's +0x5D flag is cleared while the map component draws.
-class Shell
-{
-public:
-	unsigned char m_pad00[0x5D];
-	bool m_5d; // +0x5D
-};
+#include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 // TheGlobalData: the +0x62 flag gates the shadow manager's calls; 0x0023611A
@@ -282,7 +277,7 @@ private:
 // for the hero and reports where it went.
 void AptCreateAHero::DrawMapComponent(const Coord2D *origin, const Coord2D *extent, void *unused3, void *unused4)
 {
-	TheShell->m_5d = false;
+	TheShell->m_shellMapOn = false;
 	if (Rva00DE1FF8Manager && TheWritableGlobalData->m_useShadowMapping)
 		Rva00DE1FF8Manager->rva0007C18E();
 	TheDisplay->drawMapView(origin, extent);
@@ -299,7 +294,7 @@ void AptCreateAHero::DrawMapComponent(const Coord2D *origin, const Coord2D *exte
 		theBfmeDfdc14->setCoords(&lo, &hi);
 		theBfmeDfdc14->v12();
 	}
-	TheShell->m_5d = true;
+	TheShell->m_shellMapOn = true;
 
 	if (m_takePicture)
 	{

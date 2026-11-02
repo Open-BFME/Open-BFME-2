@@ -337,11 +337,7 @@ struct Rva00517048;
 
 extern Rva00517048 *g_Va00A04904;
 
-class Shell
-{
-public:
-	void push(AsciiString screen, bool flag);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

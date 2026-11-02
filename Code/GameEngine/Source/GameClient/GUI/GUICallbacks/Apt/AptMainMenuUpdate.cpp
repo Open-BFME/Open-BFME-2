@@ -99,12 +99,7 @@ extern class BfmeSinkBOE *g_bfmeSinkBOE;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheMainMenuAptTarget (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 
-class Shell
-{
-public:
-	void rva0035BF4C(bool hide);
-	void showShell(bool flag);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 class GameState { public: int rva002DF2F6(const UnicodeString &name); };

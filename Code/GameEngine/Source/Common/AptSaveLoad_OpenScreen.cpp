@@ -3,10 +3,7 @@
 // ?OpenScreen@AptSaveLoad@@SAXHH_N@Z @0x00434160 120B: AptSaveLoad::OpenScreen (WorldBuilder AptSaveLoad.cpp:559 s_instance assert, same "SaveLoad.apt" push); static init storing 3 args into struct at AptSaveLoad::s_instance after Shell::push("SaveLoad.apt",false); evidence packet callees Shell::push pin and StringBase row, callers 0x00446443 0x00515C64, globals AptSaveLoad::s_instance g_Va00A01E48.
 struct GlobalA01E48;
 extern class Shell *TheShell;
-class Shell {
-public:
-    void push(AsciiString s, bool flag);
-};
+#include "../../Include/GameClient/Shell.h"
 struct State00434160 {
     char pad[0x294];
     int f294;

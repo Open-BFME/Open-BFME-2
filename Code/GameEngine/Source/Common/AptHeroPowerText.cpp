@@ -215,11 +215,7 @@ public:
 	virtual int getMaxMessagesPerUpdate(void);
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
-class Shell
-{
-public:
-	void pop();	// ZH Shell::pop
-};
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 void HandleBuddyResponses();			// ZH HandleBuddyResponses (pinned)
 void HandlePersistentStorageResponses();			// ZH HandlePersistentStorageResponses (pinned)

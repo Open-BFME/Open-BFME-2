@@ -126,7 +126,8 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern int g_Va00E06550;
 static __forceinline void *movieLevel(){return *(void **)((char *)*(void **)((char *)g_Va00E06550+0x58)+0x274);}
-class Shell {public:void pop();};extern Shell *TheShell;
+#include "../../../../../Include/GameClient/Shell.h"
+extern Shell *TheShell;
 void HandleBuddyResponses();void HandlePersistentStorageResponses();class AptMessengerOnline { public: static bool ProcessGameSpyResponse(void *); };void Rva00511730(int);void Rva00548C1ACleanup();void GSMessageBoxOk(UnicodeString,UnicodeString,void(*)()=0);void TearDownGameSpy();
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

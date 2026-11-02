@@ -257,7 +257,8 @@ class LODPostSlots {public:
  virtual void slot8();
  virtual void slot9();
 };
-class Shell {public: bool showShellMap(bool,bool);};extern Shell *TheShell;
+#include "../../Include/GameClient/Shell.h"
+extern Shell *TheShell;
 extern int LODTextureReduction;
 extern unsigned char LODMeshCacheSetting;
 void rva00117120();

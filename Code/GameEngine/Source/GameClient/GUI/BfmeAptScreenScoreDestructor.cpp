@@ -26,11 +26,7 @@ public:
 	virtual void marker() = 0;
 };
 
-class Shell
-{
-public:
-	void hide(bool shutdownImmediate);
-};
+#include "../../../Include/GameClient/Shell.h"
 
 void _bfme_closeAptScreen(const AsciiString &name);
 

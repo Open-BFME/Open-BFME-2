@@ -100,13 +100,7 @@ public:
 	bool playbackFile(UnicodeString name);	// 0x0037D1E6
 };
 
-class Shell
-{
-public:
-	void hide(bool doHide);
-	bool rva0035BD5D();
-	void showShell(bool runInit);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 class GameEngineView
 {

@@ -424,11 +424,7 @@ struct GlobalA01E48;
 
 extern class Shell *TheShell;
 
-class Shell
-{
-public:
-	void push(AsciiString s, bool flag);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

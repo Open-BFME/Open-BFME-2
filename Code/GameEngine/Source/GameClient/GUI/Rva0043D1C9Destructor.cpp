@@ -67,7 +67,8 @@ class Rva00223A94 {public:int rva00223A94(const AsciiString*);};
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Shell {public:void hide(bool);};extern Shell* TheShell;
+#include "../../../Include/GameClient/Shell.h"
+extern Shell* TheShell;
 class GameLogic {public:bool isInMultiplayerGame();void rva0023CD9E(bool,int,bool);char unknown[0x110];int mode;};extern GameLogic* TheGameLogic;
 class CommandButton;enum CBCommandStatus{CBC_COMMAND_NOT_USED};class ControlBar {public:CBCommandStatus processCommandUI(const CommandButton*,bool,bool);};extern ControlBar* TheControlBar;
 class InGameUI;extern InGameUI* TheInGameUI;

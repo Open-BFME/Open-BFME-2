@@ -341,7 +341,8 @@ extern GameLogic *TheGameLogic;
 #include "../../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class Display {public:char pad[0x114];bool flag;};extern Display *TheDisplay;
-class Shell {public:void rva0035BF4C(bool);};extern Shell *TheShell;
+#include "../../../../../Include/GameClient/Shell.h"
+extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
 class MapMetaData {public:char pad[0x24];bool official;};
 class MapCache {public:const MapMetaData *findMap(AsciiString);};extern MapCache *TheMapCache;

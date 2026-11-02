@@ -312,11 +312,7 @@ void Rva005C392A::rva005C392A()
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Retail 0x0035C194 is the verified Shell::showShellMap provider.
-class Shell
-{
-public:
-	bool showShellMap(bool a, bool b);
-};
+#include "../../Include/GameClient/Shell.h"
 extern class Shell *TheShell;
 struct Rva0051483CLogic
 {

@@ -149,11 +149,7 @@ private:
 // The Shell method name is carried by its existing partial source and caller
 // evidence; the newly admitted pin only binds that call target.
 
-class Shell
-{
-public:
-	void showShell(bool flag);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

@@ -710,7 +710,8 @@ void AptSkirmish::MpOwnerGetLocalPlayerName(UnicodeString *out) {
 extern GameLogic *TheGameLogic;
 class GlobalData {public:char pad[12];AsciiString map;char pad10[0x9d4-0x10];unsigned flags;};extern GlobalData *TheWritableGlobalData;
 class Display {public:char pad[0x114];bool flag;};extern Display *TheDisplay;
-class Shell {public:void rva0035BF4C(bool);};extern Shell *TheShell;
+#include "../../../../../Include/GameClient/Shell.h"
+extern Shell *TheShell;
 class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
 struct StartGameInfoView {char pad[0x50];unsigned seed;int u54;int scenario;};
 class MapMetaData {public:char pad[0x24];bool official;char pad25[3];unsigned size,crc;};

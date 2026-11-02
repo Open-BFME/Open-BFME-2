@@ -108,7 +108,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern int g_Va00E06550;
 static __forceinline void *movieLevel(){return *(void **)((char *)*(void **)((char *)g_Va00E06550+0x58)+0x274);}
-class Shell {public:void pop();};
+#include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 void HandleBuddyResponses();
 void HandlePersistentStorageResponses();

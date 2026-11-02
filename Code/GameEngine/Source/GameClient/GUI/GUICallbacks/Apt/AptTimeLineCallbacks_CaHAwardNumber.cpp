@@ -341,7 +341,7 @@ private:
 
 struct AptTimeLineGameLogicView { unsigned char m_pad[0x110]; int m_mode; int m_gameType; };
 
-class Shell { public: void push(AsciiString name, bool flag); };
+#include "../../../../../Include/GameClient/Shell.h"
 
 bool rva00520F7D()
 {

@@ -96,11 +96,7 @@ struct GlobalA046B4;
 extern GlobalA046B4 *g_Va00A046B4;
 
 
-class Shell
-{
-public:
-	void rva0035BF4C(bool shutdownImmediate);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 class InGameUI

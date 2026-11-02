@@ -216,7 +216,7 @@ class GameState { public: int rva002DD7E6AutoSave(); };
 
 extern GameState *TheGameState;
 
-class Shell { public: void showShell(bool); void push(AsciiString, bool); };
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

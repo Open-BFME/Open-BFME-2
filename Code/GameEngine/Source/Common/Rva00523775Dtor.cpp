@@ -57,11 +57,7 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-class Shell
-{
-public:
-	void hide(bool b);
-};
+#include "../../Include/GameClient/Shell.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.

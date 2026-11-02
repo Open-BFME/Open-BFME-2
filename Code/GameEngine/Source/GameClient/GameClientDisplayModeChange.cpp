@@ -15,18 +15,7 @@
 #include "ascii_string.h"
 #include "GUI/HeaderTemplateView.h"
 
-class Shell
-{
-public:
-	Shell();
-	virtual ~Shell();
-	virtual void init();
-
-	void push(AsciiString filename, bool shutdownImmediate);
-
-private:
-	unsigned char m_pad004[0x78 - 0x04];
-};
+#include "../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

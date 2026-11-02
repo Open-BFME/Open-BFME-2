@@ -149,13 +149,7 @@ public:
 
 #include "../../../Include/Common/GlobalData.h"
 
-class Shell
-{
-public:
-	bool isShellActive() const { return m_active; }
-	char m_pad00[0x5C];
-	bool m_active; // +0x5C
-};
+#include "../../../Include/GameClient/Shell.h"
 
 class BfmeOwnVVD
 {

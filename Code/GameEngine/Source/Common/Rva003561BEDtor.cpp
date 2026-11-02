@@ -60,10 +60,7 @@ struct GameLogicFieldView
 };
 extern GameLogic *TheGameLogic;
 
-class Shell {
-	public:
-	void showShell(bool);
-};
+#include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"

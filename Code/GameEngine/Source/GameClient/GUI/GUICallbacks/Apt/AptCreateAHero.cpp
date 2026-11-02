@@ -330,11 +330,7 @@ struct AptCreateAHeroGlobalData
 
 // OpenScreen's collaborators: the shell (rowed Shell::push), the message
 // stream's vslot 18 append, and the logic random seed.
-class Shell
-{
-public:
-	void push(AsciiString filename, bool shutdownImmediate);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

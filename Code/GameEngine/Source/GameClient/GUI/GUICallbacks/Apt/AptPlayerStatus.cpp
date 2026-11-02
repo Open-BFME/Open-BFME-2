@@ -173,15 +173,7 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *f
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
-class Shell
-{
-public:
-	void showShell(bool show);
-public:
-	void push(AsciiString filename, bool shutdownImmediately);
-public:
-	void rva0035BF4C(bool shutdownImmediate);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 void _bfme_closeAptScreen(const AsciiString &name);
 
 // ?Rva004E44FBSet@@YGXHHABVUnicodeString@@@Z @0x004E44FB 88B

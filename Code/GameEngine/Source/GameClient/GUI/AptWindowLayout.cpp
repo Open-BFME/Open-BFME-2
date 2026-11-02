@@ -152,11 +152,7 @@ public:
 
 class WindowLayout;
 
-class Shell
-{
-public:
-	void shutdownComplete(WindowLayout *layout, bool b);
-};
+#include "../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

@@ -8,11 +8,7 @@ extern int g_Va00A04908;
 extern int g_00E04914;
 struct GlobalA01E48;
 extern class Shell *TheShell;
-class Shell
-{
-public:
-	void push(AsciiString s, bool flag);
-};
+#include "../../Include/GameClient/Shell.h"
 #include "../../Include/Common/Rva00222A8BTarget.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct State005185D8

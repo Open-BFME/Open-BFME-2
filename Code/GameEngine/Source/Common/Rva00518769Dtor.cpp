@@ -44,11 +44,7 @@ public:
 	void rva00238F91(int a, int b, int c);
 };
 
-class Shell
-{
-public:
-	void pop();
-};
+#include "../../Include/GameClient/Shell.h"
 
 struct GlobalA04910
 {

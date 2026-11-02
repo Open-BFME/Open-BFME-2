@@ -29,11 +29,7 @@ class Rva0023D2D8DwordClearer
 public:
 	void clear(); // ?clear@Rva0023D2D8DwordClearer@@QAEXXZ
 };
-class Shell
-{
-public:
-	void hide(bool flag); // ?hide@Shell@@QAEX_N@Z pin-only
-};
+#include "../../../Include/GameClient/Shell.h"
 
 #include "../GameLogicObjectLookupView.h"
 

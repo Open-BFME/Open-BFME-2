@@ -250,12 +250,7 @@ public:
 	Rva005CB260 *rva000CF155();
 };
 extern InGameUI *TheInGameUI;
-class Shell
-{
-public:
-	void showShell(bool);
-	void push(AsciiString filename, bool shutdownImmediate);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 struct GlobalA04934;
 extern GlobalA04934 *g_Va00A04934;

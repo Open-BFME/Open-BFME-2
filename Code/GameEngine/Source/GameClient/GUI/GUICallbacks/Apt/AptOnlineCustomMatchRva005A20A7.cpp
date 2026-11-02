@@ -72,11 +72,7 @@ void Rva0059FF9DDo();
 // ChatSystem::ClearHistory in WorldBuilder.
 void Rva00381C2DClear(unsigned int which);
 
-class Shell
-{
-public:
-	void popImmediate(); // Zero Hour's popImmediate
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

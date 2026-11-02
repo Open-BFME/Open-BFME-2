@@ -607,11 +607,7 @@ namespace _STL {
 template<> inline _Vector_base<int, allocator<int> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
 }
 
-class Shell
-{
-public:
-	void rva0035BF4C(bool show);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

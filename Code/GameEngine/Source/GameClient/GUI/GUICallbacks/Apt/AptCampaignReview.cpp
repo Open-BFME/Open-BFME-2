@@ -152,11 +152,7 @@ extern GameTextInterface *TheGameText;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Shell.h
-class Shell
-{
-public:
-	void push( AsciiString filename, bool shutdownImmediate = false );
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

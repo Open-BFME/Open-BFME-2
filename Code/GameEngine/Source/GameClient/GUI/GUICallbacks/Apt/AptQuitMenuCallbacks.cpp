@@ -192,13 +192,7 @@ public:
 extern InGameUI *TheInGameUI;
 
 // TheShell (0x00E01E48) and its rowed 0x0035BF4C (BFME1's Shell::hide).
-class Shell
-{
-public:
-	void rva0035BF4C(bool flag);
-	void showShell(bool flag);
-	void push(AsciiString name, bool flag);
-};
+#include "../../../../../Include/GameClient/Shell.h"
 
 extern Shell *TheShell;
 

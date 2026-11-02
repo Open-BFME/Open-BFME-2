@@ -110,11 +110,7 @@ struct IPPort
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
-class Shell
-{
-public:
-	void pop();
-};
+#include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
 
 class MultiplayerSettings
