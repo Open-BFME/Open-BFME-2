@@ -298,18 +298,7 @@ protected:
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 // Waypoint (target evidence): location +0x0C, link count +0x4C; getLink is
 // the rowed out-of-line 0x00085404.
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return &m_location; }
-	__declspec(dllimport) __forceinline Int getNumLinks() const { return m_numLinks; }
-	Waypoint *getLink(Int ndx) const;
-private:
-	unsigned char m_pad00[0x0C];
-	Coord3D m_location; // +0x0C
-	unsigned char m_pad18[0x4C - 0x18];
-	Int m_numLinks; // +0x4C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 class AIFollowWaypointPathState : public AIInternalMoveToState
 {
 public:

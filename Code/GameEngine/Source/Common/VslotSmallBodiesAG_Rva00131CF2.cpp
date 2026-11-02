@@ -455,11 +455,7 @@ enum ObjectStatusTypes
 int rva0034373F(State *state, void *);
 
 
-class Waypoint
-{
-public:
-	virtual void *deleteInstance(Int pool);
-};
+#include "../../Include/GameLogic/Waypoint.h"
 extern Waypoint *g_waypointListHead;
 class Rva0027CE80
 {

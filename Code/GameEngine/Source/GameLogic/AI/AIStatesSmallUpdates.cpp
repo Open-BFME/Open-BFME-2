@@ -48,15 +48,7 @@ private:
 	Coord3D m_pos; // +0x0C
 };
 #include "../../../Include/GameLogic/PathfindPath.h"
-class Waypoint
-{
-public:
-	int m_pad00;
-	unsigned int m_id; // +4
-	unsigned char m_pad08[0x0C - 8];
-	Coord3D m_location; // +0x0C
-	const Coord3D *getLocation() const { return &m_location; }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 class AsciiString;
 class UnicodeString;
 class PooledString;

@@ -11,11 +11,7 @@
 
 #include "../GameLogic/Object/object.h"
 
-class Waypoint
-{
-public:
-	char m_pad[0x50];
-};
+#include "../../Include/GameLogic/Waypoint.h"
 
 class Rva0035149F
 {
