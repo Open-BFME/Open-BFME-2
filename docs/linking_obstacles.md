@@ -165,6 +165,35 @@ view now spells the slot as the canonical header does. `./build.sh` 16/16 rows; 
 AptMyHero_Unresolved 1,067 B (census-linked, lost on current objects) LINKS again, AptMyHeroCtor
 1,152 B unchanged.
 
+Checked and left (2026-11-02, lk15), with causes and prerequisites:
+- AptScriptFunction (3,535 B), cause `1d9e653c6e`: Rva006FBC90OwnerDtor.cpp (first) now reads
+  canonical AptValue, whose pure slots 12/13 carry the neutral names `vslot12`/`vslot13`, so its
+  AptValueGC::IsGarbageCollected and AptValueWithHash::RegisterReferences override nothing and are
+  appended (17 slots, `__purecall` at 12/13); AptScriptFunction emits 15. Retail 0x00CED880 has 15
+  (slot 11 0x006FBC10 and slot 13 0x006FBC30 are Rva006FBC90Owner overrides, slot 12 the 0x001826C0
+  fold). Naming the canonical slots IsGarbageCollected/RegisterReferences (the existing row
+  `?RegisterReferences@AptValueWithHash@@UBEXXZ` 0x006DCC00 is `inferred`) would restore the overrides;
+  it is a naming decision on a registered header, not taken here. No unit overrides `vslot12/13`.
+- MapCacheAddMap (1,191 B) and MapCacheLoadUserMapsBFME2 (1,198 B), cause `16060f2bc4`: MapUtil.cpp's
+  unrowed Zero Hour `MapCache::addMap` (present-unmatched) mangled `AAE` under its private view and now
+  `QAE` under canonical MapCache.h, a strong duplicate of the rowed 0x00304E64 (MapCacheAddMap.cpp).
+  Dropping the body fails 6 of MapUtil's 19 rows (the `_M_insert_overflow<ICoord2D>`, `getExtent` and
+  `_Rb_tree<AsciiString, Coord3D>` instantiations it alone emits); those rows need another emitter first.
+- XferSaveOpen (169 B), cause `c9fe5b31cd`: ArmorHashMapErase.cpp (first, canonical ArmorTemplate with
+  its AsciiString member, destructor 0x001D8FA5) emits a 32-byte node deleter calling the pair
+  destructor and `deallocate`; XferSaveOpen's private 152-byte ArmorTemplate is trivial (20 bytes,
+  `free`). Do not adopt Armor.h there blindly: XferSaveOpen is the sole definer of a retail-proven
+  `hashtable<NameKeyType,ArmorTemplate>::clear` (digest e5f4c01a) that 16 other units use, and the
+  adoption changed that copy's bytes (trial reverted). The allocator profiles differ too
+  (bfmealloc vs `_STLP_USE_MALLOC`).
+- W3DScriptedModelDrawDestructor (506 B), cause `0448c68cb5` (canonical DrawModule in the ctor): the
+  destructor's view inlines an empty `~DrawModule`; canonical DrawModule.h declares it out of line, so
+  adopting it changes the destructor's bytes (the BehaviorModule situation; the family-wide DrawModule
+  table 0x00BC9690 work applies).
+- Rva001041BDASlot1 (418 B), cause `18befef11f` (canonical SimpleSceneClass in Rva001040D5Ctor.cpp,
+  28-slot `??_7Rva001040D5@@6B@`) against its one-slot private view.
+- Rva0033FC0ACtor (213 B) belongs to item 1 (Rva004D759CDerived.cpp holds its destructor).
+
 Process note: the adoption batches' own link guard predicts only the adopted units; the losers are
 untouched siblings that bind the same COMDAT names. Before adopting a header in a unit that defines
 a class family's destructors, run `link_check` over every unit touching the family's `??_7` names
