@@ -33,12 +33,15 @@ enum ScienceType
 typedef _STL::pair<const ScienceType, bool> ScienceMemoValue;
 typedef _STL::_Rb_tree<ScienceType, ScienceMemoValue, _STL::_Select1st<ScienceMemoValue>, _STL::less<ScienceType>, _STL::allocator<ScienceMemoValue> > ScienceMemoTree;
 namespace _STL {
-template <> map<ScienceType, bool>::map();
+// The memo map's constructor (0x001FFA00) is the implicit COMDAT this TU's
+// Science.cpp also emits; only its tree-base step stays the out-of-line
+// specialization Science.cpp defines (0x001FF76E).
+template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::_Rb_tree_base(const allocator<ScienceMemoValue> &);
 template <> void ScienceMemoTree::clear();
 template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::~_Rb_tree_base();
 template <> ScienceType *vector<ScienceType, allocator<ScienceType> >::erase(ScienceType *, ScienceType *);
 template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
-// Canonical emitted cleanup and existing map ctor must stay out of line.
+// Canonical emitted cleanup must stay out of line.
 template <> ScienceMemoTree::~_Rb_tree();
 // The concrete memo insertion provider is already byte-verified at1FF875.
 template <> pair<ScienceMemoTree::iterator, bool> ScienceMemoTree::insert_unique(const ScienceMemoValue &);
