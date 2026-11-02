@@ -78,6 +78,7 @@ protected:
     virtual void loadPostProcess();
     virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer);
+    virtual void privateIdle(CommandSourceType source);
     virtual AIStateMachine *makeStateMachine();
 private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x3E8
@@ -266,4 +267,12 @@ void SupplyTruckAIUpdate::loadPostProcess()
 const char *SupplyTruckAIUpdate::GetSnapshotName() const
 {
     return "SupplyTruckAIUpdate";
+}
+
+void SupplyTruckAIUpdate::privateIdle(CommandSourceType source)
+{
+    // Zero is the measured player-command value.
+    if (source == 0)
+        rva005975D7(true);
+    AIUpdateInterface::privateIdle(source);
 }

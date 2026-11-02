@@ -18488,3 +18488,5 @@ The preceding secondary-table push's wider audit remained INCONCLUSIVE against98
 SupplyTruck primary slot1's qualified base loadPostProcess call now matches complete5B native49A7EE and its exact tail target. All30ctor rows pass; the WorkerAIUpdate representative remains. Six primary body candidates and canonical base-provider prerequisites remain; no pin or unit/census clearance is added.
 
 SupplyTruck primary slot2's canonical GetSnapshotName override now matches complete6B native4A6A3A and the exact SupplyTruckAIUpdate literal. All31ctor rows pass; the legacy name getter remains. Five primary bodies and canonical base-provider prerequisites remain, with no new pin or unit/census clearance.
+
+SupplyTruck primary slot24 now implements native command-value0 handling through the actual secondary slot13 before the real base idle call. Complete38B at4A6AB5, virtual receiver adjustment and all32ctor rows match. Old representative remains; four primary bodies plus canonical base-provider prerequisites remain, without a pin or census clearance.
