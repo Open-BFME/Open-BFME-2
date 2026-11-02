@@ -57,21 +57,7 @@ public:
 	ModuleInfoEntry *m_capacity;
 };
 
-class ThingTemplate
-{
-public:
-	virtual ~ThingTemplate();
-	unsigned char m_pad004[0x2F0 - 0x4];
-	ModuleInfo m_drawModuleInfo;			// +0x2F0
-	ModuleInfo m_clientUpdateModuleInfo;		// +0x2FC
-	ModuleInfo m_moduleInfo308;			// +0x308
-	unsigned char m_pad314[0x4E0 - 0x314];
-	float m_assetScale;				// +0x4E0
-	float getAssetScale() const { return m_assetScale; }
-	unsigned char m_pad4E4[0x594 - 0x4E4];
-	int m_594;					// +0x594
-	int getX594() const { return m_594; }
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../../Include/Common/ModuleData.h"
 

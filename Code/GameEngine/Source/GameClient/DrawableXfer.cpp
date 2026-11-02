@@ -244,12 +244,7 @@ public:
 };
 
 class Rva00270BA8 { public: Rva00270025 *rva00270BA8(); };
-class ThingTemplate
-{
-public:
-	char m_pad[0x11a];
-	unsigned char m_kindOfByte11A;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Object
 {

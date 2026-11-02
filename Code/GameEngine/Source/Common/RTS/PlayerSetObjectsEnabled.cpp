@@ -50,15 +50,7 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-
-private:
-	unsigned char m_pad[0x64];
-	AsciiString m_name;	// +0x64
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum ObjectScriptStatusBit
 {
