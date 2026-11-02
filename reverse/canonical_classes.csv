@@ -280,3 +280,4 @@ DisplayStringManager,Code/GameEngine/Include/GameClient/DisplayStringManager.h,e
 DrawModule,Code/GameEngine/Include/GameLogic/Module/DrawModule.h,existing header; contract class_contracts/DrawModule.json; 20/51 sampled units adopt
 FontLibrary,Code/GameEngine/Include/GameClient/FontLibrary.h,existing header; contract class_contracts/FontLibrary.json; 34/45 sampled units adopt
 SpecialPowerTemplate,Code/GameEngine/Include/Common/SpecialPower.h,existing header; contract class_contracts/SpecialPowerTemplate.json; 8/41 sampled units adopt
+UserPreferences,Code/GameEngine/Include/Common/UserPreferences.h,existing header; contract class_contracts/UserPreferences.json; 28/45 sampled units adopt
