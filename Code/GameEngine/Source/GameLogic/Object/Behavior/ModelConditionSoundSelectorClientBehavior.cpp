@@ -31,9 +31,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 #include "ascii_string.h"
-
 bool operator<(const AsciiString &left, const AsciiString &right);
-
 namespace _STL
 {
 template <> struct less<AsciiString>
@@ -44,8 +42,9 @@ template <> struct less<AsciiString>
 	}
 };
 }
-
 #include "../../../../Include/Common/OpaqueRefElement4.h"
+#include <vector>
+#include <set>
 
 struct Rva002C99FB
 {
@@ -108,6 +107,26 @@ public:
 	virtual bool rva004CABCD(int *dest);
 };
 
+struct BfmeStringRecord002CF550
+{
+	bool operator<(const BfmeStringRecord002CF550 &other) const { return false; }
+	char m_pad[0x10];
+};
+
+struct BfmeObject544View
+{
+	Rva000CF0D6 m_bits;
+	Rva002C99FB m_arr[0x38];
+	_STL::set<BfmeStringRecord002CF550> m_set;
+	char m_tail[8];
+};
+
+// The sibling selector view observes begin/end at +08/+0C. The old vector
+// spans +08..+14 (compiler layout); preserve its unread tail as padding.
+struct Rva004CAB8BRecord;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionSoundSelectorClientBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionSoundSelectorClientBehaviorSlots.cpp
 
 bool Rva004CABE5Store::rva004CAB8B(int *dest, const Rva000CF0D6 *tester)
@@ -166,4 +185,23 @@ bool Rva004CABE5Store::rva004CAC4B(const AsciiString &key, Rva002C99FB *dest, co
 	return false;
 }
 
-// tu-skeleton: 0x004CABE5 74B ?find@Rva004CABE5Store@@QAE_NHPAURva002C99FB@@PBVRva000CF0D6@@@Z -- matched in Code/GameEngine/Source/Common/BfmeObject544Find.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeObject544Find.cpp
+
+// ?find@Rva004CABE5Store@@QAE_NHPAURva002C99FB@@PBVRva000CF0D6@@@Z @0x004CABE5 74B.
+// Find BfmeObject544 in vector via bit test plus indexed assign.
+// Evidence: callees rowed 0x000CF0D6 0x002C99FB; caller 0x004CAC43; stride 0x220 proves 544B.
+
+bool Rva004CABE5Store::find(int idx, Rva002C99FB *dest, const Rva000CF0D6 *tester)
+{
+	BfmeObject544View *finish = (BfmeObject544View *)m_end;
+	BfmeObject544View *it = (BfmeObject544View *)m_begin;
+	for (; it != finish; ++it) {
+		if (!tester->test((const Rva000CF0D6 *)it))
+			continue;
+		if (*(int *)&it->m_arr[idx].m_second == 0)
+			continue;
+		*dest = it->m_arr[idx];
+		return true;
+	}
+	return false;
+}

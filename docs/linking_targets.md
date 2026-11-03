@@ -1,5 +1,10 @@
 # Linking target checklist
 
+### Model-condition selector consolidation 20261103-1454
+
+The native approved lane combines two sources after a verified vector/pointer view repair. One source file is removed; six existing rows/301B remain. The destination-only227->301B preview is transfer, with the cohort301->301B. Two unused vector accessors were separately retired; canonical Drawable adoption and full current provider/consumer closure remain open.
+[Merge evidence](../reverse/attempt_support/model-sound-merge-20261103-1454.md).
+
 ### T2NarrowCtype consolidation 20261103-1239
 
 The approved native lane combines two sources into T2NarrowCtype.cpp, removes one file and preserves eight existing rows /190B. Both old objects linked at the dated census;190B remains190B across the cohort. No new linking coverage or full current selection is claimed. The old LINK-063 range-name/alias debt is not retired; its deleted narrow-virtuals owner is now this destination.

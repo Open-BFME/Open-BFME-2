@@ -23824,7 +23824,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??1BfmeObject544@@QAE@XZ,,0x004CACB8,67,Code/GameEngine/Source/Common/BfmeObject544Dtor.cpp,matched,dtor array 56x8 plus Rb_tree set
 ?rva00272C9E@Drawable@@QAEMH@Z,,0x00272C9E,101,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,Drawable opacity getter modules slots C4 F0 shared 1.0F callers 0x00070F80 plus 6
 ?rva0027272B@Drawable@@QAEHXZ,,0x0027272B,34,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,Drawable module scan first nonzero slotD0 caller 0x004087F7
-?find@Rva004CABE5Store@@QAE_NHPAURva002C99FB@@PBVRva000CF0D6@@@Z,,0x004CABE5,74,Code/GameEngine/Source/Common/BfmeObject544Find.cpp,matched,find via bit test plus indexed assign
+?find@Rva004CABE5Store@@QAE_NHPAURva002C99FB@@PBVRva000CF0D6@@@Z,,0x004CABE5,74,Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionSoundSelectorClientBehavior.cpp,matched,find via bit test plus indexed assign
 ?rva00535CE4@UserPreferences@@QAEHVAsciiString@@@Z,,0x00535CE4,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences Losses via slot6 concat
 ?rva0053587C@UserPreferences@@QAEXVAsciiString@@H@Z,,0x0053587C,71,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences Points via slot2C sibling Losses
 ?rva0027290C@Drawable@@QAEXH@Z,,0x0027290C,35,Code/GameEngine/Source/GameClient/Drawable_rva0027290C.cpp,matched,Drawable first-module setter slot 5C callers 0x0039B5AF plus 1
