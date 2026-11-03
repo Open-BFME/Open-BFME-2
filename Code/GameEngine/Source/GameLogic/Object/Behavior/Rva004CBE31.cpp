@@ -9,10 +9,7 @@
 // Evidence: callees rowed 0x004CBCF2 plus 0x004CBE04; no callers.
 #include "ascii_string.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva002C99FB
 {

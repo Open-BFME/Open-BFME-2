@@ -16,11 +16,7 @@ template <> vector<unsigned int, allocator<unsigned int> > &
 vector<unsigned int, allocator<unsigned int> >::operator=(const vector<unsigned int, allocator<unsigned int> > &that);
 }
 
-struct OpaqueRefElement4
-{
-	void *m_ptr;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 class Rva0026F684
 {

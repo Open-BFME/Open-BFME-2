@@ -44,7 +44,7 @@ Rva003B5603Element &Rva000554F0::rva000554F0()
 
 // 0x00056B34 (5B): pop() of a holder of deque<OpaqueRefElement4> (the
 // stack-over-deque shape) -> the rowed pop_back 0x0005555F.
-struct OpaqueRefElement4 { void *referent; ~OpaqueRefElement4(); OpaqueRefElement4 &operator=(const OpaqueRefElement4 &); };
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 namespace _STL {
 template <> void deque<OpaqueRefElement4>::pop_back();
 }

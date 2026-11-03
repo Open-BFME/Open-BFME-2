@@ -260,11 +260,7 @@ extern UpgradeCenter*TheUpgradeCenter;
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 
 class Rva001EC349
 {

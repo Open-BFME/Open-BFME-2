@@ -32,7 +32,7 @@ namespace _STL { template <> void __destroy_aux<BfmeStringTailRecord156 *>(BfmeS
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4 {OpaqueRefCounted *referent;OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);~OpaqueRefElement4(){if(referent)referent->Release_Ref();}};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 
 template<int N>class BitFlags {public:bool setBitByName(const char *);unsigned int words[(N+31)/32];};
 

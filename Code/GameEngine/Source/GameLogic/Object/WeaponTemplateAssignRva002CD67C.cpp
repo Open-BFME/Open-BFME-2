@@ -55,11 +55,7 @@ namespace _STL {
 template <> vector<BfmePod8> &vector<BfmePod8>::operator=(const vector &);
 }
 
-struct OpaqueRefElement4
-{
-	void *m_ptr;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva002C99FB
 {

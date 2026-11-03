@@ -25,10 +25,7 @@ public:
 	const SoundsList &getSoundsVector() const;
 };
 
-struct OpaqueRefElement4
-{
-	void *m_ptr;
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 
 class Rva0049CB86LeaField
 {

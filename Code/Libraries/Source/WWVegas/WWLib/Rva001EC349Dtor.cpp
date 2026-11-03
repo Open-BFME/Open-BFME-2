@@ -19,11 +19,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 
 #include "OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 class Rva001EC349
 {

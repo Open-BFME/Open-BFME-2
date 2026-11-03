@@ -13,9 +13,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "../../../../../vendor/stlport/stl/_algobase.h"
 #include <deque>
 class OpaqueRefCounted;
-struct OpaqueRefElement4 { OpaqueRefCounted *referent;
-    ~OpaqueRefElement4();
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &); };
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 // Instantiate the recovered operation and its required template dependencies.
 typedef _STL::_Deque_iterator<OpaqueRefElement4, _STL::_Const_traits<OpaqueRefElement4> > OpaqueRefConstIterator;

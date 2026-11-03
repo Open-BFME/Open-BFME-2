@@ -12,11 +12,7 @@
 // calls stay external.
 #include "unicode_string.h"
 
-struct OpaqueRefElement4
-{
-	void *referent;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 #include "../../Apt/AptRefTarget.h"
 

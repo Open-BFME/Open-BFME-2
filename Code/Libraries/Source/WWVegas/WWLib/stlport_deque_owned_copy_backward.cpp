@@ -11,7 +11,7 @@
 struct OpaqueRefElement4;
 namespace _STL { template <> _Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> > __copy_backward<_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,int>(_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,_Deque_iterator<OpaqueRefElement4,_Nonconst_traits<OpaqueRefElement4> >,random_access_iterator_tag const &,int *); }
 
-struct OpaqueRefElement4 { void *referent; };
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 typedef _STL::_Deque_iterator<OpaqueRefElement4, _STL::_Nonconst_traits<OpaqueRefElement4> > OpaqueRefDequeIterator;
 

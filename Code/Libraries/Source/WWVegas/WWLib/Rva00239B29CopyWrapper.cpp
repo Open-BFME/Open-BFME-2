@@ -4,11 +4,7 @@
 // Pushes NULL distance and a tag local then calls the rowed 5-arg __copy at
 // 0x00051C10. Same 29B shape as copy wrappers (4th tag arg ignored).
 // Called by vector erase at 0x00239EA5 with __false_type() at [ebp+0xb].
-struct OpaqueRefElement4
-{
-	void *referent;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 
 namespace _STL
 {

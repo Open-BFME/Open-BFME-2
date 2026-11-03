@@ -3,9 +3,7 @@
 // Assignment for a 448-byte record holding 56 Rva002C99FB at +0: loops 0x38
 // times assigning via the rowed 0x002C99FB, returns this in eax with ret 4.
 // Caller at 0x002D128C unblocks 0x002D1101.
-struct OpaqueRefElement4 {
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 struct Rva002C99FB {
 	int m_first;
 	OpaqueRefElement4 m_second;
