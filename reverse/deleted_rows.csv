@@ -4630,3 +4630,7 @@ __ehhandler$?rva007B4874@@YAXXZ,0x007A0AD0,"Renamed to __ehhandler$?registerStre
 __ehhandler$?rva007B48CB@@YAXXZ,0x007A0B40,"Renamed to __ehhandler$?registerUpgradeTroops@@YAXXZ by tools/rename.py (inferred)"
 ?rva0009AFA5@Rva0009D55BProduct@@UAEXM@Z,0x0009AFA5,"Renamed to ?setPosition@Rva0009D55BProduct@@UAEXM@Z by tools/rename.py (inferred)"
 ?bfmeResetVMP@BfmeCtxVMP@@QAEXXZ,0x00666080,"Renamed to ?reset@BfmeCtxVMP@@QAEXXZ by tools/rename.py (inferred)"
+?bfmeGoDEB@@YAIPAVBfmeThingDEB@@@Z,0x00323DCE,"Renamed to ?getColor@@YAIPAVBfmeThingDEB@@@Z by tools/rename.py (inferred)"
+?rva00030860@@YAIPAXI@Z,0x00030860,"Renamed to ?getBlockSize@@YAIPAXI@Z by tools/rename.py (inferred)"
+?rva00030880@@YAXXZ,0x00030880,"Renamed to ?verifyIntegrity@@YAXXZ by tools/rename.py (inferred)"
+?rva00309F23@FireEffect@@QAEPAU1@XZ,0x00309F23,"Renamed to ?initDefaults@FireEffect@@QAEPAU1@XZ by tools/rename.py (inferred)"

@@ -9,7 +9,7 @@
 struct BfmeSubDEB
 {
 	unsigned char m_bfmeHead[0xc8];
-	unsigned int m_bfmeColor;
+	unsigned int m_color;
 };
 
 class BfmeThingDEB
@@ -18,10 +18,10 @@ public:
 	BfmeSubDEB *bfmeFindDEB();
 };
 
-unsigned int bfmeGoDEB(BfmeThingDEB *a)
+unsigned int getColor(BfmeThingDEB *a)
 {
 	BfmeSubDEB *s = a->bfmeFindDEB();
 	if (s != 0)
-		return s->m_bfmeColor;
+		return s->m_color;
 	return 0x00FFFFFF;
 }

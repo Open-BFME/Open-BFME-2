@@ -39,11 +39,11 @@ namespace _STL
 // block-size forwarder 0x00030860, with the heap word the block-heap slot
 // (VA 0x00DE03F0, ?_GetBlockHeap@MemoryPool@@YAIPAX@Z) reports.
 extern void *__gameMemGetBlockHeapPtr;
-unsigned int rva00030860(void *block, unsigned int heap);
+unsigned int getBlockSize(void *block, unsigned int heap);
 
 unsigned int rva0002FC80(void *block)
 {
-	return rva00030860(block, ((unsigned int (__cdecl *)(void *))__gameMemGetBlockHeapPtr)(block));
+	return getBlockSize(block, ((unsigned int (__cdecl *)(void *))__gameMemGetBlockHeapPtr)(block));
 }
 
 // --- 0x0002FCA0 (24B): realloc through the resize slot VA 0x00DE0400 with

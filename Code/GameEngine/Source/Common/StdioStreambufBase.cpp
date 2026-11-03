@@ -179,7 +179,7 @@ namespace _STL
 // (VA 0x00DE03F0, ?_GetBlockHeap@MemoryPool@@YAIPAX@Z) reports.
 extern void *__gameMemGetBlockHeapPtr;
 
-unsigned int rva00030860(void *block, unsigned int heap);
+unsigned int getBlockSize(void *block, unsigned int heap);
 
 // --- 0x0002FCA0 (24B): realloc through the resize slot VA 0x00DE0400 with
 // two zero words.

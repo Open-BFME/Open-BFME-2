@@ -14,8 +14,8 @@
 struct Rva0059BD58Node
 {
 	char m_pad[8];
-	Rva0059BD58Node *m_next08;
-	void *m_child0C;
+	Rva0059BD58Node *m_next;
+	void *m_child;
 };
 class Rva0059BD58
 {
@@ -28,8 +28,8 @@ void Rva0059BD58::rva0059BD58(Rva0059BD58Node *head)
 	if (!cur)
 		return;
 	do {
-		rva0059BD58((Rva0059BD58Node *)cur->m_child0C);
-		Rva0059BD58Node *next = cur->m_next08;
+		rva0059BD58((Rva0059BD58Node *)cur->m_child);
+		Rva0059BD58Node *next = cur->m_next;
 		free(cur);
 		cur = next;
 	} while (cur);

@@ -11,9 +11,9 @@ public:
 	int findPoint(int index) const;
 };
 struct Rva0014D7D4Diffuse {
-	float m_d00;
-	float m_d04;
-	float m_d08;
+	float m_red;
+	float m_green;
+	float m_blue;
 	char m_pad0C[0x54 - 0x0C];
 };
 class Rva0014D7D4Inner {
@@ -41,9 +41,9 @@ void Rva0014D7D4This::rva0014D7D4(Rva0014D7D4Outer *o, void *parameter) {
 			int idx = le->findPoint(thisIdx);
 			Rva0014D7D4Diffuse *diffs = (Rva0014D7D4Diffuse *)((char *)le + 0x5c);
 			Rva0014D7D4Diffuse *lightDiffuse = &diffs[idx];
-			buf[0] = lightDiffuse->m_d00;
-			buf[1] = lightDiffuse->m_d04;
-			buf[2] = lightDiffuse->m_d08;
+			buf[0] = lightDiffuse->m_red;
+			buf[1] = lightDiffuse->m_green;
+			buf[2] = lightDiffuse->m_blue;
 			if (ShaderOverbrightEnabled) {
 				buf[0] *= 2.0f;
 				buf[1] *= 2.0f;

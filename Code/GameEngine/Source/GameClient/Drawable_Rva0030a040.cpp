@@ -156,7 +156,7 @@ public:
 
 struct FireEffect
 {
-	FireEffect *rva00309F23();
+	FireEffect *initDefaults();
 	Real m_scale;					// 0x00  Scale
 	Real m_blend;					// 0x04  Blend
 	RGBColor m_effectColor;			// 0x08  EffectColor
@@ -193,7 +193,7 @@ const FieldParse FireEffect::m_fieldParseTable[] =
 // its own RET; no direct caller establishes constructor identity. FireEffect
 // ownership is a structural inference from the adjacent parser, its 0x58-byte
 // copy and the native FieldParse layout. Preserve an explicit initializer.
-FireEffect *FireEffect::rva00309F23()
+FireEffect *FireEffect::initDefaults()
 {
 	m_scale = 4.0f;
 	m_blend = 0.7f;

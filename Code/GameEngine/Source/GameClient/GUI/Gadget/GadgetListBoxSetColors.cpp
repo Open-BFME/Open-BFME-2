@@ -68,7 +68,7 @@ unsigned int bfmeGoDEA(BfmeThingDEA *);
 class GameWindow;
 int GadgetSliderGetDisabledSelectedThumbBorderColor(GameWindow *);
 class BfmeThingDEB;
-unsigned int bfmeGoDEB(BfmeThingDEB *);
+unsigned int getColor(BfmeThingDEB *);
 class GameWindow;
 int GadgetSliderGetHiliteSelectedThumbBorderColor(GameWindow *);
 class BfmeThingDEC;
@@ -124,7 +124,7 @@ void GadgetListBoxSetColors(GameWindow *listbox,
 		upButton->winSetDisabledColor(0, slider->winGetDisabledColor(0));
 		upButton->winSetDisabledBorderColor(0, slider->winGetDisabledBorderColor(0));
 		upButton->winSetDisabledColor(1, GadgetSliderGetDisabledSelectedThumbBorderColor(slider));
-		upButton->winSetDisabledBorderColor(1, bfmeGoDEB(reinterpret_cast<BfmeThingDEB *>(slider)));
+		upButton->winSetDisabledBorderColor(1, getColor(reinterpret_cast<BfmeThingDEB *>(slider)));
 		upButton->winSetHiliteColor(0, slider->winGetHiliteColor(0));
 		upButton->winSetHiliteBorderColor(0, slider->winGetHiliteBorderColor(0));
 		upButton->winSetHiliteColor(1, GadgetSliderGetHiliteSelectedThumbBorderColor(slider));
@@ -137,7 +137,7 @@ void GadgetListBoxSetColors(GameWindow *listbox,
 		downButton->winSetDisabledColor(0, slider->winGetDisabledColor(0));
 		downButton->winSetDisabledBorderColor(0, slider->winGetDisabledBorderColor(0));
 		downButton->winSetDisabledColor(1, GadgetSliderGetDisabledSelectedThumbBorderColor(slider));
-		downButton->winSetDisabledBorderColor(1, bfmeGoDEB(reinterpret_cast<BfmeThingDEB *>(slider)));
+		downButton->winSetDisabledBorderColor(1, getColor(reinterpret_cast<BfmeThingDEB *>(slider)));
 		downButton->winSetHiliteColor(0, slider->winGetHiliteColor(0));
 		downButton->winSetHiliteBorderColor(0, slider->winGetHiliteBorderColor(0));
 		downButton->winSetHiliteColor(1, GadgetSliderGetHiliteSelectedThumbBorderColor(slider));

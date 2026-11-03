@@ -237,7 +237,7 @@ void Rva000308E0AddHeap(unsigned int id, unsigned int size)
 
 // --- 0x00030860 (19B): a null block has size 0; otherwise tail-jump into
 // the block-size slot with the block and the heap word.
-unsigned int rva00030860(void *block, unsigned int heap)
+unsigned int getBlockSize(void *block, unsigned int heap)
 {
 	if (block == 0)
 		return 0;
@@ -245,7 +245,7 @@ unsigned int rva00030860(void *block, unsigned int heap)
 }
 
 // --- 0x00030880 (6B): tail-jump into the integrity-check slot.
-void rva00030880()
+void verifyIntegrity()
 {
 	((VerifyIntegrityFunction)g_00DE03EC)();
 }

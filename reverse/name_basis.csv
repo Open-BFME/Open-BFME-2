@@ -7422,3 +7422,13 @@ local,Rva0026E7C8Ctor::rva00332975::k1,Rva0026E7C8Ctor::rva00332975::key1,inferr
 local,Rva0026E7C8Ctor::rva00332975::k2,Rva0026E7C8Ctor::rva00332975::key2,inferred,agree:nl-6c4ec278077d,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975
 local,Rva0026E7C8Ctor::rva00332975::s1,Rva0026E7C8Ctor::rva00332975::name1,inferred,agree:nl-6cb9d3c37763,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975
 local,Rva0026E7C8Ctor::rva00332975::s2,Rva0026E7C8Ctor::rva00332975::name2,inferred,agree:nl-7617ef27f5cc,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975
+member,BfmeSubDEB::m_bfmeColor,BfmeSubDEB::m_color,inferred,agree:nl-1fed485e76be,Code/GameEngine/Source/Common/BfmeConv678GoDEB.cpp,
+member,Rva0014D7D4Diffuse::m_d00,Rva0014D7D4Diffuse::m_red,inferred,agree:nl-3ad32a22297e,Code/GameEngine/Source/Common/Rva0014D7D4Init.cpp,
+member,Rva0014D7D4Diffuse::m_d04,Rva0014D7D4Diffuse::m_green,inferred,agree:nl-abb4850dfa33,Code/GameEngine/Source/Common/Rva0014D7D4Init.cpp,
+member,Rva0014D7D4Diffuse::m_d08,Rva0014D7D4Diffuse::m_blue,inferred,agree:nl-c258834285c7,Code/GameEngine/Source/Common/Rva0014D7D4Init.cpp,
+member,Rva0059BD58Node::m_child0C,Rva0059BD58Node::m_child,inferred,agree:nl-6565b99004ad,Code/GameEngine/Source/Common/Rva0059BD58Free.cpp,
+member,Rva0059BD58Node::m_next08,Rva0059BD58Node::m_next,inferred,agree:nl-99518d0881fa,Code/GameEngine/Source/Common/Rva0059BD58Free.cpp,
+function,?bfmeGoDEB@@YAIPAVBfmeThingDEB@@@Z,?getColor@@YAIPAVBfmeThingDEB@@@Z,inferred,agree:nl-4602fe97fba9,Code/GameEngine/Source/Common/BfmeConv678GoDEB.cpp,0x00323DCE
+function,?rva00030860@@YAIPAXI@Z,?getBlockSize@@YAIPAXI@Z,inferred,agree:nl-ce5ded225210,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030860
+function,?rva00030880@@YAXXZ,?verifyIntegrity@@YAXXZ,inferred,agree:nl-0b6f33684334,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030880
+function,?rva00309F23@FireEffect@@QAEPAU1@XZ,?initDefaults@FireEffect@@QAEPAU1@XZ,inferred,agree:nl-042013c98f71,Code/GameEngine/Source/GameClient/Drawable_Rva0030a040.cpp,0x00309F23
