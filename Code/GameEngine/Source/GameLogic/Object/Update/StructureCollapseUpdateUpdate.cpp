@@ -233,36 +233,8 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class DieModuleInterface
-{
-public:
-	virtual void dieModuleInterfaceSlot();
-};
+#include "../../../../Include/GameLogic/Module/StructureCollapseUpdateClass.h"
 
-class StructureCollapseUpdate : public UpdateModule, public DieModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-
-protected:
-	void beginStructureCollapse(const DamageInfo *damageInfo);
-	Real getCollapseHeight() const;
-	void doPhaseStuff(StructureCollapsePhaseType scphase, const Coord3D *target);
-	void doCollapseDoneStuff(); // 0x004A44B1
-
-	const StructureCollapseUpdateModuleData *getStructureCollapseUpdateModuleData() const
-	{
-		return (const StructureCollapseUpdateModuleData *)getModuleData();
-	}
-
-private:
-	UnsignedInt m_collapseFrame; // +0x24
-	UnsignedInt m_burstFrame; // +0x28
-	StructureCollapseStateType m_collapseState; // +0x2C
-	Real m_collapseVelocity; // +0x30
-	Real m_currentHeight; // +0x34
-	Coord3D m_collapsePosition; // +0x38
-};
 
 // ?getCollapseHeight@StructureCollapseUpdate@@IBEMXZ
 Real StructureCollapseUpdate::getCollapseHeight() const

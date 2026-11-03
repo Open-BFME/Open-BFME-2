@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class StructureCollapseUpdate
-{
-public:
-	StructureCollapseUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x44];
-};
+#include "../../../../Include/GameLogic/Module/StructureCollapseUpdateClass.h"
 
 // ?friend_newModuleInstance@StructureCollapseUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *StructureCollapseUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

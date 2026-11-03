@@ -18,11 +18,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class StructureCollapseUpdate
-{
-public:
-	static NameKeyType rva0004A429F();
-};
+#include "../../../../Include/GameLogic/Module/StructureCollapseUpdateClass.h"
 
 // ?rva0004A429F@StructureCollapseUpdate@@SA?AW4NameKeyType@@XZ
 NameKeyType StructureCollapseUpdate::rva0004A429F()
