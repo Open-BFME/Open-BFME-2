@@ -1,0 +1,430 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AudioFileCache",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 11,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x38": {
+    "4": 1
+   },
+   "0x48": {
+    "4": 3
+   },
+   "0x4c": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0xa8531"
+     ],
+     "value": {
+      "0x0": [
+       "?$hash_map@HURva000A7E7AElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva000A7E7AElement@@@_STL@@@3@@_STL"
+      ],
+      "0x20": [
+       "?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL",
+       "?$map@EMU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEM@_STL@@@2@@_STL",
+       "?$map@HPAXU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL",
+       "?$map@HPAXURva001FDAB0Less@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@_STL@@@_STL",
+       "?$map@HURva00501875Count@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva00501875Count@@@_STL@@@3@@_STL",
+       "?$map@IPAVWaypoint@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVWaypoint@@@_STL@@@3@@_STL",
+       "?$map@I_NU?$less@I@_STL@@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL",
+       "?$map@UTemplateCountKey@@HU?$less@UTemplateCountKey@@@_STL@@V?$allocator@U?$pair@$$CBUTemplateCountKey@@H@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@HU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@H@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@MU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@M@_STL@@@3@@_STL",
+       "?$map@VAsciiString@@PAVNamedTimerInfo@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@4@@_STL",
+       "?$map@VAsciiString@@UOpaqueVolumeWord@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UOpaqueVolumeWord@@@_STL@@@4@@_STL",
+       "?$map@W4ObjectID@@HU?$less@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL",
+       "?$multimap@IVAssetReference@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIVAssetReference@@@_STL@@@3@@_STL",
+       "NoCaseMapView",
+       "Rva00205AF8",
+       "Rva0046A915",
+       "Rva004D1D32",
+       "TemplateNameMapView",
+       "WeaponSetFinderView"
+      ],
+      "0x2c": [
+       "?$map@EFU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEF@_STL@@@2@@_STL",
+       "?$set@HU?$less@H@_STL@@V?$Rva0054E8DCAllocator@H@@@_STL",
+       "?$set@PAURva004ABDDCEntry@@U?$less@PAURva004ABDDCEntry@@@_STL@@V?$allocator@PAURva004ABDDCEntry@@@3@@_STL",
+       "?$set@URva000D20A9Key@@U?$less@URva000D20A9Key@@@_STL@@V?$allocator@URva000D20A9Key@@@3@@_STL",
+       "?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL",
+       "Rva002EE9B7"
+      ],
+      "0x44": [
+       "?$RefCountPtr@VTextureClass@@",
+       "?$StringBase@D",
+       "?$StringBase@G",
+       "AsciiString",
+       "AudioFileContainer",
+       "BfmeStringTailRecord156",
+       "D3DXTex::CLockVolume",
+       "MpGameSetupComboRef",
+       "Rva00336BE4Key",
+       "Rva00690FF0Handle",
+       "ScriptPositionRecord",
+       "UnicodeString",
+       "W3DScriptedModelDrawEntry1C"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "68": 1,
+   "72": 1,
+   "80": 1,
+   "84": 6
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AudioFileCache.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::equal_to<int>",
+   "name": "_M_ht._M_equals",
+   "name_by": "majority",
+   "offset": 1,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::equal_to<int>",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::_Select1st<_STL::pair<int const ,Rva000A7E7AElement> >",
+   "name": "_M_ht._M_get_key",
+   "name_by": "majority",
+   "offset": 2,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::_Select1st<_STL::pair<int const ,Rva000A7E7AElement> >",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_ht._M_buckets._M_finish",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void**",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "_M_ht._M_buckets._M_end_of_storage._M_data",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void**",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "count",
+   "name_by": "tie",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_pending",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::list<int,_STL::allocator<int> >[12]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_unused20._M_t._M_node_count",
+   "name_by": "tie",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<AsciiString>*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<AsciiString>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<AsciiString>"
+    }
+   ],
+   "name": "m_failed",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_activeBytes",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_unusedBytes",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_budget",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AudioFileContainer",
+   "members": [
+    {
+     "kind": "P",
+     "name": "target",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "sentinel44",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AudioFileContainer",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_thread",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_quit",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mutex",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "1:S:_STL::hash<int>": 1,
+    "4:P": 1,
+    "84:A": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "field@0x4",
+   "candidates": {
+    "12:A": 1,
+    "4:P": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "_M_ht._M_num_elements._M_data": 1,
+    "count": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "field@0x20",
+   "candidates": {
+    "12:A": 2,
+    "4:P": 2
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "name@0x24",
+   "candidates": {
+    "m_tree._M_node_count": 1,
+    "m_unused20._M_t._M_node_count": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "field@0x28",
+   "candidates": {
+    "1:S:_STL::less<Rva000A7E31Key>": 1,
+    "1:S:_STL::less<int>": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "name@0x44",
+   "candidates": {
+    "emptyFile.target": 1,
+    "m_bad.m_target": 1,
+    "m_badHandle": 1,
+    "m_emptyFile.target": 1,
+    "sentinel44.target": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "nested@0x1",
+   "candidates": {
+    "_M_ht._M_equals": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "nested@0x2",
+   "candidates": {
+    "_M_ht._M_get_key": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "_M_ht._M_buckets._M_finish": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "_M_ht._M_buckets._M_end_of_storage._M_data": 1
+   },
+   "class": "AudioFileCache"
+  },
+  {
+   "attribute": "nested@0x24",
+   "candidates": {
+    "m_unused20._M_t._M_node_count": 2
+   },
+   "class": "AudioFileCache"
+  }
+ ],
+ "size": 84,
+ "size_by": "majority",
+ "vslots": {}
+}
