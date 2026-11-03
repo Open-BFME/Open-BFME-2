@@ -22892,3 +22892,7 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B8573Method.cpp|functi
 Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp|local|Rva001DCDAF::rva001DCDAF|f,0cc26b2a4e3df0d972ac60d9,drz-k10,drz-k10-n47g-10,w-88a32c4f7da7,2026-11-02
 Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp|local|Rva0035A238::rva00359E93|x,6c45ac1e0dcf5468212dba53,drz-k10,drz-k10-n47g-14,w-88a32c4f7da7,2026-11-02
 Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp|local|Rva0035A238::rva00359E93|y,58166e9081ebb53e4c3b63dc,drz-k10,drz-k10-n47g-14,w-88a32c4f7da7,2026-11-02
+Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp|member|Rva0058BD4FPkt|field20,4085bd375cb8e056a24e6feb,drz-k11,drz-k11-n47h-6,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp|member|Rva0058BD4FPkt|field24,4027ba858a141cb853f1d415,drz-k11,drz-k11-n47h-6,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameNetwork/GameSpy/ChatDispatchIndexedValue.cpp|member|BfmeChatChannelKeyState|m_bfmeChat,f03bb11172917cdabf9de442,drz-k11,drz-k11-n47h-13,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameNetwork/GameSpy/ChatDispatchIndexedValue.cpp|member|BfmeChatChannelKeyState|m_bfmeChannelName,d6d970a5bad85775e1214172,drz-k11,drz-k11-n47h-13,w-09889333d128,2026-11-02
