@@ -69,7 +69,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 class Player;class Object{public:char pad[0x74];ObjectID id;};
 extern GameLogic*TheGameLogic;
 class Rva004E9378{public:bool rva004E9378();};
-class Rva00506B1B{public:void rva00506B2F();};
+#include "../../../Include/GameLogic/Rva00506B1B.h"
 class Rva0055ADD8{public:int failBuild(int);};
 class AIBuildable{public:int doCanMake(Player*);bool doBuild(Player*);};
 class AIUnitBuilder{public:Object*Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);};

@@ -196,17 +196,7 @@ class Rva004EB794 {public:bool rva004EB794(const ModuleData *);};
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class __declspec(novtable) Rva00506B1B
-{
-public:
-    Rva00506B1B();
-    // Constructor-only lifetime view: inline cleanup without defining a second
-    // empty copy of the separately rowed base destructor (506B28).
-    virtual __declspec(dllimport) __forceinline ~Rva00506B1B() {}
-    virtual void v1();
-    virtual void v2();
-    bool m_04;
-};
+#include "../../../../Include/GameLogic/Rva00506B1B.h"
 
 class Rva004E9B46 : public Rva00506B1B
 {

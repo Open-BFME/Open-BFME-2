@@ -196,7 +196,7 @@ struct Rva002A8AB1Record;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva00506B1B { public: void rva00506B2F(); };
+#include "../../../Include/GameLogic/Rva00506B1B.h"
 
 // Native TacticalAI +0x10 is the tactics generator. WB names the two
 // forwarding members; their retail tails reach its established Team methods.
