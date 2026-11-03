@@ -98,7 +98,7 @@ struct Rva001EB023Elem
 	char unknown94[0xAC - 0x94];
 };
 
-class Rva00575674 {public: void rva00575674(Object*);};
+#include "../../../Include/Common/Rva00575674.h"
 
 class Rva001EB8D7 {public: void *rva001EB90C(const StringBase<char>&);};
 

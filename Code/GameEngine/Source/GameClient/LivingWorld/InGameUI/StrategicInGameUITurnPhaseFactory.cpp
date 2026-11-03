@@ -15,7 +15,7 @@ public:
 
 #include "../../../../Include/Common/Rva000AD6F4.h"
 class Object;
-class Rva00575674 {public:void rva00575674(Object *);};
+#include "../../../../Include/Common/Rva00575674.h"
 
 class Rva0042C23AHolder
 {

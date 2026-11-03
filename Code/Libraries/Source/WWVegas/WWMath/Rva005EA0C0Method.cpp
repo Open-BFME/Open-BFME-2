@@ -9,12 +9,7 @@ public:
   virtual void f1();
   virtual void f2();
 };
-class Rva00575674
-{
-public:
-  void rva00575674(Object *p);
-  Object *m_ptr;
-};
+#include "../../../../GameEngine/Include/Common/Rva00575674.h"
 class Rva005EA183
 {
 public:

@@ -17,7 +17,7 @@ class Rva005D10F9:public Rva005D1035{public:Rva005D10F9(void*,void*);virtual ~Rv
 void*__cdecl rva005ED198(const void*);
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Object;
-class Rva00575674{public:void rva00575674(Object*);};
+#include "../../../../Include/Common/Rva00575674.h"
 class Rva000AD6F4{public:Rva000AD6F4():ptr(0){}~Rva000AD6F4();void clear();void*ptr;};
 class Rva005D10B0State {public:virtual void slot0();virtual void slot1();};
 struct Rva005D10B0Owner{Rva005D10B0State*state;};

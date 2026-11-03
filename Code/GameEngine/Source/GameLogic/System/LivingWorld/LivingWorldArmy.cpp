@@ -271,7 +271,7 @@ struct QueueCollectionView { _STL::vector<MoveRecordStorage> entries; };
 struct MoveArmyView { char pad00[0x3C]; Coord2D destination; };
 
 class Object;
-class Rva00575674 {public:void rva00575674(Object*);};
+#include "../../../../Include/Common/Rva00575674.h"
 
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};

@@ -10,7 +10,7 @@ class GameMessage;
 namespace StrategicInGameUI { class ResolveBattlesBehavior { public: class Impl; }; }
 class StrategicInGameUI::ResolveBattlesBehavior::Impl { public: class MyResolveRegionOwnershipChecklistItem; };
 class Object;
-class Rva00575674 { public: void rva00575674(Object *); };
+#include "../../../../Include/Common/Rva00575674.h"
 class RegionAwardDispute { public: int GetResolvableBy(); };
 class Rva00328A83PtrChaseField { public: int get() const; };
 class Rva0042D6BAPtrChaseField { public: int get() const; };
