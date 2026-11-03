@@ -1,0 +1,1471 @@
+{
+ "bases": [
+  "FXParticleSystem::ParticleSystemInfo"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "ParticleSystem",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x100": {
+    "4": 3
+   },
+   "0x104": {
+    "4": 3
+   },
+   "0x108": {
+    "4": 2
+   },
+   "0x10c": {
+    "4": 4
+   },
+   "0x110": {
+    "4": 3
+   },
+   "0x114": {
+    "4": 3
+   },
+   "0x118": {
+    "4": 2
+   },
+   "0x11c": {
+    "4": 1
+   },
+   "0x13c": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x140": {
+    "4": 1
+   },
+   "0x144": {
+    "4": 3
+   },
+   "0x148": {
+    "4": 1
+   },
+   "0x14c": {
+    "4": 1
+   },
+   "0x150": {
+    "4": 2
+   },
+   "0x154": {
+    "4": 1
+   },
+   "0x158": {
+    "4": 1
+   },
+   "0x15c": {
+    "4": 6
+   },
+   "0x16c": {
+    "4": 1
+   },
+   "0x180": {
+    "4": 1
+   },
+   "0x1a0": {
+    "1": 3
+   },
+   "0x1a1": {
+    "1": 2
+   },
+   "0x1a4": {
+    "1": 1
+   },
+   "0x1a5": {
+    "4": 1
+   },
+   "0x1a6": {
+    "1": 1
+   },
+   "0x1bc": {
+    "4": 1
+   },
+   "0x1c0": {
+    "4": 1
+   },
+   "0x33a": {
+    "1": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x6c": {
+    "4": 1
+   },
+   "0x70": {
+    "4": 1
+   },
+   "0x74": {
+    "4": 1
+   },
+   "0x82": {
+    "1": 1
+   },
+   "0x98": {
+    "4": 1
+   },
+   "0xa4": {
+    "4": 1
+   },
+   "0xbc": {
+    "4": 4
+   },
+   "0xc": {
+    "4": 1
+   },
+   "0xc0": {
+    "4": 4
+   },
+   "0xc4": {
+    "4": 4
+   },
+   "0xcc": {
+    "4": 4
+   },
+   "0xd0": {
+    "4": 4
+   },
+   "0xd4": {
+    "4": 4
+   },
+   "0xdc": {
+    "4": 4
+   },
+   "0xe0": {
+    "4": 4
+   },
+   "0xe4": {
+    "4": 4
+   },
+   "0xec": {
+    "4": 4
+   },
+   "0xf0": {
+    "4": 4
+   },
+   "0xf4": {
+    "4": 4
+   },
+   "0xf8": {
+    "4": 3
+   },
+   "0xfc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x1dc": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1fc701"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "FXParticleSystem::ParticleSystemInfo",
+       "offset": 0,
+       "own_vftable": "0x7e1a10",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1fc701"
+     ],
+     "value": 425
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1fc701"
+     ],
+     "value": {
+      "0x100": [
+       4
+      ],
+      "0x104": [
+       4
+      ],
+      "0x108": [
+       4
+      ],
+      "0x10c": [
+       4
+      ],
+      "0x110": [
+       4
+      ],
+      "0x114": [
+       4
+      ],
+      "0x118": [
+       4
+      ],
+      "0x11c": [
+       4
+      ],
+      "0x120": [
+       4
+      ],
+      "0x124": [
+       4
+      ],
+      "0x128": [
+       4
+      ],
+      "0x12c": [
+       4
+      ],
+      "0x130": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x140": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x14c": [
+       4
+      ],
+      "0x150": [
+       4
+      ],
+      "0x154": [
+       4
+      ],
+      "0x158": [
+       4
+      ],
+      "0x15c": [
+       4
+      ],
+      "0x160": [
+       4
+      ],
+      "0x164": [
+       4
+      ],
+      "0x168": [
+       4
+      ],
+      "0x16c": [
+       4
+      ],
+      "0x170": [
+       4
+      ],
+      "0x174": [
+       4
+      ],
+      "0x178": [
+       4
+      ],
+      "0x17c": [
+       4
+      ],
+      "0x180": [
+       4
+      ],
+      "0x184": [
+       4
+      ],
+      "0x188": [
+       4
+      ],
+      "0x18c": [
+       4
+      ],
+      "0x190": [
+       4
+      ],
+      "0x194": [
+       1
+      ],
+      "0x198": [
+       4
+      ],
+      "0x19c": [
+       4
+      ],
+      "0x1a0": [
+       1
+      ],
+      "0x1a1": [
+       1
+      ],
+      "0x1a2": [
+       1
+      ],
+      "0x1a3": [
+       1
+      ],
+      "0x1a4": [
+       1
+      ],
+      "0x1a5": [
+       1
+      ],
+      "0x1a6": [
+       1
+      ],
+      "0x1a7": [
+       1
+      ],
+      "0x1a8": [
+       1
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x4": [
+       1
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x80": [
+       1
+      ],
+      "0x81": [
+       1
+      ],
+      "0x82": [
+       1
+      ],
+      "0x83": [
+       1
+      ],
+      "0x84": [
+       1
+      ],
+      "0x88": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       4
+      ],
+      "0xe0": [
+       4
+      ],
+      "0xe4": [
+       4
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       4
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf4": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1fc701"
+     ],
+     "value": {
+      "0x0": [
+       "?rva001F5496@Rva001F5496@@QAEXABVRvaSmartPtr12@@@Z"
+      ],
+      "0x10": [
+       "?set@?$StringBase@D@@QAEXABV1@@Z"
+      ],
+      "0x1ac": [
+       "??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ"
+      ],
+      "0x78": [
+       "?set@?$StringBase@D@@QAEXABV1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1fc701"
+     ],
+     "value": {
+      "0x0": "0x7e1a10"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e1a10"
+     ],
+     "value": {
+      "count": 6,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GParticleSystem@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1fc17f"
+       },
+       {
+        "name": "?loadPostProcess@ParticleSystem@@MAEXXZ",
+        "slot": 1,
+        "target": "0x1f628f"
+       },
+       {
+        "name": "?name@Rva001FBEB1Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x1fbeb1"
+       },
+       {
+        "name": "?DoXfer@Rva001FB201@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x1fb201"
+       },
+       {
+        "name": "?update@ParticleSystem@@UAE_NH@Z",
+        "slot": 4,
+        "target": "0x1fab59"
+       },
+       {
+        "name": "?createParticle@ParticleSystem@FXParticleSystem@@QAE_NPBVRva001F376E@@HPBVParticleSystemTemplate@@_N@Z",
+        "slot": 5,
+        "target": "0x1fcc73"
+       }
+      ],
+      "table": "0x7e1a10"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x7e1a10": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GParticleSystem@@UAEPAXI@Z",
+     "1": "?loadPostProcess@ParticleSystem@@MAEXXZ",
+     "2": "?name@Rva001FBEB1Named@@QBEPBDXZ",
+     "3": "?DoXfer@Rva001FB201@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "4": "?update@ParticleSystem@@UAE_NH@Z",
+     "5": "?createParticle@ParticleSystem@FXParticleSystem@@QAE_NPBVRva001F376E@@HPBVParticleSystemTemplate@@_N@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 19,
+   "40": 1,
+   "52": 2,
+   "164": 1,
+   "168": 2,
+   "172": 3,
+   "184": 1,
+   "416": 1,
+   "420": 1,
+   "423": 1,
+   "456": 2,
+   "460": 1,
+   "476": 3
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ParticleSystem.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ParticleSys.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 5
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F69B1ParticleDrawBinder.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/QuadDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/QuadDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFXParticleSystem.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F69B1ParticleDrawBinder.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/QuadDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFXParticleSystem.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/FXPSStorageModuleRva003B0869.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/QuadDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFXParticleSystem.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F73D5ParticlePhysicsUpdateBinder.cpp",
+    "Code/GameEngine/Source/Common/Rva001F73D5ParticlePhysicsUpdateBinder_~Rva001F4B01.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F73D5ParticlePhysicsUpdateBinder.cpp",
+    "Code/GameEngine/Source/Common/Rva001F73D5ParticlePhysicsUpdateBinder_~Rva001F4B01.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 129,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 130,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 131,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/QuadDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFXParticleSystem.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateClientUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A5A58WindUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F5BBE.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A5A58WindUpdate.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 304,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 308,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 312,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 316,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 332,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 336,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 340,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 344,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 348,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 352,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 356,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 360,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 364,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 368,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 372,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 376,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 380,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 408,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 412,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 416,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 417,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 418,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 419,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 420,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 421,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 422,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 423,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 424,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 428,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/System/ParticleSystemUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 444,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 448,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 452,
+   "sources": [
+    "Code/GameEngine/Source/Common/ParticleSystemManagerFindByID.cpp",
+    "Code/GameEngine/Source/Common/Rva001F69B1ParticleDrawBinder.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFXParticleSystem.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 456,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A5A58WindUpdate.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['FXParticleSystem::ParticleSystemInfo']": 2,
+    "['Rva001F3C43Slot']": 2
+   },
+   "class": "ParticleSystem",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "168:A": 1,
+    "4:VPTR": 1,
+    "8:A": 1
+   },
+   "class": "ParticleSystem"
+  },
+  {
+   "attribute": "inherited@0xc",
+   "candidates": {
+    "4:A": 1,
+    "4:i4": 1
+   },
+   "class": "ParticleSystem"
+  },
+  {
+   "attribute": "inherited@0x14",
+   "candidates": {
+    "144:A": 1,
+    "20:A": 1,
+    "4:i4": 1
+   },
+   "class": "ParticleSystem"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 19,
+    "40": 1,
+    "52": 2,
+    "164": 1,
+    "168": 2,
+    "172": 3,
+    "184": 1,
+    "416": 1,
+    "420": 1,
+    "423": 1,
+    "456": 2,
+    "460": 1,
+    "476": 3
+   },
+   "class": "ParticleSystem"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "update(int)": 2
+   },
+   "class": "ParticleSystem",
+   "why": "beyond the retail vftable's 6 slots"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
