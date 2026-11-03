@@ -408,6 +408,22 @@ allocator<_Rb_tree_node<pair<const AsciiString, Coord3D> > >::allocate(
 // approved TU (dx8fvf.cpp) takes it, so it is instantiated here too.
 template void vector<ICoord2D, allocator<ICoord2D> >::_M_insert_overflow(
     ICoord2D *, const ICoord2D &, const __false_type &, size_t, bool);
+// The map<UnicodeString, AsciiString> constructor rows 0x00157020,
+// 0x00620E90 and 0x00620720 were emitted here by Zero Hour's
+// populateMapListboxNoReset (dropped below). They stay this file's rows, as
+// before, so they are instantiated here too.
+template _Rb_tree<UnicodeString, pair<const UnicodeString, AsciiString>,
+    _Select1st<pair<const UnicodeString, AsciiString> >, less<UnicodeString>,
+    allocator<pair<const UnicodeString, AsciiString> > >::_Rb_tree(
+        const less<UnicodeString> &, const allocator<pair<const UnicodeString, AsciiString> > &);
+template _Rb_tree_base<pair<const UnicodeString, AsciiString>,
+    allocator<pair<const UnicodeString, AsciiString> > >::_Rb_tree_base(
+        const allocator<pair<const UnicodeString, AsciiString> > &);
+template map<UnicodeString, AsciiString, less<UnicodeString>,
+    allocator<pair<const UnicodeString, AsciiString> > >::map();
+// PeerThread.cpp binds __default_constructed<AsciiString> to this file's copy,
+// which the same Zero Hour body emitted.
+template AsciiString __default_constructed<AsciiString>(AsciiString *);
 }
 
 MapCache *TheMapCache = NULL;
@@ -420,217 +436,13 @@ Bool WouldMapTransfer( const AsciiString& mapName )
 		TheMapCache->getUserMapDir().str());
 }
 
-//-------------------------------------------------------------------------------------------------
-/** Load the listbox with all the map files available to play */
-//-------------------------------------------------------------------------------------------------
-Int populateMapListboxNoReset( GameWindow *listbox, Bool useSystemMaps, Bool isMultiplayer, AsciiString mapToSelect )
-{
-	if(!TheMapCache)
-		return -1;
-
-	if (!listbox)
-		return -1;
-	
-	// reset the listbox content
-	//GadgetListBoxReset( listbox );
-	
-	Int numColumns = GadgetListBoxGetNumColumns( listbox );
-	const Image *easyImage = NULL;
-	const Image *mediumImage = NULL;
-	const Image *brutalImage = NULL;
-	const Image *maxBrutalImage = NULL;
-	SkirmishBattleHonors *battleHonors = NULL;
-	Int w = 10, h = 10;
-	if (numColumns > 1)
-	{
-		easyImage = TheMappedImageCollection->findImageByName("Star-Bronze");
-		mediumImage = TheMappedImageCollection->findImageByName("Star-Silver");
-		brutalImage = TheMappedImageCollection->findImageByName("Star-Gold");
-		maxBrutalImage = TheMappedImageCollection->findImageByName("RedYell_Star");
-		battleHonors = new SkirmishBattleHonors;
-
-		w = (brutalImage)?brutalImage->getImageWidth():10;
-		w = min(GadgetListBoxGetColumnWidth(listbox, 0), w);
-		h = w;
-	}
-
-	Color color = GameMakeColor( 255, 255, 255, 255 );
-	UnicodeString mapDisplayName;
-
-	Int selectionIndex = 0; // always select *something*
-
-	MapCache::iterator it = TheMapCache->begin();
-	AsciiString mapDir;
-	if (useSystemMaps)
-	{
-		mapDir = TheMapCache->getMapDir();
-	}
-	else
-	{
-		mapDir = TheGlobalData->getPath_UserData();
-		concatStringBase(mapDir, TheMapCache->getMapDir());
-	}
-	((StringBase<char> *)&mapDir)->toLower();
-
-typedef std::set<UnicodeString, rts::less_than_nocase<UnicodeString> > MapNameList;
-typedef MapNameList::iterator MapNameListIter;
-
-typedef std::map<UnicodeString, AsciiString> MapDisplayToFileNameList;
-typedef MapDisplayToFileNameList::iterator MapDisplayToFileNameListIter;
-
-	MapNameList tempCache;
-	MapDisplayToFileNameList filenameMap;
-	UnsignedInt numMapsListed = 0;
-	UnsignedInt curNumPlayersInMap = 0;
-
-	while (numMapsListed < TheMapCache->size()) {
-
-		DEBUG_LOG(("Adding maps with %d players\n", curNumPlayersInMap));
-		it = TheMapCache->begin();
-		while (it != TheMapCache->end()) {
-			const MapMetaData *md = &(it->second);
-			if (md != NULL) {
-				if (md->m_numPlayers == curNumPlayersInMap) {
-					tempCache.insert(it->second.m_displayName);
-					filenameMap[it->second.m_displayName] = it->first;
-					DEBUG_LOG(("Adding map %s to temp cache.\n", it->first.str()));
-					++numMapsListed;
-				}
-			}
-			++it;
-		}
-
-		MapNameListIter tempit = tempCache.begin();
-
-		while (tempit != tempCache.end())
-		{
-
-			AsciiString asciiMapName;
-			asciiMapName = filenameMap[*tempit];
-			it = TheMapCache->find(asciiMapName);
-			/*
-			if (it != TheMapCache->end())
-			{
-				DEBUG_LOG(("populateMapListbox(): looking at %s (displayName = %ls), mp = %d (== %d?) mapDir=%s (ok=%d)\n",
-					it->first.str(), it->second.m_displayName.str(), it->second.m_isMultiplayer, isMultiplayer,
-					mapDir.str(), it->first.startsWith(mapDir.str())));
-			}
-			*/
-			
-			//Patch 1.03 -- Purposely filter out these broken maps that exist in Generals.
-			if( !asciiMapName.compare( "maps\\armored fury\\armored fury.map" ) || 
-				!asciiMapName.compare( "maps\\scorched earth\\scorched earth.map" ) )
-			{
-				++tempit;
-				continue;
-			}
-
-			DEBUG_ASSERTCRASH(it != TheMapCache->end(), ("Map %s not found in map cache.", *tempit));
-			if (((const StringBase<char> *)&it->first)->startsWithNoCase(mapDir.str()) && isMultiplayer == it->second.m_isMultiplayer && !it->second.m_displayName.isEmpty())
-			{
-				/// @todo: mapDisplayName = TheGameText->fetch(it->second.m_displayName.str());
-				mapDisplayName = it->second.m_displayName;
-				Int index = -1;
-				Int imageItemData = -1;
-				if (numColumns > 1 && it->second.m_isMultiplayer)
-				{
-					Int numEasy = battleHonors->getEnduranceMedal(it->first.str(), SLOT_EASY_AI);
-					Int numMedium = battleHonors->getEnduranceMedal(it->first.str(), SLOT_MED_AI);
-					Int numBrutal = battleHonors->getEnduranceMedal(it->first.str(), SLOT_BRUTAL_AI);
-					if (numBrutal)
-					{
-						int maxBrutalSlots = it->second.m_numPlayers - 1;
-						if (numBrutal == maxBrutalSlots)
-						{
-							index = GadgetListBoxAddEntryImage( listbox, maxBrutalImage, index, 0, w, h, TRUE);
-							imageItemData = 4;
-						}
-						else	
-						{
-							index = GadgetListBoxAddEntryImage( listbox, brutalImage, index, 0, w, h, TRUE);
-							imageItemData = 3;
-						}
-					}
-					else if (numMedium)
-					{
-						imageItemData = 2;
-						index = GadgetListBoxAddEntryImage( listbox, mediumImage, index, 0, w, h, TRUE);
-					}
-					else if (numEasy)
-					{
-						imageItemData = 1;
-						index = GadgetListBoxAddEntryImage( listbox, easyImage, index, 0, w, h, TRUE);
-					}
-					else
-					{
-						imageItemData = 0;
-						index = GadgetListBoxAddEntryImage( listbox, NULL, index, 0, w, h, TRUE);
-					}
-				}
-				index = GadgetListBoxAddEntryText( listbox, mapDisplayName, color, index, numColumns-1 );
-
-				if (it->first == mapToSelect)
-				{
-					selectionIndex = index;
-				}
-
-				// now set the char* as the item data.  this works because the map cache isn't being
-				// modified while a map listbox is up.
-				GadgetListBoxSetItemData( listbox, (void *)(it->first.str()), index );
-
-				if (numColumns > 1)
-				{
-					GadgetListBoxSetItemData( listbox, (void *)imageItemData, index, 1 );
-				}
-			}
-			++tempit;
-		}
-
-		tempCache.clear();
-		filenameMap.clear();
-		++curNumPlayersInMap;
-	}
-
-	if (battleHonors)
-	{
-		delete battleHonors;
-		battleHonors = NULL;
-	}
-
-	GadgetListBoxSetSelected(listbox, &selectionIndex, 1);
-	if (selectionIndex >= 0)
-	{
-		Int topIndex = GadgetListBoxGetTopVisibleEntry(listbox);
-		Int bottomIndex = GadgetListBoxGetBottomVisibleEntry(listbox);
-		Int rowsOnScreen = bottomIndex - topIndex;
-
-		if (selectionIndex >= bottomIndex)
-		{
-			Int newTop = max( 0, selectionIndex - max( 1, rowsOnScreen / 2 ) ); 
-		//The trouble is that rowsonscreen/2 can be zero if bottom is 1 and top is zero
-			GadgetListBoxSetTopVisibleEntry( listbox, newTop );
-		}
-	}
-	return selectionIndex;
-
-}  // end loadMapListbox
-
-//-------------------------------------------------------------------------------------------------
-/** Load the listbox with all the map files available to play */
-//-------------------------------------------------------------------------------------------------
-Int populateMapListbox( GameWindow *listbox, Bool useSystemMaps, Bool isMultiplayer, AsciiString mapToSelect )
-{
-	if(!TheMapCache)
-		return -1;
-
-	if (!listbox)
-		return -1;
-	
-	// reset the listbox content
-	GadgetListBoxReset( listbox );
-
-	return populateMapListboxNoReset( listbox, useSystemMaps, isMultiplayer, mapToSelect );
-}
+// NOTE (link lane): Zero Hour's populateMapListboxNoReset and populateMapListbox
+// (AsciiString taken by value) were dropped. No row holds them, and no other
+// object references them. BFME 2's are the rows 0x00304BA9 and 0x00304744 in
+// MapUtilGetDefaultMap.cpp, which take const AsciiString &. The Zero Hour bodies
+// called SkirmishBattleHonors' constructor and getEnduranceMedal,
+// GadgetListBoxGetBottomVisibleEntry and UnicodeString::set, none of which
+// BFME 2 provides under those spellings (LINK-181).
 	
 
 
