@@ -1,0 +1,567 @@
+{
+ "bases": [
+  "UpdateModule",
+  "EmotionTrackerUpdateSecondaryBase"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "EmotionTrackerUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 10,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x8": {
+    "4": 1
+   },
+   "0x90": {
+    "4": 1
+   },
+   "0x94": {
+    "4": 1
+   },
+   "0xb0": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4b21b9"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x85667c",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 32,
+       "own_vftable": "0x8565ac",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b21b9"
+     ],
+     "value": 200
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4b21b9"
+     ],
+     "value": {
+      "0x30": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       1
+      ],
+      "0xc4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4b21b9"
+     ],
+     "value": {
+      "0x90": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa4": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24fadf"
+     ],
+     "value": 200
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4b21b9"
+     ],
+     "value": {
+      "0x10": [
+       "0x8565b0"
+      ],
+      "0xc": [
+       "0x8565c0"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4b21b9"
+     ],
+     "value": {
+      "0x0": "0x85667c",
+      "0x20": "0x8565ac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x85667c"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GEmotionTrackerUpdate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4b15ca"
+       },
+       {
+        "name": "?loadPostProcess@EmotionTrackerUpdate@@MAEXXZ",
+        "slot": 1,
+        "target": "0x4b0fb9"
+       },
+       {
+        "name": "?name@EmotionTrackerUpdate@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4b138d"
+       },
+       {
+        "name": "?xfer@EmotionTrackerUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4b1ecb"
+       },
+       {
+        "name": "?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4b1393"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 12,
+        "target": "0xd43d0"
+       }
+      ],
+      "table": "0x85667c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x8565ac": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x85667c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GEmotionTrackerUpdate@@UAEPAXI@Z",
+     "1": "?loadPostProcess@EmotionTrackerUpdate@@MAEXXZ",
+     "2": "?name@EmotionTrackerUpdate@@QBEPBDXZ",
+     "3": "?xfer@EmotionTrackerUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "12": 1,
+   "196": 1,
+   "200": 3,
+   "204": 1
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "Object*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 20], [32, 36]]": 1,
+    "[[0, 28], [32, 36]]": 1,
+    "[[0, 32], [32, 36]]": 1
+   },
+   "class": "EmotionTrackerUpdate"
+  }
+ ],
+ "size": 200,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
