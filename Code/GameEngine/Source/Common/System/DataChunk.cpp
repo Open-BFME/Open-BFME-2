@@ -363,14 +363,7 @@ typedef unsigned char Byte;
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // Zero Hour's ChunkInputStream: read is vslot 0, eof vslot 3.
-class ChunkInputStream
-{
-public:
-	virtual int read(void *buf, int numBytes) = 0;
-	virtual unsigned int tell(void) = 0;
-	virtual bool absoluteSeek(unsigned int pos) = 0;
-	virtual bool eof(void) = 0;
-};
+#include "../../../Include/Common/ChunkInputStreamClass.h"
 
 class Dict
 {

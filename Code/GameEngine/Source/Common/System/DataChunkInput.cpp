@@ -91,14 +91,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MapReaderWriterInfo.h
 // parse()'s inlined closeDataChunk() proves the next two slots: tell() at
 // +0x04, absoluteSeek() at +0x08. atEndOfFile() proves eof() at +0x0C.
-class ChunkInputStream
-{
-public:
-	virtual Int read(void *pData, Int numBytes);
-	virtual Int tell(void);
-	virtual void absoluteSeek(Int pos);
-	virtual Bool eof(void);
-};
+#include "../../../Include/Common/ChunkInputStreamClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DataChunk.h
 class InputChunk

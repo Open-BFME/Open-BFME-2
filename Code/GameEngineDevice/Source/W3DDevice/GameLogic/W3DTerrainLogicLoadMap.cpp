@@ -36,13 +36,7 @@ private:
 };
 }
 
-class ChunkInputStream
-{
-public:
-	virtual Int read(void *pData, Int numBytes) = 0;
-	virtual unsigned int tell(void) = 0;
-	virtual Bool absoluteSeek(unsigned int pos) = 0;
-};
+#include "../../../../GameEngine/Include/Common/ChunkInputStreamClass.h"
 
 class MapCache;
 extern MapCache *TheMapCache;

@@ -107,9 +107,7 @@ private:
 	void *m_data;
 };
 
-class ChunkInputStream
-{
-};
+#include "../../../Include/Common/ChunkInputStreamClass.h"
 
 // The cached file stream the build-list loader reads (BFME 1's
 // CachedFileInputStream), rowed under its constructor's address name: ctor

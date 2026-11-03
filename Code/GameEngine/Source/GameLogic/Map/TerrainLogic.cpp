@@ -1002,13 +1002,7 @@ private:
 	char m_pad28[0x44 - 0x28];
 	Int m_runtimeFlags; // +0x44
 };
-class ChunkInputStream
-{
-public:
-	virtual Int read(void *pData, Int numBytes) = 0;
-	virtual UnsignedInt tell() = 0;
-	virtual Bool absoluteSeek(UnsignedInt pos) = 0; // +0x08
-};
+#include "../../../Include/Common/ChunkInputStreamClass.h"
 struct DataChunkInfo;
 class UserParser;
 class DataChunkInput;
