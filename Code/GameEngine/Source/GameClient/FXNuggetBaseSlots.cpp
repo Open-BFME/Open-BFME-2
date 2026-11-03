@@ -39,12 +39,7 @@ public:
 	Rva001DFE56 m_modelConditions;	// +0x10C
 };
 
-class Drawable
-{
-public:
-	unsigned char m_pad[0x164];
-	int m_164;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Rva2225E0Filter
 {
@@ -95,7 +90,7 @@ bool Rva001DFEAABase::rva001DFF5D(Object *primary, Object *secondary)
 		if (!primary->m_modelConditions.rva001DFE56(&m_mask10, &m_mask5C))
 			return false;
 		Drawable *draw = primary->getDrawable();
-		if (draw && draw->m_164 == 5)
+		if (draw && draw->m_stealthLook == 5)
 			return false;
 	}
 	if (secondary)

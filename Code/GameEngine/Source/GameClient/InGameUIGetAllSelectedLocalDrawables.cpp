@@ -42,13 +42,7 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class Drawable
-{
-public:
-	void *m_vtable;
-	unsigned char m_unmodelled004[0xF8];
-	Object *m_object; // +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class InGameUI
 {

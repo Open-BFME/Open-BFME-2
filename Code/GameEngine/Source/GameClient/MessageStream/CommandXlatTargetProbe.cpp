@@ -15,7 +15,7 @@ union GameMessageArgumentType {int integer;IRegion2D pixelRegion;};
 #include "../../../Include/Common/MessageStream.h"
 enum ObjectStatusTypes;
 class Object {public:bool testStatus(ObjectStatusTypes)const;};
-class Drawable {public:char gap0[0xfc];Object*object;};
+#include "../../../Include/GameClient/Drawable.h"
 class Rva0042AF97Container {public:
  virtual void s00();virtual void s01();virtual void s02();virtual void s03();
  virtual void s04();virtual void s05();virtual void s06();virtual void s07();
@@ -46,7 +46,7 @@ void CommandTranslator::rva0042AF97(GameMessage*msg){
  if(region2D.height()!=0||region2D.width()!=0)return;
  Drawable*draw=((TacticalView*)TheTacticalView)->pickDrawable(&region2D.lo,false,4);
  if(!draw)return;
- Object*obj=draw->object;if(!obj)return;
+ Object*obj=draw->m_object;if(!obj)return;
  if(obj->testStatus((ObjectStatusTypes)38)){
   Rva0042AF97ObjectFields*fields=reinterpret_cast<Rva0042AF97ObjectFields*>(obj);
   Object*linked=fields->linked;

@@ -27,14 +27,7 @@ struct Rva000B508ATemplate
 	unsigned int m_flags108;
 };
 
-class Drawable
-{
-public:
-	char m_pad[0xFC];
-	class Object *m_object;
-	char m_pad100[0x43C - 0x100];
-	unsigned char m_flag43C;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class BfmeSubBIC
 {
@@ -211,7 +204,7 @@ void Rva000B508A::rva000B508A(const RadiusDecalTemplate *radiusDecalTemplate)
 		return;
 	if (((Rva000B508AGlobals *)TheWritableGlobalData)->m_useSimpleHordeDecals)
 	{
-		if (m_drawable->m_flag43C)
+		if (m_drawable->m_selected)
 			slot27(object->rva0028C173(), ((BfmeSubBIC *)object)->bfmeAskBIC());
 		return;
 	}
@@ -223,7 +216,7 @@ void Rva000B508A::rva000B508A(const RadiusDecalTemplate *radiusDecalTemplate)
 	if (other)
 	{
 		Drawable *otherDrawable = other->getDrawable();
-		if (otherDrawable && otherDrawable->m_flag43C)
+		if (otherDrawable && otherDrawable->m_selected)
 		{
 			usedOther = true;
 			Rva000B508AInterface *iface = (Rva000B508AInterface *)other->rva0028C197();
@@ -231,6 +224,6 @@ void Rva000B508A::rva000B508A(const RadiusDecalTemplate *radiusDecalTemplate)
 				value = iface->slot101(other);
 		}
 	}
-	if (m_drawable->m_flag43C || usedOther)
+	if (m_drawable->m_selected || usedOther)
 		slot27(1, value);
 }

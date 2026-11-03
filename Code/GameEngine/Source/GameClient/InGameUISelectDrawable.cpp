@@ -99,21 +99,7 @@ public:
 };
 
 // Retail Drawable prefix used by selectDrawable.
-class Drawable
-{
-public:
-	void rva002796B8();
-	void rva002754E3();
-	void rva00278C7C(int);
-	DrawableID getID() const;
-	void *m_vtable;
-	const BfmeSelectTemplateView *m_template;							///< this+0x04
-	unsigned char m_unmodelled008[0xf4];
-	Object *m_object;										///< this+0xFC
-	unsigned char m_unmodelled100[0x33c];
-	bool m_selected;										// +0x43C
-
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class ControlBar;

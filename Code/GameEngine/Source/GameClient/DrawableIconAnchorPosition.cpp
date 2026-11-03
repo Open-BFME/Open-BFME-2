@@ -108,23 +108,12 @@ public:
 	const Coord3D *rva00276470() const;
 };
 
-class Drawable
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	void rva002775C9(Coord3D *pos);
-
-private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +0x04
-	char m_pad008[0xfc - 8];
-	Object *m_object; // +0xFC
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::rva002775C9(Coord3D *pos)
 {
 	Object *obj = m_object;
-	if (getTemplate()->isKindOf(0x6d) && obj != 0)
+	if (m_template->isKindOf(0x6d) && obj != 0)
 	{
 		if (obj->getAnchorModule() != 0 && obj->getAnchorModule()->getAnchorInterface() != 0
 			&& obj->getAnchorModule()->getAnchorInterface()->getAnchorPosition(pos))
@@ -132,7 +121,7 @@ void Drawable::rva002775C9(Coord3D *pos)
 	}
 	*pos = *reinterpret_cast<const Rva00276470Drawable *>(this)->rva00276470();
 	Real height = 10.0f;
-	const ThingTemplate *thingTemplate = getTemplate();
+	const ThingTemplate *thingTemplate = m_template;
 	if (thingTemplate != 0)
 		height = thingTemplate->getHeight();
 	pos->z += height;

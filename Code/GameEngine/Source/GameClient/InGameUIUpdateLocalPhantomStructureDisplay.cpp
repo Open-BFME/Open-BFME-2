@@ -48,31 +48,12 @@ class Drawable;
 
 #include "../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	const ThingTemplate *getTemplate() const { return m_template; }
-
-private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +0x04
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Object : public Thing
 {
 };
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-	Object *getObject() const { return m_object; }
-
-private:
-	char m_pad000[0xFC];
-	Object *m_object; // +0xFC
-};
 
 extern GameLogic *TheGameLogic;
 
@@ -104,7 +85,7 @@ void InGameUI::updateLocalPhantomStructureDisplay()
 	if (getSelectCount() == 1)
 	{
 		Object *obj = getFirstSelectedDrawable()->getObject();
-		if (obj && ((obj->getTemplate()->m_kindof[0] & (1U << 14)) != 0))
+		if (obj && ((obj->m_template->m_kindof[0] & (1U << 14)) != 0))
 			hide = false;
 	}
 	_STL::list<int> dead;

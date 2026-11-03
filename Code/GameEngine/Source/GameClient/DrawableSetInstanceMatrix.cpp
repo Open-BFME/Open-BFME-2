@@ -36,27 +36,12 @@ extern GameEngine *TheGameEngine;
 #include "../../Include/GameClient/GameClientClass.h"
 extern GameClient *TheGameClient;
 
-class Drawable
-{
-public:
-	void setInstanceMatrix(const Matrix3D *instance, bool preservePrevious);
-
-private:
-	unsigned char m_pad000[0x170];
-	Matrix3D m_previousInstance; // +0x170
-	Matrix3D m_instance; // +0x1A0
-	unsigned char m_pad1d0[0x204 - 0x1D0];
-	UnsignedInt m_expirationDate; // +0x204
-	unsigned char m_pad208[0x378 - 0x208];
-	UnsignedInt m_frame; // +0x378
-	unsigned char m_pad37c[0x43F - 0x37C];
-	bool m_instanceIsIdentity; // +0x43F
-};
+#include "../../Include/GameClient/Drawable.h"
 
 // ?setInstanceMatrix@Drawable@@QAEXPBVMatrix3D@@_N@Z
 void Drawable::setInstanceMatrix(const Matrix3D *instance, bool preservePrevious)
 {
-	copyInstanceMatrix(m_previousInstance, m_instance);
+	copyInstanceMatrix(m_170, m_instance);
 	if (instance)
 	{
 		copyInstanceMatrix(m_instance, *instance);
@@ -69,10 +54,10 @@ void Drawable::setInstanceMatrix(const Matrix3D *instance, bool preservePrevious
 	}
 
 	if (preservePrevious)
-		copyInstanceMatrix(m_previousInstance, m_instance);
+		copyInstanceMatrix(m_170, m_instance);
 
 	Real frame = (Real)TheGameEngine->m_frame;
 	frame += (Real)TheGameClient->getFrame();
-	m_frame = (UnsignedInt)frame;
-	m_expirationDate = 0xffffffff;
+	m_378 = (UnsignedInt)frame;
+	m_204 = 0xffffffff;
 }

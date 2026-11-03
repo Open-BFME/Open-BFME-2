@@ -25,7 +25,6 @@ extern RecorderClass *TheRecorder;
 struct HintTemplateView {char pad108[0x108];unsigned char kind108;char pad109[6];unsigned char kind10f;};
 enum CellShroudStatus {SHROUD_NONE=0};
 class Object {public:char pad0[4];HintTemplateView *type;char pad8[0x6c];unsigned id;bool isLocallyControlled() const;CellShroudStatus getShroudStatusForPlayer(int) const;};
-class Drawable {public:char padFC[0xfc];Object *object;Object *getObject() const {return object;}};
 union GameMessageArgumentType {int integer;};
 class GameMessage {public:char pad10[0x10];int type;const GameMessageArgumentType *getArgument(int) const;};
 #include "../../Include/GameClient/Mouse.h"
@@ -194,6 +193,7 @@ class GameWindowManager {public:
 };
 extern GameWindowManager *TheWindowManager;
 #include "../../Include/GameClient/View.h"
+#include "../../Include/GameClient/Drawable.h"
 extern View *TheTacticalView;
 class InGameUI {public:
  virtual void slot00();

@@ -18,14 +18,7 @@ public:
 		float a, float b);
 };
 
-class Drawable
-{
-public:
-	const Coord3D *getPosition() const;
-
-	char m_pad[0x118];
-	int m_flags;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 struct Rva000D19F9Node
 {
@@ -61,7 +54,7 @@ void Rva000D19F9::rva000D19F9()
 	int *decal = &m_node->m_at8;
 	float value = *(float *)((char *)decal + 0x24);
 	((W3DTornadoDraw *)this)->rva000D18F8((const RadiusDecalTemplate *)decal, value, *obj->getPosition(), m_node->m_at3C);
-	m_obj->m_flags |= 0x20;
+	m_obj->m_tintStatus |= 0x20;
 	RGBColor00271779 color = {1.5f, 1.5f, 1.5f};
 	((Rva00271779 *)m_obj)->rva00271779(color, 0x1E, 0xFFFFFF, 0xFFFFFF, 0.0f, 0.0f);
 }

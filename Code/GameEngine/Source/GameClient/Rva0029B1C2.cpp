@@ -132,12 +132,7 @@ void InGameUI::rva002A3E24()
 // getter WBdc4300 returns the named FormationPreviewPoolObject payload;
 // the 12-byte entry is position.x, position.y and that pool pointer.
 // Original receiver/method spelling remains unresolved, so retain this owner.
-class Drawable {
-public:
- void colorTint(const RGBColor *peak);
- char unknown[0xB0];
- float opacity;
-};
+#include "../../Include/GameClient/Drawable.h"
 class Rva0029A469 {public: void rva0029A469(float);};
 class Rva0029A41A {public: void rva0029A41A(RGBColor*);};
 struct PrereqUnitRec {unsigned m_data[3]; ~PrereqUnitRec(){} };
@@ -157,7 +152,7 @@ void InGameUI::rva002A470F(ThingTemplate *type,const ICoord2D *position,RGBColor
  // declarations; the complete native helper establishes these operations.
  Drawable *drawable=*reinterpret_cast<Drawable**>(pool);
  if(drawable) {
-  drawable->opacity=1.0f;
+  drawable->field_0b0=1.0f;
   RGBColor grey={0.5f,0.5f,0.5f};
   drawable->colorTint(&grey);
  }

@@ -70,14 +70,7 @@ public:
 	OpaqueRefElement4 m_ref;
 };
 
-class Drawable
-{
-public:
-	Rva002390CB rva00346C79(); // key 0x21
-	Rva002390CB rva00346C92(); // key 0x22
-	Rva002390CB rva00346CAB(); // key 0x23
-	Rva002390CB rva00346CC4(); // key 0x24
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
@@ -104,11 +97,6 @@ public:
 	virtual void rva0028C197Slot66(MoveSoundMemberRange *out) = 0;
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
 
 class Object : public Thing
 {
@@ -117,7 +105,7 @@ public:
 	ObjectID getID() const { return m_id; }
 	static __forceinline BodyModuleInterface *getBodyModule(const Object *object) { return object->m_body; }
 private:
-	unsigned char m_pad00[0x74];
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad78[0x254 - 0x78];
 	BodyModuleInterface *m_body; // +0x254

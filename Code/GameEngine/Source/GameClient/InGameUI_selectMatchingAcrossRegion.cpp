@@ -145,11 +145,6 @@ public:
  char unknown07c[0x250-0x7c]; SelectionContain *contain;
  char unknown254[0x274-0x254]; Object *containedBy;
 };
-class Drawable {
-public:
- char unknown000[0xfc]; Object *object;
- char unknown100[4]; Drawable *next; char unknown108[0x43c-0x108]; bool selected;
-};
 extern GameLogic *TheGameLogic;
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
@@ -171,6 +166,7 @@ int Rva002A1EF5(Drawable*,void*);
 #include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 #include "../../Include/GameClient/GameClientClass.h"
+#include "../../Include/GameClient/Drawable.h"
 extern GameClient *TheGameClient;
 class GameMessage { public:
  enum Type {CREATE_GROUP=0x3ea};
@@ -192,7 +188,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
  for(_STL::list<Drawable*>::const_iterator it=selected->begin();it!=selected->end();++it) {
   const Drawable *draw=*it;
   if(draw) {
-   Object *object=draw->object;
+   Object *object=draw->m_object;
    if(object && object->isLocallyControlled()) {
    templateName=reinterpret_cast<Rva001408C0Target*>(object->m_template);
    templates.insert(templateName);
@@ -221,7 +217,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
   if(region)newSelectionCount+=TheTacticalView->iterateDrawablesInRegion(region,Rva002A1EF5,&data);
   else {
    Drawable *drawable=TheGameClient->firstDrawable();
-   while(drawable) {newSelectionCount+=Rva002A1EF5(drawable,&data);drawable=drawable->next;}
+   while(drawable) {newSelectionCount+=Rva002A1EF5(drawable,&data);drawable=drawable->m_nextDrawable;}
   }
   setDisplayedMaxWarning(false);
  }
@@ -230,7 +226,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
   if(region)newSelectionCount+=TheTacticalView->iterateDrawablesInRegion(region,Rva002A1EF5,&data);
   else {
    Drawable *drawable=TheGameClient->firstDrawable();
-   while(drawable) {newSelectionCount+=Rva002A1EF5(drawable,&data);drawable=drawable->next;}
+   while(drawable) {newSelectionCount+=Rva002A1EF5(drawable,&data);drawable=drawable->m_nextDrawable;}
   }
   setDisplayedMaxWarning(false);
  }
@@ -239,7 +235,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
   teamMsg->appendBooleanArgument(false);
   for(_STL::list<Drawable*>::const_iterator it=data.selected.begin();it!=data.selected.end();++it) {
    const Drawable *draw=*it;
-   if(draw && draw->object)teamMsg->appendObjectIDArgument(draw->object->id);
+   if(draw && draw->m_object)teamMsg->appendObjectIDArgument(draw->m_object->id);
   }
  }
  return newSelectionCount;

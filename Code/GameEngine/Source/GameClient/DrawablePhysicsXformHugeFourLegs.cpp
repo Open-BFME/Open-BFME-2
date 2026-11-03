@@ -133,11 +133,7 @@ virtual void slot41();
 virtual BfmeFootDraw* getDraw();
 };
 float Sin(float);float Cos(float);
-class Drawable{public:struct PhysicsXformInfo{float m_totalPitch,m_totalRoll,m_totalYaw,m_totalZ;};
-void calcPhysicsXformHugeFourLegs(const Locomotor*,PhysicsXformInfo&);
-const Coord3D*getPosition()const;
-char pad00[0x44];float angle;char pad48[0xFC-0x48];Object*m_object;char pad100[0x13C-0x100];DrawableLocoInfo*m_locoInfo;char pad140[0x14C-0x140];DrawModule**modules;
-};
+#include "../../Include/GameClient/Drawable.h"
 void Drawable::calcPhysicsXformHugeFourLegs(const Locomotor*locomotor,PhysicsXformInfo&info){
 if(!m_locoInfo)m_locoInfo=new DrawableLocoInfo;
 
@@ -158,7 +154,7 @@ if(!obj||!obj->physics)return;
 
 const Coord3D*pos=getPosition();
 
-Real direction=angle;
+Real direction=m_cachedAngle;
 
 _STL::vector<Coord3D> points;
 
@@ -167,7 +163,7 @@ Region2D scratch;
 
 bool found=false;
 
-for(DrawModule**mod=modules;!found&&*mod;++mod){BfmeFootDraw*draw=(*mod)->getDraw();
+for(DrawModule**mod=getDrawModules();!found&&*mod;++mod){BfmeFootDraw*draw=(*mod)->getDraw();
 if(draw&&draw->collectFeet(&points,0)&&points.size()>=4)found=true;
 }
 if(!found){const Rva0087E370*geom=(const Rva0087E370*)((const char*)obj+0xA8);

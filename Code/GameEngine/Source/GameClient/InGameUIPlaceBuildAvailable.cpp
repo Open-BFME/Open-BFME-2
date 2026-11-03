@@ -6,10 +6,9 @@
 class ThingTemplate {public:char p[0x118];unsigned kinds;char q[0x4d0-0x11c];float placementAngle;};
 class Player {public:char p[0x280];int color,nightColor;};
 class Object {public:Player*getControllingPlayer()const;char p[4];const ThingTemplate*tmpl;char q[0x74-8];unsigned id;};
-class Thing {public:void setOrientation(float);};
+#include "../../Include/GameClient/Drawable.h"
 class ModelConditionFlags;
 struct Rva0028F59A {unsigned bits[19];Rva0028F59A(int,int);};
-class Drawable:public Thing {public:void setIndicatorColor(int);void rva002791E7(const ModelConditionFlags&,unsigned,unsigned);char p[4];const ThingTemplate*tmpl;char q[0xb0-8];float opacity;char r[0xfc-0xb4];Object*object;};
 #include "../../Include/Common/ThingFactory.h"
 extern ThingFactory*TheThingFactory;
 class GlobalData {public:char p[0x134];int timeOfDay;};extern GlobalData*TheWritableGlobalData;
@@ -35,7 +34,7 @@ public:
 void InGameUI::placeBuildAvailable(const ThingTemplate*build,Drawable*buildDrawable)
 {
  if(resources.ptr){resources.clear();((ResourceEntryCollector*)&BfmeUiResourceEntryCollectorState)->rva004E551E();}
- Object*source=0;if(buildDrawable)source=buildDrawable->object;
+ Object*source=0;if(buildDrawable)source=buildDrawable->m_object;
  if(build)setRadiusCursorNone();
  if(pending && build)placeBuildAvailable(0,0);
  pending=build;sourceID=0;if(source)sourceID=source->id;
@@ -45,12 +44,12 @@ void InGameUI::placeBuildAvailable(const ThingTemplate*build,Drawable*buildDrawa
    TheMouse->capture();setMouseCursor(Mouse::CROSS);
    Drawable*draw=(Drawable*)TheThingFactory->newDrawable((void*)build,8,-1);
    if(source){if(TheWritableGlobalData->timeOfDay==4)draw->setIndicatorColor(source->getControllingPlayer()->nightColor);else draw->setIndicatorColor(source->getControllingPlayer()->color);}
-   float angle=build->placementAngle;draw->setOrientation(angle);draw->opacity=0.45f;
+   float angle=build->placementAngle;draw->setOrientation(angle);draw->field_0b0=0.45f;
    draw->rva002791E7(*(const ModelConditionFlags*)&Rva0028F59A(0,108),1,0);
    icons[0].draw=draw;icons[0].angle=angle;
    if(build->kinds&0x10000000){stage=1;if(source && (source->tmpl->kinds&0x10000000)){port=true;clearPlacementPort(false);}}else stage=2;
   }else{
-   if(buildDrawable && !(buildDrawable->tmpl->kinds&0x10000000)){
+   if(buildDrawable && !(buildDrawable->m_template->kinds&0x10000000)){
     TheMouse->releaseCapture();setMouseCursor(Mouse::ARROW);setPlacementStart(0);((Rva0029A94F*)this)->rva0029A94F();clearPlacementPort(false);
    }else{
     if(mouseMode==1){mouseMode=0;mouseCursor=Mouse::ARROW;}

@@ -126,11 +126,7 @@ protected:
  friend class InGameUI;
  Module *findModule(NameKeyType) const;	// rowed 0x0028B6D6 (protected)
 };
-class Drawable {
-public:
- char unknown000[0xfc]; Object *object;
- char unknown100[0x43c-0x100]; bool selected;
-};
+#include "../../Include/GameClient/Drawable.h"
 #include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #include "../../Include/GameClient/InGameUI.h"
@@ -161,7 +157,7 @@ bool InGameUI::rva0029CC19(const Object *target) {
  else {
  const _STL::list<Drawable*> *selected=TheInGameUI->getAllSelectedDrawables();
  for(_STL::list<Drawable*>::const_iterator it=selected->begin();it!=selected->end();++it) {
-  Object *object=(*it)->object;
+  Object *object=(*it)->m_object;
   if(!object || object->containedBy)continue;
   const CommandButton *command;
   if(object->m_template->m_kindof[4]&0x800)command=TheControlBar->findCommandButton(AsciiString("Command_SpecialAbilitySiegeLadderDeploy"));

@@ -113,13 +113,7 @@ struct Rva00DFDC30
 // Rva00DFDC30 view.
 extern class Eva *TheEva;
 
-class Drawable
-{
-public:
-	Object *rva00272AD5();
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../../Include/GameClient/Drawable.h"
 
 Object *Drawable::rva00272AD5()
 {
@@ -129,5 +123,5 @@ Object *Drawable::rva00272AD5()
 	Rva0027231F kinds(*(BfmeFixedStorage0004543D *)&Rva0006EE7A(0, 0x7a, 0x9e));
 	Rva00261790 near((Arg00261790 *)this, true);
 	kinds.link(&alive)->link(&second)->link(&player)->link(&near);
-	return ThePartitionManager->getClosestObject(&m_pos, ((Rva00DFDC30 *)TheEva)->m_80, 0, &kinds);
+	return ThePartitionManager->getClosestObject(&m_cachedPos, ((Rva00DFDC30 *)TheEva)->m_80, 0, &kinds);
 }

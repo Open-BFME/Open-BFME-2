@@ -68,7 +68,7 @@ struct Rva002BA8F1Listener;
 struct Rva005A0B4CList {void append(Rva002BA8F1Listener *);};
 class StancesBehavior {public:int rva0045ED4B()const;char pad[0x20];Rva005A0B4CList observers;};
 class Rva0035B424 {public:void rva0035B424(int);};
-struct Drawable {char pad[0xfc];Object *object;};
+#include "../../../../../Include/GameClient/Drawable.h"
 typedef _STL::list<Drawable *> DrawableList;
 class InGameUI;extern InGameUI *TheInGameUI;
 class StanceUISelectionView {public:
@@ -117,7 +117,7 @@ InGameToggleStanceCommandButton::Impl::Impl(Rva00005C357FPtrChaseField *owner,St
   const DrawableList *selected=reinterpret_cast<StanceUISelectionView *>(TheInGameUI)->selection();
   DrawableList::const_iterator end=selected->end();
   for(DrawableList::const_iterator it=selected->begin();it!=end;++it){
-   Object *object=(*it)->object;if(!object)continue;
+   Object *object=(*it)->m_object;if(!object)continue;
    behavior18=reinterpret_cast<StancesBehavior *>(object->findModule(key));
    if(behavior18){stance=behavior18->rva0045ED4B();behavior18->observers.append(reinterpret_cast<Rva002BA8F1Listener *>(this));break;}
   }

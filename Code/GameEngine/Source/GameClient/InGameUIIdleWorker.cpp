@@ -81,15 +81,7 @@ enum ObjectID { INVALID_ID = 0 };
 
 class Drawable;
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-private:
-	char m_unknown00[0x38];
-	Coord3D m_cachedPos;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 class Object : public Thing
 {
@@ -99,20 +91,12 @@ public:
 	// Retail callers inline this +0x274 load; no external copy is needed.
 	__declspec(dllimport) __forceinline Object *getContainedBy() { return m_containedBy; }
 private:
-	char m_unknown44[0x74 - 0x44];
+	char m_unknown44[0x74 - 0x60];
 	ObjectID m_id;
 	char m_unknown78[0x274 - 0x78];
 	Object *m_containedBy;
 };
 
-class Drawable
-{
-public:
-	__declspec(dllimport) __forceinline Object *getObject() { return m_object; }
-private:
-	char m_unknown00[0xFC];
-	Object *m_object;
-};
 
 #include "../../Include/Common/MessageStream.h"
 
