@@ -1,0 +1,84 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ScriptCounter",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 24,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 13,
+   "8": 11
+  },
+  "views": 24,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_value",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 24,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 36
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsCounters.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAdjustTimer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetCounterToThreat.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetTimer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setCounter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFlag.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 5,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineAdjustTimer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020881A.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetCounterToThreat.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetTimer.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setCounter.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFlag.cpp"
+   ],
+   "views": 10
+  }
+ ],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {}
+}
