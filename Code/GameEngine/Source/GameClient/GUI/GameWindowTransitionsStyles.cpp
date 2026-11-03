@@ -784,9 +784,9 @@ public:
 
 // --- Float functions of the slot's one float argument (cdecl callees,
 // ledger-named by address; 0x004D6B6E is also rowed as _atan).
-float Rva004D6B9D(float v);
+float fovDegreesToFocalLength(float v);
 
-float Rva004D6B3A(float v);
+float fovToFocalLength(float v);
 
 float focalLengthToFovDegrees(float v);
 

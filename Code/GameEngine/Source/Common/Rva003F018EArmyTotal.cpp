@@ -10,7 +10,7 @@
 // again (m_armies[i]) as retail does between its virtual calls.
 #include <vector>
 
-class Rva003F018EValue
+class ArmyValue
 {
 public:
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
@@ -62,7 +62,7 @@ int Rva003F012F::rva003F018E(Rva003F018EPlayer *player)
 	{
 		if ((m_armies[i])->isActive())
 		{
-			Rva003F018EValue *value = (Rva003F018EValue *)(m_armies[i])->getEntry()->rva004E0625();
+			ArmyValue *value = (ArmyValue *)(m_armies[i])->getEntry()->rva004E0625();
 			if (value)
 				total += value->value();
 		}

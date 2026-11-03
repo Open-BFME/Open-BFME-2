@@ -29,11 +29,11 @@ public:
 	virtual void slot00() {}
 private:
 	int m_04;
-	bool m_08;
+	bool m_flags;
 };
 
 Rva004BB391::Rva004BB391(bool flag)
 {
 	m_04 = 0;
-	m_08 = flag;
+	m_flags = flag;
 }

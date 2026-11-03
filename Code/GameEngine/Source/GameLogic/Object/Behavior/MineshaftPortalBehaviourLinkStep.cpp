@@ -15,7 +15,7 @@ public:
     virtual void *destroy(unsigned int flags);
     unsigned int id;
 };
-class Rva00372CA8 { public: void rva00372CA8(int value); };
+class Rva00372CA8 { public: void remove(int value); };
 class Rva002E9042 { public: void rva002E9042(void *portal); };
 class Rva004618D4Caller { public: void rva002E7023(); };
 class AI { public: char pad[0x10]; Rva002E9042 *pathfinder; };
@@ -104,8 +104,8 @@ void MineshaftPortalNetworkManager::rva00373158(Rva00373373Portal *portal, int k
     for (ObjectID *it=group->begin(); it!=end; ++it) {
         if ((unsigned)*it != current.id) {
             key=(int)TheTerrainLogic->portalAt((unsigned)*it);
-            ((Rva00372CA8 *)key)->rva00372CA8((int)&current);
-            ((Rva00372CA8 *)&current)->rva00372CA8(key);
+            ((Rva00372CA8 *)key)->remove((int)&current);
+            ((Rva00372CA8 *)&current)->remove(key);
         }
     }
     (TheTerrainLogic ? TheAI->pathfinder : TheAI->pathfinder)->rva002E9042(portal);

@@ -69,7 +69,7 @@ public:
 
 private:
 	char m_pad00[0x70];
-	AsciiString m_name70; // +0x70
+	AsciiString m_commandSetName; // +0x70
 	char m_pad74[0x90 - 0x74];
 	AsciiString m_base90; // +0x90
 	char m_pad94[0x2e4 - 0x94];
@@ -105,7 +105,7 @@ void Rva0033C965::rva0033C965(int outAssets, int val)
 	}
 
 	if (*(char *)((char *)TheWritableGlobalData + 0x1110) == 0) {
-		void *hit = ((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(&m_name70);
+		void *hit = ((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(&m_commandSetName);
 		if (hit != 0)
 			((CommandSet *)hit)->rva00409F1B(outAssets, val);
 	}

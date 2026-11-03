@@ -63,7 +63,7 @@ extern AudioManager *TheAudio;
 
 struct CodecState;
 extern "C" int __cdecl VP6_StopDecoder(CodecState **p);
-void Rva00090714Free(void **p);
+void freeBlock(void **p);
 
 struct VP6Instance;
 struct VP6YUVConfig

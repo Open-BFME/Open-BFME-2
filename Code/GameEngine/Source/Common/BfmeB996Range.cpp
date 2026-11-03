@@ -54,7 +54,7 @@ struct Rva00106970RangeView
 // 0x00090714 are the gap allocator and its pointer-clearing release.
 void *Rva0009072BAlloc( int a, int b );
 
-void Rva00090714Free( void **pointer );
+void freeBlock( void **pointer );
 
 // ?movePair@BfmeB996@@QAEDPAH0PAII@Z
 // retail 0x00106812, 98 bytes. Dedicated TU ported from the Open-BFME-1 donor
@@ -442,7 +442,7 @@ bool BfmeB996Range::rva00106781( void **recordOutput, int *recordTag, unsigned i
 			*recordOutput = body;
 			// equal-arm (stop ? E : E): constant-wrap-class lever (structural inference) that puts the add before the push
 			if ( m_dev->classify( (stop ? ((int)body + 8) : ((int)body + 8)), *recordSize - 8 ) != *recordSize - 8 ) {
-				Rva00090714Free( recordOutput );
+				freeBlock( recordOutput );
 				goto fail;
 			}
 		} else {

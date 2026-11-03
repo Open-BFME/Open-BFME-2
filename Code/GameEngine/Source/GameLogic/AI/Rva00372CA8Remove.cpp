@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /GX
 //
-// ?rva00372CA8@Rva00372CA8@@QAEXH@Z retail 0x00372CA8 68 bytes.
+// ?remove@Rva00372CA8@@QAEXH@Z retail 0x00372CA8 68 bytes.
 // Honest-address __thiscall method: fixed 8-slot dword array at +0x20 with count at +0x4C.
 // Removes first slot equal to arg then shifts tail down via rep movsd clears +0x3C and dec count.
 // Evidence: callers at 0x00373193 and 0x0037319D call it symmetrically on each other's object
@@ -11,15 +11,15 @@
 class Rva00372CA8
 {
 public:
-	void rva00372CA8(int val);
-	bool rva00372CEC(int val);
+	void remove(int val);
+	bool contains(int val);
 private:
 	char m_pad00[0x20];
 	int m_slots[8];
 	char m_pad40[0x0C];
 	int m_count;
 };
-void Rva00372CA8::rva00372CA8(int val)
+void Rva00372CA8::remove(int val)
 {
 	unsigned int i;
 	for (i = 0; i < 8; ++i) {
@@ -38,7 +38,7 @@ void Rva00372CA8::rva00372CA8(int val)
 	m_slots[7] = 0;
 	--m_count;
 }
-bool Rva00372CA8::rva00372CEC(int val)
+bool Rva00372CA8::contains(int val)
 {
 	unsigned int count = (unsigned int)m_count;
 	for (unsigned int i = 0; i < count; ++i) {

@@ -31,12 +31,12 @@ struct Rva0041580ENode
 	Rva0041579E m_item10;
 };
 
-struct Rva0041580EHead
+struct RbTreeHead
 {
 	int _00;
 	Rva0041580ENode *m_root;
-	Rva0041580EHead *m_next08;
-	Rva0041580EHead *m_child0C;
+	RbTreeHead *m_next08;
+	RbTreeHead *m_child0C;
 };
 
 // ABI return views only: native insertion136 writes one pointer to its first
@@ -57,7 +57,7 @@ struct Rva00415A55Result {
 
 struct Rva0041580E
 {
-	Rva0041580EHead *m_head00;
+	RbTreeHead *m_head00;
 	int m_flag04;
 	void eraseSubtree(Rva0041580ENode *node);
 	void rva00415886();
@@ -170,10 +170,10 @@ Rva0041580E *Rva0041580E::rva004159E2(const Rva0041580E &other)
             rootRef()=rva00415937(other.m_head00->m_root,(Rva0041580ENode *)m_head00);
             Rva0041580ENode *cur=m_head00->m_root;
             while(cur->m_next08) cur=cur->m_next08;
-            m_head00->m_next08=(Rva0041580EHead *)cur;
+            m_head00->m_next08=(RbTreeHead *)cur;
             cur=m_head00->m_root;
             while(cur->m_child0C) cur=cur->m_child0C;
-            m_head00->m_child0C=(Rva0041580EHead *)cur;
+            m_head00->m_child0C=(RbTreeHead *)cur;
             m_flag04=other.m_flag04;
         }
     }
@@ -226,16 +226,16 @@ void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *leftHint,Rv
     if(parent!=(Rva0041580ENode *)m_head00 && (rightHint!=0 || (leftHint==0 && value.m_key00>=parent->m_item10.m_key00))) {
         node=(Rva0041580ENode *)rva00415843CallView(value);
         parent->m_child0C=node;
-        Rva0041580EHead *head=m_head00;
-        if(parent==(Rva0041580ENode *)head->m_child0C) head->m_child0C=(Rva0041580EHead *)node;
+        RbTreeHead *head=m_head00;
+        if(parent==(Rva0041580ENode *)head->m_child0C) head->m_child0C=(RbTreeHead *)node;
     } else {
         node=(Rva0041580ENode *)rva00415843CallView(value);
         parent->m_next08=node;
-        Rva0041580EHead *head=m_head00;
+        RbTreeHead *head=m_head00;
         if(parent==(Rva0041580ENode *)head) {
             head->m_root=node;
-            m_head00->m_child0C=(Rva0041580EHead *)node;
-        } else if(parent==(Rva0041580ENode *)head->m_next08) head->m_next08=(Rva0041580EHead *)node;
+            m_head00->m_child0C=(RbTreeHead *)node;
+        } else if(parent==(Rva0041580ENode *)head->m_next08) head->m_next08=(RbTreeHead *)node;
     }
     node->m_next08=0;
     node->m_child0C=0;

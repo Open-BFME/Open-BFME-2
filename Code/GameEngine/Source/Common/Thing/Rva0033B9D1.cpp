@@ -34,7 +34,7 @@ public:
 };
 }
 
-struct Elem0033B9D1
+struct LocomotorEntry
 {
     char m_pad0[0xc];
     int m_cond;
@@ -80,7 +80,7 @@ void Rva0033B9D1::rva0033B9D1()
         Vec0033B9D1 *vec = &node->m_vec;
         void **slot = vec->m_begin;
         while (slot != vec->m_end) {
-            Elem0033B9D1 *elem = (Elem0033B9D1 *)*slot;
+            LocomotorEntry *elem = (LocomotorEntry *)*slot;
             if (elem != 0 && elem->m_cond >= 1) {
                 LocomotorTemplate *locomotorTemplate = TheLocomotorStore->findLocomotorTemplate(elem->m_name);
                 if (locomotorTemplate != 0) {

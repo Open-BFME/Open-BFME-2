@@ -81,7 +81,7 @@ extern AudioManager *TheAudio;
 
 struct CodecState;
 extern "C" int __cdecl VP6_StopDecoder(CodecState **p);
-void Rva00090714Free(void **p);
+void freeBlock(void **p);
 
 class BfmeB996
 {
@@ -169,7 +169,7 @@ Rva007E3C20Vp6Stream::~Rva007E3C20Vp6Stream()
 		m_at2c = 0;
 	}
 	if (m_at54 != 0) {
-		Rva00090714Free(&m_at54);
+		freeBlock(&m_at54);
 		m_at54 = 0;
 	}
 	if (m_at5c != 1)

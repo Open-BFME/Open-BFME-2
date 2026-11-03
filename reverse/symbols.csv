@@ -7801,7 +7801,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?UpdateCommandSet@CreateAHeroHero@@QAE_NH@Z,0x00407705,callee of ?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z
 ?rva0031DB83@Rva000427195@@QAEPAPAXABVAsciiString@@@Z,0x0031DB83,callee of ?rva0031E8D5@ControlBar@@QAEPAVCommandSet@@ABVAsciiString@@H@Z
 ??0LivingWorldBuilding@@QAE@PAVLivingWorldRegion@@ABVCoord2D@@PBURva003F1BD3TemplateView@@H@Z,0x004E119C,callee of ?rva004FC33E@Rva003F1C56Plot@@QAEXPBURva003F1BD3TemplateView@@@Z
-?Rva003ECB2AIsEnemy@@YAHPBVPlayer@@0@Z,0x003ECB2A,callee of ?getThreatForPlayer@ThreatFinder@@QAE?AUThreatInfo@@PAVPlayer@@H0@Z
+?isEnemy@@YAHPBVPlayer@@0@Z,0x003ECB2A,callee of ?getThreatForPlayer@ThreatFinder@@QAE?AUThreatInfo@@PAVPlayer@@H0@Z
 ??0Rva00308E63@@QAE@H_N@Z,0x00308E63,callee of ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z
 ?erase@?$vector@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEPAPAVTeamPrototype@@PAPAV3@@Z,0x001FF51F,Native AITactic prototype/record vector calls; complete body and recursive relocation proofs verified; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp
 ?push_back@?$vector@VRva004ECDC8@@V?$allocator@VRva004ECDC8@@@_STL@@@_STL@@QAEXABVRva004ECDC8@@@Z,0x004ED69B,Native AITactic prototype/record vector calls; complete body and recursive relocation proofs verified; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp

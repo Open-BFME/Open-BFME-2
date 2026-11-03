@@ -57,7 +57,7 @@ extern class MessageStream *TheMessageStream;
 struct Rva005F5B0FA
 {
 	char _pad0[0x20];
-	int m_20;
+	int m_objectID;
 	char _pad1[0x78 - 0x20 - 4];
 	class Rva0040CB3AIndexedField *m_78;
 };
@@ -78,7 +78,7 @@ void __cdecl SendCancelUpgradeMessages(Rva005F5B0FA *owner, Rva005F5B0FB *upgrad
 		if (*(int *)(field->get(*(int *)((char *)node + 16)) + 0xbc) != 0)
 		{
 			GameMessage *msg = TheMessageStream->CreateMessage(0x6c0);
-			msg->appendIntegerArgument(owner->m_20);
+			msg->appendIntegerArgument(owner->m_objectID);
 			msg->appendIntegerArgument(*(int *)((char *)node + 16));
 		}
 	}

@@ -18,8 +18,8 @@ extern int BfmeLogicFramesPerSecond;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-int Rva003ECB3DIsAlly(const Player *, const Player *);
-int Rva003ECB2AIsEnemy(const Player *, const Player *);
+int isAlly(const Player *, const Player *);
+int isEnemy(const Player *, const Player *);
 class Rva003ECA4BElement
 {
 public:
@@ -480,8 +480,8 @@ ThreatInfo ThreatFinder::getThreatForPlayer(Player *searchingPlayer, int mode, P
   int (*relationship)(const Player *, const Player *);
   switch (mode)
   {
-  case 0: relationship = Rva003ECB2AIsEnemy; break;
-  case 1: relationship = Rva003ECB3DIsAlly; break;
+  case 0: relationship = isEnemy; break;
+  case 1: relationship = isAlly; break;
   case 2: return m_playerThreat[specificEnemy->m_playerIndex];
   default: return result;
   }

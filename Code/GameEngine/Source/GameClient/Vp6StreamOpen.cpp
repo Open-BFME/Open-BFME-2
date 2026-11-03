@@ -18,7 +18,7 @@ struct Video;
 struct CodecState;
 extern "C" int __cdecl VP6_StartDecoder(CodecState **,int,int);
 extern "C" void __cdecl VP6_SetPbParam(void*,unsigned,int);
-void Rva00090714Free(void**);
+void freeBlock(void**);
 void *Rva0009072BAlloc(int,int);
 class Rva00106AC9 {public:bool rva00106AC9(const char*,int,bool);};
 class BfmeB996Range {public:bool rva001068D1(int,unsigned*,char*);void rva0010690D();bool rva0010694B(void**,int*,unsigned*);private:char data[16];};
@@ -44,7 +44,7 @@ bool Rva007E3C20Vp6Stream::open(const AsciiString &path,const Video *video,bool 
  if(!header||header->size-8!=24)return false;
  width=header->width;height=header->height;a=header->a;b=header->b;c=header->c;
  length=((header->maxFrameSize+3)&~3)+8;
- Rva00090714Free(&raw);
+ freeBlock(&raw);
  buffer=Rva0009072BAlloc(0,length);
  VP6_StartDecoder(&frame,width,height);VP6_SetPbParam(frame,0,0);
  hasAlpha=foundAlpha&&alpha;

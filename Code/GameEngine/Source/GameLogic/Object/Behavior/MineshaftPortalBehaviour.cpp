@@ -75,8 +75,8 @@ class Rva002E6ECA { public: int get() const; };
 class Rva00372CA8
 {
 public:
-	void rva00372CA8(int value);
-	bool rva00372CEC(int value);
+	void remove(int value);
+	bool contains(int value);
 };
 class Rva002E9042
 {
@@ -718,7 +718,7 @@ void MineshaftPortalNetworkManager::rva003731CB(Rva00373373Portal *portal, Playe
                 } else {
                     if ((unsigned char)((Rva002E6ECA *)portal)->get()) {
                         Rva00373373Portal *other=TheTerrainLogic->portalAt(id);
-                        ((Rva00372CA8 *)other)->rva00372CA8((int)portal);
+                        ((Rva00372CA8 *)other)->remove((int)portal);
                     }
                     ++it;
                 }
@@ -964,7 +964,7 @@ void MineshaftPortalNetworkManager::update()
                  b = (TreeNode *)_STL::_Rb_global<bool>::_M_increment(b)) {
                 Rva00373373Portal *wb = TheTerrainLogic->portalAt(b->id);
                 if (wa != wb) {
-                    if (!((Rva00372CA8 *)wa)->rva00372CEC((int)wb)) {
+                    if (!((Rva00372CA8 *)wa)->contains((int)wb)) {
                         ((Waypoint *)wa)->addLink((Waypoint *)wb);
                         ((Waypoint *)wb)->addLink((Waypoint *)wa);
                     }

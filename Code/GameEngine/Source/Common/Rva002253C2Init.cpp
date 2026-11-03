@@ -13,7 +13,7 @@ extern "C" __declspec(dllimport) char *__cdecl _strlwr(char *str);
 extern "C" __declspec(dllimport) char *__cdecl strstr(const char *s1, const char *s2);
 
 void Rva000308B0Clear();
-void Rva00030890Set();
+void setClearAllocations();
 void Rva000308E0AddHeap(unsigned int id, unsigned int size);
 
 void Rva002253C2Init()
@@ -28,7 +28,7 @@ void Rva002253C2Init()
 	if (cmd != 0)
 	{
 		if (zerofill)
-			Rva00030890Set();
+			setClearAllocations();
 		(void)strstr(cmd, " -poolbigblocks");
 		(void)strstr(cmd, " -bigmemorysentinals");
 	}

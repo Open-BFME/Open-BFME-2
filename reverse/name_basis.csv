@@ -8008,3 +8008,21 @@ local,Rva00411336::eraseIt,Rva00411336::entryToErase,inferred,direct:nd-2d3a40bf
 local,Rva00411336::it,Rva00411336::entryIterator,inferred,direct:nd-55aee0f78f5b8ca915c6935d parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/name_500_a;/root/name_500_b;/root/name_500_c,Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp,0x00411336
 local,Rva00411336::entry,Rva00411336::erasedEntry,inferred,direct:nd-f91863ab6934bc19b2200c3b parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/name_500_a;/root/name_500_b;/root/name_500_c,Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp,0x00411336
 local,Rva00411336::mapped,Rva00411336::mappedObject,inferred,direct:nd-18725009070f0a5eb9ff16e5 parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/name_500_a;/root/name_500_b;/root/name_500_c,Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp,0x00411336
+member,Rva004BB391::m_08,Rva004BB391::m_flags,inferred,agree:nl-f9a3d7ee9a30,Code/GameEngine/Source/Common/Rva0040C92DVtableCtors.cpp,
+member,Rva005F5B0FA::m_20,Rva005F5B0FA::m_objectID,inferred,agree:nl-8419b8032521,Code/GameEngine/Source/Common/StrategicInGameUI_SendCancelUpgradeMessages.cpp,
+member,Rva0033C965::m_name70,Rva0033C965::m_commandSetName,inferred,agree:nl-f7c8878599d7,Code/GameEngine/Source/Common/Thing/ThingTemplateGetAssetList.cpp,
+function,?Rva00090714Free@@YAXPAPAX@Z,?freeBlock@@YAXPAPAX@Z,inferred,agree:nl-783c0b71008d,Code/GameEngine/Source/Common/Rva0009072BAlloc.cpp,0x00090714
+function,?Rva003ECB2AIsEnemy@@YAHPBVPlayer@@0@Z,?isEnemy@@YAHPBVPlayer@@0@Z,inferred,agree:nl-6f2fb7989172,Code/GameEngine/Source/Common/Rva003ECB3DIsAlly.cpp,0x003ECB2A
+function,?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z,?isAlly@@YAHPBVPlayer@@0@Z,inferred,agree:nl-1e9e74d2a7c2,Code/GameEngine/Source/Common/Rva003ECB3DIsAlly.cpp,0x003ECB3D
+function,?Rva004D6B3A@@YAMM@Z,?fovToFocalLength@@YAMM@Z,inferred,agree:nl-96055105dbdd,Code/GameEngine/Source/Common/Rva004D6B6EAngle.cpp,0x004D6B3A
+function,?Rva004D6B9D@@YAMM@Z,?fovDegreesToFocalLength@@YAMM@Z,inferred,agree:nl-da3cd00dbf49,Code/GameEngine/Source/Common/Rva004D6B6EAngle.cpp,0x004D6B9D
+function,?Rva00030890Set@@YAXXZ,?setClearAllocations@@YAXXZ,inferred,agree:nl-733be8ec011d,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030890
+function,?rva00372CA8@Rva00372CA8@@QAEXH@Z,?remove@Rva00372CA8@@QAEXH@Z,inferred,agree:nl-4b291c3c068f,Code/GameEngine/Source/GameLogic/AI/Rva00372CA8Remove.cpp,0x00372CA8
+function,?rva00372CEC@Rva00372CA8@@QAE_NH@Z,?contains@Rva00372CA8@@QAE_NH@Z,inferred,agree:nl-c18264a86ded,Code/GameEngine/Source/GameLogic/AI/Rva00372CA8Remove.cpp,0x00372CEC
+carry,Rva00372CA8::rva00372CEC::count,Rva00372CA8::contains::count,inferred,scope renamed by Rename rva00372CEC to contains (inferred),Code/GameEngine/Source/GameLogic/AI/Rva00372CA8Remove.cpp,0x00372CEC
+function,?rva00204136@Rva00204136@@QAEXPAX@Z,?freeNodes@Rva00204136@@QAEXPAX@Z,inferred,agree:nl-44c645437277,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp,0x00204136
+class,Rva003F018EValue,ArmyValue,inferred,agree:nl-92e40bc9c33f,Code/GameEngine/Source/Common/Rva003F018EArmyTotal.cpp,
+class,Rva0041580EHead,RbTreeHead,inferred,agree:nl-9208f401174d,Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp,
+carry,Rva0041580EHead::m_root,RbTreeHead::m_root,inferred,scope renamed by Rename Rva0041580EHead to RbTreeHead (inferred),Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp,
+class,Rva005F7559Owner,QueuedIconSlotOwner,inferred,agree:nl-ebc825b28992,Code/GameEngine/Source/Common/Rva005F7559Setter.cpp,
+class,Elem0033B9D1,LocomotorEntry,inferred,agree:nl-bc375fdbae57,Code/GameEngine/Source/Common/Thing/Rva0033B9D1.cpp,

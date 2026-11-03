@@ -14,7 +14,7 @@ struct Rva005F7559Team
 	char m_name[1];
 };
 
-struct Rva005F7559Owner
+struct QueuedIconSlotOwner
 {
 	char m_pad00[4];
 	void *m_level04;
@@ -32,7 +32,7 @@ private:
 	char m_pad04[0x10];
 	int m_14;
 	char m_pad18[4];
-	Rva005F7559Owner *m_owner1C;
+	QueuedIconSlotOwner *m_owner1C;
 	int m_20;
 };
 
@@ -41,7 +41,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::DoSetState(
 	if (index == m_14)
 		return;
 	const char *icon = s_iconSlotStateNames[index];
-	Rva005F7559Owner *owner = m_owner1C;
+	QueuedIconSlotOwner *owner = m_owner1C;
 	const char *prefix = owner->m_team08 ? owner->m_team08->m_name : "";
 	Rva005252CDInvoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), owner->m_level04, prefix, "SetQueuedIconSlotState", m_20, icon);
 	m_14 = index;

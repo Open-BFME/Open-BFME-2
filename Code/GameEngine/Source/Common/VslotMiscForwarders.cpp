@@ -146,8 +146,8 @@ void W3DVolumetricShadowManager::rva000F0A75(void *owner_)
 
 // --- Float functions of the slot's one float argument (cdecl callees,
 // ledger-named by address; 0x004D6B6E is also rowed as _atan).
-float Rva004D6B9D(float v);
-float Rva004D6B3A(float v);
+float fovDegreesToFocalLength(float v);
+float fovToFocalLength(float v);
 float focalLengthToFovDegrees(float v);
 float focalLengthToFov(float v);
 
@@ -160,8 +160,8 @@ public:
 	float rva0025EDC3(float focalLength);		// slot 136
 };
 
-float Rva0025ED90Math::rva0025ED90(float v) { return Rva004D6B9D(v); }
-float Rva0025ED90Math::rva0025EDA1(float v) { return Rva004D6B3A(v); }
+float Rva0025ED90Math::rva0025ED90(float v) { return fovDegreesToFocalLength(v); }
+float Rva0025ED90Math::rva0025EDA1(float v) { return fovToFocalLength(v); }
 float Rva0025ED90Math::rva0025EDB2(float focalLength) { return focalLengthToFovDegrees(focalLength); }
 float Rva0025ED90Math::rva0025EDC3(float focalLength) { return focalLengthToFov(focalLength); }
 
