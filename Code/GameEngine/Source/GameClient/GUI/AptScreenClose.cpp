@@ -80,6 +80,38 @@ struct WindowRecord {
 typedef _STL::hash_map<AsciiString, WindowRecord, rts::hash<AsciiString>,
     rts::equal_to<AsciiString> > WindowTable;
 
+typedef _STL::hashtable<_STL::pair<const AsciiString, WindowRecord>,
+    AsciiString, rts::hash<AsciiString>,
+    _STL::_Select1st<_STL::pair<const AsciiString, WindowRecord> >,
+    rts::equal_to<AsciiString>,
+    _STL::allocator<_STL::pair<const AsciiString, WindowRecord> > > WindowHash;
+typedef _STL::_Hashtable_iterator<_STL::pair<const AsciiString, WindowRecord>,
+    AsciiString, rts::hash<AsciiString>,
+    _STL::_Select1st<_STL::pair<const AsciiString, WindowRecord> >,
+    rts::equal_to<AsciiString>,
+    _STL::allocator<_STL::pair<const AsciiString, WindowRecord> > > WindowIteratorCore;
+
+// for_each's increment is the shared 0x00411084: its skip 0x003F7925 reads the
+// table pointer once, and the bucket index 0x00223149 hashes before it reads
+// the bucket count.
+namespace _STL {
+template <> inline unsigned int WindowHash::_M_bkt_num_key(const AsciiString &key) const
+{
+    unsigned int hash = _M_hash(key);
+    return hash % _M_buckets.size();
+}
+template <> _Hashtable_node<pair<const AsciiString, WindowRecord> > *WindowIteratorCore::_M_skip_to_next()
+{
+    const WindowHash *table = _M_ht;
+    size_t bucket = table->_M_bkt_num(_M_cur->_M_val);
+    size_t count = table->bucket_count();
+    _Node *node = 0;
+    while (node == 0 && ++bucket < count)
+        node = (_Node *)table->_M_buckets[bucket];
+    return node;
+}
+}
+
 #include "../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 

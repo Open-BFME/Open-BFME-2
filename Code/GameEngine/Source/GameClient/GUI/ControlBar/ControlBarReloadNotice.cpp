@@ -390,11 +390,18 @@ public:
 };
 extern InGameUI *TheInGameUI;	// VA 0x00DFEDF0
 
+// Retail's bucket index 0x00223149 passes the key's address to the hash at
+// 0x00055041 (ret 4, no AsciiString copy), so the hasher takes the key by
+// reference; the by-value spelling copies the key and keeps the two-argument
+// bucket index out of line, which is not retail's chain under 0x00411084.
+unsigned int __stdcall Rva00055041AsciiHash(const AsciiString *name);
 namespace rts
 {
-template <class T> struct hash
+template <class T> struct hash;
+template <> struct hash<AsciiString>
 {
-	unsigned int operator()(T value) const;
+	__declspec(dllimport) __forceinline
+	unsigned int operator()(const AsciiString &value) const { return Rva00055041AsciiHash(&value); }
 };
 }
 
@@ -445,6 +452,35 @@ class Rva00409FFA : public CommandSet {};
 // evidenced by these bytes.
 typedef _STL::hash_map<AsciiString, Rva00409FFA *, rts::hash<AsciiString>,
 	_STL::equal_to<AsciiString> > Rva0031E7F0Map;
+typedef _STL::hashtable<_STL::pair<const AsciiString, Rva00409FFA *>,
+	AsciiString, rts::hash<AsciiString>,
+	_STL::_Select1st<_STL::pair<const AsciiString, Rva00409FFA *> >,
+	_STL::equal_to<AsciiString>,
+	_STL::allocator<_STL::pair<const AsciiString, Rva00409FFA *> > > Rva0031E7F0Table;
+
+// 0x00223149 hashes before it reads the bucket count (the AptScreenClose.cpp
+// spelling of the same shared bucket index).
+namespace _STL {
+template <> inline unsigned int Rva0031E7F0Table::_M_bkt_num_key(const AsciiString &key) const
+{
+	unsigned int hash = _M_hash(key);
+	return hash % _M_buckets.size();
+}
+// 0x003F7925 reads the table pointer once, before the bucket index call.
+typedef _Hashtable_iterator<pair<const AsciiString, Rva00409FFA *>, AsciiString,
+	rts::hash<AsciiString>, _Select1st<pair<const AsciiString, Rva00409FFA *> >,
+	equal_to<AsciiString>, allocator<pair<const AsciiString, Rva00409FFA *> > > Rva0031E7F0IteratorCore;
+template <> _Hashtable_node<pair<const AsciiString, Rva00409FFA *> > *Rva0031E7F0IteratorCore::_M_skip_to_next()
+{
+	const Rva0031E7F0Table *table = _M_ht;
+	size_t bucket = table->_M_bkt_num(_M_cur->_M_val);
+	size_t count = table->bucket_count();
+	_Node *node = 0;
+	while (node == 0 && ++bucket < count)
+		node = (_Node *)table->_M_buckets[bucket];
+	return node;
+}
+}
 
 
 struct Rva0031DCF0Owned;
