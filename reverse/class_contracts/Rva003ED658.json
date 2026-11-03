@@ -1,0 +1,83 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva003ED658",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 21,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3ed658"
+     ],
+     "value": {
+      "0x0": [
+       "?$vector@IV?$allocator@I@_STL@@@_STL"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 12,
+  "view_sizes": {
+   "12": 9
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_storage",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 12,
+   "type": "char[12]",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 8
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "field@0x4",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "Rva003ED658"
+  },
+  {
+   "attribute": "field@0x8",
+   "candidates": {
+    "4:A": 1,
+    "4:P": 1
+   },
+   "class": "Rva003ED658"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
