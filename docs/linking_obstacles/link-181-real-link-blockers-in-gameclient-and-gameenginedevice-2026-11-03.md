@@ -212,6 +212,31 @@ W3DTerrainVisual's.
   `removeAllBibs` body and retire the pin. This is not done ad hoc: it corrects the identity of a
   readable-named row and a pin.
 
+**InGameUI slot chain: handoff (rl-o3, 2026-11-04).**
+- The full-width installer views for InGameUICtor.cpp and InGameUIDtor.cpp are banked in
+  `reverse/attempt_support/ingameui-installer-views-20261104-rlo3/` (`d8b9e43e29`).
+  - Both files stay exact.
+  - Both compile retail's 120/4/5 tables with 0 clashes.
+  - With the views applied, `--to-class InGameUI` passes its installer check.
+- The `--to-class` back-reference false reject on slot49/slot50 is fixed in rename.py
+  (`973766f5fa`). The tool now reads name and argument-type back-references from the decoration's
+  grammar, so the 3 in `PBUCoord3D@@` is no longer one. With the views not applied, slot49's dry
+  run now stops only at the installer check.
+- Next steps, in order. Land all of them as one batch, because the views alone take
+  InGameUICtor/Dtor (3,642 B) from LINKS to not linking:
+  1. Apply the banked views.
+  2. Run `--to-class` with prepared C++ for the eligible slots:
+     - slot10_00, slot10_01, slot10_03, slot10_04;
+     - slot49, slot50, slot65, slot77 (full `UBE` name), slot89;
+     - getMousedOverDrawableID.
+     Each slot body can cast `this` to its unit's existing field view (for example Rva0029AA3F)
+     while being defined as `InGameUI::slotNN` under the canonical header.
+  3. Respell the return types of getScrollAmount and getPendingPlaceSourceObjectID.
+  4. Convert slot87 from its free stdcall row into an InGameUI method.
+  5. Resolve slot92 and slot96 as noted below.
+  6. Confirm with link_check over InGameUICtor, InGameUIDtor, Rva0008EF3FProductCtor_Unresolved and
+     the respelled units.
+
 **Item analyses that did not land (rl-o3).**
 - **InGameUI's 13 out-of-line slots.** `--to-class` reads the vftable from both installer units.
   Today both declare only 6 virtuals:
