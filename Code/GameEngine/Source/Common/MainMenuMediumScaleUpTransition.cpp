@@ -10,6 +10,8 @@
 extern "C" const void *const vtbl_00C16574[];  // ??_7MainMenuMediumScaleUpTransition@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00C16574=??_7MainMenuMediumScaleUpTransition@@6B@")
 
+#include "../../../Libraries/Include/Lib/ICoord2D.h"
+
 class GameWindow;
 class Rva001DBAA4
 {
@@ -26,44 +28,42 @@ public:
 class __declspec(novtable) MainMenuMediumScaleUpTransition : public Rva001DBAA4
 {
 public:
-	virtual ~MainMenuMediumScaleUpTransition();
 	MainMenuMediumScaleUpTransition();
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-	int m_34;
-	int m_38;
-	int m_3C;
-	int m_40;
-	int m_44;
+	virtual ~MainMenuMediumScaleUpTransition();
+	virtual void init(GameWindow *win);
+	virtual void update(int frame);
+
+	int m_startFrame;          // +0x10
+	int m_endFrame;            // +0x14
+	ICoord2D m_pos;            // +0x18
+	ICoord2D m_size;           // +0x20
+	int m_drawState;           // +0x28
+	ICoord2D m_growPos;        // +0x2c
+	ICoord2D m_growSize;       // +0x34
+	ICoord2D m_incrementSize;  // +0x3c
+	GameWindow *m_growWin;     // +0x44
 };
 MainMenuMediumScaleUpTransition::MainMenuMediumScaleUpTransition()
 {
-	int *p28 = &m_28;
-	int *p14 = &m_14;
-	m_10 = 0;
-	m_14 = 3;
+	int *p28 = &m_drawState;
+	int *p14 = &m_endFrame;
+	m_startFrame = 0;
+	m_endFrame = 3;
 	*(unsigned int *)this = ((unsigned int)vtbl_00C16574);
-	int *p18 = &m_18;
+	int *p18 = &m_pos.x;
 	*p18 = 0;
-	m_1C = 0;
-	m_20 = 0;
-	m_24 = 0;
+	m_pos.y = 0;
+	m_size.x = 0;
+	m_size.y = 0;
 	*p28 = -1;
-	m_2C = 0;
-	m_30 = 0;
-	m_34 = 0;
-	m_38 = 0;
-	m_3C = 0;
-	m_40 = 0;
+	m_growPos.x = 0;
+	m_growPos.y = 0;
+	m_growSize.x = 0;
+	m_growSize.y = 0;
+	m_incrementSize.x = 0;
+	m_incrementSize.y = 0;
 	m_frameLength = *p14;
-	m_44 = 0;
+	m_growWin = 0;
 	m_win = 0;
 	m_isForward = true;
 }

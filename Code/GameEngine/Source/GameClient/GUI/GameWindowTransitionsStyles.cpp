@@ -529,7 +529,9 @@ public:
 	void set(class Rva0035D53C *obj);
 };
 
-class MainMenuMediumScaleUpTransition : public Rva001DBAA4
+// The constructor installs the existing vtable explicitly; keep that store
+// when the constructor donor is composed into this translation unit.
+class __declspec(novtable) MainMenuMediumScaleUpTransition : public Rva001DBAA4
 {
 public:
     MainMenuMediumScaleUpTransition();
