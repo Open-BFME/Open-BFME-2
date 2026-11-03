@@ -83,10 +83,10 @@ PathfindLayerEnum Pathfinder::rva002ED236(Object *obj,Rva002ED236Pos pos)
 // see that none of those addresses escape.
 struct RectNode {RectNode *next;void *previous;Object *object;};
 struct RectCellInfo {char pad00[0x14];RectNode *reserved;char pad18[8];RectNode *actual;};
-class PathfindCell {public:RectCellInfo *info;char pad04[8];unsigned int flags;
- __forceinline bool hasActual()const {RectCellInfo *i=info;return i?i->actual!=0:false;}
- __forceinline bool hasReserved()const {RectCellInfo *i=info;return i?i->reserved!=0:false;}
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline RectCellInfo *cellInfo(const PathfindCell *cell) {return (RectCellInfo *)cell->m_info;}
+static __forceinline bool cellHasActual(const PathfindCell *cell) {RectCellInfo *i=cellInfo(cell);return i?i->actual!=0:false;}
+static __forceinline bool cellHasReserved(const PathfindCell *cell) {RectCellInfo *i=cellInfo(cell);return i?i->reserved!=0:false;}
 class Rva0052DB11
 {
 public:
@@ -135,11 +135,11 @@ bool Pathfinder::rva002ED313(Object *obj)
  for(int x=cell.x-below;x<cell.x+above;++x) {
   for(int y=cell.y-below;y<cell.y+above;++y) {
    PathfindCell *pathfindCell=getCell(layer,x,y);
-   if(!pathfindCell || (pathfindCell->flags&0xF)==5)return false;
-   if(((unsigned char)(pathfindCell->flags>>18)&1) && obj->rva0028AFBB())return false;
-   if((pathfindCell->flags&0xF)==4)return false;
-   if(pathfindCell->hasActual() || pathfindCell->hasReserved()) {
-    RectCellInfo *info=pathfindCell->info;
+   if(!pathfindCell || (pathfindCell->m_0C&0xF)==5)return false;
+   if(((unsigned char)(pathfindCell->m_0C>>18)&1) && obj->rva0028AFBB())return false;
+   if((pathfindCell->m_0C&0xF)==4)return false;
+   if(cellHasActual(pathfindCell) || cellHasReserved(pathfindCell)) {
+    RectCellInfo *info=cellInfo(pathfindCell);
     if(obj->templ->flag122&0x10) {
      if(info)for(RectNode *rectNode=info->actual;rectNode;rectNode=rectNode->next) {
       Object *other=rectNode->object;

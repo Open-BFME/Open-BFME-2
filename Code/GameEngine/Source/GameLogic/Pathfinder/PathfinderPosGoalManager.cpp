@@ -11,14 +11,7 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy- /Ireference/shims/bfme2_ascii
 class Object;
 struct Rva004DD8FAInfo;
-class PathfindCell {
-public:
-    void ReleaseInfo();
-    Rva004DD8FAInfo *m_info;
-    unsigned char m_rest[8];
-    unsigned int m_flags;
-    int layer() const { return (m_flags >> 4) & 63; }
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva004DD8FANode {
     Rva004DD8FANode *m_next;
     PathfindCell *m_cell;
@@ -78,7 +71,7 @@ void PathfinderPosGoalManager::RemoveObjPtr(Rva004DD843Slot *slot)
     PathfindCell *cur = slot->m_cell;
     while (cur) {
         if (!cur->m_info) break;
-        Rva004DD8FANode **p = &cur->m_info->m_heads[slot->m_listKind];
+        Rva004DD8FANode **p = &((Rva004DD8FAInfo *)cur->m_info)->m_heads[slot->m_listKind];
         for (; *p; p = &(*p)->m_next) {
             if ((*p)->m_object == m_object) break;
         }
@@ -99,10 +92,10 @@ void PathfinderPosGoalManager::RemoveObjPtr(Rva004DD843Slot *slot)
         Rva004DD8FANode *removed = *p;
         *p = removed->m_next;
         rva004DD890(removed);
-        if (!cur->m_info->m_heads[slot->m_listKind]) {
+        if (!((Rva004DD8FAInfo *)cur->m_info)->m_heads[slot->m_listKind]) {
             int i;
             for (i = 0; i < 5; ++i) {
-                if (cur->m_info->m_heads[i]) break;
+                if (((Rva004DD8FAInfo *)cur->m_info)->m_heads[i]) break;
             }
             if (i == 5) cur->ReleaseInfo();
         }
@@ -440,7 +433,7 @@ bool PathfinderPosGoalManager::rva004DE2ED()
   Pathfinder *map=TheAI->map;
   PathfindCell *cell=(PathfindCell *)map->rva001E3647Pos(oldLayer,&m_object->m_position);
   if (!cell) return false;
-  int newLayer=cell->layer();
+  int newLayer=cell->getLayer();
   if (newLayer==1) { m_object->setLayer((PathfindLayerEnum)newLayer); return false; }
   if (newLayer!=oldLayer)
   {

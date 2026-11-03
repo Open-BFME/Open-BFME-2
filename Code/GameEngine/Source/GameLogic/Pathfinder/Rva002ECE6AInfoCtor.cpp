@@ -111,10 +111,9 @@ __forceinline long fast_float2long_round(float inputValue)
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 struct LineOccupant {LineOccupant *next;void *word4;Object *object;};
 struct LineCellInfo {char pad0[0x14];LineOccupant *occupants;};
-class PathfindCell {public:LineCellInfo *info;void *word4;Int word8;unsigned flags;
- __forceinline Int layer()const{return (flags>>4)&0x3F;}
- __forceinline Bool bit21()const{return (unsigned char)((flags>>21)&1)!=0;}
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline LineCellInfo *cellInfo(const PathfindCell *cell) {return (LineCellInfo *)cell->m_info;}
+static __forceinline Bool cellBit21(const PathfindCell *cell) {return (unsigned char)((cell->m_0C>>21)&1)!=0;}
 struct LineFireCell {char pad0[6];unsigned short count;char pad8[0x14-8];};
 class Rva002872BA {public:
  __forceinline Bool isBurning(const Coord3D &pos)const {
@@ -142,9 +141,9 @@ Int Rva002ECE6AInfo::cellCallback(PathfindCell *from,PathfindCell *to,Int x,Int 
 {
  if(flag5C)
  {
-  if(to->bit21()) flag5D=1;
+  if(cellBit21(to)) flag5D=1;
   else if(flag5D) { _WriteBarrier(); return 1; }
-  for(LineOccupant *node=to->info?to->info->occupants:0;node;node=node->next)
+  for(LineOccupant *node=cellInfo(to)?cellInfo(to)->occupants:0;node;node=node->next)
   {
    Object *other=node->object;
    if(other!=object && other->container!=object) return 1;
@@ -152,14 +151,14 @@ Int Rva002ECE6AInfo::cellCallback(PathfindCell *from,PathfindCell *to,Int x,Int 
  }
  Coord3D point;point.x=(float)(x*10);point.y=(float)(y*10);
  if(TheTriggerManager->isBurning(point)) return 1;
- movement.x=x;movement.y=y;movement.layer=to->layer();
+ movement.x=x;movement.y=y;movement.layer=to->getLayer();
  if(from) {if(!pathfinder->rva002EA658((Object *)object,movement,&previous)) return 1;}else {if(!pathfinder->checkForMovement((Object *)object,movement)) return 1;}
  if(movement.word34) return 1;
  previous.x=x;previous.y=y;
- if(!flag8 && ((unsigned char)((to->flags>>16)&1)!=0 || (unsigned char)((to->flags>>23)&1)!=0)) return 1;
+ if(!flag8 && ((unsigned char)((to->m_0C>>16)&1)!=0 || (unsigned char)((to->m_0C>>23)&1)!=0)) return 1;
  if(from) {
-  unsigned flags=to->flags;Int layer=(flags>>4)&0x3F;
-  if(Rva001E3679(layer) && from->layer()==layer && !(flags&0xF))return 0;
+  unsigned flags=to->m_0C;Int layer=(flags>>4)&0x3F;
+  if(Rva001E3679(layer) && from->getLayer()==layer && !(flags&0xF))return 0;
  }
  return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(&query,to);
 }

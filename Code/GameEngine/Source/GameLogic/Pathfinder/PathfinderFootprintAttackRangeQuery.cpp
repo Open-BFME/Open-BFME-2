@@ -47,7 +47,7 @@ class TerrainLogic:public QueryTerrainSlots<44>{public:virtual bool querySurface
 extern TerrainLogic *TheTerrainLogic;
 struct QueryCellInfo {char pad[0x28];int structure;};
 enum CellType {CELL_IMPASSABLE=5};
-class PathfindCell {public:QueryCellInfo *info;char pad4[8];unsigned flags;int layer()const{return(flags>>4)&63;}unsigned char type()const{return(unsigned char)(flags&15);}};
+#include "../../../Include/GameLogic/PathfindCell.h"
 ICoord2D *Rva002EBC14Cell(ICoord2D*,void*,const Coord3D*);
 int Rva002E9B31Get(void*);
 int isGroundOrBridgeLayer(int);
@@ -138,13 +138,13 @@ bool Pathfinder::rva002EC479(Object *attacker,const Coord3D *from,Object *target
      for(int l=0;l<count;++l){
       PathfindCell *cell=getCell((PathfindLayerEnum)layers[l],px,py);
       if(cell){
-       unsigned flags=cell->flags;
+       unsigned flags=cell->m_0C;
        int cellLayer=(flags>>4)&63;
        if(cellLayer!=layers[0] && (unsigned char)Rva002E6E8AGet(cellLayer)){
         unsigned type=(unsigned)(flags&15);
         if(type==5)foundWall=true;
        }
-       int structure=cell->info?cell->info->structure:0;
+       int structure=cell->m_info?((QueryCellInfo *)cell->m_info)->structure:0;
        if(structure==target->id)return true;
       }
      }

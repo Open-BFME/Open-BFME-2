@@ -52,19 +52,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class PathfindCell
-{
-public:
-	~PathfindCell();
-	void rva0052DED3();
-	void DoXfer(Xfer *xfer);
-public:
-	unsigned char m_storage[8];
-	unsigned short m_zone;
-	unsigned short m_padding;
-	unsigned int m_flags;
-	bool SetType_Dirty(int);
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 // Native vslot zero is called with flags zero; its returned pointer is
 // passed to the rowed global operator delete. Only that ABI is asserted.
@@ -205,7 +193,7 @@ void PathfindLayer::ClassifyBridgeCells()
       cell->SetType_Dirty(0);
       reinterpret_cast<Rva00366500*>(cell)->rva0036652D(1);
       PathfindCell *ground=TheAI->m_pathfinder->getCell(LAYER_GROUND,worldX,worldY);
-      if((reinterpret_cast<Rva00366500*>(ground)->rva0036652D((cell->m_flags>>4)&0x3f)))
+      if((reinterpret_cast<Rva00366500*>(ground)->rva0036652D((cell->m_0C>>4)&0x3f)))
       reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(TheAI->m_pathfinder)+0x460)->MarkDirty(worldX,worldY);
       
      }
@@ -217,13 +205,13 @@ void PathfindLayer::ClassifyBridgeCells()
    center.z=lo.z;
    center.x=lo.x+5.0f;
    center.y=lo.y+5.0f;
-   if((cell->m_flags&15)!=5 && ((cell->m_flags>>10)&0x3f)!=1) 
+   if((cell->m_0C&15)!=5 && ((cell->m_0C>>10)&0x3f)!=1) 
    {
     float height=TheTerrainLogic->slot7(center.x,center.y,true,0,true)+10.0f;
     if(height>m_bridge->getBridgeHeight(&center,0)) 
     {
      PathfindCell *ground=TheAI->m_pathfinder->getCell(LAYER_GROUND,worldX,worldY);
-     if((ground->m_flags&15)!=4 && ground->SetType_Dirty(6))
+     if((ground->m_0C&15)!=4 && ground->SetType_Dirty(6))
      reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(TheAI->m_pathfinder)+0x460)->MarkDirty(worldX,worldY);
      
     }
@@ -251,7 +239,7 @@ void PathfindLayer::ClassifyBridgeCells()
   for(int x=0;x<m_width;++x)for(int y=0;y<m_height;++y) 
   {
    PathfindCell *cell=&m_layerCells[x][y];
-   if(static_cast<unsigned char>(isGroundOrBridgeLayer((cell->m_flags>>10)&0x3f))) 
+   if(static_cast<unsigned char>(isGroundOrBridgeLayer((cell->m_0C>>10)&0x3f))) 
    {
     PathfindCell *ground=TheAI->m_pathfinder->getCell(LAYER_GROUND,x+m_xOrigin,y+m_yOrigin);
     if(ground && reinterpret_cast<Rva00366500*>(ground)->rva0036652D(0))

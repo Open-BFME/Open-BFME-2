@@ -64,13 +64,7 @@ char m_pad18[0x20 - 0x14 - 4];
 ListNode *m_list20; // +0x20
 };
 
-class PathfindCell
-{
-public:
-CellHead *m_head00; // +0
-char m_pad04[8]; // +4..+0xB
-unsigned int m_flags0C; // +0xC
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
@@ -115,22 +109,22 @@ for (; cellY < yEnd; ++cellY)
 PathfindCell *cell = getCell(layer, xStart, cellY);
 if (!cell)
 return false;
-if ((cell->m_flags0C & 0xF) == 5)
+if ((cell->m_0C & 0xF) == 5)
 return false;
-unsigned int cellFlags = cell->m_flags0C;
+unsigned int cellFlags = cell->m_0C;
 unsigned char shifted = (unsigned char)(cellFlags >> 0x12);
 if ((shifted & 1) == 1)
 {
 if (obj->rva0028AFBB())
 return false;
 }
-if ((cell->m_flags0C & 0xF) == 4)
+if ((cell->m_0C & 0xF) == 4)
 return false;
-if ((cell->m_flags0C & 0xF) == 5)
+if ((cell->m_0C & 0xF) == 5)
 return false;
-if ((cell->m_flags0C & 0xF) == 6)
+if ((cell->m_0C & 0xF) == 6)
 return false;
-CellHead *head = cell->m_head00;
+CellHead *head = (CellHead *)cell->m_info;
 ListNode *listNode = head ? head->m_list20 : 0;
 for (ListNode *node = listNode; node; node = node->m_next)
 {

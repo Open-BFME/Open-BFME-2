@@ -59,17 +59,7 @@ enum PathfindLayerEnum
 	LAYER_INVALID = 0
 };
 
-class PathfindCell
-{
-public:
-	PathfindCell();
-	~PathfindCell();
-private:
-	void *m_info;
-	unsigned int m_04;
-	unsigned int m_08;
-	unsigned int m_flags;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 typedef PathfindCell *PathfindCellP;
 
 class Xfer;

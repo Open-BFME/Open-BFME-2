@@ -56,7 +56,7 @@ struct PathfindObjectNode
 	Object *m_obj;						// +0x08
 };
 
-struct PathfindCellInfo
+struct E9EA7CellInfo
 {
 	char m_pad00[0x14];
 	PathfindObjectNode *m_goalList;		// +0x14
@@ -64,23 +64,10 @@ struct PathfindCellInfo
 	PathfindObjectNode *m_presentList;	// +0x20
 };
 
-class PathfindCell
-{
-public:
-	enum CellType
-	{
-		CELL_CLEAR = 0, CELL_WATER = 1, CELL_CLIFF = 2, CELL_RUBBLE = 3,
-		CELL_OBSTACLE = 4, CELL_BRIDGE_IMPASSABLE = 5, CELL_IMPASSABLE = 6
-	};
-	Bool IsObstaclePresent(ObjectID id) const;
-	CellType getType() const { return (CellType)(m_flags & 0xf); }
-	UnsignedByte getFlag18() const { return (UnsignedByte)((m_flags >> 18) & 1); }
-	PathfindCellInfo *getInfo() const { return m_info; }
-private:
-	PathfindCellInfo *m_info;			// +0x00
-	char m_pad04[8];
-	UnsignedInt m_flags;				// +0x0C
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static const Int CELL_TYPE_CLIFF = 2;
+static __forceinline UnsignedByte cellFlag18(const PathfindCell *cell) { return (UnsignedByte)((cell->m_0C >> 18) & 1); }
+static __forceinline E9EA7CellInfo *cellInfo(const PathfindCell *cell) { return (E9EA7CellInfo *)cell->m_info; }
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
@@ -144,9 +131,9 @@ bool Pathfinder::rva002E9EA7(Object *obj, Int cellX, Int cellY, PathfindLayerEnu
 				return false;
 			if (cell->getType() == PathfindCell::CELL_BRIDGE_IMPASSABLE)
 				return false;
-			if (cell->getFlag18() && obj->rva0028AFBB())
+			if (cellFlag18(cell) && obj->rva0028AFBB())
 				return false;
-			if (cell->getType() == PathfindCell::CELL_CLIFF)
+			if (cell->getType() == CELL_TYPE_CLIFF)
 				return false;
 			if (cell->getType() == PathfindCell::CELL_OBSTACLE)
 			{
@@ -156,9 +143,9 @@ bool Pathfinder::rva002E9EA7(Object *obj, Int cellX, Int cellY, PathfindLayerEnu
 			}
 			if (IS_IMPASSABLE(cell->getType()))
 				return false;
-			if (cell->getFlag18() && obj->rva0028AFBB())
+			if (cellFlag18(cell) && obj->rva0028AFBB())
 				return false;
-			for (PathfindObjectNode *node = cell->getInfo() ? cell->getInfo()->m_goalList : 0; node; node = node->m_next)
+			for (PathfindObjectNode *node = cellInfo(cell) ? cellInfo(cell)->m_goalList : 0; node; node = node->m_next)
 			{
 				if (node->m_obj->getID() == objID)
 					continue;
@@ -172,7 +159,7 @@ bool Pathfinder::rva002E9EA7(Object *obj, Int cellX, Int cellY, PathfindLayerEnu
 				else if (unit->IsAtGoalPosition())
 					return false;
 			}
-			for (PathfindObjectNode *pathfindObjectNode = cell->getInfo() ? cell->getInfo()->m_presentList : 0; pathfindObjectNode; pathfindObjectNode = pathfindObjectNode->m_next)
+			for (PathfindObjectNode *pathfindObjectNode = cellInfo(cell) ? cellInfo(cell)->m_presentList : 0; pathfindObjectNode; pathfindObjectNode = pathfindObjectNode->m_next)
 			{
 				if (pathfindObjectNode->m_obj->getID() == objID)
 					continue;

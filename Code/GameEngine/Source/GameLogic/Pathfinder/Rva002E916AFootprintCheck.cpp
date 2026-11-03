@@ -22,7 +22,7 @@ public:
 };
 struct ICoord2D:public ICoord2DBase {bool operator!=(const ICoord2DBase&)const;};
 enum PathfindLayerEnum { LAYER_INVALID=0 };
-class PathfindCell {public: void*info;char unknown04[8];unsigned flags; };
+#include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva002E8145Info {int opaque,skipX,skipY;};
 class Rva002E7388Owner;
 class Pathfinder {
@@ -58,7 +58,7 @@ bool Rva002E7388Owner::rva002E916A(int x,int y)
   for(int cy=y-radiusBefore;cy<y+radiusAfter;++cy) {
    PathfindCell*cell=pathfinder->getCell((PathfindLayerEnum)layer,cx,cy);
    if(!cell)return false;
-   unsigned flags=cell->flags;
+   unsigned flags=cell->m_0C;
    int cellLayer=(flags>>4)&0x3f;
    if((unsigned char)(flags>>16)&1)return false;
    if(requestedLayer!=cellLayer) {

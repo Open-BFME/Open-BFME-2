@@ -8,12 +8,7 @@
 #include "Lib/ICoord2D.h"
 enum PathfindLayerEnum { LAYER_GROUND=0 };
 class Object;
-class PathfindCell {
-public:
- int getLayer() const { return (flags>>4)&0x3f; }
- int getType() const { return flags&0xf; }
- char pad[0xc]; unsigned int flags;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 struct TCheckMovementInfo {
  ICoord2D cell; PathfindLayerEnum layer;
  char rest[0x30-0xc]; bool pinched; char pad31[3]; int blocked;
@@ -43,7 +38,7 @@ int Rva002ED15AInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
   if(info.pinched && ++pinchedCount>1) return 1;
   previous.x=x; previous.y=y;
   if(from) {
-   unsigned int bits=to->flags; int layer=(bits>>4)&0x3f;
+   unsigned int bits=to->m_0C; int layer=(bits>>4)&0x3f;
    if(Rva001E3679(layer) && from->getLayer()==layer && (bits&0xf)==0) return 0;
   }
   return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(valid,to);
@@ -73,7 +68,7 @@ int Rva002ED01EInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
  else {
   previous.x=x; previous.y=y;
   if(from) {
-   unsigned int bits=to->flags; int layer=(bits>>4)&0x3f;
+   unsigned int bits=to->m_0C; int layer=(bits>>4)&0x3f;
    if(Rva001E3679(layer) && from->getLayer()==layer && (bits&0xf)==0) return 0;
   }
   return !((Rva002E6DC4 *)pathfinder)->rva002E6DC4(valid,to);
