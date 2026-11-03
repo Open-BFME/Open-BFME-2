@@ -635,106 +635,12 @@ const FieldParse InGameUI::s_fieldParseTable[] =
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::setRadiusCursor present-unmatched
-void InGameUI::setRadiusCursor(RadiusCursorType cursorType, const SpecialPowerTemplate* specPowTempl, WeaponSlotType weaponSlot)
-{
-	if (cursorType == m_curRcType)
-		return;
-
-	m_curRadiusCursor.clear();
-	m_curRcType = RADIUSCURSOR_NONE;
-
-	if (cursorType == RADIUSCURSOR_NONE)
-		return;
-
-	Object* obj = NULL;
-	if( m_pendingGUICommand && InGameUIGetCommandType(m_pendingGUICommand) == GUI_COMMAND_SPECIAL_POWER_FROM_SHORTCUT )
-	{
-		if( ThePlayerList && ThePlayerList->getLocalPlayer() && specPowTempl != NULL )
-		{
-			obj = ThePlayerList->getLocalPlayer()->findMostReadyShortcutSpecialPowerOfType( specPowTempl->getSpecialPowerType() );
-		}
-	}
-	else
-	{
-		if (getSelectCount() == 0)
-			return;
-
-		Drawable *draw = getFirstSelectedDrawable();
-		if (draw == NULL)
-			return;
-
-		obj = draw->getObject();
-	}
-
-	if (obj == NULL)
-		return;
-	
-	Player* controller = obj->getControllingPlayer();
-	if (controller == NULL)
-		return;
-
-	Real radius = 0.0f;
-	const Weapon* weapon = NULL;
-	switch (cursorType)
-	{
-		// already handled
-		//case RADIUSCURSOR_NONE:
-		//	return;
-		case RADIUSCURSOR_ATTACK_DAMAGE_AREA:
-			weapon = obj->getWeaponInWeaponSlot(weaponSlot);
-			radius = weapon ? weapon->getPrimaryDamageRadius(obj) : 0.0f;
-			break;
-		case RADIUSCURSOR_ATTACK_SCATTER_AREA:
-			weapon = obj->getWeaponInWeaponSlot(weaponSlot);
-			radius = weapon ? (weapon->getScatterRadius() + weapon->getScatterTargetScalar()) : 0.0f;
-			break;
-		case RADIUSCURSOR_ATTACK_CONTINUE_AREA:
-		case RADIUSCURSOR_CLEARMINES:
-			weapon = obj->getWeaponInWeaponSlot(weaponSlot);
-			radius = weapon ? weapon->getContinueAttackRange() : 0.0f;
-			break;
-		case RADIUSCURSOR_GUARD_AREA:
-			radius = AIGuardMachine::getStdGuardRange(obj);
-			break;
-		case RADIUSCURSOR_FRIENDLY_SPECIALPOWER:
-		case RADIUSCURSOR_OFFENSIVE_SPECIALPOWER:
-		case RADIUSCURSOR_SUPERWEAPON_SCATTER_AREA:
-		case RADIUSCURSOR_EMERGENCY_REPAIR:
-		case RADIUSCURSOR_PARTICLECANNON: 
-		case RADIUSCURSOR_A10STRIKE:
-		case RADIUSCURSOR_SPECTREGUNSHIP:
-    case RADIUSCURSOR_HELIX_NAPALM_BOMB:
-		case RADIUSCURSOR_DAISYCUTTER:
-		case RADIUSCURSOR_CARPETBOMB:
-		case RADIUSCURSOR_PARADROP:
-		case RADIUSCURSOR_SPYSATELLITE: 
-		case RADIUSCURSOR_NUCLEARMISSILE: 
-		case RADIUSCURSOR_EMPPULSE:
-		case RADIUSCURSOR_ARTILLERYBARRAGE:
-		case RADIUSCURSOR_FRENZY:
-		case RADIUSCURSOR_NAPALMSTRIKE:
-		case RADIUSCURSOR_CLUSTERMINES:
-		case RADIUSCURSOR_SCUDSTORM: 
-		case RADIUSCURSOR_ANTHRAXBOMB:
-		case RADIUSCURSOR_AMBUSH: 
-		case RADIUSCURSOR_RADAR:
-		case RADIUSCURSOR_SPYDRONE:
-		case RADIUSCURSOR_AMBULANCE:
-			radius = specPowTempl ? specPowTempl->getRadiusCursorRadius() : 0.0f;
-			break;
-
-	}
-
-	if (radius <= 0.0f)
-		return;
-
-	Coord3D pos = { 0, 0, 0 };	// will be updated right away
-	m_radiusCursors[cursorType].createRadiusDecal(pos, radius, controller, m_curRadiusCursor);
-	m_curRcType = cursorType;
-
-	handleRadiusCursor();
-}
+// NOTE (link lane): Zero Hour's InGameUI::setRadiusCursor(RadiusCursorType,
+// const SpecialPowerTemplate *, WeaponSlotType) was dropped. No row holds it, no
+// other object references it, and it called names BFME 2 does not provide under
+// these spellings (Player::findMostReadyShortcutSpecialPowerOfType,
+// Weapon::getPrimaryDamageRadius(const Object *)), which kept this unit from
+// linking. Its unmatched-body marker went with the definition (LINK-181).
 
 //-------------------------------------------------------------------------------------------------
 /** handle updating of "radius cursors" that follow the mouse pos */
@@ -1708,33 +1614,23 @@ void InGameUI::clearFloatingText( void )
 // ------------------------------------------------------------------------------------------------
 /** Delete all world animations */
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::clearWorldAnimations present-unmatched
-void InGameUI::clearWorldAnimations( void )
+// NOTE (link lane): Zero Hour's InGameUI::clearWorldAnimations was dropped.
+// Retail's is 0x0029D3FB, which InGameUIDtor.cpp calls by address; no row
+// holds this copy and no other object references it. It was the only user of
+// Zero Hour's inline Anim2D::deleteInstance, whose MemoryPool::freeBlock
+// BFME 2 does not provide under that spelling. Its unmatched-body marker went
+// with the definition (LINK-181).
+// It was also this unit's only emitter of the WorldAnimationData scalar
+// deleting destructor row (0x007593F0), which this anchor keeps. Not retail
+// code.
+void bfmeWorldAnimationDataDeleteAnchor( WorldAnimationData *wad );
+#pragma inline_depth(0)
+// ?bfmeWorldAnimationDataDeleteAnchor absent-from-retail
+void bfmeWorldAnimationDataDeleteAnchor( WorldAnimationData *wad )
 {
-	WorldAnimationData *wad;
-
-	// iterate through all entries and delete the animation data
-	for( WorldAnimationListIterator it = m_worldAnimationList.begin();	
-			 it != m_worldAnimationList.end(); /*empty*/ )
-	{
-
-		wad = *it;
-		if( wad )
-		{
-
-			// delete the animation instance
-			wad->m_anim->deleteInstance();
-
-			// delete the world animation data
-			delete wad;
-
-		}  // end if
-
-		it = m_worldAnimationList.erase( it );
-
-	}  // end for
-	
-}  // end clearWorldAnimations
+	delete wad;
+}
+#pragma inline_depth()
 
 static const UnsignedInt FRAMES_BEFORE_EXPIRE_TO_FADE = LOGICFRAMES_PER_SECOND * 1;
 // ------------------------------------------------------------------------------------------------
