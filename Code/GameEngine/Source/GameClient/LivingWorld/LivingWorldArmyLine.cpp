@@ -54,7 +54,7 @@ public:
 public:
 	Rva005390AEPoint *m_points;
 public:
-	void rva00538F6B(void *a, void *startObject, void *endPosition, void *endObject);
+	void rva00538F6B(void *m_StartPosition, void *startObject, void *endPosition, void *endObject);
 };
 
 // ---- from Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyLineRva00538F6B.cpp
@@ -74,11 +74,11 @@ public:
 // are the same object. The pinned (void* x4) spelling is kept for the
 // existing caller; the method name is address-derived.
 
-void LivingWorldArmyLine::rva00538F6B(void *a, void *startObject, void *endPosition, void *endObject)
+void LivingWorldArmyLine::rva00538F6B(void *m_StartPosition, void *startObject, void *endPosition, void *endObject)
 {
 	if (m_points != 0 && startObject != endObject)
 	{
-		const Coord2D *start = reinterpret_cast<const Coord2D *>(a);
+		const Coord2D *start = reinterpret_cast<const Coord2D *>(m_StartPosition);
 		const Coord2D *end = reinterpret_cast<const Coord2D *>(endPosition);
 		Real heightOffset = reinterpret_cast<Rva00538F6BManagerView *>(TheLivingWorldManager)->m_heightOffset;
 		Real step = 1.0f / (Real)(m_count - 1);

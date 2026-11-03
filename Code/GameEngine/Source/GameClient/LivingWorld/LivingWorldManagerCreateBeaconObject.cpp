@@ -86,7 +86,7 @@ void rva0010E4F6(void *robj, bool flag);
 class RenderObjClass;
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-static __forceinline void initBeaconTransform(Matrix3D &m) {m.Row[0].X=1.0f;m.Row[0].Y=0.0f;m.Row[0].Z=0.0f;m.Row[0].W=0.0f;m.Row[1].X=0.0f;m.Row[1].Y=1.0f;m.Row[1].Z=0.0f;m.Row[1].W=0.0f;m.Row[2].X=0.0f;m.Row[2].Y=0.0f;m.Row[2].Z=1.0f;m.Row[2].W=0.0f;}
+static __forceinline void initBeaconTransform(Matrix3D &transform) {transform.Row[0].X=1.0f;transform.Row[0].Y=0.0f;transform.Row[0].Z=0.0f;transform.Row[0].W=0.0f;transform.Row[1].X=0.0f;transform.Row[1].Y=1.0f;transform.Row[1].Z=0.0f;transform.Row[1].W=0.0f;transform.Row[2].X=0.0f;transform.Row[2].Y=0.0f;transform.Row[2].Z=1.0f;transform.Row[2].W=0.0f;}
 static __forceinline void setBeaconTranslation(Matrix3D &tm,float x,float y,float z) {tm.Row[0].W=x;tm.Row[1].W=y;tm.Row[2].W=z;}
 
 

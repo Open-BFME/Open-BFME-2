@@ -144,7 +144,7 @@ template <class _Dummy> struct _Rb_global {static _Rb_tree_node_base *_M_increme
 }
 struct Rva005E4116KeyNode : _STL::_Rb_tree_node_base {int key;};
 struct Rva005E4116Iterator {
- Rva005E4116Iterator(_STL::_Rb_tree_node_base *n):node(n){}
+ Rva005E4116Iterator(_STL::_Rb_tree_node_base *treeNode):node(treeNode){}
  int operator*() const {return ((Rva005E4116KeyNode*)node)->key;}
  void operator++() {node=_STL::_Rb_global<bool>::_M_increment(node);}
  bool operator!=(const Rva005E4116Iterator &o) const {return node!=o.node;}

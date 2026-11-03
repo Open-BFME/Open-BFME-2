@@ -191,8 +191,8 @@ void StrategicInGameUI::ArmyUnitIcon::DoUpdate() {
  if(((Rva005FC73BPtrChaseField *)clip.get())->get()) {
   const AsciiString *name=&unit->name;
   if(!((const StringBase<char> *)name)->isEmpty()) {
-   TemplateView *t=(TemplateView *)TheThingFactory->findTemplate(*name);
-   if(t) { int tooltip=t->tooltip; TheMouse->rva001EEA6D(GetTooltipText(tooltip),-1,0,1.0f); }
+   TemplateView *thingTemplate=(TemplateView *)TheThingFactory->findTemplate(*name);
+   if(thingTemplate) { int tooltip=thingTemplate->tooltip; TheMouse->rva001EEA6D(GetTooltipText(tooltip),-1,0,1.0f); }
   }
  }
  int index=((Rva002A98A7DwordField *)clip.get())->get();

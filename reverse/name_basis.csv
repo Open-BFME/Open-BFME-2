@@ -6889,3 +6889,10 @@ local,InGameUI::drawFloatingText::b,InGameUI::drawFloatingText::blue,inferred,ag
 local,InGameUI::drawFloatingText::g,InGameUI::drawFloatingText::green,inferred,agree:nl-f2e3a007a786,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,0x0029D200
 local,InGameUI::drawFloatingText::r,InGameUI::drawFloatingText::red,inferred,agree:nl-42de039c3ec5,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,0x0029D200
 function,?rva004E7CBA@ResourceEntryOwner@@QAEXABVAsciiString@@@Z,?setName@ResourceEntryOwner@@QAEXABVAsciiString@@@Z,inferred,agree:nl-4a44e78ff616,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,0x004E7CBA
+local,Rva0038968FDup::n,Rva0038968FDup::newNode,inferred,agree:nl-cad53bd5a830,Code/GameEngine/Source/GameClient/LanguageFilterRva0038968F.cpp,0x0038968F
+param,Rva005E62F1::Rva005E62F1::p4,Rva005E62F1::Rva005E62F1::callback,inferred,agree:nl-ee55c28b614c-me3e776e00fec9d62c5d2bf76,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E62F1Constructor.cpp,0x005E62F1
+local,StrategicInGameUI::ArmyUnitIcon::DoUpdate::t,StrategicInGameUI::ArmyUnitIcon::DoUpdate::thingTemplate,inferred,agree:nl-dadf770bee9a-m842a66f186ab8ef80d9c3fc4,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitIcon.cpp,0x005F4488
+param,Rva005E4116Iterator::n,Rva005E4116Iterator::treeNode,inferred,agree:nl-79dc098c0c9e-m6961edc9e53ed0382415b236,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/rva005E4116Rva005E4116Farm.cpp,
+param,LivingWorldArmyLine::rva00538F6B::a,LivingWorldArmyLine::rva00538F6B::m_StartPosition,inferred,agree:nl-126013165579,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyLine.cpp,0x00538F6B
+param,initBeaconTransform::m,initBeaconTransform::transform,inferred,agree:nl-fdead264de0f,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp,
+param,MapMetaData::MapMetaData::o,MapMetaData::MapMetaData::source,inferred,agree:nl-19ffd7c90676-mdefb6eba82365edb921bf593,Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp,0x003039E8

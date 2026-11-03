@@ -84,13 +84,13 @@ class MapMetaData {
     UnicodeString cachedDisplayName,cachedDescription;
 public: MapMetaData(const MapMetaData &); ~MapMetaData(); MapMetaData &operator=(const MapMetaData &);
 };
-inline MapMetaData::MapMetaData(const MapMetaData &o)
-    : displayName(o.displayName), description(o.description), extent(o.extent), numPlayers(o.numPlayers),
-      isMultiplayer(o.isMultiplayer), isScenarioMP(o.isScenarioMP), isOfficial(o.isOfficial),
-      filesize(o.filesize), crc(o.crc), timestampLo(o.timestampLo), timestampHi(o.timestampHi),
-      waypoints(o.waypoints), supplyPositions(o.supplyPositions), techPositions(o.techPositions),
-      fileName(o.fileName), players(o.players), wordF4(o.wordF4),
-      cachedDisplayName(o.cachedDisplayName), cachedDescription(o.cachedDescription) {}
+inline MapMetaData::MapMetaData(const MapMetaData &source)
+    : displayName(source.displayName), description(source.description), extent(source.extent), numPlayers(source.numPlayers),
+      isMultiplayer(source.isMultiplayer), isScenarioMP(source.isScenarioMP), isOfficial(source.isOfficial),
+      filesize(source.filesize), crc(source.crc), timestampLo(source.timestampLo), timestampHi(source.timestampHi),
+      waypoints(source.waypoints), supplyPositions(source.supplyPositions), techPositions(source.techPositions),
+      fileName(source.fileName), players(source.players), wordF4(source.wordF4),
+      cachedDisplayName(source.cachedDisplayName), cachedDescription(source.cachedDescription) {}
 typedef char SizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 
 // The tree at3025A5 is already byte-verified under its earlier opaque-payload

@@ -55,7 +55,7 @@ public:Rva005E62F1(void*,int,int,void*,Rva005CB84A*,void*,StrategicInGameUI::Pla
 virtual int rva005E57A2(void*);virtual void rva0050B238(void*,unsigned);virtual void third()=0;virtual void fourth()=0;virtual void fifth()=0;
 private:void*a4;int a8,aC;void*a10;Rva005CB84A*a14;void*a18;Rva005F2381 record;Ref ref38;bool flag;Owned owned;
 };
-Rva005E62F1::Rva005E62F1(void*p4,int p8,int pC,void*ui,Rva005CB84A*p14,void*army,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*factory):a4(p4),a8(p8),aC(pC),a10(ui),a14(p14),a18(army),flag(false) {
+Rva005E62F1::Rva005E62F1(void*callback,int p8,int pC,void*ui,Rva005CB84A*p14,void*army,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*factory):a4(callback),a8(p8),aC(pC),a10(ui),a14(p14),a18(army),flag(false) {
  reinterpret_cast<Rva005A0B4CList*>(static_cast<char*>(a18)+8)->append(reinterpret_cast<Rva002BA8F1Listener*>(this));
  reinterpret_cast<Rva00319B0AOwner*>(a18)->rva00319B0A();
  Widget*widget=reinterpret_cast<Widget*>(reinterpret_cast<Rva0042D703PtrChaseField*>(a10)->get());

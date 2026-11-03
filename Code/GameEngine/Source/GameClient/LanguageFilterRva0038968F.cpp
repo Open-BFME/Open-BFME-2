@@ -25,10 +25,10 @@ struct _Rva0038766BNode
 struct _Rva0038766BNode *__stdcall Rva0038766BAlloc(const struct Rva0038768DData *src);
 struct _Rva0038766BNode *__stdcall Rva0038968FDup(const struct _Rva0038766BNode *src)
 {
-	struct _Rva0038766BNode *n = Rva0038766BAlloc(&src->m_tail);
+	struct _Rva0038766BNode *newNode = Rva0038766BAlloc(&src->m_tail);
 	unsigned char b = *(const unsigned char *)src;
-	*(int *)((char *)n + 8) = 0;
-	*(int *)((char *)n + 0xc) = 0;
-	*(unsigned char *)n = b;
-	return n;
+	*(int *)((char *)newNode + 8) = 0;
+	*(int *)((char *)newNode + 0xc) = 0;
+	*(unsigned char *)newNode = b;
+	return newNode;
 }
