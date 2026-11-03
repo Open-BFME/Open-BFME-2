@@ -527,14 +527,7 @@ public:
 // WB1107620 RadarMarker::AddReference increments its +8 reference count.
 // Native smart-pointer assignment4C9B8F calls this four-byte body before
 // the adjacent RadarMarker::DeleteReference body2D76BB.
-class RadarMarker
-{
-public:
-	void AddReference();
-private:
-	char m_opaque00[8];
-	int m_refCount;
-};
+#include "../../../GameEngine/Include/GameClient/RadarMarker.h"
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

@@ -7,12 +7,7 @@
 // the pointer. Sole caller at 0x004C9D43 sets the RadarMarkerClientUpdate
 // smart member at +0x0C. Shape matches rowed RefCountPtr<TextureClass>
 // assignment at 0x000424D0 with an added self-check.
-class RadarMarker
-{
-public:
-	void AddReference();
-	void DeleteReference();
-};
+#include "../../../../Include/GameClient/RadarMarker.h"
 
 class Rva004C9B8F
 {

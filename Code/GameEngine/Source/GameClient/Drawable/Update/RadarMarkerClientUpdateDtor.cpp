@@ -10,11 +10,7 @@
 // 0x00252AD9 news 0x10; slot 4 pool key 0x004C9BF3 with string
 // RadarMarkerClientUpdate proves the class. Shape follows W3DLightDraw
 // dtor (explicit member release plus intermediate inline base).
-class RadarMarker
-{
-public:
-	void DeleteReference();
-};
+#include "../../../../Include/GameClient/RadarMarker.h"
 
 class DrawableModule
 {

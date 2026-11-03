@@ -31,11 +31,7 @@ public:
 	virtual bool reverseAnimateWindow(AnimateWindow *window);
 };
 
-class RadarMarker
-{
-public:
-	void DeleteReference();
-};
+#include "../../../../Include/GameClient/RadarMarker.h"
 
 class Rva004C9B8F
 {
