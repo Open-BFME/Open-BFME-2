@@ -541,3 +541,4 @@ SphereEmissionVolumeInfo,Code/GameEngine/Include/GameClient/SphereEmissionVolume
 LineEmissionVolumeInfo,Code/GameEngine/Include/GameClient/LineEmissionVolumeInfo.h,existing header; contract class_contracts/LineEmissionVolumeInfo.json; 7/9 sampled units adopt
 EventModuleInfo,Code/GameEngine/Include/GameClient/EventModuleInfo.h,existing header; contract class_contracts/EventModuleInfo.json; 5/8 sampled units adopt
 LightningDrawModuleInfo,Code/GameEngine/Include/GameClient/LightningDrawModuleInfo.h,existing header; contract class_contracts/LightningDrawModuleInfo.json; 7/11 sampled units adopt
+FireWeaponUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/FireWeaponUpdateModuleData.h,existing header; contract class_contracts/FireWeaponUpdateModuleData.json; 6/10 sampled units adopt
