@@ -5,12 +5,7 @@
 class Object;
 typedef int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-	void rva002AF614(void *userData);
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

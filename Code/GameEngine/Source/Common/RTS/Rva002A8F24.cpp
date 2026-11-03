@@ -30,12 +30,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
-class Player
-{
-public:
-	unsigned char m_pad[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 class Rva002A8F24
 {

@@ -9,7 +9,7 @@
 #include <algorithm>
 
 enum ScienceType { SCIENCE_INVALID = 0 };
-class Player { public: bool hasScience(ScienceType science) const; };
+#include "../../Include/Common/Player.h"
 
 class Rva0043D16F
 {

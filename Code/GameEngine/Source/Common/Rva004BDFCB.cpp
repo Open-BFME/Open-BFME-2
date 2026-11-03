@@ -14,15 +14,7 @@ enum Relationship
 	REL_SAME = 0
 };
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-	char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-	char m_pad58[0x4];
-	int m_field5C; // +0x5C
-};
+#include "../../Include/Common/Player.h"
 
 class AIInner
 {
@@ -79,5 +71,5 @@ unsigned char __cdecl Rva004BDFCBTest(const Object *object, const Object *b)
 	if (dist > rangeSq)
 		return false;
 	Player *pl = object->getControllingPlayer();
-	return pl->m_field5C == 0;
+	return pl->m_playerType == 0;
 }

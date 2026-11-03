@@ -56,12 +56,7 @@ struct Iface22
 	virtual void pad21() = 0;
 	virtual void slot22() = 0;
 };
-class Player
-{
-public:
-	Object *rva002AC629();
-	void rva002AD1FD();
-};
+#include "../../../Include/Common/Player.h"
 #include "../../GameLogic/Object/object.h"
 
 void Player::rva002AD1FD()

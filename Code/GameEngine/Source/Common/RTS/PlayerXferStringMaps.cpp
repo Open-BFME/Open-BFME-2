@@ -203,12 +203,7 @@ struct Rva002AF236Node
 	AsciiString m_key;
 	float m_value;
 };
-class Player
-{
-public:
-	void rva002AF236(Xfer *xfer, Rva001FDE3F *map);
-	void rva002AF33B(Xfer *xfer, Rva002AE4C5 *map);
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::rva002AF236(Xfer *xfer, Rva001FDE3F *map)
 {

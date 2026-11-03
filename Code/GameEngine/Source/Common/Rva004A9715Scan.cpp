@@ -5,12 +5,7 @@
 // at module+0x7C. Computer players (player+0x5C == 1) get the value doubled
 // with fadd st, st. getControllingPlayer is the rowed 18B Object method.
 
-class Player
-{
-public:
-	char m_pad[0x5C];
-	int m_playerType;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../GameLogic/Object/object.h"
 

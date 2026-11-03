@@ -35,7 +35,7 @@ class Drawable;
 struct Coord3D;
 struct CreateMask { unsigned int words[4]; };
 enum ScienceType { SCIENCE_INVALID=-1 };
-class Player { public: bool hasScience(ScienceType) const; };
+#include "../../../Include/Common/Player.h"
 
 #include "ascii_string.h"
 class ScienceStore { public: ScienceType getScienceFromInternalName(const AsciiString&) const; };

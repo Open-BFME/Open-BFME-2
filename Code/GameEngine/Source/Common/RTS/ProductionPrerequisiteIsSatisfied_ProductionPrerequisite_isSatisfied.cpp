@@ -82,12 +82,7 @@ private:
     std::vector<UpgradeTemplate *> m_prereqUpgrades;
 };
 
-class Player
-{
-public:
-    bool hasScience(ScienceType science) const;
-    bool rva002AB87D(const UpgradeTemplate *upgrade) const;
-};
+#include "../../../Include/Common/Player.h"
 
 bool ProductionPrerequisite::isSatisfied(const Player *player) const
 {

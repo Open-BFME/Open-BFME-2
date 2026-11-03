@@ -52,16 +52,7 @@ enum PlayerType
 	PLAYER_COMPUTER
 };
 
-class Player
-{
-public:
-	void setPlayerType(PlayerType t, bool skirmish);
-private:
-	char m_pad00[0x5C];
-	PlayerType m_playerType;
-	char m_pad60[0x2DC - 0x60];
-	AIPlayer *m_ai;
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::setPlayerType(PlayerType t, bool skirmish)
 {

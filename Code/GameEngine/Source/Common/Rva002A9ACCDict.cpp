@@ -98,14 +98,7 @@ public:
 	int rva002A75B8(Rva002A7588In *p);
 };
 
-class Player
-{
-public:
-	void removeCommandPoints(Rva002A7588In *p);
-	void addCommandPoints(Rva002A7588In *p);
-private:
-	char m_pad00[0x60];
-};
+#include "../../Include/Common/Player.h"
 
 void Player::removeCommandPoints(Rva002A7588In *p)
 {

@@ -15,11 +15,7 @@ enum Relationship
 
 class Team;
 class Object;
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/TeamBFME2.h"
 

@@ -14,7 +14,7 @@ struct Rva00528C65Mid
 	AsciiString m_str;
 };
 
-class Player { public: float getProductionCostChangeBasedOnUpgradeDiscount(AsciiString) const; int getProductionCostChangeByObjectFilterID(void *); };
+#include "../../Include/Common/Player.h"
 class Rva00528C65
 {
 public:

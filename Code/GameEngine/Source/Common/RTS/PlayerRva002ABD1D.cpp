@@ -26,13 +26,7 @@ public:
 };
 typedef int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-	int rva002ABD1D(int kind, int limit);
-	void onStructureCreated(Object *builder, Object *structure);
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva002ABD1DContext
 {

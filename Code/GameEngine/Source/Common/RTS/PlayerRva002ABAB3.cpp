@@ -4,12 +4,7 @@
 class Object;
 typedef int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 
-class Player
-{
-public:
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-	void rva002ABAB3();
-};
+#include "../../../Include/Common/Player.h"
 
 // The iterateObjects callback at 0x002AA27A (24B): it hands 2 and each object's
 // +0x74 field to TheAiOrdersManager (global 0x00A01E18, registered as

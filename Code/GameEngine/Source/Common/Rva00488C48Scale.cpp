@@ -18,12 +18,7 @@ struct Rva00488C48Outer
 	Rva00488C48Inner *m_inner;
 };
 
-class Player
-{
-public:
-	char m_pad[0x5C];
-	int m_playerType;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../GameLogic/Object/object.h"
 

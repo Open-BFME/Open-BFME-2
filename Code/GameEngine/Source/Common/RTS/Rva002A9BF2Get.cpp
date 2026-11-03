@@ -91,13 +91,7 @@ public:
 	virtual void w3(int a1);
 };
 
-class Player
-{
-	char _pad[0x2DC];
-	GameWindow *m_ai;	// +0x2DC
-public:
-	void onStructureConstructionComplete(Object *builder, Object *structure, bool isRebuild);
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::onStructureConstructionComplete(Object *builder, Object *structure, bool isRebuild)
 {
