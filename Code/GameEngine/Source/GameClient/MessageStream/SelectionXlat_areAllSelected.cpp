@@ -15,12 +15,12 @@ namespace _STL { template <> void *& vector<void *, allocator<void *> >::operato
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
 namespace _STL { template <> void ** vector<void *, allocator<void *> >::begin(); }
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::size() const; }
+namespace _STL { template <> inline unsigned int vector<void *, allocator<void *> >::size() const { return size_t(this->_M_finish - this->_M_start); } }
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
 // bfme link decl-only end
-// Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
+// Visible ordinary vector accessors let the native bucket lookup inline its
+// storage reads. External copies keep their normal COMDAT binding policy.
+namespace _STL { template <> inline void *const &vector<void *>::operator[](size_t n) const { return *(this->_M_start + n); } }
 // map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); an explicit specialization declaration
 // suppresses this TU's copy so callers bind retail's instead.

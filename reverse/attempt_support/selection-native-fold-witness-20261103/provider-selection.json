@@ -1,0 +1,172 @@
+{
+  "index_path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\link_census\\link_index.pkl",
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "ordering": "0-based current saved index; default holder=min(definer positions), no exception for these names",
+  "entries": [
+    {
+      "name": "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z",
+      "candidate_old_index_position": 11653,
+      "copy_count": 26,
+      "exception": "absent",
+      "holder_position": 895,
+      "holder_object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+      "first_five_copies": [
+        {
+          "position": 895,
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 985,
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 1059,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva00057^e6^a.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 1100,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_hash_bodies.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 1134,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^owned^bucket^table^dtors^o1.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        }
+      ],
+      "ledger_owner_objects": [],
+      "candidate": {
+        "bytes": "8b018b4c24048d0488c20400",
+        "relocations": []
+      },
+      "current_holder_object_exists": true,
+      "current_holder_symbol": {
+        "size": 12,
+        "bytes": "8b018b4c24048d0488c20400",
+        "relocations": [],
+        "scoped_digest": "77aefc50cdb3",
+        "candidate_same_bytes": true
+      },
+      "whole_object_matches_index_digest": false,
+      "native": {
+        "rva": null,
+        "verdict": "unknown; no exact-symbol ledger row or pin found"
+      }
+    },
+    {
+      "name": "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+      "candidate_old_index_position": 11653,
+      "copy_count": 18,
+      "exception": "absent",
+      "holder_position": 385,
+      "holder_object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj",
+      "first_five_copies": [
+        {
+          "position": 385,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj",
+          "digest": "062d44dd1806",
+          "verdict": "retail"
+        },
+        {
+          "position": 441,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr_alloc.obj",
+          "digest": "062d44dd1806",
+          "verdict": "retail"
+        },
+        {
+          "position": 895,
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 1118,
+          "object": "^code_^game^engine_^source_^common_^damage^f^x_map^erase^range.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 2023,
+          "object": "^code_^game^engine_^source_^common_^rva00787^c20^hash^owner^tables.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        }
+      ],
+      "ledger_owner_objects": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj"
+      ],
+      "candidate": {
+        "bytes": "8b41042b01c1f802c3",
+        "relocations": []
+      },
+      "current_holder_object_exists": true,
+      "current_holder_symbol": {
+        "size": 25,
+        "bytes": "558bec51894dfc8b45fc8b4dfc8b40042b01c1f8028be55dc3",
+        "relocations": [],
+        "scoped_digest": "062d44dd1806",
+        "candidate_same_bytes": false
+      },
+      "whole_object_matches_index_digest": false,
+      "native": {
+        "rva": "0x00023BC0",
+        "size": 25,
+        "bytes": "558bec51894dfc8b45fc8b4dfc8b40042b01c1f8028be55dc3",
+        "current_holder_exact": true
+      }
+    },
+    {
+      "name": "??$_M_find@PBVThingTemplate@@@?$hashtable@U?$pair@QBVThingTemplate@@_N@_STL@@PBVThingTemplate@@U?$hash@PBVThingTemplate@@@2@U?$_Select1st@U?$pair@QBVThingTemplate@@_N@_STL@@@2@U?$equal_to@PBVThingTemplate@@@2@V?$allocator@U?$pair@QBVThingTemplate@@_N@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@QBVThingTemplate@@_N@_STL@@@1@ABQBVThingTemplate@@@Z",
+      "candidate_old_index_position": 11653,
+      "copy_count": 1,
+      "exception": "absent",
+      "holder_position": 11653,
+      "holder_object": "^code_^game^engine_^source_^game^client_^message^stream_^selection^xlat_are^all^selected.obj",
+      "first_five_copies": [
+        {
+          "position": 11653,
+          "object": "^code_^game^engine_^source_^game^client_^message^stream_^selection^xlat_are^all^selected.obj",
+          "digest": "e7204c085c9b",
+          "verdict": "unknown"
+        }
+      ],
+      "ledger_owner_objects": [],
+      "candidate": {
+        "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+        "relocations": []
+      },
+      "current_holder_object_exists": true,
+      "current_holder_symbol": {
+        "size": 47,
+        "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+        "relocations": [],
+        "scoped_digest": "19c037c11543",
+        "candidate_same_bytes": true
+      },
+      "whole_object_matches_index_digest": false,
+      "native": {
+        "rva": "0x002888D4",
+        "size": 47,
+        "candidate_exact_zero_relocs": true
+      }
+    }
+  ],
+  "scope": "read-only existing index and existing objects, no fetch/refresh/compile",
+  "actual_current_objects_root": "C:/Users/clemens/Documents/Experiments/Open-BFME-2/build/match",
+  "actual_current_objects_origin": "main workspace; private definitions only from supplied proof.json; main standalone object already held candidate47 by final read",
+  "rank_positions_origin": "saved local index, zero-based; no fresh link or measurement"
+}
