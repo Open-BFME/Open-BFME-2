@@ -5,10 +5,7 @@
 struct BfmeE32 {int a[8];};
 namespace _STL {template<> deque<BfmeE32>::~deque();}
 class BfmeThingCDE {public:void bfmeDtorCDE();};
-class ShroudManagerCell {
- char storage[0xA8];
-public:__declspec(noinline) ~ShroudManagerCell(){}
-};
+#include "../../../../GameEngine/Include/Common/ShroudManagerCell.h"
 class ShroudManagerImpl {
  char prefix[0x2C];
  ShroudManagerCell *elements;

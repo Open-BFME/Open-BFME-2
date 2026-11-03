@@ -12,11 +12,7 @@ public:
 	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
 };
 
-class ShroudManagerCell
-{
-public:
-	void adjustPlayerCounter008FC1F0(int playerIndex, int counterIndex, int amount);
-};
+#include "../../../Include/Common/ShroudManagerCell.h"
 
 class Rva0073BBE0
 {

@@ -16,11 +16,7 @@ public:
 	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
 };
 
-class ShroudManagerCell
-{
-public:
-	void AddLooker(ShroudManagerImpl *manager, int playerIndex);
-};
+#include "../../../Include/Common/ShroudManagerCell.h"
 
 class Rva0073BAA0Base
 {
