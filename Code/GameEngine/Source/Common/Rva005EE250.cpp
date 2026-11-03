@@ -3,12 +3,8 @@
 // Ticker delegate: forwards to rowed SetPlayerCount through the
 // pointer at +4. Evidence: mov ecx,[ecx+4] plus tail-jmp to rowed 0x005EE11E,
 // caller 0x005D13F6.
+#include "../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::RegionAwardMovieClip::Impl

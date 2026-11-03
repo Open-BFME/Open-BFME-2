@@ -212,8 +212,8 @@ void Rva005ED5BB::rva005ED5BB(Int a0, Int image)
 }
 
 // 0x005ED6B9 is rowed on StrategicHUD::RegionAwardMovieClip::Impl.
+#include "../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip { public: class Impl; };
 class RegionAwardMovieClip::Impl { public: void rva005ED6B9(Int a0, Int a1); };
 }
 class Rva005ED849

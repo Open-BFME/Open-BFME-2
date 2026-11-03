@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager*g_bfmeAptWindowManager;
+#include "../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip {public:class Impl;};
 class RegionAwardMovieClip::Impl {
 public:
  void SetRegionNameString(const UnicodeString&);

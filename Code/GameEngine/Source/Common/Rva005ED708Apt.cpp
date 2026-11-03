@@ -31,12 +31,8 @@ struct Rva005ED445Slot
 	int m_numUnits;
 };
 
+#include "../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::RegionAwardMovieClip::Impl

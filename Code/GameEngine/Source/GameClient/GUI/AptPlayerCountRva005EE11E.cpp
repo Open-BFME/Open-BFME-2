@@ -29,12 +29,8 @@ class Rva005EE06CVector {public:
 private:Rva005EE11ERecord *start,*finish,*limit;
 };
 class Rva00524306 {public:void rva00524306(const StringBase<char>&);private:void*words[3];};
+#include "../../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::RegionAwardMovieClip::Impl

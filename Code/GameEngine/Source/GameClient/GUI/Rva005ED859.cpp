@@ -4,11 +4,8 @@
 
 #include "unicode_string.h"
 
+#include "../../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip {
-public:
-	class Impl;
-};
 }
 
 class Rva005ED976

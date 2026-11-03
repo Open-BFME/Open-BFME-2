@@ -18,12 +18,8 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
+#include "../../Include/GameClient/RegionAwardMovieClip.h"
 namespace StrategicHUD {
-class RegionAwardMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::RegionAwardMovieClip::Impl
