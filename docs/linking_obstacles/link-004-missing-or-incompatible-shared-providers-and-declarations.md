@@ -541,6 +541,7 @@
   The staged consumer audit is INCONCLUSIVE on older index `e1f7c1dd18` and a
   missing current receipt for `Common/0CreateAHeroManager21FE49.cpp`; carry that
   consumer into the next census. No census gain or debt retirement is claimed.
+- **Science intrinsic-order prerequisite (2026-11-03):** [Evidence and remaining prerequisites](../../reverse/attempt_support/science-intrinsic-order-consolidation-20261103-codexb4.md): the seed now composes byte-exactly with unchanged standalone object facts; reconcile the destructor donor's fourteen-slot virtual contract and selected vtable providers next. Parser class views and STL byte failures still block consolidation.
 - **Keyboard declaration prerequisites (2026-10-26):**
   [the shared receiver repair](../../reverse/attempt_support/consolidation-keyboard-resync-prerequisite-20261026-codex.md)
   first made the seed and 166-byte resync donor compose (13 existing rows).
