@@ -93,7 +93,7 @@ Code/GameEngine/Source/Common/BfmeSlotPool.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeSubBZCSet.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp,-O2,5,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingPF.cpp,-Od,4,4,region default loses rows
-Code/GameEngine/Source/Common/BfmeThingRE.cpp,,12,12,region default loses rows
+Code/GameEngine/Source/Common/BfmeThingRE.cpp,,15,15,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingSVA.cpp,-Od,5,5,region default loses rows
 Code/GameEngine/Source/Common/BfmeThreeHundredEightyFive.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThreeHundredThirteen.cpp,,1,1,region default loses rows
@@ -314,9 +314,6 @@ Code/GameEngine/Source/GameNetwork/Rva00661650AriesUdp.cpp,-O2,1,1,region defaul
 Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp,-O2,62,62,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,,3,3,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp,,5,4,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva007E9D40TextFallback.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007EB8B0Log.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007EB920Assert.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007EBAA0Create.cpp,-O2,1,1,region default loses rows

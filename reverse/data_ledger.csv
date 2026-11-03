@@ -21283,7 +21283,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A09F00,4,.data,global,?g_Va00E09F00@@3URva007B55E0TxnName@@A,,unowned,,0,1
 0x00A09F04,8,.data,global,?g_bfmeEVIW@@3PAXA,Code/GameEngine/Source/Common/BfmeConv1379.cpp,owned,,1,1
 0x00A09F0C,4,.data,global,?g_Va00E09F0C@@3URva007B55E0TxnName@@A,,unowned,,0,1
-0x00A09F10,8,.data,global,?g_Rva0130A4F4Txn@@3PBDB,Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp,owned,,1,1
+0x00A09F10,8,.data,global,?g_Rva0130A4F4Txn@@3PBDB,Code/GameEngine/Source/Common/BfmeThingRE.cpp,owned,,1,1
 0x00A09F18,4,.data,global,?g_Va00E09F18@@3URva007B55E0TxnName@@A,,unowned,,0,1
 0x00A09F1C,8,.data,global,?TheBfmeSetupGlobal00656550@@3HA,Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp,owned,,1,1
 0x00A09F24,4,.data,global,?g_Va00E09F24@@3URva007B55E0TxnName@@A,,unowned,,0,1

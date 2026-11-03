@@ -33,6 +33,7 @@ address_global	Code/GameEngine/Source/Common/BfmeConv1871.cpp	g_Va00E0A1BC	2
 address_global	Code/GameEngine/Source/Common/BfmeOwnerCDECount.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	g_Va00BC74F0	2
+address_global	Code/GameEngine/Source/Common/BfmeThingRE.cpp	g_Rva0130A4F4Txn	3
 address_global	Code/GameEngine/Source/Common/BfmeThingRE.cpp	g_Rva0130A50CTxn	3
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00A04450	2
 address_global	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	g_Va00A046B4	2
@@ -1088,7 +1089,6 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_
 address_global	Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp	g_Va00E0A1BC	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp	g_Rva011293A0HexFirst	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp	g_Rva011294A8HexSecond	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp	g_Rva0130A4F4Txn	3
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	g_Rva00E0A010	2
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp	g_Rva0130A768	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp	g_Rva0130A6CC	2

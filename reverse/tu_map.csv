@@ -54894,7 +54894,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006562B0,36,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006562E0 provisional,Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp
 0x006562E0,32,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656300 provisional,Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp
 0x00656300,172,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006563B0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
-0x006563B0,223,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656490 provisional,Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp
+0x006563B0,223,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656490 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656490,61,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006564D0 provisional,Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp
 0x006564D0,61,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656510 provisional,Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp
 0x00656510,61,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656550 provisional,Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp
@@ -54927,8 +54927,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00656C70,7,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656C80 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656C80,9,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656C90 provisional,Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp
 0x00656C90,56,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656CD0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
-0x00656CD0,27,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656CF0 provisional,Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp
-0x00656CF0,33,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656D20 provisional,Code/GameEngine/Source/GameNetwork/Rva007E9D40TextFallback.cpp
+0x00656CD0,27,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656CF0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
+0x00656CF0,33,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656D20 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656D20,56,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656D60 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656D60,56,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656DA0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656DA0,56,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656C30..0x00656DE0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
@@ -54942,7 +54942,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00656F30,7,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656E90..0x00656F40 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656F40,7,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656E90..0x00656F50 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00656F50,17,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656E90..0x00656F70 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
-0x00656F70,221,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656E90..0x00657050 provisional,Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp
+0x00656F70,221,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656E90..0x00657050 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x00657050,118,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x00656E90..0x006570D0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x006570D0,458,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,U,N=Code/GameEngine/Source/Common/T_007ea120.cpp provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x006572A0,8,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006570D0..0x006572B0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp

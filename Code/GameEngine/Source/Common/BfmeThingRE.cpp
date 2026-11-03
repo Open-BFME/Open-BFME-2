@@ -481,12 +481,121 @@ BFME_DISP_DWORD_GETTER(Rva00656F30DwordField, 0x26C)
 
 BFME_DISP_DWORD_GETTER(Rva00656F40DwordField, 0x288)
 
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
+extern const char *g_Rva0130A4F4Txn;
 
-// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
-// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
-// Original owner and complete bounds unresolved; independent address-owned view.
+// g_Rva0130A4F4Txn: matched references place it at VA 0xe09f10 (zero-filled .bss).
+const char * g_Rva0130A4F4Txn;
+
+// Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp;
+// bfme1_sweep ambiguous: byte-identical bodies placed by the BFME1->BFME2 address map at 0x00656CD0.
+// Addresses in the donor text are BFME1.
+// Use the cached +0x228 value, else ask the optional object at +0x0C through slot 8.
+struct Rva007E9D20Source
+{
+    virtual void slot0(); virtual void slot1(); virtual void slot2();
+    virtual void slot3(); virtual void slot4(); virtual void slot5();
+    virtual void slot6(); virtual void slot7();
+    virtual void *fallback();
+};
+
+struct Rva007E9D20Owner
+{
+    char m_pad0[12];
+    Rva007E9D20Source *m_source;
+    char m_pad10[0x218];
+    void *m_cached;
+    void *get();
+};
+
+// Open-BFME-1 donor at cd32c8ef06dfb0d995b2f47e93e41622e4447092:
+// Rva007E9D40TextFallback.cpp at BFME1 RVA 0x007E9D40.
+// The target address map selects BFME2 RVA 0x00656CF0 from two placements.
+// Retail independently reads the inline text at +0x101 and calls the source
+// object's slot seven through the pointer at +0xC.
+
+struct Rva007E9D40Source
+{
+	virtual void slot0(); virtual void slot1(); virtual void slot2();
+	virtual void slot3(); virtual void slot4(); virtual void slot5();
+	virtual void slot6();
+	virtual char *fallback();
+};
+
+struct Rva007E9D40Owner
+{
+	char m_pad0[12];
+	Rva007E9D40Source *m_source;
+	char m_pad10[0xF1];
+	char m_text[1];
+	char *getText();
+};
+
+// 0x007E9FC0: if the peer arg is live, stash both args and slot4 through
+// +0x250; otherwise send the +0x30/0/+0x90 triple or report -203.
+
+class Rva007E9FC0Owner;
+
+void __cdecl rva007EAC10BeginCallback(Rva007E9FC0Owner *owner, int count, void *peer);
+
+typedef void (__cdecl *Rva007E9FC0Callback)(Rva007E9FC0Owner *, int, void *);
+
+class Rva007E9FC0Iface
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void sendTriple(char *a, char *b, char *c, int n, Rva007E9FC0Callback callback, void *self);
+};
+
+class Rva007E9FC0Inner
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void slot2(int a, void *arg);
+};
+
+class Rva007E9FC0Nested
+{
+public:
+	char m_pad[0x6A8];
+	Rva007E9FC0Inner *m_inner;
+};
+
+class Rva007E9FC0Slot
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual int slot4(void *buf, unsigned char n);
+};
+
+class Rva007E9FC0Owner
+{
+public:
+	void begin(int n, void *peer);
+
+private:
+	char m_pad00[0x0C];
+	Rva007E9FC0Iface *m_0C;
+	char m_pad10[0x20];
+	char m_buf30[0x60];
+	char m_buf90[0x10];
+	char m_A0;
+	char m_padA1[0x18F];
+	unsigned char m_230;
+	char m_pad231[0x1F];
+	Rva007E9FC0Slot *m_250;
+	Rva007E9FC0Nested *m_254;
+	char m_258[8];
+	void *m_260;
+	int m_264;
+	char m_pad268[0x44];
+	char m_2AC;
+};
+
 // tu-skeleton: 0x006560F0 36B ?bfmeGoRE@BfmeThingRE@@QAEDPAVBfmeOtherRE@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv908.cpp (not merged yet)
 
 // tu-skeleton: 0x00656120 104B ?get@Rva007E90C0Names@@QAE_NPADH@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp (not merged yet)
@@ -500,6 +609,21 @@ BFME_DISP_DWORD_GETTER(Rva00656F40DwordField, 0x288)
 // tu-skeleton: 0x006562B0 36B ??_GRva006560E0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp (not merged yet)
 
 // tu-skeleton: 0x006562E0 32B ??0Rva007E9B40Object@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeThingRE.cpp
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+
+
+
+
+
+
 
 // ---- from Code/GameEngine/Source/Common/BfmeThingRE.cpp
 
@@ -877,7 +1001,65 @@ void BfmeThingRE::bfmeRunRE()
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x006563B0 223B ?Rva007E93C0@@YGXPAVRva007E8810Message@@PBD11HHH11_N2@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP>] / ret
+//
+// One dword is read at a fixed displacement from `this` and returned. Every
+// displacement here is a multiple of four, so the accessed member is spelled
+// as an `int` right after the lead array. The bytes cannot distinguish `int`
+// from `unsigned int`, a pointer, or anything else four bytes wide moved
+// with a plain load. Members before the accessed one are spelled as a lead
+// array because their types are not witnessed here, only their total size.
+// Identity is not recovered: every name is derived from its address (BFME1
+// pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva007E93C0Acct.cpp
+
+void __stdcall Rva007E93C0(Rva007E8810Message *msg, const char *name,
+	const char *password, const char *email, int dobDay, int dobMonth,
+	int dobYear, const char *countryCode, const char *parentalEmail,
+	bool eaMailFlag, bool thirdPartyMailFlag)
+{
+	const char *txn = g_Rva0130A4F4Txn;
+	msg->reset();
+	msg->m_category = 'acct';
+	msg->addString("TXN", txn);
+	msg->addString("name", name);
+	msg->addString("password", password);
+	msg->addString("email", email);
+	msg->addInt("DOBDay", dobDay);
+	msg->addInt("DOBMonth", dobMonth);
+	msg->addInt("DOBYear", dobYear);
+	msg->addString("countryCode", countryCode);
+	if (parentalEmail && *parentalEmail)
+		msg->addString("parentalEmail", parentalEmail);
+	msg->addBool("eaMailFlag", eaMailFlag);
+	msg->addBool("thirdPartyMailFlag", thirdPartyMailFlag);
+}
 
 // tu-skeleton: 0x00656490 61B ?bfmeSetupPair_00656490@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
 
@@ -915,30 +1097,57 @@ void BfmeThingRE::bfmeRunRE()
 
 // tu-skeleton: 0x00656C30 52B ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1324.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
-
-// Disp32 dword getters: seven-byte __thiscall members with one shape:
-//
-//     mov eax,[ecx+<DISP>] / ret
-//
-// One dword is read at a fixed displacement from `this` and returned. Every
-// displacement here is a multiple of four, so the accessed member is spelled
-// as an `int` right after the lead array. The bytes cannot distinguish `int`
-// from `unsigned int`, a pointer, or anything else four bytes wide moved
-// with a plain load. Members before the accessed one are spelled as a lead
-// array because their types are not witnessed here, only their total size.
-// Identity is not recovered: every name is derived from its address (BFME1
-// pioneered the same family in
-// reference/open-bfme-1/Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp).
-// No // cl: line (defaults match the frameless 7-byte shape).
-
 // tu-skeleton: 0x00656C80 9B ??0Rva00657670@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
 
-// tu-skeleton: 0x00656CD0 27B ?get@Rva007E9D20Owner@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp
 
-// tu-skeleton: 0x00656CF0 33B ?getText@Rva007E9D40Owner@@QAEPADXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9D40TextFallback.cpp (not merged yet)
+void *Rva007E9D20Owner::get()
+{
+    if (m_cached)
+        return m_cached;
+    return m_source ? m_source->fallback() : 0;
+}
 
-// tu-skeleton: 0x00656F70 221B ?begin@Rva007E9FC0Owner@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/Rva007E9D40TextFallback.cpp
+
+char *Rva007E9D40Owner::getText()
+{
+	char *local = m_text;
+	if (*local)
+		return local;
+	return m_source ? m_source->fallback() : 0;
+}
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp
+
+void Rva007E9FC0Owner::begin(int n, void *peer)
+{
+	if (peer)
+	{
+		m_260 = peer;
+		m_264 = n;
+		m_254->m_inner->slot2(2, 0);
+		Rva007E9FC0Slot *slot = m_250;
+		int resultCode = slot->slot4(m_258, m_230);
+		if (resultCode)
+		{
+			int tmp = resultCode;
+			m_254->m_inner->slot2(0, &tmp);
+		}
+	}
+	else if (!m_A0 && !m_2AC)
+	{
+		m_2AC = 1;
+		// BFME2 retail passes 0x00A57BB0 here (BFME1 0x00BEAC10 drifted).
+		m_0C->sendTriple(m_buf30, 0, m_buf90, n, &rva007EAC10BeginCallback, this);
+	}
+	else
+	{
+		m_2AC = 0;
+		int err = -203;
+		m_254->m_inner->slot2(0, &err);
+	}
+}
 
 // tu-skeleton: 0x006573B0 99B ?set@Rva006573B0Holder@@QAEXPBD00@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
 
