@@ -7,8 +7,9 @@ A matched row whose unit cannot link is half done.
 
 ## Shared obstacle register
 
-Read [linking_obstacles.md](linking_obstacles.md) before selecting linking work,
-including a link task served by the default picker. Check its evidence and
+Search the [obstacle register](linking_obstacles.md) (one file per entry in
+`linking_obstacles/`) before selecting linking work, including a link task served by
+the default picker. Check its evidence and
 prerequisites against current source and providers before repeating an attempt:
 the ranking can still contain repairs that landed after the last census.
 

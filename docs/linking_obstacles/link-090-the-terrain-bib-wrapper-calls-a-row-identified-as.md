@@ -1,0 +1,7 @@
+### LINK-090: the terrain bib wrapper calls a row identified as LinearCampaign
+
+Status: Blocked on wrapper identity. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
+Evidence / affected unit: `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp`, the existing 13-byte `removeAllBibs` row at RVA `0x001EC981`. Its REL32 at offset `+0x8` targets RVA `0x001EC3B5`, which is already the 648-byte `LinearCampaign::onCurrentMissionWon` row in `Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp`. That row's evidence identifies the WorldBuilder campaign twin, carry-over units and player upgrades. Raw native relocation and row evidence: `build/link-worker-w5-c136/native-refs.log` and `native-target-owners.json`.
+Completed: inspected the current wrapper object and native destination without editing either unit. The unresolved `BaseHeightMapRenderObjClass::removeAllTerrainBibs` spelling is not evidence of an unimplemented body at this target.
+Remaining / next check: establish the wrapper's actual campaign receiver and purpose before any row/name correction. Do not bind this terrain method to the existing campaign spelling merely because the call bytes agree. The separate water-transform row and the unit's unrowed terrain ports do not settle that identity.
+Clearance: pending. Census confirmation: not claimed.

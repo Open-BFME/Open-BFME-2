@@ -1,0 +1,3 @@
+### Dict-record allocator prerequisite handoff (2026-11-02)
+
+A private BFME allocator-shim trial reproduces the remaining60B base and its11B proxy/28B allocation callees while preserving all three caller rows. Publication is deferred:14F3C4 is reserved by the TerrainLogic consolidation worker, and fresh2226BE placement needs explicit review. A mistakenly admitted unpublished proxy row was removed immediately and its verdict retracted; no source or public ledger changed. [Exact private boundary, reservation correction and next steps](../../reverse/attempt_support/element196d90-allocator-handoff-20261102/README.md). The consumer remains blocked only by its original vector-base conflict.

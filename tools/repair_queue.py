@@ -1495,7 +1495,8 @@ def header_items():
         if undecided:
             # generate() declares decided slots only; a contract leaving slots open cannot be generated
             obstacle = (f"the contract leaves virtual slot(s) {', '.join(undecided[:6])} undecided, so `run "
-                        "--generate` refuses (docs/linking_obstacles.md, \"Module base chain\")")
+                        "--generate` refuses (docs/linking_obstacles/"
+                        "module-base-chain-canonical-headers-block-the-most-tu-merges-2026-10-28.md)")
             generate = choose + by_hand
         else:
             obstacle = ""
@@ -2337,7 +2338,7 @@ def stub_items(path=None):
             "why": (f"the link stubs {', '.join(members[:6])}{' ...' if len(members) > 6 else ''}; referenced from "
                     f"{len(users)} unit(s): define the body or data, or bind the reference to retail's real name"),
             "start": (f"python3 tools/class_views.py --class {key}" if kind == "class" else
-                      f"python3 tools/pin_consistency.py --symbol {key}") + "; read docs/linking_obstacles.md first",
+                      f"python3 tools/pin_consistency.py --symbol {key}") + f"; search docs/linking_obstacles/ for {key} first",
             "claim": claim if claim else [pins[key]],
             "pass_test": ("the next link cycle (tools/link_cycle.py, maintainer-run; read through its receipt) no "
                           "longer lists " + ("these symbols" if len(members) > 1 else "this symbol") + " in "
@@ -2432,8 +2433,8 @@ MERGE_DECISIONS = {
                       "view differs)",
                       "python3 tools/tu_skeleton.py --merge {tu} --dry-run accepts {file}"),
     "link-regression": ("merging {file} into {tu} would stop a linking unit linking ({symbols})",
-                        "python3 tools/link_check.py {file} and python3 tools/link_check.py {tu}; read "
-                        "docs/linking_obstacles.md first",
+                        "python3 tools/link_check.py {file} and python3 tools/link_check.py {tu}; search "
+                        "docs/linking_obstacles/ for both units first",
                         "python3 tools/tu_skeleton.py --merge {tu} --dry-run accepts {file} with LinkGuard "
                         "passing"),
 }

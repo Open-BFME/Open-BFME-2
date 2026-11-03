@@ -1,0 +1,3 @@
+### Dict-record tagged fill repaired (2026-11-02)
+
+The37B typed uninitialized-fill twin at32AD58 now uses the real18B placement helper and58B copy in the approved SidesList.cpp TU. Normal/strict62-row verification preserves the consumer's original85B constructor and27B wrapper plus the provider's prior163 code/541 data definitions. Its scoped construction contract is justified by the complete call graph; no blanket exception assumption is used. Bounded linking preserves SidesList's LINKS2103B and leaves only the vector-base conflict at421D73 in the consumer. [Full proof and negative controls](../../reverse/attempt_support/element196d90-fill-20261102/README.md). Unit/census clearance remains pending.

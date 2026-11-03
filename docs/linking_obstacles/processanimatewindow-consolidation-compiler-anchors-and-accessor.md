@@ -1,0 +1,9 @@
+### ProcessAnimateWindow consolidation: compiler anchors and accessor declarations
+
+Status: Four clean donors consolidated; remaining slide declarations remain open. Updated: 2026-10-27; starting revision: f8924e3512; preview index: bf3dd31211.
+
+Evidence: [scoped handoff](../../reverse/attempt_support/processanimatewindow-consolidation-20261027-codexb5.md). The supported merger initially rejected four shards because its discarded global anchor type was still needed, and rejected the two slide shards on canonical ICoord2D/private AnimateWindow declarations. Local helper types, distinct static anchor names and ordinary accessor declarations preserve each shard's native bytes and external bindings. The SDK supplies both surviving slide timer declarations, retiring exactly two Microsoft-header queue records.
+
+Applied: tu_skeleton.py absorbs SpiralInitReverse, SpiralUpdate, SpiralReverse and SlideFromRightUpdate into the 17-row seed. All 21 scoped rows remain exact (2,791 bytes); frozen, ledger and both data checks pass. The merged strong definitions and weak bindings are unchanged, with no new undefined name. Five referenced inline copies differ from the premerge union, but the supported guard and its read-only donor-removal view find no link or outside-provider loss. Optimize keys transfer through the owning updater with totals kept; no identity key is retired. The source-path audit finds no active consumer of the four deleted donors.
+
+Remaining: the two slides still need canonical coordinate/private animation declaration reconciliation. The three mixed sources and earlier split blockers remain intact. Ordinary previews against the old census index retain four deleted objects and report destination duplicates; the guard checks their removals together. Carry that freshness limitation to the next scheduled census. Clearance is bounded composition only; no census linked-byte or image-ownership gain is claimed.

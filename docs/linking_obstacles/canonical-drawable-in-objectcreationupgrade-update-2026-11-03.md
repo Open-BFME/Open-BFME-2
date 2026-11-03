@@ -1,0 +1,3 @@
+### Canonical Drawable in ObjectCreationUpgrade update (2026-11-03)
+
+The update donor now includes canonical Drawable instead of its private fadeIn-only declaration. All three rows, including753-byte update and EH, remain exact; all17 external definitions and ordinary relocation contexts are identical. Owning Drawable acceptance retires one header-debt entry. [Private and normal evidence](../../reverse/attempt_support/objectcreation-drawable-20261103/README.md). This pointer-consumer adoption adds no constructor/table provider and claims no census gain. Preserve the observed shadow data-identity wrong-name finding for update's compiler static guard at RVA0x00A03E08 as separate follow-up; no data register or symbol is hand-retired.

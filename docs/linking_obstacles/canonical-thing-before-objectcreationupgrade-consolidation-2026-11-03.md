@@ -1,0 +1,3 @@
+### Canonical Thing before ObjectCreationUpgrade consolidation (2026-11-03)
+
+ObjectCreationUpgradeUpdate.cpp now uses the complete canonical Thing base, retains Object field offsets and preserves the existing twelve-float matrix evaluation through its TU view. All three rows, including753-byte update and EH, remain exact; retained external definitions are identical. The owning header-adoption tool passes its link-preservation guard and retires one Thing queue entry. [Scope and object comparison](../../reverse/attempt_support/objectcreation-thing-20261103/README.md). This is a verified header-debt repair; incompatible Object/ObjectCreationUpgrade/ModuleData views, the failed consolidation and broader provider/census/runtime checks remain separate.

@@ -1,0 +1,3 @@
+### ObjectCreationUpgrade seed/Update leaf and data declarations shared (2026-11-03)
+
+The supported class-view API applies both actual plans to these two approved files, preserving all23 rows and all31+17 ordinary external definitions/relocations. Required existing enum/forwards and status/flag vocabulary are shared; public data access follows the existing consumer view. [Plans, normal checks and object comparison](../../reverse/attempt_support/objectcreation-data-leaf-pair-20261103/README.md). No path or ledger identity moves yet. This clears the local declaration prerequisites for a fresh supported Update merge, while canonical ModuleData base lifetime/table work remains separate.

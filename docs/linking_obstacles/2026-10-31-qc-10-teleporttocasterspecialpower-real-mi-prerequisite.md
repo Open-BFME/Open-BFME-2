@@ -1,0 +1,3 @@
+### 2026-10-31 qc-10: TeleportToCasterSpecialPower real MI prerequisite (queue5392)
+
+Native4CD3A4/4EF5E/253390/factory253057 prove0x88-byte object with vptrs0/C/10/20. Current ctor donor's three dummy data pointers conceal actual inherited interfaces; promoting that flat view would be incorrect. UpdateModule and BehaviorModule are held by qc-11, so their canonical hierarchy was not duplicated or edited. Requeue after class:UpdateModule completes; then recover4EF5E's interface20 and all four compiler vptr restorations with byte/link acceptance. Source unchanged; no verification credit claimed. Exact retail bodies/tables and scope handoff: reverse/attempt_support/teleportcaster-canonical-qc10-20261031/.

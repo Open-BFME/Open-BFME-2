@@ -1,0 +1,3 @@
+### LINK-089 Companion AIUpdate adoption false-reject handoff (2026-11-02)
+
+A canonical AIUpdate/AICommand adoption privately and normally preserves all37rows plus every complete28code/fourdata definition and relocation. It restores real+20 command receivers and correct+10 update receiver conversion. Owning acceptance nevertheless refuses the existing census StateMachine table conflict as a predicted loss. No source adoption or debt retirement was retained and no check was altered. [Exact candidate, before/after hashes and refusal](../../reverse/attempt_support/supply-truck-seed-base-20261102/README.md). State/StateMachine reconciliation and tooling treatment of unchanged pre-existing conflicts remain prerequisites.

@@ -1,0 +1,3 @@
+### ObjectCreationUpgrade seed/Update Object views reconciled (2026-11-03)
+
+The supported class-view API joins only these two approved files' existing Object fields and methods, preserving Thing60, ID74, float1C0, modules244 and mask284. The existing complete mask type is supplied before its by-value use; no canonical private copy or new name is invented. Normal23/23 and strict receipts pass; all31+17 external definitions/ordinary relocations are unchanged. [Compiler-layout reconciliation and comparison](../../reverse/attempt_support/objectcreation-object-pair-20261103/README.md). No source-path or ownership movement yet; leaf/ModuleData views and actual composition remain separate.

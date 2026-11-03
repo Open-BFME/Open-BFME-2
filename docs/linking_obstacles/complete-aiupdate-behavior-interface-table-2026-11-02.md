@@ -1,0 +1,3 @@
+### Complete AIUpdate behavior-interface table (2026-11-02)
+
+[Final47-slot/native proof](../../reverse/attempt_support/aiupdate-bi-inline-rows-20261102/README.md): all45 existing shared inline bodies now have separate verified rows and the complete188B table at7FA3C0 resolves exactly to retail. The119-row consumer preserves129 code/10 data external definitions; no new unique C++ bytes or original-name/TU claim. Earlier RET8 reservation deferral is superseded by successful public file-wide reservations on the actual canonical header and emitting source; the foreign vector-destructor scope remains untouched. Primary-table closure, conditional deleting-destructor selection and global census/provider verification remain.

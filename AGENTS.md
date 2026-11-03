@@ -238,7 +238,8 @@ verified and easy to rebase. Detail for the hook rules:
   class declarations. It checks affected consumers and refuses proven losses
   of previously linking units, even when changed bodies byte-match. Read its
   report; inconclusive means unverified, not clean. Carry those cases into the
-  next census and record link obstacles in `docs/linking_obstacles.md`.
+  next census and record link obstacles in `docs/linking_obstacles/` (one file per entry,
+  `docs/linking_obstacles.md`).
 - Never start, re-run or approve `tools/nightly_measure.py`, the nightly
   workflow (`.github/workflows/nightly-measure.yml`, `docs/nightly_actions.md`)
   or `tools/audit/run_nightly.cmd` (the maintainer's scheduled tasks). Ask a
@@ -257,8 +258,10 @@ verified and easy to rebase. Detail for the hook rules:
 
 An explicit request or assigned lane overrides the queue.
 
-For any linking work, including work served by the default picker, read
-`docs/linking_obstacles.md` before choosing a target. Update the relevant entries
+For any linking work, including work served by the default picker, search the
+obstacle register (`docs/linking_obstacles.md`, one file per entry in
+`docs/linking_obstacles/`) for the units, symbols and IDs you will touch before
+choosing a target. Update the relevant entries
 with completed work, newly encountered obstacles and remaining prerequisites in
 the repair or attempt-handoff commit, and before ending a linking pass. Mark a
 cleared obstacle with verification evidence and its scope; retain its history.
@@ -388,8 +391,8 @@ verified commit first; never split a mixed file inside a merge. Workflow:
 - `docs/linking.md`: the census, link tools, class reconciliation.
 - `docs/automation.md`: recurring jobs, reading the real link, a stopped census, the
   original game under automation.
-- `docs/linking_obstacles.md`: required linking handoff; update repairs, new
-  obstacles and evidence for cleared entries.
+- `docs/linking_obstacles.md` and `docs/linking_obstacles/`: required linking handoff,
+  one file per entry; update repairs, new obstacles and evidence for cleared entries.
 - `docs/claims.md`: claim mechanics.
 - `docs/naming.md`: names and `tools/rename.py`.
 - `docs/consolidation.md`: TU merges.

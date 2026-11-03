@@ -1,0 +1,3 @@
+### Dict-record placement helper (2026-11-02)
+
+The approved SidesList.cpp now emits the complete typed18B _Construct twin at32ACEA, through ordinary placement new and the verified58B copy. Existing57 rows,162 code and541 data definitions are preserved. A scoped nonthrowing contract is justified by the entire18B->58B primitive-copy/refcount graph and nonthrowing placement operator, not by an assumed missing exception path. The tagged fill and allocator base are still open; [proof and contract scope](../../reverse/attempt_support/element196d90-construct-20261102/README.md). No unit/census clearance is claimed.

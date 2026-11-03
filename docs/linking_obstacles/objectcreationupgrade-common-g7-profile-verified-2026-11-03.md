@@ -1,0 +1,3 @@
+### ObjectCreationUpgrade common G7 profile verified (2026-11-03)
+
+The explicit-profile follow-up clears the tuning prerequisite: current Update compiles753B plus rollback/handler3/3 exact under G7, with its actual EH graph EXACT and zero normalized primary differences. The old G6-only source comment is stale and is corrected to the verified G7 directive. [Explicit controls and normal verification](../../reverse/attempt_support/objectcreation-update-g7-20261103/README.md). The negative explicitG6 seed experiment above remains real, but does not block this successful commonG7 choice. No codegen pragma, waiver, funclet repoint or shared-header change is needed. Class/view/lifetime reconciliation and actual composition remain open.

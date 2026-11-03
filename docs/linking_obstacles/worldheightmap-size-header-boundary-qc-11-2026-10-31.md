@@ -1,0 +1,3 @@
+### WorldHeightMap size/header boundary (qc-11, 2026-10-31)
+
+The generator reports a decided contract but selects size 16 by majority despite its own retail allocation 0x120F0 and ctor-write lower bound 73940. Native W3DTerrainVisual::load pushes 0x120F0 at 0x00092193 before the constructor call at 0x000921AB. Generation adopted 0/59 units (41 field-renaming failures, 13 C2535); no header or source was retained. The word following the two known vtable entries is parseBlendTileData; its role/boundary remains unproven. Ghidra import timed out after 330 seconds and yielded no xref result. Full header recovery needs this table boundary and the allocation-backed member surface; no layout was guessed. Evidence: reverse/attempt_support/world-height-map-qc11.md.

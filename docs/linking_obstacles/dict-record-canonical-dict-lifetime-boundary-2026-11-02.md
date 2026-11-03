@@ -1,0 +1,3 @@
+### Dict-record canonical Dict lifetime boundary (2026-11-02)
+
+Canonical Dict adoption in the remaining caller requires a real member-lifetime repair: emptying the caller's explicit-release destructor avoids double cleanup but changes the native85B constructor's cleanup target. A local inline Dict destructor restores3/3 bytes privately, but was not applied because consistent destructor declarations/definitions must be reconciled across users. The existing5B SidesListDataChunks owner is implicitly inline in a private class. [Measured boundary and review](../../reverse/attempt_support/element196d90-dict-header-20261102/README.md). The header key remains open; no source or census change is claimed.

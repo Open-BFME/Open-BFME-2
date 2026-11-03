@@ -1,0 +1,3 @@
+### Native AIUpdate cluster adopts canonical StateMachine (2026-11-02)
+
+Three existing native bodies at2645FF/264E93/264F3D retain their identities and exact bytes while fake Slot110/Slot8/StateMachine copies are removed. The owning header-adoption tool passes, preserves the previously linking unit and retires one header-queue entry. [Evidence and separate naming prerequisite](../../reverse/attempt_support/aiupdate-state-adoption-20261102/README.md). A private named isIdle twin was exact but is deferred because its target-name basis remains a majority slot contract; no new named provider or old donor removal is landed. Primary-table identity/global-provider/runtime checks remain open.

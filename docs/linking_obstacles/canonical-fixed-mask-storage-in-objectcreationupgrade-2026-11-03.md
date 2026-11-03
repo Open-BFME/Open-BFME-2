@@ -1,0 +1,3 @@
+### Canonical fixed-mask storage in ObjectCreationUpgrade (2026-11-03)
+
+The merged TU now includes canonical BfmeFixedStorage128 instead of its private declaration. All23 rows, four EH graphs and all46 ordinary external definitions/relocations remain exact; sizeof128 and the unchangedcopy-constructor binding to4548B are independently verified. Owning header acceptance retires one queue entry. [Canonical declaration and complete comparison](../../reverse/attempt_support/objectcreation-fixed-storage-20261103/README.md). The other m_bits/words fields are untouched, so the old generic field-rename collision is avoided through the real type, with no allowance or check edit. Existing guard data-name debt and other donor/base/table/lifetime prerequisites remain separate.

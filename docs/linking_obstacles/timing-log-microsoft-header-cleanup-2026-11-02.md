@@ -1,0 +1,3 @@
+### Timing-log Microsoft-header cleanup (2026-11-02)
+
+Rva0023C641Write.cpp now uses the supplied stdio/string/Windows headers; its owning inventory drops from eleven copied declarations to one. All three rows, six emitted code definitions and five data definitions retain bytes and relocations; strict checks and the bounded LINKS 542-byte prediction pass. The remaining direct _mbscat declaration cannot yet become the /MD mbstring.h import without changing the native 371B setup body; a private trial confirms that boundary. SDK default-library directives are covered separately in the [verification packet](../../reverse/attempt_support/timing-msheaders-20261102/README.md). Census and runtime status are unchanged.

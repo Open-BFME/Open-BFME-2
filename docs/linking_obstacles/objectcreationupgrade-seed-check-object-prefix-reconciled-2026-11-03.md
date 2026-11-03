@@ -1,0 +1,3 @@
+### ObjectCreationUpgrade seed/check Object prefix reconciled (2026-11-03)
+
+The existing non-inheriting prefix views now share their established direct-call declarations and mask storage at+284, with a complete mask type in the seed. All19 rows and data verify; every external code/data definition is unchanged. Strict receipts pass and paired preview preserves680 -> 680 linked bytes. [Bounded proof](../../reverse/attempt_support/objectcreation-object-prefix-20261103/README.md). This enables a new supported merge trial; actual absorption, the update donor's inherited Object view, ObjectCreationUpgrade/ModuleData lifetime and vtable differences remain separate. No source-file, census or runtime gain is claimed by this prerequisite alone.

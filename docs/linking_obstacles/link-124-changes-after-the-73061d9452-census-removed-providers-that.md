@@ -1,0 +1,29 @@
+### LINK-124: changes after the 73061d9452 census removed providers that census-linked units still use
+
+Status: Repair landed / awaiting census for three units; cause class open (single-unit previews miss it). Updated: 2026-10-27; inspected revision: d16a31e4dc (rebased onto cd2bf1dd60); index 73061d9452.
+
+Evidence / affected units: a current-object preview of every census-unlinked unit plus every source changed since the census (1,485 previewable units; 31 new merged units are not previewable) found three census-linked units that no longer link. One more, GameLogicInit.cpp, failed only in that full preview:
+- `StlportVectorInsertOverflowRva003A46FA.cpp` (221 B). After the census, a9a72a7980 turned the decl-only `_Construct<BfmeStringHeadRecord160>` into an `inline` forwarder to `_Construct<BfmeContainerRecord003A451B>`. Every call is inlined, but VC7.1 still emits the specialization as a 5-byte `jmp` COMDAT. `reverse/symbols.csv` pins that name at 0x003A454E, the 45-byte EH body, so the census rejects the thunk as not retail's body.
+- `Rva000F0F2BFinish.cpp` (65 B): unresolved `??_7W3DProjectedShadow@@6B@`. In the census index its only definition was a COMDAT from W3DProjectedShadowManagerRva0010C2D5.cpp, which 9c3a383b2b rightly stopped emitting.
+- `GameLogicInit.cpp` (28,191 B): unresolved `_strcat`. e40e476d69 measured it linking while the DirtySock Y2 units still carried `/alternatename:_strcat=?ji_0062988c@@YAXXZ`. At the same time e015ef1d25 dropped those pragmas as dead. An `/alternatename` is link-wide; retail imports no strcat, and the 0x0062988C thunk is `_mbscat`. The same drop broke six other units; davidrazidlo-claude-K5 repaired those in cd2bf1dd60.
+
+Completed (lk1):
+- 3f52d8533b: the forwarder is `__declspec(dllimport) __forceinline` (the ProductionUpdate import-inline pattern). The object then defines no `_Construct<BfmeStringHeadRecord160>`. 2/2 rows exact. All 7 sources spelling either record LINK.
+- 289c61ac84: Rva000F0F2BFinish.cpp stores `??_7Rva007B1380@@6B@`, a ledger name of 0x007CEFA0 that Rva007B1380Ctor.cpp defines. Its rowed ctor 0x00109D8C stores the same 0x00BCEFA0, and `tools/dir32.py` resolves all three stores to 0x00BCEFA0. data_check finds nothing. 4/4 cohort LINKS.
+- ba645a64fc: GameLogicInit.cpp calls `_mbscat` and `_mbscpy` from `<mbstring.h>`, as e015ef1d25 did for the strcpy callers. The REL32 targets are the same thunks. 203/203 rows exact, 32 EH graphs exact.
+- All three LINK in the full current-object preview (1,304 of 1,485 previewable units, up from 1,301).
+
+Method (reusable): a single-unit `link_check` uses the census index for every other object, so it cannot see a provider that a later commit removed. To find such losses:
+1. Preview the changed sources together.
+2. Diff the census index's definitions and `alternates` for changed and deleted objects against the current objects.
+3. Search a full object tree (for example `build/wt_link/build/match`, read-only) for undefined references to the lost names.
+On this tree that search found only the `_strcat` users and Rva000F0F2BFinish.cpp. Commits that drop an `/alternatename` or a COMDAT provider should run this search.
+
+Remaining / next check: the next census should confirm the three units. W3DBridgeLoad.cpp still waits on TerrainLogic.cpp (merged, not previewable; cd2bf1dd60). `_strcpy` still resolves only through leftover `/alternatename:_strcpy=?ji_00629176@@YAXXZ` pragmas in GameWindowManagerScript.cpp and AptScoreScreenCallbacks.cpp. Before retiring the last of them, convert every remaining `strcpy` caller to `_mbscpy`, or those callers lose the name.
+
+Clearance: ordinary current-object preview only. Census confirmation: awaiting.
+
+**2026-10-28 repeat sweep (lk4, inspected `1e9d0f5a75`, index 73061d9452):** `link_check.py --refresh` over 2,358 previewable units (every census-unlinked unit plus every source changed since the census; 106 new merged TUs are not previewable), plus a scratch whole-ledger simulation of all 21,940 current objects in `link_census.link_order` with the census's own `check_object` rules (so new TUs and unchanged units are judged too). Provider losses found:
+- `??1CreateModuleData@@QAE@XZ`: GrantUpgradeCreateModuleDataCtor.cpp (88 B), InheritUpgradeCreateModuleDataCtor.cpp (69 B) and SpecialEnemySenseUpdateModuleDataCtor.cpp (65 B) linked only through LockWeaponCreate.cpp's link-wide `/alternatename:??1CreateModuleData@@QAE@XZ=??1CreateModuleData@@UAE@XZ`, which 94ba455bc3 retired as unused by that unit. Repaired: GrantUpgradeCreateModuleDataCtor.cpp's empty base now defines the destructor as the Snapshot reset (Topple/CivilianSpawnCollide precedent; retail state-0 funclet 0x0078F234 jumps to the 7-byte fold 0x0049B47C), so its object provides the name for all three. 3/3 rows exact; link_check 3/3 LINKS (222 B).
+- `allocator<_Rb_tree_node<pair<const AsciiString, AsciiString> > >::allocate(size_t, const void *)`: PeerThread.cpp (18,885 B at the census) declared it decl-only (8a2154c5bb) and used the out-of-line COMDAT that stlport_rb_tree_hint_asciistring_pair.cpp's `_Rb_tree_base` constructor emitted. 7db9c453c6 suppressed that constructor there (GameSpyLoginPreferences now supplies the native header constructor), so no object defined the allocator any more. Repaired: PeerThread drops the decl-only specialization; its `_M_create_node` copy now inlines the byte allocator exactly like the retail row 0x00202B4A. 174/174 rows exact; the whole-ledger simulation judges PeerThread clean.
+- Preview-only (not regressions): Rva002C021AStep.cpp's `?update@Rva002BFF5A@@QAEXXZ` is defined by the new LivingWorld.cpp TU; Bfme5ThirtyFour.cpp's `??1Rva004A9DF3Element` and PeerThread.cpp's `append(const char *)` retail copies moved into the new AptShapeContainer.cpp and BfmeS1155.cpp TUs, which sit first in link order. The whole-ledger simulation judges all three clean.

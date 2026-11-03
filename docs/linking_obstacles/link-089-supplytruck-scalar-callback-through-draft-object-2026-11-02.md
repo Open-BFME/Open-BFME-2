@@ -1,0 +1,3 @@
+### LINK-089 SupplyTruck scalar callback through draft Object (2026-11-02)
+
+Secondary slot10 now uses actual Object::getControllingPlayer and bounded field views, matching the full38B native4A6FBF body and its28AFA9 call. All twenty-seven ctor rows and all80prior code/seven data definitions remain exact; the added const getObject accessor is canonical. No private Object/Player copy or lifetime change is introduced. [Complete proof and unresolved field semantics](../../reverse/attempt_support/supply-truck-scalar-callback-20261102/README.md). Remaining dock/primary/base prerequisites and census status are unchanged.

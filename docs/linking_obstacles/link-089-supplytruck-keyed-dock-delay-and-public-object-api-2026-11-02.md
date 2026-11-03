@@ -1,0 +1,5 @@
+### LINK-089 SupplyTruck keyed dock delay and public Object API (2026-11-02)
+
+The181B secondary slot19 callback now calls donor-backed public Object::findUpdateModule, added to the reserved draft header as a forwarder over the still-protected findModule. All28ctor rows, both native literals and three EH graphs pass; all82prior complete externalcode/seven data definitions and relocations remain unchanged. The old placeholder/static identities remain for reconciliation. [Target/donor distinction, header prerequisite and exact proof](../../reverse/attempt_support/supply-truck-dock-callback-20261102/README.md). Normal dependent-source gates and the outgoing audit remain required; no unit/census clearance is claimed.
+
+SupplyTruck secondary slot15's pre-existing dock-ID getter now has an explicit verified ICF row at30F45F, preserving its complete4B body and the original CategoryModuleClass representative. All29ctor rows pass. Every one of the twenty secondary callbacks is now ledger-backed in this real class; full table/data verification follows, and primary/base prerequisites remain.

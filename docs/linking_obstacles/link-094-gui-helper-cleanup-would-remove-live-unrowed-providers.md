@@ -1,0 +1,8 @@
+### LINK-094: GUI helper cleanup would remove live unrowed providers
+
+Status: Blocked on provider ownership and existing row placement. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
+Evidence / affected units: `OptionsMenu.cpp`, `WOLGameSetupMenu.cpp`, `OptionPreferences_getLANIPAddress.cpp` and `LanGameOptionsMenu.cpp`, checked against ordinary-preview index `d1f046749a`. Raw trial sources, COFF dependency audits and previews are retained in `build/c136-common2/`; `build/link-report.md` maps the files.
+Completed: both cleanup trials were fully reversed. Retaining OptionsMenu's existing slider helper as ordinary C++ preserves its 27-byte row and previews LINKS, but removes the sole `EnumeratedIP::getIPstring` provider used by the currently linking OptionPreferences_getLANIPAddress.cpp. Retaining WOL's existing combo-box helper preserves its 23-byte row but introduces a duplicate of that helper and removes the sole `gameAcceptTooltip` provider used by LAN options. The COFF audits identify these consumers; their scans also report missing cached objects, so no complete whole-tree dependency claim is made. All assigned rows pass again with both original files restored.
+Remaining / next check: establish explicit ownership and correct native names for the retained inline providers, and the proper home/emission policy of the gadget helpers, before pruning the imported menu code. Do not repeat the whole-port removal or retain a helper through a dummy call/data anchor. The remaining LAN and InGameUI port/header dependencies are listed in the handoff, without a claim that they need new matches.
+Clearance: pending; no source edit retained for these menus.
+Census confirmation: not claimed.

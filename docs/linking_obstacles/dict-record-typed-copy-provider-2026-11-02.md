@@ -1,0 +1,3 @@
+### Dict-record typed copy provider (2026-11-02)
+
+The native32A304 copy operation now has a real typed Rva00196D90Element constructor twin in its approved SidesList.cpp TU. Normal/strict57-row verification preserves all prior159 code and541 data definitions, with the two newly emitted Dict helpers also matching their existing native owners. The real Dict member is constructed normally; no new pin or alias is used. Tagged fill and vector base remain open, and the new provider's private record declaration still needs shared-header cleanup. [Proof and remaining scope](../../reverse/attempt_support/element196d90-copy-20261102/README.md).
