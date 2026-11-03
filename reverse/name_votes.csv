@@ -23257,3 +23257,13 @@ Code/GameEngine/Source/Common/Rva003EF9DCFill.cpp|member|Rva003EF9DCNode|id00,d9
 Code/GameEngine/Source/Common/Rva003EF9DCFill.cpp|member|Rva003EF9DCNode|next28,28aa8e0fa2b0a05ebcfae3d1,drz-k3,drz-k3-sv1a-19,w-077d7aeb666b,2026-11-03
 Code/GameEngine/Source/Common/System/Rva00504F09FunctionCurveAddKey.cpp|class||Rva00504EADKey,68855a51f47d039146154e34,drz-k3,drz-k3-sv1a-20,w-077d7aeb666b,2026-11-03
 Code/GameEngine/Source/GameLogic/Map/RiverAreasDataChunkParserSave.cpp|local|saveRiverAreas|tmp,552d97801b0e44357eeb2e01,drz-k3,drz-k3-sv1a-22,w-077d7aeb666b,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva0038201D::rva0038201D|n,6fc228d81265eb920a5df45d,drz-k9,drz-k9-sv1b-8,w-4d4d8f8584bc,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva0038204A::rva0038204A|n,5d0dedebac450c372533ce22,drz-k9,drz-k9-sv1b-8,w-4d4d8f8584bc,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva00382077::rva00382077|n,1fe2271459e849c7bb663713,drz-k9,drz-k9-sv1b-8,w-4d4d8f8584bc,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva003820A4::rva003820A4|n,dd2d51fb9762e8f6a7fd2f1e,drz-k9,drz-k9-sv1b-8,w-4d4d8f8584bc,2026-11-03
+Code/GameEngine/Source/Common/Rva0038201DFree.cpp|param|Rva003820D1::rva003820D1|n,932274850cab8ee9a08aa3d2,drz-k9,drz-k9-sv1b-8,w-4d4d8f8584bc,2026-11-03
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp|param|_bfmeModelDrawO1Anchor|w,543fc3f5d3d2d794031f7851,drz-k9,drz-k9-sv1b-9,w-4d4d8f8584bc,2026-11-03
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp|param|_bfmeModelDrawO1Anchor|d,c5a80e7ab42e15f99585674e,drz-k9,drz-k9-sv1b-9,w-4d4d8f8584bc,2026-11-03
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp|param|_bfmeModelDrawO1Anchor|c,c2f9c4d0cef75efab23b355b,drz-k9,drz-k9-sv1b-9,w-4d4d8f8584bc,2026-11-03
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp|param|_bfmeModelDrawO1Anchor|m,3c1a720380f23fe07ebe3847,drz-k9,drz-k9-sv1b-9,w-4d4d8f8584bc,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv2042.cpp|local|BfmeHostEU::bfmeStepsEU|d,765a4bc3c15686515d002f00,drz-k9,drz-k9-sv1b-11,w-4d4d8f8584bc,2026-11-03
