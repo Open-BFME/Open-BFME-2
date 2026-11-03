@@ -93,11 +93,7 @@ public:
 	virtual void slot07();
 };
 
-class Squad
-{
-public:
-	virtual ~Squad();
-};
+#include "../../../Include/Common/SquadClass.h"
 
 class StateMachine
 {

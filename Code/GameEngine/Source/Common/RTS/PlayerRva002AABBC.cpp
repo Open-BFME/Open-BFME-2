@@ -18,11 +18,7 @@ enum NameKeyType
 
 typedef _STL::vector<Object *> VecObjectPtr;
 
-class Squad
-{
-public:
-	const VecObjectPtr &rva004D6CAC();
-};
+#include "../../../Include/Common/SquadClass.h"
 
 class Rva0035516C
 {

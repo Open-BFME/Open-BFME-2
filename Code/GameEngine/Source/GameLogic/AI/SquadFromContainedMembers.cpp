@@ -40,12 +40,12 @@ template<int N> class SquadMembersSlots : public SquadMembersSlots<N-1>{public:v
 class SquadMembersHorde : public SquadMembersSlots<67>{public:virtual void slot67(_STL::list<Object*>*)=0;};
 class SquadMembersContain : public SquadMembersSlots<31>{public:virtual SquadMembersHorde*slot31()=0;};
 class Object {public:char pad0[0x74];ObjectID id;char pad78[0x250-0x78];SquadMembersContain *contain;};
-class Squad {public:virtual void *slot0(int);void rva004D6DF3(Object*,bool);const _STL::vector<Object*> &getAllObjectsAndRemoveDead();const _STL::vector<Object*> &rva004D6CAC();_STL::vector<ObjectID> ids;_STL::vector<Object*> objects;};
+#include "../../../Include/Common/SquadClass.h"
 void Squad::rva004D6DF3(Object *obj,bool clearFirst){
  if(!obj)return;
- if(clearFirst){_STL::vector<ObjectID> *v=&ids;v->erase(v->begin(),v->end());}
+ if(clearFirst){_STL::vector<ObjectID> *v=&m_objectIDs;v->erase(v->begin(),v->end());}
  SquadMembersContain *contain=obj->contain;if(!contain)return;
  SquadMembersHorde *group=contain->slot31();if(!group)return;
  _STL::list<Object*>members;group->slot67(&members);
- for(_STL::list<Object*>::iterator i=members.begin();i!=members.end();++i){Object *member=*i;if(member){ObjectID id=member->id;ids.push_back(id);}}
+ for(_STL::list<Object*>::iterator i=members.begin();i!=members.end();++i){Object *member=*i;if(member){ObjectID id=member->id;m_objectIDs.push_back(id);}}
 }

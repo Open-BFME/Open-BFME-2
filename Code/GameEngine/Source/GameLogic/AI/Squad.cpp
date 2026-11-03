@@ -145,25 +145,7 @@ typedef _STL::vector<ObjectID> VecObjectID;
 
 typedef VecObjectID::iterator VecObjectIDIt;
 
-class Squad
-{
-protected:
-	virtual void v00();
-protected:
-	virtual void v01();
-protected:
-	virtual void v02();
-protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	VecObjectID m_objectIDs;
-private:
-	_STL::vector<Object *> m_objectsCached;
-public:
-	const _STL::vector<Object *> &getAllObjectsAndRemoveDead();
-public:
-	const _STL::vector<Object *> &rva004D6CAC();
-};
+#include "../../../Include/Common/SquadClass.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method

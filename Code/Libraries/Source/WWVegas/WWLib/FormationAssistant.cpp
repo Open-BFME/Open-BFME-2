@@ -103,11 +103,7 @@ public:
 	unsigned char m_438;
 };
 
-class Squad
-{
-public:
-	const VecObjectPtr &rva004D6CAC();
-};
+#include "../../../../GameEngine/Include/Common/SquadClass.h"
 
 class Player
 {
