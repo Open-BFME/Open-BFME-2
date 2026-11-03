@@ -1,0 +1,2043 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+  "main_control_sha256": "71bc02f0c4781687b4bbd9689ab34f5f23b20641939c41057b3c81311a968ea4",
+  "canonical_headers_sha256": {
+    "CreateAHeroManager.h": "15a6559513eb56b3ffd527fbe129bd8d882a0603d348a73e25c6e5be2f83f434",
+    "LivingWorldRegionManager.h": "766caf1430f1cae89d28f6027cf7d48720884eda9fffa400aa0f9f3ced7df0ad"
+  },
+  "old_name": "?Rva0021BEC1@@YGHHH@Z",
+  "candidate_name": "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z",
+  "removed_source": "class Rva0021BDAccess\n{\npublic:\n\tvoid *rva0021BD22(unsigned int a);\n};\n\nvoid *__stdcall Rva00219B9E(int a);\n\nint __stdcall Rva0021BEC1(int a1, int a2)\n{\n\tvoid *p = Rva00219B9E(a2);\n\tif (p)\n\t\treturn (int)((Rva0021BDAccess *)p)->rva0021BD22((unsigned int)a1);\n\treturn 0;\n}",
+  "replacement_source": "#include \"../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h\"\n\nclass CreateAHeroManager::CreateAHeroSubClass\n{\npublic:\n    int *rva0021BD22(int key) const;\n};\n\nclass CreateAHeroManager::CreateAHeroClass\n{\nprivate:\n    const CreateAHeroSubClass *rva00219B9E(unsigned int subClassIndex) const;\npublic:\n    int *Rva0021BEC1(int a1, int a2) const;\n};\n\nint *CreateAHeroManager::CreateAHeroClass::Rva0021BEC1(int a1, int a2) const\n{\n    const CreateAHeroSubClass *subClass = rva00219B9E((unsigned int)a2);\n    return subClass ? subClass->rva0021BD22(a1) : 0;\n}",
+  "rows_control": [
+    {
+      "name": "?rva0020EE29@Rva0020EE29@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0020EE29",
+      "target_size": "51",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "clears ptr-vector entries via rowed clear"
+    },
+    {
+      "name": "?rva0020F795@Rva0020EE29@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0020F795",
+      "target_size": "157",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7 head: singleton per-entry notify then F685 plus clear plus gated notify plus inner drain; explicit self copy steers this to edi"
+    },
+    {
+      "name": "?rva002106D6@Rva002103B6@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x002106D6",
+      "target_size": "84",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: two vector runs via rowed 0x002103B6 and pinned slot callee; pointer-form counts for end-first"
+    },
+    {
+      "name": "?Rva0021BEC1@@YGHHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0021BEC1",
+      "target_size": "31",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7 free lookup batch: pinned free plus member with null-zero and bytes-verified extent"
+    },
+    {
+      "name": "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FB41",
+      "target_size": "74",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: reset +0x8/+0xC then run the +0x4 inner vector through entry method rva003F20E5; enclosing this-4 entry via rva0020F685 (both pinned from retail REL32); bounds-pointer traversal reproduces the once-advanced [esi]/[esi+4] indexing; wb-lead 1.0/callgraph: WB LivingWorldRegionManager::OnTurnEnding (LivingWorldRegionManager.cpp:1067..1073 asserts) shares 2 callees with retail in the same order (Rva003F209C::rva003F20E5); wb-name-unverified; virtual: slot 1 of the two-slot table 0x00BE4350 that ctor 0x0021042D and dtor 0x00210B38 store at +4; WB's ~LivingWorldRegionManager stores twin table 0x01E25EBC at +4 whose slot 1 is this twin (own assert name LivingWorldRegionManager::OnTurnEnding); modelled as the override of that +4 base so MSVC passes the subobject as this (the lea ecx/[esi-4] whole-object call); spelled UAE"
+    },
+    {
+      "name": "?rva0020E374@Rva002104C7@@QAEXPAX0@Z",
+      "export_rva": "",
+      "target_rva": "0x0020E374",
+      "target_size": "16",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Range-7 neighbor: this-retargeting forward to pinned 0x003EFDF5; first stack slot becomes the object"
+    },
+    {
+      "name": "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FAB4",
+      "target_size": "54",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: singleton slot-13 query fills two stack out-blocks then the pinned 0x0020F9F6 finder; returned pointer proved by native5C98C0 caller"
+    },
+    {
+      "name": "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FAEA",
+      "target_size": "87",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Retail stack search-key blocks and finder result returned in EAX; callers 0x00318C32 and 0x002B2858 consume the pointer; replaces the incorrect void return spelling without changing retail bytes"
+    },
+    {
+      "name": "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FD42",
+      "target_size": "61",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: clear arg vector via rowed two-arg erase then pinned 0x003EFC1C notify; first arg null-checked and reused for the +0x12c read"
+    },
+    {
+      "name": "?rva002101C6@Rva0020EE29@@QAEXPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x002101C6",
+      "target_size": "60",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: arg vtable slot-10 with flags block then pinned same-class 0x002100E6 per member vector"
+    },
+    {
+      "name": "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x002102CA",
+      "target_size": "68",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: inner vector slot-1 run plus pinned same-class 0x0020F483 then tail-jump to pinned inner 0x0020F5B3"
+    },
+    {
+      "name": "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z",
+      "export_rva": "",
+      "target_rva": "0x00210390",
+      "target_size": "38",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: bucket-table lookup at this+0x38 via rowed Rva00056F61 returning node payload or null; positive-condition-first for the explicit xor path"
+    },
+    {
+      "name": "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x002104B6",
+      "target_size": "17",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Range-7 neighbor: null-checked forward to rowed 0x00210390 lookup on the +0x8 embedded object; frameless tail-jump"
+    },
+    {
+      "name": "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z",
+      "export_rva": "",
+      "target_rva": "0x002104C7",
+      "target_size": "38",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: null-checked free __stdcall lookup then member forward; both callees callee-clean so no caller cleanup"
+    },
+    {
+      "name": "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z",
+      "export_rva": "",
+      "target_rva": "0x00212655",
+      "target_size": "102",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Whole native 212655..2126BB and WB B608E0 beacon-map cleanup; established +218 int-key map from CreateBeaconObject; string+4 reported on sole DFEF18 owner; virtual slot0 zero then scalar delete; iterator erased by value; no original method name asserted"
+    }
+  ],
+  "rows_candidate": [
+    {
+      "name": "?rva0020EE29@Rva0020EE29@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0020EE29",
+      "target_size": "51",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "clears ptr-vector entries via rowed clear"
+    },
+    {
+      "name": "?rva0020F795@Rva0020EE29@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x0020F795",
+      "target_size": "157",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7 head: singleton per-entry notify then F685 plus clear plus gated notify plus inner drain; explicit self copy steers this to edi"
+    },
+    {
+      "name": "?rva002106D6@Rva002103B6@@QAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x002106D6",
+      "target_size": "84",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: two vector runs via rowed 0x002103B6 and pinned slot callee; pointer-form counts for end-first"
+    },
+    {
+      "name": "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0021BEC1",
+      "target_size": "31",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7 free lookup batch: pinned free plus member with null-zero and bytes-verified extent"
+    },
+    {
+      "name": "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FB41",
+      "target_size": "74",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: reset +0x8/+0xC then run the +0x4 inner vector through entry method rva003F20E5; enclosing this-4 entry via rva0020F685 (both pinned from retail REL32); bounds-pointer traversal reproduces the once-advanced [esi]/[esi+4] indexing; wb-lead 1.0/callgraph: WB LivingWorldRegionManager::OnTurnEnding (LivingWorldRegionManager.cpp:1067..1073 asserts) shares 2 callees with retail in the same order (Rva003F209C::rva003F20E5); wb-name-unverified; virtual: slot 1 of the two-slot table 0x00BE4350 that ctor 0x0021042D and dtor 0x00210B38 store at +4; WB's ~LivingWorldRegionManager stores twin table 0x01E25EBC at +4 whose slot 1 is this twin (own assert name LivingWorldRegionManager::OnTurnEnding); modelled as the override of that +4 base so MSVC passes the subobject as this (the lea ecx/[esi-4] whole-object call); spelled UAE"
+    },
+    {
+      "name": "?rva0020E374@Rva002104C7@@QAEXPAX0@Z",
+      "export_rva": "",
+      "target_rva": "0x0020E374",
+      "target_size": "16",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Range-7 neighbor: this-retargeting forward to pinned 0x003EFDF5; first stack slot becomes the object"
+    },
+    {
+      "name": "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FAB4",
+      "target_size": "54",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: singleton slot-13 query fills two stack out-blocks then the pinned 0x0020F9F6 finder; returned pointer proved by native5C98C0 caller"
+    },
+    {
+      "name": "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FAEA",
+      "target_size": "87",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Retail stack search-key blocks and finder result returned in EAX; callers 0x00318C32 and 0x002B2858 consume the pointer; replaces the incorrect void return spelling without changing retail bytes"
+    },
+    {
+      "name": "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z",
+      "export_rva": "",
+      "target_rva": "0x0020FD42",
+      "target_size": "61",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: clear arg vector via rowed two-arg erase then pinned 0x003EFC1C notify; first arg null-checked and reused for the +0x12c read"
+    },
+    {
+      "name": "?rva002101C6@Rva0020EE29@@QAEXPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x002101C6",
+      "target_size": "60",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: arg vtable slot-10 with flags block then pinned same-class 0x002100E6 per member vector"
+    },
+    {
+      "name": "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ",
+      "export_rva": "",
+      "target_rva": "0x002102CA",
+      "target_size": "68",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: inner vector slot-1 run plus pinned same-class 0x0020F483 then tail-jump to pinned inner 0x0020F5B3"
+    },
+    {
+      "name": "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z",
+      "export_rva": "",
+      "target_rva": "0x00210390",
+      "target_size": "38",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: bucket-table lookup at this+0x38 via rowed Rva00056F61 returning node payload or null; positive-condition-first for the explicit xor path"
+    },
+    {
+      "name": "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z",
+      "export_rva": "",
+      "target_rva": "0x002104B6",
+      "target_size": "17",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Range-7 neighbor: null-checked forward to rowed 0x00210390 lookup on the +0x8 embedded object; frameless tail-jump"
+    },
+    {
+      "name": "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z",
+      "export_rva": "",
+      "target_rva": "0x002104C7",
+      "target_size": "38",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Dump range 7: null-checked free __stdcall lookup then member forward; both callees callee-clean so no caller cleanup"
+    },
+    {
+      "name": "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z",
+      "export_rva": "",
+      "target_rva": "0x00212655",
+      "target_size": "102",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+      "status": "matched",
+      "notes": "Whole native 212655..2126BB and WB B608E0 beacon-map cleanup; established +218 int-key map from CreateBeaconObject; string+4 reported on sole DFEF18 owner; virtual slot0 zero then scalar delete; iterator erased by value; no original method name asserted"
+    }
+  ],
+  "known_callee_rows": {
+    "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z": {
+      "name": "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z",
+      "export_rva": "",
+      "target_rva": "0x0021BD22",
+      "target_size": "31",
+      "source": "Code/GameEngine/Source/Common/System/Rva0021BD22Find.cpp",
+      "status": "matched",
+      "notes": "map-find wrapper at +0x54 via rowed _M_find callers 0x0021BDD3 0x0021BDFB"
+    },
+    "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z": {
+      "name": "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z",
+      "export_rva": "",
+      "target_rva": "0x00219B9E",
+      "target_size": "44",
+      "source": "Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp",
+      "status": "matched",
+      "notes": "unlock lane 12 callers need 216B vector accessor signed idiv"
+    }
+  },
+  "variants": [
+    {
+      "label": "control",
+      "matched_unique_rvas": 15,
+      "missing": [],
+      "errors": [],
+      "symbols": {
+        "defined": [
+          "??$?9U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@0@0@Z",
+          "??$_Destroy@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHPAVRva003FD14D@@@0@@Z",
+          "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@0@@Z",
+          "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z",
+          "??0?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z",
+          "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z",
+          "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU01@@Z",
+          "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z",
+          "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z",
+          "??C?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEPAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ",
+          "??D?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ",
+          "??R?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHPAVRva003FD14D@@@1@@Z",
+          "??R?$equal_to@H@_STL@@QBE_NABH0@Z",
+          "??R?$hash@H@_STL@@QBEIH@Z",
+          "??_C@_00CNPNBAHC@?$AA@",
+          "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z",
+          "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z",
+          "?Rva0021BEC1@@YGHHH@Z",
+          "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z",
+          "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z",
+          "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABHI@Z",
+          "?_M_delete_node@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@Z",
+          "?begin@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ",
+          "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z",
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z",
+          "?end@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ",
+          "?end@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ",
+          "?end@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ",
+          "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+          "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+          "?find@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@ABH@Z",
+          "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ",
+          "?rva0020E374@Rva002104C7@@QAEXPAX0@Z",
+          "?rva0020EE29@Rva0020EE29@@QAEXXZ",
+          "?rva0020F795@Rva0020EE29@@QAEXXZ",
+          "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z",
+          "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z",
+          "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z",
+          "?rva002101C6@Rva0020EE29@@QAEXPAX@Z",
+          "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z",
+          "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z",
+          "?rva002106D6@Rva002103B6@@QAEXXZ",
+          "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z",
+          "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+          "?str@AsciiString@@QBEPBDXZ",
+          "__real@461c4000",
+          "__real@bf800000"
+        ],
+        "undefined": [
+          "??3@YAXPAX@Z",
+          "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z",
+          "?CacheRegionIDs@LivingWorldRegionBonusRule@@QAEXPAVRva00210390@@@Z",
+          "?Rva00219B9E@@YGPAXH@Z",
+          "?TheLivingWorld@@3PAVLivingWorld@@A",
+          "?TheLivingWorldManager@@3PAVLivingWorldManager@@A",
+          "?erase@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@PAU3@0@Z",
+          "?rva0020F483@Rva0020EE29@@QAEXXZ",
+          "?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ",
+          "?rva0020F685@Rva0020F685@@QAEXXZ",
+          "?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z",
+          "?rva002100E6@Rva0020EE29@@QAEXPAX0@Z",
+          "?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z",
+          "?rva002C004F@Rva002BFF5A@@QAEXPBD@Z",
+          "?rva003EF1B8@Rva003EF14A@@QAEXXZ",
+          "?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z",
+          "?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z",
+          "?rva003F0DC6@Rva00210D6DElem@@QAEXXZ",
+          "?rva003F209C@Rva003F209C@@QAEXXZ",
+          "?rva003F20E5@Rva003F209C@@QAEXHH@Z",
+          "?rva003F3F27@Rva003F3F27@@QAEXXZ",
+          "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z",
+          "__fltused",
+          "_free"
+        ],
+        "weak": [],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      },
+      "external_definitions": 48,
+      "EH": {},
+      "actual_member_symbols": [
+        "?Rva0021BEC1@@YGHHH@Z"
+      ],
+      "body31": {
+        "compiled": "ff742408e80000000085c0740dff7424048bc8e800000000eb0233c0c20800",
+        "native": "ff742408e8d4dcffff85c0740dff7424048bc8e849feffffeb0233c0c20800",
+        "actual_extent": 31,
+        "symbol": "?Rva0021BEC1@@YGHHH@Z",
+        "relocations": [
+          {
+            "offset": 5,
+            "kind": 20,
+            "callee": "?Rva00219B9E@@YGPAXH@Z",
+            "native_target_rva": "0x219b9e",
+            "known_callee_row": null
+          },
+          {
+            "offset": 20,
+            "kind": 20,
+            "callee": "?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z",
+            "native_target_rva": "0x21bd22",
+            "known_callee_row": null
+          }
+        ],
+        "unknown_sites": [
+          {
+            "offset": 5,
+            "kind": 20,
+            "callee": "?Rva00219B9E@@YGPAXH@Z",
+            "native_target_rva": "0x219b9e",
+            "known_callee_row": null
+          },
+          {
+            "offset": 20,
+            "kind": 20,
+            "callee": "?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z",
+            "native_target_rva": "0x21bd22",
+            "known_callee_row": null
+          }
+        ],
+        "known_owner_resolved_bytes": null,
+        "unmasked_known_owner_match": false
+      },
+      "directives": [
+        "/DEFAULTLIB:\"stlport_vc7_static.lib\" /DEFAULTLIB:\"msvcprt\" /alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+      ]
+    },
+    {
+      "label": "candidate",
+      "matched_unique_rvas": 15,
+      "missing": [],
+      "errors": [],
+      "symbols": {
+        "defined": [
+          "??$?9U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@0@0@Z",
+          "??$_Destroy@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHPAVRva003FD14D@@@0@@Z",
+          "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@0@@Z",
+          "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z",
+          "??0?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z",
+          "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z",
+          "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU01@@Z",
+          "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z",
+          "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z",
+          "??C?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEPAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ",
+          "??D?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ",
+          "??R?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHPAVRva003FD14D@@@1@@Z",
+          "??R?$equal_to@H@_STL@@QBE_NABH0@Z",
+          "??R?$hash@H@_STL@@QBEIH@Z",
+          "??_C@_00CNPNBAHC@?$AA@",
+          "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z",
+          "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z",
+          "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z",
+          "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z",
+          "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z",
+          "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABHI@Z",
+          "?_M_delete_node@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@Z",
+          "?begin@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ",
+          "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z",
+          "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z",
+          "?end@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ",
+          "?end@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ",
+          "?end@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ",
+          "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+          "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+          "?find@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@ABH@Z",
+          "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ",
+          "?rva0020E374@Rva002104C7@@QAEXPAX0@Z",
+          "?rva0020EE29@Rva0020EE29@@QAEXXZ",
+          "?rva0020F795@Rva0020EE29@@QAEXXZ",
+          "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z",
+          "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z",
+          "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z",
+          "?rva002101C6@Rva0020EE29@@QAEXPAX@Z",
+          "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z",
+          "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z",
+          "?rva002106D6@Rva002103B6@@QAEXXZ",
+          "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z",
+          "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+          "?str@AsciiString@@QBEPBDXZ",
+          "__real@461c4000",
+          "__real@bf800000"
+        ],
+        "undefined": [
+          "??3@YAXPAX@Z",
+          "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z",
+          "?CacheRegionIDs@LivingWorldRegionBonusRule@@QAEXPAVRva00210390@@@Z",
+          "?TheLivingWorld@@3PAVLivingWorld@@A",
+          "?TheLivingWorldManager@@3PAVLivingWorldManager@@A",
+          "?erase@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@PAU3@0@Z",
+          "?rva0020F483@Rva0020EE29@@QAEXXZ",
+          "?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ",
+          "?rva0020F685@Rva0020F685@@QAEXXZ",
+          "?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z",
+          "?rva002100E6@Rva0020EE29@@QAEXPAX0@Z",
+          "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z",
+          "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z",
+          "?rva002C004F@Rva002BFF5A@@QAEXPBD@Z",
+          "?rva003EF1B8@Rva003EF14A@@QAEXXZ",
+          "?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z",
+          "?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z",
+          "?rva003F0DC6@Rva00210D6DElem@@QAEXXZ",
+          "?rva003F209C@Rva003F209C@@QAEXXZ",
+          "?rva003F20E5@Rva003F209C@@QAEXHH@Z",
+          "?rva003F3F27@Rva003F3F27@@QAEXXZ",
+          "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z",
+          "__fltused",
+          "_free"
+        ],
+        "weak": [],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      },
+      "external_definitions": 48,
+      "EH": {},
+      "actual_member_symbols": [
+        "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z"
+      ],
+      "body31": {
+        "compiled": "ff742408e80000000085c0740dff7424048bc8e800000000eb0233c0c20800",
+        "native": "ff742408e8d4dcffff85c0740dff7424048bc8e849feffffeb0233c0c20800",
+        "actual_extent": 31,
+        "symbol": "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z",
+        "relocations": [
+          {
+            "offset": 5,
+            "kind": 20,
+            "callee": "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z",
+            "native_target_rva": "0x219b9e",
+            "known_callee_row": {
+              "name": "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z",
+              "export_rva": "",
+              "target_rva": "0x00219B9E",
+              "target_size": "44",
+              "source": "Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp",
+              "status": "matched",
+              "notes": "unlock lane 12 callers need 216B vector accessor signed idiv"
+            },
+            "native_target_equals_known_owner": true
+          },
+          {
+            "offset": 20,
+            "kind": 20,
+            "callee": "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z",
+            "native_target_rva": "0x21bd22",
+            "known_callee_row": {
+              "name": "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z",
+              "export_rva": "",
+              "target_rva": "0x0021BD22",
+              "target_size": "31",
+              "source": "Code/GameEngine/Source/Common/System/Rva0021BD22Find.cpp",
+              "status": "matched",
+              "notes": "map-find wrapper at +0x54 via rowed _M_find callers 0x0021BDD3 0x0021BDFB"
+            },
+            "native_target_equals_known_owner": true
+          }
+        ],
+        "unknown_sites": [],
+        "known_owner_resolved_bytes": "ff742408e8d4dcffff85c0740dff7424048bc8e849feffffeb0233c0c20800",
+        "unmasked_known_owner_match": true
+      },
+      "directives": [
+        "/DEFAULTLIB:\"stlport_vc7_static.lib\" /DEFAULTLIB:\"msvcprt\" /alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z /alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z /alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z /alternatename:?clear@AsciiString@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ /alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z /alternatename:?trim@AsciiString@@QAEXXZ=?trim@?$StringBase@D@@QAEXXZ /alternatename:?compare@AsciiString@@QBEHPBD@Z=?compare@?$StringBase@D@@QBEHPBD@Z /DEFAULTLIB:\"MSVCRT\" /DEFAULTLIB:\"OLDNAMES\" "
+      ]
+    }
+  ],
+  "definitions": {
+    "control": {
+      "??R?$hash@H@_STL@@QBEIH@Z": {
+        "bytes": "8b442404c20400",
+        "relocations": []
+      },
+      "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ": {
+        "bytes": "8b41042b01c1f802c3",
+        "relocations": []
+      },
+      "?str@AsciiString@@QBEPBDXZ": {
+        "bytes": "8b0185c0740483c008c3b800000000c3",
+        "relocations": [
+          [
+            11,
+            6,
+            "??_C@_00CNPNBAHC@?$AA@"
+          ]
+        ]
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "bytes": "00",
+        "relocations": []
+      },
+      "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z": {
+        "bytes": "8b018b4c24048d0488c20400",
+        "relocations": []
+      },
+      "?rva0020EE29@Rva0020EE29@@QAEXXZ": {
+        "bytes": "568b710885f674298b462c8b4e30572bc833ffc1f90274188b0cb8e8000000008b462c8b4e302bc847c1f9023bf972e85f5ec3",
+        "relocations": [
+          [
+            28,
+            20,
+            "?rva003F209C@Rva003F209C@@QAEXXZ"
+          ]
+        ]
+      },
+      "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z": {
+        "bytes": "568bf1578d4efce80000000033ff897e08897e0c8b76048b4e3083c62c8b062bc8c1f902741fff7424108b0cb8ff742410e8000000008b068b4e042bc847c1f9023bf972e15f5ec20800",
+        "relocations": [
+          [
+            8,
+            20,
+            "?rva0020F685@Rva0020F685@@QAEXXZ"
+          ],
+          [
+            50,
+            20,
+            "?rva003F20E5@Rva003F209C@@QAEXHH@Z"
+          ]
+        ]
+      },
+      "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z": {
+        "bytes": "558bec83ec188b4508f30f1000ff750cf30f1145e8f30f104004f30f1145ecf30f1005000000008d45f4f30f1145f00f57c0508d45e8f30f1145f4f30f1145f8f30f10050000000050f30f1145fce800000000c9c20800",
+        "relocations": [
+          [
+            35,
+            6,
+            "__real@461c4000"
+          ],
+          [
+            68,
+            6,
+            "__real@bf800000"
+          ],
+          [
+            79,
+            20,
+            "?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z"
+          ]
+        ]
+      },
+      "__real@bf800000": {
+        "bytes": "000080bf",
+        "relocations": []
+      },
+      "__real@461c4000": {
+        "bytes": "00401c46",
+        "relocations": []
+      },
+      "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z": {
+        "bytes": "558bec83ec18568d55f4528d55e88bf18b0d000000008b0152ff7508ff5034ff750c8d45f4508d45e8508bcee8000000005ec9c20800",
+        "relocations": [
+          [
+            18,
+            6,
+            "?TheLivingWorld@@3PAVLivingWorld@@A"
+          ],
+          [
+            45,
+            20,
+            "?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z"
+          ]
+        ]
+      },
+      "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z": {
+        "bytes": "558bec5151ff75088d45f85083c138e8000000008b45f885c074058b4008eb0233c0c9c20400",
+        "relocations": [
+          [
+            16,
+            20,
+            "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+          ]
+        ]
+      },
+      "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z": {
+        "bytes": "8b490885c9750533c0c20400e900000000",
+        "relocations": [
+          [
+            13,
+            20,
+            "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z"
+          ]
+        ]
+      },
+      "?rva0020E374@Rva002104C7@@QAEXPAX0@Z": {
+        "bytes": "ff7424088b4c2408e800000000c20800",
+        "relocations": [
+          [
+            9,
+            20,
+            "?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z"
+          ]
+        ]
+      },
+      "?rva002101C6@Rva0020EE29@@QAEXPAX@Z": {
+        "bytes": "558bec51568bf1578b7d088b078d4dfc518bcfc645fc01c645fd01ff50288d461450578bcee8000000008d462050578bcee8000000005f5ec9c20400",
+        "relocations": [
+          [
+            38,
+            20,
+            "?rva002100E6@Rva0020EE29@@QAEXPAX0@Z"
+          ],
+          [
+            50,
+            20,
+            "?rva002100E6@Rva0020EE29@@QAEXPAX0@Z"
+          ]
+        ]
+      },
+      "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ": {
+        "bytes": "538bd9568b73088b4e3083c62c8b06572bc833ffc1f90274198b04b88b108bc8ff52048b068b4e042bc847c1f9023bf972e78bcbe8000000008b4b085f5e5be900000000",
+        "relocations": [
+          [
+            53,
+            20,
+            "?rva0020F483@Rva0020EE29@@QAEXXZ"
+          ],
+          [
+            64,
+            20,
+            "?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ"
+          ]
+        ]
+      },
+      "?Rva0021BEC1@@YGHHH@Z": {
+        "bytes": "ff742408e80000000085c0740dff7424048bc8e800000000eb0233c0c20800",
+        "relocations": [
+          [
+            5,
+            20,
+            "?Rva00219B9E@@YGPAXH@Z"
+          ],
+          [
+            20,
+            20,
+            "?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z"
+          ]
+        ]
+      },
+      "?rva002106D6@Rva002103B6@@QAEXXZ": {
+        "bytes": "568bf18b46302b462c5733ffc1f80274198b462c8b0cb8e8000000008b46302b462c47c1f8023bf872e78b46602b465c33ffc1f802741a8b465c8b0cb856e8000000008b46602b465c47c1f8023bf872e65f5ec3",
+        "relocations": [
+          [
+            24,
+            20,
+            "?rva003F0DC6@Rva00210D6DElem@@QAEXXZ"
+          ],
+          [
+            63,
+            20,
+            "?CacheRegionIDs@LivingWorldRegionBonusRule@@QAEXPAVRva00210390@@@Z"
+          ]
+        ]
+      },
+      "?begin@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "bytes": "8b01c3",
+        "relocations": []
+      },
+      "?end@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "bytes": "8b4104c3",
+        "relocations": []
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU01@@Z": {
+        "bytes": "8bc18b4c24048b1189108b4904894804c20400",
+        "relocations": []
+      },
+      "??D?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "bytes": "8b0183c004c3",
+        "relocations": []
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "bytes": "8bc18b4c24048b1189108b4904894804c20400",
+        "relocations": []
+      },
+      "??0?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "bytes": "8bc18b4c240489088b4c2408894804c20800",
+        "relocations": []
+      },
+      "??$?9U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@0@0@Z": {
+        "bytes": "8b4424048b008b54240833c93b020f95c18ac1c3",
+        "relocations": []
+      },
+      "??R?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHPAVRva003FD14D@@@1@@Z": {
+        "bytes": "8b442404c20400",
+        "relocations": []
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABHI@Z": {
+        "bytes": "8b4424048b0033d2f77424088bc2c20800",
+        "relocations": []
+      },
+      "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "bytes": "837c240400740aff742404e80000000059c20800",
+        "relocations": [
+          [
+            12,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "??$_Destroy@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHPAVRva003FD14D@@@0@@Z": {
+        "bytes": "c3",
+        "relocations": []
+      },
+      "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@0@@Z": {
+        "bytes": "8b442404c3",
+        "relocations": []
+      },
+      "??R?$equal_to@H@_STL@@QBE_NABH0@Z": {
+        "bytes": "8b4424048b008b4c24082b01f7d81bc040c20800",
+        "relocations": []
+      },
+      "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z": {
+        "bytes": "56ff7424088bf1e80000000085c0750432c0eb0eff74240c8bce50e800000000b0015ec20800",
+        "relocations": [
+          [
+            8,
+            20,
+            "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z"
+          ],
+          [
+            28,
+            20,
+            "?rva0020E374@Rva002104C7@@QAEXPAX0@Z"
+          ]
+        ]
+      },
+      "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z": {
+        "bytes": "568b74240c57ff76048bf9ff368bcee8000000008b470885c0741d8b404c85c074168b4c240c85c9740e56ffb12c0100008bc8e8000000005f5ec20800",
+        "relocations": [
+          [
+            16,
+            20,
+            "?erase@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@PAU3@0@Z"
+          ],
+          [
+            52,
+            20,
+            "?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z"
+          ]
+        ]
+      },
+      "??C?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEPAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "bytes": "8b0183c004c3",
+        "relocations": []
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "bytes": "8bc18b4c240489088b4c2408894804c20800",
+        "relocations": []
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z": {
+        "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+        "relocations": []
+      },
+      "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "bytes": "837c240400740aff742404e80000000059c20800",
+        "relocations": [
+          [
+            12,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z": {
+        "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+        "relocations": []
+      },
+      "?end@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "bytes": "8b442404832000894804c20400",
+        "relocations": []
+      },
+      "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z": {
+        "bytes": "56ff74240c8bf1e8000000008b4c240889018971048bc15ec20800",
+        "relocations": [
+          [
+            8,
+            20,
+            "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z"
+          ]
+        ]
+      },
+      "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z": {
+        "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+        "relocations": []
+      },
+      "?_M_delete_node@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@Z": {
+        "bytes": "837c240400740aff742404e80000000059c20400",
+        "relocations": [
+          [
+            12,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "?end@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "bytes": "8b442404832000894804c20400",
+        "relocations": []
+      },
+      "?find@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@ABH@Z": {
+        "bytes": "ff742408ff742408e8000000008b442404c20800",
+        "relocations": [
+          [
+            9,
+            20,
+            "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z"
+          ]
+        ]
+      },
+      "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "bytes": "8b44240453558b2885ed8bd9745a8b450456578d7b048b4f042b0f33d2c1f902f7f18bcf5289542418e8000000008b303bf57512ff7424148bcfe8000000008b0e890856eb178b06eb083bc5740a8bf08b0085c075f4eb0e8b08890e50e800000000ff4b10595f5e5d5bc20400",
+        "relocations": [
+          [
+            42,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            59,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            94,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "bytes": "558bec51518b45088945f88b450c8945fc8d45f850e800000000c9c20800",
+        "relocations": [
+          [
+            22,
+            20,
+            "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z"
+          ]
+        ]
+      },
+      "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z": {
+        "bytes": "5356578d99180200008d442410508bcbe8000000008bf885ff74458b77088b460485c0740583c008eb05b8000000008b0d0000000050e80000000085f6740a8b066a008bceff10eb0233c050e800000000518bc48bcb8938895804e8000000005f5e5bc20400",
+        "relocations": [
+          [
+            17,
+            20,
+            "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z"
+          ],
+          [
+            43,
+            6,
+            "??_C@_00CNPNBAHC@?$AA@"
+          ],
+          [
+            49,
+            6,
+            "?TheLivingWorld@@3PAVLivingWorld@@A"
+          ],
+          [
+            55,
+            20,
+            "?rva002C004F@Rva002BFF5A@@QAEXPBD@Z"
+          ],
+          [
+            77,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            92,
+            20,
+            "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z"
+          ]
+        ]
+      },
+      "?rva0020F795@Rva0020EE29@@QAEXXZ": {
+        "bytes": "5556578bf98b47182b471433ed33f6c1f80274228b47148b04b0ff70308b0d00000000e8000000008b47182b471446c1f8023bf072de8bcfe8000000008bcfe800000000396f08896f0c896f10896f2c896f307441a1000000008b88680200003bcd7405e8000000008b77088b4e3083c62c8b06532bc833dbc1f90274178b0c98e8000000008b068b4e042bc843c1f9023bd972e95b896f085f5e5dc3",
+        "relocations": [
+          [
+            31,
+            6,
+            "?TheLivingWorldManager@@3PAVLivingWorldManager@@A"
+          ],
+          [
+            36,
+            20,
+            "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z"
+          ],
+          [
+            57,
+            20,
+            "?rva0020F685@Rva0020F685@@QAEXXZ"
+          ],
+          [
+            64,
+            20,
+            "?rva0020EE29@Rva0020EE29@@QAEXXZ"
+          ],
+          [
+            86,
+            6,
+            "?TheLivingWorldManager@@3PAVLivingWorldManager@@A"
+          ],
+          [
+            101,
+            20,
+            "?rva003EF1B8@Rva003EF14A@@QAEXXZ"
+          ],
+          [
+            130,
+            20,
+            "?rva003F3F27@Rva003F3F27@@QAEXXZ"
+          ]
+        ]
+      }
+    },
+    "candidate": {
+      "??R?$hash@H@_STL@@QBEIH@Z": {
+        "bytes": "8b442404c20400",
+        "relocations": []
+      },
+      "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ": {
+        "bytes": "8b41042b01c1f802c3",
+        "relocations": []
+      },
+      "?str@AsciiString@@QBEPBDXZ": {
+        "bytes": "8b0185c0740483c008c3b800000000c3",
+        "relocations": [
+          [
+            11,
+            6,
+            "??_C@_00CNPNBAHC@?$AA@"
+          ]
+        ]
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "bytes": "00",
+        "relocations": []
+      },
+      "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z": {
+        "bytes": "8b018b4c24048d0488c20400",
+        "relocations": []
+      },
+      "?rva0020EE29@Rva0020EE29@@QAEXXZ": {
+        "bytes": "568b710885f674298b462c8b4e30572bc833ffc1f90274188b0cb8e8000000008b462c8b4e302bc847c1f9023bf972e85f5ec3",
+        "relocations": [
+          [
+            28,
+            20,
+            "?rva003F209C@Rva003F209C@@QAEXXZ"
+          ]
+        ]
+      },
+      "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z": {
+        "bytes": "568bf1578d4efce80000000033ff897e08897e0c8b76048b4e3083c62c8b062bc8c1f902741fff7424108b0cb8ff742410e8000000008b068b4e042bc847c1f9023bf972e15f5ec20800",
+        "relocations": [
+          [
+            8,
+            20,
+            "?rva0020F685@Rva0020F685@@QAEXXZ"
+          ],
+          [
+            50,
+            20,
+            "?rva003F20E5@Rva003F209C@@QAEXHH@Z"
+          ]
+        ]
+      },
+      "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z": {
+        "bytes": "558bec83ec188b4508f30f1000ff750cf30f1145e8f30f104004f30f1145ecf30f1005000000008d45f4f30f1145f00f57c0508d45e8f30f1145f4f30f1145f8f30f10050000000050f30f1145fce800000000c9c20800",
+        "relocations": [
+          [
+            35,
+            6,
+            "__real@461c4000"
+          ],
+          [
+            68,
+            6,
+            "__real@bf800000"
+          ],
+          [
+            79,
+            20,
+            "?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z"
+          ]
+        ]
+      },
+      "__real@bf800000": {
+        "bytes": "000080bf",
+        "relocations": []
+      },
+      "__real@461c4000": {
+        "bytes": "00401c46",
+        "relocations": []
+      },
+      "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z": {
+        "bytes": "558bec83ec18568d55f4528d55e88bf18b0d000000008b0152ff7508ff5034ff750c8d45f4508d45e8508bcee8000000005ec9c20800",
+        "relocations": [
+          [
+            18,
+            6,
+            "?TheLivingWorld@@3PAVLivingWorld@@A"
+          ],
+          [
+            45,
+            20,
+            "?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z"
+          ]
+        ]
+      },
+      "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z": {
+        "bytes": "558bec5151ff75088d45f85083c138e8000000008b45f885c074058b4008eb0233c0c9c20400",
+        "relocations": [
+          [
+            16,
+            20,
+            "?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z"
+          ]
+        ]
+      },
+      "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z": {
+        "bytes": "8b490885c9750533c0c20400e900000000",
+        "relocations": [
+          [
+            13,
+            20,
+            "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z"
+          ]
+        ]
+      },
+      "?rva0020E374@Rva002104C7@@QAEXPAX0@Z": {
+        "bytes": "ff7424088b4c2408e800000000c20800",
+        "relocations": [
+          [
+            9,
+            20,
+            "?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z"
+          ]
+        ]
+      },
+      "?rva002101C6@Rva0020EE29@@QAEXPAX@Z": {
+        "bytes": "558bec51568bf1578b7d088b078d4dfc518bcfc645fc01c645fd01ff50288d461450578bcee8000000008d462050578bcee8000000005f5ec9c20400",
+        "relocations": [
+          [
+            38,
+            20,
+            "?rva002100E6@Rva0020EE29@@QAEXPAX0@Z"
+          ],
+          [
+            50,
+            20,
+            "?rva002100E6@Rva0020EE29@@QAEXPAX0@Z"
+          ]
+        ]
+      },
+      "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ": {
+        "bytes": "538bd9568b73088b4e3083c62c8b06572bc833ffc1f90274198b04b88b108bc8ff52048b068b4e042bc847c1f9023bf972e78bcbe8000000008b4b085f5e5be900000000",
+        "relocations": [
+          [
+            53,
+            20,
+            "?rva0020F483@Rva0020EE29@@QAEXXZ"
+          ],
+          [
+            64,
+            20,
+            "?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ"
+          ]
+        ]
+      },
+      "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z": {
+        "bytes": "ff742408e80000000085c0740dff7424048bc8e800000000eb0233c0c20800",
+        "relocations": [
+          [
+            5,
+            20,
+            "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z"
+          ],
+          [
+            20,
+            20,
+            "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z"
+          ]
+        ]
+      },
+      "?rva002106D6@Rva002103B6@@QAEXXZ": {
+        "bytes": "568bf18b46302b462c5733ffc1f80274198b462c8b0cb8e8000000008b46302b462c47c1f8023bf872e78b46602b465c33ffc1f802741a8b465c8b0cb856e8000000008b46602b465c47c1f8023bf872e65f5ec3",
+        "relocations": [
+          [
+            24,
+            20,
+            "?rva003F0DC6@Rva00210D6DElem@@QAEXXZ"
+          ],
+          [
+            63,
+            20,
+            "?CacheRegionIDs@LivingWorldRegionBonusRule@@QAEXPAVRva00210390@@@Z"
+          ]
+        ]
+      },
+      "?begin@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "bytes": "8b01c3",
+        "relocations": []
+      },
+      "?end@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "bytes": "8b4104c3",
+        "relocations": []
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU01@@Z": {
+        "bytes": "8bc18b4c24048b1189108b4904894804c20400",
+        "relocations": []
+      },
+      "??D?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "bytes": "8b0183c004c3",
+        "relocations": []
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "bytes": "8bc18b4c24048b1189108b4904894804c20400",
+        "relocations": []
+      },
+      "??0?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "bytes": "8bc18b4c240489088b4c2408894804c20800",
+        "relocations": []
+      },
+      "??$?9U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@0@0@Z": {
+        "bytes": "8b4424048b008b54240833c93b020f95c18ac1c3",
+        "relocations": []
+      },
+      "??R?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHPAVRva003FD14D@@@1@@Z": {
+        "bytes": "8b442404c20400",
+        "relocations": []
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABHI@Z": {
+        "bytes": "8b4424048b0033d2f77424088bc2c20800",
+        "relocations": []
+      },
+      "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "bytes": "837c240400740aff742404e80000000059c20800",
+        "relocations": [
+          [
+            12,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "??$_Destroy@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHPAVRva003FD14D@@@0@@Z": {
+        "bytes": "c3",
+        "relocations": []
+      },
+      "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@0@@Z": {
+        "bytes": "8b442404c3",
+        "relocations": []
+      },
+      "??R?$equal_to@H@_STL@@QBE_NABH0@Z": {
+        "bytes": "8b4424048b008b4c24082b01f7d81bc040c20800",
+        "relocations": []
+      },
+      "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z": {
+        "bytes": "56ff7424088bf1e80000000085c0750432c0eb0eff74240c8bce50e800000000b0015ec20800",
+        "relocations": [
+          [
+            8,
+            20,
+            "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z"
+          ],
+          [
+            28,
+            20,
+            "?rva0020E374@Rva002104C7@@QAEXPAX0@Z"
+          ]
+        ]
+      },
+      "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z": {
+        "bytes": "568b74240c57ff76048bf9ff368bcee8000000008b470885c0741d8b404c85c074168b4c240c85c9740e56ffb12c0100008bc8e8000000005f5ec20800",
+        "relocations": [
+          [
+            16,
+            20,
+            "?erase@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@PAU3@0@Z"
+          ],
+          [
+            52,
+            20,
+            "?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z"
+          ]
+        ]
+      },
+      "??C?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEPAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "bytes": "8b0183c004c3",
+        "relocations": []
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "bytes": "8bc18b4c240489088b4c2408894804c20800",
+        "relocations": []
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z": {
+        "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+        "relocations": []
+      },
+      "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "bytes": "837c240400740aff742404e80000000059c20800",
+        "relocations": [
+          [
+            12,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z": {
+        "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+        "relocations": []
+      },
+      "?end@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "bytes": "8b442404832000894804c20400",
+        "relocations": []
+      },
+      "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z": {
+        "bytes": "56ff74240c8bf1e8000000008b4c240889018971048bc15ec20800",
+        "relocations": [
+          [
+            8,
+            20,
+            "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z"
+          ]
+        ]
+      },
+      "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z": {
+        "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+        "relocations": []
+      },
+      "?_M_delete_node@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@Z": {
+        "bytes": "837c240400740aff742404e80000000059c20400",
+        "relocations": [
+          [
+            12,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "?end@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "bytes": "8b442404832000894804c20400",
+        "relocations": []
+      },
+      "?find@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@ABH@Z": {
+        "bytes": "ff742408ff742408e8000000008b442404c20800",
+        "relocations": [
+          [
+            9,
+            20,
+            "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z"
+          ]
+        ]
+      },
+      "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "bytes": "8b44240453558b2885ed8bd9745a8b450456578d7b048b4f042b0f33d2c1f902f7f18bcf5289542418e8000000008b303bf57512ff7424148bcfe8000000008b0e890856eb178b06eb083bc5740a8bf08b0085c075f4eb0e8b08890e50e800000000ff4b10595f5e5d5bc20400",
+        "relocations": [
+          [
+            42,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            59,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            94,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "bytes": "558bec51518b45088945f88b450c8945fc8d45f850e800000000c9c20800",
+        "relocations": [
+          [
+            22,
+            20,
+            "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z"
+          ]
+        ]
+      },
+      "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z": {
+        "bytes": "5356578d99180200008d442410508bcbe8000000008bf885ff74458b77088b460485c0740583c008eb05b8000000008b0d0000000050e80000000085f6740a8b066a008bceff10eb0233c050e800000000518bc48bcb8938895804e8000000005f5e5bc20400",
+        "relocations": [
+          [
+            17,
+            20,
+            "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z"
+          ],
+          [
+            43,
+            6,
+            "??_C@_00CNPNBAHC@?$AA@"
+          ],
+          [
+            49,
+            6,
+            "?TheLivingWorld@@3PAVLivingWorld@@A"
+          ],
+          [
+            55,
+            20,
+            "?rva002C004F@Rva002BFF5A@@QAEXPBD@Z"
+          ],
+          [
+            77,
+            20,
+            "??3@YAXPAX@Z"
+          ],
+          [
+            92,
+            20,
+            "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z"
+          ]
+        ]
+      },
+      "?rva0020F795@Rva0020EE29@@QAEXXZ": {
+        "bytes": "5556578bf98b47182b471433ed33f6c1f80274228b47148b04b0ff70308b0d00000000e8000000008b47182b471446c1f8023bf072de8bcfe8000000008bcfe800000000396f08896f0c896f10896f2c896f307441a1000000008b88680200003bcd7405e8000000008b77088b4e3083c62c8b06532bc833dbc1f90274178b0c98e8000000008b068b4e042bc843c1f9023bd972e95b896f085f5e5dc3",
+        "relocations": [
+          [
+            31,
+            6,
+            "?TheLivingWorldManager@@3PAVLivingWorldManager@@A"
+          ],
+          [
+            36,
+            20,
+            "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z"
+          ],
+          [
+            57,
+            20,
+            "?rva0020F685@Rva0020F685@@QAEXXZ"
+          ],
+          [
+            64,
+            20,
+            "?rva0020EE29@Rva0020EE29@@QAEXXZ"
+          ],
+          [
+            86,
+            6,
+            "?TheLivingWorldManager@@3PAVLivingWorldManager@@A"
+          ],
+          [
+            101,
+            20,
+            "?rva003EF1B8@Rva003EF14A@@QAEXXZ"
+          ],
+          [
+            130,
+            20,
+            "?rva003F3F27@Rva003F3F27@@QAEXXZ"
+          ]
+        ]
+      }
+    }
+  },
+  "properties": {
+    "control": {
+      "??R?$hash@H@_STL@@QBEIH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?str@AsciiString@@QBEPBDXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?rva0020EE29@Rva0020EE29@@QAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "__real@bf800000": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "__real@461c4000": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020E374@Rva002104C7@@QAEXPAX0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva002101C6@Rva0020EE29@@QAEXPAX@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?Rva0021BEC1@@YGHHH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva002106D6@Rva002103B6@@QAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?begin@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?end@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??D?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$?9U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@0@0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??R?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHPAVRva003FD14D@@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABHI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$_Destroy@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHPAVRva003FD14D@@@0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??R?$equal_to@H@_STL@@QBE_NABH0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??C?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEPAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?end@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_delete_node@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?end@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?find@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@ABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020F795@Rva0020EE29@@QAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      }
+    },
+    "candidate": {
+      "??R?$hash@H@_STL@@QBEIH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?str@AsciiString@@QBEPBDXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?rva0020EE29@Rva0020EE29@@QAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "__real@bf800000": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "__real@461c4000": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "?rva0020FAB4@Rva0020EE29@@QAEPAXHH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva00210390@Rva00210390@@QAEPAXPBVAsciiString@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva002104B6@Rva002104B6@@QAEPAXPAX@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020E374@Rva002104C7@@QAEXPAX0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva002101C6@Rva0020EE29@@QAEXPAX@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?loadPostProcess@LivingWorldRegionManager@@UAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva002106D6@Rva002103B6@@QAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?begin@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?end@?$vector@URva005334A4Element@@V?$allocator@URva005334A4Element@@@_STL@@@_STL@@QAEPAURva005334A4Element@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??D?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEAAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@ABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PAV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$?9U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@1@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@U?$equal_to@H@1@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@@_STL@@YA_NABU?$_Hashtable_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@0@0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??R?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@QBEABHABU?$pair@$$CBHPAVRva003FD14D@@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABHI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$_Destroy@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHPAVRva003FD14D@@@0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$__stl_alloc_rebind@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@0@AAV10@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??R?$equal_to@H@_STL@@QBE_NABH0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?ActivateRegion@Rva002104C7@@QAE_NPAX0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020FD42@Rva0020FD42@@QAEXPAX0@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??C?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QBEPAU?$pair@$$CBHPAVRva003FD14D@@@1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE@PBU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@PBV?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@I@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?end@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?_M_delete_node@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?end@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?find@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@ABH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva0020F795@Rva0020EE29@@QAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      }
+    }
+  },
+  "provider_diff": {
+    "changed": [],
+    "removed": [
+      "?Rva0021BEC1@@YGHHH@Z"
+    ],
+    "added": [
+      "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z"
+    ]
+  },
+  "property_diff": {
+    "changed": [],
+    "removed": [
+      "?Rva0021BEC1@@YGHHH@Z"
+    ],
+    "added": [
+      "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z"
+    ]
+  },
+  "symbol_delta": {
+    "defined": {
+      "removed": [
+        "?Rva0021BEC1@@YGHHH@Z"
+      ],
+      "added": [
+        "?Rva0021BEC1@CreateAHeroClass@CreateAHeroManager@@QBEPAHHH@Z"
+      ]
+    },
+    "undefined": {
+      "removed": [
+        "?Rva00219B9E@@YGPAXH@Z",
+        "?rva0021BD22@Rva0021BDAccess@@QAEPAXI@Z"
+      ],
+      "added": [
+        "?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z",
+        "?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z"
+      ]
+    },
+    "includes": {
+      "removed": [],
+      "added": []
+    },
+    "weak": {
+      "unchanged": true
+    },
+    "alternates": {
+      "unchanged": true
+    }
+  },
+  "directives_unchanged": true,
+  "renamed_provider_comparison": {
+    "raw_code_bytes_equal": true,
+    "ordinary_properties_equal": true,
+    "old_properties": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    },
+    "new_properties": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 1
+    }
+  },
+  "candidate_sha256": "188dcf3b28466959376d2335eb5e45516b92ed2a9b83cd640604fcbc980cd20f"
+}

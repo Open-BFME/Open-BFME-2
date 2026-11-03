@@ -1,0 +1,46 @@
+# Placeholder ABI correction: policy, actual declarations, consumers and scope
+
+Bounded read-only review completed 2026-11-03. No source/ledger edits, builds, claims, network, approvals, admission or rename execution. Read the current naming rules relevant to name protection/ABI/identity repair, full canonical CreateAHeroManager.h, the exact nested219B9E declaration/body and the full21BD22 provider. The companion add-match.md records current implementation/tests and the committed real-claim precedent.
+
+## Supported interpretation and exact tool boundary
+
+Retaining the identifier Rva0021BEC1 while correcting a refuted free ABI to the evidenced member ABI invents no descriptive function name. docs/naming.md915-917 explicitly separates evidence-backed identity correction from a naming vote; conversion_gate.py Rule B explicitly permits retraction of a wrong claim in its own commit. The committed valarray-record-identity-20261101 precedent applies that route while the true application names remain unknown. No inspected rule forbids an honest address-placeholder ABI repair itself. This is a policy interpretation supported by those explicit identity/retraction rules, not a claim that byte equality reveals an English name.
+
+The hand-rename rule946-948 DOES require canonical-name evidence when landing a new chosen name. It should not be evaded by inventing a descriptive identifier and calling it ABI cleanup. Here no new descriptive identifier is requested and no name_basis/vote record is justified. rename.py is unsuitable because it preserves scope/signature and refuses a new placeholder. Its refusal does not require the false ABI to remain forever.
+
+Direct add_match --replace-rva is unavailable: the existing authored matched row is not a recognized generated scaffold. --replace-existing requires the identical full decorated name; same identifier alone is insufficient. add-match.md identifies the exact guards/tests. The supported route is the tool's explicit own-commit real-claim retraction, then PLAIN add_match after the old row is absent.
+
+## Receiver/API facts and canonical-header constraint
+
+Canonical CreateAHeroManager.h defines the registered OUTER class and forward-declares nested CreateAHeroClass/CreateAHeroSubClass (31-32). It does not yet define those nested classes or declare the21BEC1 member. It includes the canonical SubsystemInterface and requires the long-slot include context; inserting it after an already-read short SubsystemInterface triggers its explicit error7-9. Do not copy the full registered outer class from a private provider into Clear.
+
+Existing219B9E owner: `?rva00219B9E@CreateAHeroClass@CreateAHeroManager@@ABEPBVCreateAHeroSubClass@2@I@Z`,44B, Common/Rva00219B9EAccessor.cpp. Its declaration is PRIVATE `const CreateAHeroSubClass *rva00219B9E(unsigned int) const`; body185-194 bounds the subclass vector and returns its element/null. Existing21BD22 owner: `?rva0021BD22@CreateAHeroSubClass@CreateAHeroManager@@QBEPAHH@Z`,31B, Common/System/Rva0021BD22Find.cpp. It is PUBLIC `int *rva0021BD22(int) const`, returns address of the map value/null. Canonical outer scope plus TU-local nested method declarations can consume these existing identities without a new shared descriptive name, but source shape/constness/arguments still require root's actual native/body/provider proof. A method of CreateAHeroClass can access its own private219B9E; no invented friend/access alias is needed.
+
+Current Clear old free body579-585 is `int __stdcall Rva0021BEC1(int a1,int a2)`, calling free `void* __stdcall Rva00219B9E(int)` then Rva0021BDAccess::rva0021BD22(unsigned). Those two declared callees do not name the existing nested providers. Correcting declarations and nativeECX receiver/return/arguments is substantive identity/binding repair, not a spelling-only rename. Parent supplies the proven const receiver/native facts; this audit did not compile a replacement or select a new decoration by guess.
+
+## Exact retraction and readmission
+
+1. Privately prove the whole replacement and affected provider/caller bindings BEFORE retracting anything. Preserve all other rows in mixed Clear source. Keep root's file scope live through the batch; renew after4h. Additional changed provider/caller/header scopes require their own normal claims; readonly evidence requires none.
+2. Under portable exclusive `reverse/.add_match.lock` (as add_match.py420-428), use `ledger_io.rewrite(raw,keep)` to drop ONLY `?Rva0021BEC1@@YGHHH@Z` at integerRVA0x0021BEC1. Retain headers/unrelated records, assert dropped_count==1. The API returns retained raw bytes with their original terminators. Append its exact old-decoration tombstone through `gen_small.write_tombstones([(old_name,0x0021BEC1,reason)])` while holding the lock; that writer does not lock itself. No manual CSV rewriting or relabeling as gen-dump.
+3. Remove the superseded free body for this intermediate state so Code does not retain an unrowed definition; keep the mixed file and all other source rows. Normally verify and commit this exact real-claim retraction separately with native evidence/handoff. No dump fallback or superseded pin may keep the false identity resolving.
+4. In the NEXT commit, restore the proved member body at SAME source and use plain `python3 tools/add_match.py <actual-verified-member-COFF-name> 0x0021BEC1 31 Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp --notes <target-ABI-evidence>`. The symbol must come from the actual candidate object. Do not use replacement flags, --icf-owner, object-symbol alias or a new pin. Finish normal source/frozen/provider/consumer/link checks and restore full final address coverage BEFORE publishing the pair.
+
+Current tu_map exact21BEC1 row has blank tu/confidence and by'-'; the source column alone is not approved TU evidence. Therefore no new manager-named destination is authorized. SAME source path avoids a move; do not delete the entire mixed TU or regenerate a map. add_match itself does not authorize a source move; policy/hooks still apply.
+
+## Narrow actual old-name consumers
+
+Case-insensitive active Code search for Rva0021BEC1/21BEC1 finds ONLY the current definition in Clear. Exact name/RVA searches find no old pin, data-row/data-converged initializer, name_basis/name_tiers record or existing tombstone. A read of the current Clear object finds ZERO non-debug code/data relocations to the old free symbol.
+
+Saved local index (2026-11-02 08:35/984a4cdc4d, census06:54/357ce2a88f) lists Clear as the old symbol's only strong/COMDAT holder and gives retail-byte verdict to its body. It marks the name globally referenced but has ZERO incoming graph edges; that reflects a strong-symbol root, not evidence of a caller. No per-object contributions exist. This proves only the bounded saved-index/source/own-object facts, not absence of every current external binary consumer. Full snapshot is old-symbol-index.json.
+
+Required normal dependent procedure: after staging the actual retraction, `python3 tools/name_dependents.py --staged` lists sources whose current COFF exact external symbols reference a lost binding, widening to the bare identifier when objects are missing/stale or text is unsettled. It also checks matched data-row sources for lost initializer targets. It only lists sources; the normal hook byte-verifies them. The pre-push equivalent is `python3 tools/name_dependents.py --range <batch-base> HEAD`, automatically run by the hook. Do not replace this with the narrow grep or omit consumers that the tool discovers. The old row's disappearance is a real lost-name event even though the same address is readmitted under a different member decoration.
+
+## Registers, trailers and publication
+
+Narrow case-insensitive checks found no key for this RVA/old decoration/source in gate_baseline.txt, code_identity_baseline.tsv, data_check_baseline.txt, header_queue.tsv, ms_header_queue.tsv, hatch_baseline.tsv or unclaimed_sources_whitelist.txt. There is one UNRELATED erase-fold pin8415 whose proof source is this Clear file; preserve it and its source because the mixed TU remains. No target old-name pin exists to rename/retire. Recheck actual staged scope if root's edit expands.
+
+No debt-retirement trailer is needed merely for retracting this one row: the source remains and no such protected key was found. Do not delete unrelated header/identity/data keys by hand; their register's owning tool remains required if an actual fix retires them. Source/functions/deleted_rows/attempt evidence edits alone require no Verifier-Change trailer. A tools/gate/baseline/whitelist edit would require it, and is outside this repair. No new descriptive name_basis record should be written for Rva0021BEC1. Record target facts and old ABI refutation in the commit/handoff and via normal re_log; keep all final verification evidence.
+
+Publish only the completed verified pair (and separately completed accessor prerequisite as root sees fit) with tools/push.py and the account clock. Never publish the31B coverage gap alone. The previous blanket canonical-name prerequisite was overbroad for this unchanged-placeholder identity repair; the real current blocker is direct replacement routing plus the still-required private proof and two-commit admission sequence.
+
+All tracked reads stopped on report completion.

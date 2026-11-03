@@ -1,0 +1,26 @@
+{
+  "old_name": "?Rva0021BEC1@@YGHHH@Z",
+  "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "index_strong": [
+    "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj"
+  ],
+  "index_comdat": [
+    {
+      "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+      "digest": "41427883aee9",
+      "verdict": "retail"
+    }
+  ],
+  "index_reference_schema": 1,
+  "index_global_referenced": true,
+  "index_incoming_names": [],
+  "index_per_object_graph_present": false,
+  "current_own_object_incoming_code_data_relocations": []
+}

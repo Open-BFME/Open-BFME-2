@@ -561,28 +561,8 @@ public:
 };
 
 
-// Dump-range-7 0x0021BE2x free-lookup batch (each 31-32B, __stdcall).
-// Each resolves its second handle through the rowed-pending free 0x00219B9E
-// and, when found, runs one rowed-pending member on it with the first
-// handle, answering that value; on a miss two answer 0 and two answer -1.
-// Evidence: retail pushes with no ecx setup (free, callee-clean ret 8); the
-// null test with xor (0) or or--1 (-1); this=result member calls. Handles
-// opaque; second-stage identities unproven (one host, address-derived).
-class Rva0021BDAccess
-{
-public:
-	void *rva0021BD22(unsigned int a);
-};
-
-void *__stdcall Rva00219B9E(int a);
-
-int __stdcall Rva0021BEC1(int a1, int a2)
-{
-	void *p = Rva00219B9E(a2);
-	if (p)
-		return (int)((Rva0021BDAccess *)p)->rva0021BD22((unsigned int)a1);
-	return 0;
-}
+// The false free-function claim at 0x0021BEC1 is retracted here.
+// Its privately verified member body is readmitted in the following commit.
 
 // ?rva002103B6@Rva002103B6@@QAEXPBVAsciiString@@@Z @0x002103B6 119B
 // Rebuilds the +0x2c vector from the +0x20 vector through the rowed
