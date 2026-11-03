@@ -26,7 +26,7 @@
 #include "unicode_string.h"
 #include <new>
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc {template<class T> DelegateDesc(T*o,void(T::*m)(void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){} AptCommandTarget*object;void(AptCommandTarget::*method)(void*);};
+#include "../../../../../Include/Common/DelegateDesc.h"
 class Rva00579E47{public:Rva00579E47(const DelegateDesc&);void*ptr;};
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class AptCommandMap;template<class T>class AptRef:public Rva00579E47{public:AptRef(const DelegateDesc&d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};

@@ -52,13 +52,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 
 class __single_inheritance Rva0050ED58;
 
-struct DelegateDesc
-{
-	DelegateDesc(Rva0050ED58 *p, void (Rva0050ED58::*f)(const char *)) : m_object(p), m_method(f) {}
-
-	Rva0050ED58 *m_object;
-	void (Rva0050ED58::*m_method)(const char *);
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 // Link: the AptRef lineage fork. The wrapper spelling used here emitted a
 // census-losing dtor copy (a jmp to an extern base dtor, digest e67a72158686);

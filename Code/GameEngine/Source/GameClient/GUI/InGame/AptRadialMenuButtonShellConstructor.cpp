@@ -18,11 +18,7 @@
 
 #include <new>
 
-struct DelegateDesc {
-	template <class T, class M> DelegateDesc(T *object, M method) : m_object(object), m_method(*(void **)&method) {}
-	void *m_object;
-	void *m_method;
-};
+#include "../../../../Include/Common/DelegateDesc.h"
 
 template <class T, class M> __forceinline DelegateDesc MakeDelegate(T *object, M method)
 {
@@ -40,7 +36,7 @@ struct Impl : ImplBase {
 	virtual void invoke(const char *argument);
 	void *m_object;
 	void *m_method;
-	Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.m_object), m_method(delegateDesc.m_method) {}
+	Impl(const DelegateDesc &delegateDesc) : m_object(delegateDesc.field00), m_method(delegateDesc.field04) {}
 };
 
 class Rva00579E47 {

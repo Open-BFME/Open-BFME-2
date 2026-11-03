@@ -123,7 +123,7 @@ void AptStats::NextRankExtern(int faction,char*out,bool lvalue)
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 typedef void(AptStats::*StatsHandler)();
-struct DelegateDesc {AptStats*object;StatsHandler method;DelegateDesc(){}DelegateDesc(AptStats*o,StatsHandler m):object(o),method(m){}};
+#include "../../../../../Include/Common/DelegateDesc.h"
 // ?MakeStatsDelegate absent-from-retail
 __forceinline DelegateDesc MakeStatsDelegate(AptStats *owner,StatsHandler method) {DelegateDesc d(owner,method);return d;}
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);TargetRef00217D4C*ptr;};

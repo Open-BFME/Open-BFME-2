@@ -21,11 +21,7 @@ struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString()
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&a,const char*b) {Rva000B3F84Pair p;p.init(b);AsciiStringPlusStringText r;static_cast<AsciiStringPlusString&>(r)=a;r.m_right=p;return r;}
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc {
- template<class T> DelegateDesc(T*o,void(T::*m)(void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){}
- template<class T> DelegateDesc(T*o,void(T::*m)(const Coord2D*,const Coord2D*,void*,void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){}
- AptCommandTarget *object;void(AptCommandTarget::*method)(void*);
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);void*ptr;};
 class AptCommandMap;class AptCustomRender;struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);

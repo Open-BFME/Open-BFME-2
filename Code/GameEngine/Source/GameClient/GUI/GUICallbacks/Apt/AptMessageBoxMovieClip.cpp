@@ -68,13 +68,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 // it: ctor 0x001F81BF (ICF fold, pinned), AddCommandMap 0x0052458E, dtor
 // 0x0052413E (pinned), delegate ref 0x00579E47 (pinned).
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc {
- template <class T> DelegateDesc(T *object, void (T::*method)(const char *))
-  : m_object(reinterpret_cast<AptCommandTarget *>(object)),
-    m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *)>(method)) {}
- AptCommandTarget *m_object;
- void (AptCommandTarget::*m_method)(const char *);
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 class AptCommandMap { public: void *m_vtbl; int m_refCount; };
 // 0x00579E47 is rowed as the delegate-wrapper constructor ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z
 // (built in place as the by-value AddCommandMap argument); AptRef<T> builds through it.

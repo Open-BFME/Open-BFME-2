@@ -585,13 +585,7 @@ private:
 // releases the reference.
 typedef void (AptMapPreview::*AptMapPreviewHandler)(void);
 
-struct DelegateDesc
-{
-	DelegateDesc(AptMapPreview *object, AptMapPreviewHandler method) : m_object(object), m_method(method) {}
-
-	AptMapPreview *m_object;
-	AptMapPreviewHandler m_method;
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 
@@ -1128,7 +1122,7 @@ void AptMapPreview::rva0057E45C()
 		AsciiString name("AptMapPreview::GameMapType");
 		TheAptPlayer->AddExternHandler(name, 0, AptRef<AptExternHandler>(DelegateDesc(this, reinterpret_cast<AptMapPreviewHandler>(&AptMapPreview::GameMapType))));
 		{
-			DelegateDesc unused(0, 0);
+			DelegateDesc unused((AptMapPreview *)0, (AptMapPreviewHandler)0);
 			(void)unused;
 		}
 	}

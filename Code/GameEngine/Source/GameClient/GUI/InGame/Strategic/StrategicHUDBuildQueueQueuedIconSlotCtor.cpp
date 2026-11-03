@@ -14,10 +14,7 @@
 // 0x005EEFA9 operator+ and 0x005EF607 conversion.
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
-struct DelegateDesc {
- template<class T> DelegateDesc(T*o,void(T::*m)(void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){}
- AptCommandTarget *object;void(AptCommandTarget::*method)(void*);
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);void*ptr;};
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);

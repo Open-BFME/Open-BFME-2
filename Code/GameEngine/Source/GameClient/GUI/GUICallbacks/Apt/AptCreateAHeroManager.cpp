@@ -160,8 +160,8 @@ void AptCreateAHero::Manager::rva005B5F2E() {
 // Native 0x005B6A5E..0x005B6B93 (309B), RET4: selected-hero delete prompt.
 // The +8 list/+10 selected hero match this Manager and its owned delete
 // continuation 0x005B6A05. Bound callbacks use that continuation and 0x005B5B07.
-// DelegateDesc is a local binding helper; its two-word payload is established
-// by 0x00579E47. Its value constructor preserves native descriptor lifetimes.
+// DelegateDesc (Common/DelegateDesc.h) carries the two-word payload 0x00579E47
+// consumes. Its value constructor preserves native descriptor lifetimes.
 // Keep the complete59B wrapper constructor visible and potentially throwing:
 // the opaque allocation contract preserves the caller's native unwind stores.
 void __cdecl GadgetListBoxGetSelected(GameWindow *, int *);
@@ -169,11 +169,11 @@ void *GadgetListBoxGetItemData(GameWindow *, int, int);
 extern unsigned char g_rva005B5C02Flag;
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct DelegateDesc {void *m_object;void *m_method;DelegateDesc(void *o,void *m):m_object(o),m_method(m){}};
+#include "../../../../../Include/Common/DelegateDesc.h"
 static __forceinline DelegateDesc MakeDelegate(void *object,void *method){return DelegateDesc(object,method);}
 
 struct ImplBase {virtual ~ImplBase(){} int m_ref;ImplBase():m_ref(0){}};
-struct Impl:ImplBase {virtual void invoke(const char*);void *m_object,*m_method;Impl(const DelegateDesc&d):m_object(d.m_object),m_method(d.m_method){}};
+struct Impl:ImplBase {virtual void invoke(const char*);void *m_object,*m_method;Impl(const DelegateDesc&d):m_object(d.field00),m_method(d.field04){}};
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc &);private:void *m_ptr;};
 
 __declspec(noinline) inline Rva00579E47::Rva00579E47(const DelegateDesc &d){Impl *p=new Impl(d);m_ptr=p;if(p)p->m_ref++;}
