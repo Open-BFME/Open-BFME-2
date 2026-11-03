@@ -35,11 +35,6 @@ template <> BfmeVectorRecord0002154F3 *__copy_backward<BfmeVectorRecord0002154F3
 
 template BfmeVectorRecord0002154F3 *_STL::__copy_backward_ptrs<BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *>(BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, BfmeVectorRecord0002154F3 *, const _STL::__false_type &);
 
-struct Rva00215696Element {Rva00215696Element();Rva00215696Element(const Rva00215696Element&);Rva00215696Element&operator=(const Rva00215696Element&);~Rva00215696Element(){}char bytes[16]; bool operator==(const Rva00215696Element&)const;};
-
-// Instantiate the recovered operation and its required template dependencies.
-template Rva00215696Element * _STL::__copy<Rva00215696Element *, Rva00215696Element *, int>(Rva00215696Element *, Rva00215696Element *, Rva00215696Element *, _STL::random_access_iterator_tag const &, int *);
-
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
 namespace _STL {
@@ -50,6 +45,22 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString&);
 template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflow(AsciiString*, const AsciiString&, const __false_type&, size_t, bool);
 }
+
+// The assignment provider at 0x00215530 establishes the two owning members
+// of the 16-byte element copied by 0x00215696. Keep its field spelling so
+// that provider and this caller can share one translation unit.
+struct Rva00215696Element {
+    Rva00215696Element();
+    Rva00215696Element(const Rva00215696Element&);
+    Rva00215696Element& operator=(const Rva00215696Element&);
+    ~Rva00215696Element() {}
+    AsciiString text;
+    _STL::vector<AsciiString> names;
+    bool operator==(const Rva00215696Element&) const;
+};
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva00215696Element * _STL::__copy<Rva00215696Element *, Rva00215696Element *, int>(Rva00215696Element *, Rva00215696Element *, Rva00215696Element *, _STL::random_access_iterator_tag const &, int *);
 
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
