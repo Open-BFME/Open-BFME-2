@@ -6896,3 +6896,11 @@ param,Rva005E4116Iterator::n,Rva005E4116Iterator::treeNode,inferred,agree:nl-79d
 param,LivingWorldArmyLine::rva00538F6B::a,LivingWorldArmyLine::rva00538F6B::m_StartPosition,inferred,agree:nl-126013165579,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyLine.cpp,0x00538F6B
 param,initBeaconTransform::m,initBeaconTransform::transform,inferred,agree:nl-fdead264de0f,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp,
 param,MapMetaData::MapMetaData::o,MapMetaData::MapMetaData::source,inferred,agree:nl-19ffd7c90676-mdefb6eba82365edb921bf593,Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp,0x003039E8
+param,WaypointMap::WaypointMap::o,WaypointMap::WaypointMap::source,inferred,agree:nl-acf2617fe3ea-ma172554b4f447fda21dde91e,Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp,0x00303359
+param,bfmeEmitMapMetaDataDeferredCopy::p,bfmeEmitMapMetaDataDeferredCopy::destination,inferred,agree:nl-fddfc8ee098f-m3c74a1c1353c2a6828ef8638,Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp,
+param,bfmeEmitMapMetaDataDeferredCopy::w,bfmeEmitMapMetaDataDeferredCopy::destWaypoints,inferred,agree:nl-e250c05a277f-m4af53eceda8ef2bcc74fccc0,Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp,
+local,Rva00086C4A::rva00086C4A::t,Rva00086C4A::rva00086C4A::ratio,inferred,agree:nl-00195dbac784,Code/GameEngine/Source/GameClient/Rva00086C4AUpdate.cpp,0x00086C4A
+local,Rva0009ACB8::rva0009ACB8::v,Rva0009ACB8::rva0009ACB8::position,inferred,agree:nl-99f7973f29a7,Code/GameEngine/Source/GameClient/Rva0009ACB8Method.cpp,0x0009ACB8
+param,Rva00223591::rva002237C7::arg,Rva00223591::rva002237C7::key,inferred,agree:nl-bd634d570fa4,Code/GameEngine/Source/GameClient/Rva002237C7.cpp,0x002237C7
+function,?rva00223547@Rva00223547@@QAEPAXPBX@Z,?newNode@Rva00223547@@QAEPAXPBX@Z,inferred,agree:nl-d57658d52174,Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp,0x00223547
+carry,Rva00223547::rva00223547::node,Rva00223547::newNode::node,inferred,scope renamed by Rename rva00223547 to newNode (inferred),Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp,0x00223547

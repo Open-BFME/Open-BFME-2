@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva00223547@Rva00223547@@QAEPAXPBX@Z @0x00223547 37B
+// ?newNode@Rva00223547@@QAEPAXPBX@Z @0x00223547 37B
 // Eva hashtable new-node for 12-byte node (4 next + 8 pair<const AsciiString TreeHintRef00217D4C>).
 // Evidence: caller at 0x0022371D loads ecx plus one AsciiString-keyed arg;
 // allocate 0x000307F0 with (0xc 0) then dup 0x00223168 twin of rowed 0x0021789E
@@ -28,10 +28,10 @@ struct Rva00223547Node
 class Rva00223547
 {
 public:
-	void *rva00223547(const void *obj);
+	void *newNode(const void *obj);
 };
 
-void *Rva00223547::rva00223547(const void *obj)
+void *Rva00223547::newNode(const void *obj)
 {
 	Rva00223547Node *node = (Rva00223547Node *)_STL::allocator<char>().allocate(12, 0);
 	node->_M_next = 0;

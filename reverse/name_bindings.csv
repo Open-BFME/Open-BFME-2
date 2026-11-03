@@ -300,3 +300,4 @@ agree:nl-8e1307dda7b8,InGameUI::drawFloatingText::a,InGameUI::drawFloatingText::
 agree:nl-59622dbf5412,InGameUI::drawFloatingText::b,InGameUI::drawFloatingText::blue,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,6e4e26a0d67c66ab5d7260c38224efee1ece1bc72675d72fee45344c1e031182
 agree:nl-f2e3a007a786,InGameUI::drawFloatingText::g,InGameUI::drawFloatingText::green,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,6e4e26a0d67c66ab5d7260c38224efee1ece1bc72675d72fee45344c1e031182
 agree:nl-42de039c3ec5,InGameUI::drawFloatingText::r,InGameUI::drawFloatingText::red,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,6e4e26a0d67c66ab5d7260c38224efee1ece1bc72675d72fee45344c1e031182
+agree:nl-00195dbac784,Rva00086C4A::rva00086C4A::t,Rva00086C4A::rva00086C4A::ratio,Code/GameEngine/Source/GameClient/Rva00086C4AUpdate.cpp,c8abe5f3cb1c4cb99941d0bcb996d8d8213d0eca73288968a2c3dd1d6bb5d279

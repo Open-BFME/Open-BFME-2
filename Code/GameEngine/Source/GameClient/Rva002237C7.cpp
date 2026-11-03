@@ -15,7 +15,7 @@ public:
 class Rva00223591
 {
 public:
-	void *rva002237C7(const void *arg);
+	void *rva002237C7(const void *key);
 private:
 	void *m_unused00;
 	void **m_beginBuckets;
@@ -24,12 +24,12 @@ private:
 	unsigned int m_numElements;
 };
 
-void *Rva00223591::rva002237C7(const void *arg)
+void *Rva00223591::rva002237C7(const void *key)
 {
 	((Rva000427195 *)this)->rva00212858(m_numElements + 1);
-	int b = ((Rva000427195 *)this)->bucketIndex((const AsciiString *)arg);
+	int b = ((Rva000427195 *)this)->bucketIndex((const AsciiString *)key);
 	void *old = m_beginBuckets[b];
-	void *n = ((Rva0022356C *)this)->rva0022356C(arg);
+	void *n = ((Rva0022356C *)this)->rva0022356C(key);
 	*(void **)n = old;
 	m_beginBuckets[b] = n;
 	++m_numElements;

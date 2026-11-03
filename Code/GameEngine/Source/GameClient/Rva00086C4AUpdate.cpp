@@ -99,9 +99,9 @@ void Rva00086C4A::rva00086C4A()
 	if (m_cur <= m_total) {
 		float denom = (float)m_total;
 		float num = (float)m_cur;
-		float t = m_ease(num / denom);
+		float ratio = m_ease(num / denom);
 		Matrix3D tmp;
-		Matrix3D::Lerp(m_a, m_b, t, tmp);
+		Matrix3D::Lerp(m_a, m_b, ratio, tmp);
 		m_view->_v21(&tmp);
 		++m_cur;
 		if (TheAudio != 0)

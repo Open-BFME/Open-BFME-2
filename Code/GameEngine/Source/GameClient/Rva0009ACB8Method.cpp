@@ -49,10 +49,10 @@ void Rva0009ACB8::rva0009ACB8(float *out)
 {
 	RenderObjClass *sub = m_pC0;
 	if (sub) {
-		Vector3 v = sub->Get_Position();
-		out[0] = v.X;
-		out[1] = v.Y;
-		out[2] = v.Z;
+		Vector3 position = sub->Get_Position();
+		out[0] = position.X;
+		out[1] = position.Y;
+		out[2] = position.Z;
 	} else {
 		out[0] = 0.0f;
 		out[1] = 0.0f;

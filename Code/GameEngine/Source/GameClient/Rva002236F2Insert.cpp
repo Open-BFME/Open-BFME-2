@@ -25,7 +25,7 @@ struct Rva002236F2Node
 class Rva00223547
 {
 public:
-	void *rva00223547(const void *obj);
+	void *newNode(const void *obj);
 };
 
 class Rva002236F2
@@ -46,7 +46,7 @@ Rva002236F2Value &Rva002236F2::insert(const Rva002236F2Value &value)
 	table->rva00212858(m_numElements + 1);
 	unsigned int bucket = table->bucketIndex(&value.m_key);
 	Rva002236F2Node *first = m_beginBuckets[bucket];
-	Rva002236F2Node *node = (Rva002236F2Node *)((Rva00223547 *)this)->rva00223547(&value);
+	Rva002236F2Node *node = (Rva002236F2Node *)((Rva00223547 *)this)->newNode(&value);
 	node->m_next = first;
 	m_beginBuckets[bucket] = node;
 	++m_numElements;

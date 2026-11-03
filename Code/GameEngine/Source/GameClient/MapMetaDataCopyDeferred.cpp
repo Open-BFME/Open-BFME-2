@@ -95,8 +95,8 @@ typedef char SizeCheck[sizeof(MapMetaData)==0x100?1:-1];
 
 // The tree at3025A5 is already byte-verified under its earlier opaque-payload
 // model; the metadata reference and its coordinate copy chain prove this alias.
-inline WaypointMap::WaypointMap(const WaypointMap &o)
-    : _STL::map<AsciiString,Coord3D>(o), numStartSpots(o.numStartSpots) {}
+inline WaypointMap::WaypointMap(const WaypointMap &source)
+    : _STL::map<AsciiString,Coord3D>(source), numStartSpots(source.numStartSpots) {}
 
 // Retail faction-tree destruction uses the BFME null-checked header free.
 typedef _STL::_Rb_tree<AsciiString,AsciiString,_STL::_Identity<AsciiString>,_STL::less<AsciiString>,_STL::allocator<AsciiString> > FactionSetTree;
@@ -137,10 +137,10 @@ inline MapMetaData &MapMetaData::operator=(const MapMetaData &o)
 // rows; it is not retail code.
 #pragma inline_depth(0)
 // ?bfmeEmitMapMetaDataDeferredCopy@@YAXPAVMapMetaData@@ABV1@PAVWaypointMap@@ABV2@@Z present-unmatched
-void bfmeEmitMapMetaDataDeferredCopy(MapMetaData *p, const MapMetaData &that, WaypointMap *w, const WaypointMap &thatW)
+void bfmeEmitMapMetaDataDeferredCopy(MapMetaData *destination, const MapMetaData &that, WaypointMap *destWaypoints, const WaypointMap &thatW)
 {
-	p->MapMetaData::MapMetaData(that);
-	*p = that;
-	w->WaypointMap::WaypointMap(thatW);
+	destination->MapMetaData::MapMetaData(that);
+	*destination = that;
+	destWaypoints->WaypointMap::WaypointMap(thatW);
 }
 #pragma inline_depth()

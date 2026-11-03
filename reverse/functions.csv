@@ -27119,7 +27119,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ??0Rva00402F28Item@@QAE@ABV0@@Z,,0x00402F28,45,Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp,matched,chain base Rva003F9FE6 copy then vtable 0xC37898 and three byte extras
 ?newNode@Rva002230FF@@QAEPAXPBX@Z,,0x002230FF,37,Code/GameEngine/Source/GameClient/Rva002230FFNewNode.cpp,matched,Eva hashtable new-node via 0x000307F0 and 0x00222DBF twin of 0x000A7849
 ?rva00223124@Rva00223124@@QAEPAXPBX@Z,,0x00223124,37,Code/GameEngine/Source/GameClient/Rva00223124NewNode.cpp,matched,Eva hashtable new-node via 0x000307F0 and true 0x0002C71B unlocks 0x0002CA72
-?rva00223547@Rva00223547@@QAEPAXPBX@Z,,0x00223547,37,Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp,matched,Eva hashtable new-node via 0x000307F0 and dup 0x00223168 unlocks 0x002236F2
+?newNode@Rva00223547@@QAEPAXPBX@Z,,0x00223547,37,Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp,matched,Eva hashtable new-node via 0x000307F0 and dup 0x00223168 unlocks 0x002236F2
 ?rva000B3B2B@Rva000B3B2B@@QAEXPAVRva000B3B2BArg@@@Z,,0x000B3B2B,125,Code/GameEngine/Source/Common/Rva000B3B2B.cpp,matched,unlock lane v44-v45 slots ratio via g_Va00BBB8D8
 ??4Rva000B3F15@@QAEAAV0@ABV0@@Z,,0x000B3F15,46,Code/GameEngine/Source/Common/Rva000B3F15Assign.cpp,matched,smart-pointer assign self-check inc-release via rowed ReleaseTreeHintRef
 ?loadPostProcess@W3DModelDraw@@MAEXXZ,,0x000B3A2D,59,Code/GameEngine/Source/Common/Rva000B3A2D.cpp,matched,validate wide at +0 globals TheGameClient s31 sub slot 0x60 bool
