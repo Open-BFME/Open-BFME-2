@@ -54,7 +54,6 @@ public:
     bool rva00406F9C(const void *other);
     unsigned m_data[32];
 };
-
 class Object
 {
 protected:
@@ -71,9 +70,7 @@ public:
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
-
 extern GameLogic *TheGameLogic;
-
 class UpgradeData0C
 {
 public:
@@ -83,7 +80,6 @@ public:
 	ModelConditionFlagType m_deathAnim;
 	unsigned m_deathAnimDuration;
 };
-
 class ObjectCreationUpgrade
 {
 public:
@@ -107,7 +103,6 @@ private:
 	int m_status28;
 	bool m_flag2C;
 };
-
 //
 // Ported from Open-BFME-1 GameEngine/Source/GameLogic/AI/Rva002D6EB0ForwardedMember.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
@@ -120,7 +115,6 @@ class BfmeSubBPB
 public:
 	void bfmeDoBPB(void *first, void *second, void *third);
 };
-
 class Rva002D6EB0Parent
 {
 private:
@@ -129,7 +123,6 @@ private:
 public:
 	BfmeSubBPB *m_nested;
 };
-
 class Rva002D6EB0
 {
 public:
@@ -140,7 +133,6 @@ private:
 	Rva002D6EB0Parent *m_parent;
 	void *m_forwarded;
 };
-
 //
 // CreateModuleData::buildFieldParse procs: GrantUpgrade is a single-table
 // leaf (11 bytes); ObjectCreationUpgrade registers its own table followed by
@@ -154,17 +146,11 @@ private:
 // (0x250B41) pushes this proc immediate.
 
 class MultiIniFieldParse;
-
 #include "../../../../Include/Common/INI/INI.h"
-
 // The rowed ExemptStatus parser 0x003B1327 (opaque owner class).
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../../../Include/Common/INI/FieldParse.h"
-
-
 int Rva004CE29DGet(void);
-
 extern const FieldParse ObjectCreationUpgradeModuleDataFieldParse[12] =
 {
 	{ "UpgradeObject",			&INI::parseObjectCreationList,	0, 0x08 },
@@ -180,13 +166,11 @@ extern const FieldParse ObjectCreationUpgradeModuleDataFieldParse[12] =
 	{ "UseBuildingProduction",	&INI::parseBool,				0, 0x150 },
 	{ 0, 0, 0, 0 }
 };
-
 class GrantUpgradeCreateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
 {
 public:
@@ -204,11 +188,22 @@ private:
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
-// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
-// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
+class Rva002AA292
+{
+public:
+	bool rva002AA292(const int *mask) const;
+private:
+	int m_bits[32];
+};
+// Player uses its canonical declaration; the target mask remains an opaque field view.
+enum DamageType;
+enum DeathType;
+enum ModelConditionFlagType;
+enum NameKeyType;
+class Module;
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 BFME_DISP8_BYTECHASE_GETTER(Rva004B4061ByteChase32Field, 0xC, 0x11C)
 
@@ -220,6 +215,44 @@ BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B3FBALeaNegSbbField, 20, 0x04)
 
 BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
 
+struct BfmeFixedStorage128 { unsigned int words[32]; BfmeFixedStorage128(const BfmeFixedStorage128 &); };
+
+namespace _STL { template<unsigned N> struct _Base_bitset { unsigned long words[N]; void _M_do_or(const _Base_bitset &); }; }
+
+class Rva004B4130
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual bool v02(Rva00406F9C *);
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11(void *a, void *b);
+	virtual void v12();
+	virtual bool v13();
+	bool rva004B4130(Rva00406F9C *mask);
+	void rva004B41A9();
+private:
+	char pad04[0x10-4]; Object *owner;
+	char pad14[0x2C-0x14]; bool executed;
+};
+
+// tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
@@ -230,9 +263,7 @@ BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
 // Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
 // Target behavior: receiver8 plus eight-byte element stride; RET4.
 // Original owner and full array bounds remain unknown; address-owned view only.
-// tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
@@ -389,9 +420,50 @@ void ObjectCreationUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x004B4130 121B ?rva004B4130@Rva004B4130@@QAE_NPAVRva00406F9C@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp
 
-// tu-skeleton: 0x004B41A9 91B ?rva004B41A9@Rva004B4130@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp (not merged yet)
+// ?rva004B4130@Rva004B4130@@QAE_NPAVRva00406F9C@@@Z @0x004B4130 121B: upgrade mask check.
+// Clears two 0x80 buffers via rowed 0x001EAE6F, fills via virtual +0x2C,
+// returns false if buf80 all zero, if buf100 intersects mask via rowed
+// 0x00406F9C, then dispatches on virtual +0x34 to rowed 0x002AA292 or rowed
+// 0x00406F9C with mask as this and buf80 as other. Slot 2 of 0x00857660,
+// class of ObjectCreationUpgrade ctor. Chain from 0x00406F9C.
+
+bool Rva004B4130::rva004B4130(Rva00406F9C *mask)
+{
+	Rva00406F9C blockingMask;
+	Rva00406F9C m_upgradeMask;
+	((Rva001EAE6FHelper *)&m_upgradeMask)->clear80();
+	((Rva001EAE6FHelper *)&blockingMask)->clear80();
+	v11(&m_upgradeMask, &blockingMask);
+	for (unsigned i = 0; i < 32; ++i) {
+		if (m_upgradeMask.m_data[i] != 0)
+			goto haveBits;
+	}
+	return false;
+haveBits:
+	if (blockingMask.rva00406F9C(mask))
+		return false;
+	if (v13())
+		return ((Rva002AA292 *)mask)->rva002AA292((const int *)&m_upgradeMask);
+	return mask->rva00406F9C(&m_upgradeMask);
+}
+
+// Native4B41A9..4B4204 reads owner10/executed2C and calls vslots2/8.
+// ZH UpgradeMux attempt/would/giveSelfUpgrade supplies the mask-dispatch
+// purpose. This receiver's larger layout and original class name remain
+// target-unidentified; preserve the existing address-derived owner view.
+// Copy4548B and OR28C557 prove two 128-byte mask storages independently.
+void Rva004B4130::rva004B41A9()
+{
+ BfmeFixedStorage128 mask(*(const BfmeFixedStorage128 *)((const unsigned char *)owner->getControllingPlayer() + 0x13C));
+ ((_STL::_Base_bitset<32> *)&mask)->_M_do_or(*(const _STL::_Base_bitset<32> *)&owner->mask);
+ if (v02((Rva00406F9C *)&mask))
+ {
+  if (!executed) ((UpgradeMux *)this)->giveSelfUpgrade();
+ }
+ else v08();
+}
 
 // tu-skeleton: 0x004B421D 62B ?xfer@ObjectCreationUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp (not merged yet)
 

@@ -1,0 +1,11 @@
+{
+  "scope": "External code/data definitions and ordinary relocation contexts across exact prereq controls vs normal merged object; not full local/.sxdata or whole-image selection proof.",
+  "old_union": 29,
+  "new": 29,
+  "changed": [],
+  "removed": [],
+  "added": [],
+  "duplicate_definitions": [],
+  "merged_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^upgrade_^object^creation^upgrade.obj",
+  "sha256": "67177af0bb85824a85989c5ea7381d6f4271836a3c20fc36e60bbcdc8268c66c"
+}
