@@ -984,3 +984,7 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_createNamedMapReveal.
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp|param|Rva00204136::rva00204136|p,1823b442637ade7dbbe2a540,drz-k5,drz-k5-n47d-4,w-526a51702f64,2026-11-02,09d03abb6ccb714de5d94e4d
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357C1F.cpp|param|ScriptEngine::rva00357C1F|v,b2626f861e9c6e21902b6a3f,drz-k5,drz-k5-n47d-8,w-526a51702f64,2026-11-02,9fdc2b9a3f3a4b57633e6a07
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva002A9BF2::fromGate|p,775b1cd5ae4d9422719311fd,drz-k7,drz-k7-n47e-1,w-4471b1f6edef,2026-11-02,710e145e68ce851965d7897a
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmy.cpp|param|Rva004FA978::rva004FA978|arg,9862362ff1e9f698a2fd77da,drz-k8,drz-k8-n47f-7,w-87ae7cdc64ef,2026-11-02,309aed1420195e84fb2488f1
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmy.cpp|param|Rva004FA992::rva004FA992|arg,621e37a0df94fe1576937956,drz-k8,drz-k8-n47f-7,w-87ae7cdc64ef,2026-11-02,1542d787d36111c144125d97
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp|local|LivingWorldAI::SubmitOrders|n,3fcf87a9531bfd3481bab3dc,drz-k8,drz-k8-n47f-4b,w-87ae7cdc64ef,2026-11-02,1a2fa862c563989a31f62277
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp|local|LivingWorldAI::rva004FB7B2|n,8e928cc40dcc6d77e50c833b,drz-k8,drz-k8-n47f-4b,w-87ae7cdc64ef,2026-11-02,9aa6816fad83053a85affbc1
