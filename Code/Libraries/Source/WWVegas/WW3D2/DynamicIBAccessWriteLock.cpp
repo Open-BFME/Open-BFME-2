@@ -55,30 +55,16 @@ enum
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h
-class IndexBufferClass
+#include "IndexBufferClass.h"
+
+// Preserve this unit's existing release helper and ECX receiver convention.
+// The canonical RefCountClass exposes the same proven +4 count and slot0
+// deletion; a local helper keeps this release independent of other COMDATs.
+static inline void __fastcall bfme_release_ref_dib(IndexBufferClass *buffer)
 {
-public:
-	virtual void Delete_This();
-
-	void Add_Ref() { ++NumRefs; }
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-	// LINK: TU-unique same-body helper (identical inlined bytes, virtual
-	// Delete_This call included). This TU's Release_Ref copy loses to the
-	// first copy in link order; rebinding our only call site emits just this
-	// unique (trivially kept) copy. Name is TU-unique; no cross-TU collision.
-	void bfme_release_ref_dib()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-
-	int NumRefs;
-	unsigned unexamined[3];
-};
+    if (--buffer->NumRefs == 0)
+        buffer->Delete_This();
+}
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h
 class DX8IndexBufferClass : public IndexBufferClass
@@ -164,7 +150,7 @@ DynamicIBAccessClass::WriteLockClass::~WriteLockClass()
 	default:
 		break;
 	}
-	DynamicIBAccess->IndexBuffer->bfme_release_ref_dib();
+	bfme_release_ref_dib(DynamicIBAccess->IndexBuffer);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
