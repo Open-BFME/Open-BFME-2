@@ -1,0 +1,734 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "VictorySystem",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 17,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x12c": {
+    "4": 1
+   },
+   "0x134": {
+    "1": 1
+   },
+   "0x138": {
+    "4": 1
+   },
+   "0x13c": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x78": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x140": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4054e1"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x8388d4",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x8388c4",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4054e1"
+     ],
+     "value": 320
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4054e1"
+     ],
+     "value": {
+      "0x134": [
+       1
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x24": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4054e1"
+     ],
+     "value": {
+      "0x120": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x78": [
+       "?rva0040475C@Rva00404781@@QAEXXZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4054e1"
+     ],
+     "value": {
+      "0x0": "0x8388d4",
+      "0xc": "0x8388c4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8388d4"
+     ],
+     "value": {
+      "count": 15,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GVictorySystem@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x40559f"
+       },
+       {
+        "name": "?init@VictorySystem@@UAEXXZ",
+        "slot": 1,
+        "target": "0x4055f2"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@VictorySystem@@UAEXXZ",
+        "slot": 9,
+        "target": "0x404b6c"
+       },
+       {
+        "name": "?update@VictorySystem@@UAEXXZ",
+        "slot": 10,
+        "target": "0x405315"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?newMap@VictorySystem@@UAEXXZ",
+        "slot": 14,
+        "target": "0x404de5"
+       }
+      ],
+      "table": "0x8388d4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x8388c4": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x8388d4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GVictorySystem@@UAEPAXI@Z",
+     "1": "?init@VictorySystem@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@VictorySystem@@UAEXXZ",
+     "10": "?update@VictorySystem@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?newMap@VictorySystem@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 12,
+  "view_sizes": {
+   "300": 1,
+   "320": 4
+  },
+  "views": 5,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_flag",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_name.m_text",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "cellSize10",
+   "name_by": "tie",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "field14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "firstScale18",
+   "name_by": "tie",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "secondScale1c",
+   "name_by": "tie",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "field20",
+   "name_by": "tie",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "field24",
+   "name_by": "tie",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "playerParameterIndex28",
+   "name_by": "tie",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 80,
+   "type": "int[80]",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva00404781",
+   "members": [
+    {
+     "kind": "A",
+     "name": "first",
+     "offset": 0,
+     "size": 80,
+     "type": "float[80]"
+    },
+    {
+     "kind": "A",
+     "name": "second",
+     "offset": 80,
+     "size": 80,
+     "type": "float[80]"
+    },
+    {
+     "kind": "i4",
+     "name": "flags0",
+     "offset": 160,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "i4",
+     "name": "flags1",
+     "offset": 164,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "root78",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 168,
+   "type": "Rva00404781",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::vector<BfmeStringRecord00404BF3,_STL::allocator<BfmeStringRecord00404BF3> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_start",
+     "offset": 0,
+     "size": 4,
+     "type": "BfmeStringRecord00404BF3*"
+    },
+    {
+     "kind": "P",
+     "name": "m_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "BfmeStringRecord00404BF3*"
+    },
+    {
+     "kind": "P",
+     "name": "m_end",
+     "offset": 8,
+     "size": 4,
+     "type": "BfmeStringRecord00404BF3*"
+    }
+   ],
+   "name": "m_vec",
+   "name_by": "majority",
+   "offset": 288,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<BfmeStringRecord00404BF3,_STL::allocator<BfmeStringRecord00404BF3> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "grids12c",
+   "name_by": "tie",
+   "offset": 300,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 8,
+   "type": "CellGrid*[8]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "initialized134",
+   "name_by": "tie",
+   "offset": 308,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "prefix135",
+   "name_by": "majority",
+   "offset": 309,
+   "retail_widths": {},
+   "size": 3,
+   "type": "uchar[3]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "activeGrid138",
+   "name_by": "tie",
+   "offset": 312,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "currentPlayer13c",
+   "name_by": "tie",
+   "offset": 316,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "320:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "16:A": 1,
+    "1:i1": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x10",
+   "candidates": {
+    "cellSize10": 1,
+    "m_cellSize": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x18",
+   "candidates": {
+    "firstScale18": 1,
+    "m_firstScale": 1,
+    "prefix18": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x1c",
+   "candidates": {
+    "m_secondScale": 1,
+    "secondScale1c": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x20",
+   "candidates": {
+    "field20": 1,
+    "m_field1c": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x24",
+   "candidates": {
+    "field24": 1,
+    "m_field20": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "m_playerParameterIndex": 1,
+    "playerParameterIndex28": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x78",
+   "candidates": {
+    "m_rootCell.bytes": 1,
+    "root78.first": 1,
+    "table78.a": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0xc8",
+   "candidates": {
+    "root78.second": 1,
+    "table78.b": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x118",
+   "candidates": {
+    "root78.flags0": 1,
+    "table78.flags0": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x11c",
+   "candidates": {
+    "root78.flags1": 1,
+    "table78.flags1": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x120",
+   "candidates": {
+    "m_factionVictoryParameters._M_start": 1,
+    "m_vec.m_start": 1,
+    "parameters120._M_start": 1,
+    "prefix120": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x124",
+   "candidates": {
+    "m_factionVictoryParameters._M_finish": 1,
+    "m_vec.m_finish": 1,
+    "parameters120._M_finish": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x128",
+   "candidates": {
+    "m_factionVictoryParameters._M_end_of_storage._M_data": 1,
+    "m_vec.m_end": 1,
+    "parameters120._M_end_of_storage._M_data": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x12c",
+   "candidates": {
+    "grids12c": 1,
+    "m_cellGrids": 1,
+    "owned": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x134",
+   "candidates": {
+    "flag134": 1,
+    "initialized134": 1,
+    "m_initialized": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x138",
+   "candidates": {
+    "activeGrid138": 1,
+    "field138": 1,
+    "m_activeGrid": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "name@0x13c",
+   "candidates": {
+    "currentPlayer13c": 1,
+    "field13C": 1,
+    "m_currentPlayer": 1
+   },
+   "class": "VictorySystem"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "m_name.m_text": 2
+   },
+   "class": "VictorySystem"
+  }
+ ],
+ "size": 320,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "newMap()"
+  }
+ }
+}
