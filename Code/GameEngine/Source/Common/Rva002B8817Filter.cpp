@@ -28,11 +28,7 @@ struct Rva004DFCB0Element
 	unsigned word0;
 };
 
-class RegionAwardDispute
-{
-public:
-	int GetResolvableBy();
-};
+#include "../../Include/GameLogic/RegionAwardDispute.h"
 
 struct Rva002B8817Filter
 {

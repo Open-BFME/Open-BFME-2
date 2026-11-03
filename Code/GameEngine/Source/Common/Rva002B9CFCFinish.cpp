@@ -8,11 +8,7 @@
 #include <new.h>
 #include <new>
 
-class RegionAwardDispute
-{
-public:
-	RegionAwardDispute();
-};
+#include "../../Include/GameLogic/RegionAwardDispute.h"
 
 namespace _STL
 {

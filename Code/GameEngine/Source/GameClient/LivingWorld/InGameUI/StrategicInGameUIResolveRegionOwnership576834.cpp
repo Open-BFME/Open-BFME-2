@@ -11,7 +11,7 @@ namespace StrategicInGameUI { class ResolveBattlesBehavior { public: class Impl;
 class StrategicInGameUI::ResolveBattlesBehavior::Impl { public: class MyResolveRegionOwnershipChecklistItem; };
 class Object;
 #include "../../../../Include/Common/Rva00575674.h"
-class RegionAwardDispute { public: int GetResolvableBy(); };
+#include "../../../../Include/GameLogic/RegionAwardDispute.h"
 class Rva00328A83PtrChaseField { public: int get() const; };
 class Rva0042D6BAPtrChaseField { public: int get() const; };
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };

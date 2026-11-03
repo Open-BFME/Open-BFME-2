@@ -309,11 +309,7 @@ void Rva00576B5E::rva00576B99(int a)
 
 // 0x004FBED6 is rowed as RegionAwardDispute::GetResolvableBy
 // (LivingWorldRegionAwardDispute.cpp): thiscall, no arguments, returns int.
-class RegionAwardDispute
-{
-public:
-	int GetResolvableBy();
-};
+#include "../../Include/GameLogic/RegionAwardDispute.h"
 class Rva005768CBCall
 {
 public:

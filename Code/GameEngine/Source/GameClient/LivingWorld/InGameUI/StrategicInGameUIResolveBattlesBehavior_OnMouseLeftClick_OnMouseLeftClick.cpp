@@ -143,7 +143,7 @@ class Rva0042D6BAPtrChaseField { public: int get() const; };
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };
 struct Rva002B5C5EVal;
 class Rva002B5C5E { public: Rva002B5C5EVal *rva002B5C5E(int); };
-class RegionAwardDispute { public: int GetResolvableBy(); };
+#include "../../../../Include/GameLogic/RegionAwardDispute.h"
 // The two native owning state holders share the38-byte reset at575674.
 // Distinct typed instantiations preserve the native caller's two EH paths;
 // each emitted reset is proved byte-and-relocation identical to the owner.
