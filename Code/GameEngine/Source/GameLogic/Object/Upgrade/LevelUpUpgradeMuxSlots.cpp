@@ -86,7 +86,7 @@ class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, pu
 class LevelUpUpgrade : public UpgradeModule
 {
 public:
-	virtual Bool rva004CE2B0(Rva00406F9C *arg);
+	virtual Bool rva004CE2B0(Rva00406F9C *mask);
 protected:
 	virtual void upgradeImplementation();
 	const LevelUpUpgradeModuleData *getData() const
@@ -94,11 +94,11 @@ protected:
 		return (const LevelUpUpgradeModuleData *)m_moduleData;
 	}
 };
-Bool LevelUpUpgrade::rva004CE2B0(Rva00406F9C *arg)
+Bool LevelUpUpgrade::rva004CE2B0(Rva00406F9C *mask)
 {
 	if (m_object->getExperienceTracker()->m_level >= getData()->m_levelCap)
 		return false;
-	return ((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(arg); // the UpgradeMux base at +0x10
+	return ((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(mask); // the UpgradeMux base at +0x10
 }
 void LevelUpUpgrade::upgradeImplementation()
 {

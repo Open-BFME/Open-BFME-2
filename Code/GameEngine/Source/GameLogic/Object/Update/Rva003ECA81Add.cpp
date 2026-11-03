@@ -33,12 +33,12 @@ Rva003ECA4BElement *Rva003ECA4BElement::rva003ECA81(const Rva003ECA4BElement *ot
 Rva003ECA4BElement *Rva003ECA4BElement::rva003ECAB3(float scale)
 {
 	m_values[0] *= scale;
-	int n = 16;
+	int count = 16;
 	float *p = &m_values[1];
 	do {
 		*p = *reinterpret_cast<const volatile float *>(&scale) * *p;
 		++p;
-	} while (--n != 0);
+	} while (--count != 0);
 	return this;
 }
 

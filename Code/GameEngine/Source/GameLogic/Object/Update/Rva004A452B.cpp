@@ -18,7 +18,7 @@ public:
 void __cdecl Rva004A452BUpdate(void *p, void *a, void *b)
 {
 	char *esi = (char *)p + 0x58;
-	int n = 5;
+	int remaining = 5;
 	do {
 		for (ObjectCreationList **pp = *(ObjectCreationList ***)(esi - 4); pp != *(ObjectCreationList ***)(esi); ++pp) {
 			if (*pp)
@@ -29,5 +29,5 @@ void __cdecl Rva004A452BUpdate(void *p, void *a, void *b)
 				(*pp2)->rva001E11F8((int)a, (int)b);
 		}
 		esi += 0x0C;
-	} while (--n != 0);
+	} while (--remaining != 0);
 }

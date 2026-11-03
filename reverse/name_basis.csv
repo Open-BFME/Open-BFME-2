@@ -6978,3 +6978,10 @@ param,FreelistPool::init::a2,FreelistPool::init::arena,inferred,agree:nl-a666a17
 param,FreelistPool::init::a3,FreelistPool::init::size,inferred,agree:nl-d4a9ad923323,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
 param,ModelConditionSpecialAbilityUpdate::onExit::a,ModelConditionSpecialAbilityUpdate::onExit::cleanup,inferred,agree:nl-24337c551e4d,Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdate.cpp,0x00490F35
 param,Rva0016E3B0::Rva0016E3B0::n,Rva0016E3B0::Rva0016E3B0::bucketCount,inferred,agree:nl-8e12e0213e11-m838a8b3c7040e3b870d3089c,Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp,0x0016E3B0
+local,Rva003ECA69Element::rva003ECB52::v,Rva003ECA69Element::rva003ECB52::amount,inferred,agree:nl-c99ba9e70e3a,Code/GameEngine/Source/GameLogic/Object/Update/Rva003ECA69ElementClear.cpp,0x003ECB52
+local,Rva003ECA69Element::rva003ECB94::v,Rva003ECA69Element::rva003ECB94::amount,inferred,agree:nl-bb11a919f8a3,Code/GameEngine/Source/GameLogic/Object/Update/Rva003ECA69ElementClear.cpp,0x003ECB94
+local,Rva003ECB13Array::clear::p,Rva003ECB13Array::clear::element,inferred,agree:nl-26a432512048,Code/GameEngine/Source/GameLogic/Object/Update/Rva003ECA69ElementClear.cpp,0x003ECB13
+local,Rva003ECA4BElement::rva003ECAB3::n,Rva003ECA4BElement::rva003ECAB3::count,inferred,agree:nl-84014aa68259,Code/GameEngine/Source/GameLogic/Object/Update/Rva003ECA81Add.cpp,0x003ECAB3
+local,Rva004A452BUpdate::n,Rva004A452BUpdate::remaining,inferred,agree:nl-5072fc894644,Code/GameEngine/Source/GameLogic/Object/Update/Rva004A452B.cpp,0x004A452B
+param,LevelUpUpgrade::rva004CE2B0::arg,LevelUpUpgrade::rva004CE2B0::mask,inferred,agree:nl-3275e11686f7,Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgradeMuxSlots.cpp,0x004B3E7F
+local,ObjectCreationUpgrade::update::a2,ObjectCreationUpgrade::update::spawnAngle,inferred,agree:nl-bd2f74208ce6,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp,0x004B42DB

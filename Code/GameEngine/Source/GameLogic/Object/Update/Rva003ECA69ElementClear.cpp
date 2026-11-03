@@ -102,9 +102,9 @@ private:
 
 void Rva003ECB13Array::clear()
 {
-	Rva003ECA69Element *p = m_elems;
-	for (int i = 20; i != 0; --i, ++p)
-		p->clear();
+	Rva003ECA69Element *element = m_elems;
+	for (int i = 20; i != 0; --i, ++element)
+		element->clear();
 }
 
 // ?rva003ECB52@Rva003ECA69Element@@QAEPAV1@PAURva003ECB52Arg@@@Z @0x003ECB52 (66B):
@@ -115,11 +115,11 @@ void Rva003ECB13Array::clear()
 // element at esi+0x54 with Object in ebx; stride 0x44 matches this element type.
 Rva003ECA69Element *Rva003ECA69Element::rva003ECB52(Rva003ECB52Arg *arg)
 {
-	float v = arg->m_ptr->m_value;
-	if (v > 0.0f) {
-		m_0 += v;
+	float amount = arg->m_ptr->m_value;
+	if (amount > 0.0f) {
+		m_0 += amount;
 		int idx = arg->m_ptr->m_index;
-		reinterpret_cast<float *>(m_rest)[idx] += v;
+		reinterpret_cast<float *>(m_rest)[idx] += amount;
 	}
 	return this;
 }
@@ -131,11 +131,11 @@ Rva003ECA69Element *Rva003ECA69Element::rva003ECB52(Rva003ECB52Arg *arg)
 // shape but subss; caller 0x005961C5; stride 0x44 element type.
 Rva003ECA69Element *Rva003ECA69Element::rva003ECB94(Rva003ECB52Arg *arg)
 {
-	float v = arg->m_ptr->m_value;
-	if (v > 0.0f) {
-		m_0 -= v;
+	float amount = arg->m_ptr->m_value;
+	if (amount > 0.0f) {
+		m_0 -= amount;
 		int idx = arg->m_ptr->m_index;
-		reinterpret_cast<float *>(m_rest)[idx] -= v;
+		reinterpret_cast<float *>(m_rest)[idx] -= amount;
 	}
 	return this;
 }

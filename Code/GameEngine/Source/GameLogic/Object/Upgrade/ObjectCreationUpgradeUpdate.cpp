@@ -219,8 +219,8 @@ UpdateSleepTime ObjectCreationUpgrade::update()
 			if (obj->getDrawable())
 				obj->getDrawable()->fadeIn((UnsignedInt)(data->m_fadeInTime * 0.03f));
 
-			Real a2 = data->m_angleOffset + getObject()->getOrientation();
-			obj->m_1C0 = a2;
+			Real spawnAngle = data->m_angleOffset + getObject()->getOrientation();
+			obj->m_1C0 = spawnAngle;
 			obj->setPosition((const Coord3D *)&pos);
 
 			static NameKeyType slaveWatcherKey = TheNameKeyGenerator->nameToKey("SlaveWatcherBehavior");
