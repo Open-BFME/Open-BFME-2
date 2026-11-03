@@ -13,10 +13,7 @@ struct Rva00990030Range;
 extern unsigned __cdecl Rva00990210Lookup(Rva00990210Range *range, int index);
 extern unsigned __cdecl Rva00990030Lookup(Rva00990030Range *range, int index);
 
-class Rva0036CA00Str
-{
-	void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 class Rva001BDA20
 {

@@ -16,11 +16,7 @@ public:
 };
 #define BFME_STR_SET(dst, src) ((StringBase<char> &)(dst)).set((const StringBase<char> &)(src))
 
-class Rva0036CA00Str
-{
-private:
-	void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 class Rva001BDA20
 {

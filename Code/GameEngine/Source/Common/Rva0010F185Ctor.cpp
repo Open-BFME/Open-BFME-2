@@ -4,12 +4,7 @@
 // Base Rva001164D3 from Rva001164D3Ctor plus StringBase shared header.
 // Callees rowed 0x001164D3 0x000365F0. Caller 0x0010F9B4.
 #include "ascii_string.h"
-class Rva0036CA00Str {
-    void *m_item;
-public:
-    __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-    ~Rva0036CA00Str();
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 struct CountBase {
     volatile int m_count;
     __forceinline CountBase() : m_count(0) {}

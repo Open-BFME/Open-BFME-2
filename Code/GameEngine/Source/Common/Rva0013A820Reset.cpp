@@ -4,14 +4,7 @@
 // retail pins its zero-argument clear() to releaseBuffer at 0x00036410.
 #pragma comment(linker, "/alternatename:?clear@Rva0036CA00Str@@QAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 
-class Rva0036CA00Str
-{
-public:
-	void clear();
-
-private:
-	void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 class Rva0013A820
 {

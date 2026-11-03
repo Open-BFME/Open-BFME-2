@@ -16,13 +16,7 @@ typedef void *HSTREAM;
 extern "C" __declspec(dllimport) HSTREAM __stdcall AIL_open_stream(void *driver, const char *filename, void *extra);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_user_data(HSTREAM stream, int index, void *data);
 
-class Rva0036CA00Str
-{
-public:
-	void *m_item;
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-	~Rva0036CA00Str();
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 struct CountBase
 {

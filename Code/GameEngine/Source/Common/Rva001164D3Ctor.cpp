@@ -4,12 +4,7 @@
 // retail 0x001164D3, 34 bytes: vtable 0x00BCFB38, dword +4 zeroed, Str at +8
 // copy-constructed. The +4 field belongs to a polymorphic base whose inlined
 // ctor is scheduled after the member-address lea; the vfptr store follows it.
-class Rva0036CA00Str {
-    void *m_item;
-public:
-    __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-    ~Rva0036CA00Str();
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 struct CountBase {
     volatile int m_count;
     __forceinline CountBase() : m_count(0) {}

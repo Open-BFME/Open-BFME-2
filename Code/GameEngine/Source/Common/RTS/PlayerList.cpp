@@ -160,11 +160,7 @@ class Rva002A7E42 { public: void rva002A7E42(Player *player); };
 // The element is a narrow string handle: retail assigns it through the rowed
 // StringBase<char>::set 0x000366F0 (the refcounted Rva0036CA00Str handle's own
 
-class Rva0036CA00Str
-{
-private:
-	void *m_item;
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
 
 class Rva000DF920
 {

@@ -32,10 +32,7 @@ struct BfmePairEL
 	~BfmePairEL() { ((:: _STL::pair<const AsciiString, AsciiString> *)this)->~pair(); }
 };
 
-class Rva0036CA00Str
-{
-	void *m_item;
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
 
 struct HelperInit
 {
