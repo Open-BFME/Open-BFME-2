@@ -1,0 +1,473 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00507823",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 57,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x50775b"
+     ],
+     "value": 293
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x50775b"
+     ],
+     "value": {
+      "0x104": [
+       4
+      ],
+      "0x124": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x50775b"
+     ],
+     "value": {
+      "0x108": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x114": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x120": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x4": [
+       "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ"
+      ],
+      "0x84": [
+       "?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x50775b"
+     ],
+     "value": {
+      "0x0": "0x864010"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x864010"
+     ],
+     "value": {
+      "count": 14,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00507823@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x507807"
+       },
+       {
+        "name": "?rva005075D6@Rva00507823@@QAEEPBXPAVObject@@@Z",
+        "slot": 1,
+        "target": "0x5075d6"
+       },
+       {
+        "name": "?rva0050774A@Rva00507823@@QAEEPBXH@Z",
+        "slot": 2,
+        "target": "0x50774a"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 3,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 4,
+        "target": "0x50b238"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva00507877@Rva00507823@@UAEXXZ",
+        "slot": 8,
+        "target": "0x507877"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       }
+      ],
+      "table": "0x864010"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x864010": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00507823@@UAEPAXI@Z",
+     "1": "?rva005075D6@Rva00507823@@QAEEPBXPAVObject@@@Z",
+     "2": "?rva0050774A@Rva00507823@@QAEEPBXH@Z",
+     "3": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "4": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "?rva00507877@Rva00507823@@UAEXXZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 12,
+  "view_sizes": {
+   "1": 5,
+   "4": 5,
+   "260": 2,
+   "292": 2,
+   "296": 31
+  },
+  "views": 45,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 38,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::_Base_bitset<32>",
+   "members": [
+    {
+     "kind": "A",
+     "name": "_M_w",
+     "offset": 0,
+     "size": 128,
+     "type": "ulong[128]"
+    }
+   ],
+   "name": "m_need04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 128,
+   "type": "_STL::_Base_bitset<32>",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::_Base_bitset<32>",
+   "members": [
+    {
+     "kind": "A",
+     "name": "_M_w",
+     "offset": 0,
+     "size": 128,
+     "type": "ulong[128]"
+    }
+   ],
+   "name": "m_ban84",
+   "name_by": "majority",
+   "offset": 132,
+   "retail_widths": {},
+   "size": 128,
+   "type": "_STL::_Base_bitset<32>",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_104",
+   "name_by": "majority",
+   "offset": 260,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_vec108",
+   "name_by": "majority",
+   "offset": 264,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_vec114",
+   "name_by": "majority",
+   "offset": 276,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003623E5Member",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_x",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_filter120",
+   "name_by": "majority",
+   "offset": 288,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003623E5Member",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_124",
+   "name_by": "majority",
+   "offset": 292,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x4",
+   "candidates": {
+    "m_bits04": 2,
+    "m_bits04.m_words": 1,
+    "m_need04._M_w": 2
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "name@0x84",
+   "candidates": {
+    "m_ban84._M_w": 2,
+    "m_bits84": 2,
+    "m_bits84.m_words": 1
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "name@0x120",
+   "candidates": {
+    "m_filter120": 2,
+    "m_filter120.m_x": 2
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "s08()": 3,
+    "s2()": 1,
+    "slot02()": 3
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "s0C()": 3,
+    "s3()": 1,
+    "slot03()": 3
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "s10()": 3,
+    "s4()": 1,
+    "slot04()": 3
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "rva00508B9E(Rva00508987Weapon*,Object*)": 1,
+    "rva005091D6(ParalyzeContext*,Object*)": 1,
+    "rva0050B32D(void*,Object*)": 1,
+    "rva0050B62B(Rva0050B62BArg*,Object*)": 1,
+    "rva0050B7D2(Rva0050B7D2Arg*,int)": 1,
+    "s5()": 1,
+    "slot05()": 1
+   },
+   "class": "Rva00507823"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "rva00508C46(Rva00508987Weapon*,Coord3D*)": 1,
+    "rva0050921D(ParalyzeContext*,Coord3D*)": 1,
+    "rva0050B391(void*,Coord3D*)": 1,
+    "rva0050B843(Rva0050B7D2Arg*,int)": 1,
+    "s6()": 1
+   },
+   "class": "Rva00507823"
+  }
+ ],
+ "size": 296,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "rva00507877()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "s7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "rva00507877()"
+  }
+ }
+}
