@@ -31,15 +31,7 @@ template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(Asc
 // this TU's inline copy is the retail one.
 #include "Common/Snapshot.h"
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
-
-private:
-	char m_pad[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class ReplaceSelfUpgradeModuleData : public Rva00253487Base
 {

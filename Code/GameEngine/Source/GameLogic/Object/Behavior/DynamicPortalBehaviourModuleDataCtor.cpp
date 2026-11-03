@@ -42,15 +42,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	unsigned char m_pad[0x118 - 4]; // +0x04..+0x117
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 

@@ -16,15 +16,7 @@
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	unsigned char m_opaque[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class SpellRechargeModifierUpgradeModuleData : public Rva00253487Base
 {

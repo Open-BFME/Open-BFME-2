@@ -34,15 +34,7 @@ vector<AsciiString, allocator<AsciiString> >::vector(const allocator<AsciiString
 	: _Vector_base<AsciiString, allocator<AsciiString> >(__a) {}
 }
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class GeometryUpgradeModuleData : public Rva00253487Base
 {

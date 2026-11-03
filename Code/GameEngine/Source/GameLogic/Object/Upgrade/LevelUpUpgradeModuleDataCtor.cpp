@@ -56,14 +56,7 @@ extern "C" const void *const vtbl_00BF24A0[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-
-private:
-	unsigned char m_pad[0x118];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class LevelUpUpgradeModuleData : public Rva00253487Base
 {

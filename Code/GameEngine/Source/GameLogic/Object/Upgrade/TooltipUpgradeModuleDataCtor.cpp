@@ -12,15 +12,7 @@
 // key tail at 0x4B7A13 ends where the rowed proc begins; the EH factory at
 // 0x2558E9 news 0x120 and is the only raw caller.
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	unsigned char m_pad[0x118 - 4];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 #include "ascii_string.h"
 

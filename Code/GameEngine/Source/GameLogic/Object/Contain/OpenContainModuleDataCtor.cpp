@@ -16,47 +16,9 @@
 // address-derived name here (pinned) instead of a guessed class name.
 extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];  // vftable 0x00BF2558
 
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
-private:
-	char m_pad[0x80];
-};
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	Rva001EAE6FHelper m_sub0; // +0x00
-	Rva001EAE6FHelper m_sub1; // +0x80
-	int m_tail0; // +0x100, initialized through both the tail pointer
-	// below and directly (retail keeps both -1 stores; same-path
-	// duplicates are folded by the compiler, mixed paths are not)
-	int m_tail1; // +0x104
-	int m_tail2; // +0x108
-	unsigned char m_tailByte0; // +0x10C
-	unsigned char m_tailByte1; // +0x10D
-	unsigned char m_tailByte2; // +0x10E
-};
-
-class __declspec(novtable) Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	// +0x00 vptr (installed explicitly below; novtable suppresses the
-	// compiler's own install so the folded 0x00BF2558 is the only store).
-	// +0x04 UpdateModuleData tail per ZH OpenContain.h hierarchy
-	// (trivially constructed — retail makes no base call).
-	unsigned m_pad04;
-	Rva0025342CMember m_member08;
-};
 
 // ?construct@Rva0025342CMember@@QAEPAV1@XZ, retail 0x0025342C, 73 bytes.
 // Zeroes two 0x80-byte blocks through the shared helper, then initializes

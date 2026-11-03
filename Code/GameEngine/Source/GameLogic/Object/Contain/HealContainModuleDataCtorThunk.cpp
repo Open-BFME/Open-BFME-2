@@ -19,14 +19,7 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
 
-class Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-	unsigned char _pad[0x114];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class WeaponSetUpgradeModuleData : public Rva00253487Base
 {

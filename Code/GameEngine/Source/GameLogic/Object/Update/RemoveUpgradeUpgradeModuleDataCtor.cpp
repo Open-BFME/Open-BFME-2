@@ -26,16 +26,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16*, size_t);
 }
 
-class __declspec(novtable) Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	unsigned m_pad04;
-	unsigned char m_member08[0x110];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class RemoveUpgradeUpgradeModuleData : public Rva00253487Base
 {

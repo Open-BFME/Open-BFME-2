@@ -474,18 +474,7 @@ extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")
 
   // vftable 0x00BF2558
 
-class __declspec(novtable) Rva00253487Base
-{
-public:
-	Rva00253487Base();
-	virtual ~Rva00253487Base();
-
-private:
-	// +0x00 vptr (novtable: installed explicitly by each ctor).
-	// Remainder is opaque here (0x114 bytes: UpdateModuleData tail plus the
-	// +8 member the base ctor constructs); only the 0x118 size matters.
-	unsigned char m_opaque[0x114];
-};
+#include "../../../../Include/GameLogic/Module/Rva00253487Base.h"
 
 class MultiIniFieldParse;
 
