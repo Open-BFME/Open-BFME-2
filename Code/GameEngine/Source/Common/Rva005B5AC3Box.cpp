@@ -68,11 +68,7 @@ struct Rva005B6182Screen
 	int m_3c8;
 };
 
-class AptCreateAHero
-{
-public:
-	class Manager;
-};
+#include "../../Include/Common/AptCreateAHero.h"
 
 class AptCreateAHero::Manager
 {

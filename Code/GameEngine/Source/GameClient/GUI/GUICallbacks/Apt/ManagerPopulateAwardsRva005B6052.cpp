@@ -45,11 +45,7 @@ struct Holder
     Rva00406E8F m_obj;
     __forceinline void *movie() const { return m_movie; }
 };
-class AptCreateAHero
-{
-public:
-	class Manager;
-};
+#include "../../../../../Include/Common/AptCreateAHero.h"
 
 class AptCreateAHero::Manager
 {

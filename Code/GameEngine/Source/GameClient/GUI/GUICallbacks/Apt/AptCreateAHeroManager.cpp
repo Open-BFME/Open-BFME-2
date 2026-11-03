@@ -45,7 +45,7 @@ struct HeroListScratch {
  __forceinline HeroListScratch(const Rva0040A3F9 &source){reinterpret_cast<_STL::vector<unsigned> *>(this)->_STL::vector<unsigned>::vector(*reinterpret_cast<const _STL::vector<unsigned> *>(&source));}
  __forceinline ~HeroListScratch(){if(first)free(first);}
 };
-class AptCreateAHero {public:class Manager;};
+#include "../../../../../Include/Common/AptCreateAHero.h"
 class AptCreateAHero::Manager {public:
  char word0[4];HeroListScreenPrefix *screen;GameWindow *heroWindow,*otherWindow;
  CreateAHeroData *selectedHero;int word14;Rva005B61B3Less order;

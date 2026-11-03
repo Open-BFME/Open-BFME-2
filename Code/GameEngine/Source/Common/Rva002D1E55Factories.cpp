@@ -34,13 +34,7 @@
 class Rva0051268C;	// the factory row's return spelling
 
 // The object is a _bfme_AptGameWindow: the pinned constructor 0x000051268C is its row.
-class _bfme_AptGameWindow
-{
-public:
-	_bfme_AptGameWindow(void *context);
-private:
-	char m_pad[0x27C];
-};
+#include "../../Include/Common/AptCreateAHero.h"
 
 Rva0051268C *__stdcall Rva002D1E55Create(void *context)
 {
@@ -66,13 +60,6 @@ Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *context)
 class Rva005142B0;	// the factory row's return spelling
 
 // The object is a AptCreateAHero: the pinned constructor 0x00005142B0 is its row.
-class AptCreateAHero
-{
-public:
-	AptCreateAHero(void *context);
-private:
-	char m_pad[0x438];
-};
 
 Rva005142B0 *__stdcall Rva002D1F03Create(void *context)
 {

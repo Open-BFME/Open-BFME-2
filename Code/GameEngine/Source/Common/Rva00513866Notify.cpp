@@ -4,7 +4,7 @@
 // presence is tested. MessageStream slot18 receives29, then existing Apt
 // enable owner222479 is tail-called through the canonical Apt manager global.
 // The original method name and containing-class ownership are unresolved.
-class AptCreateAHero {friend void Rva00513866();static AptCreateAHero *s_instance;};
+#include "../../Include/Common/AptCreateAHero.h"
 class GameMessage;
 #include "../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;

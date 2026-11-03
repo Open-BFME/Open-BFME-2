@@ -20,11 +20,7 @@ public:
 	const CommandButton *GetButtonForLevel(int index);
 };
 
-class AptCreateAHero
-{
-public:
-	class Powers;
-};
+#include "../../Include/Common/AptCreateAHero.h"
 class Rva005B2B6DOwner
 {
 public:

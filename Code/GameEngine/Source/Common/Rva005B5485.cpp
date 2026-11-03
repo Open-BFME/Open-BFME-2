@@ -24,11 +24,7 @@ class Rva005B045D {
 public:
     void *rva005B045D();
 };
-class AptCreateAHero
-{
-public:
-	class Class;
-};
+#include "../../Include/Common/AptCreateAHero.h"
 
 class AptCreateAHero::Class {
     char m_pad0[4];

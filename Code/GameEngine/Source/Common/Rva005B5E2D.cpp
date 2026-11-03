@@ -41,11 +41,7 @@ struct Holder
     char m_pad[0x27C];
     Rva00406E8F m_obj;
 };
-class AptCreateAHero
-{
-public:
-	class Manager;
-};
+#include "../../Include/Common/AptCreateAHero.h"
 
 class AptCreateAHero::Manager
 {

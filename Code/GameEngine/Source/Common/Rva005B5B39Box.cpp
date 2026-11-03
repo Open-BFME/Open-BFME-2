@@ -22,11 +22,7 @@ public:
 };
 class AsciiString;
 
-class AptCreateAHero
-{
-public:
-	class Manager;
-};
+#include "../../Include/Common/AptCreateAHero.h"
 
 struct AptCreateAHero::Manager
 {
