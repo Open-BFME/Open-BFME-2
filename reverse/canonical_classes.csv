@@ -426,3 +426,4 @@ Rva001EAE6FHelper,Code/GameEngine/Include/Common/Rva001EAE6FHelper.h,existing he
 Rva0025342CMember,Code/GameEngine/Include/GameLogic/Module/Rva0025342CMember.h,existing header; contract class_contracts/Rva0025342CMember.json; 7/9 sampled units adopt
 TAiData,Code/GameEngine/Include/GameLogic/TAiData.h,existing header; contract class_contracts/TAiData.json; 25/44 sampled units adopt
 BFMEDX8DeviceLock,Code/GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h,existing header; contract class_contracts/BFMEDX8DeviceLock.json; 6/54 sampled units adopt
+SpecialPowerUpdateInterface,Code/GameEngine/Include/GameLogic/Module/SpecialPowerUpdateInterface.h,existing header; contract class_contracts/SpecialPowerUpdateInterface.json; 10/17 sampled units adopt

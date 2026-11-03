@@ -22,7 +22,7 @@
 // initiateIntentToDoSpecialPower (0x004500A3, this at +0x20, ret 20), true
 // (0x0050B5C6), byte +0x74 (0x005C4AE5), zero (0x000D43D0), false
 // (0x0047A699), ret 4 (0x0047A69C), 0x0044EECA (ret 4), 0x0044F09F
-// (ret 4) and rva0044EDA6 (0x0044EDA6, ret 4). No interface destructor slot.
+// (ret 4) and 0x0044EDA6 (ret 4); SpecialPowerUpdateInterface.h names them.
 // 0x0044EFA4..0x0044F037 write dwords +0x24..+0x40, floats +0x44..+0x58,
 // dwords +0x5C/+0x60, the list anchor +0x64, dwords +0x68/+0x6C, float +0x70,
 // byte +0x74, dword +0x78, bytes +0x7C..+0x83 and dword +0x84.
@@ -33,9 +33,8 @@
 // 0x0044F4F7, rva0044F679 0x0044F679, rva0044F6D0 0x0044F6D0, rva0044F881
 // 0x0044F881, rva0044E85E 0x0044E85E and rva0044FEB6 0x0044FEB6.
 // getModuleNameKey is rowed at 0x0044F054; xfer is rowed at 0x0044F996.
-// Donor facts: Zero Hour SpecialPowerUpdateModule.h names the extra interface,
-// isSpecialAbility and isPowerCurrentlyInUse. BFME2's slot order, void intent
-// return, five intent arguments and four vptr offsets come from retail above.
+// Donor facts: Zero Hour SpecialPowerUpdateModule.h names the extra interface
+// and its overridden slots. BFME2's four vptr offsets come from retail above.
 // Zero Hour also names m_animFrames, m_packingState, m_prepFrames, m_targetID,
 // m_targetPos, m_active, m_noTargetCommand, m_withinStartAbilityRange and
 // m_specialObjectIDList. Retail intent (0x004500A3) stores the target, command
@@ -48,6 +47,7 @@
 #define __BFME2_SPECIALABILITYUPDATE_H_
 
 #include "UpdateModule.h"
+#include "SpecialPowerUpdateInterface.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include <list>
 
@@ -55,21 +55,6 @@ class SpecialPowerTemplate;
 class Waypoint;
 class CommandButton;
 enum SpecialPowerType;
-
-class SpecialPowerUpdateInterface
-{
-public:
-    virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *, const Object *,
-        const Coord3D *, unsigned int, const Waypoint *) = 0;
-    virtual bool isSpecialAbility() const = 0;
-    virtual bool vslot02() const = 0;
-    virtual bool vslot03() const = 0;
-    virtual bool vslot04() const = 0;
-    virtual void vslot05(int) = 0;
-    virtual bool isPowerCurrentlyInUse(const CommandButton *) const = 0;
-    virtual bool vslot07(int) = 0;
-    virtual bool rva0044EDA6(int) = 0;
-};
 
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
@@ -85,13 +70,13 @@ public:
     virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *, const Object *,
         const Coord3D *, unsigned int, const Waypoint *);
     virtual bool isSpecialAbility() const;
-    virtual bool vslot02() const;
-    virtual bool vslot03() const;
-    virtual bool vslot04() const;
-    virtual void vslot05(int);
+    virtual bool isActive() const;
+    virtual CommandOption getCommandOption() const;
+    virtual bool doesSpecialPowerHaveOverridableDestinationActive() const;
+    virtual void setSpecialPowerOverridableDestination(const Coord3D *);
     virtual bool isPowerCurrentlyInUse(const CommandButton *) const;
     virtual bool vslot07(int);
-    virtual bool rva0044EDA6(int);
+    virtual bool vslot08(int);
 
 protected:
     virtual void onExit(bool, bool);
