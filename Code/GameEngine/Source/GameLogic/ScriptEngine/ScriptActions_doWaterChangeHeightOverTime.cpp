@@ -45,12 +45,12 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-void ScriptActions::doWaterChangeHeightOverTime(Parameter *param, float f2, float f3, float f4)
+void ScriptActions::doWaterChangeHeightOverTime(Parameter *param, float newHeight, float time, float damage)
 {
 	void *res = TheTerrainLogic->s29(param);
 	if (res == 0)
 		return;
-	TheTerrainLogic->s32(res, f2, f3, f4);
+	TheTerrainLogic->s32(res, newHeight, time, damage);
 }
 
 // Member ABI proved at each native executeAction3CA4BE call site: ECX=this.

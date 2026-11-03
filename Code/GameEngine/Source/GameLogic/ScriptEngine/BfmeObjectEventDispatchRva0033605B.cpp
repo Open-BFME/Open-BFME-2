@@ -53,7 +53,7 @@ struct DelayedLuaEventList
 struct BfmeObjectEventDispatch
 {
 	void rva00335FE1(const WeaponTemplateSetHead *a, const WeaponTemplateSetHead *b, void *obj);
-    void rva0033605B(const BfmeObject872Header *a,const BfmeObject872Header *b,void *obj);
+    void rva0033605B(const BfmeObject872Header *includedHeader,const BfmeObject872Header *excludedHeader,void *obj);
 private:
 	char m_pad[0xBC];
 	Rva003317B0 *m_begin;
@@ -65,10 +65,10 @@ private:
 
 
 
-void BfmeObjectEventDispatch::rva0033605B(const BfmeObject872Header *a,const BfmeObject872Header *b,void *obj) {
+void BfmeObjectEventDispatch::rva0033605B(const BfmeObject872Header *includedHeader,const BfmeObject872Header *excludedHeader,void *obj) {
  for(Rva003317F9 *p=beginC8;p!=endCC;++p) {
-  if(!p->rva003317F9(a))continue;
-  if(p->rva003317F9(b))continue;
+  if(!p->rva003317F9(includedHeader))continue;
+  if(p->rva003317F9(excludedHeader))continue;
   DelayedLuaEventList list;
   ((LuaScriptEngine *)this)->DispatchEvent((int *)p,(Object *)obj,&list);
  }
