@@ -318,10 +318,7 @@ public:
 
 // slot at 0x00222D26: writes the +0x04 object's leading byte, then its +0x04
 // pair through the rowed Rva000B3F84Pair::write; returns the bytes written.
-struct Rva000B3F84Pair
-{
-	Int write(char *buf);
-};
+#include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
 
 // slot at 0x0033F504: the rowed BfmeSub932C query of the +0x20 object, 0
 // without one.

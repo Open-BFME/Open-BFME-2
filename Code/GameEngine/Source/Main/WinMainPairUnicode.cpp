@@ -34,23 +34,7 @@ class UnicodeString;
 // A (pointer, length) string reference. The same shape holds narrow text
 // (init) and wide text (initWide); the empty constructor keeps it non-POD,
 // so by-value returns go through a hidden slot as retail shows.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *init(const char *src);
-	Rva000B3F84Pair *initWide(const unsigned short *src);
-	void copyBytes(void *dst, int off, int len);
-	void convertToWide(unsigned short *dst, int off, int len);
-	int convertToWideBuffer(unsigned short *dst);
-	int copyWchars(unsigned short *dst);
-	int write(char *dst);
-	operator UnicodeString();
-	int length() const { return m_len; }
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 // Title segment behind 0x234803: a pair plus a trailing extra wchar at +8.
 // convertToWideBufferWithExtra converts the pair, appends the extra wchar,

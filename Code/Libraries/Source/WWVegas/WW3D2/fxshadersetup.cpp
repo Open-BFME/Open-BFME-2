@@ -407,12 +407,7 @@ public:
 	void rva000B980E(char *dest, int start, int len);
 };
 
-class Rva000B3F84Pair
-{
-public:
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../../GameEngine/Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRef
 {

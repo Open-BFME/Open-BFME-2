@@ -8,14 +8,7 @@
 
 #include <string.h>
 
-class Rva000B3F84Pair
-{
-public:
-	int copyWchars(unsigned short *dst);
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 // ?copyWchars@Rva000B3F84Pair@@QAEHPAG@Z, retail 0x002342A7, 30 bytes.
 // Copies the m_len wide chars and returns the count. Serve sizes say 28;
