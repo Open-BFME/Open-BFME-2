@@ -441,8 +441,14 @@ trailer. Pin admission re-proves a moved fold proof at commit.
 ### Measured blockers, 2026-11-03 (ten TUs sampled)
 
 Ten targets were taken end to end on this date, five `--merge` and five `--split`, each with
-a freshly fetched census index. None landed. The refusals cluster into three causes, and the
-first two are the same mechanism seen from opposite sides:
+a freshly fetched census index. None landed, but the lane is not closed: one of the ten,
+`GameLogic/Object/PartitionManager.cpp`, composed a **verified seven-donor merge** (23 donors,
+7 accepted) and was refused at the write step only because another contributor held the
+scope — "blocked: held by another worker: 0x000073E0, 0x00260E01, 0x00322167, 0x00739840,
+0x00739870", all held by a concurrent `tu_skeleton` seat on the same TU. So a mid-queue TU can
+still merge; the good targets are contested, and the queue's `HELD` marker did not warn before
+the dry run spent its compile budget. The other nine refusals cluster into three causes, and
+the first two are the same mechanism seen from opposite sides:
 
 - **Carried compiler flags (merges).** `reverse/flag_overrides.csv` holds 699 files, 652 keyed
   "region default loses rows" and 46 "region default does not compile". A merge carries one
