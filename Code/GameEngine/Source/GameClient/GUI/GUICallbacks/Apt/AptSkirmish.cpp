@@ -194,14 +194,7 @@ private:
 	char storage[0x30-4]; // +0x04
 };
 
-class SkirmishPreferences
-{
-public:
-	SkirmishPreferences(int arg);
-	virtual ~SkirmishPreferences();	// 0x0043C286 (SkirmishPreferences.cpp), vtable 0x00C3D658
-private:
-	unsigned char m_pad[0x6B8 - 0x698 - 4];
-};
+#include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
 
 // Input-route member: constructor 0x00521623, destructor 0x0052163E,
 // vftable 0x00C67840.

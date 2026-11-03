@@ -133,17 +133,7 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 
 #include "../../Include/Common/UserPreferences.h"
-class SkirmishPreferences : public UserPreferences
-{
-public:
-	SkirmishPreferences(int);
-	virtual ~SkirmishPreferences();
-	UnicodeString Rva0043B9F5();
-private:
-	int profileIndex;
-	void *names;
-	AsciiString currentName;
-};
+#include "../../Include/GameClient/SkirmishPreferencesClass.h"
 class RealTimeStatsPreferences : public UserPreferences
 {
 public:

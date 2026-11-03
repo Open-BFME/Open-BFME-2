@@ -166,37 +166,7 @@ extern SkirmishGameInfo *TheSkirmishGameInfo;
 
 AsciiString GameInfoToAsciiString(const GameInfo *info, bool flag);
 
-class SkirmishPreferences : public UserPreferences
-{
-public:
-	SkirmishPreferences(Int profileIndex);
-	virtual ~SkirmishPreferences();
-	virtual Bool write(void);
-	_STL::list<UnicodeString> getUserNames_Rva0043C2D0(void);
-	void setCurrentUserName(const UnicodeString &newName);
-	AsciiString formatProfileKey(const AsciiString *keySource, const char *name);
-	AsciiString buildProfileKey(const char *name);
-	AsciiString encodeUserKey(const UnicodeString &user, const char *name);
-	void Rva0043BFDB(const UnicodeString &user, int profileIndex);
-	UnicodeString Rva0043B9F5(void);
-	Bool Rva0043B9E8(void);
-	UnicodeString Rva0043BB88(void);
-	void Rva0043BE36(const AsciiString &mapName);
-	void rva0043BE7C(void);
-	// Unrowed 0x0043BD36 (256 bytes; reads TheSkirmishGameInfo's slots into
-	// the preferences), pinned by address.
-	void rva0043BD36(void);
-	int Rva0043BBB6(UnicodeString user);
-	void Rva0043C2EB(const UnicodeString &user);
-	void rva0043C612(const UnicodeString &user);
-
-private:
-	void rebuildUserNamesEntry(void);
-
-	Int m_profileIndex;
-	_STL::list<UnicodeString> m_userNames;
-	AsciiString m_currentUserName;
-};
+#include "../../Include/GameClient/SkirmishPreferencesClass.h"
 
 // ??0SkirmishPreferences@@QAE@H@Z @0x43C128
 SkirmishPreferences::SkirmishPreferences(Int profileIndex)

@@ -167,33 +167,7 @@ private:
 
 
 
-class SkirmishPreferences
-{
-public:
-	SkirmishPreferences(int profileIndex);
-	virtual ~SkirmishPreferences();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3slotC();
-	bool Rva0043B9E8();
-	_STL::list<UnicodeString> getUserNames_Rva0043C2D0();
-	UnicodeString Rva0043B9F5();
-	UnicodeString Rva0043BB88();
-	void Rva0043C2EB(const UnicodeString &name);
-	int Rva0043BBB6(UnicodeString name);
-	void rva0043C612(const UnicodeString &name);
-	void setCurrentUserName(const UnicodeString &name);
-	// Unrowed 0x0043BE7C, pinned by address.
-	void rva0043BE7C();
-
-private:
-	// Target constructor and helper accesses agree with UserPreferences at
-	// +0x00..+0x13, then profile index +0x14, names +0x18, current name +0x1C.
-	unsigned char m_baseTail[0x10];
-	int m_profileIndex;
-	void *m_userNames;
-	void *m_currentUserName;
-};
+#include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
 
 // The screen's member at +0x668. Renamed from the address-derived
 // Rva005C1ABA view to the rowed class spelling Rva005C1A36 (its vtable

@@ -75,11 +75,7 @@ class RealTimeStatsPreferences:public UserPreferences {public:
  RealTimeStatsPreferences(const UnicodeString &profile);
  virtual ~RealTimeStatsPreferences();
 };
-class SkirmishPreferences:public UserPreferences {public:
- SkirmishPreferences(int mode);virtual ~SkirmishPreferences();
- UnicodeString Rva0043B9F5();
- private:char unknown14[12];
-};
+#include "../../../Include/GameClient/SkirmishPreferencesClass.h"
 typedef char CheckUserPreferences20[(sizeof(UserPreferences)==20)?1:-1];
 typedef char CheckSkirmishPreferences32[(sizeof(SkirmishPreferences)==32)?1:-1];
 typedef char CheckMap256[(sizeof(MapMetaData)==256)?1:-1];

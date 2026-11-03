@@ -143,18 +143,7 @@ public:
 extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern GameInfo *TheGameInfo;
 
-class SkirmishPreferences
-{
-public:
-	SkirmishPreferences(int tag);
-	virtual ~SkirmishPreferences();
-	virtual bool write();
-	UnicodeString Rva0043B9F5();
-	void setCurrentUserName(const UnicodeString &name);
-
-private:
-	char m_pad04[0x20 - 4];
-};
+#include "../../../Include/GameClient/SkirmishPreferencesClass.h"
 
 class LinearCampaignManager;
 class CaveSystem;

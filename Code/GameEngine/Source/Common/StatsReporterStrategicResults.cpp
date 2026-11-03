@@ -17,10 +17,7 @@ class ProfilePreferences:public UserPreferences {};
 class StrategicStatsPreferences:public ProfilePreferences {
  public: StrategicStatsPreferences(const UnicodeString&);virtual ~StrategicStatsPreferences();
 };
-class SkirmishPreferences:public UserPreferences {
- public: SkirmishPreferences(int);virtual ~SkirmishPreferences();UnicodeString Rva0043B9F5();
- private: char tail[12];
-};
+#include "../../Include/GameClient/SkirmishPreferencesClass.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../Include/Common/NameKeyGenerator.h"
 class PlayerTemplate {public:const AsciiString&getSide()const{return side;}char gap[24];AsciiString side;};

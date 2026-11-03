@@ -51,11 +51,7 @@ public:
 	Bool usesSystemMapDir();
 };
 
-class SkirmishPreferences
-{
-public:
-	AsciiString buildProfileKey(const char *src);
-};
+#include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
 
 Bool LANPreferences::usesSystemMapDir(void)
 {

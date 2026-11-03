@@ -13,14 +13,7 @@
 bool operator<(const AsciiString &,const AsciiString &);
 namespace _STL {template<> struct less<AsciiString> {bool operator()(const AsciiString&a,const AsciiString&b)const{return a<b;}};}
 typedef _STL::map<AsciiString,AsciiString> PreferenceMap;
-class SkirmishPreferences : public PreferenceMap {
-public:
- virtual ~SkirmishPreferences();
- AsciiString buildProfileKey(const char *);
- AsciiString formatProfileKey(const AsciiString*,const char*);
- AsciiString filename; int profileIndex; void *userNames; AsciiString currentUserName;
- AsciiString getPreferredMap();
-};
+#include "../../../Include/GameClient/SkirmishPreferencesClass.h"
 AsciiString getDefaultMap(bool);
 bool isValidMap(AsciiString,bool);
 AsciiString QuotedPrintableToAsciiString(AsciiString);
