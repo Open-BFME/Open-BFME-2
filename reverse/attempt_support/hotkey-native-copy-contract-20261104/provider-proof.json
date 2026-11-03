@@ -1,0 +1,326 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+  "control_sha256": "db4c75ce60c1926d36a67645f7fbcc7f1bf8e669e1cb5e00cf9c582ce6239947",
+  "current_source_sha256": "db4c75ce60c1926d36a67645f7fbcc7f1bf8e669e1cb5e00cf9c582ce6239947",
+  "index_meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "construct": {
+    "name": "??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z",
+    "body": {
+      "bytes": "b800000000e800000000518b4d08894df08365fc0085c97408ff750ce8000000008b4df464890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          29,
+          20,
+          "??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z"
+        ],
+        [
+          39,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "native_rva": "0x358CA0",
+    "native_bytes": "b872d8b700e8de042d00518b4d08894df08365fc0085c97408ff750ce882feffff8b4df464890d00000000c9c3",
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "resolved_sites": [
+      {
+        "offset": 1,
+        "name": "__ehhandler$??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z",
+        "native_value": "0xb7d872",
+        "basis": "actual EH placement proof"
+      },
+      {
+        "offset": 6,
+        "name": "__EH_prolog",
+        "target_rva": "0x629188",
+        "native_target_rva": "0x629188",
+        "target_matches": true
+      },
+      {
+        "offset": 29,
+        "name": "??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z",
+        "target_rva": "0x358b43",
+        "native_target_rva": "0x358b43",
+        "target_matches": true
+      },
+      {
+        "offset": 39,
+        "name": "__except_list",
+        "native_value": "0x0",
+        "basis": "native FS except-list field"
+      }
+    ],
+    "normalized_bytes": "b872d8b700e8de042d00518b4d08894df08365fc0085c97408ff750ce882feffff8b4df464890d00000000c9c3",
+    "whole_native_bytes_exact": true
+  },
+  "node": {
+    "name": "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z",
+    "body": {
+      "bytes": "566a006a18e800000000ff7424108bf08d461050e80000000083c4108bc65ec20400",
+      "relocations": [
+        [
+          6,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ],
+        [
+          21,
+          20,
+          "??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z"
+        ]
+      ]
+    },
+    "native_rva": "0x358DA0",
+    "native_bytes": "566a006a18e8467acdffff7424108bf08d461050e8e7feffff83c4108bc65ec20400",
+    "resolved_sites": [
+      {
+        "offset": 6,
+        "name": "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+        "target_rva": "0x307f0",
+        "native_target_rva": "0x307f0",
+        "target_matches": true
+      },
+      {
+        "offset": 21,
+        "name": "??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z",
+        "target_rva": "0x358ca0",
+        "native_target_rva": "0x358ca0",
+        "target_matches": true
+      }
+    ],
+    "normalized_bytes": "566a006a18e8467acdffff7424108bf08d461050e8e7feffff83c4108bc65ec20400",
+    "whole_native_bytes_exact": true
+  },
+  "insert": {
+    "name": "?_M_insert@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00359032Value@@U?$_Nonconst_traits@URva00359032Value@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00359032Value@@0@Z",
+    "body": {
+      "bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e80000000084c05959751bff75148bcfe8000000008bf089730c8b073b580c752989700ceb24ff75148bcfe8000000008bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+      "relocations": [
+        [
+          35,
+          20,
+          "??M@YA_NABVAsciiString@@0@Z"
+        ],
+        [
+          51,
+          20,
+          "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z"
+        ],
+        [
+          78,
+          20,
+          "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z"
+        ],
+        [
+          127,
+          20,
+          "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+        ]
+      ]
+    },
+    "native_rva": "0x358E9F",
+    "native_bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e8c6cacfff84c05959751bff75148bcfe8cafeffff8bf089730c8b073b580c752989700ceb24ff75148bcfe8affeffff8bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e86ec5ccffff47048b450859595f89305e5b5dc21400",
+    "resolved_sites": [
+      {
+        "offset": 35,
+        "name": "??M@YA_NABVAsciiString@@0@Z",
+        "target_rva": "0x5598c",
+        "native_target_rva": "0x5598c",
+        "target_matches": true
+      },
+      {
+        "offset": 51,
+        "name": "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z",
+        "target_rva": "0x358da0",
+        "native_target_rva": "0x358da0",
+        "target_matches": true
+      },
+      {
+        "offset": 78,
+        "name": "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z",
+        "target_rva": "0x358da0",
+        "native_target_rva": "0x358da0",
+        "target_matches": true
+      },
+      {
+        "offset": 127,
+        "name": "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+        "target_rva": "0x25490",
+        "native_target_rva": "0x25490",
+        "target_matches": true
+      }
+    ],
+    "normalized_bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e8c6cacfff84c05959751bff75148bcfe8cafeffff8bf089730c8b073b580c752989700ceb24ff75148bcfe8affeffff8bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e86ec5ccffff47048b450859595f89305e5b5dc21400",
+    "whole_native_bytes_exact": true
+  },
+  "implicit_copy": {
+    "name": "??0Rva00359032Value@@QAE@ABU0@@Z",
+    "body": {
+      "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+      "relocations": [
+        [
+          8,
+          20,
+          "??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z"
+        ]
+      ]
+    },
+    "properties": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "runtime_references": [],
+    "debug_references": [
+      {
+        "section": ".debug$F",
+        "section_index": 164,
+        "offset": 0,
+        "reloc_type": 7
+      }
+    ],
+    "index_strong": [],
+    "index_comdat": [],
+    "index_touches": []
+  },
+  "paircopy_name": "??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z",
+  "relevant_rows": [
+    {
+      "name": "??M@YA_NABVAsciiString@@0@Z",
+      "export_rva": "",
+      "target_rva": "0x0005598C",
+      "target_size": "23",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp",
+      "status": "matched",
+      "notes": "primitive string less via OR-false temp materialization; compare resolves via matched row; pin coexists; clears 0.83 partial"
+    },
+    {
+      "name": "??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z",
+      "export_rva": "",
+      "target_rva": "0x00358B43",
+      "target_size": "34",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp",
+      "status": "matched",
+      "notes": "STLport reference; AsciiString key and proven refcounted pointer copy; complete body strict exact; unknown application type remains opaque"
+    },
+    {
+      "name": "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+      "export_rva": "",
+      "target_rva": "0x000307F0",
+      "target_size": "22",
+      "source": "Code/GameEngine/Source/Common/System/GameMemory.cpp",
+      "status": "matched",
+      "notes": "raw byte allocator fold via game table 0xDE0404 class 3; /O2 emits retail mov-reg form where /O1 push-mem folds; sib pins stand as fold candidates"
+    },
+    {
+      "name": "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+      "export_rva": "",
+      "target_rva": "0x00025490",
+      "target_size": "397",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance.cpp",
+      "status": "matched",
+      "notes": "Dedicated TU STLport Rb_global bool Rebalance; migrated=stlport-4.6"
+    }
+  ],
+  "current_provider_receipts": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/AsciiStringLess.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 3,
+      "header_mismatches": [],
+      "object_sha256": "54020279fc7c2b76e7c363671fc6675fc7fc3b0825d7b97b884cbd6ab3b60bf7"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 57,
+      "header_mismatches": [],
+      "object_sha256": "0e0013f51b7a361bbc6be1f2e63c15c4d8289593006faacde7498fd877b1a455"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/System/GameMemory.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 135,
+      "header_mismatches": [],
+      "object_sha256": "12c64275b0cc035f8737acceb5796b45e6dc786d33dde43ae322f181be97890e"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rebalance.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 0,
+      "header_mismatches": [],
+      "object_sha256": "e98316cdf75bbabfeefcbd4664f291370c685de9c00518d0759cfe509b7014f9"
+    }
+  ],
+  "current_pair_copy_body": {
+    "bytes": "56578b7c240c578bf1e8000000008b470485c08946047403ff40045f8bc65ec20400",
+    "relocations": [
+      [
+        10,
+        20,
+        "??0?$StringBase@D@@AAE@ABV0@@Z"
+      ]
+    ]
+  },
+  "extra_copy_cohort": {
+    "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp",
+    "receipt": {
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 3,
+      "header_mismatches": [],
+      "object_sha256": "1852c7dab203c78df4b429aa797f50e0f5de593d9204f3dd71e9473878f92796"
+    },
+    "copy_body": null,
+    "undefined_exact_copy": false,
+    "defines_exact_copy": false
+  },
+  "link_guard": {
+    "linked": [
+      "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp"
+    ],
+    "prepare": null,
+    "refusals": [],
+    "index_sha": null
+  },
+  "current_pair_copy_native": {
+    "native_rva": "0x358B43",
+    "normalized_bytes": "56578b7c240c578bf1e89fdacdff8b470485c08946047403ff40045f8bc65ec20400",
+    "native_bytes": "56578b7c240c578bf1e89fdacdff8b470485c08946047403ff40045f8bc65ec20400",
+    "exact": true
+  },
+  "tracked_reads_stopped": true
+}

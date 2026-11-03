@@ -406,11 +406,10 @@ class AsciiString;
 
 bool __cdecl operator<(const AsciiString &left, const AsciiString &right);
 
-struct Rva00359032Value
-{
-	unsigned int m_stringRepresentation;
-	void *m_04;
-};
+// Bounded ABI view: retail copies this 8-byte value through pair 0x00358B43,
+// including the counted handle at +4. This does not establish original inheritance.
+namespace _STL { template <> Pair358C60::pair(const Pair358C60 &); }
+struct Rva00359032Value : public Pair358C60 {};
 
 typedef _STL::_Rb_tree<Rva00359032Value, Rva00359032Value,
 	_STL::_Identity<Rva00359032Value>, _STL::less<Rva00359032Value>,
@@ -667,7 +666,7 @@ typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> ConstructPairHR;
 namespace _STL {
 template <> ConstructPodVec::vector(const ConstructPodVec &);
 template <> ConstructPairHP::pair(const ConstructPairHP &);
-template <> ConstructPairHR::pair(const ConstructPairHR &);
+
 }
 
 template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec *, const ConstructPodVec &);
@@ -961,8 +960,8 @@ unsigned int Rva00359269::rva00359269(const int &key)
 
 inline bool operator<(const Rva00359032Value &left, const Rva00359032Value &right)
 {
-	return operator<(*reinterpret_cast<const AsciiString *>(&left.m_stringRepresentation),
-		*reinterpret_cast<const AsciiString *>(&right.m_stringRepresentation));
+	return operator<(*reinterpret_cast<const AsciiString *>(&left.first),
+		*reinterpret_cast<const AsciiString *>(&right.first));
 }
 
 _STL::pair<Rva00359032Tree::iterator, bool> Rva00359218Set::insert(const Rva00359032Value &value)
