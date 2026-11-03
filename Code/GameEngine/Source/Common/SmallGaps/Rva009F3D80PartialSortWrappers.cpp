@@ -1,6 +1,6 @@
 // ?q3PartialSort009F3D80@@YAXPAUQ3SortElem8@@00UQ3SortCompare@@@Z
 // ?q3PartialSort009F3DA0@@YAXPAUQ3SortElem8@@00UQ3SortCompare@@@Z
-// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD
+// cl: /Ob0 /DNDEBUG /DWIN32 /D_WINDOWS /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BFME1 SmallGaps donor Rva009F3D80PartialSortWrappers.cpp (b1 pair
 // 0x009F3D80/0x009F3DA0, 31 B each) retargeted: the Gen depth-zero callees
 // are the landed STLport rows ??$__partial_sort@PAUS4SortElem8@@... at
@@ -11,11 +11,7 @@
 struct Q3SortElem8 { int m_a; int m_b; };
 struct Q3SortCompare { int m_v; };
 
-struct S4SortElem8
-{
-	int m_bfmeA;						// +0x00
-	float m_bfmeKey;					// +0x04
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/S4SortElem8.h"
 
 struct S4Cmp00625BB0
 {

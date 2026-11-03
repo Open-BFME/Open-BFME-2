@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 
 // _STL::__insertion_sort<S4SortElem8 *, S4Cmp00625BB0>, retail 0x006264B0,
@@ -6,11 +6,7 @@
 // __linear_insert at 0x00626260 (no new pins).  Replica of BFME1
 // Rva009F3A80InsertionSort.cpp with the stateful cluster comparator.
 
-struct S4SortElem8
-{
-	int m_bfmeA;						// +0x00
-	float m_bfmeKey;					// +0x04
-};
+#include "S4SortElem8.h"
 
 struct S4Cmp00625BB0
 {
