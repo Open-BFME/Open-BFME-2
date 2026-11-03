@@ -287,15 +287,7 @@ private:
 		const ShroudManagerImpl *manager, Int x, Int y);
 };
 
-class ShroudManager : public ShroudManagerImpl
-{
-public:
-	// Method-only view of the independently recovered73AD90 provider.
-	// No nested Data size, inheritance, or field layout is assumed here.
-	class Data { public: void UpdateCellsTouched(); };
-	void undoRevealMapForPlayerPermanently(int playerIndex);
-	void ShroudMapForPlayer(int playerIndex);
-};
+#include "../../../Include/Common/ShroudManagerClass.h"
 
 struct ShroudManagerImpl008FBA40ElementLayout
 {
