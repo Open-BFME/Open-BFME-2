@@ -22692,3 +22692,9 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|local|Du
 Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp|function|0x0046183B|rva0046183B,6aa941081ede5abcfa79359b,drz-k2,drz-k2-n45b-18,w-ded32b2e2c5e,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp|function|0x004617CF|Rva004617CFFind,95739cb2f7615d4e160e1459,drz-k2,drz-k2-n45b-18,w-ded32b2e2c5e,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorUpdate.cpp|member|Rva00498716|m_0C,6f5f5b5baa852e052964833e,drz-k4,drz-k4-n45c-1,w-855a0f400af4,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C68|rva004C1C68,704faf8c73a82b759613d52c,drz-k5,drz-k5-n45d-2,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp|function|0x004C1C75|rva004C1C75,b4c5f730eb8aa16849dcacf9,drz-k5,drz-k5-n45d-2,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/BuffLogic_addBuff.cpp|param|BuffLogic::addBuff|a,7ae1195ff8f5935c4ab488da,drz-k5,drz-k5-n45d-6,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp|global||g_00C43D24,21136de62b7b1cc52c87a3fb,drz-k5,drz-k5-n45d-11,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainCtor.cpp|member|Rva0046F543Tail|m_2A8,0992ba16e13e23c13315aaf3,drz-k5,drz-k5-n45d-13,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface24Slot0.cpp|local|Rva0046950D24::rva0046950D|p,4b0a6370e14c3e7be1f71694,drz-k5,drz-k5-n45d-19,w-526a51702f64,2026-11-02

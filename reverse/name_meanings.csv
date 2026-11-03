@@ -958,3 +958,5 @@ Code/GameEngine/Source/GameLogic/Map/SidesListRva0032B7A7.cpp|param|sidesSwapByt
 Code/GameEngine/Source/GameLogic/Map/SidesListRva0032B7A7.cpp|param|sidesSwapByte|b,035a509d40600ad5ca68f9e8,drz-k1,drz-k1-n45a-16,w-d29055ee9848,2026-11-02,ecf4b17ca0aadaa101bf21dd
 Code/GameEngine/Source/GameLogic/Map/SidesListRva0032F0AA.cpp|local|SidesList::rva0032F0AA|d,531b3b0336a4c9d9870455e4,drz-k1,drz-k1-n45a-17,w-d29055ee9848,2026-11-02,57f0e7f028ecd2c99d24bd1f
 Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp|param|StandingWaveAreaRef|p,17fe8ea69952aecd5c12e998,drz-k1,drz-k1-n45a-19,w-d29055ee9848,2026-11-02,06568caaedf412c426f2060b
+Code/GameEngine/Source/GameLogic/Object/BuffLogic_addBuff.cpp|param|BuffLogic::addBuff|a,7ae1195ff8f5935c4ab488da,drz-k5,drz-k5-n45d-6,w-526a51702f64,2026-11-02,6b3d0f9a343543bd04a45bb7
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface24Slot0.cpp|local|Rva0046950D24::rva0046950D|p,4b0a6370e14c3e7be1f71694,drz-k5,drz-k5-n45d-19,w-526a51702f64,2026-11-02,d769049704de4d140cb9c891
