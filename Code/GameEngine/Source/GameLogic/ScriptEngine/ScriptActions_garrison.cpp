@@ -346,16 +346,7 @@ public:
 };
 InGameNotificationType *FindInGameNotificationType(const AsciiString &name);
 
-class GameTextInterface
-{
-public:
-#define GAMETEXT_SLOT(n) virtual void slot##n();
-	GAMETEXT_SLOT(0) GAMETEXT_SLOT(1) GAMETEXT_SLOT(2) GAMETEXT_SLOT(3) GAMETEXT_SLOT(4)
-	GAMETEXT_SLOT(5) GAMETEXT_SLOT(6) GAMETEXT_SLOT(7) GAMETEXT_SLOT(8) GAMETEXT_SLOT(9)
-	GAMETEXT_SLOT(10) GAMETEXT_SLOT(11) GAMETEXT_SLOT(12) GAMETEXT_SLOT(13)
-#undef GAMETEXT_SLOT
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0); // slot 0x38
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 // WB's InGameNotificationBox::Open (0x01092540) asserts the timeout and hands

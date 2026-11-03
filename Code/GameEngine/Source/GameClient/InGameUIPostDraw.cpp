@@ -97,15 +97,7 @@ public:
 #include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 
-class GameTextInterface
-{
-public:
-#define SLOT(N) virtual void slot##N();
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14)
-#undef SLOT
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0);	// slot 15
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 #include "../../Include/GameLogic/ScriptCounter.h"

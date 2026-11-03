@@ -678,13 +678,7 @@ extern Radar *TheRadar;
 class FXList { public: static void doFXObj(const FXList *,const Object *,const Object *); };
 class FXListStore { public: const FXList *findFXList(const char *) const; };
 extern FXListStore *TheFXListStore;
-class GameTextInterface { public:
- virtual void s00();virtual void s04();virtual void s08();virtual void s0c();
- virtual void s10();virtual void s14();virtual void s18();virtual void s1c();
- virtual void s20();virtual void s24();virtual void s28();virtual void s2c();
- virtual void s30();virtual void s34();virtual void s38();
- virtual UnicodeString fetch(const char *,bool * =0);
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class InGameUI; extern InGameUI *TheInGameUI;
 class ControlBar; extern ControlBar *TheControlBar;

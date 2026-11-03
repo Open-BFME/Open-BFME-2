@@ -446,15 +446,7 @@ extern GameInfo *TheGameInfo;
 class GameInfo; class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 
 // TheGameText's vslot 15 fetch (Rva00515C64's view).
-class GameTextInterface
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);	// +0x3C
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 // The Apt callback functors (as Rva0043F483PopulatePlayerCombo.cpp): a
