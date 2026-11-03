@@ -1,0 +1,175 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MiscAudio",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "36": 1,
+   "40": 1,
+   "56": 2,
+   "108": 1,
+   "192": 1,
+   "208": 1,
+   "236": 1,
+   "244": 1
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_MiscAudio.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/MiscAudio.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefElement4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "referent",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_defectorTimerTickSound",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefElement4",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefElement4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "referent",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_defectorTimerDingSound",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefElement4",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefElement4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "referent",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_stealthDiscoveredSound",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefElement4",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:OpaqueRefElement4",
+   "members": [
+    {
+     "kind": "P",
+     "name": "referent",
+     "offset": 0,
+     "size": 4,
+     "type": "OpaqueRefCounted*"
+    }
+   ],
+   "name": "m_stealthNeutralizedSound",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "OpaqueRefElement4",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIMessages.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "188:A": 1,
+    "32:A": 1
+   },
+   "class": "MiscAudio"
+  }
+ ],
+ "size": 56,
+ "size_by": "majority",
+ "vslots": {}
+}

@@ -641,3 +641,4 @@ TileData,Code/GameEngineDevice/Include/W3DDevice/GameClient/TileDataClass.h,exis
 W3DRopeDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DRopeDrawClass.h,existing header; contract class_contracts/W3DRopeDraw.json; 4/9 sampled units adopt
 RebuildHoleBehavior,Code/GameEngine/Include/GameLogic/Module/RebuildHoleBehaviorClass.h,existing header; contract class_contracts/RebuildHoleBehavior.json; 6/10 sampled units adopt
 DeployStyleAIUpdate,Code/GameEngine/Include/GameLogic/Module/DeployStyleAIUpdateClass.h,existing header; contract class_contracts/DeployStyleAIUpdate.json; 3/9 sampled units adopt
+MiscAudio,Code/GameEngine/Include/Common/MiscAudioClass.h,existing header; contract class_contracts/MiscAudio.json; 5/10 sampled units adopt
