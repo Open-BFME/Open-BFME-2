@@ -79,25 +79,14 @@ enum
 
 extern FileSystem *TheFileSystem;
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	UnsignedShort getID() const { return m_id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 class NetCommandRef
 {
@@ -109,14 +98,6 @@ private:
 };
 
 // Ledger names of the folded accessors.
-class NetWrapperCommandMsg
-{
-public:
-	UnsignedShort getWrappedCommandID();
-	UnsignedInt getDataLength();	// dword at +0x20
-	UnsignedInt getDataOffset();	// dword at +0x24
-};
-
 class Rva004D5767WordField
 {
 public:
@@ -127,12 +108,6 @@ class Rva004D59ACWordSlot
 {
 public:
 	void set(UnsignedShort value);	// word at +0x1C
-};
-
-class BFMENetInformPlayerLeaveFrameCommandMsg
-{
-public:
-	void setLeavingPlayerID(Int playerID);	// dword at +0x20
 };
 
 class Rva004D632D

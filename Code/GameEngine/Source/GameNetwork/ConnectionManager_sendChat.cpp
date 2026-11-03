@@ -31,23 +31,13 @@ enum NetCommandType
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // The type-14 chat command (ZH's NetChatCommandMsg), held in the ledger under
 // its constructor's address name.
@@ -71,13 +61,6 @@ public:
 
 private:
 	char m_pad1C[0x20 - 0x1c];
-};
-
-// The folded +0x20 dword setter 0x00317B9B.
-class BFMENetInformPlayerLeaveFrameCommandMsg
-{
-public:
-	void setLeavingPlayerID(Int playerID);
 };
 
 class NetChatCommandMsg;

@@ -43,28 +43,13 @@ extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count)
 extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src) throw();
 #include <new>
 class NetCommandRef;
-class NetCommandMsg
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
+
+inline void NetCommandMsg::setID(unsigned short id)
 {
-public:
-	NetCommandMsg();
-	UnsignedInt getTimestamp() { return m_timestamp; }
-	UnsignedInt getExecutionFrame() { return m_executionFrame; }
-	UnsignedInt getPlayerID() { return m_playerID; }
-	UnsignedShort getID() { return m_id; }
-	Int getNetCommandType() { return m_commandType; }
-	void setTiming(UnsignedInt timestamp, UnsignedInt frame) { m_timestamp = timestamp; m_executionFrame = frame; }
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	void setNetCommandType(Int type) { m_commandType = type; }
-	void detach();
-	virtual ~NetCommandMsg();
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	Int m_commandType;
-	Int m_referenceCount;
-};
+	m_id = id;
+}
 // The 0x2C data-carrying message: the room check at 0x0058D296 charges its
 // +0x28 payload length, rva0058EDEF serializes +0x1C/+0x20/+0x28 and the +0x24
 // buffer, and the static reader rva0058E20D rebuilds it in the same order
@@ -755,13 +740,6 @@ class BFMENetRouterFallbackCommandMsg : public NetCommandMsg
 public:
 	void setPlayerOrder(const int *players);
 	Int m_playerOrder[8]; // +0x1C, per the BFME1 donor
-};
-
-class BFMENetInformPlayerLeaveFrameCommandMsg
-{
-public:
-	void setLeavingPlayerID(Int playerID);
-	void setLeaveFrame(UnsignedInt frame);
 };
 
 // BFME 1 clean donor 9e3be919b10ae956e3c8a13995e0d62f2be1d016,

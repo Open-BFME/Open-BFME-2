@@ -17,25 +17,8 @@ typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef unsigned char UnsignedByte;
 
-enum NetCommandType
-{
-	NETCOMMANDTYPE_UNKNOWN = -1
-};
-
-class NetCommandMsg
-{
-public:
-	void detach();
-public:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	char m_pad11[2];
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
 
 class Rva004D5A10 : public NetCommandMsg
 {
@@ -49,12 +32,6 @@ class Rva004D57AE
 {
 public:
 	void setPlayerIndex(UnsignedInt v);
-};
-
-class BFMENetInformPlayerLeaveFrameCommandMsg
-{
-public:
-	void setLeavingPlayerID(Int playerID);
 };
 
 class BfmeOwnerFY

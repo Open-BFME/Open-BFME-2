@@ -24,46 +24,22 @@ enum NetCommandType
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setTimestamp(UnsignedInt timestamp) { m_timestamp = timestamp; }
-	void setExecutionFrame(UnsignedInt frame) { m_executionFrame = frame; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // Folded getters at 0x0030F2C7 (+0x1C) and 0x0030D377 (+0x20).
-class NetWrapperCommandMsg : public NetCommandMsg
-{
-public:
-	UnsignedByte *getData();
-	UnsignedInt getDataLength();
-};
+#include "../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
 // Folded setters at 0x00318B09 (+0x1C) and 0x00317B9B (+0x20).
 class Rva004D57AE : public NetCommandMsg
 {
 public:
 	void setPlayerIndex(UnsignedInt value);
-};
-
-class BFMENetInformPlayerLeaveFrameCommandMsg : public NetCommandMsg
-{
-public:
-	void setLeavingPlayerID(Int value);
 };
 
 // BFME's request-frame-data command (type 9), constructed at 0x004D5A30.

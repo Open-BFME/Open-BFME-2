@@ -65,25 +65,13 @@ private:
 
 #include "../../Include/GameNetwork/FrameDataManagerClass.h"
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setTimestamp(UnsignedInt timestamp) { m_timestamp = timestamp; }
-	void setExecutionFrame(UnsignedInt frame) { m_executionFrame = frame; }
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
+#include "../../Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // The type-8 leave-frame command (BFMENetInformPlayerLeaveFrameCommandMsg),
 // held in the ledger under its constructor's address name.
@@ -94,13 +82,6 @@ public:
 
 private:
 	char m_pad1C[0x24 - 0x1c];
-};
-
-class BFMENetInformPlayerLeaveFrameCommandMsg
-{
-public:
-	void setLeaveFrame(UnsignedInt frame);
-	void setLeavingPlayerID(Int playerID);
 };
 
 Bool DoesCommandRequireACommandID(NetCommandType type);
