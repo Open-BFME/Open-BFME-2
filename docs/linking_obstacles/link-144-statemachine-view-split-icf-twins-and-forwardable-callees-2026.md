@@ -16,3 +16,4 @@ Remaining / next check:
 - `Rva008312E0StringReplace.cpp`: the inline `erase`/`replaceBase` bodies reserve retail's /Od frame (0x9C; forwarders shrink it to 0x54), so they cannot become forwarders.
 Clearance: the four completed units, per-unit previews only.
 Census confirmation: awaiting.
+- 2026-11-03 prerequisite: StateMachineDtor.cpp and StateMachineXfer.cpp adopt canonical State; 7/7 rows exact, EH exact, preview preserves 706/706 B; private StateMachine/map-lifetime and seed transition declarations still block consolidation. [Evidence](../../reverse/attempt_support/statemachine-state-adoption-20261103-codexb4.md).

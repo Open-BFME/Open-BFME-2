@@ -20,6 +20,7 @@
 void free(void *);
 #include <map>
 #include "Common/Snapshot.h"
+#include "../../Include/Common/StateMachine.h"
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
@@ -31,20 +32,8 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void onExit(int status);	// slot 5
-};
-
 enum
 {
-	EXIT_RESET = 1,
 	INVALID_STATE_ID = 999999
 };
 

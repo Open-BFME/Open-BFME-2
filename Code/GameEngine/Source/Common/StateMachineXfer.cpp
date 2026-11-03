@@ -21,7 +21,7 @@ template<class T,class L,class R>
 static inline bool operator!=(const _Rb_tree_iterator<T,L>& a,const _Rb_tree_iterator<T,R>& b)
 { return a._M_node != b._M_node; }
 }
-typedef int Int; typedef unsigned int UnsignedInt; typedef int StateID; typedef bool Bool;
+typedef int Int; typedef unsigned int UnsignedInt; typedef bool Bool;
 #include "GameLogicObjectLookupView.h"
 
 enum { MACHINE_DONE_STATE_ID = 999998, INVALID_STATE_ID = 999999 };
@@ -34,22 +34,20 @@ class RealRange; class RGBColor; class RGBAColorReal; class RGBAColorInt;
 class Snapshot; class Thing; class ModuleData;
 #include "../../Include/Common/BfmeXfer.h"
 class Xfer::Version { public: Version(unsigned char current, unsigned char minimum) : m_current(current), m_minimum(minimum) {} unsigned char m_current; unsigned char m_minimum; };
-class State {
-public:
-  virtual void vslot00(); virtual void vslot04(); virtual void vslot08(); virtual void vslot0c();
-  virtual int onEnter(); virtual void onExit(int status); virtual int update();
-  virtual Bool isIdle() const; virtual Bool isAttack() const; virtual Bool isGuardIdle() const; virtual Bool isBusy() const;
-  int getID() const { return m_id; } StateID m_id;
-};
+#include "../../Include/Common/StateMachine.h"
+
+// Keep the signed accessor boundary; direct field expressions change MSVC's
+// inlining and stack allocation in the transfer body.
+static inline int getStateID(const State *state) { return state->m_id; }
 
 extern GameLogic *TheGameLogic;
 class StateMachine {
 public:
   void *m_currentState;
-  _STL::map<StateID, State *> m_stateMap;
+  _STL::map<int, State *> m_stateMap;
   Object *m_owner;
   UnsignedInt m_sleepTill;
-  StateID m_defaultStateID;
+  int m_defaultStateID;
   ObjectID m_goalObjectID;
   Coord3D m_goalPosition;
   float m_goalRange;
@@ -58,7 +56,7 @@ public:
   bool m_defaultStateInited;
   bool m_extra3A;
   State *internalGetState(UnsignedInt id);
-  StateID getCurrentStateID() const { return m_currentState ? ((State*)m_currentState)->getID() : INVALID_STATE_ID; }
+  int getCurrentStateID() const { return m_currentState ? getStateID((State*)m_currentState) : INVALID_STATE_ID; }
 protected:
   virtual void slot00(); virtual void slot01(); virtual void slot02();
   virtual void xfer(Xfer *xfer);
@@ -77,13 +75,13 @@ void StateMachine::xfer(Xfer *xfer)
   if (xfer->IsLoading()) { m_currentState = internalGetState((StateID)curStateID); }
   Bool snapshotAllStates = false; *xfer == snapshotAllStates;
   if (snapshotAllStates) {
-    Int count = 0; _STL::map<StateID, State *>::iterator i;
+    Int count = 0; _STL::map<int, State *>::iterator i;
     for (i = m_stateMap.begin(); i != m_stateMap.end(); ++i) count++;
     Int saveCount = count; *xfer == saveCount;
     if (saveCount != count) { throw XferException(5, 0); }
     for (i = m_stateMap.begin(); i != m_stateMap.end(); i++) {
-      State *state = (*i).second; UnsignedInt id = (UnsignedInt)state->getID(); *xfer == id;
-      if ((StateID)id != state->getID()) { throw XferException(5, 0); }
+      State *state = (*i).second; UnsignedInt id = (UnsignedInt)getStateID(state); *xfer == id;
+      if ((StateID)id != getStateID(state)) { throw XferException(5, 0); }
       *xfer == (Snapshot&)*state;
     }
   } else {
