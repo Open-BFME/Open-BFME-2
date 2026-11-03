@@ -988,3 +988,6 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpa
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmy.cpp|param|Rva004FA992::rva004FA992|arg,621e37a0df94fe1576937956,drz-k8,drz-k8-n47f-7,w-87ae7cdc64ef,2026-11-02,1542d787d36111c144125d97
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp|local|LivingWorldAI::SubmitOrders|n,3fcf87a9531bfd3481bab3dc,drz-k8,drz-k8-n47f-4b,w-87ae7cdc64ef,2026-11-02,1a2fa862c563989a31f62277
 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp|local|LivingWorldAI::rva004FB7B2|n,8e928cc40dcc6d77e50c833b,drz-k8,drz-k8-n47f-4b,w-87ae7cdc64ef,2026-11-02,9aa6816fad83053a85affbc1
+Code/Libraries/Source/Compression/EAC/btreeencode.cpp|local|BTREE_joinnodes|s,ffeff868e3b437297fbdd6a5,drz-k7,drz-k7-n48-5,w-4471b1f6edef,2026-11-03,eab5cac2b19dc5555efb0557
+Code/Libraries/Source/Compression/EAC/btreeencode.cpp|local|BTREE_joinnodes|d,17d2688ffcfe08480c1448e6,drz-k7,drz-k7-n48-5,w-4471b1f6edef,2026-11-03,758a6dfdec1b9b1f55cc6fd7
+Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp|param|Rva0016825DPoint#2|v,4c1bc0777040fb79fd602a09,drz-k7,drz-k7-n48-8,w-4471b1f6edef,2026-11-03,f3282ec8dfbddbd131b928e1
