@@ -351,17 +351,8 @@ BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva00495DCDByteChaseField, 0x1C, 0x21)
 
 typedef float Real;
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps);
-	const char *getSepsColon() const { return m_sepsColon; }
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char m_unreconstructed[0x420];
-	const char *m_sepsColon; // +0x420
-};
+#include "../../../../Include/Common/INI/INI.h"
+inline const char *INI::getSepsColon() const { return m_sepsColon; }
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 

@@ -225,6 +225,11 @@ is now explicit after UpdateModule. Main paired29-row checks and four owning
 acceptances pass, retiring the three source ancestor keys and the destructor
 interface key. No shared header or executable body changes.
 
+AutoPickUp INI follow-up replaces the complete private prefix with its
+canonical header while retaining the same inline separator getter. Current
+29-row checks and owning acceptance pass; one INI entry retires. Private
+27-row/EH4/130-provider identity is unchanged.
+
 ### ScriptActions doNamedEnterNamed link repair (2026-11-02)
 
 `ScriptActions_doNamedEnterNamed.cpp` (92B) unresolved symbol `?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z` resolved by pointing the call to the real rowed provider `AICommandInterface::rva0026C347` (`?rva0026C347@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z` at 0x0026C347 in `AICommandInterfaceAttackCommands.cpp`), which was already matched and linked.

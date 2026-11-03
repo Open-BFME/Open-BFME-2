@@ -9,3 +9,7 @@ Replace the entire private Rva000421C8 declaration with its existing PartitionFi
 ## Explicit inherited-module dependency
 
 The file already uses canonical BehaviorModule through UpdateModule. Naming BehaviorModule.h directly after the existing UpdateModule include makes that actual dependency explicit, preserving include order and the complete compiled hierarchy. Current-main paired29-row verification passes. Owning acceptances retire4 existing keys: BehaviorModule, BehaviorModuleInterface and UpdateModule in the main source, plus UpdateModuleInterface in its already-canonical destructor source. The destructor source is unchanged. All4 acceptance receipts pass; no header/provider/name/pin/flag is altered and the separate containment/INI keys remain for their own preparations.
+
+## INI
+
+The complete private padding view is replaced by canonical INI.h. All consumer uses are pointers, token/parser calls and the separator accessor; no construction, copy, allocation, deletion, value or sizeof operation relies on the old prefix. The same preexisting inline getSepsColon body remains visible, preserving its three native loads at+0x420. The registered full0x87C layout is not newly inferred here. Private control/candidate checks retain27 rows, EH4 and all130 providers/properties/routes; current-main paired29-row and frozen checks pass. Owning acceptance retires one INI key.
