@@ -179,11 +179,7 @@ private:
 
 extern GameTextInterface *TheGameText;
 
-class Version
-{
-public:
-	UnicodeString getUnicodeVersion();
-};
+#include "../../../../../Include/Common/VersionClass.h"
 
 extern Version *TheVersion;
 

@@ -20,29 +20,7 @@ class AsciiString;
 // factory, and the retail accessor bodies load the singleton from this VA.
 extern GameTextInterface *TheGameText;
 
-class Version
-{
-public:
-    UnicodeString getUnicodeVersion();
-    UnicodeString getFullUnicodeVersion();
-    UnicodeString getUnicodeBuildTime();
-    UnicodeString getUnicodeBuildLocation();
-    UnicodeString getUnicodeBuildUser();
-
-private:
-    int m_major;
-    int m_minor;
-    int m_buildNum;
-    int m_localBuildNum;
-    AsciiString m_buildTitle;
-    AsciiString m_buildLocation;
-    AsciiString m_buildUser;
-    AsciiString m_buildGuid;
-    AsciiString m_buildTime;
-    AsciiString m_buildDate;
-    AsciiString m_buildConfiguration;
-    bool m_showFullVersion;
-};
+#include "../../Include/Common/VersionClass.h"
 
 class Rva002384C8
 {

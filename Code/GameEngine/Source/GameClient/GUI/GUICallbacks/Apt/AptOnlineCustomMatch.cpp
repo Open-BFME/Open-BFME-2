@@ -192,7 +192,8 @@ public:
 };
 int Rva00559EDCCompare(int*,int*);
 int Rva005DB335Get(int);
-class Version{public:int rva00237E63(const void*,bool);};extern Version*TheVersion;
+#include "../../../../../Include/Common/VersionClass.h"
+extern Version*TheVersion;
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct ListVersionData{char beforeVersion[0xb04];int version;char beforeBuild[0xb38-0xb08];int build;};
 class GameSpyStagingRoom{public:

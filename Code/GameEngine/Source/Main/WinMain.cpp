@@ -898,18 +898,7 @@ private:
 
 AsciiString GetRegistryLanguage();
 
-class Version
-{
-public:
-	Version();
-	~Version();
-	AsciiString getAsciiVersion();
-	AsciiString getAsciiBuildTime();
-	AsciiString *getBuildGuid();
-
-private:
-	unsigned char m_data[0x30];
-};
+#include "../../Include/Common/VersionClass.h"
 
 Version *TheVersion;
 

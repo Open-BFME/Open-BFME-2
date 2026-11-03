@@ -160,11 +160,7 @@ public:
 
 // TheVersion's 0x00237E63 (text colour for another build's version block),
 // pinned by this name.
-class Version
-{
-public:
-	int rva00237E63(const void *other, bool force);
-};
+#include "../../../../../Include/Common/VersionClass.h"
 
 extern Version *TheVersion;
 

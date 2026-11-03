@@ -10,13 +10,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Version
-{
-public:
-	~Version();
-private:
-	char m_pad[0x30];
-};
+#include "../../Include/Common/VersionClass.h"
 
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 

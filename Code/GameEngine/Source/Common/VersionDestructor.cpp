@@ -132,36 +132,7 @@ extern const char g_versionBlock[512] =
 int initVersionGlobals();
 
 
-class Version
-{
-public:
-    Version();
-    AsciiString getAsciiBuildTime();
-    AsciiString getAsciiVersion();
-    // Reconstruction name: the original spelling is unknown.
-    AsciiString rva00237F25MajorMinor();
-    // Reconstruction name; the original spelling is unknown.
-    AsciiString rva00237F83ConfiguredVersion();
-    AsciiString getAsciiBuildLocation();
-    AsciiString *getBuildGuid(void);
-    // Reconstruction name; the original spelling is unknown. Retail
-    // 0x00237E63 (93 bytes): lobby text colour for a version block.
-    int rva00237E63(const void *other, bool force);
-    ~Version();
-    // Reconstruction name; the original method spelling is unknown.
-    // Retail body reads the seven named build metadata keys.
-    void initializeBuildMetadata();
-private:
-    int m_major, m_minor, m_buildNum, m_localBuildNum;
-    AsciiString m_buildTitle;
-    AsciiString m_buildLocation;
-    AsciiString m_buildUser;
-    AsciiString m_buildGuid;
-    AsciiString m_buildTime;
-    AsciiString m_buildDate;
-    AsciiString m_buildConfiguration;
-    bool m_showFullVersion;
-};
+#include "../../Include/Common/VersionClass.h"
 Version::~Version() {}
 
 // ?forceVersionDelete@@YAXPAVVersion@@@Z absent-from-retail

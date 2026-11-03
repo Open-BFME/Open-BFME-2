@@ -34,15 +34,7 @@ public:
 #include <string.h>
 #pragma function(memset)
 
-class Version
-{
-public:
-	Version();
-	~Version();
-	void initializeBuildMetadata();
-private:
-	char m_pad[0x30];
-};
+#include "../../Include/Common/VersionClass.h"
 
 class GameSlot
 {

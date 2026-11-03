@@ -4,12 +4,7 @@
 // Retail command table maps -fullVersion to RVA3B9647 (complete 50B body).
 // TheVersion is VA DFE770; m_showFullVersion is at +2C; atoi is an audited import.
 #include <stdlib.h>
-class Version {
-public:
-    char prefix[0x2c];
-    bool m_showFullVersion;
-    void setShowFullVersion(bool on) { m_showFullVersion=on; }
-};
+#include "../../Include/Common/VersionClass.h"
 extern Version *TheVersion;
 int parseFullVersion(char *args[],int num) {
     if(TheVersion && num>1) {

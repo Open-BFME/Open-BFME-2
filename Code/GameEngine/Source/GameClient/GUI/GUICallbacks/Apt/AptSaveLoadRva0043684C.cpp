@@ -63,11 +63,7 @@ extern GameTextInterface *TheGameText;
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
 
-class Version
-{
-public:
-	UnicodeString getFullUnicodeVersion();
-};
+#include "../../../../../Include/Common/VersionClass.h"
 extern Version *TheVersion;
 
 #include "../../../../../Include/Common/GlobalData.h"
