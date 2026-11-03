@@ -111,23 +111,7 @@ struct FieldParse;
 class INI;
 
 
-class INI
-{
-public:
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-	static void parsePercentToReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
-	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);
-
-	int getLoadType() { return m_loadType; }
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *what, const struct FieldParse *table);
-private:
-	char m_pad00[8];
-	int m_loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern const struct FieldParse g_00BD9D68[];
 
