@@ -12,7 +12,7 @@ public:
     AptValue *GetFirstAptValue();
     AptValue *GetNextAptValue(const AptValue *);
 };
-class AptBoolean { public: static void ClearPool(); };
+#include "../../../Libraries/Source/Apt/AptBoolean.h"
 #include "../../Include/Common/AptInteger.h"
 class AptFloat { public: static void ClearPool(); };
 void Rva0070B590Drain();	// 0x0070B590, the temporary string pool drain

@@ -87,7 +87,7 @@ struct TextInstance {
 struct Rect {float left,top,right,bottom;};
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
-class AptBoolean {public:static AptValue *Create(bool);};
+#include "AptBoolean.h"
 AptValue *Rva008A4EA0MakeFloat(float);
 extern AptValue *gpUndefinedValue;
 struct BfmeM1208 {float a,b,c,d,e,f;};

@@ -48,11 +48,7 @@ public:
 
 class AptValue;
 // The value maker is the rowed AptBoolean::Create.
-class AptBoolean
-{
-public:
-	static AptValue *Create(bool value);
-};
+#include "../AptBoolean.h"
 
 void rva006F1530(BfmeAptValue006DCD20 *obj)
 {

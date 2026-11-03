@@ -62,11 +62,7 @@ void *Rva006CBAD0Format(const char *szFormat, ...)
 // factory 0x006D8700, AptBoolean::Create 0x006D88C0). Address-derived names.
 class AptValue;
 #include "../../../../GameEngine/Include/Common/AptInteger.h"
-class AptBoolean
-{
-public:
-	static AptValue *Create(bool value);
-};
+#include "../../Apt/AptBoolean.h"
 AptValue *Rva008A4EA0MakeFloat(float value);
 
 AptValue *createInteger(int value)

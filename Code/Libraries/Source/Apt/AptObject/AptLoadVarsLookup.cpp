@@ -19,17 +19,7 @@
 // unwind funclets call ~EAStringC directly, as retail's do.
 class AsciiString;
 #include "../AptNativeHash.h"
-class AptValue
-{
-public:
-	void SetString(const char *);
-	void toString(EAStringC &)const;
-	EAStringC rva006ddde0();
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual AptNativeHash *GetNativeHashVirtual();
-};
+#include "../AptBoolean.h"
 #include "../BfmeAptValue006DCD20.h"
 #include "../AptBasePtrStack.h"
 struct AptActionInterpreter
@@ -39,7 +29,6 @@ public:
 	AptBasePtrStack stack; // +0x00
 };
 extern AptActionInterpreter g_aptDateInterpreter;
-class AptBoolean {public:static AptValue *Create(bool);};
 void (__cdecl *g_bfmeAptSendVariablesAtE1776C)(const char *,const char *,const char *,const char *,int)=0;
 
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);

@@ -13,7 +13,7 @@ public:
     EAStringC str;
     __forceinline EAStringC *GetInternalString() { return &str; }
 };
-class AptBoolean { public: bool GetBool() const; };
+#include "../AptBoolean.h"
 #include "../../../../GameEngine/Include/Common/AptInteger.h"
 class Rva00723490FloatField { public: float get() const; };
 #include "../BfmeAptValue006DCD20.h"

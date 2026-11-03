@@ -80,7 +80,7 @@ class AptString {public:static AptString *Create();};
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 
-class AptBoolean {public:static AptValue *Create(bool);};
+#include "AptBoolean.h"
 
 EAStringC *Rva0070B4F0GetString(int);
 

@@ -82,7 +82,7 @@ extern void *g_eaStringAtE177D4Storage;
 void Rva006D37F0Clear();
 struct AptActionInterpreter {void rva006FEB50();};
 extern AptActionInterpreter g_aptDateInterpreter;
-class AptBoolean {public:static void ClearPool();};
+#include "AptBoolean.h"
 #include "../../../GameEngine/Include/Common/AptInteger.h"
 class AptFloat {public:static void ClearPool();};
 void Rva0070B590Drain();
