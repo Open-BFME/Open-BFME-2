@@ -96,11 +96,11 @@ extern template class _STL::vector<Gen_p12pod>;
 
 void InGameUI::clearFormationPreviewDrawables()
 {
-	InGameUI::FormationPreviewPoolObject **p = slots;
-	for (int n = 4; n != 0; --n, ++p) {
-		if (*p) {
-			(*p)->dismiss();
-			*p = 0;
+	InGameUI::FormationPreviewPoolObject **slot = slots;
+	for (int remaining = 4; remaining != 0; --remaining, ++slot) {
+		if (*slot) {
+			(*slot)->dismiss();
+			*slot = 0;
 		}
 	}
 	Gen_p12pod *end = entries.end;

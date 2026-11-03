@@ -99,8 +99,8 @@ class Rva00270644
 class Drawable
 {
   public:
-    bool getProjectileLaunchOffset(WeaponSlotType a0, int a1, Matrix3D *a2, WhichTurretType a3,
-                                   Coord3D *a4, Coord3D *a5) const;
+    bool getProjectileLaunchOffset(WeaponSlotType wslot, int specificBarrelToUse, Matrix3D *a2, WhichTurretType tur,
+                                   Coord3D *turretRotPos, Coord3D *turretPitchPos) const;
     void rva00272BE7();
 
   protected:
@@ -126,8 +126,8 @@ class Rva00275376 : public Drawable
     void rva002752F8();
 };
 
-bool Drawable::getProjectileLaunchOffset(WeaponSlotType a0, int a1, Matrix3D *matrix3D,
-                                         WhichTurretType a3, Coord3D *a4, Coord3D *a5) const
+bool Drawable::getProjectileLaunchOffset(WeaponSlotType wslot, int specificBarrelToUse, Matrix3D *matrix3D,
+                                         WhichTurretType tur, Coord3D *turretRotPos, Coord3D *turretPitchPos) const
 {
     if (m_443)
     {
@@ -154,7 +154,7 @@ bool Drawable::getProjectileLaunchOffset(WeaponSlotType a0, int a1, Matrix3D *ma
             if (p != 0)
             {
                 Slot18Holder *slot18Holder = (Slot18Holder *)p;
-                if (slot18Holder->slot18(&m_258, a0, a1, matrix3D, a3, a4, a5))
+                if (slot18Holder->slot18(&m_258, wslot, specificBarrelToUse, matrix3D, tur, turretRotPos, turretPitchPos))
                     return true;
             }
             ++arr;

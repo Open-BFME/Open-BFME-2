@@ -90,7 +90,7 @@ struct DrawableKindByteView {char pad[0x108];unsigned char bits;};
 struct DrawableKindWordView {char pad[0x108];unsigned bits;};
 struct DrawableBonusWordView {
     unsigned bits;
-    __forceinline unsigned char shifted(unsigned n) const { return bits>>n; }
+    __forceinline unsigned char shifted(unsigned shiftCount) const { return bits>>shiftCount; }
 };
 enum ObjectStatusTypes;
 extern unsigned BfmeHealingIconDisplayFrames;
@@ -160,7 +160,7 @@ private:
     unsigned char m_pad43d[0x460-0x43d];
     int m_460, m_464, m_468, m_46c;
     Rva00270025 *getIconInfo() { return ((Rva00270BA8 *)this)->rva00270BA8(); }
-    void killIcon(int n) { if(m_354) m_354->rva0027006C(n); }
+    void killIcon(int iconIndex) { if(m_354) m_354->rva0027006C(iconIndex); }
     static Rva002D752DNode **s_animationTemplates;
     static const Image *s_fullAmmo;
     static const Image *s_emptyAmmo;

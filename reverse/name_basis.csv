@@ -6904,3 +6904,13 @@ local,Rva0009ACB8::rva0009ACB8::v,Rva0009ACB8::rva0009ACB8::position,inferred,ag
 param,Rva00223591::rva002237C7::arg,Rva00223591::rva002237C7::key,inferred,agree:nl-bd634d570fa4,Code/GameEngine/Source/GameClient/Rva002237C7.cpp,0x002237C7
 function,?rva00223547@Rva00223547@@QAEPAXPBX@Z,?newNode@Rva00223547@@QAEPAXPBX@Z,inferred,agree:nl-d57658d52174,Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp,0x00223547
 carry,Rva00223547::rva00223547::node,Rva00223547::newNode::node,inferred,scope renamed by Rename rva00223547 to newNode (inferred),Code/GameEngine/Source/GameClient/Rva00223547NewNode.cpp,0x00223547
+param,Rva0041534BIter::t,Rva0041534BIter::table,inferred,agree:nl-fc0eebf194b1,Code/GameEngine/Source/GameClient/Rva002237C7.cpp,
+param,Drawable::getProjectileLaunchOffset::a0,Drawable::getProjectileLaunchOffset::wslot,inferred,agree:nl-d714a1b13ad9,Code/GameEngine/Source/GameClient/Rva00275376.cpp,0x00275376
+param,Drawable::getProjectileLaunchOffset::a1,Drawable::getProjectileLaunchOffset::specificBarrelToUse,inferred,agree:nl-cc2865d6a93f,Code/GameEngine/Source/GameClient/Rva00275376.cpp,0x00275376
+param,Drawable::getProjectileLaunchOffset::a3,Drawable::getProjectileLaunchOffset::tur,inferred,agree:nl-cc596cf54010,Code/GameEngine/Source/GameClient/Rva00275376.cpp,0x00275376
+param,Drawable::getProjectileLaunchOffset::a4,Drawable::getProjectileLaunchOffset::turretRotPos,inferred,agree:nl-caa7046d56ae,Code/GameEngine/Source/GameClient/Rva00275376.cpp,0x00275376
+param,Drawable::getProjectileLaunchOffset::a5,Drawable::getProjectileLaunchOffset::turretPitchPos,inferred,agree:nl-b275a9c18dae,Code/GameEngine/Source/GameClient/Rva00275376.cpp,0x00275376
+local,InGameUI::clearFormationPreviewDrawables::n,InGameUI::clearFormationPreviewDrawables::remaining,inferred,agree:nl-3e64763d0c75,Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp,0x002A3DD3
+local,InGameUI::clearFormationPreviewDrawables::p,InGameUI::clearFormationPreviewDrawables::slot,inferred,agree:nl-757a27dc9aca,Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp,0x002A3DD3
+param,killIcon::n,killIcon::iconIndex,inferred,agree:nl-afdac4787e30,Code/GameEngine/Source/GameClient/rva00273DCFRva00273DCFFarm.cpp,
+param,shifted::n,shifted::shiftCount,inferred,agree:nl-a7afa1fa9ae0,Code/GameEngine/Source/GameClient/rva00273DCFRva00273DCFFarm.cpp,
