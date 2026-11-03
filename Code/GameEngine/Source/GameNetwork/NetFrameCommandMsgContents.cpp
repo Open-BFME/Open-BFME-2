@@ -29,18 +29,7 @@ __forceinline const char *GetStr004D5C2B(const AsciiString &asciiString)
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	virtual AsciiString getContentsAsAsciiString();
-	UnsignedInt getFrame() const { return m_frame; }
-	UnsignedInt getPlayerFrame() const { return m_playerFrame; }
-	UnsignedInt getCommandCount() const { return m_commandCount; }
-private:
-	UnsignedInt m_frame;
-	UnsignedInt m_playerFrame;
-	UnsignedInt m_commandCount;
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 
 AsciiString NetFrameCommandMsg::getContentsAsAsciiString()
 {

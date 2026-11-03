@@ -16,12 +16,7 @@ class AsciiString;
 // Its vtable 0x00860140 overrides slot 3 with the rowed
 // NetFrameCommandMsg::getContentsAsAsciiString 0x004D5C2B; the compiler
 // installs it.
-class NetFrameCommandMsg : public NetCommandMsg
-{
-public:
-	NetFrameCommandMsg();
-	virtual AsciiString getContentsAsAsciiString();
-};
+#include "../../Include/GameNetwork/NetFrameCommandMsg.h"
 
 NetFrameCommandMsg::NetFrameCommandMsg() : NetCommandMsg()
 {
