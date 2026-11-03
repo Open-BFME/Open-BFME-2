@@ -136,17 +136,7 @@ private:
 	UnsignedInt m_words[19];
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt testFlag108(UnsignedInt bit) const
-	{
-		return m_flags108[bit >> 5] & (1U << (bit & 0x1f));
-	}
-private:
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_flags108[1]; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Rva00373EC6;
 class StealthUpdate
@@ -382,7 +372,7 @@ private:
 UpdateSleepTime AIUpdateInterface::doLocomotor()
 {
 	Object *obj = getObject();
-	if (obj && obj->getTemplate()->testFlag108(2))
+	if (obj && (obj->getTemplate()->m_kindof[0] & (1U << (2 & 0x1f))))
 		return UPDATE_SLEEP_FOREVER;
 	if (obj && obj->isKindOf(KINDOF_0x81))
 		return UPDATE_SLEEP_NONE;

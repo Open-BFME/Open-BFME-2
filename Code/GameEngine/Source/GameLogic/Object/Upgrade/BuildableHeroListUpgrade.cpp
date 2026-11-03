@@ -149,12 +149,7 @@ struct PlayerTeamNode
     TeamPrototype *value;
 };
 
-class ThingTemplate
-{
-public:
-    char pad[0x10C];
-    unsigned m_kind[7];
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 template <int N> class Rva004B83D2Slots : public Rva004B83D2Slots<N - 1>
 {
@@ -214,7 +209,7 @@ void BuildableHeroListUpgrade::rva004B83D2(const ThingTemplate *thingTemplate)
             for (DLINK_ITERATOR<Object> objects = team->iterate_TeamMemberList(); !objects.done(); objects.advance())
             {
                 Object *obj = objects.cur();
-                if (obj->m_template->m_kind[0] & 0x80000000u)
+                if (obj->m_template->m_kindof[1] & 0x80000000u)
                 {
 _ReadWriteBarrier();
                     Rva004B83D2Query *query = (Rva004B83D2Query *)obj->rva0028BC58(0);

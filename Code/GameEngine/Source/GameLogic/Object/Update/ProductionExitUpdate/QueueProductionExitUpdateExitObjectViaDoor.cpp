@@ -157,14 +157,7 @@ public:
 	Real Row[3][4];
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
-private:
-	char m_unrecovered000[0x108];
-	UnsignedInt m_kindOf[4];																									///< 0x108
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -268,7 +261,7 @@ class Object : public Thing
 {
 public:
 	ObjectID getID() const { return m_id; }
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return (getTemplate()->m_kindof[t >> 5] & (1U << (t & 0x1f))); }
 	ContainModuleInterface *getContain() const { return m_contain; }
 	// Retail inlines this +0x258 load; suppress the surplus external copy.
 	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }

@@ -71,16 +71,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class ThingTemplate
-{
-public:
-	// KindOf words: 0x80 STRUCTURE in word 0; 0x100 INFANTRY in word 0;
-	// 0x800000 (bit 55) in word 1.
-	UnsignedInt testKindOf(Int word, UnsignedInt mask) const { return m_kindOf[word] & mask; }
-private:
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[4]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -113,12 +104,12 @@ Coord3D WeaponTemplate::bfmeCalcScatterTargetPos(const Object *source, const Obj
 
 	if (victim)
 	{
-		if (victim->getTemplate()->testKindOf(0, 0x80))
+		if ((victim->getTemplate()->m_kindof[0] & 0x80))
 		{
 			Coord3D aim;
 			pos = (const Coord3D &)adjustTargetPositionOnVictim((Object *)source, (Object *)victim, true);
 		}
-		if (m_infantryInaccuracyDist > 0.0f && victim->getTemplate()->testKindOf(0, 0x100))
+		if (m_infantryInaccuracyDist > 0.0f && (victim->getTemplate()->m_kindof[0] & 0x100))
 			scatterRadius += m_infantryInaccuracyDist;
 		layer = (PathfindLayerEnum)victim->rva0028B511();
 	}
@@ -155,7 +146,7 @@ Coord3D WeaponTemplate::bfmeCalcScatterTargetPos(const Object *source, const Obj
 
 	if (victim)
 	{
-		if (victim->getTemplate()->testKindOf(1, 0x800000))
+		if ((victim->getTemplate()->m_kindof[1] & 0x800000))
 		{
 			pos.z = victim->getPosition()->z;
 		}

@@ -179,15 +179,7 @@ public:
 // Object +0x250: slot 68 walks the contained Objects.
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline UnsignedInt isKindOf(int k) const { return m_kindOf[k >> 5] & (1U << (k & 31)); }
-
-private:
-	char m_unknown000[0x10C];
-	UnsignedInt m_kindOf[4]; // +0x10C
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Rva0028B511Side
 {
@@ -493,7 +485,7 @@ void objectAuraUpdate(Object *obj, void *userData)
 				return;
 		}
 	}
-	if (info->m_contained && obj->getTemplate()->isKindOf(77))
+	if (info->m_contained && (obj->getTemplate()->m_kindof[3] & (1U << (77 & 31))))
 		obj->getContain()->iterateContained(objectAuraUpdate, info, true);
 	if (info->m_endFrame)
 	{
@@ -535,7 +527,7 @@ UpdateSleepTime AttributeModifierAuraUpdate::update()
 	info.m_endFrame = 0;
 	info.m_data = data;
 	info.m_contained = false;
-	info.m_special = getObject()->getTemplate()->isKindOf(28);
+	info.m_special = (getObject()->getTemplate()->m_kindof[1] & (1U << (28 & 31)));
 	if (((const BitFlags<11> *)&data->m_antiCategory)->any() && !((const StringBase<char> *)&data->m_bonusName)->isEmpty())
 	{
 		info.m_endFrame = TheGameLogic->getFrame();

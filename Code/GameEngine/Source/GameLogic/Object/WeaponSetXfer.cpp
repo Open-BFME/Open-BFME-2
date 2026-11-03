@@ -171,22 +171,7 @@ void BitFlags<NUMBITS>::xfer(Xfer *xfer)
 	}
 }
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getName copy loses to the first-in-order copy (no
-	// retail address); the call below inlines it but still emits the loser
-	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
-	// No flags touched.
-	const AsciiString &bfme_get_name() const { return m_name; }
-	const class WeaponTemplateSet *findWeaponTemplateSet(const BitFlags<117> &t) const;
-
-private:
-	unsigned char m_unmodelled00[0x64];
-	AsciiString m_name;																												///< 0x64
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/ThingFactory.h"
 
@@ -278,7 +263,7 @@ void WeaponSet::xfer(Xfer *xfer)
 			if (tt == 0)
 				throw XferException(5, 0);
 
-			ttName = tt->bfme_get_name();
+			ttName = (tt->m_nameString);
 			wsFlags = m_curWeaponTemplateSet->friend_getWeaponSetFlags();
 		}
 		*xfer == ttName;

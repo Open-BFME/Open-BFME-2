@@ -42,18 +42,7 @@ class ContainModuleInterface : public Slots<31>
   public:
 	virtual Rva002F3F7DHordeView *getHordeContain() = 0;
 };
-class ThingTemplate
-{
-  public:
-	bool testFlag115() const
-	{
-		return (flag115 & 0x20) != 0;
-	}
-
-  private:
-	unsigned char pad[0x115];
-	unsigned char flag115;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class AICommandInterface
 {
   public:
@@ -183,7 +172,7 @@ int Rva002F3F7DInfo::cellCallback(PathfindCell *previous, PathfindCell *current,
 		if (other == m_obj || node->object->getID() == m_ignoreID || m_obj->getRelationship(other) != ALLIES)
 			continue;
 		Object *ignore = TheGameLogic->findObjectByID((ObjectID)m_ignoreID);
-		if (ignore && ignore->getTemplate()->testFlag115() && ignore->getContain())
+		if (ignore && ((ignore->getTemplate()->m_kindof[3] & (1U << 13)) != 0) && ignore->getContain())
 		{
 			Rva002F3F7DHordeView *horde = ignore->getContain()->getHordeContain();
 			if (horde && horde->contains(other))

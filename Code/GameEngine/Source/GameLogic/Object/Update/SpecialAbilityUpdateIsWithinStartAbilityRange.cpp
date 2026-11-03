@@ -36,14 +36,7 @@ public:
 	Bool CollidesWith(const Coord3D &pos, Real a, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x115];
-	unsigned char m_kindOf115;			// +0x115
-	unsigned char m_pad116[0x118 - 0x116];
-	unsigned char m_kindOf118;			// +0x118
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class AIUpdateInterface
 {
@@ -215,9 +208,9 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 			}
 			if (!contact)
 			{
-				if (target->getTemplate()->m_kindOf118 & 0x10)
+				if (target->getTemplate()->m_kindof[4] & (1U << 4))
 					fDistSquared = target->rva0044E6B8(self);
-				else if ((self->getTemplate()->m_kindOf115 & 0x20) && data->m_addRadiusC5)
+				else if ((self->getTemplate()->m_kindof[3] & (1U << 13)) && data->m_addRadiusC5)
 				{
 					Real radius = self->m_radiusB8;
 					fDistSquared = ((Rva000CBA20 *)target)->distSq((const Rva000CBA20Point *)self->getPosition()) + radius;

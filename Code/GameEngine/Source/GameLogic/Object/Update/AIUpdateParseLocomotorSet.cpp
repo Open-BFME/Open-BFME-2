@@ -103,16 +103,7 @@ public:
 	LocomotorTemplate *findLocomotorTemplate(int namekey);
 };
 
-class ThingTemplate
-{
-public:
-	class AIUpdateModuleData *friend_getAIModuleInfo();
-	const AsciiString &getName() const { return m_name; }
-
-private:
-	char m_pad[0x64];
-	AsciiString m_name;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class AIUpdateModuleData
 {

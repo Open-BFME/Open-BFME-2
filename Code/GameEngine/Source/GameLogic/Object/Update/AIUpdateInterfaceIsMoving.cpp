@@ -14,13 +14,7 @@
 
 typedef bool Bool;
 
-struct ThingTemplate
-{
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindof108;
-	unsigned char m_pad109[0x115 - 0x109];
-	unsigned char m_kindof115;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class AIUpdateInterface;
 
@@ -170,11 +164,11 @@ private:
 Bool AIUpdateInterface::isMoving() const
 {
 	Object *obj = getObject();
-	if (obj->getTemplate()->m_kindof108 & 4)
+	if (obj->getTemplate()->m_kindof[0] & (1U << 2))
 		return false;
 
 	Object *container = obj->getContainedBy();
-	if (container && container->getAI() && !(container->getTemplate()->m_kindof115 & 0x20))
+	if (container && container->getAI() && !(container->getTemplate()->m_kindof[3] & (1U << 13)))
 		return container->getAI()->isMoving();
 
 	if (m_flag3B7)

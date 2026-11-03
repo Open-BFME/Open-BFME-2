@@ -135,12 +135,7 @@ struct RespawnUpdateModuleDataRef
 	AsciiString m_deadImageName;
 	AsciiString m_respawnAsTemplate;
 };
-class ThingTemplate
-{
-public:
-	unsigned char m_unknown[0x11F];
-	unsigned char m_kindOfByte;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
@@ -626,7 +621,7 @@ const Image *RespawnUpdate::getDeadImage()
 	Object *object = m_object;
 	const AsciiString &name = data->m_deadImageName;
 	if (!name.isEmpty()) {
-		if (object->getTemplate()->m_kindOfByte & 0x40) {
+		if (object->getTemplate()->m_kindof[5] & (1U << 30)) {
 			CreateAHeroHero *hero = (CreateAHeroHero *)(
 				TheCreateAHeroManager->rva002197A6(object->m_heroKey));
 			if (hero) {

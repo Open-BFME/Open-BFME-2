@@ -233,14 +233,7 @@ enum KindOfType
 	KINDOF_CAN_SHOOT_OVER_WALLS = 0xD6
 };
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	char m_pad00[0x108];
-	unsigned char m_kindof[32]; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 enum ObjectScriptStatusBit
 {
@@ -1274,7 +1267,7 @@ void StealthUpdate::changeVisualDisguise()
 			{
 				TheInGameUI->selectDrawable(draw);
 			}
-			if (self->getTemplate()->isKindOf(KINDOF_CREATE_A_HERO))
+			if (((self->getTemplate()->m_kindof[KINDOF_CREATE_A_HERO >> 5] & (1U << (KINDOF_CREATE_A_HERO & 31))) != 0))
 			{
 				DelayedLuaEventList eventList;
 				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(15, self, (BfmeDelayedLuaEventList *)&eventList);

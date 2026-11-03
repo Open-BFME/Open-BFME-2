@@ -36,13 +36,7 @@ enum ObjectStatusTypes {};
 enum Relationship { REL_ENEMY = 0, REL_NEUTRAL = 1, REL_ALLY = 2 };
 
 #include "../../../../Include/Common/Player.h"
-class ThingTemplate {
-public:
-    bool isEquivalentTo(const ThingTemplate *) const;
-    char pad[0x10b]; unsigned char flags10b;
-    char pad10c[0x113-0x10c]; unsigned char flags113;
-    char pad114[0x11a-0x114]; unsigned char flags11a;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Object {
 public:
@@ -286,7 +280,7 @@ UpdateSleepTime EmotionTrackerUpdate::update()
             Object *other=TheGameLogic->findObjectByID(*it);
             if(!other || !other->isEmotionTarget()) continue;
             Relationship rel=obj->getRelationship(other);
-            if((other->getTemplate()->flags11a & 1) &&
+            if((other->getTemplate()->m_kindof[4] & (1U << 16)) &&
                (rel!=REL_ALLY || data->filter18.accepts(other,0))) {
                 float dist=obj->rva00263763(other);
                 if(dist<allyDist &&
@@ -328,7 +322,7 @@ UpdateSleepTime EmotionTrackerUpdate::update()
                     }
                 }
             }
-            if(other!=obj && (other->getTemplate()->flags113 & 4)) {
+            if(other!=obj && (other->getTemplate()->m_kindof[2] & (1U << 26))) {
                 const ThingTemplate *tmpl=TheThingFactory->findTemplate(AsciiString("NeutralGollum"));
                 if(tmpl && tmpl->isEquivalentTo(other->getTemplate())) continue;
                 if(rel==REL_ALLY) {

@@ -22,15 +22,7 @@ class Player;
 class Object;
 class Pathfinder;
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x108];
-	unsigned m_kindOf;
-	unsigned m_10c;
-	char m_pad110[0x115 - 0x110];
-	unsigned char m_115;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -140,12 +132,12 @@ body:
 			return true;
 	}
 
-	unsigned flags108 = other->m_template->m_kindOf;
+	unsigned flags108 = other->m_template->m_kindof[0];
 	if ((flags108 & 0x80) != 0)
 		return false;
-	if (other->m_template->m_115 & 0x20)
+	if (other->m_template->m_kindof[3] & (1U << 13))
 		return false;
-	unsigned kindOfHigh = other->m_template->m_10c;
+	unsigned kindOfHigh = other->m_template->m_kindof[1];
 	if ((kindOfHigh & 0x400000) != 0)
 		return false;
 	if ((flags108 & 4) != 0)

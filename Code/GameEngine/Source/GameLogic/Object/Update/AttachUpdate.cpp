@@ -108,14 +108,7 @@ extern PartitionManager *ThePartitionManager;
 
 extern PlayerList *ThePlayerList;
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x115];
-	unsigned char m_115;	// +0x115 (bit 5: KindOf 0x6D)
-	char m_pad116[0x11D - 0x116];
-	unsigned char m_11D;	// +0x11D (bit 6: KindOf 0xAE)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class FXList
 {
@@ -248,10 +241,10 @@ void AttachUpdate::rva00491AD0()
 			&Rva002614ECFilter(data->m_objectFilter, obj->getControllingPlayer(), true))));
 	if (!parent)
 		return;
-	if (parent->rva002931BA() && parent->getRider() && (parent->getRider()->getTemplate()->m_115 & 0x20))
+	if (parent->rva002931BA() && parent->getRider() && (parent->getRider()->getTemplate()->m_kindof[3] & (1U << 13)))
 		parent = parent->getRider();
 	Player *player = parent->getControllingPlayer();
-	if ((parent->getTemplate()->m_11D & 0x40) && !player->rva002AA245())
+	if ((parent->getTemplate()->m_kindof[5] & (1U << 14)) && !player->rva002AA245())
 		return;
 	m_parentID = parent->getID();
 	if (data->m_parentStatus._M_is_any())

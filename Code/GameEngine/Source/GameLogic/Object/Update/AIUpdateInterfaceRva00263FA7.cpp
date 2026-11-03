@@ -62,12 +62,7 @@ public:
 	void ChooseBestLocomotorForPosition(PathfindLayerEnum layer, Rva001E48E8 *set, const Coord3D *pos);
 };
 
-class ThingTemplate
-{
-public:
-	char _00[0x11F]; // +0x00..0x11F
-	unsigned char m_11F; // +0x11F
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class RadarObject
 {
@@ -158,7 +153,7 @@ void AIUpdateInterface::chooseGoodLocomotorFromCurrentSet()
 			newLoco = prevLoco;
 		else
 		{
-			if (obj->m_template->m_11F & 0x80)
+			if (obj->m_template->m_kindof[5] & (1U << 31))
 				newLoco = (Locomotor *)m_locomotorSet.rva001E48E8(0x80);
 			else
 			{

@@ -362,14 +362,7 @@ public:
 	void onExit(bool cleanup, bool aborted);
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x108];
-	unsigned m_kindOf;		// +0x108 (bit 7 tested)
-	char m_pad10C[0x118 - 0x10C];
-	unsigned m_118;		// +0x118 (bit 22 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class AIUpdate;
 
@@ -698,14 +691,14 @@ void GiveUpgradeUpdate::GetDeliveryTarget()
 			->link(&Rva002611BFFilter(obj)), 1);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		if (other->m_template->m_118 & 0x00400000)
+		if (other->m_template->m_kindof[4] & 0x00400000)
 			continue;
 		if (other->testStatus(OBJECT_STATUS_RVA0049C73A_66))
 			continue;
 		Object *rider = other->rva002931F5(false);
 		if (!rider && other->m_78) {
 			Object *object = TheGameLogic->findObjectByID(other->m_78);
-			if (object && !(object->m_template->m_kindOf & 0x80))
+			if (object && !(object->m_template->m_kindof[0] & 0x80))
 				rider = object;
 		}
 		if (rider) {
