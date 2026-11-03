@@ -100,3 +100,15 @@ emitter), then rebuild, compare the old and new objects' undefined sets, run the
   - AIUpdate.cpp (5): the file is claimed by another worker.
   - RadarUpdateConstructor.cpp: its getter row 0x004A0C27 is in Common/ModuleNameGetters3.cpp (Codex's
     slice).
+- **Update, same seat, later on 2026-11-03.** The three remaining GameSpyBuddyMessageQueue slots are
+  repaired with the new `rename.py function --to-class` (f85f1a2f75; docs/naming.md):
+  - endThread (0x00550B4C, BuddyThread.cpp);
+  - isConnected (0x00550618) and getLocalProfileID (0x00550626), both in Common/VslotSmallBodiesAM.cpp.
+
+  All five Buddy names now resolve in a joint `link_check`. BattlePlanUpdateConstructor.cpp and
+  RadarUpdateConstructor.cpp were not attempted:
+  - `class:BattlePlanUpdate`, 0x004A0C27 and ModuleNameGetters3.cpp are claimed by StarkillerHDX@fleet.
+  - Each also needs installer-view work first. The dry run shows the compiled tables disagree with
+    retail outside slot 2 (the ctor unit's `??_7BattlePlanUpdate@@6BObjectModule@@@`: 6 slots agree,
+    4 differ; `??_7RadarUpdate@@6BObjectModule@@@`: 7 agree, 3 differ). The to-class slot check
+    requires those slots to agree before it accepts the move.
