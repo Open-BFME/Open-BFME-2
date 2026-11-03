@@ -1,0 +1,37 @@
+{
+  "name": "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ",
+  "meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "touches": [
+    {
+      "object": "^code_^game^engine_^source_^game^logic_^object_^object.obj",
+      "self": false,
+      "defines": true,
+      "undefined": false,
+      "weak": [],
+      "alternates": {},
+      "include": false
+    },
+    {
+      "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^init.obj",
+      "self": false,
+      "defines": true,
+      "undefined": false,
+      "weak": [],
+      "alternates": {},
+      "include": false
+    },
+    {
+      "object": "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update.obj",
+      "self": true,
+      "defines": true,
+      "undefined": false,
+      "weak": [],
+      "alternates": {},
+      "include": false
+    }
+  ]
+}

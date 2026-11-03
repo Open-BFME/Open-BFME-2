@@ -134,9 +134,9 @@ struct RespawnUpdateModuleDataRef
 #include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
+#include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class ControlBar {public:char pad[0x28];bool dirty;};
+#include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 class INI {
 public:
@@ -453,7 +453,7 @@ UpdateSleepTime RespawnUpdate::update() {
   m_2C=4;
   obj->body->setInitialHealth(m_20*100.0f,false);
   m_34=-1;m_38=-1;
-  if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->dirty=true;
+  if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->markUIDirty();
   (void)obj->getControllingPlayer();
   return (UpdateSleepTime)respawnUpdateModuleData->reviveTime;
  }

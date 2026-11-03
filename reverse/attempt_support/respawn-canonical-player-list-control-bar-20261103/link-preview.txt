@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp: LINKS  LINKED 2,508 -> 2,750 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 2,750)
+Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp: LINKS  LINKED 403 -> 403 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 403)
+Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp: LINKS  LINKED 350 -> 350 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 350)
+link_check: 3 of 3 link cleanly; LINKED 3,261 -> 3,503 bytes (5.1s)

@@ -1,0 +1,444 @@
+{
+  "index_meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "helpers": {
+    "?getLocalPlayer@PlayerList@@QAEPAVPlayer@@XZ": {
+      "candidate": {
+        "bytes": "8b4110c3",
+        "relocations": []
+      },
+      "binding": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "index_copies": [
+        {
+          "position": 890,
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 921,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update.obj",
+          "digest": "96acfa69671b",
+          "verdict": null
+        },
+        {
+          "position": 2250,
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player.obj",
+          "digest": "96acfa69671b",
+          "verdict": null
+        },
+        {
+          "position": 2639,
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 2640,
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer^update.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 2764,
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^water_^water^tracks^obj^render.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 4169,
+          "object": "^code_^game^engine_^source_^game^client_^eva^event^f^x^nugget^do^f^x^obj.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 4200,
+          "object": "^code_^game^engine_^source_^game^client_^f^x^list.obj",
+          "digest": "96acfa69671b",
+          "verdict": null
+        },
+        {
+          "position": 4213,
+          "object": "^code_^game^engine_^source_^game^client_^f^x^list^do^f^x^pos.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 4248,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^move^towards^position^horde.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 4395,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^generic^object^creation^nugget^do^stuff^to^obj.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 4408,
+          "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^f^x^p^s^storage^module^rva003^b0869.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 6396,
+          "object": "^code_^game^engine_^source_^game^client_^drawable^shroud.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 6416,
+          "object": "^code_^game^engine_^source_^game^client_^drawable_rva00273755.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 6431,
+          "object": "^code_^game^engine_^source_^game^client_^drawable^health^bar^gate.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 6910,
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^create^mouseover^hint.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 6947,
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i.obj",
+          "digest": "96acfa69671b",
+          "verdict": null
+        },
+        {
+          "position": 7192,
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^update.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 8284,
+          "object": "^code_^game^engine_^source_^game^client_^rva0030^f14^c^select.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 8285,
+          "object": "^code_^game^engine_^source_^game^client_^selection^info^context^command.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 8624,
+          "object": "^code_^game^engine_^source_^game^client_^radius^decal.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 9360,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 9456,
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^menus_^w^o^l^buddy^overlay.obj",
+          "digest": "96acfa69671b",
+          "verdict": null
+        },
+        {
+          "position": 9626,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^castle^behavior^packing^eva.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 10966,
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^old^school^help^box^content^source.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 11699,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^invisibility^manager^rva004389^d^b.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 11943,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^foundation^a^i^update.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 12165,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 12188,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 12602,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^attach^update.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 12927,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update^trigger^revival.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 13034,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^upgrade_^replace^self^upgrade^dtor.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 14581,
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command^processing.obj",
+          "digest": "0ebf5f24c0ac",
+          "verdict": null
+        },
+        {
+          "position": 17875,
+          "object": "^code_^libraries_^source_^apt_^apt^value_^apt^value^name^entry.obj",
+          "digest": "96acfa69671b",
+          "verdict": null
+        }
+      ],
+      "index_strong": [],
+      "selection": {},
+      "witnesses": [
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "sha256": "8f3c77efa2be61616d22588fa6fd29fc80e350788d8134ad1ef7f12dfa6c59fc",
+          "source": "Code/GameEngine/Source/GameClient/GameClientDrawableTOC.cpp",
+          "source_current": false,
+          "object_current": true,
+          "header_mismatches": [
+            "code\\gameengine\\Include\\GameClient\\InGameUI.h"
+          ],
+          "payload": {
+            "bytes": "8b4110c3",
+            "relocations": []
+          },
+          "payload_equal": true,
+          "properties": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          },
+          "properties_equal": true
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^tree^buffer.obj",
+          "sha256": "1c4f9c1acce9cde0decd29ce121958987e1043f625f76c4f34aa22cf30324c0d",
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp",
+          "source_current": true,
+          "object_current": true,
+          "header_mismatches": [],
+          "payload": {
+            "bytes": "8b4110c3",
+            "relocations": []
+          },
+          "payload_equal": true,
+          "properties": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          },
+          "properties_equal": true
+        }
+      ],
+      "first_saved_copy": {
+        "position": 890,
+        "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+        "digest": "0ebf5f24c0ac",
+        "verdict": null
+      },
+      "addition_precedes_first_saved_copy": false
+    },
+    "?markUIDirty@ControlBar@@QAEXXZ": {
+      "candidate": {
+        "bytes": "c6412801c3",
+        "relocations": []
+      },
+      "binding": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "index_copies": [
+        {
+          "position": 9360,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj",
+          "digest": "5cf00d2201b3",
+          "verdict": null
+        },
+        {
+          "position": 11928,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^getting^built^behavior^rva00453652.obj",
+          "digest": "5cf00d2201b3",
+          "verdict": null
+        },
+        {
+          "position": 12370,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^rider^change^contain^on^containing.obj",
+          "digest": "5cf00d2201b3",
+          "verdict": null
+        },
+        {
+          "position": 12600,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^monitor^condition^update^update.obj",
+          "digest": "5cf00d2201b3",
+          "verdict": null
+        },
+        {
+          "position": 12722,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^horde^a^i^update^private^commands.obj",
+          "digest": "5cf00d2201b3",
+          "verdict": null
+        },
+        {
+          "position": 13158,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^body_^active^body.obj",
+          "digest": "5cf00d2201b3",
+          "verdict": null
+        }
+      ],
+      "index_strong": [],
+      "selection": {},
+      "witnesses": [
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj",
+          "sha256": "57d42051d54efce88b132cdcbe9a72aa753f8bf4e1579d89f500d1bdb9f890ea",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+          "source_current": false,
+          "object_current": true,
+          "header_mismatches": [
+            "code\\gameengine\\Include\\GameLogic\\Module\\AIUpdate.h"
+          ],
+          "payload": {
+            "bytes": "c6412801c3",
+            "relocations": []
+          },
+          "payload_equal": true,
+          "properties": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          },
+          "properties_equal": true
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^behavior_^getting^built^behavior^rva00453652.obj",
+          "sha256": "de5ec4f4910998c3f92f01d6a75d27ae03e36250cb693ee47659fa02a89a3d7d",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453652.cpp",
+          "source_current": true,
+          "object_current": true,
+          "header_mismatches": [
+            "code\\gameengine\\Include\\Common\\ThingTemplate.h"
+          ],
+          "payload": {
+            "bytes": "c6412801c3",
+            "relocations": []
+          },
+          "payload_equal": true,
+          "properties": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          },
+          "properties_equal": true
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^contain_^rider^change^contain^on^containing.obj",
+          "sha256": "11efbc8505b52bbe90f3eca2144e6820ebf2e8bc61fcf00fe0c18801f9278995",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainOnContaining.cpp",
+          "source_current": true,
+          "object_current": true,
+          "header_mismatches": [
+            "code\\gameengine\\Include\\Common\\ThingTemplate.h",
+            "code\\gameengine\\Include\\GameClient\\InGameUI.h",
+            "code\\gameengine\\Include\\GameLogic\\Module\\AIUpdate.h"
+          ],
+          "payload": {
+            "bytes": "c6412801c3",
+            "relocations": []
+          },
+          "payload_equal": true,
+          "properties": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          },
+          "properties_equal": true
+        },
+        {
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^monitor^condition^update^update.obj",
+          "sha256": "67076db2306258264c978071cf97b0754ef78d20a9925bf45271ed2c5ce29dcf",
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateUpdate.cpp",
+          "source_current": true,
+          "object_current": true,
+          "header_mismatches": [],
+          "payload": {
+            "bytes": "c6412801c3",
+            "relocations": []
+          },
+          "payload_equal": true,
+          "properties": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          },
+          "properties_equal": true
+        }
+      ],
+      "first_saved_copy": {
+        "position": 9360,
+        "object": "^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update^logic.obj",
+        "digest": "5cf00d2201b3",
+        "verdict": null
+      },
+      "addition_precedes_first_saved_copy": false
+    }
+  },
+  "candidate_diff": {
+    "removed": [
+      "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ"
+    ],
+    "added": [
+      "?getLocalPlayer@PlayerList@@QAEPAVPlayer@@XZ",
+      "?markUIDirty@ControlBar@@QAEXXZ"
+    ],
+    "changed": []
+  },
+  "common_properties_changed": [],
+  "route_delta": {
+    "defined": {
+      "added": [
+        "?getLocalPlayer@PlayerList@@QAEPAVPlayer@@XZ",
+        "?markUIDirty@ControlBar@@QAEXXZ"
+      ],
+      "removed": [
+        "?getLocalPlayer@PlayerList@@QBEPAVPlayer@@XZ"
+      ]
+    }
+  },
+  "seed_index_position": 12921
+}
