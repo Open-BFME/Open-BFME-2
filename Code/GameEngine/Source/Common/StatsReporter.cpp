@@ -42,19 +42,7 @@ typedef _STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > 
 
 typedef char StatsCoreSizeCheck[sizeof(Rva00553E47StatsCore) == 0x154 ? 1 : -1];
 
-class Rva003844D7 : public Rva00553E47StatsCore {
-public:
-    Rva003844D7(int);
-    Rva003844D7(const Rva003844D7 &);
-    virtual void reset();
-    virtual void rva00555109(XferStub *);
-    virtual void rva00555845(const Rva003844D7 *);
-    ~Rva003844D7();
-    Rva003844D7 &operator=(const Rva003844D7 &);
-    StatsIntMap m_map154;
-    StatsShortMap m_map160, m_map16c;
-    StatsFloatMap m_map178, m_map184;
-};
+#include "../../Include/GameNetwork/Rva003844D7.h"
 
 typedef char OpenPlaySizeCheck[sizeof(Rva003844D7)==0x190?1:-1];
 
