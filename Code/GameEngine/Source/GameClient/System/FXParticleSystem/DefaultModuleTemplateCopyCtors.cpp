@@ -7,11 +7,7 @@
 // and installs its own vftables. All vftable dwords are DIR32 sites the
 // gate takes from the target; both calls resolve through the ledger.
 
-class Rva003AEEB3
-{
-public:
-	Rva003AEEB3(const Rva003AEEB3 &other);
-};
+#include "../../../../Include/GameClient/Rva003AEEB3.h"
 
 namespace FXParticleSystem
 {

@@ -7,11 +7,7 @@
 // and that calls 0x003A972D: one unadjusted JMP to ~Rva003AEEB3 0x003A5817
 // (the TailJumpWrappers5B.cpp shape: novtable over the base it jumps to).
 // The three empty destructors are one folded body; owner identity unknown.
-class Rva003AEEB3
-{
-public:
-	virtual ~Rva003AEEB3();
-};
+#include "../../Include/GameClient/Rva003AEEB3.h"
 
 class __declspec(novtable) Rva0055BF21 : public Rva003AEEB3
 {

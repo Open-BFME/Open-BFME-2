@@ -4,11 +4,7 @@
 // to rowed base ??1Rva003AEEB3 0x003A5817. Evidence: neg sbb and idiom matches
 // sibling Rva003A5817Dtor plus V3InlineTemplateDtor; caller ??_G deleting dtor.
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class Rva003AEEB3
-{
-public:
-	virtual ~Rva003AEEB3();
-};
+#include "../../../../Include/GameClient/Rva003AEEB3.h"
 // FXParticleSystem::Rva005FEA50Base: its constructor 0x003A5856 installs
 // the tables 0x0081B5A8 (+0) and 0x0081B598 (+0x1C) whose deleting dtor
 // 0x003AEFF6 and adjustor 0x003A588E reach this body.

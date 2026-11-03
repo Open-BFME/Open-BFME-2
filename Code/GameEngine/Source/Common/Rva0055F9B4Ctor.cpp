@@ -17,13 +17,7 @@ public:
 
 #include "../../Include/GameClient/DefaultModuleHeadBase.h"
 
-class Rva003AEEB3 : public DefaultModuleHeadBase, public DefaultModuleSecondBase,
-	public DefaultModuleThirdBase
-{
-public:
-	Rva003AEEB3(const RvaSmartPtr12 &smart, int i);
-	virtual ~Rva003AEEB3();
-};
+#include "../../Include/GameClient/Rva003AEEB3.h"
 
 class Rva0055F98A : public Rva003AEEB3
 {

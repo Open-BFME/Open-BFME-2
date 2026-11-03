@@ -5,11 +5,7 @@
 // member copy (128B rep movsd, inlined from rowed 0x003A616F) with dual vtable
 // sets. Outer 0x003AEA15 (45B): concrete wrapper re-vtables the inner.
 
-class Rva003AEEB3
-{
-public:
-	Rva003AEEB3(const Rva003AEEB3 &other);
-};
+#include "../../../../Include/GameClient/Rva003AEEB3.h"
 
 namespace FXParticleSystem
 {

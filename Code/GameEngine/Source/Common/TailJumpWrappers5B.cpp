@@ -401,11 +401,7 @@ Rva002DB8BA::~Rva002DB8BA()
 {
 }
 
-class Rva003AEEB3
-{
-public:
-	virtual ~Rva003AEEB3();
-};
+#include "../../Include/GameClient/Rva003AEEB3.h"
 
 // Rva0055F98A (ctor 0x0055F98A, DefaultModuleDerivedSmartCtors.cpp): its
 // vftable 0x00C1D6C8 slot 0 is this dtor's scalar deleting dtor 0x003AEF18

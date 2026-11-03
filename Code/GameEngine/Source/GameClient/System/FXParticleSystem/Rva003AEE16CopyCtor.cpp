@@ -43,12 +43,7 @@ public:
 	RvaSmartPtr12_3AEE16 m_smart;
 	int m_int10;
 };
-class Rva003AEEB3 : public DefaultModuleHeadBase_3AEE16, public DefaultModuleSecondBase_3AEE16, public DefaultModuleThirdBase_3AEE16
-{
-public:
-	Rva003AEEB3(const Rva003AEEB3 &other);
-	virtual ~Rva003AEEB3();
-};
+#include "../../../../Include/GameClient/Rva003AEEB3.h"
 class WordHolder3AEE16
 {
 public:

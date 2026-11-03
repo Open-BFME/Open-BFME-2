@@ -223,11 +223,7 @@ class __declspec(novtable) Rva002DB8BA : public Rva00131BE5
 public:
 	virtual ~Rva002DB8BA();
 };
-class Rva003AEEB3
-{
-public:
-	virtual ~Rva003AEEB3();
-};
+#include "../../Include/GameClient/Rva003AEEB3.h"
 // Rva0055F98A (ctor 0x0055F98A, DefaultModuleDerivedSmartCtors.cpp): its
 // vftable 0x00C1D6C8 slot 0 is this dtor's scalar deleting dtor 0x003AEF18
 // and its base ctor is Rva003AEEB3's 0x0055BEE9, so the 5B dtor is its own.
