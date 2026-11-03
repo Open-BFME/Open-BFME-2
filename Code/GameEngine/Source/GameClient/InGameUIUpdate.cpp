@@ -137,11 +137,7 @@ public:
 	Player *m_local;		// +0x10
 };
 
-class Object
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

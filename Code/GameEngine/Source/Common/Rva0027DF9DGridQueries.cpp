@@ -676,11 +676,7 @@ public:
 	unsigned int words[4]; // +0x00
 };
 
-class Object
-{
-public:
-	void teleportTo(const Coord3D *, bool);	// 0x0029660C
-};
+#include "../GameLogic/Object/object.h"
 
 class Player
 {

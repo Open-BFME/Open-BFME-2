@@ -5,10 +5,7 @@
 // The WB debug function label describes its inlined bit test and does not
 // establish the enclosing helper name. A compiler barrier preserves retail
 // read/shift/byte-test shape; it emits no instruction or extra memory access.
-class Object
-{
-	public: float getVisionRange() const;
-};
+#include "../GameLogic/Object/object.h"
 class AttackPriorityInfo; class PartitionFilter;
 #include "../../Include/GameLogic/AI.h"
 extern AI *TheAI;

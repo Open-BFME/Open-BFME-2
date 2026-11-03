@@ -188,12 +188,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
 };
 
-class Object
-{
-public:
-	Bool testStatus(ObjectStatusTypes bit) const;
-	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *specialPowerTemplate) const;
-};
+#include "../GameLogic/Object/object.h"
 
 extern GameLogic *TheGameLogic;
 

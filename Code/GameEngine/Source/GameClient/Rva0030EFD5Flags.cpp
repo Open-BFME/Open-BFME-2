@@ -25,11 +25,7 @@ public:
 	bool rva002917E8();	// 0x002917E8
 };
 
-class Object
-{
-public:
-	bool rva00291837() const;	// 0x00291837
-};
+#include "../GameLogic/Object/object.h"
 
 struct DataWithObject
 {

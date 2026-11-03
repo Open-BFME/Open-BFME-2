@@ -444,16 +444,7 @@ public:
     virtual void slot68();
     virtual int getContainCount(int);
 };
-class Object {
-public:
-    void *rva0028BC58(int);
-    bool isLocallyControlled() const;
-    Player *getControllingPlayer() const;
-    const AsciiString *rva00290E67() const;
-    ThingTemplate *rva002911B7();
-    bool testStatus(ObjectStatusTypes) const;
-    ExitInterface *getObjectExitInterface() const;
-};
+#include "../../../GameLogic/Object/object.h"
 struct CommandObjectView {
     char unknown00[4]; const char *objectTemplate;
     char unknown08[0x250-8]; CommandContainView *contain;

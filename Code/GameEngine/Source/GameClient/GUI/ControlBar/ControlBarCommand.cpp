@@ -232,12 +232,7 @@ public:
     virtual const CommandProductionEntry *firstProduction();
 };
 
-class Object {
-public:
-    int getTransportSlotCount();
-    void *rva0028BC58(int);
-    bool isLocallyControlled() const;
-};
+#include "../../../GameLogic/Object/object.h"
 
 struct CommandObjectView {
     char unknown00[4]; const char *objectTemplate;

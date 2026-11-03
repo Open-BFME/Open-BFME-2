@@ -40,11 +40,7 @@ public:
 	void rva00239380();
 };
 
-class Object
-{
-public:
-	bool isLocallyControlled() const;
-};
+#include "../GameLogic/Object/object.h"
 
 class Drawable
 {

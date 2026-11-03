@@ -64,15 +64,7 @@ private:
 	Real m_currentExperience;	// +0x10
 };
 
-class Object
-{
-public:
-	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
-
-private:
-	unsigned char m_pad00[0x264];
-	ExperienceTracker *m_experienceTracker;	// +0x264
-};
+#include "../../../../GameLogic/Object/object.h"
 
 bool ComputeObjectRankValues(const Object &obj, Int &rank, Real &progress)
 {

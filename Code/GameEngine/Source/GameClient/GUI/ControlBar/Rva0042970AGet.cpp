@@ -3,11 +3,7 @@
 // Evidence: TheInGameUI vtable+0x12c then +0xfc Object then rva00290E67 AsciiString then g_bfmeWorldRV Rva0031D5F8 lookup to CommandSet then getCommandButton loop 0x20 with +0x14==0x18 and Overridable +0x44 +0x1c vs arg.
 #include "ascii_string.h"
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
-};
+#include "../../../GameLogic/Object/object.h"
 
 class BfmeWorldRV;
 extern class ControlBar *TheControlBar;

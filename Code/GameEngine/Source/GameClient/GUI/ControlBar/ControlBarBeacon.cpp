@@ -88,12 +88,7 @@ public:
 	UnicodeString rva0027653A();	// the drawable's caption text
 };
 class Drawable;
-class Object
-{
-public:
-	bool isLocallyControlled() const;
-	Drawable *getDrawable() const;
-};
+#include "../../../GameLogic/Object/object.h"
 
 #include "../../../../Include/GameClient/ControlBar.h"
 

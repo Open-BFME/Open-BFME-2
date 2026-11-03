@@ -42,14 +42,7 @@ class Object;
 
 class AsciiString;
 enum ObjectStatusTypes { MULTISELECT_SOLD = 0x13 };
-class Object {
-public:
-    const AsciiString *rva00290E67() const;
-    const Image *getObjectSelectedPortraitImage();
-    Object *rva002931F5(bool);
-    void *rva0028C197() const;
-    bool testStatus(ObjectStatusTypes) const;
-};
+#include "../../../GameLogic/Object/object.h"
 #include "../../../../Include/GameClient/CommandSet.h"
 class Rva0031D5F8 {
 public:

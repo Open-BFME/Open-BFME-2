@@ -51,11 +51,7 @@ class Object;
 
 extern InGameUI *TheInGameUI;
 
-class Object
-{
-public:
-	void friend_bindToDrawable(Drawable *draw);
-};
+#include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameClient/Drawable.h"
 

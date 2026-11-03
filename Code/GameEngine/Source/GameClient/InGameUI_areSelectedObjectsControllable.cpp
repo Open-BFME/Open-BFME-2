@@ -20,11 +20,7 @@ struct Sel
 	ListNode *m_head;
 };
 
-class Object
-{
-public:
-	bool isLocallyControlled() const;
-};
+#include "../GameLogic/Object/object.h"
 
 struct DataWithObject
 {
