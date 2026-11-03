@@ -23444,3 +23444,5 @@ Code/GameEngine/Source/Common/BfmeConv1287.cpp|local|BfmeHostSB::bfmeGoSB|a,17c9
 Code/GameEngine/Source/Common/BfmeConv1287.cpp|local|BfmeHostSB::bfmeGoSB|b,8eb8dc4a861a7ad16e04b4df,drz-t01,drz-t01-sv2-4,w-1b383cf1efa6,2026-11-03
 Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp|function|0x004FBEAB|rva004FBEAB,62e82de4e30c841420862e8c,drz-t02,drz-t02-sv2-4,w-70b7a1fa20d8,2026-11-03
 Code/GameEngine/Source/Common/Rva005C6CCC.cpp|local|Rva005C6D4D::rva005C674A|t,eed887465e98158bdb59c031,drz-t02,drz-t02-sv2-6,w-70b7a1fa20d8,2026-11-03
+Code/GameEngine/Source/Common/Rva0046AC52.cpp|function|0x0046AC52|rva0046AC52,7c7e7ea729f5bfae2fae5bbf,drz-t04,drz-t04-sv2-5,w-e0b7150320c2,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp|member|DamageEntry|m_frame04,1129158f1f2df259b04f236f,drz-t04,drz-t04-sv2-8,w-e0b7150320c2,2026-11-03
