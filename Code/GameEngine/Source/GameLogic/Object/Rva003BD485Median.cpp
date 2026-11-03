@@ -54,14 +54,14 @@ void Rva003BD4E8SiftUp(Rva003BD485Keyed **base, int idx, int top, Rva003BD485Key
 	base[idx] = pivot;
 }
 
-// ?Rva003BE553AdjustHeap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z @0x003BE553 90B.
+// ?__adjust_heap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z @0x003BE553 90B.
 // Heap adjust over the same keyed array: sifts the hole down picking the
 // larger child, drops the last slot in when the child runs even with len,
 // then tail-calls the 5-push sift-up at 0x003BD4E8. Chain lane on 0x003BD4E8;
 // callers 0x003C3AC7/0x003C3AF0 push 5 args (cdecl, ret with caller cleanup).
 typedef void (__cdecl *Rva003BD4E8SiftUp5)(Rva003BD485Keyed **, int, int, Rva003BD485Keyed *, int);
 
-void Rva003BE553AdjustHeap(Rva003BD485Keyed **base, int hole, int len, Rva003BD485Keyed *value, int extra)
+void __adjust_heap(Rva003BD485Keyed **base, int hole, int len, Rva003BD485Keyed *value, int extra)
 {
 	int top = hole;
 	int child = hole * 2 + 2;
@@ -81,12 +81,12 @@ void Rva003BE553AdjustHeap(Rva003BD485Keyed **base, int hole, int len, Rva003BD4
 	((Rva003BD4E8SiftUp5)Rva003BD4E8SiftUp)(base, hole, top, value, extra);
 }
 
-// ?Rva003C3AF0MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z @0x003C3AF0 60B.
+// ?__make_heap@@YAXPAPAURva003BD485Keyed@@0H@Z @0x003C3AF0 60B.
 // Heap make over the same keyed array: count = last - first; for holes from
 // (count - 2) / 2 down to 0 run AdjustHeap with the slot value. Chain lane
 // on 0x003BE553; caller 0x003C4B77; cdecl with caller cleanup like siblings.
 
-void Rva003C3AF0MakeHeap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int extra)
+void __make_heap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int extra)
 {
 	int count = last - first;
 	if (count < 2)
@@ -94,22 +94,22 @@ void Rva003C3AF0MakeHeap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int 
 	int hole = (count - 2) / 2;
 	while (true)
 	{
-		Rva003BE553AdjustHeap(first, hole, count, first[hole], extra);
+		__adjust_heap(first, hole, count, first[hole], extra);
 		if (hole == 0)
 			break;
 		--hole;
 	}
 }
 
-// ?Rva003C3AC7PopHeap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z @0x003C3AC7 41B.
+// ?__pop_heap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z @0x003C3AC7 41B.
 // Heap pop over the same keyed array: moves the top slot to the result, then
 // adjusts from hole 0 over last - first with the given value. Chain lane on
 // 0x003BE553; callers 0x003C3B41/0x003C69EC; cdecl with caller cleanup.
 
-void Rva003C3AC7PopHeap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, Rva003BD485Keyed **result, Rva003BD485Keyed *value, int extra)
+void __pop_heap(Rva003BD485Keyed **first, Rva003BD485Keyed **last, Rva003BD485Keyed **result, Rva003BD485Keyed *value, int extra)
 {
 	*result = *first;
-	Rva003BE553AdjustHeap(first, 0, last - first, value, extra);
+	__adjust_heap(first, 0, last - first, value, extra);
 }
 
 // ?popHeapAux@@YAXPAPAURva003BD485Keyed@@0HH@Z @0x003C3B2C 30B.
@@ -120,7 +120,7 @@ void popHeapAux(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int, int extr
 {
 	typedef void (__cdecl *PopHeap6)(Rva003BD485Keyed **, Rva003BD485Keyed **, Rva003BD485Keyed **, Rva003BD485Keyed *, int, int);
 	Rva003BD485Keyed **newLast = last - 1;
-	((PopHeap6)Rva003C3AC7PopHeap)(first, newLast, newLast, *newLast, extra, 0);
+	((PopHeap6)__pop_heap)(first, newLast, newLast, *newLast, extra, 0);
 }
 
 // ?makeHeapAux@@YAXPAPAURva003BD485Keyed@@0H@Z @0x003C4B67 25B.
@@ -131,7 +131,7 @@ void popHeapAux(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int, int extr
 void makeHeapAux(Rva003BD485Keyed **first, Rva003BD485Keyed **last, int extra)
 {
 	typedef void (__cdecl *MakeHeap5)(Rva003BD485Keyed **, Rva003BD485Keyed **, int, int, int);
-	((MakeHeap5)Rva003C3AF0MakeHeap)(first, last, extra, 0, 0);
+	((MakeHeap5)__make_heap)(first, last, extra, 0, 0);
 }
 
 // ?Rva003C4B80PopHeap@@YAXPAPAURva003BD485Keyed@@0H@Z @0x003C4B80 23B.
@@ -180,7 +180,7 @@ void Rva003C69B7PartialSort(Rva003BD485Keyed **first, Rva003BD485Keyed **middle,
 	for (Rva003BD485Keyed **p = middle; p < last; ++p)
 	{
 		if ((*p)->m_key < (*first)->m_key)
-			((PopHeap6)Rva003C3AC7PopHeap)(first, middle, p, *p, extra, 0);
+			((PopHeap6)__pop_heap)(first, middle, p, *p, extra, 0);
 	}
 	Rva003C6464SortHeap(first, middle, extra);
 }

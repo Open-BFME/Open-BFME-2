@@ -24,7 +24,7 @@ class Object {public: char pad[0x38];Coord3D position;char beforeRadius[0xbc-0x4
  __forceinline float Get2DCenterDistanceSquared(const Coord3D *pos) const {float dx=position.x-pos->x,dy=position.y-pos->y;return dx*dx+dy*dy;}
 };
 struct HitRange {void *begin,*end;char opaque[4];void *cursor;};
-static __forceinline float crashSpacing(const float &a,const float &b) { float t=b; return a>t?a:b; }
+static __forceinline float crashSpacing(const float &minimum,const float &b) { float t=b; return minimum>t?minimum:b; }
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 bool AIUpdateInterface::findMeACrashSite(float maxRange,const Coord3D *startPos,Coord3D *output,BfmeFixedStorage0004543D mask) {
  Object *self=m_object;if(!self)return false;

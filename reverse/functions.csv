@@ -24250,11 +24250,11 @@ _ciSetQuietModeEnumJoinedChannelsA,,0x006A1610,19,Code/GameEngine/Source/GameNet
 ?rva00468F0F@HordeContain@@QAE_NPAVObject@@0@Z,,0x00468F0F,89,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,HordeContain in-range test of a member vs the target; visible noinline home-unit copy for caller 0x004738B6; renamed from stdcall stub Rva00468F0FInRange (Rva00468F0FCheck.cpp retired) prev 0x468E26 next 0x469075
 ?set@Rva001F38C1Slot@@QAEXABURva001F38C1Arg@@@Z,,0x001F38C1,109,Code/GameEngine/Source/Common/Rva001F38C1Set.cpp,matched,12-dword copy plus 0x1A0 clear same family as Rva001F3899Slot
 ??0BfmeSubobject00229875@@QAE@XZ,,0x002DC5DD,79,Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp,matched,default ctor via vector new plus clear 0x002DBA6A
-?Rva003BE553AdjustHeap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,,0x003BE553,90,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,matched,heap adjust sift-down plus 5-push SiftUp chain callers 0x003C3AC7 0x003C3AF0
+?__adjust_heap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,,0x003BE553,90,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,matched,heap adjust sift-down plus 5-push SiftUp chain callers 0x003C3AC7 0x003C3AF0
 ?findBlockInfoByToken@GameState@@AAEPAUSnapshotBlock@1@VAsciiString@@W4SnapshotType@@@Z,,0x002DCDBF,101,Code/GameEngine/Source/Common/System/SaveGame/GameStateAddSnapshotBlock.cpp,matched,ZH findBlockInfoByToken: empty-token early out then list walk of m_snapshotBlockList[which] via compare 0x69D6; caller 0x002DEEC3 passes the chunk token
 ?Rva0021BAFCPopHeap@@YAXPAPAX0P6A_NPAX1@Z@Z,,0x0021BAFC,23,Code/GameEngine/Source/Common/Rva002198ECAdjustHeap.cpp,matched,pop_heap wrapper via rowed 0x0021AD3F
 ??0Rva0060C5FA@@QAE@PAX00@Z,,0x0060C5FA,47,Code/GameEngine/Source/Common/System/Xfer.cpp,matched,Xfer-family ctor vtable 0x00C7AF18 caller 0x00409A0C destroys via Xfer dtor
-?Rva003C3AF0MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z,,0x003C3AF0,60,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,matched,heap make via AdjustHeap chain caller 0x003C4B77
+?__make_heap@@YAXPAPAURva003BD485Keyed@@0H@Z,,0x003C3AF0,60,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,matched,heap make via AdjustHeap chain caller 0x003C4B77
 ?rva002B5558@Rva002B5558@@QAEXXZ,,0x002B5558,41,Code/GameEngine/Source/Common/Rva002B5558.cpp,matched,chain via rowed 0x002B43BA free plus sentinel reset
 ?rva002B57D5@Rva002B57D5@@QAEXXZ,,0x002B57D5,41,Code/GameEngine/Source/Common/Rva002B57D5.cpp,matched,chain via rowed 0x002B4509 free plus sentinel reset
 ?rva00223429@Rva000427195@@QAEHPBVAsciiString@@@Z,,0x00223429,145,Code/GameEngine/Source/GameClient/Rva00223429Erase.cpp,matched,erase-all via rowed bucketIndex compare free head-last caller 0x00224BB6
@@ -24265,7 +24265,7 @@ _ciSetQuietModeEnumJoinedChannelsA,,0x006A1610,19,Code/GameEngine/Source/GameNet
 ?rva002B5522@Rva002B5522@@QAEXXZ,,0x002B5522,41,Code/GameEngine/Source/Common/Rva002B5522.cpp,matched,chain via rowed 0x002B438D free plus sentinel reset
 ?rva002B57AC@Rva002B57AC@@QAEXXZ,,0x002B57AC,41,Code/GameEngine/Source/Common/Rva002B57AC.cpp,matched,chain via rowed 0x002B44DC free plus sentinel reset
 ?rva002B54F9@Rva002B54F9@@QAEXXZ,,0x002B54F9,41,Code/GameEngine/Source/Common/Rva002B54F9.cpp,matched,chain via rowed 0x002B4360 free plus sentinel reset
-?Rva003C3AC7PopHeap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,,0x003C3AC7,41,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,matched,heap pop via AdjustHeap chain callers 0x003C3B41 0x003C69EC
+?__pop_heap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,,0x003C3AC7,41,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,matched,heap pop via AdjustHeap chain callers 0x003C3B41 0x003C69EC
 ??BRva002226E5TextPlusString@@QAE?AVAsciiString@@XZ,,0x0022309D,98,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow materializer via rowed length write callers 0x00223933 0x0051FAAB
 ?rva002120A4@Rva002120A4@@QAEHW4NameKeyType@@@Z,,0x002120A4,30,Code/GameEngine/Source/Common/Rva002120A4MapLookup.cpp,matched,recovered from banked attempt 0x002120a4.cpp (score 0.97); one fold pin added for the const-spelled _M_find twin
 ??_GRva004E16D9Record@@UAEPAXI@Z,,0x004E1BE0,28,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,matched,FamilyDeletingDtors UAE pattern recovered from banked attempt 0x004e1be0.cpp (score 0.95); one pin added for the virtual dtor spelling

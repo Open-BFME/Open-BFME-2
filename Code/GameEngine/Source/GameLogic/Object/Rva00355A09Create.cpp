@@ -45,8 +45,8 @@ class Rva003559B5Host
 {
 public:
 	void rva00355A09(int mode, Rva0036E346 *holder, int val);
-	void rva00355A5D(int mode, Rva0036E346 *holder, int c);
-	void rva00355AB1(int a, Rva0036E346 *b);
+	void rva00355A5D(int mode, Rva0036E346 *holder, int val);
+	void rva00355AB1(int mode, Rva0036E346 *holder);
 };
 
 void Rva003559B5Host::rva00355A09(int mode, Rva0036E346 *holder, int val)
@@ -56,16 +56,16 @@ void Rva003559B5Host::rva00355A09(int mode, Rva0036E346 *holder, int val)
 		((AiOrdersManager *)this)->registerOrder(mode, (GroupOrder *)garrisonObjectGroupOrder);
 }
 
-void Rva003559B5Host::rva00355A5D(int mode, Rva0036E346 *holder, int c)
+void Rva003559B5Host::rva00355A5D(int mode, Rva0036E346 *holder, int val)
 {
-	ChangeStanceGroupOrder *changeStanceGroupOrder = new ChangeStanceGroupOrder(holder, c);
+	ChangeStanceGroupOrder *changeStanceGroupOrder = new ChangeStanceGroupOrder(holder, val);
 	if (changeStanceGroupOrder)
 		((AiOrdersManager *)this)->registerOrder(mode, (GroupOrder *)changeStanceGroupOrder);
 }
 
-void Rva003559B5Host::rva00355AB1(int a, Rva0036E346 *b)
+void Rva003559B5Host::rva00355AB1(int mode, Rva0036E346 *holder)
 {
-	SynchronizeGroupOrder *synchronizeGroupOrder = new SynchronizeGroupOrder(b);
+	SynchronizeGroupOrder *synchronizeGroupOrder = new SynchronizeGroupOrder(holder);
 	if (synchronizeGroupOrder)
-		((AiOrdersManager *)this)->registerOrder(a, (GroupOrder *)synchronizeGroupOrder);
+		((AiOrdersManager *)this)->registerOrder(mode, (GroupOrder *)synchronizeGroupOrder);
 }

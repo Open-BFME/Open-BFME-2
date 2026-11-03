@@ -49,15 +49,15 @@ class Rva00548117
 	int m_a;
 	int m_b;
 public:
-	void rva005481F9(ObjectID v, int flags);
+	void rva005481F9(ObjectID id, int flags);
 };
 
-void Rva00548117::rva005481F9(ObjectID v, int flags)
+void Rva00548117::rva005481F9(ObjectID id, int flags)
 {
 	typedef _STL::list<ObjectID> ListObj;
 	ListObj &lst = (ListObj &)m_list;
 	ListObj::iterator it;
-	it = _STL::find(lst.begin(), lst.end(), v);
+	it = _STL::find(lst.begin(), lst.end(), id);
 	if (it == lst.end())
 		return;
 	for (; it != lst.end(); ++it) {
@@ -66,7 +66,7 @@ void Rva00548117::rva005481F9(ObjectID v, int flags)
 			continue;
 		((ArmorTemplate *)armor)->d7(*(int *)this);
 	}
-	int tmp = (int)v;
+	int tmp = (int)id;
 	if ((flags & 1) != 0)
 		*(int *)((char *)this + 0xC) = tmp;
 	if ((flags & 2) != 0)

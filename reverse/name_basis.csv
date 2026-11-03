@@ -6962,3 +6962,11 @@ param,Rva003559B5Host::rva00355A09::b,Rva003559B5Host::rva00355A09::holder,infer
 param,Rva003559B5Host::rva00355A09::c,Rva003559B5Host::rva00355A09::val,inferred,agree:nl-1312fbb8c326,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A09
 param,Rva003559B5Host::rva00355A5D::a,Rva003559B5Host::rva00355A5D::mode,inferred,agree:nl-19e67deb2def,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A5D
 param,Rva003559B5Host::rva00355A5D::b,Rva003559B5Host::rva00355A5D::holder,inferred,agree:nl-3f5d31a1cf66,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A5D
+param,Rva003559B5Host::rva00355A5D::c,Rva003559B5Host::rva00355A5D::val,inferred,agree:nl-a3dbd23f60c8,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A5D
+param,Rva003559B5Host::rva00355AB1::a,Rva003559B5Host::rva00355AB1::mode,inferred,agree:nl-cd303a08a390,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355AB1
+param,Rva003559B5Host::rva00355AB1::b,Rva003559B5Host::rva00355AB1::holder,inferred,agree:nl-96a2eaaeb4b6,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355AB1
+param,Rva00548117::rva005481F9::v,Rva00548117::rva005481F9::id,inferred,agree:nl-45b222aa1ac9,Code/GameEngine/Source/GameLogic/Object/Rva005481F9.cpp,0x005481F9
+param,crashSpacing::a,crashSpacing::minimum,inferred,agree:nl-94bd4164371a,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp,
+function,?Rva003BE553AdjustHeap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,?__adjust_heap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,inferred,agree:nl-13803366b2fd,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003BE553
+function,?Rva003C3AC7PopHeap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,?__pop_heap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,inferred,agree:nl-13c302c12139,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C3AC7
+function,?Rva003C3AF0MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z,?__make_heap@@YAXPAPAURva003BD485Keyed@@0H@Z,inferred,agree:nl-bb4b98f92e72,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C3AF0
