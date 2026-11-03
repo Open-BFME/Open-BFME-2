@@ -1,4 +1,4 @@
-# real link at 96cfeda7ba88ddda30abb6e5401534aeddb7f692: tools/exit_link.py --blockers
+# real link at d0b9cc5d27c08aa18ab5eefa25da59d7f45446fc: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp	49	?aiDoCommand@FlightDeckBehavior@@UAEXPBUAICommandParms@@@Z
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	46	??0SkirmishBattleHonors@@QAE@XZ
@@ -17,7 +17,6 @@ Code/GameEngine/Source/GameClient/MapUtil.cpp	14	??0CachedFileInputStream@@QAE@X
 Code/GameEngine/Source/Common/Rva001F4B01Ctor.cpp	12	??1ParticleDrawBinder@@UAE@XZ
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp	12	??0AudioEventRTS@@QAE@ABVAsciiString@@@Z
 Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	12	??0MeshMtlParamsClass@@QAE@PAVMeshModelClass@@@Z
-Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	11	??0AudioEventRTS@@QAE@ABV0@@Z
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLGameSetupMenu.cpp	11	?EnableSlotListUpdates@@YAX_N@Z
 Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/RailedTransportDockUpdate.cpp	11	??1DockUpdate@@MAE@XZ
 Code/GameEngine/Source/GameClient/GUI/Rva0057621ACtor.cpp	10	??1Rva005753E2Listener@@QAE@XZ
@@ -28,6 +27,7 @@ Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp	10	??0DefinitionFactoryCla
 Code/GameEngine/Source/Common/Rva005F422CDtor.cpp	9	?CreateMovieClip@Rva005F422C@@UAE?AUTreeHintRef00217D4C@@PAVAptMovieClipFrame@@@Z
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/JetAIUpdate.cpp	9	?friend_setAllowAirLoco@JetAIUpdate@@QAEX_N@Z
 Code/GameEngine/Source/Common/System/CDManager.cpp	8	??0LList@@QAE@XZ
+Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	8	??0AudioEventRTS@@QAE@ABV0@@Z
 Code/GameEngine/Source/Common/Rva005BA1FDCtor.cpp	7	?BaseVirt@AptOnlineCustomMatch@@UAEXXZ
 Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	7	??4?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp	7	?buildFieldParse@Rva005C4352Base@@QAEXAAVMultiIniFieldParse@@@Z
@@ -75,7 +75,6 @@ Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildCo
 Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdate.cpp	2	?clearAndSetModelConditionState@Drawable@@QAEXW4ModelConditionFlagType@@0@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerScreenBWFilterInit.cpp	2	?screenBWFilter@@3VScreenBWFilter@@A
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	2	?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ
-Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp	2	?Rva00219B9E@@YGPAXH@Z
 Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DE3E3.cpp	2	??0Rva001DE3E3Record@@QAE@ABU0@@Z
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001DF2D3.cpp	2	??1Rva001DF2D3Element@@QAE@XZ
 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00587375_overflow.cpp	2	??0Rva00587375@@QAE@XZ
