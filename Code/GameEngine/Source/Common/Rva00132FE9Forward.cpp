@@ -4,12 +4,7 @@
 // (WorldBuilder's texture.cpp has the same unnamed forwarder; name not recovered).
 // Evidence: retail xor eax eax; cmp byte [esp+4] al; setne al; push eax; call set; ret 4;
 // 5 callers incl 0x00047178 0x0004F628; callee row in WW3D2/TextureAssetSetQualityLevel.cpp.
-class TextureAsset
-{
-public:
-	void SetQualityLevel(int value);
-	void rva00132FE9(bool flag);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 void TextureAsset::rva00132FE9(bool flag)
 {

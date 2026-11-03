@@ -50,7 +50,7 @@ extern ShareBufferClass<Vector4>*g_00E065CC;
 extern unsigned int BfmeParticleType2ShaderBits;
 class TextureClass {public:void Release_Ref();};
 class BFME2ParticleTextureHandle {public:~BFME2ParticleTextureHandle(){if(Ptr)Ptr->Release_Ref();}TextureClass*Ptr;};
-class TextureAsset {public:static BFME2ParticleTextureHandle Get(const char*,int,int);};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 template<class T>class RefCountPtr {public:const RefCountPtr&operator=(const RefCountPtr&);T*Ptr;};
 class Rva0090F8C0Holder {public:void set(int,RefCountClass*,RefCountClass*,RefCountClass*,RefCountClass*);};
 class Rva00177860 {public:void Render(RenderInfoClass&);void*refs[4];int count;RefCountPtr<TextureClass> texture;unsigned shader;float tail[4];};

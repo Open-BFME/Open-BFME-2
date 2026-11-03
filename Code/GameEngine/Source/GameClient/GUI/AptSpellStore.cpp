@@ -553,12 +553,7 @@ public:
 	int m_vAddressMode; // +0x10
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
-	void rva00132FE9(bool flag);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 // The asset list GameLogicInit.cpp and Rva00081CDFWaterTextures.cpp fill
 // for the asset merge 0x0061F010: an STLport set, a pad word and a changed

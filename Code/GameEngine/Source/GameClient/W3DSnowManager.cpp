@@ -61,11 +61,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 class W3DSnowManager : public SnowManager {
 public:

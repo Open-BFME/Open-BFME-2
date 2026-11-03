@@ -102,7 +102,7 @@ namespace _STL { template <> _Rb_tree_node<Rva001408C0Target *> *_STLP_alloc_pro
 BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char*,int,int);
 class ShroudFilter;
 class ShroudTexture { public: ShroudFilter *getFilter(); };
-class TextureAsset { public: static BFME2ParticleTextureHandle Get(const char*,int,int); void rva00132FE9(bool); };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 struct ImageTextureOptions { unsigned char pad[12]; int optionC,option10; };
 typedef Rva001408C0Target *Rva001408C0Key;
 typedef _STL::set<Rva001408C0Key,_STL::less<Rva001408C0Key>,_STL::allocator<Rva001408C0Key> > Rva001408C0Set;

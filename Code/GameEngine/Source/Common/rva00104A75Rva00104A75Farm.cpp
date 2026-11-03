@@ -55,11 +55,7 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *name, int a, int b);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 struct CursorTextureSlot
 {

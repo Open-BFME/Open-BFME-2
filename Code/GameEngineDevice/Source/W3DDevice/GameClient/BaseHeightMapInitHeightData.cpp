@@ -109,11 +109,7 @@ class BFME2ParticleTextureHandle {
 public:TextureClass*Ptr;
  ~BFME2ParticleTextureHandle(){if(Ptr)Ptr->Release_Ref();}
 };
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *name, int a, int b);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 template<class T>class TexSlot:public RefCountPtr<T>{public:
  __forceinline TexSlot&operator=(const BFME2ParticleTextureHandle&h){RefCountPtr<T>::operator=(*(const RefCountPtr<T>*)&h);return *this;}};
 void BFME_DX8_Thread_Lock();

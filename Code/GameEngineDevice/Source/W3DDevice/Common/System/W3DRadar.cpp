@@ -796,12 +796,7 @@ public:
 	TextureClass *m_ptr;
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
-	void rva00132FE9(bool flag);
-};
+#include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 // BFME's Display slots, reached through the real TheDisplay.
 class W3DRadarDisplayView{public:

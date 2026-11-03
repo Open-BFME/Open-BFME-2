@@ -80,11 +80,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *name, int a, int b);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 __forceinline const char *GetStr0006ACBD(const AsciiString &asciiString)
 {

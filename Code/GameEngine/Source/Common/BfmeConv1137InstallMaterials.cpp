@@ -380,11 +380,7 @@ public:
 	ShroudFilter *getFilter();
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 struct BFME2TextureRef;
 void BFME2Set_Texture(unsigned int stage, const BFME2TextureRef &texture);

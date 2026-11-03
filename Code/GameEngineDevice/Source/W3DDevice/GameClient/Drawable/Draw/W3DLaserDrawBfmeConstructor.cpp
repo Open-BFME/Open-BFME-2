@@ -45,11 +45,7 @@ private:
 };
 
 class W3DRadarResetTexture { public: W3DRadarResetSurface getSurfaceLevel(); };
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *, Int, Int);
-};
+#include "../../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 class AssetReference
 {
 public:

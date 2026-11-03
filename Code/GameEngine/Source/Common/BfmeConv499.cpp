@@ -16,11 +16,7 @@ public:
 	TextureClass *Ptr;
 	~BFME2ParticleTextureHandle();
 };
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int option0, int option1);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 class Rva0006B3F3ScorchTexture : public BFME2ParticleTextureHandle
 {
 public:
