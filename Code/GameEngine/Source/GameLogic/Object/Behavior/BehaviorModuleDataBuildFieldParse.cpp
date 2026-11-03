@@ -19,12 +19,7 @@ public:
     static const FieldParse m_fieldParse[];
 };
 
-class GateOpenAndCloseBehaviorModuleData
-{
-public:
-    static void buildFieldParse(MultiIniFieldParse &parse);
-    static const FieldParse m_fieldParse[];
-};
+#include "../../../../Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h"
 
 class RunOffMapBehaviorModuleData
 {

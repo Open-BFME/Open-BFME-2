@@ -9,12 +9,7 @@
 // vtable-getter at 0x24E353 begins, adjacent to this ctor; the base triple is rowed
 // at 0x498E2E/0x253F0E/0x253F1F.
 
-class GateOpenAndCloseBehaviorModuleData
-{
-public:
-	GateOpenAndCloseBehaviorModuleData();
-	virtual ~GateOpenAndCloseBehaviorModuleData();
-};
+#include "../../../../Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h"
 
 class GateProxyBehaviorModuleData : public GateOpenAndCloseBehaviorModuleData
 {

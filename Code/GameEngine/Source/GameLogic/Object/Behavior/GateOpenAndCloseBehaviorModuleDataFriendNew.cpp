@@ -21,17 +21,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class GateOpenAndCloseBehaviorModuleData
-{
-public:
-	GateOpenAndCloseBehaviorModuleData();
-	virtual ~GateOpenAndCloseBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x4C - 4];
-};
+#include "../../../../Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h"
 
 // ?friend_newModuleData@GateOpenAndCloseBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *GateOpenAndCloseBehaviorModuleData::friend_newModuleData(INI *ini)
