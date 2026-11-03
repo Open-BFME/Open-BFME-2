@@ -1,0 +1,4 @@
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp
+  retired 3 row(s) from reverse/header_queue.tsv; commit it with the adoption

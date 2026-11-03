@@ -1,0 +1,15 @@
+# Canonical RespawnUpdate receiver and stale header debt, 2026-11-03
+
+Base35b9a551d6. The default picker holds the approved RespawnUpdate cohort (ten clean sources,46 rows, four mixed sources excluded). Its original supported merge dry-run accepts0; class/lifetime/table and selected template-provider prerequisites are recorded in merge-before.txt. The scoped naming planner and tu_views plan were read; no hint or stale committed map is treated as approval.
+
+Replace the seed's private RespawnUpdate class with its registered Module/RespawnUpdate.h. Automatic token mapping correctly refuses `health`, because RespawnRule has a different field of that name. Prepare scoped receiver accesses only: map the existing +20/+24/+28/+2C/+30/+34/+38/+3C/+40/+41 fields to canonical declarations within RespawnUpdate instance methods. The static rule parsers, rule.health, FIELD macro argument, comments and strings remain unchanged. The canonical +30 unsigned slot is cast to the existing ObjectID enum at the same findObjectByID call. No external name, function signature, layout, helper, header, global, pin, alias, compiler flag or source path changes.
+
+Private and normal verification preserve all20 seed rows and all three exact EH graphs. The complete79 external definitions, relocations, properties and weak/alternate/include routes are identical before and after. The actual normal object equals the private candidate's full facts. Normal verification over the seed and two existing canonical consumers passes22/22,35 strings,8 floats and3 imports. All strict frozen checks pass. Current preview retains3/3 LINKS,2750B: seed2508, Xfer139, Rva004AEF46103. No census or new-byte gain is claimed.
+
+The owning header_adopt_lane acceptance retires six keys: seedRespawnUpdate, seedUpdateModule, seedUpdateModuleInterface, seedThingTemplate, plus UpdateModule in the already canonical Xfer and Rva004AEF46 consumers. The last five are stale register entries, not five newly rewritten views. Their existing source includes the owning headers. Only the seed source is edited. Other queue rows remain, including real private AIUpdateInterface, ExitInterface, ControlBar, INI/FieldParse, PlayerList and partition-filter views.
+
+Next: refresh the scoped planner after this source edit, retry the normal TU merge and reconcile only remaining donors in separate verified commits. ModuleData's typed automatic lifetime versus novtable/int-array view, constructor/manual-table emission, and selected tree-provider compatibility remain substantive checks. No merge or source-file reduction has been applied by this commit.
+
+## Pending previous audit
+
+Push35b9a551d6 was INCONCLUSIVE: index23b85ddde5, outgoing baseba280aead6734870ebb55be25a89984cb4668a04, one receipt gap, first Common/System/GeometryInfoExpandFootprint.cpp. Carry its source/consumers into the next scheduled census; scoped53B LINKS was only a prediction. Earlier scopes remain in their existing packets. No direct census, real-link, nightly or smoke job was launched.

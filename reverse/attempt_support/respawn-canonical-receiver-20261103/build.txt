@@ -1,0 +1,11 @@
+Source claims: OK (3 sources, scoped byte-verified)
+Compile: 1 of 3 TU(s) (deps-cache: 2 current)
+Funclet pins: 4 row(s) verified past a renumbered $L label
+    Unwind@00b8e6a8 (Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp): $L1301 was renumbered; verified parent EH data places $L9390 at 0x0078E6A8
+    $L498 (Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp): $L498 was renumbered; verified parent EH data places $L9342 at 0x0078E696
+    $L497 (Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp): $L497 was renumbered; verified parent EH data places $L9341 at 0x0078E68E
+    $L310 (Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp): $L310 was renumbered; verified parent EH data places $L9314 at 0x0078E677
+Functions: OK 22/22 matched across 3 source file(s)
+String-ref verify: OK (35 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (8 compiler literals verified)
+Import-ref verify: OK (3 named imports verified)

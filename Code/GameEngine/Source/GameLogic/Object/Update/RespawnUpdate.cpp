@@ -189,26 +189,7 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class RespawnUpdate:public UpdateModule {
-public:
-	virtual UpdateSleepTime update();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual float getPercentReady(int *out);
-	virtual const Image *getDeadImage();
-	void rva004AF182();
-	void *rva004AF25D();
-	Object *searchForSuitableSpawnAtObject();
-	static void iniParseNewRuleForLevel(INI *, void *, void *, const void *);
-	static void iniParseDefaultRule(INI *, void *, void *, const void *);
-public:
-	float health;
-	const Image *deadImage;
-	void *respawnTemplate;
-	unsigned state;
-	ObjectID spawnAt;
-	int at34,at38,at3C;
-	bool at40,at41;
-};
+#include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 class MultiIniFieldParse;
 #include "Common/Snapshot.h"
 
@@ -357,8 +338,8 @@ inline bool operator<(const BfmePod20 &x, const BfmePod20 &y)
 float RespawnUpdate::getPercentReady(int *out)
 {
 	if (out)
-		*out = at3C;
-	switch (state)
+		*out = m_3C;
+	switch (m_2C)
 	{
 	case 0:
 		return 0.0f;
@@ -375,11 +356,11 @@ float RespawnUpdate::getPercentReady(int *out)
 	default:
 		return 0.0f;
 	}
-	int total = at38;
+	int total = m_38;
 	if (total <= 0)
 		return 0.0f;
 	unsigned int frame = TheGameLogic->getFrame();
-	return ((float)frame - at34) / total;
+	return ((float)frame - m_34) / total;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
@@ -413,10 +394,10 @@ UpdateSleepTime RespawnUpdate::update() {
  Object *obj=0;
  const RespawnUpdateModuleData *respawnUpdateModuleData=reinterpret_cast<const RespawnUpdateModuleData *>(getModuleData());
  obj=getObject();
- switch(state) {
+ switch(m_2C) {
  case 2:return UPDATE_SLEEP_FOREVER;
  case 3: {
-  Object *at=TheGameLogic->findObjectByID(spawnAt);
+  Object *at=TheGameLogic->findObjectByID((ObjectID)m_30);
   if(!at) at=searchForSuitableSpawnAtObject();
   Coord3D pos={obj->position.x,obj->position.y,obj->position.z};
   if(at) {
@@ -428,9 +409,9 @@ UpdateSleepTime RespawnUpdate::update() {
   obj->rva001E431E(respawnUpdateModuleData->conditions58);
   FXList::doFXObj(respawnUpdateModuleData->reviveFX,obj,0);
   obj->setDisabledUntil((DisabledType)4,TheGameLogic->getFrame()+respawnUpdateModuleData->reviveTime);
-  state=4;
-  obj->body->setInitialHealth(health*100.0f,false);
-  at34=-1;at38=-1;
+  m_2C=4;
+  obj->body->setInitialHealth(m_20*100.0f,false);
+  m_34=-1;m_38=-1;
   if(ThePlayerList->getLocalPlayer()==obj->getControllingPlayer()) TheControlBar->dirty=true;
   (void)obj->getControllingPlayer();
   return (UpdateSleepTime)respawnUpdateModuleData->reviveTime;
@@ -440,7 +421,7 @@ UpdateSleepTime RespawnUpdate::update() {
   obj->rva001E42F2(respawnUpdateModuleData->conditionsA4);
   obj->setStatus((ObjectStatusTypes)3,false);
   obj->clearDisabled((DisabledType)4);
-  state=0;
+  m_2C=0;
   Object *at=TheGameLogic->findObjectByID(obj->producer);
   AIUpdateInterface *ai=m_object->ai;
   if(at && ai && (ai->isAutoDock() || ai->rva00260DED()==16)) {
@@ -576,13 +557,13 @@ void RespawnUpdate::rva004AF182()
 {
     Object *obj = m_object;
     const RespawnUpdateData004AF182 *md = reinterpret_cast<const RespawnUpdateData004AF182 *>(getModuleData());
-    if (state != 0) {
+    if (m_2C != 0) {
         ((Rva001E42F2 *)obj)->rva001E42F2(md->conditions0C);
         ((Rva001E42F2 *)obj)->rva001E42F2(md->conditions58);
         obj->clearDisabled((DisabledType)4);
         setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
-        spawnAt = INVALID_OBJECT_ID;
-        state = 2;
+        m_30 = INVALID_OBJECT_ID;
+        m_2C = 2;
     }
 }
 
@@ -615,8 +596,8 @@ Object *RespawnUpdate::searchForSuitableSpawnAtObject()
 // Callees and both singleton globals retain their existing verified names.
 const Image *RespawnUpdate::getDeadImage()
 {
-	if (deadImage)
-		return deadImage;
+	if (m_24)
+		return m_24;
 	const RespawnUpdateModuleDataRef *data = reinterpret_cast<const RespawnUpdateModuleDataRef *>(getModuleData());
 	Object *object = m_object;
 	const AsciiString &name = data->m_deadImageName;
@@ -625,35 +606,35 @@ const Image *RespawnUpdate::getDeadImage()
 			CreateAHeroHero *hero = (CreateAHeroHero *)(
 				TheCreateAHeroManager->rva002197A6(object->m_heroKey));
 			if (hero) {
-				deadImage = TheMappedImageCollection->findImageByName(
+				m_24 = TheMappedImageCollection->findImageByName(
 					TheCreateAHeroManager->GetButtonImageName(hero));
-				if (!deadImage)
-					deadImage = TheMappedImageCollection->findImageByName(
+				if (!m_24)
+					m_24 = TheMappedImageCollection->findImageByName(
 						AsciiString("BuildingNoArt"));
 			}
 		} else {
-			deadImage = TheMappedImageCollection->findImageByName(name);
+			m_24 = TheMappedImageCollection->findImageByName(name);
 		}
-		if (deadImage)
-			return deadImage;
+		if (m_24)
+			return m_24;
 		Object *current = m_object;
 		ThingTemplate *currentTemplate = current->getTemplate();
-		deadImage = getButtonImage(currentTemplate, current);
+		m_24 = getButtonImage(currentTemplate, current);
 	} else {
-		deadImage = getButtonImage(object->getTemplate(), object);
+		m_24 = getButtonImage(object->getTemplate(), object);
 	}
-	return deadImage;
+	return m_24;
 }
 
 void *RespawnUpdate::rva004AF25D()
 {
-	if (respawnTemplate == (void *)-1) {
+	if (m_28 == (void *)-1) {
 		void *found = (void *)TheThingFactory->findTemplate(reinterpret_cast<const RespawnUpdateModuleDataRef *>(getModuleData())->m_respawnAsTemplate);
-		respawnTemplate = found;
+		m_28 = found;
 		if (found == 0)
-			respawnTemplate = m_object->m_template;
+			m_28 = m_object->m_template;
 	}
-	return respawnTemplate;
+	return m_28;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp

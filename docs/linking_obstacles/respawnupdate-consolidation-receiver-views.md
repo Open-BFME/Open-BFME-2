@@ -1,0 +1,7 @@
+### RespawnUpdate consolidation: receiver, lifetime and provider views (2026-11-03)
+
+The supported pre-adoption merge dry-run accepts0 of the ten-source46-row clean cohort; four mixed sources remain excluded. Current in-memory TU approval is used. Prior reports describing a forward-only tree or private Player in Rva004AEF46 are stale: the current seed uses real STLport and the latter already uses canonical Player/RespawnUpdate.
+
+**Verified receiver subset:** seedRespawnUpdate now uses its canonical header, with receiver-scoped field mapping that leaves RespawnRule.health and rule-parser macro arguments unchanged. All20 seed rows/threeEH exact; all79 emitted provider/binding/route facts identical. Normal22/22 overthree sources and strict frozen checks pass; current preview retains3/3 LINKS2750B. Owning header acceptance retires six keys: the new seedRespawnUpdate adoption plus five already canonical dependency entries. Other actual private classes and their queue entries remain.
+
+Next retry the supported merge after refreshing the planner. ModuleData novtable/typed19-word member lifetimes, constructor/manual-vtable emission and selected tree providers still need their exact byte/link checks. No source reduction/whole-game/census clearance is claimed. [Mapping, providers, acceptance, preview and outstanding prior audit](../../reverse/attempt_support/respawn-canonical-receiver-20261103/README.md).
