@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Rva0005CC28Xfer@@YAPAVXfer@@PAV1@PAV?$map@VAsciiString@@MU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@M@_STL@@@3@@_STL@@@Z
 // retail 0x0005CC28..0x0005CD41 (281 bytes cdecl). Xfer of a
 // map<AsciiString Real>: the map twin of Rva00470222Xfer (map<int int>).
@@ -59,10 +59,7 @@ typedef _STL::map<AsciiString, Real, _STL::less<AsciiString>,
 // The save loop copies each node's value through the out-of-line pair copy
 // at 0x00466EA7, rowed under its NoCaseTreeValue4 instantiation (the
 // AsciiString key copy plus one word fold to one body).
-struct NoCaseTreeValue4
-{
-	int m_word;
-};
+#include "../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> StoredPair4;
 
 struct Rva0005CC28Pair

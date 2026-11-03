@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // STLport 4.5.3 _M_insert for two AsciiString-keyed trees, dedicated TU:
@@ -23,7 +23,7 @@
 bool operator<(const AsciiString &, const AsciiString &);
 struct BfmeStringRecord002CF550 { AsciiString key; char rest[8]; BfmeStringRecord002CF550(const BfmeStringRecord002CF550 &); ~BfmeStringRecord002CF550(); };
 inline bool operator<(const BfmeStringRecord002CF550 &a, const BfmeStringRecord002CF550 &b) { return a.key < b.key; }
-struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
+#include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 // The comparator only exists inline here (the bodies call operator< directly);
 // imported force-inline, so this unit emits no copy of the rowed 0x0002C63C name.
 struct BfmeStringNoCaseLess { __declspec(dllimport) __forceinline bool operator()(const AsciiString &a, const AsciiString &b) const { return a < b; } };

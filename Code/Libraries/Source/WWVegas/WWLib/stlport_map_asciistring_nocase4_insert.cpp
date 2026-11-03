@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // STLport 4.5.3 map<AsciiString, NoCaseTreeValue4> _M_insert (retail
@@ -18,7 +18,7 @@
 #include "ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
 
-struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
+#include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NoCaseValue;
 typedef _STL::_Rb_tree<AsciiString, NoCaseValue, _STL::_Select1st<NoCaseValue>, _STL::less<AsciiString>, _STL::allocator<NoCaseValue> > NoCaseTree;

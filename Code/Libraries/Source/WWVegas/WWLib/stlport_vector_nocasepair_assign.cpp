@@ -1,10 +1,7 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??4?$vector@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z @0x00317EBB 180B: vector NoCase pair assign via allocate_and_copy 0x00317D5C plus clear 0x004C3D8B plus copy 0x00255CFA plus destroy 0x0032C0CA plus uninitialized_copy 0x00317CF2. Evidence: retail calls rowed allocate_and_copy plus rowed clear plus pinned copy plus rowed destroy plus pinned uninitialized_copy; sar 3 stride 8 throughout; same 3-path shape as Science assign 0x0021C21B.
 #include "ascii_string.h"
-struct NoCaseTreeValue4
-{
-	char m_body[4];
-};
+#include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 struct BfmeStringRecord00426A5B
 {
 	AsciiString text;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?Rva00212354NewNode@@YGPAXPBX@Z, retail 0x00212354 37B. Hashtable node
 // allocator for the AsciiString-keyed 12-byte node family (next+pair) that
@@ -22,10 +22,7 @@ public:
 
 #include "ascii_string.h"
 
-struct NoCaseTreeValue4
-{
-	unsigned char m_data[4];
-};
+#include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NewNodePair;
 
