@@ -246,8 +246,8 @@ public:
 	unsigned char m_shadowUseHouseColor;						// +0x5EE
 	unsigned char m_shadowIsRotatingWithObject;					// +0x5EF
 	unsigned char m_radarPriority;								// +0x5F0
-	unsigned char m_transportSlotCount;							// +0x5F1
-	unsigned char m_buildable;									// +0x5F2
+	signed char m_transportSlotCount;							// +0x5F1 signed: movsx at 0x0028FBD0 (Object::getTransportSlotCount)
+	signed char m_buildable;									// +0x5F2 signed: movsx at 0x0033A654 (getBuildable)
 	unsigned char m_buildCompletion;							// +0x5F3
 	unsigned char m_editorSorting;								// +0x5F4
 	unsigned char m_deadCollideSize;							// +0x5F5
@@ -266,8 +266,8 @@ public:
 	float m_ramZMult;											// +0x60C
 	float m_shockwaveResistance;								// +0x610
 	unsigned char m_crushAllies;								// +0x614
-	unsigned int m_commandPoints;								// +0x618
-	unsigned int m_commandPointBonus;							// +0x61C
+	int m_commandPoints;								// +0x618 signed: jg after the compare at 0x0028DA77
+	int m_commandPointBonus;							// +0x61C signed: jle after the compare at 0x0028DA7F
 	float m_liveCameraOffset[3];								// +0x620 Coord3D
 	float m_liveCameraPitch;									// +0x62C
 	unsigned char m_forceLuaRegistration;						// +0x630
