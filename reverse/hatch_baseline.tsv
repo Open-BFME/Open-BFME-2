@@ -12260,12 +12260,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMess
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowPageCtor_Rva0051066A.cpp	text)	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getPreferredColor@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getPreferredFaction@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getSlotList@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getStartingCash@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getSuperweaponRestricted@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getUserName@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp	0BuddyControls@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	@0x0021887C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp	?	1
