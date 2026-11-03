@@ -62,16 +62,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A0107ByteChaseField, 0x1C, 0x31)
 
-// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
-// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
-// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
-class ExperienceTracker
-{
-public:
-	bool isTrainable() const;
-	char m_lead[0x4];
-	void *m_template;
-};
+#include "../../../../../Include/GameLogic/ExperienceTracker.h"
 
 Object *bfmeQueryRallyOverride(Object *obj, const Coord3D *pos);
 

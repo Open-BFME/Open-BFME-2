@@ -1,0 +1,16 @@
+{
+  "comparison": "class_cleanup.runtime_graph + same_runtime (all non-debug COFF sections, relocations, external definitions, weak defaults, COMDAT policies; bijective named-section renumbering allowed)",
+  "same_runtime": true,
+  "before": {
+    "sections": 566,
+    "extern_definitions": 558,
+    "weak_bindings": 0,
+    "graph_sha256": "4e7e736dde1361f279546e0019ad1379e252b518bdb310c31e800a6e352694d8"
+  },
+  "after": {
+    "sections": 566,
+    "extern_definitions": 558,
+    "weak_bindings": 0,
+    "graph_sha256": "4e7e736dde1361f279546e0019ad1379e252b518bdb310c31e800a6e352694d8"
+  }
+}

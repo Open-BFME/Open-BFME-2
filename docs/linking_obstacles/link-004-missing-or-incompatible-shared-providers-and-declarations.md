@@ -1040,3 +1040,5 @@ ESP-relative codegen and identical call bindings. A coherent TU-wide flag
 choice needs verification before another merge. The other eight declaration
 conflicts and seven mixed sources remain open; no paths, debt keys or coverage
 were removed. Existing duplicate audio-start/EH ownership also remains open.
+
+2026-11-03, QueueProductionExitUpdate (inspected `785e1bf93f`): canonical ExperienceTracker and existing Player header adoption accepted, retiring two queue entries with unchanged runtime bindings and both link previews retained; TU composition remains blocked on Coord3D/Xfer, BitFlags and receiver/base reconciliation. [Evidence and next checks](../../reverse/attempt_support/queueproduction-headers-20261103/README.md).
