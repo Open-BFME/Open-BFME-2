@@ -3,6 +3,7 @@
 // Open-BFME5: TerrainFireEmissionModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/TerrainFireEmissionInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class TerrainFireEmissionInfo
-{
-public:
-	TerrainFireEmissionInfo(const TerrainFireEmissionInfo &that);
-	virtual void dummy();
-};
 
 // TerrainFireEmissionModuleTemplate_cvtbl0: matched references place it at VA 0xc1bbe0 (retail .rdata value -123).
 extern "C" char TerrainFireEmissionModuleTemplate_cvtbl0 = -123;

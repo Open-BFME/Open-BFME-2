@@ -56,6 +56,7 @@ class RvaSmartPtr12;
 #include "../../../../Include/GameClient/EmissionVelocityInfo.h"
 #include "../../../../Include/GameClient/BoxEmissionVolumeInfo.h"
 #include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/TerrainFireEmissionInfo.h"
 namespace FXParticleSystem
 {
 
@@ -121,11 +122,6 @@ DefaultParticleModule<5>::DefaultParticleModule( void *system, void *module_temp
 
 
 
-class TerrainFireEmissionInfo : public EmissionVolumeInfo
-{
-public:
-	TerrainFireEmissionInfo( const TerrainFireEmissionInfo &that );
-};
 
 
 

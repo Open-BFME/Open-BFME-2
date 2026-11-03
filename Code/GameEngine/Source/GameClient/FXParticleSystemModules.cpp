@@ -29,6 +29,7 @@ class INI;
 #include "../../Include/GameClient/EmissionVelocityInfo.h"
 #include "../../Include/GameClient/BoxEmissionVolumeInfo.h"
 #include "../../Include/GameClient/LightningEmissionInfo.h"
+#include "../../Include/GameClient/TerrainFireEmissionInfo.h"
 namespace FXParticleSystem
 {
 
@@ -304,14 +305,6 @@ public:
     float m_unknown94;
 };
 
-class TerrainFireEmissionInfo : public EmissionVolumeInfo
-{
-public:
-    FXCoord3D m_unknown08;
-    FXCoord3D m_unknown14;
-    FXCoord3D m_unknown20;
-    float m_unknown2C;
-};
 
 
 #define FX_MODULE_TEMPLATE(NAME, INFO)                                                             \

@@ -216,6 +216,7 @@ Rva003AF7D1::Rva003AF7D1(const Rva003AF7D1 &other)
 // Evidence: calls rowed base 0x003AF50D then rowed TerrainFire copy 0x003A6E0E; neg/sbb/and null-guarded
 // adjustment of source to +0x1c for the TerrainFire base; vptrs at +0/+0x14/+0x18/+0x1c DIR32;
 // same Intermediate3AFC6FC pre-stores as rowed Line/Sphere versions; unlocks 0x003AF97C.
+#include "../../../../Include/GameClient/TerrainFireEmissionInfo.h"
 namespace FXParticleSystem
 {
 class Snapshot9A9
@@ -228,14 +229,6 @@ class EmissionVolumeInfo9A9 : public Snapshot9A9
 public:
 	virtual ~EmissionVolumeInfo9A9();
 	bool m_flag;
-};
-class TerrainFireEmissionInfo : public EmissionVolumeInfo9A9
-{
-public:
-  TerrainFireEmissionInfo(const TerrainFireEmissionInfo &that) throw();
-  virtual ~TerrainFireEmissionInfo();
-private:
-  float m_unk[4];
 };
 }
 

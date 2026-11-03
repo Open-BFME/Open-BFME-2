@@ -29,16 +29,9 @@ namespace FXParticleSystem
 template <int CATEGORY> class CategoryModuleTemplate;
 }
 
+#include "../../Include/GameClient/TerrainFireEmissionInfo.h"
 namespace FXParticleSystem
 {
-class TerrainFireEmissionInfo
-{
-public:
-	TerrainFireEmissionInfo();
-	virtual ~TerrainFireEmissionInfo();
-private:
-	char m_unmodelled_04[0x30 - 0x04];
-};
 }
 
 namespace FXParticleSystem
