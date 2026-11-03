@@ -19,6 +19,8 @@
    getSlot 0x001163F1/0x00116434 and releaseSlot 0x00116113/0x0011629A,
    ReleaseResources 0x00115FF1 and ReAcquireResources 0x0011604D are out of line.
    getNextVertexBuffer 0x000EFB14 reads the VB head at +0x9000 or next at +0x10;
+   it is inline: renderShadows 0x000F4AB7 inlines each walk's first call and
+   calls the out-of-line copy 0x000EFB14 for the rest.
    getDX8Format 0x00115DE8 reads the 18-entry FVF table at 0x009B5F30.
    renderShadows reads the task's next pointer at +0 (0x000F5897) and clears
    the VB's task head at +0x18 (0x000F58AB).
@@ -120,7 +122,12 @@ public:
     void freeAllBuffers();
     void ReleaseResources();
     bool ReAcquireResources();
-    W3DVertexBuffer *getNextVertexBuffer(W3DVertexBuffer *buffer, VBM_FVF_TYPES format);
+    W3DVertexBuffer *getNextVertexBuffer(W3DVertexBuffer *pVb, VBM_FVF_TYPES type)
+    {
+        if (pVb == 0)
+            return m_W3DVertexBuffers[type];
+        return pVb->m_nextVB;
+    }
     static int getDX8Format(VBM_FVF_TYPES format);
 
 protected:

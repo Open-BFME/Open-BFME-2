@@ -207,31 +207,7 @@ protected:
 
 class W3DVolumetricShadow;
 
-class W3DBufferManager
-{
-public:
-	enum VBM_FVF_TYPES { VBM_FVF_XYZ, MAX_FVF = 9 };
-	struct W3DRenderTask
-	{
-		W3DRenderTask *m_nextTask;
-	};
-	struct W3DVertexBuffer
-	{
-		char m_pad[0x10];
-		W3DVertexBuffer *m_NextVB;
-		char m_pad14[4];
-		W3DRenderTask *m_renderTaskList;
-	};
-	static Int getDX8Format(VBM_FVF_TYPES format);
-	W3DVertexBuffer *getNextVertexBuffer(W3DVertexBuffer *pVb, VBM_FVF_TYPES type)
-	{
-		if (pVb == 0) return m_W3DVertexBuffers[type];
-		return pVb->m_NextVB;
-	}
-private:
-	char m_pad[0x9000];
-	W3DVertexBuffer *m_W3DVertexBuffers[MAX_FVF];
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DBufferManagerClass.h"
 extern W3DBufferManager *TheW3DBufferManager;
 
 struct W3DVolumetricShadowRenderTask : public W3DBufferManager::W3DRenderTask
