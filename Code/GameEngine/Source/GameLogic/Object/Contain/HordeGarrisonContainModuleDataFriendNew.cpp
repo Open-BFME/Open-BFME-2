@@ -19,17 +19,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class HordeGarrisonContainModuleData
-{
-public:
-	HordeGarrisonContainModuleData();
-	virtual ~HordeGarrisonContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xD4 - 4];
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 // ?friend_newModuleData@HordeGarrisonContainModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *HordeGarrisonContainModuleData::friend_newModuleData(INI *ini)

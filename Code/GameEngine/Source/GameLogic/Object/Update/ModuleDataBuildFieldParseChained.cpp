@@ -772,11 +772,7 @@ extern const FieldParse BfmeHordeGarrisonContainFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class HordeGarrisonContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 void HordeGarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {

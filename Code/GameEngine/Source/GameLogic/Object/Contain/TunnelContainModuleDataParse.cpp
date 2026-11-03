@@ -28,11 +28,7 @@ extern const FieldParse TunnelContainModuleDataFieldParse[2] =
 };
 
 
-class HordeGarrisonContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 class TunnelContainModuleData
 {

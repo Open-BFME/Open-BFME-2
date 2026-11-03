@@ -11,11 +11,7 @@
 
 #include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
-class __declspec(novtable) HordeGarrisonContainModuleData : public GarrisonContainModuleData
-{
-public:
-	virtual ~HordeGarrisonContainModuleData();
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 HordeGarrisonContainModuleData::~HordeGarrisonContainModuleData()
 {

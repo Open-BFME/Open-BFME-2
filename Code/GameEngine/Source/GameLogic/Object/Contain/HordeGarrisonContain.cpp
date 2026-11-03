@@ -363,18 +363,7 @@ extern "C" const void *const __identifier("??_7TunnelContainModuleData@@6B@")[];
 
 #include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
-class HordeGarrisonContainModuleData : public GarrisonContainModuleData
-{
-public:
-	HordeGarrisonContainModuleData();
-
-private:
-	friend class HordeGarrisonContain;
-	int m_exitDelay; // +0xAC
-	float m_entryOffset[3]; // +0xB0
-	float m_entryPosition[3]; // +0xBC
-	float m_exitOffset[3]; // +0xC8
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 #include "../../../Common/Thing/thing.h"
 

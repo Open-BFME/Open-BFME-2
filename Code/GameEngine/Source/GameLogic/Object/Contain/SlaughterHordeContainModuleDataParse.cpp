@@ -15,11 +15,7 @@ class MultiIniFieldParse;
 
 extern const FieldParse s_slaughterHordeFieldTable[];
 
-class HordeGarrisonContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 class SlaughterHordeContainModuleData
 {
