@@ -44,15 +44,7 @@ struct AsciiStringData;
 // not Zero Hour's inline char[2*W3D_NAME_LEN].
 #include "ascii_string.h"
 
-class W3DShadowGeometryMesh
-{
-public:
-	W3DShadowGeometryMesh(void);
-	~W3DShadowGeometryMesh(void);
-
-private:
-	int m_opaque[13];
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometryMesh.h"
 
 class W3DShadowGeometry : public RefCountClass, public HashableClass
 {

@@ -99,15 +99,7 @@ private:
 	Int m_numActiveVertex;
 };
 
-class W3DShadowGeometryMesh
-{
-public:
-	const Vector3 &GetVertex(Int index) const { return m_verts[index]; }
-private:
-	char m_pad0[8];
-	Vector3 *m_verts;
-	char m_pad1[0x28];
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShadowGeometryMesh.h"
 
 class W3DShadowGeometry
 {
