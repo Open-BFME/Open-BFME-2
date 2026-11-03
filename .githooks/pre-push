@@ -693,6 +693,10 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # already on master pushed 57 of them on 2026-10-08..12 (277bfd21a8 landed, then 14
     # empty copies of it); every gate below passes a commit that changes no file. One git log.
     spawn "empty commit(s) in the outgoing range" python3 tools/empty_commits.py --range "$base" "$local_sha"
+    # Two seats can give their new obstacle-register entries the same next LINK ID without a
+    # conflict (one file per entry); the remote tip already holds the other one.
+    spawn "a LINK ID heads two obstacle-register entries across the outgoing range" \
+        python3 tools/obstacle_ids.py --range "$base" "$local_sha"
 
     # Direction gate over the OUTGOING range, same call verify_pr.sh makes on a
     # PR. pre-commit runs it too, but --no-verify and clones that never ran

@@ -123,6 +123,10 @@ if grep -qiE '(^|/)lessons[^/]*\.md$' "$staged_names_out"; then
 fi
 rm -f "$staged_names_out"
 
+# One LINK ID per obstacle-register entry. With one file per entry (b0edac22fa) two
+# entries can take the same ID without a conflict.
+python3 tools/obstacle_ids.py --staged || fail "a LINK ID heads two obstacle-register entries (see above)"
+
 # A script under tools/ is neither a Code/ source nor a ledger file, so nothing
 # else in this hook looks at it: one with a syntax error commits cleanly and only
 # fails when somebody next runs it. That has happened. One parse per staged tool
