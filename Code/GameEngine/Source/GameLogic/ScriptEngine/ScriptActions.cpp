@@ -330,12 +330,7 @@ public:
 	Object *cur() const { return m_cur; }
 };
 
-struct PlayerTeamNode
-{
-	PlayerTeamNode *m_next;
-	PlayerTeamNode *m_prev;
-	class TeamPrototype *m_value;
-};
+#include "../../../Include/GameLogic/PlayerTeamNode.h"
 
 #include "../../../Include/Common/MemoryPoolObject.h"
 

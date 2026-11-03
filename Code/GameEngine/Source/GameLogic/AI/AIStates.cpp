@@ -386,12 +386,7 @@ inline DLINK_ITERATOR<Team> iterate_TeamInstanceList(const TeamPrototype *proto)
 	return DLINK_ITERATOR<Team>(proto->m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
 }
 
-struct PlayerTeamNode
-{
-	PlayerTeamNode *m_next;
-	PlayerTeamNode *m_prev;
-	TeamPrototype *m_value;
-};
+#include "../../../Include/GameLogic/PlayerTeamNode.h"
 
 class Player
 {

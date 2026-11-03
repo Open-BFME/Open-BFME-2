@@ -61,12 +61,7 @@ Int __cdecl Rva002AA3D4Closest(Object *obj, void *userData);
 #include "../../../Include/Common/Team.h"
 
 // The player's team prototype list (an STL list node: next, prev, value).
-struct PlayerTeamNode
-{
-	PlayerTeamNode *m_next;
-	PlayerTeamNode *m_prev;
-	TeamPrototype *m_value;
-};
+#include "../../../Include/GameLogic/PlayerTeamNode.h"
 
 class Player
 {

@@ -103,12 +103,7 @@ private:
 	Team *m_head334; // +0x334
 };
 
-struct PlayerTeamNode
-{
-	PlayerTeamNode *m_next;
-	PlayerTeamNode *m_prev;
-	TeamPrototype *m_value;
-};
+#include "../../../Include/GameLogic/PlayerTeamNode.h"
 
 class Rva0029FCB4
 {

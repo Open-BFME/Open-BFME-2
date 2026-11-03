@@ -153,12 +153,7 @@ private:
 	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
 
-struct PlayerTeamNode
-{
-	PlayerTeamNode *m_next;
-	PlayerTeamNode *m_prev;
-	TeamPrototype *m_value;
-};
+#include "../../../Include/GameLogic/PlayerTeamNode.h"
 
 class Player
 {
