@@ -28,7 +28,7 @@ namespace _STL
 }
 
 struct BfmeUiResourceEntryState;
-class Rva005F0152;
+class MappedImageCache;
 
 class VegetationFXShaderParameterSourceNamespace
 {
@@ -190,7 +190,7 @@ void rva007B5000()
 	atexit(rva007B9947);
 }
 
-extern Rva005F0152 Rva00A06858;
+extern MappedImageCache Rva00A06858;
 void __cdecl rva007B99B5();
 
 // ?rva007B51EB@@YAXXZ @0x007B51EB 22B: ctor 0x005F005B on &Rva00A06858, atexit(0x007B99B5).

@@ -6581,9 +6581,9 @@ void __cdecl rva007B9997()
 	return receiver->Rva005E9F7B::~Rva005E9F7B();
 }
 
-// 0x00A06858: defined elsewhere as ?Rva00A06858@@3VRva005F0152@@A.
-class Rva005F0152;
-extern Rva005F0152 Rva00A06858;
+// 0x00A06858: defined elsewhere as ?Rva00A06858@@3VMappedImageCache@@A.
+class MappedImageCache;
+extern MappedImageCache Rva00A06858;
 
 // ?rva007B99B5@@YAXXZ @ 0x007B99B5 (10B). Global Rva005F00FB dtor thunk: ecx=&Rva00A06858 then tail-jmp to pinned ??1Rva005F00FB@@UAE@XZ (0x005F00FB; scalar deleting dtor 0x005F02C4). No callers. Honest address name.
 void __cdecl rva007B99B5()

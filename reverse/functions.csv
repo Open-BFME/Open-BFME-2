@@ -23286,7 +23286,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva002CF84DCreate@@YGPAXPBURva002CF120@@@Z,,0x002CF84D,34,Code/Libraries/Source/WWVegas/WWLib/Rva002CF84DCreate.cpp,matched,stdcall node create via copy 0x2CF35C callers 0x2CFA39 0x33BFD9 0x33BFF4
 ?Rva002E5C15LowerBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C15Comp@@H@Z,,0x002E5C15,76,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain from 0x002E56B3 Less binary lower_bound 8B array
 ?Rva00440B64Insert@@YAXPAPAXPAXVRva0043FE9A@@@Z,,0x00440B64,47,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp,matched,unguarded insert with Rva0043FE9A comp callers 0x00441968 0x00441986
-?rva005F0152@Rva005F0152@@QAEPBVImage@@H@Z,,0x005F0152,51,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,unlock image cache via 2 callers plus prev donor
+?rva005F0152@MappedImageCache@@QAEPBVImage@@H@Z,,0x005F0152,51,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,unlock image cache via 2 callers plus prev donor
 ??1Rva00308C13@@QAE@XZ,,0x00308C13,30,Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp,matched,vector-like dtor via rowed Destroy plus free caller 0x282906
 ?Rva00440B1BPartition@@YAPAPAXPAPAX0PAXVRva0043FE9A@@@Z,,0x00440B1B,73,Code/GameEngine/Source/GameClient/GUI/Rva00440B1BPartition.cpp,matched,unguarded partition with Rva0043FE9A comp caller 0x004434B5
 ?Rva00440B93Adjust@@YAXPAPAXHHPAXVRva0043FE9A@@@Z,,0x00440B93,76,Code/GameEngine/Source/GameClient/GUI/Rva00440B93Adjust.cpp,matched,push-heap adjust with Rva0043FE9A comp caller 0x004419ED
