@@ -32,11 +32,7 @@ extern Rva0022B3F6Subsystem *TheSplineService;
 // The caller 0x00368B51 loads TheAerialPathfinder (VA 0x00E01F10) into ECX
 // before calling this RET 12 body, so it is an AerialPathfinder member that
 // never reads this (formerly rowed as a __stdcall free function).
-class AerialPathfinder
-{
-public:
-    bool rva00375A73(Rva00375A73Context *context, float value, Rva00375A73Coord *output);
-};
+#include "../../../Include/GameLogic/AerialPathfinder.h"
 
 // ?rva00375A73@AerialPathfinder@@QAE_NPAVRva00375A73Context@@MPAURva00375A73Coord@@@Z
 bool AerialPathfinder::rva00375A73(Rva00375A73Context *context, float value,

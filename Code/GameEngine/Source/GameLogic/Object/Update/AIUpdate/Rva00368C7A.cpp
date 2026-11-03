@@ -33,12 +33,7 @@ public:
 	bool valid24;
 	unsigned char padding25[0x54 - 0x25];
 };
-class AerialPathfinder
-{
-public:
-	bool rva00375A73(Rva00375A73Context *context, float value, Rva00375A73Coord *output);
-	bool rva00375DFF(Object *obj, Rva00375A73Context *context, float distance, float clearance);
-};
+#include "../../../../../Include/GameLogic/AerialPathfinder.h"
 extern AerialPathfinder *TheAerialPathfinder;
 struct Rva00368C7AMetrics
 {

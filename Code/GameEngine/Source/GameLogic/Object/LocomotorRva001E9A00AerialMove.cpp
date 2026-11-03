@@ -69,11 +69,7 @@ public:
 	unsigned char prefix00[0x54];
 	Coord3D goal54;					// +0x54
 };
-class AerialPathfinder
-{
-public:
-	bool rva00375A73(Rva00375A73Context *context, float value, Rva00375A73Coord *output);
-};
+#include "../../../Include/GameLogic/AerialPathfinder.h"
 // ?TheAerialPathfinder@@3PAVAerialPathfinder@@A at 0x00A01F10 (zero-filled
 // .data) is defined with its class in AerialPathfinder.cpp.
 extern AerialPathfinder *TheAerialPathfinder;

@@ -122,19 +122,7 @@ struct AerialShapeBits {
 
 class Rva00375A73Context;
 struct Rva00375A73Coord;
-class AerialPathfinder
-{
-public:
-	bool rva00375C28(Object*,const Coord3D*,float*,Coord3D*);
-	bool rva00375A73(Rva00375A73Context*,float,Rva00375A73Coord*);
-	bool rva00375DFF(Object*,Rva00375A73Context*,float,float);
-	float rva00375B7A(float,float);
-	int rva00375ED7(Object*,const Coord3D*,Coord3D*);
-	bool computeAerialPath(void *, const Coord3D *, Rva00312C95 *, const unsigned char *, const unsigned char *, bool);
-	char m_pad00[0x258];
-private:
-	void *m_258; // +0x258 +0x258
-};
+#include "../../../Include/GameLogic/AerialPathfinder.h"
 
 bool AerialPathfinder::computeAerialPath(void *thing, const Coord3D *dest, Rva00312C95 *route,
     const unsigned char *label, const unsigned char *firstPointRaw, bool adjust)

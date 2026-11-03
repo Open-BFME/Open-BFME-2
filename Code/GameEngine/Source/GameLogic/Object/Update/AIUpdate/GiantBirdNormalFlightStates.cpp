@@ -72,11 +72,7 @@ public:
 		const Coord3D *lookAhead, Bool noLookAhead);
 };
 
-class AerialPathfinder
-{
-public:
-	Real rva00375B7A(Real x, Real y);
-};
+#include "../../../../../Include/GameLogic/AerialPathfinder.h"
 // g_00E01F10 is only an alias of the owned global TheAerialPathfinder (ledger names column).
 extern AerialPathfinder *TheAerialPathfinder;
 #define g_00E01F10 TheAerialPathfinder

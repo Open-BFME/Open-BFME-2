@@ -24,15 +24,7 @@ public:
 	char unknown04[0x54 - 4];
 	Coord3D point;
 };
-class AerialPathfinder
-{
-public:
-	// The last argument is a bool (retail 0x0037609C tests the byte at
-	// [ebp+0x1C]); GiantBirdFollowPathState passes its look-ahead point as
-	// the one before it.
-	bool computeAerialPath(void *object, const Coord3D *position, Rva00312C95 *member,
-		const unsigned char *mask, const unsigned char *lookAhead, bool b);	// the row's spelling of the look-ahead point
-};
+#include "../../../../../Include/GameLogic/AerialPathfinder.h"
 // g_00E01F10 is the owned global TheAerialPathfinder (ledger names column).
 extern AerialPathfinder *TheAerialPathfinder;
 class Rva00368C7A
