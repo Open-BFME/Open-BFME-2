@@ -412,12 +412,7 @@ public:
 #include "../../../../GameEngine/Include/Common/AsciiStringRef.h"
 
 // "string + text"
-struct AsciiStringPlusText : AsciiStringRef
-{
-	operator AsciiString();
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../../../GameEngine/Include/Common/AsciiStringPlusText.h"
 
 AsciiStringPlusText operator+(const AsciiString &left, const char *right);
 
