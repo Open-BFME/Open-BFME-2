@@ -14,32 +14,28 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
-
-class BehaviorInterface
-{
-public:
-	virtual void behaviorAnchor() = 0;		///< vptr at 0x0c
-};
-
-class UpdateInterface
-{
-public:
-	virtual void updateAnchor() = 0;		///< vptr at 0x10
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/RadarUpdate.h
+// Target table at RVA 0x00851A0C has 13 primary slots: RadarUpdate owns
+// GetSnapshotName (0x004A0C27), xfer (0x004A0CC3), and getModuleNameKey
+// (0x004A0C2D). Its +0x10 interface table at 0x00851A00 owns update
+// (0x004A0D5F). The getter owner is still rowed under a placeholder name;
+// this declaration establishes its required symbol without adding an alias.
 class RadarUpdate : public UpdateModule
 {
 public:
 	RadarUpdate(Thing *, const ModuleData *);
 
-	virtual void objectModuleAnchor();
-	virtual void behaviorAnchor();
-	virtual void updateAnchor();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+public:
 
 	int m_value20;							///< 0x20
 	bool m_flag24;							///< 0x24

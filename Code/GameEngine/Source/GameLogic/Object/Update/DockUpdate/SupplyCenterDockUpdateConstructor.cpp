@@ -573,28 +573,6 @@ void ObjectModuleBase::objectModuleAnchor()
 {
 }
 
-struct RadarUpdate
-{
-	virtual void behaviorAnchor();
-	virtual void objectModuleAnchor();
-	virtual void updateAnchor();
-};
-
-// ?behaviorAnchor@RadarUpdate@@UAEXXZ present-unmatched
-void RadarUpdate::behaviorAnchor()
-{
-}
-
-// ?objectModuleAnchor@RadarUpdate@@UAEXXZ present-unmatched
-void RadarUpdate::objectModuleAnchor()
-{
-}
-
-// ?updateAnchor@RadarUpdate@@UAEXXZ present-unmatched
-void RadarUpdate::updateAnchor()
-{
-}
-
 struct SiegeAIUpdateIface1
 {
 	virtual void siegeAIUpdateIface1Anchor();
