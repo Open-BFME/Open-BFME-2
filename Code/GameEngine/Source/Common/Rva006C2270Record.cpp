@@ -7,7 +7,7 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma intrinsic(strlen)
-class Rva006C1F60 {public:int rva006C1F60(unsigned);};
+#include "../../Include/Common/Rva006C1F60.h"
 int rva006C4FA0Capture(void **,unsigned);
 struct Rva006C2270Slot {unsigned total,length,mode;};
 struct Rva006C2270Record {

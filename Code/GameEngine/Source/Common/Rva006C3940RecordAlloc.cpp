@@ -23,12 +23,7 @@
 namespace EA { namespace Allocator {
 } }
 
-class Rva006C1F60
-{
-public:
-	void *rva00033ED0(unsigned size, int flags);
-	void rva006C33D0(int a, int b);
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 struct Rva006C3940Chunk
 {

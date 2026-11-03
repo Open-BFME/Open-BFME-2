@@ -16,11 +16,7 @@
 // structural lead. The owner is not identified, so names are
 // address-derived.
 
-class Rva006C1F60
-{
-public:
-	void *rva00033ED0(unsigned int size, int flags);
-};
+#include "../../../Include/Common/Rva006C1F60.h"
 
 class Rva00034C90
 {

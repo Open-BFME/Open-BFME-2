@@ -49,12 +49,7 @@ public:
 	void rva006C26F0(void *chunk, bool allocation);
 };
 
-class Rva006C1F60
-{
-public:
-	void *rva00033ED0(unsigned size, int flags);
-	void rva006C33D0(int a, int b);
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 #include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {

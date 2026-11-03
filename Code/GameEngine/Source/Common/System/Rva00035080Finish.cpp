@@ -50,11 +50,7 @@ public:
 	}
 };
 
-class Rva006C1F60
-{
-public:
-	void *rva00033ED0(unsigned int size, int flags);
-};
+#include "../../../Include/Common/Rva006C1F60.h"
 
 #include "../../../Include/Common/GeneralAllocator.h"
 namespace EA

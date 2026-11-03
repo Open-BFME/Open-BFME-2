@@ -493,7 +493,7 @@ class Player { public: char m_pad[0x60]; Rva002A7461 m_commandPoints; };
 class ScriptEngine { public: char m_pad[0x1A4C4]; int m_campaignAI; };
 class Rva002858E5 { public: bool rva002858E5(float *pos, int *a, int *b, int *c, int *d, int *e); };
 struct Slot64 { char m_pad[0x18]; unsigned int m_used; char m_pad1c[0x28 - 0x1C]; unsigned int m_peak; };
-class Rva006C1F60 { public: Slot64 *rva006C1AA0(unsigned int i); };
+#include "../../../../GameEngine/Include/Common/Rva006C1F60.h"
 class RegistryClass { public: RegistryClass(const char *key, bool create); ~RegistryClass(); int Get_Int(const char *name, int def); bool Is_Valid() const { return m_valid; } int m_key; bool m_valid; };
 namespace Debug_Statistics
 {

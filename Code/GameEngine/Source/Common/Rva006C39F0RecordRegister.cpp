@@ -26,12 +26,7 @@
 // the unsigned spelling of the pinned name the rowed caller 0x006C3D30 uses.
 // Names are address-derived; the original names are not established.
 
-class Rva006C1F60
-{
-public:
-	void rva006C33D0(int policy, int limit);
-	void rva006C39E0();
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 void Rva006C1F60::rva006C39E0()
 {

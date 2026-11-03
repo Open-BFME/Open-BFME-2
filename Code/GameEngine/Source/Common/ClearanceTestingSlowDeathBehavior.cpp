@@ -82,11 +82,7 @@ enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0
 };
-class Rva006C1F60
-{
-public:
-	bool rva00033D50();
-};
+#include "../../Include/Common/Rva006C1F60.h"
 class Rva001EDDBBForwarder
 {
 public:
