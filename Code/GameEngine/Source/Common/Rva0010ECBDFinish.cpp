@@ -14,13 +14,7 @@ class Gen0002857E;
 // at +0x50; the helper's entry view reads +0x30/+0x38/+0x44.
 struct Rva000A80A8Item;
 
-class AudioFileCache
-{
-public:
-	char m_pad[0x50];
-	void *m_mutex;
-	void rva000A8127(Rva000A80A8Item *entry);
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/AudioFileCache.h"
 
 class Gen0002857E
 {

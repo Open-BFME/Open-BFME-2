@@ -96,7 +96,7 @@ class Rva003EF5DA {public:void rva003EF5DA(float);};
 struct Rva0005E13CInner1;
 class Rva0005E13CHost {public:bool helper(const Rva0005E13CInner1*);};
 class Rva002D9BDC {public:void rva002D9BDC(float,float);};
-class AudioFileCache {public:Rva00690FF0Handle requestFile(const BfmePoolRef10&,int);};
+#include "../../Include/MilesAudioDevice/AudioFileCache.h"
 struct AudioSettings {char pad0[0x74];int globalRange;char pad78[0x3c];int cacheThreshold;};
 extern float g_00DBA4FC;
 #include <limits>

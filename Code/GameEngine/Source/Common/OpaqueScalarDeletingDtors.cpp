@@ -175,11 +175,7 @@ void Rva00260A3C_Anchor(SubTitleWindow *object)
 	delete object;
 }
 
-class AudioFileCache
-{
-public:
-	~AudioFileCache();	// row 0x000A7CF3 in AudioFileCacheDestructor.cpp
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/AudioFileCache.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GAudioFileCache (it
 // calls out to the destructor row); the destructor is only declared here.

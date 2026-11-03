@@ -10,25 +10,16 @@
 
 #include <windows.h>
 
-class AudioFileCache
-{
-public:
-	void rva000A77B3();
-
-private:
-	char m_pad00[0x48];
-	void *m_handle;
-	bool m_done;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/AudioFileCache.h"
 
 void AudioFileCache::rva000A77B3()
 {
-	void *handle = m_handle;
-	m_done = true;
+	void *handle = field48;
+	field4C = true;
 	if (handle != 0)
 	{
 		WaitForSingleObject(handle, 0xFFFFFFFF);
-		CloseHandle(m_handle);
-		m_handle = 0;
+		CloseHandle(field48);
+		field48 = 0;
 	}
 }
