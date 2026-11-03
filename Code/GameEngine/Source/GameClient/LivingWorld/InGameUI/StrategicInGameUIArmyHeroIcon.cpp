@@ -71,8 +71,8 @@ const Image *__cdecl Rva005F01D6Get(Rva005F01D6In *);
 namespace StrategicInGameUI {
 const Image *GetButtonImage(const StrategicButtonImageView *,int);
 }
+#include "../../../../Include/GameClient/ArmyMemberIconMovieClip.h"
 namespace StrategicHUD {
-class ArmyMemberIconMovieClip { public: void rva005FC9E0(const Image *); };
 class ArmyHeroIconMovieClip { public: ArmyHeroIconMovieClip(AptMovieClipFrame *); private: char storage[0x1c]; };
 }
 class Rva005FC9F0 { public: void rva005FC9E8(const Image *); void rva005FC9F0(int); };

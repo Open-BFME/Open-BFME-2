@@ -240,12 +240,8 @@ Int Rva0059B19A::rva0059B19A() const
 }
 
 // 0x005FC9F8 (two tables): the rowed 0x005FC8FD of the +0x18 object.
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
 namespace StrategicHUD {
-class ArmyMemberIconMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::ArmyMemberIconMovieClip::Impl

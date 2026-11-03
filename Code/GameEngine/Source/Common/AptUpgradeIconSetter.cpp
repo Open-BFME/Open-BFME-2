@@ -156,6 +156,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 
 class AptMovieClipFrame;
 
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
 namespace StrategicHUD {
 // The base (Common/Rva005FC8FDApt.cpp): ctor 0x005FCEA9; 0x1C bytes, a
 // one-slot polymorphic first base (+0x00..+0x08) and the observer-list base
@@ -174,16 +175,6 @@ class ArmyMemberIconObservers
 	char m_list[0x10];
 };
 
-class ArmyMemberIconMovieClip : public Rva007C6F20Base, public ArmyMemberIconObservers
-{
-public:
-	ArmyMemberIconMovieClip(AptMovieClipFrame *frame, const AsciiString &type);
-	virtual ~ArmyMemberIconMovieClip();
-	virtual void DoUpdate(); // 0x005FC9F8 (pinned)
-
-private:
-	void *m_impl; // +0x18
-};
 
 class ArmyUnitIconMovieClip;
 }

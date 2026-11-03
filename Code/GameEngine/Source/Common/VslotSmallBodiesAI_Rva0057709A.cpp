@@ -94,12 +94,8 @@ void Rva005785CD::rva005785CD()
 
 // 0x0059B19A: the rowed length 0x00513E03 of the +0x04 object.
 // 0x005FC9F8 (two tables): the rowed 0x005FC8FD of the +0x18 object.
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
 namespace StrategicHUD {
-class ArmyMemberIconMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::ArmyMemberIconMovieClip::Impl

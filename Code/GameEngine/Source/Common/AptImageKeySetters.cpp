@@ -246,12 +246,8 @@ private:
 
 APT_IMAGE_KEY_SET( StrategicHUD::RegionDetailsTerritoryMovieClip::Impl, rva005F191E, "_level%u.%s_MapPreview", m_image )
 
+#include "../../Include/GameClient/ArmyMemberIconMovieClip.h"
 namespace StrategicHUD {
-class ArmyMemberIconMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 // WorldBuilder names 0x005FC7DE StrategicHUD::ArmyMemberIconMovieClip::Impl::SetTypeImage
