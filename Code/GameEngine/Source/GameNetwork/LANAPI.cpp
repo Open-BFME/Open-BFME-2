@@ -141,11 +141,7 @@ enum SlotState
 	SLOT_AI_5 = 5,
 	SLOT_PLAYER = 6
 };
-struct GameSlotConnectInfo
-{
-	Int m_nat;
-	UnsignedShort m_port;
-};
+#include "../../Include/GameNetwork/GameSlotConnectInfo.h"
 class GameSlot
 {
 public:

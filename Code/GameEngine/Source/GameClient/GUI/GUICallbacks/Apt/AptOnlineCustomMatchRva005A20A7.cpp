@@ -86,12 +86,7 @@ extern GameTextInterface *TheGameText;
 enum SlotState { SLOT_OPEN = 0 };
 
 // Retail passes a zero DWORD and zero port WORD to GameSlot::setState.
-struct GameSlotConnectInfo
-{
-	GameSlotConnectInfo() : nat(0), port(0) {}
-	unsigned int nat;
-	unsigned short port;
-};
+#include "../../../../../Include/GameNetwork/GameSlotConnectInfo.h"
 
 class GameSlot
 {

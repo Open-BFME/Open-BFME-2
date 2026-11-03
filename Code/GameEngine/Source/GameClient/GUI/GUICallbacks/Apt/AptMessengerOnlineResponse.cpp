@@ -72,12 +72,7 @@ struct AsciiComparator { bool operator()(AsciiString, AsciiString) const; };
 typedef std::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 
 enum SlotState { SLOT_OPEN, SLOT_CLOSED, SLOT_EASY_AI, SLOT_MED_AI, SLOT_BRUTAL_AI, SLOT_AI_5, SLOT_PLAYER };
-struct GameSlotConnectInfo
-{
-    GameSlotConnectInfo() : nat(0), port(0) {}
-    unsigned int nat;
-    unsigned short port;
-};
+#include "../../../../../Include/GameNetwork/GameSlotConnectInfo.h"
 class GameSlot
 {
 public:

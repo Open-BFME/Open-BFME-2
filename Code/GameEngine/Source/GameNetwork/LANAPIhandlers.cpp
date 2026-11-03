@@ -208,11 +208,7 @@ enum
 #define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
 #define BFME_GSLOT(n) virtual void slot##n( void );
 
-struct GameSlotConnectInfo
-{
-	Int m_nat;
-	UnsignedShort m_port;
-};
+#include "../../Include/GameNetwork/GameSlotConnectInfo.h"
 
 // A zeroed connection info built at the call, as setState's no-connection
 // argument.
