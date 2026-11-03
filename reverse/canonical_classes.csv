@@ -610,3 +610,4 @@ DX8PolygonRendererClass,Code/Libraries/Source/WWVegas/WW3D2/dx8polygonrendererCl
 LightClass,Code/Libraries/Source/WWVegas/WW3D2/LightClass.h,existing header; contract class_contracts/LightClass.json; 2/22 sampled units adopt
 W3DDynamicLight,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DDynamicLightClass.h,existing header; contract class_contracts/W3DDynamicLight.json; 3/9 sampled units adopt
 TerrainType,Code/GameEngine/Include/Common/TerrainType.h,existing header; contract class_contracts/TerrainType.json; 10/12 sampled units adopt
+TransportContainModuleData,Code/GameEngine/Include/GameLogic/Module/TransportContainModuleData.h,existing header; contract class_contracts/TransportContainModuleData.json; 9/17 sampled units adopt
