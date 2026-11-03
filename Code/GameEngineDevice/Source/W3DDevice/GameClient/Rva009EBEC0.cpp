@@ -44,11 +44,7 @@ private:
 	CountedAsset *m_object;
 };
 
-class AssetRegistry
-{
-public:
-	AssetReference Find_Asset( const char *name );
-};
+#include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
 
 class AssetName
 {

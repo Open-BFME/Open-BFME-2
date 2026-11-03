@@ -497,11 +497,7 @@ private:
 };
 
 // Ledger owner of the key-queue body at 0x00622680 (WorldBuilder: AssetManagerImpl::AddRequiredAssets).
-class AssetRegistry
-{
-public:
-	void Queue_Keys_00622680(bool front, const Rva001408C0Set &keys);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h"
 
 class CriticalSectionLock {
 public:

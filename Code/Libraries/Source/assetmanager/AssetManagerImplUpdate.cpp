@@ -186,11 +186,7 @@ typedef _STL::deque<int> Q1Queue009F1510;
 // 0x009EFBF0 is landed as AssetManagerImpl::AddRequiredAssets
 // (AssetRegistryQueueKeys009EFBF0.cpp) on the same g_theAssetRegistry
 // object; this TU reaches it through that declaration.
-class AssetRegistry
-{
-public:
-	void Queue_Keys_00622680(bool known, const Rva001408C0Set &keys);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h"
 
 class Q1Receiver0134FAAC
 {

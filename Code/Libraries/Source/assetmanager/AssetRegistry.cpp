@@ -5,11 +5,7 @@
 // The recovered AssetManagerImpl constructor passes its address and this to
 // _beginthread. Its sole tail call reaches the separately verified registry
 // worker at 00622480. The original leaf name remains unknown.
-class AssetRegistry
-{
-public:
-    void Worker_Thread_00622480();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h"
 
 // tu-skeleton: 0x00622480 496B ?Worker_Thread_00622480@AssetRegistry@@QAEXXZ -- matched in Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp (not merged yet)
 

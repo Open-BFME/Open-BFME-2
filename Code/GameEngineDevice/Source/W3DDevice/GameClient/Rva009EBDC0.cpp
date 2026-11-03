@@ -30,11 +30,7 @@ private:
 	CountedAsset *m_object;
 };
 
-class AssetRegistry
-{
-public:
-	AssetReference Get_Current_Asset();
-};
+#include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
 
 extern class Q1Receiver0134FAAC *TheQ1Receiver;
 

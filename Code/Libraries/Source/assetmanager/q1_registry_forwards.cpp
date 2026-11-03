@@ -97,10 +97,7 @@ class Gen_009EBB60Target {
 public:
     int bfmeForward();
 };
-class AssetRegistry {
-public:
-    const char *rva006213B0(unsigned int key);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h"
 
 // Native null path returns 100; the live path tail-calls the rowed
 // registry queue percentage operation at 6208B0.

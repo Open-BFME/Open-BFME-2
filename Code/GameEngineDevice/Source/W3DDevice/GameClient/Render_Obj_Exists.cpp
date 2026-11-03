@@ -5,11 +5,7 @@
 // Render_Obj_Exists_Impl resolves via the new ledger pin at 0x00621170
 // (sweep's chosen BFME1 name; the global is a DIR32 slot).
 
-class AssetRegistry
-{
-public:
-	bool Render_Obj_Exists_Impl(const char *name);
-};
+#include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
 
 extern class Q1Receiver0134FAAC *TheQ1Receiver;
 
