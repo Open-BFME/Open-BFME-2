@@ -26,6 +26,7 @@ class INI;
 #include "../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 #include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
 #include "../../Include/GameClient/LineEmissionVolumeInfo.h"
+#include "../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -63,12 +64,6 @@ public:
     FXCoord3D m_axis;
 };
 
-class EmissionVelocityInfo
-{
-public:
-    virtual ~EmissionVelocityInfo();
-    virtual void v1() = 0;
-};
 
 // Sizes come from the clone bodies, which push the wrapper's size to operator
 // new: 24 for the spherical and hemispherical velocities, 36 for the

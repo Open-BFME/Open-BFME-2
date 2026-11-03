@@ -53,6 +53,7 @@ class RvaSmartPtr12;
 
 #include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 #include "../../../../Include/GameClient/SphereEmissionVolumeInfo.h"
+#include "../../../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -132,11 +133,6 @@ public:
 	TerrainFireEmissionInfo( const TerrainFireEmissionInfo &that );
 };
 
-class EmissionVelocityInfo
-{
-public:
-	virtual void unusedVirtual() = 0;
-};
 
 class OrthoEmissionVelocityInfo : public EmissionVelocityInfo
 {

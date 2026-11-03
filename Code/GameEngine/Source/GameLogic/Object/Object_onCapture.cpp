@@ -45,13 +45,9 @@ public:
 	AICommandInterface m_ai;
 };
 
+#include "../../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
-class EmissionVelocityInfo
-{
-public:
-	virtual void DoXfer(Xfer &xfer);
-};
 }
 
 #include "../../../Include/GameLogic/PartitionData.h"

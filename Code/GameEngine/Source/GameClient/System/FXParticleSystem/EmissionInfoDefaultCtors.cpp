@@ -32,17 +32,10 @@ private:
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 #include "../../../../Include/GameClient/EmissionVolumeInfo.h"
+#include "../../../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
-class EmissionVelocityInfo : public Snapshot
-{
-public:
-	virtual ~EmissionVelocityInfo() {}
-    virtual void LoadPostProcess();
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(::Xfer &);
-};
 
 class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
 {

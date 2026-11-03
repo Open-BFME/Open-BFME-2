@@ -60,12 +60,12 @@ public:
  virtual void DoXfer(Xfer &) = 0;
 private: unsigned int storage[4];
 };
+#include "../../../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem {
 class Rva003AA228Slice { public: virtual void unusedVirtual() = 0; };
 class Rva003AA228 : public DefaultModuleHeadBase, public Rva003AA228Slice { public: virtual ~Rva003AA228(); };
 template<int Category> class DefaultParticleModule;
 template<> class DefaultParticleModule<4> : public Rva003AA228 { public: virtual ~DefaultParticleModule(); };
-class __declspec(novtable) EmissionVelocityInfo : public Snapshot { public: virtual ~EmissionVelocityInfo(); };
 class SphericalEmissionVelocityInfo : public EmissionVelocityInfo { private: GameClientRandomVariable var; };
 class SphericalEmissionVelocityModule : public DefaultParticleModule<4>, public SphericalEmissionVelocityInfo { public: virtual ~SphericalEmissionVelocityModule(); };
 }

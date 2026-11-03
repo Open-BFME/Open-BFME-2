@@ -17,20 +17,12 @@ class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 #include "../../../../Include/GameClient/EmissionVolumeInfo.h"
+#include "../../../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
-class EmissionVelocityInfo : public Snapshot
-{
-public:
-    EmissionVelocityInfo(const EmissionVelocityInfo &that);
-    virtual ~EmissionVelocityInfo() {}
-    virtual void LoadPostProcess();
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(::Xfer &);
-};
 
 // BFME1 donor fx_particle_system.cpp:733 is an empty DoXfer override; target
 // exports identify EmissionVelocityInfo at 0x0047A69C.

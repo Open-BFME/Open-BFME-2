@@ -9,14 +9,9 @@ class UpgradeMuxData {
 public: void performUpgradeFX(Object *obj) const;
 };
 class Xfer;
+#include "../../Include/GameClient/EmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
-class EmissionVelocityInfo
-{
-public:
-	virtual ~EmissionVelocityInfo();
-	virtual void DoXfer(Xfer &xfer);
-};
 }
 class Rva006003FC {
 public: void rva006003A5(Object *obj);
