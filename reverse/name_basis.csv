@@ -7332,3 +7332,13 @@ param,Rva001364F7::rva001364F7::a,Rva001364F7::rva001364F7::left,inferred,agree:
 param,Rva001364F7::rva001364F7::b,Rva001364F7::rva001364F7::parent,inferred,agree:nl-7c37f103fd42,Code/Libraries/Source/WWVegas/WWLib/Rva001364F7Insert.cpp,0x001364F7
 param,Rva001364F7::rva001364F7::c,Rva001364F7::rva001364F7::right,inferred,agree:nl-a3003ba19bbc,Code/Libraries/Source/WWVegas/WWLib/Rva001364F7Insert.cpp,0x001364F7
 param,Rva001364F7::rva001364F7::v,Rva001364F7::rva001364F7::key,inferred,agree:nl-a904fac8b3e7,Code/Libraries/Source/WWVegas/WWLib/Rva001364F7Insert.cpp,0x001364F7
+local,Rva00503D26Evaluate::u,Rva00503D26Evaluate::oneMinusT,inferred,agree:nl-d7348777f558,Code/GameEngine/Source/Common/calc.cpp,0x00503D26
+param,Rva00503D26Evaluate::a,Rva00503D26Evaluate::start,inferred,agree:nl-5125202cafb1,Code/GameEngine/Source/Common/calc.cpp,0x00503D26
+param,Rva00503D26Evaluate::b,Rva00503D26Evaluate::control,inferred,agree:nl-542987ad610d,Code/GameEngine/Source/Common/calc.cpp,0x00503D26
+param,Rva00503D26Evaluate::c,Rva00503D26Evaluate::end,inferred,agree:nl-e031589cc43b,Code/GameEngine/Source/Common/calc.cpp,0x00503D26
+param,Rva00503D8EEvaluate::p2,Rva00503D8EEvaluate::end,inferred,agree:nl-f21a6b413c18,Code/GameEngine/Source/Common/calc.cpp,0x00503D8E
+param,Rva00503D8EEvaluate::p3,Rva00503D8EEvaluate::after,inferred,agree:nl-f311b3171a07,Code/GameEngine/Source/Common/calc.cpp,0x00503D8E
+param,Rva00503F2CCalc::p0,Rva00503F2CCalc::before,inferred,agree:nl-7cec224c6644,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C
+param,Rva00503F2CCalc::p1,Rva00503F2CCalc::start,inferred,agree:nl-9b66d529ffb7,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C
+param,Rva00503F2CCalc::p2,Rva00503F2CCalc::end,inferred,agree:nl-66e22c880d38,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C
+param,Rva00503F2CCalc::p3,Rva00503F2CCalc::after,inferred,agree:nl-8ddace37b1d9,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C

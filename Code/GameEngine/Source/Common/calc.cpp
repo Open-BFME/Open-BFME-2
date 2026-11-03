@@ -20,16 +20,16 @@ struct Rva00503F2CPoint
 	float z;
 };
 
-float __cdecl Rva00503D8EEvaluate(float before, float start, float p2, float p3, float t)
+float __cdecl Rva00503D8EEvaluate(float before, float start, float end, float after, float t)
 {
-	return ((((start * 3.0f - before - p2 * 3.0f + p3) * t + (before + before - start * 5.0f + p2 * 4.0f - p3)) * t + (p2 - before)) * t + (start + start)) * 0.5f;
+	return ((((start * 3.0f - before - end * 3.0f + after) * t + (before + before - start * 5.0f + end * 4.0f - after)) * t + (end - before)) * t + (start + start)) * 0.5f;
 }
 
-void __cdecl Rva00503F2CCalc(Rva00503F2CPoint *out, const Rva00503F2CPoint *p0, const Rva00503F2CPoint *p1, const Rva00503F2CPoint *p2, const Rva00503F2CPoint *p3, float t)
+void __cdecl Rva00503F2CCalc(Rva00503F2CPoint *out, const Rva00503F2CPoint *before, const Rva00503F2CPoint *start, const Rva00503F2CPoint *end, const Rva00503F2CPoint *after, float t)
 {
-	volatile float z = Rva00503D8EEvaluate(p0->z, p1->z, p2->z, p3->z, t);
-	volatile float y = Rva00503D8EEvaluate(p0->y, p1->y, p2->y, p3->y, t);
-	float x = Rva00503D8EEvaluate(p0->x, p1->x, p2->x, p3->x, t);
+	volatile float z = Rva00503D8EEvaluate(before->z, start->z, end->z, after->z, t);
+	volatile float y = Rva00503D8EEvaluate(before->y, start->y, end->y, after->y, t);
+	float x = Rva00503D8EEvaluate(before->x, start->x, end->x, after->x, t);
 	out->x = x;
 	out->y = y;
 	out->z = z;
@@ -37,11 +37,11 @@ void __cdecl Rva00503F2CCalc(Rva00503F2CPoint *out, const Rva00503F2CPoint *p0, 
 
 // Quadratic Bezier scalar evaluate(a b c t) = (1-t)^2*a + 2*(1-t)*t*b + t^2*c.
 // Pure x87, EBP frame. Callers 0x00503E0E 0x00503E46.
-float __cdecl Rva00503D26Evaluate(float a, float b, float c, float t)
+float __cdecl Rva00503D26Evaluate(float start, float control, float end, float t)
 {
-	float u = 1 - t;
-	float s = a * u + 2 * b * t;
-	s = s * u + c * t * t;
+	float oneMinusT = 1 - t;
+	float s = start * oneMinusT + 2 * control * t;
+	s = s * oneMinusT + end * t * t;
 	return s;
 }
 // g_Va00863BF8: matched references place it at VA 0xc63bf8 (retail .rdata value 0.5833333f).
