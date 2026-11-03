@@ -289,6 +289,7 @@ Int GetGameLogicRandomValue(Int lo, Int hi, char *file, int line);
 
 // Inherited module data is at +0x04 and the object is at +0x08.
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
 

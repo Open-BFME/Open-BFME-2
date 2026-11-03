@@ -220,6 +220,11 @@ adoption preserves all27 source rows, EH4 and130 providers; main owning
 acceptance retires one header entry. No new census gain is claimed.
 [Header adoption and scope](../reverse/attempt_support/autopickup-headers-20261103/README.md).
 
+AutoPickUp inherited-module follow-up: the actual BehaviorModule dependency
+is now explicit after UpdateModule. Main paired29-row checks and four owning
+acceptances pass, retiring the three source ancestor keys and the destructor
+interface key. No shared header or executable body changes.
+
 ### ScriptActions doNamedEnterNamed link repair (2026-11-02)
 
 `ScriptActions_doNamedEnterNamed.cpp` (92B) unresolved symbol `?Rva0026C347Command@Rva0026C347Commands@@QAEXPAXH@Z` resolved by pointing the call to the real rowed provider `AICommandInterface::rva0026C347` (`?rva0026C347@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z` at 0x0026C347 in `AICommandInterfaceAttackCommands.cpp`), which was already matched and linked.
