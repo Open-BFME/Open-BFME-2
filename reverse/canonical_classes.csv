@@ -384,3 +384,4 @@ MultiListObjectClass,Code/Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h,
 AptMpGameSetup,Code/GameEngine/Include/GameClient/AptMpGameSetup.h,existing header; contract class_contracts/AptMpGameSetup.json; 12/35 sampled units adopt
 StringClass,Code/Libraries/Source/WWVegas/WWLib/StringClassData.h,existing header; contract class_contracts/StringClass.json; 21/63 sampled units adopt
 DataChunkInfo,Code/GameEngine/Include/Common/DataChunkInfo.h,existing header; contract class_contracts/DataChunkInfo.json; 23/27 sampled units adopt
+AptPlayer,Code/Libraries/Source/Apt/AptPlayerClass.h,existing header; contract class_contracts/AptPlayer.json; 65/78 sampled units adopt

@@ -1,0 +1,1069 @@
+{
+ "bases": [
+  "SubsystemInterface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptPlayer",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 78,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 1
+   },
+   "0x300": {
+    "4": 2
+   },
+   "0x308": {
+    "1": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7e6e80",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": 810
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": {
+      "0x30c": [
+       4
+      ],
+      "0x310": [
+       1
+      ],
+      "0x311": [
+       1
+      ],
+      "0x312": [
+       1
+      ],
+      "0x314": [
+       4
+      ],
+      "0x318": [
+       4
+      ],
+      "0x31c": [
+       4
+      ],
+      "0x320": [
+       4
+      ],
+      "0x324": [
+       4
+      ],
+      "0x328": [
+       1
+      ],
+      "0x329": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": {
+      "0x20": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x2fc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x34": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x48": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x5c": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x70": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x84": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x90": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xa4": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xb8": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xc": [
+       "??0?$hash_map@HURva00224C76Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva00224C76Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x224e10"
+     ],
+     "value": {
+      "0x0": "0x7e6e80"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e6e80"
+     ],
+     "value": {
+      "count": 21,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva00224A90@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x224f50"
+       },
+       {
+        "name": "?rva00224296@Rva00062918Host@@QAEXXZ",
+        "slot": 1,
+        "target": "0x224296"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00222471@Rva00222471@@QAEXXZ",
+        "slot": 9,
+        "target": "0x222471"
+       },
+       {
+        "name": "?rva002251E5@Rva00222A8BTarget@@QAEXXZ",
+        "slot": 10,
+        "target": "0x2251e5"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?rva0022244D@Rva0022244D@@QAEXXZ",
+        "slot": 12,
+        "target": "0x22244d"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva0022274A@Rva00062908Host@@QAEXXZ",
+        "slot": 14,
+        "target": "0x22274a"
+       },
+       {
+        "name": "__purecall",
+        "slot": 15,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 16,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 17,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 18,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 19,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?AddLevel@AptPlayer@@UAEHVAsciiString@@0_NH@Z",
+        "slot": 20,
+        "target": "0x224710"
+       }
+      ],
+      "table": "0x7e6e80"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 22,
+  "retail_vtables": {
+   "0x7e6e80": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva00224A90@@UAEPAXI@Z",
+     "1": "?rva00224296@Rva00062918Host@@QAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?rva00222471@Rva00222471@@QAEXXZ",
+     "10": "?rva002251E5@Rva00222A8BTarget@@QAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "?rva0022244D@Rva0022244D@@QAEXXZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?rva0022274A@Rva00062908Host@@QAEXXZ",
+     "15": "__purecall",
+     "16": "__purecall",
+     "17": "__purecall",
+     "18": "__purecall",
+     "19": "__purecall",
+     "20": "?AddLevel@AptPlayer@@UAEHVAsciiString@@0_NH@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 5,
+  "view_sizes": {
+   "1": 65,
+   "4": 1,
+   "13": 1,
+   "764": 1,
+   "768": 1,
+   "772": 1,
+   "788": 1,
+   "812": 2
+  },
+  "views": 73,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/AptPlayer_OnCommand.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 13,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 14,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 33,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 34,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 53,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 54,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 73,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 74,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 93,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 94,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 113,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 114,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 145,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 146,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 165,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 166,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 185,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 186,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/AptPlayer_PeekGameWindow.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 764,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 768,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 772,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 776,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 780,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 784,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 785,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 786,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 788,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 792,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 796,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 800,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 804,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 808,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 809,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/AptPlayerTooltipMap.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 1,
+    "14": 1
+   },
+   "class": "AptPlayer"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "aptPlayerSlot19()": 1,
+    "slot19(int)": 1
+   },
+   "class": "AptPlayer"
+  }
+ ],
+ "size": 812,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot1()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot10()"
+  },
+  "11": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot11()"
+  },
+  "12": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot12()"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot18()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot2()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "AddLevel(AsciiString,AsciiString,bool,int)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot4()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot5()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot6()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot7()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot8()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "aptPlayerSlot9()"
+  }
+ }
+}
