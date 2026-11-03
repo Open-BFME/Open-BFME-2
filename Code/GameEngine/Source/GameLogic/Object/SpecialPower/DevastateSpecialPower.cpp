@@ -40,11 +40,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -65,34 +61,21 @@ public:
 // FireWeapon at +0x7C through +0x8C) sizes the class at 0x90 bytes over a
 // 0x7C-byte base built by the out-of-line 0x004930A0 constructor (pinned as
 // SpecialPowerModuleData, shared with DeliverPayload/AIUpdateInterface ctors).
-// FireWeapon defaults to the empty string through the rowed StringBase
-// const-char constructor at 0x37BA0. The base (declared-only dtor, no code)
-// is the TU's sole unwindable, which arms retail's EH frame with its single
-// state-0 store; the member has no declared dtor so the string call advances
-// no state. The derived vtable store is compiler-emitted (virtual classes,
-// TU-local, nothing defined so no vtable is emitted here; the store resolves
-// through the ??_7 pin at the true vtable 0x00C5E518, whose slot0 is the
-// scalar-deleting dtor right after this ctor at 0x4C851B), which is what
-// places it mid-init between the hoisted string setup and the float stores:
-// a source-written store can only land last. /Oy- forces the ebp frame with
-// the __EH_prolog prologue; /arch:SSE keeps the float zeros as xorps plus
-// movss. Supersedes the 0x4C84BD ctor pin (row proves the body).
+// FireWeapon is the existing canonical four-byte AsciiString wrapper at +0x8C.
+// Its inline constructor reaches the same StringBase const-char owner at
+// 0x00037BA0. It is constructed last, with no later throwing operation; the
+// verified native EH graph retains the single base-cleanup state.
+// SpecialPowerModuleData supplies the real 0x7C-byte base. The compiler emits
+// Devastate's complete 31-slot live table at 0x00C5E518, including the inherited
+// GetSnapshotName slot. Its deleting destructor at 0x004C851B calls the rowed
+// complete destructor at 0x004C8537. Table slots and inherited default bodies
+// are checked against retail and current canonical providers.
+// The complete 94-byte constructor and its associative EH graph verify the
+// native initialization order and all cleanup ownership.
 
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
-private:
-	unsigned char m_pad[0x7C - 4];
-};
-
-template<class T> class StringBase {
-	void *m_data;
-	StringBase(const T *);
-	friend class DevastateSpecialPowerModuleData;
-};
+#include "ascii_string.h"
 
 class DevastateSpecialPowerModuleData : public SpecialPowerModuleData
 {
@@ -105,7 +88,7 @@ private:
 	void *m_fx; // +0x80
 	float m_treeValueMultiplier; // +0x84
 	float m_treeValueTotalCap; // +0x88
-	StringBase<char> m_fireWeapon; // +0x8C
+	AsciiString m_fireWeapon; // +0x8C
 };
 
 // tu-skeleton: 0x004C81C8 27B ?buildFieldParse@DevastateSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)

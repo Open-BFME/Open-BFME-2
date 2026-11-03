@@ -1,0 +1,195 @@
+{
+  "verdict": "Scoped 31-slot leaf table and existing helper/provider repair supported; normal owning checks remain",
+  "control_sha256": "686eae8d1cd4f0dbfb13f45cdf4fba97b776311ce611a84083d8b630ccc92791",
+  "private_rows_exact": 7,
+  "private_eh_graphs_exact": 2,
+  "old_table_bytes": 4,
+  "new_table_bytes": 124,
+  "native_table_rva": "0x85E518",
+  "native_following_dword": "0x0",
+  "table_normalization": {
+    "bytes": "1b858c00d03f4b00125246009ca6870099a6870099a6870099a6870099a6870099a6870099a6870099a6870099a6870099a6870099a68700a1694b0099a68700d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00c6b59000",
+    "native_bytes": "1b858c00d03f4b00125246009ca6870099a6870099a6870099a6870099a6870099a6870099a6870099a6870099a6870099a6870099a68700a1694b0099a68700d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00d0434d00c6b59000",
+    "exact": true,
+    "mapping_basis": "Exact ordered registered canonical contract plus actual native entries and independently checked provider bodies; no new pin bindings"
+  },
+  "default_groups": {
+    "0xb3fd0": {
+      "native_bytes": "c3",
+      "slots": [
+        1
+      ],
+      "all_exact": true
+    },
+    "0x47a69c": {
+      "native_bytes": "c20400",
+      "slots": [
+        3
+      ],
+      "all_exact": true
+    },
+    "0x47a699": {
+      "native_bytes": "32c0c3",
+      "slots": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15
+      ],
+      "all_exact": true
+    },
+    "0xd43d0": {
+      "native_bytes": "33c0c3",
+      "slots": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "all_exact": true
+    },
+    "0x50b5c6": {
+      "native_bytes": "b001c3",
+      "slots": [
+        30
+      ],
+      "all_exact": true
+    }
+  },
+  "defaults_exact": true,
+  "current_default_witness": {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataCtor.cpp",
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain^module^data^ctor.obj",
+    "object_exists": true,
+    "receipt_exists": true,
+    "source_current": true,
+    "object_current": true,
+    "header_count": 5,
+    "header_mismatches": [],
+    "object_sha256": "196a2efefa583aa2b29118469c069543d548744cf01468ce5ec941b8dc5eeabc",
+    "helper_count": 28,
+    "payload_mismatches": [],
+    "property_mismatches": []
+  },
+  "leaf_deleting": {
+    "rva": "0x4C851B",
+    "candidate_normalized": "568bf1e814000000f644240801740756e83078b6ff598bc65ec20400",
+    "native_bytes": "568bf1e814000000f644240801740756e83078b6ff598bc65ec20400",
+    "exact": true,
+    "resolved_callees": {
+      "??1DevastateSpecialPowerModuleData@@UAE@XZ": "0x4c8537",
+      "??3@YAXPAX@Z": "0x2fd60"
+    }
+  },
+  "snapshot_name": {
+    "symbol": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+    "native_rva": "0x65212",
+    "body": {
+      "bytes": "b800000000c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "??_C@_0L@FJKPEGKH@ModuleData?$AA@"
+        ]
+      ]
+    },
+    "normalized": "b8fc5abc00c3",
+    "native_bytes": "b8fc5abc00c3",
+    "code_exact": true,
+    "relocations": [
+      [
+        1,
+        6,
+        "??_C@_0L@FJKPEGKH@ModuleData?$AA@",
+        "0xbc5afc"
+      ]
+    ],
+    "native_literal": "4d6f64756c654461746100",
+    "coff_literal": "4d6f64756c654461746100",
+    "literal_prefix_exact": true
+  },
+  "slot14_body_matches_current_native_owner": true,
+  "other_provider_receipts": [
+    {
+      "source": "Code/GameEngine/Source/Common/SubsystemNameGetters.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^subsystem^name^getters.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 12,
+      "header_mismatches": [],
+      "object_sha256": "b192c602fcaa45f4ffd5e3ca654799e63be1193cfeb6214a06f040cf65183cf5"
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Rva000B69A1.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva000^b69^a1.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 3,
+      "header_mismatches": [],
+      "object_sha256": "cbee6a42976ca76bdfb6da6a995de5fb48acd9c91941f578aba0d42d2950bea7"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^special^power_^special^power^module^deleting^dtors.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 0,
+      "header_mismatches": [],
+      "object_sha256": "63e745cada77a88a86858b2585b519756adadfb90fa9135dd34a17f7d439ffbf"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerModuleDataDtor.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^special^power_^devastate^special^power^module^data^dtor.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 8,
+      "header_mismatches": [],
+      "object_sha256": "7fa65cc68200657e09cd48330351a9fdfacb8bc60a4a55fcf02ee99fac133ff6"
+    }
+  ],
+  "link_guard": {
+    "index_meta": {
+      "date": "2026-11-03 18:36",
+      "commit": "23b85ddde5",
+      "clean_tree": true
+    },
+    "linked": [
+      "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp"
+    ],
+    "prepare": null,
+    "verdict": []
+  },
+  "new_defaults_have_exact_ledger_name_bindings": false,
+  "new_markers_or_rows_required_by_emission": false,
+  "semantic_slot_names_recovered": false,
+  "source_comment_correction": "Canonical AsciiString has a declared destructor; old no-dtor explanation is stale",
+  "tracked_reads_stopped": true,
+  "builds": false,
+  "tracked_edits": false
+}

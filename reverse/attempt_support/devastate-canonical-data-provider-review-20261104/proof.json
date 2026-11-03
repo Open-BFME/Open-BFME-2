@@ -1,0 +1,1470 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp",
+  "control_sha256": "686eae8d1cd4f0dbfb13f45cdf4fba97b776311ce611a84083d8b630ccc92791",
+  "matched": [
+    "0x004C81E3",
+    "0x004C8270",
+    "0x004C84BD",
+    "0x007903B6",
+    "0x007903C3",
+    "0x007903CD",
+    "0x007903D5"
+  ],
+  "missing": [],
+  "errors": [],
+  "before_facts": [
+    {
+      "??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z": {
+        "bytes": "56ff74240c8bf1ff74240ce800000000c70600000000c7460c00000000c74610000000008bc65ec20800",
+        "relocations": [
+          [
+            12,
+            20,
+            "??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z"
+          ],
+          [
+            18,
+            6,
+            "??_7DevastateSpecialPower@@6BBehaviorModule@@@"
+          ],
+          [
+            25,
+            6,
+            "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@"
+          ],
+          [
+            32,
+            6,
+            "??_7DevastateSpecialPower@@6BModuleInterface@@@"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPower@@6BModuleInterface@@@": {
+        "bytes": "00000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "?moduleInterfaceAnchor@ModuleInterface@@UAEXXZ"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@": {
+        "bytes": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "__purecall"
+          ],
+          [
+            4,
+            6,
+            "__purecall"
+          ],
+          [
+            8,
+            6,
+            "__purecall"
+          ],
+          [
+            12,
+            6,
+            "__purecall"
+          ],
+          [
+            16,
+            6,
+            "__purecall"
+          ],
+          [
+            20,
+            6,
+            "__purecall"
+          ],
+          [
+            24,
+            6,
+            "__purecall"
+          ],
+          [
+            28,
+            6,
+            "__purecall"
+          ],
+          [
+            32,
+            6,
+            "__purecall"
+          ],
+          [
+            36,
+            6,
+            "__purecall"
+          ],
+          [
+            40,
+            6,
+            "__purecall"
+          ],
+          [
+            44,
+            6,
+            "__purecall"
+          ],
+          [
+            48,
+            6,
+            "__purecall"
+          ],
+          [
+            52,
+            6,
+            "__purecall"
+          ],
+          [
+            56,
+            6,
+            "__purecall"
+          ],
+          [
+            60,
+            6,
+            "__purecall"
+          ],
+          [
+            64,
+            6,
+            "__purecall"
+          ],
+          [
+            68,
+            6,
+            "__purecall"
+          ],
+          [
+            72,
+            6,
+            "__purecall"
+          ],
+          [
+            76,
+            6,
+            "__purecall"
+          ],
+          [
+            80,
+            6,
+            "__purecall"
+          ],
+          [
+            84,
+            6,
+            "__purecall"
+          ],
+          [
+            88,
+            6,
+            "__purecall"
+          ],
+          [
+            92,
+            6,
+            "__purecall"
+          ],
+          [
+            96,
+            6,
+            "__purecall"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPower@@6BBehaviorModule@@@": {
+        "bytes": "000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "?behaviorModuleAnchor@BehaviorModule@@UAEXXZ"
+          ],
+          [
+            4,
+            6,
+            "??_EDevastateSpecialPower@@MAEPAXI@Z"
+          ],
+          [
+            8,
+            6,
+            "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ"
+          ]
+        ]
+      },
+      "??1DevastateSpecialPower@@MAE@XZ": {
+        "bytes": "c70100000000c7410c00000000c7411000000000e900000000",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7DevastateSpecialPower@@6BBehaviorModule@@@"
+          ],
+          [
+            9,
+            6,
+            "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@"
+          ],
+          [
+            16,
+            6,
+            "??_7DevastateSpecialPower@@6BModuleInterface@@@"
+          ],
+          [
+            21,
+            20,
+            "??1SpecialPowerModule@@UAE@XZ"
+          ]
+        ]
+      },
+      "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ": {
+        "bytes": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            12,
+            6,
+            "?$S1@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA"
+          ],
+          [
+            21,
+            6,
+            "?$S1@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA"
+          ],
+          [
+            28,
+            6,
+            "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+          ],
+          [
+            38,
+            6,
+            "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@"
+          ],
+          [
+            43,
+            20,
+            "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+          ],
+          [
+            48,
+            6,
+            "?TheDevastateSpecialPowerPoolKey@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A"
+          ],
+          [
+            56,
+            6,
+            "?TheDevastateSpecialPowerPoolKey@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A"
+          ],
+          [
+            63,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@": {
+        "bytes": "4465766173746174655370656369616c506f77657200",
+        "relocations": []
+      },
+      "??0DevastateSpecialPowerModuleData@@QAE@XZ": {
+        "bytes": "b800000000e80000000051568bf18975f0e8000000000f57c08365fc0083a6800000000068000000008d8e8c000000c70600000000f30f11467cf30f118684000000f30f118688000000e8000000008b4df48bc65e64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0DevastateSpecialPowerModuleData@@QAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            18,
+            20,
+            "??0SpecialPowerModuleData@@QAE@XZ"
+          ],
+          [
+            37,
+            6,
+            "??_C@_00CNPNBAHC@?$AA@"
+          ],
+          [
+            49,
+            6,
+            "??_7DevastateSpecialPowerModuleData@@6B@"
+          ],
+          [
+            75,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ],
+          [
+            88,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPowerModuleData@@6B@": {
+        "bytes": "00000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_EDevastateSpecialPowerModuleData@@UAEPAXI@Z"
+          ]
+        ]
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "bytes": "00",
+        "relocations": []
+      },
+      "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1DevastateSpecialPowerModuleData@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??_GDevastateSpecialPower@@MAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1DevastateSpecialPower@@MAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      }
+    },
+    {
+      "??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7DevastateSpecialPower@@6BModuleInterface@@@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_7DevastateSpecialPower@@6BBehaviorModule@@@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??1DevastateSpecialPower@@MAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??0DevastateSpecialPowerModuleData@@QAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7DevastateSpecialPowerModuleData@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GDevastateSpecialPower@@MAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      }
+    },
+    {
+      "defined": [
+        "??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "??0DevastateSpecialPowerModuleData@@QAE@XZ",
+        "??1DevastateSpecialPower@@MAE@XZ",
+        "??_7DevastateSpecialPower@@6BBehaviorModule@@@",
+        "??_7DevastateSpecialPower@@6BModuleInterface@@@",
+        "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@",
+        "??_7DevastateSpecialPowerModuleData@@6B@",
+        "??_C@_00CNPNBAHC@?$AA@",
+        "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@",
+        "??_GDevastateSpecialPower@@MAEPAXI@Z",
+        "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z",
+        "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ"
+      ],
+      "undefined": [
+        "??0?$StringBase@D@@AAE@PBD@Z",
+        "??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "??0SpecialPowerModuleData@@QAE@XZ",
+        "??1DevastateSpecialPowerModuleData@@UAE@XZ",
+        "??1SpecialPowerModule@@UAE@XZ",
+        "??1SpecialPowerModuleData@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??_GDevastateSpecialPower@@MAEPAXI@Z",
+        "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z",
+        "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+        "?behaviorModuleAnchor@BehaviorModule@@UAEXXZ",
+        "?moduleInterfaceAnchor@ModuleInterface@@UAEXXZ",
+        "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list",
+        "__fltused",
+        "__purecall"
+      ],
+      "weak": [
+        [
+          "??_EDevastateSpecialPower@@MAEPAXI@Z",
+          "??_GDevastateSpecialPower@@MAEPAXI@Z"
+        ],
+        [
+          "??_EDevastateSpecialPowerModuleData@@UAEPAXI@Z",
+          "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z"
+        ]
+      ],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "after_facts": [
+    {
+      "??0AsciiString@@QAE@PBD@Z": {
+        "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+        "relocations": [
+          [
+            8,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ]
+        ]
+      },
+      "??1AsciiString@@QAE@XZ": {
+        "bytes": "e900000000",
+        "relocations": [
+          [
+            1,
+            20,
+            "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+          ]
+        ]
+      },
+      "??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z": {
+        "bytes": "56ff74240c8bf1ff74240ce800000000c70600000000c7460c00000000c74610000000008bc65ec20800",
+        "relocations": [
+          [
+            12,
+            20,
+            "??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z"
+          ],
+          [
+            18,
+            6,
+            "??_7DevastateSpecialPower@@6BBehaviorModule@@@"
+          ],
+          [
+            25,
+            6,
+            "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@"
+          ],
+          [
+            32,
+            6,
+            "??_7DevastateSpecialPower@@6BModuleInterface@@@"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPower@@6BModuleInterface@@@": {
+        "bytes": "00000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "?moduleInterfaceAnchor@ModuleInterface@@UAEXXZ"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@": {
+        "bytes": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "__purecall"
+          ],
+          [
+            4,
+            6,
+            "__purecall"
+          ],
+          [
+            8,
+            6,
+            "__purecall"
+          ],
+          [
+            12,
+            6,
+            "__purecall"
+          ],
+          [
+            16,
+            6,
+            "__purecall"
+          ],
+          [
+            20,
+            6,
+            "__purecall"
+          ],
+          [
+            24,
+            6,
+            "__purecall"
+          ],
+          [
+            28,
+            6,
+            "__purecall"
+          ],
+          [
+            32,
+            6,
+            "__purecall"
+          ],
+          [
+            36,
+            6,
+            "__purecall"
+          ],
+          [
+            40,
+            6,
+            "__purecall"
+          ],
+          [
+            44,
+            6,
+            "__purecall"
+          ],
+          [
+            48,
+            6,
+            "__purecall"
+          ],
+          [
+            52,
+            6,
+            "__purecall"
+          ],
+          [
+            56,
+            6,
+            "__purecall"
+          ],
+          [
+            60,
+            6,
+            "__purecall"
+          ],
+          [
+            64,
+            6,
+            "__purecall"
+          ],
+          [
+            68,
+            6,
+            "__purecall"
+          ],
+          [
+            72,
+            6,
+            "__purecall"
+          ],
+          [
+            76,
+            6,
+            "__purecall"
+          ],
+          [
+            80,
+            6,
+            "__purecall"
+          ],
+          [
+            84,
+            6,
+            "__purecall"
+          ],
+          [
+            88,
+            6,
+            "__purecall"
+          ],
+          [
+            92,
+            6,
+            "__purecall"
+          ],
+          [
+            96,
+            6,
+            "__purecall"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPower@@6BBehaviorModule@@@": {
+        "bytes": "000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "?behaviorModuleAnchor@BehaviorModule@@UAEXXZ"
+          ],
+          [
+            4,
+            6,
+            "??_EDevastateSpecialPower@@MAEPAXI@Z"
+          ],
+          [
+            8,
+            6,
+            "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ"
+          ]
+        ]
+      },
+      "??1DevastateSpecialPower@@MAE@XZ": {
+        "bytes": "c70100000000c7410c00000000c7411000000000e900000000",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7DevastateSpecialPower@@6BBehaviorModule@@@"
+          ],
+          [
+            9,
+            6,
+            "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@"
+          ],
+          [
+            16,
+            6,
+            "??_7DevastateSpecialPower@@6BModuleInterface@@@"
+          ],
+          [
+            21,
+            20,
+            "??1SpecialPowerModule@@UAE@XZ"
+          ]
+        ]
+      },
+      "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ": {
+        "bytes": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            12,
+            6,
+            "?$S1@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA"
+          ],
+          [
+            21,
+            6,
+            "?$S1@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA"
+          ],
+          [
+            28,
+            6,
+            "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+          ],
+          [
+            38,
+            6,
+            "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@"
+          ],
+          [
+            43,
+            20,
+            "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+          ],
+          [
+            48,
+            6,
+            "?TheDevastateSpecialPowerPoolKey@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A"
+          ],
+          [
+            56,
+            6,
+            "?TheDevastateSpecialPowerPoolKey@?1??getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A"
+          ],
+          [
+            63,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@": {
+        "bytes": "4465766173746174655370656369616c506f77657200",
+        "relocations": []
+      },
+      "??0DevastateSpecialPowerModuleData@@QAE@XZ": {
+        "bytes": "b800000000e80000000051568bf18975f0e8000000000f57c08365fc0083a6800000000068000000008d8e8c000000c70600000000f30f11467cf30f118684000000f30f118688000000e8000000008b4df48bc65e64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0DevastateSpecialPowerModuleData@@QAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            18,
+            20,
+            "??0SpecialPowerModuleData@@QAE@XZ"
+          ],
+          [
+            37,
+            6,
+            "??_C@_00CNPNBAHC@?$AA@"
+          ],
+          [
+            49,
+            6,
+            "??_7DevastateSpecialPowerModuleData@@6B@"
+          ],
+          [
+            75,
+            20,
+            "??0?$StringBase@D@@AAE@PBD@Z"
+          ],
+          [
+            88,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_7DevastateSpecialPowerModuleData@@6B@": {
+        "bytes": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_EDevastateSpecialPowerModuleData@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?loadPostProcess@ModuleData@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@ModuleData@@UBEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?xfer@ModuleData@@UAEXPAVXfer@@@Z"
+          ],
+          [
+            16,
+            6,
+            "?slot04@ModuleData@@UBE_NXZ"
+          ],
+          [
+            20,
+            6,
+            "?slot05@ModuleData@@UBE_NXZ"
+          ],
+          [
+            24,
+            6,
+            "?slot06@ModuleData@@UBE_NXZ"
+          ],
+          [
+            28,
+            6,
+            "?slot07@ModuleData@@UBE_NXZ"
+          ],
+          [
+            32,
+            6,
+            "?slot08@ModuleData@@UBE_NXZ"
+          ],
+          [
+            36,
+            6,
+            "?slot09@ModuleData@@UBE_NXZ"
+          ],
+          [
+            40,
+            6,
+            "?slot10@ModuleData@@UBE_NXZ"
+          ],
+          [
+            44,
+            6,
+            "?slot11@ModuleData@@UBE_NXZ"
+          ],
+          [
+            48,
+            6,
+            "?slot12@ModuleData@@UBE_NXZ"
+          ],
+          [
+            52,
+            6,
+            "?slot13@ModuleData@@UBE_NXZ"
+          ],
+          [
+            56,
+            6,
+            "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z"
+          ],
+          [
+            60,
+            6,
+            "?slot15@ModuleData@@UBE_NXZ"
+          ],
+          [
+            64,
+            6,
+            "?slot16@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            68,
+            6,
+            "?slot17@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            72,
+            6,
+            "?slot18@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            76,
+            6,
+            "?slot19@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            80,
+            6,
+            "?slot20@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            84,
+            6,
+            "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ"
+          ],
+          [
+            88,
+            6,
+            "?slot22@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            92,
+            6,
+            "?slot23@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            96,
+            6,
+            "?slot24@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            100,
+            6,
+            "?slot25@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            104,
+            6,
+            "?slot26@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            108,
+            6,
+            "?slot27@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            112,
+            6,
+            "?slot28@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            116,
+            6,
+            "?slot29@ModuleData@@UBEPBXXZ"
+          ],
+          [
+            120,
+            6,
+            "?slot30@ModuleData@@UBE_NXZ"
+          ]
+        ]
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "bytes": "00",
+        "relocations": []
+      },
+      "?loadPostProcess@ModuleData@@UAEXXZ": {
+        "bytes": "c3",
+        "relocations": []
+      },
+      "?xfer@ModuleData@@UAEXPAVXfer@@@Z": {
+        "bytes": "c20400",
+        "relocations": []
+      },
+      "?slot04@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot05@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot06@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot07@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot08@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot09@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot10@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot11@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot12@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot13@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot15@ModuleData@@UBE_NXZ": {
+        "bytes": "32c0c3",
+        "relocations": []
+      },
+      "?slot16@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot17@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot18@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot19@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot20@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot22@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot23@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot24@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot25@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot26@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot27@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot28@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot29@ModuleData@@UBEPBXXZ": {
+        "bytes": "33c0c3",
+        "relocations": []
+      },
+      "?slot30@ModuleData@@UBE_NXZ": {
+        "bytes": "b001c3",
+        "relocations": []
+      },
+      "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1DevastateSpecialPowerModuleData@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??_GDevastateSpecialPower@@MAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1DevastateSpecialPower@@MAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      }
+    },
+    {
+      "??0AsciiString@@QAE@PBD@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??1AsciiString@@QAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7DevastateSpecialPower@@6BModuleInterface@@@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_7DevastateSpecialPower@@6BBehaviorModule@@@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??1DevastateSpecialPower@@MAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??0DevastateSpecialPowerModuleData@@QAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7DevastateSpecialPowerModuleData@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_C@_00CNPNBAHC@?$AA@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "?loadPostProcess@ModuleData@@UAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?xfer@ModuleData@@UAEXPAVXfer@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot04@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot05@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot06@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot07@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot08@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot09@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot10@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot11@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot12@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot13@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot15@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot16@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot17@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot18@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot19@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot20@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot22@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot23@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot24@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot25@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot26@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot27@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot28@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot29@ModuleData@@UBEPBXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot30@ModuleData@@UBE_NXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GDevastateSpecialPower@@MAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      }
+    },
+    {
+      "defined": [
+        "??0AsciiString@@QAE@PBD@Z",
+        "??0DevastateSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "??0DevastateSpecialPowerModuleData@@QAE@XZ",
+        "??1AsciiString@@QAE@XZ",
+        "??1DevastateSpecialPower@@MAE@XZ",
+        "??_7DevastateSpecialPower@@6BBehaviorModule@@@",
+        "??_7DevastateSpecialPower@@6BModuleInterface@@@",
+        "??_7DevastateSpecialPower@@6BSpecialPowerModuleInterface@@@",
+        "??_7DevastateSpecialPowerModuleData@@6B@",
+        "??_C@_00CNPNBAHC@?$AA@",
+        "??_C@_0BG@GGEGKDKO@DevastateSpecialPower?$AA@",
+        "??_GDevastateSpecialPower@@MAEPAXI@Z",
+        "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z",
+        "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+        "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ",
+        "?loadPostProcess@ModuleData@@UAEXXZ",
+        "?slot04@ModuleData@@UBE_NXZ",
+        "?slot05@ModuleData@@UBE_NXZ",
+        "?slot06@ModuleData@@UBE_NXZ",
+        "?slot07@ModuleData@@UBE_NXZ",
+        "?slot08@ModuleData@@UBE_NXZ",
+        "?slot09@ModuleData@@UBE_NXZ",
+        "?slot10@ModuleData@@UBE_NXZ",
+        "?slot11@ModuleData@@UBE_NXZ",
+        "?slot12@ModuleData@@UBE_NXZ",
+        "?slot13@ModuleData@@UBE_NXZ",
+        "?slot15@ModuleData@@UBE_NXZ",
+        "?slot16@ModuleData@@UBEPBXXZ",
+        "?slot17@ModuleData@@UBEPBXXZ",
+        "?slot18@ModuleData@@UBEPBXXZ",
+        "?slot19@ModuleData@@UBEPBXXZ",
+        "?slot20@ModuleData@@UBEPBXXZ",
+        "?slot22@ModuleData@@UBEPBXXZ",
+        "?slot23@ModuleData@@UBEPBXXZ",
+        "?slot24@ModuleData@@UBEPBXXZ",
+        "?slot25@ModuleData@@UBEPBXXZ",
+        "?slot26@ModuleData@@UBEPBXXZ",
+        "?slot27@ModuleData@@UBEPBXXZ",
+        "?slot28@ModuleData@@UBEPBXXZ",
+        "?slot29@ModuleData@@UBEPBXXZ",
+        "?slot30@ModuleData@@UBE_NXZ",
+        "?xfer@ModuleData@@UAEXPAVXfer@@@Z"
+      ],
+      "undefined": [
+        "??0?$StringBase@D@@AAE@PBD@Z",
+        "??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "??0SpecialPowerModuleData@@QAE@XZ",
+        "??1DevastateSpecialPowerModuleData@@UAE@XZ",
+        "??1SpecialPowerModule@@UAE@XZ",
+        "??1SpecialPowerModuleData@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??_GDevastateSpecialPower@@MAEPAXI@Z",
+        "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z",
+        "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+        "?behaviorModuleAnchor@BehaviorModule@@UAEXXZ",
+        "?moduleInterfaceAnchor@ModuleInterface@@UAEXXZ",
+        "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+        "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+        "?slot14@ModuleData@@UBE?AVAsciiString@@H@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list",
+        "__fltused",
+        "__purecall"
+      ],
+      "weak": [
+        [
+          "??_EDevastateSpecialPower@@MAEPAXI@Z",
+          "??_GDevastateSpecialPower@@MAEPAXI@Z"
+        ],
+        [
+          "??_EDevastateSpecialPowerModuleData@@UAEPAXI@Z",
+          "??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z"
+        ]
+      ],
+      "alternates": {
+        "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+        "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+        "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+        "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+        "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+        "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+        "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+      },
+      "includes": []
+    }
+  ],
+  "removed": [],
+  "added": [
+    "??0AsciiString@@QAE@PBD@Z",
+    "??1AsciiString@@QAE@XZ",
+    "?getHordeModuleData@ModuleData@@UBEPBVHordeModuleData@@XZ",
+    "?loadPostProcess@ModuleData@@UAEXXZ",
+    "?slot04@ModuleData@@UBE_NXZ",
+    "?slot05@ModuleData@@UBE_NXZ",
+    "?slot06@ModuleData@@UBE_NXZ",
+    "?slot07@ModuleData@@UBE_NXZ",
+    "?slot08@ModuleData@@UBE_NXZ",
+    "?slot09@ModuleData@@UBE_NXZ",
+    "?slot10@ModuleData@@UBE_NXZ",
+    "?slot11@ModuleData@@UBE_NXZ",
+    "?slot12@ModuleData@@UBE_NXZ",
+    "?slot13@ModuleData@@UBE_NXZ",
+    "?slot15@ModuleData@@UBE_NXZ",
+    "?slot16@ModuleData@@UBEPBXXZ",
+    "?slot17@ModuleData@@UBEPBXXZ",
+    "?slot18@ModuleData@@UBEPBXXZ",
+    "?slot19@ModuleData@@UBEPBXXZ",
+    "?slot20@ModuleData@@UBEPBXXZ",
+    "?slot22@ModuleData@@UBEPBXXZ",
+    "?slot23@ModuleData@@UBEPBXXZ",
+    "?slot24@ModuleData@@UBEPBXXZ",
+    "?slot25@ModuleData@@UBEPBXXZ",
+    "?slot26@ModuleData@@UBEPBXXZ",
+    "?slot27@ModuleData@@UBEPBXXZ",
+    "?slot28@ModuleData@@UBEPBXXZ",
+    "?slot29@ModuleData@@UBEPBXXZ",
+    "?slot30@ModuleData@@UBE_NXZ",
+    "?xfer@ModuleData@@UAEXPAVXfer@@@Z"
+  ],
+  "changed": [
+    "??_7DevastateSpecialPowerModuleData@@6B@"
+  ],
+  "binding_changes": [],
+  "routes_identical": false,
+  "eh": {
+    "??0DevastateSpecialPowerModuleData@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "?getModuleNameKey@DevastateSpecialPower@@UBE?AW4NameKeyType@@XZ": [
+      "EXACT",
+      ""
+    ]
+  }
+}
