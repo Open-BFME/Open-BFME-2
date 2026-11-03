@@ -11,14 +11,6 @@
 // to state machine virtual slot 14, then runs the same exit body inline, so the
 // class derives from AIEnterState. Its name getter literal is not used as an
 // identity; the placeholder is named by address.
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
 #include "../../Common/GameLogicObjectLookupView.h"
 enum ObjectEnterExitType
 {
@@ -32,36 +24,7 @@ class Object;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 extern GameLogic *TheGameLogic;
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual void slot07(); virtual void slot08(); virtual void slot09();
-	virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual void slot13();
-	virtual void rva00351109Slot14(Object *obj);
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:
@@ -73,7 +36,7 @@ public:
 	virtual void onExit(StateExitType status);
 protected:
 	void exitEnterState(StateExitType status);
-	unsigned char m_pad1C[0x4C - 0x1C];
+	unsigned char m_pad20[0x4C - 0x20];
 	ObjectID m_entryToClear; // +0x4C
 };
 class Rva00351109 : public AIEnterState
@@ -124,6 +87,6 @@ void Rva00351109::onExit(StateExitType status)
 {
 	Object *target = TheGameLogic->findObjectByID(m_50);
 	if (target)
-		getMachine()->rva00351109Slot14(target);
+		getMachine()->setGoalObject(target);
 	exitEnterState(status);
 }

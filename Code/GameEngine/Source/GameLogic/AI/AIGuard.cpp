@@ -91,17 +91,8 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -312,29 +303,6 @@ extern TerrainLogic *TheTerrainLogic;
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	void setGoalPosition(const Coord3D *pos, Real radius);
-	Object *getGoalObject();
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-public:
-	virtual StateReturnType setState(StateID newStateID); // slot 8
-protected:
-	virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13();
-public:
-	virtual void setGoalObject(const Object *obj); // slot 14
-protected:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
 
 class AIGuardMachine : public StateMachine
 {
@@ -355,7 +323,6 @@ public:
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	unsigned char m_pad18[0x3C - 0x18];
 	ObjectID m_targetToGuard; // +0x3C
 	TeamID m_teamToGuard; // +0x40
 	const PolygonTrigger *m_areaToGuard; // +0x44
@@ -380,26 +347,6 @@ enum
 
 // The state base: only its virtual table matters to these bodies. The
 // ledger spells it struct (U), as the transition conditions' rows do.
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-protected:
-	virtual void xfer( Xfer *xfer );
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AttackExitConditionsInterface
 {
@@ -444,7 +391,6 @@ protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
-	char m_unrecovered1C[ 0x20 - 0x1C ];
 	ExitConditions m_exitConditions;																					///< 0x20
 	AIAttackState *m_attackState;																							///< 0x3C
 	Bool m_bfmeRestart;																												///< 0x40
@@ -464,7 +410,6 @@ protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
-	char m_unrecovered1C[ 0x20 - 0x1C ];
 	ExitConditions m_exitConditions;																					///< 0x20
 	AIAttackState *m_attackState;																							///< 0x3C
 	Bool m_bfme40;																														///< 0x40
@@ -479,7 +424,6 @@ public:
 	virtual StateReturnType update();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	Real m_bfmeGoalRadius; // +0x2C
 	unsigned char m_pad30[0x48 - 0x30];
@@ -511,7 +455,6 @@ protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
-	char m_unrecovered1C[ 0x20 - 0x1C ];
 	UnsignedInt m_nextEnemyScanTime;																					///< 0x20
 	Coord3D m_guardeePos;																											///< 0x24
 };
@@ -559,7 +502,6 @@ protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
-	unsigned char m_pad1C[0x20 - 0x1C];
 	ExitConditions m_exitConditions; // +0x20
 	AIAttackState *m_attackState; // +0x3C
 	Bool m_bfmeRestart; // +0x40

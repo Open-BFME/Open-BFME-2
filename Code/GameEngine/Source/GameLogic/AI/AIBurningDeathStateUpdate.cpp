@@ -19,17 +19,7 @@
 
 typedef unsigned int UnsignedInt;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -76,35 +66,10 @@ private:
 	void *m_ai; // +0x258
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 extern GameLogic *TheGameLogic;
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -113,7 +78,6 @@ public:
 	virtual StateReturnType update();
 
 protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x4C - 0x2C];
 };

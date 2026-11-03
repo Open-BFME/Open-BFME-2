@@ -32,14 +32,6 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_NONE = 0,
 	OBJECT_STATUS_PARACHUTING = 7
 };
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
 #include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 class ModelConditionFlags
@@ -117,36 +109,7 @@ private:
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
 };
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual Bool isIdle() const;
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void slot15(); virtual void slot16();
-	virtual Bool computePath();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:
@@ -157,7 +120,6 @@ protected:
 	Bool getAdjustsDestination() const;
 	virtual Bool computePath();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	float m_2C; // +0x2C
 	PathfindLayerEnum m_goalLayer; // +0x30

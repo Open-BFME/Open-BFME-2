@@ -61,14 +61,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
-class StateMachine
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 // ------------------------------------------------------------------------------------------------
 class AIGuardRetaliateMachine : public StateMachine
@@ -76,33 +69,14 @@ class AIGuardRetaliateMachine : public StateMachine
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x3C - 0x04 ];
 	Coord3DBase m_positionToGuard;																						///< 0x3C
 	ObjectID m_nemesisToAttack;																								///< 0x48
 };
 
 typedef UnsignedInt StateID;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
-class State
-{
-public:
-	virtual ~State();
-	StateID m_ID; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -111,7 +85,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustsDestination; // +0x48

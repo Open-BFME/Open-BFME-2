@@ -46,12 +46,6 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 typedef bool Bool;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 enum WeaponSlotType
 {
@@ -80,34 +74,8 @@ class PickAndPlayInfo;
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
+#include "../../../Include/Common/StateMachineClass.h"
 
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-
-private:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -117,7 +85,6 @@ public:
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
 
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustDestination; // +0x48

@@ -17,14 +17,6 @@
 // BFME 2 then removes an object whose template has byte +0x109 bit 0 from
 // the pathfind map (pinned Pathfinder::RemoveObjectFromPathfindMap).
 #include <string.h>
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
 class WeaponTemplateSetHead
 {
 	char m_data[0x4C];
@@ -103,28 +95,7 @@ public:
 };
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIDeadState : public State
 {
 public:

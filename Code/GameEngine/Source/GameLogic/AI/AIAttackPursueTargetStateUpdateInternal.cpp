@@ -8,12 +8,6 @@
 typedef bool Bool;
 typedef float Real;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 enum WhichTurretType
 {
@@ -77,14 +71,7 @@ public:
 	void *m_physics;
 };
 
-class StateMachine
-{
-public:
-	Bool isGoalObjectDestroyed() const;
-	Object *getGoalObject();
-	unsigned char m_pad00[0x14];
-	Object *m_owner;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
@@ -97,36 +84,7 @@ template <> class AIUpdateSlots<0>
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual Bool isIdle() const;
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-public:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine;
-};
 
 class AIInternalMoveToState : public State
 {
@@ -141,7 +99,7 @@ class AIAttackPursueTargetState : public AIInternalMoveToState
 {
 private:
 	StateReturnType updateInternal();
-	unsigned char m_pad1C[0x5E - 0x1C];
+	unsigned char m_pad20[0x5E - 0x20];
 	Bool m_stopIfInRange;
 	Bool m_isInitialApproach;
 	Bool m_isForceAttacking;

@@ -16,14 +16,6 @@
 // (flags +0x44, USE_PRECISE_Z_POS bit 3) and can-path-through-units +0x3BA.
 typedef bool Bool;
 typedef float Real;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_90 = 90
@@ -106,29 +98,7 @@ private:
 	unsigned char m_pad08[0x258 - 0x08];
 	AIUpdateInterface *m_ai; // +0x258
 };
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:

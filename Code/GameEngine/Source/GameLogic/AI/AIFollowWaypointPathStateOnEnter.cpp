@@ -61,16 +61,6 @@ extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 typedef float Real;
 typedef int Int;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 enum LocomotorSetType
 {
 	LOCOMOTORSET_NORMAL = 0,
@@ -204,38 +194,14 @@ public:
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/GameLogic/AIPathfind.h"
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	void setGoalPosition(const Coord3D *pos);
-protected:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIStateMachine : public StateMachine
 {
 public:
 	const Waypoint *getGoalWaypoint() { return m_goalWaypoint; }
 private:
-	unsigned char m_pad18[0x48 - 0x18];
+	unsigned char m_pad3C[0x48 - 0x3C];
 	const Waypoint *m_goalWaypoint; // +0x48
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
 };
 class AIInternalMoveToState : public State
 {
@@ -257,7 +223,6 @@ public:
 protected:
     void setAdjustsDestination(Bool value) { m_adjustDestination = value; }
     Bool getAdjustsDestination() const;
-    unsigned char m_pad1C[0x20 - 0x1C];
     Coord3D m_goalPosition; // +0x20
     unsigned int m_bfmeStateValue2C; // opaque target field
     Int m_goalLayer; // +0x30, passed to Object::rva0028ACEE

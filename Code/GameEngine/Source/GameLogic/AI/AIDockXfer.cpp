@@ -63,14 +63,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
-class StateMachine
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
@@ -80,7 +73,6 @@ class AIDockMachine : public StateMachine
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x3C - 0x04 ];
 	Int m_approachPosition;																										///< 0x3C
 };
 

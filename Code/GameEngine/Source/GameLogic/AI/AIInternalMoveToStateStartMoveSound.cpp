@@ -123,29 +123,13 @@ private:
 	BodyModuleInterface *m_body; // +0x254
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-private:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
 private:
-	unsigned char m_pad1C[0x40 - 0x1C];
+	unsigned char m_pad20[0x40 - 0x20];
 	AudioHandle m_ambientPlayingHandle; // +0x40
 	void startMoveSound();
 };

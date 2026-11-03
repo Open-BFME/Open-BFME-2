@@ -112,17 +112,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
 enum ObjectStatusTypes
 {
@@ -176,52 +166,14 @@ public:
 	unsigned char m_438;		// +0x438 (bit 0: effectively dead)
 };
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void s04();
-	virtual void s08();
-	virtual void s0C();
-	virtual void s10();
-	virtual void s14();
-	virtual void s18();
-	virtual void s1C();
-	virtual void s20();
-	virtual void s24();
-	virtual void s28();
-	virtual void s2C();
-	virtual void s30();
-	virtual void s34();
-	virtual void setGoalObject(const Object *obj);	// slot 14
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();	// 0x004D7726
-	char m_pad04[0x14 - 0x04];
-	Object *m_owner;	// +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine;	// +0x18
-};
 
 class AIMeleeReAcquireState : public State
 {
 public:
 	virtual StateReturnType onEnter();
 private:
-	char m_pad1C[0x20 - 0x1C];
 	unsigned m_lastAcquireFrame;	// +0x20
 };
 

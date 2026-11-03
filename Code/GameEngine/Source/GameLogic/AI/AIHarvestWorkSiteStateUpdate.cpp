@@ -10,7 +10,7 @@
 // returns the literal "AIHarvestWorkSiteState". The accessed state prefix
 // is machine +0x18 / frame +0x20; no construction of private views occurs.
 #include "GameLogicObjectLookupView.h"
-enum StateReturnType { STATE_CONTINUE=0, STATE_SUCCESS=-1, STATE_FAILURE=-2 };
+#include "../../../Include/Common/StateMachine.h"
 class Rva0027D3CB { public: bool rva0027D3CB(int); };
 class Rva0027D378 { public: int rva0027D378(void *,int); };
 class BfmeThingCME { public: int rva0027F108(void *,float,int,int); };

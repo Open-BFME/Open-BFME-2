@@ -11,15 +11,6 @@
 // AI +0x258, team +0x304; Team m_active +0x5D and m_created +0x5E.
 typedef bool Bool;
 #include <windows.h>
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_FAILURE = -2
-};
 enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0,
@@ -51,30 +42,7 @@ private:
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_privateStatus; // +0x438
 };
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:

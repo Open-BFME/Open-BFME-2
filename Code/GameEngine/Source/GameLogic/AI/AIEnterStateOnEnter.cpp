@@ -22,10 +22,6 @@ typedef bool Bool;
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-enum StateReturnType
-{
-	STATE_FAILURE = -2
-};
 
 enum CommandSourceType
 {
@@ -161,31 +157,8 @@ extern GlobalData *TheWritableGlobalData;
 
 extern GameLogic *TheGameLogic;
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-protected:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -197,7 +170,6 @@ protected:
 		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 57");
 		m_adjustsDestination = b;
 	}
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustsDestination; // +0x48

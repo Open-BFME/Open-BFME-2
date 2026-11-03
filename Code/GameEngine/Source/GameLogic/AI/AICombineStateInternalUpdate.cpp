@@ -9,7 +9,7 @@
 // precise virtual method names, access and full class extents remain inferred.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 typedef unsigned UnsignedInt;
-enum StateReturnType{STATE_CONTINUE=0,STATE_SUCCESS=-1,STATE_FAILURE=-2};
+#include "../../../Include/Common/StateMachineClass.h"
 class Object;
 template<int N>class Slots:public Slots<N-1>{public:virtual void gap(char(*)[N]);};template<>class Slots<0>{};
 class AIUpdateInterface:public Slots<143>{public:virtual int getCommandSource();};
@@ -20,7 +20,6 @@ class Object{public:
  bool cannotCombine()const{return (m_flags&1)!=0;}
  char pad00[0x38];Coord3D m_position;char pad44[0x250-0x44];ContainModuleInterface*m_contain;char pad254[4];AIUpdateInterface*m_ai;char pad25c[0x438-0x25c];unsigned char m_flags;
 };
-class StateMachine{public:Object*getGoalObject();char pad00[0x14];Object*m_owner;};
 #include "../../../Include/GameLogic/ActionManager.h"
 extern ActionManager*TheActionManager;
 #include <math.h>
