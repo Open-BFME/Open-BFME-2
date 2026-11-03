@@ -18,11 +18,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class W3DLightDraw
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../Include/W3DDevice/GameClient/Module/W3DLightDraw.h"
 
 // ?getModuleNameKey@W3DLightDraw@@UBE?AW4NameKeyType@@XZ
 NameKeyType W3DLightDraw::getModuleNameKey() const

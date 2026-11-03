@@ -29,11 +29,7 @@ private:
 	unsigned char m_pad[0x48 - 4];
 };
 
-class W3DLightDraw
-{
-public:
-	static ModuleData *friend_newModuleData(INI *ini);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DLightDraw.h"
 
 // ?friend_newModuleData@W3DLightDraw@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *W3DLightDraw::friend_newModuleData(INI *ini)
