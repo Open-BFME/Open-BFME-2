@@ -223,23 +223,8 @@ extern TerrainLogic *TheTerrainLogic;
 Bool Rva001E3679(Int layer);
 Int Rva002EDE5B(void *obj, Coord3D *pos);
 
-class State
-{
-public:
-	UnsignedInt getID() const { return m_id; }
-private:
-	unsigned char m_pad00[4];
-	UnsignedInt m_id; // +0x04
-};
+#include "../../../../Include/Common/StateMachineClass.h"
 
-class StateMachine
-{
-public:
-	__declspec(dllimport) __forceinline UnsignedInt getCurrentStateID() const { return m_currentState ? m_currentState->getID() : 999999; }
-private:
-	unsigned char m_pad00[4];
-	State *m_currentState; // +0x04
-};
 
 class AIUpdateInterface
 {
