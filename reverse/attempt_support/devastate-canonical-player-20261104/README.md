@@ -1,0 +1,5 @@
+# Canonical Player in Devastate location handler, 2026-11-04
+
+Replace the private padded Player copy with registered Player.h. Keep the two existing bounded helper views at native Player+90 (12-byte money operation) and+3BC (opaque tracker); explicit pointer casts reach that same storage without inventing canonical fields or another Player class. Existing ScaleMoney/getSupplyBoxValue calls and the signed-to-unsigned member-function-pointer ABI expression stay unchanged. No new name/layout/member recovery is claimed.
+
+The whole472B location handler remains exact. Allsix emitted external definitions, complete code/data bytes and symbolic relocations, selection/linkage properties and undefined/weak/alternate/INCLUDE routes are identical. Normal object equals the private winner; twofloat literals and strict frozen pass. Owning Player acceptance predicts preserved linking and retires one header debt. No source paths, global names, rows, headers, flags, aliases, pins or hatches change. Seed/interface/string/module-data lifetime consolidation prerequisites remain separate.

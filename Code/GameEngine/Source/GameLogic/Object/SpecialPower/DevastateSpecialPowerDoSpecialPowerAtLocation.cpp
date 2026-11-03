@@ -104,16 +104,7 @@ public:
 	char m_pad[12];
 };
 
-class Player
-{
-public:
-	int ScaleMoney( int amount );
-	Int getSupplyBoxValue();
-	char m_pad000[0x90];
-	Rva003B0D7C m_money;
-	char m_pad09C[0x3BC - 0x9C];
-	Rva0039B7AD m_3BC;
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object
 {
@@ -244,7 +235,7 @@ void DevastateSpecialPower::doSpecialPowerAtLocation( const Coord3D *target, Uns
 	reinterpret_cast<Rva004C82E5Terrain *>(TheTerrainLogic)->m_queryScratch = 0.0f;
 
 	typedef void (Rva003B0D7C::*UnsignedDeposit)(UnsignedInt,Rva0039B7AD*,bool);
-	(player->m_money.*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))( (UnsignedInt)((target)?devastateMin(data->m_bountyCap,money):devastateMin(data->m_bountyCap,money)), &player->m_3BC,true);
+	(reinterpret_cast<Rva003B0D7C *>((char *)player + 0x90)->*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))( (UnsignedInt)((target)?devastateMin(data->m_bountyCap,money):devastateMin(data->m_bountyCap,money)), reinterpret_cast<Rva0039B7AD *>((char *)player + 0x3BC),true);
 
 	if( !( (const StringBase<char> &)data->m_weaponName ).isEmpty() )
 	{
