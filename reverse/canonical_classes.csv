@@ -444,3 +444,4 @@ Rva0029FB3BMember,Code/GameEngine/Include/GameLogic/Module/Rva0029FB3BMember.h,e
 BfmeFixedStorage002CF0F0,Code/GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h,existing header; contract class_contracts/BfmeFixedStorage002CF0F0.json; 23/25 sampled units adopt
 DrawableModule,Code/GameEngine/Include/Common/DrawableModule.h,existing header; contract class_contracts/DrawableModule.json; 11/19 sampled units adopt
 Rva006E34D0,Code/Libraries/Source/Apt/Rva006E34D0.h,existing header; contract class_contracts/Rva006E34D0.json; 13/28 sampled units adopt
+TreeHintOpaque0043671B,Code/GameEngine/Include/GameClient/TreeHintOpaque0043671B.h,existing header; contract class_contracts/TreeHintOpaque0043671B.json; 11/26 sampled units adopt
