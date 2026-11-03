@@ -27,15 +27,7 @@ private:
 	unsigned char m_data[0x9C];
 };
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class Rva003623E5Filter
 {

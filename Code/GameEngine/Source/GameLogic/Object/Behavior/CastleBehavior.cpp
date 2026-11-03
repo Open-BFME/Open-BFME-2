@@ -33,16 +33,7 @@ public:
 template <int N> class BitFlags;
 // Existing seven-dword zero-mask provider at native DFEFA4.
 extern BitFlags<116> KINDOFMASK_NONE;
-class Rva003623E5Member
-{
-public:
-    Rva003623E5Member();
-    ~Rva003623E5Member();
-    void rva00362192(Rva00045411BitSet, BfmeFixedStorage0004543D);
-    void initFromStorages(BfmeFixedStorage0004543D, BfmeFixedStorage0004543D);
-private:
-    int m_handle;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 struct RvaPair0039973B { AsciiString m_key; int m_value; ~RvaPair0039973B() {} };
 struct Rva00395D77 { unsigned char m_bytes[12]; ~Rva00395D77(); };
 struct FXBoneInfo { AsciiString m_boneName; const void *m_particleSystemTemplate; };

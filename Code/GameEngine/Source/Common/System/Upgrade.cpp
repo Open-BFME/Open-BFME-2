@@ -90,11 +90,7 @@ struct OpaqueRefPtr
 
 void __cdecl free(void *p);
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class Rva0026F684
 {

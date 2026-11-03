@@ -24,14 +24,7 @@
 // the delay 5, then the 300.0f scan distance.
 
 extern int BfmeLogicFramesPerSecond;
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-	unsigned char m_data[4];
-};
+#include "../../Include/GameLogic/Module/Rva003623E5Member.h"
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 extern "C" const void *const __identifier("??_7EntEnragedUpdateModuleData@@6B@")[];
 #include "../../Include/GameLogic/Module/UpdateModule.h"

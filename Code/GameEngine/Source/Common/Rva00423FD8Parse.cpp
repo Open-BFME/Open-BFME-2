@@ -72,14 +72,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 template <int N> class BitFlags { unsigned char m_bytes[28]; };
 extern BitFlags<116> KINDOFMASK_NONE;
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D, BfmeFixedStorage0004543D);
-private:
-	int m_handle;
-};
+#include "../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class Rva0022AD10Subsystem
 {

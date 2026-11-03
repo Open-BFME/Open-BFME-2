@@ -24,15 +24,7 @@
 template <int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D a, BfmeFixedStorage0004543D b);
-private:
-	unsigned m_unknown;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class HordeGarrisonContainModuleData
 {

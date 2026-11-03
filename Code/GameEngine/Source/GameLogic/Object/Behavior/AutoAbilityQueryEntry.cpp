@@ -12,11 +12,7 @@
 // (DieMuxData init precedent: frameless member-init ending mov eax esi
 // returns this, not void).
 
-class Rva003623E5Member
-{
-public:
-	void construct();
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class AutoAbilityQueryEntry
 {

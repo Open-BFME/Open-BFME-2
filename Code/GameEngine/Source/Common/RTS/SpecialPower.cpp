@@ -47,15 +47,7 @@ public:
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(class BfmeFixedStorage0004543D first, class BfmeFixedStorage0004543D second);
-private:
-	Int m_x;
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 

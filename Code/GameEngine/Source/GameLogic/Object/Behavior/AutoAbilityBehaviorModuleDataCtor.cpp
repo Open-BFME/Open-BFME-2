@@ -23,15 +23,7 @@ namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-private:
-	unsigned m_handle;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class AutoAbilityQueryEntry
 {

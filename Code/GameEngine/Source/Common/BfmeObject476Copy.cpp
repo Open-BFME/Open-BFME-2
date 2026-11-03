@@ -157,7 +157,7 @@ namespace _STL {template<>struct __type_traits<Rva0026F4F4Element> : __type_trai
 class BfmeFixedStorage0004543D {public:BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&);char data[28];};
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
-struct Rva003623E5Member {void initFromStorages(BfmeFixedStorage0004543D,BfmeFixedStorage0004543D);};
+#include "../../Include/GameLogic/Module/Rva003623E5Member.h"
 struct Rva00360D26Member {Rva00360D26Member();~Rva00360D26Member();unsigned word;};
 void __cdecl Rva00030830GameFree(void *);
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"

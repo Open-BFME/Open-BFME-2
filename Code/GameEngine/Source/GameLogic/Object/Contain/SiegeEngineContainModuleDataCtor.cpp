@@ -51,12 +51,7 @@ private:
 	unsigned char m_opaque[0x18C - 4];
 };
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class SiegeEngineContainModuleData : public TransportContainModuleData
 {

@@ -18,14 +18,7 @@
 // the only raw caller. Supersedes the 0x4BBF89 ctor pin (row proves the
 // body).
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-
-private:
-	int m_x;
-};
+#include "../../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 // EH-driving shim (ToppleUpdateModuleDataCtor precedent): the retail body
 // has an EH frame with a single state-0 store but makes no base call and
