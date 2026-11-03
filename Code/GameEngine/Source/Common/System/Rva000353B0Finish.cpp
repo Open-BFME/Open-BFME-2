@@ -7,16 +7,11 @@
 // argument dword, so the callee is declared with the bool it takes. Names are
 // address-derived; the default /O2 shape has no frame, so there is no // cl:
 // line.
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator
-{
-public:
-	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void *rva000353B0(void *context, int blockTypes, bool copy, void *storage, unsigned int storageSize);
-};
 }
 }
 

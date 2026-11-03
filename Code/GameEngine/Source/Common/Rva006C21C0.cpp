@@ -74,8 +74,8 @@ bool Rva006C17B0::rva006C21C0(unsigned int len, void *buf)
 #include <string.h>
 #pragma intrinsic(memset)
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator { public: void rva00033150(const void *block); void rva000338F0(void *); bool rva00033D50(); };
 } }
 class Rva006C39F0Owner { public: void *rva006C3940Alloc(unsigned int); };
 

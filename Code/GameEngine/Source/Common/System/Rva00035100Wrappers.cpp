@@ -38,22 +38,12 @@ public:
     void **rva00034B30(unsigned int count, unsigned int sizesCount, const unsigned int *sizes, void **out, int flags);
 };
 
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-    void *rva000344A0(unsigned int size, unsigned int alignment, unsigned int offset, int flags);
-    void *rva00035100(unsigned int size, unsigned int alignment, unsigned int offset, int flags);
-    void *rva00035290(unsigned int count, unsigned int size, void **out, int flags);
-    void *rva00035320(unsigned int count, const unsigned int *sizes, void **out, int flags);
-private:
-    char prefix[0x4E4];
-    void *m_pLock;
-};
 
 void *GeneralAllocator::rva00035100(unsigned int size, unsigned int alignment, unsigned int offset, int flags)
 {

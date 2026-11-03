@@ -8,16 +8,11 @@
 // makes the compiler use dl rather than cl. Names are address-derived. No
 // // cl: line: the default /O2 tail-call shape matches.
 
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator
-{
-public:
-	void rva00033150(const void *block);	// free engine 0x00033150 (memory_pool.cpp)
-	void rva00033E90(void *p);
-};
 }
 }
 

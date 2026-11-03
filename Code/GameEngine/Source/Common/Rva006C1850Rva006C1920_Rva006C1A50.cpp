@@ -51,13 +51,8 @@ private:
 // Address-derived shim for 0x006C1A50: a self-or-other dispatch with one
 // argument passed through by tail jumps to the rowed GeneralAllocator free
 // engine 0x00033150 (self) or Free-like 0x000338F0 (the other allocator).
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	void rva00033150(const void *block);
-	void rva000338F0(void *block);
-};
 } }
 
 class Rva006C1A50Owner

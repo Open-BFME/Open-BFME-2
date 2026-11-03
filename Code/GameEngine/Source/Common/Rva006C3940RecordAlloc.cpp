@@ -19,12 +19,8 @@
 // the same control flow (its allocation is a virtual Malloc call that retail
 // reaches directly). The name is the address-derived pin callers use.
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	void *rva00035080(unsigned size, int flags);
-};
 } }
 
 class Rva006C1F60

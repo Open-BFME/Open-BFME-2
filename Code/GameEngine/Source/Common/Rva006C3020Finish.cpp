@@ -48,12 +48,8 @@ unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned ch
 // 0x00032A20 (block usable size) is the rowed EA PPMalloc method
 // GeneralAllocator::rva00032A20 (memory_pool.cpp); this object is that
 // allocator, so the call goes through the row's own spelling.
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	unsigned int rva00032A20(const void *block);
-};
 }}
 
 class Rva006C2D20Sink

@@ -63,23 +63,12 @@ public:
 	}
 };
 
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-	void *realloc(void *block, unsigned int size, int flags);
-	void *calloc(unsigned int count, unsigned int size, int flags);
-	void *rva00035190(void *block, unsigned int size, int flags);
-	void *rva00035210(unsigned int count, unsigned int size, int flags);
-
-private:
-	char m_pad[0x4e4];
-	void *m_pLock;
-};
 
 void *GeneralAllocator::rva00035190(void *block, unsigned int size, int flags)
 {

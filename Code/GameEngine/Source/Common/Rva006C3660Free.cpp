@@ -44,14 +44,8 @@ private:
 	Rva00030DD0Lock *m_lock;
 };
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	void rva00033150(const void *block);						// 0x00033150
-	unsigned int rva006C1D10(const void *p);					// 0x006C1D10
-	unsigned int rva00032A20(const void *p);					// 0x00032A20
-};
 } }
 
 class GeneralAllocatorDebug

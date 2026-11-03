@@ -27,16 +27,8 @@ struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *);
 int Rva00030DF0Release(Rva00030DD0Lock *);
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	void rva00033150(const void *block);
-	unsigned rva00032A20(const void *);
-	typedef void (*TraceFunction)(const char *text, void *context);
-	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
-	void traceAllocatedMemory(TraceFunction function, void *functionContext, void *context, int blockTypes);
-};
 } }
 
 struct GeneralAllocatorDebugBlock;

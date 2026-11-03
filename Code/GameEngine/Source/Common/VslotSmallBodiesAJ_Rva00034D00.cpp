@@ -56,15 +56,11 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator
-{
-public:
-	bool rva00033D50();	// rowed teardown 0x00033D50
-};
 }
 }
 

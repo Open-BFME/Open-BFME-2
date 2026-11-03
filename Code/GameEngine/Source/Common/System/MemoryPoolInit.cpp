@@ -18,12 +18,8 @@ void Rva0000179A();
 // ?MemoryPoolAllocatorAssertion present-unmatched
 // Empty callback: native pointer VA00A9E440 is the shared ICF RET.
 static void MemoryPoolAllocatorAssertion() {}
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public: void SetAssertionFailureFunction(void *, void *);
- bool rva000332D0(void *, unsigned int, bool, bool, void *, void *);
-};
 }}
 // Native ctor33B90 zeroes these member blocks separately. The template
 // expresses initialization; widths and every scalar offset are target facts.

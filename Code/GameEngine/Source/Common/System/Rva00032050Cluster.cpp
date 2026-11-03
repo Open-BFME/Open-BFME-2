@@ -10,21 +10,12 @@
 // from those REL32 sites already names it. The flag byte, the 0x484 offset and
 // the "valid == 0" return shape are read off the target body.
 
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-	bool rva000329E0(int level);
-	int rva000321F0(int level);
-
-private:
-	char m_pad[0x484];
-	unsigned char m_484;
-};
 
 bool GeneralAllocator::rva000329E0(int level)
 {

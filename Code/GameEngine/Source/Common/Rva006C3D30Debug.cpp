@@ -40,12 +40,8 @@ struct Rva006C2270Record {
 	void*stack[24];
 };
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	unsigned rva00032A20(const void *block);
-};
 } }
 
 class Rva006C39F0Owner

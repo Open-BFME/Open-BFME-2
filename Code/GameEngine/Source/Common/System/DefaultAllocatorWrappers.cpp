@@ -24,16 +24,11 @@
 //     pool-default provider is asserted beyond the addresses.
 // No STL, no header edit, no aliases, no fallbacks.
 
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator
-{
-public:
-	void *rva00035080(unsigned int size, int flags);
-	void rva000338F0(void *block);
-};
 }
 }
 

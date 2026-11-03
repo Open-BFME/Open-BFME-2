@@ -56,14 +56,8 @@ public:
 	void rva006C33D0(int a, int b);
 };
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA { namespace Allocator {
-class GeneralAllocator
-{
-public:
-	void rva00033150(const void *block);
-	void *rva000344A0(unsigned size, unsigned alignment, unsigned alignmentOffset, int flags);
-	void *calloc(unsigned count, unsigned size, int flags);
-};
 } }
 
 struct Rva006C4300Chunk

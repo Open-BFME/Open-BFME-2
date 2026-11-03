@@ -449,16 +449,12 @@ bool Rva00030C50Heap::rva00031080(void *a, void *b, void *c)
 	return true;
 }
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
 // Only the static bin-index helper rowed in memory_pool.cpp (0x00030F10).
-class GeneralAllocator
-{
-public:
-	static unsigned int GetLargeBinIndexFromChunkSize(unsigned int size);
-};
 }
 }
 

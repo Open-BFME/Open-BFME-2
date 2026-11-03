@@ -56,20 +56,12 @@ public:
 	void *rva00033ED0(unsigned int size, int flags);
 };
 
+#include "../../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
 
-class GeneralAllocator
-{
-public:
-	void *rva00035080(unsigned int size, int flags);
-
-private:
-	char m_pad[0x4e4];
-	void *m_pLock;
-};
 
 void *GeneralAllocator::rva00035080(unsigned int size, int flags)
 {

@@ -8,15 +8,11 @@ extern "C" void _ReadWriteBarrier(void);
 
 #include <string.h>
 
+#include "../../Include/Common/GeneralAllocator.h"
 namespace EA
 {
 namespace Allocator
 {
-class GeneralAllocator
-{
-public:
-	unsigned int rva000311E0(const void *src, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap);
-};
 
 unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap)
 {
