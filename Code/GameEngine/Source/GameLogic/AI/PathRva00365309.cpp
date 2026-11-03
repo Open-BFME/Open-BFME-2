@@ -9,7 +9,7 @@
 // through math.h's inline float wrappers (explicit sin/cos locals schedule the
 // cos fstp early at all four sites); start/dest/delta/center/end as member-wise
 // Coord3D copies with the delta block-scoped; the 0x363B4B angle helper visible
-// as an inline noinline copy; PathNode with class-scoped pooled new/delete.
+// as an inline noinline copy; PathNode allocated from g_pathNodePool.
 // provides portal20, optimized-link8, options0/1/4/8, and all call addresses.
 #define COORD3D_VIEW_INLINE
 #define COORD3D_VIEW_INLINE_ONLY
@@ -23,14 +23,7 @@ class Object {public:const Rva0028AC4EEntry *rva0028AC4E()const;};
 class Rva001E3F27FloatChaseField {public:float get()const;};
 class Rva00065964ObjectPool {public:void *rva002635C2()throw();};
 extern Rva00065964ObjectPool g_pathNodePool;
-void FreePooledNode(void *);
-class PathNode {public:
- static void *operator new(size_t){return g_pathNodePool.rva002635C2();}
- static void operator delete(void *p){FreePooledNode(p);}
- PathNode(const Coord3D *,PathfindLayerEnum)throw();
- PathfindLayerEnum getLayer()const{return layer;}
- PathNode *next,*previous,*nextOptimized;Coord3D pos;PathfindLayerEnum layer;bool canOptimize;char pad1D[3];int portalID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 class WWMath {public:static float __fastcall Inv_Sqrt(float);};
 class Vector3 {public:
  float X,Y,Z;
@@ -60,11 +53,11 @@ extern AI *TheAI;
 #include "../../../Include/GameLogic/PathfindPath.h"
 bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,DirectionOptions *options,int surfaces,float maxAngle,bool blocked)
 {
- PathNode *next=node->nextOptimized;
- if(node->portalID!=0x7fffffff || !next){if(!options->flag0)rva003649B1(node);return true;}
+ PathNode *next=node->m_nextOpti;
+ if(node->m_portalID!=0x7fffffff || !next){if(!options->flag0)rva003649B1(node);return true;}
  float radius=options->value4;
- Coord3D start=node->pos;
- Coord3D dest=next->pos;
+ Coord3D start=node->m_pos;
+ Coord3D dest=next->m_pos;
  {
   Coord3D delta=dest;
   delta.sub(&start);
@@ -89,7 +82,7 @@ bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,Direction
  offset.Rotate_Z(rotation);
  offset.Scale(radius);
  if(!options->flag0)rva003649B1(node);
- Coord3D center=node->pos;
+ Coord3D center=node->m_pos;
  center.x+=offset.X;center.y+=offset.Y;
  Vector3 toDest(dest.x,dest.y,dest.z);
  toDest.X-=center.x;toDest.Y-=center.y;
@@ -127,14 +120,15 @@ bool Path::rva00365309(Object *obj,PathNode *node,const Coord3D *input,Direction
    if(i==segments && !(unsigned char)TheAI->pathfinder()->IsLinePassable(obj,(void *)surfaces,node->getLayer(),&position,&dest,*(void *const *)&blocked,0,0))return false;
   } else {
    appendNode(&position,node->getLayer(),0x7fffffff);
-   node->pos=position;
+   node->m_pos=position;
   }
  }
  if(!options->flag0 && !options->flag8){
-  PathNode *saved=new PathNode(&node->pos,LAYER_GROUND);
-  dest.add(&node->pos);
+  void *memory=g_pathNodePool.rva002635C2();
+  PathNode *saved=memory?new(memory)PathNode(&node->m_pos,LAYER_GROUND):0;
+  dest.add(&node->m_pos);
   dest.scale(0.5f);
-  node->pos=dest;
+  node->m_pos=dest;
   const Rva0028AC4EEntry *entry=obj->rva0028AC4E();if(entry)radius=((const Rva001E3F27FloatChaseField *)entry)->get();
   rva00364AA2(saved,node,next,radius);delete saved;
  }

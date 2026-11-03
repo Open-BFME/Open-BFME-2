@@ -138,7 +138,7 @@ public:
 struct Rva003642DFNode;
 #include "../../../../Include/GameLogic/Rva003642DFResult.h"
 class Rva0008BB38FloatField;
-class PathNode { public: PathNode*next,*prev,*optimized; Coord3D pos; };
+#include "../../../../Include/GameLogic/PathNode.h"
 class Path { public:
  Path(); Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
  void prependNode(const Coord3D*,PathfindLayerEnum,int);

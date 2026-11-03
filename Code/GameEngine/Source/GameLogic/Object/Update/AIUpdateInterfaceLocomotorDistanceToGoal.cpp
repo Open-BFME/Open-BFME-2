@@ -24,7 +24,7 @@ class ThingTemplate { public: char pad[0x10B];unsigned char kinds; };
 class Object { public: char pad[4];ThingTemplate *templ; char pad8[0x38-8];Coord3D position; const Coord3D*getPosition()const{return &position;} };
 class LocomotorTemplate {public:char pad[0x74];int type;};
 class Locomotor {public: char pad[4];LocomotorTemplate*templ;char pad8[0x44-8];unsigned int flags;bool isCloseEnoughDist3D()const{return (flags>>10)&1;} };
-struct PathNode {char pad[0xC];Coord3D position;};
+#include "../../../../Include/GameLogic/PathNode.h"
 struct Rva003642DFNode;
 struct Rva003642DFResult { Rva003642DFResult();Rva003642DFNode*node;Coord3D position; };
 class Rva00363D20 {public:double rva00363D20();};
@@ -58,7 +58,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
   if(loco->isCloseEnoughDist3D()||(owner->templ->kinds&2)){
    const Object *obj=owner;PathNode *last=path->m_pathTail;const Coord3D *p=machine->locomotorGoalPosition();
    goalPos.x=p->x;goalPos.y=p->y;goalPos.z=p->z;
-   if(last)goalPos=last->position;
+   if(last)goalPos=last->m_pos;
    return (float)sqrt(((const Gen_000E5A50*)obj)->Get3DCenterDistanceSquared((const BfmeVec3EJ*)&goalPos));
   } else {
   if(loco->templ->type==5)break;
@@ -69,7 +69,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
    Rva003642DFResult info=current->rva00364521((const Rva0008BB38FloatField*)loco);
    goalPos=info.position;dist=((Rva00363D20*)&info)->rva00363D20();
   }
-  if(path->m_pathTail)goalPos=path->m_pathTail->position;
+  if(path->m_pathTail)goalPos=path->m_pathTail->m_pos;
   float dx=goalPos.x-owner->getPosition()->x,dy=goalPos.y-owner->getPosition()->y;
   float distanceSquared=dx*dx+dy*dy;
   if(aircraft){if(dist*dist>distanceSquared)return (float)sqrt(distanceSquared);else return dist;}

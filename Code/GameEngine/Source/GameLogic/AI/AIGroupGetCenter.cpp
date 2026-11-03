@@ -78,18 +78,7 @@ private:
 	UnsignedInt m_formationID;
 };
 
-class PathNode
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	// Keep traversal inline without emitting another PathNode accessor body.
-	__declspec(dllimport) __forceinline PathNode *getNext() { return m_next; }
-
-private:
-	char m_pad0[8];
-	PathNode *m_next;	// +0x08
-	Coord3D m_pos;		// +0x0C
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 
@@ -266,12 +255,12 @@ Bool AIGroup::computeGroundPath(const Coord3D *pos, CommandSourceType cmdSource)
 		PathNode *node = m_groundPath->getFirstNode();
 		if (node)
 		{
-			if (node->getNext())
+			if (node->getNextOptimized())
 			{
 				m_pathStart = *node->getPosition();
-				m_pathEnd = *node->getNext()->getPosition();
+				m_pathEnd = *node->getNextOptimized()->getPosition();
 			}
-			for (; node; node = node->getNext())
+			for (; node; node = node->getNextOptimized())
 			{
 				if (TheTerrainLogic->rvaSlot50(node->getPosition()))
 				{

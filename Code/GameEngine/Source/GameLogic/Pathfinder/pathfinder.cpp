@@ -128,19 +128,7 @@ public:
 struct Rva002E7ED6Info;
 class Pathfinder;
 // Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.
-class PathNode {
-public:
-    PathNode(const Coord3D *,PathfindLayerEnum) throw();
-    PathNode *next,*previous,*nextOptimized;
-    Coord3D position;
-    PathfindLayerEnum layer;
-    Bool canOptimize;
-    Int portalID;
-    const Coord3D *getPosition() const { return &position; }
-    PathNode *getNextOptimized() const { return nextOptimized; }
-    PathNode *getPrevious() const { return previous; }
-    PathfindLayerEnum getLayer() const { return layer; }
-};
+#include "../../../Include/GameLogic/PathNode.h"
 struct Rva002EDEABArg;
 struct Rva002E93A7Info
 {
@@ -2624,39 +2612,39 @@ void Pathfinder::PrependCells(Path *path,const Coord3D *fromPos,PathfindCell *go
   if(prevCell && cell->getXIndex()==prevCell->getXIndex() && cell->getYIndex()==prevCell->getYIndex()) {
    PathfindLayerEnum layer=(PathfindLayerEnum)cell->getLayer();
    if(layer==PATHFIND_LAYER_GROUND)layer=(PathfindLayerEnum)prevCell->getLayer();
-   path->firstNode->layer=layer;continue;
+   path->firstNode->m_layer=layer;continue;
   }
   Bool canOptimize=true;
   if(cell->getType()==2) {
-   if(prevCell && prevCell->getType()!=2) {if(path->firstNode)path->firstNode->canOptimize=false;}
+   if(prevCell && prevCell->getType()!=2) {if(path->firstNode)path->firstNode->m_canOptimize=false;}
   } else {if(prevCell && prevCell->getType()==2)canOptimize=false;}
   if(cell->getParentWaypoint()) {
    Waypoint *parent=cell->getParentWaypoint();
    Int id=parent->id;pos=parent->location;
    if(id!=0x7fffffff) {
     if(cell->waypoint) {
-     if(path->firstNode){path->firstNode->portalID=cell->waypoint->id;path->firstNode->canOptimize=false;}
+     if(path->firstNode){path->firstNode->m_portalID=cell->waypoint->id;path->firstNode->m_canOptimize=false;}
      path->prependNode(&cell->waypoint->location,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
     }
     Waypoint *link=cell->getParentWaypoint()->chainNext;
     while(link) {
-     if(path->firstNode){path->firstNode->portalID=link->id;path->firstNode->canOptimize=false;}
+     if(path->firstNode){path->firstNode->m_portalID=link->id;path->firstNode->m_canOptimize=false;}
      path->prependNode(&link->location,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
      if(link->linkCount!=0)break;
      link=link->chainNext;
     }
-    if(path->firstNode){path->firstNode->portalID=id;path->firstNode->canOptimize=false;}
+    if(path->firstNode){path->firstNode->m_portalID=id;path->firstNode->m_canOptimize=false;}
    }
   }
   path->prependNode(&pos,TheTerrainLogic->getLayerForDestination(0,&pos),0x7fffffff);
-  path->firstNode->canOptimize=canOptimize;
+  path->firstNode->m_canOptimize=canOptimize;
   if(cell->m_pathInfo->flags&1)path->blockedByAlly=true;
   if(prevCell)prevCell->m_pathInfo->parent=0;
   prevCell=cell;
  }
  if(cell && cell->m_pathInfo) {
   if(goalCellNull) {pos=Rva002E8C23Call(center,cell);path->prependNode(&pos,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);}
-  if(fromPos->x!=path->firstNode->position.x || fromPos->y!=path->firstNode->position.y)
+  if(fromPos->x!=path->firstNode->m_pos.x || fromPos->y!=path->firstNode->m_pos.y)
    path->prependNode(fromPos,(PathfindLayerEnum)cell->getLayer(),0x7fffffff);
  }
 }
@@ -2690,8 +2678,8 @@ static __forceinline PathNode *makeAircraftNode(const Coord3D *p) {
  return memory?new(memory)PathNode(p,PATHFIND_LAYER_GROUND):0;
 }
 static __forceinline void appendAircraftNode(PathNode *current,PathNode *node) {
- current->next=node;
- if(node) node->previous=current;
+ current->m_next=node;
+ if(node) node->m_prev=current;
 }
 Path *Pathfinder::GetAircraftPath(const Object *object,const Coord3D *to)
 {
@@ -2710,16 +2698,16 @@ Path *Pathfinder::GetAircraftPath(const Object *object,const Coord3D *to)
  scratch.stage.start.x=object->position[0]; scratch.stage.start.y=object->position[1]; scratch.stage.start.z=to->z;
  path->prependNode(&scratch.stage.start,PATHFIND_LAYER_GROUND,0x7fffffff);
  int limit=20;
- for(PathNode *node=path->firstNode;node && node->next;) {
-  if(rva002F3392(node,node->next,avoid,&scratch.p1,&scratch.p2,&scratch.stage.p3)) {
+ for(PathNode *node=path->firstNode;node && node->m_next;) {
+  if(rva002F3392(node,node->m_next,avoid,&scratch.p1,&scratch.p2,&scratch.stage.p3)) {
    appendAircraftNode(node,makeAircraftNode(&scratch.stage.p3));
    appendAircraftNode(node,makeAircraftNode(&scratch.p2));
    appendAircraftNode(node,makeAircraftNode(&scratch.p1));
   }
-  node=node->next;
+  node=node->m_next;
   if(--limit<0) break;
  }
- for(PathNode *node=path->firstNode;node && node->next;node=node->next) node->nextOptimized=node->next;
+ for(PathNode *node=path->firstNode;node && node->m_next;node=node->m_next) node->m_nextOpti=node->m_next;
  path->wordC=true;
  if(*(int *)((char *)TheWritableGlobalData+0x9b8)==1) reinterpret_cast<PathfinderAircraftAIView *>(TheAI)->pathfinder->SetDebugPath((Rva002EDEABArg *)path);
  return path;
@@ -3882,17 +3870,17 @@ Path *Pathfinder::PatchPath(Object *obj,const LocomotorSet &locomotorSet,Path *o
 	PathfindCell *candidateGoal;
 	{
 	Coord3D goalPos;
-	copyCoord3D(&goalPos, &(originalPath->lastNode)->position);
+	copyCoord3D(&goalPos, &(originalPath->lastNode)->m_pos);
 	float dx = goalPos.x - currentPosition.x;
 	float dy = goalPos.y - currentPosition.y;
 	float goalDeltaSqr = dx*dx + dy*dy;
 	ICoord2D cellCoord;
-	for (startNode = originalPath->lastNode; startNode != originalPath->firstNode; startNode = startNode->previous) {
-		Rva002E7875WorldToCell(&cellCoord, true, &startNode->position);
+	for (startNode = originalPath->lastNode; startNode != originalPath->firstNode; startNode = startNode->m_prev) {
+		Rva002E7875WorldToCell(&cellCoord, true, &startNode->m_pos);
 		TCheckMovementInfo info;
 		((Rva002E6FDF *)&info)->rva002E6FDF();
 		info.cell = cellCoord;
-		info.layer = startNode->layer;
+		info.layer = startNode->m_layer;
 		info.centerInCell = centerInCell;
 		info.radius = radius;
 		info.m_11 = blocked;
@@ -3903,10 +3891,10 @@ Path *Pathfinder::PatchPath(Object *obj,const LocomotorSet &locomotorSet,Path *o
 		info.m_14 = (obj->m_template->testKindWord(90) ? 1U : 16U) | 2U;
 		readMoverInfo(info, obj);
 		if (!checkForMovement(obj, info)) break;
-		float nx = startNode->position.x - currentPosition.x;
-		float ny = startNode->position.y - currentPosition.y;
+		float nx = startNode->m_pos.x - currentPosition.x;
+		float ny = startNode->m_pos.y - currentPosition.y;
 		float dist = nx*nx + ny*ny;
-		if (dist < goalDeltaSqr) { goalPos = startNode->position; goalDeltaSqr = dist; }
+		if (dist < goalDeltaSqr) { goalPos = startNode->m_pos; goalDeltaSqr = dist; }
 	}
 	if (startNode == originalPath->lastNode) { rva002F40E7(); return 0; }
 	candidateGoal = (PathfindCell *)rva001E3647Pos(1, &goalPos);
@@ -3917,14 +3905,14 @@ Path *Pathfinder::PatchPath(Object *obj,const LocomotorSet &locomotorSet,Path *o
 		PathfinderCellPoint cellCenter = Rva002E8C23Call(centerInCell, parentCell);
 		PathNode *matchNode;
 		Bool found = false;
-		for (matchNode = originalPath->lastNode; matchNode != startNode; matchNode = matchNode->previous) {
-			if (cellCenter.x == matchNode->position.x && cellCenter.y == matchNode->position.y) { found = true; break; }
+		for (matchNode = originalPath->lastNode; matchNode != startNode; matchNode = matchNode->m_prev) {
+			if (cellCenter.x == matchNode->m_pos.x && cellCenter.y == matchNode->m_pos.y) { found = true; break; }
 		}
 		if (found) {
 			m_isTunneling = false;
 			Path *path = new Path;
-			for (PathNode *node = originalPath->lastNode; node != matchNode; node = node->previous)
-				path->prependNode(&node->position, node->layer, 0x7FFFFFFF);
+			for (PathNode *node = originalPath->lastNode; node != matchNode; node = node->m_prev)
+				path->prependNode(&node->m_pos, node->m_layer, 0x7FFFFFFF);
 			PrependCells(path, (const Coord3D *)obj->position, parentCell, centerInCell);
 			path->rva00364551(obj, locomotorSet.getValidSurfaces(), blocked, 0);
 			rva002F40E7();
@@ -5729,11 +5717,11 @@ Path *Pathfinder::FindCollisionFreeQuickPath(Object *obj, const Coord3D *to, Pat
 	Int cellCount = 0;
 	while (nodes && numGoals < 20)
 	{
-		nodes = nodes->next;
+		nodes = nodes->m_next;
 		if (nodes)
 		{
-			PathfindLayerEnum nodeLayer = nodes->layer;
-			goals[numGoals] = (PathfindCell *)rva001E3647Pos(nodeLayer, &nodes->position);
+			PathfindLayerEnum nodeLayer = nodes->m_layer;
+			goals[numGoals] = (PathfindCell *)rva001E3647Pos(nodeLayer, &nodes->m_pos);
 			if (goals[numGoals])
 				++numGoals;
 		}
@@ -5861,9 +5849,9 @@ Bool Pathfinder::MoveAllies(Object *obj, Path *path, Bool force)
 		ignoreId = (ObjectID)((Rva0006E009DwordField *)obj->getAI())->get();	// getIgnoredObstacleID
 	path->Lock();
 	Coord3D initialPosition;
-	initialPosition.x = path->lastNode->position.x;
-	initialPosition.y = path->lastNode->position.y;
-	initialPosition.z = path->lastNode->position.z;
+	initialPosition.x = path->lastNode->m_pos.x;
+	initialPosition.y = path->lastNode->m_pos.y;
+	initialPosition.z = path->lastNode->m_pos.z;
 	for (PathNode *node = path->lastNode; node && node != path->firstNode; node = node->getPrevious()) {
 		if (!node->getPrevious())
 			break;
@@ -6471,7 +6459,7 @@ struct PathfinderAttackCoord : Coord3D {
 };
 
 inline __declspec(noinline) PathNode::PathNode(const Coord3D *p,PathfindLayerEnum l) throw() {
- next=0;previous=0;nextOptimized=0;copyCoord3D(&position,p);layer=l;canOptimize=false;portalID=0x7fffffff;
+ m_next=0;m_prev=0;m_nextOpti=0;copyCoord3D(&m_pos,p);m_layer=l;m_canOptimize=false;m_portalID=0x7fffffff;
 }
 
 class Rva0026E4A0 {public:Rva0026E4A0 &set(Rva0026E4A0 *) throw();};
@@ -6479,7 +6467,7 @@ extern Rva00065964ObjectPool g_pathNodePool;
 inline __declspec(noinline) void Path::prependNode(const Coord3D *pos,PathfindLayerEnum layer,int id) {
  void *mem=g_pathNodePool.rva002635C2();
  PathNode *node=mem ? new(mem) PathNode(pos,layer):0;
- node->portalID=id;
+ node->m_portalID=id;
  firstNode=(PathNode *)&((Rva0026E4A0 *)node)->set((Rva0026E4A0 *)firstNode);
  if(lastNode==0)lastNode=node;
  wordC=false;

@@ -255,15 +255,7 @@ class Object
     char pad25C[0x414 - 0x25C];
     Coord2D offset;
 };
-class PathNode
-{
-  public:
-    char pad0[8];
-    PathNode *next;
-    Coord3D position;
-    const Coord3D *getPosition() const { return &position; }
-    PathNode *getNext() const { return next; }
-};
+#include "../../../Include/GameLogic/PathNode.h"
 #include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 struct FormationAIData
@@ -379,7 +371,7 @@ void AIGroup::moveFormationToPos(const Coord3D *pos, CommandSourceType source, i
         Coord3DCopy delta;
         Coord3DCopy previous = startPoint;
         PathNode *node;
-        for (node = groundPath->getFirstNode(); node; node = node->getNext())
+        for (node = groundPath->getFirstNode(); node; node = node->getNextOptimized())
         {
             delta = *node->getPosition();
             delta.Sub(previous);
@@ -402,7 +394,7 @@ void AIGroup::moveFormationToPos(const Coord3D *pos, CommandSourceType source, i
         delta.Sub(moveStart);
         if (delta.lengthSqr() < endDistance * endDistance)
             useMoveStart = false;
-        for (node = groundPath->getFirstNode(); node; node = node->getNext())
+        for (node = groundPath->getFirstNode(); node; node = node->getNextOptimized())
         {
             delta = *node->getPosition();
             delta.Sub(endPoint);
@@ -415,7 +407,7 @@ void AIGroup::moveFormationToPos(const Coord3D *pos, CommandSourceType source, i
         {
             if (pathNode == startNode)
                 endNode = 0;
-            pathNode = pathNode->getNext();
+            pathNode = pathNode->getNextOptimized();
         }
         if (!startNode || !endNode)
         {
@@ -488,7 +480,7 @@ void AIGroup::moveFormationToPos(const Coord3D *pos, CommandSourceType source, i
                 path.push_back(dest);
                 if (node == endNode)
                     break;
-                node = node->getNext();
+                node = node->getNextOptimized();
                 previous = dest;
             }
         }

@@ -36,33 +36,18 @@ inline __declspec(noinline) float rva00363B4BAngle(const Rva00363B4BVector *a, c
 
 enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
 
-class PathNode
-{
-public:
-	PathNode(const Coord3D *position, PathfindLayerEnum layer);
-	const Coord3D *getPosition(void) const { return &m_pos; }
-	void setPosition(const Coord3D *pos) { m_pos = *pos; }
-	PathfindLayerEnum getLayer(void) const { return m_layer; }
-
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_pos;
-	PathfindLayerEnum m_layer;
-	bool m_canOptimize;
-	int m_id20;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 // Copies the position member-wise through an inline call, as the home's Coord3D operator= does.
-inline __declspec(noinline) PathNode::PathNode(const Coord3D *position, PathfindLayerEnum layer)
+inline __declspec(noinline) PathNode::PathNode(const Coord3D *position, PathfindLayerEnum layer) throw()
 {
 	m_next = 0;
-	m_previous = 0;
-	m_nextOptimized = 0;
+	m_prev = 0;
+	m_nextOpti = 0;
 	m_pos.set(position);
 	m_layer = layer;
 	m_canOptimize = false;
-	m_id20 = 0x7fffffff;
+	m_portalID = 0x7fffffff;
 }
 
 class Path
@@ -83,15 +68,15 @@ public:
 		}
 		void *mem = g_pathNodePool.rva002635C2();
 		PathNode *node = mem ? new (mem) PathNode(pos, layer) : 0;
-		node->m_id20 = waypointID;
+		node->m_portalID = waypointID;
 		PathNode *tail = m_pathTail;
 		if (tail)
 		{
 			tail->m_next = node;
-			node->m_previous = tail;
+			node->m_prev = tail;
 		}
 		if (m_isOptimized && m_pathTail)
-			m_pathTail->m_nextOptimized = node;
+			m_pathTail->m_nextOpti = node;
 		m_pathTail = node;
 		if (m_head04 == 0)
 			m_head04 = node;
@@ -136,7 +121,7 @@ void Path::rva00364AA2(PathNode *prev, PathNode *cur, PathNode *next, float radi
 	float angle = rva00363B4BAngle((const Rva00363B4BVector *)&seg1.Get_Dir(), (const Rva00363B4BVector *)&seg2.Get_Dir());
 	if (angle < 0.7225663304328919)
 		radius *= 1.75f;
-	if (cur->m_id20 != 0x7fffffff || angle > 1.7278761f) {
+	if (cur->m_portalID != 0x7fffffff || angle > 1.7278761f) {
 		rva003649B1(cur);
 		return;
 	}

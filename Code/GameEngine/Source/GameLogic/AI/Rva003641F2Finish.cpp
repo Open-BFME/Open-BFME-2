@@ -15,17 +15,7 @@
 #define COORD3D_VIEW_EXTERN_DTOR
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
-class PathNode
-{
-public:
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	int m_layer;
-	bool m_canOptimize;
-	int m_waypointID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 class Waypoint;
 
@@ -42,20 +32,20 @@ Coord3D Path::rva003641F2(void) const
 	PathNode *sel = field_10;
 	Waypoint *waypoint = 0;
 	while (sel != 0) {
-		int wp = sel->m_waypointID;
+		int wp = sel->m_portalID;
 		if (wp == 0x7fffffff)
 			break;
 		waypoint = TheTerrainLogic->getWaypointByID(wp);
 		if (waypoint != 0)
 			break;
-		sel = sel->m_previous;
+		sel = sel->m_prev;
 	}
 	const Coord3D *src;
 	Coord3DPod zero;
 	if (sel != 0)
-		src = &sel->m_position;
+		src = &sel->m_pos;
 	else if (m_path != 0)
-		src = &m_path->m_position;
+		src = &m_path->m_pos;
 	else {
 		zero.x = 0.0f;
 		zero.y = 0.0f;

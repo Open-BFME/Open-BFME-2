@@ -108,16 +108,7 @@ class Object
 struct Rva002E7ED6Info;
 class Pathfinder;
 // Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.
-class PathNode
-{
- public:
- PathNode(const Coord3D *,PathfindLayerEnum) throw();
- PathNode *next,*previous,*nextOptimized;
- Coord3D position;
- PathfindLayerEnum layer;
- Bool canOptimize;
- Int portalID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 struct Rva002EDEABArg;
 struct Rva002E93A7Info
 {

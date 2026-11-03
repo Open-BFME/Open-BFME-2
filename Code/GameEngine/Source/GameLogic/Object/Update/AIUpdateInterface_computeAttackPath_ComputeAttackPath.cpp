@@ -146,7 +146,7 @@ public:
 	int rva001E3511();
 };
 
-class PathNode { public: PathNode*next,*prev,*optimized; Coord3D pos; };
+#include "../../../../Include/GameLogic/PathNode.h"
 class Path { public:
  Path(); Rva003642DFResult rva00364521(const Rva0008BB38FloatField *arg);
  void prependNode(const Coord3D*,PathfindLayerEnum,int);
@@ -311,9 +311,9 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
   CRITTER_TRACE("CritterDesync: ComputePath44");
   Bool ok=computePath(services,&tmp);
   if(!m_path)return false;
-  Real dx=victimPos->x-m_path->tail->pos.x,dy=victimPos->y-m_path->tail->pos.y;
+  Real dx=victimPos->x-m_path->tail->m_pos.x,dy=victimPos->y-m_path->tail->m_pos.y;
   if(dx*dx+dy*dy<400.0f)((Rva003638BA*)m_path)->rva003638FD(victimPos);
-  dx=source->getPosition()->x-m_path->tail->pos.x;dy=source->getPosition()->y-m_path->tail->pos.y;
+  dx=source->getPosition()->x-m_path->tail->m_pos.x;dy=source->getPosition()->y-m_path->tail->m_pos.y;
   if(dx*dx+dy*dy<100.0f){destroyPath();return false;}
   return ok;
  }
@@ -330,10 +330,10 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
  if(getObject()->isAboveTerrain()&&!landBound){
   weapon->computeApproachTarget(getObject(),victim,&localVictimPos,0.0f,localVictimPos);
   if(m_path){
-   PathNode *close=m_path->head->optimized;
-   if(close&&!close->optimized){
-    Real dx=localVictimPos.x-close->pos.x;dx*=dx;
-    Real dy=localVictimPos.y-close->pos.y;dy*=dy;
+   PathNode *close=m_path->head->m_nextOpti;
+   if(close&&!close->m_nextOpti){
+    Real dx=localVictimPos.x-close->m_pos.x;dx*=dx;
+    Real dy=localVictimPos.y-close->m_pos.y;dy*=dy;
     if(dx+dy<0.25f)return true;
    }
   }
@@ -352,7 +352,7 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
    m_path=services->findAttackPath2(getObject(),m_locomotorSet,getObject()->getPosition(),victim,&localVictimPos,weapon);
   else m_path=services->findAttackPath(getObject(),m_locomotorSet,getObject()->getPosition(),victim,&localVictimPos,weapon,attackFlag,&shortPath);
   if(m_path){
-   Coord3D goal;const Coord3D *last=&m_path->tail->pos;goal.x=last->x;goal.y=last->y;goal.z=last->z;
+   Coord3D goal;const Coord3D *last=&m_path->tail->m_pos;goal.x=last->x;goal.y=last->y;goal.z=last->z;
    if(!shortPath&&!((Weapon*)weapon)->isWithinAttackRange(getObject(),&goal,(Object*)victim,&localVictimPos,0.0f,true)&&!attackFlag){
     Coord3D objPos;const Coord3D *position=getObject()->getPosition();objPos.x=position->x;objPos.y=position->y;objPos.z=position->z;
     goal.x-=objPos.x;goal.y-=objPos.y;goal.z-=objPos.z;
