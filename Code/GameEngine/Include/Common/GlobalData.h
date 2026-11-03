@@ -100,6 +100,9 @@
 // +0x013D, 1 bytes, m_hideGarrisonFlags: INI VA 0xbe8a50: HideGarrisonFlags, parseBool RVA 0x2e850.
 // +0x013E, 1 bytes, m_forceModelsToFollowTimeOfDay: INI VA 0xbe8a60: ForceModelsToFollowTimeOfDay, parseBool RVA 0x2e850.
 // +0x013F, 1 bytes, m_forceModelsToFollowWeather: INI VA 0xbe8a70: ForceModelsToFollowWeather, parseBool RVA 0x2e850.
+// +0x0140, 648 bytes, m_terrainLighting: constructor 0x00236587..0x002365DA builds 18 records of 0x24 bytes at +0x140 through eh vector constructor 0x00629512; destructor 0x002379E5 tears them down. INI TerrainLighting<Time>Ambient/Diffuse/LightPos[2|3] records (VA 0xbe8ae0/0xbe8af0/0xbe8b00 for Morning at +0x1AC/+0x1B8/+0x1C4) write parseRGBColor 0x2f259, parseRGBColor and parseCoord3D 0x2f507 at element +0/+0xC/+0x18, rows 0x6C apart per time of day; Zero Hour GlobalData.h supplies TerrainLighting and these names.
+// +0x03C8, 648 bytes, m_terrainObjectsLighting: constructor 0x002365ED..0x002365F8 builds 18 records of 0x24 bytes; destructor 0x002379D0; INI TerrainObjectsLighting<Time>Ambient/Diffuse/LightPos[2|3] records (VA 0xbe8ba0 for MorningAmbient at +0x434) write in the same element shape.
+// +0x0650, 648 bytes, field0650: constructor 0x0023660F..0x00236616 builds 18 records of 0x24 bytes; destructor 0x002379BB; no INI record names it.
 // +0x08D8, 36 bytes, m_terrainAmbient: setTimeOfDay 0x002352D3..0x00235305 copies three twelve-byte ambient, diffuse and position records to +0x8D8/+0x8FC/+0x920; Zero Hour GlobalData.h supplies these names and RGBColor/Coord3D types.
 // +0x08FC, 36 bytes, m_terrainDiffuse: setTimeOfDay 0x002352D3..0x00235305; three RGBColor records at +0x8FC.
 // +0x0920, 36 bytes, m_terrainLightPos: setTimeOfDay 0x002352D3..0x00235305; three Coord3D records at +0x920.
@@ -191,7 +194,7 @@
 // +0x0A4C, 4 bytes, m_firewallBehavior: INI VA 0xbe94f0: FirewallBehavior, parseInt RVA 0x2ef56.
 // +0x0A50, 1 bytes, field0A50: 0x00236895: mov byte ptr [esi + 0xa50], bl.
 // +0x0A54, 4 bytes, m_firewallPortOverride: INI VA 0xbe9500: FirewallPortOverride, parseInt RVA 0x2ef56.
-// +0x0A58, 4 bytes, m_firewallPortAllocationDelta: INI VA 0xbe9510: FirewallPortAllocationDelta, parseInt RVA 0x2ef56.
+// +0x0A58, 2 bytes, m_firewallPortAllocationDelta: constructor 0x002368A1 stores a word; OptionPreferences::getFirewallPortAllocationDelta reads a word at 0x002E48AA and returns short; INI VA 0xbe9510: FirewallPortAllocationDelta, parseInt RVA 0x2ef56.
 // +0x0A5C, 4 bytes, m_valuePerSupplyBox: INI VA 0xbe8fd0: ValuePerSupplyBox, parseInt RVA 0x2ef56.
 // +0x0A60, 4 bytes, m_supplyBoxesPerTree: INI VA 0xbe8fe0: SupplyBoxesPerTree, parseInt RVA 0x2ef56.
 // +0x0A64, 4 bytes, m_BuildSpeed: INI VA 0xbe9240: BuildSpeed, parseReal RVA 0x2efc0.
@@ -216,11 +219,14 @@
 // +0x0AB0, 4 bytes, m_cameraAdjustSpeed: INI VA 0xbe9380: CameraAdjustSpeed, parseReal RVA 0x2efc0.
 // +0x0AB4, 1 bytes, m_enforceMaxCameraHeight: INI VA 0xbe9390: EnforceMaxCameraHeight, parseBool RVA 0x2e850.
 // +0x0AB5, 1 bytes, field0AB5: 0x0023696a: mov byte ptr [esi + 0xab5], bl.
+// +0x0AB8, 4 bytes, field0AB8: constructor 0x00236970 clears +0xAB8; destructor 0x00237899 releases it through narrow releaseBuffer 0x00036410; parseFile 0x003BA25A passes it as the converter's second output.
+// +0x0ABC, 4 bytes, m_initialFile: constructor 0x00236976 clears +0xABC; destructor 0x0023788A releases it through 0x00036410; parseFile 0x003BA24A assigns args[1] to it, as Zero Hour's parseFile assigns m_initialFile.
 // +0x0AC0, 4 bytes, field0AC0: constructor 0x0023697C clears +0xAC0; cleanup at 0x00237650 and destructor 0x00237885 call narrow releaseBuffer 0x00036410 on +0xAC0.
 // +0x0AC4, 1 bytes, field0AC4: 0x00236982: mov byte ptr [esi + 0xac4], bl.
 // +0x0AC5, 1 bytes, field0AC5: 0x00236988: mov byte ptr [esi + 0xac5], bl.
 // +0x0AC8, 4 bytes, m_maxParticleCount: INI VA 0xbe9310: MaxParticleCount, parseInt RVA 0x2ef56.
 // +0x0ACC, 4 bytes, m_maxFieldParticleCount: INI VA 0xbe9320: MaxFieldParticleCount, parseInt RVA 0x2ef56.
+// +0x0AD0, 4 bytes, m_weaponBonusSet: INI VA 0xbe9470 WeaponBonus record parses +0xAD0 through WeaponBonusSet::parseWeaponBonusSetPtr 0x002CA81C; constructor 0x002369CB stores the new object built by 0x00235A21; Weapon::computeBonus 0x002C9A92 loads the pointer; Zero Hour GlobalData.h names m_weaponBonusSet.
 // +0x0AD4, 16 bytes, m_healthBonus: constructor 0x00237655..0x00237665 fills four floats with 1.0 at +0xAD4; INI VA 0x00BE93D0/0x00BE93E0/0x00BE93F0 assigns veteran/elite/heroic at +0xAD8/+0xADC/+0xAE0 through parsePercentToReal 0x0002F1BA; Zero Hour GlobalData.h names m_healthBonus[LEVEL_COUNT].
 // +0x0AE4, 4 bytes, m_defaultStructureRubbleHeight: INI VA 0xbe9480: DefaultStructureRubbleHeight, parseReal RVA 0x2efc0.
 // +0x0AE8, 4 bytes, m_attributeModifierArmorMaxBonus: INI VA 0xbe9430: AttributeModifierArmorMaxBonus, parsePercentToReal RVA 0x2f1ba.
@@ -364,6 +370,8 @@
 // +0x0D34, 1 bytes, field0D34: 0x00236ee4: mov byte ptr [esi + 0xd34], bl.
 // +0x0D35, 1 bytes, field0D35: 0x00236eea: mov byte ptr [esi + 0xd35], bl.
 // +0x0D36, 1 bytes, field0D36: 0x00236ef0: mov byte ptr [esi + 0xd36], bl.
+// +0x0D38, 4 bytes, m_modDir: constructor 0x00236EF6 clears +0xD38; destructor 0x002377F4 releases it through 0x00036410; parseMod 0x003BA49B assigns the directory path to it, as Zero Hour's parseMod assigns m_modDir.
+// +0x0D3C, 4 bytes, m_modBIG: constructor 0x00236EFC clears +0xD3C; destructor 0x002377E5 releases it through 0x00036410; parseMod 0x003BA4A9 assigns the archive path to it, as Zero Hour's parseMod assigns m_modBIG.
 // +0x0D40, 4 bytes, field0D40: 0x00236f0a: movss dword ptr [esi + 0xd40], xmm1.
 // +0x0D44, 1 bytes, field0D44: 0x00236f12: mov byte ptr [esi + 0xd44], bl.
 // +0x0D45, 1 bytes, field0D45: 0x00236f18: mov byte ptr [esi + 0xd45], bl.
@@ -525,6 +533,7 @@
 enum TimeOfDay;
 class INI;
 struct FieldParse;
+class WeaponBonusSet;
 
 class GlobalData : public SubsystemInterface {
 public:
@@ -545,6 +554,12 @@ public:
     AsciiString rva002360DE() const;
     UnicodeString rva002360FC() const;
     static const FieldParse s_GlobalDataFieldParseTable[];
+
+    struct TerrainLighting {
+        RGBColor ambient;
+        RGBColor diffuse;
+        Coord3D lightPos;
+    };
 
     AsciiString m_mapName;
     AsciiString m_moveHintName;
@@ -650,7 +665,10 @@ public:
     bool m_hideGarrisonFlags;
     bool m_forceModelsToFollowTimeOfDay;
     bool m_forceModelsToFollowWeather;
-    unsigned char storage0140[0x798];
+    // Rows by time of day (six), columns by global light (three).
+    TerrainLighting m_terrainLighting[6][3];
+    TerrainLighting m_terrainObjectsLighting[6][3];
+    TerrainLighting field0650[6][3];
     RGBColor m_terrainAmbient[3];
     RGBColor m_terrainDiffuse[3];
     Coord3D m_terrainLightPos[3];
@@ -751,7 +769,8 @@ public:
     unsigned char field0A50;
     unsigned char storage0A51[0x3];
     int m_firewallPortOverride;
-    int m_firewallPortAllocationDelta;
+    short m_firewallPortAllocationDelta;
+    unsigned char storage0A5A[0x2];
     int m_valuePerSupplyBox;
     int m_supplyBoxesPerTree;
     float m_BuildSpeed;
@@ -776,14 +795,16 @@ public:
     float m_cameraAdjustSpeed;
     bool m_enforceMaxCameraHeight;
     unsigned char field0AB5;
-    unsigned char storage0AB6[0xA];
+    unsigned char storage0AB6[0x2];
+    AsciiString field0AB8;
+    AsciiString m_initialFile;
     AsciiString field0AC0;
     unsigned char field0AC4;
     unsigned char field0AC5;
     unsigned char storage0AC6[0x2];
     int m_maxParticleCount;
     int m_maxFieldParticleCount;
-    unsigned char storage0AD0[0x4];
+    WeaponBonusSet *m_weaponBonusSet;
     float m_healthBonus[4];
     float m_defaultStructureRubbleHeight;
     float m_attributeModifierArmorMaxBonus;
@@ -950,7 +971,9 @@ public:
     unsigned char field0D34;
     unsigned char field0D35;
     unsigned char field0D36;
-    unsigned char storage0D37[0x9];
+    unsigned char storage0D37[0x1];
+    AsciiString m_modDir;
+    AsciiString m_modBIG;
     float field0D40;
     unsigned char field0D44;
     unsigned char field0D45;
