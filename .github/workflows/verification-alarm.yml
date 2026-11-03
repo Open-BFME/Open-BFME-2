@@ -126,6 +126,9 @@ jobs:
                                   f"<{latest['html_url']}>")
               if 6 <= hours(NOW - when(latest['created_at'])) < 7:
                   messages.append('**Stale**: no retail byte verification has finished on master for 6 hours.')
+              linked = api(f'/repos/{REPO}/actions/workflows/real-link.yml/runs?status=success&per_page=1')['workflow_runs']
+              if linked and 24 <= hours(NOW - when(linked[0]['created_at'])) < 25:
+                  messages.append('**Stale**: no real link measurement has finished for 24 hours.')
               url = f'https://raw.githubusercontent.com/{REPO}/master/reverse/link_census_history.csv'
               request = urllib.request.Request(url, headers={'User-Agent': 'bfme2-alarm'})
               with urllib.request.urlopen(request) as response:

@@ -5,8 +5,11 @@ name: Real link measurement
 # credits no row. A refusal is a published result, not a hidden failure: scoreboard.json holds
 # the tool's refusal and, for omitted funclets only, a link run past that one proof and labelled
 # non-authoritative, so the missing names stay visible while the funclets are repaired.
+# The report job holds the Discord secret and reads only the published artifacts.
 
 on:
+  schedule:
+    - cron: '41 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -112,3 +115,61 @@ jobs:
             build/exit_link/errors.tsv
             build/exit_link/link.log
             build/exit_link/run.log
+
+  report:
+    needs: measure
+    if: always() && needs.measure.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+    steps:
+      - name: Post the result to Discord
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
+        shell: python
+        run: |
+          import json
+          import os
+          import subprocess
+          import tempfile
+          import urllib.request
+
+          RUN = int(os.environ['GITHUB_RUN_ID'])
+
+
+          def board(run_id, sha):
+              with tempfile.TemporaryDirectory() as folder:
+                  done = subprocess.run(['gh', 'run', 'download', str(run_id), '-n', f'real-link-{sha}', '-D', folder])
+                  if done.returncode:
+                      return None
+                  with open(f'{folder}/scoreboard.json', encoding='utf-8') as handle:
+                      return json.load(handle)
+
+
+          now = board(RUN, os.environ['GITHUB_SHA'])
+          runs = json.loads(subprocess.run(['gh', 'api', '/repos/' + os.environ['GH_REPO'] +
+                                            '/actions/workflows/real-link.yml/runs?status=success&per_page=10'],
+                                           capture_output=True, text=True, check=True).stdout)['workflow_runs']
+          older = next((run for run in runs if run['id'] != RUN), None)
+          before = board(older['id'], older['head_sha']) if older else None
+          label = 'official' if now['authoritative'] else 'unofficial: past the funclet proof'
+          if now.get('image_written'):
+              line = f"**The real link wrote an executable** at `{now['commit'][:10]}` ({label})."
+          elif 'unresolved' in now:
+              was = f", was {before['unresolved']}" if before and 'unresolved' in before else ''
+              line = (f"Real link at `{now['commit'][:10]}`: {now['unresolved']} missing{was}, "
+                      f"{now['duplicates']} duplicates ({label}).")
+              if now.get('omitted_funclets'):
+                  line += f" {len(now['omitted_funclets'])} funclets still block the official run."
+          else:
+              line = f"Real link at `{now['commit'][:10]}` was refused: {str(now['refusal'])[:300]}"
+          line += f" <{os.environ['GITHUB_SERVER_URL']}/{os.environ['GH_REPO']}/actions/runs/{RUN}>"
+          print(line)
+          body = json.dumps({'content': line, 'allowed_mentions': {'parse': []}}).encode()
+          request = urllib.request.Request(os.environ['WEBHOOK'], data=body, method='POST',
+                                           headers={'Content-Type': 'application/json', 'User-Agent': 'bfme2-alarm'})
+          with urllib.request.urlopen(request) as response:
+              print('posted', response.status)
