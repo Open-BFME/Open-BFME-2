@@ -10,11 +10,8 @@ public: virtual ~Rva003AF50D() throw();
 private: char m_pad[0x18 - 4];
 };
 
+#include "../../../../Include/GameClient/GpuDrawModuleInfo.h"
 namespace FXParticleSystem {
-class GpuDrawModuleInfo {
-public: virtual ~GpuDrawModuleInfo();
-private: char m_pad[0x14 - 4];
-};
 }
 
 class __declspec(novtable) Rva003ABA4C : public Rva003AF50D, public FXParticleSystem::GpuDrawModuleInfo {

@@ -56,6 +56,7 @@ const UpgradeTemplate *UpgradeCenter::rva001DB0A8() const
 class Xfer;
 class INI;
 
+#include "../../Include/GameClient/GpuDrawModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -686,18 +687,6 @@ FX_DECLARED_ASSIGN_INFO(RenderObjectDrawModuleInfo)
 // GpuDrawModuleInfo carries 16 bytes after its vtable (0x14, as
 // FXParticleSystemFactories.cpp sizes it), which makes the GPU_DRAW wrapper 0x1C:
 // the stride its vector deleting destructor passes to the iterator.
-class GpuDrawModuleInfo : public Snapshot
-{
-public:
-    GpuDrawModuleInfo();
-    GpuDrawModuleInfo(const GpuDrawModuleInfo &that);
-    GpuDrawModuleInfo &operator=(const GpuDrawModuleInfo &that);
-    virtual ~GpuDrawModuleInfo();
-    virtual void v1() = 0;
-    virtual const char *GetSnapshotName();
-
-    unsigned int m_unknown04[4];
-};
 
 const char *GpuDrawModuleInfo::GetSnapshotName()
 {

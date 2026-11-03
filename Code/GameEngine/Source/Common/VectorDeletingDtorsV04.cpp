@@ -25,16 +25,9 @@ namespace FXParticleSystem
 {
 }
 
+#include "../../Include/GameClient/GpuDrawModuleInfo.h"
 namespace FXParticleSystem
 {
-class GpuDrawModuleInfo
-{
-public:
-	GpuDrawModuleInfo();
-	virtual ~GpuDrawModuleInfo();
-private:
-	char m_unmodelled_04[0x14 - 0x04];
-};
 }
 
 #include "../../Include/GameClient/TerrainCollisionModuleInfo.h"

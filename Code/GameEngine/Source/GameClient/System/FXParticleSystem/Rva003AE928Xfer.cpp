@@ -19,13 +19,9 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
+#include "../../../../Include/GameClient/GpuDrawModuleInfo.h"
 namespace FXParticleSystem
 {
-class GpuDrawModuleInfo
-{
-public:
-	virtual void DoXfer(Xfer &xfer);
-};
 }
 
 class Rva003AE928
