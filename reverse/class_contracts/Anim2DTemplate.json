@@ -1,0 +1,221 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Anim2DTemplate",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "2": 5
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d6cde"
+     ],
+     "value": 25
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d6cde"
+     ],
+     "value": {
+      "0x10": [
+       2
+      ],
+      "0x12": [
+       2
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       1
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2d6cde"
+     ],
+     "value": {
+      "0x8": [
+       "?set@?$StringBase@D@@QAEXABV1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2d6cde"
+     ],
+     "value": {
+      "0x0": "0x803354"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x803354"
+     ],
+     "value": {
+      "count": 1,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAnim2DTemplate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2d72d5"
+       }
+      ],
+      "table": "0x803354"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x803354": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAnim2DTemplate@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "12": 2,
+   "28": 3
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Anim2DTemplate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Anim2D.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 9
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp",
+    "Code/GameEngine/Source/GameClient/System/Anim2DCollectionTemplates.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableDoXfer.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableXfer.cpp",
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIFloatingAnimation.cpp",
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 18,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIFloatingAnimation.cpp",
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIFloatingAnimation.cpp",
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUIFloatingAnimation.cpp",
+    "Code/GameEngine/Source/GameClient/System/Anim2D.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
