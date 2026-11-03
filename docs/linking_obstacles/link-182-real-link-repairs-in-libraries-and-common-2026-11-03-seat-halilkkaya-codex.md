@@ -60,3 +60,15 @@ exact. Six-source154-row checks and scoped DIR32154+62 pass. True A/B retains
 five LINKS peers/9873B and reduces this consumer U7->U4. The two ABI helpers
 and two aliases of held47A69C remain open; no helper change or alias was kept.
 No global/census closure is claimed. [Tables and remaining contracts](../reverse/attempt_support/real-link-vslot-fieldparse-20261103.md).
+
+
+### Vslot AG member-call provider (2026-11-03, halilkkaya-codex)
+
+Follow-up to the FieldParse providers: emit the existing opaque member
+spelling at 23C7F5 beside its stdcall owner. add_match --icf-owner proves
+the whole70B body and relocations, with no unique-byte credit. Both old
+COMDAT fingerprints remain identical; no external provider is removed.
+Six-source155-row checks and scoped DIR32 pass. True base/tip A/B preserves
+five LINKS peers (9,873B), while Vslot AG U4 becomes U3. The two held RET4
+helpers and bool/int provider contract remain. No full real-link rerun.
+[ABI and verification evidence](../reverse/attempt_support/real-link-mode-helper-20261103.md).

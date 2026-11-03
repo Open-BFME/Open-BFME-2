@@ -81,3 +81,23 @@ int __stdcall Rva0023C7F5Get(int a, int b)
 	}
 	return result;
 }
+
+// Native caller 0x0023DAF7 supplies ECX+8 and two stack words. The shared
+// 70-byte target reads neither receiver nor arguments and returns with RET 8.
+class Rva0023C7F5
+{
+public:
+	int rva0023C7F5(float, int);
+};
+
+int Rva0023C7F5::rva0023C7F5(float, int)
+{
+	int result = 1;
+	int mode = TheGameLogic->m_110;
+	if ((mode == 1 || mode == 5) && (TheNetwork ? TheNetwork->isReady() : true)) {
+		result = 3;
+	} else if (TheGameLogic->getFrame() >= 6) {
+		result = 3;
+	}
+	return result;
+}
