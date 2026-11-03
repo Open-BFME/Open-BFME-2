@@ -1,0 +1,848 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AttributeModifierAuraUpdateModuleData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x850ee8"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x49bf6c",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x154": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49bbd5"
+     ],
+     "value": 340
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49bbd5"
+     ],
+     "value": {
+      "0x138": [
+       1
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       1
+      ],
+      "0x149": [
+       1
+      ],
+      "0x14a": [
+       1
+      ],
+      "0x14b": [
+       1
+      ],
+      "0x14c": [
+       1
+      ],
+      "0x150": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       1
+      ],
+      "0x21": [
+       1
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x49bbd5"
+     ],
+     "value": {
+      "0x140": [
+       "??0?$BitFlags@$0L@@@QAE@XZ"
+      ],
+      "0x24": [
+       "??0Rva003623E5Member@@QAE@XZ"
+      ],
+      "0x28": [
+       "?construct@Rva0025342CMember@@QAEPAV1@XZ"
+      ],
+      "0x8": [
+       "?set@?$StringBase@D@@QAEXPBD@Z"
+      ],
+      "0xc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x49bbd5"
+     ],
+     "value": {
+      "0x0": "0x850ee8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x850ee8"
+     ],
+     "value": {
+      "count": 31,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAttributeModifierAuraUpdateModuleData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x49bf50"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x65212"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 4,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 7,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+        "slot": 14,
+        "target": "0xb69a1"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 16,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 17,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 18,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 19,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 20,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 21,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 22,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 23,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 24,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 25,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 26,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 27,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 29,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 30,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x850ee8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x850ee8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAttributeModifierAuraUpdateModuleData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+     "3": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "4": "?IsCRC@Xfer@@UBE_NXZ",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?IsCRC@Xfer@@UBE_NXZ",
+     "7": "?IsCRC@Xfer@@UBE_NXZ",
+     "8": "?IsCRC@Xfer@@UBE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?IsCRC@Xfer@@UBE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "17": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "18": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "19": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "20": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "21": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "22": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "23": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "24": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "25": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "26": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "27": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "30": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "4": 1,
+   "32": 1,
+   "296": 1,
+   "313": 1,
+   "340": 4
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_unused04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_bonusName",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<BfmeE16,_STL::allocator<BfmeE16> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "BfmeE16*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "BfmeE16*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "BfmeE16*"
+    }
+   ],
+   "name": "m_vec0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<BfmeE16,_STL::allocator<BfmeE16> >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_refreshDelay",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_range",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_allowPower",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_targetEnemy",
+   "name_by": "majority",
+   "offset": 33,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva003623E5Member",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "char[4]"
+    }
+   ],
+   "name": "m_filter24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003623E5Member",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_member28.m_tail0",
+   "name_by": "majority",
+   "offset": 296,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_member28.m_tail1",
+   "name_by": "majority",
+   "offset": 300,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_member28.m_tail2",
+   "name_by": "majority",
+   "offset": 304,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_member28.m_tailByte0",
+   "name_by": "majority",
+   "offset": 308,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_member28.m_tailByte1",
+   "name_by": "majority",
+   "offset": 309,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_member28.m_tailByte2",
+   "name_by": "majority",
+   "offset": 310,
+   "retail_widths": {},
+   "size": 1,
+   "type": "uchar",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_startsActive",
+   "name_by": "majority",
+   "offset": 312,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_requiredConditions",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva003B31ADMember",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_antiCategory",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_antiFirst",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva003B31ADMember",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_affectGood",
+   "name_by": "tie",
+   "offset": 328,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_affectEvil",
+   "name_by": "tie",
+   "offset": 329,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_runWhileDead",
+   "name_by": "tie",
+   "offset": 330,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_allowSelf",
+   "name_by": "tie",
+   "offset": 331,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_affectContainedOnly",
+   "name_by": "tie",
+   "offset": 332,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maxActiveRank",
+   "name_by": "tie",
+   "offset": 336,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x850ee8"
+    },
+    "dtor": {
+     "0x0": "0x7bb554"
+    }
+   },
+   "class": "AttributeModifierAuraUpdateModuleData",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "field@0x28",
+   "candidates": {
+    "128:A": 1,
+    "128:S:Rva001EAE6FHelper": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "field@0xa8",
+   "candidates": {
+    "128:A": 1,
+    "128:S:Rva001EAE6FHelper": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x140",
+   "candidates": {
+    "m_antiCategory": 1,
+    "m_antiFirst.m_value": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "field@0x144",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x148",
+   "candidates": {
+    "m_affectGood": 1,
+    "m_anti148": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x149",
+   "candidates": {
+    "m_affectEvil": 1,
+    "m_anti149": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x14a",
+   "candidates": {
+    "m_anti14A": 1,
+    "m_runWhileDead": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x14b",
+   "candidates": {
+    "m_allowSelf": 1,
+    "m_anti14B": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x14c",
+   "candidates": {
+    "m_affectContainedOnly": 1,
+    "m_anti14C": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "name@0x150",
+   "candidates": {
+    "m_anti150": 1,
+    "m_maxActiveRank": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "nested@0x128",
+   "candidates": {
+    "m_member28.m_tail0": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "nested@0x12c",
+   "candidates": {
+    "m_member28.m_tail1": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "nested@0x130",
+   "candidates": {
+    "m_member28.m_tail2": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "nested@0x134",
+   "candidates": {
+    "m_member28.m_tailByte0": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "nested@0x135",
+   "candidates": {
+    "m_member28.m_tailByte1": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  },
+  {
+   "attribute": "nested@0x136",
+   "candidates": {
+    "m_member28.m_tailByte2": 1
+   },
+   "class": "AttributeModifierAuraUpdateModuleData"
+  }
+ ],
+ "size": 340,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
