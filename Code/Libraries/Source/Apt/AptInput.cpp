@@ -66,7 +66,7 @@ struct AptNativeHash;
 
 class AptValue {public:virtual void AddRef();virtual void Release();virtual void ForceDelete();virtual AptNativeHash *GetNativeHashVirtual();virtual bool ContainsNativeHashVirtual() const;AptValue *findChild(const EAStringC *,AptValue *);};
 
-struct AptNativeHash {int mnTotalSize;void *mpData;AptValue *mp__proto__;AptValue *mpPrototype;unsigned int nEventHandlers;};
+#include "AptNativeHash.h"
 
 class Rva0070B380 {public:void *lookup(const EAStringC&);};
 

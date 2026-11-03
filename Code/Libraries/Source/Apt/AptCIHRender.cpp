@@ -42,10 +42,7 @@ class AptString : public AptValue
 public:
     EAStringC str; // +0x08
 };
-struct AptNativeHash
-{
-    AptValue *Lookup(const EAStringC *const) const; // 0x0070B380
-};
+#include "AptNativeHash.h"
 
 class AptRenderingContext
 {

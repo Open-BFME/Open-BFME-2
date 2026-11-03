@@ -103,18 +103,7 @@ BfmeN1034 *Rva006FBBE0::find(int key)
 	return 0;
 }
 
-class AptNativeHash
-{
-	int mnTotalSize;
-	void *mpData;
-	void *mp__proto__;
-	void *mpPrototype;
-	unsigned int nEventHandlers;
-
-public:
-	AptNativeHash(int size);
-	~AptNativeHash();
-};
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
 
 class Rva006FC130Base : public BfmeAptValue006DCD20
 {

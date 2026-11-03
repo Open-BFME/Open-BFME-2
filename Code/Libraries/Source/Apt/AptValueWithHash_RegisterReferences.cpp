@@ -1,10 +1,7 @@
 // cl: /MD
 // AptValueWithHash slot 13 in retail vtable 0x008EA228 marks its hash at +8.
 // AptObject slot 13 forwards here through the thunk at 0x0070DFD0.
-class AptNativeHash {
-public:
-    void rva0070B220(void *arg);
-};
+#include "AptNativeHash.h"
 
 class AptValueWithHash {
 public:

@@ -31,11 +31,7 @@ extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 // g_bfmeAptPtrAtE176D0: matched references place it at VA 0xe176d0 (zero-filled .bss).
 
 // Struct key, as the owner of g_bfmeAptHashAtE180E4 declares it.
-struct AptNativeHash
-{
-public:
-	void rva0070B220(void *ptr);
-};
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
 
 extern AptNativeHash *g_bfmeAptHashAtE180E4;
 // g_bfmeAptHashAtE180E4: matched references place it at VA 0xe180e4 (zero-filled .bss).

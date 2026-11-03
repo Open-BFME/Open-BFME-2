@@ -33,16 +33,7 @@ public:
   virtual ~BfmeAptValue006DCD20();
 };
 class AptValue;
-class AptNativeHash {
-  int count;
-  void *items;
-  AptValue *proto, *prototype;
-  unsigned int events;
-
-public:
-  AptNativeHash(int);
-  ~AptNativeHash();
-};
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
 class Rva006D6360 : public BfmeAptValue006DCD20 {
   AptNativeHash hash;
 

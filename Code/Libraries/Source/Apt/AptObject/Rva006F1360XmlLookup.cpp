@@ -114,9 +114,7 @@ class Rva006DBB60ShrNAndField {
 public:
   bool get() const;
 };
-struct AptNativeHash {
-  void Set(const EAStringC *const, AptValue *const);
-};
+#include "../AptNativeHash.h"
 struct R4Word {
   const char *name;
   int id;

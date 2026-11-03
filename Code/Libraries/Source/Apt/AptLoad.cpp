@@ -244,7 +244,7 @@ extern AptActionInterpreter g_aptDateInterpreter;
 class AptLinker;
 #include "BfmeAptValue006DCD20.h"
 
-class AptNativeHash { public: void Set(const EAStringC *const, AptValue *const); };
+#include "AptNativeHash.h"
 class AptDisplayList { public: void bfmeProcess1279(void *); };
 class AptCIH;
 class BfmeSubmitter1283

@@ -15,7 +15,7 @@ __declspec(noinline) inline EAStringC::EAStringC(){data=&g_eaEmptyStringData;++d
 class AptValue {unsigned int flags;public:virtual void slot0();virtual void slot1();virtual void slot2();virtual AptNativeHash *GetNativeHashVirtual();bool getIsDefined()const{return (flags>>4)&1;}void toString(EAStringC &)const;EAStringC rva006ddde0();};
 struct AptHashItem {EAStringC key;AptValue *value;};
 class AsciiString;
-class AptNativeHash {public:struct Entry;AsciiString *rva0070AA40();Entry *rva0070AAA0(Entry *);};
+#include "../AptNativeHash.h"
 EAStringC *Rva0070B4F0GetString(int);
 EAStringC AptValue::rva006ddde0()
 {

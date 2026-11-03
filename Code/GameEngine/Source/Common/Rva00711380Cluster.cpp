@@ -17,17 +17,7 @@ public:
 	unsigned int m_flags;
 };
 
-class AptNativeHash
-{
-	int mnTotalSize;
-	void *mpData;
-	void *mp__proto__;
-	void *mpPrototype;
-	unsigned int nEventHandlers;
-
-public:
-	AptNativeHash(int size);
-};
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
 
 class Rva006D6360 : public AptValue
 {

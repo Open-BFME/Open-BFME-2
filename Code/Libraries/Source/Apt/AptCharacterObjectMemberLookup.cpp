@@ -32,7 +32,7 @@ class AptString:public AptValue {
 public:static AptString *Create();
  __forceinline EAStringC &value(){return *(EAStringC*)((char*)this+8);}
 };
-struct AptNativeHash {void Set(const EAStringC *const,AptValue *const);};
+#include "AptNativeHash.h"
 class AptCIH {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2();

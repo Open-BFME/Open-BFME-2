@@ -44,16 +44,7 @@ __declspec(noinline) inline EAStringC::EAStringC()
     ++mpData->m_uRefCount;
 }
 
-class AptNativeHash {
-public:
-    int mnTotalSize;
-    void *mpData;
-    AptValue *mp__proto__;
-    AptValue *mpPrototype;
-    unsigned int nEventHandlers;
-    void Set(const EAStringC *const, AptValue *const);
-    void rva0070B180(class BfmeAptValue006DCD20 *, EAStringC *, int);
-};
+#include "AptNativeHash.h"
 
 #include "AptValue.h"
 

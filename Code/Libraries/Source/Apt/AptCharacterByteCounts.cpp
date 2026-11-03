@@ -344,7 +344,7 @@ AptValue *__cdecl Rva006EC900StartDrag(AptValue *self,int count)
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class AptFloat {public:float GetFloat() const;};
-class AptNativeHash {public:AptValue *Lookup(const EAStringC *const) const;void Set(const EAStringC *const,AptValue *const);};
+#include "AptNativeHash.h"
 class BfmeAptObject006DD0E0 {public:char m_pad0[8];AptNativeHash m_hash;};
 struct BfmeM1208;
 void bfmeMul1208(const BfmeM1208 *,const BfmeM1208 *,BfmeM1208 *);

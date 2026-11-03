@@ -38,7 +38,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 void __debugbreak();
 
-struct AptNativeHash { unsigned char unaccessed[16]; int eventFlags; };
+#include "AptNativeHash.h"
 
 class AptCIH;
 
@@ -415,9 +415,9 @@ void AptCIH::DestroyGCPointers()
 
 // ---- from Code/Libraries/Source/Apt/AptCIHEventHandlers.cpp
 
-void AptCIH::SetEventHandler(int mask) { AptNativeHash *hash=GetNativeHashVirtual(); hash->eventFlags |= mask; }
+void AptCIH::SetEventHandler(int mask) { AptNativeHash *hash=GetNativeHashVirtual(); hash->nEventHandlers |= mask; }
 
-void AptCIH::RemoveEventHandler(int mask) { AptNativeHash *hash=GetNativeHashVirtual(); hash->eventFlags &= ~mask; }
+void AptCIH::RemoveEventHandler(int mask) { AptNativeHash *hash=GetNativeHashVirtual(); hash->nEventHandlers &= ~mask; }
 
 // Vtable CE8C24 slot7 points to the complete64B entry at6E0520. The
 // AptCIH.cpp:574 assertion checks the receiver; both stack arguments then

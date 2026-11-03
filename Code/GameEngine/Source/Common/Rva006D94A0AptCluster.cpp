@@ -216,11 +216,7 @@ extern "C" int __cdecl rva006D9E40Comparator(const void *a, const void *b)
 // key's atoi index (undefined when out of range or empty), through the
 // rowed string comparator above. Other pairs hit the AptArray.cpp line
 // 0x328 NOT_REACHED assert (retail texts) and compare equal.
-class AptNativeHash
-{
-public:
-	AptValue *Lookup(const EAStringC *const key) const;
-};
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
 extern "C" int __cdecl atoi(const char *);
 
 static __forceinline BfmeAptValue006DCD20 *rva006DA0C0Element(BfmeAptValue006DCD20 *value, int i)

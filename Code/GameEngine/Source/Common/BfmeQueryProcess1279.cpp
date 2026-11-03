@@ -37,11 +37,7 @@ public:
 	BfmeProvider1279 *m_provider;
 };
 
-class AptNativeHash
-{
-public:
-	void Unset(const EAStringC *const);
-};
+#include "../../../Libraries/Source/Apt/AptNativeHash.h"
 
 class Rva0070B380
 {

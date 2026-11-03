@@ -18,7 +18,7 @@
 // default-ctor COMDAT is emitted; the locals are plain EAStringC, so their
 // unwind funclets call ~EAStringC directly, as retail's do.
 class AsciiString;
-class AptNativeHash {public:struct Entry;AsciiString *rva0070AA40();Entry *rva0070AAA0(Entry *);void Unset(const EAStringC *const);};
+#include "../AptNativeHash.h"
 class AptValue
 {
 public:

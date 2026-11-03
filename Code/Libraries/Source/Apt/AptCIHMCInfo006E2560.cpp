@@ -63,7 +63,7 @@ class AptCIH;
 struct AptFileRecord { int unknown0; int size; EAStringC name; };
 struct AptFileSlot { AptFileRecord *file; };
 class AptCharacterInst { public: virtual void slot0(); virtual ~AptCharacterInst(); virtual void slot8(); };
-class AptNativeHash { public: void ClearData(); };
+#include "AptNativeHash.h"
 #include "BfmeAptValue006DCD20.h"
 class Rva006DBB60ShrNAndField {public:int get() const;};
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
