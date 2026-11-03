@@ -1,5 +1,5 @@
 // ?rva002A3E5A@InGameUI@@QAEPAVFormationPreviewPoolObject@1@PAVThingTemplate@@@Z
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /I.
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc 
 // stlport
 // WB00DC4300 and native002A3E5A..002A3F56 establish the pool lookup,
 // 12-byte drawable/decal/assigned payload and the two template descriptors.
@@ -19,7 +19,7 @@ template <> __declspec(dllimport) __forceinline
 bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const
 { return a < b; }
 }
-#include "reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class ThingTemplate;
 class InGameUI {
 public: class FormationPreviewPoolObject; class FormationPreviewDecal;

@@ -11,12 +11,12 @@
 // 343/345: sole instruction difference at target4AD4B0: ECX receiver is
 // coalesced instead of native EBX, omitting MOV ECX,EBX before call+110.
 // The retail contain access follows the null guard (and can dereference null).
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl:  /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 #include <list>
-#include "reference/shims/bfme2_ascii/ascii_string.h"
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 namespace _STL {
 template<>vector<AsciiString>::vector(const vector<AsciiString>&);

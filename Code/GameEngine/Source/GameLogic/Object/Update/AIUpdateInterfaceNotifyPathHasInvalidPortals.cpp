@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /I. /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs  /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Native269566..2697FC RET0; WB E599C0 named AIUpdateInterface::NotifyPathHasInvalidPortals.
 // Named WB body resolves prior pin-only identity blocker; AIUpdate.cpp9187..9263.
@@ -9,8 +9,8 @@
 // genuine candidate 0x00567ECD (no pins written).
 // Integer nested flag test/SetBit restores TEST DWORD/OR DWORD versus scalar LEA/SHR.
 #include <vector>
-#include "Code/Libraries/Include/Lib/Coord3D.h"
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 // The lookup chain (ObjectIdMap::find 0x002888D4 and GameLogic::findObjectByID
 // 0x00049DC5, rowed COMDAT copies, as in GarrisonContainRemoveInvalidObjects.cpp)
 // is visible in this unit; with it the natural first loop test gives retail's

@@ -3,11 +3,11 @@
 // See license.dxut.txt. Adapted from DXTraceW's readable control flow; 2005 ABI, sizes, strings,
 // worker calls and API identities are independently read from retail.
 // compiler: vc71-ddk-4035
-// cl: /I. /O1 /G7 /MT /DNDEBUG /hotpatch /Oy- /GS
+// cl:  /O1 /G7 /MT /DNDEBUG /hotpatch /Oy- /GS
 #include <stdio.h>
 #define _vsnwprintf vswprintf
 #define STRSAFE_NO_DEPRECATE
-#include "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include/strsafe.h"
+#include "../../../../reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include/strsafe.h"
 #undef _vsnwprintf
 typedef unsigned long DWORD;
 typedef int BOOL;

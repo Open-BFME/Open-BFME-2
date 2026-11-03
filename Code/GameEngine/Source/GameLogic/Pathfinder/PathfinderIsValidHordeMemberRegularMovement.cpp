@@ -1,8 +1,8 @@
-// cl: /O1 /I. /DNDEBUG /MD /EHsc
+// cl: /O1  /DNDEBUG /MD /EHsc
 // Native 002F06A3..002F07F5, 338B RET16; WB D60E80 names this method.
 // Canonical by-value ABI provider: PathfinderSameCellRva002EE49B.cpp.
-#include "Code/GameEngine/Source/GameLogic/AI/PathfinderPositionValue.h"
-#include "Code/Libraries/Include/Lib/ICoord2D.h"
+#include "../AI/PathfinderPositionValue.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
 typedef bool Bool;
 typedef int Int;
 enum PathfindLayerEnum { PATHFIND_LAYER_UNKNOWN=0, PATHFIND_LAYER_GROUND=1 };

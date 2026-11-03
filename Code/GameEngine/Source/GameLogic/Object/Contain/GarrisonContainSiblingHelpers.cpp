@@ -1,4 +1,4 @@
-// cl: /O1 /Oy /G7 /arch:SSE /DNDEBUG /MD /EHsc /I.
+// cl: /O1 /Oy /G7 /arch:SSE /DNDEBUG /MD /EHsc 
 // stlport
 // Provider46247D is the already rowed26-byte pair writer: its inline/noinline
 // copy emits the same entire body and relocations here. Visibility proves the
@@ -23,7 +23,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 // GarrisonContain update caller00479643 establish the subsystem and purpose.
 // ZH GarrisonContain healing/move loops are the semantic guide. The target
 // uses its verified pair view0046247D with no owner destructor in either body.
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 #include "../../../Common/Thing/thing.h"
 struct ChildNode { ChildNode *next,*prev; Object *object; };

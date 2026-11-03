@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl:  /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
 
 struct GateOffset {
  float X,Y,Z;
@@ -19,7 +19,7 @@ struct GateOffset {
 #include <math.h>
 #pragma pop_macro("inline")
 #include "ascii_string.h"
-#include "reference/shims/wwmath/Vector2.h"
+#include "../../../../../../reference/shims/wwmath/Vector2.h"
 class Rva00330C50Interface {public:~Rva00330C50Interface(){} virtual void s0()=0;virtual void s1()=0;virtual void s2()=0;virtual void s3()=0;virtual void s4()=0;virtual void s5()=0;virtual void s6()=0;};
 // ABI view only: external constructor166B proves its most-derived flag and
 // 100-byte allocation; the loader reads name40/id44 and calls slot1.

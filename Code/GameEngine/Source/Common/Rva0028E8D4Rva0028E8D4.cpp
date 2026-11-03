@@ -6,11 +6,11 @@
 // original class-name claim. The 41-byte translation provider stays here;
 // its visible body prevents the temporary coordinate from escaping. Reading
 // its three components as one Coord3D preserves its SSE body under /O1.
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include /I.
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "Lib/Coord3D.h"
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 struct MotionCoord:Coord3D{

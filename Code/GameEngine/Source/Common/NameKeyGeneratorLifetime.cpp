@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /I. /EHsc- /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS  /EHsc- /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
 // Target identity: constructor1491AC is called by GameEngine::init; native
 // vtableBD3568 and scalar deleting wrapper148DC3 identify destructor148BC2.
@@ -13,7 +13,7 @@
 #include <hash_map>
 typedef bool Bool;
 #include "subsystem_interface.h"
-#include "Code/GameEngine/Include/Common/Rva00041004Lock.h"
+#include "../../Include/Common/Rva00041004Lock.h"
 // bfme link decl-only begin
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }

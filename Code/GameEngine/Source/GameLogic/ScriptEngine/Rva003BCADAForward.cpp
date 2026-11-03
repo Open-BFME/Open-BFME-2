@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BCADAForward@ScriptActions@@QAEXABVAsciiString@@0@Z @0x003BCADA 14B: script forwards to TheTacticalView slot 0xa0.
 // Evidence: mov ecx,[0xDFEA3C]=TheTacticalView mov eax,[ecx] jmp [eax+0xa0]; caller 0x003CD771; sibling Rva003BBE91Set same TheTacticalView virtual shape.

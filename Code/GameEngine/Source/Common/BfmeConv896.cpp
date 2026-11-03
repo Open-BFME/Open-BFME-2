@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 -Ireference/open-bfme-1/game/GameEngine/Source/Common /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7 -Ireference/open-bfme-1/game/GameEngine/Source/Common  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../Include/GameLogic/ScriptActionsBFME2.h"
 // Open-BFME5 conversions.
 //
 // ?bfmeGoFGE@@YGXPAX00@Z, retail 0x003C38CA, 37 bytes. Both callee identities

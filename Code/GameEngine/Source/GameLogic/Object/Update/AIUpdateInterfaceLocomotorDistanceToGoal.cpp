@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /GX-
+// cl:  /O1 /G7 /arch:SSE /DNDEBUG /MD /GX-
 // ?getLocomotorDistanceToGoal@AIUpdateInterface@@QAEMXZ, retail 0x0026435E, 506 bytes
 // (native 0x0026435E..0x00264558).
 //
@@ -16,7 +16,7 @@
 // owner in the aircraft branch keeps the receiver in the register retail uses.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
 class BfmeVec3EJ;
 class Gen_000E5A50 { public: float Get3DCenterDistanceSquared(const BfmeVec3EJ*)const; };
