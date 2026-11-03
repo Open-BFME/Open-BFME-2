@@ -247,13 +247,18 @@ class FrameHook:
         self.blocks = []              # (logic frame, {block: CRC of that block + the RNG seed alone})
         self.save_requested, self.save = False, {}
         self.load_name, self.load, self.after_load = None, {}, False
+        self.save_at, self.load_at, self.find_save, self.before_load = None, None, None, []
 
     def due(self, frame, mode):
         """None, "crc" or "save" for an engine frame at this logic frame/mode."""
         if frame is None or mode not in self.modes:
             return None
+        if self.save_at is not None and frame >= self.save_at and not self.save_requested:
+            self.save_requested = True
         if self.save_requested and not self.save:
             return "save"
+        if self.load_at is not None and frame >= self.load_at and self.save and not self.load_name:
+            self.load_name = self.find_save()
         if self.load_name and not self.load:
             return "load"
         if self.after_load:
@@ -281,6 +286,7 @@ class FrameHook:
             def loaded(g, r):
                 self.load.update(from_frame=frame, code=r[0], seconds=g.seconds())
                 self.after_load = True
+                self.before_load, self.crcs = self.crcs, []
             return {"calls": [load], "keep": True, "done": loaded}
         if what == "crc":
             first_after_load, self.after_load = self.after_load, False
@@ -302,11 +308,19 @@ class FrameHook:
             return {"calls": calls, "keep": True, "done": done}
         self.save["requested_frame"] = frame
         save = {"call": game.va("GameState::autoSave"), "ecx": game.global_ptr("TheGameState")}
+        self.rng.append((frame, (game.read(game.va("theGameLogicSeed"), 24) or b"").hex(),
+                         game.u32(game.va("theGameLogicBaseSeed"))))
+        skips = {n.split(":", 1)[1]: game.va(n) for n in RVA if n.startswith("crcSkip:")}
+        orig = {b: (game.read(va, 1) or bytes(1))[0] for b, va in skips.items()}
+        blocks = [{"call": crc["call"], "ecx": crc["ecx"], "args": [0],
+                   "pre": [(va, 0 if o == b else 1) for o, va in skips.items()],
+                   "post": [(va, orig[o]) for o, va in skips.items()]} for b in skips]
 
         def saved(g, r):
             self.crcs.append((frame, r[0]))
-            self.save.update(frame=frame, crc=r[0], code=r[1], seconds=g.seconds())
-        return {"calls": [crc, save], "keep": True, "done": saved}
+            self.blocks.append((frame, dict(zip(skips, r[1:-1]))))
+            self.save.update(frame=frame, crc=r[0], code=r[-1], seconds=g.seconds())
+        return {"calls": [crc, *blocks, save], "keep": True, "done": saved}
 
 
 # --------------------------------------------------------------------------- debugger
@@ -1184,7 +1198,7 @@ def cmd_load(a):
     samples = []
     rec = json.loads((OUT / f"save_{'retail' if a.retail else a.image}.json").read_text()) if a.saved_frame is None else None
     saved_frame = a.saved_frame if a.saved_frame is not None else rec["save"]["frame"]
-    hook = FrameHook(at_first=True, modes=(a.mode,))
+    hook = FrameHook(every=a.crc_every, at_first=True, modes=(a.mode,))
     # GameEngine::execute reads the save's header through the path as given
     # (relative to the game folder), and loadGame then looks for the same name
     # in the profile's Save folder (seen live: with only the first, the game
@@ -1196,7 +1210,7 @@ def cmd_load(a):
     res = out["run"]
     game_frames = [f for t, f, m in samples if m == a.mode and f]
     out.update(samples=samples[::5], saved_frame=saved_frame, first_game_frame=game_frames[0] if game_frames else None,
-               first_crc=hook.crcs[:1])
+               first_crc=hook.crcs[:1], crcs=hook.crcs, rng=hook.rng)
     if rec and hook.crcs and hook.crcs[0][0] == saved_frame:        # informational: is the loaded state the saved one?
         out["crc_matches_save"] = hook.crcs[0][1] == rec["save"].get("crc")
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
@@ -1206,39 +1220,38 @@ def cmd_load(a):
 
 
 def cmd_reload(a):
-    """Load as a player does: skirmish, GameState::autoSave at --save-after seconds, play on for
-    --reload-after seconds, then call retail's in-game load from the top of an engine frame. The
+    """Load as a player does: skirmish, GameState::autoSave at --save-frame, play on to --load-frame,
+    then call retail's in-game load from the top of an engine frame. Exact frames let two runs be
+    compared; a load keeps the running random state, so its CRCs differ from the save's. The
     Use --player: a game whose local slot is an observer cannot load (retail throws in
     CHUNK_TeamFactory), and the menu does not start one. pass = load returned 0, the logic frame went
     back, and the game kept simulating. crc_matches_save is reported, not judged: retail's own run
     resumes at the saved frame with a different CRC."""
     samples = []
     before = {q.name for q in find_saves(a.appdata)}
-    hook = FrameHook(modes=(a.mode,))
-    base_tick = skirmish_tick(a, samples, a.mode)
-
-    def tick(game):
-        why = base_tick(game)
-        started = [t for t, f, m in samples if m == a.mode and f]
-        now = samples[-1][0] if samples else 0
-        if started and not hook.save_requested and now - started[0] >= a.save_after:
-            hook.save_requested = True
-        when = hook.save.get("seconds")
-        if when and not hook.load_name and now - when >= a.reload_after:
-            new = [q for q in find_saves(a.appdata) if q.name not in before]
-            if new:
-                hook.load_name = new[-1].name
-        return why
+    hook = FrameHook(every=a.crc_every, modes=(a.mode,))
+    hook.save_at, hook.load_at = a.save_frame, a.load_frame
+    hook.find_save = lambda: ([q.name for q in find_saves(a.appdata) if q.name not in before] or [None])[-1]
+    tick = skirmish_tick(a, samples, a.mode)
     handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     res = out["run"]
     load, save = hook.load, hook.save
     after = [f for t, f, m in samples if load.get("seconds") and t > load["seconds"] and m == a.mode and f]
     first = load.get("first_crc")
-    out.update(samples=samples[::5], save=save, load=load, crcs=hook.crcs[:12], load_name=hook.load_name,
-               frames_after_load=after[:3] + after[-3:])
+    out.update(samples=samples[::5], save=save, load=load, crcs=hook.crcs, crcs_before_load=hook.before_load,
+               load_name=hook.load_name, frames_after_load=after[:3] + after[-3:])
     if first and save.get("crc") is not None:
         out["crc_matches_save"] = first == (save.get("frame"), save["crc"])
+        same_frame = [b for f, b in hook.blocks if f == save.get("frame")]
+        out["blocks"] = hook.blocks
+        if len(same_frame) >= 2:
+            out["blocks_differ_after_load"] = sorted(k for k in same_frame[0] if same_frame[0][k] != same_frame[1][k])
+            out["blocks_compared"] = sorted(same_frame[0])
+        states = [r for r in hook.rng if r[0] == save.get("frame")]
+        if len(states) >= 2:
+            out["rng_matches_save"] = states[0][1:] == states[1][1:]
+            out["rng_at_save_and_load"] = states[:2]
     crash = crash_outcome(res)
     if crash:
         out["outcome"] = crash
@@ -1469,7 +1482,8 @@ def main(argv=None):
                     default=[0, 1, 2, 3, 4, 5, 6, 7, 8],
                     help="GameLogic modes sampled in playback (9, seen before a -file game starts, is left out)")
     ap.add_argument("--save-after", type=float, default=30, help="skirmish seconds before the autosave")
-    ap.add_argument("--reload-after", type=float, default=30, help="reload: seconds played between save and load")
+    ap.add_argument("--save-frame", type=int, default=125, help="reload: logic frame to save at")
+    ap.add_argument("--load-frame", type=int, default=175, help="reload: logic frame to load at")
     ap.add_argument("--save-name", default="smoke.BfME2Skirmish", help="the save, kept in GAME_DIR")
     ap.add_argument("--saved-frame", type=int, help="load: frame the save was taken at (default: save run's)")
     ap.add_argument("--guard", type=Path, action="append", default=[])

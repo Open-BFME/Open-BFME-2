@@ -65,13 +65,16 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
 - Retail on 2026-11-03: main menu reached; a seeded skirmish gives 30 distinct CRCs over frames
   25-750; the same seed twice gives identical CRCs; `--perturb-frame 300` is caught, with the 12
   earlier CRCs matching and all 18 later ones differing; `save` works.
-- `reload --player` passes: retail saves at frame 120, plays on, calls its own in-game load
-  (0x002DF2F6), which returns 0 after reading all 35 chunks, and resumes at frame 120 through to 853
-  with no crash. The first CRC after the load differs from the CRC at the save, cause unknown, so do
-  not read a post-load CRC as a pass or fail yet.
+- `reload --player` passes, and load is repeatable. Retail saves at frame 125, plays to 175, and calls
+  its own in-game load (0x002DF2F6), which returns 0 after reading all 35 chunks and resumes at 125. Two
+  independent runs agreed on all 6 CRCs before the load and all 22 after it, frames 125-650. Compare a
+  load between runs, never with the save: the first CRC after a load differs from the CRC at the save,
+  and the random state differs too, because a load does not restore it. Whether anything else differs
+  across a load is not shown; the block CRCs each include the seed, so they all differ.
+- `load` (`-file`) restores a `--player` save to its frame, but in two runs the logic then stayed at
+  the next frame, 129, to the end. Use `reload`. A `blank-window` outcome hid this, so check the frames.
 - Do not load a save made with the local slot as observer, the default `save` setup: retail throws in
   `CHUNK_TeamFactory`, returns 3 and quits, then crashes at 0x538ADD in a static destructor on the way
-  out. That crash and the one at 0x66386D with AI came from this setup, not from Wine or the game. The
-  `-file` `load` scenario has not been retried with a `--player` save.
+  out. That crash and the one at 0x66386D with AI came from that setup, not from Wine.
 - The harness cannot judge our own build until the real link produces an image, and it needs a
   `pieces_map` to read one laid out differently from retail.
