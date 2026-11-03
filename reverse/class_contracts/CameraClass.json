@@ -1,0 +1,3234 @@
+{
+ "bases": [
+  "RenderObjClass"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "CameraClass",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "RenderObjClass"
+   ]
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 9,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x100": {
+    "4": 2
+   },
+   "0x134": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x190": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x310": {
+    "4": 1
+   },
+   "0x34c": {
+    "4": 4
+   },
+   "0x350": {
+    "4": 3
+   },
+   "0x354": {
+    "4": 3
+   },
+   "0x358": {
+    "4": 3
+   },
+   "0x35c": {
+    "4": 2
+   },
+   "0x360": {
+    "4": 2
+   },
+   "0x364": {
+    "4": 2
+   },
+   "0x368": {
+    "4": 2
+   },
+   "0x36c": {
+    "4": 2
+   },
+   "0x370": {
+    "4": 2
+   },
+   "0x374": {
+    "4": 2
+   },
+   "0x378": {
+    "4": 2
+   },
+   "0x37c": {
+    "4": 3
+   },
+   "0x380": {
+    "4": 3
+   },
+   "0x384": {
+    "4": 3
+   },
+   "0x388": {
+    "4": 3
+   },
+   "0x38c": {
+    "4": 2
+   },
+   "0x390": {
+    "4": 2
+   },
+   "0x394": {
+    "4": 2
+   },
+   "0x398": {
+    "4": 2
+   },
+   "0x39c": {
+    "4": 2
+   },
+   "0x3a0": {
+    "4": 2
+   },
+   "0x3a4": {
+    "4": 2
+   },
+   "0x3a8": {
+    "4": 2
+   },
+   "0x3ac": {
+    "4": 2
+   },
+   "0x3b0": {
+    "4": 2
+   },
+   "0x3b4": {
+    "4": 2
+   },
+   "0x3b8": {
+    "4": 2
+   },
+   "0x3bc": {
+    "4": 2
+   },
+   "0x3c0": {
+    "4": 2
+   },
+   "0x3c4": {
+    "4": 2
+   },
+   "0x3c8": {
+    "4": 2
+   },
+   "0x3cc": {
+    "4": 5
+   },
+   "0x3d0": {
+    "4": 4
+   },
+   "0x3d4": {
+    "4": 4
+   },
+   "0x3d8": {
+    "4": 3
+   },
+   "0x3dc": {
+    "4": 4
+   },
+   "0x3e0": {
+    "4": 4
+   },
+   "0x3e4": {
+    "4": 4
+   },
+   "0x3e8": {
+    "4": 3
+   },
+   "0x3ec": {
+    "4": 4
+   },
+   "0x3f0": {
+    "4": 4
+   },
+   "0x3f4": {
+    "4": 4
+   },
+   "0x3f8": {
+    "4": 3
+   },
+   "0xc4": {
+    "4": 3
+   },
+   "0xc8": {
+    "4": 6
+   },
+   "0xcc": {
+    "4": 4
+   },
+   "0xd0": {
+    "4": 3
+   },
+   "0xd4": {
+    "4": 2
+   },
+   "0xd8": {
+    "4": 8
+   },
+   "0xdc": {
+    "4": 8
+   },
+   "0xe0": {
+    "4": 7
+   },
+   "0xe4": {
+    "4": 7
+   },
+   "0xe8": {
+    "4": 4
+   },
+   "0xec": {
+    "4": 7
+   },
+   "0xf0": {
+    "4": 6
+   },
+   "0xf4": {
+    "4": 1
+   },
+   "0xf8": {
+    "4": 1
+   },
+   "0xfc": {
+    "1": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x3fc": 4
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x134ab0",
+      "0x134c50"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "RenderObjClass",
+       "offset": 0,
+       "own_vftable": "0x7d26e0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x134ab0",
+      "0x134c50"
+     ],
+     "value": 1020
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x134ab0",
+      "0x134c50"
+     ],
+     "value": {
+      "0x130": [
+       4
+      ],
+      "0x134": [
+       4
+      ],
+      "0x138": [
+       4
+      ],
+      "0x13c": [
+       4
+      ],
+      "0x238": [
+       4
+      ],
+      "0x23c": [
+       4
+      ],
+      "0x240": [
+       4
+      ],
+      "0x244": [
+       4
+      ],
+      "0x34c": [
+       4
+      ],
+      "0x350": [
+       4
+      ],
+      "0x354": [
+       4
+      ],
+      "0x358": [
+       4
+      ],
+      "0x35c": [
+       4
+      ],
+      "0x360": [
+       4
+      ],
+      "0x364": [
+       4
+      ],
+      "0x368": [
+       4
+      ],
+      "0x36c": [
+       4
+      ],
+      "0x370": [
+       4
+      ],
+      "0x374": [
+       4
+      ],
+      "0x378": [
+       4
+      ],
+      "0x37c": [
+       4
+      ],
+      "0x380": [
+       4
+      ],
+      "0x384": [
+       4
+      ],
+      "0x388": [
+       4
+      ],
+      "0x38c": [
+       4
+      ],
+      "0x390": [
+       4
+      ],
+      "0x394": [
+       4
+      ],
+      "0x398": [
+       4
+      ],
+      "0x39c": [
+       4
+      ],
+      "0x3a0": [
+       4
+      ],
+      "0x3a4": [
+       4
+      ],
+      "0x3a8": [
+       4
+      ],
+      "0x3ac": [
+       4
+      ],
+      "0x3b0": [
+       4
+      ],
+      "0x3b4": [
+       4
+      ],
+      "0x3b8": [
+       4
+      ],
+      "0x3bc": [
+       4
+      ],
+      "0x3c0": [
+       4
+      ],
+      "0x3c4": [
+       4
+      ],
+      "0x3c8": [
+       4
+      ],
+      "0x3cc": [
+       4
+      ],
+      "0x3d0": [
+       4
+      ],
+      "0x3d4": [
+       4
+      ],
+      "0x3d8": [
+       4
+      ],
+      "0x3dc": [
+       4
+      ],
+      "0x3e0": [
+       4
+      ],
+      "0x3e4": [
+       4
+      ],
+      "0x3e8": [
+       4
+      ],
+      "0x3ec": [
+       4
+      ],
+      "0x3f0": [
+       4
+      ],
+      "0x3f4": [
+       4
+      ],
+      "0x3f8": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       4
+      ],
+      "0xdc": [
+       4
+      ],
+      "0xe0": [
+       4
+      ],
+      "0xe4": [
+       4
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       4
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf4": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x134ab0",
+      "0x134c50"
+     ],
+     "value": {
+      "0x0": [
+       "?Set_Transform@RenderObjClass@@UAEXABVMatrix3D@@@Z"
+      ],
+      "0x100": [
+       "??0FrustumClass@@QAE@ABV0@@Z"
+      ],
+      "0x310": [
+       "??4OBBoxClass@@QAEAAV0@ABV0@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x134ab0",
+      "0x134c50"
+     ],
+     "value": {
+      "0x8": [
+       "0x7d26d8"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x134ab0",
+      "0x134c50"
+     ],
+     "value": {
+      "0x0": "0x7d26e0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d26e0"
+     ],
+     "value": {
+      "count": 131,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GCameraClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x133ef0"
+       },
+       {
+        "name": "?Clone@CameraClass@@UBEPAVRenderObjClass@@XZ",
+        "slot": 2,
+        "target": "0x135330"
+       },
+       {
+        "name": "?Class_ID@CameraClass@@UBEHXZ",
+        "slot": 3,
+        "target": "0x7c3f8"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 4,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 5,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?name@Rva0006CE6BNamed@@QBEPBDXZ",
+        "slot": 6,
+        "target": "0x6ce6b"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 8,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 9,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 12,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 13,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 14,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+        "slot": 15,
+        "target": "0x13bc80"
+       },
+       {
+        "name": "?Remove@RenderObjClass@@UAEXXZ",
+        "slot": 16,
+        "target": "0x13bca0"
+       },
+       {
+        "name": "?Get_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ",
+        "slot": 17,
+        "target": "0x13b770"
+       },
+       {
+        "name": "?get@Rva004F04F1DwordField@@QBEHXZ",
+        "slot": 18,
+        "target": "0x4f04f1"
+       },
+       {
+        "name": "?Set_Container@RenderObjClass@@UAEXPAV1@@Z",
+        "slot": 19,
+        "target": "0x13b780"
+       },
+       {
+        "name": "?Validate_Transform@RenderObjClass@@UBEXXZ",
+        "slot": 20,
+        "target": "0x13b850"
+       },
+       {
+        "name": "?Set_Transform@CameraClass@@UAEXABVMatrix3D@@@Z",
+        "slot": 21,
+        "target": "0x133a90"
+       },
+       {
+        "name": "?Set_Position@CameraClass@@UAEXABVVector3@@@Z",
+        "slot": 22,
+        "target": "0x133ab0"
+       },
+       {
+        "name": "?_bfme_set_indexed_factor@RenderObjClass@@UAEXHM@Z",
+        "slot": 23,
+        "target": "0x6ce71"
+       },
+       {
+        "name": "?_bfme_get_indexed_factor@RenderObjClass@@UBEMH@Z",
+        "slot": 24,
+        "target": "0x6ce87"
+       },
+       {
+        "name": "?_bfme_get_factor_product@RenderObjClass@@UBEMXZ",
+        "slot": 25,
+        "target": "0x13bc60"
+       },
+       {
+        "name": "?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+        "slot": 26,
+        "target": "0x13bcd0"
+       },
+       {
+        "name": "?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+        "slot": 27,
+        "target": "0x13bce0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?_bfme_ro_v28@RenderObjClass@@UBEHXZ",
+        "slot": 29,
+        "target": "0x6ce95"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 30,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 31,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?Get_Sub_Object_By_Name@RenderObjClass@@UBEPAV1@PBDPAH@Z",
+        "slot": 32,
+        "target": "0x13b8d0"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 33,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+        "slot": 34,
+        "target": "0x5748b2"
+       },
+       {
+        "name": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+        "slot": 35,
+        "target": "0x5748b2"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 36,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBDPBVVector3@@@Z",
+        "slot": 37,
+        "target": "0x13b9e0"
+       },
+       {
+        "name": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+        "slot": 38,
+        "target": "0x5748ad"
+       },
+       {
+        "name": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z",
+        "slot": 39,
+        "target": "0x13ba80"
+       },
+       {
+        "name": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z",
+        "slot": 40,
+        "target": "0x13ba10"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 41,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 42,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 43,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z",
+        "slot": 44,
+        "target": "0x25ef04"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 45,
+        "target": "0xd1407"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 46,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 47,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 48,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 49,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 50,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+        "slot": 51,
+        "target": "0x6d06d"
+       },
+       {
+        "name": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+        "slot": 52,
+        "target": "0x6d06d"
+       },
+       {
+        "name": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+        "slot": 53,
+        "target": "0x5cb9fa"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 54,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 55,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 56,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 57,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 58,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 59,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 60,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 61,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?Intersect@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+        "slot": 62,
+        "target": "0x13c3b0"
+       },
+       {
+        "name": "?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+        "slot": 63,
+        "target": "0x13bd20"
+       },
+       {
+        "name": "?Intersect_Sphere_Quick@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+        "slot": 64,
+        "target": "0x13bd70"
+       },
+       {
+        "name": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+        "slot": 65,
+        "target": "0x6d028"
+       },
+       {
+        "name": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+        "slot": 66,
+        "target": "0x6d03e"
+       },
+       {
+        "name": "?Get_Obj_Space_Bounding_Sphere@CameraClass@@UBEXAAVSphereClass@@@Z",
+        "slot": 67,
+        "target": "0x133a20"
+       },
+       {
+        "name": "?Get_Obj_Space_Bounding_Box@CameraClass@@UBEXAAVAABoxClass@@@Z",
+        "slot": 68,
+        "target": "0x133a50"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 69,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?_bfme_set_float_84@RenderObjClass@@UAEXM@Z",
+        "slot": 70,
+        "target": "0x6ce9a"
+       },
+       {
+        "name": "?_bfme_get_float_84@RenderObjClass@@UBEMXZ",
+        "slot": 71,
+        "target": "0x6ceab"
+       },
+       {
+        "name": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+        "slot": 72,
+        "target": "0x180fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 73,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 74,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 75,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Get_Cost@RenderObjClass@@UBEMXZ",
+        "slot": 76,
+        "target": "0x13baa0"
+       },
+       {
+        "name": "?Rva00167F59Get@@YAMXZ",
+        "slot": 77,
+        "target": "0x167f59"
+       },
+       {
+        "name": "?Rva00167F60Get@@YAMXZ",
+        "slot": 78,
+        "target": "0x167f60"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 79,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 80,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?Create@GameFileClass@@UAEHXZ",
+        "slot": 81,
+        "target": "0x910fb"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 82,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z",
+        "slot": 83,
+        "target": "0x13bac0"
+       },
+       {
+        "name": "?Get_Current_LOD@RenderObjClass@@UAEPAV1@XZ",
+        "slot": 84,
+        "target": "0x7e4af"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 85,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?Set_User_Data@RenderObjClass@@UAEXPAX_N@Z",
+        "slot": 86,
+        "target": "0x6ceb2"
+       },
+       {
+        "name": "?Get_User_Data@RenderObjClass@@UAEPAXXZ",
+        "slot": 87,
+        "target": "0x30c8a7"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 88,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 89,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?Get_Screen_Size@RenderObjClass@@UAEMAAVCameraClass@@@Z",
+        "slot": 90,
+        "target": "0x13c030"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 91,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 92,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Set_ObjectScale@RenderObjClass@@UAEXM@Z",
+        "slot": 93,
+        "target": "0x6cebf"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 94,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 95,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Is_Really_Visible@RenderObjClass@@UAEHXZ",
+        "slot": 96,
+        "target": "0x6cecd"
+       },
+       {
+        "name": "?Is_Not_Hidden_At_All@RenderObjClass@@UAEHXZ",
+        "slot": 97,
+        "target": "0x6ceee"
+       },
+       {
+        "name": "?queryVisible@Rva0013B6D0@@QAEHXZ",
+        "slot": 98,
+        "target": "0x13b6d0"
+       },
+       {
+        "name": "?Set_Visible@RenderObjClass@@UAEXHH@Z",
+        "slot": 99,
+        "target": "0x13b710"
+       },
+       {
+        "name": "?Is_Hidden@RenderObjClass@@UBEHXZ",
+        "slot": 100,
+        "target": "0x6cf00"
+       },
+       {
+        "name": "?Set_Hidden@RenderObjClass@@UAEXH@Z",
+        "slot": 101,
+        "target": "0x6cf0c"
+       },
+       {
+        "name": "?Is_Animation_Hidden@RenderObjClass@@UBEHXZ",
+        "slot": 102,
+        "target": "0x6cf20"
+       },
+       {
+        "name": "?Set_Animation_Hidden@RenderObjClass@@UAEXH@Z",
+        "slot": 103,
+        "target": "0x6cf2c"
+       },
+       {
+        "name": "?Is_Force_Visible@RenderObjClass@@UBEHXZ",
+        "slot": 104,
+        "target": "0x6cf40"
+       },
+       {
+        "name": "?Set_Force_Visible@RenderObjClass@@UAEXH@Z",
+        "slot": 105,
+        "target": "0x13b720"
+       },
+       {
+        "name": "?Is_Translucent@RenderObjClass@@UBEHXZ",
+        "slot": 106,
+        "target": "0x6cf49"
+       },
+       {
+        "name": "?Set_Translucent@RenderObjClass@@UAEXH@Z",
+        "slot": 107,
+        "target": "0x6cf52"
+       },
+       {
+        "name": "?Is_Alpha@RenderObjClass@@UBEHXZ",
+        "slot": 108,
+        "target": "0x6cf66"
+       },
+       {
+        "name": "?Set_Alpha@RenderObjClass@@UAEXH@Z",
+        "slot": 109,
+        "target": "0x6cf6f"
+       },
+       {
+        "name": "?Is_Additive@RenderObjClass@@UBEHXZ",
+        "slot": 110,
+        "target": "0x6cf83"
+       },
+       {
+        "name": "?Set_Additive@RenderObjClass@@UAEXH@Z",
+        "slot": 111,
+        "target": "0x6cf8c"
+       },
+       {
+        "name": "?_bfme_ro_flag109@RenderObjClass@@UBEHXZ",
+        "slot": 112,
+        "target": "0x6cfa0"
+       },
+       {
+        "name": "?_bfme_ro_flag110@RenderObjClass@@UAEXH@Z",
+        "slot": 113,
+        "target": "0x6cfa9"
+       },
+       {
+        "name": "?_bfme_ro_flag111@RenderObjClass@@UBEHXZ",
+        "slot": 114,
+        "target": "0x6cfbd"
+       },
+       {
+        "name": "?_bfme_ro_flag112@RenderObjClass@@UAEXH@Z",
+        "slot": 115,
+        "target": "0x6cfc6"
+       },
+       {
+        "name": "?_bfme_ro_flag113@RenderObjClass@@UBEHXZ",
+        "slot": 116,
+        "target": "0x6cfda"
+       },
+       {
+        "name": "?_bfme_ro_flag114@RenderObjClass@@UAEXH@Z",
+        "slot": 117,
+        "target": "0x6cfe3"
+       },
+       {
+        "name": "?_bfme_ro_flag115@RenderObjClass@@UBEHXZ",
+        "slot": 118,
+        "target": "0x6cff7"
+       },
+       {
+        "name": "?_bfme_ro_flag116@RenderObjClass@@UAEXH@Z",
+        "slot": 119,
+        "target": "0x6d000"
+       },
+       {
+        "name": "?Get_Collision_Type@RenderObjClass@@UBEHXZ",
+        "slot": 120,
+        "target": "0x6d014"
+       },
+       {
+        "name": "?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z",
+        "slot": 121,
+        "target": "0x13baf0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 122,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?Is_In_Scene@RenderObjClass@@UAE_NXZ",
+        "slot": 123,
+        "target": "0x6d01f"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 124,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 125,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 126,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ",
+        "slot": 127,
+        "target": "0x13c190"
+       },
+       {
+        "name": "?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ",
+        "slot": 128,
+        "target": "0x13bb60"
+       },
+       {
+        "name": "?Cull_Sphere@CameraClass@@QBE_NABVSphereClass@@@Z",
+        "slot": 129,
+        "target": "0x135960"
+       },
+       {
+        "name": "?Cull_Box@CameraClass@@QBE_NABVAABoxClass@@@Z",
+        "slot": 130,
+        "target": "0x135990"
+       }
+      ],
+      "table": "0x7d26e0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 34,
+  "retail_vtables": {
+   "0x7d26e0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GCameraClass@@UAEPAXI@Z",
+     "2": "?Clone@CameraClass@@UBEPAVRenderObjClass@@XZ",
+     "3": "?Class_ID@CameraClass@@UBEHXZ",
+     "4": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "5": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "6": "?name@Rva0006CE6BNamed@@QBEPBDXZ",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "9": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "13": "??1Region2D@@QAE@XZ",
+     "14": "??1Region2D@@QAE@XZ",
+     "15": "?Add@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+     "16": "?Remove@RenderObjClass@@UAEXXZ",
+     "17": "?Get_Scene@RenderObjClass@@UAEPAVSceneClass@@XZ",
+     "18": "?get@Rva004F04F1DwordField@@QBEHXZ",
+     "19": "?Set_Container@RenderObjClass@@UAEXPAV1@@Z",
+     "20": "?Validate_Transform@RenderObjClass@@UBEXXZ",
+     "21": "?Set_Transform@CameraClass@@UAEXABVMatrix3D@@@Z",
+     "22": "?Set_Position@CameraClass@@UAEXABVVector3@@@Z",
+     "23": "?_bfme_set_indexed_factor@RenderObjClass@@UAEXHM@Z",
+     "24": "?_bfme_get_indexed_factor@RenderObjClass@@UBEMH@Z",
+     "25": "?_bfme_get_factor_product@RenderObjClass@@UBEMXZ",
+     "26": "?Notify_Added@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+     "27": "?Notify_Removed@RenderObjClass@@UAEXPAVSceneClass@@@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "?_bfme_ro_v28@RenderObjClass@@UBEHXZ",
+     "30": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "31": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "32": "?Get_Sub_Object_By_Name@RenderObjClass@@UBEPAV1@PBDPAH@Z",
+     "33": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "34": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+     "35": "?rva005748B2@Rva005748B2@@QAEHHH@Z",
+     "36": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "37": "?Add_Sub_Object_To_Bone@RenderObjClass@@UAEHPAV1@PBDPBVVector3@@@Z",
+     "38": "?rva005748AD@Rva005748AD@@QAEHHHH@Z",
+     "39": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHPBD@Z",
+     "40": "?Remove_Sub_Objects_From_Bone@RenderObjClass@@UAEHH@Z",
+     "41": "??1Region2D@@QAE@XZ",
+     "42": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "43": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "44": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@M0MM@Z",
+     "45": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "46": "??1Region2D@@QAE@XZ",
+     "47": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "48": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "49": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "50": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "51": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+     "52": "?Get_Bone_Transform@RenderObjClass@@UAE?AVMatrix3D@@PBD@Z",
+     "53": "?_bfme_ro_v50@RenderObjClass@@UAE_NH@Z",
+     "54": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "55": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "56": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "57": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "58": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "59": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "60": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "61": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "62": "?Intersect@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+     "63": "?Intersect_Sphere@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+     "64": "?Intersect_Sphere_Quick@RenderObjClass@@UAE_NPAVIntersectionClass@@PAVIntersectionResultClass@@@Z",
+     "65": "?Get_Bounding_Sphere@RenderObjClass@@UBEABVSphereClass@@XZ",
+     "66": "?Get_Bounding_Box@RenderObjClass@@UBEABVAABoxClass@@XZ",
+     "67": "?Get_Obj_Space_Bounding_Sphere@CameraClass@@UBEXAAVSphereClass@@@Z",
+     "68": "?Get_Obj_Space_Bounding_Box@CameraClass@@UBEXAAVAABoxClass@@@Z",
+     "69": "??1Region2D@@QAE@XZ",
+     "70": "?_bfme_set_float_84@RenderObjClass@@UAEXM@Z",
+     "71": "?_bfme_get_float_84@RenderObjClass@@UBEMXZ",
+     "72": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+     "73": "??1Region2D@@QAE@XZ",
+     "74": "??1Region2D@@QAE@XZ",
+     "75": "??1Region2D@@QAE@XZ",
+     "76": "?Get_Cost@RenderObjClass@@UBEMXZ",
+     "77": "?Rva00167F59Get@@YAMXZ",
+     "78": "?Rva00167F60Get@@YAMXZ",
+     "79": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "80": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "81": "?Create@GameFileClass@@UAEHXZ",
+     "82": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "83": "?Calculate_Cost_Value_Arrays@RenderObjClass@@UBEHMPAM0@Z",
+     "84": "?Get_Current_LOD@RenderObjClass@@UAEPAV1@XZ",
+     "85": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "86": "?Set_User_Data@RenderObjClass@@UAEXPAX_N@Z",
+     "87": "?Get_User_Data@RenderObjClass@@UAEPAXXZ",
+     "88": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "89": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "90": "?Get_Screen_Size@RenderObjClass@@UAEMAAVCameraClass@@@Z",
+     "91": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "92": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "93": "?Set_ObjectScale@RenderObjClass@@UAEXM@Z",
+     "94": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "95": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "96": "?Is_Really_Visible@RenderObjClass@@UAEHXZ",
+     "97": "?Is_Not_Hidden_At_All@RenderObjClass@@UAEHXZ",
+     "98": "?queryVisible@Rva0013B6D0@@QAEHXZ",
+     "99": "?Set_Visible@RenderObjClass@@UAEXHH@Z",
+     "100": "?Is_Hidden@RenderObjClass@@UBEHXZ",
+     "101": "?Set_Hidden@RenderObjClass@@UAEXH@Z",
+     "102": "?Is_Animation_Hidden@RenderObjClass@@UBEHXZ",
+     "103": "?Set_Animation_Hidden@RenderObjClass@@UAEXH@Z",
+     "104": "?Is_Force_Visible@RenderObjClass@@UBEHXZ",
+     "105": "?Set_Force_Visible@RenderObjClass@@UAEXH@Z",
+     "106": "?Is_Translucent@RenderObjClass@@UBEHXZ",
+     "107": "?Set_Translucent@RenderObjClass@@UAEXH@Z",
+     "108": "?Is_Alpha@RenderObjClass@@UBEHXZ",
+     "109": "?Set_Alpha@RenderObjClass@@UAEXH@Z",
+     "110": "?Is_Additive@RenderObjClass@@UBEHXZ",
+     "111": "?Set_Additive@RenderObjClass@@UAEXH@Z",
+     "112": "?_bfme_ro_flag109@RenderObjClass@@UBEHXZ",
+     "113": "?_bfme_ro_flag110@RenderObjClass@@UAEXH@Z",
+     "114": "?_bfme_ro_flag111@RenderObjClass@@UBEHXZ",
+     "115": "?_bfme_ro_flag112@RenderObjClass@@UAEXH@Z",
+     "116": "?_bfme_ro_flag113@RenderObjClass@@UBEHXZ",
+     "117": "?_bfme_ro_flag114@RenderObjClass@@UAEXH@Z",
+     "118": "?_bfme_ro_flag115@RenderObjClass@@UBEHXZ",
+     "119": "?_bfme_ro_flag116@RenderObjClass@@UAEXH@Z",
+     "120": "?Get_Collision_Type@RenderObjClass@@UBEHXZ",
+     "121": "?Set_Collision_Type@RenderObjClass@@UAEXH_N@Z",
+     "122": "?IsCRC@Xfer@@UBE_NXZ",
+     "123": "?Is_In_Scene@RenderObjClass@@UAE_NXZ",
+     "124": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "125": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "126": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "127": "?Update_Cached_Bounding_Volumes@RenderObjClass@@MBEXXZ",
+     "128": "?Update_Sub_Object_Bits@RenderObjClass@@MAEXXZ",
+     "129": "?Cull_Sphere@CameraClass@@QBE_NABVSphereClass@@@Z",
+     "130": "?Cull_Box@CameraClass@@QBE_NABVAABoxClass@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "4": 4,
+   "8": 3,
+   "72": 6,
+   "196": 1,
+   "216": 1,
+   "244": 1,
+   "256": 1,
+   "496": 1,
+   "520": 1,
+   "972": 1,
+   "1020": 12,
+   "1032": 1
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/camera.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 26,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "IsPostLoadRegistered",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "MultiListNodeClass*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "ListNode",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ulong",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Matrix3D",
+   "members": [
+    {
+     "kind": "A",
+     "name": "Bits",
+     "offset": 0,
+     "size": 48,
+     "type": "Vector4[48]"
+    }
+   ],
+   "name": "Transform",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 48,
+   "type": "Matrix3D",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "ObjectScale",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "ObjectScale",
+   "name_by": "zh",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "ObjectColor",
+   "name_by": "zh",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingSphere.Center.X",
+   "name_by": "zh",
+   "offset": 84,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingSphere.Center.Y",
+   "name_by": "zh",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingSphere.Center.Z",
+   "name_by": "zh",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingSphere.Radius",
+   "name_by": "zh",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingBox.Center.X",
+   "name_by": "zh",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingBox.Center.Y",
+   "name_by": "zh",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingBox.Center.Z",
+   "name_by": "zh",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CachedBoundingBox.Extent.X",
+   "name_by": "zh",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "CachedBoundingBox.Extent.Y",
+   "name_by": "zh",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "CachedBoundingBox.Extent.Z",
+   "name_by": "zh",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "SceneClass*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "NativeScreenSize",
+   "name_by": "zh",
+   "offset": 124,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RenderObjClass*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "IsTransformIdentity",
+   "name_by": "zh",
+   "offset": 128,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Scene",
+   "name_by": "zh",
+   "offset": 132,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Container",
+   "name_by": "zh",
+   "offset": 136,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ulong",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "User_Data",
+   "name_by": "zh",
+   "offset": 140,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "RenderHook",
+   "name_by": "zh",
+   "offset": 144,
+   "retail_widths": {},
+   "size": 8,
+   "type": "float[8]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Viewport.Min.U",
+   "name_by": "zh",
+   "offset": 152,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "ZNear",
+   "name_by": "zh",
+   "offset": 188,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "_bfme_unk_bd",
+   "name_by": "majority",
+   "offset": 189,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "ZFar",
+   "name_by": "zh",
+   "offset": 192,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "ZBufferMin",
+   "name_by": "zh",
+   "offset": 196,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "enum",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "ZBufferMax",
+   "name_by": "zh",
+   "offset": 200,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "FrustumValid",
+   "name_by": "zh",
+   "offset": 204,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.CameraTransform.Row",
+   "name_by": "zh",
+   "offset": 208,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Viewport.Max.Y",
+   "name_by": "tie",
+   "offset": 212,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "ZFar",
+   "name_by": "tie",
+   "offset": 240,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "FrustumValid",
+   "name_by": "tie",
+   "offset": 252,
+   "retail_widths": {
+    "1": 6
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:FrustumClass",
+   "members": [
+    {
+     "kind": "A",
+     "name": "Planes",
+     "offset": 0,
+     "size": 48,
+     "type": "Vector4[48]"
+    },
+    {
+     "kind": "A",
+     "name": "Planes",
+     "offset": 48,
+     "size": 96,
+     "type": "PlaneClass[96]"
+    },
+    {
+     "kind": "A",
+     "name": "Corners",
+     "offset": 144,
+     "size": 96,
+     "type": "Vector3[96]"
+    }
+   ],
+   "name": "Frustum",
+   "name_by": "majority",
+   "offset": 256,
+   "retail_widths": {},
+   "size": 240,
+   "type": "FrustumClass",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.BoundMin.X",
+   "name_by": "majority",
+   "offset": 496,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.BoundMin.Y",
+   "name_by": "majority",
+   "offset": 500,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.BoundMin.Z",
+   "name_by": "majority",
+   "offset": 504,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.BoundMax.X",
+   "name_by": "majority",
+   "offset": 508,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.BoundMax.Y",
+   "name_by": "majority",
+   "offset": 512,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "Frustum.BoundMax.Z",
+   "name_by": "majority",
+   "offset": 516,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Matrix4",
+   "members": [
+    {
+     "kind": "A",
+     "name": "m",
+     "offset": 0,
+     "size": 64,
+     "type": "int[64]"
+    }
+   ],
+   "name": "m_38C",
+   "name_by": "majority",
+   "offset": 908,
+   "retail_widths": {},
+   "size": 64,
+   "type": "Matrix4",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 26
+ },
+ "outliers": [
+  {
+   "offset": 1020,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1024,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1028,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowCamera.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 196]]": 2,
+    "[[0, 4]]": 1,
+    "[[0, 72]]": 5,
+    "[]": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "field@0x10",
+   "candidates": {
+    "180:A": 1,
+    "4:i4": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "name@0xd4",
+   "candidates": {
+    "Viewport.Max.V": 1,
+    "Viewport.Max.Y": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "name@0xf0",
+   "candidates": {
+    "ZFar": 1,
+    "depth": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "name@0xfc",
+   "candidates": {
+    "FrustumValid": 1,
+    "m_fc": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x54",
+   "candidates": {
+    "CachedBoundingSphere.Center.X": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x58",
+   "candidates": {
+    "CachedBoundingSphere.Center.Y": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x5c",
+   "candidates": {
+    "CachedBoundingSphere.Center.Z": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x60",
+   "candidates": {
+    "CachedBoundingSphere.Radius": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x64",
+   "candidates": {
+    "CachedBoundingBox.Center.X": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x68",
+   "candidates": {
+    "CachedBoundingBox.Center.Y": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x6c",
+   "candidates": {
+    "CachedBoundingBox.Center.Z": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x70",
+   "candidates": {
+    "CachedBoundingBox.Extent.X": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x74",
+   "candidates": {
+    "CachedBoundingBox.Extent.Y": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x78",
+   "candidates": {
+    "CachedBoundingBox.Extent.Z": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x98",
+   "candidates": {
+    "Viewport.Min.U": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0xd0",
+   "candidates": {
+    "Frustum.CameraTransform.Row": 2
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0xd4",
+   "candidates": {
+    "Viewport.Max.Y": 2
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x1f0",
+   "candidates": {
+    "Frustum.BoundMin.X": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x1f4",
+   "candidates": {
+    "Frustum.BoundMin.Y": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x1f8",
+   "candidates": {
+    "Frustum.BoundMin.Z": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x1fc",
+   "candidates": {
+    "Frustum.BoundMax.X": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x200",
+   "candidates": {
+    "Frustum.BoundMax.Y": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "nested@0x204",
+   "candidates": {
+    "Frustum.BoundMax.Z": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "Delete_This()": 2,
+    "__vecDelDtor(uint)": 1,
+    "c00()": 1,
+    "cameraSlot000()": 1,
+    "s00()": 2,
+    "slot00()": 1,
+    "unused00()": 1,
+    "v00()": 1,
+    "v000()": 1,
+    "vf00()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "Validate_Transform()": 2,
+    "c20()": 1,
+    "cameraSlot050()": 1,
+    "pad23()": 1,
+    "s20()": 2,
+    "unused20()": 1,
+    "v020()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "Set_Position(Vector3*)": 1,
+    "c22()": 1,
+    "cameraSlot058()": 1,
+    "pad25()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "c23()": 1,
+    "cameraSlot05C()": 1,
+    "pad26()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "c24()": 1,
+    "cameraSlot060()": 1,
+    "pad27()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "c25()": 1,
+    "cameraSlot064()": 1,
+    "pad30()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot26",
+   "candidates": {
+    "c26()": 1,
+    "cameraSlot068()": 1,
+    "pad31()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "c27()": 1,
+    "cameraSlot06C()": 1,
+    "pad32()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot28",
+   "candidates": {
+    "c28()": 1,
+    "cameraSlot070()": 1,
+    "pad33()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot29",
+   "candidates": {
+    "c29()": 1,
+    "cameraSlot074()": 1,
+    "pad34()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot30",
+   "candidates": {
+    "c30()": 1,
+    "cameraSlot078()": 1,
+    "pad35()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot31",
+   "candidates": {
+    "c31()": 1,
+    "cameraSlot07C()": 1,
+    "pad36()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot32",
+   "candidates": {
+    "c32()": 1,
+    "cameraSlot080()": 1,
+    "pad37()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot33",
+   "candidates": {
+    "c33()": 1,
+    "cameraSlot084()": 1,
+    "pad40()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot34",
+   "candidates": {
+    "c34()": 1,
+    "cameraSlot088()": 1,
+    "pad41()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot35",
+   "candidates": {
+    "c35()": 1,
+    "cameraSlot08C()": 1,
+    "pad42()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot36",
+   "candidates": {
+    "c36()": 1,
+    "cameraSlot090()": 1,
+    "pad43()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot37",
+   "candidates": {
+    "c37()": 1,
+    "cameraSlot094()": 1,
+    "pad44()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot38",
+   "candidates": {
+    "c38()": 1,
+    "cameraSlot098()": 1,
+    "pad45()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot39",
+   "candidates": {
+    "c39()": 1,
+    "cameraSlot09C()": 1,
+    "pad46()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot40",
+   "candidates": {
+    "c40()": 1,
+    "cameraSlot0A0()": 1,
+    "pad47()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot41",
+   "candidates": {
+    "c41()": 1,
+    "cameraSlot0A4()": 1,
+    "pad50()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot42",
+   "candidates": {
+    "c42()": 1,
+    "cameraSlot0A8()": 1,
+    "pad51()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot43",
+   "candidates": {
+    "c43()": 1,
+    "cameraSlot0AC()": 1,
+    "pad52()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot44",
+   "candidates": {
+    "c44()": 1,
+    "cameraSlot0B0()": 1,
+    "pad53()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot45",
+   "candidates": {
+    "c45()": 1,
+    "cameraSlot0B4()": 1,
+    "pad54()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot46",
+   "candidates": {
+    "c46()": 1,
+    "cameraSlot0B8()": 1,
+    "pad55()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot47",
+   "candidates": {
+    "c47()": 1,
+    "cameraSlot0BC()": 1,
+    "pad56()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot48",
+   "candidates": {
+    "c48()": 1,
+    "cameraSlot0C0()": 1,
+    "pad57()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot49",
+   "candidates": {
+    "c49()": 1,
+    "cameraSlot0C4()": 1,
+    "pad60()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot50",
+   "candidates": {
+    "c50()": 1,
+    "cameraSlot0C8()": 1,
+    "pad61()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot51",
+   "candidates": {
+    "c51()": 1,
+    "cameraSlot0CC()": 1,
+    "pad62()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot52",
+   "candidates": {
+    "c52()": 1,
+    "cameraSlot0D0()": 1,
+    "pad63()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot53",
+   "candidates": {
+    "c53()": 1,
+    "cameraSlot0D4()": 1,
+    "pad64()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot54",
+   "candidates": {
+    "c54()": 1,
+    "cameraSlot0D8()": 1,
+    "pad65()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot55",
+   "candidates": {
+    "c55()": 1,
+    "cameraSlot0DC()": 1,
+    "pad66()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot56",
+   "candidates": {
+    "c56()": 1,
+    "cameraSlot0E0()": 1,
+    "pad67()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot57",
+   "candidates": {
+    "c57()": 1,
+    "cameraSlot0E4()": 1,
+    "pad70()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot58",
+   "candidates": {
+    "c58()": 1,
+    "cameraSlot0E8()": 1,
+    "pad71()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot59",
+   "candidates": {
+    "c59()": 1,
+    "cameraSlot0EC()": 1,
+    "pad72()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot60",
+   "candidates": {
+    "c60()": 1,
+    "cameraSlot0F0()": 1,
+    "pad73()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot61",
+   "candidates": {
+    "c61()": 1,
+    "cameraSlot0F4()": 1,
+    "pad74()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot62",
+   "candidates": {
+    "c62()": 1,
+    "cameraSlot0F8()": 1,
+    "pad75()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot63",
+   "candidates": {
+    "c63()": 1,
+    "cameraSlot0FC()": 1,
+    "pad76()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot64",
+   "candidates": {
+    "c64()": 1,
+    "cameraSlot100()": 1,
+    "pad77()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot65",
+   "candidates": {
+    "c65()": 1,
+    "cameraSlot104()": 1,
+    "pad80()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot66",
+   "candidates": {
+    "c66()": 1,
+    "cameraSlot108()": 1,
+    "pad81()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot67",
+   "candidates": {
+    "c67()": 1,
+    "cameraSlot10C()": 1,
+    "pad82()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot68",
+   "candidates": {
+    "c68()": 1,
+    "cameraSlot110()": 1,
+    "pad83()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot69",
+   "candidates": {
+    "c69()": 1,
+    "cameraSlot114()": 1,
+    "pad84()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot70",
+   "candidates": {
+    "c70()": 1,
+    "cameraSlot118()": 1,
+    "pad85()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot71",
+   "candidates": {
+    "c71()": 1,
+    "cameraSlot11C()": 1,
+    "pad86()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot72",
+   "candidates": {
+    "c72()": 1,
+    "cameraSlot120()": 1,
+    "pad87()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot73",
+   "candidates": {
+    "c73()": 1,
+    "cameraSlot124()": 1,
+    "pad90()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot74",
+   "candidates": {
+    "c74()": 1,
+    "cameraSlot128()": 1,
+    "pad91()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot75",
+   "candidates": {
+    "c75()": 1,
+    "cameraSlot12C()": 1,
+    "pad92()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot76",
+   "candidates": {
+    "c76()": 1,
+    "cameraSlot130()": 1,
+    "pad93()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot77",
+   "candidates": {
+    "c77()": 1,
+    "cameraSlot134()": 1,
+    "pad94()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot78",
+   "candidates": {
+    "c78()": 1,
+    "cameraSlot138()": 1,
+    "pad95()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot79",
+   "candidates": {
+    "c79()": 1,
+    "cameraSlot13C()": 1,
+    "pad96()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot80",
+   "candidates": {
+    "c80()": 1,
+    "cameraSlot140()": 1,
+    "pad97()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot81",
+   "candidates": {
+    "c81()": 1,
+    "cameraSlot144()": 1,
+    "pada0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot82",
+   "candidates": {
+    "c82()": 1,
+    "cameraSlot148()": 1,
+    "pada1()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot83",
+   "candidates": {
+    "c83()": 1,
+    "cameraSlot14C()": 1,
+    "pada2()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot84",
+   "candidates": {
+    "c84()": 1,
+    "cameraSlot150()": 1,
+    "pada3()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot85",
+   "candidates": {
+    "c85()": 1,
+    "cameraSlot154()": 1,
+    "pada4()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot86",
+   "candidates": {
+    "c86()": 1,
+    "cameraSlot158()": 1,
+    "pada5()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot87",
+   "candidates": {
+    "c87()": 1,
+    "cameraSlot15C()": 1,
+    "pada6()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot88",
+   "candidates": {
+    "c88()": 1,
+    "cameraSlot160()": 1,
+    "pada7()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot89",
+   "candidates": {
+    "c89()": 1,
+    "cameraSlot164()": 1,
+    "padb0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot90",
+   "candidates": {
+    "c90()": 1,
+    "cameraSlot168()": 1,
+    "padb1()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot91",
+   "candidates": {
+    "c91()": 1,
+    "cameraSlot16C()": 1,
+    "padb2()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot92",
+   "candidates": {
+    "c92()": 1,
+    "cameraSlot170()": 1,
+    "padb3()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot93",
+   "candidates": {
+    "c93()": 1,
+    "cameraSlot174()": 1,
+    "padb4()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot94",
+   "candidates": {
+    "c94()": 1,
+    "cameraSlot178()": 1,
+    "padb5()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot95",
+   "candidates": {
+    "c95()": 1,
+    "cameraSlot17C()": 1,
+    "padb6()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot96",
+   "candidates": {
+    "c96()": 1,
+    "cameraSlot180()": 1,
+    "padb7()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot97",
+   "candidates": {
+    "c97()": 1,
+    "cameraSlot184()": 1,
+    "padc0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot98",
+   "candidates": {
+    "c98()": 1,
+    "cameraSlot188()": 1,
+    "padc1()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot99",
+   "candidates": {
+    "c99()": 1,
+    "cameraSlot18C()": 1,
+    "padc2()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot100",
+   "candidates": {
+    "cameraSlot190()": 1,
+    "d00()": 1,
+    "padc3()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot101",
+   "candidates": {
+    "cameraSlot194()": 1,
+    "d01()": 1,
+    "padc4()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot102",
+   "candidates": {
+    "cameraSlot198()": 1,
+    "d02()": 1,
+    "padc5()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot103",
+   "candidates": {
+    "cameraSlot19C()": 1,
+    "d03()": 1,
+    "padc6()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot104",
+   "candidates": {
+    "cameraSlot1A0()": 1,
+    "d04()": 1,
+    "padc7()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot105",
+   "candidates": {
+    "cameraSlot1A4()": 1,
+    "d05()": 1,
+    "padd0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot106",
+   "candidates": {
+    "cameraSlot1A8()": 1,
+    "d06()": 1,
+    "padd1()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot107",
+   "candidates": {
+    "cameraSlot1AC()": 1,
+    "d07()": 1,
+    "padd2()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot108",
+   "candidates": {
+    "cameraSlot1B0()": 1,
+    "d08()": 1,
+    "padd3()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot109",
+   "candidates": {
+    "cameraSlot1B4()": 1,
+    "d09()": 1,
+    "padd4()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot110",
+   "candidates": {
+    "cameraSlot1B8()": 1,
+    "d10()": 1,
+    "padd5()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot111",
+   "candidates": {
+    "cameraSlot1BC()": 1,
+    "d11()": 1,
+    "padd6()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot112",
+   "candidates": {
+    "cameraSlot1C0()": 1,
+    "d12()": 1,
+    "padd7()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot113",
+   "candidates": {
+    "cameraSlot1C4()": 1,
+    "d13()": 1,
+    "pade0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot114",
+   "candidates": {
+    "cameraSlot1C8()": 1,
+    "d14()": 1,
+    "pade1()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot115",
+   "candidates": {
+    "cameraSlot1CC()": 1,
+    "d15()": 1,
+    "pade2()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot116",
+   "candidates": {
+    "cameraSlot1D0()": 1,
+    "d16()": 1,
+    "pade3()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot117",
+   "candidates": {
+    "cameraSlot1D4()": 1,
+    "d17()": 1,
+    "pade4()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot118",
+   "candidates": {
+    "cameraSlot1D8()": 1,
+    "d18()": 1,
+    "pade5()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot119",
+   "candidates": {
+    "cameraSlot1DC()": 1,
+    "d19()": 1,
+    "pade6()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot120",
+   "candidates": {
+    "cameraSlot1E0()": 1,
+    "d20()": 1,
+    "pade7()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot121",
+   "candidates": {
+    "cameraSlot1E4()": 1,
+    "d21()": 1,
+    "padf0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot122",
+   "candidates": {
+    "cameraSlot1E8()": 1,
+    "d22()": 1,
+    "padf1()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot123",
+   "candidates": {
+    "cameraSlot1EC()": 1,
+    "d23()": 1,
+    "padf2()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot124",
+   "candidates": {
+    "cameraSlot1F0()": 1,
+    "d24()": 1,
+    "padf3()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot125",
+   "candidates": {
+    "cameraSlot1F4()": 1,
+    "d25()": 1,
+    "padf4()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot126",
+   "candidates": {
+    "cameraSlot1F8()": 1,
+    "d26()": 1,
+    "padf5()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot127",
+   "candidates": {
+    "cameraSlot1FC()": 1,
+    "d27()": 1,
+    "padf6()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot128",
+   "candidates": {
+    "cameraSlot200()": 1,
+    "d28()": 1,
+    "padf7()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot129",
+   "candidates": {
+    "Cull_Sphere(SphereClass*)": 1,
+    "d29()": 1,
+    "padg0()": 1
+   },
+   "class": "CameraClass"
+  },
+  {
+   "attribute": "slot130",
+   "candidates": {
+    "Cull_Box(AABoxClass*)": 1,
+    "Cull_Box(WaterRenderBox*)": 1
+   },
+   "class": "CameraClass"
+  }
+ ],
+ "size": 1020,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "s10()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "s11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "s12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "s13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "s14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "s15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "s16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "s17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "s18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "s19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "s02()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "Set_Transform(Matrix3D*)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "s03()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "s04()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "s05()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "s06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "s07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "s08()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "s09()"
+  }
+ }
+}
