@@ -52,16 +52,7 @@ public:
 #include "../../../Include/Common/Rva0007DF07.h"
 #pragma comment(linker, "/alternatename:?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z=?rva005CB283@Rva005CB283@@QAEXXZ")
 
-class Rva00330757Member
-{
-public:
-	~Rva00330757Member();
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-	unsigned int m_index;
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva0053805DBase : public Rva0007DF07, public Rva00330757Member,
 	public virtual VBase00C6EE28

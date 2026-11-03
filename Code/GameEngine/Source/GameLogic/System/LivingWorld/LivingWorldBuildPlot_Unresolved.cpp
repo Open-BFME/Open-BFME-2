@@ -14,15 +14,7 @@
 #define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class Rva00330757Member
-{
-public:
-    Rva00330757Member();
-    ~Rva00330757Member() { if (m_begin) free(m_begin); }
-private:
-    void *m_begin, *m_end, *m_capacity;
-    int m_index;
-};
+#include "../../../../Include/Common/Rva00330757Member.h"
 
 #include "../../../../Include/Common/RegionTurnObserverView.h"
 class Object;

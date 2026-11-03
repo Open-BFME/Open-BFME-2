@@ -18,15 +18,7 @@
 // declared only, so this unit emits no differing copy of it.
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-
-private:
-	_STL::vector<BfmeE16> m_items;
-	int m_flags;
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 class __declspec(novtable) Rva00359E13Interface

@@ -47,13 +47,7 @@ extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBe
 class Thing;
 class ModuleData;
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-private:
-	char m_data[0x10];
-};
+#include "../../../../Include/Common/Rva00330757Member.h"
 
 class UpdateModule
 {

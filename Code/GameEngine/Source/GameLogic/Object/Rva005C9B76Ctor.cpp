@@ -5,14 +5,7 @@
 // via and-idiom, byte at +0x18 zeroed. Callers at 0x0056DBD4 and 0x005752E1
 // pass subobject this plus void arg.
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-
-private:
-	char m_data[0x10];
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva005C9B76 : public Rva00330757Member
 {

@@ -29,18 +29,7 @@ typedef unsigned int UnsignedInt;
 
 // The +8 list base: rowed out-of-line ctor at 0x00330757 (vector plus an
 // int defaulted to -1).
-class Rva00330757Member
-{
-public:
-	Rva00330757Member() throw();
-	~Rva00330757Member() throw();
-
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-	int m_flags;
-};
+#include "../../../../Include/Common/Rva00330757Member.h"
 
 // The +4 listener interface (vtable 0x00C3702C: five empty slots).
 #include "../../../../Include/Common/LivingWorldBattleListener.h"

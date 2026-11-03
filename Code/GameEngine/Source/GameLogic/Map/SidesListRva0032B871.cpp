@@ -22,15 +22,7 @@ public:
 	virtual void slot24(void *);
 };
 
-class Rva00330757Member
-{
-public:
-	__declspec(nothrow) Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	char m_body[0x10];
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva00281A15Listener;
 class SidesListNotifier : public Rva00330757Member

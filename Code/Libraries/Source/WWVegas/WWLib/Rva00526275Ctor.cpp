@@ -18,14 +18,7 @@ void _STLP_alloc_proxy<_List_node<Coord3D> *, _List_node<Coord3D>, allocator<_Li
 { allocator<_List_node<Coord3D> >::deallocate(__p, __n); }
 }
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-private:
-	char m_pad[0x10];
-};
+#include "../../../../GameEngine/Include/Common/Rva00330757Member.h"
 
 class Rva00526275
 {

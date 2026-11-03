@@ -33,17 +33,7 @@ public:
 #include "ascii_string.h"	// shared AsciiString: operator= expands to StringBase<char>::set (0x000366F0), as retail
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member() throw();
-	~Rva00330757Member();
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-	unsigned int m_index;
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva0053805DBase : public Rva0007DF07, public Rva00330757Member,
 	public virtual Rva00330C50Interface
