@@ -1,0 +1,54 @@
+{
+  "name": "?clear@?$hashtable@U?$pair@$$CBHURva0043001DElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@@_STL@@QAEXXZ",
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "saved_copies": [
+    {
+      "position": 11649,
+      "object": "^code_^game^engine_^source_^game^client_^message^stream_^selection^xlat.obj",
+      "digest": "0a51f2b4ca84",
+      "native_verdict": null
+    }
+  ],
+  "saved_strong": [],
+  "owner_objects": [],
+  "selection_exception": "absent",
+  "native_placement": "unknown; exact-symbol narrow ledger and pin search returned no match",
+  "reference_graph_schema": 1,
+  "saved_globally_referenced": false,
+  "saved_incoming": [
+    "??1?$hashtable@U?$pair@$$CBHURva0043001DElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@@_STL@@QAE@XZ"
+  ],
+  "per_object_graph_available": false,
+  "per_object_graph_scope": [],
+  "current_main_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^message^stream_^selection^xlat.obj",
+  "current_main_object_exists": true,
+  "current_main_symbol": {
+    "size": 84,
+    "bytes": "55568be98d75048b46042b065733ffc1f802743853578bcee8000000008b0085c074108b18508bcde80000000085db8bc375f0578bcee8000000008320008b46042b0647c1f8023bf872ca5b836510005f5e5dc3",
+    "relocations": [
+      [
+        25,
+        20,
+        "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+      ],
+      [
+        41,
+        20,
+        "?_M_delete_node@?$hashtable@U?$pair@$$CBHURva0043001DElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@@Z"
+      ],
+      [
+        55,
+        20,
+        "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+      ]
+    ],
+    "digest": "51445f4f590c"
+  },
+  "whole_object_matches_index": false
+}

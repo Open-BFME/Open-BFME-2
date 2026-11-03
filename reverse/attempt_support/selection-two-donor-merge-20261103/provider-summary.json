@@ -1,0 +1,22 @@
+{
+  "before_definitions": 615,
+  "after_definitions": 615,
+  "added": [],
+  "removed": [],
+  "payload_changed": [
+    "?clear@?$hashtable@U?$pair@$$CBHURva0043001DElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0043001DElement@@@_STL@@@2@@_STL@@QAEXXZ"
+  ],
+  "properties_changed": [],
+  "undefined_added": [],
+  "undefined_removed": [
+    "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ"
+  ],
+  "unresolved_added": [],
+  "unresolved_removed": [],
+  "weak": [],
+  "alternates": {
+    "?rvaSlot0@Rva0042FCE6Base@@UAEXXZ": "__purecall"
+  },
+  "forced_includes": [],
+  "ledger_rows_preserved": 13
+}
