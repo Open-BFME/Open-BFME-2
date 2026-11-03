@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME5: clean-C++ LightningEmissionModuleTemplate default constructor.
 
+#include "../../../../Include/GameClient/LightningEmissionInfo.h"
 namespace FXParticleSystem
 {
 
@@ -40,15 +41,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class LightningEmissionInfo
-{
-public:
-    LightningEmissionInfo();
-    virtual ~LightningEmissionInfo();
-
-private:
-    unsigned char m_body[0x7c];
-};
 
 class LightningEmissionModuleTemplate : public CategoryModuleTemplate<5>,
     public LightningEmissionInfo

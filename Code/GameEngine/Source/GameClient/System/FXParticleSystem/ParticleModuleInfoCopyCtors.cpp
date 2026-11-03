@@ -508,6 +508,7 @@ Rva003AFA0BVector Rva003AFA0B::rva003AFA0B(
 // reference to the +0x1C emission-info base. The direct callee is the existing
 // LightningEmissionInfo copy pin at 0x003A6AF5; its rowed assignment establishes
 // the one-byte flag followed by eleven float triples (FXParticleSystem.cpp).
+#include "../../../../Include/GameClient/LightningEmissionInfo.h"
 namespace FXParticleSystem
 {
 class Snapshot8C7
@@ -520,14 +521,6 @@ class EmissionVolumeInfo8C7 : public Snapshot8C7
 public:
     virtual ~EmissionVolumeInfo8C7();
     bool m_flag;
-};
-class LightningEmissionInfo : public EmissionVolumeInfo8C7
-{
-public:
-    LightningEmissionInfo(const LightningEmissionInfo &other) throw();
-    virtual ~LightningEmissionInfo();
-private:
-    float m_coordinates[33];
 };
 }
 class Rva003AF8C7 : public Intermediate3AFC6FC,

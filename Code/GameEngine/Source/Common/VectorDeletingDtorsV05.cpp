@@ -49,16 +49,9 @@ private:
 };
 }
 
+#include "../../Include/GameClient/LightningEmissionInfo.h"
 namespace FXParticleSystem
 {
-class LightningEmissionInfo
-{
-public:
-	LightningEmissionInfo();
-	virtual ~LightningEmissionInfo();
-private:
-	char m_unmodelled_04[0x8C - 0x04];
-};
 }
 
 #include "../../Include/GameClient/RenderObjectUpdateModuleInfo.h"

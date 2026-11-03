@@ -3,6 +3,7 @@
 // Open-BFME5: LightningEmissionModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/LightningEmissionInfo.h"
 namespace FXParticleSystem
 {
 
@@ -14,11 +15,6 @@ public:
 };
 
 // The +8 sub copy is the matched copy constructor ??0LightningEmissionInfo@FXParticleSystem@@QAE@ABV01@@Z.
-class LightningEmissionInfo
-{
-public:
-	LightningEmissionInfo(const LightningEmissionInfo &that);
-};
 
 // LightningEmissionModuleTemplate_cvtbl0: matched references place it at VA 0xc1bbb0 (retail .rdata value 17).
 extern "C" char LightningEmissionModuleTemplate_cvtbl0 = 17;

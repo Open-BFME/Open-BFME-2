@@ -42,6 +42,7 @@ class INI;
 #include "../../Include/GameClient/LineEmissionVolumeInfo.h"
 #include "../../Include/GameClient/EmissionVelocityInfo.h"
 #include "../../Include/GameClient/BoxEmissionVolumeInfo.h"
+#include "../../Include/GameClient/LightningEmissionInfo.h"
 namespace FXParticleSystem
 {
 
@@ -336,21 +337,6 @@ public:
     float m_unknown2C;
 };
 
-class LightningEmissionInfo : public EmissionVolumeInfo
-{
-public:
-    FXCoord3D m_unknown08;
-    FXCoord3D m_unknown14;
-    FXCoord3D m_unknown20;
-    FXCoord3D m_unknown2C;
-    FXCoord3D m_unknown38;
-    FXCoord3D m_unknown44;
-    FXCoord3D m_unknown50;
-    FXCoord3D m_unknown5C;
-    FXCoord3D m_unknown68;
-    FXCoord3D m_unknown74;
-    FXCoord3D m_unknown80;
-};
 
 #include "../../Include/Common/BfmeAccessorMacros.h"
 
