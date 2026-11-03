@@ -24,10 +24,10 @@ void DX8Wrapper::bfmeRva00120700(unsigned start_vertex, unsigned polygon_count)
 void DX8Wrapper::Draw_Triangles(unsigned start_index, unsigned polygon_count,
 	unsigned min_vertex_index, unsigned vertex_count)
 {
-	unsigned v = vertex_count;
+	unsigned vertexCount = vertex_count;
 	unsigned m = min_vertex_index;
 	unsigned p = polygon_count;
-	Draw(4, start_index, p, m, v, true);
+	Draw(4, start_index, p, m, vertexCount, true);
 }
 
 void DX8Wrapper::Draw_Strip(unsigned start_index, unsigned polygon_count,

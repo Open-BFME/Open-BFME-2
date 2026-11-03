@@ -20,14 +20,14 @@ struct Rva00241955Iter
 	Rva00241955Iter(struct Rva00240C89Node *x) : _M_node(x) {}
 	Rva00241955Iter() {}
 };
-struct Rva00241955Iter __stdcall Rva00241955Insert(struct Rva00241955Iter pos, const struct BfmeStringRecord00239B46 &x)
+struct Rva00241955Iter __stdcall Rva00241955Insert(struct Rva00241955Iter pos, const struct BfmeStringRecord00239B46 &recordValue)
 {
-	struct Rva00240C89Node *tmp = Rva00240C89Create(x);
-	struct Rva00240C89Node *n = pos._M_node;
-	struct Rva00240C89Node *p = n->_M_prev;
-	tmp->_M_next = n;
-	tmp->_M_prev = p;
-	p->_M_next = tmp;
-	n->_M_prev = tmp;
-	return (struct Rva00241955Iter)tmp;
+	struct Rva00240C89Node *newNode = Rva00240C89Create(recordValue);
+	struct Rva00240C89Node *nextNode = pos._M_node;
+	struct Rva00240C89Node *prevNode = nextNode->_M_prev;
+	newNode->_M_next = nextNode;
+	newNode->_M_prev = prevNode;
+	prevNode->_M_next = newNode;
+	nextNode->_M_prev = newNode;
+	return (struct Rva00241955Iter)newNode;
 }

@@ -120,8 +120,8 @@ COLORREF WINAPI SetBkColor(HDC hdc, COLORREF color) {
 // _GetGlyphIndicesW@20
 typedef DWORD (WINAPI *PFN_GetGlyphIndicesW)(HDC, LPCWSTR, int, LPWORD, DWORD);
 extern PFN_GetGlyphIndicesW __identifier("_imp__GetGlyphIndicesW@20");
-DWORD WINAPI GetGlyphIndicesW(HDC hdc, LPCWSTR lpstr, int c, LPWORD pgi, DWORD fl) {
- return __identifier("_imp__GetGlyphIndicesW@20")(hdc, lpstr, c, pgi, fl);
+DWORD WINAPI GetGlyphIndicesW(HDC hdc, LPCWSTR lpstr, int charCount, LPWORD pgi, DWORD fl) {
+ return __identifier("_imp__GetGlyphIndicesW@20")(hdc, lpstr, charCount, pgi, fl);
 }
 
 // _GetTextMetricsA@8
@@ -134,15 +134,15 @@ BOOL WINAPI GetTextMetricsA(HDC hdc, LPTEXTMETRICA lptm) {
 // _ExtTextOutW@32
 typedef BOOL (WINAPI *PFN_ExtTextOutW)(HDC, int, int, UINT, CONST RECT *, LPCWSTR, UINT, CONST INT *);
 extern PFN_ExtTextOutW __identifier("_imp__ExtTextOutW@32");
-BOOL WINAPI ExtTextOutW(HDC hdc, int x, int y, UINT options, CONST RECT * lprect, LPCWSTR lpString, UINT c, CONST INT * lpDx) {
- return __identifier("_imp__ExtTextOutW@32")(hdc, x, y, options, lprect, lpString, c, lpDx);
+BOOL WINAPI ExtTextOutW(HDC hdc, int x, int y, UINT options, CONST RECT * lprect, LPCWSTR lpString, UINT charCount, CONST INT * lpDx) {
+ return __identifier("_imp__ExtTextOutW@32")(hdc, x, y, options, lprect, lpString, charCount, lpDx);
 }
 
 // _GetTextExtentPoint32W@16
 typedef BOOL (APIENTRY *PFN_GetTextExtentPoint32W)(HDC, LPCWSTR, int, LPSIZE);
 extern PFN_GetTextExtentPoint32W __identifier("_imp__GetTextExtentPoint32W@16");
-BOOL APIENTRY GetTextExtentPoint32W(HDC hdc, LPCWSTR lpString, int c, LPSIZE psizl) {
- return __identifier("_imp__GetTextExtentPoint32W@16")(hdc, lpString, c, psizl);
+BOOL APIENTRY GetTextExtentPoint32W(HDC hdc, LPCWSTR lpString, int charCount, LPSIZE psizl) {
+ return __identifier("_imp__GetTextExtentPoint32W@16")(hdc, lpString, charCount, psizl);
 }
 
 // _GetCharABCWidthsI@20
@@ -169,8 +169,8 @@ COLORREF WINAPI GetPixel(HDC hdc, int x, int y) {
 // _ExtTextOutA@32
 typedef BOOL (WINAPI *PFN_ExtTextOutA)(HDC, int, int, UINT, CONST RECT *, LPCSTR, UINT, CONST INT *);
 extern PFN_ExtTextOutA __identifier("_imp__ExtTextOutA@32");
-BOOL WINAPI ExtTextOutA(HDC hdc, int x, int y, UINT options, CONST RECT * lprect, LPCSTR lpString, UINT c, CONST INT * lpDx) {
- return __identifier("_imp__ExtTextOutA@32")(hdc, x, y, options, lprect, lpString, c, lpDx);
+BOOL WINAPI ExtTextOutA(HDC hdc, int x, int y, UINT options, CONST RECT * lprect, LPCSTR lpString, UINT charCount, CONST INT * lpDx) {
+ return __identifier("_imp__ExtTextOutA@32")(hdc, x, y, options, lprect, lpString, charCount, lpDx);
 }
 
 // _SetBkMode@8
