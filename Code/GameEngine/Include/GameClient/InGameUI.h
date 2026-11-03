@@ -11,6 +11,9 @@ The monotonic setter 0x0029B04D and clearer 0x0029B060 access an unsigned dword 
 Additional rowed declarations: rva0029CC19 0x0029CC19, rva0029FCD9 0x0029FCD9, rva0029B3C1 0x0029B3C1, rva002A123F/1261/1283 at their named RVAs, notifyHeroEarnedAward 0x0029DCA9, notifyOfHeroSpawnEvent 0x0029F954, findSWInfo 0x002A435D, parseNamedRadiusDecalTemplate 0x002A4523, rva002A3E5A 0x002A3E5A, rva002A470F 0x002A470F, rva002A4A0C 0x002A4A0C and rva002A4BFC 0x002A4BFC. Their declarations use the ledger's existing types and names.
 HintSpyTranslator::translateGameMessage 0x00428C43 dispatches slots 26-33 with one GameMessage pointer; its retail call sites and Zero Hour name slots 27-30 endAreaSelectHint/createMoveHint/createAttackHint/createForceAttackHint. Getter 0x0029A7EA (slot 93) reads the drawable ID dword at +0x804. The constructor clears the bytes at +0x8B0/+0x8B8/+0x8B9 at 0x002A6946/0x002A694C/0x002A6952; issueMoveToLocationCommand 0x004292F6 reads those same three bytes. Slot 83 (0x0029AC98) tail-dispatches deselectDrawable, preserving its one Drawable pointer argument; Zero Hour names this disregardDrawable. The row at 0x0029E159 proves the nested FormationPreviewDecal constructor's scope. The pinned method rva000CF155 at 0x000CF155 returns the null-preserving +0x10 interface conversion, called by HideControlBar 0x00402A72 and ShowControlBar 0x00402AE4.
 Donor facts: Zero Hour's InGameUI declaration supplies the names of message toggles, selection getters and placement getters. Their BFME2 table targets access the corresponding retail fields: +0x811, +0x238, +0x53C/+0x540, +0x568/+0x56C/+0x570, +0x20/+0x24 and +0x3C. The interface at +0x10 has only a structural name; its original class name is not established.
+The INI field-parse table at VA 0x00BFC338 gives each key's offset and parser: parseAsciiString 0x0002F11E, parseInt 0x0002EF56, parseBool 0x0002E850, parseColorInt 0x0002F3FE, parseReal 0x0002EFC0, parseDurationReal 0x00338B0A and parseVelocityReal 0x00338BBD type the superweapon (+0x728..+0x748), named-timer (+0x76C..+0x798), drawable-caption (+0x79C..+0x7A4), message (+0x814..+0x838), military-caption (+0x858..+0x86C), floating-text (+0x8A4..+0x8AC) and RMB-anchor (+0x8C3/+0x8C4) members; Zero Hour's table maps the same keys to these names. BFME2-only keys keep neutral names: UnitHelpTextDelay +0x984 (integral store by 0x0002F0F7) and the four Hero*NotificationMessage/Timeout pairs +0x9D0..+0x9EC (AsciiString, Real).
+Rowed accesses: setScrolling/isScrolling 0x0029A7F1/0x0029A83A use byte +0x7F8, setSelecting/isSelecting 0x0029A841/0x0029A854 byte +0x7F9, isPlacementAnchored 0x0029AAFC reads byte +0x554, updateOrderDisplayMode 0x0029A72C stores 0/1/2 to dword +0x8B4, evaluateSoloNexus 0x0029B967 stores the drawable ID at +0x980 (0x0029B9C3), placeBuildAvailable 0x0029BB8B stores 1/2 to dword +0x9C8 (0x0029BCF6/0x0029BD2D), and playCameoMovie 0x0029F3D7 passes the pointer at +0x5C8 to the window's video-buffer setter (0x0029F48D).
+Pointee types: the constructor stores the result of InGameNotificationBoxMovieClip's constructor 0x004E6C34 (called at 0x002A640C) at +0x9CC (0x002A6415). playCameoMovie stores at +0x5CC (0x0029F40D) what TheVideoPlayer's slot 17 returns (call 0x0029F408); slot 17 of its table VA 0x00BC7EA8 is 0x0009151D, whose row returns VideoStreamInterface *. drawConstructPercent 0x002779CE reads TheInGameUI's +0x7A4 byte and +0x7A0 dword inline (0x00277A53/0x00277A59), the Zero Hour inline caption accessors.
 */
 #ifndef BFME2_INGAMEUI_H
 #define BFME2_INGAMEUI_H
@@ -45,6 +48,9 @@ class ThingTemplate;
 class SpecialPowerTemplate;
 class GameMessage;
 class GameWindow;
+class VideoBuffer;
+class VideoStreamInterface;
+class InGameNotificationBoxMovieClip;
 class WindowLayout;
 class MaterialPassClass;
 class Overridable;
@@ -210,6 +216,8 @@ public:
     bool getInputEnabled() { return field015 && field016; }
     bool isInWaypointMode() const { return field8B0; }
     bool isInForceAttackMode() const { return field8B8; }
+    int getDrawableCaptionPointSize() { return m_drawableCaptionPointSize; }
+    bool isDrawableCaptionBold() { return m_drawableCaptionBold; }
     void setEngineInputEnabled(bool);
     void setInputEnabled(bool);
     void resetCamera();
@@ -276,39 +284,97 @@ public:
     char opaque23C[0x53C - 0x23C];
     const ThingTemplate *field53C;
     ObjectID field540;
-    char opaque544[0x568 - 0x544];
+    char opaque544[0x554 - 0x544];
+    bool m_placeAnchorInProgress;
+    char opaque555[0x568 - 0x555];
     int field568;
     int field56C;
     unsigned int field570;
-    char opaque574[0x5CC - 0x574];
-    void *m_5CC;
-    char opaque5D0[0x7A8 - 0x5D0];
+    char opaque574[0x5C8 - 0x574];
+    VideoBuffer *m_cameoVideoBuffer;
+    VideoStreamInterface *m_5CC;
+    char opaque5D0[0x728 - 0x5D0];
+    float m_superweaponFlashDuration;
+    AsciiString m_superweaponNormalFont;
+    int m_superweaponNormalPointSize;
+    bool m_superweaponNormalBold;
+    AsciiString m_superweaponReadyFont;
+    int m_superweaponReadyPointSize;
+    bool m_superweaponReadyBold;
+    char opaque741[0x748 - 0x741];
+    int m_superweaponFlashColor;
+    char opaque74C[0x76C - 0x74C];
+    float m_namedTimerFlashDuration;
+    char opaque770[0x774 - 0x770];
+    int m_namedTimerFlashColor;
+    char opaque778[0x77C - 0x778];
+    AsciiString m_namedTimerNormalFont;
+    int m_namedTimerNormalPointSize;
+    bool m_namedTimerNormalBold;
+    int m_namedTimerNormalColor;
+    AsciiString m_namedTimerReadyFont;
+    int m_namedTimerReadyPointSize;
+    bool m_namedTimerReadyBold;
+    int m_namedTimerReadyColor;
+    AsciiString m_drawableCaptionFont;
+    int m_drawableCaptionPointSize;
+    bool m_drawableCaptionBold;
     int m_drawableCaptionColor;
     char opaque7AC[0x7EC - 0x7AC];
     unsigned int field7EC;
-    char opaque7F0[0x7FC - 0x7F0];
+    char opaque7F0[0x7F8 - 0x7F0];
+    bool m_isScrolling;
+    bool m_isSelecting;
     int m_7FC;
     int m_800;
     unsigned int m_804;
     char opaque808[0x811 - 0x808];
     bool field811;
-    char opaque812[0x8B0 - 0x812];
+    int m_messageColor1;
+    int m_messageColor2;
+    char opaque81C[0x82C - 0x81C];
+    AsciiString m_messageFont;
+    int m_messagePointSize;
+    bool m_messageBold;
+    int m_messageDelayMS;
+    char opaque83C[0x858 - 0x83C];
+    AsciiString m_militaryCaptionTitleFont;
+    int m_militaryCaptionTitlePointSize;
+    bool m_militaryCaptionTitleBold;
+    AsciiString m_militaryCaptionFont;
+    int m_militaryCaptionPointSize;
+    bool m_militaryCaptionBold;
+    char opaque86D[0x8A4 - 0x86D];
+    float m_floatingTextTimeOut;
+    float m_floatingTextMoveUpSpeed;
+    float m_floatingTextMoveVanishRate;
     bool field8B0;
-    char opaque8B1[0x8B8 - 0x8B1];
+    int m_8B4;
     bool field8B8;
     bool field8B9;
-    char opaque8BA[0x8C5 - 0x8BA];
+    char opaque8BA[0x8C3 - 0x8BA];
+    bool m_drawRMBScrollAnchor;
+    bool m_moveRMBScrollAnchor;
     unsigned char m_8C5;
     char opaque8C6[0x978 - 0x8C6];
     GameWindow *m_idleWorkerWin;
     int m_97C;
-    char opaque980[0x988 - 0x980];
+    unsigned int m_soloNexusSelectedDrawableID;
+    unsigned int m_984;
     unsigned int field988;
     char opaque98C[0x9B4 - 0x98C];
     unsigned char m_9B4;
-    char opaque9B5[0x9CC - 0x9B5];
-    void *field9CC;
-    char opaque9D0[0x9F0 - 0x9D0];
+    char opaque9B5[0x9C8 - 0x9B5];
+    int m_9C8;
+    InGameNotificationBoxMovieClip *field9CC;
+    AsciiString m_9D0;
+    float m_9D4;
+    AsciiString m_9D8;
+    float m_9DC;
+    AsciiString m_9E0;
+    float m_9E4;
+    AsciiString m_9E8;
+    float m_9EC;
 };
 
 extern InGameUI *TheInGameUI;
