@@ -397,3 +397,4 @@ GameSlotConnectInfo,Code/GameEngine/Include/GameNetwork/GameSlotConnectInfo.h,ex
 AptValueVector,Code/Libraries/Source/Apt/AptValueVector.h,existing header; contract class_contracts/AptValueVector.json; 21/24 sampled units adopt
 AptSaveLoad,Code/GameEngine/Include/GameClient/AptSaveLoad.h,existing header; contract class_contracts/AptSaveLoad.json; 15/28 sampled units adopt
 LivingWorldCampaignManager,Code/GameEngine/Include/Common/LivingWorldCampaignManager.h,existing header; contract class_contracts/LivingWorldCampaignManager.json; 18/25 sampled units adopt
+LuaScriptEngine,Code/GameEngine/Include/GameLogic/LuaScriptEngine.h,existing header; contract class_contracts/LuaScriptEngine.json; 12/22 sampled units adopt
