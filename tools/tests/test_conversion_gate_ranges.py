@@ -459,6 +459,7 @@ def test_a_one_commit_push_reuses_pre_commits_results(repo, monkeypatch):
     "// cl: (at defaults MSVC 7.1 folds `x |= -1` into `mov [ecx],-1`;",
 ])
 def test_added_cl_line_with_non_flag_words_is_refused(repo, monkeypatch, line):
+    # Each of these reached cl.exe as a stray source operand.
     _, write, commit, base = repo
     write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
     assert check_main(monkeypatch, base, commit()) == 1
@@ -474,3 +475,16 @@ def test_added_cl_line_of_flags_passes(repo, monkeypatch, line):
     _, write, commit, base = repo
     write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
     assert check_main(monkeypatch, base, commit()) == 0
+
+
+@pytest.mark.parametrize("line, code", [
+    ('#include "W:/OpenBFME/Open-BFME-2/Code/Libraries/Include/Lib/Coord3D.h"', 1),
+    ('  #  include <C:\\sdk\\d3d9.h>', 1),
+    ('#include "/usr/include/stdio.h"', 1),
+    ('#include "../Include/Lib/Coord3D.h"', 0),
+    ('#include <d3d9.h>', 0),
+])
+def test_added_absolute_include_is_refused(repo, monkeypatch, line, code):
+    _, write, commit, base = repo
+    write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
+    assert check_main(monkeypatch, base, commit()) == code

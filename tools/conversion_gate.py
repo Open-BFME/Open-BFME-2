@@ -35,6 +35,10 @@ Rule D: an added `// cl:` line under Code/ holds compiler flags and nothing else
         `C:/Program Files/Git/I...`; 573 headers landed that way in two days.
         `cl -c` warns and ignores the stray words, so bytes still match, but
         `cl -E` fails on them, which takes away the census's input proof.
+
+Rule E: an added #include under Code/ names no absolute path. `W:/...` compiles on
+        its author's machine and fails everywhere else, including verification;
+        one such pair kept master red for 6.6 hours.
 """
 
 from collections import Counter
@@ -88,6 +92,7 @@ def added_lift_lines(old, new):
     return [(p, "%s  (%d such lines)" % (first, count)) for p, (first, count) in bad.items()]
 
 
+ABSOLUTE_INCLUDE_RE = re.compile(r'^\s*#\s*include\s*[<"](?:[A-Za-z]:[/\\]|[/\\])')
 CL_MARK = "// cl:"
 CL_QUOTED_INCLUDE_RE = re.compile(r'[/-]I\s*"[^"]*"')
 
@@ -110,6 +115,8 @@ def added_cl_garbage(old, new):
     for line in diff_lines(old, new, "Code/"):
         if line.startswith("+++ b/"):
             path = line[6:]
+        elif line.startswith("+") and ABSOLUTE_INCLUDE_RE.match(line[1:].lstrip("\ufeff")):
+            found.append((path, line[1:].strip()[:80]))
         elif line.startswith("+") and line[1:].lstrip("\ufeff").startswith(CL_MARK):
             bad = cl_non_flags(line[1:].lstrip("\ufeff"))
             if bad:
@@ -401,10 +408,11 @@ def main():
         print("conversion gate: " + offence, file=sys.stderr)
     for path, words in by_trees("cl-flags", old, new, lambda: added_cl_garbage(old, new)):
         failed = True
-        print("conversion gate: %s: `// cl:` holds words that are not flags: %s\n"
-              "cl -E fails on them, which breaks the link census. If that is a mangled /I\n"
-              "flag, your shell rewrote it: in Git Bash set MSYS_NO_PATHCONV=1 before the\n"
-              "tool that writes the line." % (path, words), file=sys.stderr)
+        print("conversion gate: %s: not portable: %s\n"
+              "An absolute #include fails on every other machine. Words in `// cl:` that are not\n"
+              "flags make cl -E fail, which breaks the link census; if that is a mangled /I flag,\n"
+              "your shell rewrote it: in Git Bash set MSYS_NO_PATHCONV=1 before the tool that\n"
+              "writes the line." % (path, words), file=sys.stderr)
     for rva, name, old_src, new_src in by_trees("coverage", old, new, lambda: clean_coverage_lost(old, new)):
         failed = True
         print("conversion gate: %s (%s) was clean C++ at %s, repointed to %s.\n"
