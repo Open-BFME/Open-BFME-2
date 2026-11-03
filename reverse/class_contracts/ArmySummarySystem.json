@@ -1,0 +1,69 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ArmySummarySystem",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 6
+   },
+   "0x18": {
+    "4": 4
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 20,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 20,
+   "28": 1,
+   "32": 1
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummarySystemWalkOn.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp",
+    "Code/GameEngine/Source/GameLogic/System/ArmySummarySystemWalkOn.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/ArmySummarySystemWalkOn.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
