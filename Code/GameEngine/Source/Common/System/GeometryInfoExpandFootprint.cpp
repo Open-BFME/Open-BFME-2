@@ -16,21 +16,12 @@ struct GeometryShape
 	char m_tail[0x03];
 };
 
-class GeometryInfo
-{
-public:
-	void expandFootprint(float radius);
-	GeometryShape *shapeBegin() { return *(GeometryShape **)((char *)this + 0x2c); }
-	GeometryShape *shapeEnd() { return *(GeometryShape **)((char *)this + 0x30); }
-private:
-	void calcBoundingStuff();
-	friend class GeometryShape;
-};
+#include "../../../Include/Common/Geometry.h"
 
 void GeometryInfo::expandFootprint(float radius)
 {
-	GeometryShape *shape = shapeBegin();
-	if (shape != shapeEnd())
+	GeometryShape *shape = reinterpret_cast<GeometryShape *>(field2c[0]);
+	if (shape != reinterpret_cast<GeometryShape *>(field2c[1]))
 	{
 		do
 		{
@@ -41,7 +32,7 @@ void GeometryInfo::expandFootprint(float radius)
 			}
 			++shape;
 		}
-		while (shape != shapeEnd());
+		while (shape != reinterpret_cast<GeometryShape *>(field2c[1]));
 	}
 	calcBoundingStuff();
 }
