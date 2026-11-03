@@ -7441,3 +7441,13 @@ global,?g_00DE03F4@@3PAXA,?__gameMemGetBlockSizePtr@@3PAXA,inferred,agree:nl-b29
 global,?g_00DE03F8@@3PAXA,?__gameMemIsValidBlockPtr@@3PAXA,inferred,agree:nl-02aa6a1e62fb,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x009E03F8
 function,?rva00030850@@YA_NPAXI@Z,?isValidBlock@@YA_NPAXI@Z,inferred,agree:nl-8d7c34bc3b1d,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030850
 function,?rva000308F0@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,?getHeapAllocator@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,inferred,agree:nl-4391a49589bf,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x000308F0
+member,BfmeQueueEOF::m_bfmeCur,BfmeQueueEOF::m_cursor,inferred,agree:nl-6430cb6ce1c4,Code/GameEngine/Source/Common/BfmeConv881.cpp,
+member,BfmeQueueEOF::m_bfmeEnd,BfmeQueueEOF::m_end,inferred,agree:nl-1ced7219deed,Code/GameEngine/Source/Common/BfmeConv881.cpp,
+member,Rva006E0F40Target::m_20,Rva006E0F40Target::m_textBuffer,inferred,agree:nl-b97ee91d1e2f,Code/Libraries/Source/Apt/Rva006E0D40Cluster.cpp,
+member,Rva006E0F40Target::m_24,Rva006E0F40Target::m_displayList,inferred,agree:nl-47c83c952072,Code/Libraries/Source/Apt/Rva006E0D40Cluster.cpp,
+local,Rva005C31FB::DeleteContentMovieClip::s,Rva005C31FB::DeleteContentMovieClip::text,inferred,agree:nl-50a2988d12cd-m90815b3512b60ee27283762c,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp,0x005C3209
+local,Rva005C31FB::DeleteContentMovieClip::t,Rva005C31FB::DeleteContentMovieClip::buffer,inferred,agree:nl-f7f42f013729-m321e4d03cef7d08483a8b993,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp,0x005C3209
+local,PSPlayerAllStats::incorporate#2::v,PSPlayerAllStats::incorporate#2::id,inferred,agree:nl-4fbdede4df11-maec06ad479cf21b4030c68d8,Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp,
+local,PSPlayerAllStats::incorporate#3::v,PSPlayerAllStats::incorporate#3::id,inferred,agree:nl-198c2d047da2-m8205da979bf278e30d1c22e0,Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp,
+local,PSPlayerAllStats::incorporate#4::v,PSPlayerAllStats::incorporate#4::id,inferred,agree:nl-1e1a5a36ff95-m33298c22ef4ffadb98e4cefe,Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp,
+function,?Rva002223E8LevelPath@@YAXAAVAsciiString@@H@Z,?buildLevelPath@@YAXAAVAsciiString@@H@Z,inferred,agree:nl-2a98acca3ac0,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp,0x002223E8

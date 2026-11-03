@@ -7,9 +7,9 @@
 struct BfmeQueueEOF
 {
 	unsigned char m_bfmeHead[4];
-	void **m_bfmeEnd;
+	void **m_end;
 	unsigned char m_bfmePad[4];
-	void **volatile m_bfmeCur;
+	void **volatile m_cursor;
 };
 
 class Object;
@@ -27,11 +27,11 @@ struct BfmeWideResult
 Object *BfmeWideResult::next()
 {
 	BfmeQueueEOF *q = m_bfmeQ;
-	if (q->m_bfmeCur == q->m_bfmeEnd)
+	if (q->m_cursor == q->m_end)
 		return 0;
-	void **cur = q->m_bfmeCur;
+	void **cur = q->m_cursor;
 	Object *object = (Object *)*cur;
-	q->m_bfmeCur = cur + 2;
+	q->m_cursor = cur + 2;
 	return object;
 }
 

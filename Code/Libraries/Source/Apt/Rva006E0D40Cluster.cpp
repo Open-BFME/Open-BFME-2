@@ -67,8 +67,8 @@ private:
 struct Rva006E0F40Target
 {
 	char m_pad00[0x20];
-	void *m_20;		// +0x20
-	AptDisplayList m_24;	// +0x24
+	void *m_textBuffer;		// +0x20
+	AptDisplayList m_displayList;	// +0x24
 	char m_pad28[0x6C - 0x28];
 	int m_6C;		// +0x6C
 };
@@ -82,16 +82,16 @@ void BfmeAptValue006DCD20::rva006E1540()
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();
 		}
-		((Rva006E0F40Target *)m_p)->m_24.rva006F76B0();
+		((Rva006E0F40Target *)m_p)->m_displayList.rva006F76B0();
 		return;
 	}
 	if (static_cast<unsigned char>(rva006E02B0())) {
 		Rva006E0F40Target *target = (Rva006E0F40Target *)rva006E0F40();
-		void *textBuffer = target->m_20;
+		void *textBuffer = target->m_textBuffer;
 		if (textBuffer != 0 && textBuffer != (void *)&g_00DDC2E0) {
 			target->m_6C = 6;
 			g_00E17774(textBuffer, 2);
 		}
-		target->m_20 = 0;
+		target->m_textBuffer = 0;
 	}
 }

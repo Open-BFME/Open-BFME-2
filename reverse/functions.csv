@@ -69344,7 +69344,7 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ?rva001F87BF@Rva001F87BF@@QAE?AUAudioCacheCursor@@XZ,,0x001F87BF,22,Code/GameEngine/Source/Common/Rva00206D91Begin.cpp,matched,Native22 1F87BF..1F87D5 RET4 this+0x88 then ICF-shared hashtable begin 427195 through the hidden result; twin 206D91
 ?rva002714B4@Rva002714B4@@QAEXXZ,,0x002714B4,22,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp,matched,Native22 2714B4..2714CA TheAudio DFE6E8 slot52 with the +0x144 handle
 ?rva00313923@Rva00313923@@QAEXH@Z,,0x00313923,23,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp,matched,Native23 313923..31393A RET4 TheWindowManager DFEF1C slot60 with this and the argument
-?Rva002223E8LevelPath@@YAXAAVAsciiString@@H@Z,,0x002223E8,22,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp,matched,Native22 2223E8..2223FE cdecl format of /_level%d into the string argument via rowed AsciiString format 38150
+?buildLevelPath@@YAXAAVAsciiString@@H@Z,,0x002223E8,22,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp,matched,Native22 2223E8..2223FE cdecl format of /_level%d into the string argument via rowed AsciiString format 38150
 ?get@Rva001F3536Float@@QBEMXZ,,0x001F3536,7,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,matched,Native7 gap leaf 1F3536: float at +0xAC; owner unresolved
 ?rva002026CE@Rva002026CE@@QAEPAHXZ,,0x002026CE,6,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,matched,Native6 gap leaf 2026CE: address of +0x10 in the object at +0; owner unresolved
 ?copyToTarget@Rva00215E99@@QAEXH@Z,,0x00215E99,11,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,matched,Native11 gap leaf 215E99: RET4 copies +4 into +0x38 of the object at +0; owner unresolved

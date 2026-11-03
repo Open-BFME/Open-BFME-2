@@ -147,9 +147,9 @@ void Rva005C31FB::DeleteContentMovieClip()
 {
 	if (!m_flag0C)
 		return;
-	char *t = *(char **)(void *)&m_name;
-	const char *s = t ? t + 8 : "";
-	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level, s, "DeleteContent");
+	char *buffer = *(char **)(void *)&m_name;
+	const char *text = buffer ? buffer + 8 : "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level, text, "DeleteContent");
 	m_flag0C = false;
 }
 
@@ -211,7 +211,7 @@ Rva0025559B::Rva0025559B() {}
 // Native 0x002223E8 (22B, cdecl): formats "/_level%d" with the integer
 // argument into the string argument through the rowed AsciiString::format
 // 0x00038150 (an Apt level-path builder; caller and owner unresolved).
-void Rva002223E8LevelPath(AsciiString &path, int level)
+void buildLevelPath(AsciiString &path, int level)
 {
 	path.format("/_level%d", level);
 }

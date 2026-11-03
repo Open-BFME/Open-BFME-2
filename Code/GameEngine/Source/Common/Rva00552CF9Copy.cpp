@@ -126,11 +126,11 @@ void PSPlayerAllStats::incorporate(const Rva00552D7BSrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
-	int v = src->m_150;
-	m_490 = v;
-	m_300 = v;
-	m_158 = v;
-	m_0 = v;
+	int id = src->m_150;
+	m_490 = id;
+	m_300 = id;
+	m_158 = id;
+	m_0 = id;
 	if (src->m_144 > 0)
 	{
 		unsigned short s = src->m_144;
@@ -145,11 +145,11 @@ void PSPlayerAllStats::incorporate(const Rva00552DDASrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
-	int v = src->m_150;
-	m_490 = v;
-	m_300 = v;
-	m_158 = v;
-	m_0 = v;
+	int id = src->m_150;
+	m_490 = id;
+	m_300 = id;
+	m_158 = id;
+	m_0 = id;
 	if (src->m_144 > 0)
 	{
 		unsigned short s = src->m_144;
@@ -164,11 +164,11 @@ void PSPlayerAllStats::incorporate(const Rva00552E3CSrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
-	int v = src->m_150;
-	m_490 = v;
-	m_300 = v;
-	m_158 = v;
-	m_0 = v;
+	int id = src->m_150;
+	m_490 = id;
+	m_300 = id;
+	m_158 = id;
+	m_0 = id;
 	if (src->m_144 > 0)
 	{
 		unsigned short s = src->m_144;

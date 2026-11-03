@@ -4640,3 +4640,4 @@ __ehhandler$?rva007B48CB@@YAXXZ,0x007A0B40,"Renamed to __ehhandler$?registerUpgr
 ?g_00DE03F8@@3PAXA,0x009E03F8,"Renamed to ?__gameMemIsValidBlockPtr@@3PAXA by tools/rename.py (inferred)"
 ?rva00030850@@YA_NPAXI@Z,0x00030850,"Renamed to ?isValidBlock@@YA_NPAXI@Z by tools/rename.py (inferred)"
 ?rva000308F0@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,0x000308F0,"Renamed to ?getHeapAllocator@@YAPAVGeneralAllocator@Allocator@EA@@I@Z by tools/rename.py (inferred)"
+?Rva002223E8LevelPath@@YAXAAVAsciiString@@H@Z,0x002223E8,"Renamed to ?buildLevelPath@@YAXAAVAsciiString@@H@Z by tools/rename.py (inferred)"
