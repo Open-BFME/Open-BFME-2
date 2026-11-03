@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Native 0x005E4E55..0x005E4F6D (RET8), WB015F9790 lines774-802.
 // Counted icon creation, entry-ID filtering, partition and slot movement.
@@ -71,11 +71,7 @@ class Rva0040CB2CIndexedField {public:int get(int) const;};
 class Rva0040CC0EIndexedField {public:int get(int) const;};
 struct ArmyDetailsArmyView {char pad[0x18];AsciiString name;char gap[0x78-0x1C];ArmySummary *summary;};
 struct Rva005E4300Context;
-class Rva005E4300Cmp {public:
- explicit Rva005E4300Cmp(Rva005E4300Context *p):m_context(p){}
- char operator()(int,int) const;
-private:Rva005E4300Context *m_context;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
 int *__cdecl rva005E49FD(int *,int *,Rva005E4300Cmp,int);
 class ArmyDetailsIconSlotView {public:virtual void slot0();virtual void slot1();virtual void MoveTo(int);};
 struct ArmyDetailsMemberIconView {int *vbtable;char gap[8];ArmyDetailsIconSlotView *slot;};

@@ -1,6 +1,6 @@
 // The comparator carries the army context at +0 (native 5E4300); keep
 // its four-byte state and class spelling consistent through the sort family.
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 
 // ??$__unguarded_partition@PAHHVRva005E4300Cmp@@@_STL@@YAPAHPAH0HVRva005E4300Cmp@@@Z
@@ -16,13 +16,7 @@
 // calls the stateful by-value comparator, so the honest name is the Rva one.
 
 struct Rva005E4300Context;
-class Rva005E4300Cmp
-{
-public:
- char operator()(int a, int b) const;
-private:
- Rva005E4300Context *m_context;
-};
+#include "Rva005E4300Cmp.h"
 
 enum ObjectID { INVALID_ID = 0 };
 

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Native 0x005E52FD..0x005E5424 is the complete 295-byte Populate body.
 // WB 0x015F8D00 names ArmyDetailsPanel::Impl::Populate (source lines624..655).
@@ -49,11 +49,7 @@ class ArmySummary {public:ArmySummaryEntryRef GetEntry(int);char pad[0x40];ArmyD
 class Rva0040CC0EIndexedField {public:int get(int) const;};
 struct ArmyDetailsArmyView {char pad[0x18];AsciiString name;char gap[0x78-0x1C];ArmySummary *summary;};
 struct Rva005E4300Context;
-class Rva005E4300Cmp {public:
- explicit Rva005E4300Cmp(Rva005E4300Context *p):m_context(p){}
- char operator()(int,int) const;
-private:Rva005E4300Context *m_context;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
 namespace _STL {template<class It,class Cmp> void sort(It,It,Cmp);}
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList {public:void append(Rva002BA8F1Listener*);};

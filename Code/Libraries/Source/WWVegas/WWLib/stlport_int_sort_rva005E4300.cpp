@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ArmyDetailsPanel Populate passes its army context as the comparator word.
 // Native median5E4534 and partition5E459F invoke the stateful5E4300 comparator,
@@ -6,13 +6,7 @@
 // STLport4.5.3 introsort control flow; the existing pointer-median provider
 // describes the same reference addresses without introducing another alias.
 struct Rva005E4300Context;
-class Rva005E4300Cmp
-{
-public:
- char operator()(int a, int b) const;
-private:
- Rva005E4300Context *m_context;
-};
+#include "Rva005E4300Cmp.h"
 namespace _STL {
 template<class It,class Compare> It __median(It,It,It,Compare);
 template<class It,class T,class Compare> It __unguarded_partition(It,It,T,Compare);

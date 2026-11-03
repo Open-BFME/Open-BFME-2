@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native005E6B3E..005E6B8F obtains archetype at template+5C4 for the
 // selected entry+18 and sends its Unicode tooltip to the owned Mouse API.
 // Native005E4300..005E4389 low-byte comparator of selected hero keys;
@@ -54,17 +54,13 @@ static bool compareGroups(int ga,int gb)
  if(gb==0)return false;
  return ga<gb;
 }
-class Rva005E4300Cmp {
-public:
- char operator()(int,int) const;
-private: Rva005E4300Context *m_context;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
 char Rva005E4300Cmp::operator()(int keyA,int keyB) const
 {
- const Rva005E4300Entry *a=(const Rva005E4300Entry *)m_context->index->get(keyA);
- if(a->name.compare(m_context->selectedName)==0)return true;
- int rawB=m_context->index->get(keyB);
- const AsciiString *selected=&m_context->selectedName;
+ const Rva005E4300Entry *a=(const Rva005E4300Entry *)field_00->index->get(keyA);
+ if(a->name.compare(field_00->selectedName)==0)return true;
+ int rawB=field_00->index->get(keyB);
+ const AsciiString *selected=&field_00->selectedName;
  const Rva005E4300Entry *b=(const Rva005E4300Entry *)rawB;
  if(b->name.compare(*selected)==0)goto no;
  {int ga=a->group,gb=b->group;

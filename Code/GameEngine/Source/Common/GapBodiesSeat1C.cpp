@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG
+// cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Small GameEngine bodies from .text gaps no ledger row covered (third
 // file; see GapBodiesSeat1A.cpp). Retail bytes establish every shape; owning
 // classes are not recovered unless named, so each keeps an address-derived
@@ -1777,13 +1777,7 @@ void Rva005CE9B4::rva005CE9BF()
 // --- 0x005E4523 (17B): the stored comparator applied to the pointed word
 // and the stored +4 value.
 struct Rva005E4300Context;
-class Rva005E4300Cmp
-{
-public:
-	char operator()(int a, int b) const;					// 0x005E4300
-private:
-	Rva005E4300Context *m_context;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h"
 
 class Rva005E4523
 {

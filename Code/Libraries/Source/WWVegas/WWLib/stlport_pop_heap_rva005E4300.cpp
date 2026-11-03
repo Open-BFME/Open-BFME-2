@@ -1,6 +1,6 @@
 // The comparator carries the army context at +0 (native 5E4300); keep
 // its four-byte state and class spelling consistent through the sort family.
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 
 // ??$__pop_heap@PAHHVRva005E4300Cmp@@@_STL@@YAXPAH00HVRva005E4300Cmp@@@Z @0x005E4A5F 41B
@@ -8,13 +8,7 @@
 // Rva005E4300Cmp at 0x005E4300; calls the rowed __adjust_heap 0x005E48C2.
 // Evidence: same 41B shape as 0x00423EF7 and 0x002074D4 precedents; callees rowed.
 struct Rva005E4300Context;
-class Rva005E4300Cmp
-{
-public:
- char operator()(int a, int b) const;
-private:
- Rva005E4300Context *m_context;
-};
+#include "Rva005E4300Cmp.h"
 
 namespace _STL
 {
