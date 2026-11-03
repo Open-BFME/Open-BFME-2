@@ -39,37 +39,16 @@ enum CellKind
  CellClear=0,CellObstacle=4,CellEdge=8
 }
 ;
-class PathfindCell 
+#include "Code/GameEngine/Include/GameLogic/PathfindCell.h"
+static __forceinline ObjectID cellOwner(const PathfindCell *cell)
 {
- public:
- Bool rva0052DFB1(const Rva0052DFB1Arg *);
- Bool SetType_Dirty(Int);
- __forceinline Int type()const
- {
-  return flags&15;
-  
- }
- __forceinline Int layer()const
- {
-  return(flags>>4)&63;
-  
- }
- __forceinline ObjectID owner()const
- {
-  return info?info->owner:INVALID_OBJECT_ID;
-  
- }
- __forceinline void unpinch()
- {
-  flags&=~0x10000U;
-  
- }
- WallCellInfo *info;
- char prefix[8];
- unsigned flags;
- 
+ WallCellInfo *info=(WallCellInfo *)cell->m_info;
+ return info?info->owner:INVALID_OBJECT_ID;
 }
-;
+static __forceinline void cellUnpinch(PathfindCell *cell)
+{
+ cell->m_0C&=~0x10000U;
+}
 class PathfindZoneManager 
 {
  public: void MarkDirty(Int,Int);
@@ -118,15 +97,15 @@ Bool Pathfinder::rva0052E6E6(Int x,Int y,PathfindCell *cell,PolygonTrigger *poly
  if(!covered)return false;
  if(insert)
  {
-  Int oldLayer=cell->layer();
+  Int oldLayer=cell->getLayer();
   if(!(unsigned char)Rva002E6E8AGet(oldLayer)||layerHeights[oldLayer]<layerHeights[layer])
   {
    if(reinterpret_cast<Rva00366500 *>(cell)->rva00366500(layer))zones.MarkDirty(x,y);
    
   }
-  if(cell->type()==4)
+  if(cell->getType()==4)
   {
-   Object *object=TheGameLogic->findObjectByID(cell->owner());
+   Object *object=TheGameLogic->findObjectByID(cellOwner(cell));
    if(object&&cell->rva0052DFB1(reinterpret_cast<const Rva0052DFB1Arg *>(object)))zones.MarkDirty(x,y);
    
   }
@@ -137,7 +116,7 @@ Bool Pathfinder::rva0052E6E6(Int x,Int y,PathfindCell *cell,PolygonTrigger *poly
   changed|=(unsigned char)cell->SetType_Dirty(0);
   _ReadWriteBarrier();
   if(changed)zones.MarkDirty(x,y);
-  cell->unpinch();
+  cellUnpinch(cell);
   
  }
  else
@@ -145,10 +124,10 @@ Bool Pathfinder::rva0052E6E6(Int x,Int y,PathfindCell *cell,PolygonTrigger *poly
   if(covered==4)
   {
    if(reinterpret_cast<Rva00366500 *>(cell)->rva00366500(1)|reinterpret_cast<Rva00366500 *>(cell)->rva0036652D(0))zones.MarkDirty(x,y);
-   if(cell->type()!=4&&cell->SetType_Dirty(0))zones.MarkDirty(x,y);
+   if(cell->getType()!=4&&cell->SetType_Dirty(0))zones.MarkDirty(x,y);
    
   }
-  else if(cell->type()==8)
+  else if(cell->getType()==8)
   {
    reinterpret_cast<Rva00366500 *>(cell)->rva00366500(1);
    cell->SetType_Dirty(0);

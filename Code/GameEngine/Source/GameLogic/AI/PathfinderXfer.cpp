@@ -64,16 +64,7 @@ template <class K, class C, class A> class set;
 typedef _STL::set<int, _STL::less<int>, _STL::allocator<int> > PathfinderIntSet;
 Xfer *Rva002F1CDDXfer(Xfer *xfer, PathfinderIntSet *values);
 
-class PathfindCell
-{
-public:
-	void DoXfer(Xfer *xfer);
-
-	void *m_info;		// +00
-	int m_04;
-	int m_08;
-	int m_0C;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
 

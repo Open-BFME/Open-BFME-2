@@ -106,11 +106,7 @@ public:
 // callers 0x004DDC94 0x004DDDDE unclaimed.
 typedef int Int;
 
-class PathfindCell
-{
-public:
-	void *m_buffer;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 class MixFileInfoBuffer
 {
@@ -332,21 +328,21 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 		if (cell == 0) {
 			continue;
 		}
-		if (cell->m_buffer == 0) {
+		if (cell->m_info == 0) {
 			In002E6BA1 in;
 			in.m_00 = x;
 			in.m_04 = y;
 			if (TheMixFileInfoPool == 0) {
 				Rva0052DBCDInit();
 			}
-			cell->m_buffer = Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool, (int)cell, &in);
+			cell->m_info = (PathfindCellInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool, (int)cell, &in);
 		}
 		Node16 *node = (Node16 *)reinterpret_cast<Rva004DD73B &>(g_Va00E049D8).rva004DD73B();
 		node->m_0C = cell;
 		node->m_08 = m_08;
 		node->m_04 = ((Outer00 *)m_00)->m_14;
-		node->m_00 = ((MixFileInfoBuffer *)cell->m_buffer)->m_arr[m_04];
-		((MixFileInfoBuffer *)cell->m_buffer)->m_arr[m_04] = node;
+		node->m_00 = ((MixFileInfoBuffer *)cell->m_info)->m_arr[m_04];
+		((MixFileInfoBuffer *)cell->m_info)->m_arr[m_04] = node;
 		((Outer00 *)m_00)->m_14 = cell;
 	}
 	return 0;

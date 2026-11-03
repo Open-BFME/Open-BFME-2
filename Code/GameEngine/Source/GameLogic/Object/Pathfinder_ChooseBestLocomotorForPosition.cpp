@@ -9,12 +9,7 @@ enum PathfindLayerEnum
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class PathfindCell
-{
-public:
-	char m_pad[12];
-	int m_flags;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
@@ -53,7 +48,7 @@ void Pathfinder::ChooseBestLocomotorForPosition(PathfindLayerEnum layer, Rva001E
 	PathfindCell *cell = getCell(layer, ix, iy);
 	unsigned mask;
 	if (cell)
-		mask = (unsigned)(cell->m_flags & 0xf);
+		mask = (unsigned)cell->getType();
 	else
 		mask = 0;
 	obj->rva001E48E8(g_00DBD33C[mask]);

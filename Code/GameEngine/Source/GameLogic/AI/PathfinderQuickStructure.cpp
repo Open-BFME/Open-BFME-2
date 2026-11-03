@@ -10,8 +10,8 @@ class Object {public:bool rva0028AFBB()const;void *vptr;TargetQuickTemplate *def
 class LocomotorSet {public:char pad[0x10];unsigned surfaces;};
 struct BfmeShapeE15 {char pad[0x10];Coord3D offset;char tail[8];};
 class BfmeObjE15 {public:BfmeShapeE15 *getGeometryShape(int);};
-struct QuickStructureCellInfo {char pad[0x28];int structure;};
-class PathfindCell {public:QuickStructureCellInfo *info;int word4;unsigned short zone;unsigned short wordA;unsigned flags;enum CellType {CLEAR=0,OBSTACLE=4};CellType type()const{return (CellType)(flags&15);}};
+#include "../../../Include/GameLogic/PathfindCell.h"
+#include "../../../Include/Common/MixFileInfoBuffer.h"
 struct Rva002E8BCFSrc;
 class Rva002E8BCF {public:Rva002E8BCF(const Rva002E8BCFSrc*,bool,int,bool);unsigned surfaces;bool field4,field5;int priority;bool fieldC;};
 ICoord2D *Rva002E7875WorldToCell(ICoord2D*,bool,const Coord3D*);
@@ -53,17 +53,17 @@ bool Pathfinder::QuickDoesPathExistToStructure(Object *object,const Coord3D *fro
  PathfindLayerEnum sourceLayer=TheTerrainLogic->getLayerForDestination(object,from);
  PathfindCell *sourceCell=rva002E8BF8(sourceLayer,from);
  PathfindCell *targetCell=rva002E8BF8(targetLayer,&target);
- if(targetCell->type()!=4){
+ if(targetCell->getType()!=PathfindCell::CELL_OBSTACLE){
   const Coord3D &offset=((BfmeObjE15*)((char*)container+0xA8))->getGeometryShape(0)->offset;
   target.x=offset.x+target.x;target.y=offset.y+target.y;target.z=offset.z+target.z;
   targetCell=rva002E8BF8(targetLayer,&target);
-  if(targetCell->type()!=4)return QuickDoesPathExist(object,from,&target,(int)set);
+  if(targetCell->getType()!=PathfindCell::CELL_OBSTACLE)return QuickDoesPathExist(object,from,&target,(int)set);
  }
- int structure=targetCell->info?targetCell->info->structure:0;
+ int structure=targetCell->m_info?((MixFileInfoBuffer *)targetCell->m_info)->field28:0;
  ICoord2D goal;Rva002E7875WorldToCell(&goal,true,&target);
  int priority=object->definition->priority;bool flag=object->definition->flag;
  Rva002E8BCF profile((const Rva002E8BCFSrc*)set,!flag,priority-1,object->rva0028AFBB());
- int sourceZone=zones.rva0053241F(&profile,sourceCell->zone);
+ int sourceZone=zones.rva0053241F(&profile,sourceCell->getZone());
  Rva002E7261Info query={this,structure,-1,-1,-1};
  int delta=2-(int)(container->observedSize*-.1f);
  if(rva002F4AC1(&goal,delta,0,object,targetLayer,sourceZone,&query,&profile,set))return true;

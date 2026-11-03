@@ -79,7 +79,8 @@ struct PathfindCellObjectNode
 	Object *m_object; // +0x08
 };
 
-struct PathfindCellInfo
+// The +0x0 cell info view: +0x14 word and the +0x20 object list.
+struct CheckMovementCellInfo
 {
 	unsigned char m_pad00[0x14];
 	int m_14;
@@ -87,20 +88,13 @@ struct PathfindCellInfo
 	PathfindCellObjectNode *m_objects; // +0x20
 };
 
-class PathfindCell
-{
-public:
-	Int getType() const { return m_flags & 0xf; }
-	Int getLayer() const { return (m_flags >> 4) & 0x3f; }
-	Bool rvaBit18() const { return (Bool)((m_flags >> 18) & 1); }
-	Bool rvaInfo14() const { return m_info ? m_info->m_14 != 0 : false; }
-	Bool hasObjects() const { return m_info ? m_info->m_objects != 0 : false; }
-	PathfindCellObjectNode *getObjects() const { return m_info ? m_info->m_objects : 0; }
+#include "../../../Include/GameLogic/PathfindCell.h"
 
-	PathfindCellInfo *m_info;
-	unsigned char m_pad04[0x0C - 0x04];
-	UnsignedInt m_flags; // +0x0C
-};
+static __forceinline Bool cellBit18(const PathfindCell *cell) { return (Bool)((cell->m_0C >> 18) & 1); }
+static __forceinline CheckMovementCellInfo *cellInfo(const PathfindCell *cell) { return (CheckMovementCellInfo *)cell->m_info; }
+static __forceinline Bool cellInfo14(const PathfindCell *cell) { return cellInfo(cell) ? cellInfo(cell)->m_14 != 0 : false; }
+static __forceinline Bool cellHasObjects(const PathfindCell *cell) { return cellInfo(cell) ? cellInfo(cell)->m_objects != 0 : false; }
+static __forceinline PathfindCellObjectNode *cellObjects(const PathfindCell *cell) { return cellInfo(cell) ? cellInfo(cell)->m_objects : 0; }
 
 struct TCheckMovementInfo
 {
@@ -141,10 +135,10 @@ public:
 private:
 	__forceinline Bool checkCellUnits(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
 	{
-		if (cell->rvaInfo14())
+		if (cellInfo14(cell))
 			info.m_32 = true;
 
-		for (PathfindCellObjectNode *node = cell->getObjects(); node; node = node->m_next)
+		for (PathfindCellObjectNode *node = cellObjects(cell); node; node = node->m_next)
 		{
 			Object *unit = node->m_object;
 			if (unit == obj)
@@ -157,7 +151,7 @@ private:
 
 			Bool check = false;
 			Bool isAlly;
-			if (cell->hasObjects())
+			if (cellHasObjects(cell))
 			{
 				isAlly = obj->getRelationship(unit) == ALLIES;
 				if (isAlly)
@@ -236,9 +230,9 @@ private:
 
 Bool Pathfinder::rva002EA0BA(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
 {
-	if (cell->getType() == 5)
+	if (cell->getType() == PathfindCell::CELL_BRIDGE_IMPASSABLE)
 		info.m_34++;
-	if (cell->rvaBit18() && obj->rva0028AFBB())
+	if (cellBit18(cell) && obj->rva0028AFBB())
 		info.m_34++;
 	UnsignedInt options = info.m_14;
 	if (options & 8)

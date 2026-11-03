@@ -14,7 +14,7 @@ public:
 enum PathfindLayerEnum { LAYER_GROUND=0 };
 struct ThingTemplate { char pad[0x109]; unsigned char kind109; };
 class Object { public: void *vptr; ThingTemplate *type; char pad[0x38-8]; Coord3D position; };
-class PathfindCell { public: char pad[0xc]; unsigned int flags; int getLayer() const {return(flags>>4)&0x3f;} };
+#include "../../../Include/GameLogic/PathfindCell.h"
 void *rva002EBC59(void *,void *,int,int,int);
 #include "../../../Include/GameLogic/AIPathfind.h"
 class Rva002F57E6Query
@@ -31,7 +31,7 @@ bool Rva002F57E6Query::rva002F57E6(unsigned int a,unsigned int locomotorSet,unsi
  Pathfinder *pathfinder=(Pathfinder *)this; Object *object=(Object *)a;
  PathfindCell *cell=pathfinder->getCell((PathfindLayerEnum)layer,(int)cellX,cellY);
  if(!cell) return false;
- if((cell->flags&0xf)==2) return false;
+ if(cell->getType()==2) return false;
  if(mode && ((int)cellX<minX || cellY<minY || (int)cellX>maxX || cellY>maxY)) return false;
  if(!pathfinder->rva002E9EA7(object,(int)cellX,cellY,(PathfindLayerEnum)layer,radius,center,word)) return false;
  {
