@@ -421,3 +421,4 @@ TerrainRoadType,Code/GameEngine/Include/GameClient/TerrainRoadType.h,existing he
 Rva007EB810Diag,Code/GameEngine/Include/GameNetwork/Rva007EB810Diag.h,existing header; contract class_contracts/Rva007EB810Diag.json; 39/43 sampled units adopt
 Rva00507823,Code/GameEngine/Include/GameLogic/Module/Rva00507823.h,existing header; contract class_contracts/Rva00507823.json; 45/57 sampled units adopt
 AsciiStringRef,Code/GameEngine/Include/Common/AsciiStringRef.h,existing header; contract class_contracts/AsciiStringRef.json; 78/83 sampled units adopt
+Rva0041534BIter,Code/GameEngine/Include/GameClient/Rva0041534BIter.h,existing header; contract class_contracts/Rva0041534BIter.json; 38/41 sampled units adopt
