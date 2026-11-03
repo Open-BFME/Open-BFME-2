@@ -1,0 +1,509 @@
+{
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "names": {
+    "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z": {
+      "candidate_size": 26,
+      "candidate_relocations": [],
+      "candidate_bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+      "control_size": 25,
+      "ledger": [],
+      "pins": [],
+      "index_comdats": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "53bbdcdcf0e0",
+          "verdict": null
+        }
+      ],
+      "native_bindings": []
+    },
+    "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z": {
+      "candidate_size": 12,
+      "candidate_relocations": [],
+      "candidate_bytes": "8b018b4c24048d0488c20400",
+      "control_size": null,
+      "ledger": [],
+      "pins": [],
+      "index_comdats": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva00057^e6^a.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_hash_bodies.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^owned^bucket^table^dtors^o1.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_string_uint_resize.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hashtable_asciistring.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva001^d^d^c^c5.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^f^x^list.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^armor.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^move^to^formation^group^order.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_assetmanager_^rva0061^f^f^a0.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_assetmanager_assetmanager_impl.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_assetmanager_^asset^manager^impl^refresh.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^template.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^f^x^list^store^parse.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^experience^level^assign.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^experience^level^store^add^experience^level.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^skirmish^a^i^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^army^definition^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^emotion^tracker^update_update.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^add_^prototype.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        }
+      ],
+      "native_bindings": []
+    },
+    "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z": {
+      "candidate_size": 26,
+      "candidate_relocations": [],
+      "candidate_bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+      "control_size": 5,
+      "ledger": [],
+      "pins": [],
+      "index_comdats": [
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "digest": "d05efd8b25a3",
+          "verdict": null
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "0dcbb13bb0b0",
+          "verdict": null
+        }
+      ],
+      "native_bindings": []
+    },
+    "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z": {
+      "candidate_size": 109,
+      "candidate_relocations": [
+        [
+          42,
+          20,
+          "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+        ],
+        [
+          59,
+          20,
+          "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+        ],
+        [
+          94,
+          20,
+          "_free"
+        ]
+      ],
+      "candidate_bytes": "8b44240453558b2885ed8bd9745a8b450456578d7b048b4f042b0f33d2c1f902f7f18bcf5289542418e8000000008b303bf57512ff7424148bcfe8000000008b0e890856eb178b06eb083bc5740a8bf08b0085c075f4eb0e8b08890e50e800000000ff4b10595f5e5d5bc20400",
+      "control_size": 103,
+      "ledger": [],
+      "pins": [],
+      "index_comdats": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "e1044b131ad5",
+          "verdict": null
+        }
+      ],
+      "native_bindings": []
+    },
+    "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ": {
+      "candidate_size": 9,
+      "candidate_relocations": [],
+      "candidate_bytes": "8b41042b01c1f802c3",
+      "control_size": null,
+      "ledger": [
+        {
+          "name": "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+          "export_rva": "",
+          "target_rva": "0x00023BC0",
+          "target_size": "25",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp",
+          "status": "matched",
+          "notes": "vendored vector<void*> instantiation; the unit needs /Od /Ob1; migrated=stlport-4.6"
+        }
+      ],
+      "pins": [],
+      "index_comdats": [
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj",
+          "digest": "062d44dd1806",
+          "verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr_alloc.obj",
+          "digest": "062d44dd1806",
+          "verdict": "retail"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^damage^f^x_map^erase^range.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^common_^rva00787^c20^hash^owner^tables.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^message^stream_^selection^i^d^map^destructor.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w4^rva0060^c^b^a^c.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^libraries_^source_assetmanager_^asset^manager^impl^refresh.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^region^manager.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^system_^experience^level^store^add^experience^level.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^skirmish^a^i^manager.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^army^definition^manager.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^emotion^tracker^update_update.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        }
+      ],
+      "native_bindings": [
+        {
+          "rva": "0x23bc0",
+          "owner_sizes": [
+            25
+          ],
+          "owners": [
+            {
+              "name": "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+              "export_rva": "",
+              "target_rva": "0x00023BC0",
+              "target_size": "25",
+              "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp",
+              "status": "matched",
+              "notes": "vendored vector<void*> instantiation; the unit needs /Od /Ob1; migrated=stlport-4.6"
+            }
+          ],
+          "extent": 25,
+          "native_bytes": "558bec51894dfc8b45fc8b4dfc8b40042b01c1f8028be55dc3",
+          "candidate_equal_extent_and_bytes": false
+        }
+      ]
+    },
+    "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z": {
+      "candidate_size": 47,
+      "candidate_relocations": [],
+      "candidate_bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+      "control_size": 60,
+      "ledger": [],
+      "pins": [
+        {
+          "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "address": "0x002888D4",
+          "notes": "ICF-folded STLport hashtable _M_find for LivingWorldManager's +0x218 beacon map hash_map<int / Rva003FD14D*>; caller CreateBeaconObject 0x00213171 fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+        }
+      ],
+      "index_comdats": [
+        {
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "digest": "19c037c11543",
+          "verdict": "retail"
+        },
+        {
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "e7204c085c9b",
+          "verdict": "unknown"
+        }
+      ],
+      "native_bindings": [
+        {
+          "rva": "0x2888d4",
+          "owner_sizes": [
+            47
+          ],
+          "owners": [
+            {
+              "name": "??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@ABW4NameKeyType@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameLogic/Object/Armor.cpp",
+              "status": "matched",
+              "notes": "placed by masked whole-.text search of the compiled body - single hit"
+            },
+            {
+              "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHW4Relationship@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHW4Relationship@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHW4Relationship@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHW4Relationship@@@_STL@@@1@ABH@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/Common/RTS/PlayerGetRelationship.cpp",
+              "status": "matched",
+              "notes": "ICF twin of the owner row here: callers reach this body by this name and this unit's copy equals retail at it (bytes and relocations); replaces the symbols.csv pin"
+            },
+            {
+              "name": "??$_M_find@I@?$hashtable@U?$pair@$$CBIH@_STL@@IU?$hash@I@2@U?$_Select1st@U?$pair@$$CBIH@_STL@@@2@U?$equal_to@I@2@V?$allocator@U?$pair@$$CBIH@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBIH@_STL@@@1@ABI@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp",
+              "status": "matched",
+              "notes": "Typed unsigned-key integer-mapped hash lookup emitted by native57378 reconstruction; independently verify all47 bytes against existing Armor lookup owner; no relocations"
+            },
+            {
+              "name": "??$_M_find@W4ObjectID@@@?$hashtable@U?$pair@$$CBW4ObjectID@@PAVRva0054840A@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@PAVRva0054840A@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@PAVRva0054840A@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4ObjectID@@PAVRva0054840A@@@_STL@@@1@ABW4ObjectID@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp",
+              "status": "matched",
+              "notes": "Typed ObjectID-pointer STLport4.5.3 identity-hash specialization; key-only lookup; nested native bucket layout; all47 bytes plus zero relocs independently exact; genuine ICF no unique byte gain"
+            },
+            {
+              "name": "??$_M_find@W4ObjectID@@@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@1@ABW4ObjectID@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp",
+              "status": "matched",
+              "notes": "ICF twin; real compiled ObjectID-Coord3D hashtable lookup required by native formation order slot4; all47 bytes and zero relocations identical to existing Armor key-only lookup; established map member type"
+            },
+            {
+              "name": "??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@1@ABW4NameKeyType@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameClient/FXListStoreParse.cpp",
+              "status": "matched",
+              "notes": "vendored=stlport-4.5.3; actual typed FX-list pointer map from native1E2CAE; complete emitted body and every owner relocation independently proven; genuine ICF with no independent address and zero unique-byte credit; fold-proof=Code/GameEngine/Source/GameClient/FXListStoreParse.cpp"
+            },
+            {
+              "name": "?find@ObjectIdMap@@QAEPAUObjectIdNode@@ABW4ObjectID@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/Common/Made002CC7DE.cpp",
+              "status": "matched",
+              "notes": "gen-alias; Existing ObjectIdMap pin and GameLogic lookup37 establish receiver/return ABI. Native47B uses4/8 bucket pointers and unsigned key remainder with nodes next0/key4/object8; STLport _M_find supplies reference traversal. Visible bucket accessors reproduce all47 bytes with zero relocation as whole-body twin of every existing owner. No new coverage or pin."
+            },
+            {
+              "name": "??$_M_find@W4ObjectID@@@?$hashtable@U?$pair@$$CBW4ObjectID@@PAVObject@@@_STL@@W4ObjectID@@U?$hash@H@2@U?$_Select1st@U?$pair@$$CBW4ObjectID@@PAVObject@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@PAVObject@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4ObjectID@@PAVObject@@@_STL@@@1@ABW4ObjectID@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_update.cpp",
+              "status": "matched",
+              "notes": "ICF twin; real STLport hash_map<ObjectID Object* hash<int>> _M_find the SpawnBehavior GameLogic view emits for findObjectByID 0x00049DC5; all 47 bytes and zero relocs identical to the ObjectID lookups folded here; retail-proves those units' findObjectByID copies"
+            },
+            {
+              "name": "??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@PAVArmyDefinition@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVArmyDefinition@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVArmyDefinition@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@PAVArmyDefinition@@@_STL@@@1@ABW4NameKeyType@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinitionManager.cpp",
+              "status": "matched",
+              "notes": "vendored=stlport-4.5.3; native41F871 and WB1333640 prove NameKeyType to ArmyDefinition pointer registry; complete47B zero-relocation lookup is the genuine ICF twin of all current owners; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinitionManager.cpp"
+            },
+            {
+              "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBH_N@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBH_N@_STL@@@1@ABH@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameClient/MessageStream/SelectionIDMap.cpp",
+              "status": "matched",
+              "notes": "vendored=stlport-4.5.3; native0043003C ID membership uses four-byte keys and one-byte true values; int/bool structural inference; complete 47B zero-relocation ICF twin; fold-proof=Code/GameEngine/Source/GameClient/MessageStream/SelectionIDMap.cpp"
+            },
+            {
+              "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHVAsciiString@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHVAsciiString@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHVAsciiString@@@_STL@@@1@ABH@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager.cpp",
+              "status": "matched",
+              "notes": "ICF twin of the existing key-only hash lookup; real int-AsciiString dozer map required by native addNewAIForPlayer; all47 bytes plus zero relocations equal retail; no unique byte credit; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAIManager.cpp"
+            },
+            {
+              "name": "??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@PAVBucket@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVBucket@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVBucket@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@PAVBucket@@@_STL@@@1@ABW4NameKeyType@@@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/Common/NameKeyGeneratorKeyToName.cpp",
+              "status": "matched",
+              "notes": "ICF twin; typed reverse Bucket pointer lookup; all 47 bytes identical to Armor owner with zero relocations; native keyToName calls this address; migrated=stlport-4.6"
+            },
+            {
+              "name": "?_M_find@KeyToBucketMap@NameKeyGenerator@@ABEPAXABH@Z",
+              "export_rva": "",
+              "target_rva": "0x002888D4",
+              "target_size": "47",
+              "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp",
+              "status": "matched",
+              "notes": "ICF twin;fold-proof=Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added"
+            }
+          ],
+          "extent": 47,
+          "native_bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+          "candidate_equal_extent_and_bytes": true
+        }
+      ]
+    }
+  }
+}
