@@ -207,3 +207,84 @@ def test_a_data_only_source_is_claimed_by_its_data_rows(tmp_path, monkeypatch, c
         data_rows.HEADER + "\n?OurLanguage@@3HA,0x00403000,va,4,.data,Code/Language.cpp,matched,ZH,m\n")
     code, out = report()
     assert code == 0 and "ZERO matched" not in out
+
+
+INLINE_ADAPTER = """namespace _STL {
+    template <> __declspec(dllimport) __forceinline
+    unsigned int TableAlias::_M_bkt_num_key(const Key &key) const
+    {
+        return reinterpret_cast<Native *>(this)->bucketIndex(&key);
+    }
+}
+"""
+
+
+def test_inline_specializations_remain_in_the_source_inventory():
+    candidates = set()
+    definitions = find_defined_functions(INLINE_ADAPTER, inline_candidates=candidates)
+    assert definitions == candidates == {("_STL::TableAlias", "_M_bkt_num_key", None)}
+
+
+@pytest.mark.parametrize("prefix", [
+    "", "inline ", "__forceinline ",
+    "/* template <> __declspec(dllimport) __forceinline */\n",
+    '// template <> __declspec(dllimport) __forceinline\n',
+    'const char *s = "template <> __declspec(dllimport) __forceinline";\n',
+])
+def test_inline_syntax_and_comments_do_not_excuse_unclaimed_bodies(prefix):
+    candidates = set()
+    definitions = find_defined_functions(prefix + "void Worker::run() {}\n",
+                                         inline_candidates=candidates)
+    assert definitions == {("Worker", "run", None)}
+    assert candidates == set()
+
+
+@pytest.mark.parametrize("staged", [False, True])
+@pytest.mark.parametrize("obstacle", [
+    None, "body", "import", "other-class", "stale", "changed-copy", "missing-object",
+])
+def test_inline_adapter_requires_current_absent_object_symbol(
+        tmp_path, monkeypatch, capsys, staged, obstacle):
+    import build
+    import find_declared_unmatched as tool
+    from test_gate_exploits import coff, TEXT
+    source = "Code/Walkers.cpp"
+    (tmp_path / "Code").mkdir()
+    path = tmp_path / source
+    path.write_text(INLINE_ADAPTER + ("// changed\n" if obstacle == "changed-copy" else ""))
+    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    monkeypatch.setattr(tool, "read_function_names", lambda *_: (
+        {"?walk@@YAXXZ"}, {"?walk@@YAXXZ"}, {source: 1}, {"?walk@@YAXXZ": {source}}))
+    monkeypatch.setattr(tool, "read_data_row_sources", lambda *_: [])
+    monkeypatch.setattr(tool, "load_claims_whitelist", lambda: set())
+    monkeypatch.setattr(tool, "git_show", lambda *_: INLINE_ADAPTER)
+    obj = tmp_path / "walkers.obj"
+    symbols = []
+    if obstacle in ("body", "other-class"):
+        cls = "?$hashtable@VKey@@" if obstacle == "body" else "Unrelated"
+        symbols = [(f"?_M_bkt_num_key@{cls}@@QAEIXZ", 0, 1, 0x20, 2, 0)]
+    elif obstacle == "import":
+        symbols = [("__imp_?_M_bkt_num_key@?$hashtable@VKey@@@@QAEIXZ", 0, 0, 0x20, 2, 0)]
+    if obstacle != "missing-object":
+        obj.write_bytes(coff([(".text", TEXT, b"\xc3", [])], symbols))
+    monkeypatch.setattr(build, "obj_path", lambda *_: obj)
+    current_calls = []
+
+    def current(src, out, *, strict=False):
+        current_calls.append((src, out, strict))
+        return obstacle != "stale"
+
+    monkeypatch.setattr(build, "compile_is_current", current)
+    monkeypatch.setattr(sys, "argv", ["find_declared_unmatched.py", "--fail", source]
+                        + (["--staged"] if staged else []))
+    # A changed working copy can only prove itself in unstaged mode.
+    rejected = obstacle not in (None, "changed-copy") or (staged and obstacle == "changed-copy")
+    if rejected:
+        with pytest.raises(SystemExit) as exc:
+            tool.main()
+        assert exc.value.code == 1
+        assert "TableAlias::_M_bkt_num_key" in capsys.readouterr().out
+    else:
+        tool.main()
+        assert "All defined functions are already matched." in capsys.readouterr().out
+    assert all(strict for _, _, strict in current_calls)

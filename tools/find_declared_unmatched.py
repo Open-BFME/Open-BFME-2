@@ -154,7 +154,7 @@ def mangle_method(class_name: str, method_name: str) -> str:
     return f"{prefix}{mangled_class}@@"
 
 
-def find_defined_functions(text: str):
+def find_defined_functions(text: str, *, inline_candidates=None):
     # Match definitions like:
     #   ReturnType ClassName::methodName(
     #   Namespace::ClassName::methodName(
@@ -182,6 +182,10 @@ def find_defined_functions(text: str):
     # report a class called NAME and fail a commit. Normalise first: the parse
     # below cares about lines, not about how they were terminated.
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    specifier_text = re.sub(
+        r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"',
+        lambda m: re.sub(r"[^\n]", " ", m.group()), normalized
+    ) if inline_candidates is not None else ""
     next_line_offset = 0
     for line in normalized.split("\n"):
         line_offset = next_line_offset
@@ -290,9 +294,48 @@ def find_defined_functions(text: str):
                 # Filter out anonymous namespace entries.
                 ns_parts = [ns for ns, _ in namespace_stack if ns]
                 class_name = "::".join(ns_parts + [class_name])
-            results.add((class_name, method_name, symbol_comment))
+            definition = (class_name, method_name, symbol_comment)
+            results.add(definition)
+            if inline_candidates is not None:
+                # MSVC's dllimport/forceinline specializations may have no
+                # separate body at all. Keep them in the ordinary inventory;
+                # only a current object can prove that they were inline-only.
+                end = line_offset + match.start(1)
+                prefix = specifier_text[max(0, end - 1024):end]
+                if re.search(
+                        r'\btemplate\s*<\s*>\s*__declspec\s*\(\s*dllimport\s*\)'
+                        r'\s*__forceinline\s+[\w\s:&*<>,]*\Z', prefix):
+                    inline_candidates.add(definition)
             symbol_comment = None
     return results
+
+
+def inline_only_definitions(source, text, candidates):
+    """Prove absence of both emitted bodies and imports, never trust inline syntax.
+
+    The receipt must cover the exact inspected text, flags, headers and include
+    search inventory. In staged mode a different working copy cannot supply the
+    proof. Search by method name across all class spellings: the source may use
+    a typedef, whereas COFF always names the underlying specialization.
+    """
+    if not candidates or source.read_text(encoding="utf-8") != text:
+        return set()
+    import build
+    import struct
+    obj = build.obj_path(source)
+    try:
+        if not build.compile_is_current(source, obj, strict=True):
+            return set()
+        before = obj.stat()
+        names = [symbol["name"] for symbol in build.read_object_symbols(obj.read_bytes())]
+        if obj.stat() != before or not build.compile_is_current(source, obj, strict=True):
+            return set()
+    except (OSError, ValueError, KeyError, struct.error):
+        return set()
+    return {definition for definition in candidates
+            if re.fullmatch(r"[A-Za-z_]\w*", definition[1])
+            and definition[1] != definition[0].split("::")[-1]
+            and not any(f"?{definition[1]}@" in name for name in names)}
 
 
 def read_path_list(name):
@@ -393,7 +436,12 @@ def main():
                 f"{len(marker_labels)} unclaimed definition(s)"
             )
 
-        for class_name, method_name, symbol_name in find_defined_functions(text):
+        inline_candidates = set()
+        definitions = find_defined_functions(text, inline_candidates=inline_candidates)
+        inline_only = inline_only_definitions(source_path, text, inline_candidates)
+        for class_name, method_name, symbol_name in definitions:
+            if (class_name, method_name, symbol_name) in inline_only:
+                continue
             if symbol_name:
                 # `// ?<mangled> absent-from-retail` marks a definition kept only to
                 # force emission/instantiation of other matched functions; the retail
