@@ -1,0 +1,6 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
+seed: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp  (2 files)
+  ObjectCreationUpgrade: applied (2 files)
+      note: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp gets enum NameKeyType{...};
+      rename in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp: m_flag -> m_flag2C, m_status -> m_status28
+applied: ['ObjectCreationUpgrade']

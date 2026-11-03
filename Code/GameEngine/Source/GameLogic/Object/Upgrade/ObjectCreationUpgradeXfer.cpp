@@ -37,21 +37,28 @@ class Snapshot;
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
+public:
+	void rva004B463C();
+	static NameKeyType rva004B3FF5();
 protected:
 	virtual void xfer(Xfer *xfer);
-
 private:
-	unsigned int m_status;
-	bool m_flag;
+	unsigned int m_status28; // +0x28
+	bool m_flag2C; // +0x2C
+	char m_pad2D[0x3];
 };
 
 void ObjectCreationUpgrade::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	*xfer == m_flag;
-	*xfer == m_status;
+	*xfer == m_flag2C;
+	*xfer == m_status28;
 	UpdateModule::xfer(xfer);
 	UpgradeMux::upgradeMuxXfer(xfer);
 }

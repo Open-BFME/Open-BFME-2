@@ -1,0 +1,50 @@
+{
+  "tu": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+  "classes": {
+    "ObjectCreationUpgrade": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp"
+      ],
+      "notes": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp gets enum NameKeyType{...};"
+      ],
+      "renames": {
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp": {
+          "m_status": "m_status28",
+          "m_flag": "m_flag2C"
+        }
+      },
+      "fields": [
+        [
+          "0x28",
+          4,
+          "m_status28",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x2C",
+          1,
+          "m_flag2C",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ]
+      ],
+      "block": "class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule\n{\npublic:\n\tvoid rva004B463C();\n\tstatic NameKeyType rva004B3FF5();\nprotected:\n\tvirtual void xfer(Xfer *xfer);\nprivate:\n\tunsigned int m_status28; // +0x28\n\tbool m_flag2C; // +0x2C\n\tchar m_pad2D[0x3];\n};\n",
+      "files_changed": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp"
+      ]
+    }
+  },
+  "canonical": {},
+  "applied": [
+    "ObjectCreationUpgrade"
+  ],
+  "failed": {},
+  "seed": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+  "files": [
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp"
+  ]
+}

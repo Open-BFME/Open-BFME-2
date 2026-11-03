@@ -87,13 +87,14 @@ public:
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
-    void rva004B463C();
-    static NameKeyType rva004B3FF5();
+	void rva004B463C();
+	static NameKeyType rva004B3FF5();
 protected:
-    virtual void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 private:
-    unsigned int m_status28;
-    bool m_flag2C;
+	unsigned int m_status28; // +0x28
+	bool m_flag2C; // +0x2C
+	char m_pad2D[0x3];
 };
 //
 // Ported from Open-BFME-1 GameEngine/Source/GameLogic/AI/Rva002D6EB0ForwardedMember.cpp
