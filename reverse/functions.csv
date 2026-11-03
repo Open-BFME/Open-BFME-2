@@ -6264,7 +6264,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004C0988@@UAE@XZ,,0x004C0988,25,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,opaque MI dtor
 ??1Rva004C0A4C@@UAE@XZ,,0x004C0A4C,25,Code/GameEngine/Source/Common/Rva004BF951Derived.cpp,matched,opaque MI dtor odd secondary
 ??1Rva004C131B@@UAE@XZ,,0x004C131B,25,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,opaque MI dtor
-??1OathbreakerBody@@UAE@XZ,,0x004C1EF7,25,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyConstructor.cpp,matched,OathbreakerBody destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085C180 slot 0 is the rowed OathbreakerBody::attemptDamage 0x004C1F71; was opaque Rva004C1EF7
+??1OathbreakerBody@@UAE@XZ,,0x004C1EF7,25,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBody.cpp,matched,OathbreakerBody destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085C180 slot 0 is the rowed OathbreakerBody::attemptDamage 0x004C1F71; was opaque Rva004C1EF7
 ??1PorcupineFormationBodyModule@@UAE@XZ,,0x004C2016,25,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModule.cpp,matched,PorcupineFormationBodyModule destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085C318 slot 0 is the rowed PorcupineFormationBodyModule::attemptDamage 0x004C2230; was opaque Rva004C2016
 ??1Rva000CEB6F@@UAE@XZ,,0x000CEB6F,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor tail-jmp opaque fold base
 ??1Rva00252B68@@UAE@XZ,,0x00254C4B,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor
@@ -10051,7 +10051,7 @@ _math_rad,,0x00748740,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004C089E@@UAEPAXI@Z,,0x004C08FC,28,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C0A4C@@UAEPAXI@Z,,0x004C0B44,28,Code/GameEngine/Source/Common/Rva004BF951Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004C131B@@UAEPAXI@Z,,0x004C1379,28,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GOathbreakerBody@@UAEPAXI@Z,,0x004C1F55,28,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyConstructor.cpp,matched,OathbreakerBody scalar deleting destructor: calls 0x004C1EF7 and operator delete; was opaque Rva004C1EF7
+??_GOathbreakerBody@@UAEPAXI@Z,,0x004C1F55,28,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBody.cpp,matched,OathbreakerBody scalar deleting destructor: calls 0x004C1EF7 and operator delete; was opaque Rva004C1EF7
 ??_GPorcupineFormationBodyModule@@UAEPAXI@Z,,0x004C2079,28,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBodyModule.cpp,matched,PorcupineFormationBodyModule scalar deleting destructor: calls 0x004C2016 and operator delete; was opaque Rva004C2016
 ??_GRva004FCD49@@UAEPAXI@Z,,0x004FCDB3,28,Code/GameEngine/Source/Common/FreeMemberDeleters.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GAITargetHeuristicExpansionBase@@UAEPAXI@Z,,0x0057320F,28,Code/GameEngine/Source/Common/Rva005CB23CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -14277,7 +14277,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ??0ReflectDamage@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BABB4,42,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0HighlanderBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C0781,42,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0ImmortalBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C086E,42,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-??0OathbreakerBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C1EC7,42,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0OathbreakerBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C1EC7,42,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBody.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0RespawnBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C12EB,42,Code/GameEngine/Source/GameLogic/Object/Body/RespawnBodyCtorThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0LevelGrantSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C2B0E,49,Code/GameEngine/Source/GameLogic/Object/Update/LevelGrantSpecialPowerCtorThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0OCLSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C30D8,42,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
