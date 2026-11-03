@@ -163,13 +163,9 @@ struct Rva005F921FHolder
 	char m_name[1];
 };
 
+#include "../../../../GameEngine/Include/GameClient/BattlePromptMovieClip.h"
 namespace StrategicHUD
 {
-class BattlePromptMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);

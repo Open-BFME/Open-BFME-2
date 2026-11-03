@@ -1006,13 +1006,9 @@ private:
 // argument is unused.
 #include "../../Include/Common/Rva000AD6F4.h"
 
+#include "../../Include/GameClient/BattlePromptMovieClip.h"
 namespace StrategicHUD
 {
-class BattlePromptMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::BattlePromptMovieClip::Impl

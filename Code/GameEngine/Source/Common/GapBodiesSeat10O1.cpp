@@ -1128,13 +1128,9 @@ void Rva005F600D::rva005F6014(int)
 // +0x3C through the rowed Rva000AD6F4::clear 0x000AD6F4; the command
 // argument is unused.
 #include "../../Include/Common/Rva000AD6F4.h"
+#include "../../Include/GameClient/BattlePromptMovieClip.h"
 namespace StrategicHUD
 {
-class BattlePromptMovieClip
-{
-public:
-	class Impl;
-};
 }
 class StrategicHUD::BattlePromptMovieClip::Impl
 {

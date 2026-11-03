@@ -130,19 +130,9 @@ private: void *ptr;
 // 0x005F91F3 (address-named; WorldBuilder asserts allyData.pageFactory).
 struct Rva005F91F3Src;
 
+#include "../../../../../Include/GameClient/BattlePromptMovieClip.h"
 namespace StrategicHUD
 {
-class BattlePromptMovieClip
-{
-public:
-	class Impl;
-
-	BattlePromptMovieClip(int level, const AsciiString &name, const Rva005F91F3Src &ally);
-	virtual ~BattlePromptMovieClip();
-
-private:
-	Impl *m_impl; // +0x04
-};
 }
 class StrategicHUD::BattlePromptMovieClip::Impl
 {

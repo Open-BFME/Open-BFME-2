@@ -25,13 +25,9 @@ public:
 	virtual void s4();
 };
 
+#include "../../Include/GameClient/BattlePromptMovieClip.h"
 namespace StrategicHUD
 {
-class BattlePromptMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::BattlePromptMovieClip::Impl
