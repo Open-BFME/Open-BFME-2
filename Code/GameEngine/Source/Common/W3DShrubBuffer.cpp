@@ -172,10 +172,10 @@ void W3DShrubBuffer::rva000E7016()
 	}
 	m_minY = 0.0f;
 	m_minX = 0.0f;
-	float tmp = g_Va00BBB8D8;
+	float initialExtent = g_Va00BBB8D8;
 	m_count = 0;
-	m_maxY = tmp;
-	m_maxX = tmp;
+	m_maxY = initialExtent;
+	m_maxX = initialExtent;
 	m_dirty = 1;
 	for (int i = 0; i < 0x40; ++i)
 	{

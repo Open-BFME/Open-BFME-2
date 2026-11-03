@@ -73,11 +73,11 @@ private:
 };
 bool Rva00541579::rva00541579(int key)
 {
-    int h = m_hint1C;
-    if (h >= 0 && (unsigned)h < m_keys.size()) {
-        BfmePod28 *b = m_keys.m_begin;
-        int cur = b[h].key;
-        if (key >= cur && ((unsigned)(h + 1) >= (unsigned)(m_keys.m_end - b) || key < b[h + 1].key))
+    int cachedIndex = m_hint1C;
+    if (cachedIndex >= 0 && (unsigned)cachedIndex < m_keys.size()) {
+        BfmePod28 *keyBegin = m_keys.m_begin;
+        int cur = keyBegin[cachedIndex].key;
+        if (key >= cur && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].key))
             return cur == key;
     }
     if (m_keys.empty())
@@ -86,11 +86,11 @@ bool Rva00541579::rva00541579(int key)
         return false;
     }
     int &hint = m_hint1C;
-    BfmePod28 *b = m_keys.m_begin;
-    hint = rva005414C2(b, m_keys.m_end, *reinterpret_cast<const BfmePod28 *>(&key)) - b;
-    if ((unsigned)hint >= (unsigned)(m_keys.m_end - b) || (hint > 0 && b[hint].key != key))
+    BfmePod28 *keyBegin = m_keys.m_begin;
+    hint = rva005414C2(keyBegin, m_keys.m_end, *reinterpret_cast<const BfmePod28 *>(&key)) - keyBegin;
+    if ((unsigned)hint >= (unsigned)(m_keys.m_end - keyBegin) || (hint > 0 && keyBegin[hint].key != key))
         --hint;
-    return b[hint].key == key;
+    return keyBegin[hint].key == key;
 }
 
 // ?rva00541641@Rva005418CB@@QAE_NH@Z retail 0x00541641 (200 bytes): the same
@@ -112,11 +112,11 @@ private:
 };
 bool Rva005418CB::rva00541641(int key)
 {
-    int h = m_hint1C;
-    if (h >= 0 && (unsigned)h < m_keys.size()) {
-        BfmePod20 *b = m_keys.m_begin;
-        int cur = b[h].key;
-        if (key >= cur && ((unsigned)(h + 1) >= (unsigned)(m_keys.m_end - b) || key < b[h + 1].key))
+    int cachedIndex = m_hint1C;
+    if (cachedIndex >= 0 && (unsigned)cachedIndex < m_keys.size()) {
+        BfmePod20 *keyBegin = m_keys.m_begin;
+        int cur = keyBegin[cachedIndex].key;
+        if (key >= cur && ((unsigned)(cachedIndex + 1) >= (unsigned)(m_keys.m_end - keyBegin) || key < keyBegin[cachedIndex + 1].key))
             return cur == key;
     }
     if (m_keys.empty())
@@ -125,9 +125,9 @@ bool Rva005418CB::rva00541641(int key)
         return false;
     }
     int &hint = m_hint1C;
-    BfmePod20 *b = m_keys.m_begin;
-    hint = rva0054150A(b, m_keys.m_end, *reinterpret_cast<const BfmePod20 *>(&key)) - b;
-    if ((unsigned)hint >= (unsigned)(m_keys.m_end - b) || (hint > 0 && b[hint].key != key))
+    BfmePod20 *keyBegin = m_keys.m_begin;
+    hint = rva0054150A(keyBegin, m_keys.m_end, *reinterpret_cast<const BfmePod20 *>(&key)) - keyBegin;
+    if ((unsigned)hint >= (unsigned)(m_keys.m_end - keyBegin) || (hint > 0 && keyBegin[hint].key != key))
         --hint;
-    return b[hint].key == key;
+    return keyBegin[hint].key == key;
 }

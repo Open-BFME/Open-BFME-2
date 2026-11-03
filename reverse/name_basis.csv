@@ -6846,3 +6846,8 @@ function,?Rva00201095Get@WeatherSetting@@UAEHXZ,?getFieldParse@WeatherSetting@@U
 function,?Rva005148AA@@YAHXZ,?restartGame@@YAHXZ,inferred,agree:nl-5903f5dedf49,Code/GameEngine/Source/Common/GapBodiesGE28.cpp,0x005148AA
 function,?rva005F84F7@Rva005F84F7@@QAEXH@Z,?clearEntry@Rva005F84F7@@QAEXH@Z,inferred,agree:nl-632198e4200f,Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp,0x005F84F7
 function,?rva00578513@Rva00578513@@QAEXH@Z,?show@Rva00578513@@QAEXH@Z,inferred,agree:nl-9e4c0ef90004,Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp,0x00578513
+local,W3DShrubBuffer::rva000E7016::tmp,W3DShrubBuffer::rva000E7016::initialExtent,inferred,agree:nl-82cf98b8c8a3,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,0x000E7016
+local,Rva00541579::rva00541579::b,Rva00541579::rva00541579::keyBegin,inferred,agree:nl-e56034e2fe52,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541579
+local,Rva00541579::rva00541579::h,Rva00541579::rva00541579::cachedIndex,inferred,agree:nl-5bb81fc22000,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541579
+local,Rva005418CB::rva00541641::b,Rva005418CB::rva00541641::keyBegin,inferred,agree:nl-e14ed5211391,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541641
+local,Rva005418CB::rva00541641::h,Rva005418CB::rva00541641::cachedIndex,inferred,agree:nl-2a34f27ebabf,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,0x00541641
