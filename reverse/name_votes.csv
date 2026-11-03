@@ -22749,3 +22749,6 @@ Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva00469
 Code/GameEngine/Source/GameLogic/Object/Rva005481F9.cpp|param|Rva00548117::rva005481F9|v,45b222aa1ac9e12c5b591439,drz-k4,drz-k4-n46c-10,w-855a0f400af4,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp|member|Rva00254D38Node|m_next08,6f6965f2531c9b90b29155d9,drz-k4,drz-k4-n46c-19,w-855a0f400af4,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp|member|Rva00254D38Node|m_child0C,18849cda843d28be4a5b17b1,drz-k4,drz-k4-n46c-19,w-855a0f400af4,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterface_isQuickPathAvailable.cpp|local|AIUpdateInterface::isQuickPathAvailable|ai2,c7d537fa09dcb176be0776ac,drz-k5,drz-k5-n46d-12,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp|param|crashSpacing|a,94bd4164371a06c562a5a520,drz-k5,drz-k5-n46d-19,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp|param|crashSpacing|b,c0a7387a765c478334006c74,drz-k5,drz-k5-n46d-19,w-526a51702f64,2026-11-02
