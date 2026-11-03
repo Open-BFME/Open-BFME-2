@@ -202,57 +202,6 @@ mapped into this VB.
 /** Updates a block of vertices from [x0,y0 to x1,y1]
 The vertex coordinates and texture coordinates, as well as static lighting are updated.
 */
-// ?updateBlock@HeightMapRenderObjClass@@UAEHHHHHPAVWorldHeightMap@@PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z present-unmatched
-Int HeightMapRenderObjClass::updateBlock(Int x0, Int y0, Int x1, Int y1,  WorldHeightMap *pMap, RefRenderObjListIterator *pLightsIterator)
-{	
-#ifdef _DEBUG
-	DEBUG_ASSERTCRASH(x0>=0,  ("HeightMapRenderObjClass::UpdateBlock parameters extend beyond left edge."));
-	DEBUG_ASSERTCRASH(y0>=0,  ("HeightMapRenderObjClass::UpdateBlock parameters extend beyond bottom edge."));
-	DEBUG_ASSERTCRASH(x1<m_x, ("HeightMapRenderObjClass::UpdateBlock parameters extend beyond right edge."));
-	DEBUG_ASSERTCRASH(y1<m_y, ("HeightMapRenderObjClass::UpdateBlock parameters extend beyond top edge."));
-	DEBUG_ASSERTCRASH(x0<=x1, ("HeightMapRenderObjClass::UpdateBlock parameters have inside-out rectangle (on X)."));
-	DEBUG_ASSERTCRASH(y0<=y1, ("HeightMapRenderObjClass::UpdateBlock parameters have inside-out rectangle (on Y)."));
-#endif
-	Invalidate_Cached_Bounding_Volumes();
-	if (pMap) {
-		REF_PTR_SET(m_stageZeroTexture, pMap->getTerrainTexture());
-		REF_PTR_SET(m_stageOneTexture, pMap->getAlphaTerrainTexture());
-	}
-
-	Int i,j;
-	DX8VertexBufferClass	**pVB;
-	Int originX,originY;
-	//step through each vertex buffer that needs updating
-	for (j=0; j<m_numVBTilesY; j++)
-	{
-		originY=j*VERTEX_BUFFER_TILE_LENGTH;	//location of this VB on the large full-size heightmap
-		Int yMin, yMax;
-		yMin = originY;
-		if (y0>yMin) yMin = y0;
-		yMax = originY+VERTEX_BUFFER_TILE_LENGTH;
-		if (y1<yMax) yMax = y1;
-		if (yMin >= yMax) {
-			continue;
-		}
-		for (i=0; i<m_numVBTilesX; i++)
-		{	
-			originX=i*VERTEX_BUFFER_TILE_LENGTH;	//location of this VB on the large full-size heightmap
-			Int xMin, xMax;
-			xMin = originX;
-			if (xMin<x0) xMin = x0;
-			xMax = originX+VERTEX_BUFFER_TILE_LENGTH;
-			if (xMax>x1) xMax = x1;
-			if (xMin >= xMax) {
-				continue;
-			}
-			pVB=m_vertexBufferTiles+j*m_numVBTilesX+i;	//point to correct row/column of vertex buffers 
-			char **pData = m_vertexBufferBackup+j*m_numVBTilesX+i;
-			updateVB(*pVB, *pData, xMin, yMin, xMax, yMax, originX, originY, pMap, pLightsIterator);
-		}
-	}
-
-	return 0;
-}
 
 
 //-----------------------------------------------------------------------------
@@ -270,25 +219,6 @@ Int HeightMapRenderObjClass::updateBlock(Int x0, Int y0, Int x1, Int y1,  WorldH
 //=============================================================================
 /** Constructor. Mostly nulls out the member variables. */
 //=============================================================================
-// ??0HeightMapRenderObjClass@@QAE@XZ present-unmatched
-HeightMapRenderObjClass::HeightMapRenderObjClass(void):
-m_extraBlendTilePositions(NULL),
-m_numExtraBlendTiles(0),
-m_numVisibleExtraBlendTiles(0),
-m_extraBlendTilePositionsSize(0),
-m_vertexBufferTiles(NULL),
-m_vertexBufferBackup(NULL),
-m_originX(0),
-m_originY(0),
-m_indexBuffer(NULL),
-m_numVBTilesX(0),
-m_numVBTilesY(0),
-m_numVertexBufferTiles(0),
-m_numBlockColumnsInLastVB(0),
-m_numBlockRowsInLastVB(0)
-{
-	TheHeightMap = this;
-}
 
 
 //=============================================================================
@@ -337,85 +267,6 @@ shaders, and materials.*/
 //=============================================================================
 /** Notification that all lighting needs to be recalculated. */
 //=============================================================================
-#define CENTER_LIMIT 2
-#define BIG_JUMP 16
-#define WIDE_STEP 32
-
-static Int visMinX, visMinY, visMaxX, visMaxY;
-static Bool check(const FrustumClass & frustum, WorldHeightMap *pMap, Int x, Int y) 
-{
-	if (x<0 || y<0) return(false);
-	if (x>= pMap->getXExtent() || y>= pMap->getYExtent()) return(false);
-	if (x >= visMinX && y >= visMinY && x <=visMaxX && y <= visMaxY) {
-		return(true);
-	}
-	Int height = pMap->getHeight(x, y);
-	Vector3 loc((x-pMap->getBorderSizeInline())*MAP_XY_FACTOR, (y-pMap->getBorderSizeInline())*MAP_XY_FACTOR, height*MAP_HEIGHT_SCALE);
-	if (CollisionMath::Overlap_Test(frustum,loc) == CollisionMath::INSIDE) {
-		if (x<visMinX) visMinX=x;
-		if (x>visMaxX) visMaxX=x;
-		if (y<visMinY) visMinY=y;
-		if (y>visMaxY) visMaxY=y;
-		return(true);
-	}
-	return(false);
-}
-
-static void calcVis(const FrustumClass & frustum, WorldHeightMap *pMap, Int minX, Int minY, Int maxX, Int maxY, Int limit)
-{
-	if (maxX-minX<2) return;
-	if (maxY-minY<2) return;
-	if (minX >=visMinX && minY >= visMinY && maxX <=visMaxX && maxY <= visMaxY) {
-		return;
-	}
-	Int midX = (minX+maxX)/2;
-	Int midY = (minY+maxY)/2;
-	Bool recurse1 = maxX-minX>=limit;
-	Bool recurse2 = recurse1;
-	Bool recurse3 = recurse1;
-	Bool recurse4 = recurse1;	 
-	/* boxes are:
-
-			1     2
-
-
-			3			4 */
-
-	if (check(frustum, pMap, midX, maxY)) {
-		recurse1=true;
-		recurse2=true;
-	}
-	if (check(frustum, pMap, midX, minY)) {
-		recurse3=true;
-		recurse4=true;
-	}
-	if (check(frustum, pMap, midX, midY)) {
-		recurse1=true;
-		recurse2=true;
-		recurse3=true;
-		recurse4=true;
-	}
-	if (check(frustum, pMap, minX, midY)) {
-		recurse1=true;
-		recurse3=true;
-	}
-	if (check(frustum, pMap, maxX, midY)) {
-		recurse2=true;
-		recurse4=true;
-	}
-	if (recurse1) {
-		calcVis(frustum, pMap, minX, midY, midX, maxY, limit);
-	}
-	if (recurse2) {
-		calcVis(frustum, pMap, midX, midY, maxX, maxY, limit);
-	}
-	if (recurse3) {
-		calcVis(frustum, pMap, minX, minY, midX, midY, limit);
-	}
-	if (recurse4) {
-		calcVis(frustum, pMap, midX, minY, maxX, midY, limit);
-	}
-}
 
 
 //=============================================================================
@@ -434,288 +285,6 @@ is rendered. */
 //=============================================================================
 //DECLARE_PERF_TIMER(Terrain_Render)
 
-// ?Render@HeightMapRenderObjClass@@ present-unmatched
-void HeightMapRenderObjClass::Render(RenderInfoClass & rinfo)
-{
-	//USE_PERF_TIMER(Terrain_Render)
-	
-	Int i,j,devicePasses;
-	W3DShaderManager::ShaderTypes st;
-	Bool doCloud = TheGlobalData->m_useCloudMap;
-
-	Matrix3D tm(Transform);
-#if 0 // There is some weirdness sometimes with the dx8 static buffers.
-			// This usually fixes terrain flashing.  jba.
-	static Int delay = 1;
-	delay --;
-	if (delay<1) {
-		delay = 1;
-		static Int ndx = -1;
-		ndx++;
-		if (ndx>=m_numVertexBufferTiles) {
-			ndx = 0;
-		}
-		DX8VertexBufferClass::WriteLockClass lockVtxBuffer(m_vertexBufferTiles[ndx]);
-		VERTEX_FORMAT *vb = (VERTEX_FORMAT*)lockVtxBuffer.Get_Vertex_Array();	
-		vb = 0;
-	}
-#endif
-	// If there are trees, tell them to draw at the transparent time to draw.
-	if (m_treeBuffer) {
-		m_treeBuffer->setIsTerrain();
-	}
-
-
-#ifdef DO_UNIT_TIMINGS
-#pragma MESSAGE("*** WARNING *** DOING DO_UNIT_TIMINGS!!!!")
-	return;
-#endif
-
-#ifdef EXTENDED_STATS
-	if (DX8Wrapper::stats.m_disableTerrain) {
-		return;
-	}
-#endif
-
-	DX8Wrapper::Set_Light_Environment(rinfo.light_environment);
-
-	// Force shaders to update.
-	m_stageTwoTexture->restore();
-	DX8Wrapper::Set_Texture(0,NULL);
-	DX8Wrapper::Set_Texture(1,NULL);
-	ShaderClass::Invalidate();
-
-	//	tm.Scale(ObjSpaceExtent);
-	DX8Wrapper::Set_Transform(D3DTS_WORLD,tm);
-
-	//Apply the shader and material
-
-	DX8Wrapper::Set_Index_Buffer(m_indexBuffer,0);
-
-	Bool doMultiPassWireFrame=FALSE;
-
-	if (((RTS3DScene *)rinfo.Camera.Get_User_Data())->getCustomPassMode() == SCENE_PASS_ALPHA_MASK ||
-		((SceneClass *)rinfo.Camera.Get_User_Data())->Get_Extra_Pass_Polygon_Mode() == SceneClass::EXTRA_PASS_CLEAR_LINE)
-	{
-			if (WW3D::Is_Texturing_Enabled())
-			{	//first pass where we just fill the z-buffer
-
-				devicePasses=1;	//one pass solid, next in wireframe.
-				doMultiPassWireFrame=TRUE;
-
-				if (rinfo.Additional_Pass_Count())
-				{
-					rinfo.Peek_Additional_Pass(0)->Install_Materials();
-					renderTerrainPass(&rinfo.Camera);
-					rinfo.Peek_Additional_Pass(0)->UnInstall_Materials();
-					return;
-				}
-			}
-			else
-			{	//wireframe pass
-				//Set to vertex diffuse lighting
-				DX8Wrapper::Set_Material(m_vertexMaterialClass);
-				//Set shader to non-textured solid color from vertex
-				DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueSolidShader);
-				devicePasses=1;	//one pass solid, next in wireframe.
-				DX8Wrapper::Apply_Render_State_Changes();
-				DX8Wrapper::Set_DX8_Texture_Stage_State( 0, D3DTSS_COLORARG2, D3DTA_TFACTOR );
-				DX8Wrapper::Set_DX8_Render_State(D3DRS_TEXTUREFACTOR,0xff808080);
-				doMultiPassWireFrame=TRUE;
-				renderTerrainPass(&rinfo.Camera);
-				DX8Wrapper::Set_DX8_Render_State(D3DRS_TEXTUREFACTOR,0xff008000);
-				return;
-			}
-	}
-	else
-	{
-		DX8Wrapper::Set_Material(m_vertexMaterialClass);
-		DX8Wrapper::Set_Shader(m_shaderClass);
-
-		if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT) {
-			doCloud = false;
-		}
-
- 		st=W3DShaderManager::ST_TERRAIN_BASE; //set default shader
- 		
- 		//set correct shader based on current settings
- 		if (!ShaderClass::Is_Backface_Culling_Inverted())
- 		{	//not reflection pass
- 			if (TheGlobalData->m_useLightMap && doCloud)
- 			{	st=W3DShaderManager::ST_TERRAIN_BASE_NOISE12;
- 			}
- 			else
- 			if (TheGlobalData->m_useLightMap)
- 			{	//lightmap only
- 				st=W3DShaderManager::ST_TERRAIN_BASE_NOISE2;
- 			}
- 			else
- 			if (doCloud)
- 			{	//cloudmap only
- 				st=W3DShaderManager::ST_TERRAIN_BASE_NOISE1;
- 			}
- 		}
- 		else
- 		{	//reflection pass, just do base texture
- 			st=W3DShaderManager::ST_TERRAIN_BASE;
- 		}
- 
- 		//Find number of passes required to render current shader
- 		devicePasses=W3DShaderManager::getShaderPasses(st);
- 
- 		if (m_disableTextures)
- 			devicePasses=1;	//force to 1 lighting-only pass
- 
- 		//Specify all textures that this shader may need.
- 		W3DShaderManager::setTexture(0,m_stageZeroTexture);
- 		W3DShaderManager::setTexture(1,m_stageZeroTexture);
- 		W3DShaderManager::setTexture(2,m_stageTwoTexture);	//cloud
- 		W3DShaderManager::setTexture(3,m_stageThreeTexture);//noise
-		//Disable writes to destination alpha channel (if there is one)
-		if (DX8Wrapper::getBackBufferFormat() == WW3D_FORMAT_A8R8G8B8)
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_COLORWRITEENABLE,D3DCOLORWRITEENABLE_BLUE|D3DCOLORWRITEENABLE_GREEN|D3DCOLORWRITEENABLE_RED);
-	}
-
-	Int pass;
- 	for (pass=0; pass<devicePasses; pass++) {
-#ifdef TIMING_TESTS
-#endif
-		if (!doMultiPassWireFrame)	//multi-pass wireframe doesn't use regular shaders.
-		{
- 			if (m_disableTextures ) {
- 				DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaque2DShader);
- 				DX8Wrapper::Set_Texture(0,NULL);
-   			} else {
- 				W3DShaderManager::setShader(st, pass);
-			}
-		}
-
-		for (j=0; j<m_numVBTilesY; j++)
-			for (i=0; i<m_numVBTilesX; i++)
-			{
-				static int count = 0;
-				count++;
-				Int numPolys = VERTEX_BUFFER_TILE_LENGTH*VERTEX_BUFFER_TILE_LENGTH*2;
-				Int numVertex = (VERTEX_BUFFER_TILE_LENGTH*2)*(VERTEX_BUFFER_TILE_LENGTH*2);
-				if (HALF_RES_MESH) {
-					numPolys /= 4;
-					numVertex /= 4;
-				}
-				DX8Wrapper::Set_Vertex_Buffer(m_vertexBufferTiles[j*m_numVBTilesX+i]);
-#ifdef PRE_TRANSFORM_VERTEX
-				if (m_xformedVertexBuffer && pass==0) {
-					// Note - m_xformedVertexBuffer should only be used for non T&L hardware.  jba.
-					DX8Wrapper::Apply_Render_State_Changes();
-					int code = DX8Wrapper::_Get_D3D_Device8()->ProcessVertices(0, 0, numVertex, m_xformedVertexBuffer[j*m_numVBTilesX+i], 0); 
-					::OutputDebugString("did process vertex\n");
-				}
-				if (m_xformedVertexBuffer) {
-					// Note - m_xformedVertexBuffer should only be used for non T&L hardware.  jba.
-					DX8Wrapper::Apply_Render_State_Changes();
-					DX8Wrapper::_Get_D3D_Device8()->SetStreamSource(
-						0,
-						m_xformedVertexBuffer[j*m_numVBTilesX+i],
-						D3DXGetFVFVertexSize(D3DFVF_XYZRHW |D3DFVF_DIFFUSE|D3DFVF_TEX2));
-					DX8Wrapper::_Get_D3D_Device8()->SetVertexShader(D3DFVF_XYZRHW |D3DFVF_DIFFUSE|D3DFVF_TEX2);
-				}
-#endif				
-				if (Is_Hidden() == 0) {
-					DX8Wrapper::Draw_Triangles(	0,numPolys, 0,	numVertex);
-				}
-
-			}
-	}		
-
-	if (!doMultiPassWireFrame)
-	{
-		if (pass)	//shader was applied at least once?
- 			W3DShaderManager::resetShader(st);
-
-		//Draw feathered shorelines
-		renderShoreLines(&rinfo.Camera);
-
-		//Do additional pass over any tiles that have 3 textures blended together.
-		if (TheGlobalData->m_use3WayTerrainBlends)
-			renderExtraBlendTiles();
-
-		Int yCoordMin = m_map->getDrawOrgY();
-		Int yCoordMax = m_y+m_map->getDrawOrgY()-1;
-		Int xCoordMin = m_map->getDrawOrgX();
-		Int xCoordMax = m_x+m_map->getDrawOrgX()-1;	
-	#ifdef TEST_CUSTOM_EDGING
-		// Draw edging just before last pass.
-		DX8Wrapper::Set_Texture(0,NULL);
-		DX8Wrapper::Set_Texture(1,NULL);
-		m_stageTwoTexture->restore();
-		m_customEdging->drawEdging(m_map, xCoordMin, xCoordMax, yCoordMin, yCoordMax, 
-			m_stageZeroTexture, doCloud?m_stageTwoTexture:NULL, TheGlobalData->m_useLightMap?m_stageThreeTexture:NULL);
-	#endif
-	#ifdef DO_ROADS
-		DX8Wrapper::Set_Texture(0,NULL);
-		DX8Wrapper::Set_Texture(1,NULL);
-		m_stageTwoTexture->restore();
-
-		ShaderClass::Invalidate();
-		if (!ShaderClass::Is_Backface_Culling_Inverted()) {
-			DX8Wrapper::Set_Material(m_vertexMaterialClass);
-			if (Scene) {
-				RTS3DScene *pMyScene = (RTS3DScene *)Scene;
-				RefRenderObjListIterator pDynamicLightsIterator(pMyScene->getDynamicLights());
-				m_roadBuffer->drawRoads(&rinfo.Camera, doCloud?m_stageTwoTexture:NULL, TheGlobalData->m_useLightMap?m_stageThreeTexture:NULL,
-					m_disableTextures,xCoordMin-m_map->getBorderSizeInline(), xCoordMax-m_map->getBorderSizeInline(), yCoordMin-m_map->getBorderSizeInline(), yCoordMax-m_map->getBorderSizeInline(), &pDynamicLightsIterator);
-			}
-		}
-	#endif
-	if (m_propBuffer) {
-		m_propBuffer->drawProps(rinfo);
-	}
-	#ifdef DO_SCORCH
-		DX8Wrapper::Set_Texture(0,NULL);
-		DX8Wrapper::Set_Texture(1,NULL);
-		m_stageTwoTexture->restore();
-
-		ShaderClass::Invalidate();
-		if (!ShaderClass::Is_Backface_Culling_Inverted()) {
-			drawScorches();
-		}
-	#endif
-		DX8Wrapper::Set_Texture(0,NULL);
-		DX8Wrapper::Set_Texture(1,NULL);
-		m_stageTwoTexture->restore();
-		ShaderClass::Invalidate();
-		DX8Wrapper::Apply_Render_State_Changes();
-
-		m_bridgeBuffer->drawBridges(&rinfo.Camera, m_disableTextures, doCloud?m_stageTwoTexture:NULL);
-
-		if (TheTerrainTracksRenderObjClassSystem)
-			TheTerrainTracksRenderObjClassSystem->flush();
-
-		if (m_shroud && rinfo.Additional_Pass_Count())
-		{
-			rinfo.Peek_Additional_Pass(0)->Install_Materials();
-			renderTerrainPass(&rinfo.Camera);
-			rinfo.Peek_Additional_Pass(0)->UnInstall_Materials();
-		}
-
-		ShaderClass::Invalidate();
-		DX8Wrapper::Apply_Render_State_Changes();
-	}
-	else
-			m_bridgeBuffer->drawBridges(&rinfo.Camera, m_disableTextures, m_stageTwoTexture);
-
-  if ( m_waypointBuffer ) 
-	  m_waypointBuffer->drawWaypoints(rinfo);
-
-	m_bibBuffer->renderBibs();
-
-	// We do some custom blending, so tell the shader class to reset everything.
-	DX8Wrapper::Set_Texture(0,NULL);
-	DX8Wrapper::Set_Texture(1,NULL);
-	m_stageTwoTexture->restore();
-	ShaderClass::Invalidate();
-	DX8Wrapper::Set_Material(NULL);
-
-}
 
 
 ///Performs additional terrain rendering pass, blending in the black shroud texture.
@@ -730,5 +299,23 @@ void _bfmeHeightMapMatrix4RowsCtorAnchor(Matrix4x4 *matrix4x4, const Vector4 *ro
 {
 	matrix4x4->Matrix4x4::Matrix4x4(rows[0], rows[1], rows[2], rows[3]);
 }
+
+// The bit setters BFME_RO_DEFINE_FLAGS defines (rows Set_Alpha 0x6CF6F and
+// _bfme_ro_flag110/112/114/116) were emitted through the vtable of the unrowed
+// Zero Hour constructor; qualified calls keep them emitted. Not retail code.
+// ?_bfmeHeightMapRenderObjFlagsAnchor absent-from-retail
+void _bfmeHeightMapRenderObjFlagsAnchor(RenderObjClass *robj, int onoff)
+{
+	robj->RenderObjClass::Set_Alpha(onoff);
+	robj->RenderObjClass::_bfme_ro_flag110(onoff);
+	robj->RenderObjClass::_bfme_ro_flag112(onoff);
+	robj->RenderObjClass::_bfme_ro_flag114(onoff);
+	robj->RenderObjClass::_bfme_ro_flag116(onoff);
+}
 #pragma inline_depth()
+
+// The unrowed Zero Hour Render body was this unit's only caller of the inline
+// RTS3DScene::getCustomPassMode, whose row (0x0026FF4F) this copy matches; taking
+// its address keeps the inline emitted.
+CustomScenePassModes (RTS3DScene::*_bfmeInlineAnchor_HeightMap_0)(void) = &RTS3DScene::getCustomPassMode;
 #endif
