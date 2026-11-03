@@ -6,16 +6,7 @@
 // Get_Channel_Memory_Usage pattern; rowed callees 0x0018F7B0 and 0x00195EE0
 // plus virtual channel slot 6 offset 0x18; NumNodes at +0x48; callers 0.
 class TimeCodedBitChannelClass { public: ~TimeCodedBitChannelClass(); int Get_Channel_Memory_Usage(); };
-class BFME2MotionChannel {
-public:
-    virtual void UnknownSlot0();
-    virtual ~BFME2MotionChannel();
-    virtual void UnknownSlot2();
-    virtual void UnknownSlot3();
-    virtual void UnknownSlot4();
-    virtual void UnknownSlot5();
-    virtual int UnknownSlot6();
-};
+#include "../../../../GameEngine/Include/GameClient/BFME2MotionChannel.h"
 struct NodeCompressedMotionStruct {
     unsigned char ExistingFields[28];
     int Get_Channel_Memory_Usage();
