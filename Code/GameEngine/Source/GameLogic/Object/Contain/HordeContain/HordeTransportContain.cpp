@@ -396,13 +396,7 @@ extern "C" const void *const vtbl_00C45FB0[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class TransportContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-public:
-	TransportContainModuleData();
-};
+#include "../../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class HordeTransportContainModuleData : public TransportContainModuleData
 {

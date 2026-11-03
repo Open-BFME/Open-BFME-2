@@ -39,13 +39,7 @@ template <> __declspec(dllimport) __forceinline void **vector<void *>::begin() {
 template <> __declspec(dllimport) __forceinline void **vector<void *>::end() { return _M_finish; }
 }
 
-class TransportContainModuleData
-{
-public:
-	virtual ~TransportContainModuleData();
-private:
-	unsigned char m_pad04[0x18C - 4];
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class Rva004703E0 { public: ~Rva004703E0(); };
 class Rva00469D86 { public: ~Rva00469D86(); };

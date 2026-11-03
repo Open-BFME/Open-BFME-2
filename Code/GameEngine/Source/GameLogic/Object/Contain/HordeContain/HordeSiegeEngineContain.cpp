@@ -179,11 +179,7 @@ class MultiIniFieldParse;
 extern const FieldParse s_siegeEngineFieldTable[];
 
 
-class TransportContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class SiegeEngineContainModuleData
 {

@@ -15,14 +15,7 @@
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class TransportContainModuleData
-{
-public:
-	virtual ~TransportContainModuleData();
-
-private:
-	unsigned char m_opaque[0x18C - 4];
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class __declspec(novtable) HordeTransportContainModuleData : public TransportContainModuleData
 {

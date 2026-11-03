@@ -75,15 +75,7 @@ set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 
 }
 
-class TransportContainModuleData
-{
-public:
-	TransportContainModuleData();
-	virtual ~TransportContainModuleData();
-
-private:
-	unsigned char m_pad[0x18C - 4];
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class HordeContainModuleData : public TransportContainModuleData
 {

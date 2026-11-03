@@ -25,15 +25,7 @@ private:
 	unsigned m_unknown;
 };
 
-class TransportContainModuleData
-{
-public:
-	TransportContainModuleData();
-	virtual ~TransportContainModuleData();
-
-private:
-	unsigned char m_opaque[0x18C - 4];
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class __declspec(novtable) SiegeEngineContainModuleData : public TransportContainModuleData
 {

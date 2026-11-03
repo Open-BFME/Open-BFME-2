@@ -253,21 +253,7 @@ extern TerrainLogic *TheTerrainLogic;
 extern AI *TheAI;
 
 // The pair OpenContain hands its list reader (see OpenContainRva00464286.cpp).
-class TransportContainModuleData
-{
-public:
-	char m_pad00[0xB0];
-	KindOfMaskType m_typeOneForWeaponSet; // +0xB0 TypeOneForWeaponSet
-	KindOfMaskType m_typeTwoForWeaponSet; // +0xCC TypeTwoForWeaponSet
-	KindOfMaskType m_riderKindAtE8; // +0xE8, read by 0x0046731A
-	KindOfMaskType m_riderKindAt104; // +0x104
-	KindOfMaskType m_riderKindAt120; // +0x120
-	char m_pad13C[0x142 - 0x13C];
-	Bool m_destroyRidersWhoAreNotFreeToExit; // +0x142
-	char m_pad143[0x158 - 0x143];
-	Coord3D m_throwOutPassengersVelocity; // +0x158 ThrowOutPassengersVelocity
-	const void *m_throwOutPassengersLandingWarhead; // +0x164 ThrowOutPassengersLandingWarhead
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 template <int N> class ContainSlots : public ContainSlots<N - 1>
 {
