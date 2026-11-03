@@ -44,12 +44,7 @@ public:
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 #include "../../../Include/GameLogic/ScriptAction.h"
 
-struct ScriptCounter
-{
-	int m_value;
-	bool m_isCountdownTimer;					// +0x04
-	bool m_isMillisecondTimer;					// +0x05
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 // The read-only flag lookup setFlag reaches here is the ledger's matched
 // ?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z body at 0x0020881A (134
