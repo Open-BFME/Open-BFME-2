@@ -1,0 +1,535 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "VideoPlayer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 21,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x689350"
+     ],
+     "value": {
+      "0x0": "0x8e4918"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8e4918"
+     ],
+     "value": {
+      "count": 29,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GVideoPlayer@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x6894e0"
+       },
+       {
+        "name": "?init@VideoPlayer@@UAEXXZ",
+        "slot": 1,
+        "target": "0x6898d0"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Rva00689180@VideoPlayer@@UAEXXZ",
+        "slot": 9,
+        "target": "0x689180"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 10,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 14,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 15,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+        "slot": 16,
+        "target": "0x69e440"
+       },
+       {
+        "name": "?open@VideoPlayer@@UAEPAVVideoStreamInterface@@VAsciiString@@I@Z",
+        "slot": 17,
+        "target": "0x6894d0"
+       },
+       {
+        "name": "?Rva006891A0Get@@YAHXZ",
+        "slot": 18,
+        "target": "0x6891a0"
+       },
+       {
+        "name": "?closeAllStreams@VideoPlayer@@UAEXXZ",
+        "slot": 19,
+        "target": "0x6891b0"
+       },
+       {
+        "name": "?addVideo@VideoPlayer@@UAEXPAUVideo@@@Z",
+        "slot": 20,
+        "target": "0x689fd0"
+       },
+       {
+        "name": "?removeVideo@VideoPlayer@@UAEXPAUVideo@@@Z",
+        "slot": 21,
+        "target": "0x689ce0"
+       },
+       {
+        "name": "?Rva0081C5C0Count@@YAHXZ",
+        "slot": 22,
+        "target": "0x6893d0"
+       },
+       {
+        "name": "?bfmeSlotAt@@YGPAVBfmeRecJD@@H@Z",
+        "slot": 23,
+        "target": "0x689400"
+       },
+       {
+        "name": "?getVideo@VideoPlayer@@UAEPBUVideo@@VAsciiString@@@Z",
+        "slot": 24,
+        "target": "0x689b10"
+       },
+       {
+        "name": "?Rva000907A1Get@@YAHXZ",
+        "slot": 25,
+        "target": "0x907a1"
+       },
+       {
+        "name": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+        "slot": 26,
+        "target": "0x180fd0"
+       },
+       {
+        "name": "?getSubTitleMgrForVideo@VideoPlayer@@UAEPAVSubtitleManager@@ABVAsciiString@@@Z",
+        "slot": 27,
+        "target": "0x6897b0"
+       },
+       {
+        "name": "?enable@Rva004F5FA7OneSetter@@QAEXXZ",
+        "slot": 28,
+        "target": "0x4f5fa7"
+       }
+      ],
+      "table": "0x8e4918"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x8e4918": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GVideoPlayer@@UAEPAXI@Z",
+     "1": "?init@VideoPlayer@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?Rva00689180@VideoPlayer@@UAEXXZ",
+     "10": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "15": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "16": "?debugIgnoreLeaks@?$StringBase@D@@QAEXXZ",
+     "17": "?open@VideoPlayer@@UAEPAVVideoStreamInterface@@VAsciiString@@I@Z",
+     "18": "?Rva006891A0Get@@YAHXZ",
+     "19": "?closeAllStreams@VideoPlayer@@UAEXXZ",
+     "20": "?addVideo@VideoPlayer@@UAEXPAUVideo@@@Z",
+     "21": "?removeVideo@VideoPlayer@@UAEXPAUVideo@@@Z",
+     "22": "?Rva0081C5C0Count@@YAHXZ",
+     "23": "?bfmeSlotAt@@YGPAVBfmeRecJD@@H@Z",
+     "24": "?getVideo@VideoPlayer@@UAEPBUVideo@@VAsciiString@@@Z",
+     "25": "?Rva000907A1Get@@YAHXZ",
+     "26": "?m009EC960@Q1Receiver0134FAAC@@QAEXPAX@Z",
+     "27": "?getSubTitleMgrForVideo@VideoPlayer@@UAEPAVSubtitleManager@@ABVAsciiString@@@Z",
+     "28": "?enable@Rva004F5FA7OneSetter@@QAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 12,
+  "view_sizes": {
+   "4": 6,
+   "12": 2,
+   "28": 1
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_VideoPlayer.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/VideoPlayer.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0009111BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0009111BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/VideoPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/VideoPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/VideoPlayer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/VideoPlayer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "getSubTitleMgrForVideo(AsciiString*)": 1,
+    "s02()": 1,
+    "slot02()": 1,
+    "v02()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "s03()": 1,
+    "slot03()": 1,
+    "v03()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "s04()": 1,
+    "slot04()": 1,
+    "v04()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "s05()": 1,
+    "slot05()": 1,
+    "v05()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "s06()": 1,
+    "slot06()": 1,
+    "v06()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "s07()": 1,
+    "slot07()": 1,
+    "v07()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "s08()": 1,
+    "slot08()": 1,
+    "v08()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "Rva00689180()": 1,
+    "s09()": 1,
+    "v09()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "s10()": 1,
+    "slot10()": 1,
+    "v10()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "s11()": 1,
+    "slot11()": 1,
+    "v11()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "s12()": 1,
+    "slot12()": 1,
+    "v12()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "s13()": 1,
+    "slot13()": 1,
+    "v13()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "s14()": 1,
+    "slot14()": 1,
+    "v14()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "s15()": 1,
+    "slot15()": 1,
+    "v15()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "s16()": 1,
+    "slot16()": 1,
+    "v16()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "open(AsciiString,int)": 1,
+    "slot17()": 1,
+    "v17()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "firstStream()": 1,
+    "s18()": 1,
+    "v18()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "closeAllStreams()": 1,
+    "s19()": 1,
+    "v19()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "s20()": 1,
+    "v20()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "s21()": 1,
+    "v21()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "s22()": 1,
+    "v22()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "s23()": 1,
+    "v23()": 1
+   },
+   "class": "VideoPlayer"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "getVideo(AsciiString)": 1,
+    "v24()": 1
+   },
+   "class": "VideoPlayer"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "init()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "v25()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "notifyVideoPlayerOfNewProvider(uchar)"
+  }
+ }
+}
