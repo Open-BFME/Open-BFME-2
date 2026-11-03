@@ -1,9 +1,6 @@
 // cl: /MD
 // ??1Rva006CE380@@QAE@XZ @0x006CE380 49B evidence chain via 0x006DB270 freeBlock plus pool 0x00A176E8 size 8 plus next-at-+4 list clear plus callers 0x006D10DD and 0x006CE560
-class Rva006DB270 {
-public:
-    void freeBlock(void *p, int size);
-};
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct Rva006CE380Node {
     int m00;

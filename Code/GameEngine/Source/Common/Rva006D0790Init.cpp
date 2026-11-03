@@ -2,7 +2,7 @@
 // Call6D1DCE follows16B pool allocation and constructs a copied counted argument.
 // Rename the prior raw-pointer initializer view to its C++ constructor ABI;
 // exact body unchanged. Original retail class name remains unknown.
-class Rva006DB270 {public:void freeBlock(void*,int);};
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct Rva006D0280 {~Rva006D0280();int m_useCount;};
 class Rva006D07E0Key {public:

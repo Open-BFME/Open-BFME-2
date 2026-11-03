@@ -13,11 +13,7 @@ extern "C" void __cdecl __debugbreak(void);
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *pNowFree, int nSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator; // VA 0x00E176E8
 

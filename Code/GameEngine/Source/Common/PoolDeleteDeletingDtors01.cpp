@@ -15,11 +15,7 @@
 //  0x006DE320 via base dtor 0x006DE350 (empty inline derived dtor), size 0x08
 //  0x006FE330 via dtor 0x006FBDB0, size 0x0C
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;   // 0x00E176E8
 

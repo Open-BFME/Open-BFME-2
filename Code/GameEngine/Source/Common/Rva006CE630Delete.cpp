@@ -4,10 +4,7 @@ class Rva006CD530 {
 public:
     void detach();
 };
-class Rva006DB270 {
-public:
-    void freeBlock(void *p, int size);
-};
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct Rva006CE630 {
     void *m00;

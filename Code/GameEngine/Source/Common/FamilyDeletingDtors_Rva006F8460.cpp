@@ -6,11 +6,7 @@
 // ??_GRva006F8460@@UAEPAXI@Z @0x006F8490 35B.
 // Scalar deleting dtor calls rowed ??1 at 0x006F8460 plus sized pool free
 // via pinned 0x006DB270 with pool at 0x00E176E8 and class size 0x18.
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 // Existing Apt pool provider; retail callers load this global at VA 0x00E176E8.
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006F8460

@@ -35,11 +35,7 @@ public:
 	virtual ~Rva006DE350();
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 
 class Rva006D2A60
 {

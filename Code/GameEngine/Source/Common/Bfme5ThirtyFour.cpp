@@ -214,7 +214,7 @@ void Rva006D1130::append(Rva006D1130Item *value)
 // owner parameter released through independently rowed pool providers.
 // BFME1 ba7ddda7 Rva008951B0Find supplies the linked-list search guide;
 // target uses a counted key instead of the donor's borrowed void pointer.
-class Rva006DB270 { public: void freeBlock(void *, int); };
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 // The independent EAStringC providers prove the 4-byte string ABI used
 // by the 6D0660 comparison: C-string ctor6D4C80 equal6D3090 dtor6D3010.

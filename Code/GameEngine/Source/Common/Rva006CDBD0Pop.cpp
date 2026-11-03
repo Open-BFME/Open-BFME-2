@@ -1,10 +1,6 @@
 // cl: /MD
 // ?rva006CDBD0@Rva006CDBD0@@QAEXXZ @0x006CDBD0 32B evidence calls rowed freeBlock size 8 via g_pChainBlockAllocator plus head link at +4
-class Rva006DB270
-{
-public:
-    void freeBlock(void *block, int blockSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 struct Rva006CDBD0Node {
     int m_unk00;

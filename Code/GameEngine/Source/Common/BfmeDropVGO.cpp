@@ -13,11 +13,7 @@ public:
 	char m_pad[0x1C]; // (class is otherwise empty: 0 + 28)
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *p, int size);
-};
+#include "../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 

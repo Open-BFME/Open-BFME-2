@@ -8,11 +8,7 @@
 // 0x006E5FF0 plus sized pool free via pinned 0x006DB270 with pool at
 // 0x00E176E8 and class size 0x38. Same sized-pool recipe as Rva006FBA10.
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
