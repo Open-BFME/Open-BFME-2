@@ -92,7 +92,7 @@ public:
 protected:
     virtual void xfer(Xfer *xfer);
 private:
-    int m_status28;
+    unsigned int m_status28;
     bool m_flag2C;
 };
 //
