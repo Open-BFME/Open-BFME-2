@@ -143,16 +143,7 @@ static inline float StreakFabs(float val)
 
 class GlobalData;
 extern GlobalData* TheWritableGlobalData;
-class PointGroupClass {public:
- enum FlagsType { TRANSFORM=0}; enum PointModeEnum { QUADS=1 };
- void Set_Texture(TextureClass*);
- void Set_Flag(FlagsType,bool);
- void Set_Shader(ShaderClass);
- void Set_Point_Mode(PointModeEnum);
- void Set_Arrays(ShareBufferClass<Vector3>*,ShareBufferClass<Vector4>*,ShareBufferClass<unsigned int>*,ShareBufferClass<float>*,ShareBufferClass<unsigned char>*,ShareBufferClass<unsigned char>*,int,float,float,float,float);
- void Render(RenderInfoClass&,int);
- void RenderVolumeParticle(RenderInfoClass&,unsigned,void*);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/PointGroupClass.h"
 extern PointGroupClass* g_00E06098;
 class Rva00179100 {public: void SetFlag(bool);};
 namespace FXParticleSystem {

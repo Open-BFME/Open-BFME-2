@@ -1,4 +1,4 @@
-// cl: /EHsc
+// cl: /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva0055C8BC@@QAE@XZ, retail 0x0055C8BC 71B.
 // Empty publisher ctor: DefaultModuleTag6 getInstance plus Rva005C7889Init then
 // new PointGroupClass (0x5c) into g_00E06098. Evidence: guarded init caller
@@ -21,14 +21,7 @@ private:
 }
 void __cdecl Rva005C7889Init(void);
 #include <new>
-class PointGroupClass
-{
-public:
-    PointGroupClass();
-    virtual ~PointGroupClass();
-private:
-    char m_pad[0x58];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/PointGroupClass.h"
 typedef char CheckPointGroupSize[(sizeof(PointGroupClass) == 0x5c) ? 1 : -1];
 extern PointGroupClass *g_00E06098;
 // g_00E06098: matched references place it at VA 0xe06098 (zero-filled .bss).
