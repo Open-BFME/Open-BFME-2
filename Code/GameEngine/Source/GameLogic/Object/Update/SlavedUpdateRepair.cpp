@@ -370,11 +370,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 
 // TheAudio's misc-audio table (slot 78) holds the repair sparks event at +0x68;
 // addAudioEvent is slot 25 and 0x002D9508 sets an event's position.
-struct MiscAudio
-{
-	char m_pad[0x68];
-	OpaqueRefElement4 m_repairSparks; // +0x68
-};
+#include "../../../../Include/Common/MiscAudioClass.h"
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 class Rva002D9508

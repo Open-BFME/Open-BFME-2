@@ -10,10 +10,7 @@ typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
 #include "../../../Include/Common/INI/INI.h"
 
-struct MiscAudio
-{
-	static const FieldParse m_fieldParseTable[];
-};
+#include "../../../Include/Common/MiscAudioClass.h"
 extern "C" {
 void __identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z")();
 }

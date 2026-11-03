@@ -104,11 +104,7 @@ public:
 	virtual bool slot52();
 };
 
-struct MiscAudio
-{
-	char m_pad00[0x20];
-	OpaqueRefElement4 m_defectorTimerTickSound;
-};
+#include "../../../Include/Common/MiscAudioClass.h"
 
 #include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;

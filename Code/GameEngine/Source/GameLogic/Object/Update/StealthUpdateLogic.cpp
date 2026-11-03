@@ -416,12 +416,7 @@ struct Rva002D76C6Owner;
 #include "../../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
-struct MiscAudio
-{
-	char m_pad00[0x30];
-	OpaqueRefElement4 m_stealthDiscoveredSound; // +0x30
-	OpaqueRefElement4 m_stealthNeutralizedSound; // +0x34
-};
+#include "../../../../Include/Common/MiscAudioClass.h"
 
 #include "../../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
