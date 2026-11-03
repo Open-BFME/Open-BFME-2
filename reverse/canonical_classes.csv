@@ -634,3 +634,4 @@ AutoAbilityBehavior,Code/GameEngine/Include/GameLogic/Module/AutoAbilityBehavior
 W3DLightDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DLightDraw.h,existing header; contract class_contracts/W3DLightDraw.json; 4/8 sampled units adopt
 RadarMarker,Code/GameEngine/Include/GameClient/RadarMarker.h,existing header; contract class_contracts/RadarMarker.json; 6/7 sampled units adopt
 GameFont,Code/GameEngine/Include/GameClient/GameFontClass.h,existing header; contract class_contracts/GameFont.json; 4/11 sampled units adopt
+TransportAIUpdate,Code/GameEngine/Include/GameLogic/Module/TransportAIUpdateClass.h,existing header; contract class_contracts/TransportAIUpdate.json; 7/9 sampled units adopt
