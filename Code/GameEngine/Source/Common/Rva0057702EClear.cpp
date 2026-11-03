@@ -21,6 +21,7 @@ class Rva0057702E
 
 public:
 	void rva0057702E();
+	~Rva0057702E();
 };
 
 void Rva0057702E::rva0057702E()
@@ -46,4 +47,13 @@ void Rva0057704C::rva0057704C(Rva0057702EBase *n)
 		m_ptr = n;
 		::operator delete(o ? o->f4(0) : 0);
 	}
+}
+
+// Native constructor unwind0x0079B6CB destroys this four-byte holder at+0x14.
+// The lifetime body shares retail0x0057702E with the existing clear operation.
+Rva0057702E::~Rva0057702E()
+{
+    Rva0057702EBase *p = m_ptr;
+    m_ptr = 0;
+    ::operator delete(p ? p->f4(0) : 0);
 }

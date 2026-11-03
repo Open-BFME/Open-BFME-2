@@ -321,3 +321,6 @@ even the seed (`comdat ??1Rva000F0F2B@@UAE@XZ (first)`) until a census records
 still fail to compile (see the W3DProjectedShadow.cpp rows in
 `reverse/re_attempts.log`). The uw_00763a58/uw_007644e3 funclet repoints are not
 retried: they still name `??1Rva000F0F2B`, which has no row or pin.
+
+
+**2026-11-03 retreat cleanup callee repair, no repoint:** the old79B617 ~Wrap1005770F7 callee wall (attempt88613) is resolved in source by directly using the actual30B Rva0057702E lifetime provider. The sibling79B622 cleanup likewise directly names the existing39B record destructor instead of ~Wrap2005770F7. Full142B parent/EH remains exact; both11B compiler bodies including REL32 operands pass private verification, and two unrowed forwarding functions disappear. Generated ledger rows remain in place because neither parent nor funclet has approved TU assignment in current inputs. Next: obtain that evidence before any repoint; do not add a wrapper-name pin or infer source approval from EH exactness. [Scoped proof and remaining interface boundary](../../reverse/attempt_support/owned-pointer-native-lifetime-20261103/README.md).

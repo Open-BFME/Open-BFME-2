@@ -25,3 +25,8 @@ current-object preview against984a4cdc4d confirms the same U4/L1 and zero
 linking bytes. The 26-slot interface/destructor prerequisite above remains;
 no source trial or signature/alias shortcut was added. Claims are released.
 [Current diagnostic and next prerequisite](../../reverse/attempt_support/retreat-constructor-check-20261102/readme.md).
+
+
+**2026-11-03 owning-pointer lifetime subset:** the missing30B Rva0057702E destructor now has genuine guarded C++ in its existing clear-owner source, with normal ICF admission retaining both old methods. Native constructor unwind79B6CB proves receiver+14->57702E; redundanttypedpin retires. Related142B parentRva005770F7 now uses direct4B/16B lifetime members, removing two artificial5B wrappers while retaining its full body/EH and all existing rows. Both affected11B cleanup bodies are fully byte/REL32-verified privately. No generated row moves: parent/funclet TU assignments remain unapproved.
+
+Final39/39 over4sources; preview retains3/4 LINKS701B, constructorU4->U3/L1. The remaining destructor spelling and r0/s0 plus26-slot translator/interface contract above stay open. Official census/whole-game/runtime clearance is not claimed. [Native, provider, EH, operand and retirement proof](../../reverse/attempt_support/owned-pointer-native-lifetime-20261103/README.md). Prior429f3861fc audit remains INCONCLUSIVE (index23b85ddde5/base585e850bc723c9f16666f0cfeffc3770de837a65;3receipt gaps); packet carries the four-source Deflect consumer scope into the next scheduled census.

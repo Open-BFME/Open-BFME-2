@@ -4,7 +4,7 @@
 // Sibling of Rva00576C4BDtor.cpp (same 0x005CD1A9 / 0x005CD651 / 0x005CD7DA
 // members and ptr-chase getters 0x00328A83 + 0x0042D6AE): when the flag at
 // +0x38 is set the object reached through the +0x0C record is told through
-// its slot 3; then the +0x28 member, the +0x18 and +0x14 wrapped members, the
+// its slot 3; then the +0x28 member, the +0x18 and +0x14 direct members, the
 // +4 base (virtual dtor 0x005CD1A9 out of line) and the empty first base
 // unwind. Identity of the class is unproven.
 class Rva00328A83PtrChaseField
@@ -33,24 +33,16 @@ struct Inner005770F7
 class Rva0057702E
 {
 public:
-	void rva0057702E();
+	~Rva0057702E();
 	int m_data;
 };
-struct Wrap1005770F7
-{
-	~Wrap1005770F7() { m_m.rva0057702E(); }
-	Rva0057702E m_m;
-};
-class Rva005CD7DA
+// The existing native39B record destructor owns the16-byte member cleanup.
+class Wrap2000576C4B
 {
 public:
-	void rva005CD7DA();
-	int m_data[4];
-};
-struct Wrap2005770F7
-{
-	~Wrap2005770F7() { m_m.rva005CD7DA(); }
-	Rva005CD7DA m_m;
+    ~Wrap2000576C4B();
+private:
+    int m_data[4];
 };
 class Rva005CD651
 {
@@ -76,8 +68,8 @@ public:
 private:
 	Inner005770F7 *m_s;
 	int m_10;
-	Wrap1005770F7 m_14;
-	Wrap2005770F7 m_18;
+	Rva0057702E m_14;
+	Wrap2000576C4B m_18;
 	Rva005CD651 m_28;
 	bool m_flag38;
 };
