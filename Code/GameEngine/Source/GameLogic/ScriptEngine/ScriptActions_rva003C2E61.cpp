@@ -44,11 +44,11 @@ struct ScriptCounter
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
-void ScriptActions::Rva003C2E61Do(const void *a1, const void *a2, const void *a3)
+void ScriptActions::Rva003C2E61Do(const void *a1, const void *a2, const void *counterParm)
 {
 	const AsciiString &s1 = *(const AsciiString *)((const char *)a1 + 0x10);
 	const AsciiString &s2 = *(const AsciiString *)((const char *)a2 + 0x10);
-	const AsciiString &s3 = *(const AsciiString *)((const char *)a3 + 0x10);
+	const AsciiString &s3 = *(const AsciiString *)((const char *)counterParm + 0x10);
 	int mask = TheScriptEngine->rva00357475(s1, (bool *)0);
 	if (mask == 0)
 		return;

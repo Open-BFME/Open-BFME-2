@@ -25,7 +25,7 @@ extern int g_00E02D9C;
 // these inline accessors rather than repeating the address-derived spelling.
 inline int LogicFrameRate() { return BfmeLogicFramesPerSecond; }
 inline int DrawableFlashFramePeriod() { return g_00E02D9C; }
-void ScriptActions::Rva003BB5B7Do(Parameter *p, int v, RGBColor *c)
+void ScriptActions::Rva003BB5B7Do(Parameter *p, int seconds, RGBColor *colorOverride)
 {
 	Object *o = TheScriptEngine->getUnitNamed(p);
 	if (!o)
@@ -33,14 +33,14 @@ void ScriptActions::Rva003BB5B7Do(Parameter *p, int v, RGBColor *c)
 	Drawable *d = ((Thing *)o)->getDrawable();
 	if (!d)
 		return;
-	if (v <= 0)
+	if (seconds <= 0)
 		return;
-	int scaled = LogicFrameRate() * v / DrawableFlashFramePeriod();
+	int scaled = LogicFrameRate() * seconds / DrawableFlashFramePeriod();
 	int color;
-	if (c == 0)
+	if (colorOverride == 0)
 		color = o->getIndicatorColor();
 	else
-		color = c->getAsInt();
+		color = colorOverride->getAsInt();
 	d->m_168 = scaled;
 	d->m_16c = color;
 }

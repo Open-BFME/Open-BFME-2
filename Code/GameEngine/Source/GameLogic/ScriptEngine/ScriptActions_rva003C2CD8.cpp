@@ -49,7 +49,7 @@ struct ScriptCounter
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
-void ScriptActions::Rva003C2CD8Do(Parameter *parameter, Parameter *b)
+void ScriptActions::Rva003C2CD8Do(Parameter *parameter, Parameter *counterParm)
 {
 	int mask = TheScriptEngine->rva00357475(parameter->m_string, (bool *)0);
 	if (mask == 0)
@@ -58,11 +58,11 @@ void ScriptActions::Rva003C2CD8Do(Parameter *parameter, Parameter *b)
 	if (player == 0)
 		return;
 	int v = player->m_60.get(1);
-	ScriptCounter *scriptCounter = TheScriptEngine->bfmeCounter(b->m_string);
+	ScriptCounter *scriptCounter = TheScriptEngine->bfmeCounter(counterParm->m_string);
 	scriptCounter->m_value = v;
 }
 
-void ScriptActions::Rva003C2D34Do(Parameter *parameter, Parameter *b)
+void ScriptActions::Rva003C2D34Do(Parameter *parameter, Parameter *counterParm)
 {
 	int mask = TheScriptEngine->rva00357475(parameter->m_string, (bool *)0);
 	if (mask == 0)
@@ -71,7 +71,7 @@ void ScriptActions::Rva003C2D34Do(Parameter *parameter, Parameter *b)
 	if (player == 0)
 		return;
 	int v = ((Rva002A7461 *)&player->m_60)->rva002A7548(1);
-	ScriptCounter *scriptCounter = TheScriptEngine->bfmeCounter(b->m_string);
+	ScriptCounter *scriptCounter = TheScriptEngine->bfmeCounter(counterParm->m_string);
 	scriptCounter->m_value = v;
 }
 

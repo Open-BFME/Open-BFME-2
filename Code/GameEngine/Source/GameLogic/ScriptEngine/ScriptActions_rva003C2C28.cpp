@@ -35,7 +35,7 @@ struct ScriptCounter
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
-void ScriptActions::Rva003C2C28Do(Parameter *a, Parameter *b)
+void ScriptActions::Rva003C2C28Do(Parameter *a, Parameter *counterParm)
 {
 	int total = 0;
 	int mask = TheScriptEngine->rva00357475(a->m_string, (bool *)0);
@@ -44,6 +44,6 @@ void ScriptActions::Rva003C2C28Do(Parameter *a, Parameter *b)
 		if (p != 0)
 			total += ((Rva002A9ED2DwordField *)p)->get();
 	}
-	ScriptCounter *c = TheScriptEngine->bfmeCounter(b->m_string);
-	c->m_value = total;
+	ScriptCounter *counter = TheScriptEngine->bfmeCounter(counterParm->m_string);
+	counter->m_value = total;
 }

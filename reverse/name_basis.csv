@@ -6998,3 +6998,11 @@ param,BfmeObjectEventDispatch::rva0033605B::b,BfmeObjectEventDispatch::rva003360
 param,ScriptActions::doWaterChangeHeightOverTime::f2,ScriptActions::doWaterChangeHeightOverTime::newHeight,inferred,agree:nl-c3663526c8fa,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doWaterChangeHeightOverTime.cpp,0x003BC33D
 param,ScriptActions::doWaterChangeHeightOverTime::f3,ScriptActions::doWaterChangeHeightOverTime::time,inferred,agree:nl-648be4cd30f0,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doWaterChangeHeightOverTime.cpp,0x003BC33D
 param,ScriptActions::doWaterChangeHeightOverTime::f4,ScriptActions::doWaterChangeHeightOverTime::damage,inferred,agree:nl-ea18f7d3f445,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doWaterChangeHeightOverTime.cpp,0x003BC33D
+param,ScriptActions::Rva003BB5B7Do::c,ScriptActions::Rva003BB5B7Do::colorOverride,inferred,agree:nl-f686264cc798,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB5B7.cpp,0x003BB5B7
+param,ScriptActions::Rva003BB5B7Do::v,ScriptActions::Rva003BB5B7Do::seconds,inferred,agree:nl-6fd8e566ede3,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB5B7.cpp,0x003BB5B7
+param,Rva003C24F0Delta::o,Rva003C24F0Delta::position,inferred,agree:nl-a1480a7c43ad,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C24F0.cpp,
+local,ScriptActions::Rva003C2C28Do::c,ScriptActions::Rva003C2C28Do::counter,inferred,agree:nl-cef5c5a3f46f,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2C28.cpp,0x003C2C28
+param,ScriptActions::Rva003C2C28Do::b,ScriptActions::Rva003C2C28Do::counterParm,inferred,agree:nl-314b8c0ffa66,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2C28.cpp,0x003C2C28
+param,ScriptActions::Rva003C2CD8Do::b,ScriptActions::Rva003C2CD8Do::counterParm,inferred,agree:nl-da5af2d0fe0d,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2CD8.cpp,0x003C2CD8
+param,ScriptActions::Rva003C2D34Do::b,ScriptActions::Rva003C2D34Do::counterParm,inferred,agree:nl-579bccb95c95,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2CD8.cpp,0x003C2D34
+param,ScriptActions::Rva003C2E61Do::a3,ScriptActions::Rva003C2E61Do::counterParm,inferred,agree:nl-f5e38712b969,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,0x003C2E61

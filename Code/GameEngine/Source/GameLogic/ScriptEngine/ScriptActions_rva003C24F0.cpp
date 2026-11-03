@@ -67,7 +67,7 @@ public:
 // delta: Coord3D delta = *position; delta.sub(obj position); delta.lengthSqr()).
 struct Rva003C24F0Delta
 {
-	Rva003C24F0Delta(const Coord3D &o) : x(o.x), y(o.y), z(o.z) {}
+	Rva003C24F0Delta(const Coord3D &position) : x(position.x), y(position.y), z(position.z) {}
 	void sub(const Coord3D *o) { x -= o->x; y -= o->y; z -= o->z; }
 	float lengthSqr() const { return x * x + y * y + z * z; }
 	float x;
