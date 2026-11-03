@@ -1,0 +1,324 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AssetRegistry",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x1e8": {
+    "4": 1
+   },
+   "0x1f0": {
+    "4": 2
+   },
+   "0x1f4": {
+    "1": 1
+   },
+   "0x1f8": {
+    "4": 2
+   },
+   "0x34": {
+    "4": 4
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 4
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x60": {
+    "4": 4
+   },
+   "0x64": {
+    "4": 1
+   },
+   "0x8": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "504": 1,
+   "508": 2
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_unmodelled_000",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 52,
+   "type": "uchar[52]",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 9,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 77,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 78,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 408,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 412,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 416,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 420,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 424,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 428,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 488,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 492,
+   "sources": [
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 500,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 504,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 508,
+ "size_by": "majority",
+ "vslots": {}
+}
