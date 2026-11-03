@@ -31,10 +31,7 @@ public: GameWindow(); // call-only default ctor: keep the shared census provider
 protected: virtual ~GameWindow();
 private: unsigned char unknown[0x218-4];
 };
-class Rva005248D0 {
-public: virtual ~Rva005248D0();
-private: unsigned char unknown[0x58-4];
-};
+#include "../../../Include/GameClient/Rva005248D0.h"
 #include "ascii_string.h"
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
 public: virtual ~_bfme_AptGameWindow();

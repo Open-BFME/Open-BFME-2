@@ -22,10 +22,7 @@
 // reads it since 636533e29f, so both units emit the same GameWindow-based tables (LINK-177).
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class Rva005248D0 {
-public: virtual ~Rva005248D0();
-private: unsigned char unknown[0x58-4];
-};
+#include "../../../Include/GameClient/Rva005248D0.h"
 
 // The Apt window manager (VA 0x00DFE4CC) and the window holding its focus.
 #include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
