@@ -13054,14 +13054,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DPr
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp	W3DBridge::getModelVertices	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp	Rva000D3945Head::~Rva000D3945Head	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp	the	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	0W3DGameClient@@QAE@XZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	1W3DGameClient@@UAE@XZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	adjustLOD@W3DGameClient@@UAEXH@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	init@W3DGameClient@@UAEXXZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	reset@W3DGameClient@@UAEXXZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	update@W3DGameClient@@UAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFontFactory.cpp	emit@bfmeW3DGameClientEmitter@@SAXPAU1@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientSnowFactory.cpp	emit@W3DGameClientSnowEmitter@@SAXPAU1@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	0W3DMouse@@	1
