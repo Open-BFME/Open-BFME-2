@@ -23470,3 +23470,11 @@ Code/GameEngine/Source/Common/Rva005CED37.cpp|member|Rva005CED37Held|m_04,d17851
 Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|n,e94b644fa28deddb2652802f,drz-t25,drz-t25-sv2-4,w-ff90adced794,2026-11-03
 Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|p,d1c8fd1146787f842c35c92c,drz-t25,drz-t25-sv2-4,w-ff90adced794,2026-11-03
 Code/GameEngine/Source/Common/Rva002BEFE5.cpp|local|Rva002BEFE5::rva002BEFE5|t,72f49f733a47ef4ee39fb400,drz-t25,drz-t25-sv2-5,w-ff90adced794,2026-11-03
+Code/GameEngine/Source/Common/AptLinker.cpp|param|Rva006D07E0Key|p,b1e46396d45bc8dae238fe0b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/Common/AptLinker.cpp|local|~Rva006D07E0Key|p,80ecc0e86890bcca5ec445e8,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/Common/AptLinker.cpp|local|Rva006D0A30List::rva006D1680|p,e26bf65bd82ed134b716c47b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BAObject|m_factory258,978c4ee2f23dbf3651cc9055,drz-t27,drz-t27-sv2-2,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BA|m_membersBegin6C,4063335745081291ffa00993,drz-t27,drz-t27-sv2-2,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BA|m_membersEnd70,b8d06a24c78477548df39caa,drz-t27,drz-t27-sv2-2,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BA|m_formation1AC,a5957a46390149a3c681cc37,drz-t27,drz-t27-sv2-2,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/Common/Rva003F8101.cpp|member|Rva003F8101Item|m_id08,10ac1b7cbf1e837ec1ee2505,drz-t27,drz-t27-sv2-4,w-12fda968aca1,2026-11-03

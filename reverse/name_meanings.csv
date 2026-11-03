@@ -1022,3 +1022,6 @@ Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp|local|PSPlayerAllStats::incorp
 Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp|local|Rva005C31FB::DeleteContentMovieClip|t,f7f42f013729aefc641f393c,drz-k3,drz-k3-sv1g-16,w-077d7aeb666b,2026-11-03,321e4d03cef7d08483a8b993
 Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp|local|Rva005C31FB::DeleteContentMovieClip|s,50a2988d12cd68d57a2f97db,drz-k3,drz-k3-sv1g-16,w-077d7aeb666b,2026-11-03,90815b3512b60ee27283762c
 Code/GameEngine/Source/Common/BfmeConv881.cpp|local|BfmeWideResult::next|q,3f4e87d2704629cf033bef35,drz-k3,drz-k3-sv1g-17,w-077d7aeb666b,2026-11-03,cd0bf43997dfcaf837fa5848
+Code/GameEngine/Source/Common/AptLinker.cpp|param|Rva006D07E0Key|p,b1e46396d45bc8dae238fe0b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,0f84f2d7ac012ebd213ba008
+Code/GameEngine/Source/Common/AptLinker.cpp|local|~Rva006D07E0Key|p,80ecc0e86890bcca5ec445e8,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,c9464b8ff6fdc1f85b640489
+Code/GameEngine/Source/Common/AptLinker.cpp|local|Rva006D0A30List::rva006D1680|p,e26bf65bd82ed134b716c47b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,35ad6cb71e01013535d9ddc0
