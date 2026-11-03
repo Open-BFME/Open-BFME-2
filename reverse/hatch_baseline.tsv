@@ -12671,9 +12671,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	is
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	needToRotate@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	privateAttackMoveToPosition@AIUpdateInterface@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp	getIgnoredObstacleID@AIUpdateInterface@@QBE?AW4ObjectID@@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp	update@DeliverPayloadAIUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp	update@DeliveringState@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp	xfer@DeliverPayloadAIUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	0DozerAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	1DozerAIUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdate.cpp	<Rva00488C48::rva00488C48>	1
@@ -12831,7 +12828,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cpp	SlavedUpdate::onSlaverDie	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cpp	SlavedUpdate::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cpp	SlavedUpdate::~SlavedUpdate	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdate.cpp	initiateIntentToDoSpecialPower@SpectreGunshipUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateModuleDataCtor.cpp	Rva004CEE6EMemberTracked::~Rva004CEE6EMemberTracked	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdate.cpp	StructureCollapseUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	StructureToppleUpdate::loadPostProcess	1
