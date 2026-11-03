@@ -251,56 +251,22 @@ template <> DynamicVectorClass<Render2DClass *>::~DynamicVectorClass();
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??0W3DGameClient@@QAE@XZ present-unmatched
-W3DGameClient::W3DGameClient()
-{
-
-}  // end W3DGameClient
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??1W3DGameClient@@UAE@XZ present-unmatched
-W3DGameClient::~W3DGameClient()
-{
-
-}  // end ~W3DGameClient
 
 //-------------------------------------------------------------------------------------------------
 /** Initialize resources for the w3d game client */
 //-------------------------------------------------------------------------------------------------
-// ?init@W3DGameClient@@UAEXXZ present-unmatched
-void W3DGameClient::init( void )
-{
-
-	// extending initialization routine
-	GameClient::init();
-
-}  // end init
 
 //-------------------------------------------------------------------------------------------------
 /** Per frame udpate, note we are extending functionality */
 //-------------------------------------------------------------------------------------------------
-// ?update@W3DGameClient@@UAEXXZ present-unmatched
-void W3DGameClient::update( void )
-{
-
-	// call base
-	GameClient::update();
-
-}  // end update
 
 //-------------------------------------------------------------------------------------------------
 /** Reset this device client system.  Note we are extending reset functionality from
 	* the device independent client */
 //-------------------------------------------------------------------------------------------------
-// ?reset@W3DGameClient@@UAEXXZ present-unmatched
-void W3DGameClient::reset( void )
-{
-
-	// call base class
-	GameClient::reset();
-
-}  // end reset
 
 //-------------------------------------------------------------------------------------------------
 /** allocate a new drawable using the thing template for initialization.
@@ -309,21 +275,6 @@ void W3DGameClient::reset( void )
 	* GameLogic/Client for those purposes, or we could put the allocation pools
 	* in the GameLogic and GameClient themselves */
 //-------------------------------------------------------------------------------------------------
-// ?friend_createDrawable@W3DGameClient@@UAEPAVDrawable@@PBVThingTemplate@@W4DrawableStatus@@@Z present-unmatched
-Drawable *W3DGameClient::friend_createDrawable( const ThingTemplate *thingTemplate,
-																								DrawableStatus statusBits )
-{
-	Drawable *draw = NULL;
-
-	// sanity
-	if( thingTemplate == NULL )
-		return NULL;
-	
-	draw = newInstance(Drawable)( thingTemplate, statusBits );
-
-	return draw;
-
-}
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -442,38 +393,30 @@ void W3DGameClient::setTeamColor(Int red, Int green, Int blue)
 //-------------------------------------------------------------------------------------------------
 /** temporary entry point for adjusting LOD for development testing. */
 //-------------------------------------------------------------------------------------------------
-// ?adjustLOD@W3DGameClient@@UAEXH@Z present-unmatched
-void W3DGameClient::adjustLOD( Int adj ) 
-{
-	if (TheGlobalData == NULL) 
-		return;
-
-	TheWritableGlobalData->m_textureReductionFactor += adj;
-
-	if (TheWritableGlobalData->m_textureReductionFactor > 4)
-		TheWritableGlobalData->m_textureReductionFactor = 4;	//16x less resolution is probably enough.
-	if (TheWritableGlobalData->m_textureReductionFactor < 0)
-		TheWritableGlobalData->m_textureReductionFactor = 0;
-
-	if (WW3D::Get_Texture_Reduction() != TheWritableGlobalData->m_textureReductionFactor)
-	{	WW3D::Set_Texture_Reduction(TheWritableGlobalData->m_textureReductionFactor,32);
-		TheGameLODManager->setCurrentTextureReduction(TheWritableGlobalData->m_textureReductionFactor);
-		if( TheTerrainRenderObject ) 
-  			TheTerrainRenderObject->setTextureLOD( TheWritableGlobalData->m_textureReductionFactor );
-	}
-
-}  // end adjustLOD
 
 //-------------------------------------------------------------------------------------------------
 /**  Tell the terrain that an object moved, so it can knock down trees or crush grass
 		or whatever is appropriate. jba. */
 //-------------------------------------------------------------------------------------------------
-// ?notifyTerrainObjectMoved@W3DGameClient@@UAEXPAVObject@@@Z present-unmatched
-void W3DGameClient::notifyTerrainObjectMoved(Object *obj)
+
+//-------------------------------------------------------------------------------------------------
+// The unrowed Zero Hour constructor and destructor that stood here emitted
+// W3DGameClient's vtable, this unit's only emitter of three inline virtuals:
+// GameClient::firstDrawable and getDrawableList (GameClientDrawableTOC's
+// GameClient vtable takes them) and the createGameDisplay row (0x0008FCAE).
+// createGameDisplay is protected, so the anchor is a static member of a derived
+// helper that is never instantiated (precedent: TerrainTrackEdgeInfoO1.cpp).
+// Not retail code.
+struct BfmeW3DGameClientInlineAnchor : public W3DGameClient
 {
-	if (TheTerrainRenderObject) {
-		TheTerrainRenderObject->unitMoved(obj);
-	}
-
-}  // end setTimeOfDay
-
+	static void anchor(BfmeW3DGameClientInlineAnchor *client);
+};
+#pragma inline_depth(0)
+// ?anchor@BfmeW3DGameClientInlineAnchor@@ absent-from-retail
+void BfmeW3DGameClientInlineAnchor::anchor(BfmeW3DGameClientInlineAnchor *client)
+{
+	client->GameClient::firstDrawable();
+	client->GameClient::getDrawableList();
+	client->W3DGameClient::createGameDisplay();
+}
+#pragma inline_depth()
