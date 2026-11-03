@@ -62,16 +62,9 @@ private:
 	char m_unmodelled_04[0x8 - 0x04];
 };
 
+#include "../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem
 {
-class WindModuleInfo
-{
-public:
-	WindModuleInfo();
-	virtual ~WindModuleInfo();
-private:
-	char m_unmodelled_04[0x48 - 0x04];
-};
 }
 
 // ?<bfmeVectorDeleteAnchorV02> absent-from-retail

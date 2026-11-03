@@ -9,6 +9,7 @@
 
 #include "../../../../Include/GameClient/Rva003AEEB3.h"
 
+#include "../../../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -36,11 +37,6 @@ public:
 	RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &other);
 };
 
-class WindModuleInfo
-{
-public:
-	WindModuleInfo(const WindModuleInfo &other);
-};
 
 }
 

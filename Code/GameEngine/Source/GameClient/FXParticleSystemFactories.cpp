@@ -35,6 +35,7 @@ void operator delete[](void *p);
 // PAVINI@@ rather than PAVINI@2@.
 class INI;
 
+#include "../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -723,30 +724,6 @@ FX_DEFAULT_TEMPLATE(1, DefaultAlphaModuleInfo)
 FX_DEFAULT_TEMPLATE(2, DefaultUpdateModuleInfo)
 FX_DEFAULT_TEMPLATE(3, DefaultPhysicsModuleInfo)
 FX_DEFAULT_TEMPLATE(6, DefaultDrawModuleInfo)
-class WindModuleInfo
-{
-public:
-    virtual ~WindModuleInfo();
-    virtual void v1() = 0;
-
-    float m_unknown04;
-    float m_unknown08;
-    float m_unknown0C;
-    float m_unknown10;
-    float m_unknown14;
-    float m_unknown18;
-    float m_unknown1C;
-    float m_unknown20;
-    float m_unknown24;
-    float m_unknown28;
-    float m_unknown2C;
-    float m_unknown30;
-    float m_unknown34;
-    float m_unknown38;
-    bool m_unknown3C;
-    float m_unknown40;
-    float m_unknown44;
-};
 
 template <>
 class CategoryModuleTemplate<7> : public ModuleTemplate, public SecondaryModuleBase,

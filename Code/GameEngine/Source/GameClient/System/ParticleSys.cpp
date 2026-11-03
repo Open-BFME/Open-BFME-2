@@ -573,6 +573,7 @@ public:
 // subobject, while novtable leaves table ownership in the existing units.
 // The three secondary tables fold to the same retail address but remain
 // separate symbols, as they are during normal C++ construction.
+#include "../../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem {
 extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
 extern "C" const void *const __identifier("??_7?$CategoryModuleTemplateBase@$06@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
@@ -600,12 +601,6 @@ public:
     }
     virtual ~CategoryModuleTemplateBase();
     void *v4;
-};
-class __declspec(novtable) WindModuleInfo {
-public:
-    WindModuleInfo();
-    virtual ~WindModuleInfo();
-    char fields[0x44];
 };
 template<int N> class __declspec(novtable) CategoryModuleTemplate : public CategoryModuleTemplateBase<N> {
     WindModuleInfo wind;

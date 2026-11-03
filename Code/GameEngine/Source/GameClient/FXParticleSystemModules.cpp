@@ -21,6 +21,7 @@
 
 class INI;
 
+#include "../../Include/GameClient/WindModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -232,30 +233,6 @@ public:
 // (see FXParticleSystemDefaultTemplateDtor.cpp). The wind info below copies the
 // 17-member layout from FXParticleSystem.cpp (14 floats, a bool, 2 floats: 68
 // data + vptr = 72, + 8 = 80 = 0x50 retail clone push at 0x003A9499).
-class WindModuleInfo
-{
-public:
-    virtual ~WindModuleInfo();
-    virtual void v1() = 0;
-
-    float m_unknown04;
-    float m_unknown08;
-    float m_unknown0C;
-    float m_unknown10;
-    float m_unknown14;
-    float m_unknown18;
-    float m_unknown1C;
-    float m_unknown20;
-    float m_unknown24;
-    float m_unknown28;
-    float m_unknown2C;
-    float m_unknown30;
-    float m_unknown34;
-    float m_unknown38;
-    bool m_unknown3C;
-    float m_unknown40;
-    float m_unknown44;
-};
 
 template <>
 class CategoryModuleTemplate<7> : public ModuleTemplate, public SecondaryModuleBase,
