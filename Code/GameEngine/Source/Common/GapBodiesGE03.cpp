@@ -198,13 +198,7 @@ Rva00525916 &Rva00525916::rva00525AAC(DelegateDesc desc)
 
 // --- 0x00518756 (19B): constructor taking a 16-byte functor binding by value
 // and handing its address to the rowed holder base constructor 0x0057BC63.
-struct FunctorBinding
-{
-	void *m_target;
-	unsigned int m_pad;
-	void *m_method;
-	unsigned int m_adjust;
-};
+#include "../../Include/GameClient/FunctorBinding.h"
 
 class Rva0057BC63FunctorHolder
 {

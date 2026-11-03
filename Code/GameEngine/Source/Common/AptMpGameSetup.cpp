@@ -64,10 +64,7 @@ public: void rva0043E6C9(Rva0043E6C9Arg *);
 
 typedef void (Rva0043E0C5::*FunctorMethod)(Rva0043E6C9Arg *);
 
-struct FunctorBinding {
- Rva0043E0C5* target;unsigned int pad;FunctorMethod method;
- FunctorBinding(FunctorMethod m,Rva0043E0C5*functorTarget):target(functorTarget),method(m){}
-};
+#include "../../Include/GameClient/FunctorBinding.h"
 
 class Rva0057BC63FunctorHolder {public:Rva0057BC63FunctorHolder(const FunctorBinding&);TargetRef00217D4C* pointer;};
 

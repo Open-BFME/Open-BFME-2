@@ -110,13 +110,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);
-struct FunctorBinding
-{
- FunctorBinding(FunctorMethod method,FunctorTarget *target):m_target(target),m_method(method) {}
- FunctorTarget *m_target;
- unsigned int m_unmodelled04;
- FunctorMethod m_method;
-};
+#include "../../Include/GameClient/FunctorBinding.h"
 class Rva0057BC63FunctorHolder
 {
 public:

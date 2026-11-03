@@ -81,15 +81,7 @@ int __cdecl Rva00525235Fire(void *target, void *level, const char *prefix, const
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(void);
 
-struct FunctorBinding
-{
-	template <class T> FunctorBinding(T *target, void (T::*method)(const char *))
-		: m_target(reinterpret_cast<FunctorTarget *>(target)), m_method(reinterpret_cast<FunctorMethod>(method)) {}
-
-	FunctorTarget *m_target;
-	unsigned int m_pad;
-	FunctorMethod m_method;
-};
+#include "../../Include/GameClient/FunctorBinding.h"
 
 class Rva0057BC63FunctorHolder
 {
