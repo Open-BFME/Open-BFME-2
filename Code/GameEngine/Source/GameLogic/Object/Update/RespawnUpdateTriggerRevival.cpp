@@ -184,40 +184,9 @@ public:
     AsciiString m_respawnAsTemplate; // +0x11C
 };
 
-class UpdateModule
-{
-public:
-	void *m_vtable;
-	const RespawnUpdateModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
-};
-
-class RespawnUpdate : public UpdateModule
-{
-public:
-	void triggerDeathBeforeRespawn();
- void triggerRevival(Object *at);
-
-private:
-	float m_20;
-	unsigned int m_24;
-	unsigned int m_28;
-	unsigned int m_2C;
-	unsigned int m_30;
-	unsigned int m_34;
-	unsigned int m_38;
-	unsigned int m_3C;
-	unsigned char m_40;
-	unsigned char m_41;
-};
 
 
 #include "../../../../Include/GameLogic/Module/ExitInterface.h"
@@ -228,7 +197,7 @@ extern PlayerList *ThePlayerList;
 extern ControlBar *TheControlBar;
 void RespawnUpdate::triggerRevival(Object *at) {
  Object *obj=m_object;
- const RespawnUpdateModuleData *data=m_moduleData;
+ const RespawnUpdateModuleData *data=reinterpret_cast<const RespawnUpdateModuleData *>(m_moduleData);
  Coord3D pos={at->getPosition()->x,at->getPosition()->y,at->getPosition()->z};
  ExitInterface *exit=at->getObjectExitInterface();
  if(exit) exit->getNaturalRallyPoint(pos,true);
