@@ -1,0 +1,302 @@
+{
+ "bases": [
+  "NetCommandMsg"
+ ],
+ "bases_by": "majority",
+ "class": "NetGameCommandMsg",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 7,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "[('0x0', '0x8601e4')]": 1,
+      "[]": 1
+     },
+     "fact": "vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x30": 1
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d55d6",
+      "0x4d5cbe"
+     ],
+     "value": {
+      "0x0": [
+       "NetCommandMsg"
+      ]
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d55d6",
+      "0x4d5cbe"
+     ],
+     "value": 48
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4d55d6",
+      "0x4d5cbe"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4d55d6",
+      "0x4d5cbe"
+     ],
+     "value": {
+      "0x0": [
+       "?addArgument@NetGameCommandMsg@@QAEXW4GameMessageArgumentDataType@@TGameMessageArgumentType@@@Z"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "28": 1,
+   "44": 2,
+   "48": 5
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_NetGameCommandMsg.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetCommandMsg.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_timestamp",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_executionFrame",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_playerID",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_commandType",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_referenceCount",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_numArgs",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_argSize",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_type",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_argList",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_argTail",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-vftables",
+   "candidates": {
+    "[('0x0', '0x8601e4')]": 1,
+    "[]": 1
+   },
+   "class": "NetGameCommandMsg",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 28]]": 6,
+    "[[0, 4]]": 1
+   },
+   "class": "NetGameCommandMsg"
+  }
+ ],
+ "size": 48,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

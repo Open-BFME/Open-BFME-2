@@ -548,3 +548,4 @@ RespawnUpdate,Code/GameEngine/Include/GameLogic/Module/RespawnUpdate.h,existing 
 HordeAIUpdate,Code/GameEngine/Include/GameLogic/Module/HordeAIUpdate.h,existing header; contract class_contracts/HordeAIUpdate.json; 3/9 sampled units adopt
 EmotionTrackerUpdate,Code/GameEngine/Include/GameLogic/Module/EmotionTrackerUpdate.h,existing header; contract class_contracts/EmotionTrackerUpdate.json; 4/10 sampled units adopt
 AnimalAIUpdate,Code/GameEngine/Include/GameLogic/Module/AnimalAIUpdate.h,existing header; contract class_contracts/AnimalAIUpdate.json; 4/10 sampled units adopt
+NetGameCommandMsg,Code/GameEngine/Include/GameNetwork/NetGameCommandMsg.h,existing header; contract class_contracts/NetGameCommandMsg.json; 3/9 sampled units adopt
