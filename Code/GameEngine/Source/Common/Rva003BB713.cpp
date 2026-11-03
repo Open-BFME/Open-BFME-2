@@ -9,11 +9,7 @@ class Player;
 class Object;
 #include "../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Rva002ADF9C
 {

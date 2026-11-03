@@ -96,18 +96,7 @@ class Rva002ABFA0
 public:
 	void rva002ACEDF(void *p);
 };
-class PlayerList
-{
-public:
-	unsigned char m_pad00[0x10];
-	Player *m_localPlayer;
-	int m_playerCount;
-	int getPlayerCount() const { return m_playerCount; }
-	Player *getNthPlayer(int i);
-	Player *getEachPlayerFromMask(int &mask);
-	Player *getPlayerFromMask(int mask);
-	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool flag);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class TerrainLogic;
@@ -139,7 +128,7 @@ void ScriptActions::doPlaySoundEffect(const AsciiString &sound)
 	if (!info.m_info)
 		return;
 	BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4 *>(&info), 0);
-	Player *localPlayer = ThePlayerList->m_localPlayer;
+	Player *localPlayer = ThePlayerList->m_local;
 	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(localPlayer->m_playerIndex);
 	reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->addAudioEvent(&event);
 }
@@ -159,7 +148,7 @@ void ScriptActions::doPlaySoundEffectAt(const AsciiString &sound,
 	BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4 *>(&info),
 		*reinterpret_cast<const BfmeEventPositionView *>(way), 0);
 	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(
-		ThePlayerList->m_localPlayer->m_playerIndex);
+		ThePlayerList->m_local->m_playerIndex);
 	reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->addAudioEvent(&event);
 }
 
@@ -171,7 +160,7 @@ void ScriptActions::doSpeechPlay(const AsciiString &speechName, bool allowOverla
 	if (!info.m_info)
 		return;
 	BfmeAudioEventPrefix136 speech(*reinterpret_cast<const OpaqueRefElement4 *>(&info), 0);
-	Player *localPlayer = ThePlayerList->m_localPlayer;
+	Player *localPlayer = ThePlayerList->m_local;
 	reinterpret_cast<Rva0033F15DDwordSlot *>(&speech)->set(localPlayer->m_playerIndex);
 	speech.m_b4A = !allowOverlap;
 	reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->addAudioEvent(&speech);
@@ -639,7 +628,7 @@ void ScriptActions::doPlaySoundEffectAtTeam(const AsciiString &sound, const Asci
 		return;
 	BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4 *>(&info),
 		obj->m_objectID);
-	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(ThePlayerList->m_localPlayer->m_playerIndex);
+	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(ThePlayerList->m_local->m_playerIndex);
 	reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->addAudioEvent(&event);
 }
 
@@ -710,7 +699,7 @@ void ScriptActions::doForceObjectSelection(const AsciiString &teamName, const As
 	}
 	if (!(bestGuess && bestGuess->getDrawable()))
 		return;
-	Player *localPlayer = ThePlayerList->m_localPlayer;
+	Player *localPlayer = ThePlayerList->m_local;
 	if (bestGuess->getControllingPlayer() == localPlayer) {
 		GameMessage *msg = TheMessageStream->appendMessage(0x3E9);
 		msg->appendBooleanArgument(true);
@@ -719,7 +708,7 @@ void ScriptActions::doForceObjectSelection(const AsciiString &teamName, const As
 	}
 	AudioEventInfoRef info = reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->findAudioEvent(audioToPlay);
 	BfmeAudioEventPrefix136 audioEvent(*reinterpret_cast<const OpaqueRefElement4 *>(&info), 0);
-	reinterpret_cast<Rva0033F15DDwordSlot *>(&audioEvent)->set(ThePlayerList->m_localPlayer->m_playerIndex);
+	reinterpret_cast<Rva0033F15DDwordSlot *>(&audioEvent)->set(ThePlayerList->m_local->m_playerIndex);
 	reinterpret_cast<ScriptActionsAudioView *>(TheAudio)->addAudioEvent(&audioEvent);
 	if (centerInView) {
 		Coord3D pos;

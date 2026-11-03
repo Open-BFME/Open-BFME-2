@@ -58,15 +58,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/PlayerList.h
-class PlayerList
-{
-public:
-	// Distinct retail bodies, not spellings of one: 0x000DF440 returns the
-	// first player in the mask, 0x000DF4A0 consumes one bit per call so a
-	// caller can walk every player the mask names.
-	Player *getPlayerFromMask(unsigned short mask);
-	Player *getEachPlayerFromMask(unsigned short &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 #include "../../../Include/GameLogic/ScriptParameter.h"

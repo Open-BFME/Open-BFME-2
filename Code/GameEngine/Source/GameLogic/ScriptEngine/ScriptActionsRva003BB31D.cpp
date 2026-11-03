@@ -17,11 +17,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 void ScriptActions::doPlayerDisableBaseConstruction(const AsciiString &name)
 {

@@ -120,15 +120,7 @@ public:
 	ScienceType *m_sciencesEnd; // +0xA8
 };
 // ThePlayerList (0x009FEEE8): the local player at +0x10.
-class PlayerList
-{
-public:
-	Player *spellStoreLocalPlayer() { return m_local; }
-
-private:
-	unsigned char m_pad000[0x10];
-	Player *m_local; // +0x10
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 // TheControlBar's rowed lookup 0x0031DF89 (Rva0031D5F8Lookup.cpp): the
 // player's command set.

@@ -28,11 +28,7 @@ public:
 	float m_54;
 };
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;
 

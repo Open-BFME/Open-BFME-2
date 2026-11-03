@@ -23,11 +23,7 @@ public:
 	Rva00380200 m_sub; // +0x08
 };
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 void ScriptActions::Rva003BC582Set(const AsciiString &name, int val)

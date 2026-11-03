@@ -64,12 +64,7 @@ private:
 	int m_playerIndex;							// +0x54
 };
 
-class PlayerList
-{
-public:
-	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships,
-		Bool match);							// 0x002A7C70
-};
+#include "../../../Include/Common/PlayerList.h"
 
 extern PlayerList *ThePlayerList;				// 0x00DFEEE8
 

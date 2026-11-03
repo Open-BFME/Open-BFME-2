@@ -69,11 +69,7 @@ public:
     unsigned char pad00[0x32C];
     Rva003C069BPrototypeNode *teams;
 };
-class PlayerList
-{
-public:
-    Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

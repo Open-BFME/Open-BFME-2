@@ -137,11 +137,7 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class Drawable
 {

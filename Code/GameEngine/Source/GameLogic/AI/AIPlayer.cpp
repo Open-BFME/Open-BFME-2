@@ -340,11 +340,7 @@ private:
 	unsigned int m_attackedFrame;		// +0x354
 };
 
-class PlayerList
-{
-public:
-	Player *getNthPlayer(Int index);	// 0x002A7A29
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Overridable
