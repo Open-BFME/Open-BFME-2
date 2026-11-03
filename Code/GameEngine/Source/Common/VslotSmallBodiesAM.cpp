@@ -271,8 +271,11 @@ bool Rva0054F990::rva0054F990() const
 	return m_6C != m_70;
 }
 
-// 0x00550618 and 0x00550626: the +0x52 byte resp. +0x54 word of the +0x64
-// object, 0 without it.
+// 0x00550618 and 0x00550626: GameSpyBuddyMessageQueue::isConnected and
+// getLocalProfileID, slots 4 and 10 of the table 0x00C6B014 its rowed
+// constructor installs: the buddy thread's +0x52 byte resp. +0x54 word
+// (BFME 2 ThreadClass base, then Zero Hour's m_isConnected / m_profileID),
+// 0 without a thread.
 struct Rva00550618Info
 {
 	char m_pad00[0x52];
@@ -280,22 +283,29 @@ struct Rva00550618Info
 	char m_pad53;
 	Int m_54;
 };
+class GameSpyBuddyMessageQueue
+{
+public:
+	virtual bool isConnected();
+private:
+	char m_pad04[0x64 - 4];
+	Rva00550618Info *m_thread; // +0x64
+};
+bool GameSpyBuddyMessageQueue::isConnected()
+{
+	Rva00550618Info *info = m_thread;
+	if (info)
+		return info->m_52;
+	return false;
+}
 class Rva00550618
 {
 public:
-	bool rva00550618() const;
 	Int rva00550626() const;
 private:
 	char m_pad00[0x64];
 	Rva00550618Info *m_64;
 };
-bool Rva00550618::rva00550618() const
-{
-	Rva00550618Info *info = m_64;
-	if (info)
-		return info->m_52;
-	return false;
-}
 Int Rva00550618::rva00550626() const
 {
 	Rva00550618Info *info = m_64;
