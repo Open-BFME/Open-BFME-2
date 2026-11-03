@@ -581,3 +581,4 @@ DOTManager,Code/GameEngine/Include/GameLogic/DOTManager.h,existing header; contr
 LifetimeUpdate,Code/GameEngine/Include/GameLogic/Module/LifetimeUpdateClass.h,existing header; contract class_contracts/LifetimeUpdate.json; 5/10 sampled units adopt
 BoxEmissionVolumeInfo,Code/GameEngine/Include/GameClient/BoxEmissionVolumeInfo.h,existing header; contract class_contracts/BoxEmissionVolumeInfo.json; 6/7 sampled units adopt
 WallUpgradeUpdate,Code/GameEngine/Include/GameLogic/Module/WallUpgradeUpdate.h,existing header; contract class_contracts/WallUpgradeUpdate.json; 5/9 sampled units adopt
+AttributeModifierAuraUpdate,Code/GameEngine/Include/GameLogic/Module/AttributeModifierAuraUpdate.h,existing header; contract class_contracts/AttributeModifierAuraUpdate.json; 3/8 sampled units adopt
