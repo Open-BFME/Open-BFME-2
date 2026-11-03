@@ -67,18 +67,7 @@ private:
 };
 
 class MultiIniFieldParse;
-class OpenContainModuleData
-{
-public:
-	OpenContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	virtual ~OpenContainModuleData();
-	char m_pad04[0x3C];
-protected:
-	Rva003623E5Member m_filter40; // +0x40
-	Rva003623E5Filter m_filter44; // +0x44
-	char m_pad48[0x50];
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 struct ThrowOutVelocity
 {

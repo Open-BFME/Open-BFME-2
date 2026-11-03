@@ -114,11 +114,7 @@ extern const FieldParse g_00C43D24[] = {
 };
 
 
-class OpenContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 class HealContainModuleData
 {

@@ -23,14 +23,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class OpenContainModuleData
-{
-public:
-	virtual ~OpenContainModuleData();
-
-private:
-	unsigned char m_pad[0x98 - 4];
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 // The 5-byte dtor 0x0025770F jmps to the rowed OpenContainModuleData dtor
 // 0x00257481 with `this` unchanged and stores no vptr (novtable, as the

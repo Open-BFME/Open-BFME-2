@@ -1045,11 +1045,7 @@ void GiveUpgradeUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(BfmeGiveUpgradeUpdateFields, 0);
 }
 
-class OpenContainModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 // Retail VA 0x00C438B0: 24 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies

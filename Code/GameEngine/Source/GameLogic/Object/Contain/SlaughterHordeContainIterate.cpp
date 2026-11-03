@@ -60,12 +60,7 @@ void SlaughterHordeContain::rva004635EC(ContainIterateFunc func, void *userData,
 	}
 }
 
-class OpenContainModuleData
-{
-public:
-	unsigned char m_pad[0x74];
-	int m_numberOfExitPaths;
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 class OpenContain
 {

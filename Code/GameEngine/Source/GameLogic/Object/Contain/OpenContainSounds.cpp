@@ -41,12 +41,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../object.h"
 
-struct OpenContainModuleData
-{
-	unsigned char m_pad00[0x38];
-	OpaqueRefElement4 m_enterSound; // +0x38
-	OpaqueRefElement4 m_exitSound; // +0x3C
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 class OpenContain
 {

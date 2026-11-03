@@ -121,7 +121,7 @@ public:
 class AI {public:char pad[0x10];Pathfinder *pathfinder;Pathfinder *getPathfinder(){return pathfinder;}};extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
-struct OpenContainModuleData {char pad[0x74];int numberOfExitPaths;unsigned int doorOpenTime;};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 class OpenContainModule:public Slots<OpenContainModule,1>{public:OpenContainModuleData *moduleData;Object *owner;Object *getObject() const{return owner;}const OpenContainModuleData *getOpenContainModuleData() const{return moduleData;}char padC[0x20-0xc];};
 class ContainModuleInterface:public Slots<ContainModuleInterface,41>{public:virtual void removeFromContain(Object*,bool);char pad4[0x10-4];};
 #include "../../../../Include/GameLogic/Module/ExitInterface.h"
@@ -150,7 +150,7 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType exitDoor)
 {
  removeFromContain(exitObj,false);
  Object *me=getObject();
- doorCloseCountdown=getOpenContainModuleData()->doorOpenTime;
+ doorCloseCountdown=getOpenContainModuleData()->m_doorOpenTime;
  if(doorCloseCountdown){
   if(me->conditionBits.test(22)||!me->conditionBits.test(21)){
    me->conditionBits.clear(22);
@@ -158,7 +158,7 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType exitDoor)
    me->rva0028AE6D();
   }
  }
- int numberExits=getOpenContainModuleData()->numberOfExitPaths;
+ int numberExits=getOpenContainModuleData()->m_numberOfExitPaths;
  if(numberExits>0){
   AsciiString startBone("ExitStart");
   AsciiString endBone("ExitEnd");
@@ -265,7 +265,7 @@ void OpenContain::exitObjectInAHurry(Object *exitObj)
 {
  removeFromContain(exitObj,false);
  Object *me=getObject();
- doorCloseCountdown=getOpenContainModuleData()->doorOpenTime;
+ doorCloseCountdown=getOpenContainModuleData()->m_doorOpenTime;
  if(doorCloseCountdown){
   if(me->conditionBits.test(22)||!me->conditionBits.test(21)){
    me->conditionBits.clear(22);
@@ -273,7 +273,7 @@ void OpenContain::exitObjectInAHurry(Object *exitObj)
    me->rva0028AE6D();
   }
  }
- int numberExits=getOpenContainModuleData()->numberOfExitPaths;
+ int numberExits=getOpenContainModuleData()->m_numberOfExitPaths;
  if(numberExits>0){
   AsciiString startBone("ExitStart");
   AsciiString endBone("ExitEnd");

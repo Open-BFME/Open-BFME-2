@@ -18,14 +18,7 @@ private:
 	void *m_data;
 };
 
-class __declspec(novtable) OpenContainModuleData
-{
-public:
-	virtual ~OpenContainModuleData();
-
-private:
-	unsigned char m_pad[0x98 - 4];
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 class __declspec(novtable) GarrisonContainModuleData : public OpenContainModuleData
 {

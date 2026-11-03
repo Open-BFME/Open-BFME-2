@@ -180,16 +180,7 @@ ModuleData *BezierProjectileBehavior::friend_newModuleData(INI *ini)
 	return reinterpret_cast<ModuleData *>(data);
 }
 
-class OpenContainModuleData
-{
-public:
-	OpenContainModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	virtual ~OpenContainModuleData();
-
-private:
-	unsigned char m_pad[0x98 - 4];
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 
 class OpenContain
