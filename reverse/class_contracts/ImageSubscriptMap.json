@@ -1,0 +1,71 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ImageSubscriptMap",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 6,
+   "12": 2
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_map._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned int const ,Image *> >*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/HostValidateColorsRva004422DDFarm.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/HostValidateColorsRva004422DDFarm.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "nested@0x0",
+   "candidates": {
+    "m_map._M_t._M_header._M_data": 1
+   },
+   "class": "ImageSubscriptMap"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
