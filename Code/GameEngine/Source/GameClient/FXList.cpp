@@ -530,7 +530,10 @@ public:
 	{
 		if (primary)
 		{
-			reallyDoFX(primary, primaryMtx, NULL, overrideRadius);
+			// As retail's doFXPos 0x001E19CE does (push 0, push 0, then the
+			// rowed four-argument reallyDoFX 0x001E19E8). Zero Hour's inline
+			// reallyDoFX(..., Real) called names BFME 2 does not provide (LINK-181).
+			reallyDoFX(primary, primaryMtx, (const Object *)NULL, (const Object *)NULL);
 		}
 		else
 		{
