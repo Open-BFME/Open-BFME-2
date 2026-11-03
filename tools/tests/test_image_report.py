@@ -23,14 +23,18 @@ def test_pointer_conflicts_compare_targets_the_ledger_knows():
     class Image:
         base = 0x400000
 
-        def read(self, rva, _size):
-            return (0x400000 + 0x1000 + rva).to_bytes(4, "little")
+        def read(self, rva, size):
+            if size == 4:
+                return (0x400000 + 0x1000 + rva).to_bytes(4, "little")
+            return {0x1010: b"same\0", 0x8000: b"same\0", 0x1014: b"this\0", 0x8004: b"that\0"}.get(rva, b"\0")
 
     class Found:
-        pointers = [(0, "_right"), (4, "_wrong"), (8, "_unknown"), (64, "_past_the_extent")]
+        pointers = [(0, "_right", 0), (4, "_wrong", 0), (8, "_unknown", 0), (64, "_past_the_extent", 0), (12, "_array", 8),
+                    (16, "??_C@_a", 0), (20, "??_C@_b", 0)]
 
-    conflicts, unknown = ir.pointer_conflicts(Image(), 0, Found(), {"_right": {0x1000}, "_wrong": {0x9000}}, 16)
-    assert conflicts == [[4, "_wrong", "0x1004"]]
+    known = {"_right": {0x1000}, "_wrong": {0x9000}, "_array": {0x1004}, "??_C@_a": {0x8000}, "??_C@_b": {0x8004}}
+    conflicts, unknown = ir.pointer_conflicts(Image(), 0, Found(), known, 24)
+    assert conflicts == [[4, "_wrong", "0x1004"], [20, "??_C@_b", "0x1014"]]
     assert unknown == 1
 
 

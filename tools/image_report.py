@@ -93,10 +93,23 @@ def data_verdict(ours, retail, masked):
     return "ours_zero_retail_not" if not any(ours) and not masked and any(retail) else "contents_differ"
 
 
+def same_text(retail, first, second, target):
+    """Do two addresses hold the same string, wide when the literal's mangled name says so?"""
+    width = 2 if target.startswith("??_C@_1") else 1
+
+    def text(rva):
+        raw = retail.read(rva, 512) or b""
+        for at in range(0, len(raw) - width + 1, width):
+            if raw[at:at + width] == bytes(width):
+                return raw[:at]
+        return raw
+    return text(first) == text(second)
+
+
 def pointer_conflicts(retail, rva, found, addresses, span):
     """(offset, ours, retail's target) for each relocation the ledger can check; and the count it cannot."""
     conflicts, unknown = [], 0
-    for offset, target in found.pointers:
+    for offset, target, addend in found.pointers:
         if offset < 0 or offset + 4 > span:
             continue
         known = addresses.get(target)
@@ -105,8 +118,12 @@ def pointer_conflicts(retail, rva, found, addresses, span):
             continue
         raw = retail.read(rva + offset, 4)
         value = struct.unpack("<I", raw)[0] - retail.base
-        if not any(value == address for address in known):
-            conflicts.append([offset, target, hex(value)])
+        if any(value == address + addend for address in known):
+            continue
+        # Retail can hold one string literal several times; another copy of the text is the same data.
+        if target.startswith("??_C@") and any(same_text(retail, value, address, target) for address in known):
+            continue
+        conflicts.append([offset, target, hex(value)])
     return conflicts, unknown
 
 
@@ -150,7 +167,9 @@ def scan_objects(paths):
                           else raw[section.ptr + symbol.value:section.ptr + end])
             found.masked = {off - symbol.value + k for off, _i, _t in section.relocs for k in range(4)}
             found.comdat = bool(section.flags & COMDAT)
-            found.pointers = [(off - symbol.value, symbols[i].name) for off, i, _t in section.relocs if i in symbols]
+            found.pointers = [(off - symbol.value, symbols[i].name,
+                               struct.unpack_from("<I", raw, section.ptr + off)[0] if not section.flags & UNINITIALIZED else 0)
+                              for off, i, _t in section.relocs if i in symbols]
             definitions[symbol.name].append(found)
         for section in sections:
             if not section.name.startswith(".CRT$XCU"):
