@@ -23,11 +23,7 @@ public:
 
 // LINK: 0x003FCCC9 is rowed as LivingWorldVisual::rva003FCCC9(bool) (Rva003FCD58 sibling rows); the unsigned-char argument stays
 // through a member-pointer cast.
-class LivingWorldVisual
-{
-public:
-	void rva003FCCC9(bool value);
-};
+#include "../../Include/GameClient/LivingWorldVisual.h"
 typedef void (LivingWorldVisual::*LivingWorldVisualUcharShape)(unsigned char);
 
 class Rva003FCD58 : public Rva003FB65C

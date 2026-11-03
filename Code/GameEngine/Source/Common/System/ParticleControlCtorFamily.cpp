@@ -233,9 +233,7 @@ void Rva003FD14DBase::rva003FCA58()
 }
 
 class RenderObjClass;
-class LivingWorldVisual { public:
- RenderObjClass *createRenderObject(const AsciiString &,const _STL::vector<AsciiString> &,int,const int *);
-};
+#include "../../../Include/GameClient/LivingWorldVisual.h"
 // Reuse the existing scene-pointer owner spelling; no new global pin or definition.
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;

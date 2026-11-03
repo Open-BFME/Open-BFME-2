@@ -448,7 +448,7 @@ Rva003F9D08::Rva003F9D08(EmitVtableTag *)
 // rowed LivingWorldVisual operation 0x003FCD71, unregisters this pointer from
 // the 0x00DFE1C8 singleton, and conditionally unlinks its +0x1C handle.
 // The owner name is deliberately retained from the rowed deleting wrapper.
-class LivingWorldVisual { public: void rva003FCD71(); };
+#include "../../Include/GameClient/LivingWorldVisual.h"
 class CreateAHeroData;
 class Rva00211541 { public: void rva00211541(CreateAHeroData *); };
 class LivingWorldManager;

@@ -53,10 +53,7 @@ class Rva003FDBD1 : public Rva003FD14DBase {public:
     virtual void vfuncDBD1();
     char positionAC[12];
 };
-class LivingWorldVisual {public:
-    RenderObjClass*createRenderObject(const AsciiString&,const _STL::vector<AsciiString>&,int,const int*);
-    void rva003FC291(float);
-};
+#include "../../../Include/GameClient/LivingWorldVisual.h"
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 class BfmeRenderSceneView {public:

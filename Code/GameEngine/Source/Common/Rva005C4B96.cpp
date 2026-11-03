@@ -36,11 +36,7 @@ class Rva003FBF38
 public:
 	unsigned char rva003FBF38();
 };
-class LivingWorldVisual
-{
-public:
-	void rva003FCCC9(bool a);
-};
+#include "../../Include/GameClient/LivingWorldVisual.h"
 typedef void (LivingWorldVisual::*LivingWorldVisualUcharShape)(unsigned char);
 
 class Rva005C4B56 : public Rva003FB65C

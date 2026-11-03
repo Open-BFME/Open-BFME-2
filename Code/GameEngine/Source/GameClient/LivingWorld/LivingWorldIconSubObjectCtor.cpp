@@ -25,12 +25,7 @@ Rva005F17C6S16 Rva005F17C6Build(const Rva005F17C6S12 &,int);
 class RenderObjClass;
 class HTreeClass;
 class Rva003FB65C {public:HTreeClass *rva003FC780(const AsciiString *,int);};
-class LivingWorldVisual {public:
- RenderObjClass *createRenderObject(const AsciiString &,const std::vector<AsciiString> &,int,const int *);
- RenderObjClass *createPickboxObject(const AsciiString *);
- void rva003FC291(float);
- void rva003FCCC9(bool);
-};
+#include "../../../Include/GameClient/LivingWorldVisual.h"
 // 0x003FCCC9 is rowed as LivingWorldVisual::rva003FCCC9(bool); the incoming
 // unsigned-char predicate result keeps its byte spelling through a
 // member-pointer cast (same binding as Rva005C4B96.cpp / Rva003FCD58Method.cpp).

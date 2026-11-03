@@ -172,25 +172,7 @@ int __cdecl Rva003FCE11Compare(void *a, void *b);
 
 typedef std::vector<AsciiString> AsciiStringVector;
 
-class LivingWorldVisual
-{
-public:
-	virtual void setHouseColor(const Int &color);
-	RenderObjClass *createRenderObject(const AsciiString &modelName, const AsciiStringVector &subObjectNames,
-		Int shadowType, const Int *houseColor);
-	void createShadow();
-	void rva003FCCC9(bool visible);
-	void rva003FCDD5(bool enable);
-	void rva003FCD71();
-
-private:
-	unsigned char m_pad04[4];
-	RenderObjClass *m_primaryRObj;		// +0x08
-	Shadow *m_shadow;					// +0x0C
-	Int m_shadowType;					// +0x10
-	RenderObjClass *m_robj14;			// +0x14
-	RenderObjClass *m_robj18;			// +0x18
-};
+#include "../../../Include/GameClient/LivingWorldVisual.h"
 
 // LivingWorldVisual::setHouseColor, retail 0x003FB602.
 void LivingWorldVisual::setHouseColor(const Int &color)

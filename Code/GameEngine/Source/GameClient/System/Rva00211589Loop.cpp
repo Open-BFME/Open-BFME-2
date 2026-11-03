@@ -18,12 +18,7 @@ public:
 	void rva003FD6E0();
 };
 
-class LivingWorldVisual
-{
-public:
-	void rva003FCD71();	// rowed 0x003FCD71
-	void rva003FCDD5(bool value);	// rowed 0x003FCDD5
-};
+#include "../../../Include/GameClient/LivingWorldVisual.h"
 
 class Rva003F934B
 {
