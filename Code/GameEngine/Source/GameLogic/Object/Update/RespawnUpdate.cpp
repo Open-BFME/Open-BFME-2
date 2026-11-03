@@ -89,16 +89,8 @@ class INI;
 // address-derived names after allow (slot 1), the ctors being inline. The
 // inline destructors only restore the base vftable, which cl drops here.
 class Object;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
+#include "Code/GameEngine/Include/GameLogic/PartitionFilter.h"
+inline Rva000421C8::~Rva000421C8() {}
 // vftable 0x00BFAD04, allow 0x00260E2A, slot 2 0x00260E1E: +0x08 a player.
 class Rva00260E2AFilter : public Rva000421C8
 {
