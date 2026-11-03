@@ -59,22 +59,8 @@ public:
 	TeamID m_teamToGuard; // +0x40
 };
 
-class StateMachine
-{
-public:
-	void setGoalPosition(const Coord3D *pos);
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 // Declaration-only call view of the rowed providers. Explicit qualification
 // preserves retail's direct calls; no virtual slot or owner layout is inferred.

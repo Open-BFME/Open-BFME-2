@@ -15,12 +15,7 @@
 // arms fold it branchless or flip its polarity. Interface and member names
 // past the proven slots/flags carry no identity claim.
 typedef bool Bool;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class Object;
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -48,13 +43,6 @@ public:
 	Owner250Interface *m_250owner; // +0x250
 	char m_pad254[0x438 - 0x254];
 	unsigned char m_flag438; // +0x438 bit0 tested
-};
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-	char m_pad00[0x14];
-	Object *m_owner; // +0x14
 };
 class Rva003412DB
 {

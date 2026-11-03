@@ -4,12 +4,7 @@
 // Sibling onEnter 0x0034BD1B and onExit 0x0034BDF8 prove the class is
 // AIRampageState with Bool +0x20 and frame ints +0x24/+0x28; helper
 // rva0034BE57's own comment names this update as its caller.
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -42,30 +37,7 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(int status);
-	virtual StateReturnType update();
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-	unsigned char m_pad1C[0x20 - 0x1C];
-};
 
 class AIRampageState : public State
 {

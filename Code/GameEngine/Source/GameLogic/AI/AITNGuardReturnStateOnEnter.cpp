@@ -12,16 +12,6 @@ typedef float Real;
 
 #include <windows.h>
 #include "../../Common/GameLogicObjectLookupView.h"
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 class Object;
 class Player;
@@ -115,37 +105,7 @@ template <> class VSlots<0>
 {
 };
 typedef UnsignedInt StateID;
-class StateMachine : public VSlots<8>
-{
-public:
-	virtual StateReturnType setState(StateID newStateID) = 0;	// +0x20
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void setGoalObject(const Object *obj) = 0;
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIEnterState : public State
 {
 public:
@@ -158,7 +118,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x54 - 0x1C];
+	unsigned char m_pad20[0x54 - 0x20];
 	UnsignedInt m_nextReturnScanTime; // +0x54
 };
 
@@ -193,7 +153,7 @@ public:
 	Bool lookForInnerTarget(void);
 	ObjectID getNemesisID() const { return m_nemesisID; }
 private:
-	unsigned char m_pad18[0x48 - 0x18];
+	unsigned char m_pad3C[0x48 - 0x3C];
 	ObjectID m_nemesisID; // +0x48
 };
 class AITNGuardIdleState : public State
@@ -203,7 +163,6 @@ public:
 protected:
 	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	UnsignedInt m_nextEnemyScanTime; // +0x20
 };
 

@@ -6,12 +6,7 @@
 // GeneralsMD AIStates.cpp AIPickUpCrateState::update. ZH hierarchy
 // (AIStateMachine.h): AIPickUpCrateState : public AIInternalMoveToState.
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachine.h"
 
 class AIInternalMoveToState
 {

@@ -90,15 +90,7 @@ public:
 	virtual void slot17() = 0;
 	virtual ObjectID getClearableLastAttacker() const = 0;
 };
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIUpdateInterface
 {
 public:
@@ -149,14 +141,6 @@ extern HotKeyManager *TheHotKeyManager;
 #include "../../../Include/GameClient/HotKeyManager.h"
 int GetAssociatedMessageType(int);
 class Xfer;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
@@ -382,7 +366,7 @@ public:
 	Bool lookForInnerTarget(void);
 	void setNemesisID(ObjectID id) { m_nemesisToAttack = id; }
 private:
-	unsigned char m_pad18[0x48 - 0x18];
+	unsigned char m_pad3C[0x48 - 0x3C];
 	ObjectID m_nemesisToAttack; // +0x48
 };
 
@@ -454,15 +438,6 @@ public:
 
 struct DamageInfo;
 
-class State
-{
-public:
-	virtual ~State();
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-private:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class Rva00420B2AZeroSetter
 {

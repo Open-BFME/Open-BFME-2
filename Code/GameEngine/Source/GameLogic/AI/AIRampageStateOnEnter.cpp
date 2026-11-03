@@ -7,12 +7,7 @@
 // TheGameLogic+0x40 plus AI rva00264F3D and inner chain. Chain of 0x002EDE5B.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 enum ObjectStatusTypes
 {
@@ -71,30 +66,7 @@ private:
 	Rva00264F3D *m_ai; // +0x258
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(int status);
-	virtual StateReturnType update();
-protected:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-	unsigned char m_pad1C[0x20 - 0x1C];
-};
 
 #include "../../Common/GameLogicObjectLookupView.h"
 

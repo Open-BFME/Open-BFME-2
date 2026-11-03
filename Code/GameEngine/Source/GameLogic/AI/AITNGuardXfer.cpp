@@ -67,14 +67,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
-class StateMachine
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 // AIEnterState: its xfer 0x00341930 is rowed under the placeholder Rva00341930.
 class Rva00341930 : public State
@@ -101,7 +94,6 @@ class AITNGuardMachine : public StateMachine
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered04[ 0x3C - 0x04 ];
 	Coord3DBase m_positionToGuard;																						///< 0x3C
 	ObjectID m_nemesisToAttack;																								///< 0x48
 	UnsignedInt m_bfmeRaw4C;																									///< 0x4C

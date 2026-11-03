@@ -14,36 +14,7 @@ extern "C" void _ReadWriteBarrier(void);
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-};
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	StateID m_ID; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 struct TunnelNetworkExitConditions
 {
 	const void *m_vptr;
@@ -58,7 +29,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	TunnelNetworkExitConditions m_exitConditions; // +0x20
 	Bool m_scanForEnemy; // +0x28
 	void *m_attackState; // +0x2C

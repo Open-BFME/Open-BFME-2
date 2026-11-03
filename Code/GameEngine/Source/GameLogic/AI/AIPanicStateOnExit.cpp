@@ -8,14 +8,6 @@
 // owner, then chain to AIInternalMoveToState::onExit, rowed at 0x003473A4).
 // BFME2 delta: the condition is bit 2*32+13 of the Object+0x10C words (byte
 // +0x115 mask 0x20) with the pinned notifier 0x0028AE6D.
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
 enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13
@@ -50,28 +42,7 @@ private:
 	unsigned char m_pad000[0x10C];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {
 public:

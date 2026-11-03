@@ -25,16 +25,6 @@
 
 typedef bool Bool;
 typedef float Real;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 typedef unsigned int StateID;
 enum ObjectStatusTypes
 {
@@ -143,38 +133,8 @@ private:
 	unsigned char m_status438;
 };
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual void slot07();
-	virtual StateReturnType setState(StateID newStateID);
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual void setGoalObject(const Object *object);
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class GiantBirdNormalFlightState : public State
 {
@@ -200,7 +160,7 @@ class GiantBirdAttackMoveToState : public GiantBirdNormalFlightState
 public:
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_pad1C[0x28 - 0x1C];
+	unsigned char m_pad20[0x28 - 0x20];
 	StateMachine *m_attackMachine; // +0x28
 };
 
@@ -246,7 +206,7 @@ public:
 	virtual StateReturnType update();
 	virtual void onExit(StateExitType status);
 private:
-	unsigned char m_unknown1C[0x24 - 0x1C];
+	unsigned char m_unknown20[0x24 - 0x20];
 	int m_counter24;
 };
 

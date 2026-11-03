@@ -2,12 +2,6 @@
 // AIMoveToAndEvacuateState::onEnter, retail 0x003500E6 (103 bytes): slot 4
 // of vtable 0x00C12D50; subtracts owner position from the stored goal, calls
 // Rva0033FA64Do(owner), then runs AIMoveToState::onEnter when length exceeds INV.
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -25,33 +19,12 @@ inline Coord3D operator-(const Coord3D &a, const Coord3D &b)
 class Object0033FA64;
 void Rva0033FA64Do(const Object0033FA64 *obj);
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine;
-};
 
 class AIInternalMoveToState : public State
 {
 protected:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition;
 };
 
