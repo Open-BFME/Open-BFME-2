@@ -486,3 +486,4 @@ Rva003145B1,Code/GameEngine/Include/GameLogic/Rva003145B1.h,existing header; con
 BfmeFixedStorage128,Code/GameEngine/Include/Common/BfmeFixedStorage128.h,existing header; contract class_contracts/BfmeFixedStorage128.json; 18/22 sampled units adopt
 Rva00553E47StatsCore,Code/GameEngine/Include/GameNetwork/Rva00553E47StatsCore.h,existing header; contract class_contracts/Rva00553E47StatsCore.json; 1/4 sampled units adopt
 VictorySystem,Code/GameEngine/Include/Common/VictorySystem.h,existing header; contract class_contracts/VictorySystem.json; 9/17 sampled units adopt
+S4SortElem8,Code/Libraries/Source/WWVegas/WWLib/S4SortElem8.h,existing header; contract class_contracts/S4SortElem8.json; 35/39 sampled units adopt
