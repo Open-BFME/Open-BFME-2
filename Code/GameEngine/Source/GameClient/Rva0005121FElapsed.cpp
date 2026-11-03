@@ -175,33 +175,20 @@ public:
 };
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class MilesAudioManager
-{
-public:
-	virtual float rva0005121F();
-	virtual void rva000511C3(Coord3D *out);
-	virtual bool rva000516EF(const Coord3D *pos);
-private:
-	char m_pad000[0x90];
-	unsigned int m_lastFrame;	// +0x94
-	char m_pad098[0x678 - 0x98];
-	int m_678;			// +0x678
-	char m_pad67C[0x6A5 - 0x67C];
-	bool m_6A5;			// +0x6A5
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 float MilesAudioManager::rva0005121F()
 {
 	if (m_678 == 0 && !m_6A5) {
 		if (TheRva00DFE77C) {
-			float elapsed = ((float)TheRva00DFE77C->slot1F() - (float)m_lastFrame) * g_00DBA4FC;
+			float elapsed = ((float)TheRva00DFE77C->slot1F() - (float)m_94) * g_00DBA4FC;
 			if (elapsed < 0.0f)
 				elapsed = 0.0f;
-			m_lastFrame = TheRva00DFE77C->slot1F();
+			m_94 = TheRva00DFE77C->slot1F();
 			return elapsed;
 		}
 	} else if (TheRva00DFE77C) {
-		m_lastFrame = TheRva00DFE77C->slot1F();
+		m_94 = TheRva00DFE77C->slot1F();
 	}
 	return g_00DBA4FC;
 }

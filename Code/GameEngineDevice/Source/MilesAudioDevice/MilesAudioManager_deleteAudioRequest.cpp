@@ -11,11 +11,7 @@ public:
 
 #include <new>
 
-class MilesAudioManager
-{
-public:
-	void deleteAudioRequest(void *p);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::deleteAudioRequest(void *p)
 {

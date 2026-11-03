@@ -20,11 +20,7 @@ class PlayerList;
 extern PlayerList *ThePlayerList;
 extern PartitionManager *TheShroudManager;
 
-class MilesAudioManager
-{
-public:
-	virtual unsigned char slot108(BfmeAudioEventPrefix136 *ev);
-};
+#include "../../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 unsigned char MilesAudioManager::slot108(BfmeAudioEventPrefix136 *ev)
 {

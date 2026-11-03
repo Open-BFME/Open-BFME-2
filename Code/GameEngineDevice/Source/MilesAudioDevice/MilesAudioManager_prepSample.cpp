@@ -70,22 +70,7 @@ struct Rva0005BA08PlayingAudio
 	Rva0005BA08AudioEvent *m_event;
 };
 
-class MilesAudioManager
-{
-public:
-	void prepSample(void *ref);
-
-	void *get2DSampleHandleForPlayingAudio(void *p);
-	Real getGlobalReverbMultiplier();
-	Real rva0005A9F8(void *ref, int a, int b);
-	void rva000581FA(const Rva0005BA08InfoRef &info, int value);
-
-private:
-	char m_pad000[0x6a7];
-	bool m_reverbEnabled;
-	char m_pad6A8[0x9e4 - 0x6a8];
-	HPROVIDER m_delayFilter;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::prepSample(void *ref)
 {
@@ -115,7 +100,7 @@ void MilesAudioManager::prepSample(void *ref)
 		AIL_set_filter_sample_preference(sample, "Mono Delay Mix", &value);
 	}
 
-	if (m_reverbEnabled)
+	if (m_6A7)
 	{
 		Real wet = info.m_info->m_reverbWet;
 		AIL_set_sample_reverb_levels(sample, info.m_info->m_reverbDry,

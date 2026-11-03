@@ -15,29 +15,10 @@ extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_3D_providers(
 #include "ascii_string.h"
 
 
-struct ProviderInfo
-{
-	AsciiString name;
-	unsigned int id;
-	int isValid;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 enum { MAXPROVIDERS = 64 };
 
-class MilesAudioManager
-{
-	public:
-	virtual void v00();
-
-	private:
-	void buildProviderList(void);
-
-	char m_pad04[0x6A7];
-	bool m_listenerFlag;
-	char m_pad6AC[0x20];
-	ProviderInfo m_provider3D[MAXPROVIDERS];
-	unsigned int m_providerCount;
-};
 
 void MilesAudioManager::buildProviderList(void)
 {

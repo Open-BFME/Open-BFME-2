@@ -17,11 +17,7 @@ public:
 	bool isPositionalAudio() const;
 };
 
-class MilesAudioManager
-{
-public:
-    BfmeEventPositionView Rva0005160FGet(AudioEventRTS *, bool &);
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 BfmeEventPositionView MilesAudioManager::Rva0005160FGet(AudioEventRTS *event, bool &valid)
 {

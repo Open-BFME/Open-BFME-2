@@ -22,15 +22,7 @@ extern "C" __declspec(dllimport) int __stdcall AIL_enumerate_filters(
 
 int strcmp(const char *a, const char *b);
 
-class MilesAudioManager
-{
-protected:
-	void initDelayFilter(void);
-
-private:
-	unsigned char m_pad[0x9E4];
-	HPROVIDER m_delayFilter; // +0x9E4
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 // ?initDelayFilter@MilesAudioManager@@IAEXXZ
 void MilesAudioManager::initDelayFilter(void)

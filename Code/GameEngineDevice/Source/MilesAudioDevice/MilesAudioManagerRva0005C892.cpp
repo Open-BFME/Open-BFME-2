@@ -23,11 +23,7 @@ private:
 	float m_vol90;
 };
 
-class MilesAudioManager
-{
-public:
-	void processPlayingList(Rva00052B3D *streams);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void Rva0005C892::rva0005C892()
 {

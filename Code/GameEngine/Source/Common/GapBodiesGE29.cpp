@@ -85,13 +85,7 @@ Pair00058D4A *Rva00058D4A::rva0005B524(Pair00058D4A *out, const BfmeStringRecord
 // buffers null.
 class PlayingAudioRef;
 
-class MilesAudioManager
-{
-public:
-	bool playSample2DOr3DUsingCallbackBuffers(PlayingAudioRef &ref, void *first, void *second);
-	bool rva00061A7D(PlayingAudioRef &ref, void *second);
-	bool rva00061A8F(PlayingAudioRef &ref, void *first);
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 bool MilesAudioManager::rva00061A7D(PlayingAudioRef &ref, void *second)
 {

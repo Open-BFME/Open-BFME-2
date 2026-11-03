@@ -22,11 +22,7 @@ template <> pair<_Rb_tree<AsciiString, pair<const AsciiString, float>, _Select1s
 _Rb_tree<AsciiString, pair<const AsciiString, float>, _Select1st<pair<const AsciiString, float> >, less<AsciiString>, allocator<pair<const AsciiString, float> > >::insert_unique(const pair<const AsciiString, float> &);
 }
 
-class MilesAudioManager
-{
-public:
-	class GlobalVolumeData;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 class MilesAudioManager::GlobalVolumeData
 {

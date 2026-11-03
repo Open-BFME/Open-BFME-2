@@ -5,16 +5,7 @@
 // stack args plus ret; lea plus test plus jbe plus dec plus store;
 // WorldBuilder 0x00797440 names the method and m_numPlaying2DSamples;
 // its guarded unsigned decrement at +0x684 agrees with the whole retail body.
-class MilesAudioManager
-{
-public:
-    void notifyOf2DSampleCompletion();
-    void notifyOf3DSampleCompletion();
-private:
-    char m_pad[0x684];
-    unsigned m_numPlaying2DSamples;
-    unsigned m_numPlaying3DSamples;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::notifyOf2DSampleCompletion()
 {

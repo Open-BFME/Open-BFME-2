@@ -42,19 +42,12 @@ extern View *TheTacticalView;
 extern Display *TheDisplay;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class MilesAudioManager
-{
-public:
-	virtual void getScreenToTerrainPositions(ScreenToTerrainSet *out);
-private:
-	char m_pad000[0x674];
-	int m_mode;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::getScreenToTerrainPositions(ScreenToTerrainSet *out)
 {
 	ICoord2D pixel;
-	switch (m_mode) {
+	switch (m_678) {
 	case 1:
 		if (((Rva002D3627Host *)TheLivingWorld) != 0 && TheDisplay != 0) {
 			pixel.x = TheDisplay->getWidth() >> 1;

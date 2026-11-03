@@ -6,12 +6,7 @@ public:
 };
 
 // LINK: 0x0005EA8F is rowed as MilesAudioManager::cleanUpLoopBuffer(MilesAudioManager::LoopBuffer*) (MilesAudioManager rows); the host is that manager.
-class MilesAudioManager
-{
-public:
-	struct LoopBuffer;
-	void cleanUpLoopBuffer(LoopBuffer *buffer);
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 class Rva0005F279Host
 {

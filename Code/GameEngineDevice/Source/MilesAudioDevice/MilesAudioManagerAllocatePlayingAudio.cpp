@@ -66,11 +66,7 @@ private:
 	PlayingAudio *m_ptr;
 };
 
-class MilesAudioManager
-{
-public:
-	PlayingAudioRef allocatePlayingAudio(void);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 
 #pragma optimize("y", off)

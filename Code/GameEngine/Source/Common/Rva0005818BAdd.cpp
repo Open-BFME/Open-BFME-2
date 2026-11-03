@@ -36,11 +36,7 @@ struct Holder
 	VecInner *m_inner;
 };
 
-class MilesAudioManager
-{
-public:
-	class GlobalVolumeData;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 class MilesAudioManager::GlobalVolumeData
 {

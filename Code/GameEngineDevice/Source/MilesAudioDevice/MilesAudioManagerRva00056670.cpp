@@ -20,12 +20,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class MilesAudioManager
-{
-public:
-	bool rva00054899(ObjectID arg1, int arg2);
-	bool rva00056670(ObjectID id);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 bool MilesAudioManager::rva00056670(ObjectID id)
 {

@@ -3,11 +3,7 @@
 // Outer array at +0x12C stride 0x1C4 of MilesAudioManager::GlobalVolumeData; first calls elem[key] then if key==2 fans out to elems 0,1 with key 2.
 // Evidence: same +0x12C/0x1C4 array as MilesAudioManagerRva00053CE1.cpp and Rva00059A25Method.cpp; callee row 0x000550F7; caller 0x0005FDCA.
 struct Holder;
-class MilesAudioManager
-{
-public:
-	class GlobalVolumeData;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 class MilesAudioManager::GlobalVolumeData
 {
