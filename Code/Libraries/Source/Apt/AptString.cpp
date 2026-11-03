@@ -24,11 +24,7 @@ extern EAStringC::StringDataC g_eaEmptyStringData;
 
 struct ScopedStringText {unsigned char prefix[8];EAStringC text;};
 
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *At(int index);
-};
+#include "AptBasePtrStack.h"
 
 struct AptActionInterpreter
 {

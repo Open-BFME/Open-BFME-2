@@ -17,7 +17,7 @@ public:
 	int get() const;
 };
 #include "BfmeAptValue006DCD20.h"
-class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
+#include "AptBasePtrStack.h"
 struct AptActionInterpreter {AptBasePtrStack stack;};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;

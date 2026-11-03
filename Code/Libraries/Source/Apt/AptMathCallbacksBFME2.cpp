@@ -45,11 +45,7 @@ inline float __cdecl pow(float _X, float _Y)
 class AptValue;
 #include "BfmeAptValue006DCD20.h"
 
-class AptBasePtrStack
-{
-public:
-    BfmeAptValue006DCD20 *At(int nPos);
-};
+#include "AptBasePtrStack.h"
 
 struct AptActionInterpreter
 {

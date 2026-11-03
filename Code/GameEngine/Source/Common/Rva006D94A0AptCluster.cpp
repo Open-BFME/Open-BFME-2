@@ -12,17 +12,7 @@ extern "C" void *__cdecl memmove(void *, const void *, unsigned int);
 class BfmeAptValue006DCD20;
 class EAStringC;
 
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *At(int nPos);
-	void Push(BfmeAptValue006DCD20 *pValue);
-	void rva006FE920();
-
-	int m_nElements;
-	int m_nCapacity;
-	BfmeAptValue006DCD20 **m_aElements;
-};
+#include "../../../Libraries/Source/Apt/AptBasePtrStack.h"
 
 // The interpreter value stack is the first member of the ledger global
 // g_aptDateInterpreter at VA 0x00E182E0 (AptDate.cpp). The matched bodies

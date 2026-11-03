@@ -385,11 +385,7 @@ Rva006CFEF0 &Rva006CFEF0::operator--()
 
 // ?rva006FE960@Rva006FE960@@QAEXH@Z @0x006FE960 5B: rowed
 // AptBasePtrStack::rva006E3AA0 0x006E3AA0 on the stack at +0.
-class AptBasePtrStack
-{
-public:
-	void rva006E3AA0(int value);
-};
+#include "../../../Libraries/Source/Apt/AptBasePtrStack.h"
 class Rva006FE960
 {
 public:

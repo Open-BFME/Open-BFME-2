@@ -8,17 +8,7 @@ void __debugbreak();
 
 #include "BfmeAptValue006DCD20.h"
 
-class AptBasePtrStack
-{
-public:
-    void Push(BfmeAptValue006DCD20 *pValue);
-    void rva006FE7B0(BfmeAptValue006DCD20 *pValue);
-    void rva006E3AA0(int nItems);
-
-    int m_nElements;
-    int m_nCapacity;
-    BfmeAptValue006DCD20 **m_aElements;
-};
+#include "AptBasePtrStack.h"
 
 
 void AptBasePtrStack::Push(BfmeAptValue006DCD20 *pValue)

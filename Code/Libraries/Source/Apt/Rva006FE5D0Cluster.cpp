@@ -14,15 +14,7 @@ void __debugbreak();
 
 class BfmeAptValue006DCD20;
 
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *rva006FE5D0();
-
-	int m_nElements;
-	int m_nCapacity;
-	BfmeAptValue006DCD20 **m_aElements;
-};
+#include "AptBasePtrStack.h"
 
 BfmeAptValue006DCD20 *AptBasePtrStack::rva006FE5D0()
 {

@@ -172,7 +172,7 @@ AptValue *callback006F36B0(AptValue *context,int) {
 }
 struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;
-class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
+#include "../AptBasePtrStack.h"
 struct SoundExport {const char *name;int id;};
 struct SoundCharacterValue {int type;int opaque;void *id;};
 struct SoundAnimation {char opaque[0x10];SoundCharacterValue **characters;char opaque2[0x28-0x14];int exportCount;SoundExport *exports;};

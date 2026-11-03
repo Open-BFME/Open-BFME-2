@@ -6,7 +6,7 @@
 
 #include "../BfmeAptValue006DCD20.h"
 
-class AptBasePtrStack {public: BfmeAptValue006DCD20 *At(int);int count,capacity;BfmeAptValue006DCD20 **elements;};
+#include "../AptBasePtrStack.h"
 
 struct AptActionInterpreter { AptBasePtrStack stack; };
 

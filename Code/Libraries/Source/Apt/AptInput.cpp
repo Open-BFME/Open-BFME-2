@@ -70,7 +70,7 @@ class AptValue {public:virtual void AddRef();virtual void Release();virtual void
 
 class Rva0070B380 {public:void *lookup(const EAStringC&);};
 
-class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);void rva006FE920();};
+#include "AptBasePtrStack.h"
 
 struct AptActionSetup {AptValue *context,*value;const char *name;int action;};
 

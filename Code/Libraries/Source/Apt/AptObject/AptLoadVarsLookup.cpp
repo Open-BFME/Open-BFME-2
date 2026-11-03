@@ -31,14 +31,7 @@ public:
 	virtual AptNativeHash *GetNativeHashVirtual();
 };
 #include "../BfmeAptValue006DCD20.h"
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *At(int);
-	int count; // +0x00
-	int capacity; // +0x04
-	BfmeAptValue006DCD20 **elements; // +0x08
-};
+#include "../AptBasePtrStack.h"
 struct AptActionInterpreter
 {
 public:

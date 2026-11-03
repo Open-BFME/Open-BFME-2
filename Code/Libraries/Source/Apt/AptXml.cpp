@@ -64,7 +64,7 @@ struct XmlValuePrefix {unsigned char prefix[32];XmlNativeInterface *node;};
 
 #include "BfmeAptValue006DCD20.h"
 
-class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
+#include "AptBasePtrStack.h"
 
 struct AptActionInterpreter {AptBasePtrStack stack;};
 

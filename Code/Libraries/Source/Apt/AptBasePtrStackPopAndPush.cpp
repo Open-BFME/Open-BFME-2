@@ -30,24 +30,7 @@ extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
 #include "BfmeAptValue006DCD20.h"
 
-class AptBasePtrStack
-{
-public:
-    void PopAndPush(int nItems, BfmeAptValue006DCD20 *pValue);
-    void rva006FE050(int nItems);
-    void rva006FE880(int nItems, BfmeAptValue006DCD20 *pValue);
-    void rva006FDE50();
-    void rva006FE120();
-    void rva006FDDB0(int nCapacity);
-    void rva006FDF30(BfmeAptValue006DCD20 *pValue);
-    void rva006FDEE0(BfmeAptValue006DCD20 *pValue);
-    void rva006FE920();
-    ~AptBasePtrStack();
-
-    int m_nElements;
-    int m_nCapacity;
-    BfmeAptValue006DCD20 **m_aElements;
-};
+#include "AptBasePtrStack.h"
 
 void AptBasePtrStack::PopAndPush(int nItems, BfmeAptValue006DCD20 *pValue)
 {
