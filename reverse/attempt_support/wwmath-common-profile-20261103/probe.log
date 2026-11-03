@@ -1,0 +1,24 @@
+base {'0x0002FBB0', '0x0002FB90', '0x0002FBC0', '0x000034FA', '0x001333F0', '0x00711AC0', '0x0002FBA0'} /work4/Open-BFME-2/build/tu_skeleton/5d77392d2f447028.obj
+retail
+push ecx
+call dword ptr [0xbba50c]
+and eax, 0xfff
+mov dword ptr [esp], eax
+fild dword ptr [esp]
+fmul dword ptr [0xcefc90]
+pop ecx
+ret 
+O1
+push ebp
+mov ebp, esp
+push ecx
+call dword ptr [0xfff2500]
+and eax, 0xfff
+mov dword ptr [ebp - 4], eax
+fild dword ptr [ebp - 4]
+integer-local ['0x000034FA', '0x0002FB90', '0x0002FBA0', '0x0002FBB0', '0x0002FBC0', '0x001333F0', '0x00711AC0']
+unsigned-local ['0x000034FA', '0x0002FB90', '0x0002FBA0', '0x0002FBB0', '0x0002FBC0', '0x001333F0', '0x00711AC0']
+volatile-int ['0x000034FA', '0x0002FB90', '0x0002FBA0', '0x0002FBB0', '0x0002FBC0', '0x001333F0', '0x00711AC0']
+double-conversion ['0x000034FA', '0x0002FB90', '0x0002FBA0', '0x0002FBB0', '0x0002FBC0', '0x001333F0', '0x00711AC0']
+double-denominator ['0x000034FA', '0x0002FB90', '0x0002FBA0', '0x0002FBB0', '0x0002FBC0', '0x001333F0', '0x00711AC0']
+multiply-reciprocal ['0x000034FA', '0x0002FB90', '0x0002FBA0', '0x0002FBB0', '0x0002FBC0', '0x001333F0', '0x00711AC0']
