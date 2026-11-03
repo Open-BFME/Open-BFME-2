@@ -640,3 +640,4 @@ LivingWorldVisual,Code/GameEngine/Include/GameClient/LivingWorldVisual.h,existin
 TileData,Code/GameEngineDevice/Include/W3DDevice/GameClient/TileDataClass.h,existing header; contract class_contracts/TileData.json; 3/7 sampled units adopt
 W3DRopeDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DRopeDrawClass.h,existing header; contract class_contracts/W3DRopeDraw.json; 4/9 sampled units adopt
 RebuildHoleBehavior,Code/GameEngine/Include/GameLogic/Module/RebuildHoleBehaviorClass.h,existing header; contract class_contracts/RebuildHoleBehavior.json; 6/10 sampled units adopt
+DeployStyleAIUpdate,Code/GameEngine/Include/GameLogic/Module/DeployStyleAIUpdateClass.h,existing header; contract class_contracts/DeployStyleAIUpdate.json; 3/9 sampled units adopt
