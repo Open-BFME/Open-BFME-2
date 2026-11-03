@@ -852,11 +852,7 @@ void ReplenishUnitsBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
 }
 
-class DominateEnemySpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
 
 // Retail VA 0x00C5F638: 5 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies

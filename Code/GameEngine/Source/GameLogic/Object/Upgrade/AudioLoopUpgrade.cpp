@@ -295,11 +295,7 @@ extern const FieldParse BfmeAudioLoopUpgradeFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class DominateEnemySpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
 
 int Rva0033A495Get(void);
 

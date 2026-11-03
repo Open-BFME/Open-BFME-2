@@ -376,11 +376,7 @@ int Rva004CE29DGet(void);
 
 int Rva004CE52EGet(void);
 
-class DominateEnemySpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
 
 class BezierProjectileBehaviorModuleData
 {

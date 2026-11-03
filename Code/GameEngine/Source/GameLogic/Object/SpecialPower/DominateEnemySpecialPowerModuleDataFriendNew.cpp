@@ -22,17 +22,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class DominateEnemySpecialPowerModuleData
-{
-public:
-	DominateEnemySpecialPowerModuleData();
-	virtual ~DominateEnemySpecialPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xDC - 4];
-};
+#include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
 
 // ?friend_newModuleData@DominateEnemySpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *DominateEnemySpecialPowerModuleData::friend_newModuleData(INI *ini)
