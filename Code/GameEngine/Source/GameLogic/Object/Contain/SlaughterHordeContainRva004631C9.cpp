@@ -41,10 +41,10 @@ public:
 };
 void SlaughterHordeContain::rva004631C9()
 {
-    Rva0046247DPair p;
-    d70(p);
-    Rva004631C9Node *cur = *(Rva004631C9Node * *)*(void * *)p.m04;
-    for (; cur != *(Rva004631C9Node * *)p.m04; cur = *(Rva004631C9Node * *)cur)
+    Rva0046247DPair pair;
+    d70(pair);
+    Rva004631C9Node *cur = *(Rva004631C9Node * *)*(void * *)pair.m04;
+    for (; cur != *(Rva004631C9Node * *)pair.m04; cur = *(Rva004631C9Node * *)cur)
         cur->mObj->rva0029A12B();
 }
 
@@ -83,4 +83,4 @@ public:
     virtual void d99(); virtual void d100(); virtual void d101(); virtual void d102();
     virtual void d103(); virtual void onContaining(Object*,bool);
 };
-void TransportContain::onContaining(Object*source,bool wasSelected){Rva0046247DPair p;d70(p);Rva004631C9Node*cur=*(Rva004631C9Node**) *(void**)p.m04;for(;cur!=*(Rva004631C9Node**)p.m04;cur=*(Rva004631C9Node**)cur)cur->mObj->defect(source,false);}
+void TransportContain::onContaining(Object*source,bool wasSelected){Rva0046247DPair pair;d70(pair);Rva004631C9Node*cur=*(Rva004631C9Node**) *(void**)pair.m04;for(;cur!=*(Rva004631C9Node**)pair.m04;cur=*(Rva004631C9Node**)cur)cur->mObj->defect(source,false);}

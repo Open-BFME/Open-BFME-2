@@ -6938,3 +6938,10 @@ local,SidesList::rva0032F0AA::d,SidesList::rva0032F0AA::dict,inferred,agree:nl-5
 param,StandingWaveAreaRef::p,StandingWaveAreaRef::area,inferred,agree:nl-17fe8ea69952-m06568caaedf412c426f2060b,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,
 local,AimWeaponBehavior::update::o,AimWeaponBehavior::update::ownerObject,inferred,agree:nl-397ebd0e65a2,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,0x0045B297
 function,?Rva004617CFFind@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,?findFakePathfindPortalBehaviour@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,inferred,agree:nl-210840a214c5,Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp,0x004617CF
+local,Rva0047BA69::rva0047BA69::p2,Rva0047BA69::rva0047BA69::containerPlayer,inferred,agree:nl-fa66494238f3,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047BA69Contain.cpp,0x0047BA69
+local,Rva0047BA69::rva0047BA69::p3,Rva0047BA69::rva0047BA69::objectPlayer,inferred,agree:nl-590831b5ffb1,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047BA69Contain.cpp,0x0047BA69
+param,Rva0047BA69::rva0047BA69::a2,Rva0047BA69::rva0047BA69::checkLimit,inferred,agree:nl-0ffe13b96114,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047BA69Contain.cpp,0x0047BA69
+local,Rva0047CAEBOwner::rva0047CAEB::f,Rva0047CAEBOwner::rva0047CAEB::filter,inferred,agree:nl-f36af663de15,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CAEBFilter.cpp,0x0047CAEB
+local,SlaughterHordeContain::rva004631C9::p,SlaughterHordeContain::rva004631C9::pair,inferred,agree:nl-06662476a9b3,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004631C9.cpp,0x004631C9
+local,TransportContain::onContaining::p,TransportContain::onContaining::pair,inferred,agree:nl-6549c5140e1a,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004631C9.cpp,0x00463191
+param,coordSet::d,coordSet::destination,inferred,agree:nl-8631c0847c44-m5d9787668a38ed89aac40c12,Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp,

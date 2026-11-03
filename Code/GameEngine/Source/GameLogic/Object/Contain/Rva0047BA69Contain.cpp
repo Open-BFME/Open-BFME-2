@@ -30,10 +30,10 @@ public:
 class Rva0047BA69
 {
 public:
-	bool rva0047BA69(Object *obj, int a2, int a3);
+	bool rva0047BA69(Object *obj, int checkLimit, int a3);
 };
 
-bool Rva0047BA69::rva0047BA69(Object *obj, int a2, int a3)
+bool Rva0047BA69::rva0047BA69(Object *obj, int checkLimit, int a3)
 {
 	if (obj->testStatus(STATUS_62))
 		return false;
@@ -46,18 +46,18 @@ bool Rva0047BA69::rva0047BA69(Object *obj, int a2, int a3)
 	int limit = *(int *)((char *)tabBase + 0x190);
 	if (limit <= 0)
 		goto fail;
-	if ((unsigned char)a2 != 0) {
+	if ((unsigned char)checkLimit != 0) {
 		if (*(unsigned int *)((char *)this + 0x100) >= (unsigned int)limit)
 			goto fail;
 	}
 	{
 		Object *o2 = *(Object **)((char *)this - 0x18);
-		Player *p2 = o2->getControllingPlayer();
-		Player *p3 = obj->getControllingPlayer();
-		if (p3 == p2)
+		Player *containerPlayer = o2->getControllingPlayer();
+		Player *objectPlayer = obj->getControllingPlayer();
+		if (objectPlayer == containerPlayer)
 			return true;
 		goto fail;
 	}
 fail:
-	return ((TransportContain *)this)->TransportContain::slot38(obj, a2, a3);
+	return ((TransportContain *)this)->TransportContain::slot38(obj, checkLimit, a3);
 }

@@ -51,8 +51,8 @@ BfmeObject872Header *Rva0047CAEBOwner::rva0047CAEB(BfmeObject872Header *out, Obj
 	{
 		char *b = *(char **)((char *)this - 0x1C);
 		Player *player = object->getControllingPlayer();
-		Rva2225E0Filter *f = (Rva2225E0Filter *)(b + 0x18C);
-		if (f->accepts(obj, player))
+		Rva2225E0Filter *filter = (Rva2225E0Filter *)(b + 0x18C);
+		if (filter->accepts(obj, player))
 		{
 			__assume(out != 0);
 			new (out) BfmeObject872Header(*(BfmeObject872Header *)(*(char **)((char *)this - 0x1C) + 0x1A4));
