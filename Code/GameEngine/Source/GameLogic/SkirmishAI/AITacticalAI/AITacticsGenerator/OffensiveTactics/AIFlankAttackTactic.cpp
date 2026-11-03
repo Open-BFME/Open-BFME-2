@@ -53,12 +53,7 @@ class Player;
 
 #include "../../../../Object/object.h"
 
-class GameSlot
-{
-public:
-	char m_pad00[0x10];
-	int m_10;		// +0x10, the slot's start position index
-};
+#include "../../../../../../Include/GameNetwork/GameInfo.h"
 
 struct Rva00506C82Arg;
 
@@ -200,7 +195,7 @@ bool AIFlankAttackTactic::canRun(void *request)
 	if (obj) {
 		GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)obj->getControllingPlayer());
 		if (slot) {
-			int start = slot->m_10;
+			int start = slot->m_startPos;
 			AsciiString name;
 			name.format("Player_%d_Start", start + 1);
 			Waypoint *waypoint = Rva00506CC3FindWaypoint(name);

@@ -12,28 +12,7 @@
 class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Include/GameLogic/CreateAHeroData.h"
-class GameSlot : Snapshot {
-public:
-    GameSlot();
-    virtual ~GameSlot();
-protected:
-    virtual void loadPostProcess();
-    virtual void crc(Xfer *xfer);
-    virtual void xfer(Xfer *xfer);
-public:
-    unsigned int word04;
-    unsigned char flag08, flag09, flag0A;
-    unsigned int word0C, word10, word14, word18, word1C, word20, word24, word28, word2C;
-    UnicodeString text30;
-    AsciiString text34;
-    unsigned int word38, word3C, word40, word44;
-    unsigned char flag48;
-    unsigned int word4C, word50, word54, word58, word5C;
-    unsigned char flag60;
-    CreateAHeroData hero64;
-    unsigned char flag1A4;
-    AsciiString text1A8;
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 class __declspec(novtable) Rva00382398 : public GameSlot
 {
 public:
