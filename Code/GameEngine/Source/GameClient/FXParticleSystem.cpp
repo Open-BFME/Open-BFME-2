@@ -1007,13 +1007,13 @@ inline DefaultPhysicsModuleInfo::DefaultPhysicsModuleInfo(const DefaultPhysicsMo
     m_unknown21 = that.m_unknown21;
 }
 
-class LightningDrawModuleInfo : public Snapshot
+class LightningDrawModuleInfo : public ::Snapshot
 {
 public:
     LightningDrawModuleInfo(const LightningDrawModuleInfo &that);
 
     virtual ~LightningDrawModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -1101,13 +1101,13 @@ public:
     FXCoord3D m_unknown80;
 };
 
-class DefaultUpdateModuleInfo : public Snapshot
+class DefaultUpdateModuleInfo : public ::Snapshot
 {
 public:
     DefaultUpdateModuleInfo(const DefaultUpdateModuleInfo &that);
 
     virtual ~DefaultUpdateModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -1152,13 +1152,13 @@ TerrainFireEmissionAssign g_terrainFireEmissionAssign = &TerrainFireEmissionInfo
 LightningEmissionAssign g_lightningEmissionAssign = &LightningEmissionInfo::operator=;
 DefaultUpdateAssign g_defaultUpdateAssign = &DefaultUpdateModuleInfo::operator=;
 
-class RenderObjectUpdateModuleInfo : public Snapshot
+class RenderObjectUpdateModuleInfo : public ::Snapshot
 {
 public:
     RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &that);
 
     virtual ~RenderObjectUpdateModuleInfo();
-    virtual void v1() = 0;
+    virtual void LoadPostProcess();
 
     FXCoord3D m_unknown04;
     FXCoord3D m_unknown10;
@@ -2324,4 +2324,7 @@ void EmissionVelocityInfo::LoadPostProcess() {}
 void DefaultPhysicsModuleInfo::LoadPostProcess() {}
 void DefaultAlphaModuleInfo::LoadPostProcess() {}
 void DefaultColorModuleInfo::LoadPostProcess() {}
+void LightningDrawModuleInfo::LoadPostProcess() {}
+void DefaultUpdateModuleInfo::LoadPostProcess() {}
+void RenderObjectUpdateModuleInfo::LoadPostProcess() {}
 }
