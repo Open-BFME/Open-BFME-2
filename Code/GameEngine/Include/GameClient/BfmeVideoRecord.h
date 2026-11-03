@@ -27,6 +27,12 @@ struct Video
 
     ~Video();
 
+#ifdef BFME_VIDEO_ASSIGN_DECL
+    // INIVideo calls the out-of-line assignment at 0x00689380, the
+    // selectany copy the VideoPlayer units emit from the inline body below.
+    Video &operator=(const Video &other);
+#else
+    // The VideoPlayer TU sees the definition and inlines it.
     __forceinline Video &operator=(const Video &other)
     {
         m_filename.setCopyInline(other.m_filename);
@@ -38,6 +44,7 @@ struct Video
         m_subtitleManager = other.m_subtitleManager;
         return *this;
     }
+#endif
 };
 
 typedef char BfmeVideoRecordWidth[(sizeof(Video) == 28) ? 1 : -1];

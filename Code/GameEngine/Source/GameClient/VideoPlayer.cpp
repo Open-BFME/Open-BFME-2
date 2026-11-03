@@ -366,7 +366,7 @@ BfmeRecJD * __stdcall bfmeSlotAt(int index)
 
 // Open-BFME5 conversions, BFME2 repair: the three string members copy
 // through StringBase<char>::set at 0x366F0 (retail's inlined AsciiString
-// assignment target, shared with Rva000C3380Copy); the donor's local
+// assignment target, shared with Video::operator=); the donor's local
 // BfmeUniVIA::bfmeSetVIA label names the same bytes.
 
 BfmeElemVIA *__cdecl bfmeCopyVIA(BfmeElemVIA *first, BfmeElemVIA *last, BfmeElemVIA *dest)
@@ -467,7 +467,7 @@ Elem28 *rva00689750CopyWalk(Elem28 *first, Elem28 *last, Elem28 *dest)
 
 // tu-skeleton: 0x00689350 35B ??1VideoPlayer@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp (not merged yet)
 
-// tu-skeleton: 0x00689380 69B ??0Rva000C3380@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva000C3380Copy.cpp (not merged yet)
+// tu-skeleton: 0x00689380 69B ??4Video@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp (not merged yet)
 
 // tu-skeleton: 0x006893D0 34B ?Rva0081C5C0Count@@YAHXZ -- matched in Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp (not merged yet)
 

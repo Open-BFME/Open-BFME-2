@@ -1867,7 +1867,6 @@ alternatename	Code/GameEngine/Source/Common/Rva000AAE3DCtor.cpp	?_0@Rva000AAE3D@
 alternatename	Code/GameEngine/Source/Common/Rva000B2EB5.cpp	?g_00BBB9AC@@3MB	1
 alternatename	Code/GameEngine/Source/Common/Rva000B31CB.cpp	?rva0028D4E0@Object@@UAE?AUCoord3D@@PAU2@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva000BC9B1Cleanup.cpp	?findParticleSystemByID@ParticleSystemManager@@AAE?AUBfmeW3DParticleHandle@@W4ParticleSystemID@@@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva000C3380Copy.cpp	??4Video@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva000C4657Erase.cpp	??$__copy_ptrs@PBURva000C4657Elem@@PAU1@@_STL@@YAPAURva000C4657Elem@@PBU1@0PAU1@ABU__false_type@0@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp	??1Rva000C79C9@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp	?f2@Rva000CA119_B2@@UAEXXZ	1
@@ -4271,7 +4270,6 @@ class_gate_allow	Code/GameEngine/Source/Common/Rva003FAAA1RayOverlap.cpp	Region3
 class_gate_allow	Code/GameEngine/Source/Common/Rva005CD31C.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva005CD378.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva005E5942Chain.cpp	StringBase	1
-class_gate_allow	Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp	Video	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/System/MessageStreamCommandName.cpp	AsciiString	1
@@ -9721,7 +9719,6 @@ pin	reverse/symbols.csv	0x00689140	1
 pin	reverse/symbols.csv	0x006891E0	1
 pin	reverse/symbols.csv	0x006892B0	1
 pin	reverse/symbols.csv	0x00689350	1
-pin	reverse/symbols.csv	0x00689380	1
 pin	reverse/symbols.csv	0x00689450	2
 pin	reverse/symbols.csv	0x00689500	3
 pin	reverse/symbols.csv	0x00689600	1

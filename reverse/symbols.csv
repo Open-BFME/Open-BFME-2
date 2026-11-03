@@ -3412,7 +3412,6 @@ name,address,notes
 ??4TextureHandle@@QAEABV0@ABV0@@Z,0x000424D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??4TextureStatisticsStructWide@@QAEAAU0@ABU0@@Z,0x00154AF0,ICF alias of ?bfmeTakeFT@BfmeThingFT@@QAEAAV1@PBV1@@Z rowed at this address; retail Add at 0x00155630 reaches it through REL32 and both bodies take a 0x24 record with add/drop plus 9-dword copy
 ??4U5Elem002E3CE0@@QAEAAU0@ABU0@@Z,0x00586BC9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??4Video@@QAEAAV0@ABV0@@Z,0x00689380,native Video memberwise assignment; same three-string-plus-POD body as the rowed Rva000C3380 copy ctor ICF fold at this address; returns this (mov eax esi) and is called by INI::parseVideoDefinition 0x0075A4DC
 ??4WaypointMap@@QAEAAV0@ABV0@@Z,0x00302C9C,Full27B assignment calls typed tree assignment30200E then count atC; tree clears through22D160 and copies through301F9B; reference metadata member38 independently proves type
 ??4locale@_STL@@QAEABV01@ABV01@@Z,0x00007160,STLport 4.5.3 locale assignment; address read from the retail wide basic_streambuf pubimbue REL32 displacement
 ??6@YAAAVDebug@@AAV0@ABUSignature@DebugStackwalk@@@Z,0x0003BF60,CrashDone free operator-left-shift for Signature; direct E8 from 0x0003A8A0+0x33B with (this sig); matches debug_stack.cpp free overload shape

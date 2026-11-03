@@ -16,31 +16,13 @@
 
 #include "ascii_string.h"
 
-// class-gate: allow Video retail calls the out-of-line operator= at 0x00689380; the shared BfmeVideoRecord.h view forceinlines it, so this TU needs the proved codegen view
-
 struct FieldParse;
 
 #include "../../Include/Common/INI/INI.h"
 
-class Video
-{
-public:
-	AsciiString m_filename;
-	AsciiString m_internalName;
-	AsciiString m_commentForWB;
-	unsigned char m_hasSubtitles;
-	float m_volume;
-	unsigned char m_isDefault;
-	void *m_subtitleManager;
-
-	Video()
-		: m_hasSubtitles(0), m_volume(1.0f), m_isDefault(0), m_subtitleManager(0)
-	{
-	}
-
-	~Video();
-	Video &operator=(const Video &other);
-};
+// Retail calls the out-of-line Video::operator= at 0x00689380 here.
+#define BFME_VIDEO_ASSIGN_DECL
+#include "../../Include/GameClient/BfmeVideoRecord.h"
 
 // The BFME2 VideoPlayerInterface vtable places addVideo at +0x50, the
 // AsciiString getVideo at +0x60 and getFieldParse at +0x64. Only the ordinals
