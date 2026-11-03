@@ -101,7 +101,7 @@ extern "C" void __cdecl ApplyReconLoopFilter(Vp6LoopFilterInstance *ctx, int fra
 	unsigned int rowStep;
 	int plane;
 	int col;
-	int m;
+	int row;
 	int limit;
 	int *bounding;
 
@@ -171,7 +171,7 @@ extern "C" void __cdecl ApplyReconLoopFilter(Vp6LoopFilterInstance *ctx, int fra
 		frag++;
 		pixel += rowStep;
 
-		for (m = 1; m < down - 1; m++) {
+		for (row = 1; row < down - 1; row++) {
 			if (CODED(frag)) {
 				FILTER_V(pixel);
 				if (!CODED(frag + 1))
@@ -234,8 +234,8 @@ extern "C" void __cdecl LoopFilter(Vp6LoopFilterInstance *ctx, int frameQIndex,
 	int across = ctx->m_hFragments;
 	unsigned int rowStep;
 	int plane;
-	int n;
-	int m;
+	int col;
+	int row;
 	int limit;
 	int *bounding;
 
@@ -288,24 +288,24 @@ extern "C" void __cdecl LoopFilter(Vp6LoopFilterInstance *ctx, int frameQIndex,
 				FILTER_V(pixel + rowStep);
 		}
 		frag++;
-		for (n = 1; n < across - 1; n++, frag++) {
+		for (col = 1; col < across - 1; col++, frag++) {
 			if (CODED(frag)) {
-				FILTER_H(pixel + 8 * n - 2);
+				FILTER_H(pixel + 8 * col - 2);
 				if (!CODED(frag + 1))
-					FILTER_H(pixel + 8 * n + 6);
+					FILTER_H(pixel + 8 * col + 6);
 				if (!CODED(frag + lineFragments))
-					FILTER_V(pixel + 8 * n + rowStep);
+					FILTER_V(pixel + 8 * col + rowStep);
 			}
 		}
 		if (CODED(frag)) {
-			FILTER_H(pixel + 8 * n - 2);
+			FILTER_H(pixel + 8 * col - 2);
 			if (!CODED(frag + lineFragments))
-				FILTER_V(pixel + 8 * n + rowStep);
+				FILTER_V(pixel + 8 * col + rowStep);
 		}
 		frag++;
 		pixel += rowStep;
 
-		for (m = 1; m < down - 1; m++) {
+		for (row = 1; row < down - 1; row++) {
 			if (CODED(frag)) {
 				FILTER_V(pixel);
 				if (!CODED(frag + 1))
@@ -314,21 +314,21 @@ extern "C" void __cdecl LoopFilter(Vp6LoopFilterInstance *ctx, int frameQIndex,
 					FILTER_V(pixel + rowStep);
 			}
 			frag++;
-			for (n = 1; n < across - 1; n++, frag++) {
+			for (col = 1; col < across - 1; col++, frag++) {
 				if (CODED(frag)) {
-					FILTER_H(pixel + 8 * n - 2);
-					FILTER_V(pixel + 8 * n);
+					FILTER_H(pixel + 8 * col - 2);
+					FILTER_V(pixel + 8 * col);
 					if (!CODED(frag + 1))
-						FILTER_H(pixel + 8 * n + 6);
+						FILTER_H(pixel + 8 * col + 6);
 					if (!CODED(frag + lineFragments))
-						FILTER_V(pixel + 8 * n + rowStep);
+						FILTER_V(pixel + 8 * col + rowStep);
 				}
 			}
 			if (CODED(frag)) {
-				FILTER_H(pixel + 8 * n - 2);
-				FILTER_V(pixel + 8 * n);
+				FILTER_H(pixel + 8 * col - 2);
+				FILTER_V(pixel + 8 * col);
 				if (!CODED(frag + lineFragments))
-					FILTER_V(pixel + 8 * n + rowStep);
+					FILTER_V(pixel + 8 * col + rowStep);
 			}
 			frag++;
 			pixel += rowStep;
@@ -340,17 +340,17 @@ extern "C" void __cdecl LoopFilter(Vp6LoopFilterInstance *ctx, int frameQIndex,
 				FILTER_H(pixel + 6);
 		}
 		frag++;
-		for (n = 1; n < across - 1; n++, frag++) {
+		for (col = 1; col < across - 1; col++, frag++) {
 			if (CODED(frag)) {
-				FILTER_H(pixel + 8 * n - 2);
-				FILTER_V(pixel + 8 * n);
+				FILTER_H(pixel + 8 * col - 2);
+				FILTER_V(pixel + 8 * col);
 				if (!CODED(frag + 1))
-					FILTER_H(pixel + 8 * n + 6);
+					FILTER_H(pixel + 8 * col + 6);
 			}
 		}
 		if (CODED(frag)) {
-			FILTER_H(pixel + 8 * n - 2);
-			FILTER_V(pixel + 8 * n);
+			FILTER_H(pixel + 8 * col - 2);
+			FILTER_V(pixel + 8 * col);
 		}
 	}
 }

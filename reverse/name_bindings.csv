@@ -364,3 +364,9 @@ agree:nl-bb120f6dec6a,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::targ
 agree:nl-3ac61585f150,Rva005EA58B::rva005EA58B::n,Rva005EA58B::rva005EA58B::rangesLeft,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,040cf0b976ca7a3920651893982a0a2a087302d44714b2e7651e13262cce0014
 agree:nl-d07c7ea60984,Rva006E34D0::rva006E3580::v,Rva006E34D0::rva006E3580::packed,Code/Libraries/Source/Apt/Rva006E34D0.cpp,48631c3e91c3525fe3cd895107143dae8785820e0d541392f939ae257706d95c
 agree:nl-253295a12195,ApplyReconLoopFilter::n,ApplyReconLoopFilter::col,Code/Libraries/Source/VP6/LoopFilter.cpp,b157727c8582994d89a3cbc6007340c215b8a3851b27e1458c1d00bc5a300892
+agree:nl-9031c8df01fe,ApplyReconLoopFilter::m,ApplyReconLoopFilter::row,Code/Libraries/Source/VP6/LoopFilter.cpp,b157727c8582994d89a3cbc6007340c215b8a3851b27e1458c1d00bc5a300892
+agree:nl-1b500db8980b,LoopFilter::m,LoopFilter::row,Code/Libraries/Source/VP6/LoopFilter.cpp,09e39b2bc5c952410ffa935c516bb51ee30271787650eb58639217eccf5be4b8
+agree:nl-fd268c13f9fc,LoopFilter::n,LoopFilter::col,Code/Libraries/Source/VP6/LoopFilter.cpp,09e39b2bc5c952410ffa935c516bb51ee30271787650eb58639217eccf5be4b8
+agree:nl-8ef2e8e7289f,__copy_backward::p,__copy_backward::dst,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,383b79afa03aa4528ce7a8be36f30b24bee5b3ef702e7d4e05d7b4d384618ed4
+agree:nl-0248d2d74e77,__copy_backward::v,__copy_backward::src,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,383b79afa03aa4528ce7a8be36f30b24bee5b3ef702e7d4e05d7b4d384618ed4
+agree:nl-b4dff8f708f4,fill::v,fill::src,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,60972c037a03e46aac0c5f5f9f0047a077f4e7cfc18fcd33679b65fd1c03c6c3

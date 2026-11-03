@@ -35,11 +35,11 @@ Coord3D * _STLP_alloc_proxy<Coord3D*,Coord3D,allocator<Coord3D> >::allocate(size
 namespace _STL {
 template<> void _Construct(Coord3D*,const Coord3D&);
 template<> void fill(Coord3D *dst,Coord3D *end,const Coord3D &value) {
- int *p=(int*)dst; const int *v=(const int*)&value;
- while(p!=(int*)end){p[0]=v[0];p[1]=v[1];p[2]=v[2];p+=3;}
+ int *p=(int*)dst; const int *src=(const int*)&value;
+ while(p!=(int*)end){p[0]=src[0];p[1]=src[1];p[2]=src[2];p+=3;}
 }
 template<> Coord3D *__copy_backward(Coord3D *first,Coord3D *last,Coord3D *result,const random_access_iterator_tag&,int*){
- for(int n=last-first; n>0;--n){--last;--result;int *p=(int*)result;const int *v=(const int*)last;p[0]=v[0];p[1]=v[1];p[2]=v[2];}
+ for(int count=last-first; count>0;--count){--last;--result;int *dst=(int*)result;const int *src=(const int*)last;dst[0]=src[0];dst[1]=src[1];dst[2]=src[2];}
  return result;
 }
 }

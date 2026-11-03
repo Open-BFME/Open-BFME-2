@@ -7256,3 +7256,12 @@ param,Rva006E34D0::rva006E34D0::v,Rva006E34D0::rva006E34D0::entry,inferred,agree
 param,Rva006E34D0::rva006E3580::a,Rva006E34D0::rva006E3580::high,inferred,agree:nl-e6b070ed5f6d,Code/Libraries/Source/Apt/Rva006E34D0.cpp,0x006E3580
 param,Rva006E34D0::rva006E3580::b,Rva006E34D0::rva006E3580::low,inferred,agree:nl-d99dba5af423,Code/Libraries/Source/Apt/Rva006E34D0.cpp,0x006E3580
 local,ApplyReconLoopFilter::n,ApplyReconLoopFilter::col,inferred,agree:nl-253295a12195,Code/Libraries/Source/VP6/LoopFilter.cpp,0x001C0AF0
+local,ApplyReconLoopFilter::m,ApplyReconLoopFilter::row,inferred,agree:nl-9031c8df01fe,Code/Libraries/Source/VP6/LoopFilter.cpp,0x001C0AF0
+local,LoopFilter::m,LoopFilter::row,inferred,agree:nl-1b500db8980b,Code/Libraries/Source/VP6/LoopFilter.cpp,0x001C1120
+local,LoopFilter::n,LoopFilter::col,inferred,agree:nl-fd268c13f9fc,Code/Libraries/Source/VP6/LoopFilter.cpp,0x001C1120
+local,__copy_backward::n,__copy_backward::count,inferred,agree:nl-9cddd14ba0e4,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,
+local,__copy_backward::p,__copy_backward::dst,inferred,agree:nl-8ef2e8e7289f,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,
+local,__copy_backward::v,__copy_backward::src,inferred,agree:nl-0248d2d74e77,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,
+local,fill::v,fill::src,inferred,agree:nl-b4dff8f708f4,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,
+param,Rva0023E8D8::Rva0023E8D8::p,Rva0023E8D8::Rva0023E8D8::funcHolder,inferred,agree:nl-679c90f678c4,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,0x0023E8D8
+param,Rva0023E8D8Impl::p,Rva0023E8D8Impl::funcHolder,inferred,agree:nl-83d0db9a2351,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,

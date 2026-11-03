@@ -8,22 +8,22 @@ class Rva0023E8D8Impl : public Rva00080221RefImpl
 {
 public:
 	void *m_func;
-	Rva0023E8D8Impl(void *p) { m_func = *(void **)p; }
+	Rva0023E8D8Impl(void *funcHolder) { m_func = *(void **)funcHolder; }
 };
 
 class Rva0023E8D8
 {
 	Rva0023E8D8Impl *m_ptr;
 public:
-	Rva0023E8D8(void *p);
+	Rva0023E8D8(void *funcHolder);
 };
 
 // Select-any like the four identical consumer copies (this retail body comes
 // first in link order, so it is the copy the link keeps); the anchor keeps the
 // body emitted.
-inline Rva0023E8D8::Rva0023E8D8(void *p)
+inline Rva0023E8D8::Rva0023E8D8(void *funcHolder)
 {
-	Rva0023E8D8Impl *q = new Rva0023E8D8Impl(p);
+	Rva0023E8D8Impl *q = new Rva0023E8D8Impl(funcHolder);
 	m_ptr = q;
 	if (q)
 		++q->m_ref;

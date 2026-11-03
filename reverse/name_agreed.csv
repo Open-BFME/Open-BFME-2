@@ -18325,3 +18325,13 @@ nl-253295a12195,local,n,col,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/Loo
 nl-553c42c9c4bf,param,x,posX,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setCoord|x,blocked,"setCoord spells x after ->, . or ::; it also names a member there"
 nl-0b95ac7f2f55,param,y,posY,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setCoord|y,blocked,"setCoord spells y after ->, . or ::; it also names a member there"
 nl-beea2da6f285,param,z,posZ,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setCoord|z,blocked,"setCoord spells z after ->, . or ::; it also names a member there"
+nl-9031c8df01fe,local,m,row,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/LoopFilter.cpp|local|ApplyReconLoopFilter|m,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-1b500db8980b,local,m,row,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/LoopFilter.cpp|local|LoopFilter|m,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-fd268c13f9fc,local,n,col,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/LoopFilter.cpp|local|LoopFilter|n,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-9cddd14ba0e4,local,n,count,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp|local|__copy_backward|n,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-8ef2e8e7289f,local,p,dst,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp|local|__copy_backward|p,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-0248d2d74e77,local,v,src,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp|local|__copy_backward|v,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-b4dff8f708f4,local,v,src,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp|local|fill|v,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-679c90f678c4,param,p,funcHolder,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp|param|Rva0023E8D8::Rva0023E8D8|p,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-83d0db9a2351,param,p,funcHolder,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp|param|Rva0023E8D8Impl|p,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-4dd144f368ed,local,p,dst,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp|local|fill|p,blocked,dst is already a name in fill (Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp)
