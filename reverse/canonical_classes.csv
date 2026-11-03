@@ -556,3 +556,4 @@ Version,Code/GameEngine/Include/Common/VersionClass.h,existing header; contract 
 AIDozerManager,Code/GameEngine/Include/GameLogic/AIDozerManager.h,existing header; contract class_contracts/AIDozerManager.json; 4/9 sampled units adopt
 Squad,Code/GameEngine/Include/Common/SquadClass.h,existing header; contract class_contracts/Squad.json; 6/14 sampled units adopt
 StrategicVeterancy,Code/GameEngine/Include/GameClient/StrategicVeterancy.h,existing header; contract class_contracts/StrategicVeterancy.json; 4/8 sampled units adopt
+Rva00355D66,Code/GameEngine/Include/GameClient/Rva00355D66.h,existing header; contract class_contracts/Rva00355D66.json; 7/11 sampled units adopt
