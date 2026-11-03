@@ -438,3 +438,4 @@ Rva003623E5Member,Code/GameEngine/Include/GameLogic/Module/Rva003623E5Member.h,e
 Rva001F458BText,Code/GameEngine/Include/GameClient/Rva001F458BText.h,existing header; contract class_contracts/Rva001F458BText.json; 32/33 sampled units adopt
 Rva004F6093Holder,Code/GameEngine/Include/Common/Rva004F6093Holder.h,existing header; contract class_contracts/Rva004F6093Holder.json; 8/29 sampled units adopt
 Rva001DFEAABase,Code/GameEngine/Include/GameClient/Rva001DFEAABase.h,existing header; contract class_contracts/Rva001DFEAABase.json; 13/30 sampled units adopt
+Rva003642DFResult,Code/GameEngine/Include/GameLogic/Rva003642DFResult.h,existing header; contract class_contracts/Rva003642DFResult.json; 24/28 sampled units adopt
