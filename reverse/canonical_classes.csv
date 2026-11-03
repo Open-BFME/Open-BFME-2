@@ -459,3 +459,4 @@ Rva000411084,Code/GameEngine/Include/GameClient/Rva000411084.h,existing header; 
 LivingWorldScenario,Code/GameEngine/Include/Common/LivingWorldScenario.h,existing header; contract class_contracts/LivingWorldScenario.json; 12/14 sampled units adopt
 AITactic,Code/GameEngine/Include/Common/AITactic.h,existing header; contract class_contracts/AITactic.json; 5/30 sampled units adopt
 Rva0040A3F9,Code/GameEngine/Include/Common/Rva0040A3F9.h,existing header; contract class_contracts/Rva0040A3F9.json; 13/22 sampled units adopt
+Rva0007BB16Record,Code/Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h,existing header; contract class_contracts/Rva0007BB16Record.json; 12/22 sampled units adopt
