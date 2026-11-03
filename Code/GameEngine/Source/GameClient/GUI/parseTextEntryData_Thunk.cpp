@@ -31,9 +31,9 @@ static Int scanBool(const char *source, Bool &val)
 // ?scanShort@@YAHPBDAAF@Z
 static Int scanShort(const char *source, Short &val)
 {
-	Int temp = 0;
-	Int ret = sscanf(source, "%d", &temp);
-	val = (Short)temp;
+	Int parsedValue = 0;
+	Int ret = sscanf(source, "%d", &parsedValue);
+	val = (Short)parsedValue;
 	return ret;
 }
 
@@ -45,36 +45,36 @@ static Int scanShort(const char *source, Short &val)
 static bool __cdecl parseTextEntryData(char *, WinInstanceData *, char *buffer, void *data)
 {
 	EntryData *entryData = (EntryData *)data;
-	char *c;
+	char *token;
 	char *seps = " :,\n\r\t";
 
-	c = strtok(buffer, seps);
-	c = strtok(0, seps);
-	scanShort(c, entryData->maxTextLen);
+	token = strtok(buffer, seps);
+	token = strtok(0, seps);
+	scanShort(token, entryData->maxTextLen);
 
-	c = strtok(0, seps);
-	c = strtok(0, seps);
-	scanBool(c, entryData->secretText);
+	token = strtok(0, seps);
+	token = strtok(0, seps);
+	scanBool(token, entryData->secretText);
 
 	entryData->flags = 0;
-	c = strtok(0, seps);
-	c = strtok(0, seps);
+	token = strtok(0, seps);
+	token = strtok(0, seps);
 	Bool numericalOnly;
-	scanBool(c, numericalOnly);
+	scanBool(token, numericalOnly);
 	if (numericalOnly)
 		entryData->flags |= 0x20;
 
-	c = strtok(0, seps);
-	c = strtok(0, seps);
+	token = strtok(0, seps);
+	token = strtok(0, seps);
 	Bool alphaNumericalOnly;
-	scanBool(c, alphaNumericalOnly);
+	scanBool(token, alphaNumericalOnly);
 	if (alphaNumericalOnly)
 		entryData->flags |= 0x40;
 
-	c = strtok(0, seps);
-	c = strtok(0, seps);
+	token = strtok(0, seps);
+	token = strtok(0, seps);
 	Bool asciiOnly;
-	scanBool(c, asciiOnly);
+	scanBool(token, asciiOnly);
 	if (asciiOnly)
 		entryData->flags |= 0x10;
 

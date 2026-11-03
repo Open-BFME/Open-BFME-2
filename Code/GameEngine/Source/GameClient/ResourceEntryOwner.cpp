@@ -96,7 +96,7 @@ private:
     Rva004E5610 m_1C;
 };
 
-// tu-skeleton: 0x004E7CBA 53B ?rva004E7CBA@ResourceEntryOwner@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp (not merged yet)
+// tu-skeleton: 0x004E7CBA 53B ?setName@ResourceEntryOwner@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp (not merged yet)
 
 // tu-skeleton: 0x004E7CEF 39B ?release@ResourceEntryOwner@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp (not merged yet)
 

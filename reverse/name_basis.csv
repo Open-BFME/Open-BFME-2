@@ -6879,3 +6879,13 @@ local,Rva0042FD55::rva0042FD55::n,Rva0042FD55::rva0042FD55::hashBucketIndex,infe
 param,lookupKey::v,lookupKey::hashEntry,inferred,agree:nl-4cf7d41bd70b-m9be79a15103a585f03269109,Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp,
 param,tableAt::n,tableAt::hashBucketIndex,inferred,agree:nl-de794324fa5d-m5c808343085d585f857b99b2,Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp,
 local,scanBool::temp,scanBool::parsedValue,inferred,agree:nl-319f09a7101a,Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp,
+local,Rva000795C1Record::compareRva005803C0::diff08,Rva000795C1Record::compareRva005803C0::metric08Delta,inferred,agree:nl-15a8448f4588,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp,0x005803C0
+local,Rva000795C1Record::compareRva005803C0::diff09,Rva000795C1Record::compareRva005803C0::metric09Delta,inferred,agree:nl-1caae6a9fedd,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp,0x005803C0
+local,Rva000795C1Record::compareRva005803C0::diff21,Rva000795C1Record::compareRva005803C0::metric21Delta,inferred,agree:nl-202d2c9999ad,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp,0x005803C0
+local,parseTextEntryData::c,parseTextEntryData::token,inferred,agree:nl-b39a26378245,Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp,
+local,scanShort::temp,scanShort::parsedValue,inferred,agree:nl-f1ea1b8e1785,Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp,0x00314E6D
+local,InGameUI::drawFloatingText::a,InGameUI::drawFloatingText::alpha,inferred,agree:nl-8e1307dda7b8,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,0x0029D200
+local,InGameUI::drawFloatingText::b,InGameUI::drawFloatingText::blue,inferred,agree:nl-59622dbf5412,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,0x0029D200
+local,InGameUI::drawFloatingText::g,InGameUI::drawFloatingText::green,inferred,agree:nl-f2e3a007a786,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,0x0029D200
+local,InGameUI::drawFloatingText::r,InGameUI::drawFloatingText::red,inferred,agree:nl-42de039c3ec5,Code/GameEngine/Source/GameClient/InGameUI_drawFloatingText.cpp,0x0029D200
+function,?rva004E7CBA@ResourceEntryOwner@@QAEXABVAsciiString@@@Z,?setName@ResourceEntryOwner@@QAEXABVAsciiString@@@Z,inferred,agree:nl-4a44e78ff616,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp,0x004E7CBA

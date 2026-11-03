@@ -190,14 +190,14 @@ void InGameUI::drawFloatingText()
 		{
 			pos.y -= ftd->m_frameCount * m_floatingTextMoveUpSpeed / TheGameEngine->m_38;
 
-			unsigned char r;
-			unsigned char g;
-			unsigned char b;
-			unsigned char a;
+			unsigned char red;
+			unsigned char green;
+			unsigned char blue;
+			unsigned char alpha;
 			int width;
 
-			GameGetColorComponents(ftd->m_color, &r, &g, &b, &a);
-			int dropColor = (a << 24);
+			GameGetColorComponents(ftd->m_color, &red, &green, &blue, &alpha);
+			int dropColor = (alpha << 24);
 			ftd->m_dString->getSize(&width, 0);
 			ftd->m_dString->setColors(ftd->m_color, dropColor);
 			ftd->m_dString->draw(pos.x - (width / 2), pos.y, 1, 1);

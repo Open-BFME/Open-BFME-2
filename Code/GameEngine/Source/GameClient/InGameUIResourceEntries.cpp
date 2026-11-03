@@ -217,7 +217,7 @@ void Rva004E7B13::rva004E7CB5()
 class ResourceEntryOwner
 {
 public:
-    __declspec(noinline) void rva004E7CBA(const AsciiString &value);
+    __declspec(noinline) void setName(const AsciiString &value);
     __declspec(noinline) void release();
 private:
     char unknown00[4];
@@ -232,7 +232,7 @@ private:
 // Retail 4E7CBA..4E7CEF compares the argument with the +8 narrow string.
 // A changed name is copied before the +C list and +10 tree are cleared.
 // The string identity follows the rowed compare/set callees, not adjacency.
-void ResourceEntryOwner::rva004E7CBA(const AsciiString &value)
+void ResourceEntryOwner::setName(const AsciiString &value)
 {
     if (value.compare(name))
     {
@@ -266,7 +266,7 @@ private:
 // Native 4E7D16/7B forwards the same stack argument through holder+0.
 void Rva004E7B0CHolder::rva004E7D16(const AsciiString &value)
 {
-    owner->rva004E7CBA(value);
+    owner->setName(value);
 }
 
 // TheInGameUI+0x58C is a pointer holder; retail forwards through its +0.

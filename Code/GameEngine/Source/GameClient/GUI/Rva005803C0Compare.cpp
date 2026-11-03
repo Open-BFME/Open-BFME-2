@@ -39,10 +39,10 @@ public:
 };
 bool Rva000795C1Record::compareRva005803C0(void *lhs,void *rhs) const {
  GameInfo *gameInfo=(GameInfo*)lhs,*b=(GameInfo*)rhs;
- int diff09=gameInfo->metric09()-b->metric09();
- int diff08=gameInfo->metric08()-b->metric08();
+ int metric09Delta=gameInfo->metric09()-b->metric09();
+ int metric08Delta=gameInfo->metric08()-b->metric08();
  int names=_wcsicmp((const wchar_t*)gameInfo->gameName().str(),(const wchar_t*)b->gameName().str());
- int diff21=gameInfo->metric21()-b->metric21();
+ int metric21Delta=gameInfo->metric21()-b->metric21();
  int maps=gameInfo->tag()==b->tag()?_strcmpi(gameInfo->getMap().str(),b->getMap().str()):0;
  reinterpret_cast<Rva005801F6 *>(const_cast<Rva000795C1Record *>(this))->rva005801F6(reinterpret_cast<Rva005801F6Probe *>(gameInfo),reinterpret_cast<Rva005801F6Probe *>(b));
  int mode=key->primarySort;
@@ -52,14 +52,14 @@ bool Rva000795C1Record::compareRva005803C0(void *lhs,void *rhs) const {
    case 1:if(names)return descending?names>0:names<0;break;
    case 16:for(int *it=first;it!=last;++it){int value=*it;if(value)return value>0;}break;
    case 2:if(maps)return descending?maps>0:maps<0;break;
-   case 8:if(diff21)return descending?diff21>0:diff21<0;break;
-   case 4:if(diff09)return descending?diff09>0:diff09<0;
-          if(diff08)return diff08<0;break;
+   case 8:if(metric21Delta)return descending?metric21Delta>0:metric21Delta<0;break;
+   case 4:if(metric09Delta)return descending?metric09Delta>0:metric09Delta<0;
+          if(metric08Delta)return metric08Delta<0;break;
   }
  }
  if(names)return names<0;
- if(diff09)return diff09<0;
+ if(metric09Delta)return metric09Delta<0;
  if(maps)return maps<0;
- if(diff21)return diff21<0;
+ if(metric21Delta)return metric21Delta<0;
  return gameInfo<b;
 }
