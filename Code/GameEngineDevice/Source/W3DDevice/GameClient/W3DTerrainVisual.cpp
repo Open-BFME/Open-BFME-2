@@ -239,14 +239,11 @@ static TestSeismicFilter testSeismicFilter;
 // ------------------------------------------------------------------------------------------------
 /** set the water table position and orientation in world space */
 // ------------------------------------------------------------------------------------------------
-void W3DTerrainVisual::setWaterTransform( const WaterHandle *waterTable, 
-																					Real angle, Real x, Real y, Real z )
-{
-
-	if( m_waterRenderObject )
-		m_waterRenderObject->setGridTransform( angle, x, y, z );
-
-}  // end setWaterTransform
+// NOTE (link lane): Zero Hour's setWaterTransform(const WaterHandle *, Real,
+// Real, Real, Real) was dropped. No row holds it, no other object references
+// it, and it called WaterRenderObjClass::setGridTransform(Real, Real, Real,
+// Real), which BFME 2 does not provide (its rowed setGridTransform takes a
+// Matrix3D, 0x003F7E74). The Matrix3D overload below is the row (LINK-181).
 
 // ------------------------------------------------------------------------------------------------
 /** set water table transform by matrix */
