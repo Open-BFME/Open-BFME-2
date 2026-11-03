@@ -30,6 +30,25 @@ BodyModule::BodyModule(Thing *thing, const ModuleData *moduleData)
 {
 }
 
+// The constructor above installs BodyModule's primary table (retail VA
+// 0x00C5AE68, 13 slots) and its BehaviorModuleInterface table at +0xC (retail
+// VA 0x00C5AD78). Retail slot 0 of the +0xC table is 0x002533D3, the 13-byte
+// null-checked cast to the BodyModuleInterface base at +0x10 that the linker
+// folded with DieModule::getDie and UpdateModule::getUpdate (rowed in
+// CreateObjectDie.cpp); retail slot 12 of the primary table is 0x0050B5C6,
+// the shared 3-byte `mov al,1; ret` (VtableConstantPredicates.cpp). These are
+// this class's overrides of those slots, as the canonical BodyModuleClass.h
+// declares them; ICF twin rows.
+BodyModuleInterface *BodyModule::getBody()
+{
+	return this;
+}
+
+bool BodyModule::vslot12()
+{
+	return true;
+}
+
 // ??_GBodyModule@@UAEPAXI@Z @0x004BD841 28B: slot 0 of the vftable the
 // constructor above stores at +0 (was ??_GRva004BD763); calls ??1BodyModule
 // (0x004BD763, rowed in Rva0049B47CThreeVptrDerived.cpp) then operator delete.
