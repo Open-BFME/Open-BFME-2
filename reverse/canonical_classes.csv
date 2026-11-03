@@ -516,3 +516,4 @@ RenderObjectUpdateModuleInfo,Code/GameEngine/Include/GameClient/RenderObjectUpda
 InGameHeroSelectInterface,Code/GameEngine/Include/GameClient/InGameHeroSelectInterface.h,existing header; contract class_contracts/InGameHeroSelectInterface.json; 5/9 sampled units adopt
 UnitRevivalEntry,Code/GameEngine/Include/GameLogic/UnitRevivalEntry.h,existing header; contract class_contracts/UnitRevivalEntry.json; 4/14 sampled units adopt
 ManualPhaseEnder,Code/GameEngine/Include/GameLogic/ManualPhaseEnder.h,existing header; contract class_contracts/ManualPhaseEnder.json; 10/11 sampled units adopt
+SpawnBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/SpawnBehaviorModuleData.h,existing header; contract class_contracts/SpawnBehaviorModuleData.json; 7/14 sampled units adopt
