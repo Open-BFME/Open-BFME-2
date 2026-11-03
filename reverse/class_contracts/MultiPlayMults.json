@@ -1,0 +1,101 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MultiPlayMults",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 10,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 9,
+   "400": 3,
+   "480": 2
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_money",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 80,
+   "type": "float[80]",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultGetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultSetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultGetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultSetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultGetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultSetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 320,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultGetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayMultSetters.cpp",
+    "Code/GameEngine/Source/Common/MultiPlayOtherMultParsers.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 400,
+   "sources": [
+    "Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 400,
+ "size_by": "majority",
+ "vslots": {}
+}
