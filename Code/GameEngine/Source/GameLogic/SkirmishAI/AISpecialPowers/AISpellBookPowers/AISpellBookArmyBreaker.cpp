@@ -98,10 +98,7 @@ class Rva005EEA20 {
 public:
     Object *findUnitInCombat(Player *, bool, bool);
 };
-class AISpellBookBase {
-public:
-    void getStatsInCombatRange(Rva005EE9CE *, Object *, float);
-};
+#include "../../../../../Include/GameLogic/AISpellBookBase.h"
 class Rva005EE816 {
 public:
     bool rva005EE8DD(const Coord3D *, Object *);

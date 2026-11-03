@@ -17,9 +17,7 @@ public:
     char unknown08[0x30]; Coord3D position38;
 };
 class ModuleData;
-class AISpellBookBase { public:
-    void findUnitInCombat(_STL::vector<const ModuleData *> *,Player *);
-};
+#include "../../../../../Include/GameLogic/AISpellBookBase.h"
 class Rva005EE816 { public: bool rva005EE8DD(const Coord3D *,Object *); };
 class AISpellBookEnshroudingMist { public:
     virtual bool shouldActivate(Object *);

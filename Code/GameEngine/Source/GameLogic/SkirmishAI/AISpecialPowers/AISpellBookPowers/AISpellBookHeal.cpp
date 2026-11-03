@@ -51,11 +51,7 @@ public:
 	Object *findUnitInCombat(Player *player, Bool a, Bool b);
 	void getStatsInCombatRange(Rva005EE9CE *stats, Object *unit, float range);
 };
-class AISpellBookBase
-{
-public:
-	void getStatsInCombatRange(Rva005EE9CE *stats, Object *unit, float range);
-};
+#include "../../../../../Include/GameLogic/AISpellBookBase.h"
 
 class Rva005EE816
 {

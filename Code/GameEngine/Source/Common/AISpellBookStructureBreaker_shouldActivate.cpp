@@ -21,11 +21,7 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AISpellBookBase
-{
-public:
-	bool findDenseStructureCenter(Player *a1, Player *a2, Coord3D *out);
-};
+#include "../../Include/GameLogic/AISpellBookBase.h"
 
 class Rva005EE816
 {

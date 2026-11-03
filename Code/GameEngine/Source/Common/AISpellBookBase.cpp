@@ -104,13 +104,7 @@ struct IdRange
 	ObjectID *m_end;
 };
 
-class AISpellBookBase
-{
-public:
-	bool findDenseStructureCenter(Player *a1, Player *viewingPlayer, Coord3D *denseCenter);
-public:
-	void findUnitInCombat(_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > *vec, Player *player);
-};
+#include "../../Include/GameLogic/AISpellBookBase.h"
 
 // ---- from Code/GameEngine/Source/Common/AISpellBookBase_findDenseStructureCenter.cpp
 

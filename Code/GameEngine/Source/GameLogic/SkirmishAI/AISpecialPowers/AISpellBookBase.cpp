@@ -262,11 +262,7 @@ public:
 	float m_0C;		// +0x0C
 };
 
-class AISpellBookBase
-{
-public:
-	void getStatsInCombatRange(Rva005EE9CE *tally, Object *source, float radius);
-};
+#include "../../../../Include/GameLogic/AISpellBookBase.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBaseGetStatsInCombatRange.cpp
 
