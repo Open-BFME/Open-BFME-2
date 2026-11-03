@@ -152,6 +152,7 @@ struct ObjectCreationUpgradeModuleData
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {

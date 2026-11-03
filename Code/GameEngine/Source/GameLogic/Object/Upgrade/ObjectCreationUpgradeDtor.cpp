@@ -26,6 +26,7 @@ private:
 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
