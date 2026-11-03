@@ -22,17 +22,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class DelayedDeathBodyModuleData
-{
-public:
-	DelayedDeathBodyModuleData();
-	virtual ~DelayedDeathBodyModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x80 - 4];
-};
+#include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 
 // ?friend_newModuleData@DelayedDeathBodyModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *DelayedDeathBodyModuleData::friend_newModuleData(INI *ini)

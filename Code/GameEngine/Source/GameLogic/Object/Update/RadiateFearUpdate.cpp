@@ -298,11 +298,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class DelayedDeathBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 
 int Rva004CE29DGet(void);
 
