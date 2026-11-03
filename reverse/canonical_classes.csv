@@ -446,3 +446,4 @@ DrawableModule,Code/GameEngine/Include/Common/DrawableModule.h,existing header; 
 Rva006E34D0,Code/Libraries/Source/Apt/Rva006E34D0.h,existing header; contract class_contracts/Rva006E34D0.json; 13/28 sampled units adopt
 TreeHintOpaque0043671B,Code/GameEngine/Include/GameClient/TreeHintOpaque0043671B.h,existing header; contract class_contracts/TreeHintOpaque0043671B.json; 11/26 sampled units adopt
 ScriptCounter,Code/GameEngine/Include/GameLogic/ScriptCounter.h,existing header; contract class_contracts/ScriptCounter.json; 23/24 sampled units adopt
+MilesAudioManager,Code/GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h,existing header; contract class_contracts/MilesAudioManager.json; 25/90 sampled units adopt

@@ -1,0 +1,3178 @@
+{
+ "bases": [
+  "AudioManager"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MilesAudioManager",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x10": {
+    "4": 6
+   },
+   "0x104": {
+    "4": 1
+   },
+   "0x118": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x678": {
+    "4": 4
+   },
+   "0x67c": {
+    "4": 1
+   },
+   "0x680": {
+    "4": 1
+   },
+   "0x684": {
+    "4": 1
+   },
+   "0x688": {
+    "4": 1
+   },
+   "0x698": {
+    "4": 1
+   },
+   "0x6a4": {
+    "1": 2
+   },
+   "0x6a6": {
+    "1": 1
+   },
+   "0x6a7": {
+    "1": 3,
+    "4": 1
+   },
+   "0x6ab": {
+    "1": 1
+   },
+   "0x6cc": {
+    "4": 2
+   },
+   "0x8c": {
+    "4": 1
+   },
+   "0x98": {
+    "4": 3
+   },
+   "0x9c": {
+    "4": 2
+   },
+   "0x9cc": {
+    "4": 9
+   },
+   "0x9d0": {
+    "4": 9
+   },
+   "0x9dc": {
+    "4": 1
+   },
+   "0x9e0": {
+    "4": 2
+   },
+   "0x9e4": {
+    "4": 2
+   },
+   "0xa38": {
+    "4": 2
+   },
+   "0xa3c": {
+    "4": 2
+   },
+   "0xa40": {
+    "4": 6
+   },
+   "0xa44": {
+    "4": 3
+   },
+   "0xa48": {
+    "4": 1
+   },
+   "0xb0": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xb48": {
+    "4": 1
+   },
+   "0xb54": {
+    "4": 1
+   },
+   "0xb58": {
+    "4": 1
+   },
+   "0xb90": {
+    "4": 1
+   },
+   "0xbc": {
+    "4": 1
+   },
+   "0xbd4": {
+    "4": 2
+   },
+   "0xbd8": {
+    "4": 3
+   },
+   "0xbf0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5cf5f"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "AudioManager",
+       "offset": 0,
+       "own_vftable": "0x7c55b0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5cf5f"
+     ],
+     "value": 3073
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5cf5f"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x12c": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x678": [
+       4
+      ],
+      "0x67c": [
+       4
+      ],
+      "0x680": [
+       4
+      ],
+      "0x684": [
+       4
+      ],
+      "0x688": [
+       4
+      ],
+      "0x68c": [
+       4
+      ],
+      "0x690": [
+       4
+      ],
+      "0x694": [
+       4
+      ],
+      "0x698": [
+       4
+      ],
+      "0x69c": [
+       2
+      ],
+      "0x69e": [
+       1
+      ],
+      "0x69f": [
+       1
+      ],
+      "0x6a0": [
+       1
+      ],
+      "0x6a1": [
+       1
+      ],
+      "0x6a2": [
+       1
+      ],
+      "0x6a3": [
+       1
+      ],
+      "0x6a4": [
+       1
+      ],
+      "0x6a5": [
+       1
+      ],
+      "0x6a6": [
+       1
+      ],
+      "0x6a7": [
+       1
+      ],
+      "0x6a8": [
+       1
+      ],
+      "0x6a9": [
+       1
+      ],
+      "0x6aa": [
+       1
+      ],
+      "0x6ab": [
+       1
+      ],
+      "0x6ac": [
+       1
+      ],
+      "0x6b0": [
+       4
+      ],
+      "0x6b4": [
+       4
+      ],
+      "0x6c0": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x9cc": [
+       4
+      ],
+      "0x9d0": [
+       4
+      ],
+      "0x9dc": [
+       4
+      ],
+      "0x9e0": [
+       4
+      ],
+      "0x9e4": [
+       4
+      ],
+      "0xb3c": [
+       4
+      ],
+      "0xb8c": [
+       4
+      ],
+      "0xb90": [
+       4
+      ],
+      "0xbd4": [
+       4
+      ],
+      "0xbd8": [
+       4
+      ],
+      "0xbdc": [
+       4
+      ],
+      "0xbe0": [
+       1
+      ],
+      "0xbe4": [
+       4
+      ],
+      "0xbe8": [
+       4
+      ],
+      "0xbec": [
+       4
+      ],
+      "0xbf0": [
+       4
+      ],
+      "0xbf8": [
+       4
+      ],
+      "0xbfc": [
+       4
+      ],
+      "0xc00": [
+       1
+      ],
+      "0xd0": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5cf5f"
+     ],
+     "value": {
+      "0x104": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0x118": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0x3c": [
+       "??0ScreenToTerrainSet@@QAE@XZ"
+      ],
+      "0x98": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x9c": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0x9d4": [
+       "??0Mutex@@QAE@HPBDPAX@Z"
+      ],
+      "0x9e8": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0x9fc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa08": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa38": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa3c": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa40": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa44": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xa48": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xb0": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xb54": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xb60": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xb6c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0xb78": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0xb94": [
+       "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xb98": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0xbac": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0xbc": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0xbc0": [
+       "??0?$hash_set@HU?$hash@H@_STL@@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE@XZ"
+      ],
+      "0xd4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x5e97d"
+     ],
+     "value": 3080
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x5cf5f"
+     ],
+     "value": {
+      "0xc": [
+       "0x7c559c"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5cf5f"
+     ],
+     "value": {
+      "0x0": "0x7c55b0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c55b0"
+     ],
+     "value": {
+      "count": 111,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0060FE2@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x61aa1"
+       },
+       {
+        "name": "?init@MilesAudioManager@@UAEXXZ",
+        "slot": 1,
+        "target": "0x61abd"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?vslot04@MilesAudioManager@@UAE_NH@Z",
+        "slot": 4,
+        "target": "0x61bd2"
+       },
+       {
+        "name": "?vslot05@MilesAudioManager@@UAE_NXZ",
+        "slot": 5,
+        "target": "0x51155"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@MilesAudioManager@@UAEXXZ",
+        "slot": 9,
+        "target": "0x51173"
+       },
+       {
+        "name": "?update@MilesAudioManager@@UAEXXZ",
+        "slot": 10,
+        "target": "0x62690"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva00061C87@MilesAudioManager@@UAEXI@Z",
+        "slot": 14,
+        "target": "0x61c87"
+       },
+       {
+        "name": "?stopAudio@MilesAudioManager@@UAEXW4AudioAffect@@@Z",
+        "slot": 15,
+        "target": "0x54284"
+       },
+       {
+        "name": "?rva000583BA@MilesAudioManager@@UAEXIIH@Z",
+        "slot": 16,
+        "target": "0x583ba"
+       },
+       {
+        "name": "?rva00058591@MilesAudioManager@@UAEXIIH@Z",
+        "slot": 17,
+        "target": "0x58591"
+       },
+       {
+        "name": "?rva0005CAE2@MilesAudioManager@@UAEXXZ",
+        "slot": 18,
+        "target": "0x5cae2"
+       },
+       {
+        "name": "?rva0005CB39@MilesAudioManager@@UAEXXZ",
+        "slot": 19,
+        "target": "0x5cb39"
+       },
+       {
+        "name": "?setViewFocus@MilesAudioManager@@UAEXH@Z",
+        "slot": 20,
+        "target": "0x5dafc"
+       },
+       {
+        "name": "?rva0005189D@MilesAudioManager@@UBEHXZ",
+        "slot": 21,
+        "target": "0x5189d"
+       },
+       {
+        "name": "?rva0005116B@MilesAudioManager@@UAEXXZ",
+        "slot": 22,
+        "target": "0x5116b"
+       },
+       {
+        "name": "?rva0005DACF@MilesAudioManager@@UAEXABH@Z",
+        "slot": 23,
+        "target": "0x5dacf"
+       },
+       {
+        "name": "?rva0005DACF@MilesAudioManager@@UAEXABH@Z",
+        "slot": 24,
+        "target": "0x5dacf"
+       },
+       {
+        "name": "?addAudioEvent@MilesAudioManager@@UAEXH@Z",
+        "slot": 25,
+        "target": "0x5dabb"
+       },
+       {
+        "name": "?removePlayingAudio@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+        "slot": 26,
+        "target": "0x609a1"
+       },
+       {
+        "name": "?rva00057787@MilesAudioManager@@UAEXI@Z",
+        "slot": 27,
+        "target": "0x57787"
+       },
+       {
+        "name": "?killAudioEventImmediately@MilesAudioManager@@UAE_NI@Z",
+        "slot": 28,
+        "target": "0x615da"
+       },
+       {
+        "name": "?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z",
+        "slot": 29,
+        "target": "0x5dae6"
+       },
+       {
+        "name": "?rva00057408@MilesAudioManager@@UAEXI@Z",
+        "slot": 30,
+        "target": "0x57408"
+       },
+       {
+        "name": "?rva000527E2@MilesAudioManager@@UAE_NPBURva000527E2Event@@@Z",
+        "slot": 31,
+        "target": "0x527e2"
+       },
+       {
+        "name": "?rva00055E6C@MilesAudioManager@@UAE_NABVAsciiString@@HHH@Z",
+        "slot": 32,
+        "target": "0x55e6c"
+       },
+       {
+        "name": "?rva0005A7BE@MilesAudioManager@@UAEHPAVAudioEventRTS@@H@Z",
+        "slot": 33,
+        "target": "0x5a7be"
+       },
+       {
+        "name": "?rva00055A58@MilesAudioManager@@UAEXHHHH@Z",
+        "slot": 34,
+        "target": "0x55a58"
+       },
+       {
+        "name": "?rva00055B40@MilesAudioManager@@UAEXHHH@Z",
+        "slot": 35,
+        "target": "0x55b40"
+       },
+       {
+        "name": "?rva000568CE@MilesAudioManager@@UAEXHHH@Z",
+        "slot": 36,
+        "target": "0x568ce"
+       },
+       {
+        "name": "?rva000569A8@MilesAudioManager@@UAEXHHHH@Z",
+        "slot": 37,
+        "target": "0x569a8"
+       },
+       {
+        "name": "?rva000567F4@MilesAudioManager@@UAEXHHH@Z",
+        "slot": 38,
+        "target": "0x567f4"
+       },
+       {
+        "name": "?rva000518A4@MilesAudioManager@@UAEHH@Z",
+        "slot": 39,
+        "target": "0x518a4"
+       },
+       {
+        "name": "?rva00052917@MilesAudioManager@@UAEHXZ",
+        "slot": 40,
+        "target": "0x52917"
+       },
+       {
+        "name": "?rva0005538C@MilesAudioManager@@UAE_NXZ",
+        "slot": 41,
+        "target": "0x5538c"
+       },
+       {
+        "name": "?rva00054714@MilesAudioManager@@UAE?AVAsciiString@@XZ",
+        "slot": 42,
+        "target": "0x54714"
+       },
+       {
+        "name": "?rva0005BD20@MilesAudioManager@@UAEXXZ",
+        "slot": 43,
+        "target": "0x5bd20"
+       },
+       {
+        "name": "?rva0005BD28@MilesAudioManager@@UAEXXZ",
+        "slot": 44,
+        "target": "0x5bd28"
+       },
+       {
+        "name": "?rva0005E322@MilesAudioManager@@UAEXPBVAsciiString@@H@Z",
+        "slot": 45,
+        "target": "0x5e322"
+       },
+       {
+        "name": "?rva00059DF5@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+        "slot": 46,
+        "target": "0x59df5"
+       },
+       {
+        "name": "?rva00059E5C@MilesAudioManager@@UAEXH@Z",
+        "slot": 47,
+        "target": "0x59e5c"
+       },
+       {
+        "name": "?rva0005CA03@MilesAudioManager@@UAEXPAXMH@Z",
+        "slot": 48,
+        "target": "0x5ca03"
+       },
+       {
+        "name": "?rva0005E377@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+        "slot": 49,
+        "target": "0x5e377"
+       },
+       {
+        "name": "?rva0005CA75@MilesAudioManager@@UAEXH@Z",
+        "slot": 50,
+        "target": "0x5ca75"
+       },
+       {
+        "name": "?rva0005A95B@MilesAudioManager@@UAEXIPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z",
+        "slot": 51,
+        "target": "0x5a95b"
+       },
+       {
+        "name": "?rva000572DC@MilesAudioManager@@UAE_NI@Z",
+        "slot": 52,
+        "target": "0x572dc"
+       },
+       {
+        "name": "?rva00057378@MilesAudioManager@@UAEXIPBX@Z",
+        "slot": 53,
+        "target": "0x57378"
+       },
+       {
+        "name": "?rva00057492@MilesAudioManager@@UAE_NIPAUBfmeEventPositionView@@@Z",
+        "slot": 54,
+        "target": "0x57492"
+       },
+       {
+        "name": "?rva00057530@MilesAudioManager@@UAEXIMH@Z",
+        "slot": 55,
+        "target": "0x57530"
+       },
+       {
+        "name": "?rva0005164F@MilesAudioManager@@UAEEE@Z",
+        "slot": 56,
+        "target": "0x5164f"
+       },
+       {
+        "name": "?rva0005168C@MilesAudioManager@@UAEXEE@Z",
+        "slot": 57,
+        "target": "0x5168c"
+       },
+       {
+        "name": "?rva0005CB90@MilesAudioManager@@UAEXHM@Z",
+        "slot": 58,
+        "target": "0x5cb90"
+       },
+       {
+        "name": "?rva00053CE1@MilesAudioManager@@UAEXMHH@Z",
+        "slot": 59,
+        "target": "0x53ce1"
+       },
+       {
+        "name": "?rva0005C8BB@MilesAudioManager@@UAEXMH@Z",
+        "slot": 60,
+        "target": "0x5c8bb"
+       },
+       {
+        "name": "?rva000537F4@MilesAudioManager@@UAEXMMMMMH@Z",
+        "slot": 61,
+        "target": "0x537f4"
+       },
+       {
+        "name": "?rva00059A25@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+        "slot": 62,
+        "target": "0x59a25"
+       },
+       {
+        "name": "?rva0005E168@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+        "slot": 63,
+        "target": "0x5e168"
+       },
+       {
+        "name": "?rva00059A7C@MilesAudioManager@@UAEXH@Z",
+        "slot": 64,
+        "target": "0x59a7c"
+       },
+       {
+        "name": "?rva000515AB@MilesAudioManager@@UAEXXZ",
+        "slot": 65,
+        "target": "0x515ab"
+       },
+       {
+        "name": "?rva000515B3@MilesAudioManager@@UAEXH@Z",
+        "slot": 66,
+        "target": "0x515b3"
+       },
+       {
+        "name": "?rva000533CB@MilesAudioManager@@UAEXXZ",
+        "slot": 67,
+        "target": "0x533cb"
+       },
+       {
+        "name": "?rva000515A4@MilesAudioManager@@UBEEXZ",
+        "slot": 68,
+        "target": "0x515a4"
+       },
+       {
+        "name": "?rva000517F1@MilesAudioManager@@UAEXXZ",
+        "slot": 69,
+        "target": "0x517f1"
+       },
+       {
+        "name": "?rva0005181B@MilesAudioManager@@UAEXXZ",
+        "slot": 70,
+        "target": "0x5181b"
+       },
+       {
+        "name": "?rva00051840@MilesAudioManager@@UAEXXZ",
+        "slot": 71,
+        "target": "0x51840"
+       },
+       {
+        "name": "?get@Rva0036CBE7LeaField@@QBEPAXXZ",
+        "slot": 72,
+        "target": "0x36cbe7"
+       },
+       {
+        "name": "?newOwnedAudioEventInfo@MilesAudioManager@@UAE?AURva0010F149Handle@@ABVAsciiString@@H@Z",
+        "slot": 73,
+        "target": "0x5ac80"
+       },
+       {
+        "name": "?addUnownedAudioEventInfo@MilesAudioManager@@UAEXPAUAudioEventInfo@@@Z",
+        "slot": 74,
+        "target": "0x5ada3"
+       },
+       {
+        "name": "?findAudioEventInfo@MilesAudioManager@@UBE?AVRva00051ADA@@ABVAsciiString@@@Z",
+        "slot": 75,
+        "target": "0x59eae"
+       },
+       {
+        "name": "?friend_onAudioEventInfoDestruction@MilesAudioManager@@UAEXPAUAudioEventInfo@@@Z",
+        "slot": 76,
+        "target": "0x5af92"
+       },
+       {
+        "name": "?get@Rva001DB09DDwordField@@QBEHXZ",
+        "slot": 77,
+        "target": "0x1db09d"
+       },
+       {
+        "name": "?get@Rva0057E556DwordField@@QBEHXZ",
+        "slot": 78,
+        "target": "0x57e556"
+       },
+       {
+        "name": "?get@Rva0057E556DwordField@@QBEHXZ",
+        "slot": 79,
+        "target": "0x57e556"
+       },
+       {
+        "name": "?getAudioLengthMS@MilesAudioManager@@UAEMPBUBfmeAudioEventPrefix136@@@Z",
+        "slot": 80,
+        "target": "0x549a3"
+       },
+       {
+        "name": "?bfmeMilesPreferenceProduct@MilesAudioManager@@UAEHXZ",
+        "slot": 81,
+        "target": "0x51846"
+       },
+       {
+        "name": "?rva0005185E@MilesAudioManager@@UAEXPAH00@Z",
+        "slot": 82,
+        "target": "0x5185e"
+       },
+       {
+        "name": "?isMusicAlreadyLoaded@MilesAudioManager@@UBE_NXZ",
+        "slot": 83,
+        "target": "0x5b017"
+       },
+       {
+        "name": "?rva00051896@MilesAudioManager@@UBEEXZ",
+        "slot": 84,
+        "target": "0x51896"
+       },
+       {
+        "name": "?rva0005AE2B@MilesAudioManager@@UAEXHPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z",
+        "slot": 85,
+        "target": "0x5ae2b"
+       },
+       {
+        "name": "?rva0005AEDD@MilesAudioManager@@UAEXHPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z",
+        "slot": 86,
+        "target": "0x5aedd"
+       },
+       {
+        "name": "?rva0055D96F@MilesAudioManager@@UBEPAXXZ",
+        "slot": 87,
+        "target": "0x55d96f"
+       },
+       {
+        "name": "?rva000596E9@MilesAudioManager@@UAEXPAVXfer@@PAI@Z",
+        "slot": 88,
+        "target": "0x596e9"
+       },
+       {
+        "name": "?rva0005522C@MilesAudioManager@@UAEXABVAsciiString@@@Z",
+        "slot": 89,
+        "target": "0x5522c"
+       },
+       {
+        "name": "?rva00054243@MilesAudioManager@@UBE?AVAsciiString@@XZ",
+        "slot": 90,
+        "target": "0x54243"
+       },
+       {
+        "name": "?rva000530DF@MilesAudioManager@@UAEXXZ",
+        "slot": 91,
+        "target": "0x530df"
+       },
+       {
+        "name": "?rva00058314@MilesAudioManager@@UAEABV?$vector@PBDV?$allocator@PBD@_STL@@@_STL@@XZ",
+        "slot": 92,
+        "target": "0x58314"
+       },
+       {
+        "name": "?rva0005824D@MilesAudioManager@@UAEXPAVPolygonTrigger@@M@Z",
+        "slot": 93,
+        "target": "0x5824d"
+       },
+       {
+        "name": "?rva000551C2@MilesAudioManager@@UAEXH@Z",
+        "slot": 94,
+        "target": "0x551c2"
+       },
+       {
+        "name": "?rva0005710F@MilesAudioManager@@UAEXXZ",
+        "slot": 95,
+        "target": "0x5710f"
+       },
+       {
+        "name": "?rva000512BC@MilesAudioManager@@UAEXXZ",
+        "slot": 96,
+        "target": "0x512bc"
+       },
+       {
+        "name": "?rva000619D1@MilesAudioManager@@UAE_N_N@Z",
+        "slot": 97,
+        "target": "0x619d1"
+       },
+       {
+        "name": "?onAudioLODChanged@MilesAudioManager@@UAEXXZ",
+        "slot": 98,
+        "target": "0x607bb"
+       },
+       {
+        "name": "?rva000531F6@MilesAudioManager@@UAE_NXZ",
+        "slot": 99,
+        "target": "0x531f6"
+       },
+       {
+        "name": "?rva000514BB@MilesAudioManager@@UAEXXZ",
+        "slot": 100,
+        "target": "0x514bb"
+       },
+       {
+        "name": "?rva00053281@MilesAudioManager@@UAEXXZ",
+        "slot": 101,
+        "target": "0x53281"
+       },
+       {
+        "name": "?rva0005329C@MilesAudioManager@@UAEXXZ",
+        "slot": 102,
+        "target": "0x5329c"
+       },
+       {
+        "name": "?friend_xferSubAudioEventRTS@MilesAudioManager@@UAEXPAVXfer@@PAVBfmePoolRef10@@@Z",
+        "slot": 103,
+        "target": "0x5987d"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 104,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva000511C3@MilesAudioManager@@UAEXPAUCoord3D@@@Z",
+        "slot": 105,
+        "target": "0x511c3"
+       },
+       {
+        "name": "?getScreenToTerrainPositions@MilesAudioManager@@UAEXPAVScreenToTerrainSet@@@Z",
+        "slot": 106,
+        "target": "0x5294a"
+       },
+       {
+        "name": "?rva000516EF@MilesAudioManager@@UAE_NPBUCoord3D@@@Z",
+        "slot": 107,
+        "target": "0x516ef"
+       },
+       {
+        "name": "?slot108@MilesAudioManager@@UAEEPAUBfmeAudioEventPrefix136@@@Z",
+        "slot": 108,
+        "target": "0x527fb"
+       },
+       {
+        "name": "?rva0005121F@MilesAudioManager@@UAEMXZ",
+        "slot": 109,
+        "target": "0x5121f"
+       },
+       {
+        "name": "?rva000541DB@MilesAudioManager@@UAEXXZ",
+        "slot": 110,
+        "target": "0x541db"
+       }
+      ],
+      "table": "0x7c55b0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 141,
+  "retail_vtables": {
+   "0x7c55b0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0060FE2@@UAEPAXI@Z",
+     "1": "?init@MilesAudioManager@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?vslot04@MilesAudioManager@@UAE_NH@Z",
+     "5": "?vslot05@MilesAudioManager@@UAE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@MilesAudioManager@@UAEXXZ",
+     "10": "?update@MilesAudioManager@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "14": "?rva00061C87@MilesAudioManager@@UAEXI@Z",
+     "15": "?stopAudio@MilesAudioManager@@UAEXW4AudioAffect@@@Z",
+     "16": "?rva000583BA@MilesAudioManager@@UAEXIIH@Z",
+     "17": "?rva00058591@MilesAudioManager@@UAEXIIH@Z",
+     "18": "?rva0005CAE2@MilesAudioManager@@UAEXXZ",
+     "19": "?rva0005CB39@MilesAudioManager@@UAEXXZ",
+     "20": "?setViewFocus@MilesAudioManager@@UAEXH@Z",
+     "21": "?rva0005189D@MilesAudioManager@@UBEHXZ",
+     "22": "?rva0005116B@MilesAudioManager@@UAEXXZ",
+     "23": "?rva0005DACF@MilesAudioManager@@UAEXABH@Z",
+     "24": "?rva0005DACF@MilesAudioManager@@UAEXABH@Z",
+     "25": "?addAudioEvent@MilesAudioManager@@UAEXH@Z",
+     "26": "?removePlayingAudio@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+     "27": "?rva00057787@MilesAudioManager@@UAEXI@Z",
+     "28": "?killAudioEventImmediately@MilesAudioManager@@UAE_NI@Z",
+     "29": "?resumeAudioEvent@MilesAudioManager@@UAEXHH@Z",
+     "30": "?rva00057408@MilesAudioManager@@UAEXI@Z",
+     "31": "?rva000527E2@MilesAudioManager@@UAE_NPBURva000527E2Event@@@Z",
+     "32": "?rva00055E6C@MilesAudioManager@@UAE_NABVAsciiString@@HHH@Z",
+     "33": "?rva0005A7BE@MilesAudioManager@@UAEHPAVAudioEventRTS@@H@Z",
+     "34": "?rva00055A58@MilesAudioManager@@UAEXHHHH@Z",
+     "35": "?rva00055B40@MilesAudioManager@@UAEXHHH@Z",
+     "36": "?rva000568CE@MilesAudioManager@@UAEXHHH@Z",
+     "37": "?rva000569A8@MilesAudioManager@@UAEXHHHH@Z",
+     "38": "?rva000567F4@MilesAudioManager@@UAEXHHH@Z",
+     "39": "?rva000518A4@MilesAudioManager@@UAEHH@Z",
+     "40": "?rva00052917@MilesAudioManager@@UAEHXZ",
+     "41": "?rva0005538C@MilesAudioManager@@UAE_NXZ",
+     "42": "?rva00054714@MilesAudioManager@@UAE?AVAsciiString@@XZ",
+     "43": "?rva0005BD20@MilesAudioManager@@UAEXXZ",
+     "44": "?rva0005BD28@MilesAudioManager@@UAEXXZ",
+     "45": "?rva0005E322@MilesAudioManager@@UAEXPBVAsciiString@@H@Z",
+     "46": "?rva00059DF5@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+     "47": "?rva00059E5C@MilesAudioManager@@UAEXH@Z",
+     "48": "?rva0005CA03@MilesAudioManager@@UAEXPAXMH@Z",
+     "49": "?rva0005E377@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+     "50": "?rva0005CA75@MilesAudioManager@@UAEXH@Z",
+     "51": "?rva0005A95B@MilesAudioManager@@UAEXIPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z",
+     "52": "?rva000572DC@MilesAudioManager@@UAE_NI@Z",
+     "53": "?rva00057378@MilesAudioManager@@UAEXIPBX@Z",
+     "54": "?rva00057492@MilesAudioManager@@UAE_NIPAUBfmeEventPositionView@@@Z",
+     "55": "?rva00057530@MilesAudioManager@@UAEXIMH@Z",
+     "56": "?rva0005164F@MilesAudioManager@@UAEEE@Z",
+     "57": "?rva0005168C@MilesAudioManager@@UAEXEE@Z",
+     "58": "?rva0005CB90@MilesAudioManager@@UAEXHM@Z",
+     "59": "?rva00053CE1@MilesAudioManager@@UAEXMHH@Z",
+     "60": "?rva0005C8BB@MilesAudioManager@@UAEXMH@Z",
+     "61": "?rva000537F4@MilesAudioManager@@UAEXMMMMMH@Z",
+     "62": "?rva00059A25@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+     "63": "?rva0005E168@MilesAudioManager@@UAEXABVAsciiString@@H@Z",
+     "64": "?rva00059A7C@MilesAudioManager@@UAEXH@Z",
+     "65": "?rva000515AB@MilesAudioManager@@UAEXXZ",
+     "66": "?rva000515B3@MilesAudioManager@@UAEXH@Z",
+     "67": "?rva000533CB@MilesAudioManager@@UAEXXZ",
+     "68": "?rva000515A4@MilesAudioManager@@UBEEXZ",
+     "69": "?rva000517F1@MilesAudioManager@@UAEXXZ",
+     "70": "?rva0005181B@MilesAudioManager@@UAEXXZ",
+     "71": "?rva00051840@MilesAudioManager@@UAEXXZ",
+     "72": "?get@Rva0036CBE7LeaField@@QBEPAXXZ",
+     "73": "?newOwnedAudioEventInfo@MilesAudioManager@@UAE?AURva0010F149Handle@@ABVAsciiString@@H@Z",
+     "74": "?addUnownedAudioEventInfo@MilesAudioManager@@UAEXPAUAudioEventInfo@@@Z",
+     "75": "?findAudioEventInfo@MilesAudioManager@@UBE?AVRva00051ADA@@ABVAsciiString@@@Z",
+     "76": "?friend_onAudioEventInfoDestruction@MilesAudioManager@@UAEXPAUAudioEventInfo@@@Z",
+     "77": "?get@Rva001DB09DDwordField@@QBEHXZ",
+     "78": "?get@Rva0057E556DwordField@@QBEHXZ",
+     "79": "?get@Rva0057E556DwordField@@QBEHXZ",
+     "80": "?getAudioLengthMS@MilesAudioManager@@UAEMPBUBfmeAudioEventPrefix136@@@Z",
+     "81": "?bfmeMilesPreferenceProduct@MilesAudioManager@@UAEHXZ",
+     "82": "?rva0005185E@MilesAudioManager@@UAEXPAH00@Z",
+     "83": "?isMusicAlreadyLoaded@MilesAudioManager@@UBE_NXZ",
+     "84": "?rva00051896@MilesAudioManager@@UBEEXZ",
+     "85": "?rva0005AE2B@MilesAudioManager@@UAEXHPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z",
+     "86": "?rva0005AEDD@MilesAudioManager@@UAEXHPAV?$vector@URva0005A084Element@@V?$allocator@URva0005A084Element@@@_STL@@@_STL@@@Z",
+     "87": "?rva0055D96F@MilesAudioManager@@UBEPAXXZ",
+     "88": "?rva000596E9@MilesAudioManager@@UAEXPAVXfer@@PAI@Z",
+     "89": "?rva0005522C@MilesAudioManager@@UAEXABVAsciiString@@@Z",
+     "90": "?rva00054243@MilesAudioManager@@UBE?AVAsciiString@@XZ",
+     "91": "?rva000530DF@MilesAudioManager@@UAEXXZ",
+     "92": "?rva00058314@MilesAudioManager@@UAEABV?$vector@PBDV?$allocator@PBD@_STL@@@_STL@@XZ",
+     "93": "?rva0005824D@MilesAudioManager@@UAEXPAVPolygonTrigger@@M@Z",
+     "94": "?rva000551C2@MilesAudioManager@@UAEXH@Z",
+     "95": "?rva0005710F@MilesAudioManager@@UAEXXZ",
+     "96": "?rva000512BC@MilesAudioManager@@UAEXXZ",
+     "97": "?rva000619D1@MilesAudioManager@@UAE_N_N@Z",
+     "98": "?onAudioLODChanged@MilesAudioManager@@UAEXXZ",
+     "99": "?rva000531F6@MilesAudioManager@@UAE_NXZ",
+     "100": "?rva000514BB@MilesAudioManager@@UAEXXZ",
+     "101": "?rva00053281@MilesAudioManager@@UAEXXZ",
+     "102": "?rva0005329C@MilesAudioManager@@UAEXXZ",
+     "103": "?friend_xferSubAudioEventRTS@MilesAudioManager@@UAEXPAVXfer@@PAVBfmePoolRef10@@@Z",
+     "104": "??1Region2D@@QAE@XZ",
+     "105": "?rva000511C3@MilesAudioManager@@UAEXPAUCoord3D@@@Z",
+     "106": "?getScreenToTerrainPositions@MilesAudioManager@@UAEXPAVScreenToTerrainSet@@@Z",
+     "107": "?rva000516EF@MilesAudioManager@@UAE_NPBUCoord3D@@@Z",
+     "108": "?slot108@MilesAudioManager@@UAEEPAUBfmeAudioEventPrefix136@@@Z",
+     "109": "?rva0005121F@MilesAudioManager@@UAEMXZ",
+     "110": "?rva000541DB@MilesAudioManager@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 10,
+   "4": 3,
+   "36": 1,
+   "1660": 2,
+   "1704": 2,
+   "2520": 9,
+   "2528": 1,
+   "2536": 1,
+   "2620": 1,
+   "2632": 1,
+   "2888": 1,
+   "2960": 1,
+   "3032": 1,
+   "3048": 1,
+   "3052": 1,
+   "3072": 1,
+   "3080": 1
+  },
+  "views": 38,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_MilesAudioManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 24,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteFieldGetters.cpp",
+    "Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerDistanceRva00053A1F.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 157,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 158,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 189,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 190,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00052917.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 261,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 262,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 280,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 281,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 282,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 284,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 288,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 292,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 296,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00059A25Method.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0005E168Method.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1656,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp",
+    "Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp",
+    "Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_getScreenToTerrainPositions.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 1660,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1664,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1668,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1672,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1676,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1680,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1684,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1688,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1692,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1694,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1695,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1696,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1697,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1698,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1699,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteFieldGetters.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1700,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1701,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Rva0005121FElapsed.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1702,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispByteFieldGetters.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1703,
+   "sources": [
+    "Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1704,
+   "sources": [
+    "Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1705,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1706,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1707,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1708,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1709,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1712,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1716,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1728,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1740,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000619D1.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1744,
+   "sources": [
+    "Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2508,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000619D1.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2512,
+   "sources": [
+    "Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000619D1.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2516,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00059A25Method.cpp",
+    "Code/GameEngine/Source/Common/System/Rva0005E168Method.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005168C.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00052917.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000530DF.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00059EAE.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000619D1.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/Rva0005E322GuardedErase.cpp"
+   ],
+   "views": 14
+  },
+  {
+   "offset": 2520,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2524,
+   "sources": [
+    "Code/GameEngine/Source/Common/MilesAudioManager_internalSetReverbRoomType.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2528,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2532,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_initDelayFilter.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2536,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2537,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2538,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2540,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2544,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2548,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2552,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2556,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2560,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2564,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2580,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2616,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerInitSamplePools.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2620,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2624,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2628,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva00054839.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 2632,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2636,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2876,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioAdvanceMusic.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2888,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2900,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2904,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2908,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2912,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2916,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2920,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2924,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2928,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2932,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 2936,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2937,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2938,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2940,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2944,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2948,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2952,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2956,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioMultisound.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2960,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 2964,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2968,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2969,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2970,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2972,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2976,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2980,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2984,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2988,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2989,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2990,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2992,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 2996,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3000,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3004,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3008,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3009,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3010,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3012,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3016,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3020,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3024,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3028,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 3032,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3036,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3040,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3041,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3044,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva000530DF.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 3048,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 3052,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3056,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3060,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 3064,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerOpenDevice.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 3072,
+   "sources": [
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "12:A": 1,
+    "1652:A": 1,
+    "1695:A": 1,
+    "1:i1": 1,
+    "204:A": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "rva000511C3(Coord3D*)": 1,
+    "rva000517F1()": 1,
+    "rva00051896()": 1,
+    "rva00057408(uint)": 1,
+    "rva00059A7C(int)": 1,
+    "rva0005CA75(int)": 1,
+    "slot01()": 1,
+    "slot1()": 1,
+    "v1()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "rva000516EF(Coord3D*)": 1,
+    "rva0005181B()": 1,
+    "rva00057530(uint,float,int)": 1,
+    "slot02()": 1,
+    "slot2()": 1,
+    "v2()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "rva00051840()": 1,
+    "rva0005A95B(uint,_STL::vector<Rva0005A084Element,_STL::allocator<Rva0005A084Element> >*)": 1,
+    "slot03()": 1,
+    "slot3()": 1,
+    "v3()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "killAudioEventImmediately(uint)": 1,
+    "rva0005185E(int*,int*,int*)": 1,
+    "slot04()": 1,
+    "slot4()": 1,
+    "v4()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "rva0005164F(uchar)": 1,
+    "rva00057492(uint,BfmeEventPositionView*)": 1,
+    "slot05()": 1,
+    "slot5()": 1,
+    "v5()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "rva000527E2(Rva000527E2Event*)": 1,
+    "rva000572DC(uint)": 1,
+    "slot06()": 1,
+    "slot6()": 1,
+    "v6()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "rva000531F6()": 1,
+    "rva000596E9(Xfer*,uint*)": 1,
+    "slot07()": 1,
+    "slot7()": 1,
+    "v7()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "rva00053281()": 1,
+    "slot08()": 1,
+    "slot8()": 1,
+    "v8()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "rva0005329C()": 1,
+    "slot09()": 1,
+    "slot9()": 1,
+    "v9()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "addAudioEvent(BfmeAudioEventPrefix136*)": 1,
+    "addAudioEvent(int)": 1,
+    "slot25()": 1,
+    "v25()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot27",
+   "candidates": {
+    "removeAudioEvent(int)": 1,
+    "rva00057787(uint)": 1,
+    "slot27()": 1,
+    "v27()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot56",
+   "candidates": {
+    "rva0005164F(uchar)": 1,
+    "slot56()": 1,
+    "slot56(uint)": 1,
+    "v56()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot76",
+   "candidates": {
+    "friend_onAudioEventInfoDestruction(AudioEventInfo*)": 1,
+    "slot76()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot80",
+   "candidates": {
+    "getAudioLengthMS(BfmeAudioEventPrefix136*)": 1,
+    "slot80()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot81",
+   "candidates": {
+    "bfmeMilesPreferenceProduct()": 1,
+    "slot81()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot82",
+   "candidates": {
+    "rva0005185E(int*,int*,int*)": 1,
+    "slot82()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot83",
+   "candidates": {
+    "isMusicAlreadyLoaded()": 1,
+    "slot83()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot84",
+   "candidates": {
+    "rva00051896()": 1,
+    "slot84()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot85",
+   "candidates": {
+    "rva0005AE2B(int,_STL::vector<Rva0005A084Element,_STL::allocator<Rva0005A084Element> >*)": 1,
+    "slot85()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot86",
+   "candidates": {
+    "rva0005AEDD(int,_STL::vector<Rva0005A084Element,_STL::allocator<Rva0005A084Element> >*)": 1,
+    "slot86()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot87",
+   "candidates": {
+    "rva0055D96F()": 1,
+    "slot87()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot88",
+   "candidates": {
+    "rva000596E9(Xfer*,uint*)": 1,
+    "slot88()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot89",
+   "candidates": {
+    "rva0005522C(AsciiString*)": 1,
+    "slot89()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot90",
+   "candidates": {
+    "rva00054243()": 1,
+    "slot90()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot91",
+   "candidates": {
+    "rva000530DF()": 1,
+    "slot91()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot92",
+   "candidates": {
+    "rva00058314()": 1,
+    "slot92()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot93",
+   "candidates": {
+    "rva0005824D(PolygonTrigger*,float)": 1,
+    "slot93()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot94",
+   "candidates": {
+    "rva000551C2(int)": 1,
+    "slot94()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot95",
+   "candidates": {
+    "rva0005710F()": 1,
+    "slot95()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot96",
+   "candidates": {
+    "rva000512BC()": 1,
+    "slot96()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot97",
+   "candidates": {
+    "rva000619D1(bool)": 1,
+    "slot97()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot98",
+   "candidates": {
+    "onAudioLODChanged()": 1,
+    "slot98()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot99",
+   "candidates": {
+    "rva000531F6()": 1,
+    "slot99()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot100",
+   "candidates": {
+    "rva000514BB()": 1,
+    "slot100()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot101",
+   "candidates": {
+    "rva00053281()": 1,
+    "slot101()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot102",
+   "candidates": {
+    "rva0005329C()": 1,
+    "slot102()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot103",
+   "candidates": {
+    "friend_xferSubAudioEventRTS(Xfer*,BfmePoolRef10*)": 1,
+    "slot103()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot105",
+   "candidates": {
+    "rva000511C3(Coord3D*)": 1,
+    "slot105()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot106",
+   "candidates": {
+    "getScreenToTerrainPositions(ScreenToTerrainSet*)": 1,
+    "slot106()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot107",
+   "candidates": {
+    "rva000516EF(Coord3D*)": 1,
+    "slot107()": 1
+   },
+   "class": "MilesAudioManager"
+  },
+  {
+   "attribute": "slot108",
+   "candidates": {
+    "slot108(AudioEventRTS*)": 1,
+    "slot108(BfmeAudioEventPrefix136*)": 1
+   },
+   "class": "MilesAudioManager"
+  }
+ ],
+ "size": 3080,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "slot10()"
+  },
+  "104": {
+   "decided_by": "bytes",
+   "member": "slot104()"
+  },
+  "109": {
+   "decided_by": "bytes",
+   "member": "rva0005121F()"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "slot11()"
+  },
+  "110": {
+   "decided_by": "bytes",
+   "member": "rva000541DB()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "slot12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "slot13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "slot14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "slot15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "slot16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "slot17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "slot18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "slot19()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "slot20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "slot21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "slot22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "slot23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "slot24()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "slot26()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "slot29()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "slot31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "slot33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "slot35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "slot36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "slot42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "slot43()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "slot44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "slot45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "slot48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "slot49()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "51": {
+   "decided_by": "majority",
+   "member": "slot51()"
+  },
+  "52": {
+   "decided_by": "majority",
+   "member": "slot52()"
+  },
+  "53": {
+   "decided_by": "majority",
+   "member": "slot53()"
+  },
+  "54": {
+   "decided_by": "majority",
+   "member": "slot54()"
+  },
+  "55": {
+   "decided_by": "majority",
+   "member": "slot55()"
+  },
+  "57": {
+   "decided_by": "majority",
+   "member": "slot57()"
+  },
+  "58": {
+   "decided_by": "majority",
+   "member": "slot58()"
+  },
+  "59": {
+   "decided_by": "majority",
+   "member": "slot59()"
+  },
+  "60": {
+   "decided_by": "majority",
+   "member": "slot60()"
+  },
+  "61": {
+   "decided_by": "majority",
+   "member": "slot61()"
+  },
+  "62": {
+   "decided_by": "majority",
+   "member": "slot62()"
+  },
+  "63": {
+   "decided_by": "majority",
+   "member": "slot63()"
+  },
+  "64": {
+   "decided_by": "majority",
+   "member": "slot64()"
+  },
+  "65": {
+   "decided_by": "majority",
+   "member": "slot65()"
+  },
+  "66": {
+   "decided_by": "majority",
+   "member": "slot66()"
+  },
+  "67": {
+   "decided_by": "majority",
+   "member": "slot67()"
+  },
+  "68": {
+   "decided_by": "majority",
+   "member": "slot68()"
+  },
+  "69": {
+   "decided_by": "majority",
+   "member": "slot69()"
+  },
+  "70": {
+   "decided_by": "majority",
+   "member": "slot70()"
+  },
+  "71": {
+   "decided_by": "majority",
+   "member": "slot71()"
+  },
+  "72": {
+   "decided_by": "bytes",
+   "member": "slot72()"
+  },
+  "73": {
+   "decided_by": "majority",
+   "member": "slot73()"
+  },
+  "74": {
+   "decided_by": "majority",
+   "member": "slot74()"
+  },
+  "75": {
+   "decided_by": "majority",
+   "member": "findAudioEventInfo(AsciiString*)"
+  },
+  "77": {
+   "decided_by": "bytes",
+   "member": "slot77()"
+  },
+  "78": {
+   "decided_by": "bytes",
+   "member": "slot78()"
+  },
+  "79": {
+   "decided_by": "bytes",
+   "member": "slot79()"
+  }
+ }
+}
