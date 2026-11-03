@@ -40584,7 +40584,7 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva00541F11@Rva00541F11@@QAEXPAVRva00541F11Visitor@@@Z,,0x00541F11,14,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; hands this to virtual slot 0 of the arg; no Ghidra entry
 ?rva0054F990@Rva0054F990@@QBE_NXZ,,0x0054F990,14,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; whether +0x6C differs from +0x70; no Ghidra entry
 ?isConnected@GameSpyBuddyMessageQueue@@UAE_NXZ,,0x00550618,14,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; the +0x52 byte of the +0x64 object or false; no Ghidra entry
-?rva00550626@Rva00550618@@QBEHXZ,,0x00550626,14,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; the +0x54 word of the +0x64 object or 0; no Ghidra entry
+?getLocalProfileID@GameSpyBuddyMessageQueue@@UAEHXZ,,0x00550626,14,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; the +0x54 word of the +0x64 object or 0; no Ghidra entry
 ?rva00567B42@Rva00567B42@@QAEXXZ,,0x00567B42,11,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; rowed 0x005C392A of the +0x0C object +0x08 object; no Ghidra entry
 ?rva00573E74@Rva00573E74@@QAEXPAX_N@Z,,0x00573E74,8,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; counts +0x5C then tail call of rowed 0x0055AD91; no Ghidra entry
 ?rva005D99E4@Rva005D99E4@@QAEXXZ,,0x005D99E4,5,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp,matched,vtable slot; sets bit 7 of the +0x20 byte; no Ghidra entry

@@ -287,6 +287,7 @@ class GameSpyBuddyMessageQueue
 {
 public:
 	virtual bool isConnected();
+	virtual Int getLocalProfileID();
 private:
 	char m_pad04[0x64 - 4];
 	Rva00550618Info *m_thread; // +0x64
@@ -298,17 +299,9 @@ bool GameSpyBuddyMessageQueue::isConnected()
 		return info->m_52;
 	return false;
 }
-class Rva00550618
+Int GameSpyBuddyMessageQueue::getLocalProfileID()
 {
-public:
-	Int rva00550626() const;
-private:
-	char m_pad00[0x64];
-	Rva00550618Info *m_64;
-};
-Int Rva00550618::rva00550626() const
-{
-	Rva00550618Info *info = m_64;
+	Rva00550618Info *info = m_thread;
 	if (info)
 		return info->m_54;
 	return 0;
