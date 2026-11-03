@@ -164,10 +164,10 @@ class BridgeBehaviorObjectIDList
 public:
 	UnsignedInt size() const
 	{
-		UnsignedInt n = 0;
+		UnsignedInt count = 0;
 		for (BridgeBehaviorObjectIDNode *bridgeBehaviorObjectIDNode = m_node->m_next; bridgeBehaviorObjectIDNode != m_node; bridgeBehaviorObjectIDNode = bridgeBehaviorObjectIDNode->m_next)
-			++n;
-		return n;
+			++count;
+		return count;
 	}
 	BridgeBehaviorObjectIDNode *m_node;
 };
@@ -272,8 +272,8 @@ UpdateSleepTime BroadcastStealthUpdate::update()
 		ObjectID id = other->getID();
 		((Rva002A1B6FNativeList *)&m_28)->append(*(void *const *)&id);
 	}
-	for (BridgeBehaviorObjectIDNode *n = m_28.m_node->m_next; n != m_28.m_node; n = n->m_next) {
-		Object *member = TheGameLogic->findObjectByID(n->m_value);
+	for (BridgeBehaviorObjectIDNode *node = m_28.m_node->m_next; node != m_28.m_node; node = node->m_next) {
+		Object *member = TheGameLogic->findObjectByID(node->m_value);
 		if (!member)
 			continue;
 		Rva00373EC6 *stealth = member->rva0028F4BC();

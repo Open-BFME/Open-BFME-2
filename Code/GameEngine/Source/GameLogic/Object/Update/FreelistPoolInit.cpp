@@ -14,7 +14,7 @@ private:
 	int m_14;
 };
 
-bool FreelistPool::init(int blockCount, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int allocatorArgument)
+bool FreelistPool::init(int blockCount, int arena, int size, void* (__cdecl* a4)(int, int), int a5, int allocatorArgument)
 {
 	if (blockCount != 0)
 		m_00 = blockCount;
@@ -24,6 +24,6 @@ bool FreelistPool::init(int blockCount, int a2, int a3, void* (__cdecl* a4)(int,
 		m_10 = a5;
 	m_14 = allocatorArgument;
 	if (m_04 == 0)
-		return grow(a2, a3);
+		return grow(arena, size);
 	return false;
 }

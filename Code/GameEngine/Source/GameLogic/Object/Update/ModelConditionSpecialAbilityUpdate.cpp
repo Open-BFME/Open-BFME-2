@@ -94,7 +94,7 @@ public:
 	virtual void triggerAbilityEffect();
 	virtual void startUnpacking();
 protected:
-	virtual void onExit(bool a, bool b);
+	virtual void onExit(bool cleanup, bool b);
 };
 
 class Player;
@@ -333,9 +333,9 @@ void ModelConditionSpecialAbilityUpdate::triggerAbilityEffect()
 // AIStructureCreepTactic.cpp documents).
 
 // ?onExit@ModelConditionSpecialAbilityUpdate@@MAEX_N0@Z @0x00490F35
-void ModelConditionSpecialAbilityUpdate::onExit(bool a, bool b)
+void ModelConditionSpecialAbilityUpdate::onExit(bool cleanup, bool b)
 {
-	SpecialAbilityUpdate::onExit(a, b);
+	SpecialAbilityUpdate::onExit(cleanup, b);
 
 	const ModelConditionSpecialAbilityUpdateModuleData *data =
 		(const ModelConditionSpecialAbilityUpdateModuleData *)m_moduleData;

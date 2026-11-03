@@ -39,11 +39,11 @@ public:
 
 void AIUpdateInterface::rva00263298()
 {
-	Machine *m = m_machine;
-	RetState *s = m->m_state50;
-	if (!s)
+	Machine *machine = m_machine;
+	RetState *state = machine->m_state50;
+	if (!state)
 		return;
-	if (m->m_field54 != -1)
+	if (machine->m_field54 != -1)
 		return;
-	((AIStateMachine *)m)->setTemporaryState(s->m_id, -2);
+	((AIStateMachine *)machine)->setTemporaryState(state->m_id, -2);
 }

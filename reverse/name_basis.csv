@@ -6970,3 +6970,11 @@ param,crashSpacing::a,crashSpacing::minimum,inferred,agree:nl-94bd4164371a,Code/
 function,?Rva003BE553AdjustHeap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,?__adjust_heap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,inferred,agree:nl-13803366b2fd,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003BE553
 function,?Rva003C3AC7PopHeap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,?__pop_heap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,inferred,agree:nl-13c302c12139,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C3AC7
 function,?Rva003C3AF0MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z,?__make_heap@@YAXPAPAURva003BD485Keyed@@0H@Z,inferred,agree:nl-bb4b98f92e72,Code/GameEngine/Source/GameLogic/Object/Rva003BD485Median.cpp,0x003C3AF0
+local,AIUpdateInterface::rva00263298::m,AIUpdateInterface::rva00263298::machine,inferred,agree:nl-4a0302eb7479,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00263298.cpp,0x00263298
+local,AIUpdateInterface::rva00263298::s,AIUpdateInterface::rva00263298::state,inferred,agree:nl-8e4388ee9f1e,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00263298.cpp,0x00263298
+local,BroadcastStealthUpdate::update::n,BroadcastStealthUpdate::update::node,inferred,agree:nl-dd8a9b0ffcde,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp,0x004A35C9
+local,size::n,size::count,inferred,agree:nl-2d0567280370,Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp,
+param,FreelistPool::init::a2,FreelistPool::init::arena,inferred,agree:nl-a666a17e9985,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
+param,FreelistPool::init::a3,FreelistPool::init::size,inferred,agree:nl-d4a9ad923323,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
+param,ModelConditionSpecialAbilityUpdate::onExit::a,ModelConditionSpecialAbilityUpdate::onExit::cleanup,inferred,agree:nl-24337c551e4d,Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdate.cpp,0x00490F35
+param,Rva0016E3B0::Rva0016E3B0::n,Rva0016E3B0::Rva0016E3B0::bucketCount,inferred,agree:nl-8e12e0213e11-m838a8b3c7040e3b870d3089c,Code/GameEngine/Source/GameLogic/Object/Update/Rva0016DEE0Cluster.cpp,0x0016E3B0

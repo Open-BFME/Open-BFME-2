@@ -91,12 +91,12 @@ template <> size_t vector<void*>::size() const;
 class Rva0016E3B0
 {
 public:
-    Rva0016E3B0(int n, int a, int b, int c);
+    Rva0016E3B0(int bucketCount, int a, int b, int c);
 private:
     _STL::hash_map<int, int> m_map;
 };
 
-Rva0016E3B0::Rva0016E3B0(int n, int a, int b, int c) : m_map(n) {}
+Rva0016E3B0::Rva0016E3B0(int bucketCount, int a, int b, int c) : m_map(bucketCount) {}
 
 // ??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VDamageFX@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VDamageFX@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VDamageFX@@@_STL@@@2@@_STL@@QAE@XZ
 // @ 0x0016DEE0 (82B). The DamageFX hash_map's hashtable destructor, inlined
