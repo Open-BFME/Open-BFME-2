@@ -5,3 +5,10 @@ Completed: diagnosis only; no source or ledger change. Attempt evidence: `revers
 Remaining / next check: the three pointer-hash members can be bound by `__forceinline` explicit specializations that forward to the owner names (the `Rva00223429Erase.cpp` cast-view pattern); verify bytes, then settle deallocate, the 0x004FC957 functor fold and the 0x00410C7B identity before expecting LINKS.
 Clearance: pending.
 Census confirmation: not claimed.
+
+
+#### 2026-11-03: native teardown recovered, remaining provider bindings narrowed
+
+The existing57B gen-alias410C7B now has its own genuine destructor in the SAME Rva000427195Dtor.cpp. Its existing5B caller4110B9 retains its row/source and uses the typed native receiver. All30 rows and14 parent EH graphs pass; prior ordinary providers/properties are preserved. Original table specialization remains unknown. No new coverage, pin or TU/path move.
+
+Separate binding follow-up and blocked inline-adapter trials are described in [the evidence packet](../../reverse/attempt_support/sja-native-providers-20261103/README.md). The complete candidate cleared all6 missing providers in preview, but frozen-file inventory refused two adapters, so they remain banked and unapplied. The partial landed form keeps3pointer helpers open after resolving allocator/deletion bindings; no official real-link/census clearance is claimed. Prior65f5b4110a push receipt gaps (4objects, first BfmeObject476Copy.cpp; index23b85ddde5/basef827d7cd862894d791b36427148e48e97210af0c) require next-census confirmation.

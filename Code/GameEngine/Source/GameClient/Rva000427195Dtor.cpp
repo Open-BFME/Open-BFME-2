@@ -291,3 +291,18 @@ Rva0052B6FE::~Rva0052B6FE()
 {
     ((Rva000427195 *)this)->rva003A2A41();
 }
+
+// Native 0x00410C7B: the two registration tables' clear-and-free destructor.
+// Original table specialization and element identity remain unidentified.
+struct Rva00410C7B
+{
+    ~Rva00410C7B();
+    void *m_unused00;
+    Rva000427195BucketHandle m_buckets;
+    unsigned int m_numElements;
+};
+
+Rva00410C7B::~Rva00410C7B()
+{
+    ((Rva000427195 *)this)->rva003A2A41();
+}

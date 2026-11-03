@@ -142,13 +142,16 @@ void bfmeLoadSJA(void *tableStorage, void *owner, char *unusedOutput)
 
 class Rva00410C42 { public: ~Rva00410C42(); };
 class Rva0041090E { public: ~Rva0041090E(); void rva00410A14(); };
-void __cdecl dup_00410c7b();
+class Rva00410C7B { public: ~Rva00410C7B(); };
 
 class Rva004110B4Tree { public: ~Rva004110B4Tree(); };
 
 
 class Rva004110B9Tree { public: ~Rva004110B9Tree(); };
-Rva004110B9Tree::~Rva004110B9Tree() { dup_00410c7b(); }
+Rva004110B9Tree::~Rva004110B9Tree()
+{
+    reinterpret_cast<Rva00410C7B *>(this)->~Rva00410C7B();
+}
 
 class Rva004110BETree { public: ~Rva004110BETree(); };
 
