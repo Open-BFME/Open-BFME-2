@@ -40,11 +40,7 @@ class Rva002E2903Player;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class LivingWorldScenario
-{
-public:
-	class PlayerDefeatCondition;
-};
+#include "../../Include/Common/LivingWorldScenario.h"
 
 class LivingWorldScenario::PlayerDefeatCondition
 {

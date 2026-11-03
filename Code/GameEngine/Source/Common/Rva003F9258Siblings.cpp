@@ -109,7 +109,7 @@ private:
 
 // Preserve the parser's existing address-derived holder ABI spelling.
 class Rva004FD448;
-class LivingWorldScenario { public: class TeamVictoryCondition; class Scenario; };
+#include "../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::Scenario
 {
 public:

@@ -58,7 +58,7 @@ public:
 	int m_key;
 };
 
-class LivingWorldScenario { public: class PlayerDefeatCondition; };
+#include "../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::PlayerDefeatCondition
 {
 public:

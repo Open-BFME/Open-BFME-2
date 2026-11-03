@@ -61,12 +61,7 @@ struct Rva004FCD49Vec {
     int m_10;
 };
 
-class LivingWorldScenario
-{
-public:
-    class Scenario;
-    class TeamDefeatCondition;
-};
+#include "../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::TeamDefeatCondition
 {
 public:

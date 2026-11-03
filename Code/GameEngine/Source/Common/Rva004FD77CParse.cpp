@@ -25,11 +25,7 @@ private:
 	char m_pad[0x10];
 };
 
-class LivingWorldScenario
-{
-public:
-	class Scenario;
-};
+#include "../../Include/Common/LivingWorldScenario.h"
 
 class LivingWorldScenario::Scenario
 {

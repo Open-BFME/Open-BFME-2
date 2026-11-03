@@ -36,11 +36,7 @@ public:
 	Rva002104B6 *m_B0;
 };
 
-class LivingWorldScenario
-{
-public:
-	class PlayerDefeatCondition;
-};
+#include "../../Include/Common/LivingWorldScenario.h"
 
 class LivingWorldScenario::PlayerDefeatCondition
 {

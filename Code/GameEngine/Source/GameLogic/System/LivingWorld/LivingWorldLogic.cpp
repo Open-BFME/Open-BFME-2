@@ -3068,7 +3068,7 @@ void LivingWorldLogic::rva002B37FF(LivingWorldBattle* battle){
 // lifetime/register shape; every field below comes from native accesses.
 template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {public:template<class U> struct rebind {typedef Rva002444BEAllocator<U> other;};};
 class Rva004FD448 {public:Bool rva004FD656(Int)const;};
-class LivingWorldScenario {public:class Scenario;};
+#include "../../../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::Scenario {public:Bool rva004FD613(Int)const;};
 class Rva002E1001;
 class Rva004FD37F {public:Bool rva004FD5C7(Rva002E1001*)const;};

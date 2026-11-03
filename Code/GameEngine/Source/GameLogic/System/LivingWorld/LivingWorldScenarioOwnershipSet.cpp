@@ -63,7 +63,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 struct OwnershipBuildingRegion {
  int word00; int *begin; int *end; int *capacity; int name;
 };
-class LivingWorldScenario { public: class OwnershipSet; };
+#include "../../../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::OwnershipSet {
 public:
  void spawnBuildingsInRegionsForPlayer(Rva0059E647Arg *);

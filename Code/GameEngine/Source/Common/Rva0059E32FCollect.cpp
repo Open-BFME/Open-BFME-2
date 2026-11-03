@@ -38,11 +38,7 @@ public:
 	Rva002104B6 *m_b0;
 };
 
-class LivingWorldScenario
-{
-public:
-	class OwnershipSet;
-};
+#include "../../Include/Common/LivingWorldScenario.h"
 
 class LivingWorldScenario::OwnershipSet
 {

@@ -58,7 +58,7 @@ enum Rva004FD8B8RegionID { RVA004FD8B8_REGION_ZERO = 0 };
 class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
 class Rva00210390 { public: void *rva00210390(const AsciiString *name); };
 class Rva004FD6F9 { public: bool rva004FD6F9(const StringBase<char> &name); };
-class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; class TeamDefeatCondition; class Scenario; };
+#include "../../../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::TeamVictoryCondition {
 public:
     virtual ~TeamVictoryCondition();

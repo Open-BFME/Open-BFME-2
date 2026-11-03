@@ -57,7 +57,7 @@ class ModuleData;
 // row. 0x004FD571's REL32 call proves the target RVA used below; the helper's
 // owner and semantics remain unresolved.
 class LivingWorldRegion;
-class LivingWorldScenario { public: class TeamVictoryCondition; class OwnershipSet; };
+#include "../../Include/Common/LivingWorldScenario.h"
 class LivingWorldScenario::TeamVictoryCondition
 {
 public:

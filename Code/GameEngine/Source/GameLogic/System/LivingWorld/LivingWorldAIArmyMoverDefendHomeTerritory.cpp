@@ -56,11 +56,7 @@ template <> void vector<BfmePod20, allocator<BfmePod20> >::push_back(const BfmeP
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class LivingWorldScenario
-{
-public:
-	class Scenario;
-};
+#include "../../../../Include/Common/LivingWorldScenario.h"
 
 class LivingWorldScenario::Scenario
 {
