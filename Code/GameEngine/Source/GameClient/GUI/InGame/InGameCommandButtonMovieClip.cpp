@@ -45,7 +45,7 @@ struct AsciiStringRefWithChar:AsciiStringRef {int write(char *);operator AsciiSt
 inline AsciiStringRefWithChar operator+(const AsciiString&a,char c){AsciiStringRefWithChar r;r.m_string=&a;r.m_char=c;return r;}
 #include "../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager*g_bfmeAptWindowManager;
-class InGameCommandButtonMovieClip {public:class Impl;virtual ~InGameCommandButtonMovieClip();virtual void NotifyTimer();};
+#include "../../../../Include/GameClient/InGameCommandButtonMovieClip.h"
 class InGameCommandButtonMovieClip::Impl {public:Impl(InGameCommandButtonMovieClip*,AptMovieClipFrame*,const AsciiString&);void OnInitialized(const char*);void OnPress(const char*);void OnOverButton(const char*);
 private:InGameCommandButtonMovieClip*owner;AptMovieClipFrame*frame;int level;AsciiString name;AptCommandMapAdder commands;AptOverButtonHandlerAdder overHandlers;CustomStorage renders;AptTimerAdder timers;bool initialized;int mode;bool flash,overlay;void*image,*unknown5C;};
 InGameCommandButtonMovieClip::Impl::Impl(InGameCommandButtonMovieClip*parent,AptMovieClipFrame*parentFrame,const AsciiString&args):owner(parent),frame(parentFrame),level(-1),initialized(false),mode(0),flash(false),overlay(false),image(0),unknown5C(0){

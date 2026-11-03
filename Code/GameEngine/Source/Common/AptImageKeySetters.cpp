@@ -66,11 +66,7 @@ public:
 		IMAGE = image;                                                    \
 	}
 
-class InGameCommandButtonMovieClip
-{
-public:
-	class Impl;
-};
+#include "../../Include/GameClient/InGameCommandButtonMovieClip.h"
 
 class InGameCommandButtonMovieClip::Impl
 {

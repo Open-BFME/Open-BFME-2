@@ -6,11 +6,7 @@ struct EmitVtableTag;
 
 // InGameCommandButtonMovieClip::Impl (WorldBuilder name of its destructor
 // 0x005C7954), whose holder clear 0x005C7CA1 deletes it below.
-class InGameCommandButtonMovieClip
-{
-public:
-	class Impl;
-};
+#include "../../Include/GameClient/InGameCommandButtonMovieClip.h"
 
 //
 // Emitted scalar deleting destructors (28B flag-test shape) for unclaimed

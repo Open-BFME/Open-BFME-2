@@ -63,11 +63,7 @@ private:
 	char m_pad[0xC];
 };
 
-class InGameCommandButtonMovieClip
-{
-public:
-	class Impl;
-};
+#include "../../Include/GameClient/InGameCommandButtonMovieClip.h"
 class InGameCommandButtonMovieClip::Impl
 {
 public:

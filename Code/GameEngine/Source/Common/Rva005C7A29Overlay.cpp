@@ -11,11 +11,7 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);
 
-class InGameCommandButtonMovieClip
-{
-public:
-	class Impl;
-};
+#include "../../Include/GameClient/InGameCommandButtonMovieClip.h"
 
 class InGameCommandButtonMovieClip::Impl
 {

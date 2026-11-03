@@ -26,7 +26,7 @@ struct Rva005C802BChild
 };
 // The 0x60 child's constructor 0x005C7D4A is rowed as
 // InGameCommandButtonMovieClip::Impl's; this factory calls it by that spelling.
-class InGameCommandButtonMovieClip { public: class Impl; };
+#include "../../Include/GameClient/InGameCommandButtonMovieClip.h"
 class AptMovieClipFrame;
 class AsciiString;
 class InGameCommandButtonMovieClip::Impl

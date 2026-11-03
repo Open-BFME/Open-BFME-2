@@ -2,11 +2,7 @@
 // ?rva005C7C7D@Rva005C7C7D@@QAEXPBVImage@@@Z at 0x005C7C7D (8B). Target disassembly reads Impl* at +4 then tail-jumps to the rowed SetImage; callers at 0x005679D1 and 0x005C3740.
 class Image;
 
-class InGameCommandButtonMovieClip
-{
-public:
-	class Impl;
-};
+#include "../../Include/GameClient/InGameCommandButtonMovieClip.h"
 
 class InGameCommandButtonMovieClip::Impl
 {
