@@ -1,0 +1,293 @@
+{
+ "bases": [
+  "Snapshot"
+ ],
+ "bases_by": "zh",
+ "class": "GhostObjectManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x8078f0"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x49b47c",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x305933"
+     ],
+     "value": 10
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x305933"
+     ],
+     "value": {
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       1
+      ],
+      "0x9": [
+       1
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x305933"
+     ],
+     "value": {
+      "0x0": "0x8078f0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8078f0"
+     ],
+     "value": {
+      "count": 9,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GObjectModule@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4a10fd"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@GhostObjectManager@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x305947"
+       },
+       {
+        "name": "?xfer@GhostObjectManager@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x30594d"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 4,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva002B230F@Rva0042CBB6@@QAEXH@Z",
+        "slot": 5,
+        "target": "0x2b230f"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x8078f0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x8078f0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GObjectModule@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@GhostObjectManager@@MBEPBDXZ",
+     "3": "?xfer@GhostObjectManager@@MAEXPAVXfer@@@Z",
+     "4": "??1Region2D@@QAE@XZ",
+     "5": "?rva002B230F@Rva0042CBB6@@QAEXH@Z",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 3,
+   "8": 2,
+   "12": 3
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GhostObject.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_localPlayer",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 9,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/GhostObject.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "retail-dtor-vftables",
+   "candidates": {
+    "ctor": {
+     "0x0": "0x8078f0"
+    },
+    "dtor": {
+     "0x0": "0x7bb554"
+    }
+   },
+   "class": "GhostObjectManager",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "GhostObjectManager"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "g01()": 1,
+    "loadPostProcess()": 1,
+    "vf01()": 1,
+    "vslot04()": 1
+   },
+   "class": "GhostObjectManager"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "GetSnapshotName()": 1,
+    "g02()": 1,
+    "vf02()": 1,
+    "vslot08()": 1
+   },
+   "class": "GhostObjectManager"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "g03()": 1,
+    "vf03()": 1,
+    "vslot0c()": 1,
+    "xfer(Xfer*)": 1
+   },
+   "class": "GhostObjectManager"
+  }
+ ],
+ "size": 12,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "4": {
+   "decided_by": "zh",
+   "member": "reset()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "setLocalPlayerIndex(int)"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "updateOrphanedObjects(int*,int)"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "addGhostObject(Object*)"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "getFirst()"
+  }
+ }
+}

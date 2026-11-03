@@ -616,3 +616,4 @@ ResourceEntryCollector,Code/GameEngine/Include/GameClient/ResourceEntryCollector
 AITarget,Code/GameEngine/Include/GameLogic/AITarget.h,existing header; contract class_contracts/AITarget.json; 7/9 sampled units adopt
 W3DPropDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h,existing header; contract class_contracts/W3DPropDraw.json; 5/9 sampled units adopt
 W3DFloorDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DFloorDraw.h,existing header; contract class_contracts/W3DFloorDraw.json; 3/9 sampled units adopt
+GhostObjectManager,Code/GameEngine/Include/GameLogic/GhostObjectManager.h,existing header; contract class_contracts/GhostObjectManager.json; 7/8 sampled units adopt
