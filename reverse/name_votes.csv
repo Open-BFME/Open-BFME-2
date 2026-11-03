@@ -23450,3 +23450,4 @@ Code/Libraries/Source/Fesl/blobservice.cpp|class||Rva007F04B0BlobService,a82a68d
 Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_08,b9d17150f0c4f0b2bd647358,drz-t13,drz-t13-sv2-5,w-14744362fb11,2026-11-03
 Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_0C,466107641c3916105c282c31,drz-t13,drz-t13-sv2-5,w-14744362fb11,2026-11-03
 Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp|function|0x005CEDAF|rva005CEDAF,647060cd0a3c59c02a3a2fdf,drz-t13,drz-t13-sv2-12,w-14744362fb11,2026-11-03
+Code/GameEngine/Source/GameClient/GUI/Rva005FB872Finish.cpp|function|0x005FB872|rva005FB872,27fa7626e1d8cf5346b04d17,drz-t16,drz-t16-sv2-14,w-c68e8a9b002b,2026-11-03
