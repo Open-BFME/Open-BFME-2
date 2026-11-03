@@ -7304,3 +7304,12 @@ param,lerpRatio::t0,lerpRatio::startTime,inferred,agree:nl-61f75a2b5d20,Code/Lib
 param,lerpRatio::t1,lerpRatio::endTime,inferred,agree:nl-370bf0b7c33c,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,
 local,PSPlayerStats::XferMap#3::n,PSPlayerStats::XferMap#3::count,inferred,agree:nl-7b7448ad4307,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
 local,PSPlayerStats::XferMap#3::v,PSPlayerStats::XferMap#3::entryValue,inferred,agree:nl-505288ba9b69,Code/Libraries/Source/WWVegas/WWLib/PSPlayerStats.cpp,
+member,Rva0018C262Node::m_10,Rva0018C262Node::m_key,inferred,agree:nl-7cec9a3ff580,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,
+param,BfmeC986::groupGatherAndAttackInFormationToPosition::d,BfmeC986::groupGatherAndAttackInFormationToPosition::adjustGroundPath,inferred,agree:nl-8abf91552ffe,Code/GameEngine/Source/Common/BfmeC986.cpp,0x00372C74
+param,BfmeC986::groupGatherAndMoveInFormationToPosition::d,BfmeC986::groupGatherAndMoveInFormationToPosition::adjustGroundPath,inferred,agree:nl-35ad0a84d8a4,Code/GameEngine/Source/Common/BfmeC986.cpp,0x00372C22
+local,BFME2Encoding0MotionChannel::UnknownSlot3::t0,BFME2Encoding0MotionChannel::UnknownSlot3::startTime,inferred,agree:nl-2b0ccff8f9fe,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,0x001B2FEF
+local,BFME2Encoding0MotionChannel::UnknownSlot5::t0,BFME2Encoding0MotionChannel::UnknownSlot5::startTime,inferred,agree:nl-e7e3e565501d,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,0x001B3313
+param,lerpMotion::t,lerpMotion::ratio,inferred,agree:nl-22cd8786932d,Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannel.cpp,
+param,Rva00057151::rva00057151::a1,Rva00057151::rva00057151::group,inferred,agree:nl-63270f6de1a6,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp,0x00057151
+param,Rva00057151::rva00057151::a2,Rva00057151::rva00057151::side,inferred,agree:nl-6ba25f421f8c,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp,0x00057151
+param,Rva00057151::rva00057151::a3,Rva00057151::rva00057151::mode,inferred,agree:nl-b6acbc217e50,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp,0x00057151

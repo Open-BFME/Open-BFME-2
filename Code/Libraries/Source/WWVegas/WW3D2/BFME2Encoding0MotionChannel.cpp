@@ -100,7 +100,7 @@ __forceinline int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int 
 
 static __forceinline float lerpRatio(float frame, float startTime, float endTime) { return (frame - startTime) / (endTime - startTime); }
 
-static __forceinline float lerpMotion(float start, float end, float t) { return (end - start) * t + start; }
+static __forceinline float lerpMotion(float start, float end, float ratio) { return (end - start) * ratio + start; }
 
 // ?UnknownSlot3@BFME2Encoding0MotionChannel@@UAEXMPAMPAPAE@Z, retail 0x001B2FEF, 362 bytes:
 // scalar sample at frame, a held key copied, otherwise interpolated between the two bracketing keys.
@@ -110,8 +110,8 @@ void BFME2Encoding0MotionChannel::UnknownSlot3(float frame,float *value,unsigned
  if(index==Count-1 || (TimeCodes[index+1]&0x8000)) {
   *value=Samples[index*Components];return;
  }
- float t0=float(TimeCodes[index]&~0x8000),t1=float(TimeCodes[index+1]&~0x8000);
- float ratio=(frame-t0)/(t1-t0);
+ float startTime=float(TimeCodes[index]&~0x8000),t1=float(TimeCodes[index+1]&~0x8000);
+ float ratio=(frame-startTime)/(t1-startTime);
  float *samples=Samples+index*Components;
  *value=lerpMotion(samples[0],samples[Components],ratio);
 }
@@ -141,8 +141,8 @@ void BFME2Encoding0MotionChannel::UnknownSlot5(float frame, Quaternion *value, u
   float *samples = Samples + index*Components;
   value->X = samples[0]; value->Y = samples[1]; value->Z = samples[2]; value->W = samples[3]; return;
  }
- float t0 = float(TimeCodes[index] & ~0x8000), t1 = float(TimeCodes[index+1] & ~0x8000);
- float ratio = (frame-t0)/(t1-t0);
+ float startTime = float(TimeCodes[index] & ~0x8000), t1 = float(TimeCodes[index+1] & ~0x8000);
+ float ratio = (frame-startTime)/(t1-startTime);
  float *samples = Samples + index*Components;
  BFME2_Nlerp(*value, *reinterpret_cast<Quaternion *>(samples), *reinterpret_cast<Quaternion *>(samples+Components), ratio);
 }

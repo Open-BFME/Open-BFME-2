@@ -6,7 +6,7 @@ struct Rva0018C262Node {
 	int m_04;
 	Rva0018C262Node *m_08;
 	Rva0018C262Node *m_0C;
-	unsigned short m_10;
+	unsigned short m_key;
 };
 struct Rva0018C262Head {
 	int m_00;
@@ -76,7 +76,7 @@ Rva0018C262Node *Rva0018C262::rva0018C28F(const unsigned short *key)
 Rva0018C262Node *&Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *insertionPosition, Rva0018C262Node *insertionParent, const unsigned short *nodeValue, Rva0018C262Node *forceRight)
 {
 	Rva0018C262Node *node;
-	if (insertionParent != (Rva0018C262Node *)m_head && (forceRight != 0 || (insertionPosition == 0 && (short)*nodeValue >= (short)insertionParent->m_10))) {
+	if (insertionParent != (Rva0018C262Node *)m_head && (forceRight != 0 || (insertionPosition == 0 && (short)*nodeValue >= (short)insertionParent->m_key))) {
 		node = rva0018C28F(nodeValue);
 		insertionParent->m_0C = node;
 		Rva0018C262Head *root = m_head;
@@ -145,7 +145,7 @@ Rva0018C4A9Result Rva0018C4A9::insert_unique(short *key)
 	bool comp = true;
 	while (currentNode != 0) {
 		parentNode = currentNode;
-		comp = *key < (short)currentNode->m_10;
+		comp = *key < (short)currentNode->m_key;
 		currentNode = comp ? currentNode->m_08 : currentNode->m_0C;
 	}
 	Rva0018C262Node *j = parentNode;
@@ -156,7 +156,7 @@ Rva0018C4A9Result Rva0018C4A9::insert_unique(short *key)
 		}
 		j = (Rva0018C262Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)parentNode);
 	}
-	if ((short)j->m_10 < *key) {
+	if ((short)j->m_key < *key) {
 		Rva0018C262Node *node;
 		return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, currentNode, parentNode, (const unsigned short *)key, 0), true);
 	}

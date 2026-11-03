@@ -63,8 +63,8 @@ public:
 	char rva0036D3A3(int a, int b);
 	void bfmeSend986C(int a, int b, int c, int d, int e);
 	char privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int attackMove, int, int adjustGroundPath);
-	void groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int d);
-	void groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int d);
+	void groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath);
+	void groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath);
 	void rva00372B09(int a, int b, int c);
 
 private:
@@ -109,9 +109,9 @@ char BfmeC986::privateGatherAndMoveInFormationToPosition(int pos, int cmdSource,
 	return 1;
 }
 
-void BfmeC986::groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int d)
+void BfmeC986::groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath)
 {
-	if (privateGatherAndMoveInFormationToPosition(pos, cmdSource, 0, c, d))
+	if (privateGatherAndMoveInFormationToPosition(pos, cmdSource, 0, c, adjustGroundPath))
 		return;
 	Rva00372571Params params;
 	params.m_14 |= -1;
@@ -125,9 +125,9 @@ void BfmeC986::groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, i
 	((AIGroup *)this)->groupMoveToPosition(&params, cmdSource);
 }
 
-void BfmeC986::groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int d)
+void BfmeC986::groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int adjustGroundPath)
 {
-	if (privateGatherAndMoveInFormationToPosition(pos, cmdSource, 1, c, d))
+	if (privateGatherAndMoveInFormationToPosition(pos, cmdSource, 1, c, adjustGroundPath))
 		return;
 	rva00372B09(pos, 0x7FFFFFFF, cmdSource);
 }

@@ -50,7 +50,7 @@ struct Referent {
 
 class Rva00057151 {
 public:
-    void rva00057151(int a1, int a2, int a3);
+    void rva00057151(int group, int side, int mode);
 private:
     char _pad0[0x10];
     FloatSource *m_source;
@@ -60,14 +60,14 @@ private:
     OpaqueRefElement4 m_slots[3];
 };
 
-void Rva00057151::rva00057151(int a1, int a2, int a3)
+void Rva00057151::rva00057151(int group, int side, int mode)
 {
-    _STL::deque<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> > &d = m_deques[a2 + a1 * 2];
+    _STL::deque<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> > &d = m_deques[side + group * 2];
     if (d.empty())
         return;
-    OpaqueRefElement4 &slot = m_slots[a1];
+    OpaqueRefElement4 &slot = m_slots[group];
     slot = d.back();
-    if (a3 == 0) {
+    if (mode == 0) {
         if (((Referent *)slot.referent)->m_flag44)
             ((Referent *)slot.referent)->m_flag44 = 0;
         else
