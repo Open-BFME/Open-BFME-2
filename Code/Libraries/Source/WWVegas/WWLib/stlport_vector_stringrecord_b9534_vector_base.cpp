@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfmealloc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // stlport
 //
 // ??0?$_Vector_base@UBfmeStringRecord000B9534@@V?$allocator@UBfmeStringRecord000B9534@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmeStringRecord000B9534@@@1@@Z,
@@ -43,11 +43,5 @@ template class _STL::vector<BfmeStringRecord000B9534, _STL::allocator<BfmeString
 
 // /OPT:ICF folds vector<LightSubPoint>'s base constructor onto this body: the
 // element is 24 bytes too, and the fill constructor 0x0042545A calls 0x000B63B2.
-struct LightSubPoint
-{
-	LightSubPoint(const LightSubPoint &src);
-	~LightSubPoint();
-
-	int m_words[6];
-};
+#include "../WW3D2/LightSubPoint.h"
 template _STL::_Vector_base<LightSubPoint, _STL::allocator<LightSubPoint> >::_Vector_base(size_t, const _STL::allocator<LightSubPoint> &);

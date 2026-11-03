@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_STLP_NO_EXCEPTIONS -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // stlport
 #include <vector>
 
@@ -16,18 +16,8 @@ void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int* p, size_t n)
 }
 
 
-struct Rva0042464E
-{
-	char m_pad[0xC];
-	~Rva0042464E();
-};
+#include "../WW3D2/LightSubPoint.h"
 
-struct LightSubPoint
-{
-	Rva0042464E m_vec1;
-	_STL::vector<int> m_vec2;
-	~LightSubPoint();
-};
 
 LightSubPoint::~LightSubPoint()
 {
