@@ -273,12 +273,7 @@ struct Rva0057D4F3Campaign
 	unsigned char m_pad00[0x1c];
 	Rva0057D4F3CampaignInfo *m_info;	// +0x1C
 };
-class LivingWorldCampaignManager
-{
-public:
-	void rva003B92B9(_STL::vector<const ModuleData *> *out);
-	void *GetCampaign(int index);	// the campaign at an index
-};
+#include "../../../../../Include/Common/LivingWorldCampaignManager.h"
 class Image;
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 class BfmeObjENK;

@@ -11,14 +11,7 @@ struct Rva003B8BAAElem
 	char m_pad[0x20];
 	void *m_ptr20;
 };
-class LivingWorldCampaignManager
-{
-	char m_pad[0x10];
-	int m_index10;
-	Rva003B8BAAElem **m_array14;
-public:
-	void *rva003B8BAA();
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 #define TheRva00E02D6C ((LivingWorldCampaignManager *)TheCampaignManager)
 
 void *Rva002B256EGet(void)

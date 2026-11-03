@@ -47,11 +47,7 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
 class Rva003B8F76;
-class LivingWorldCampaignManager
-{
-	friend class Rva003B8F76;
-	__declspec(nothrow) int rva003B8E2B(const AsciiString &);
-};
+#include "../../../../Include/Common/LivingWorldCampaignManager.h"
 
 class Rva003B8F76Entry
 {

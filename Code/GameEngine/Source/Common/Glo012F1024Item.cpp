@@ -641,11 +641,7 @@ public:
 	AsciiString rva00564DF2(void) const;
 };
 
-class LivingWorldCampaignManager
-{
-public:
-	Rva00564DF2NameView *rva003B8D4D(const AsciiString &name);
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 #include "../../Include/GameLogic/LivingWorldLogic.h"
 

@@ -407,15 +407,7 @@ public:
 
 // The same global as LivingWorldCampaignManager.cpp's view: its generic
 // spawn army lookup (rowed 0x003B8CE0) takes the player as its second word.
-class LivingWorldCampaignManager
-{
-public:
-	void *UseGenericSpawnArmyForPlayer(Int a, Int b);	// 0x003B8CE0
-	void StartNewCampaign(const AsciiString &name);
-	void StartNewCampaign(Int campaign);
-	bool rva003B8CAC();					// 0x003B8CAC
-	void *rva003B8BAA();					// 0x003B8BAA, see CanDisbandArmyMember
-};
+#include "../../../../Include/Common/LivingWorldCampaignManager.h"
 
 // The generic spawn army's id at +0x4C and the player's id at +0x14, the
 // pair this object's +0x13C multimap records (WB asserts

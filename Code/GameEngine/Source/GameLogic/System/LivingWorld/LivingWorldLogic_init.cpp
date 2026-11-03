@@ -28,7 +28,7 @@ template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C, allocator<TreeHintR
 }
 
 class Rva002B254F { public: int rva002B254F(); };
-class LivingWorldCampaignManager { public: void *rva003B8BAA(); };
+#include "../../../../Include/Common/LivingWorldCampaignManager.h"
 class Rva003F812C { public: void rva003F812C(); };
 class Rva002B5522 { public: void rva002B5522(); };
 class Rva002B7B25 { public: void rva002B7B25(); };

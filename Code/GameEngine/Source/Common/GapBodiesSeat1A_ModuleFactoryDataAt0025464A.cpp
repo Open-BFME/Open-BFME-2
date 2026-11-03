@@ -636,11 +636,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
-class LivingWorldCampaignManager
-{
-public:
-	bool rva003B8CAC();										// 0x003B8CAC
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 // --- 0x002B29EA (14B): stores the second argument at +0x38 of the first.
 // --- 0x002B2B3F (28B): the current item's +0x88 flag when the +0xB0

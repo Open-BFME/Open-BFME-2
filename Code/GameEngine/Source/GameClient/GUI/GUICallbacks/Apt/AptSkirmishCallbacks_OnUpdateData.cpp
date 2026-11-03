@@ -347,7 +347,8 @@ extern MessageStream *TheMessageStream;
 
 
 
-class LivingWorldCampaignManager {public:void *GetCampaign(int);};extern class Rva00E02D6C *TheCampaignManager;
+#include "../../../../../Include/Common/LivingWorldCampaignManager.h"
+extern class Rva00E02D6C *TheCampaignManager;
 #define g_00E02D6C (*(LivingWorldCampaignManager * *)&TheCampaignManager)
 // ^ g_00E02D6C is only an alias of the owned global TheCampaignManager (ledger names column).
 enum Rva004FD8B8RegionID { Rva004FD8B8RegionID_Representation = 0 };

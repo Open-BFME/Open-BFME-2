@@ -29,7 +29,7 @@ class Rva00E02D6C;
 
 extern Rva00E02D6C *TheCampaignManager;
 
-class LivingWorldCampaignManager { public: void CallActSubroutine(const AsciiString &script); };
+#include "../../../../GameEngine/Include/Common/LivingWorldCampaignManager.h"
 
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 

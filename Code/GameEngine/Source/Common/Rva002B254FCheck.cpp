@@ -6,11 +6,7 @@
 // Global type matches Rva002B256EThunk.cpp and definition in Rva002B47B1Get.cpp.
 class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
-class LivingWorldCampaignManager
-{
-public:
-	bool rva003B8B85();
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 class Rva002B254F
 {

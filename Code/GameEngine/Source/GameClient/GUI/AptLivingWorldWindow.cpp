@@ -6,7 +6,7 @@
 // preserve the existing AsciiString lookup and StringBase selection views
 // independently. No fuller campaign class layout or original enum is claimed.
 #include "ascii_string.h"
-class LivingWorldCampaignManager { public: void *GetCampaign(int index); };
+#include "../../../Include/Common/LivingWorldCampaignManager.h"
 class Rva0052BAB2 { public: int rva0052BAB2() const; };
 class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
 #include "../../../Include/GameLogic/LivingWorldRegionManager.h"

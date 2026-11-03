@@ -2045,11 +2045,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva00E02D6C;
 extern Rva00E02D6C *TheCampaignManager;
-class LivingWorldCampaignManager
-{
-public:
-	bool rva003B8CAC();										// 0x003B8CAC
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 struct Rva002B2997LogicView
 {

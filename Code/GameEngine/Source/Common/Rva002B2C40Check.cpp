@@ -14,11 +14,7 @@ public:
 	int rva002B254F();
 };
 
-class LivingWorldCampaignManager
-{
-public:
-	void *rva003B8BAA();
-};
+#include "../../Include/Common/LivingWorldCampaignManager.h"
 
 struct Arg54
 {
