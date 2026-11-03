@@ -17,10 +17,10 @@ original game runs under automation.
 The alarm and the real link post to Discord only while the repository variable `DISCORD_POSTS` is
 `true`; it is unset, so they print to their run logs instead. The webhook is the progress channel's.
 
-GitHub's scheduler is not dependable here: a `*/5` job fires every five to seven hours, and
-`real-link.yml` and `verification-alarm.yml` have never fired on theirs. Their `schedule:` lines
-stay, but `bfme2-dispatch.timer` on srv1 is what starts them. Do not put anything that matters on
-a GitHub schedule alone.
+GitHub's scheduler is not dependable here: a `*/5` job fires every five to seven hours, and the first
+scheduled `real-link.yml` ran 8 hours after its first slot. Their `schedule:` lines stay, but
+`bfme2-dispatch.timer` on srv1 is what starts them on time. Do not put anything that matters on a
+GitHub schedule alone.
 
 ## Reading the real link
 
