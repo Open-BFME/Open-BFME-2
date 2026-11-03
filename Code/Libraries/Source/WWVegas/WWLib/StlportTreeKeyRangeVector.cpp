@@ -33,15 +33,13 @@ template<> inline __declspec(noinline) int *__uninitialized_copy(Rva005E59FCKeyI
  return d;
 }
 }
-// The non-owning key copy is already supplied by Rva005F4F59Copy (27B),
-// whose copy_aux29B and tree traversal37B providers are fully rowed.
-// Both interfaces pass the same two4B node addresses and int destination;
-// the opaque cursor has no ctor/dtor or hidden state. No template owner or
-// application payload identity is inferred from this ABI-compatible view.
+// The strong copy specialization in Common/Rva005F4B8FCopy.cpp supplies
+// the native27B wrapper and its exact29B/37B helper chain. Its explicit
+// template-id emits the name requested here. The opaque cursor remains a
+// single node pointer; original container and payload identities are unknown.
 namespace _STL {
 template<> int *copy(Rva005E59FCKeyIterator,Rva005E59FCKeyIterator,int *);
 }
-#pragma comment(linker, "/alternatename:??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z=?Rva005F4F59Copy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAH@Z")
 // ?rvaKeyRangeAnchor absent-from-retail
 void rvaKeyRangeAnchor(void *memory, Rva005E59FCKeyIterator first, Rva005E59FCKeyIterator last,const _STL::allocator<int>& a) {
  new(memory) _STL::vector<int>(first,last,a);

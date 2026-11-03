@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/Rva005F4B8FCopy.cpp: LINKS  LINKED 138 -> 138 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 138)
+Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp: LINKS  LINKED 509 -> 509 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 509)
+Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp: LINKS  LINKED 444 -> 444 bytes (census 2026-11-03 18:36 at 23b85ddde5; file's own bytes 444)
+link_check: 3 of 3 link cleanly; LINKED 1,091 -> 1,091 bytes (4.5s)

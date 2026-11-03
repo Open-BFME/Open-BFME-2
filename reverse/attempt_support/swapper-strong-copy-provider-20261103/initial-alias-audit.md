@@ -1,0 +1,38 @@
+# Swapper validation: copy-provider routes and supported repair boundary
+
+Read-only audit, 2026-11-03. No compiles, link runs, claims, network, tracked edits or shared-cache writes. Read whole Validation, TreeKeyRangeVector and Rva005F4B8FCopy sources. Detailed immutable observed facts are in `alias-provider-facts.json`; index read was **23b85ddde5, 2026-11-03 18:36**. The earlier real-link blocker register is explicitly from **96cfeda7ba88ddda30abb6e5401534aeddb7f692**, not a newly run link.
+
+## Concrete conflict, not a missing/orphan provider
+
+Let **T** be `??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z`, **P** be `?Rva005F4F59Copy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAH@Z`, and **F** be `?copy@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z`.
+
+* Validation's current compiled object has an actual undefined T, with REL32 calls from its emitted `_M_assign_aux` at offsets103/135. Its `.drectve` contains **T -> F**, despite no hand-written alias in the source. Neither T nor F is defined there. No corresponding weak-external route was found.
+* TreeKeyRangeVector's current compiled object also references T at `_M_assign_aux` offsets103/135. Its `.drectve` contains **two conflicting definitions of the fallback**: first the explicit source pragma **T -> P**, then **T -> F**. Its parser-visible alternate map returns the first route, masking the second within that object. This source owns 11 actual matched rows and cannot be dropped as an orphan.
+* The current provider object defines P as an ordinary27-byte function, bytes `558bec518d45ff50ff7510ff750cff7508e80000000083c410c9c3`, one REL32 at18 to the existing Rva005F4DA7Copy child. The index has P as its sole strong provider and marks its exact copy `retail`, digest eaa095b8cfa6. P has no actual incoming direct symbolic edge in the index: the use is through the alternate route.
+* The fresh index records T's two cross-object alternatives: TreeKeyRangeVector position3721 -> P, Validation16677 -> F. It contains **no strong, COMDAT, common, alternate or touched-name entry for F**. T has no real definition. The generic vendor algorithm alone does not create that required ordinary decorated definition in either observed object.
+
+The source/header receipt MD5s and current object MD5s agree for all three inspected local cached objects, and all recorded header digests agree. These local object SHA256s differ from the new index's corresponding full-object digests, so the packet does not mislabel them as the exact archived index objects. The route facts are present in both independently observed representations. Full command/profile receipt currency was not re-certified.
+
+## Why the per-file preview can appear clean
+
+`link_check.py`629..638 explicitly tries **any** resolving alternate across the own object and index. Therefore T succeeds in preview through P even when the same link population also supplies the undefined F route. This is not proof that link.exe chooses the good fallback.
+
+The plain-link predictor instead uses **first target wins** (`link_census.py`2446..2449, `alias.setdefault`). `exit_link.py`610..616 sorts actual expected objects by path; Validation's encoded GameEngine path sorts before the Libraries TreeKeyRangeVector path. Its T->F route therefore wins in that predictor for the real exit-link order, unlike the census index's listed order. Exit mode retains both objects and creates no alias scaffold (`exit_link.py`567..596); it does not drop the live range TU or synthesize the missing ordinary F.
+
+This is a concrete conflicting-fallback/order explanation consistent with the two measured `exit_link_blockers.tsv` rows (89 and96), and explains why merely pointing to the existing manual T->P pragma is insufficient. **The prior actual exit.rsp/link.log are not present locally.** This audit has not captured link.exe's own route choice, proven its undocumented duplicate-directive semantics, or run a new link. Keep that limit explicit; the current CLI preview is weaker than the real measured blocker here.
+
+No literal extra T->F pragma was found in either source, inspected `_algobase.h`, or the bfmealloc shim. The object observation supports calling it an emitted directive; this audit does not claim an isolated compiler repro establishing its exact origin.
+
+## Root's proposed direct owner: supported conditional route
+
+Root now proposes providing the compiler-requested **ordinary `_STL::copy(Rva005E59FCKeyIterator, Rva005E59FCKeyIterator, int *)` symbol F**, in the **same Rva005F4B8FCopy.cpp**, rather than adding another alias or pin. The opaque iterator remains a single four-byte node cursor; no original set/map/payload identity is claimed. The native dispatcher spine is the existing27B P ->29B copy_aux ->37B key traversal, using the existing native child owner. Strong F would eliminate the unresolved fallback without depending on which T alias wins.
+
+This is a signature/scope/identifier change, not `rename.py function`'s supported identifier-only respelling (`rename.py`7724..7731). The full template form T also cannot be expressed as a plain function identifier. **The hand-rename route is explicitly documented at naming.md938..954**, conditional on replacing only a placeholder with canonical-table evidence, citing the evidence in the commit and re_log, updating every affected caller/pin view, recording the old(name,RVA) tombstone, and leaving name_basis.csv alone. The same source is currently the only known TU home: tu_map has blank approval at5F4F59, so this grants no source move.
+
+The standard algorithm name is independently present in the actual vendor `_algobase.h` template; its false-type dispatcher and traversal can be compared to the complete native spine. That can support genuine standard-library algorithm recovery after the root's full bytes/relocations/argument-layout/provider/consumer proof. **The existing harvested pin and caller spelling alone are only hints under naming.md117..123** and cannot certify a canonical name. Retaining an opaque iterator name avoids claiming recovery of its original application type, but does not waive verification of the algorithm identity. The secondary `naming-policy.md` packet records the exact policy/tool implementation references.
+
+If root uses explicit retraction/readmission rather than a documented hand rename, `add_match --replace-rva` does not replace this ordinary non-generated row. The known supported pattern is a separate normal verified old-body/row retraction with deleted_rows tombstone, followed by plain add_match for the new symbol at the same source/RVA/27B; publish only the final complete-coverage batch. Retraction/readmission does **not** waive the canonical-name evidence requirement. A hand rename can instead carry the row/tombstone directly while retaining coverage, under the documented exception.
+
+All four provider rows and both consumer source cohorts must pass actual native call-target verification and complete providers/routes/EH before retiring the existing explicit range pragma and duplicate full-template pin832. The old P name must have no surviving actual dependency after the change. Current observations find P only in its own provider definition and the manual range alias, with no direct outside index incoming edge; those are the narrow dependencies to reconcile, not proof of a future candidate. Remove hatches only via the owning hatch refresh and debt only via its register path. No new alias/pin or gate relaxation is needed or proposed.
+
+All tracked reads stopped after this audit. No source, ledger, pin or register change was performed.

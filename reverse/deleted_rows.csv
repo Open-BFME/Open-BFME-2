@@ -4668,3 +4668,4 @@ __ehhandler$?rva00397BD9@Rva00397BD9@@UAEXHHH@Z,0x00780ED2,"Renamed to __ehhandl
 ?rva00372CEC@Rva00372CA8@@QAE_NH@Z,0x00372CEC,"Renamed to ?contains@Rva00372CA8@@QAE_NH@Z by tools/rename.py (inferred)"
 ?rva00204136@Rva00204136@@QAEXPAX@Z,0x00204136,"Renamed to ?freeNodes@Rva00204136@@QAEXPAX@Z by tools/rename.py (inferred)"
 ?Rva0021BEC1@@YGHHH@Z,0x0021BEC1,False free stdcall identity: native const CreateAHeroClass receiver forwards to existing219B9E and21BD22 nested providers. Proved31B member readmission follows in same unpublished batch; see clear-member-identity-20261103.
+?Rva005F4F59Copy@@YAPAHPAU_Rb_tree_node_base@_STL@@0PAH@Z,0x005F4F59,Renamed to ??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z: canonical vendor/stlport/stl/_algobase.h:107-112 and224-232; exact27B native body and29B/37B callees; explicit template-id strong provider; opaque iterator identity retained; same source

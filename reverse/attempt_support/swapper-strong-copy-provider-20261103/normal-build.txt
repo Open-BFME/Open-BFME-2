@@ -1,0 +1,9 @@
+Source claims: OK (3 sources, scoped byte-verified)
+Compile: 1 of 3 TU(s) (deps-cache: 2 current)
+Funclet pins: 2 row(s) verified past a renumbered $L label
+    Unwind@00ba52f7 (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp): $L7548 was renumbered; verified parent EH data places $L8739 at 0x007A52F7
+    Unwind@00ba52ff (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp): $L7549 was renumbered; verified parent EH data places $L8740 at 0x007A52FF
+Functions: OK 21/21 matched across 3 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

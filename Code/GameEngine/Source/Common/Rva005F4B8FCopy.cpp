@@ -58,10 +58,22 @@ int *__cdecl Rva005F4DA7Copy(_STL::_Rb_tree_node_base *first, _STL::_Rb_tree_nod
 	_STL::input_iterator_tag tag1;
 	return Rva005F4B8FCopy(first, last, result, tag1, (int *)0);
 }
-int *__cdecl Rva005F4F59Copy(_STL::_Rb_tree_node_base *first, _STL::_Rb_tree_node_base *last, int *result)
+// The existing opaque cursor has exactly one node pointer; no original
+// application container or payload identity is asserted here.
+struct Rva005E59FCKeyIterator
 {
-	_STL::__false_type tag;
-	return Rva005F4DA7Copy(first, last, result, tag);
+	_STL::_Rb_tree_node_base *node;
+};
+namespace _STL
+{
+template <class InputIterator, class OutputIterator>
+OutputIterator copy(InputIterator first, InputIterator last, OutputIterator result);
+template <>
+int *copy<Rva005E59FCKeyIterator, int *>(Rva005E59FCKeyIterator first, Rva005E59FCKeyIterator last, int *result)
+{
+	__false_type tag;
+	return Rva005F4DA7Copy(first.node, last.node, result, tag);
+}
 }
 int *Rva005F4D62::rva005F4D62(unsigned int n, _STL::_Rb_tree_node_base *first, _STL::_Rb_tree_node_base *last)
 {

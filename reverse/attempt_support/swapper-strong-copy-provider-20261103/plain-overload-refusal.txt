@@ -1,0 +1,11 @@
+Source claims: OK (3 sources, scoped byte-verified)
+Compile: 2 of 3 TU(s) (deps-cache: 1 current)
+  FAIL ??$_M_assign_aux@URva005E59FCKeyIterator@@@?$vector@HV?$allocator@H@_STL@@@_STL@@QAEXURva005E59FCKeyIterator@@0ABUforward_iterator_tag@1@@Z (Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp)
+    unresolved call(s): ??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z (add to reverse/symbols.csv)
+    target:   55 8b ec 53 56 57 8d 45 0b 50 8d 45 0c 50 8d 45 08 50 8b f1 e8 4e d1 ad ff 8b 0e 8b d8 8b 46 08 2b c1 c1 f8 02 83 c4 0c 3b d8 76 27 ff 75 0c 8b ce ff 75 08 53 e8 b4 fd ff ff 8b f8 8b 06 85 c0 74 07 50 e8 74 b8 a3 ff 59 8d 04 9f 89 3e 89 46 08 eb 4d 8b 46 04 2b c1 c1 f8 02 3b c3 72 11 51 ff 75 0c ff 75 08 e8 7a ff ff ff 83 c4 0c eb 30 8b 7d 08 50 8d 45 08 50 89 7d 08 e8 9b fd ff ff ff 36 ff 75 08 57 e8 5a ff ff ff 8d 45 0b 50 ff 76 04 ff 75 0c ff 75 08 e8 eb 09 ff ff 83 c4 24 5f 89 46 04 5e 5b 5d c2 0c 00
+    compiled: 55 8b ec 53 56 57 8d 45 0b 50 8d 45 0c 50 8d 45 08 50 8b f1 e8 4e d1 ad ff 8b 0e 8b d8 8b 46 08 2b c1 c1 f8 02 83 c4 0c 3b d8 76 27 ff 75 0c 8b ce ff 75 08 53 e8 b4 fd ff ff 8b f8 8b 06 85 c0 74 07 50 e8 74 b8 a3 ff 59 8d 04 9f 89 3e 89 46 08 eb 4d 8b 46 04 2b c1 c1 f8 02 3b c3 72 11 51 ff 75 0c ff 75 08 e8 00 00 00 00 83 c4 0c eb 30 8b 7d 08 50 8d 45 08 50 89 7d 08 e8 9b fd ff ff ff 36 ff 75 08 57 e8 00 00 00 00 8d 45 0b 50 ff 76 04 ff 75 0c ff 75 08 e8 eb 09 ff ff 83 c4 24 5f 89 46 04 5e 5b 5d c2 0c 00
+Funclet pins: 2 row(s) verified past a renumbered $L label
+    Unwind@00ba52f7 (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp): $L7548 was renumbered; verified parent EH data places $L8739 at 0x007A52F7
+    Unwind@00ba52ff (Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnitSwapperValidation.cpp): $L7549 was renumbered; verified parent EH data places $L8740 at 0x007A52FF
+Functions: FAIL 1/21
+1 function(s) failed byte comparison

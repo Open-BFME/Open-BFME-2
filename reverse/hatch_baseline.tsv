@@ -3969,7 +3969,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportElementCtor00556306.cpp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportPod248ElementDtor.cpp	??1Rva000C6D44ListProxy74@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportPod248ElementDtor.cpp	??1Rva000C6D44Slot12@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportPod248ElementDtor.cpp	?clear@Rva000C6D44ListProxy74@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp	??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVector104Assignment.cpp	?allocateCopy@Rva003F5254Vector104@@QAEPAURvaVector104Element@@IPBU2@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVector104Assignment.cpp	?clearStorage@Rva003F5254Vector104@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportVectorAllocateAndCopyRva002D0EDC.cpp	??$_Construct@URva002D0EDCElement@@U1@@_STL@@YAXPAURva002D0EDCElement@@ABU1@@Z	1
@@ -9284,7 +9283,6 @@ pin	reverse/symbols.csv	0x005F3FFC	1
 pin	reverse/symbols.csv	0x005F422C	1
 pin	reverse/symbols.csv	0x005F4D62	1
 pin	reverse/symbols.csv	0x005F4EED	1
-pin	reverse/symbols.csv	0x005F4F59	1
 pin	reverse/symbols.csv	0x005F5882	1
 pin	reverse/symbols.csv	0x005F5C5B	1
 pin	reverse/symbols.csv	0x005F5F0F	1
