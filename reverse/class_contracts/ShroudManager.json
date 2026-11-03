@@ -1,0 +1,281 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ShroudManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 2
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2c": {
+    "4": 4
+   },
+   "0x68": {
+    "1": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 8,
+   "20": 1,
+   "32": 1,
+   "108": 1,
+   "112": 1
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "mode",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Rva0073DFD0Finish.cpp",
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 8,
+    "20": 1,
+    "32": 1,
+    "108": 1,
+    "112": 1
+   },
+   "class": "ShroudManager"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {}
+}

@@ -498,3 +498,4 @@ S4Cmp00625C10,Code/Libraries/Source/WWVegas/WWLib/S4Cmp00625C10.h,existing heade
 Rva00493009,Code/GameEngine/Include/GameLogic/Rva00493009.h,existing header; contract class_contracts/Rva00493009.json; 13/16 sampled units adopt
 Rva0038454E,Code/GameEngine/Include/GameNetwork/Rva0038454E.h,existing header; contract class_contracts/Rva0038454E.json; 1/9 sampled units adopt
 LifeEventModuleInfo,Code/GameEngine/Include/GameClient/LifeEventModuleInfo.h,existing header; contract class_contracts/LifeEventModuleInfo.json; 8/16 sampled units adopt
+ShroudManager,Code/GameEngine/Include/Common/ShroudManagerClass.h,existing header; contract class_contracts/ShroudManager.json; 2/14 sampled units adopt
