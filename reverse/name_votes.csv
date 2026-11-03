@@ -22691,3 +22691,4 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|R
 Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|local|DualWeaponBehavior::update|d,db72dc8f35492ad3b75b3642,drz-k2,drz-k2-n45b-16,w-ded32b2e2c5e,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp|function|0x0046183B|rva0046183B,6aa941081ede5abcfa79359b,drz-k2,drz-k2-n45b-18,w-ded32b2e2c5e,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp|function|0x004617CF|Rva004617CFFind,95739cb2f7615d4e160e1459,drz-k2,drz-k2-n45b-18,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorUpdate.cpp|member|Rva00498716|m_0C,6f5f5b5baa852e052964833e,drz-k4,drz-k4-n45c-1,w-855a0f400af4,2026-11-02
