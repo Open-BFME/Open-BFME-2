@@ -101,13 +101,7 @@ public:
 
 #include "../../Include/GameClient/Display.h"
 
-class Rva00355D66
-{
-public:
-	Rva00355D66();
-	virtual ~Rva00355D66();
-	virtual void baseSlot1();
-};
+#include "../../Include/GameClient/Rva00355D66.h"
 
 class Rva0043A278 : public Rva00355D66
 {
