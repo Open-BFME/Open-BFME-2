@@ -392,3 +392,4 @@ AptBasePtrStack,Code/Libraries/Source/Apt/AptBasePtrStack.h,existing header; con
 AptInteger,Code/GameEngine/Include/Common/AptInteger.h,existing header; contract class_contracts/AptInteger.json; 19/31 sampled units adopt
 TextureAsset,Code/GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h,existing header; contract class_contracts/TextureAsset.json; 52/54 sampled units adopt
 SpawnArmy,Code/GameEngine/Include/Common/SpawnArmy.h,existing header; contract class_contracts/SpawnArmy.json; 10/32 sampled units adopt
+AttributeModifierPoolUpdate,Code/GameEngine/Include/GameLogic/Module/AttributeModifierPoolUpdate.h,existing header; contract class_contracts/AttributeModifierPoolUpdate.json; 16/25 sampled units adopt
