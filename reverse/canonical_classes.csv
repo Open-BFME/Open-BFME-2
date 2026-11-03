@@ -484,3 +484,4 @@ BodyModule,Code/GameEngine/Include/GameLogic/Module/BodyModuleClass.h,existing h
 BfmeStringRecord000B94D2,Code/GameEngine/Include/Common/BfmeStringRecord000B94D2.h,existing header; contract class_contracts/BfmeStringRecord000B94D2.json; 14/20 sampled units adopt
 Rva003145B1,Code/GameEngine/Include/GameLogic/Rva003145B1.h,existing header; contract class_contracts/Rva003145B1.json; 16/16 sampled units adopt
 BfmeFixedStorage128,Code/GameEngine/Include/Common/BfmeFixedStorage128.h,existing header; contract class_contracts/BfmeFixedStorage128.json; 18/22 sampled units adopt
+Rva00553E47StatsCore,Code/GameEngine/Include/GameNetwork/Rva00553E47StatsCore.h,existing header; contract class_contracts/Rva00553E47StatsCore.json; 1/4 sampled units adopt

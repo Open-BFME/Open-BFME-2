@@ -1,0 +1,829 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00553E47StatsCore",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 4,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x554463",
+      "0x554f70"
+     ],
+     "value": 340
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x554463",
+      "0x554f70"
+     ],
+     "value": {
+      "0x150": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x554463",
+      "0x554f70"
+     ],
+     "value": {
+      "0x0": [
+       "?reset@Rva00553E47StatsCore@@UAEXXZ"
+      ],
+      "0x10": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x100": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x10c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x118": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x124": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x130": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1c": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x28": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x34": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x4": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x40": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xdc": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0xe8": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0xf4": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x554463",
+      "0x554f70"
+     ],
+     "value": {
+      "0x0": "0x86b0dc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86b0dc"
+     ],
+     "value": {
+      "count": 4,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?reset@Rva00553E47StatsCore@@UAEXXZ",
+        "slot": 0,
+        "target": "0x553e47"
+       },
+       {
+        "name": "?rva005550A0@Rva00553E47StatsCore@@UAEXPAVXferStub@@@Z",
+        "slot": 1,
+        "target": "0x5550a0"
+       },
+       {
+        "name": "?rva00555109@Rva00553E47StatsCore@@UAEXPAVXferStub@@@Z",
+        "slot": 2,
+        "target": "0x555109"
+       },
+       {
+        "name": "?rva00554AF2@Rva00553E47StatsCore@@UAEXPBV1@@Z",
+        "slot": 3,
+        "target": "0x554af2"
+       }
+      ],
+      "table": "0x86b0dc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x86b0dc": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?reset@Rva00553E47StatsCore@@UAEXXZ",
+     "1": "?rva005550A0@Rva00553E47StatsCore@@UAEXPAVXferStub@@@Z",
+     "2": "?rva00555109@Rva00553E47StatsCore@@UAEXPAVXferStub@@@Z",
+     "3": "?rva00554AF2@Rva00553E47StatsCore@@UAEXPBV1@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "340": 4
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_maps04_0",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_maps04_1",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_maps04_2",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_maps04_3",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_maps04_4",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_maps04_5",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_maps4c",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 72,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >[72]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_maps94",
+   "name_by": "majority",
+   "offset": 148,
+   "retail_widths": {},
+   "size": 72,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >[72]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_0",
+   "name_by": "majority",
+   "offset": 220,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_1",
+   "name_by": "majority",
+   "offset": 232,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_2",
+   "name_by": "majority",
+   "offset": 244,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_3",
+   "name_by": "majority",
+   "offset": 256,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_4",
+   "name_by": "majority",
+   "offset": 268,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_5",
+   "name_by": "majority",
+   "offset": 280,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_6",
+   "name_by": "majority",
+   "offset": 292,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_mapsdc_7",
+   "name_by": "majority",
+   "offset": 304,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_13c",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_140",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_144",
+   "name_by": "majority",
+   "offset": 324,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_146",
+   "name_by": "majority",
+   "offset": 326,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_148",
+   "name_by": "majority",
+   "offset": 328,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_14a",
+   "name_by": "majority",
+   "offset": 330,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_14c",
+   "name_by": "majority",
+   "offset": 332,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_unmodelled14e",
+   "name_by": "majority",
+   "offset": 334,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 336,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 340,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "rva005550A0(XferStub*)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "rva00555109(XferStub*)"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "rva00554AF2(Rva00553E47StatsCore*)"
+  }
+ }
+}
