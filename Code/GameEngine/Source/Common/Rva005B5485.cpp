@@ -62,7 +62,7 @@ void AptCreateAHero::Class::ExternFunc(int sel, char *buf, bool flag)
 // Views for Rva005B566B::rva005B54ED below (shapes from the banked standalone
 // trial; all callees rowed, no pins).
 class CreateAHeroData;
-class AptMyHero { public: void rva005B21DA(CreateAHeroData *, bool, int); };
+#include "../../Include/GameClient/AptMyHero.h"
 struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };
 class ModuleData;
 class Rva00423A68 { public: void rva00423A68(const ModuleData *); };

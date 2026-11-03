@@ -25,11 +25,7 @@ struct Rva005B5C70Entry
 // The +0x27C sub-object is the AptMyHero panel; its rowed 0x005B21DA takes
 // the entry as a CreateAHeroData record.
 class CreateAHeroData;
-class AptMyHero
-{
-public:
-	void rva005B21DA(CreateAHeroData *data, bool b, int flag);
-};
+#include "../../Include/GameClient/AptMyHero.h"
 
 struct Rva005B5C70Mid
 {

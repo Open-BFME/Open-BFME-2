@@ -26,7 +26,7 @@ V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)
 extern GameTextInterface *TheGameText;
 class CreateAHeroData;
 class Rva0040A3D2 { public: CreateAHeroData *rva0040A3D2(int, int); };
-class AptMyHero { public: void rva005B21DA(CreateAHeroData *, bool, int); };
+#include "../../../../../Include/GameClient/AptMyHero.h"
 struct ClassScreenPrefix { char prefix[0x27C]; AptMyHero hero; };
 
 struct Rva005B566BClassEntry { char bytes[32]; };

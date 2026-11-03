@@ -270,17 +270,10 @@ class CreateAHeroHero
 public:
 	bool Update(Int flags);
 };
-class AptMyHero
-{
-public:
-	virtual void slot14();
-private:
-	char m_pad04[0x150 - 4];
-	bool m_150;
-};
+#include "../../Include/GameClient/AptMyHero.h"
 void AptMyHero::slot14()
 {
-	m_150 = true;
+	field150 = true;
 	reinterpret_cast<CreateAHeroHero *>(this)->Update(0);
 }
 

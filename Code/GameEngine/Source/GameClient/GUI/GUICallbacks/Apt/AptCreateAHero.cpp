@@ -142,15 +142,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class AptCreateAHero;
 
-class AptMyHero
-{
-public:
-	AptMyHero(AptCreateAHero *screen);
-	virtual ~AptMyHero();
-	void rva005B1288();
-private:
-	unsigned char m_opaque[0x18C];
-};
+#include "../../../../../Include/GameClient/AptMyHero.h"
 
 struct AppearanceOwner;
 
