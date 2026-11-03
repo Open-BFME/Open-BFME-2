@@ -1,0 +1,2725 @@
+{
+ "bases": [
+  "AIUpdateInterface",
+  "Iface3E4"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "HordeAIUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 9,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x49a7f3"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "AIUpdateInterface",
+       "offset": 0,
+       "own_vftable": "0x8505f8",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Rva0049A642",
+       "offset": 996,
+       "own_vftable": "0x850868",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x49a7f3"
+     ],
+     "value": 1000
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x49a7f3"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24e54f"
+     ],
+     "value": 1000
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x49a7f3"
+     ],
+     "value": {
+      "0x10": [
+       "0x85052c"
+      ],
+      "0x20": [
+       "0x850528"
+      ],
+      "0x24": [
+       "0x852f88"
+      ],
+      "0xc": [
+       "0x850538"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x49a7f3"
+     ],
+     "value": {
+      "0x0": "0x8505f8",
+      "0x3e4": "0x850868"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8505f8"
+     ],
+     "value": {
+      "count": 154,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GHordeAIUpdate@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x49a864"
+       },
+       {
+        "name": "?loadPostProcess@WorkerAIUpdate@@MAEXXZ",
+        "slot": 1,
+        "target": "0x49a7ee"
+       },
+       {
+        "name": "?name@Rva0049A6C1Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x49a6c1"
+       },
+       {
+        "name": "?xfer@TransportAIUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x49060d"
+       },
+       {
+        "name": "?getModuleNameKey@HordeAIUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x49a67c"
+       },
+       {
+        "name": "?onObjectCreated@AIUpdateInterface@@UAEXXZ",
+        "slot": 5,
+        "target": "0x2625c8"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 12,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?privateMoveToPosition@HordeAIUpdate@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z",
+        "slot": 13,
+        "target": "0x49a93b"
+       },
+       {
+        "name": "?privateAttackMoveToPositionAndOrientation@AIUpdateInterface@@MAEXPBUCoord3D@@MHW4CommandSourceType@@@Z",
+        "slot": 14,
+        "target": "0x26c04e"
+       },
+       {
+        "name": "?bfmePrivateCommand01@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 15,
+        "target": "0x26b637"
+       },
+       {
+        "name": "?privateMoveToPositionSA@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 16,
+        "target": "0x267cfa"
+       },
+       {
+        "name": "?privateMoveToPositionAmphibious@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+        "slot": 17,
+        "target": "0x26b567"
+       },
+       {
+        "name": "?bfmePrivateCommand48@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 18,
+        "target": "0x264558"
+       },
+       {
+        "name": "?privateMoveToAndEvacuate@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 19,
+        "target": "0x26b6b2"
+       },
+       {
+        "name": "?privateMoveToAndEvacuateAndExit@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 20,
+        "target": "0x26b720"
+       },
+       {
+        "name": "?bfmePrivateCommand38@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 21,
+        "target": "0x26b78e"
+       },
+       {
+        "name": "?bfmePrivateCommand41@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 22,
+        "target": "0x26b7fc"
+       },
+       {
+        "name": "?bfmePrivateCommand42@HordeAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 23,
+        "target": "0x49ac5f"
+       },
+       {
+        "name": "?privateIdle@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+        "slot": 24,
+        "target": "0x26d5fb"
+       },
+       {
+        "name": "?privateTightenToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 25,
+        "target": "0x267dad"
+       },
+       {
+        "name": "?privateFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 26,
+        "target": "0x26b8e5"
+       },
+       {
+        "name": "?privateFollowWaypointPathAsTeam@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 27,
+        "target": "0x26b9e2"
+       },
+       {
+        "name": "?privateFollowWaypointPathExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 28,
+        "target": "0x26b987"
+       },
+       {
+        "name": "?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+        "slot": 29,
+        "target": "0x26ba33"
+       },
+       {
+        "name": "?privateFollowPath@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@W4CommandSourceType@@_N@Z",
+        "slot": 30,
+        "target": "0x26ba84"
+       },
+       {
+        "name": "?bfmePrivateCommand24@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+        "slot": 31,
+        "target": "0x26bb5a"
+       },
+       {
+        "name": "?bfmePrivateCommand25@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+        "slot": 32,
+        "target": "0x26bc16"
+       },
+       {
+        "name": "?privateFollowPathAppend@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 33,
+        "target": "0x26e074"
+       },
+       {
+        "name": "?privateAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+        "slot": 34,
+        "target": "0x26bcd2"
+       },
+       {
+        "name": "?bfmePrivateCommand39@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 35,
+        "target": "0x26be86"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 36,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 37,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?privateForceAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+        "slot": 38,
+        "target": "0x26bee6"
+       },
+       {
+        "name": "?privateAttackTeam@AIUpdateInterface@@MAEXPBVTeam@@HW4CommandSourceType@@@Z",
+        "slot": 39,
+        "target": "0x26bfd9"
+       },
+       {
+        "name": "?privateAttackPosition@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+        "slot": 40,
+        "target": "0x26db1a"
+       },
+       {
+        "name": "?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 41,
+        "target": "0x26c0d6"
+       },
+       {
+        "name": "?privateAttackFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@H_NW4CommandSourceType@@@Z",
+        "slot": 42,
+        "target": "0x26c150"
+       },
+       {
+        "name": "?privateHunt@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+        "slot": 43,
+        "target": "0x2646e9"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 44,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 45,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?privateGetHealed@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 46,
+        "target": "0x26dd89"
+       },
+       {
+        "name": "?privateGetRepaired@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 47,
+        "target": "0x26ddbb"
+       },
+       {
+        "name": "?privateEnter@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 48,
+        "target": "0x264775"
+       },
+       {
+        "name": "?bfmePrivateCommand3D@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 49,
+        "target": "0x2647ef"
+       },
+       {
+        "name": "?privateMoveToObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 50,
+        "target": "0x26472f"
+       },
+       {
+        "name": "?privateDock@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 51,
+        "target": "0x26481b"
+       },
+       {
+        "name": "?privateHarvest@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 52,
+        "target": "0x264853"
+       },
+       {
+        "name": "?privateExitInstantly@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 53,
+        "target": "0x26488b"
+       },
+       {
+        "name": "?bfmePrivateCommand4B@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 54,
+        "target": "0x2648f1"
+       },
+       {
+        "name": "?bfmePrivateCommand4D@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+        "slot": 55,
+        "target": "0x26492a"
+       },
+       {
+        "name": "?bfmePrivateCommand3E@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 56,
+        "target": "0x264963"
+       },
+       {
+        "name": "?bfmePrivateCommand4A@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 57,
+        "target": "0x2649a3"
+       },
+       {
+        "name": "?bfmePrivateCommand4C@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+        "slot": 58,
+        "target": "0x2649dc"
+       },
+       {
+        "name": "?bfmePrivateCommand54@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 59,
+        "target": "0x264a15"
+       },
+       {
+        "name": "?rva0026DDED@AIUpdateInterface@@UAEXHW4CommandSourceType@@@Z",
+        "slot": 60,
+        "target": "0x26dded"
+       },
+       {
+        "name": "?privateGoProne@AIUpdateInterface@@MAEXPBVDamageInfo@@W4CommandSourceType@@@Z",
+        "slot": 61,
+        "target": "0x262f5e"
+       },
+       {
+        "name": "?privateGuardTunnelNetwork@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+        "slot": 62,
+        "target": "0x264cbb"
+       },
+       {
+        "name": "?privateGuardPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z",
+        "slot": 63,
+        "target": "0x264bc2"
+       },
+       {
+        "name": "?privateGuardObject@AIUpdateInterface@@MAEXPAVObject@@W4GuardMode@@W4CommandSourceType@@@Z",
+        "slot": 64,
+        "target": "0x264d0e"
+       },
+       {
+        "name": "?bfmePrivateCommand20@AIUpdateInterface@@MAEXPBURva00264D81Arg@@W4GuardMode@@W4CommandSourceType@@@Z",
+        "slot": 65,
+        "target": "0x264d81"
+       },
+       {
+        "name": "?privateGuardRetaliate@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@HW4CommandSourceType@@@Z",
+        "slot": 66,
+        "target": "0x267df1"
+       },
+       {
+        "name": "?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z",
+        "slot": 67,
+        "target": "0x264df8"
+       },
+       {
+        "name": "?privateAttackArea@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4CommandSourceType@@@Z",
+        "slot": 68,
+        "target": "0x26c1ce"
+       },
+       {
+        "name": "?privateFaceObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 69,
+        "target": "0x2645b9"
+       },
+       {
+        "name": "?privateFacePosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 70,
+        "target": "0x267d65"
+       },
+       {
+        "name": "?rva00262EFF@AIUpdateInterface@@UAEXPAX00@Z",
+        "slot": 71,
+        "target": "0x262eff"
+       },
+       {
+        "name": "?privateCommandButton@AIUpdateInterface@@MAEXPBVCommandButton@@W4CommandSourceType@@@Z",
+        "slot": 72,
+        "target": "0x26de77"
+       },
+       {
+        "name": "?privateCommandButtonPosition@AIUpdateInterface@@MAEXPBVCommandButton@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 73,
+        "target": "0x267e8e"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 74,
+        "target": "0xd1407"
+       },
+       {
+        "name": "?bfmeGoCSG@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 75,
+        "target": "0x264a4e"
+       },
+       {
+        "name": "?bfmeGoCSA@AIUpdateInterface@@UAEXPAX@Z",
+        "slot": 76,
+        "target": "0x264a86"
+       },
+       {
+        "name": "?bfmePrivateCommand53@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+        "slot": 77,
+        "target": "0x264ab2"
+       },
+       {
+        "name": "?bfmeGoCSH@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 78,
+        "target": "0x264ade"
+       },
+       {
+        "name": "?bfmeGoCSD@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 79,
+        "target": "0x264b16"
+       },
+       {
+        "name": "?bfmePrivateCommand31@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+        "slot": 80,
+        "target": "0x264b86"
+       },
+       {
+        "name": "?privateMoveAwayFromUnit@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+        "slot": 81,
+        "target": "0x26d765"
+       },
+       {
+        "name": "?bfmePrivateCommand3C@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+        "slot": 82,
+        "target": "0x26b86a"
+       },
+       {
+        "name": "?bfmeGoCSE@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 83,
+        "target": "0x264b4e"
+       },
+       {
+        "name": "?rva002630FD@AIUpdateInterface@@MAEXH@Z",
+        "slot": 84,
+        "target": "0x2630fd"
+       },
+       {
+        "name": "?bfmeGoCSF@AIUpdateInterface@@UAEXPAX0@Z",
+        "slot": 85,
+        "target": "0x263133"
+       },
+       {
+        "name": "?rva0026316B@AIUpdateInterface@@MAEXPAXH@Z",
+        "slot": 86,
+        "target": "0x26316b"
+       },
+       {
+        "name": "?rva002631A6@AIUpdateInterface@@MAEXMH@Z",
+        "slot": 87,
+        "target": "0x2631a6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 88,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 89,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 90,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?isBusy@AIUpdateInterface@@UBE_NXZ",
+        "slot": 91,
+        "target": "0x262b39"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 92,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 93,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 94,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 95,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 96,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 97,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 98,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 99,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 100,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 101,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 102,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?joinTeam@AIUpdateInterface@@UAEXXZ",
+        "slot": 103,
+        "target": "0x26d478"
+       },
+       {
+        "name": "?rva0026E988@AIUpdateInterface@@UAEHXZ",
+        "slot": 104,
+        "target": "0x26e988"
+       },
+       {
+        "name": "?rva0026E999@AIUpdateInterface@@UAEHXZ",
+        "slot": 105,
+        "target": "0x26e999"
+       },
+       {
+        "name": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+        "slot": 106,
+        "target": "0x5daa6c"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 107,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 108,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 109,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva002645FF@Rva002645FF@@QAE_NXZ",
+        "slot": 110,
+        "target": "0x2645ff"
+       },
+       {
+        "name": "?rva00262D8F@AIUpdateInterface@@UBE_NXZ",
+        "slot": 111,
+        "target": "0x262d8f"
+       },
+       {
+        "name": "?isClearingMines@AIUpdateInterface@@UBE_NXZ",
+        "slot": 112,
+        "target": "0x264656"
+       },
+       {
+        "name": "?rva00262DA3@AIUpdateInterface@@UBE_NXZ",
+        "slot": 113,
+        "target": "0x262da3"
+       },
+       {
+        "name": "?rva00262DAB@AIUpdateInterface@@UBE_NXZ",
+        "slot": 114,
+        "target": "0x262dab"
+       },
+       {
+        "name": "?rva00262DBF@AIUpdateInterface@@UBE_NXZ",
+        "slot": 115,
+        "target": "0x262dbf"
+       },
+       {
+        "name": "?rva00262D7B@AIUpdateInterface@@UBE_NXZ",
+        "slot": 116,
+        "target": "0x262d7b"
+       },
+       {
+        "name": "?doQuickExit@AIUpdateInterface@@UAEXPBV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@@Z",
+        "slot": 117,
+        "target": "0x262f19"
+       },
+       {
+        "name": "?get@Rva00042287LeaField@@QBEPAXXZ",
+        "slot": 118,
+        "target": "0x42287"
+       },
+       {
+        "name": "?get@Rva002004A1DwordField@@QBEHXZ",
+        "slot": 119,
+        "target": "0x2004a1"
+       },
+       {
+        "name": "?getSerialAuthResult@GameSpyPeerMessageQueue@@UAE?AW4SerialAuthResult@@XZ",
+        "slot": 120,
+        "target": "0x367508"
+       },
+       {
+        "name": "?get@Rva0036750CDwordField@@QBEHXZ",
+        "slot": 121,
+        "target": "0x36750c"
+       },
+       {
+        "name": "?set@Rva0033F15DDwordSlot@@QAEXH@Z",
+        "slot": 122,
+        "target": "0x33f15d"
+       },
+       {
+        "name": "?get@Rva0009AAA4DwordField@@QBEHXZ",
+        "slot": 123,
+        "target": "0x9aaa4"
+       },
+       {
+        "name": "?clearGuardTargetType@AIUpdateInterface@@UAEXXZ",
+        "slot": 124,
+        "target": "0x26e9aa"
+       },
+       {
+        "name": "?get@Rva002A98A7DwordField@@QBEHXZ",
+        "slot": 125,
+        "target": "0x2a98a7"
+       },
+       {
+        "name": "?construct@AIUpdateInterface@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z",
+        "slot": 126,
+        "target": "0x26e9b8"
+       },
+       {
+        "name": "?getEnterTarget@AIUpdateInterface@@UAEPAVObject@@XZ",
+        "slot": 127,
+        "target": "0x264ef2"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 128,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 129,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 130,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?setLocomotorGoalPositionOnPath@AIUpdateInterface@@UAEXXZ",
+        "slot": 131,
+        "target": "0x262c13"
+       },
+       {
+        "name": "?setLocomotorGoalPositionExplicit@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+        "slot": 132,
+        "target": "0x262c35"
+       },
+       {
+        "name": "?setLocomotorGoalPositionExplicitSmart@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+        "slot": 133,
+        "target": "0x262c53"
+       },
+       {
+        "name": "?appendPositionToLocomotorPath@AIUpdateInterface@@UAEXABUCoord3D@@H@Z",
+        "slot": 134,
+        "target": "0x267266"
+       },
+       {
+        "name": "?setLocomotorGoalOrientation@AIUpdateInterface@@UAEXM@Z",
+        "slot": 135,
+        "target": "0x262c9b"
+       },
+       {
+        "name": "?clear@Rva00262CB6DwordClearer@@QAEXXZ",
+        "slot": 136,
+        "target": "0x262cb6"
+       },
+       {
+        "name": "?isDoingGroundMovement@AIUpdateInterface@@UBE_NXZ",
+        "slot": 137,
+        "target": "0x26731c"
+       },
+       {
+        "name": "?rva00262BA9@AIUpdateInterface@@UAE_NXZ",
+        "slot": 138,
+        "target": "0x262ba9"
+       },
+       {
+        "name": "?micropathToPosition@AIUpdateInterface@@UAEXPBUCoord3D@@@Z",
+        "slot": 139,
+        "target": "0x26412b"
+       },
+       {
+        "name": "?doPathfind@AIUpdateInterface@@UAEXPAVPathfindServicesInterface@@@Z",
+        "slot": 140,
+        "target": "0x269902"
+       },
+       {
+        "name": "?rva00263404@AIUpdateInterface@@UAEXPAVRva00263404Source@@@Z",
+        "slot": 141,
+        "target": "0x263404"
+       },
+       {
+        "name": "?chooseLocomotorSet@AIUpdateInterface@@UAE_NH@Z",
+        "slot": 142,
+        "target": "0x268b20"
+       },
+       {
+        "name": "?get@Rva005C4AFDDwordField@@QBEHXZ",
+        "slot": 143,
+        "target": "0x5c4afd"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 144,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva00267E46@AIUpdateInterface@@UAEXXZ",
+        "slot": 145,
+        "target": "0x267e46"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 146,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 147,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?isAllowedToRespondToAiCommands@AIUpdateInterface@@UBE_NPBUAICommandParms@@@Z",
+        "slot": 148,
+        "target": "0x26734c"
+       },
+       {
+        "name": "?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ",
+        "slot": 149,
+        "target": "0x26a3a0"
+       },
+       {
+        "name": "?makeStateMachine@AIUpdateInterface@@MAEPAVAIStateMachine@@XZ",
+        "slot": 150,
+        "target": "0x262513"
+       },
+       {
+        "name": "?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@UBE_NXZ",
+        "slot": 151,
+        "target": "0x262cf2"
+       },
+       {
+        "name": "?rva002697FC@AIUpdateInterface@@UAE_NXZ",
+        "slot": 152,
+        "target": "0x2697fc"
+       },
+       {
+        "name": "?rva002628B1@Rva002628B1@@QAEXXZ",
+        "slot": 153,
+        "target": "0x2628b1"
+       }
+      ],
+      "table": "0x8505f8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x8505f8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GHordeAIUpdate@@UAEPAXI@Z",
+     "1": "?loadPostProcess@WorkerAIUpdate@@MAEXXZ",
+     "2": "?name@Rva0049A6C1Named@@QBEPBDXZ",
+     "3": "?xfer@TransportAIUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@HordeAIUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "?onObjectCreated@AIUpdateInterface@@UAEXXZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "13": "?privateMoveToPosition@HordeAIUpdate@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z",
+     "14": "?privateAttackMoveToPositionAndOrientation@AIUpdateInterface@@MAEXPBUCoord3D@@MHW4CommandSourceType@@@Z",
+     "15": "?bfmePrivateCommand01@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "16": "?privateMoveToPositionSA@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "17": "?privateMoveToPositionAmphibious@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+     "18": "?bfmePrivateCommand48@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "19": "?privateMoveToAndEvacuate@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "20": "?privateMoveToAndEvacuateAndExit@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "21": "?bfmePrivateCommand38@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "22": "?bfmePrivateCommand41@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "23": "?bfmePrivateCommand42@HordeAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "24": "?privateIdle@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+     "25": "?privateTightenToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "26": "?privateFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "27": "?privateFollowWaypointPathAsTeam@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "28": "?privateFollowWaypointPathExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "29": "?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@MAEXPBVWaypoint@@W4CommandSourceType@@@Z",
+     "30": "?privateFollowPath@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@W4CommandSourceType@@_N@Z",
+     "31": "?bfmePrivateCommand24@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+     "32": "?bfmePrivateCommand25@AIUpdateInterface@@MAEXPBVRva0035149F@@PAVObject@@MW4CommandSourceType@@@Z",
+     "33": "?privateFollowPathAppend@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "34": "?privateAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+     "35": "?bfmePrivateCommand39@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "36": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "37": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "38": "?privateForceAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z",
+     "39": "?privateAttackTeam@AIUpdateInterface@@MAEXPBVTeam@@HW4CommandSourceType@@@Z",
+     "40": "?privateAttackPosition@AIUpdateInterface@@MAEXPBUCoord3D@@HW4CommandSourceType@@@Z",
+     "41": "?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "42": "?privateAttackFollowWaypointPath@AIUpdateInterface@@MAEXPBVWaypoint@@H_NW4CommandSourceType@@@Z",
+     "43": "?privateHunt@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+     "44": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "45": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "46": "?privateGetHealed@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "47": "?privateGetRepaired@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "48": "?privateEnter@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "49": "?bfmePrivateCommand3D@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "50": "?privateMoveToObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "51": "?privateDock@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "52": "?privateHarvest@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "53": "?privateExitInstantly@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "54": "?bfmePrivateCommand4B@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "55": "?bfmePrivateCommand4D@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+     "56": "?bfmePrivateCommand3E@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "57": "?bfmePrivateCommand4A@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "58": "?bfmePrivateCommand4C@AIUpdateInterface@@MAEXPAVObject@@PBVRva0035149F@@W4CommandSourceType@@@Z",
+     "59": "?bfmePrivateCommand54@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "60": "?rva0026DDED@AIUpdateInterface@@UAEXHW4CommandSourceType@@@Z",
+     "61": "?privateGoProne@AIUpdateInterface@@MAEXPBVDamageInfo@@W4CommandSourceType@@@Z",
+     "62": "?privateGuardTunnelNetwork@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+     "63": "?privateGuardPosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4GuardMode@@W4CommandSourceType@@@Z",
+     "64": "?privateGuardObject@AIUpdateInterface@@MAEXPAVObject@@W4GuardMode@@W4CommandSourceType@@@Z",
+     "65": "?bfmePrivateCommand20@AIUpdateInterface@@MAEXPBURva00264D81Arg@@W4GuardMode@@W4CommandSourceType@@@Z",
+     "66": "?privateGuardRetaliate@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@HW4CommandSourceType@@@Z",
+     "67": "?privateGuardAreaFromPosition@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4GuardMode@@W4CommandSourceType@@PBUCoord3D@@@Z",
+     "68": "?privateAttackArea@AIUpdateInterface@@MAEXPBVPolygonTrigger@@W4CommandSourceType@@@Z",
+     "69": "?privateFaceObject@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "70": "?privateFacePosition@AIUpdateInterface@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z",
+     "71": "?rva00262EFF@AIUpdateInterface@@UAEXPAX00@Z",
+     "72": "?privateCommandButton@AIUpdateInterface@@MAEXPBVCommandButton@@W4CommandSourceType@@@Z",
+     "73": "?privateCommandButtonPosition@AIUpdateInterface@@MAEXPBVCommandButton@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "74": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "75": "?bfmeGoCSG@AIUpdateInterface@@UAEXPAX0@Z",
+     "76": "?bfmeGoCSA@AIUpdateInterface@@UAEXPAX@Z",
+     "77": "?bfmePrivateCommand53@AIUpdateInterface@@MAEXW4CommandSourceType@@@Z",
+     "78": "?bfmeGoCSH@AIUpdateInterface@@UAEXPAX0@Z",
+     "79": "?bfmeGoCSD@AIUpdateInterface@@UAEXPAX0@Z",
+     "80": "?bfmePrivateCommand31@AIUpdateInterface@@MAEXHW4CommandSourceType@@@Z",
+     "81": "?privateMoveAwayFromUnit@AIUpdateInterface@@MAEXPAVObject@@PBUCoord3D@@W4CommandSourceType@@@Z",
+     "82": "?bfmePrivateCommand3C@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z",
+     "83": "?bfmeGoCSE@AIUpdateInterface@@UAEXPAX0@Z",
+     "84": "?rva002630FD@AIUpdateInterface@@MAEXH@Z",
+     "85": "?bfmeGoCSF@AIUpdateInterface@@UAEXPAX0@Z",
+     "86": "?rva0026316B@AIUpdateInterface@@MAEXPAXH@Z",
+     "87": "?rva002631A6@AIUpdateInterface@@MAEXMH@Z",
+     "88": "??1Region2D@@QAE@XZ",
+     "89": "??1Region2D@@QAE@XZ",
+     "90": "?IsCRC@Xfer@@UBE_NXZ",
+     "91": "?isBusy@AIUpdateInterface@@UBE_NXZ",
+     "92": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "93": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "94": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "95": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "96": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "97": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "98": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "99": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "100": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "101": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "102": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "103": "?joinTeam@AIUpdateInterface@@UAEXXZ",
+     "104": "?rva0026E988@AIUpdateInterface@@UAEHXZ",
+     "105": "?rva0026E999@AIUpdateInterface@@UAEHXZ",
+     "106": "?slot2@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEHPAX@Z",
+     "107": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "108": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "109": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "110": "?rva002645FF@Rva002645FF@@QAE_NXZ",
+     "111": "?rva00262D8F@AIUpdateInterface@@UBE_NXZ",
+     "112": "?isClearingMines@AIUpdateInterface@@UBE_NXZ",
+     "113": "?rva00262DA3@AIUpdateInterface@@UBE_NXZ",
+     "114": "?rva00262DAB@AIUpdateInterface@@UBE_NXZ",
+     "115": "?rva00262DBF@AIUpdateInterface@@UBE_NXZ",
+     "116": "?rva00262D7B@AIUpdateInterface@@UBE_NXZ",
+     "117": "?doQuickExit@AIUpdateInterface@@UAEXPBV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@@Z",
+     "118": "?get@Rva00042287LeaField@@QBEPAXXZ",
+     "119": "?get@Rva002004A1DwordField@@QBEHXZ",
+     "120": "?getSerialAuthResult@GameSpyPeerMessageQueue@@UAE?AW4SerialAuthResult@@XZ",
+     "121": "?get@Rva0036750CDwordField@@QBEHXZ",
+     "122": "?set@Rva0033F15DDwordSlot@@QAEXH@Z",
+     "123": "?get@Rva0009AAA4DwordField@@QBEHXZ",
+     "124": "?clearGuardTargetType@AIUpdateInterface@@UAEXXZ",
+     "125": "?get@Rva002A98A7DwordField@@QBEHXZ",
+     "126": "?construct@AIUpdateInterface@@UAEPAVObject@@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@_NH@Z",
+     "127": "?getEnterTarget@AIUpdateInterface@@UAEPAVObject@@XZ",
+     "128": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "129": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "130": "?IsCRC@Xfer@@UBE_NXZ",
+     "131": "?setLocomotorGoalPositionOnPath@AIUpdateInterface@@UAEXXZ",
+     "132": "?setLocomotorGoalPositionExplicit@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+     "133": "?setLocomotorGoalPositionExplicitSmart@AIUpdateInterface@@UAEXABUCoord3D@@@Z",
+     "134": "?appendPositionToLocomotorPath@AIUpdateInterface@@UAEXABUCoord3D@@H@Z",
+     "135": "?setLocomotorGoalOrientation@AIUpdateInterface@@UAEXM@Z",
+     "136": "?clear@Rva00262CB6DwordClearer@@QAEXXZ",
+     "137": "?isDoingGroundMovement@AIUpdateInterface@@UBE_NXZ",
+     "138": "?rva00262BA9@AIUpdateInterface@@UAE_NXZ",
+     "139": "?micropathToPosition@AIUpdateInterface@@UAEXPBUCoord3D@@@Z",
+     "140": "?doPathfind@AIUpdateInterface@@UAEXPAVPathfindServicesInterface@@@Z",
+     "141": "?rva00263404@AIUpdateInterface@@UAEXPAVRva00263404Source@@@Z",
+     "142": "?chooseLocomotorSet@AIUpdateInterface@@UAE_NH@Z",
+     "143": "?get@Rva005C4AFDDwordField@@QBEHXZ",
+     "144": "??1Region2D@@QAE@XZ",
+     "145": "?rva00267E46@AIUpdateInterface@@UAEXXZ",
+     "146": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "147": "??1Region2D@@QAE@XZ",
+     "148": "?isAllowedToRespondToAiCommands@AIUpdateInterface@@UBE_NPBUAICommandParms@@@Z",
+     "149": "?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ",
+     "150": "?makeStateMachine@AIUpdateInterface@@MAEPAVAIStateMachine@@XZ",
+     "151": "?getTreatAsAircraftForLocoDistToGoal@AIUpdateInterface@@UBE_NXZ",
+     "152": "?rva002697FC@AIUpdateInterface@@UAE_NXZ",
+     "153": "?rva002628B1@Rva002628B1@@QAEXXZ"
+    },
+    "stores": 1
+   },
+   "0x850868": {
+    "offset": 996,
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "1000": 7
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextCallFrameAndPhase",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_indexInLogic",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_priorWaypointID",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_currentWaypointID",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_stateMachine",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AIStateMachine*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextEnemyScanTime",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field038",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field03C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_currentVictimID",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_desiredSpeed",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_lastCommandSource",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_guardMode",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_guardTargetType",
+   "name_by": "majority",
+   "offset": 80,
+   "retail_widths": {},
+   "size": 8,
+   "type": "int[8]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_locationToGuard.x",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_locationToGuard.y",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_locationToGuard.z",
+   "name_by": "majority",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_objectToGuard",
+   "name_by": "majority",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field068",
+   "name_by": "majority",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_areaToGuard",
+   "name_by": "majority",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "PolygonTrigger*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_attackInfo",
+   "name_by": "majority",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AttackPriorityInfo*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_waypointQueue",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 192,
+   "type": "Coord3D[192]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_waypointCount",
+   "name_by": "majority",
+   "offset": 308,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_waypointIndex",
+   "name_by": "majority",
+   "offset": 312,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_completedWaypoint",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Waypoint*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_path",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Path*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_requestedVictimID",
+   "name_by": "majority",
+   "offset": 324,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_requestedDestination.x",
+   "name_by": "majority",
+   "offset": 328,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_requestedDestination.y",
+   "name_by": "majority",
+   "offset": 332,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_requestedDestination.z",
+   "name_by": "majority",
+   "offset": 336,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_requestedDestination2.x",
+   "name_by": "majority",
+   "offset": 340,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_requestedDestination2.y",
+   "name_by": "majority",
+   "offset": 344,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_requestedDestination2.z",
+   "name_by": "majority",
+   "offset": 348,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_pathTimestamp",
+   "name_by": "majority",
+   "offset": 352,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_ignoreObstacleID",
+   "name_by": "majority",
+   "offset": 356,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_pathExtraDistance",
+   "name_by": "majority",
+   "offset": 360,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_blockedFrames",
+   "name_by": "majority",
+   "offset": 364,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field170",
+   "name_by": "majority",
+   "offset": 368,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_bumpSpeedLimit",
+   "name_by": "majority",
+   "offset": 372,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_ignoreCollisionsUntil",
+   "name_by": "majority",
+   "offset": 376,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field17C",
+   "name_by": "majority",
+   "offset": 380,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field180.x",
+   "name_by": "majority",
+   "offset": 384,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field180.y",
+   "name_by": "majority",
+   "offset": 388,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field180.z",
+   "name_by": "majority",
+   "offset": 392,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_repulsorID",
+   "name_by": "majority",
+   "offset": 396,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_prevRepulsorID",
+   "name_by": "majority",
+   "offset": 400,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field194",
+   "name_by": "majority",
+   "offset": 404,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_moveOutOfWay1",
+   "name_by": "majority",
+   "offset": 408,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_moveOutOfWay2",
+   "name_by": "majority",
+   "offset": 412,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field1A0",
+   "name_by": "majority",
+   "offset": 416,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1A4",
+   "name_by": "majority",
+   "offset": 420,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_field1A8",
+   "name_by": "majority",
+   "offset": 424,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uint[16]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_field1B8",
+   "name_by": "majority",
+   "offset": 440,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uint[16]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1C8",
+   "name_by": "majority",
+   "offset": 456,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage1CC",
+   "name_by": "majority",
+   "offset": 460,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uchar[16]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1DC",
+   "name_by": "majority",
+   "offset": 476,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage1E0",
+   "name_by": "majority",
+   "offset": 480,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uchar[16]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_curLocomotor",
+   "name_by": "majority",
+   "offset": 496,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Locomotor*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_curLocomotorSet",
+   "name_by": "majority",
+   "offset": 500,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field1F8",
+   "name_by": "majority",
+   "offset": 504,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1FC",
+   "name_by": "majority",
+   "offset": 508,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field200.x",
+   "name_by": "majority",
+   "offset": 512,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field200.y",
+   "name_by": "majority",
+   "offset": 516,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_field200.z",
+   "name_by": "majority",
+   "offset": 520,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_turretAI",
+   "name_by": "majority",
+   "offset": 524,
+   "retail_widths": {},
+   "size": 4,
+   "type": "TurretAI*[4]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field210",
+   "name_by": "majority",
+   "offset": 528,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage214",
+   "name_by": "majority",
+   "offset": 532,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uchar[4]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field218",
+   "name_by": "majority",
+   "offset": 536,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field21C",
+   "name_by": "majority",
+   "offset": 540,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_field220",
+   "name_by": "majority",
+   "offset": 544,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage224",
+   "name_by": "majority",
+   "offset": 548,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uchar[16]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field234",
+   "name_by": "majority",
+   "offset": 564,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_crateCreated",
+   "name_by": "majority",
+   "offset": 568,
+   "retail_widths": {},
+   "size": 4,
+   "type": "enum",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field23C",
+   "name_by": "majority",
+   "offset": 572,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field240",
+   "name_by": "majority",
+   "offset": 576,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage244",
+   "name_by": "majority",
+   "offset": 580,
+   "retail_widths": {},
+   "size": 76,
+   "type": "uchar[76]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage290",
+   "name_by": "majority",
+   "offset": 656,
+   "retail_widths": {},
+   "size": 76,
+   "type": "uchar[76]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage2DC",
+   "name_by": "majority",
+   "offset": 732,
+   "retail_widths": {},
+   "size": 16,
+   "type": "uchar[16]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage2EC",
+   "name_by": "majority",
+   "offset": 748,
+   "retail_widths": {},
+   "size": 196,
+   "type": "uchar[196]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B0",
+   "name_by": "majority",
+   "offset": 944,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B1",
+   "name_by": "majority",
+   "offset": 945,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B2",
+   "name_by": "majority",
+   "offset": 946,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B3",
+   "name_by": "majority",
+   "offset": 947,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B4",
+   "name_by": "majority",
+   "offset": 948,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B5",
+   "name_by": "majority",
+   "offset": 949,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B6",
+   "name_by": "majority",
+   "offset": 950,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B7",
+   "name_by": "majority",
+   "offset": 951,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B8",
+   "name_by": "majority",
+   "offset": 952,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3B9",
+   "name_by": "majority",
+   "offset": 953,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3BA",
+   "name_by": "majority",
+   "offset": 954,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3BB",
+   "name_by": "majority",
+   "offset": 955,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3BC",
+   "name_by": "majority",
+   "offset": 956,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3BD",
+   "name_by": "majority",
+   "offset": 957,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3BE",
+   "name_by": "majority",
+   "offset": 958,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3BF",
+   "name_by": "majority",
+   "offset": 959,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C0",
+   "name_by": "majority",
+   "offset": 960,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C1",
+   "name_by": "majority",
+   "offset": 961,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C2",
+   "name_by": "majority",
+   "offset": 962,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C3",
+   "name_by": "majority",
+   "offset": 963,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C4",
+   "name_by": "majority",
+   "offset": 964,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C5",
+   "name_by": "majority",
+   "offset": 965,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C6",
+   "name_by": "majority",
+   "offset": 966,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C7",
+   "name_by": "majority",
+   "offset": 967,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C8",
+   "name_by": "majority",
+   "offset": 968,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3C9",
+   "name_by": "majority",
+   "offset": 969,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3CA",
+   "name_by": "majority",
+   "offset": 970,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3CB",
+   "name_by": "majority",
+   "offset": 971,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3CC",
+   "name_by": "majority",
+   "offset": 972,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3CD",
+   "name_by": "majority",
+   "offset": 973,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3CE",
+   "name_by": "majority",
+   "offset": 974,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3CF",
+   "name_by": "majority",
+   "offset": 975,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_storage3D0",
+   "name_by": "majority",
+   "offset": 976,
+   "retail_widths": {},
+   "size": 12,
+   "type": "uchar[12]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field3DC",
+   "name_by": "majority",
+   "offset": 988,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field3E0",
+   "name_by": "majority",
+   "offset": 992,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "__vfptr",
+   "name_by": "tie",
+   "offset": 996,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['AIUpdateInterface', 'HordeAIInterface3E4']": 1,
+    "['AIUpdateInterface', 'Iface3E4']": 1
+   },
+   "class": "HordeAIUpdate",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "inherited@0xc",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "inherited@0x10",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "inherited@0x20",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "inherited@0x24",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1,
+    "960:A": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "inherited@0x3e4",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "name@0x3e4",
+   "candidates": {
+    "__vfptr": 2,
+    "m_extra03E4": 2,
+    "m_p3E4": 2
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x58",
+   "candidates": {
+    "m_locationToGuard.x": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x5c",
+   "candidates": {
+    "m_locationToGuard.y": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x60",
+   "candidates": {
+    "m_locationToGuard.z": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x148",
+   "candidates": {
+    "m_requestedDestination.x": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x14c",
+   "candidates": {
+    "m_requestedDestination.y": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x150",
+   "candidates": {
+    "m_requestedDestination.z": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x154",
+   "candidates": {
+    "m_requestedDestination2.x": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x158",
+   "candidates": {
+    "m_requestedDestination2.y": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x15c",
+   "candidates": {
+    "m_requestedDestination2.z": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x180",
+   "candidates": {
+    "m_field180.x": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x184",
+   "candidates": {
+    "m_field180.y": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x188",
+   "candidates": {
+    "m_field180.z": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x200",
+   "candidates": {
+    "m_field200.x": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x204",
+   "candidates": {
+    "m_field200.y": 1
+   },
+   "class": "HordeAIUpdate"
+  },
+  {
+   "attribute": "nested@0x208",
+   "candidates": {
+    "m_field200.z": 1
+   },
+   "class": "HordeAIUpdate"
+  }
+ ],
+ "size": 1000,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
