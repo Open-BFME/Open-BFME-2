@@ -52,14 +52,14 @@ void __cdecl AptComponents::UpdateView3D(AptView3D *obj, const char *params)
 			int lightIndex = 0;
 			float lightX = 1.0f;
 			float lightY = 1.0f;
-			float z = 1.0f;
-			sscanf(s, "%d=%f,%f,%f", &lightIndex, &lightX, &lightY, &z);
-			obj->SetLight(lightIndex, lightX, lightY, z);
+			float lightZ = 1.0f;
+			sscanf(s, "%d=%f,%f,%f", &lightIndex, &lightX, &lightY, &lightZ);
+			obj->SetLight(lightIndex, lightX, lightY, lightZ);
 		} else if (_strnicmp(s, "_frame=", 7) == 0) {
 			AsciiString mode;
 			Rva004128F0GetParam(params, "_AnimMode", mode);
-			int f = atoi(s + 7);
-			obj->SetFrame(f, mode);
+			int frame = atoi(s + 7);
+			obj->SetFrame(frame, mode);
 		}
 		while (*s) {
 			char c = *s++;

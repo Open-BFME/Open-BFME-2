@@ -63,7 +63,7 @@ void BfmeThingDXK::bfmeGoDXKa()
 {
 	if (m_bfmeH)
 		SysFreeString(m_bfmeH);
-	void *p = m_bfmeP;
-	if (p)
-		::operator delete[](p);
+	void *buffer = m_bfmeP;
+	if (buffer)
+		::operator delete[](buffer);
 }

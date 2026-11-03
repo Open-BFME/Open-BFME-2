@@ -30,7 +30,7 @@ public:
 // forwarded through an unrowed placeholder address (0x0004782A) that kept the unit
 // from linking.
 // ?bfmeEmitZBCopy@@YAXPAVBfmeTagZB@@ABV1@@Z absent-from-retail
-void bfmeEmitZBCopy(BfmeTagZB *p, const BfmeTagZB &o)
+void bfmeEmitZBCopy(BfmeTagZB *p, const BfmeTagZB &source)
 {
-	p->BfmeTagZB::BfmeTagZB(o);
+	p->BfmeTagZB::BfmeTagZB(source);
 }

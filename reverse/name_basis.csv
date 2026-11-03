@@ -7394,3 +7394,11 @@ local,BfmeCtxVMP::bfmeResetVMP::b,BfmeCtxVMP::bfmeResetVMP::buffer,inferred,agre
 local,Rva000B348E::rva000B348E::v,Rva000B348E::rva000B348E::flags,inferred,agree:nl-ccfb79ff6226,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp,0x000B348E
 function,?bfmeResetVMP@BfmeCtxVMP@@QAEXXZ,?reset@BfmeCtxVMP@@QAEXXZ,inferred,agree:nl-bfb1e2dbfdd6,Code/GameEngine/Source/Common/BfmeConv1455.cpp,0x00666080
 carry,BfmeCtxVMP::bfmeResetVMP::buffer,BfmeCtxVMP::reset::buffer,inferred,scope renamed by Rename bfmeResetVMP to reset (inferred),Code/GameEngine/Source/Common/BfmeConv1455.cpp,0x00666080
+member,Rva000ADA6D::m_first50,Rva000ADA6D::m_first,inferred,agree:nl-611cd527fe23,Code/GameEngine/Source/Common/Rva000ADA6DFill.cpp,
+local,AptComponents::UpdateView3D::f,AptComponents::UpdateView3D::frame,inferred,agree:nl-b0d664d10491-m4dd5f61627cad68045e73246,Code/GameEngine/Source/Common/AptComponents.cpp,0x004107CD
+local,AptComponents::UpdateView3D::z,AptComponents::UpdateView3D::lightZ,inferred,agree:nl-318dd770475f-m12b8ebcc3f81a773fbb53fb5,Code/GameEngine/Source/Common/AptComponents.cpp,0x004107CD
+param,bfmeEmitZBCopy::o,bfmeEmitZBCopy::source,inferred,agree:nl-13965b3662cc-m7371cee06bfb28ccc21d6701,Code/GameEngine/Source/Common/BfmeConv1733.cpp,
+local,BfmeThingDXK::bfmeGoDXKa::p,BfmeThingDXK::bfmeGoDXKa::buffer,inferred,agree:nl-7126d5d966c4,Code/GameEngine/Source/Common/BfmeConv794.cpp,0x00176B60
+local,bfmeGo924A::o,bfmeGo924A::node,inferred,agree:nl-be925db47534,Code/GameEngine/Source/Common/BfmeConv924_bfmeGo924E_YAXPAVBfmeKeyLC_I_Z.cpp,0x00324894
+local,bfmeGo924B::o,bfmeGo924B::node,inferred,agree:nl-03b7352a2811,Code/GameEngine/Source/Common/BfmeConv924_bfmeGo924E_YAXPAVBfmeKeyLC_I_Z.cpp,0x00327D1B
+local,bfmeGo924E::o,bfmeGo924E::node,inferred,agree:nl-d23783ecc650,Code/GameEngine/Source/Common/BfmeConv924_bfmeGo924E_YAXPAVBfmeKeyLC_I_Z.cpp,0x00320626

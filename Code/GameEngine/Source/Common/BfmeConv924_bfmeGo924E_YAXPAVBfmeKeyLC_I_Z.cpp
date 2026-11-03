@@ -37,10 +37,10 @@ public:
 void bfmeGo924E(BfmeKeyLC *k, unsigned int mask)
 {
 	if (k) {
-		BfmeNodeLC *o = k->bfmeFindLC();
-		if (o) {
+		BfmeNodeLC *node = k->bfmeFindLC();
+		if (node) {
 			unsigned int m = ~mask;
-			o->m_bfmeBits = o->m_bfmeBits & m;
+			node->m_bfmeBits = node->m_bfmeBits & m;
 		}
 	}
 }
@@ -48,18 +48,18 @@ void bfmeGo924E(BfmeKeyLC *k, unsigned int mask)
 void bfmeGo924A(BfmeKeyLC *k, char v)
 {
 	if (k) {
-		BfmeNodeLC *o = k->bfmeFindLC();
-		if (o)
-			*((char *)&o->m_bfmeBits + 3) = (v == 0);
+		BfmeNodeLC *node = k->bfmeFindLC();
+		if (node)
+			*((char *)&node->m_bfmeBits + 3) = (v == 0);
 	}
 }
 
 int bfmeGo924B(BfmeKeyLC *k)
 {
 	if (k) {
-		BfmeNodeLC *o = k->bfmeFindLC();
-		if (o && o->m_bfmeA)
-			return o->m_bfmeB;
+		BfmeNodeLC *node = k->bfmeFindLC();
+		if (node && node->m_bfmeA)
+			return node->m_bfmeB;
 	}
 	return 0x64;
 }

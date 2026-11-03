@@ -10,11 +10,11 @@ public:
 	void rva000ADA6D();
 private:
 	unsigned char m_pad[0x50];
-	unsigned char *m_first50;
+	unsigned char *m_first;
 	unsigned char *m_last54;
 };
 void Rva000ADA6D::rva000ADA6D()
 {
 	unsigned char marker = (unsigned char)0xFF;
-	_STL::fill(m_first50, m_last54, marker);
+	_STL::fill(m_first, m_last54, marker);
 }
