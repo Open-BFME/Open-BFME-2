@@ -1,5 +1,5 @@
 // Rva0025342CMember: Rva00253487Base's member at +8; construct (0x0025342C) clears two Rva001EAE6FHelper
-// halves, writes -1/0/0 at +0x100..+0x108 and zero bytes at +0x10C..+0x10E (size 0x110). Not registered yet.
+// halves, writes -1/0/0 at +0x100..+0x108 and zero bytes at +0x10C..+0x10E (size 0x110).
 #pragma once
 
 #ifndef BFME2_RVA0025342CMEMBER_H
