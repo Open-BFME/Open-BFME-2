@@ -9,13 +9,7 @@
 // Evidence: copy ctor row 0x00045455 with 0x4C temp; link through +0x48/+0x4C;
 // callers at 0x0049D987 0x0049DC12. A _ReadWriteBarrier between the shift and
 // the test keeps retail mov shr test al 1 shape (else folds to test byte 2).
-class WeaponTemplateSetHead
-{
-	char _m[0x4C];
-
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-};
+#include "../../../../Include/Common/WeaponTemplateSetHead.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)

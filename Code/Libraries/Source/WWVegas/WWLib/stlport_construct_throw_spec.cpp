@@ -14,11 +14,7 @@
 
 #include "../../../../GameEngine/Include/Common/AssetReference.h"
 
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
-};
+#include "../../../../GameEngine/Include/Common/WeaponTemplateSetHead.h"
 
 #include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 

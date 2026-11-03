@@ -20,13 +20,7 @@
 #include <vector>
 #include <list>
 
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);		// 0x00045455
-private:
-	unsigned int m_bits[19];
-};
+#include "../../../../../../GameEngine/Include/Common/WeaponTemplateSetHead.h"
 
 class Shadow
 {

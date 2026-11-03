@@ -13,13 +13,7 @@ bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int
 { return left < right; }
 }
 
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
-private:
-	unsigned int m_bits[19]; // +0x00
-};
+#include "../../../../GameEngine/Include/Common/WeaponTemplateSetHead.h"
 
 typedef _STL::pair<const unsigned int, WeaponTemplateSetHead> WeaponTemplateSetHeadPair;
 typedef _STL::_Rb_tree<unsigned int, WeaponTemplateSetHeadPair,

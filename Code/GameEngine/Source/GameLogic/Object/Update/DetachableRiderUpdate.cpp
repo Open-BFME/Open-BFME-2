@@ -67,13 +67,7 @@ extern GameLogic*TheGameLogic;
 // Dedicated TU so WeaponTemplateSetConstruct.cpp cannot see this body.
 // Copies a 0x4C-byte head via its copy ctor then two trailing dwords.
 
-class WeaponTemplateSetHead
-{
-	char _m[0x4C];
-
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-};
+#include "../../../../Include/Common/WeaponTemplateSetHead.h"
 //
 // ??0Rva004AE877@@QAE@XZ, retail 0x004AE877, 12 bytes.
 // Default ctor whose only work is the rowed Rva0042526Member ctor at +0x00

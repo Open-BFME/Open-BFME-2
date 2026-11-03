@@ -20,7 +20,7 @@
 typedef int Int;
 struct WeightedModel { AsciiString name; Int probability; };
 struct WeightedModels { WeightedModel *m_start, *m_finish, *m_end; };
-class WeaponTemplateSetHead { public: unsigned words[19]; void rva000B3FA5(int, int); };
+#include "../../../../../GameEngine/Include/Common/WeaponTemplateSetHead.h"
 class BfmeStringTailRecord180 {
 public:
     AsciiString bone;

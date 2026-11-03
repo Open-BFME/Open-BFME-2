@@ -31,12 +31,7 @@ int FiringOrPreAttack[6] = {
 int FiringOrReloading[6] = {
 	43, 49, 55, 542, 543, -1,
 };
-class WeaponTemplateSetHead
-{
-public:
-	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
-	char m_data[0x4C];
-};
+#include "../../../Include/Common/WeaponTemplateSetHead.h"
 WeaponTemplateSetHead *__cdecl Rva002C76B2Build(WeaponTemplateSetHead *out, int a, int b)
 {
 	__assume(out != 0);

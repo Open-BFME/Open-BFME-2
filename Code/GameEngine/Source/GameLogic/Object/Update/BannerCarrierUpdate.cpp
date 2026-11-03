@@ -307,12 +307,7 @@ struct Rva0028F59A
 	Rva0028F59A(int unused, int bit) throw();
 };
 
-class WeaponTemplateSetHead
-{
-public:
-	WeaponTemplateSetHead(const WeaponTemplateSetHead &that) throw();
-	char m_data[0x4C];
-};
+#include "../../../../Include/Common/WeaponTemplateSetHead.h"
 
 struct Rva00496D43Elem : public AsciiString
 {
