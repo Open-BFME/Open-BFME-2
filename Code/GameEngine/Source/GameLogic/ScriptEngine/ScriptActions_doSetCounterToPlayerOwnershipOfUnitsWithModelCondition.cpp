@@ -30,10 +30,7 @@ public:
 	int rva002ABD1D(int kind, int limit);
 };
 
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;

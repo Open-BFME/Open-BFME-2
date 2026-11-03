@@ -36,10 +36,7 @@ public:
 #include "../../../Include/Common/TeamBFME2.h"
 class Parameter;
 
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;

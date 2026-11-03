@@ -19,13 +19,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T,L>& a,const _Rb_tree_ite
  return a._M_node!=b._M_node;
 }
 }
-struct ScriptCounter
-{
-	int m_value;
-	bool m_isCountdownTimer;
-	bool m_isMillisecondTimer;
- ScriptCounter() : m_value(0), m_isCountdownTimer(false), m_isMillisecondTimer(false) {}
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 // A script flag's value; DoXfer's frame shows the class-typed default value.
 struct ScriptFlag
 {

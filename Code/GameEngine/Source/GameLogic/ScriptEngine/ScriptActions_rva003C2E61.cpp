@@ -36,10 +36,7 @@ public:
 	Rva0039C0F4 m_counts;
 };
 
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;

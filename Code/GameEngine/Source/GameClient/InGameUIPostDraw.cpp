@@ -117,10 +117,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-struct ScriptCounter
-{
-	Int value;
-};
+#include "../../Include/GameLogic/ScriptCounter.h"
 
 #include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
@@ -479,7 +476,7 @@ void InGameUI::postDraw()
 				Int framesLeft = 0;
 				ScriptCounter *counter = (ScriptCounter *)TheScriptEngine->rva002086C5(timerName);
 				if (counter)
-					framesLeft = counter->value;
+					framesLeft = counter->m_value;
 				UnsignedInt readyFrame = TheGameLogic->getFrame();
 				if (framesLeft > 0)
 					readyFrame += framesLeft;

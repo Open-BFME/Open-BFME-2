@@ -1037,10 +1037,7 @@ public:
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 // AI_EXIT is enum item 37 in the pristine Zero Hour AIStateMachine.h.
 enum { BFME_AI_EXIT = 37 };
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 extern float g_parseDurationMsecScale;
 // Retail keeps no EH state store before this call: the import does not throw.
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *) throw();

@@ -95,10 +95,7 @@ extern PlayerList *ThePlayerList;
 
 int __cdecl Rva003BD46ESum(void *range);
 
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 class ScriptEngine
 {

@@ -85,12 +85,7 @@ public:
 	virtual bool evaluateCondition(Condition *pCondition);	// +0x38
 };
 extern ScriptConditions *TheScriptConditions;
-struct ScriptCounter
-{
-	int m_value;
-	bool m_isCountdownTimer;
-	bool m_isMillisecondTimer;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 #include "../../../Include/GameLogic/ScriptAction.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 struct BreezeInfo

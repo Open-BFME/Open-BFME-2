@@ -14,10 +14,7 @@
 
 #include "../Object/object.h"
 
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

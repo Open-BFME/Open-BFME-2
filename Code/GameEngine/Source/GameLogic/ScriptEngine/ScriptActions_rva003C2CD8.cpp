@@ -39,10 +39,7 @@ public:
 	Player *getPlayerFromMask(int mask);
 };
 
-struct ScriptCounter
-{
-	int m_value;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

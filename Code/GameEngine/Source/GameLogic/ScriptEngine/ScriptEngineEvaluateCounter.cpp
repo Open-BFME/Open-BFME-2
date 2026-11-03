@@ -21,12 +21,7 @@
 
 #include "../../../Include/GameLogic/ScriptAction.h"
 
-struct ScriptCounter
-{
-	int m_value;
-	bool m_isCountdownTimer;
-	bool m_isMillisecondTimer;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 

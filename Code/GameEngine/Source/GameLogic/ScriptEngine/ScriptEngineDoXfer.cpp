@@ -95,13 +95,7 @@ public:
 	int tag;
 };
 
-struct ScriptCounter
-{
-	int m_value;
-	bool m_isCountdownTimer;
-	bool m_isMillisecondTimer;
-	ScriptCounter() : m_value(0), m_isCountdownTimer(false), m_isMillisecondTimer(false) {}
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 typedef _STL::pair<AsciiString,AsciiString> ScriptKey;
 struct TeamLess0019B850 : _STL::less<ScriptKey> {};

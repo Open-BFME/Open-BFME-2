@@ -45,11 +45,7 @@ class ScriptActions;
 
 // The counter a script names. Only doCounterMathCounter looks past m_value, at
 // the countdown-timer flag that tells a timer from a plain counter.
-struct ScriptCounter
-{
-	Int m_value;
-	Bool m_isCountdownTimer;
-};
+#include "../../../Include/GameLogic/ScriptCounter.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
