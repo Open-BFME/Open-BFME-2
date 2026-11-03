@@ -1173,15 +1173,7 @@ void Rva002D394B::rva002D43C6()
 struct Rva0038404ANode;
 
 // owner Rva0038404A: erase 0x0038404A (rowed as ?rva0038404A@Rva0038404A@@QAEXPAURva0038404ANode@@@Z), clear 0x00384E8E
-class Rva0038404A
-{
-public:
-	void rva0038404A(Rva0038404ANode *node);
-	void rva00384E8E();
-private:
-	void *m_00Head; // +0x00
-	int m_04Flag; // +0x04
-};
+#include "../../Include/Common/Rva0038404A.h"
 
 void Rva0038404A::rva00384E8E()
 {

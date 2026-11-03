@@ -93,7 +93,7 @@ template <> Lk6AsciiSetTree::~_Rb_tree();
 template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 }
 
-class Rva0038404A { public: void rva00384E8E(void); };
+#include "../../../Include/Common/Rva0038404A.h"
 class Rva00383AFF { public: void rva00383AFF(void); };
 class Rva00383A28 { public: void rva00383A28(void); };
 #include "../../../Include/Common/Rva00072FE6.h"

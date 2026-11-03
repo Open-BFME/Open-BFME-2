@@ -30,11 +30,7 @@ struct Rva0038404ANode
 	Rva00382B3F m10;
 };
 
-class Rva0038404A
-{
-public:
-	void rva0038404A(Rva0038404ANode* n);
-};
+#include "../../Include/Common/Rva0038404A.h"
 
 void Rva0038404A::rva0038404A(Rva0038404ANode* n)
 {

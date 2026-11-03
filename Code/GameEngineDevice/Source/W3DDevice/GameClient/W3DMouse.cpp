@@ -530,11 +530,7 @@ public:
 	void rva003748BD();
 };
 
-class Rva0038404A
-{
-public:
-	void rva00384E8E();
-};
+#include "../../../../GameEngine/Include/Common/Rva0038404A.h"
 
 #include "../../../../GameEngine/Include/GameLogic/Module/CreateModuleClass.h"
 
