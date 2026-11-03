@@ -211,15 +211,7 @@ public:
 	void *m_vtbl;
 	int m_id;						// +0x04
 };
-class TerrainLogic
-{
-public:
-#define SLOT4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
-	SLOT4(a) SLOT4(b) SLOT4(c) SLOT4(d) SLOT4(e) SLOT4(f) SLOT4(g) SLOT4(h)
-	virtual void slot20(); virtual void slot21(); virtual void slot22();
-#undef SLOT4
-	virtual Waypoint *getWaypointByID(int id);		// +0x8C
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class Pathfinder

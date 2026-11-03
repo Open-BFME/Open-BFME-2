@@ -20,14 +20,7 @@ public:
  virtual Object *resolveObject();
 };
 enum PathfindLayerEnum { PATHFIND_LAYER_GROUND=0 };
-class TerrainLogic {
-public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6)
-#undef V
- virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D *,bool) const;
- PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Object {
 public:

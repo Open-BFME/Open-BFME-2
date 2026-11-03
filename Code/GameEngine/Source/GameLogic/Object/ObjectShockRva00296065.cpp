@@ -78,12 +78,7 @@ public:
 	int getCurrentStateID() const;
 };
 enum PathfindLayerEnum { LAYER_UNKNOWN0 = 0 };
-class TerrainLogic : public ShockSlots<7>
-{
-public:
-	virtual float getLayerHeight(float, float, int, int *, bool) = 0;
-	PathfindLayerEnum getLayerForDestination(Object *, const Coord3D *);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 class ThingTemplate { public: char pad0[0x11c]; unsigned kinds; };

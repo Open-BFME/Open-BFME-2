@@ -754,13 +754,7 @@ public:
 	void set(const Rva001F3899Arg &pos);
 };
 
-class TerrainLogic
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02();
-	virtual void s03(); virtual void s04(); virtual void s05();
-	virtual float getGroundHeight(float x, float y, Coord3D *normal);	// +0x18
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

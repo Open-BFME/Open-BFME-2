@@ -59,13 +59,7 @@ public:
 };
 extern ParticleSystemManager *TheParticleSystemManager;
 
-class TerrainLogic
-{
-public:
-	virtual void v00(); virtual void v04(); virtual void v08();
-	virtual void v0C(); virtual void v10(); virtual void v14();
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 struct Rva001F55A8Info;
