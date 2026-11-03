@@ -106,7 +106,7 @@ public:
 class StandingWaveAreaRef
 {
 public:
-	StandingWaveAreaRef(Rva0030CAA9Owner *p) : m_ptr(p)
+	StandingWaveAreaRef(Rva0030CAA9Owner *area) : m_ptr(area)
 	{
 		if (m_ptr) ++m_ptr->m_04;
 	}

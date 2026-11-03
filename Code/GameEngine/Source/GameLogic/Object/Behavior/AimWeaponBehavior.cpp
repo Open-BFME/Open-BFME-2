@@ -372,32 +372,32 @@ AimWeaponBehaviorModuleData::AimWeaponBehaviorModuleData()
 __forceinline const int *aimFlagWords(const Rva0028F59A &v){return v.words;}
 
 UpdateSleepTime AimWeaponBehavior::update(){
- Object*o=m_object;
- AimAIView*ai=o->ai;
- Drawable*draw=((const Thing*)o)->getDrawable();
- Weapon*weapon=o->getCurrentWeapon(0);
+ Object*ownerObject=m_object;
+ AimAIView*ai=ownerObject->ai;
+ Drawable*draw=((const Thing*)ownerObject)->getDrawable();
+ Weapon*weapon=ownerObject->getCurrentWeapon(0);
  if(!ai || !draw || !weapon)return UPDATE_SLEEP_FOREVER;
  bool changed=false;
  unsigned char active=ai->attacking();active|=weapon->rva002C9586();
  if(weapon->data->useAimConditions && active){
-  AimDelta delta(*(const AimDelta*)&o->aim);delta.sub(*(const AimDelta*)&o->position);
+  AimDelta delta(*(const AimDelta*)&ownerObject->aim);delta.sub(*(const AimDelta*)&ownerObject->position);
   float len=(float)sqrt(delta.lengthSqr2D());
   float ten=10.0f;
   float*chosen=10.0f>len?&ten:&len;
   float denom=*chosen;
   const AimWeaponBehaviorModuleData*md=getAimWeaponBehaviorModuleData();
   float pitch=delta.z/denom;
-  if(pitch>md->m_aimHighThreshold){m_isAiming=true;if(!(o->model.test(0x40000))){o->model.set(0x40000);o->rva0028AE6D();}}
-  else if(pitch<md->m_aimLowThreshold){m_isAiming=true;if(!(o->model.test(0x100000))){o->model.set(0x100000);o->rva0028AE6D();}}
-  else {m_isAiming=true;if(!(o->model.test(0x80000))){o->model.set(0x80000);o->rva0028AE6D();}}
-  if(denom<(*(volatile float*)&md->m_aimNearDistance)){m_isAiming=true;o->rva0028CFB2(static_cast<const Rva0028F59A&>(Rva0028F59A(0,182)).words,static_cast<const Rva0028F59A&>(Rva0028F59A(0,181)).words);}
-  else if(denom>md->m_aimFarDistance){m_isAiming=true;o->rva0028CFB2(static_cast<const Rva0028F59A&>(Rva0028F59A(0,181)).words,static_cast<const Rva0028F59A&>(Rva0028F59A(0,182)).words);}
+  if(pitch>md->m_aimHighThreshold){m_isAiming=true;if(!(ownerObject->model.test(0x40000))){ownerObject->model.set(0x40000);ownerObject->rva0028AE6D();}}
+  else if(pitch<md->m_aimLowThreshold){m_isAiming=true;if(!(ownerObject->model.test(0x100000))){ownerObject->model.set(0x100000);ownerObject->rva0028AE6D();}}
+  else {m_isAiming=true;if(!(ownerObject->model.test(0x80000))){ownerObject->model.set(0x80000);ownerObject->rva0028AE6D();}}
+  if(denom<(*(volatile float*)&md->m_aimNearDistance)){m_isAiming=true;ownerObject->rva0028CFB2(static_cast<const Rva0028F59A&>(Rva0028F59A(0,182)).words,static_cast<const Rva0028F59A&>(Rva0028F59A(0,181)).words);}
+  else if(denom>md->m_aimFarDistance){m_isAiming=true;ownerObject->rva0028CFB2(static_cast<const Rva0028F59A&>(Rva0028F59A(0,181)).words,static_cast<const Rva0028F59A&>(Rva0028F59A(0,182)).words);}
   changed=true;
  }
  if(m_isAiming && !active){
   m_isAiming=false;
   Rva000B6253 flags;
-  ((Rva001E42F2*)o)->rva001E42F2(flags.rva000B6253(0,181,182,180,179,178)->words);
+  ((Rva001E42F2*)ownerObject)->rva001E42F2(flags.rva000B6253(0,181,182,180,179,178)->words);
   changed=true;
  }
  if(changed)draw->rva00274176(false);

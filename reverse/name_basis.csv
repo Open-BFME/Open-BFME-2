@@ -6931,3 +6931,10 @@ param,Rva004389AE::rva004389AE::tmpl,Rva004389AE::rva004389AE::checkTemplate,inf
 param,Rva004389AE::rva0043912F::tmpl,Rva004389AE::rva0043912F::checkTemplate,inferred,agree:nl-443f235d9bbb-m5a8e4d931261b357399e4db3,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,0x0043912F
 local,TeamInQueue::isBuildTimeExpired::c,TeamInQueue::isBuildTimeExpired::deadline,inferred,agree:nl-46d7d1849457-mcecf5d92ae7d9e48a9baf563,Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp,0x004F0681
 local,TeamInQueue::isBuildTimeExpired::v,TeamInQueue::isBuildTimeExpired::idleFrames,inferred,agree:nl-19ed0a51165a-mbbf26850721f0a14c59db4dc,Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp,0x004F0681
+local,Rva0032C84F::rva0032C84F::n,Rva0032C84F::rva0032C84F::count,inferred,agree:nl-d7414aaf9815-mffc78ede8bef753739a0a50d,Code/GameEngine/Source/GameLogic/Map/Rva0032C84FMethod.cpp,0x0032C84F
+param,sidesSwapByte::a,sidesSwapByte::first,inferred,agree:nl-8cbe984dd27b-m0c1542ffb16d76bb4f9fa6ef,Code/GameEngine/Source/GameLogic/Map/SidesListRva0032B7A7.cpp,
+param,sidesSwapByte::b,sidesSwapByte::second,inferred,agree:nl-035a509d4060-mecf4b17ca0aadaa101bf21dd,Code/GameEngine/Source/GameLogic/Map/SidesListRva0032B7A7.cpp,
+local,SidesList::rva0032F0AA::d,SidesList::rva0032F0AA::dict,inferred,agree:nl-531b3b0336a4-m57f0e7f028ecd2c99d24bd1f,Code/GameEngine/Source/GameLogic/Map/SidesListRva0032F0AA.cpp,0x0032F0AA
+param,StandingWaveAreaRef::p,StandingWaveAreaRef::area,inferred,agree:nl-17fe8ea69952-m06568caaedf412c426f2060b,Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp,
+local,AimWeaponBehavior::update::o,AimWeaponBehavior::update::ownerObject,inferred,agree:nl-397ebd0e65a2,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,0x0045B297
+function,?Rva004617CFFind@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,?findFakePathfindPortalBehaviour@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,inferred,agree:nl-210840a214c5,Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp,0x004617CF

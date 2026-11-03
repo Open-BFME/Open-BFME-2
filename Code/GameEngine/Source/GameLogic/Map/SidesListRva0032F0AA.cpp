@@ -65,8 +65,8 @@ bool SidesList::rva0032F0AA(DataChunkInput &file, void *userData)
 	{
 		for (int i = count; i > 0; --i)
 		{
-			Dict d = file.readDict();
-			tmp.m_teamrec.addTeam(&d);
+			Dict dict = file.readDict();
+			tmp.m_teamrec.addTeam(&dict);
 		}
 	}
 	this->rva0032B7A7(&tmp);

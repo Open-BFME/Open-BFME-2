@@ -4607,3 +4607,5 @@ __ehhandler$?rva001B505F@SubsystemInterfaceList@@QAEEXZ,0x007694FF,"Renamed to _
 ?rva00578513@Rva00578513@@QAEXH@Z,0x00578513,"Renamed to ?show@Rva00578513@@QAEXH@Z by tools/rename.py (inferred)"
 ?rva004E7CBA@ResourceEntryOwner@@QAEXABVAsciiString@@@Z,0x004E7CBA,"Renamed to ?setName@ResourceEntryOwner@@QAEXABVAsciiString@@@Z by tools/rename.py (inferred)"
 ?rva00223547@Rva00223547@@QAEPAXPBX@Z,0x00223547,"Renamed to ?newNode@Rva00223547@@QAEPAXPBX@Z by tools/rename.py (inferred)"
+?Rva004617CFFind@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,0x004617CF,"Renamed to ?findFakePathfindPortalBehaviour@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z by tools/rename.py (inferred)"
+__ehhandler$?Rva004617CFFind@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,0x0078A98A,"Renamed to __ehhandler$?findFakePathfindPortalBehaviour@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z by tools/rename.py (inferred)"

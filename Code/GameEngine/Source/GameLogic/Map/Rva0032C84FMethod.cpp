@@ -56,7 +56,7 @@ private:
 void Rva0032C84F::rva0032C84F()
 {
 	char *p = (char *)this + 0xf94;
-	int n = 0x14;
+	int count = 0x14;
 	do
 	{
 		*(NameKeyType *)(p - 0x14) = TheNameKeyGenerator->nameToKey("UNASSIGNED");
@@ -66,5 +66,5 @@ void Rva0032C84F::rva0032C84F()
 		Vec *v2 = (Vec *)(p - 4);
 		v2->erase(v2->begin(), v2->end());
 		p += 0x1c;
-	} while (--n != 0);
+	} while (--count != 0);
 }

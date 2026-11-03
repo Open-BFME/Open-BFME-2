@@ -144,7 +144,7 @@ struct FakePortalObjectView
 	BehaviorModule **m_behaviors;	// +0x244
 };
 
-BehaviorModule *Rva004617CFFind(FakePortalObjectView *obj)
+BehaviorModule *findFakePathfindPortalBehaviour(FakePortalObjectView *obj)
 {
 	static NameKeyType key = TheNameKeyGenerator->nameToKey("FakePathfindPortalBehaviour");
 	for (BehaviorModule **behaviorModule = obj->m_behaviors; *behaviorModule; ++behaviorModule)

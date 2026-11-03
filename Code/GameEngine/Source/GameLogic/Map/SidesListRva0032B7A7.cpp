@@ -79,11 +79,11 @@ void SidesList::rva0032B7A7(SidesList *other)
 	other->m_notifier.post(callback.code, other, (int)this);
 }
 
-inline void sidesSwapByte(unsigned char &a, unsigned char &b)
+inline void sidesSwapByte(unsigned char &first, unsigned char &second)
 {
-    unsigned char temp = a;
-    a = b;
-    b = temp;
+    unsigned char temp = first;
+    first = second;
+    second = temp;
 }
 
 // Retail 0x0032B833..0x0032B871: exchange the byte at +0xF7C, then notify
