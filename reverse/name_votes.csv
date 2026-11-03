@@ -23482,3 +23482,5 @@ Code/GameEngine/Source/Common/Rva003ECB3DIsAlly.cpp|function|0x003ECB3D|Rva003EC
 Code/GameEngine/Source/Common/Rva003ECB3DIsAlly.cpp|function|0x003ECB2A|Rva003ECB2AIsEnemy,aa0b70bd8d6e6577c3d7fafa,drz-t28,drz-t28-sv2-3,w-f1463ee6b143,2026-11-03
 Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp|function|0x00432AA2|rva00432AA2,6ea6144de4d0b78c0d5c65a7,drz-t28,drz-t28-sv2-7,w-f1463ee6b143,2026-11-03
 Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp|function|0x00432AC5|rva00432AC5,84c49b36db92fb6548d18a81,drz-t28,drz-t28-sv2-7,w-f1463ee6b143,2026-11-03
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp|param|AudioCacheCursor|a,b51dcdf5a1af96133c275cb7,drz-t30,drz-t30-sv2-5,w-334bf30310c5,2026-11-03
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp|param|AudioCacheCursor|b,461ccc823a989274a88b4bbc,drz-t30,drz-t30-sv2-5,w-334bf30310c5,2026-11-03
