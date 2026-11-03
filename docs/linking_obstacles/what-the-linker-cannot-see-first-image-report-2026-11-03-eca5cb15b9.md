@@ -7,10 +7,16 @@
   27 registrations are not in retail's table and 113 could not be identified. Next step: register
   them in retail's order. A table generated at exit-link time from retail's list needs no source
   change and can count down as real statics replace it; `??__E` rows should recover first.
-- **Vtables: 1,876 have a copy shorter than retail's** (1,165 agree, 55 longer, 346 undefined). A
-  private view declares only the slots it calls, so `??_7Xfer@@6B@` has copies of 1 and 39 words, and
-  COMDAT selection may keep either. A virtual call past the end of a kept copy jumps into whatever
-  follows. Next step: confirm which copy the link keeps; the header lanes already remove these views.
+- **Vtables: the link keeps a short copy of 1,734 (measured 2026-11-03 at `083582aacd`'s objects).** A
+  private view declares only the slots it calls, so `??_7Snapshot@@6B@` has copies of 1, 2, 3, 4 and 8
+  words where retail has 4. 9,804 of 9,808 copies are SELECT_ANY, so the first object in link order wins,
+  and here that is a 1-word copy. Another 72 keep a long copy; 1,205 are right, 70 of them with shorter
+  copies present. Assumes link order is `_object_sources` order, and retail's length is its run of code
+  pointers within the ledger's extent. A virtual call past the end of a kept copy jumps into the data
+  that follows, so an image will crash here. The header lanes remove these views, which fixes the
+  source. If they are not done when the link reaches 0, build a table like `retail_initializers.obj`: a
+  SELECT_ANY copy first in the link, with retail's slots by ledger name, counted, for each vtable whose
+  slots all resolve.
 - **FieldParse: the 4 wrong tables are cleared.** `ThingTemplate::s_objectFieldParseTable` was BFME 1's
   (115 entries, 66 shared with retail's 191). `ThingTemplateFieldTable.cpp` now holds retail's: every
   offset, raw user word and parser pointer equal retail's. Its other 8 name lists have no data rows, so
