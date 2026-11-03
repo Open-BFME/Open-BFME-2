@@ -1,0 +1,268 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "TerrainType",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 12,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x30": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x317f6f"
+     ],
+     "value": 36
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x317f6f"
+     ],
+     "value": {
+      "0x1c": [
+       1
+      ],
+      "0x20": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x317f6f"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x24": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x4": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      "0x8": [
+       "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x317f6f"
+     ],
+     "value": {
+      "0x0": "0x80c66c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x80c66c"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTerrainType@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x318150"
+       }
+      ],
+      "table": "0x80c66c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x80c66c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTerrainType@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 7,
+   "12": 2,
+   "48": 2
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TerrainType.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/TerrainTypes.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva000AF917Finish.cpp",
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapReadTexClass.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva000AF917Finish.cpp",
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapReadTexClass.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainType.cpp",
+    "Code/GameEngine/Source/Common/TerrainTypes.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 7,
+    "12": 2,
+    "48": 2
+   },
+   "class": "TerrainType"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
