@@ -526,3 +526,4 @@ DelayedDeathBodyModuleData,Code/GameEngine/Include/GameLogic/Module/DelayedDeath
 LadderPref,Code/GameEngine/Include/GameNetwork/LadderPref.h,existing header; contract class_contracts/LadderPref.json; 13/16 sampled units adopt
 MixFileInfoBuffer,Code/GameEngine/Include/Common/MixFileInfoBuffer.h,existing header; contract class_contracts/MixFileInfoBuffer.json; 5/13 sampled units adopt
 FormationTranslator,Code/GameEngine/Include/GameClient/FormationTranslator.h,existing header; contract class_contracts/FormationTranslator.json; 6/7 sampled units adopt
+UserInputTranslator,Code/GameEngine/Include/GameClient/UserInputTranslator.h,existing header; contract class_contracts/UserInputTranslator.json; 10/13 sampled units adopt

@@ -1,0 +1,340 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "UserInputTranslator",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x429191"
+     ],
+     "value": {
+      "0x0": "0x7dba74"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7dba74"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "__purecall",
+        "slot": 0,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??_GRva001DB080@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x1db080"
+       }
+      ],
+      "table": "0x7dba74"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7dba74": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "__purecall",
+     "1": "??_GRva001DB080@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 13
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 13,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "slot02()": 6,
+    "slot02(Rva005CBC95Pixel*,int)": 3,
+    "slot08(Rva005CBC95Pixel*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "slot03()": 6,
+    "slot03(Rva005CBC95Pixel*,int,int)": 3,
+    "slot0C(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "slot04()": 6,
+    "slot04(Rva005CBC95Pixel*,int,int)": 3,
+    "slot10(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "slot05()": 6,
+    "slot05(Rva005CBC95Pixel*,int,int)": 3,
+    "slot14(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "slot06()": 6,
+    "slot06(Rva005CBC95Pixel*,Rva005CBC95Pixel*,int)": 3,
+    "slot18(Rva005CBC95Pixel*,Rva005CBC95Pixel*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "slot07()": 6,
+    "slot07(Rva005CBC95Pixel*,int,int)": 3,
+    "slot1C(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "slot08()": 6,
+    "slot08(Rva005CBC95Pixel*,int,int)": 3,
+    "slot20(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "slot09()": 6,
+    "slot09(Rva005CBC95Pixel*,int,int)": 3,
+    "slot24(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "slot10()": 6,
+    "slot10(Rva005CBC95Pixel*,int,int)": 3,
+    "slot28(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "slot11()": 6,
+    "slot11(Rva005CBC95Pixel*,Rva005CBC95Pixel*,int)": 3,
+    "slot2C(Rva005CBC95Pixel*,Rva005CBC95Pixel*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "slot12()": 6,
+    "slot12(Rva005CBC95Pixel*,int,int)": 3,
+    "slot30(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "slot13()": 6,
+    "slot13(Rva005CBC95Pixel*,int,int)": 3,
+    "slot34(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "slot14()": 6,
+    "slot14(Rva005CBC95Pixel*,int,int)": 3,
+    "slot38(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "slot15()": 6,
+    "slot15(Rva005CBC95Pixel*,Rva005CBC95Pixel*,int)": 3,
+    "slot3C(Rva005CBC95Pixel*,Rva005CBC95Pixel*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "slot16()": 6,
+    "slot16(Rva005CBC95Pixel*,int,int)": 3,
+    "slot40(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "slot17()": 6,
+    "slot17(Rva005CBC95Pixel*,int,int)": 3,
+    "slot44(Rva005CBC95Pixel*,int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "OnMouseLeftClick(IRegion2D*,int)": 9,
+    "slot48(IRegion2D*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "slot19(IRegion2D*,int)": 3,
+    "slot4C(IRegion2D*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "slot20(IRegion2D*,int)": 3,
+    "slot50(IRegion2D*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot21",
+   "candidates": {
+    "slot21(IRegion2D*,int)": 3,
+    "slot54(IRegion2D*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot22",
+   "candidates": {
+    "slot22(IRegion2D*,int)": 3,
+    "slot58(IRegion2D*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot23",
+   "candidates": {
+    "slot23(IRegion2D*,int)": 3,
+    "slot5C(IRegion2D*,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot24",
+   "candidates": {
+    "slot24(int,int)": 3,
+    "slot60(int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  },
+  {
+   "attribute": "slot25",
+   "candidates": {
+    "slot25(int,int)": 3,
+    "slot64(int,int)": 1
+   },
+   "class": "UserInputTranslator",
+   "why": "beyond the retail vftable's 2 slots"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "translateGameMessage(GameMessage*)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
