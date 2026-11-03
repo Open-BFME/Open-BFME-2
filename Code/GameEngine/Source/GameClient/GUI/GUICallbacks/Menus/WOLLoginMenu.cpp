@@ -87,40 +87,7 @@ AsciiString obfuscate(AsciiString in);
 
 // Retail vtable 0x00C74C48: the thirteen UserPreferences slots with the
 // deleting dtor and write overridden, plus the by-value load appended.
-class GameSpyLoginPreferences : public UserPreferences
-{
-public:
-	GameSpyLoginPreferences();
-	virtual ~GameSpyLoginPreferences();
-	virtual Bool write(void);
-	virtual Bool load(AsciiString fname);
-
-	// Writes one list-valued email map with the given key prefix; retail
-	// factored the nick_ loop into this helper and reuses it for clan_.
-	void Write_Rva005C9DA8(NickMap &emails, const char *prefix, FILE *fp);
-
-	// Reads one list-valued email map entry with the given key prefix;
-	// retail factored the nick_ tokenize loop into this helper and reuses
-	// it for clan_.
-	void ReadEmailList_Rva005CAEA3(NickMap &emails, const char *prefix, UserPreferences::iterator &upIt);
-
-	// Removes one nick from one email's clan list; retail guards with find
-	// before subscripting (sibling 0x005CADD3 is the nick-map twin at +0x2c).
-	void deleteClan(const AsciiString &email, const AsciiString &nick);
-	// Nick-map twin of deleteClan at +0x2c (retail 0x005CADD3).
-	void deleteNick(const AsciiString &email, const AsciiString &nick);
-	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
-	void rva005CABF9(AsciiString email);
-	AsciiString rva005C9FC4(void);
-
-	// Sets the lastEmail preference (retail 0x005CA53E).
-	void rva005CA53E(const AsciiString &email);
-private:
-	PassMap m_emailPasswordMap;
-	DateMap m_emailDateMap;
-	NickMap m_emailNickMap;
-	ClanMap m_emailClanMap;
-};
+#include "../../../../../Include/GameClient/GameSpyLoginPreferences.h"
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {

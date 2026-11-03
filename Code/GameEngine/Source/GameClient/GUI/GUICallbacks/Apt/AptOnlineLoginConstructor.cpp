@@ -80,14 +80,7 @@ private:
 	unsigned char m_pad10[0x60 - 0x10];
 };
 
-class GameSpyLoginPreferences
-{
-public:
-	GameSpyLoginPreferences();
-	virtual ~GameSpyLoginPreferences();
-private:
-	unsigned char m_pad04[0x44 - 0x04];
-};
+#include "../../../../../Include/GameClient/GameSpyLoginPreferences.h"
 
 class IMEManager
 {
