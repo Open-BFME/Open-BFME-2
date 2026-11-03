@@ -495,3 +495,4 @@ PlayerTeamNode,Code/GameEngine/Include/GameLogic/PlayerTeamNode.h,existing heade
 WindModuleInfo,Code/GameEngine/Include/GameClient/WindModuleInfo.h,existing header; contract class_contracts/WindModuleInfo.json; 5/16 sampled units adopt
 S4Cmp00625BB0,Code/Libraries/Source/WWVegas/WWLib/S4Cmp00625BB0.h,existing header; contract class_contracts/S4Cmp00625BB0.json; 17/17 sampled units adopt
 S4Cmp00625C10,Code/Libraries/Source/WWVegas/WWLib/S4Cmp00625C10.h,existing header; contract class_contracts/S4Cmp00625C10.json; 17/17 sampled units adopt
+Rva00493009,Code/GameEngine/Include/GameLogic/Rva00493009.h,existing header; contract class_contracts/Rva00493009.json; 13/16 sampled units adopt
