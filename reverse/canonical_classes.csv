@@ -386,3 +386,4 @@ StringClass,Code/Libraries/Source/WWVegas/WWLib/StringClassData.h,existing heade
 DataChunkInfo,Code/GameEngine/Include/Common/DataChunkInfo.h,existing header; contract class_contracts/DataChunkInfo.json; 23/27 sampled units adopt
 AptPlayer,Code/Libraries/Source/Apt/AptPlayerClass.h,existing header; contract class_contracts/AptPlayer.json; 65/78 sampled units adopt
 AptNativeHash,Code/Libraries/Source/Apt/AptNativeHash.h,existing header; contract class_contracts/AptNativeHash.json; 24/37 sampled units adopt
+FunctorBinding,Code/GameEngine/Include/GameClient/FunctorBinding.h,existing header; contract class_contracts/FunctorBinding.json; 44/66 sampled units adopt
