@@ -410,49 +410,8 @@ void ThingTemplate::parsePerUnitSounds( INI* ini, void *instance, void *store, c
 
 
 //-------------------------------------------------------------------------------------------------
-/// @todo srj -- move this to another file
-// ?ArmorTemplateSet::parseArmorTemplateSet present-unmatched
-void ArmorTemplateSet::parseArmorTemplateSet( INI* ini )
-{
-	static const FieldParse myFieldParse[] = 
-	{
-		{ "Conditions", ArmorSetFlags::parseFromINI, NULL, offsetof( ArmorTemplateSet, m_types ) },
-		{ "Armor", INI::parseArmorTemplate,	NULL, offsetof( ArmorTemplateSet, m_template ) },
-		{ "DamageFX",	INI::parseDamageFX,	NULL, offsetof( ArmorTemplateSet, m_fx ) },
-		{ 0, 0, 0, 0 }
-	};
-
-	ini->initFromINI(this, myFieldParse);
-}
 
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parseArmorTemplateSet present-unmatched
-void ThingTemplate::parseArmorTemplateSet( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
-{
-	ThingTemplate* self = (ThingTemplate*)instance;
-	if (self->m_armorCopiedFromDefault == TRUE)
-	{
-		self->m_armorCopiedFromDefault = FALSE;
-		self->m_armorTemplateSets.clear();
-	}
-
-	ArmorTemplateSet ws;
-	ws.parseArmorTemplateSet(ini);
-#if defined(_DEBUG) || defined(_INTERNAL)
-	if (ini->getLoadType() != INI_LOAD_CREATE_OVERRIDES)
-	{
-		for (ArmorTemplateSetVector::const_iterator it = self->m_armorTemplateSets.begin(); it != self->m_armorTemplateSets.end(); ++it)
-		{
-			if (it->getNthConditionsYes(0) == ws.getNthConditionsYes(0))
-			{
-				DEBUG_CRASH(("dup armorset condition in %s\n",self->getName().str()));
-			}
-		}
-	}
-#endif
-	self->m_armorTemplateSets.push_back(ws);
-	self->m_armorTemplateSetFinder.clear();
-}
 
 //-------------------------------------------------------------------------------------------------
 // ?ThingTemplate::parseWeaponTemplateSet present-unmatched
@@ -749,3 +708,9 @@ template ScienceType *__copy<const ScienceType *, ScienceType *, int>(const Scie
 // KindOf bitset AND row; a compile anchor, not a retail data claim, keeps it.
 extern void (_STL::_Base_bitset<4>::*const _bfmeInlineAnchorBitsetAnd)(const _STL::_Base_bitset<4> &) =
     &_STL::_Base_bitset<4>::_M_do_and;
+// The Zero Hour armor-set parsers (gone: their non-retail bodies used the
+// static INI::scanIndexList and BitFlags<11> names BFME 2 does not provide) were this
+// unit's user of the rowed ArmorTemplateSet::clear (0x006E00A0); a compile
+// anchor, not a retail data claim, keeps it emitted.
+extern void (ArmorTemplateSet::*const _bfmeInlineAnchorArmorSetClear)() =
+    &ArmorTemplateSet::clear;

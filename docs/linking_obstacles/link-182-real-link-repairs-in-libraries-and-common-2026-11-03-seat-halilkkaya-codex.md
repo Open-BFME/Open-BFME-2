@@ -119,3 +119,30 @@ Reconciling it needs class `Rva001F4B01` renamed to
 refuses: `name_evidence.py` has no wb-assert candidate for the class, and the
 wb_name_leads row at 0x001F4A90 still spells the stale placeholder
 `Rva001F4A90Host`. The rename needs a naming approval.
+
+
+### ThingTemplate armor-set donor parsers (2026-11-04, halilkkaya-cx-o3)
+
+Base bdf42addf7 (after cf60dfc838 removed nine other donor methods,
+`parseIntList` among them): remove two more unrowed Zero Hour bodies with
+present-unmatched markers, `ArmorTemplateSet::parseArmorTemplateSet` and
+`ThingTemplate::parseArmorTemplateSet`. Nothing else in the census touches
+them. Their `ArmorSetFlags::parseFromINI` use was the unit's only reference to
+the static `INI::scanIndexList` spelling and `BitFlags<11>::s_bitNameList`
+(BFME 2 rows `INI::scanIndexList` as a member, 0x0002BD39). A member-pointer
+compile anchor keeps the rowed `ArmorTemplateSet::clear` (0x006E00A0) emitted.
+23/23 rows stay exact. The 50 dropped definitions have no orphaned consumer,
+and no undefined name is added. True base/tip link_check over 54 units (Player,
+ThingFactory and every census object sharing a dropped COMDAT): no status
+change, LINKED unchanged. Scoped DIR32 passes. Two artifact names are resolved.
+
+Kept, and why:
+- `parseMaxSimultaneous` stays because the donor `s_objectReskinFieldParseTable`
+  (referenced by ThingFactory) names it, so the static `INI::scanInt` stays too.
+- The AudioEventRTS ctor, copy ctor and dtor and `setEventName` stay. Rowed
+  `pair<AsciiString,AudioEventRTS>` dtor/`_M_insert` bodies are emitted only
+  through `parseArbitrarySoundsIntoMap`, and `getPerUnitSound` (3 consumers)
+  uses `s_audioEventNoSound`.
+- `calcCostToBuild` stays because Player references it, which keeps
+  `getProductionCostChangePercent` referenced. These need AudioEventRTS and
+  Player identities, not removal.
