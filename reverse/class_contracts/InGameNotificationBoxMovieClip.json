@@ -1,0 +1,391 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "InGameNotificationBoxMovieClip",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 16,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x30": {
+    "4": 2
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 3
+   },
+   "0x4c": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 8
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4e6c34"
+     ],
+     "value": 82
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4e6c34"
+     ],
+     "value": {
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       1
+      ],
+      "0x51": [
+       1
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4e6c34"
+     ],
+     "value": {
+      "0x18": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x24": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0x30": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ],
+      "0xc": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4e6c34"
+     ],
+     "value": {
+      "0x0": "0x862440"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x862440"
+     ],
+     "value": {
+      "count": 5,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?get@Rva00578522ByteField@@QBEEXZ",
+        "slot": 0,
+        "target": "0x578522"
+       },
+       {
+        "name": "?rva004E6B7D@InGameNotificationBoxMovieClip@@UAEX_N@Z",
+        "slot": 1,
+        "target": "0x4e6b7d"
+       },
+       {
+        "name": "?rva004E725F@InGameNotificationBoxMovieClip@@UAEXABVUnicodeString@@ABVRva002217EA@@H@Z",
+        "slot": 2,
+        "target": "0x4e725f"
+       },
+       {
+        "name": "?DoClose@InGameNotificationBoxMovieClip@@UAEXXZ",
+        "slot": 3,
+        "target": "0x4e6b9b"
+       },
+       {
+        "name": "?rva004E6882@InGameNotificationBoxMovieClip@@UAEHXZ",
+        "slot": 4,
+        "target": "0x4e6882"
+       }
+      ],
+      "table": "0x862440"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x862440": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?get@Rva00578522ByteField@@QBEEXZ",
+     "1": "?rva004E6B7D@InGameNotificationBoxMovieClip@@UAEX_N@Z",
+     "2": "?rva004E725F@InGameNotificationBoxMovieClip@@UAEXABVUnicodeString@@ABVRva002217EA@@H@Z",
+     "3": "?DoClose@InGameNotificationBoxMovieClip@@UAEXXZ",
+     "4": "?rva004E6882@InGameNotificationBoxMovieClip@@UAEHXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 5,
+   "68": 1,
+   "72": 3,
+   "80": 1,
+   "84": 3
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptStateCalls.cpp",
+    "Code/GameEngine/Source/Common/GapBodiesS3C.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptStateCalls.cpp",
+    "Code/GameEngine/Source/Common/GapBodiesS3C.cpp",
+    "Code/GameEngine/Source/Common/InGameNotificationBoxMovieClip_OnClosed.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/InGameNotificationBoxMovieClip_OnClosed.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/InGameNotificationBoxMovieClip_OnClosed.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptStateCalls.cpp",
+    "Code/GameEngine/Source/Common/GapBodiesS3C.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/GapBodiesS3C.cpp",
+    "Code/GameEngine/Source/Common/InGameNotificationBoxMovieClip_OnClosed.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/Common/Rva004E6B38Method.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004E6A9BDtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 81,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxMovieClip.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 5,
+    "68": 1,
+    "72": 3,
+    "80": 1,
+    "84": 3
+   },
+   "class": "InGameNotificationBoxMovieClip"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "DoClose()": 1,
+    "rva00578522()": 1
+   },
+   "class": "InGameNotificationBoxMovieClip"
+  }
+ ],
+ "size": 4,
+ "size_by": "tie",
+ "vslots": {
+  "1": {
+   "decided_by": "bytes",
+   "member": "rva004E6B7D(bool)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "rva004E725F(UnicodeString*,Rva002217EA*,int)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "DoClose()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "rva004E6882()"
+  }
+ }
+}
