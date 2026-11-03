@@ -14,10 +14,7 @@ class MultiIniFieldParse;
 // compiler installs the class's own vtable (retail's folded 0x0084B6C8).
 class HordeAIUpdateModuleData : public TransportAIUpdateModuleData {
 };
-class HordeAIUpdate {
-public:
-    static ModuleData *friend_newModuleData(INI *);
-};
+#include "../../../../../Include/GameLogic/Module/HordeAIUpdate.h"
 ModuleData *HordeAIUpdate::friend_newModuleData(INI *ini) {
     HordeAIUpdateModuleData *data = new HordeAIUpdateModuleData;
     if (ini) ini->initFromINIMultiProc(data, TransportAIUpdateModuleData::buildFieldParse);

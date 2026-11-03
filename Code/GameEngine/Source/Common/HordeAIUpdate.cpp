@@ -137,19 +137,7 @@ public:
 	virtual void getEnterPosition(int a, Coord3D *out) = 0;
 };
 
-class HordeAIUpdate : public AIUpdateInterface, public Iface3E4
-{
-public:
-	HordeAIUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~HordeAIUpdate();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
-	virtual bool isClearToApproach(int docker);
-	virtual bool reserveApproachPosition(int a, Coord3D *pos, int *out);
-	virtual void getEnterPosition(int docker, Coord3D *out);
-protected:
-	virtual void bfmePrivateCommand42(Object *, CommandSourceType);
-};
+#include "../../Include/GameLogic/Module/HordeAIUpdate.h"
 
 class Rva0049A8FAProvider
 {
