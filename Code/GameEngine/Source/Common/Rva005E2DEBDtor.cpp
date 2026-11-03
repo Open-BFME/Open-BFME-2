@@ -16,13 +16,7 @@ private:
 	void *m_00;
 };
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva005E2DEB
 {

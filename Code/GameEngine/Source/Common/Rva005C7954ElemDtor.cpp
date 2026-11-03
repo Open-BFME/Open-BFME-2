@@ -37,13 +37,7 @@ struct CommandButtonMouseState
 	int m_button;
 };
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[0xC];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva00524436
 {

@@ -17,13 +17,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 #include "../../Include/Common/Rva000AD6F4.h"
 

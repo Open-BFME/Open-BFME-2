@@ -7,13 +7,7 @@
 // ??1Rva005D4913@@QAE@XZ @0x005D4913 54B: non-virtual dtor destroying AsciiString at +8 and Rva0052413E at +0xC. Evidence: EH prolog with two member-dtor calls in retail order plus deleting-dtor caller 0x005D49DD plus holder caller 0x005D4BE7.
 #include "ascii_string.h"
 
-class Rva0052413E
-{
-public:
-	Rva0052413E();
- ~Rva0052413E();
- char storage[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva005D4913
 {

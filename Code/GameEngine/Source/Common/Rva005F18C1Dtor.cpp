@@ -3,13 +3,7 @@
 // Evidence: calls rowed releaseBuffer narrow 0x00036410 plus rowed dtors 0x0052413E and 0x005242D7 plus rowed releaseBuffer wide 0x00036E70 twice; callers 0x005F1B5C and 0x005F1B9C.
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 class Rva005242D7
 {
 public:

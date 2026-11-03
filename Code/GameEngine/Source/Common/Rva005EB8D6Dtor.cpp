@@ -9,12 +9,7 @@ public:
 	void rva00225375(const AsciiString &, const AsciiString &, bool);
 };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva0052413E
-{
-	char m_storage[0x0C];
-public:
-	~Rva0052413E();
-};
+#include "../../Include/Common/Rva0052413E.h"
 class Rva005241B0
 {
 	char m_storage[0x0C];

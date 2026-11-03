@@ -8,13 +8,7 @@
 #include "ascii_string.h"
 #include <vector>
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_vec;	// +0x00, size 12
-};
+#include "../../Include/Common/Rva0052413E.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 struct TreeHintRefHolder

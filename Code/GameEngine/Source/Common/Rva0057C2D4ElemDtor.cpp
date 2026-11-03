@@ -5,13 +5,7 @@
 #include "ascii_string.h"
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-class Rva0052413E
-{
-public:
-    ~Rva0052413E();
-private:
-    char m_pad[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 struct Rva0057C2D4Holder
 {
     TargetRef00217D4C *m_ptr;

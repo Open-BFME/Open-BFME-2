@@ -18,13 +18,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[0xC];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 // The retail table at RVA 0x0087598C: 11 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

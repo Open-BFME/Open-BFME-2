@@ -123,14 +123,7 @@ public:
 	bool m_shown; // +0x10
 };
 
-class Rva0052413E
-{
-public:
-	Rva0052413E();
-	~Rva0052413E();
-private:
-	char m_pad[0xC];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 #include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 

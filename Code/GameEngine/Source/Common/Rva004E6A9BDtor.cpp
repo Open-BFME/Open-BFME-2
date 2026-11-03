@@ -24,12 +24,7 @@ public:
     void clear();
     void *m_ptr;
 };
-class Rva0052413E
-{
-public:
-    ~Rva0052413E();
-    char m_pad[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 class Rva005241B0
 {
 public:
