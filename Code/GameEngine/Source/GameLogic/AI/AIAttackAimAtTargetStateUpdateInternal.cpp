@@ -84,26 +84,7 @@ public:
 };
 #include "../../../Include/GameLogic/LocomotorClass.h"
 struct Rva0028AC4EEntry;
-class ThingTemplate
-{
-public:
-	Bool isKindOf3C() const
-	{
-		return (m_kindOf[0x07] & 0x10) != 0;
-	}
-	Bool isKindOf89() const
-	{
-		return (m_kindOf[0x11] & 0x02) != 0;
-	}
-	Bool isKindOf96() const
-	{
-		return (m_kindOf[0x12] & 0x40) != 0;
-	}
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x1C]; // +0x108
-	unsigned char m_pad124[0x53C - 0x124];
-	Real m_firingArc; // +0x53C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Rva002C9400ByteField
 {
 public:
@@ -296,11 +277,11 @@ StateReturnType AIAttackAimAtTargetState::updateInternal(Bool stopBeforeAim)
 	goalPos.z = goalSource->z;
 	if (m_isAttackingObject)
 	{
-		Bool gotContact = weapon && (victim->getTemplate()->isKindOf3C() || victim->getTemplate()->isKindOf89()) &&
+		Bool gotContact = weapon && (((victim->getTemplate()->m_kindof[1] & (1U << 28)) != 0) || ((victim->getTemplate()->m_kindof[4] & (1U << 9)) != 0)) &&
 			(weapon->getTemplate()->isContactWeapon() || ((const Rva002C9400ByteField *)weapon->getTemplate())->get());
 		if (gotContact)
 			gotContact = victim->getWorldspaceBestContactPoint(&goalPos, source->getPosition(), "Ram", 0, 0x2A, false);
-		if (!victim->getTemplate()->isKindOf96() && !gotContact) {
+		if (!((victim->getTemplate()->m_kindof[4] & (1U << 22)) != 0) && !gotContact) {
 			vp = victim->getPosition();
 			goalPos = *vp;
 		}

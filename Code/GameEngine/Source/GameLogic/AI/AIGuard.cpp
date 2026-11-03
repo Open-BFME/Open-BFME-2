@@ -104,18 +104,7 @@ template <> class VSlots<0>
 {
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const
-	{
-		return m_kindOf[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	Bool isKindOfBfme108Bit7() const { return (((const unsigned char *)m_kindOf)[0] & 0x80) != 0; }
-	Bool testBfme115Bit5() const { return (((const unsigned char *)m_kindOf)[0x115 - 0x108] & 0x20) != 0; }
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -790,7 +779,7 @@ Bool AIGuardMachine::lookForInnerTarget()
 	}
 
 	UnsignedInt flags = 2;
-	if (TheAI->m_aiData->m_67 && owner->getTemplate()->isKindOf(KINDOF_BIT_59))
+	if (TheAI->m_aiData->m_67 && (owner->getTemplate()->m_kindof[KINDOF_BIT_59 >> 5] & (1U << (KINDOF_BIT_59 & 0x1f))))
 		flags = 3;
 	if (TheAI->m_aiData->m_68)
 		flags |= 4;
@@ -820,7 +809,7 @@ Bool AIGuardMachine::lookForInnerTarget()
 			target = TheAI->findClosestEnemy(owner, visionRange * 0.5f, flags,
 				owner->getAI()->getAttackInfo(), 0, 0);
 	}
-	if (target && target->getTemplate()->isKindOf(KINDOF_BIT_109))
+	if (target && (target->getTemplate()->m_kindof[KINDOF_BIT_109 >> 5] & (1U << (KINDOF_BIT_109 & 0x1f))))
 		target = target->adjustVictim(owner, true, 0);
 	if (target)
 	{
@@ -838,7 +827,7 @@ Bool AIGuardMachine::lookForInnerTarget()
 		{
 			target = (Object *)((Rva002FFFCA *)TheAI)->rva002FFFCA(owner, &pos, visionRange, flags,
 				(Int)owner->getAI()->getAttackInfo(), 0, 0);
-			if (target && target->getTemplate()->isKindOf(KINDOF_BIT_109))
+			if (target && (target->getTemplate()->m_kindof[KINDOF_BIT_109 >> 5] & (1U << (KINDOF_BIT_109 & 0x1f))))
 				target = target->adjustVictim(owner, true, 0);
 			if (target)
 			{

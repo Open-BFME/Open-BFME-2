@@ -152,17 +152,7 @@ template <> class VSlots<0>
 {
 };
 #include "../../../Include/GameLogic/Module/BodyModule.h"
-class ThingTemplate
-{
-public:
-	Bool isKindOfBfme108Bit7() const { return (m_kindOf[0] & 0x80) != 0; }
-	Bool testBfme115Bit5() const { return (m_bfme115 & 0x20) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[4]; // +0x108
-	unsigned char m_pad10C[0x115 - 0x10C];
-	unsigned char m_bfme115; // +0x115
-};
+#include "../../../Include/Common/ThingTemplate.h"
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_26 = 0x26
@@ -449,7 +439,7 @@ Bool ExitConditions::shouldExit(const StateMachine *machine) const
 	if (m_conditionsToConsider & ATTACK_ExitIfOutsideRadius)
 	{
 		if (goal->testStatus(OBJECT_STATUS_BFME_26) && goal->getBfme274() != NULL
-			&& goal->getBfme274()->getTemplate()->testBfme115Bit5())
+			&& ((goal->getBfme274()->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 		{
 			goal = goal->getBfme274();
 		}
@@ -715,7 +705,7 @@ StateReturnType AIGuardInnerState::update( void )
 			return onEnter();
 		}
 	}
-	if (goal && goal->getTemplate()->isKindOfBfme108Bit7() && TheGameLogic->getFrame() >= m_bfmeDeadline)
+	if (goal && ((goal->getTemplate()->m_kindof[0] & (1U << 7)) != 0) && TheGameLogic->getFrame() >= m_bfmeDeadline)
 	{
 		const Weapon *weapon = getMachine()->getOwner()->getCurrentWeapon();
 		if (weapon && weapon->computeStatus(0) != WEAPON_STATUS_BFME_4)

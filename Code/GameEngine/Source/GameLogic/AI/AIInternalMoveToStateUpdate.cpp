@@ -324,14 +324,7 @@ public:
 private:
 	unsigned int m_words[19];
 };
-class ThingTemplate
-{
-public:
-	__forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned int m_kindOf[1]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class GeometryInfo
 {
 public:
@@ -350,7 +343,7 @@ public:
 class Object
 {
 public:
-	__forceinline unsigned int isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__forceinline unsigned int isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 5] & (1U << (t & 0x1f))); }
 	const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)m_geometryInfo; }
 	Real rva0028AC7D() const;
 	void getUnitDirectionVector3D(Coord3D &dir) const { ((const Thing *)this)->getUnitDirectionVector3D(dir); }

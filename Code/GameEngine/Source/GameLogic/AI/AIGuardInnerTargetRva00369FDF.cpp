@@ -215,13 +215,7 @@ enum Relationship
 	ALLIES = 2
 };
 
-class ThingTemplate
-{
-public:
-	bool isKindOf6D() const { return (m_kindOf[0x0D] & 0x20) != 0; }
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x1C];	// +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -380,7 +374,7 @@ bool Rva00369FDFGuardMachine::lookForInnerTarget()
 		}
 	}
 
-	if (target && target->getTemplate()->isKindOf6D())
+	if (target && ((target->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 		target = target->adjustVictim(owner, 0, 0);
 	if (target)
 	{

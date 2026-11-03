@@ -42,14 +42,7 @@ class Rva002039B6Host
 public:
 	void rva002039B6();
 };
-class ThingTemplate
-{
-public:
-	bool getBfmeFlag109() const { return (m_bfmeFlags109 & 1) != 0; }
-private:
-	unsigned char m_pad000[0x109];
-	unsigned char m_bfmeFlags109; // +0x109
-};
+#include "../../../Include/Common/ThingTemplate.h"
 enum ModelConditionFlagType
 {
 	MODELCONDITION_DYING = 1 * 32 + 30
@@ -118,7 +111,7 @@ StateReturnType AIDeadState::onEnter()
 		nonDyingStuff.set(157);
 		obj->rva0028CFB2((const int *)&nonDyingStuff, (const int *)&Rva0028F59A(0, 0x3E));
 		((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
-		if (obj->getTemplate()->getBfmeFlag109())
+		if (((obj->getTemplate()->m_kindof[0] & (1U << 8)) != 0))
 			TheAI->pathfinder()->RemoveObjectFromPathfindMap(obj);
 	}
 	return STATE_CONTINUE;

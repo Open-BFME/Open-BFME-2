@@ -172,12 +172,7 @@ public:
 	const StealthModuleData *m_data; // +0x04
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x108];
-	unsigned char m_kindOf[0x20]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct DisabledFlags
 {
@@ -204,7 +199,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	Bool isDisabledHeld() const { return m_disabled.test(3); }
-	UnsignedInt isImmobile() const { return m_template->m_kindOf[0] & 4; }
+	UnsignedInt isImmobile() const { return m_template->m_kindof[0] & (1U << 2); }
 	Real getBoundingCircleRadius() const { return m_boundingRadius; }
 	void setFormationID(UnsignedInt id) { m_formationID = id; }
 	void setFormationOffset(const Coord2D *offset) { m_formationOffset = *offset; }

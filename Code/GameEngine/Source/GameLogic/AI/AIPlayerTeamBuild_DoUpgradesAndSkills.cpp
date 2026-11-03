@@ -203,30 +203,7 @@ public:
 	unsigned int m_bits[1];
 };
 
-class ThingTemplate
-{
-public:
-	Bool isEquivalentTo(const ThingTemplate *other) const;
-	Int rva0033A69A(const Player *player, Int a, Int b) const;
-	const AsciiString &getName() const { return m_name; }
-	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
-	// Keep the factory-list walk inline; ThingFactory owns the retail outline.
-	__declspec(dllimport) __forceinline ThingTemplate *friend_getNextTemplate() const { return m_nextThingTemplate; }
-	unsigned char m_pad000[0x64];
-	AsciiString m_name;				// +0x64
-	unsigned char m_pad068[0xB0 - 0x68];
-	Real m_boundingCircleRadius;			// +0xB0
-	unsigned char m_padB4[0x109 - 0xB4];
-	unsigned char m_kindOf109;			// +0x109, bit 0x40 = KINDOF_DOZER
-	unsigned char m_pad10A[0x10F - 0x10A];
-	unsigned char m_kindOf10F;			// +0x10F, bit 0x80 = factory
-	unsigned char m_pad110[0x11B - 0x110];
-	unsigned char m_bfme11B;			// +0x11B, bit 0x20 = free to build
-	unsigned char m_pad11C[0x484 - 0x11C];
-	ThingTemplate *m_nextThingTemplate;		// +0x484
-	unsigned char m_pad488[0x633 - 0x488];
-	unsigned char m_isAutoBuilt;			// +0x633
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 enum BodyDamageType { BODY_PRISTINE = 0 };
@@ -436,7 +413,7 @@ public:
 	void *rva0028BC58(Int which);
 	AIUpdateInterface *getAI() const { return m_ai; }
 	const ThingTemplate *getTemplate() const { return m_template; }
-	Bool isKindOfDozer() const { return (getTemplate()->m_kindOf109 & 0x40) != 0; }
+	Bool isKindOfDozer() const { return (getTemplate()->m_kindof[0] & (1U << 14)) != 0; }
 	void setTeam(Team *team);
 	void rva00291298(AsciiString name, Int value);
 	void updateObjValuesFromMapProperties(Dict *properties);

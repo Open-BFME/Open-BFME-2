@@ -39,16 +39,7 @@ static __forceinline void critterDesyncLog(const char *text)
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const
-	{
-		return m_kindOf[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class GeometryInfo
 {
@@ -155,7 +146,7 @@ StateReturnType AIMoveToState::onEnter()
 	if (getMachine()->getGoalObject())
 	{
 		m_goalPosition = *getMachine()->getGoalObject()->getPosition();
-		if (getMachineOwner()->getTemplate()->isKindOf(KINDOF_BIT_25))
+		if ((getMachineOwner()->getTemplate()->m_kindof[KINDOF_BIT_25 >> 5] & (1U << (KINDOF_BIT_25 & 0x1f))))
 		{
 			Real halfHeight = getMachine()->getGoalObject()->getGeometryInfo().getMaxHeightAbovePosition() * 0.5f;
 			m_goalPosition.z += halfHeight;

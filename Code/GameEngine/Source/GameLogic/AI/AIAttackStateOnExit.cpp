@@ -117,14 +117,7 @@ public:
 	virtual Int getContainCount(Int kind) = 0;
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad68[0x108 - 0x68];
-	unsigned char m_kindOf[0x14]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Rva002C9400ByteField
 {
 public:
@@ -329,7 +322,7 @@ StateReturnType AIAttackState::update()
 	AIUpdateInterface *sourceAI = source->getAI();
 	if (sourceAI && sourceAI->slot152())
 		return STATE_CONTINUE;
-	if (source->isOutOfAmmo() && !(source->getTemplate()->m_kindOf[3] & 2))
+	if (source->isOutOfAmmo() && !(source->getTemplate()->m_kindof[0] & (1U << 25)))
 		return STATE_FAILURE;
 
 	if (m_isAttackingObject)
@@ -337,7 +330,7 @@ StateReturnType AIAttackState::update()
 		if (!victim || victim->isEffectivelyDeadBfme() || victim->testStatus(OBJECT_STATUS_32))
 		{
 			source->getAI()->notifyVictimIsDead();
-			if (source->getTemplate()->m_kindOf[0x12] & 0x80)
+			if (source->getTemplate()->m_kindof[4] & (1U << 23))
 				return STATE_SUCCESS;
 			Int result = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine(); return result > STATE_CONTINUE ? STATE_CONTINUE : (StateReturnType)result;
 		}
@@ -346,7 +339,7 @@ StateReturnType AIAttackState::update()
 		Bool status1C = source->testStatus(OBJECT_STATUS_1C);
 		Bool isEnemy = source->getRelationship(victim) == ENEMIES; _ReadWriteBarrier();
 		if (!isEnemy && m_49 && (lastCommandSource & 2) && !status1C &&
-			!(victim->getTemplate()->m_kindOf[0xB] & 0x40))
+			!(victim->getTemplate()->m_kindof[2] & (1U << 30)))
 		{
 			ai->friend_setGoalObject(0);
 			if (victim == source->getTeam()->getTeamTargetObject())
@@ -386,7 +379,7 @@ if (sourceAI && !victim->testStatus(OBJECT_STATUS_01) && victim->getContain() &&
 		if (!curWeapon)
 			return STATE_FAILURE;
 		if (((const StringBase<char> *)&m_weaponName)->compare(((const StringBase<char> *)&curWeapon->getTemplate()->m_name)->str()) != 0 &&
-			((const StringBase<char> *)&source->getTemplate()->m_name)->compare("GondorTrebuchet") != 0)
+			((const StringBase<char> *)&source->getTemplate()->m_nameString)->compare("GondorTrebuchet") != 0)
 			return STATE_FAILURE;
 	}
 	if (!curWeapon || curWeapon->m_maxShotCount <= 0)
@@ -415,7 +408,7 @@ if (sourceAI && !victim->testStatus(OBJECT_STATUS_01) && victim->getContain() &&
 	else
 	{
 		source->setModelConditionState(1 * 32 + 5);
-		if (victim && (victim->getTemplate()->m_kindOf[0] & 0x80))
+		if (victim && (victim->getTemplate()->m_kindof[0] & (1U << 7)))
 			source->setModelConditionState(1 * 32 + 6);
 		if (!m_isAttackingObject)
 			source->setModelConditionState(1 * 32 + 7);

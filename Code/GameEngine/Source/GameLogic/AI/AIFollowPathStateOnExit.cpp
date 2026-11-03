@@ -77,14 +77,7 @@ struct Rva0028AC4EEntry
 	unsigned char m_pad00[0x2C];
 	Real m_bfme2C; // +0x2C
 };
-class ThingTemplate
-{
-public:
-	Bool testKindByte115() const { return (m_kindOf[1] & 0x20) != 0; }
-private:
-	unsigned char m_pad00[0x114];
-	unsigned char m_kindOf[4]; // +0x114
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -127,7 +120,7 @@ void AIFollowPathState::onExit( StateExitType status )
 	ai->friend_setCurrentGoalPathIndex( -1 );
 
 	Object *obj = getMachineOwner();
-	if (!obj->getTemplate()->testKindByte115())
+	if (!((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 		obj->setStatus(OBJECT_STATUS_BFME_90, false);
 	if (obj->rva0028AC4E())
 		const_cast<Rva0028AC4EEntry *>(obj->rva0028AC4E())->m_bfme2C = -1.0f;

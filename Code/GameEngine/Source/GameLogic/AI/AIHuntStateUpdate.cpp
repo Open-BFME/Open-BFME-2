@@ -95,16 +95,7 @@ public:
 	virtual AIHuntContainTarget *slot31() = 0;
 };
 
-class ThingTemplate
-{
-public:
-	Bool testKind108() const { return (m_kind[0x108 - 0x108] & 0x80) != 0; }
-	Bool testKind10B() const { return (m_kind[0x10B - 0x108] & 0x02) != 0; }
-	Bool testKind115() const { return (m_kind[0x115 - 0x108] & 0x20) != 0; }
-private:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kind[0x18]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct TeamTemplateInfo
 {
@@ -251,13 +242,13 @@ StateReturnType AIHuntState::update()
 	Object *owner = getMachineOwner();
 	Bool holdTarget = owner->testStatus(OBJECT_STATUS_BFME_1C);
 	Object *huntGoal = m_huntMachine->getGoalObject();
-	if (owner->getTemplate()->testKind115())
+	if (((owner->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 	{
 		ContainModuleInterface *contain = owner->getContain();
 		if (contain)
 		{
 			AIHuntContainTarget *target = contain->slot31();
-			if (target && huntGoal && !huntGoal->getTemplate()->testKind108() && target->slot88(huntGoal))
+			if (target && huntGoal && !((huntGoal->getTemplate()->m_kindof[0] & (1U << 7)) != 0) && target->slot88(huntGoal))
 				holdTarget = true;
 		}
 	}
@@ -265,7 +256,7 @@ StateReturnType AIHuntState::update()
 	if (!holdTarget && now >= m_nextEnemyScanTime)
 	{
 		// if all of our weapons are out of ammo, can't hunt.
-		if (owner->isOutOfAmmo() && !owner->getTemplate()->testKind10B())
+		if (owner->isOutOfAmmo() && !((owner->getTemplate()->m_kindof[0] & (1U << 25)) != 0))
 			return STATE_FAILURE;
 
 		// Check to see if we have created a crate we need to pick up.

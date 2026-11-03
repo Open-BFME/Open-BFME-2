@@ -31,15 +31,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class ThingTemplate
-{
-public:
-	UnsignedInt isKindOf(UnsignedInt mask) const { return m_kindOf & mask; }
-
-private:
-	char m_pad0[0x108];
-	UnsignedInt m_kindOf;	// +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../Object/object.h"
 

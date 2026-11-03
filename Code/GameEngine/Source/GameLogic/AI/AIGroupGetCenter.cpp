@@ -50,16 +50,7 @@ private:
 	void *m_validSurfaces;	// +0x1DC
 };
 
-class ThingTemplate
-{
-public:
-	// Keep the retail inline test without a competing external copy.
-	__declspec(dllimport) __forceinline UnsignedInt isKindOf(UnsignedInt mask) const { return m_kindOf & mask; }
-
-private:
-	char m_pad0[0x108];
-	UnsignedInt m_kindOf;	// +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -68,7 +59,7 @@ public:
 	void rva0028AD32();
 	Int rva0028B511() const;	// the pathfind layer (as Object::getLayer callers)
 	Bool isDisabledByHeld() const { return (m_disabledMask[0] & 8) != 0; }
-	UnsignedInt isKindOf(UnsignedInt mask) const { return m_template->isKindOf(mask); }
+	UnsignedInt isKindOf(UnsignedInt mask) const { return (m_template->m_kindof[0] & mask); }
 	const Coord3D *getPosition() const { return &m_position; }
 	// Retail inlines this +0x258 load; suppress the surplus external copy.
 	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }

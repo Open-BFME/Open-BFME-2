@@ -327,21 +327,7 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	UnsignedInt kindOfWord(Int i) const { return ((const UnsignedInt *)m_kindOf)[i]; }
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x14]; // +0x108
-	unsigned char m_pad11C[0x122 - 0x11C];
-	unsigned char m_122; // +0x122
-	unsigned char m_pad123[0x53C - 0x123];
-	Real m_firingArc; // +0x53C
-	unsigned char m_pad540[0x5FD - 0x540];
-	Bool m_useCrushAttack; // +0x5FD
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -381,8 +367,8 @@ public:
 		Object *container = getOutermostContainer();
 		return container && container->isKindOfImmobile();
 	}
-	Bool isKindOfImmobile() const { return getTemplate()->isKindOfImmobile(); }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfImmobile() const { return ((getTemplate()->m_kindof[0] & (1U << 2)) != 0); }
+	Bool isKindOfProjectile() const { return ((getTemplate()->m_kindof[0] & (1U << 25)) != 0); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -865,7 +851,7 @@ __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Wea
 {
 	if (weapon && victim && !((const Rva002C9400ByteField *)weapon->getTemplate())->get() &&
 		!weapon->getTemplate()->isContactWeapon() &&
-		((source->getTemplate()->m_kindOf[7] & 8) || (source->getTemplate()->m_122 & 0x40)))
+		((source->getTemplate()->m_kindof[1] & (1U << 27)) || (source->getTemplate()->m_kindof[6] & (1U << 22))))
 	{
 		Rva002619C1Filter filter(source);
 		if (!filter.allow(victim))
@@ -1314,7 +1300,7 @@ Bool AIAttackApproachTargetState::computePath()
   critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 18");
   setAdjustsDestination(true);
   Bool usePathfinder=false;
-  if(!(source->getTemplate()->m_kindOf[7]&8))usePathfinder=true;
+  if(!(source->getTemplate()->m_kindof[1] & (1U << 27)))usePathfinder=true;
   m_goalPosition=m_prevVictimPos;
   if(!usePathfinder && TheAI->pathfinder()->CanApproachToTarget(source,victim->getPosition(),(Rva002C9B80Owner*)weapon,false))usePathfinder=true;
   if(canPursue(source,weapon,victim) && usePathfinder)return false;

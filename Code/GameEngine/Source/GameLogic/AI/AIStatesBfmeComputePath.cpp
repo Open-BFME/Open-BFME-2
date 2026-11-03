@@ -265,14 +265,7 @@ enum KindOfType
 	KINDOF_SIEGE_TOWER = 93,
 	KINDOF_WALL_UPGRADE = 150
 };
-class ThingTemplate
-{
-public:
-	unsigned int isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned int m_kindOf[7]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object : public Thing
 {
@@ -984,7 +977,7 @@ Bool AIAttackMeleeApproachState::computePath()
 		dist -= victim->getGeometryRadiusB8();
 		if (delta.length() < TheAI->getAiData()->m_bfme94 + TheAI->getAiData()->m_bfme90)
 			return false;
-		if (victim->getTemplate()->isKindOf(KINDOF_WALL_UPGRADE))
+		if ((victim->getTemplate()->m_kindof[KINDOF_WALL_UPGRADE >> 5] & (1U << (KINDOF_WALL_UPGRADE & 0x1f))))
 			return false;
 		if (rva00344EB2Gate(source, victim))
 		{
@@ -1000,7 +993,7 @@ Bool AIAttackMeleeApproachState::computePath()
 		{
 			Module *siege = 0;
 			DynamicPortalBehaviour *portal = 0;
-			if (victim->getTemplate()->isKindOf(KINDOF_SIEGE_TOWER) && source->rva0028B511() != 1)
+			if ((victim->getTemplate()->m_kindof[KINDOF_SIEGE_TOWER >> 5] & (1U << (KINDOF_SIEGE_TOWER & 0x1f))) && source->rva0028B511() != 1)
 			{
 				static NameKeyType key_SiegeDeploySpecialPower = TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
 				siege = victim->findModule(key_SiegeDeploySpecialPower);

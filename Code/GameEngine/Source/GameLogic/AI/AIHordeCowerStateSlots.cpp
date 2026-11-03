@@ -199,14 +199,7 @@ public:
 	virtual void rva0034523CSlot90(int value) = 0;
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfBfme108Bit2() const { return (m_kindOf[0] & 4) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[4]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum WeaponSetType
 {
@@ -404,7 +397,7 @@ public:
 void AIHordeEnterState::onExit(StateExitType status)
 {
 	Object *goal = getMachine()->getGoalObject();
-	if (goal && !goal->getTemplate()->isKindOfBfme108Bit2())
+	if (goal && !((goal->getTemplate()->m_kindof[0] & (1U << 2)) != 0))
 		goal->rva00292ED0(DISABLED_BFME_8);
 	State::onExit(status);
 }
@@ -624,7 +617,7 @@ StateReturnType AIHordeEnterState::onEnter()
 				&& goalContain->rva00346269Slot38(owner, true, false))
 			{
 				horde->rva0034627FSlot31(goal->getPosition(), 2, goal);
-				if (!goal->getTemplate()->isKindOfBfme108Bit2())
+				if (!((goal->getTemplate()->m_kindof[0] & (1U << 2)) != 0))
 					goal->rva00292EB3(DISABLED_BFME_8);
 				goalContain->rva0034629CSlot39(owner);
 				return STATE_CONTINUE;

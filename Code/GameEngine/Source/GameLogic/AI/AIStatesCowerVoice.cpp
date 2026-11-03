@@ -136,14 +136,7 @@ private:
 	Bool m_bfmeFlag3B1; // +0x3B1
 };
 
-class ThingTemplate
-{
-public:
-	Bool testKindByte117() const { return (m_kindOf[3] & 0x08) != 0; }
-private:
-	unsigned char m_pad00[0x114];
-	unsigned char m_kindOf[12]; // +0x114
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class ConditionBits
 {
@@ -250,7 +243,7 @@ StateReturnType AICowerState::update()
 	Object *goal = getMachine()->getGoalObject();
 	if (!goal)
 		return STATE_SUCCESS;
-	if (goal->isEffectivelyDead() && !goal->getTemplate()->testKindByte117())
+	if (goal->isEffectivelyDead() && !((goal->getTemplate()->m_kindof[3] & (1U << 27)) != 0))
 		return STATE_SUCCESS;
 
 	Object *obj = getMachineOwner();

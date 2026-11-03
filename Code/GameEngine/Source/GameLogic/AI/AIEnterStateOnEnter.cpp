@@ -100,16 +100,7 @@ public:
 	Locomotor *m_curLocomotor; // +0x1F0
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const
-	{
-		return m_kindOf[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -207,7 +198,7 @@ StateReturnType AIEnterState::onEnter()
 		if (contain)
 		{
 			m_goalPosition = *contain->getEnterPosition();
-			if (goal->getTemplate()->isKindOf(KINDOF_BIT_191))
+			if ((goal->getTemplate()->m_kindof[KINDOF_BIT_191 >> 5] & (1U << (KINDOF_BIT_191 & 0x1f))))
 				TheAI->pathfinder()->AdjustDestination(obj, obj->getAI()->m_locomotorSet,
 					&m_goalPosition, 0);
 			contain->onObjectWantsToEnterOrExit(obj, WANTS_TO_ENTER);
