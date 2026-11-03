@@ -298,11 +298,7 @@ public:
 };
 extern GameEngine *TheGameEngine;
 
-class InGameUI
-{
-public:
-	void setInputEnabled(bool enable);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class Mouse

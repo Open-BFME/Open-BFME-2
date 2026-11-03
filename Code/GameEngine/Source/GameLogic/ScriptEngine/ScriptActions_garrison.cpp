@@ -390,12 +390,7 @@ class Rva0042C0DBDelegate { public: int invokeMessage(GameMessage *); };
 
 class Rva005CB260;
 
-class InGameUI
-{
-public:
-	Rva005CB260 *rva000CF155(); // the +0x10 notification box, null-checked
-	void addNamedTimer(const AsciiString &timerName, const UnicodeString &text, bool isCountdown);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 

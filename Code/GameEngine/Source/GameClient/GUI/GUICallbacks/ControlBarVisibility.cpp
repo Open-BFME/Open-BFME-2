@@ -128,11 +128,7 @@ public:
 	void rva005CB260(int observer);
 };
 
-class InGameUI
-{
-public:
-	Rva005CB260 *rva000CF155();
-};
+#include "../../../../Include/GameClient/InGameUI.h"
 
 void hideReplayControls();
 

@@ -69,14 +69,7 @@ public:
 class GameClient;
 extern GameClient *TheGameClient;
 
-class InGameUI
-{
-public:
-	Bool isInForceAttackMode() const { return m_forceAttackMode; }
-private:
-	unsigned char m_pad00[0x8B8];
-	Bool m_forceAttackMode;					// +0x8B8
-};
+#include "../../../../GameEngine/Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 UnsignedInt Rva0030F099(Bool forceAttackMode);

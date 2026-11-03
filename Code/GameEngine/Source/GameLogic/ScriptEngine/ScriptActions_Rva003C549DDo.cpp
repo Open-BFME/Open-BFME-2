@@ -37,11 +37,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class InGameUI
-{
-public:
-	void addNamedTimer(const AsciiString &timerName, const UnicodeString &text, bool isCountdown);
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 class ScriptEngine;

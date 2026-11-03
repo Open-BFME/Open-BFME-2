@@ -91,38 +91,7 @@ class Rva005CB260;
 // returns (both pinned, as in AptQuitMenuCallbacks.cpp).
 // TheInGameUI (0x009FEDF0): vslot 94 shows or hides a menu, vslot 95 tells
 // whether one is up; the byte at +0x16 lets mode 6 use the store.
-class InGameUI
-{
-public:
-#define IGUI_SLOT(N) virtual void slot##N();
-	IGUI_SLOT(00) IGUI_SLOT(01) IGUI_SLOT(02) IGUI_SLOT(03) IGUI_SLOT(04)
-	IGUI_SLOT(05) IGUI_SLOT(06) IGUI_SLOT(07) IGUI_SLOT(08) IGUI_SLOT(09)
-	IGUI_SLOT(10) IGUI_SLOT(11) IGUI_SLOT(12) IGUI_SLOT(13) IGUI_SLOT(14)
-	IGUI_SLOT(15) IGUI_SLOT(16) IGUI_SLOT(17) IGUI_SLOT(18) IGUI_SLOT(19)
-	IGUI_SLOT(20) IGUI_SLOT(21) IGUI_SLOT(22) IGUI_SLOT(23) IGUI_SLOT(24)
-	IGUI_SLOT(25) IGUI_SLOT(26) IGUI_SLOT(27) IGUI_SLOT(28) IGUI_SLOT(29)
-	IGUI_SLOT(30) IGUI_SLOT(31) IGUI_SLOT(32) IGUI_SLOT(33) IGUI_SLOT(34)
-	IGUI_SLOT(35) IGUI_SLOT(36) IGUI_SLOT(37) IGUI_SLOT(38) IGUI_SLOT(39)
-	IGUI_SLOT(40) IGUI_SLOT(41) IGUI_SLOT(42) IGUI_SLOT(43) IGUI_SLOT(44)
-	IGUI_SLOT(45) IGUI_SLOT(46) IGUI_SLOT(47) IGUI_SLOT(48) IGUI_SLOT(49)
-	IGUI_SLOT(50) IGUI_SLOT(51) IGUI_SLOT(52) IGUI_SLOT(53) IGUI_SLOT(54)
-	IGUI_SLOT(55) IGUI_SLOT(56) IGUI_SLOT(57) IGUI_SLOT(58) IGUI_SLOT(59)
-	IGUI_SLOT(60) IGUI_SLOT(61) IGUI_SLOT(62) IGUI_SLOT(63) IGUI_SLOT(64)
-	IGUI_SLOT(65) IGUI_SLOT(66) IGUI_SLOT(67) IGUI_SLOT(68) IGUI_SLOT(69)
-	IGUI_SLOT(70) IGUI_SLOT(71) IGUI_SLOT(72) IGUI_SLOT(73) IGUI_SLOT(74)
-	IGUI_SLOT(75) IGUI_SLOT(76) IGUI_SLOT(77) IGUI_SLOT(78) IGUI_SLOT(79)
-	IGUI_SLOT(80) IGUI_SLOT(81) IGUI_SLOT(82) IGUI_SLOT(83) IGUI_SLOT(84)
-	IGUI_SLOT(85) IGUI_SLOT(86) IGUI_SLOT(87) IGUI_SLOT(88) IGUI_SLOT(89)
-	IGUI_SLOT(90) IGUI_SLOT(91) IGUI_SLOT(92) IGUI_SLOT(93)
-#undef IGUI_SLOT
-	virtual void slot94(bool visible);
-	virtual bool slot95();
-
-	Rva005CB260 *rva000CF155();
-
-	unsigned char m_pad004[0x16 - 4];
-	bool m_16; // +0x16
-};
+#include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
 // Rva0050E9D3Enable.cpp's 0x0043C96F.
@@ -603,7 +572,7 @@ void Rva0043D3DA::rva0043C7C9(int unused)
 {
 	(void)unused;
 	if (TheGameLogic->m_110 == 6) {
-		if (TheInGameUI->m_16 == 0)
+		if (TheInGameUI->field016 == 0)
 			return;
 	}
 	if (m_closed)

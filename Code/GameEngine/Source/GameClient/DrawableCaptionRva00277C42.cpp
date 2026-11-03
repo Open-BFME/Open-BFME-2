@@ -88,13 +88,7 @@ public:
 	virtual Int worldToScreen(const Coord3D *world, ICoord2D *screen); // +0x160
 };
 
-class InGameUI
-{
-	char m_pad[0x7a8];
-
-public:
-	Color m_drawableCaptionColor; // +0x7A8
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 extern Display *TheDisplay;
 extern View *TheTacticalView;

@@ -114,12 +114,7 @@ struct UnknownE03138
 // reads it through its UnknownE03138 view.
 class VictoryConditionsInterface;
 VictoryConditionsInterface *TheVictoryConditions = 0;
-class InGameUI
-{
-public:
-	char m_pad[0x8c5];
-	unsigned char m_flag;
-};
+#include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 void __cdecl Rva0051B09BEnable(void)
@@ -136,7 +131,7 @@ void __cdecl Rva0051B09BEnable(void)
 		return;
 	GameMessage *msg2 = TheMessageStream->v18(0x448);
 	msg2->appendBooleanArgument(false);
-	TheInGameUI->m_flag = 1;
+	TheInGameUI->m_8C5 = 1;
 }
 // ?g_Va00A04910@@3PAUGlobalA04910@@A: the global at VA 0xe04910 is ?g_Va00E04910@@3HA.
 
