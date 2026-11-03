@@ -6869,3 +6869,13 @@ param,Drawable::rva00275DCE::a4,Drawable::rva00275DCE::rate,inferred,agree:nl-42
 local,Drawable::rva0027B18C::o,Drawable::rva0027B18C::nearbyObject,inferred,agree:nl-7be8b4e16d84,Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp,0x0027B18C
 param,Rva00412689SkipSpaces::p,Rva00412689SkipSpaces::queryCursor,inferred,agree:nl-38824eab28c9-ma4e8a4ebf103b3edcf1bb71f,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x00412689
 param,Rva004126A6SkipPastEquals::p,Rva004126A6SkipPastEquals::queryCursor,inferred,agree:nl-71bc44ca7eed-m093462f445e077f30b8e4778,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126A6
+param,Rva004126BDSkipPastAmpersand::p,Rva004126BDSkipPastAmpersand::queryCursor,inferred,agree:nl-4baa467deb60-mf9f8b511626ffbd2a2b68de0,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126BD
+local,BfmeAptScreenBase::BfmeAptScreenBase::p,BfmeAptScreenBase::BfmeAptScreenBase::screenContext,inferred,agree:nl-6c7b5665549a-m5b3a938e5a9f91603a57b88a,Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenBaseConstructor.cpp,0x00313847
+local,Rva0031DCF0::~Rva0031DCF0::n,Rva0031DCF0::~Rva0031DCF0::elementIndex,inferred,agree:nl-0580f1218573-ma81bc865ba7b3f70f253091a,Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp,0x0031DCF0
+local,GadgetComboBoxSetValidationFlags::c,GadgetComboBoxSetValidationFlags::childData,inferred,agree:nl-e64da5f7655a-m412dd6ebd254b1060dd44374,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSetValidationFlags.cpp,0x00322699
+local,GadgetComboBoxSetValidationFlags::f,GadgetComboBoxSetValidationFlags::validationFlags,inferred,agree:nl-c19f327c2c39-m5283d84bae3032da25e8dffa,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBoxSetValidationFlags.cpp,0x00322699
+local,Rva0042FCAC::rva0042FCAC::n,Rva0042FCAC::rva0042FCAC::hashNode,inferred,agree:nl-f24109bcf568,Code/GameEngine/Source/GameClient/GUI/Rva0042FCAC.cpp,0x0042FCAC
+local,Rva0042FD55::rva0042FD55::n,Rva0042FD55::rva0042FD55::hashBucketIndex,inferred,agree:nl-db20ac44a29a-m821ace7df4567a135b7bf8d4,Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp,0x0042FD55
+param,lookupKey::v,lookupKey::hashEntry,inferred,agree:nl-4cf7d41bd70b-m9be79a15103a585f03269109,Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp,
+param,tableAt::n,tableAt::hashBucketIndex,inferred,agree:nl-de794324fa5d-m5c808343085d585f857b99b2,Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp,
+local,scanBool::temp,scanBool::parsedValue,inferred,agree:nl-319f09a7101a,Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp,

@@ -26,8 +26,8 @@ public:
 
 void *Rva0042FCAC::rva0042FCAC(const void *obj)
 {
-	Rva0042FCACNode *n = (Rva0042FCACNode *)_STL::allocator<char>().allocate(12, 0);
-	n->_M_next = 0;
-	_STL::_Construct(&n->_M_val, *(const UIntBoolHashtablePair *)obj);
-	return n;
+	Rva0042FCACNode *hashNode = (Rva0042FCACNode *)_STL::allocator<char>().allocate(12, 0);
+	hashNode->_M_next = 0;
+	_STL::_Construct(&hashNode->_M_val, *(const UIntBoolHashtablePair *)obj);
+	return hashNode;
 }

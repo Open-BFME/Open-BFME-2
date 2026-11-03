@@ -49,19 +49,19 @@ private:
 	char m_pad00[4];
 	UIntBoolBucketTable0042FD55 m_table;
 	unsigned m_count;
-	static unsigned lookupKey(const UIntBoolPair0042FD55 &v) { return v.first; }
+	static unsigned lookupKey(const UIntBoolPair0042FD55 &hashEntry) { return hashEntry.first; }
 	unsigned tableSize() const { return m_table.size(); }
-	UIntBoolBucket0042FD55 *&tableAt(unsigned n) { return m_table.at(n); }
+	UIntBoolBucket0042FD55 *&tableAt(unsigned hashBucketIndex) { return m_table.at(hashBucketIndex); }
 };
 
 unsigned int *Rva0042FD55::rva0042FD55(const void *value)
 {
 	((NameKeyGenerator::KeyToBucketMap *)this)->resize(m_count + 1);
-	const unsigned n = lookupKey(*(const UIntBoolPair0042FD55 *)value) % tableSize();
-	UIntBoolBucket0042FD55 *oldHead = tableAt(n);
+	const unsigned hashBucketIndex = lookupKey(*(const UIntBoolPair0042FD55 *)value) % tableSize();
+	UIntBoolBucket0042FD55 *oldHead = tableAt(hashBucketIndex);
 	UIntBoolBucket0042FD55 *node = (UIntBoolBucket0042FD55 *)((Rva0042FCAC *)this)->rva0042FCAC(value);
 	node->next = oldHead;
-	tableAt(n) = node;
+	tableAt(hashBucketIndex) = node;
 	++m_count;
 	return &node->pair.first;
 }

@@ -274,11 +274,11 @@ Rva0031DCF0::~Rva0031DCF0()
 	::delete m_2A0;
 	m_2A0 = 0;
 
-	unsigned int n;
-	for (n = 0; n < m_230.size(); ++n)
-		::delete (Rva0031DCF0Owned *)m_230[n];
-	for (n = 0; n < m_23C.size(); ++n)
-		::delete (Rva0031DCF0Owned *)m_23C[n];
+	unsigned int elementIndex;
+	for (elementIndex = 0; elementIndex < m_230.size(); ++elementIndex)
+		::delete (Rva0031DCF0Owned *)m_230[elementIndex];
+	for (elementIndex = 0; elementIndex < m_23C.size(); ++elementIndex)
+		::delete (Rva0031DCF0Owned *)m_23C[elementIndex];
 	m_230.clear();
 	m_23C.clear();
 

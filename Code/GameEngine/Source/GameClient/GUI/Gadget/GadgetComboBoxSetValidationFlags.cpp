@@ -31,9 +31,9 @@ void GadgetComboBoxSetValidationFlags(GameWindow *window, Int value)
 	if (!data)
 		return;
 	data->flags |= value;
-	Int f = data->flags;
-	Rva00322699Child *c = data->child;
-	if (!c)
+	Int validationFlags = data->flags;
+	Rva00322699Child *childData = data->child;
+	if (!childData)
 		return;
-	c->flags = f;
+	childData->flags = validationFlags;
 }

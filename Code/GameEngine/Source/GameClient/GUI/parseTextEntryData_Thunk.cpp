@@ -22,9 +22,9 @@ struct EntryData
 
 static Int scanBool(const char *source, Bool &val)
 {
-	Int temp = 0;
-	Int ret = sscanf(source, "%d", &temp);
-	val = (Bool)temp;
+	Int parsedValue = 0;
+	Int ret = sscanf(source, "%d", &parsedValue);
+	val = (Bool)parsedValue;
 	return ret;
 }
 

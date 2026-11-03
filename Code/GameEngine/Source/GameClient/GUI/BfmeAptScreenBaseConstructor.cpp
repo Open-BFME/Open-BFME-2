@@ -70,8 +70,8 @@ BfmeAptScreenBase::BfmeAptScreenBase( void *context )
 	m_regionLoY = ctx->y;
 	m_regionHiX = ctx->width + ctx->x;
 	const BfmeAptScreenContext *q = (const BfmeAptScreenContext *)context;
-	const BfmeAptScreenContext *p = ctx;
-	m_regionHiY = q->height + p->y;
+	const BfmeAptScreenContext *screenContext = ctx;
+	m_regionHiY = q->height + screenContext->y;
 	m_cursorX = zero;
 	m_cursorY = zero;
 	m_userData = 0;

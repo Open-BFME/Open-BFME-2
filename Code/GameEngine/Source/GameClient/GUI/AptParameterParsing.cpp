@@ -35,11 +35,11 @@ static inline void Rva004126A6SkipPastEquals(const char **queryCursor)
 
 // Native 004126BD..004126D4 (EAX = cursor address): advance past the next
 // '&' or to the terminator. Inlined into GetParam to skip a parameter.
-static inline void Rva004126BDSkipPastAmpersand(const char **p)
+static inline void Rva004126BDSkipPastAmpersand(const char **queryCursor)
 {
- while (**p) {
-  if (**p == '&') { ++*p; return; }
-  ++*p;
+ while (**queryCursor) {
+  if (**queryCursor == '&') { ++*queryCursor; return; }
+  ++*queryCursor;
  }
 }
 
