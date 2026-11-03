@@ -589,3 +589,4 @@ TerrainFireEmissionInfo,Code/GameEngine/Include/GameClient/TerrainFireEmissionIn
 OrthoEmissionVelocityInfo,Code/GameEngine/Include/GameClient/OrthoEmissionVelocityInfo.h,existing header; contract class_contracts/OrthoEmissionVelocityInfo.json; 7/10 sampled units adopt
 SubTitleWindow,Code/GameEngine/Include/GameClient/SubTitleWindow.h,existing header; contract class_contracts/SubTitleWindow.json; 8/11 sampled units adopt
 AudioFileCache,Code/GameEngineDevice/Include/MilesAudioDevice/AudioFileCache.h,existing header; contract class_contracts/AudioFileCache.json; 4/11 sampled units adopt
+W3DBufferManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManagerClass.h,existing header; contract class_contracts/W3DBufferManager.json; 9/12 sampled units adopt
