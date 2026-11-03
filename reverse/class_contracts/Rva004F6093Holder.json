@@ -1,0 +1,68 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004F6093Holder",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 29,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {
+    "icf_shared_ctors": {
+     "kind": "target",
+     "rule": "ledger-names",
+     "sites": [
+      "0x4f6093"
+     ],
+     "value": {
+      "0x4f6093": [
+       "Rva0040DC56Element",
+       "Rva004F6093Holder"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "4": 26
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_ptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ArmySummaryEntry*",
+   "views": 26,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 61
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {}
+}
