@@ -55,22 +55,8 @@ enum TransitionStatus
 // update is pure here as in the rest of the module hierarchy; this unit
 // names no override, like BattlePlanUpdateRva004978A3Dtor.cpp, so the two
 // units emit one ??_7BattlePlanUpdate@@6BUpdateModule@@@.
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-private:
-	UnsignedInt m_nextCallFrameAndPhase; // +0x14
-	Int m_indexInLogic; // +0x18
-	Int m_reserved1C; // +0x1C
-};
 
 // The abstract interface at +0x20 (ZH's SpecialPowerUpdateInterface slot).
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
