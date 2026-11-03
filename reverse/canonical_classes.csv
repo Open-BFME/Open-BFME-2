@@ -536,3 +536,4 @@ StoreObjectsSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/Stor
 CurseSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/CurseSpecialPowerModuleData.h,existing header; contract class_contracts/CurseSpecialPowerModuleData.json; 10/13 sampled units adopt
 LivingWorldArmy,Code/GameEngine/Include/GameLogic/LivingWorldArmy.h,existing header; contract class_contracts/LivingWorldArmy.json; 3/12 sampled units adopt
 DominateEnemySpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h,existing header; contract class_contracts/DominateEnemySpecialPowerModuleData.json; 8/14 sampled units adopt
+SkirmishPreferences,Code/GameEngine/Include/GameClient/SkirmishPreferencesClass.h,existing header; contract class_contracts/SkirmishPreferences.json; 9/15 sampled units adopt

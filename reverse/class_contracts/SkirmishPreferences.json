@@ -1,0 +1,405 @@
+{
+ "bases": [
+  "UserPreferences"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "SkirmishPreferences",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 15,
+  "inherited": {
+   "base_views": 6,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 3
+   },
+   "0x1c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x43c128"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UserPreferences",
+       "offset": 0,
+       "own_vftable": "0x83d658",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x43c128"
+     ],
+     "value": 32
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x43c128"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x1c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x43c128"
+     ],
+     "value": {
+      "0x0": [
+       "?load@UserPreferences@@UAE_NABVAsciiString@@@Z"
+      ],
+      "0x18": [
+       "??0?$list@VUnicodeString@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@QAE@I@Z"
+      ],
+      "0x1c": [
+       "?set@?$StringBase@D@@QAEXABV1@@Z"
+      ],
+      "0x4": [
+       "??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@1@ABVAsciiString@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x43c128"
+     ],
+     "value": {
+      "0x0": "0x83d658"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83d658"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GSkirmishPreferences@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x43c4b6"
+       },
+       {
+        "name": "?load@UserPreferences@@UAE_NABVUnicodeString@@@Z",
+        "slot": 1,
+        "target": "0x3b2026"
+       },
+       {
+        "name": "?load@UserPreferences@@UAE_NABVAsciiString@@@Z",
+        "slot": 2,
+        "target": "0x3b1a09"
+       },
+       {
+        "name": "?write@SkirmishPreferences@@UAE_NXZ",
+        "slot": 3,
+        "target": "0x43c6c7"
+       },
+       {
+        "name": "?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z",
+        "slot": 4,
+        "target": "0x3b1dbe"
+       },
+       {
+        "name": "?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z",
+        "slot": 5,
+        "target": "0x3b1a67"
+       },
+       {
+        "name": "?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z",
+        "slot": 6,
+        "target": "0x3b1ac7"
+       },
+       {
+        "name": "?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z",
+        "slot": 7,
+        "target": "0x3b1cee"
+       },
+       {
+        "name": "?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z",
+        "slot": 8,
+        "target": "0x3b1fa1"
+       },
+       {
+        "name": "?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z",
+        "slot": 9,
+        "target": "0x3b1b20"
+       },
+       {
+        "name": "?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z",
+        "slot": 10,
+        "target": "0x3b1b65"
+       },
+       {
+        "name": "?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z",
+        "slot": 11,
+        "target": "0x3b1bae"
+       },
+       {
+        "name": "?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z",
+        "slot": 12,
+        "target": "0x3b21a6"
+       }
+      ],
+      "table": "0x83d658"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x83d658": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GSkirmishPreferences@@UAEPAXI@Z",
+     "1": "?load@UserPreferences@@UAE_NABVUnicodeString@@@Z",
+     "2": "?load@UserPreferences@@UAE_NABVAsciiString@@@Z",
+     "3": "?write@SkirmishPreferences@@UAE_NXZ",
+     "4": "?getBool@UserPreferences@@UBE_NABVAsciiString@@_N@Z",
+     "5": "?getReal@UserPreferences@@UBEMABVAsciiString@@M@Z",
+     "6": "?getInt@UserPreferences@@UBEHABVAsciiString@@H@Z",
+     "7": "?getEnumIndex@UserPreferences@@UBEHPBDPAPBDHH@Z",
+     "8": "?getAsciiString@UserPreferences@@UBE?AVAsciiString@@ABV2@0@Z",
+     "9": "?setBool@UserPreferences@@UAEXABVAsciiString@@_N@Z",
+     "10": "?setReal@UserPreferences@@UAEXABVAsciiString@@M@Z",
+     "11": "?setInt@UserPreferences@@UAEXABVAsciiString@@H@Z",
+     "12": "?setAsciiString@UserPreferences@@UAEXABVAsciiString@@0@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "4": 2,
+   "32": 12
+  },
+  "views": 15,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_SkirmishPreferences.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SkirmishPreferences.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "_M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<AsciiString const ,AsciiString> >*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "_M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<AsciiString>",
+   "name": "_M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<AsciiString>",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_data",
+     "offset": 0,
+     "size": 4,
+     "type": "StringBase<unsigned short>::Header*"
+    }
+   ],
+   "name": "filename",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_profileIndex",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::list<UnicodeString,_STL::allocator<UnicodeString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_userNames",
+     "offset": 0,
+     "size": 4,
+     "type": "void*"
+    }
+   ],
+   "name": "m_userNames",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::list<UnicodeString,_STL::allocator<UnicodeString> >",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_currentUserName",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_currentUserName",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 20]]": 1,
+    "[[0, 4]]": 1,
+    "[[4, 20]]": 4
+   },
+   "class": "SkirmishPreferences"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "_M_t._M_header._M_data": 10
+   },
+   "class": "SkirmishPreferences"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "_M_t._M_node_count": 5
+   },
+   "class": "SkirmishPreferences"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "_M_t._M_key_compare": 5
+   },
+   "class": "SkirmishPreferences"
+  }
+ ],
+ "size": 32,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "v1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v3slotC()"
+  }
+ }
+}
