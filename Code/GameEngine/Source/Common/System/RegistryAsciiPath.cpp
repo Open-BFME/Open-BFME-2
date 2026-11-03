@@ -774,7 +774,7 @@ public: ~Gen_uwm_005f97d4();
 // through the existing STLport _Destroy then release its buffer. The
 // storage destructor mirrors STLport _Vector_base ownership and EH cleanup.
 Gen_uwm_005f97d4::~Gen_uwm_005f97d4() { _STL::_Destroy(begin, end); }
-class Rva0052413E { public: ~Rva0052413E(); private: char bytes[12]; };
+#include "../../../Include/Common/Rva0052413E.h"
 class Rva000AD6F4 {
 public:
  void clear();

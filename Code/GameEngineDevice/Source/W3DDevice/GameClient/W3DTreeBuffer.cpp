@@ -173,14 +173,7 @@ public:
 	virtual ~Rva000E6AC0Base() {}
 };
 
-class Rva0052413E
-{
-public:
-	Rva0052413E() throw();
-	~Rva0052413E();
-private:
-	unsigned char m_storage[12];
-};
+#include "../../../../GameEngine/Include/Common/Rva0052413E.h"
 
 class Rva000EDA94Ref;
 

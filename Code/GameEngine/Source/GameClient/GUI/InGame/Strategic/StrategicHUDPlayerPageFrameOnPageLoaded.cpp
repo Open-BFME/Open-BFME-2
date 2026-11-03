@@ -7,12 +7,7 @@ struct TargetRef00217D4C
 	int references;
 };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:char names[12];
-};
+#include "../../../../../Include/Common/Rva0052413E.h"
 struct Rva005F8FEEHolder
 {
 	TargetRef00217D4C *m_ptr;

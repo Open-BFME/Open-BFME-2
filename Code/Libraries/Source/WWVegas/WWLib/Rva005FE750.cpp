@@ -32,13 +32,7 @@ private:
 };
 }
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[12];
-};
+#include "../../../../GameEngine/Include/Common/Rva0052413E.h"
 
 class Rva005242D7
 {

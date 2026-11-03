@@ -33,7 +33,7 @@ private:
 	Rva000AD6F4 m10;
 };
 
-class Rva0052413E {public:~Rva0052413E();private:char fields[12];};
+#include "../../../Include/Common/Rva0052413E.h"
 
 class Rva001021F7;
 

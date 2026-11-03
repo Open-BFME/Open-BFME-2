@@ -26,13 +26,7 @@ public:
 Rva005FFBC6::~Rva005FFBC6() {}
 
 // Same single-vector representation as its defining cleanup unit.
-class Rva0052413E
-{
-public:
-    ~Rva0052413E();
-private:
-    _STL::vector<AsciiString, _STL::allocator<AsciiString> > m_00;
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva005FFBCB
 {

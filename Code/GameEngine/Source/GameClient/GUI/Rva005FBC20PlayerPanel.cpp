@@ -65,16 +65,7 @@ class Rva00579E47Delegate;
 
 // The +0x08 member: the 12-byte vector of bound names (constructor 0x001F81BF,
 // rowed destructor 0x0052413E); 0x0052458E binds a delegate under a name.
-class Rva0052413E
-{
-public:
-	Rva0052413E();
-	~Rva0052413E();
-
-
-private:
-	unsigned char m_pad[0xC];
-};
+#include "../../../Include/Common/Rva0052413E.h"
 
 
 // The native binding target is the rowed AptCommandMapAdder provider at

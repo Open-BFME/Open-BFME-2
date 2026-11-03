@@ -35,13 +35,7 @@ struct Rva005FCA8BOwner
 	Rva005FCA6DList m_list; // +0x08
 };
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[12];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 class Rva005242D7
 {

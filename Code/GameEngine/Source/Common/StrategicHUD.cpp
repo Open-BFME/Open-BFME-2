@@ -432,15 +432,7 @@ private:
 // the Apt window manager and remembers the name; the rowed destructor
 // 0x0052413E unbinds them.
 
-class Rva0052413E
-{
-public:
-	Rva0052413E();
-	~Rva0052413E();
-
-private:
-	unsigned char m_pad[0xC];
-};
+#include "../../Include/Common/Rva0052413E.h"
 
 // The Apt window manager at 0x009FE4CC; the destructor unloads the movie
 // through it. The unload is pinned under Rva00222A8BTarget, hence the cast.

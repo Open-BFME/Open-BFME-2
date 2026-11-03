@@ -9,13 +9,7 @@
 // offsets and extents12/12/24/12/12/12 after the derived vptr. Holder identities
 // remain neutral address-derived views; the complete111B body is unchanged.
 
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
-private:
-	char m_pad[12];
-};
+#include "../../../../GameEngine/Include/Common/Rva0052413E.h"
 
 class Rva005241B0
 {
