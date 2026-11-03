@@ -30,13 +30,9 @@ class GameMessage;
 namespace StrategicInGameUI
 {
 }
+#include "../../../../Include/GameClient/PlayerStatusDisplayer.h"
 namespace StrategicInGameUI
 {
-class PlayerStatusDisplayer
-{
-public:
-	GameMessageDisposition rva005CD690(const GameMessage *msg); // 0x005CD690
-};
 }
 
 // The retreat planner (rowed address-named, 0x005D1FD3).

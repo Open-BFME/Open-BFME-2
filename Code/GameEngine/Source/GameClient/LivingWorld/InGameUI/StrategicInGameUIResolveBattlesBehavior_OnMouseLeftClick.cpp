@@ -40,13 +40,9 @@ class GameMessage;
 namespace StrategicInGameUI
 {
 }
+#include "../../../../Include/GameClient/PlayerStatusDisplayer.h"
 namespace StrategicInGameUI
 {
-class PlayerStatusDisplayer
-{
-public:
-	GameMessageDisposition rva005CD690(const GameMessage *msg); // 0x005CD690
-};
 }
 
 namespace StrategicInGameUI

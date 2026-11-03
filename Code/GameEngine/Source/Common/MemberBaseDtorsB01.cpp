@@ -668,12 +668,8 @@ public:
 // StrategicInGameUI::ManualPhaseEnder::Translate (0x005CD8F7) and
 // StrategicInGameUI::PlayerStatusDisplayer::rva005CD690 (0x005CD690).
 #include "../../Include/GameLogic/ManualPhaseEnder.h"
+#include "../../Include/GameClient/PlayerStatusDisplayer.h"
 namespace StrategicInGameUI {
-class PlayerStatusDisplayer
-{
-public:
-	GameMessageDisposition rva005CD690(const GameMessage *msg);
-};
 }
 
 // Target evidence: adjacent Rva005772BF methods and its vtable support the
