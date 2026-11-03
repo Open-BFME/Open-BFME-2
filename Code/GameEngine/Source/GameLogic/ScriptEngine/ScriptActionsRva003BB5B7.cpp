@@ -6,13 +6,7 @@
 // ?Rva003BB5B7Do@ScriptActions@@QAEXPAVParameter@@HPAURGBColor@@@Z @0x003BB5B7 103B: ScriptActions member Parameter+int+color to Drawable stores.
 // Target evidence: ScriptEngine::getUnitNamed 0x003588E7 then Thing::getDrawable 0x005508E2 then v<=0 guard then BfmeLogicFramesPerSecond*v/g_00E02D9C then RGBColor::getAsInt 0x00004EA7 vs Object::getIndicatorColor 0x0028B026 then Drawable+0x168+0x16c ret 0xc; caller 0x003CBB2E.
 class Parameter;
-class Drawable
-{
-public:
-	char m_pad[0x168];
-	int m_168;
-	int m_16c;
-};
+#include "../../../Include/GameClient/Drawable.h"
 #include "../../Common/Thing/thing.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
 #include "../Object/object.h"
@@ -41,8 +35,8 @@ void ScriptActions::Rva003BB5B7Do(Parameter *p, int seconds, RGBColor *colorOver
 		color = o->getIndicatorColor();
 	else
 		color = colorOverride->getAsInt();
-	d->m_168 = scaled;
-	d->m_16c = color;
+	d->m_flashCount = scaled;
+	d->m_flashColor = color;
 }
 
 // ZH ScriptActions::doTeamFlash supplies the whole algorithm, including the
@@ -80,8 +74,8 @@ void ScriptActions::Rva003BFF50Do(const AsciiString *teamName, int seconds, RGBC
         int frames = LogicFrameRate() * seconds;
         int count = frames / DrawableFlashFramePeriod();
         int flashy = colorOverride == 0 ? obj->getIndicatorColor() : colorOverride->getAsInt();
-        draw->m_16c = flashy;
-        draw->m_168 = count;
+        draw->m_flashColor = flashy;
+        draw->m_flashCount = count;
     }
 }
 

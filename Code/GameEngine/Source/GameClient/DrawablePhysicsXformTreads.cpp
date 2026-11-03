@@ -117,28 +117,7 @@ private:
 	unsigned char m_status438;			// +0x438
 };
 
-class Drawable
-{
-public:
-	struct PhysicsXformInfo
-	{
-		Real m_totalPitch;
-		Real m_totalRoll;
-		Real m_totalYaw;
-		Real m_totalZ;
-	};
-
-protected:
-	void calcPhysicsXformTreads(const Locomotor *locomotor, PhysicsXformInfo &info);
-	void rva00270B0F(const Locomotor *locomotor, PhysicsXformInfo &info);
-
-private:
-	char m_pad000[0xFC];
-	Object *m_object;					// +0xFC
-	char m_pad100[0x13C - 0x100];
-	DrawableLocoInfo *m_locoInfo;		// +0x13C
-	Real m_bankRoll;					// +0x140
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::calcPhysicsXformTreads(const Locomotor *locomotor, PhysicsXformInfo &info)
 {
@@ -213,7 +192,7 @@ void Drawable::rva00270B0F(const Locomotor *locomotor, PhysicsXformInfo &info)
 	if (ai == 0 || !ai->slot90())
 		return;
 	Real target = ai->slot98()->m_value * 4.0f;
-	Real roll = m_bankRoll * 0.8f + target * 0.2f;
-	m_bankRoll = min(0.8f, max(-0.8f, roll));
-	info.m_totalRoll = m_bankRoll;
+	Real roll = m_140 * 0.8f + target * 0.2f;
+	m_140 = min(0.8f, max(-0.8f, roll));
+	info.m_totalRoll = m_140;
 }

@@ -86,22 +86,12 @@ public:
 
 #include <new>
 
-class Drawable
-{
-public:
-	void rva00276BA9(bool apply);
-
-private:
-	unsigned char m_pad000[0x8C];
-	Rva00271826 *m_envelope8C;				// +0x8C
-	unsigned char m_pad090[0x120 - 0x90];
-	unsigned int m_tintStatus120;			// +0x120
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::rva00276BA9(bool apply)
 {
-	if (m_envelope8C == 0)
-		m_envelope8C = new Rva00271826;
+	if (m_8C == 0)
+		m_8C = new Rva00271826;
 	if (TheCloudEffectManager == 0 || !TheCloudEffectManager->slot3C())
 		return;
 	const Coord3D *pos = ((Rva00276470Drawable *)this)->rva00276470();
@@ -115,41 +105,41 @@ void Drawable::rva00276BA9(bool apply)
 		return;
 	if (value <= -25.0f)
 	{
-		if (m_tintStatus120 & 8)
+		if (m_120 & 8)
 		{
-			m_tintStatus120 = 4;
+			m_120 = 4;
 			return;
 		}
-		if (!(m_tintStatus120 & 2))
-			m_tintStatus120 = 2;
+		if (!(m_120 & 2))
+			m_120 = 2;
 		if (apply)
 		{
 			RGBColor color = TheCloudEffectManager->m_color30;
-			(((Rva002747B8 *)m_envelope8C)->*reinterpret_cast<void (Rva002747B8::*)(RGBColor)>(&Rva002747B8::rva002747B8))(color);
+			(((Rva002747B8 *)m_8C)->*reinterpret_cast<void (Rva002747B8::*)(RGBColor)>(&Rva002747B8::rva002747B8))(color);
 		}
 		return;
 	}
 	else if (value >= 25.0f)
 	{
-		if (m_tintStatus120 & 4)
+		if (m_120 & 4)
 		{
-			m_tintStatus120 = 8;
+			m_120 = 8;
 			return;
 		}
-		if (!(m_tintStatus120 & 1))
-			m_tintStatus120 = 1;
+		if (!(m_120 & 1))
+			m_120 = 1;
 		return;
 	}
 	else
 	{
-		if (m_tintStatus120 & 1)
-			m_tintStatus120 = 4;
-		else if (m_tintStatus120 & 2)
-			m_tintStatus120 = 8;
+		if (m_120 & 1)
+			m_120 = 4;
+		else if (m_120 & 2)
+			m_120 = 8;
 	}
 	if (apply)
 	{
 		RGBColor color = TheCloudEffectManager->m_color30;
-		(((Rva002747B8 *)m_envelope8C)->*reinterpret_cast<void (Rva002747B8::*)(RGBColor)>(&Rva002747B8::rva002747B8))(color);
+		(((Rva002747B8 *)m_8C)->*reinterpret_cast<void (Rva002747B8::*)(RGBColor)>(&Rva002747B8::rva002747B8))(color);
 	}
 }

@@ -13,7 +13,7 @@
 static __forceinline Matrix3D &copyRenderTransform(Matrix3D &out,const Matrix3D &in) {out.Row[0]=in.Row[0];out.Row[1]=in.Row[1];out.Row[2]=in.Row[2];return out;}
 
 
-class Drawable {public:const Matrix3D*getTransformMatrix()const;};
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
 class DX8Scope {public:DX8Scope(){BFME_DX8_Thread_Lock();}~DX8Scope(){BFME_DX8_Thread_Assert();}};
 class RenderView {public:virtual void Delete_This();

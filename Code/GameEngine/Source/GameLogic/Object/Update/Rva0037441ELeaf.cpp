@@ -18,12 +18,7 @@ public:
 };
 
 class Player;
-class Drawable
-{
-public:
-	unsigned char m_pad[0x358];
-	float m_358;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -64,5 +59,5 @@ void StealthUpdate::hintDetectableWhileUnstealthed()
 	Drawable *drawable = ((Thing *)object)->getDrawable();
 	if (drawable == 0)
 		return;
-	drawable->m_358 = g_Va00BBB8D8;
+	drawable->m_secondMaterialPassOpacity = g_Va00BBB8D8;
 }

@@ -133,29 +133,7 @@ extern TerrainLogic *TheTerrainLogic;
 Real Sin(Real x);
 Int GetGameClientRandomValue(Int lo, Int hi, char *file, Int line);
 
-class Drawable
-{
-public:
-	Bool calcPitchRoll(void *obj, void *locomotor, void *pos, void *dir, Int pitch, Int roll);	// 0x00270276, terrain tilt
-	struct PhysicsXformInfo
-	{
-		Real m_totalPitch;
-		Real m_totalRoll;
-		Real m_totalYaw;
-		Real m_totalZ;
-	};
-
-protected:
-	void calcPhysicsXformWheels(const Locomotor *locomotor, PhysicsXformInfo &info);
-
-private:
-	char m_pad000[0xFC];
-	Object *m_object;			// +0xFC
-	char m_pad100[0x13C - 0x100];
-	DrawableLocoInfo *m_locoInfo;		// +0x13C
-public:
-	const Coord3D *getPosition() const;
-};
+#include "../../Include/GameClient/Drawable.h"
 
 void Drawable::calcPhysicsXformWheels(const Locomotor *locomotor, PhysicsXformInfo &info)
 {

@@ -28,12 +28,7 @@ public:
 	OpaqueRefElement4 m_04;
 };
 
-class Drawable
-{
-public:
-	Rva002390CB rva00374389();
-	Rva002390CB rva003743A2();
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva002D9531
 {

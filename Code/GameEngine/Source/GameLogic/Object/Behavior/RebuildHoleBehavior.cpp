@@ -279,7 +279,7 @@ class Rva001E4912 {public:Rva001E4912() {} unsigned m_bits[19]; Rva001E4912 *rva
 class Rva0023DA79 {public:Rva0023DA79() {} unsigned m_bits[4]; Rva0023DA79 *rva0023DA79(int,int);};
 struct Rva00391F4E {Rva00391F4E(int,int,int); unsigned m_bits[4];};
 struct Rva00263895Member {Rva00263895Member() throw(); char bytes[0x7c];};
-class Drawable {public:void rva00274176(bool);};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva001E431E {public:void rva001E431E(const int*);};
 class BodyView {public:

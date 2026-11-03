@@ -197,14 +197,7 @@ private:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Drawable
-{
-public:
-	void setTintStatus(int statusBits) { m_tintStatus |= statusBits; }
-private:
-	unsigned char m_pad[0x118];
-	unsigned m_tintStatus; // +0x118
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class PoisonedBehaviorModuleData
 {
