@@ -1025,3 +1025,4 @@ Code/GameEngine/Source/Common/BfmeConv881.cpp|local|BfmeWideResult::next|q,3f4e8
 Code/GameEngine/Source/Common/AptLinker.cpp|param|Rva006D07E0Key|p,b1e46396d45bc8dae238fe0b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,0f84f2d7ac012ebd213ba008
 Code/GameEngine/Source/Common/AptLinker.cpp|local|~Rva006D07E0Key|p,80ecc0e86890bcca5ec445e8,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,c9464b8ff6fdc1f85b640489
 Code/GameEngine/Source/Common/AptLinker.cpp|local|Rva006D0A30List::rva006D1680|p,e26bf65bd82ed134b716c47b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,35ad6cb71e01013535d9ddc0
+Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp|param|setCanBuildUnits|b,7ba71570dbefc50f8fa96c4e,drz-t32,drz-t32-sv2-7,w-c9e1ac163f95,2026-11-03,2cef6476c9dd159b536bd90a

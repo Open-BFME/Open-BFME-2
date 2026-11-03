@@ -23485,3 +23485,4 @@ Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp|function|0x004
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp|param|AudioCacheCursor|a,b51dcdf5a1af96133c275cb7,drz-t30,drz-t30-sv2-5,w-334bf30310c5,2026-11-03
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerXferObjects.cpp|param|AudioCacheCursor|b,461ccc823a989274a88b4bbc,drz-t30,drz-t30-sv2-5,w-334bf30310c5,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv1057_bfmeGo1057C.cpp|local|bfmeGo1057C|o,33b3d669d3e59fcd0254ac39,drz-t31,drz-t31-sv2-5,w-5f604bcdf856,2026-11-03
+Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp|param|setCanBuildUnits|b,7ba71570dbefc50f8fa96c4e,drz-t32,drz-t32-sv2-7,w-c9e1ac163f95,2026-11-03
