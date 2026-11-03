@@ -10,11 +10,7 @@ typedef bool Bool;
 
 #include "unicode_string.h"
 
-class GameWindowManager
-{
-public:
-	UnicodeString winTextLabelToText(AsciiString label);
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 UnicodeString GameWindowManager::winTextLabelToText(AsciiString label)
 {
