@@ -4642,3 +4642,6 @@ __ehhandler$?rva007B48CB@@YAXXZ,0x007A0B40,"Renamed to __ehhandler$?registerUpgr
 ?rva000308F0@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,0x000308F0,"Renamed to ?getHeapAllocator@@YAPAVGeneralAllocator@Allocator@EA@@I@Z by tools/rename.py (inferred)"
 ?Rva002223E8LevelPath@@YAXAAVAsciiString@@H@Z,0x002223E8,"Renamed to ?buildLevelPath@@YAXAAVAsciiString@@H@Z by tools/rename.py (inferred)"
 ?rva005424C4@XmlNameSlotList@@QAEHXZ,0x005424C4,"Renamed to ?scanElement@XmlNameSlotList@@QAEHXZ by tools/rename.py (inferred)"
+?Rva004126A6SkipPastEquals@@YAXPAPBD@Z,0x004126A6,"Renamed to ?skipPastEquals@@YAXPAPBD@Z by tools/rename.py (inferred)"
+?Rva004126BDSkipPastAmpersand@@YAXPAPBD@Z,0x004126BD,"Renamed to ?skipPastAmpersand@@YAXPAPBD@Z by tools/rename.py (inferred)"
+?Rva004126D4@@YA_NPBD0H@Z,0x004126D4,"Renamed to ?matchParamKey@@YA_NPBD0H@Z by tools/rename.py (inferred)"

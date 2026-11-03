@@ -25,7 +25,7 @@ static void Rva00412689SkipSpaces(const char **queryCursor)
 
 // Native 004126A6..004126BD (EAX = cursor address): advance past the next
 // '=' or to the terminator. Inlined into GetParam after the key.
-static inline void Rva004126A6SkipPastEquals(const char **queryCursor)
+static inline void skipPastEquals(const char **queryCursor)
 {
  while (**queryCursor) {
   if (**queryCursor == '=') { ++*queryCursor; return; }
@@ -35,7 +35,7 @@ static inline void Rva004126A6SkipPastEquals(const char **queryCursor)
 
 // Native 004126BD..004126D4 (EAX = cursor address): advance past the next
 // '&' or to the terminator. Inlined into GetParam to skip a parameter.
-static inline void Rva004126BDSkipPastAmpersand(const char **queryCursor)
+static inline void skipPastAmpersand(const char **queryCursor)
 {
  while (**queryCursor) {
   if (**queryCursor == '&') { ++*queryCursor; return; }
@@ -46,7 +46,7 @@ static inline void Rva004126BDSkipPastAmpersand(const char **queryCursor)
 // Native57B [004126D4,0041270D): prefix comparison, then whitespace,
 // then '=' delimiter. Caller argument and call site establish the ABI;
 // no WorldBuilder name is available for this helper. GetParam inlines it.
-__forceinline bool Rva004126D4(const char *input, const char *key, int keyLen)
+__forceinline bool matchParamKey(const char *input, const char *key, int keyLen)
 {
  if (strncmp(input,key,keyLen)==0) {
   input += keyLen;
@@ -69,8 +69,8 @@ bool __cdecl Rva004128F0GetParam(const char *input, const char *key, AsciiString
  for (;;) {
   Rva00412689SkipSpaces(&params);
   if (!*params) return false;
-  bool match = Rva004126D4(params, key, keyLen);
-  Rva004126A6SkipPastEquals(&params);
+  bool match = matchParamKey(params, key, keyLen);
+  skipPastEquals(&params);
   Rva00412689SkipSpaces(&params);
   if (match) {
    const char *start = params;
@@ -79,7 +79,7 @@ bool __cdecl Rva004128F0GetParam(const char *input, const char *key, AsciiString
    else ((StringBase<char> *)&value)->set(start,params-start);
    return true;
   }
-  Rva004126BDSkipPastAmpersand(&params);
+  skipPastAmpersand(&params);
  }
 }
 
