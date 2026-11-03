@@ -49,10 +49,7 @@ bool Rva006053D7(const char *str, const char *pattern);	// 0x006053D7, wildcard 
 AsciiString makeAsciiString(const char *text);		// 0x002343DF
 
 // BFME 2's narrow concatenation nodes (RegistryAsciiPath.cpp).
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 struct AsciiStringRefWithChar : AsciiStringRef
 {
 	char m_char;

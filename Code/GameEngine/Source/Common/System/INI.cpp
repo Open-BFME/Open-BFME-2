@@ -3,10 +3,7 @@
 #include "ascii_string.h"
 #include <string.h>
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 
 struct AsciiStringRefWithChar : AsciiStringRef
 {

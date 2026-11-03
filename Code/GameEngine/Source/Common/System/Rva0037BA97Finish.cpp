@@ -40,10 +40,7 @@ void bfmeEmitRva0037BA97Init(const Pair8 *src, int c)
 }
 
 class AsciiString;
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 struct AsciiStringRefWithChar : AsciiStringRef
 {
 	char m_char;

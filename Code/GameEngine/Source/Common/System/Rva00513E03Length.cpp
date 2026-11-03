@@ -6,11 +6,7 @@
 #include "ascii_string.h"
 class UnicodeString;
 #include "../../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef
-{
-	int write(char *dst);
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 struct Rva002226E5TextPlusString
 {
 	int length() const;

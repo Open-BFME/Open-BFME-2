@@ -51,12 +51,7 @@ class UnicodeString;
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 
 // A reference to an AsciiString operand.
-struct AsciiStringRef
-{
-	int write(char *dst);
-
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 
 // An AsciiString operand followed by one char.
 struct AsciiStringRefWithChar : AsciiStringRef

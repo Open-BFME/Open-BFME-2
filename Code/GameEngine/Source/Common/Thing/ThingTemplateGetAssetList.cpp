@@ -12,7 +12,7 @@
 // Both globals use existing canonical names; no pins/address globals added.
 template<class T> struct StringInlineData {int m_refCount,m_length;T m_text[1];};
 #include "ascii_string.h"
-struct AsciiStringRef { const AsciiString *m_string; };
+#include "../../../Include/Common/AsciiStringRef.h"
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusText : AsciiStringRef { operator AsciiString();Rva000B3F84Pair m_right; };
 

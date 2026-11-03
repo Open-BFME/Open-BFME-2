@@ -43,11 +43,7 @@ public:
 	void translate(const UnicodeString &src);
 };
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef
-{
-	int write(char *dst);
-	const AsciiString *m_string;
-};
+#include "../../Include/Common/AsciiStringRef.h"
 class Rva0059B3E9
 {
 public:

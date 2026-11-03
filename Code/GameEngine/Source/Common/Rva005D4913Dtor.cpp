@@ -33,7 +33,7 @@ Rva005D4913::~Rva005D4913()
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef { const AsciiString *m_string; };
+#include "../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
 struct AsciiStringPlusStringText : AsciiStringPlusString {
     operator AsciiString(); Rva000B3F84Pair m_text;
