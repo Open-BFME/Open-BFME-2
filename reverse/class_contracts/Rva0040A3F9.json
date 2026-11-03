@@ -1,0 +1,101 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0040A3F9",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 5
+   },
+   "0x4": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 11,
+   "8": 4,
+   "12": 2,
+   "16": 3
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_begin",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "CreateAHeroData**",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroManager.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroManager_GetDefaultHero.cpp",
+    "Code/GameEngine/Source/Common/Rva0040A1ACHeroPtrAlgos.cpp",
+    "Code/GameEngine/Source/Common/Rva0040A54CHeroNameFind.cpp",
+    "Code/GameEngine/Source/Common/Rva005B4A46Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManager.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0040A3F9Find.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroManager.cpp",
+    "Code/GameEngine/Source/Common/Rva0040A54CHeroNameFind.cpp",
+    "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroManager.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp",
+    "Code/GameEngine/Source/Common/CreateAHeroManager.cpp",
+    "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}
