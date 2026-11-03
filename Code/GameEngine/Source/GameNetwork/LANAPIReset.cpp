@@ -44,19 +44,7 @@ private:
 
 #include "unicode_string.h"
 
-class LANPlayer
-{
-public:
-	~LANPlayer();
-	LANPlayer *getNext(void) const { return m_next; }
-
-private:
-	UnicodeString m_s00; // +0x00
-	UnicodeString m_s04; // +0x04
-	UnicodeString m_s08; // +0x08
-	UnsignedByte m_pad0C[4]; // +0x0C
-	LANPlayer *m_next; // +0x10
-};
+#include "../../Include/GameNetwork/LANPlayerClass.h"
 
 // ??1LANPlayer@@QAE@XZ @0x00447ACA
 LANPlayer::~LANPlayer()

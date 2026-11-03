@@ -128,7 +128,7 @@ private:
  unsigned char before[0x10-4]; Bool m_inGame;
  unsigned char beforeMap[0x40-0x11]; AsciiString m_mapName; UnsignedInt m_mapCRC;
 };
-class LANPlayer { public: UnicodeString m_name,m_login,m_host; };
+#include "../../Include/GameNetwork/LANPlayerClass.h"
 class GameSlot {
 public:
  Bool isHuman() const;
