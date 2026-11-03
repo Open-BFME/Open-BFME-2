@@ -16,9 +16,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEE
 
 // Delegate payload (object, member) handed to the command-map reference
 // (as in Common/Rva0042DB21Method.cpp).
-class AptCommandTarget
-{
-};
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {

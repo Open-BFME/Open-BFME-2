@@ -13,7 +13,7 @@
 // whole body sits in a block. The fourth concat operand goes through the rowed
 // 0x005EEFA9 operator+ and 0x005EF607 conversion.
 #include "ascii_string.h"
-class AptCommandTarget {};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 struct DelegateDesc {
  template<class T> DelegateDesc(T*o,void(T::*m)(void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){}
  AptCommandTarget *object;void(AptCommandTarget::*method)(void*);

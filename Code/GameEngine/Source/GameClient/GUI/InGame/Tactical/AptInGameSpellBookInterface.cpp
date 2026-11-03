@@ -21,7 +21,7 @@ extern const char BfmeSpellButtonStateUp[]="_up";
 const char *g_00C68508[]={BfmeSpellButtonStateUnused,BfmeSpellButtonStateDisabled,BfmeSpellButtonStateCantAfford,BfmeSpellButtonStateStatic,BfmeSpellButtonStateNotReady,BfmeSpellButtonStateUp};
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const int &,const char *const &);
 namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
-class AptCommandTarget {};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 struct DelegateDesc {
  template<class T> DelegateDesc(T *o,void(T::*m)(const char*)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
  template<class T> DelegateDesc(T *o,void(T::*m)(int)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}

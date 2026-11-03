@@ -21,9 +21,7 @@ struct TargetRef00217D4C;
 // System/RegistryAsciiPath.cpp, as in the sibling Impl ctors.
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
 
-class AptCommandTarget
-{
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {

@@ -60,7 +60,7 @@ template<class FrameHolder, class UpdaterHolder> struct SideBarButtonSlot {
 template struct SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef>;
 typedef SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef> SideBarSlot;
 
-class AptCommandTarget {};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 // Unit-local eight-byte object/method view, not a competing DelegateDesc body.
 // The external constructor reads these two words; retain its existing ABI.
 struct SideBarDelegateDesc {

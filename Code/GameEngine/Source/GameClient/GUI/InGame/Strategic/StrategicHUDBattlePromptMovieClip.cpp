@@ -252,9 +252,7 @@ public:
 // The ally / enemy record (Rva005F91F3Copy.cpp): page factory reference first.
 
 
-class AptCommandTarget
-{
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {

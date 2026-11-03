@@ -32,9 +32,7 @@ inline __declspec(noinline) int __cdecl Rva0054C83FAptCall(Rva00222A8BTarget *t,
 struct TargetRef00217D4C { virtual void slot0(); virtual void OnShown(); virtual void OnHidden(); };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
 
-class AptCommandTarget
-{
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {

@@ -20,7 +20,7 @@ class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const ch
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString();Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&a,const char*b) {Rva000B3F84Pair p;p.init(b);AsciiStringPlusStringText r;static_cast<AsciiStringPlusString&>(r)=a;r.m_right=p;return r;}
-class AptCommandTarget {};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 struct DelegateDesc {
  template<class T> DelegateDesc(T*o,void(T::*m)(void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){}
  template<class T> DelegateDesc(T*o,void(T::*m)(const Coord2D*,const Coord2D*,void*,void*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(void*)>(m)){}

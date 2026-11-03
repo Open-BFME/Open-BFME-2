@@ -132,9 +132,7 @@ PalantirButtonSlot::~PalantirButtonSlot(){}
 // provider528B72. Over-button level is reference-bound to delay its native load.
 // The two-vector storage and cleanup retain existing address-derived provider
 // views; these wrappers do not assert original C++ type names.
-class AptCommandTarget
-{
-};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {
