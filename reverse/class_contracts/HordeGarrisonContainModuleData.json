@@ -1,0 +1,666 @@
+{
+ "bases": [
+  "GarrisonContainModuleData"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "HordeGarrisonContainModuleData",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 11,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xd4": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x47a251"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "GarrisonContainModuleData",
+       "offset": 0,
+       "own_vftable": "0x7f4328",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x47a251"
+     ],
+     "value": 212
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x47a251"
+     ],
+     "value": {
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x47a251"
+     ],
+     "value": {
+      "0x0": "0x7f4328"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7f4328"
+     ],
+     "value": {
+      "count": 31,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GHordeGarrisonContainModuleData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2579e9"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x65212"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 4,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 7,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 8,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 11,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 12,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 13,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+        "slot": 14,
+        "target": "0xb69a1"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 16,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 17,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 18,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 19,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 20,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 21,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 22,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 23,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 24,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 25,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 26,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 27,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 28,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "??0RealRange@@QAE@XZ",
+        "slot": 29,
+        "target": "0x47a6a9"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 30,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x7f4328"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7f4328": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GHordeGarrisonContainModuleData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@ModuleData@@UBEPBDXZ",
+     "3": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "4": "?IsCRC@Xfer@@UBE_NXZ",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?IsCRC@Xfer@@UBE_NXZ",
+     "7": "?IsCRC@Xfer@@UBE_NXZ",
+     "8": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "9": "?IsCRC@Xfer@@UBE_NXZ",
+     "10": "?IsCRC@Xfer@@UBE_NXZ",
+     "11": "?IsCRC@Xfer@@UBE_NXZ",
+     "12": "?IsCRC@Xfer@@UBE_NXZ",
+     "13": "?IsCRC@Xfer@@UBE_NXZ",
+     "14": "?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "17": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "18": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "19": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "20": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "21": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "22": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "23": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "24": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "25": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "26": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "27": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "28": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "29": "??0RealRange@@QAE@XZ",
+     "30": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "4": 1,
+   "88": 1,
+   "172": 2,
+   "212": 3
+  },
+  "views": 11,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainModuleDataCtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 125,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 126,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 127,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 129,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 130,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 131,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 133,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 134,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 161,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainModuleDataDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "4:i4": 1,
+    "84:A": 1
+   },
+   "class": "HordeGarrisonContainModuleData"
+  },
+  {
+   "attribute": "inherited@0x40",
+   "candidates": {
+    "4:i4": 1,
+    "88:A": 1
+   },
+   "class": "HordeGarrisonContainModuleData"
+  }
+ ],
+ "size": 212,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
