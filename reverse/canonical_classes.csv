@@ -509,3 +509,4 @@ AIGuardMachine,Code/GameEngine/Include/GameLogic/AIGuardMachine.h,existing heade
 OpenContainModuleData,Code/GameEngine/Include/GameLogic/Module/OpenContainModuleData.h,existing header; contract class_contracts/OpenContainModuleData.json; 9/15 sampled units adopt
 RenderObjectDrawModuleInfo,Code/GameEngine/Include/GameClient/RenderObjectDrawModuleInfo.h,existing header; contract class_contracts/RenderObjectDrawModuleInfo.json; 10/15 sampled units adopt
 AiOrdersManager,Code/GameEngine/Include/GameLogic/AiOrdersManager.h,existing header; contract class_contracts/AiOrdersManager.json; 11/14 sampled units adopt
+TerrainCollisionModuleInfo,Code/GameEngine/Include/GameClient/TerrainCollisionModuleInfo.h,existing header; contract class_contracts/TerrainCollisionModuleInfo.json; 7/13 sampled units adopt
