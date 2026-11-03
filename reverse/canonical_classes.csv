@@ -592,3 +592,4 @@ AudioFileCache,Code/GameEngineDevice/Include/MilesAudioDevice/AudioFileCache.h,e
 W3DBufferManager,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManagerClass.h,existing header; contract class_contracts/W3DBufferManager.json; 9/12 sampled units adopt
 AerialPathfinder,Code/GameEngine/Include/GameLogic/AerialPathfinder.h,existing header; contract class_contracts/AerialPathfinder.json; 7/11 sampled units adopt
 AssetRegistry,Code/GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h,existing header; contract class_contracts/AssetRegistry.json; 7/10 sampled units adopt
+ArmyDetailsMovieClip,Code/GameEngine/Include/GameClient/ArmyDetailsMovieClip.h,existing header; contract class_contracts/ArmyDetailsMovieClip.json; 10/10 sampled units adopt
