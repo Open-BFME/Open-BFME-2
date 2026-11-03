@@ -22836,3 +22836,12 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp|loca
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp|local|ScriptActions::Rva003C2E61Do|v,8ff26b113a18652d0bf511ac,drz-k4,drz-k4-n47c-10,w-855a0f400af4,2026-11-02
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp|local|ScriptActions::Rva003C2E61Do|c,f43f86894c5adc5fd4ec033a,drz-k4,drz-k4-n47c-10,w-855a0f400af4,2026-11-02
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsTeamHealthPercent.cpp|local|ScriptActions::Rva003C301DDo|a,c2127841ec0e31d1eca00fba,drz-k4,drz-k4-n47c-12,w-855a0f400af4,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_createNamedMapReveal.cpp|local|ScriptEngine::createNamedMapReveal|p,03dc49444350dc7f6f1d2a9c,drz-k5,drz-k5-n47d-1,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp|function|0x00204136|rva00204136,8a83ccab6a8339a592e220ad,drz-k5,drz-k5-n47d-4,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp|function|0x00204984|rva00204984,877297a07e90af9f40428acf,drz-k5,drz-k5-n47d-4,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp|param|Rva00204136::rva00204136|p,1823b442637ade7dbbe2a540,drz-k5,drz-k5-n47d-4,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp|member|Rva00357340Arg|m_f38,74080ca4240b646ea5b7411d,drz-k5,drz-k5-n47d-6,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp|member|Rva00357340Arg|m_f3C,335105de760293bdac6918b7,drz-k5,drz-k5-n47d-6,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp|member|Rva00357340Arg|m_f40,1781ff0682ce7991f236c939,drz-k5,drz-k5-n47d-6,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357C1F.cpp|param|ScriptEngine::rva00357C1F|v,b2626f861e9c6e21902b6a3f,drz-k5,drz-k5-n47d-8,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptTagCheck.cpp|function|0x003B31C7|equalTag_Rva003B31C7,b1b0f193d0078aef9cb40847,drz-k5,drz-k5-n47d-19,w-526a51702f64,2026-11-02
