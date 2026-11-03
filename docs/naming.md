@@ -523,7 +523,9 @@ the row into C as its virtual member:
 
 `--new` is the member's identifier in C (the access code becomes the virtual
 form of the old one) or its full mangled name (to choose, say, protected
-`MBE`); cv, convention, return type and parameters are kept. It takes no
+`MBE`, or a `this` cv other than the placeholder's guess: the class's own
+declaration decides, and its compiled vftable must name exactly that
+spelling); convention, return type and parameters are kept. It takes no
 `--basis`, invents nothing, and refuses unless all of these hold:
 
 - the row's class is a placeholder;

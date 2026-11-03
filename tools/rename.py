@@ -3477,11 +3477,17 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
 # slot N)` tombstones; it writes no name_basis.csv record (the identifier is
 # the one C's own declaration gives that slot) and carries an existing one.
 
+THIS_CV = frozenset("ABCD")   # the `this` qualifier of a near member: none, const, volatile, both
+
+
 def to_class_symbol(old_name, cls, new):
     """The new decorated name: `?WORD@C@@` plus the old access code made
     virtual (or kept virtual) and the old tail (cv, convention, return type,
     parameters); or `new` itself when it is a full mangled name, which must
-    keep that tail and spell a virtual near member of C."""
+    keep that tail and spell a virtual near member of C. A full name may
+    give `this` another cv than the placeholder guessed (const or not
+    compiles to the same body): C's declaration decides, and the compiled
+    vftable must name exactly that spelling."""
     at, _cls, scopes, role = member_function_header(old_name)
     if role != "method" or scopes:
         raise Refusal(f"{old_name}: --to-class moves an ordinary method of a global class only")
@@ -3496,8 +3502,9 @@ def to_class_symbol(old_name, cls, new):
             raise Refusal(f"{new} is not a method of the global class {cls}")
         if new[nat] not in VIRTUAL_ACCESS:
             raise Refusal(f"{new} is not spelled virtual: a vftable slot proves only a virtual member")
-        if new[nat + 1:] != tail:
-            raise Refusal(f"{new} changes cv, convention, return type or parameters of {old_name}")
+        if new[nat + 1:] != tail and not (new[nat + 1] in THIS_CV and tail[:1] in THIS_CV
+                                          and new[nat + 2:] == tail[1:]):
+            raise Refusal(f"{new} changes the convention, return type or parameters of {old_name}")
         return new
     if not IDENT.fullmatch(new or "") or new in name_metric.KEYWORDS:
         raise Refusal(f"{new!r} is not a method identifier")

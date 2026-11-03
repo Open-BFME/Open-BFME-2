@@ -122,13 +122,16 @@ GOOD = {TABLE: ([0x00403040, 0x00401000, 0x00404000], {CTOR_STORE: 0})}
     ("?f@Rva3@@IAEHH@Z", "f", "?f@Widget@@MAEHH@Z"),                       # protected -> protected virtual
     ("?name@Rva2Named@@QBEPBDXZ", "?GetSnapshotName@Widget@@MBEPBDXZ",
      "?GetSnapshotName@Widget@@MBEPBDXZ"),                                  # full mangled, access chosen
+    ("?is@Rva4@@QBE_NXZ", "?isConnected@Widget@@UAE_NXZ",
+     "?isConnected@Widget@@UAE_NXZ"),                                       # `this` cv follows the class
 ])
 def test_to_class_symbol(old, new, expected):
     assert rename.to_class_symbol(old, "Widget", new) == expected
 
 
 @pytest.mark.parametrize("old,new", [
-    ("?name@Rva2Named@@QBEPBDXZ", "?name@Widget@@QAEPBDXZ"),     # cv changed
+    ("?name@Rva2Named@@QBEPBDXZ", "?name@Widget@@UBEPBEXZ"),     # return type changed
+    ("?name@Rva2Named@@QBEPBDXZ", "?name@Widget@@UBGPBDXZ"),     # convention changed
     ("?name@Rva2Named@@QBEPBDXZ", "?name@Widget@@QBEPBDXZ"),     # not virtual
     ("?name@Rva2Named@@QBEPBDXZ", "?name@Gadget@@UBEPBDXZ"),     # another class
     ("?f@Rva3@@QAEXPAV1@@Z", "f"),                               # back-reference in the parameters
