@@ -61,11 +61,7 @@ public:
 };
 
 // The pinned check shared with the rowed slot 0x00508925.
-class Rva00507823
-{
-public:
-	unsigned char rva005075D6(const void *a, Object *b);	// rowed 0x005075D6
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class Made002CC8A4
 {

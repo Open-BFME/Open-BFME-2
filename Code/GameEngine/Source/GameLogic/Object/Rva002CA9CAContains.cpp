@@ -18,11 +18,7 @@
 // otherwise the template's rva002CAA59 decides. Callers 0x0041BAD2 and the
 // WeaponSet lock bodies; WB twin 0x00BB7AA0 (same checks, 9999.0f radius,
 // SetBit(0x78) mask over KINDOFMASK_NONE).
-class Rva00507823
-{
-public:
-	unsigned char rva00507558(const void *arg);
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 struct ListNode
 {

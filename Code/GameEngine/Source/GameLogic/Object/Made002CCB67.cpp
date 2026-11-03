@@ -47,18 +47,7 @@ struct Rva0050B62BArg
 	ObjectID m_08;
 };
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void rva0050B62B(const Rva0050B62BArg *arg, Object *other);
-private:
-	char m_pad04[0x128 - 4];
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class Made002CCB67 : public Rva00507823
 {

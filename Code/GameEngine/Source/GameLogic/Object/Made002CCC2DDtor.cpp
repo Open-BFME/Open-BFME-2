@@ -109,13 +109,7 @@ private:
 	int m_x;
 };
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-private:
-	unsigned char m_pad[0x128 - 4];
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class __declspec(novtable) Made002CCC2D : public Rva00507823
 {

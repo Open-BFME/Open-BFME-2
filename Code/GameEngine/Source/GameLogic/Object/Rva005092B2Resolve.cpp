@@ -13,16 +13,7 @@
 
 extern WeaponStore *TheWeaponStore;
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-	Rva00507823();
-	virtual void rva00507877();
-
-private:
-	char m_pad[0x128 - 4];
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class Rva005092B2 : public Rva00507823
 {

@@ -94,20 +94,7 @@ struct Rva0050B7D2Arg
 	ObjectID m_targetID; // +0x08
 };
 
-class Rva00507823
-{
-public:
-	unsigned char rva005075D6(const void *arg, Object *source);
-	virtual ~Rva00507823();
-	virtual bool rva0050B745(const Rva0050B7D2Arg *arg, Object *source);
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void rva0050B7D2(const Rva0050B7D2Arg *arg, int value);
-	virtual void rva0050B843(const Rva0050B7D2Arg *arg, int value);
-private:
-	char m_pad04[0x128 - 4];
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class Made002CCBCA : public Rva00507823
 {
