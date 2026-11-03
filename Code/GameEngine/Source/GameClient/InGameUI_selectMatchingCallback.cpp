@@ -67,11 +67,7 @@ template<> inline __declspec(noinline) _List_base<const Object*,allocator<const 
 class Object;
 class Drawable;
 enum ObjectStatusTypes { STATUS_ZERO=0 };
-class ThingTemplate {
-public:
- bool isEquivalentTo(const ThingTemplate *) const;
- char unknown000[0x114]; unsigned kind114;
-};
+#include "../../Include/Common/ThingTemplate.h"
 class SelectionContain {
 public:
  virtual void slot0();
@@ -282,11 +278,11 @@ int Rva002A1EF5(Drawable *test,void *userData) {
   if(!object)return 2;
   if(object->guardID) {
    Object *guard=TheGameLogic->findObjectByID(object->guardID);
-   if(guard && (guard->getTemplate()->kind114&0x2000) && guard->testStatus((ObjectStatusTypes)3))return 2;
+   if(guard && (guard->getTemplate()->m_kindof[3]&0x2000) && guard->testStatus((ObjectStatusTypes)3))return 2;
   }
   bool equivalent=object->getTemplate()->isEquivalentTo(selectedType);
   if(!equivalent) {
-   if(data->includeContained || !(object->getTemplate()->kind114&0x2000) || (selectedType->kind114&0x2000))return 2;
+   if(data->includeContained || !(object->getTemplate()->m_kindof[3]&0x2000) || (selectedType->m_kindof[3]&0x2000))return 2;
    SelectionContain *contain=object->contain;
    if(!contain)return 2;
    SelectionContain *contained=contain->slot31();

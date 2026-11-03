@@ -86,14 +86,7 @@ struct Rva00351788RangeOwner
 	Rva00351788RangeTest *m_rangeTest;	// +0x250
 };
 #include "../../../Include/GameLogic/Weapon.h"
-class ThingTemplate
-{
-public:
-	Real getUnknown53C() const { return m_unknown53C; }
-private:
-	unsigned char m_pad00[0x53C];
-	Real m_unknown53C; // +0x53C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -146,7 +139,7 @@ void AIAttackAimAtTargetState::onExit( StateExitType status )
 			sourceAI->setLocomotorGoalNone();
 	}
 
-	if (sourceAI && getMachineOwner()->getTemplate()->getUnknown53C() < 360.0f)
+	if (sourceAI && (getMachineOwner()->getTemplate()->m_firingArc) < 360.0f)
 		sourceAI->chooseLocomotorSet(LOCOMOTORSET_NORMAL);
 
 	getMachineOwner()->clearStatus( OBJECT_STATUS_IS_AIMING_WEAPON );

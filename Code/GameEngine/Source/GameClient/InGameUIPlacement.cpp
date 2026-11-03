@@ -23,14 +23,7 @@
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class ThingTemplate
-{
-public:
-	bool hasPlacementProjection() const { return ( m_kindOfBytes[0x17] & 0x10 ) != 0; }
-private:
-	char m_unknown000[0x108];
-	unsigned char m_kindOfBytes[0x18];				// +0x108
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../../Include/GameClient/Drawable.h"
 
@@ -102,7 +95,7 @@ void InGameUI::getPlacementPoints( ICoord2D *start, ICoord2D *end )
 {
 	if( start )
 	{
-		if( m_pendingPlaceType->hasPlacementProjection() && m_placeIcon[ 0 ] )
+		if( (( m_pendingPlaceType->m_kindof[5] & (1U << 28) ) != 0) && m_placeIcon[ 0 ] )
 		{
 			TheTacticalView->worldToScreen( reinterpret_cast<Drawable *>( m_placeIcon[ 0 ] )->getPosition(), start );
 		}

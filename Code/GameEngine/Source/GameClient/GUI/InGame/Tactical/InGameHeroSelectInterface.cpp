@@ -61,12 +61,7 @@ typedef int Int;
 
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name;				// +0x64
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../../Include/Common/Player.h"
 class Drawable;
@@ -354,7 +349,7 @@ void InGameHeroSelectInterface::Impl::FlashHeroButton(const AsciiString &asciiSt
 		Object *hero = TheGameLogic->findObjectByID(it->m_data.m_heroID);
 		if (hero == 0)
 			continue;
-		if (hero->getTemplate()->m_name.compare(asciiString) != 0)
+		if (hero->getTemplate()->m_nameString.compare(asciiString) != 0)
 			continue;
 		if (frames > it->m_data.m_flashFrames)
 			it->m_data.m_flashFrames = frames;

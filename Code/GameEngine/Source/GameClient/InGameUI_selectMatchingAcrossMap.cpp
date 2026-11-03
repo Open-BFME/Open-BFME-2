@@ -50,12 +50,7 @@ private:
 	unsigned char m_second;
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x108];
-	unsigned char m_kindFlags;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../GameLogic/Object/object.h"
 
@@ -187,7 +182,7 @@ int InGameUI::selectMatchingAcrossMap()
 	{
 		Drawable *draw = TheInGameUI->getFirstSelectedDrawable();
 		if (draw == 0 || draw->m_object == 0 ||
-			(draw->m_object->m_template->m_kindFlags & 0x80) == 0)
+			(draw->m_object->m_template->m_kindof[0] & (1U << 7)) == 0)
 		{
 			UnicodeString message = TheGameText->fetch("GUI:SelectedAcrossMap");
 			TheInGameUI->message(message);

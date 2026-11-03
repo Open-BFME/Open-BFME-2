@@ -6,11 +6,7 @@
 
 extern void *g_00DFE490;
 
-class ThingTemplate {
-public:
-	char m_prefix[0x64];
-	AsciiString m_name;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Player;
 
@@ -104,7 +100,7 @@ int Rva00220D1ESecondary::rva00220D1E(const ThingTemplate *thing)
 {
 	if (thing) {
 		if (((ArmyDescriptionConfig220D1E *)g_00DFE490)->m_unmatchedFilter.testTemplate(thing, 0, 0)) {
-			const AsciiString &name = thing->m_name;
+			const AsciiString &name = thing->m_nameString;
 			StringBase<char> *last = (StringBase<char> *)m_names.end();
 			if (Rva000BD22FFind((StringBase<char> *)m_names.begin(), last, (const StringBase<char> &)name) == last)
 				m_names.push_back(name);

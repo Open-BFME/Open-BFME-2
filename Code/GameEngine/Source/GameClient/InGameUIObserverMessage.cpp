@@ -112,14 +112,7 @@ extern ScriptEngine *TheScriptEngine;
 struct AwardScriptEngineView { char pad[0x1a104]; int suppressed; };
 #include "../../Include/Common/Player.h"
 // The KindOf bit set at +0x108; notifyOfHeroSpawnEvent tests bit 90 (0x5A).
-class ThingTemplate
-{
-public:
- bool isKindOf90() const { return (m_kindOf[90 >> 3] & (1 << (90 & 7))) != 0; }
-private:
- unsigned char m_pad000[0x108];
- unsigned char m_kindOf[0x20];
-};
+#include "../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -175,7 +168,7 @@ void InGameUI::notifyHeroEarnedAward(CreateAHeroHero *hero, int key)
 const Image *getButtonImage(ThingTemplate *tmpl, Object *obj);
 void InGameUI::notifyOfHeroSpawnEvent(Object *obj, const char *typeName, const int *label, float seconds)
 {
- if (!obj->getTemplate()->isKindOf90() || !obj->getControllingPlayer()->isLocalPlayer())
+ if (!((obj->getTemplate()->m_kindof[2] & (1U << 26)) != 0) || !obj->getControllingPlayer()->isLocalPlayer())
   return;
  InGameNotificationType *type = FindInGameNotificationType(AsciiString(typeName));
  if (!type)

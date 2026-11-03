@@ -61,11 +61,7 @@ class Drawable;
 struct Rva001408C0Target;
 namespace _STL { template <> _Rb_tree<Rva001408C0Target *, Rva001408C0Target *, _Identity<Rva001408C0Target *>, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::~_Rb_tree(); }
 enum ObjectStatusTypes { STATUS_ZERO=0 };
-class ThingTemplate {
-public:
- bool isEquivalentTo(const ThingTemplate *) const;
- char unknown000[0x110]; unsigned kind110; unsigned kind114;
-};
+#include "../../Include/Common/ThingTemplate.h"
 class SelectionContain {
 public:
  virtual void slot0();
@@ -200,7 +196,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
    if(object && object->isLocallyControlled()) {
    templateName=reinterpret_cast<Rva001408C0Target*>(object->m_template);
    templates.insert(templateName);
-   if(object->m_template->kind114&0x2000) {
+   if(object->m_template->m_kindof[3]&0x2000) {
     SelectionContain *contain=object->contain;
     if(contain) {
      SelectionContain *contained=contain->slot31();
@@ -209,7 +205,7 @@ int InGameUI::selectMatchingAcrossRegion(IRegion2D *region) {
       contained->slot67(&units);
       for(_STL::list<const Object*>::const_iterator child=units.begin();child!=units.end();++child) {
        const Object *unit=*child;
-       if(unit && !(unit->m_template->kind110&0x8000000)){templateName=reinterpret_cast<Rva001408C0Target*>(unit->m_template);containedTemplates.insert(templateName);}
+       if(unit && !(unit->m_template->m_kindof[2]&0x8000000)){templateName=reinterpret_cast<Rva001408C0Target*>(unit->m_template);containedTemplates.insert(templateName);}
       }
      }
     }

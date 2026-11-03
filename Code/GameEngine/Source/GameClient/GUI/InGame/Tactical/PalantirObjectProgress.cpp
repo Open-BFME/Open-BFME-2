@@ -43,13 +43,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_3E = 0x3E
 };
 
-class ThingTemplate
-{
-	char m_pad000[0x5E7];
-
-public:
-	Bool m_rankDisplay; // +0x5E7
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class Module;
 class Object;
@@ -214,7 +208,7 @@ Rva00528CEBResult rva00528CEB(Object *obj)
 			isOverride = true;
 		else
 			thingTemplate = obj->getTemplate();
-		if (!thingTemplate->m_rankDisplay || !ComputeObjectRankValues(*obj, result.rank, result.progress))
+		if (!thingTemplate->m_isTrainable || !ComputeObjectRankValues(*obj, result.rank, result.progress))
 			result.mode = MODE_NONE;
 		else if (isOverride)
 			result.rank = 1;

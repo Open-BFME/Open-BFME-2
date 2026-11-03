@@ -55,15 +55,11 @@ struct Rva002A8AB1Record;
 extern Rva002A8F24* TheSkirmishAIManager;
 class Overridable;
 class Rva0033A68A { public: Overridable* rva0033A68A(); };
-class ThingTemplate { public:
- unsigned char gap00[0x64]; AsciiString name;
- unsigned char gap68[0x5DA-0x68]; unsigned short buildCost;
- int rva0033A69A(const Player*,int,int) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 int ThingTemplate::rva0033A69A(const Player*player,int builderAddress,int price) const
 {
  int baseCost;
- if(price==-1)baseCost=((const ThingTemplate*)((Rva0033A68A*)this)->rva0033A68A())->buildCost;
+ if(price==-1)baseCost=((const ThingTemplate*)((Rva0033A68A*)this)->rva0033A68A())->m_buildCost;
  else baseCost=price;
  if(!player)return baseCost;
  float builderFactor=1.0f;
@@ -71,7 +67,7 @@ int ThingTemplate::rva0033A69A(const Player*player,int builderAddress,int price)
   PriceBuilderInterface*module=(PriceBuilderInterface*)((Object*)builderAddress)->rva0028BC94();
   if(module)builderFactor=module->slot26(this);
  }
- float factionFactor=((Rva002AD5ED*)player)->rva002AD5ED(name)+1.0f;
+ float factionFactor=((Rva002AD5ED*)player)->rva002AD5ED(m_nameString)+1.0f;
  factionFactor*=((Player*)player)->getProductionCostChangeBasedOnTemplate(this,false);
  float handicap=player->handicap.getHandicap(Handicap::BUILDCOST,this); float cost=baseCost; cost*=handicap;cost*=factionFactor;cost*=builderFactor;
  if((int)((Rva002A9BF2*)player)->rva002A9BF2()==3 && TheSkirmishAIManager->rva002A8AB1((void*)player)) {

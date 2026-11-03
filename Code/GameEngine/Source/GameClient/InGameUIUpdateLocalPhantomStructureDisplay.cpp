@@ -46,16 +46,7 @@ typedef bool Bool;
 
 class Drawable;
 
-class ThingTemplate
-{
-public:
-	// KindOf bit 14 (the flag word starts at +0x108).
-	bool isKindOf14() const { return (m_kindOf[1] & 0x40) != 0; }
-
-private:
-	char m_pad000[0x108];
-	unsigned char m_kindOf[4]; // +0x108
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -113,7 +104,7 @@ void InGameUI::updateLocalPhantomStructureDisplay()
 	if (getSelectCount() == 1)
 	{
 		Object *obj = getFirstSelectedDrawable()->getObject();
-		if (obj && obj->getTemplate()->isKindOf14())
+		if (obj && ((obj->getTemplate()->m_kindof[0] & (1U << 14)) != 0))
 			hide = false;
 	}
 	_STL::list<int> dead;

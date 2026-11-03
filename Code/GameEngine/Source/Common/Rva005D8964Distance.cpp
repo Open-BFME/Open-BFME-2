@@ -18,12 +18,7 @@
 
 class Object;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x108];
-	unsigned char m_flags108;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -89,7 +84,7 @@ public:
 bool Rva005D8883::Rva005D88AA(Object *other)
 {
 	Object *victim = other->getAI()->getCurrentVictim();
-	if (victim && !(victim->getTemplate()->m_flags108 & 0x80)) {
+	if (victim && !(victim->getTemplate()->m_kindof[0] & (1U << 7))) {
 		Coord3D a(*other->getPosition());
 		Coord3D b(*victim->getPosition());
 		float dx = b.x - a.x;

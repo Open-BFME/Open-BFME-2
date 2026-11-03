@@ -64,23 +64,7 @@ public:
 };
 
 class Image;
-class ThingTemplate
-{
-public:
-    const Image *getButtonImage();
-    const Image *rva0033BA46();
-    const AsciiString &getName() const { return m_name; }
-    __forceinline unsigned int isKindOf(int bit) const { return kindOf[bit >> 5] & (1u << (bit & 31)); }
-    char m_pad00[0x64];
-    AsciiString m_name; // +0x64
-    char m_pad68[4];
-    AsciiString side;
-    AsciiString commandSet;
-    char m_pad74[0x108 - 0x74];
-    unsigned int kindOf[7]; // +0x108
-    char m_pad124[0x484 - 0x124];
-    ThingTemplate *next;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ContainModuleInterface
 {
@@ -619,7 +603,7 @@ void ControlBar::rva0031D230()
 		Module *update = obj->findModule(key_OCLUpdate);
 
 		bool emptyAmount = false;
-		if (obj->getTemplate()->isKindOf(150))
+		if ((obj->getTemplate()->m_kindof[150 >> 5] & (1u << (150 & 31))))
 		{
 			float amount = 0.0f;
 			if (obj->rva0028C15E(3, &amount, 0, 1))

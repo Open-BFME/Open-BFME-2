@@ -32,15 +32,7 @@ enum Relationship
 
 extern GlobalData *TheWritableGlobalData;
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(Int t) const { return m_kindOf[t >> 5] & (1 << (t & 31)); }
-
-private:
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../../Include/Common/TeamBFME2.h"
 
@@ -147,7 +139,7 @@ void Rva0027601BHost::rva0027601B()
 		if (obj != 0)
 		{
 			Object *container = obj->getContainedBy();
-			if (container != 0 && container->getTemplate()->isKindOf(0x6D))
+			if (container != 0 && (container->getTemplate()->m_kindof[3] & (1 << (0x6D & 31))))
 			{
 				Drawable *draw = container->getDrawable();
 				selected = draw != 0 && draw->bfme_is_selected_nz();
@@ -173,24 +165,24 @@ void Rva0027601BHost::rva0027601B()
 			return;
 	}
 	const ThingTemplate *thingTemplate = obj->getTemplate();
-	if (!thingTemplate->isKindOf(0x5A) && !thingTemplate->isKindOf(0x0B) && !thingTemplate->isKindOf(0x0A)
-		&& !thingTemplate->isKindOf(0x37) && !thingTemplate->isKindOf(0x07) && !thingTemplate->isKindOf(0xAA))
+	if (!(thingTemplate->m_kindof[2] & (1 << (0x5A & 31))) && !(thingTemplate->m_kindof[0] & (1 << (0x0B & 31))) && !(thingTemplate->m_kindof[0] & (1 << (0x0A & 31)))
+		&& !(thingTemplate->m_kindof[1] & (1 << (0x37 & 31))) && !(thingTemplate->m_kindof[0] & (1 << (0x07 & 31))) && !(thingTemplate->m_kindof[5] & (1 << (0xAA & 31))))
 	{
 		if (!TheWritableGlobalData->field09BE)
 			return;
-		if (!thingTemplate->isKindOf(0x08) && !thingTemplate->isKindOf(0x09))
+		if (!(thingTemplate->m_kindof[0] & (1 << (0x08 & 31))) && !(thingTemplate->m_kindof[0] & (1 << (0x09 & 31))))
 			return;
 	}
-	if (obj->getTemplate()->isKindOf(0x96))
+	if ((obj->getTemplate()->m_kindof[4] & (1 << (0x96 & 31))))
 	{
 		WallUpgradeUpdate *wall = static_cast<WallUpgradeUpdate *>(WallUpgradeUpdate::rva004AB1F5(obj));
 		if (wall != 0 && !wall->isUpgradeActive())
 			return;
 	}
-	if (obj->getTemplate()->isKindOf(0x3D) && !obj->getTemplate()->isKindOf(0xAA))
+	if ((obj->getTemplate()->m_kindof[1] & (1 << (0x3D & 31))) && !(obj->getTemplate()->m_kindof[5] & (1 << (0xAA & 31))))
 		return;
-	if (obj->getTemplate()->isKindOf(0x36) || obj->getTemplate()->isKindOf(0x88)
-		|| obj->getTemplate()->isKindOf(0x6D))
+	if ((obj->getTemplate()->m_kindof[1] & (1 << (0x36 & 31))) || (obj->getTemplate()->m_kindof[4] & (1 << (0x88 & 31)))
+		|| (obj->getTemplate()->m_kindof[3] & (1 << (0x6D & 31))))
 		return;
 	BodyModuleInterface *body = obj->getBodyModule();
 	Real maxHealth = body->getMaxHealth();

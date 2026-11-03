@@ -110,17 +110,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class ThingTemplate
-{
-public:
-	Bool isKindOf(Int kind) const { return (m_kindOf & (1U << kind)) != 0; }
-
-private:
-	void *m_vtable;
-	void *m_nextOverride;
-	unsigned char m_pad08[ 0x108 - 8 ];
-	UnsignedInt m_kindOf;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class Player
 {
@@ -172,7 +162,7 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_thingTemplate; }
-	Bool isKindOf(Int kind) const { return getTemplate()->isKindOf(kind); }
+	Bool isKindOf(Int kind) const { return ((getTemplate()->m_kindof[0] & (1U << kind)) != 0); }
 	bool isNeutralControlled() const;
 	Player *getControllingPlayer() const;
 	Object *getNextObject() const { return m_nextObject; }

@@ -106,24 +106,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getName copy loses to the first-in-order copy (no
-	// retail address); the call below inlines it but still emits the loser
-	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
-	// No flags touched.
-	const AsciiString &bfme_get_name() const { return m_name; }
-	__forceinline UnsignedInt isKindOf(Int bit) const { return m_kindOf[bit >> 5] & (1 << (bit & 31)); }
-
-private:
-	char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	char m_pad068[0x108 - 0x68];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class CouncilInterface
 {
@@ -213,12 +196,12 @@ void Rva002779CEHost::drawConstructPercent()
 	if (m_lastConstructDisplayed != obj->bfme_construction_percent())
 	{
 		UnicodeString buffer;
-		if (obj->getTemplate()->bfme_get_name().endsWithNoCase("moot") && obj->rva0028BD17()
+		if ((obj->getTemplate()->m_nameString).endsWithNoCase("moot") && obj->rva0028BD17()
 			&& static_cast<CouncilInterface *>(obj->rva0028BD17())->isCouncil())
 		{
 			buffer.format(TheGameText->fetchFormat("CONTROLBAR:CouncilDesc"), obj->bfme_construction_percent());
 		}
-		else if (!obj->getTemplate()->isKindOf(0xbd) && !obj->getTemplate()->isKindOf(0x3d))
+		else if (!(obj->getTemplate()->m_kindof[5] & (1 << (0xbd & 31))) && !(obj->getTemplate()->m_kindof[1] & (1 << (0x3d & 31))))
 		{
 			buffer.format(TheGameText->fetchFormat("CONTROLBAR:UnderConstructionDesc"), obj->bfme_construction_percent());
 		}

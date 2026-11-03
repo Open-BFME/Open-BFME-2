@@ -37,11 +37,7 @@ class Object;
 class Drawable;
 enum ObjectID { INVALID_ID=0 };
 enum ObjectStatusTypes { STATUS_ZERO=0 };
-class ThingTemplate {
-public:
- bool isEquivalentTo(const ThingTemplate *) const;
- char unknown000[0x10c]; unsigned kind10c; unsigned kind110; unsigned kind114; unsigned kind118;
-};
+#include "../../Include/Common/ThingTemplate.h"
 class SelectionContain {
 public:
  bool rva0029CC19(const Object*);
@@ -158,7 +154,7 @@ public:
     SiegeDockInterface dock;
 };
 static __forceinline bool rva0029CC19Applies(const Object *target) {
- return target && (target->m_template->kind10c&0x10000000) && TheInGameUI->getSelectCount();
+ return target && (target->m_template->m_kindof[1]&0x10000000) && TheInGameUI->getSelectCount();
 }
 bool InGameUI::rva0029CC19(const Object *target) {
  if(!rva0029CC19Applies(target)) return false;
@@ -168,9 +164,9 @@ bool InGameUI::rva0029CC19(const Object *target) {
   Object *object=(*it)->object;
   if(!object || object->containedBy)continue;
   const CommandButton *command;
-  if(object->m_template->kind118&0x800)command=TheControlBar->findCommandButton(AsciiString("Command_SpecialAbilitySiegeLadderDeploy"));
+  if(object->m_template->m_kindof[4]&0x800)command=TheControlBar->findCommandButton(AsciiString("Command_SpecialAbilitySiegeLadderDeploy"));
   else command=TheControlBar->findCommandButton(AsciiString("Command_SpecialAbilitySiegeDeploy"));
-  if(!command || !(object->m_template->kind110&0x20000000) || object->testStatus((ObjectStatusTypes)59) || !object->rva002922D9(command) || !command->isReady(object))continue;
+  if(!command || !(object->m_template->m_kindof[2]&0x20000000) || object->testStatus((ObjectStatusTypes)59) || !object->rva002922D9(command) || !command->isReady(object))continue;
   if(!object->ai)return true;
   static NameKeyType key=TheNameKeyGenerator->nameToKey("SiegeDockingBehavior");
   Module *module=target->findModule(key);

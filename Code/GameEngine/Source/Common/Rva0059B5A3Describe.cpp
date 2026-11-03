@@ -43,13 +43,7 @@ class Rva0033A9A5
 public:
 	const Rva00427157 *getCurrentLivingWorldAutoResolveArmor(const void *upgrades);	// current auto-resolve armor
 };
-class ThingTemplate
-{
-public:
-	void *getCurrentLivingWorldAutoResolveWeapon(const void *upgrades) const;
-	unsigned char m_pad00[0x64];
-	AsciiString m_name;	// +0x64
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 #include "../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
@@ -96,7 +90,7 @@ private:
 AsciiString Rva0059B5A3::rva0059B5A3()
 {
 	char buffer[128];
-	const AsciiString &name = m_template->m_name;
+	const AsciiString &name = m_template->m_nameString;
 	Rva0059AFC2Out part;
 	AsciiString str = *(Rva0059B2EC *)Rva0059AFC2Copy(&part, &operator+(name, " (Plyr:"),
 		_itoa(m_player, buffer, 10));
