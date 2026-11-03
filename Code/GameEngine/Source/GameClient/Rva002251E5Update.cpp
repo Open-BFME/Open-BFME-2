@@ -43,12 +43,7 @@ bool Rva006CD100Get();
 
 // The tail call reaches AptPlayer::HandleOverButtons (0x00224F6C, rowed in
 // AptPlayer.cpp; WB B905A0): this layout is the same player object.
-class AptPlayer
-{
-public:
-	void HandleOverButtons();
-	bool LoadLevel(unsigned int index);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class Rva00222A8BTarget
 {

@@ -81,11 +81,7 @@ public:
  AptRef(const AptRef&aptRef):ptr(aptRef.ptr){if(ptr)++ptr->references;}
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
-class AptPlayer {
-public:
- void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
- void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class AptMessenger {
 public:static void OnMessengerBttn(const char*);static void IsOpen(int,char*,bool);
 };

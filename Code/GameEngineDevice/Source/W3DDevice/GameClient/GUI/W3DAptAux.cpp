@@ -178,13 +178,7 @@ unsigned long Rva000A90B0(unsigned long);						// 0x000A90B0
 // The Apt draw callback slot (0x00DB5FC8) and the Apt player (0x00DFE4CC),
 // whose OnCustomRender identity is corroborated by WB B97350 and retail 223D8D.
 
-class AptPlayer
-{
-public:
- void OnCommand(const char *name, int value);
- void SetExtern(const char *name, int value);
-	void OnCustomRender(const char *name, int topLeft, int bottomRight, int arg1, int arg3);	// 0x00223D8D
-};
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
