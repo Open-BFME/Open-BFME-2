@@ -46,11 +46,7 @@ struct BfmeResetResource
 {
 	void Release_Ref();
 };
-struct BfmeResetTextureRef
-{
-	BfmeResetResource *pointer;
-	void clear();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 struct SurfaceClass
 {
 	void DrawPixel(unsigned int x, unsigned int y, unsigned int color);

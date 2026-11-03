@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /MD /EHs /DNDEBUG /DWIN32 /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
+// cl: /O1 /arch:SSE /G7 /MD /EHs /DNDEBUG /DWIN32 /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
 // Complete floor-element cleanup at 0x000E5033 (104 bytes through RET).
 // Semantic guide: Open-BFME-1 6c1e0b51, BaseHeightMapFloorElementDestructor.cpp.
 // Native and WB 0x881140 prove the two texture handles at +20/+24, strings
@@ -29,7 +29,7 @@ RenderObjClass *Create_Render_Obj(const char *);
 bool Render_Obj_Exists(const char *);
 AsciiString makeNrmTextureName(const AsciiString &);
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
-struct BfmeResetTextureRef { void clear(); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 struct CursorTextureSlot { void operator=(const BFME2ParticleTextureHandle &); };
 class FloorMaterialDispatch;
 class FloorRenderDispatch {

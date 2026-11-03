@@ -40,7 +40,7 @@ class GameState; extern GameState *TheGameState;
 extern FileSystem *TheFileSystem;
 class TextureClass { public: void Release_Ref(); };
 class BfmeMapPictureTexture { public: TextureClass *ptr; BfmeMapPictureTexture(const char*); BfmeMapPictureTexture &operator=(const BfmeMapPictureTexture&); ~BfmeMapPictureTexture(){if(ptr)ptr->Release_Ref();} };
-class BfmeResetTextureRef { public: void clear(); };
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 class W3DRadarResetSurface { void *ptr; public: ~W3DRadarResetSurface(); };
 class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); };
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/W3DSurfaceClass.h"

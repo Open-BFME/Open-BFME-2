@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z @0x0006ACBD 173B
 // BaseHeightMapRenderObjClass texture reload via rowed StringBase set at
@@ -62,12 +62,7 @@ private:
 };
 
 struct BfmeResetResource;
-struct BfmeResetTextureRef
-{
-public:
-	void clear();
-	BfmeResetResource *pointer; // +0x00
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class ShroudTexture
 {

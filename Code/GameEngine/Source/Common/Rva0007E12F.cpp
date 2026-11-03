@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva0007E12F@Rva0007E12F@@QAEXXZ retail 0x0007E12F 76B lock DX8 thread then
 // clear embedded reset-texture ref at +0xF8 and release Rva00083E5C holder
 // at +0x100 via its 43B dual release. Evidence: chain calls 0x00083E5C;
@@ -11,11 +11,7 @@ public:
 	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
 	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
 };
-struct BfmeResetTextureRef
-{
-	void *m_ptr;
-	void clear();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 class Rva00083E5C
 {
 public:
@@ -34,7 +30,7 @@ private:
 void Rva0007E12F::rva0007E12F()
 {
 	BFMEDX8DeviceLock guard;
-	if (m_f8.m_ptr != 0)
+	if (m_f8.pointer != 0)
 		m_f8.clear();
 	Rva00083E5C *p = m_100;
 	if (p != 0)

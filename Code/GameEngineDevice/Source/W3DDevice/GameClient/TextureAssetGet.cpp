@@ -106,11 +106,7 @@ struct BfmeResetAnyRef
 	BfmeResetTagged *pointer;
 };
 
-struct BfmeResetTextureRef
-{
-	void *pointer;
-	BfmeResetTextureRef &operator=(const BfmeResetAnyRef &rhs);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 // This opaque wrapper uses the 0x131DCB ctor-shaped helper. Its one-dword
 // layout and the subsequent assignment at 0x131D99 follow the target calls.

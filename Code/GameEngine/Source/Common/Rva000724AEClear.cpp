@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva000724AE@Rva000724AE@@QAEXXZ, RVA 0x000724AE, 25B. Triple clear: call
 // rowed cleanup@Rva00739C70 on +0x00 then clear@BfmeResetTextureRef on +0x08
 // then tail-jump to rva000723AC@W3DRadarResetSurface on +0x0c. Evidence:
@@ -13,12 +13,7 @@ private:
 	int m_00;
 	int m_04;
 };
-struct BfmeResetTextureRef
-{
-	void clear();
-private:
-	void *m_ptr;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 class W3DRadarResetSurface
 {
 public:

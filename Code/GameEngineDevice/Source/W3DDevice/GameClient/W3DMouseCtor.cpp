@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 // Native EH action 0x76050D destroys the destructor lifetime of 21 D3D surface references at +0x6028 with stride4; the complete parent EH graph proves this 24B lifetime.
@@ -39,12 +39,7 @@ class CameraClass;
 #include <d3d9.h>
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-struct BfmeResetTextureRef
-{
-	TextureBaseClass *pointer;
-
-	void clear( void );
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 struct CursorTextureSlot : public BfmeResetTextureRef
 {

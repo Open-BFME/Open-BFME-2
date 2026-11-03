@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?reset@BaseHeightMapRenderObjClass@@UAEXXZ, retail 0x0006D5A7..0x0006D6D9
 // (306 bytes, no direct callers: a vtable slot). Zero Hour's
@@ -58,12 +58,7 @@ class Rva000731AE { public: void rva000731AE(); };
 class Rva000729CC { public: void rva000729CC(bool level); };
 class Rva00073C7A { public: void rva00073C7A(); };
 struct BfmeResetResource;
-struct BfmeResetTextureRef
-{
-public:
-	void clear();
-	BfmeResetResource *pointer; // +0x00
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class GlobalData
 {

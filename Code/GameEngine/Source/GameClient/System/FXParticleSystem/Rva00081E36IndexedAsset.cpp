@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /O1
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /O1 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?onStandingWaterAreaTextureNameChanged@RenderableStandingWaterArea@@QAEXPAXH@Z @ 0x00081E36 (114B), Ghidra boundary.
 // Target bytes show a two-argument thiscall body using the second argument as
@@ -59,11 +59,7 @@ struct AssetList00208F90
 	AssetList00208F90 &operator<<(const AsciiString &name);
 };
 
-class BfmeResetTextureRef
-{
-public:
-	void clear();
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class Rva0030812E
 {

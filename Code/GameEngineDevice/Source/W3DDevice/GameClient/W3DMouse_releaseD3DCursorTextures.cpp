@@ -1,4 +1,4 @@
-// cl: /Oy- /MD /EHsc /DNDEBUG
+// cl: /Oy- /MD /EHsc /DNDEBUG C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?releaseD3DCursorTextures@W3DMouse@@AAE_NW4MouseCursor@@@Z, retail
 // 0x00098F52, 111 bytes. Ghidra boundary 0x98F52/111. The neighboring
@@ -57,11 +57,7 @@ struct MouseCursorInfo
 };
 typedef char CursorInfoStride[(sizeof(MouseCursorInfo) == 0x54) ? 1 : -1];
 
-struct BfmeResetTextureRef
-{
-	TextureBaseClass *pointer;
-	void clear();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class W3DMouse
 {

@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?rva0007BAD6@Rva0007BAD6@@QAEXXZ @ 0x0007BAD6 (64B): release-all clear
 // over +0x14..+0x24. Retail unconditionally runs the rowed holder release
@@ -19,11 +19,7 @@ struct BfmeResetResource
 	void Release_Ref();
 };
 
-struct BfmeResetTextureRef
-{
-	BfmeResetResource *pointer;
-	void clear();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class Rva005F2577Holder
 {
