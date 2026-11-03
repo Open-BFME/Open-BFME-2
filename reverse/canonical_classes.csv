@@ -596,3 +596,4 @@ ArmyDetailsMovieClip,Code/GameEngine/Include/GameClient/ArmyDetailsMovieClip.h,e
 HordeContainInterface,Code/GameEngine/Include/GameLogic/Module/HordeContainInterface.h,existing header; contract class_contracts/HordeContainInterface.json; 10/14 sampled units adopt
 GiveUpgradeUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h,existing header; contract class_contracts/GiveUpgradeUpdateModuleData.json; 8/13 sampled units adopt
 DestroyDieModuleData,Code/GameEngine/Include/GameLogic/Module/DestroyDieModuleData.h,existing header; contract class_contracts/DestroyDieModuleData.json; 5/14 sampled units adopt
+GameModePreferences,Code/GameEngine/Include/Common/GameModePreferences.h,existing header; contract class_contracts/GameModePreferences.json; 10/22 sampled units adopt
