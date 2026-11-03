@@ -6,13 +6,7 @@
 // the virtual call. Owner unproven so honest-address class; static, as the
 // body never reads ecx and its caller 0x002251E5 calls it with no this setup.
 
-class Rva000411084
-{
-public:
-	void *next();
-	void *m_current;
-	void *m_owner;
-};
+#include "../../Include/GameClient/Rva000411084.h"
 
 #include "../../Include/GameLogic/Rva000427195.h"
 

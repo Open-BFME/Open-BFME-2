@@ -48,15 +48,7 @@ private:
 
 // Iterator home for the event-name walk. The helpers below are the banked
 // Rva000427195/Rva000411084 pins, so the class names spell those pins.
-class Rva000411084
-{
-public:
-    __declspec(noinline) void *next();
-    void *advance();
-
-    void *m_current;
-    void *m_owner;
-};
+#include "../../Include/GameClient/Rva000411084.h"
 
 class Rva000427195
 {

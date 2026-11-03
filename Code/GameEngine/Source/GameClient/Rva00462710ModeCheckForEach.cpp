@@ -93,14 +93,7 @@ typedef _STL::hashtable<Rva0045F0A0Input, AsciiString, rts::hash<AsciiString>,
 // The native for_each calls the shared two-word cursor advance at 0x00411084,
 // already owned by EvaMessageName.cpp. This is an ABI view of that cursor,
 // not an assertion that the component and Eva tables store the same records.
-class Rva000411084
-{
-public:
-	void *next();
-	void *advance();
-	void *m_current;
-	void *m_owner;
-};
+#include "../../Include/GameClient/Rva000411084.h"
 
 template <> inline Rva0045F0A0 _STL::for_each<Rva0045F0A0Table::iterator,
 	Rva0045F0A0>(Rva0045F0A0Table::iterator first,

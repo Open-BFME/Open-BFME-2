@@ -27,13 +27,7 @@ public:
     ~Rva00415AE0();
 };
 
-class Rva000411084
-{
-public:
-    void *next();
-    void *m_current;
-    void *m_owner;
-};
+#include "../../Include/GameClient/Rva000411084.h"
 
 #include "../../Include/GameLogic/Rva000427195.h"
 

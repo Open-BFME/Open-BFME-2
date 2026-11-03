@@ -52,13 +52,7 @@ extern ImageCollection *TheMappedImageCollection;
 // The map's values are template pointers; its cursor operations are
 // accessed through established cursor-provider names, without emitting a
 // competing STL iterator definition.
-class Rva000411084
-{
-public:
-	void *next();
-	void *m_current;
-	void *m_owner;
-};
+#include "../../../Include/GameClient/Rva000411084.h"
 struct VideoPair
 {
 	struct { void *first; void *second; } s;

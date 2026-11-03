@@ -90,11 +90,7 @@ typedef _STL::_Ht_iterator<HashBeginValue, _STL::_Nonconst_traits<HashBeginValue
 
 // The hash iterator's step (rowed 0x00411084) and the table's clear (rowed
 // 0x003A2A41) under their existing spellings.
-class Rva000411084
-{
-public:
-	void *next();
-};
+#include "../../Include/GameClient/Rva000411084.h"
 #include "../../Include/GameLogic/Rva000427195.h"
 
 // vector<void *>::erase(first, last), rowed 0x0031BD55; called under this

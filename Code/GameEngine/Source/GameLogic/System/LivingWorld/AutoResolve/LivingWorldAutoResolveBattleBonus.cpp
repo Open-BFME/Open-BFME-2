@@ -93,11 +93,7 @@ typedef _STL::hashtable<NativeBeginPair,const GameWindow *,
 namespace _STL { template<> NativeBeginTable::iterator NativeBeginTable::begin(); }
 
 
-class Rva000411084
-{
-public:
-    void *next();
-};
+#include "../../../../../Include/GameClient/Rva000411084.h"
 struct Rva003F751ANode
 {
     int opaque00;

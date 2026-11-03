@@ -1041,13 +1041,7 @@ struct VolIter
 	volatile void *m_current;
 	volatile void *m_owner;
 };
-class Rva000411084
-{
-public:
-	void *next();
-	void *m_current; // +0x00
-	void *m_owner; // +0x04
-};
+#include "../../../../Include/GameClient/Rva000411084.h"
 // An explicit copy constructor makes the by-value erase argument reserve
 // its stack space and copy its two words through the argument address.
 struct VideoPair

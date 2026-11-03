@@ -4,13 +4,7 @@
 // rowed next 0x00411084, hiding visible windows and setting status 0x10000000.
 // Same first/next shape as Rva00411523Walk; node GameWindow at +0x18 flag at +0x2C.
 // Evidence: winIsHidden 0x313CD9 winHide 0x313C64 winSetStatus 0x313CE3 caller 0x22246C.
-class Rva000411084
-{
-public:
-	void *next();
-	void *m_current;
-	void *m_owner;
-};
+#include "../../Include/GameClient/Rva000411084.h"
 
 #include "../../Include/GameLogic/Rva000427195.h"
 

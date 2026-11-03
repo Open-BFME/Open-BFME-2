@@ -155,13 +155,7 @@ public:
 	~ControlBarSchemeManager();
 };
 
-class Rva000411084
-{
-public:
-	void *next();
-	void *m_current; // +0x00
-	void *m_owner; // +0x04
-};
+#include "../../../../Include/GameClient/Rva000411084.h"
 struct Rva0031DCF0Iterator { char *m_current; void *m_owner; };
 
 #include <utility>
