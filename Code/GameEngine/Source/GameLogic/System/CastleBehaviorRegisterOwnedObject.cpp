@@ -545,7 +545,7 @@ void CastleBehavior::teleportStragglersFromWallToGround(bool filter) {
 // Rehome the already-matched34B height helper here: its visible noinline body
 // lets MSVC preserve EDX across the native call, as retail does. Its own bytes
 // remain exact; this move adds no recovered bytes.
-class W3DBridge { char pad[0x110]; bool enabled; public: void setEnabled(bool); bool isEnabled() const { return enabled; } };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 class Player { char pad[0x3bc]; W3DBridge buildControl; public: W3DBridge* getBuildControl() { return &buildControl; } };
 class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
 float Rva00395A60::rva00395A60() { float value=0.0f; void* data=field<void*>(this,4); if(data) value=field<float>(data,0x2c);return value; }

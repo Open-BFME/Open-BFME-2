@@ -110,14 +110,7 @@ private:
 };
 
 // Folded byte setter 0x0039B780 (rowed under this name): the flag at +0x110.
-class W3DBridge
-{
-public:
-	void setEnabled(Bool enabled);
-	Bool isEnabled() const { return m_enabled; }
-	char m_pad[0x110];
-	Bool m_enabled;
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 
 struct Rva002A7557In;
 class Rva002A7461

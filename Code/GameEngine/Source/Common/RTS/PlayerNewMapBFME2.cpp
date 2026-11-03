@@ -64,7 +64,7 @@ public:
  virtual bool flag50() = 0;
 };
 extern GameInfo *TheGameInfo;
-class W3DBridge { public: void setEnabled(bool); char pad[0x114]; };
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 struct Rva002E2690Element { char bytes[0xD8]; ~Rva002E2690Element(); };
 // Cleanup belongs to the existing 63-byte vector destructor provider at
 // 0x002B0B32. Declare that specialization so this TU emits no divergent

@@ -171,11 +171,7 @@ struct Rva002D76C6Owner;
 #include "../../../Include/Common/Radar.h"
 extern Radar *TheRadar;
 
-class W3DBridge
-{
-public:
-	void setEnabled(bool enable);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 
 // The +0x3BC member: its +0x110 flag (setter folded with W3DBridge's) and
 // the pinned per-object call.

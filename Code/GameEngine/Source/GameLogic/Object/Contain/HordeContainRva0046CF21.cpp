@@ -41,14 +41,7 @@ public:
 	void setFullyObscuredByShroud(bool fully);
 };
 
-class W3DBridge
-{
-public:
-	void setEnabled(bool enable);
-
-	char pad000[0x110];
-	bool m_enabled;	// +0x110
-};
+#include "../../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DBridge.h"
 
 class Player
 {
