@@ -1,0 +1,182 @@
+{
+ "bases": [
+  "Snapshot"
+ ],
+ "bases_by": "retail destructor 0x0049B47C restores Snapshot VA 0x00BBB554",
+ "class": "EmissionVolumeInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 15,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "manual_retail_resolution": {
+   "base_size": 4,
+   "class": "FXParticleSystem::EmissionVolumeInfo",
+   "constructor_table_va": "0x00BE1548",
+   "copy_call_sites_rva": [
+    "0x003A64D0",
+    "0x003A6E19"
+   ],
+   "destructor_resolution": "empty derived destructor inlines Snapshot teardown; derived vptr store is dead",
+   "destructor_table_va": "0x00BBB554",
+   "discovery_limit": "unqualified private_views misses namespaced CodeView types; qualified census finds no textual declaration",
+   "field_name_is_placeholder": true,
+   "identity_check": "458 registered headers; only Snapshot comment references callback",
+   "raw_evidence": "build/emission-volume-header/retail-bytes-corrected.log",
+   "resolved_attributes": [
+    "retail-dtor-vftables",
+    "size"
+   ],
+   "size": 8,
+   "slot_targets_rva": [
+    "0x001F3574",
+    "0x000B3FD0",
+    "0x001F354A",
+    "0x0047A69C"
+   ]
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "class": "FXParticleSystem::EmissionVolumeInfo",
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x7e1548"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x49b47c",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "ctors": [
+    "0x1f353d",
+    "0x1f3550"
+   ],
+   "dtors": [
+    "0x49b47c"
+   ],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1f353d",
+      "0x1f3550"
+     ],
+     "value": 5
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1f353d",
+      "0x1f3550"
+     ],
+     "value": {
+      "0x4": [
+       1
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1f353d",
+      "0x1f3550"
+     ],
+     "value": {
+      "0x0": "0x7e1548"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7e1548"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": true,
+      "slots": [
+       {
+        "name": "??_ERva001F3574Vec@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x1f3574"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ",
+        "slot": 2,
+        "target": "0x1f354a"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7e1548"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 15,
+  "view_sizes": {},
+  "views": 0,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail constructors and assignment",
+   "kind": "i1",
+   "name": "m_04",
+   "name_by": "neutral offset placeholder",
+   "offset": 4,
+   "size": 1,
+   "type": "bool"
+  }
+ ],
+ "key": "class",
+ "key_by": "retail-ledger namespace and compiled CodeView",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "retail deleting destructor 0x001F3574, stride at 0x001F358C",
+ "vslots": {
+  "0": {
+   "decided_by": "retail table VA 0x00BE1548 and ledger",
+   "member": "~EmissionVolumeInfo"
+  },
+  "1": {
+   "decided_by": "retail table VA 0x00BE1548 and ledger",
+   "member": "LoadPostProcess"
+  },
+  "2": {
+   "decided_by": "retail table VA 0x00BE1548 and ledger",
+   "member": "GetSnapshotName"
+  },
+  "3": {
+   "decided_by": "retail table VA 0x00BE1548 and ledger",
+   "member": "DoXfer"
+  }
+ }
+}
