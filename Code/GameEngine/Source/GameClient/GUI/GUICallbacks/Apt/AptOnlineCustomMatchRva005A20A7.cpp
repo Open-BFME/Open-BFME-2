@@ -236,19 +236,7 @@ extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 extern int BfmeOnlineLadderRank1v1;
 extern int BfmeOnlineLadderRank2v2;
 
-class GameModePreferences
-{
-public:
-	int rva0044D836();					// preferred color
-	int rva0044D88C();					// preferred faction
-	bool rva0044D774(GameSlot *slot);	 // preferred hero
-	int getStrategicScenario();
-	bool rva0044DB54(int *rules);
-	AsciiString rva0044D986();			// preferred map
-
-private:
-	unsigned char m_pad[0x1C];
-};
+#include "../../../../../Include/Common/GameModePreferences.h"
 
 class AptMpGameSetup
 {

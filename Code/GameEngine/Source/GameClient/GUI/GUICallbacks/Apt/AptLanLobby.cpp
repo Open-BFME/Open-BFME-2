@@ -475,17 +475,7 @@ void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
 
 // The +0x684 preferences as GameModePreferences; 0x0044D774 (194 bytes),
 // 0x0044DB54 (81 bytes) and 0x0044D986 (290 bytes) are unrowed and pinned.
-class GameModePreferences
-{
-public:
-	UnicodeString rva0044D330();
-	int rva0044D836();
-	int rva0044D88C();
-	int getStrategicScenario();
-	bool rva0044D774(GameSlot *slot);
-	bool rva0044DB54(int *rules);
-	AsciiString rva0044D986();
-};
+#include "../../../../../Include/Common/GameModePreferences.h"
 
 class UnicodeString;
 

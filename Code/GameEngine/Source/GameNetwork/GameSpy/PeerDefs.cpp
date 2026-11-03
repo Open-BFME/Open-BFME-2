@@ -278,11 +278,7 @@ private:
 	unsigned char m_body[0x18];
 };
 
-class GameModePreferences
-{
-public:
-	Int rva0054F5A4(void);
-};
+#include "../../../Include/Common/GameModePreferences.h"
 
 // Retail calls _strcmpi through its msvcr71 import slot (0x00BBA518); the
 // CRT headers here declare it without dllimport.

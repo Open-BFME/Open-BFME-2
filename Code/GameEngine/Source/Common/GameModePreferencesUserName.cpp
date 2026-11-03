@@ -43,39 +43,7 @@ typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
 #include "../../Include/Common/UserPreferences.h"
 
-class GameModePreferences : public UserPreferences
-{
-public:
-	GameModePreferences(Int mode);
-	virtual ~GameModePreferences();
-
-	virtual Bool write(void);
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual Real getReal(const AsciiString &key, Real defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-	virtual void setBool(const AsciiString &key, Bool val);
-	virtual void setReal(const AsciiString &key, Real val);
-	virtual void setInt(const AsciiString &key, Int val);
-
-	Int getStrategicScenario(void);
-	void setStrategicScenario(Int scenario);
-	Int rva0054F5A4(void);
-	void rva0054F7C0(Int val);
-	void rva0044DDFB(int *vals);
-	Int rva0044D836(void);
-	Int rva0044D88C(void);
-	AsciiString rva0044DBA5(void);
-	UnicodeString rva0044D330(void);
-	void rva0044DC54(Int val);
-	void rva0044DCB9(Int val);
-	void rva0044DD1E(Int val);
-
-private:
-	const AsciiString &makeKey(const char *key) const;
-
-	Int m_mode;
-	mutable AsciiString m_key;
-};
+#include "../../Include/Common/GameModePreferences.h"
 
 // ?write@GameModePreferences@@UAE_NXZ @0x44D50D
 // GameModePreferences::write: defined in GameModePreferences.cpp (its row's unit).

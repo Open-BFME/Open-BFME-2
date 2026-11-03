@@ -389,24 +389,7 @@ struct AptOnlineCustomMatchOwner
 
 // The screen's game-mode preferences (GameModePreferences.cpp; vslot 3 is
 // write, as in AptLanLobby).
-class GameModePreferences
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual bool write();
-
-	AsciiString rva0044DAA8(const AsciiString &);
-	AsciiString rva0044DBA5();
-	void rva0044DE5A(const AsciiString &name);	// rowed 0x0044DE5A
-	void rva0044DEC1(const AsciiString &password); // rowed 0x0044DEC1
-	AsciiString rva0044D986();					  // rowed 0x0044D986, the map
-	void rva0044DDFB(int *rules); // rowed 0x0044DDFB, "Rules"
-
-private:
-	unsigned char m_pad04[0x1C - 0x04];
-};
+#include "../../../../../Include/Common/GameModePreferences.h"
 
 // Address-named views the buddy invite uses: the screen's state test
 // (0x0059EF33, state 6 or 12), the room's +0xFDC string (0x0059F340) and

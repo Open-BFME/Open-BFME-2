@@ -41,29 +41,7 @@ typedef _STL::map<AsciiString, AsciiString> PreferenceMap;
 
 #include "../../Include/Common/UserPreferences.h"
 
-class GameModePreferences : public UserPreferences
-{
-public:
-	GameModePreferences(Int mode);
-	virtual ~GameModePreferences();
-
-	virtual Bool write(void);
-	virtual Bool getBool(const AsciiString &key, Bool defaultValue) const;
-	virtual Real getReal(const AsciiString &key, Real defaultValue) const;
-	virtual Int getInt(const AsciiString &key, Int defaultValue) const;
-	virtual void setBool(const AsciiString &key, Bool val);
-	virtual void setReal(const AsciiString &key, Real val);
-	virtual void setInt(const AsciiString &key, Int val);
-
-	Int getStrategicScenario(void);
-	void setStrategicScenario(Int scenario);
-
-private:
-	const AsciiString &makeKey(const char *key) const;
-
-	Int m_mode;
-	mutable AsciiString m_key;
-};
+#include "../../Include/Common/GameModePreferences.h"
 
 #include "../../Include/GameNetwork/GameSpyInfoInterface.h"
 
