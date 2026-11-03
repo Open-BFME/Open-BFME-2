@@ -615,3 +615,4 @@ AttributeModifierStore,Code/GameEngine/Include/GameLogic/AttributeModifierStore.
 ResourceEntryCollector,Code/GameEngine/Include/GameClient/ResourceEntryCollector.h,existing header; contract class_contracts/ResourceEntryCollector.json; 8/10 sampled units adopt
 AITarget,Code/GameEngine/Include/GameLogic/AITarget.h,existing header; contract class_contracts/AITarget.json; 7/9 sampled units adopt
 W3DPropDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h,existing header; contract class_contracts/W3DPropDraw.json; 5/9 sampled units adopt
+W3DFloorDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DFloorDraw.h,existing header; contract class_contracts/W3DFloorDraw.json; 3/9 sampled units adopt
