@@ -22845,3 +22845,9 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp|member
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp|member|Rva00357340Arg|m_f40,1781ff0682ce7991f236c939,drz-k5,drz-k5-n47d-6,w-526a51702f64,2026-11-02
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357C1F.cpp|param|ScriptEngine::rva00357C1F|v,b2626f861e9c6e21902b6a3f,drz-k5,drz-k5-n47d-8,w-526a51702f64,2026-11-02
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptTagCheck.cpp|function|0x003B31C7|equalTag_Rva003B31C7,b1b0f193d0078aef9cb40847,drz-k5,drz-k5-n47d-19,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva002A9BF2::fromGate|p,775b1cd5ae4d9422719311fd,drz-k7,drz-k7-n47e-1,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookShroudReveal.cpp|function|0x005D7E45|Rva005D7E45FindWaypoint,901a86cc45fdff947d589684,drz-k7,drz-k7-n47e-7,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|member|Rva00505289Data|m_60,cee9ccee4b55bf6be2282f53,drz-k7,drz-k7-n47e-10,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|member|Rva00505289Data|m_70,ef71376096fe2a97bc3cb161,drz-k7,drz-k7-n47e-10,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|function|0x00505408|rva00505408,8d21d5fc4b81c29b27dfd748,drz-k7,drz-k7-n47e-10,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicTechBuilding.cpp|local|AITargetHeuristicTechBuilding::findBestTarget|d,53ae0d66b239f46eb2da27c5,drz-k7,drz-k7-n47e-12,w-4471b1f6edef,2026-11-02

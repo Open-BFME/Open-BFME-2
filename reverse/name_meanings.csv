@@ -983,3 +983,4 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeObjectEventDispatchRva0033605B
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_createNamedMapReveal.cpp|local|ScriptEngine::createNamedMapReveal|p,03dc49444350dc7f6f1d2a9c,drz-k5,drz-k5-n47d-1,w-526a51702f64,2026-11-02,9cae488c8ed2571bcfbd9505
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp|param|Rva00204136::rva00204136|p,1823b442637ade7dbbe2a540,drz-k5,drz-k5-n47d-4,w-526a51702f64,2026-11-02,09d03abb6ccb714de5d94e4d
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357C1F.cpp|param|ScriptEngine::rva00357C1F|v,b2626f861e9c6e21902b6a3f,drz-k5,drz-k5-n47d-8,w-526a51702f64,2026-11-02,9fdc2b9a3f3a4b57633e6a07
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva002A9BF2::fromGate|p,775b1cd5ae4d9422719311fd,drz-k7,drz-k7-n47e-1,w-4471b1f6edef,2026-11-02,710e145e68ce851965d7897a
