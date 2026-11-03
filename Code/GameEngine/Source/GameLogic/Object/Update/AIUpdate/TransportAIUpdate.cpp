@@ -20,11 +20,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class TransportAIUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateClass.h"
 
 // tu-skeleton: 0x004A9042 56B ??0TransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdateCtorThunk.cpp (not merged yet)
 

@@ -115,13 +115,7 @@ public:
 	AIUpdateInterface *m_ai;
 };
 
-class TransportAIUpdate : public AIUpdateInterface
-{
-protected:
-	virtual void privateAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
-	virtual void privateForceAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource);
-	virtual void privateAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType commandSource);
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateClass.h"
 
 void TransportAIUpdate::privateAttackObject(Object *victim, Int maxShotsToFire, CommandSourceType cmdSource)
 {

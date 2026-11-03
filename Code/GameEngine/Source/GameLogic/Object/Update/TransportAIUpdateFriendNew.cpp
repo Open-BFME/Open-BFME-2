@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class TransportAIUpdate
-{
-public:
-	TransportAIUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x3E4];
-};
+#include "../../../../Include/GameLogic/Module/TransportAIUpdateClass.h"
 
 // ?friend_newModuleInstance@TransportAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *TransportAIUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

@@ -26,11 +26,7 @@ class SupplyTruckAIUpdate : public AIUpdateModuleView
 protected:
 	virtual AIStateMachine *makeStateMachine();
 };
-class TransportAIUpdate : public AIUpdateModuleView
-{
-protected:
-	virtual AIStateMachine *makeStateMachine();
-};
+#include "../../../Include/GameLogic/Module/TransportAIUpdateClass.h"
 class WanderAIUpdate : public AIUpdateModuleView
 {
 protected:

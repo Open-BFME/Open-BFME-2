@@ -56,11 +56,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class TransportAIUpdate : public AIUpdateInterface
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateClass.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
