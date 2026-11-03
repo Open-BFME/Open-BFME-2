@@ -76,7 +76,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma optimize("", on)
 #include <vector>
 #include <memory>
-
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
@@ -84,11 +83,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // placement-copy owner directly. Keep only that neutral footprint here;
 // original element identity and the provider's inherited type view are unknown.
 struct Rva000D04BCElement { unsigned words[2]; };
-
 struct TreeKey00242F5E;
-
 void Rva000D0469Construct(TreeKey00242F5E *, const TreeKey00242F5E &);
-
 namespace _STL {
 // TU-local forwarding glue; its discardable out-of-line copy has no retail entry.
 // ?_STL::_Construct absent-from-retail
@@ -99,18 +95,14 @@ static __forceinline void _Construct(Rva000D04BCElement *destination,
         *reinterpret_cast<const TreeKey00242F5E *>(&value));
 }
 }
-
 class BfmeStreakVtable
 {
 public:
 	virtual void s0(); virtual void s1();
 	virtual void Add_Render_Object(Rva001684D6 *object);
 };
-
 class RTS3DScene : public BfmeStreakVtable {};
-
 class W3DDisplay { public: static RTS3DScene *m_3DScene; };
-
 class W3DStreakDraw : public DrawModule
 {
 public:
@@ -121,7 +113,6 @@ private:
 	Rva001684D6 *m_streak;
 	RefCountPtr<TextureClass> m_texture;
 };
-
 class CameraMarker {
 public:
 	CameraMarker *m_next;
@@ -130,17 +121,13 @@ public:
 	CameraMarker(const CameraMarker &other);
 	CameraMarker &operator=(const CameraMarker &other);
 };
-
 namespace _STL {
 template <> void _Construct<class CameraMarker, class CameraMarker>(class CameraMarker *, const class CameraMarker &);
 }
-
 template void _STL::vector<class CameraMarker>::_M_insert_overflow(class CameraMarker *, const class CameraMarker &, const _STL::__false_type &, unsigned int, bool);
-
 // ?push_back@?$vector@VCameraMarker@@V?$allocator@VCameraMarker@@@_STL@@@_STL@@QAEXABVCameraMarker@@@Z @0x000D068F 55B
 // Evidence: vector<CameraMarker> push_back fast Construct plus overflow 0xD05C1 slow path; caller 0xD06C6 unblocks 0xD06C6.
 template void _STL::vector<class CameraMarker>::push_back(const class CameraMarker &);
-
 //
 // 0x000D0496 (38B): STLport's __uninitialized_copy loop over 0x8-byte records.
 // Each element goes through the placement copy at 0x000D0469, which the ledger owns
@@ -150,12 +137,9 @@ template void _STL::vector<class CameraMarker>::push_back(const class CameraMark
 // pushed by the caller and never read.
 
 namespace _STL { struct __false_type; }
-
 void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source);
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva000D04BCElement * _STL::__uninitialized_fill_n<Rva000D04BCElement *, unsigned int, Rva000D04BCElement>(Rva000D04BCElement *, unsigned int, Rva000D04BCElement const &, _STL::__false_type const &);
-
 //
 // W3DStreakDrawModuleData file-unit (parse first; the ctor at 0xD0520
 // remains pinned for a follow-up).
@@ -166,17 +150,11 @@ template Rva000D04BCElement * _STL::__uninitialized_fill_n<Rva000D04BCElement *,
 // parse pin.
 
 class MultiIniFieldParse;
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
-
 #include "../../../../../../GameEngine/Include/Common/INI/INI.h"
-
 void Rva000D06C6Parse(INI *ini, void *instance, void *store, const void *userData);
-
 // Retail VA 0x00BCDB60 (.rdata): 7 field records and a zero sentinel.
 extern const FieldParse g_00BCDB60[] = {
 	{ "Length", &INI::parseReal, 0, 0x8 },
@@ -188,10 +166,7 @@ extern const FieldParse g_00BCDB60[] = {
 	{ "WeatherTexture", &Rva000D06C6Parse, 0, 0x28 },
 	{ 0, 0, 0, 0 }
 };
-
-
 #include "../../../../../../GameEngine/Include/Common/Geometry.h"
-
 // The destructor at 0x000D057C destroys these two owning members before
 // restoring Snapshot's vtable. Keep its vector owner, rather than projecting
 // the vector as unrelated begin/end fields in the constructor's data view.
@@ -202,35 +177,8 @@ struct W3DStreakWeatherVec
     void *m_finish;
     void *m_end;
 };
-
-class W3DStreakDrawModuleData : public Snapshot
-{
-public:
-	virtual ~W3DStreakDrawModuleData();
-	unsigned char m_pad04[4];
-public:
-	float m_length;
-public:
-	float m_width;
-public:
-	bool m_additive;
-public:
-	unsigned char m_pad11[3];
-public:
-	float m_color[3];
-public:
-	int m_numSegments;
-public:
-	AsciiString m_textureName;
-public:
-	W3DStreakWeatherVec m_weatherTexture;
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
 #include "../../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
-
-#include "../../../../../../GameEngine/Include/Common/Geometry.h"
+#include "Common/Snapshot.h"
 
 class FXList
 {
@@ -262,6 +210,58 @@ public:
 	Rva0052BDE6(const Rva0052BDE6 &other);
 };
 
+// Native unsigned-key/string map: subscript136A21 -> hint136777 ->
+// insert136642/1364F7 -> node1364AC -> Construct13623C. The subscript
+// default-constructs the mapped string and returns node+0x14; the node is
+// 24 bytes with its 8-byte value at +0x10. STLport map::value_type supplies
+// the const key. Its genuine pair copy folds onto the existing29B CF475
+// owner; the separate TreeKey ConstructA7876 and handler760AB8 remain.
+typedef _STL::pair<const unsigned int, AsciiString> UnsignedAsciiPair;
+
+// Native Apt adder524845 supplies std::make_pair to vector52480E at+0C,
+// which calls Construct523DD4. The erase/copy chain writes the first dword,
+// excluding a const map key. Keep the existing producer's int source view:
+// signedness is a source convention here, not a recovered original signature.
+// The genuine pair copy folds onto CF475; TreeKeyA7876 keeps its own identity.
+typedef _STL::pair<int, AsciiString> MutableAsciiPair;
+
+class W3DStreakDrawModuleData : public Snapshot
+{
+public:
+	virtual ~W3DStreakDrawModuleData();
+	unsigned char m_pad04[4];
+public:
+	float m_length;
+public:
+	float m_width;
+public:
+	bool m_additive;
+public:
+	unsigned char m_pad11[3];
+public:
+	float m_color[3];
+public:
+	int m_numSegments;
+public:
+	AsciiString m_textureName;
+public:
+	W3DStreakWeatherVec m_weatherTexture;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// tu-skeleton: 0x000CFF4C 51B ?Rva000CFF4C@W3DStreakDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawRva000CFF4C.cpp (not merged yet)
+
+// tu-skeleton: 0x000CFFD3 115B ??1W3DStreakDraw@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0046 6B ?name@W3DStreakDraw@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000D004C 69B ?getModuleNameKey@W3DStreakDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DStreakDrawPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0091 534B ?rva000D0091@W3DStreakDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp
+
 template void _STL::_Construct<TreeKey00242F5E, TreeKey00242F5E>(TreeKey00242F5E *, const TreeKey00242F5E &);
 
 template void _STL::_Construct<GeometryInfo, GeometryInfo>(GeometryInfo *, const GeometryInfo &);
@@ -276,34 +276,9 @@ template void _STL::_Construct<Rva0052BE33, Rva0052BE33>(Rva0052BE33 *, const Rv
 
 template void _STL::_Construct<Rva0052BDE6, Rva0052BDE6>(Rva0052BDE6 *, const Rva0052BDE6 &);
 
-// Native unsigned-key/string map: subscript136A21 -> hint136777 ->
-// insert136642/1364F7 -> node1364AC -> Construct13623C. The subscript
-// default-constructs the mapped string and returns node+0x14; the node is
-// 24 bytes with its 8-byte value at +0x10. STLport map::value_type supplies
-// the const key. Its genuine pair copy folds onto the existing29B CF475
-// owner; the separate TreeKey ConstructA7876 and handler760AB8 remain.
-typedef _STL::pair<const unsigned int, AsciiString> UnsignedAsciiPair;
-
 template void _STL::_Construct<UnsignedAsciiPair, UnsignedAsciiPair>(UnsignedAsciiPair *, const UnsignedAsciiPair &);
 
-// Native Apt adder524845 supplies std::make_pair to vector52480E at+0C,
-// which calls Construct523DD4. The erase/copy chain writes the first dword,
-// excluding a const map key. Keep the existing producer's int source view:
-// signedness is a source convention here, not a recovered original signature.
-// The genuine pair copy folds onto CF475; TreeKeyA7876 keeps its own identity.
-typedef _STL::pair<int, AsciiString> MutableAsciiPair;
-
 template void _STL::_Construct<MutableAsciiPair, MutableAsciiPair>(MutableAsciiPair *, const MutableAsciiPair &);
-
-// tu-skeleton: 0x000CFF4C 51B ?Rva000CFF4C@W3DStreakDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawRva000CFF4C.cpp (not merged yet)
-
-// tu-skeleton: 0x000CFFD3 115B ??1W3DStreakDraw@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0046 6B ?name@W3DStreakDraw@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x000D004C 69B ?getModuleNameKey@W3DStreakDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DStreakDrawPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0091 534B ?rva000D0091@W3DStreakDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp
 
@@ -385,12 +360,6 @@ void W3DStreakDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(g_00BCDB60, 0);
 }
 
-// tu-skeleton: 0x000D043D 28B ??_GW3DStreakDraw@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0459 8B ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0461 8B ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
 
 //
@@ -410,13 +379,38 @@ void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
     new (dest) TreeKey00242F5E(source);
 }
 
+// tu-skeleton: 0x000D043D 28B ??_GW3DStreakDraw@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0459 8B ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0461 8B ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+
 // tu-skeleton: 0x000D04E1 63B ??1W3DStreakWeatherVec@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
 // tu-skeleton: 0x000D0520 92B ??0W3DStreakDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor2.cpp (not merged yet)
 
-// tu-skeleton: 0x000D057C 69B ??1W3DStreakDrawModuleData@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp
 
-// tu-skeleton: 0x000D0673 28B ??_GW3DStreakDrawModuleData@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
+//
+// ??1W3DStreakDrawModuleData@@UAE@XZ, retail 0x000D057C, 69 bytes.
+// W3DStreakDraw ModuleData dtor: reinstalls the vtable 0x00BCDAB0, tears
+// down the WeatherTexture vector at +0x28 through the 0xD04E1 body (pinned
+// below as W3DStreakWeatherVec; the rowed _Destroy at 0x48CE25 proves
+// 8-byte elements and the dup_ vector-dtor row lives at this address, plus
+// the +8 stride in the 0xD068F insert), tears down the Texture AsciiString
+// at +0x24 through the folded AsciiString dtor at 0x36410, then restores
+// the Snapshot base vtable 0x00BBB554 through the shared base dtor. Two EH
+// states for the two members, frameless companion ctor at
+// 0xD0520 proves the layout (vptr +0, pad +0x04, Length +0x08, Width +0x0C,
+// Additive +0x10, Color +0x14/+0x18/+0x1C, NumSegments +0x20, Texture +0x24,
+// WeatherTexture +0x28, size 0x34 per the factory at 0x64F47). Table
+// 0x00BCDB60 names all members; the ??_G caller at 0xD0676 is the slot-0
+// deleting dtor. Shape follows the landed W3DLightDrawModuleDataDtor and
+// FlammableUpdateModuleDataDtor TUs.
+
+W3DStreakDrawModuleData::~W3DStreakDrawModuleData()
+{
+}
 
 // tu-skeleton: 0x000D06C6 96B ?Rva000D06C6Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
 
@@ -433,12 +427,6 @@ void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
 // tu-skeleton: 0x00762897 8B $L7461 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
 // tu-skeleton: 0x0076289F 10B __ehhandler$??1W3DStreakWeatherVec@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
-
-// tu-skeleton: 0x007628A9 8B Unwind@00b628a9 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007628B1 11B Unwind@00b628b1 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007628BC 10B __ehhandler$??1W3DStreakDrawModuleData@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007628C6 8B Unwind@00b628c6 -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
 

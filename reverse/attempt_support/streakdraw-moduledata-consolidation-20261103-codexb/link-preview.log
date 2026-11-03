@@ -1,0 +1,4 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp: LINKS  LINKED 796 -> 903 bytes (census 2026-11-03 20:03 at 8661f15284; file's own bytes 903)
+  diagnostic  ??0ShaderClass@@QAE@ABV0@@Z  (register allocation differs from the majority copy, same instructions and offsets; unreferenced, not a blocker)
+link_check: 1 of 1 link cleanly; LINKED 796 -> 903 bytes (5.5s)
