@@ -227,16 +227,7 @@ public:
 	void rva0059AED2();
 };
 
-class LivingWorldAutoResolveBattle
-{
-public:
-	void rva004F6187();
-	void rva004F61B1();
-
-private:
-	char m_pad[0x78];
-	int m_flag;
-};
+#include "../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
 // ?rva004F6187@LivingWorldAutoResolveBattle@@QAEXXZ @0x004F6187 42B.
 void LivingWorldAutoResolveBattle::rva004F6187()
@@ -300,8 +291,8 @@ void LivingWorldAutoResolveBattle::rva004F61B1()
 	if (found[1])
 	{
 		if (!found[0])
-			m_flag = 1;
+			field78 = 1;
 	}
 	else
-		m_flag = 0;
+		field78 = 0;
 }

@@ -7,7 +7,7 @@
 // idiom is what the retail loop uses.
 struct Rva004F9635Rec;
 
-class LivingWorldAutoResolveBattle {public: void rva004F9635(Rva004F9635Rec *);};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
 class Rva004F9E59
 {

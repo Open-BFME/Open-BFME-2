@@ -8,16 +8,9 @@ public:
 	int rva004F7B42(int a1, int a2);
 };
 
-class LivingWorldAutoResolveBattle
-{
-public:
-	int rva004F81CC(int a);
-private:
-	char m_pad[124];
-	int m_7c;
-};
+#include "../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
 int LivingWorldAutoResolveBattle::rva004F81CC(int a)
 {
-	return ((Rva004F7B42 *)this)->rva004F7B42(a, m_7c);
+	return ((Rva004F7B42 *)this)->rva004F7B42(a, field7C);
 }

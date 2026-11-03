@@ -91,13 +91,7 @@ struct DynamicAutoResolveBattlePlayers
 	Int size() const { return m_playerData.size(); }
 };
 
-class LivingWorldAutoResolveBattle
-{
-public:
-	void enumerateCurrentUnits(Int side, Pred004F6234 *pred);
-	Int rva004F81CC(Int side);
-	void enumerateReinforcementUnits(Int side, Int round, Rva004F76EAPred *pred);
-};
+#include "../../../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 class Rva004F7B42
 {
 public:

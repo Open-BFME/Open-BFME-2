@@ -250,21 +250,8 @@ struct AutoResolveUnitRef
 	AutoResolveUnit *operator->() const { return m_ptr; }
 };
 
-struct AutoResolveUnitVector
-{
-	AutoResolveUnitRef *m_start;
-	AutoResolveUnitRef *m_finish;
-	AutoResolveUnitRef *m_endOfStorage;
-};
+#include "../../../../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
-class LivingWorldAutoResolveBattle
-{
-public:
-	void rva004F971E();
-
-	unsigned char m_players[0xc];
-	AutoResolveUnitVector m_units[2];					///< +0x0C
-};
 
 void LivingWorldAutoResolveBattle::rva004F971E()
 {
@@ -278,8 +265,8 @@ void LivingWorldAutoResolveBattle::rva004F971E()
 	{
 		attackers[i] = 0;
 		targets[i] = 0;
-		AutoResolveUnitRef *it = m_units[i].m_start;
-		AutoResolveUnitRef *end = m_units[i].m_finish;
+		AutoResolveUnitRef *it = field0C[i].m_start;
+		AutoResolveUnitRef *end = field0C[i].m_finish;
 		for (; it != end; ++it)
 		{
 			(*it)->clearTarget();

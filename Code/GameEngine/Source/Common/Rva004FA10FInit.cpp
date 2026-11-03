@@ -6,17 +6,7 @@
 // addUnitsForCurrentRound and 0x4F971E (chooseTargets) are now in their
 // WB-named class; the remaining callees retain their existing opaque views.
 
-class LivingWorldAutoResolveBattle
-{
-public:
-	void addUnitsForCurrentRound(int v);
-	void rva004F99CC(bool *out);
-	void completeRound();	// rowed 0x004F9D6A
-	void rva004F6187();	// rowed 0x004F6187 (Rva004F8B89Fwd.cpp)
-	void rva004F61B1();	// rowed 0x004F61B1 (Rva004F8B89Fwd.cpp)
-	void rva004F971E();	// rowed 0x004F971E (chooseTargets)
-	void rva004F9F39();	// rowed 0x004F9F39 (LivingWorldAutoResolveBattleLeadership.cpp)
-};
+#include "../../Include/GameLogic/LivingWorldAutoResolveBattle.h"
 
 class Rva004F9E59
 {
