@@ -15,15 +15,7 @@ class StateMachine;
 class AttackExitConditionsInterface;
 class Team;
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-private:
-	unsigned char m_head[0x1c];
-};
+#include "../../../Include/Common/StateMachine.h"
 
 class NotifyWeaponFiredInterface
 {

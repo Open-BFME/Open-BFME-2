@@ -15,15 +15,7 @@ class StateMachine;
 // Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
 static inline void zeroInline(Coord3D &coord) { coord.x = 0.0f; coord.y = 0.0f; coord.z = 0.0f; }
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-private:
-	unsigned char m_pad04[0x20 - 4];
-};
+#include "../../../Include/Common/StateMachine.h"
 
 // Rva00342547: retail 0x00342547 (37B), hash 0x6649a02e, vtable 0xc12378
 class Rva00342547 : public State

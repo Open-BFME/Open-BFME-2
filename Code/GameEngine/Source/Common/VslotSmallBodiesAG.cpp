@@ -280,12 +280,7 @@ public:
 	char m_pad00[0x14];
 	Object *m_owner;
 };
-class State
-{
-public:
-	char m_pad00[0x18];
-	StateMachine *m_machine;
-};
+#include "../../Include/Common/StateMachine.h"
 int rva0034373F(State *state, void *)
 {
 	return !state->m_machine->m_owner->testStatus(OBJECT_STATUS_25);

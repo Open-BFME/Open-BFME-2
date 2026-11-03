@@ -14,15 +14,7 @@
 // values in the per-class notes are virtual addresses.
 class StateMachine;
 
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-
-private:
-	unsigned char m_pad04[0x20 - 4];
-};
+#include "../../../Include/Common/StateMachine.h"
 
 // Rva0033F2FD: retail 0x0033F2FD (29B), hash 0xed821984, vtable 0xc10e48 callers 0x003521A5 0x0035220B
 class Rva0033F2FD : public State
