@@ -16,8 +16,8 @@
 // 0x0047A69C on the module data's +0x64 block with the Object, named as the
 // rowed AutoHealBehavior slot 12 is.
 //
-// ?rva004C1C68@DetachableRiderBody@@MBE_NXZ, retail 0x004C1C68, 13 bytes, and
-// ?rva004C1C75@DetachableRiderBody@@MBE_NXZ, retail 0x004C1C75, 13 bytes: slots
+// ?requiresAllActivationUpgrades@DetachableRiderBody@@MBE_NXZ, retail 0x004C1C68, 13 bytes, and
+// ?requiresAllConflictingUpgrades@DetachableRiderBody@@MBE_NXZ, retail 0x004C1C75, 13 bytes: slots
 // 13 and 14, the module data's +0x170 and +0x171 flags. Address names.
 //
 // ?rva004C1BD4@DetachableRiderBody@@UAEPAVUpgradeMux@@XZ, retail 0x004C1BD4, 16
@@ -65,8 +65,8 @@ class UpgradeMux : public Rva004C1C29Slots<11>
 protected:
 	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const = 0;
 	virtual void performUpgradeFX() = 0;
-	virtual bool rva004C1C68() const = 0;
-	virtual bool rva004C1C75() const = 0;
+	virtual bool requiresAllActivationUpgrades() const = 0;
+	virtual bool requiresAllConflictingUpgrades() const = 0;
 };
 
 class BehaviorModuleInterface : public Rva004C1C29Slots<10>
@@ -97,8 +97,8 @@ public:
 protected:
 	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
 	virtual void performUpgradeFX();
-	virtual bool rva004C1C68() const;
-	virtual bool rva004C1C75() const;
+	virtual bool requiresAllActivationUpgrades() const;
+	virtual bool requiresAllConflictingUpgrades() const;
 private:
 	const DetachableRiderBodyModuleData *data() const { return (const DetachableRiderBodyModuleData *)m_moduleData; }
 };
@@ -117,14 +117,14 @@ void DetachableRiderBody::performUpgradeFX()
 	data()->m_upgradeMuxData.performUpgradeFX(m_object);
 }
 
-// ?rva004C1C68@DetachableRiderBody@@MBE_NXZ @0x004C1C68
-bool DetachableRiderBody::rva004C1C68() const
+// ?requiresAllActivationUpgrades@DetachableRiderBody@@MBE_NXZ @0x004C1C68
+bool DetachableRiderBody::requiresAllActivationUpgrades() const
 {
 	return data()->m_170;
 }
 
-// ?rva004C1C75@DetachableRiderBody@@MBE_NXZ @0x004C1C75
-bool DetachableRiderBody::rva004C1C75() const
+// ?requiresAllConflictingUpgrades@DetachableRiderBody@@MBE_NXZ @0x004C1C75
+bool DetachableRiderBody::requiresAllConflictingUpgrades() const
 {
 	return data()->m_171;
 }
