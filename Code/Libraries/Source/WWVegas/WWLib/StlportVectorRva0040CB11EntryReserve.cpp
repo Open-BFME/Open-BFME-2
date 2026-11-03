@@ -6,13 +6,7 @@
 // allocate; its _M_clear resolves to the Rva004F69C3 _M_clear body ICF
 // folded at 0x004F89F9 (pinned as an alias). Built from the banked attempt
 // reverse/attempts/0x0040e135.cpp.
-class Rva004F6093Holder
-{
-public:
-	Rva004F6093Holder(const Rva004F6093Holder &other);
-private:
-	void *m_ptr;
-};
+#include "../../../../GameEngine/Include/Common/Rva004F6093Holder.h"
 class Rva0040CB11Entry
 {
 public:

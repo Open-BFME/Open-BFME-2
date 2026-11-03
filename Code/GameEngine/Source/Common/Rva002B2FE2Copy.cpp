@@ -10,13 +10,7 @@ struct Rva004F6093Ref
 	char m_pad[0xB0];
 	int m_refCount;
 };
-class Rva004F6093Holder
-{
-public:
-	Rva004F6093Holder(const Rva004F6093Holder &other) throw();
-private:
-	Rva004F6093Ref *m_ptr;
-};
+#include "../../Include/Common/Rva004F6093Holder.h"
 
 void __cdecl Rva002B2FE2Copy(Rva004F6093Holder *dst, const Rva004F6093Holder &src)
 {

@@ -4,13 +4,7 @@
 // Evidence: Vector_base 0x004F62A4 row ScienceType; get_allocator 0x0021983A ICF ScienceType twin;
 // Rva copy 0x003F74CF ICF 4-arg Holder pin; caller 0x002B90FC member +0xC 12B vector in 103B EH ctor.
 enum ScienceType { SCIENCE_NONE = 0 };
-class Rva004F6093Holder
-{
-public:
-	Rva004F6093Holder(const Rva004F6093Holder &other) throw();
-private:
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva004F6093Holder.h"
 namespace _STL {
 template <class T> class allocator
 {

@@ -9,11 +9,7 @@
 // The holder copy at 0x004F6093 only copies its pointer and increments the
 // pointee's reference count. Neither copy throws; stating that contract also
 // keeps the header's placement delete from adding EH to _Construct (0x004F6A64).
-class Rva004F6093Holder
-{
-public:
-	Rva004F6093Holder(const Rva004F6093Holder &other) throw();
-};
+#include "../../Include/Common/Rva004F6093Holder.h"
 
 class Rva0040CB11Entry
 {

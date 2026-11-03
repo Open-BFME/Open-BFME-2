@@ -15,13 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 
-class Rva004F6093Holder
-{
-public:
-	Rva004F6093Holder(const Rva004F6093Holder &other);
-private:
-	void *m_ptr;
-};
+#include "../../../../GameEngine/Include/Common/Rva004F6093Holder.h"
 
 class Rva0040CB11Entry
 {

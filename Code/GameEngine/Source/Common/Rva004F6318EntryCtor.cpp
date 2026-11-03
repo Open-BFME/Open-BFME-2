@@ -5,11 +5,7 @@
 // as Rva0040CB11Entry at 0x0040CB11 (27B direct int) but key comes through a
 // pointer here. Evidence: single caller at 0x004F6A2B in FUN_008f6a1a.
 
-class Rva004F6093Holder
-{
-public:
-	Rva004F6093Holder(const Rva004F6093Holder &other);
-};
+#include "../../Include/Common/Rva004F6093Holder.h"
 
 struct Rva004F69C3
 {
