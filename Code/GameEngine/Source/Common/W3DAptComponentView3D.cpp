@@ -820,7 +820,7 @@ private:
 	BfmeStringData<T> *m_data;
 };
 
-const char *g_Rva00740A60Table[] = { "A", "B", 0 };
+const char *g_Rva00740A60Table[] = { "MANUAL", "LOOP", "ONCE", "LOOP_PINGPONG", "PLAY_TO_FRAME", "LOOP_BACKWARDS", "ONCE_BACKWARDS", 0 };
 
 // ?SetLight@W3DAptComponentView3D@@UAEXHMMM@Z, retail 0x00740169, 58 bytes.
 // Vslot 4 of W3DAptComponentView3D vtable 0x008F1600: if arg0!=0 return else call m_0C slot 6 with three floats.
