@@ -73,28 +73,17 @@ enum NameKeyType
 
 #include "../../../../GameEngine/Include/Common/NameKeyGenerator.h"
 
-class AssetRegistry
-{
-public:
-	bool Render_Obj_Exists_Impl(const char *name);
-
-private:
-	unsigned char m_unmodelled_000[0x34];
-	CRITICAL_SECTION m_lock;
-	_STL::hash_map<unsigned int, void *> m_assets;
-	unsigned char m_gap[0x1f8 - 0x4c - sizeof(_STL::hash_map<unsigned int, void *>)];
-	NameKeyGenerator *m_hash_context;
-};
+#include "../../../Include/W3DDevice/GameClient/AssetRegistry.h"
 
 // ?Render_Obj_Exists_Impl@AssetRegistry@@QAE_NPBD@Z
 bool AssetRegistry::Render_Obj_Exists_Impl(const char *name)
 {
-	CriticalSectionLock lock(&m_lock);
-	unsigned int key = (unsigned int)m_hash_context->nameToLowercaseKey(name);
+	CriticalSectionLock lock((CRITICAL_SECTION *)field34);
+	unsigned int key = (unsigned int)field1F8->nameToLowercaseKey(name);
 	if (key == 0)
 		return false;
 	typedef _STL::hash_map<unsigned int, void *> AssetRegistryHash;
-	AssetRegistryHash *assets = &m_assets;
+	AssetRegistryHash *assets = (AssetRegistryHash *)field4C;
 	AssetRegistryHash::iterator it = assets->find(key);
 	return it != assets->end();
 }
