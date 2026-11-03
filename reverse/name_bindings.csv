@@ -362,3 +362,5 @@ agree:nl-7b898318ee05,Rva006E3410::rva006E3410::n,Rva006E3410::rva006E3410::coun
 agree:nl-4ca868c6fe26,Rva006E3410::rva006E3410::p,Rva006E3410::rva006E3410::cursor,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
 agree:nl-bb120f6dec6a,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::target,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
 agree:nl-3ac61585f150,Rva005EA58B::rva005EA58B::n,Rva005EA58B::rva005EA58B::rangesLeft,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,040cf0b976ca7a3920651893982a0a2a087302d44714b2e7651e13262cce0014
+agree:nl-d07c7ea60984,Rva006E34D0::rva006E3580::v,Rva006E34D0::rva006E3580::packed,Code/Libraries/Source/Apt/Rva006E34D0.cpp,48631c3e91c3525fe3cd895107143dae8785820e0d541392f939ae257706d95c
+agree:nl-253295a12195,ApplyReconLoopFilter::n,ApplyReconLoopFilter::col,Code/Libraries/Source/VP6/LoopFilter.cpp,b157727c8582994d89a3cbc6007340c215b8a3851b27e1458c1d00bc5a300892

@@ -18315,3 +18315,13 @@ nl-c343eeda1c37,local,e,end,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas
 nl-6971d88e0809,local,p,iter,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F8090.cpp|local|Rva003F8090::rva003F8090|p,landed,single-worker scoped approval: w-526a51702f64@drz-k5
 nl-6a4340a8760e,local,t,limit,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/FilteringC.cpp|local|FilteringVert_12_C|t,blocked,FilteringVert_12_C uses a scope-changing macro (BFME_LIMIT_ADJUST); local binding needs expanded C++
 nl-1428ace4cce9,local,v,correction,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/FilteringC.cpp|local|FilteringVert_12_C|v,blocked,FilteringVert_12_C uses a scope-changing macro (BFME_LIMIT_ADJUST); local binding needs expanded C++
+nl-bb79c2bd75a3,param,c,condition,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setModelConditionState|c,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-96ffa3daf1d5,local,r,record,,w-526a51702f64@drz-k5,Code/Libraries/Source/Apt/Rva006E34D0.cpp|local|Rva006E34D0::rva006E34D0|r,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-d07c7ea60984,local,v,packed,,w-526a51702f64@drz-k5,Code/Libraries/Source/Apt/Rva006E34D0.cpp|local|Rva006E34D0::rva006E3580|v,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-4dae3963b6a1,param,v,entry,,w-526a51702f64@drz-k5,Code/Libraries/Source/Apt/Rva006E34D0.cpp|param|Rva006E34D0::rva006E34D0|v,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-e6b070ed5f6d,param,a,high,,w-526a51702f64@drz-k5,Code/Libraries/Source/Apt/Rva006E34D0.cpp|param|Rva006E34D0::rva006E3580|a,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-d99dba5af423,param,b,low,,w-526a51702f64@drz-k5,Code/Libraries/Source/Apt/Rva006E34D0.cpp|param|Rva006E34D0::rva006E3580|b,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-253295a12195,local,n,col,,w-526a51702f64@drz-k5,Code/Libraries/Source/VP6/LoopFilter.cpp|local|ApplyReconLoopFilter|n,landed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-553c42c9c4bf,param,x,posX,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setCoord|x,blocked,"setCoord spells x after ->, . or ::; it also names a member there"
+nl-0b95ac7f2f55,param,y,posY,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setCoord|y,blocked,"setCoord spells y after ->, . or ::; it also names a member there"
+nl-beea2da6f285,param,z,posZ,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp|param|setCoord|z,blocked,"setCoord spells z after ->, . or ::; it also names a member there"

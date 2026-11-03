@@ -210,11 +210,11 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void setModelConditionState(ModelConditionFlagType c)
+	__forceinline void setModelConditionState(ModelConditionFlagType condition)
 	{
-		if (!m_conditionFlags.test((unsigned int)c))
+		if (!m_conditionFlags.test((unsigned int)condition))
 		{
-			m_conditionFlags.set((unsigned int)c);
+			m_conditionFlags.set((unsigned int)condition);
 			rva0028AE6D();
 		}
 	}

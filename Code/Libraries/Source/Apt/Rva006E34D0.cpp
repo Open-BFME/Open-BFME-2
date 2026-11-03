@@ -24,20 +24,20 @@ extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *, int);
 
 #include "Rva006E34D0.h"
 
-void Rva006E34D0::rva006E34D0(int v)
+void Rva006E34D0::rva006E34D0(int entry)
 {
 	if (m_field3C >= m_fieldAC)
 		return;
-	if (m_field3C > 0 && m_field40[m_field3C - 1] == v)
+	if (m_field3C > 0 && m_field40[m_field3C - 1] == entry)
 		return;
-	m_field40[m_field3C] = v;
+	m_field40[m_field3C] = entry;
 	++m_field3C;
 	int ready = G_Ready;
 	if (ready) {
-		Rva00891FA0Record r;
-		r.value = G_Value;
-		r.kind = v;
-		(*G_Send)(&r, 8);
+		Rva00891FA0Record record;
+		record.value = G_Value;
+		record.kind = entry;
+		(*G_Send)(&record, 8);
 	}
 }
 
@@ -45,9 +45,9 @@ void Rva006E34D0::rva006E34D0(int v)
 // Two-arg packer into the same bounded buffer: v = ((a << 15) | (b & 0x7FFF))
 // << 2, appended via rva006E34D0 with ecx passed through (caller 0x006CC950
 // supplies this the same way as for 0x006E3530).
-void Rva006E34D0::rva006E3580(int a, int b)
+void Rva006E34D0::rva006E3580(int high, int low)
 {
-	int v = (a << 15) | (b & 0x7FFF);
-	v <<= 2;
-	rva006E34D0(v);
+	int packed = (high << 15) | (low & 0x7FFF);
+	packed <<= 2;
+	rva006E34D0(packed);
 }

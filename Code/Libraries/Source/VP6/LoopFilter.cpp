@@ -100,7 +100,7 @@ extern "C" void __cdecl ApplyReconLoopFilter(Vp6LoopFilterInstance *ctx, int fra
 	int down = ctx->m_vFragments;
 	unsigned int rowStep;
 	int plane;
-	int n;
+	int col;
 	int m;
 	int limit;
 	int *bounding;
@@ -154,19 +154,19 @@ extern "C" void __cdecl ApplyReconLoopFilter(Vp6LoopFilterInstance *ctx, int fra
 				FILTER_V(pixel + rowStep);
 		}
 		frag++;
-		for (n = 1; n < across - 1; n++, frag++) {
+		for (col = 1; col < across - 1; col++, frag++) {
 			if (CODED(frag)) {
-				FILTER_H(pixel + 8 * n - 2);
+				FILTER_H(pixel + 8 * col - 2);
 				if (!CODED(frag + 1))
-					FILTER_H(pixel + 8 * n + 6);
+					FILTER_H(pixel + 8 * col + 6);
 				if (!CODED(frag + lineFragments))
-					FILTER_V(pixel + 8 * n + rowStep);
+					FILTER_V(pixel + 8 * col + rowStep);
 			}
 		}
 		if (CODED(frag)) {
-			FILTER_H(pixel + 8 * n - 2);
+			FILTER_H(pixel + 8 * col - 2);
 			if (!CODED(frag + lineFragments))
-				FILTER_V(pixel + 8 * n + rowStep);
+				FILTER_V(pixel + 8 * col + rowStep);
 		}
 		frag++;
 		pixel += rowStep;
@@ -180,21 +180,21 @@ extern "C" void __cdecl ApplyReconLoopFilter(Vp6LoopFilterInstance *ctx, int fra
 					FILTER_V(pixel + rowStep);
 			}
 			frag++;
-			for (n = 1; n < across - 1; n++, frag++) {
+			for (col = 1; col < across - 1; col++, frag++) {
 				if (CODED(frag)) {
-					FILTER_H(pixel + 8 * n - 2);
-					FILTER_V(pixel + 8 * n);
+					FILTER_H(pixel + 8 * col - 2);
+					FILTER_V(pixel + 8 * col);
 					if (!CODED(frag + 1))
-						FILTER_H(pixel + 8 * n + 6);
+						FILTER_H(pixel + 8 * col + 6);
 					if (!CODED(frag + lineFragments))
-						FILTER_V(pixel + 8 * n + rowStep);
+						FILTER_V(pixel + 8 * col + rowStep);
 				}
 			}
 			if (CODED(frag)) {
-				FILTER_H(pixel + 8 * n - 2);
-				FILTER_V(pixel + 8 * n);
+				FILTER_H(pixel + 8 * col - 2);
+				FILTER_V(pixel + 8 * col);
 				if (!CODED(frag + lineFragments))
-					FILTER_V(pixel + 8 * n + rowStep);
+					FILTER_V(pixel + 8 * col + rowStep);
 			}
 			frag++;
 			pixel += rowStep;
@@ -207,17 +207,17 @@ extern "C" void __cdecl ApplyReconLoopFilter(Vp6LoopFilterInstance *ctx, int fra
 			FILTER_H(pixel + 6);
 	}
 	frag++;
-	for (n = 1; n < across - 1; n++, frag++) {
+	for (col = 1; col < across - 1; col++, frag++) {
 		if (CODED(frag)) {
-			FILTER_H(pixel + 8 * n - 2);
-			FILTER_V(pixel + 8 * n);
+			FILTER_H(pixel + 8 * col - 2);
+			FILTER_V(pixel + 8 * col);
 			if (!CODED(frag + 1))
-				FILTER_H(pixel + 8 * n + 6);
+				FILTER_H(pixel + 8 * col + 6);
 		}
 	}
 	if (CODED(frag)) {
-		FILTER_H(pixel + 8 * n - 2);
-		FILTER_V(pixel + 8 * n);
+		FILTER_H(pixel + 8 * col - 2);
+		FILTER_V(pixel + 8 * col);
 	}
 }
 
