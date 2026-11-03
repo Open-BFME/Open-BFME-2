@@ -25,19 +25,7 @@ __forceinline const char *GetStr004D5D55(const AsciiString &asciiString)
 
 #include "../../Include/GameNetwork/NetCommandMsg.h"
 
-class NetGameCommandMsg : public NetCommandMsg
-{
-public:
-	// Slot 3 of this class's vftable, where NetCommandMsg declares
-	// getContentsAsAsciiString: the override.
-	virtual AsciiString getContentsAsAsciiString();
-private:
-	Int m_numArgs;
-	Int m_argSize;
-	Int m_type;
-	void *m_argList;
-	void *m_argTail;
-};
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 
 AsciiString NetGameCommandMsg::getContentsAsAsciiString()
 {

@@ -4,7 +4,7 @@
 // savegame cases and current target vslots43/46/63, fieldsC/10/3C.
 // Existing Rva0025E970 caller supplies the shared Rva0025E4CD owner name.
 class GameMessage;
-class NetGameCommandMsg {public:GameMessage *constructGameMessage();};
+#include "../../Include/GameNetwork/NetGameCommandMsg.h"
 class NetWrapperCommandMsg;
 struct Rva0025E5F4Command {char opaque00[8];int frame8;char opaque0c[8];int m_commandType;};
 struct Rva0025E5F4Node {Rva0025E5F4Command *command;Rva0025E5F4Node *next;};
