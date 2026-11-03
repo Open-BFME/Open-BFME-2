@@ -478,11 +478,7 @@ void Rva002A9DEC::rva002A9DEC(int upgrade)
 struct GlobalA03314;
 extern GlobalA03314 *g_Va00A03314;
 
-class AptSpellStore
-{
-public:
-	void rva0043CD3C();
-};
+#include "../../Include/GameClient/AptSpellStore.h"
 
 // Native 43D15F reads no receiver; InGameUI calls this as a free update.
 void Rva0043D15FUpdate()

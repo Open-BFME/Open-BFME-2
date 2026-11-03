@@ -195,11 +195,7 @@ const char *g_00C3D700[6] = {
     "_purchased", "_active"
 };
 
-class AptSpellStore
-{
-public:
-	void rva0043C8E4(int index, int state);
-};
+#include "../../Include/GameClient/AptSpellStore.h"
 
 void AptSpellStore::rva0043C8E4(int index, int state)
 {

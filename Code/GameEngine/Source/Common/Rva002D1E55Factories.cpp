@@ -251,13 +251,7 @@ Rva00523825 *__stdcall Rva002D21FBCreate(void *context)
 class Rva0043D686;	// the factory row's return spelling
 
 // The object is a AptSpellStore: the pinned constructor 0x000043D686 is its row.
-class AptSpellStore
-{
-public:
-	AptSpellStore(void *context);
-private:
-	char m_pad[0x35C];
-};
+#include "../../Include/GameClient/AptSpellStore.h"
 
 Rva0043D686 *__stdcall Rva0043DA1BCreate(void *context)
 {

@@ -391,11 +391,7 @@ void Rva0057E3DB::rva0057C7BA(int type)
 class GameWindow;
 extern const char *g_00C3D700[];
 
-class AptSpellStore
-{
-public:
-	void rva0043C8E4(int index, int state);
-};
+#include "../../Include/GameClient/AptSpellStore.h"
 
 
 // ??1Rva00582FC1@@UAE@XZ @0x00582FC1 84B (the existing pin's name): the file
