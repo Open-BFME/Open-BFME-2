@@ -701,11 +701,7 @@ private:
 
 // The manager at TheGameLogic+0x178 and its detection call 0x00439E0C (the
 // object, the detector, the duration and the feedback level).
-class Rva00439E0C
-{
-public:
-	bool detected(Object *obj, Object *detector, Int duration, Int feedback);
-};
+#include "../../../../Include/GameLogic/Rva00439E0C.h"
 
 extern GameLogic *TheGameLogic;
 
