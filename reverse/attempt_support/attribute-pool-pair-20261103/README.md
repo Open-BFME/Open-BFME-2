@@ -1,0 +1,9 @@
+# Attribute-modifier pool: two receiver-only header adoptions
+
+The served nine-file cohort was checked from whole-file originals. The owning automatic adoption retained no edits: its two small receiver consumers could not map `vec` safely; the other seven have base/header, vector-storage, or no-private-view prerequisites retained in adopt.log.
+
+Rva00298E6A.cpp (63 bytes) and Rva00475EA2.cpp (136 bytes) now include the registered AttributeModifierPoolUpdate header. Their private pool and vector access definitions are removed together. Only the two pool receivers map m_vec to canonical m_field20 and their vector first/last fields to m_field00/m_field04. The real EraseRange method, two-word view extent at +0x20, receiver offsets and call order remain unchanged. No allocation, lifetime, whole-container or original field-name recovery is claimed.
+
+Normal control and candidate builds pass both rows. Complete ordinary provider byte payloads, symbolic relocations, COFF properties and defined/undefined/weak/alternate/include routes are identical (one provider per source). Owning accept passes both and removes exactly two header keys. No shared header, ledger row, pin, alias, hatch or source path changes. Full current linking and runtime are not proven by these scoped checks; use the published census for headline credit.
+
+Other cohort sources are unchanged. The canonical header's split two-word vector access view plus capacity word cannot automatically stand in for a live 12-byte vector with construction/destruction/template methods. Inherited private Module/BehaviorModule/UpdateModule copies and donor headers must be reconciled before broad adoption. EmotionNugget's class is currently unused and the automatic adopter reports no private view; investigate that separately rather than adding an artificial use.

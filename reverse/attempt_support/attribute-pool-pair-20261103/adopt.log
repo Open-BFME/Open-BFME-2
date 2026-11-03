@@ -1,0 +1,9 @@
+  FAIL Code/GameEngine/Source/Common/Rva00298E6A.cpp: field renames: vec occurs in a comma declaration or expression
+  FAIL Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp: c:\Users\clemens\Documents\Experiments\Open-BFME-2\Code\GameEngine\Include\Common\Module.h(37) : error C2011: 'Module' : 'class' type redefinition
+  FAIL Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp: field renames: C:\Users\clemens\Documents\Experiments\Open-BFME-2\vendor\stlport\config\stl_dec_vms.h:50: trigraph or continued line comment in include input
+  FAIL Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp: Code\GameEngine\Source\GameLogic\Object\Contain\HordeContainIface11CSlots.cpp(1020) : error C2011: 'BehaviorModuleInterface' : 'class' type redefinition
+  FAIL Code/GameEngine/Source/GameLogic/Object/Contain/Rva00475EA2.cpp: field renames: vec occurs in a comma declaration or expression
+  FAIL Code/GameEngine/Source/GameLogic/Object/Object.cpp: field renames: UpdateModule::m_vtable (+0x0, 4 bytes) has no canonical field of that offset and size
+  FAIL Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp: field renames: AttributeModifierPoolUpdate::m_modifiers (+0x20, 12 bytes) has no canonical field of that offset and size
+  FAIL Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateTick.cpp: field renames: AttributeModifierPoolUpdate::modifiers (+0x20, 12 bytes) has no canonical field of that offset and size
+  FAIL Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetCanBeActivatedFor.cpp: no private view found

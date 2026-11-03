@@ -19314,6 +19314,15 @@ Remedy applied: `python3 tools/link_check.py --fetch-index` pulled the current i
 from this clone can produce a conclusive audit. No per-unit obstacle is recorded here, because
 none was identified — the gap was measurement, not a prerequisite.
 
+### Attribute-modifier pool receiver prerequisites (2026-11-03)
+
+Two receiver-only consumers now adopt the canonical pool and vector access view:
+Rva00298E6A (63B) and Rva00475EA2 (136B). Both rows, provider bytes/relocations,
+COFF properties and routes remain identical; owning acceptance retires two header
+keys. Seven other cohort sources retain base/header or live-vector prerequisites
+and are unchanged. No census or full-link gain is claimed.
+[Verification and remaining cohort](../reverse/attempt_support/attribute-pool-pair-20261103/README.md).
+
 ### Clear current real-link follow-up (2026-11-03)
 
 The current real-link picker again serves the fifteen-row Clear unit. Existing

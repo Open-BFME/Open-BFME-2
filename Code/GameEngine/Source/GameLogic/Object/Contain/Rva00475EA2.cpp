@@ -12,19 +12,8 @@ public:
 class Rva00297360Element
 {
 };
-class Rva002983DAVector
-{
-public:
-	Rva00297360Element *EraseRange(Rva00297360Element *first, Rva00297360Element *last);
-	Rva00297360Element *m_first;
-	Rva00297360Element *m_last;
-};
-class AttributeModifierPoolUpdate
-{
-public:
-	char m_pad[0x20];
-	Rva002983DAVector m_vec;
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
+
 class Object
 {
 	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
@@ -167,7 +156,7 @@ void Rva00475EA2::rva00475EA2()
 	Object *object = *(Object **)((char *)this - 0x114);
 	AttributeModifierPoolUpdate *pool = object->findAttributeModifierPoolUpdate();
 	if (pool) {
-		Rva002983DAVector *vec = &pool->m_vec;
-		vec->EraseRange(vec->m_first, vec->m_last);
+		Rva002983DAVector *vec = &pool->m_field20;
+		vec->EraseRange(vec->m_field00, vec->m_field04);
 	}
 }
