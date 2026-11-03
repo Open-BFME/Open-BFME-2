@@ -9,7 +9,7 @@
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
 // Unchanged walker bodies isolated from the independent Apt shutdown.
-// Teardown and generic deletion reuse native providers. Three hash bindings remain open.
+// Teardown, generic deletion and pointer-hash helpers reuse native providers.
 
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>
@@ -88,8 +88,8 @@ typedef _STL::hash_map<AsciiString, Rva00460A70Mapped *, rts::hash<AsciiString>,
 // as these specializations: bucket-index 0x223149 (31B), node release 0x1FD9EF
 // (28B), and iterator bucket advance 0x3F7925 (47B). Retail's key at node+4,
 // bucket vector at table+4, and two-word iterator establish the layout.
-// The three declaration-only pointer helpers remain pending: their inline call
-// adapters preserve all rows but the frozen-file inventory refuses two of them.
+// Inline adapters below bind those native provider names without emitting
+// competing STL specializations or changing the native call argument layout.
 // The emitted 68B begin, 22B ++, 30B erase wrapper and 80B erase worker are
 // independently exact twins including the native REL32 dependency graph.
 typedef BfmeSJAHash::value_type PointerSJAValue;
@@ -99,11 +99,27 @@ typedef _STL::hashtable<PointerSJAValue, AsciiString, rts::hash<AsciiString>,
 typedef _STL::_Hashtable_iterator<PointerSJAValue, AsciiString, rts::hash<AsciiString>,
     _STL::_Select1st<PointerSJAValue>, _STL::equal_to<AsciiString>,
     _STL::allocator<PointerSJAValue> > PointerSJAIteratorCore;
+#include "../../Include/GameLogic/Rva000427195.h"
+#include "../../Include/GameClient/Rva000411084.h"
+class Rva001FD9EF { public: void rva001FD9EF(void *node); };
+
 namespace _STL
 {
-    template <> unsigned int PointerSJATable::_M_bkt_num_key(const AsciiString &key) const;
-    template <> void PointerSJATable::_M_delete_node(_Hashtable_node<PointerSJAValue> *node);
-    template <> _Hashtable_node<PointerSJAValue> *PointerSJAIteratorCore::_M_skip_to_next();
+    template <> __declspec(dllimport) __forceinline
+    unsigned int PointerSJATable::_M_bkt_num_key(const AsciiString &key) const
+    {
+        return reinterpret_cast<Rva000427195 *>(const_cast<PointerSJATable *>(this))->bucketIndex(&key);
+    }
+    template <> __declspec(dllimport) __forceinline
+    void PointerSJATable::_M_delete_node(_Hashtable_node<PointerSJAValue> *node)
+    {
+        reinterpret_cast<Rva001FD9EF *>(this)->rva001FD9EF(node);
+    }
+    template <> __declspec(dllimport) __forceinline
+    _Hashtable_node<PointerSJAValue> *PointerSJAIteratorCore::_M_skip_to_next()
+    {
+        return static_cast<_Hashtable_node<PointerSJAValue> *>(reinterpret_cast<Rva000411084 *>(this)->advance());
+    }
 }
 
 extern char g_bfmeOneSJA[];

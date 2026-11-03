@@ -1,0 +1,117 @@
+{
+  "source": "Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp",
+  "strict_receipt_current": true,
+  "before_definition_count": 56,
+  "after_definition_count": 56,
+  "removed": [],
+  "added": [],
+  "binding_property_changes": [],
+  "changed": {
+    "??E?$_Ht_iterator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@QAEAAU01@XZ": {
+      "before": {
+        "size": 22,
+        "type": 32,
+        "storage": 2,
+        "flags": 1611665440,
+        "selection": 2,
+        "sha256": "eaf57ff2253a5ad08e1107dfa15a244fefbc502c3a90b75c14db4fea9045be96",
+        "relocations": [
+          [
+            12,
+            20,
+            "?_M_skip_to_next@?$_Hashtable_iterator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@XZ"
+          ]
+        ]
+      },
+      "after": {
+        "size": 22,
+        "type": 32,
+        "storage": 2,
+        "flags": 1611665440,
+        "selection": 2,
+        "sha256": "eaf57ff2253a5ad08e1107dfa15a244fefbc502c3a90b75c14db4fea9045be96",
+        "relocations": [
+          [
+            12,
+            20,
+            "?advance@Rva000411084@@QAEPAXXZ"
+          ]
+        ]
+      }
+    },
+    "?_M_bkt_num@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@2@@Z": {
+      "before": {
+        "size": 5,
+        "type": 32,
+        "storage": 2,
+        "flags": 1611665440,
+        "selection": 2,
+        "sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+        "relocations": [
+          [
+            1,
+            20,
+            "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z"
+          ]
+        ]
+      },
+      "after": {
+        "size": 5,
+        "type": 32,
+        "storage": 2,
+        "flags": 1611665440,
+        "selection": 2,
+        "sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+        "relocations": [
+          [
+            1,
+            20,
+            "?bucketIndex@Rva000427195@@QAEHPBVAsciiString@@@Z"
+          ]
+        ]
+      }
+    },
+    "?erase@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@2@@Z": {
+      "before": {
+        "size": 80,
+        "type": 32,
+        "storage": 2,
+        "flags": 1611665440,
+        "selection": 2,
+        "sha256": "7142167473cabfdd7ba0cc0f5b6b8e9521a43ea13f58899293b4b0c28a136d4e",
+        "relocations": [
+          [
+            19,
+            20,
+            "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z"
+          ],
+          [
+            68,
+            20,
+            "?_M_delete_node@?$hashtable@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@PAVRva00460A70Mapped@@@_STL@@@2@@Z"
+          ]
+        ]
+      },
+      "after": {
+        "size": 80,
+        "type": 32,
+        "storage": 2,
+        "flags": 1611665440,
+        "selection": 2,
+        "sha256": "7142167473cabfdd7ba0cc0f5b6b8e9521a43ea13f58899293b4b0c28a136d4e",
+        "relocations": [
+          [
+            19,
+            20,
+            "?bucketIndex@Rva000427195@@QAEHPBVAsciiString@@@Z"
+          ],
+          [
+            68,
+            20,
+            "?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z"
+          ]
+        ]
+      }
+    }
+  }
+}
