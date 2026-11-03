@@ -7,11 +7,10 @@
 // Reuse actual target providers; names of formation/memberID carried from
 // donor, while exact interpretation of Object74 remains unresolved.
 typedef bool Bool;typedef unsigned UnsignedInt;
-enum StateReturnType {STATE_CONTINUE=0,STATE_SUCCESS=-1,STATE_FAILURE=-2};
+#include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes {OBJECT_STATUS_26=0x26};
 class Object;class Thing;
 bool rva00344EB2Gate(Object *,Thing *);
-class StateMachine {public:Object *getGoalObject();bool isGoalObjectDestroyed() const;char pad00[0x14];Object *m_owner;};
 class HordeContainInterface {public:
  virtual void slot0();
  virtual void slot1();

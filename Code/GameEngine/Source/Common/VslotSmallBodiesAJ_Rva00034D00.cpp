@@ -39,14 +39,6 @@ int GetAssociatedMessageType(int);
 
 class Object;
 class Xfer;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
@@ -130,11 +122,7 @@ public:
 
 #include "../../Include/Common/SidesList.h"
 
-class StateMachine
-{
-public:
-	virtual void setGoalObject(const Object *a);
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class AIExitState
 {

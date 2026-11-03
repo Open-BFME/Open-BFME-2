@@ -28,11 +28,7 @@ struct XferUnknown11;
 
 // 0x0033FB0B (16 tables): a StateMachine xfer override that chains to the
 // pinned StateMachine::xfer, then stamps version 1.
-class StateMachine
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/Common/StateMachineClass.h"
 class Rva0033FB0B : public StateMachine
 {
 protected:
@@ -46,10 +42,6 @@ void Rva0033FB0B::xfer(Xfer *xfer)
 
 // 0x003511C9: an onExit override that chains to the rowed
 // AIExitState::onExit, then virtual slot 14 (0) of the +0x18 machine.
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 class Rva003511C9Machine
 {
 public:

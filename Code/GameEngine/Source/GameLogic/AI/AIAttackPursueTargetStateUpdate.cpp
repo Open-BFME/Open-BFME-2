@@ -12,10 +12,6 @@
 // also sets the AI flag byte +0x3C7.
 // Layout: m_isInitialApproach +0x5F, m_isForceAttacking +0x60.
 typedef bool Bool;
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
 enum WhichTurretType
 {
 	TURRET_INVALID = -1,
@@ -34,36 +30,14 @@ private:
 	Bool m_bfme3C7; // +0x3C7
 };
 #include "../Object/object.h"
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(int status);
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AIAttackPursueTargetState : public State
 {
 public:
 	virtual StateReturnType update();
 private:
 	StateReturnType updateInternal( void );
-	unsigned char m_pad1C[0x5F - 0x1C];
+	unsigned char m_pad20[0x5F - 0x20];
 	Bool m_isInitialApproach; // +0x5F
 	Bool m_isForceAttacking; // +0x60
 };

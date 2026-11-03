@@ -19,12 +19,6 @@ struct ApproachCoordCopy:Coord3D{__forceinline ApproachCoordCopy(float X,float Y
 typedef bool Bool;
 typedef float Real;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 enum WeaponSlotType
 {
@@ -86,18 +80,7 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class StateMachine
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual StateReturnType setState(int newStateID); // +0x20
-
-	Bool isGoalObjectDestroyed() const;
-	Object *getGoalObject();
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
@@ -110,36 +93,7 @@ template <> class AIUpdateSlots<0>
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual Bool isIdle() const;
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath(); // +0x44
-public:
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIInternalMoveToState : public State
 {
@@ -149,7 +103,6 @@ public:
 	virtual StateReturnType update();
 	virtual Bool computePath();
 
-	unsigned char m_pad1C[4];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48-0x2C];
 	Bool m_adjustsDestination; // +0x48

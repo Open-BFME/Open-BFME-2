@@ -98,10 +98,7 @@ public:
 	virtual void t1d0();
 };
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
+#include "../../Include/Common/StateMachine.h"
 
 class AICowerState
 {

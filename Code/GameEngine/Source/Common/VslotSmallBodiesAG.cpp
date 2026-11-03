@@ -274,12 +274,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_25 = 0x25
 };
 #include "../GameLogic/Object/object.h"
-class StateMachine
-{
-public:
-	char m_pad00[0x14];
-	Object *m_owner;
-};
+#include "../../Include/Common/StateMachineClass.h"
 #include "../../Include/Common/StateMachine.h"
 int rva0034373F(State *state, void *)
 {

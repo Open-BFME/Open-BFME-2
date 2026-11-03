@@ -8,20 +8,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-};
-class State
-{
-public:
-	State(StateMachine *machine, unsigned int hash);
-	virtual ~State();
-	StateID m_ID;
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine;
-};
+#include "../../Include/Common/StateMachineClass.h"
 struct Rva00545D7EExitConditions
 {
 	const void *m_vptr;
@@ -34,7 +21,6 @@ class Rva00545D7E : public State
 public:
 	Rva00545D7E(StateMachine *machine);
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva00545D7EExitConditions m_exit;
 	void *m_28;
 };

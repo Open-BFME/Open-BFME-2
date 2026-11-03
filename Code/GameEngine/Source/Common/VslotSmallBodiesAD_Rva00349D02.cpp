@@ -39,10 +39,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 // 0x00349D02 (AI state tables): the result of the rowed
 // AIAttackMeleeEngageState::updateInternal (0x003497E6, AIStates.cpp) on
 // this, setting or clearing status 0x1C on the owner as it is -1.
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
-};
+#include "../../Include/Common/StateMachine.h"
 class Rva00349D02;
 class AIAttackMeleeEngageState
 {

@@ -710,7 +710,7 @@ extern Bool g_flag2;
 // The callees below are rowed; they are called by their row names.
 	// 0x0005BBE2
 	// 0x000F4017
-enum StateReturnType { STATE_CONTINUE = 0 };
+#include "../../../Include/Common/StateMachine.h"
 
 	// 0x003508C5
 

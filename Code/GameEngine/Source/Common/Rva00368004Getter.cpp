@@ -31,11 +31,7 @@ typedef UnsignedInt TeamID;
 
 class Object;
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -96,10 +92,6 @@ protected:
 public:
 	Rva00368004Inner *m_ptr; // +0x3C
 	bool m_flag40; // +0x40
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0
 };
 class GiantBirdGuardOuterState : public Rva00368004
 {

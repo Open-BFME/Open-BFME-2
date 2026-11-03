@@ -19,10 +19,7 @@ enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
+#include "../../Include/Common/StateMachine.h"
 #include "GameLogicObjectLookupView.h"
 enum UpdateSleepTime
 {
