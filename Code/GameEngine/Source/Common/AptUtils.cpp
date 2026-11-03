@@ -41,11 +41,7 @@ static const AptImageMode imageModes[]={{0,"SOLID"},{1,"GRAYSCALE"},{2,"ALPHA"},
 
 class Image;
 
-class AptPlayer
-{
-public:
-    const Image *FindRenderImage(const char *path, const char *parameters);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;

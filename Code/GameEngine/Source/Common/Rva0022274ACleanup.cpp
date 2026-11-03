@@ -6,7 +6,7 @@
 // g_bfmeAptWindowManager view is provisional; this body proves only the
 // nonzero check and reset, not the global's semantic identity.
 
-class AptPlayer { public: bool UnloadLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 

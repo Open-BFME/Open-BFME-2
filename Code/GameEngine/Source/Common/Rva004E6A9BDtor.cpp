@@ -7,11 +7,7 @@ class Rva00222A8BTarget;
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class AptPlayer
-{
-public:
-    bool RemoveLevel(int v);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class DisplayStringManager
 {
 public:

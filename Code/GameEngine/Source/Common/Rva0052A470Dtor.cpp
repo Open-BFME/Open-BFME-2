@@ -51,7 +51,7 @@ Rva0052A470::~Rva0052A470()
 }
 
 namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
-class AptPlayer { public: void RemoveOverButtonHandler(const AsciiString &); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // Global 0x009FE4CC (the window manager registered as "TheAptPlayer"),
 // read here through its AptPlayer view.
 class BfmeAptWindowManager;

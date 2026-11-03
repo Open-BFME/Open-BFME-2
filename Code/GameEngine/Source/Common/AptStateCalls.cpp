@@ -1,4 +1,4 @@
-class AptPlayer { public: bool HideLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // stlport
 // Apt panel state toggles: each calls the panel's Apt function through the

@@ -188,7 +188,7 @@ private:
 // rowed invoke on the owner the rowed Rva00222547Get resolves for this
 // window. The number buffer reuses the index parameter's slot, as in retail.
 class GameWindow;
-class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // Retail spell-button state names, VA C3D700 through C3D717.
 const char *g_00C3D700[6] = {
     "_unused", "_disabled", "_disabled_level", "_already_purchased",

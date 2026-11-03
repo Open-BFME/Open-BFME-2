@@ -5,7 +5,7 @@
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameWindow;
-class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &a);
 
 struct AptSaveLoadPending

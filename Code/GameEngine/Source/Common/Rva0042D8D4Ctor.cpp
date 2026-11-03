@@ -12,11 +12,7 @@
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class AptPlayer
-{
-public:
-	bool RemoveLevel(int value);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class Rva0042D8D4
 {
 public:

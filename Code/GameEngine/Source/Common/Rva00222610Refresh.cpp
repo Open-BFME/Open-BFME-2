@@ -5,7 +5,7 @@
 
 #include "ascii_string.h"
 
-class AptPlayer { public: bool UnloadLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class Rva00062908Host
 {
 public:

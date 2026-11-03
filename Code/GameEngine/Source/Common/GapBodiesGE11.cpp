@@ -57,7 +57,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva00224455 { public: int RemoveCommandMap(const AsciiString *name); };
-class AptPlayer { public: void RemoveOverButtonHandler(const AsciiString &name); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class Rva002246B1 { public: int RemoveCustomRender(const AsciiString *name); };
 class Rva00224705 { public: int rva00224705(const AsciiString *name); };
 

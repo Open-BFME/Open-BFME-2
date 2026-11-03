@@ -22,11 +22,7 @@ extern void *TheRva00222A8BOwner;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class AptPlayer
-{
-public:
-	bool RemoveLevel(int v);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 void __cdecl Rva00380705Free();
 

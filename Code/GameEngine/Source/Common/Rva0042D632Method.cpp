@@ -1,4 +1,4 @@
-class AptPlayer { public: bool HideLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // cl: /O1 /MD
 // StrategicHUD::HUD::FadeOut @0x0042D632 74B (WorldBuilder name, StrategicHUD.cpp
 // line 494): state switch on the Impl +8 driving Apt invokes; state 1 hides the

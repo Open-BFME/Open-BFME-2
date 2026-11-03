@@ -1,4 +1,4 @@
-class AptPlayer { public: bool HideLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // cl: /O1 /DNDEBUG /MD
 //
 // ?rva005EB825@Rva005EB825@@QAEXXZ, retail 0x005EB825, 85 bytes.

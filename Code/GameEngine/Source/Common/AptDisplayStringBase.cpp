@@ -63,11 +63,7 @@ extern unsigned long g_00DE617C,g_00DE6180;
 // Honest address-derived names; boundary verified (frame at 0xA9211,
 // leave + ret at end).
 
-class AptPlayer
-{
-public:
-	void GetExtern(const char *name, char *buf);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 

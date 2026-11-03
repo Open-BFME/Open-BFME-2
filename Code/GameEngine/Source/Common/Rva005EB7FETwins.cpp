@@ -1,4 +1,4 @@
-class AptPlayer { public: bool HideLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // cl: /O1 /MD
 // Range-34 dump lane: 39B plain method at 0x005EB7FE. It clears the slot's
 // +0xC word, then, when the +0 slot's +8 word is set, forwards its +4 word

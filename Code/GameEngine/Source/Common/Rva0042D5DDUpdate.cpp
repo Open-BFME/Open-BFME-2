@@ -8,11 +8,7 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
 
-class AptPlayer
-{
-public:
-	bool ShowLevel(int index);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 struct Rva0042D5DDInner
 {
