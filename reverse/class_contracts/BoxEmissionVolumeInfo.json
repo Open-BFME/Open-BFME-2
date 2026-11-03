@@ -1,0 +1,215 @@
+{
+ "bases": [
+  "FXParticleSystem::EmissionVolumeInfo"
+ ],
+ "bases_by": "retail copy constructor 0x003A6669 stores parent VA 0x00BE1548 at unchanged this",
+ "class": "BoxEmissionVolumeInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "manual_retail_resolution": {
+   "base_size": 8,
+   "constructor_table_va": "0x00C1BB30",
+   "copy_callers_rva": [
+    "0x003A6738",
+    "0x003AC034"
+   ],
+   "destructor_resolution": "empty Box and EmissionVolumeInfo destruction inlines Snapshot teardown; dead derived stores are omitted, leaving the shared Snapshot table store",
+   "destructor_table_va": "0x00BBB554",
+   "discovery_limit": "unqualified census finds seven textual views but no compiled CodeView/retail members; qualified name finds retail constructors but no textual census. Class-key and layout are settled by the qualified ledger and retail bytes.",
+   "identity_check": "574 registry entries scanned; their headers contain no BoxEmissionVolumeInfo identity or its constructor/table/vector-destructor addresses. Shared complete destructor and inherited name identify Snapshot teardown and EmissionVolumeInfo base, whose size 8/table 0x00BE1548 differ from Box size 20/table 0x00C1BB30.",
+   "inherited_slots": [
+    {
+     "member": "LoadPostProcess",
+     "slot": 1,
+     "target_rva": "0x000B3FD0"
+    },
+    {
+     "member": "GetSnapshotName",
+     "slot": 2,
+     "target_rva": "0x001F354A"
+    },
+    {
+     "member": "DoXfer",
+     "slot": 3,
+     "target_rva": "0x0047A69C"
+    }
+   ],
+   "original_qualified_queue": [
+    {
+     "attribute": "retail-dtor-vftables",
+     "candidates": {
+      "ctor": {
+       "0x0": "0x81bb30"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "class": "FXParticleSystem::BoxEmissionVolumeInfo",
+     "why": "the class's retail constructors or destructors disagree"
+    },
+    {
+     "attribute": "size",
+     "candidates": {},
+     "class": "FXParticleSystem::BoxEmissionVolumeInfo"
+    }
+   ],
+   "qualified_class": "FXParticleSystem::BoxEmissionVolumeInfo",
+   "raw_evidence": "build/header_box/retail-bytes.log",
+   "resolved_attributes": [
+    "retail-dtor-vftables",
+    "size"
+   ],
+   "size": 20
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "ctor": {
+       "0x0": "0x81bb30"
+      },
+      "dtor": {
+       "0x0": "0x7bb554"
+      }
+     },
+     "dtor": "0x49b47c",
+     "fact": "dtor-vftables"
+    }
+   ],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3a664a",
+      "0x3a6669"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "FXParticleSystem::EmissionVolumeInfo",
+       "offset": 0,
+       "own_vftable": "0x81bb30",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a664a",
+      "0x3a6669"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a664a",
+      "0x3a6669"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3a664a",
+      "0x3a6669"
+     ],
+     "value": {
+      "0x0": "0x81bb30"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81bb30"
+     ],
+     "value": {
+      "count": 4,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": true,
+      "slots": [
+       {
+        "name": "??_EBoxEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3a66b2"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ",
+        "slot": 2,
+        "target": "0x1f354a"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x81bb30"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 7,
+  "view_sizes": {},
+  "views": 0,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail constructor 0x003A664A float writes and assignment 0x003A6696 three-dword group",
+   "kind": "S:Coord3D",
+   "name": "m_08",
+   "name_by": "neutral offset placeholder",
+   "offset": 8,
+   "size": 12,
+   "type": "Coord3D"
+  }
+ ],
+ "key": "class",
+ "key_by": "matched ledger class references ABV01 and VBoxEmissionVolumeInfo",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 20,
+ "size_by": "retail vector deleting destructor 0x003A66B2 pushes 0x14 at 0x003A66CA",
+ "vslots": {
+  "0": {
+   "decided_by": "retail VA 0x00C1BB30 slot 0 selects 0x003A66B2",
+   "member": "~BoxEmissionVolumeInfo"
+  }
+ }
+}

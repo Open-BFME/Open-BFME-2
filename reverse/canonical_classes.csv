@@ -579,3 +579,4 @@ CommandButtonMovieClip,Code/GameEngine/Include/GameClient/CommandButtonMovieClip
 VictoryConditions,Code/GameEngine/Include/GameLogic/VictoryConditionsClass.h,existing header; contract class_contracts/VictoryConditions.json; 3/7 sampled units adopt
 DOTManager,Code/GameEngine/Include/GameLogic/DOTManager.h,existing header; contract class_contracts/DOTManager.json; 4/7 sampled units adopt
 LifetimeUpdate,Code/GameEngine/Include/GameLogic/Module/LifetimeUpdateClass.h,existing header; contract class_contracts/LifetimeUpdate.json; 5/10 sampled units adopt
+BoxEmissionVolumeInfo,Code/GameEngine/Include/GameClient/BoxEmissionVolumeInfo.h,existing header; contract class_contracts/BoxEmissionVolumeInfo.json; 6/7 sampled units adopt
