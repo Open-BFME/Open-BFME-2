@@ -10,7 +10,7 @@
 struct Rva006D0660Record {const char *text;char pad[12];};
 struct Rva006D0660Table {char pad[0x28];int count28;Rva006D0660Record *records2c;};
 class Rva006D0280 {public:int m_useCount;int unknown4;EAStringC name8;int typeC;int unknown10;Rva006D0660Table *table14;int unknown18;~Rva006D0280();};
-class Rva006DB270 {public:void freeBlock(void*,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006D07E0Key {public:
  Rva006D07E0Key(Rva006D0280 *p=0):m_object(p){if(p)++p->m_useCount;}

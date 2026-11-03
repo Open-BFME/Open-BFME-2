@@ -6,11 +6,7 @@
 // Evidence: own immediates call 0x006CD460 plus freeBlock 0x006DB270 size
 // 0x14 via pool 0x00E176E8; ret 4 plus flag test proves thiscall taking
 // unsigned int and returning the pointer; neighbours share /O2 /MD.
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 void __cdecl Rva006CD460Free(void *p);
 

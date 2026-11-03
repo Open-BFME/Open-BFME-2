@@ -51,11 +51,7 @@ int Rva006E0DE0::rva006E0DE0(AptValue *aptValue)
 // Pool teardown clearing +0/+8/+0xC and freeing array via freeBlock.
 // Evidence: gap after 0x6E0DE0; pinned freeBlock 0x6DB270 via pool 0xE176E8;
 // same /O2 Apt layout as neighbours.
-class Rva006DB270
-{
-public:
-    void freeBlock(void *p, int bytes);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 // Use the defined freeBlock allocator view, not the same-address allocBlock alias.
 extern Rva006DB270 *g_pChainBlockAllocator;
 void Rva006E0DE0::rva006E0E70()

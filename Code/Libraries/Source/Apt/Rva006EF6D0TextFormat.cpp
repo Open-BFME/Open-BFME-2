@@ -19,7 +19,7 @@ static __forceinline void aptAssert(const char *test,const char *file,int line){
 }
 #include "EAStringC.h"
 class Rva006DB160 {public:void *allocBlock(int);};
-class Rva006DB270 {public:void freeBlock(void *,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006DB270;extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;

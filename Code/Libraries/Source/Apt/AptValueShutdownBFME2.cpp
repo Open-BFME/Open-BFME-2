@@ -8,7 +8,7 @@
 // Hash allocation20B is independently established by constructor70A740 and
 // free size20 here; address-derived destructor70A840 already has a provider.
 #include "AptObject/AptScriptFunction.h"
-class Rva006DB270 { public: void freeBlock(void *,int); };
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 #pragma optimize("s", on)
 class Rva0070A840 { unsigned char nativeHash[20]; public: void rva0070A8B0(); ~Rva0070A840(); static __declspec(dllimport) __forceinline void operator delete(void *p,unsigned int n) { g_pChainBlockAllocator->freeBlock(p,n); } };

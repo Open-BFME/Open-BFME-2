@@ -5,11 +5,7 @@
 // rowed freeBlock 0x006DB270 through g_pChainBlockAllocator 0x00E176E8 then
 // if flag&1 frees this size 0x14 and returns this ret 4. Matches
 // Rva006E0DE0Remove layout. Prev/next share /O2 /MD.
-class Rva006DB270
-{
-public:
-    void freeBlock(void *block, int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006E0EB0
 {

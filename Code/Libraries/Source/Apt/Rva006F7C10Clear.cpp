@@ -7,11 +7,7 @@
 // freeBlock 0x006DB270; pool g_pChainBlockAllocator 0x00A176E8; sizes 0x1C
 // then 0x14; next Rva006F8460Dtor gives flags and pool idiom.
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern "C" void _ReadWriteBarrier(void);

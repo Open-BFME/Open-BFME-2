@@ -4,11 +4,7 @@
 // free. Evidence: calls rowed rva006E6D50 at 0x006E6D50; flag bit0 test with
 // ret-4 and return-this; pool freeBlock at 0x006DB270 size 0x10; chain from
 // 0x006E6D50 landing; no callers.
-class Rva006DB270
-{
-public:
-    void freeBlock(void *block, int blockSize);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 class AptValue;
 #include "../AptValueVector.h"

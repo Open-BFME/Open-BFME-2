@@ -3,7 +3,7 @@
 // Evidence: stores vtable 0x008EA358; destroys EAStringC at +8 via rowed ??1EAStringC@@QAE@XZ (0x006D3010)
 // then base via rowed ??1Rva006DE350@@UAE@XZ (0x006DE350); ctor twin 0x006D6CC0 same vtable same EH handler
 // 0x007A8838 constructs base type 1 plus clear plus +0xC=0; deleting dtor 0x006D7320 frees 0x10; size 0x10.
-class Rva006DB270 {public:void freeBlock(void*,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 #include "EAStringC.h"
 struct Rva006DE350

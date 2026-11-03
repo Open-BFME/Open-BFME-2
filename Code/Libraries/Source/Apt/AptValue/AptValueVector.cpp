@@ -104,11 +104,7 @@ struct Rva008981E0Value
 // ForceDelete is target virtual slot8, also identified by the donor vtable.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 
-class Rva006DB270
-{
-public:
-    void freeBlock(void *block, int blockSize);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 

@@ -16,7 +16,7 @@
 #include <string.h>
 class AptValue{public:virtual void AddRef();virtual void Release();virtual void ForceDelete();virtual void *GetNativeHashVirtual(); unsigned mnLowBits:18;unsigned mnGCRootCount:7;unsigned mnType:7;};
 class Rva006DB160{public:void *allocBlock(int);};
-class Rva006DB270{public:void freeBlock(void*,int);};
+#include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006D2A60{public:void *allocBlock(int);void freeBlock(void*,int);};
 extern Rva006DB270 *g_pChainBlockAllocator;
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;

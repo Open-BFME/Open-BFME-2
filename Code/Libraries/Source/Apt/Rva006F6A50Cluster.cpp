@@ -107,11 +107,7 @@ public:
 	void setIsDefined(bool defined);
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int size);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 class Rva006DB160
 {

@@ -54,7 +54,7 @@ class AptValue;
 
 int Rva006CD3F0Get(void *);
 
-class Rva006DB270 {public:void freeBlock(void *,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 #include "AptValue.h"
 
