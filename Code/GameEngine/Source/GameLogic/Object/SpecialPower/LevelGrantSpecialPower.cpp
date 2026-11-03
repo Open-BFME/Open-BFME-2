@@ -323,14 +323,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-
-private:
-	unsigned char m_data[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class LevelGrantSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {

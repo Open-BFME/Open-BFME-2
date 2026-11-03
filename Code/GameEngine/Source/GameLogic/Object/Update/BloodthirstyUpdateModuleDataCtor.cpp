@@ -21,14 +21,7 @@
 // destructible so the base plus the filter bracket states 0/1 exactly as
 // retail; a declared voice dtor would over-count a phantom state.
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-	unsigned char m_data[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class InitiateVoiceEntry
 {

@@ -21,14 +21,7 @@ char g_00BF1BC8;
 
 class UpgradeTemplate;
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-
-private:
-	int m_handle;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class UpdateModuleData
 {

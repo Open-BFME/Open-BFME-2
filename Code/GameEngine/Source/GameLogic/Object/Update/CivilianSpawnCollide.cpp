@@ -16,12 +16,7 @@
 // is the function's own __EH_prolog (scope 0xB8F889), not a shared fragment.
 
 extern "C" const void *const __identifier("??_7CivilianSpawnCollideModuleData@@6B@")[];
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	char m_data[16];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 #include "Common/Snapshot.h"
 // ?bfmeGo1026F@BfmeF1026@@QAEXHHH@Z, retail 0x004BD6DA (52B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/BfmeConv1026.cpp

@@ -5,13 +5,7 @@
 // Rva002A73B8Dtor share /O1 layout, callees member ctor/init pin-only and
 // FixedStorage copy rowed, __EH_prolog frame, returns this.
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D a, BfmeFixedStorage0004543D b);
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva002A7400

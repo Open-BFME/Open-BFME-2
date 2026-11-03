@@ -14,11 +14,7 @@ private:
     char m_pad04[0x128 - 4];
 };
 
-class Rva003623E5Member
-{
-public:
-    Rva003623E5Member();
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class Made002CCC2D : public Rva00507823
 {

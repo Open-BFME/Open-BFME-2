@@ -13,12 +13,7 @@
 
 #include "ascii_string.h"
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	unsigned m_handle; // verified3623E5 constructs a four-byte pool handle
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class LocomotorStore
 {

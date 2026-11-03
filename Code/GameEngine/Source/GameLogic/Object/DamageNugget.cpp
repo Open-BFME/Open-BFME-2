@@ -7,15 +7,7 @@
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
-private:
-	int m_x;
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 class Rva0024C7B3Member
 {
 public:

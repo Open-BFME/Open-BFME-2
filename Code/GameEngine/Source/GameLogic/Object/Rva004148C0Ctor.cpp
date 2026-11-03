@@ -17,14 +17,7 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-private:
-	unsigned int m_record;
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 extern int BfmeLogicFramesPerSecond;
 

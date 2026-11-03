@@ -14,14 +14,7 @@
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
-private:
-	int m_x;
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 // Rowed pool-aware member dtor at 0x00360D26 lives under this name
 // (ObjectFilterRelease.cpp). Same 4-byte handle as above; the ctor twin

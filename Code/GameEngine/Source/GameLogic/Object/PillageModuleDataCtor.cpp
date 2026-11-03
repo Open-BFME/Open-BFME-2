@@ -35,14 +35,7 @@ extern const FieldParse g_00BF0620[] = {
 extern const int g_emptyFieldParseTable[4];
 
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-	unsigned char m_data[4];
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 extern "C" const void *const __identifier("??_7PillageModuleData@@6B@")[];  // ??_7PillageModuleData@@6B@
 

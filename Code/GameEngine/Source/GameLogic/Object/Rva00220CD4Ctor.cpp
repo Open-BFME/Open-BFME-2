@@ -29,14 +29,7 @@ namespace _STL {
 template <> void _STLP_alloc_proxy<BfmeE16*, BfmeE16, allocator<BfmeE16> >::deallocate(BfmeE16*, size_t);
 }
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-private:
-	unsigned m_unknown;
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 // SubsystemInterface with the 14 virtual slots of its retail vtable 0x00BD77A0,
 // spelled as reference/shims/subsystem_bfme2/subsystem_interface.h does (ctor
