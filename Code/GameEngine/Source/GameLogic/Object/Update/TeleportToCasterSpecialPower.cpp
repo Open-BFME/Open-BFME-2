@@ -260,19 +260,7 @@ extern PartitionManager *ThePartitionManager;
 // (factory size 0xDC).
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
-class TeleportToCasterSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
-{
-public:
-	TeleportToCasterSpecialPowerModuleData();
-	virtual ~TeleportToCasterSpecialPowerModuleData();
-
-private:
-	float m_fC8;
-	float m_fCC;
-	float m_fD0;
-	int m_iD4;
-	int m_iD8;
-};
+#include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 
 class Object;
 
@@ -432,11 +420,11 @@ class TeleportToCasterSpecialPower:public SpecialAbilityUpdate{public:virtual vo
 TeleportToCasterSpecialPowerModuleData::TeleportToCasterSpecialPowerModuleData()
 	: SpecialAbilityUpdateModuleData()
 {
-	m_iD4 = 0;
-	m_iD8 = 0;
-	m_fC8 = 0.0f;
-	m_fCC = 0.0f;
-	m_fD0 = 0.0f;
+	fieldD4 = 0;
+	fieldD8 = 0;
+	fieldC8 = 0.0f;
+	fieldCC = 0.0f;
+	fieldD0 = 0.0f;
 }
 
 // ??1TeleportToCasterSpecialPowerModuleData@@ present-unmatched

@@ -250,11 +250,7 @@ extern const FieldParse BfmeTeleportToCasterSpecialPowerFields[] = {
 	{ 0, 0, 0, 0 }
 };
 
-class TeleportToCasterSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 
 class StoreObjectsSpecialPowerModuleData
 {

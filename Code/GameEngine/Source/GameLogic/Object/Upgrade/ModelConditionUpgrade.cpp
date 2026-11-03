@@ -272,11 +272,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class TeleportToCasterSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 
 class StoreObjectsSpecialPowerModuleData
 {

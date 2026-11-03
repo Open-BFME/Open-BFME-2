@@ -20,17 +20,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class TeleportToCasterSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	TeleportToCasterSpecialPowerModuleData();
-	virtual ~TeleportToCasterSpecialPowerModuleData();
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xDC - 4];
-};
+#include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 
 // ?friend_newModuleData@TeleportToCasterSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *TeleportToCasterSpecialPowerModuleData::friend_newModuleData(INI *ini)
