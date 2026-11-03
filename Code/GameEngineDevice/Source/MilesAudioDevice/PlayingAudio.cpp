@@ -72,7 +72,7 @@ class AudioManager;
 
 extern AudioManager *TheAudio;
 
-class MilesAudioManager {public:void onPlayingAudioDeleted(PlayingAudio&);};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 // ---- from Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudioConstructor.cpp
 

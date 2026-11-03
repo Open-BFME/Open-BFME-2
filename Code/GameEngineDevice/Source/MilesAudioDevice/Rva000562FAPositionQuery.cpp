@@ -8,12 +8,7 @@ struct BfmeEventPositionView {
     BfmeEventPositionView(float a, float b, float c) : x(a), y(b), z(c) {}
 };
 class AudioEventRTS;
-class MilesAudioManager {
-public:
-    bool rva0005623E(int, void **, int);
-    BfmeEventPositionView Rva0005160FGet(AudioEventRTS *, bool &);
-    bool rva000562FA(int, BfmeEventPositionView *);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 bool MilesAudioManager::rva000562FA(int key, BfmeEventPositionView *output)
 {

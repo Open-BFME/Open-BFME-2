@@ -7,5 +7,5 @@
 // Record purpose follows manager callers; the neutral ctor name is preserved.
 struct Rva00051107AudioRequest;
 class Rva000A8684 {public:Rva000A8684();private:char storage[0x18];};
-class MilesAudioManager {public:Rva00051107AudioRequest *rva00051107();};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 Rva00051107AudioRequest *MilesAudioManager::rva00051107(){return reinterpret_cast<Rva00051107AudioRequest *>(new Rva000A8684);}

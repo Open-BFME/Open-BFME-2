@@ -36,11 +36,7 @@ struct Rva000532B7TemporaryRef : OpaqueRefElement4 {
 };
 // A MilesAudioManager member: its xfer caller 0x000596E9 passes the manager
 // in ECX (the body never reads it), RET 4 either way.
-class MilesAudioManager
-{
-public:
-    int rva000532B7(Xfer *xfer);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 int MilesAudioManager::rva000532B7(Xfer *xfer)
 {
 	bool flag;

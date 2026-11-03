@@ -121,11 +121,7 @@ private:
 	PreferenceNode *m_node;
 };
 
-class MilesAudioManager
-{
-public:
-	bool rva006AD9B0(void);
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 bool MilesAudioManager::rva006AD9B0(void)
 {
