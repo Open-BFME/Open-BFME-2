@@ -23488,3 +23488,6 @@ Code/GameEngine/Source/Common/BfmeConv1057_bfmeGo1057C.cpp|local|bfmeGo1057C|o,3
 Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp|param|setCanBuildUnits|b,7ba71570dbefc50f8fa96c4e,drz-t32,drz-t32-sv2-7,w-c9e1ac163f95,2026-11-03
 Code/GameEngine/Source/GameNetwork/GameSpy/ChatDispatchIndexedValue.cpp|member|BfmeChatChannelKeyState|m_bfmeChat,f03bb11172917cdabf9de442,drz-t35,drz-t35-sv2-5,w-9aca0a913ab3,2026-11-03
 Code/GameEngine/Source/GameNetwork/GameSpy/ChatDispatchIndexedValue.cpp|member|BfmeChatChannelKeyState|m_bfmeChannelName,d6d970a5bad85775e1214172,drz-t35,drz-t35-sv2-5,w-9aca0a913ab3,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv903.cpp|local|bfmeGoLD|o,b4d625b655d32ec33165c3a9,drz-t38,drz-t38-sv2-1,w-40d581ef94d1,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv903.cpp|local|bfmeGoLD|p,3a81379bf635223054b67bed,drz-t38,drz-t38-sv2-1,w-40d581ef94d1,2026-11-03
+Code/GameEngine/Source/Common/Rva006C4300Malloc.cpp|local|rva006C40C0MarkEnd|n,ae3aca3d5ca4c0b6c5dca9c5,drz-t38,drz-t38-sv2-3,w-40d581ef94d1,2026-11-03
