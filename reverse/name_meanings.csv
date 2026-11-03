@@ -1012,3 +1012,13 @@ Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3
 Code/GameEngine/Source/Common/AptComponents.cpp|local|AptComponents::UpdateView3D|c,acc65ed434b10a4f860aa845,drz-k9,drz-k9-sv1d-5,w-4d4d8f8584bc,2026-11-03,e78ec33dd8e000779fa143db
 Code/GameEngine/Source/Common/BfmeConv1733.cpp|param|bfmeEmitZBCopy|p,238e03b5157d1fe20c7d6d38,drz-k9,drz-k9-sv1d-17,w-4d4d8f8584bc,2026-11-03,d9b22e35ebc1bc37fd56104b
 Code/GameEngine/Source/Common/BfmeConv1733.cpp|param|bfmeEmitZBCopy|o,13965b3662cccf2f132e115a,drz-k9,drz-k9-sv1d-17,w-4d4d8f8584bc,2026-11-03,7371cee06bfb28ccc21d6701
+Code/GameEngine/Source/Common/CameraAnimationFrameData_doInterpolate.cpp|param|CameraAnimationFrameData::doInterpolate|t,5f1091d780506bbe18760a19,drz-k3,drz-k3-sv1g-5,w-077d7aeb666b,2026-11-03,8083a9fcba8dc1ecb5654c7b
+Code/GameEngine/Source/Common/CameraAnimationFrameData_doInterpolate.cpp|local|CameraAnimationFrameData::doInterpolate|v0,d10a5be03372f8dd54cab602,drz-k3,drz-k3-sv1g-5,w-077d7aeb666b,2026-11-03,b11d9bc97c9f27f9c710492d
+Code/GameEngine/Source/Common/CameraAnimationFrameData_doInterpolate.cpp|local|CameraAnimationFrameData::doInterpolate|v1,f593f869ad4bf60c55849a6e,drz-k3,drz-k3-sv1g-5,w-077d7aeb666b,2026-11-03,d3bbab5d1b779c3738df7eba
+Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp|local|PSPlayerAllStats::incorporate|v,0b707571d2a26413e698495f,drz-k3,drz-k3-sv1g-8,w-077d7aeb666b,2026-11-03,84281fd03a65dee8925cbf73
+Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp|local|PSPlayerAllStats::incorporate#2|v,4fbdede4df11ef9d1b9d5a65,drz-k3,drz-k3-sv1g-8,w-077d7aeb666b,2026-11-03,aec06ad479cf21b4030c68d8
+Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp|local|PSPlayerAllStats::incorporate#3|v,198c2d047da284c4d54405d2,drz-k3,drz-k3-sv1g-8,w-077d7aeb666b,2026-11-03,8205da979bf278e30d1c22e0
+Code/GameEngine/Source/Common/Rva00552CF9Copy.cpp|local|PSPlayerAllStats::incorporate#4|v,1e1a5a36ff95f860c26aa99e,drz-k3,drz-k3-sv1g-8,w-077d7aeb666b,2026-11-03,33298c22ef4ffadb98e4cefe
+Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp|local|Rva005C31FB::DeleteContentMovieClip|t,f7f42f013729aefc641f393c,drz-k3,drz-k3-sv1g-16,w-077d7aeb666b,2026-11-03,321e4d03cef7d08483a8b993
+Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp|local|Rva005C31FB::DeleteContentMovieClip|s,50a2988d12cd68d57a2f97db,drz-k3,drz-k3-sv1g-16,w-077d7aeb666b,2026-11-03,90815b3512b60ee27283762c
+Code/GameEngine/Source/Common/BfmeConv881.cpp|local|BfmeWideResult::next|q,3f4e87d2704629cf033bef35,drz-k3,drz-k3-sv1g-17,w-077d7aeb666b,2026-11-03,cd0bf43997dfcaf837fa5848
