@@ -1,4 +1,4 @@
-# real link at 6db7a82485a1c7446d0fc30b4486b98755eaa7da: tools/exit_link.py --blockers
+# real link at 96cfeda7ba88ddda30abb6e5401534aeddb7f692: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp	49	?aiDoCommand@FlightDeckBehavior@@UAEXPBUAICommandParms@@@Z
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	46	??0SkirmishBattleHonors@@QAE@XZ
@@ -90,6 +90,7 @@ Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyUnit
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/T1Base005F3750Ctor.cpp	1	??1T1Base_005F3750@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateConstructor.cpp	1	?crc@UpdateModule@@MAEXPAVXfer@@@Z
+Code/GameEngine/Source/GameLogic/Object/Update/RadarUpdateConstructor.cpp	1	?crc@UpdateModule@@MAEXPAVXfer@@@Z
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDCD7Get.cpp	1	?g_00DB5BD4@@3VRva000FDCD7Filter@@A
 Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva0016DEC0.cpp	1	??MRva0016DEC0Element@@QBE_NABU0@@Z
 Code/Libraries/Source/WWVegas/WWLib/StlportTreeKeyRangeVector.cpp	1	??$copy@URva005E59FCKeyIterator@@PAH@_STL@@YAPAHURva005E59FCKeyIterator@@0PAH@Z
