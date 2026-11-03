@@ -4766,7 +4766,7 @@ pin	reverse/symbols.csv	0x0007EA1F	1
 pin	reverse/symbols.csv	0x0007EB6E	1
 pin	reverse/symbols.csv	0x0007EBB1	1
 pin	reverse/symbols.csv	0x0007F87C	1
-pin	reverse/symbols.csv	0x0007FAB3	48	allow=f4d1933b640e12aebdcf6341dc8972913a3c7e2d
+pin	reverse/symbols.csv	0x0007FAB3	48
 pin	reverse/symbols.csv	0x0007FAEA	2
 pin	reverse/symbols.csv	0x00080221	1
 pin	reverse/symbols.csv	0x000806B4	1
@@ -11839,7 +11839,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	removeUpgrade@Pla
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	sellEverythingUnderTheSun@Player@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setBuildList@Player@@QAEXPAVBuildListInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	setListInScoreScreen@Player@@QAEX_N@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/Player.cpp	transferAssetsFromThat@Player@@QAEXPAV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerO1Shard.cpp	0ClosestKindOfData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/PlayerRva002AA8EF.cpp	body	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	init@ProductionPrerequisite@@QAEXXZ	1
@@ -12050,20 +12049,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFi
 present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFile::getArchivedFileInfo	1
 present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFile::getFileListInDirectory	2
 present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFile::~ArchiveFile	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	0CDDrive@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	0CDManager@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	1CDDrive@@	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	destroyAllDrives@CDManager@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	driveCount@CDManager@@	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	getDisk@CDDrive@@UAE?AW4Disk@CD@@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	getDrive@CDManager@@UAEPAVCDDriveInterface@@H@Z	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	init@CDManager@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	newDrive@CDManager@@UAEPAVCDDriveInterface@@PBD@Z	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	refreshDrives@CDManager@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	refreshInfo@CDDrive@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	reset@CDManager@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	setPath@CDDrive@@QAEXPBD@Z	1
-present_unmatched	Code/GameEngine/Source/Common/System/CDManager.cpp	update@CDManager@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/System/DataChunk.cpp	BfmeThingCX::bfmeDropCX	1
 present_unmatched	Code/GameEngine/Source/Common/System/DataChunk.cpp	BfmeThingCY::bfmeReleaseCY	1
 present_unmatched	Code/GameEngine/Source/Common/System/DataChunk.cpp	BfmeThingCZ::bfmeReleaseCZ	1
@@ -12149,14 +12134,12 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	findTempl
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	init@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	newObject@ThingFactory@@	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	update@ThingFactory@@	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ArmorTemplateSet::parseArmorTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::calcCostToBuild	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::canPossiblyHaveAnyWeapon	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::findArmorTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::findWeaponTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::getPerUnitFX	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::getPerUnitSound	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseArmorTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseMaxSimultaneous	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parsePerUnitSounds	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseWeaponTemplateSet	1
@@ -12345,7 +12328,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::DEBUG
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::buildRegion	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::cameoVideoBuffer	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::clearFloatingText	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::clearWorldAnimations	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::crc	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::createAttackHint	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::createForceAttackHint	1
@@ -12375,7 +12357,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selec
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossMap	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossRegion	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossScreen	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setRadiusCursor	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setScrollAmount	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setSelecting	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setSuperweaponDisplayEnabledByScript	1
@@ -12402,7 +12383,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Strateg
 present_unmatched	Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp	bfmeEmitMapMetaDataCopy@@YAXPAVMapMetaData@@ABV1@PAVWaypointMap@@ABV2@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp	_STL::WaypointTree::_M_copy	1
 present_unmatched	Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp	bfmeEmitMapMetaDataDeferredCopy@@YAXPAVMapMetaData@@ABV1@PAVWaypointMap@@ABV2@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/MapUtil.cpp	addMap@MapCache@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/MapUtil.cpp	getMapDir@MapCache@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/MapUtil.cpp	getUserMapDir@MapCache@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp	1Holder0042C1F9@@QAE@XZ	1
@@ -13154,11 +13134,7 @@ present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptO
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueGC::AptValueGC	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueWithHash::AptValueWithHash	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::crc	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::initLaser	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::loadPostProcess	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::setDecayFrames	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::updateEndPos	1
-present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::updateStartPos	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	RvaLaserAnchor	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp	Rva006DA4D0::Rva006DA4D0	1
 present_unmatched	Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp	1HuffStat@@QAE@XZ	1
@@ -13421,9 +13397,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	Get_Swap_In
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	Toggle_Windowed@DX8Wrapper@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	Validate_Device@DX8Wrapper@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	_Update_Texture@DX8Wrapper@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	0DynamicMeshClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	Render@DynamicMeshModel@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dynamesh.cpp	Set_Vertex_Material@DynamicMeshClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	HAnimComboClass::Get_Frame	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	HAnimComboClass::Get_Weight	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	HAnimComboClass::Peek_Motion	1
@@ -13755,7 +13728,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/seglinerenderer.cpp	SegLin
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	Report_Unable_To_Fog@ShaderClass@@IAEXPBD@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	RvaShaderDx8CapsAnchor@@YAXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/sharebuf_float_ctor.cpp	sharebuf_float_size_buffer_helper	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/shattersystem.cpp	ShatterSystem::Shatter_Mesh	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_Cost@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_LOD_Count@StreakLineClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	Get_LOD_Level@StreakLineClass@@	1

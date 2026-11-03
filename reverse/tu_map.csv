@@ -60129,7 +60129,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007398A0,41,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,C,C=0x00739820..0x007398D0,Code/GameEngine/Source/Common/Bfme5CeilCellExtent.cpp
 0x007398D0,143,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/GameClient/Open2Store8F75D0.cpp,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x00739960,8,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/GameClient/Open2Store8F75D0.cpp,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
-0x00739970,6,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,C,C=0x00739960..0x00739980,Code/GameEngine/Source/Common/SubsystemNameGetters5.cpp
+0x00739970,6,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,C,C=0x00739960..0x00739980,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x00739980,115,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/GameClient/Open2Store8F75D0.cpp,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x00739A00,46,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,C,C=0x00739980..0x00739A30,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x00739A30,179,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,C,C=0x00739980..0x00739AF0,Code/GameEngine/Source/Common/RTS/Rva00739BE0.cpp
@@ -60145,19 +60145,19 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0073A0C0,28,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,C,W=Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp C=0x00739F50..0x0073A0E0,Code/GameEngine/Source/Common/Rva008F7B00Get.cpp
 0x0073A0E0,16,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp N=Code/GameEngine/Source/GameLogic/Object/PartitionData.cpp,Code/GameEngine/Source/GameLogic/Object/PartitionData_maybePrepend.cpp
 0x0073A0F0,27,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp S=Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp N=Code/GameEngine/Source/GameLogic/Object/PartitionData.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectFields.cpp
-0x0073A110,17,code,,,-,,Code/GameEngine/Source/Common/S3GuardedVirtualArgs.cpp
-0x0073A130,36,code,,,-,,Code/GameEngine/Source/Common/Rva0073A130Leaves.cpp
-0x0073A160,28,code,,,-,,Code/GameEngine/Source/Common/Rva0073A130Leaves.cpp
-0x0073A180,30,code,,,-,,Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp
-0x0073A1A0,28,code,,,-,,Code/GameEngine/Source/Common/Bfme5LinkedNode8F7BE0.cpp
+0x0073A110,17,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+0x0073A130,36,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+0x0073A160,28,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+0x0073A180,30,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+0x0073A1A0,28,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x0073A1C0,4,code,,,-,,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp
 0x0073A1D0,138,code,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp,proposed,N,N=Code/GameEngine/Source/Common/RTS/ShroudManagerImpl.cpp noncontiguous,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp
 0x0073A260,55,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x0073A2A0,135,code,,,-,,Code/GameEngine/Source/Common/BfmeCellAt.cpp
-0x0073A330,36,code,,,-,,Code/GameEngine/Source/Common/Bfme5InsertLink8F7D90.cpp
+0x0073A330,36,code,,,-,,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x0073A360,15,code,,,-,,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
 0x0073A370,77,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/CellAndObjectIntersection.cpp,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
-0x0073A3C0,148,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingCDE.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp,Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp
+0x0073A3C0,148,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingCDE.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x0073A460,57,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingCDE.cpp,Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp
 0x0073A4A0,421,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingCDE.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp,Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp
 0x0073A650,115,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/BfmeShroudVRC.cpp W=Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp,Code/GameEngine/Source/Common/RTS/ShroudVariantCircle008F9BB0.cpp
@@ -92467,8 +92467,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AB070,8,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x00739980@FuncInfo0x009648BC,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x007AB078,39,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x00739980@FuncInfo0x009648BC,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x007AB09F,10,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x00739980@FuncInfo0x009648BC,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
-0x007AB0B0,11,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073A3C0@FuncInfo0x009648E0,Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp
-0x007AB0BB,10,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073A3C0@FuncInfo0x009648E0,Code/GameEngine/Source/Common/BfmeThingCDEInitializeArray.cpp
+0x007AB0B0,11,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073A3C0@FuncInfo0x009648E0,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
+0x007AB0BB,10,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073A3C0@FuncInfo0x009648E0,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
 0x007AB0D0,25,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073AAE0@FuncInfo0x0096490C,Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp
 0x007AB0E9,25,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073AAE0@FuncInfo0x0096490C,Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp
 0x007AB102,10,code,Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,approved,P,P=0x0073AAE0@FuncInfo0x0096490C,Code/GameEngine/Source/Common/RTS/ShroudManagerDataDoSmallFill.cpp
