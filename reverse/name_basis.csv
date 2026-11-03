@@ -7369,3 +7369,12 @@ param,_bfmeModelDrawO1Anchor::c,_bfmeModelDrawO1Anchor::conditionFlags,inferred,
 param,_bfmeModelDrawO1Anchor::w,_bfmeModelDrawO1Anchor::barrelInfo,inferred,agree:nl-fdb9c5ad74f4,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp,
 param,Rva0008103ASum::q,Rva0008103ASum::vector,inferred,agree:nl-17522713e484-mf698f1870ae201c7c67ae86a,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000806F3BasesParams.cpp,
 class,Rva00504EADKey,CurveKey,inferred,agree:nl-8f1719e90e94,Code/GameEngine/Source/Common/System/Rva00504F09FunctionCurveAddKey.cpp,
+param,W3DDisplay::createLightPulse::a,W3DDisplay::createLightPulse::innerRadius,inferred,agree:nl-14ac4ecf57ef-m52e404b8f5007fac1575fa04,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp,0x0004423C
+global,?g_Va00C63398@@3QBQBXB,?spawnArmyVtable@@3QBQBXB,inferred,agree:nl-d184e4c3dc6a,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x00863398
+global,?g_Va00C745A0@@3QBQBXB,?increaseCommandPointsVtable@@3QBQBXB,inferred,agree:nl-461689654807,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x008745A0
+global,?g_Va00C74698@@3QBQBXB,?strengthenArmyVtable@@3QBQBXB,inferred,agree:nl-9c145fc17ab4,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x00874698
+global,?g_Va00C7475C@@3QBQBXB,?upgradeTroopsVtable@@3QBQBXB,inferred,agree:nl-313874ecda28,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x0087475C
+function,?rva007B33C5@@YAXXZ,?registerSpawnArmy@@YAXXZ,inferred,agree:nl-5dfa55b52072,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B33C5
+function,?rva007B481D@@YAXXZ,?registerIncreaseCommandPoints@@YAXXZ,inferred,agree:nl-7c14fa350030,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B481D
+function,?rva007B4874@@YAXXZ,?registerStrengthenArmy@@YAXXZ,inferred,agree:nl-ce4739dd8b31,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B4874
+function,?rva007B48CB@@YAXXZ,?registerUpgradeTroops@@YAXXZ,inferred,agree:nl-6955bfd9bb25,Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp,0x007B48CB

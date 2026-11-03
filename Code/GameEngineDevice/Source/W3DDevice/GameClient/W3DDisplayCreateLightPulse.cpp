@@ -68,16 +68,16 @@ public:
 class W3DDisplay
 {
 public:
-	void createLightPulse(const Coord3D *pos, const RGBColor *color, float a, float b, unsigned int c, unsigned int d);
+	void createLightPulse(const Coord3D *pos, const RGBColor *color, float innerRadius, float b, unsigned int c, unsigned int d);
 
 	static RTS3DScene *m_3DScene;
 };
 
 
 
-void W3DDisplay::createLightPulse(const Coord3D *pos, const RGBColor *color, float a, float b, unsigned int c, unsigned int d)
+void W3DDisplay::createLightPulse(const Coord3D *pos, const RGBColor *color, float innerRadius, float b, unsigned int c, unsigned int d)
 {
-	float range = a + b;
+	float range = innerRadius + b;
 	if (21.0f > range)
 		return;
 	W3DDynamicLight *light = m_3DScene->getADynamicLight();
@@ -98,7 +98,7 @@ void W3DDisplay::createLightPulse(const Coord3D *pos, const RGBColor *color, flo
 	diffuse->y = tmp.y;
 	diffuse->z = tmp.z;
 light->Set_Position(Vector3(pos->x,pos->y,pos->z));
-	light->FarAttenStart = a;
+	light->FarAttenStart = innerRadius;
 	light->FarAttenEnd = range;
 	light->setFrameFade(c, d);
 	light->m_b145 = true;
