@@ -540,11 +540,7 @@ public:
 	void * selectStorage();
 };
 
-class Rva003145B1
-{
-public:
-	int Rva003145B1Dispatch(int a, int b, int c);
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva003145B1.h"
 
 class HordeContain
 {

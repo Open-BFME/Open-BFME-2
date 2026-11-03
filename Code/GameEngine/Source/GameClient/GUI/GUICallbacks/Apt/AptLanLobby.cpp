@@ -569,11 +569,7 @@ extern bool GadgetTextEntryHasSelection(GameWindow *window);
 
 // The fallback dispatch at 0x00314596 is rowed as Rva003145B1::rva00314596
 // (Rva003145B1Dispatch.cpp), a thiscall removing all three arguments.
-class Rva003145B1
-{
-public:
-	int rva00314596(int msg, int data1, int data2);
-};
+#include "../../../../../Include/GameLogic/Rva003145B1.h"
 
 struct Rva00445172StringData
 {

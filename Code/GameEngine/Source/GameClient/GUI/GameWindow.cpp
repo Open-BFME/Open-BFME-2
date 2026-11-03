@@ -451,18 +451,7 @@ public:
     virtual int b1(int x, int y, int z);
     virtual int b2(int x, int y, int z);
 };
-class Rva003145B1
-{
-public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    int Rva003145B1Dispatch(int message, int a1, int a2);
-    int rva00314596(int message, int a1, int a2);
-private:
-    TargetA *m_04;
-    TargetB *m_08;
-};
+#include "../../../Include/GameLogic/Rva003145B1.h"
 class Gadget210
 {
 public:

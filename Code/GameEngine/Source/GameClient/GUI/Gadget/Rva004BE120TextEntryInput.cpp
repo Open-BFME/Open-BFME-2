@@ -21,12 +21,7 @@ typedef unsigned short WideChar;
 
 class GameWindow;
 
-class Rva003145B1
-{
-public:
-    int Rva003145B1Dispatch(int a0, int a1, int a2);
-    int rva00314596(int msg, int data1, int data2);   // rowed 0x00314596
-};
+#include "../../../../Include/GameLogic/Rva003145B1.h"
 
 class GameWindowManager
 {
