@@ -156,9 +156,10 @@ public:
 	void rva00484869(int objectID);
 };
 
-struct ObjectCreationUpgradeModuleData
+class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
 {
-	unsigned char m_pad000[0x120];
+public:
+	unsigned char m_pad000[0x120 - sizeof(Snapshot)];
 	AsciiString m_removeUpgrade;		// +0x120
 	AsciiString m_grantUpgrade;		// +0x124
 	AsciiString m_thingToSpawn;		// +0x128

@@ -1,0 +1,61 @@
+{
+  "scope": "Current source text, active ledger keys, full current-source dependent scan with object-sidecar currency fallback, plus bounded published COFF index; no whole-image claim.",
+  "old": "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBUObjectCreationUpgradeModuleData@@XZ",
+  "new": "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBVObjectCreationUpgradeModuleData@@XZ",
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "index_file": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\link_census\\link_index.pkl",
+  "index_contribution_objects": 0,
+  "names": {
+    "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBVObjectCreationUpgradeModuleData@@XZ": {
+      "index_providers": [],
+      "index_callers": [],
+      "index_referenced": false
+    },
+    "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBUObjectCreationUpgradeModuleData@@XZ": {
+      "index_providers": [
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^upgrade_^object^creation^upgrade^update.obj",
+          "entry": "(13045, '96acfa69671b', None)"
+        }
+      ],
+      "index_callers": [],
+      "index_referenced": false
+    }
+  },
+  "current_source_count": 18560,
+  "current_dependent_scan": {
+    "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBVObjectCreationUpgradeModuleData@@XZ": [],
+    "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBUObjectCreationUpgradeModuleData@@XZ": [
+      "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+    ]
+  },
+  "control_helper_references": {
+    "defined": [
+      "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBUObjectCreationUpgradeModuleData@@XZ"
+    ],
+    "undefined": [],
+    "runtime_roots": [],
+    "runtime_edges": {}
+  },
+  "candidate_helper_references": {
+    "defined": [
+      "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBVObjectCreationUpgradeModuleData@@XZ"
+    ],
+    "undefined": [],
+    "runtime_roots": [],
+    "runtime_edges": {}
+  },
+  "active_text_hits": [
+    "Code\\GameEngine\\Source\\GameLogic\\Object\\Upgrade\\ObjectCreationUpgradeUpdate.cpp:181:\tconst ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return (const ObjectCreationUpgradeModuleData *)getModuleData(); }",
+    "Code\\GameEngine\\Source\\GameLogic\\Object\\Upgrade\\ObjectCreationUpgradeUpdate.cpp:198:\tconst ObjectCreationUpgradeModuleData *data = getObjectCreationUpgradeModuleData();"
+  ],
+  "source_sha256_current": "274d52ba0ba537bc1630faf86bf5183feb7a5418eb7cacfd521b002e71b42eba",
+  "control_still_current": true
+}

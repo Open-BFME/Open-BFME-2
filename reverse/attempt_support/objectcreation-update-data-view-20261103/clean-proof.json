@@ -1,0 +1,11 @@
+{
+  "rows": 3,
+  "missing": [],
+  "errors": [],
+  "EH": [
+    "EXACT",
+    ""
+  ],
+  "external_definitions": 17,
+  "identical_to_asserted_candidate": true
+}

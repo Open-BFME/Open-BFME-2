@@ -1,0 +1,6 @@
+{
+  "scope": "Compare old struct-return and new class-return helper code/ordinaryrelocations excluding decoratedname",
+  "identical_body_and_relocations": true,
+  "old": "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBUObjectCreationUpgradeModuleData@@XZ",
+  "new": "?getObjectCreationUpgradeModuleData@ObjectCreationUpgrade@@IBEPBVObjectCreationUpgradeModuleData@@XZ"
+}
