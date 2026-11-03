@@ -405,3 +405,4 @@ SubsystemInterfaceList,Code/GameEngine/Include/Common/SubsystemInterfaceList.h,e
 VideoPlayer,Code/GameEngine/Include/GameClient/VideoPlayerClass.h,existing header; contract class_contracts/VideoPlayer.json; 15/21 sampled units adopt
 TransportAIUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/TransportAIUpdateModuleData.h,existing header; contract class_contracts/TransportAIUpdateModuleData.json; 16/22 sampled units adopt
 CommandList,Code/GameEngine/Include/Common/CommandList.h,existing header; contract class_contracts/CommandList.json; 10/20 sampled units adopt
+GeneralAllocator,Code/GameEngine/Include/Common/GeneralAllocator.h,existing header; contract class_contracts/GeneralAllocator.json; 19/38 sampled units adopt
