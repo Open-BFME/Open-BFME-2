@@ -1142,51 +1142,11 @@ void Player::friend_setSkillset(Int skillSet)
 //=============================================================================
 
 //=============================================================================
-// ?transferAssetsFromThat@Player@@QAEXPAV1@@Z present-unmatched
-void Player::transferAssetsFromThat(Player *that)
-{
-	Team *defaultTeam = getDefaultTeam();
-	if (!defaultTeam) {
-		return;
-	}
-
-	std::list<Object *> objsToTransfer;
-
-	// let's not transfer beacons
-	const ThingTemplate *beaconTemplate = TheThingFactory->findTemplate( that->getPlayerTemplate()->getBeaconTemplate() );
-
-	// transfer all his units.
-	for (PlayerTeamList::iterator it = that->m_playerTeamPrototypes.begin(); 
-			 it != that->m_playerTeamPrototypes.end(); ++it) 
-	{
-		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) 
-		{
-			Team *team = iter.cur();
-			if (!team) 
-			{
-				continue;
-			}
-			
-			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance())
-			{
-				Object *obj = iterObj.cur();
-				if (!obj || obj->getTemplate()->isEquivalentTo(beaconTemplate))  // don't transfer NULL objs or beacons
-				{
-					continue;
-				}
-				objsToTransfer.push_back(obj);
-			}
-		}
-	}
-
-	for (std::list<Object *>::iterator itObjs = objsToTransfer.begin(); itObjs != objsToTransfer.end(); ++itObjs) {
-		(*itObjs)->setTeam(defaultTeam);
-	}
-
-	// transfer all his money
-	UnsignedInt allMoney = that->getMoney()->countMoney();
-	that->getMoney()->withdraw(allMoney);
-	getMoney()->deposit(allMoney);
+// Retail's two-argument transferAssetsFromThat is owned by PlayerTransferAssets.cpp.
+// Keep the existing donor-layout getter row independently of the removed
+// one-argument donor body; its native class/field identity remains unresolved.
+namespace {
+    Team *(Player::*const donorDefaultTeamGetter)() = &Player::getDefaultTeam;
 }
 
 //=============================================================================

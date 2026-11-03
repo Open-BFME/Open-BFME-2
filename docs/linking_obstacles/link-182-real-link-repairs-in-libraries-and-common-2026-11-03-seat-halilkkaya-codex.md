@@ -26,3 +26,14 @@ provider is added and no remaining outside reference loses its last provider.
 Global real-link/census confirmation remains pending. Collect inline ownership,
 Twiddler element identity and the particle class cohort remain open; failed
 trials are restored. [Name list, audits and exact boundaries](../reverse/attempt_support/real-link-mesh-pair-20261103.md).
+
+
+### LINK-175 Player donor-emission follow-up (2026-11-03, halilkkaya-codex)
+
+Base8e7d73b3a6: remove the unrowed one-argument transferAssetsFromThat and
+retain its owned getDefaultTeam emission with an ordinary member address.
+Both Money consumer undefineds disappear. Twelve code rows/one data row and
+179 common COMDAT fingerprints remain; ten-source218-row checks and true A/B
+retain nine LINKS peers and add Player112B. Scoped DIR32218+68 passes. The
+getDefaultTeam class/field identity remains unresolved; no census/full-image
+credit is claimed. [Exact scope and provider audit](../reverse/attempt_support/real-link-player-donor-20261103.md).
