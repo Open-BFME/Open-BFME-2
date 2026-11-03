@@ -38,6 +38,13 @@ exception/type-info providers; their combined preview retains three LINKS and
 4,499 bytes. The owning lane retires one header queue row; four seed header
 prerequisites remain. [Metadata graph and limits](../reverse/attempt_support/pathfinder-small-headers-20261103/exception-metadata/README.md).
 
+The PathNode consumer now uses its existing canonical header. Position accessors
+and their 0x0C offset are preserved; no lifetime helper is emitted. Combined
+private verification preserves all 83 entries, three EH graphs and 209 external
+definitions; normal 81-row/two-data checks and owning acceptance pass. One more
+header queue row retires, leaving three seed header prerequisites. The header
+and all other consumers remain unchanged.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

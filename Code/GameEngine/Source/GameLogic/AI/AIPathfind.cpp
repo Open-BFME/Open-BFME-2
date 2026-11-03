@@ -473,14 +473,7 @@ extern PartitionManager *ThePartitionManager;
 
 struct Rva002F1BD5Info { Object *theTallBuilding; unsigned int ignoreBuilding; };
 
-class PathNode {
-public:
- const Coord3D *getPosition() const { return &pos; }
- void setPosition(const Coord3D *p) { pos = *p; }
-private:
- unsigned char pad[0x0C];
- Coord3D pos;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 // ??0Rva002E7B02@@QAE@HHABU_Rva002E7B02Cell@@@Z @0x002E7B02 39B
 // Ctor copying two ints plus a 3-int cell; caller at 0x002EDFD0 passes (esi, 4, [ebp+8]).
