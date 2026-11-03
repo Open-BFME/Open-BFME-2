@@ -628,11 +628,7 @@ public:
 	virtual void unk78(int *idx);
 };
 
-struct XferException
-{
-	char *text;
-	int tag;
-};
+#include "../../../Include/Common/XferException.h"
 
 extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
 
@@ -1861,9 +1857,7 @@ Rva002E7FED *__cdecl Rva002E7FEDGet(Rva002E7FED *obj, int *vals)
 	int n = 0x40;
 	obj->unk78(&idx);
 	if (idx != 0x40) {
-		XferException error;
-		bfmeFormatText(&error, 0, 0);
-		_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo); __assume(0);
+		throw XferException(0, 0);
 	}
 	int *p = vals;
 	do {

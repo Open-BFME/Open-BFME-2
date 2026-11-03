@@ -1,0 +1,44 @@
+{
+  "type_info_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+  "table_symbol": "??_7type_info@@6B@",
+  "object_bytes": "00000000",
+  "retail_bytes": "4890a200",
+  "relocations": [
+    {
+      "offset": 0,
+      "type": 6,
+      "symbol": "??_Etype_info@@UAEPAXI@Z",
+      "native_va": "0xa29048",
+      "native_rva": "0x629048"
+    }
+  ],
+  "owners": [
+    {
+      "name": "??_Etype_info@@UAEPAXI@Z",
+      "export_rva": "",
+      "target_rva": "0x00629048",
+      "target_size": "75",
+      "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+      "status": "matched",
+      "notes": "Native ti_inst.obj vector deleting destructor; genuine MSVC emitted whole75B and five exact native relocations; PE-proven type_info destructor callback and scalar delete on both branches; source-only dead array context; reverse/attempt_support/typeinfo-vector-delete-20261024.md"
+    }
+  ],
+  "existing_metadata_identity": [
+    {
+      "symbol": "??_R0?AVXferException@@@8",
+      "same_bytes_and_relocs": true
+    },
+    {
+      "symbol": "__CT??_R0?AVXferException@@@8??0XferException@@QAE@ABV0@@Z8",
+      "same_bytes_and_relocs": true
+    },
+    {
+      "symbol": "__CTA1?AVXferException@@",
+      "same_bytes_and_relocs": true
+    },
+    {
+      "symbol": "__TI1?AVXferException@@",
+      "same_bytes_and_relocs": true
+    }
+  ]
+}

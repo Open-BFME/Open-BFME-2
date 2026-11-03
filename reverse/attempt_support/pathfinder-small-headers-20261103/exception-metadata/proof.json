@@ -1,0 +1,2214 @@
+{
+  "scope": "Specific4compilerexceptionmetadata comparisons vs native XferException graph, no inventedpins/addresses",
+  "private_object_sha256": "57ce1a5fcbb3edc423cb959b5c003a5f1a1a51761cda98dbd1b04f2232cb8494",
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "metadata": [
+    {
+      "symbol": "??_R0?AVXferException@@@8",
+      "native_rva": "0x9b3f80",
+      "size": 28,
+      "object": "00000000000000002e3f415658666572457863657074696f6e404000",
+      "retail": "30c7c700000000002e3f415658666572457863657074696f6e404000",
+      "unmasked_differences": [],
+      "relocations": [
+        {
+          "offset": 0,
+          "type": 6,
+          "symbol": "??_7type_info@@6B@",
+          "object_addend": 0,
+          "retail_va": "0xc7c730",
+          "retail_rva": "0x87c730"
+        }
+      ],
+      "published_provider_count": 99,
+      "published_providers": [
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00426^f17^xfer.obj",
+          "fact": "(11590, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer.obj",
+          "fact": "(58, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^vector.obj",
+          "fact": "(560, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "fact": "(985, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^set.obj",
+          "fact": "(1152, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^rva0005^c^c28^xfer^ascii^string^real^map.obj",
+          "fact": "(1184, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^unicode^string^vector.obj",
+          "fact": "(1185, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^logic_^w3^d^ghost^object^scene.obj",
+          "fact": "(1219, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^visual^xfer.obj",
+          "fact": "(1460, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^bit^flags^xfer.obj",
+          "fact": "(2262, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^set^drawable^i^d.obj",
+          "fact": "(2344, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer^do^xfer.obj",
+          "fact": "(2639, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^locomotor^set^xfer^self^and^cur^loco^ptr^rva001^e70^c2.obj",
+          "fact": "(4311, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^set^do^xfer.obj",
+          "fact": "(4322, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^battle.obj",
+          "fact": "(4371, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "fact": "(4376, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^c^p^u^particle^load^post^process.obj",
+          "fact": "(4492, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^load^post^process^bfme2.obj",
+          "fact": "(4493, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^manager^find^template.obj",
+          "fact": "(4562, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^sequential^script^xfer.obj",
+          "fact": "(4674, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save.obj",
+          "fact": "(4684, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^do^xfer.obj",
+          "fact": "(4729, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^game^client^xfer.obj",
+          "fact": "(5389, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "fact": "(5461, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00263569^xfer.obj",
+          "fact": "(6311, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^xfer.obj",
+          "fact": "(6367, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^drawable^do^xfer.obj",
+          "fact": "(6432, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^xfer.obj",
+          "fact": "(6502, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0028^c5^c^c^get.obj",
+          "fact": "(6702, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^set^xfer.obj",
+          "fact": "(6764, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^do^xfer.obj",
+          "fact": "(6849, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "fact": "(6914, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva002^a^c1^a9^xfer^list.obj",
+          "fact": "(7176, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^xfer.obj",
+          "fact": "(7658, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva002^d342^a^xfer20.obj",
+          "fact": "(7799, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^radar^object^xfer.obj",
+          "fact": "(7857, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva002^d^b^d05^get.obj",
+          "fact": "(7887, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^game^state^auto^save.obj",
+          "fact": "(7896, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^xfer.obj",
+          "fact": "(7945, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^pathfind^request^ring_^rva002^e^a^b^f3.obj",
+          "fact": "(8053, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^map^preview^image.obj",
+          "fact": "(8169, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^ghost^object.obj",
+          "fact": "(8203, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^upgrade^mask.obj",
+          "fact": "(8209, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^sides^list_sides^info.obj",
+          "fact": "(8607, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^xfer^s^t^l^object^i^d^list.obj",
+          "fact": "(8704, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^ai^orders^manager.obj",
+          "fact": "(9136, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^attack^priority^info^xfer.obj",
+          "fact": "(9195, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^glow^material.obj",
+          "fact": "(9299, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^list^object^i^d.obj",
+          "fact": "(9383, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^types.obj",
+          "fact": "(9435, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00390911^xfer.obj",
+          "fact": "(9624, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^per^frame^stats^vector^xfer.obj",
+          "fact": "(9766, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^do^xfer.obj",
+          "fact": "(9770, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team.obj",
+          "fact": "(9775, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^xfer.obj",
+          "fact": "(9804, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^load^post^process.obj",
+          "fact": "(9805, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva003^e^d498^count.obj",
+          "fact": "(10629, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "fact": "(10724, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2^c0^c^xfer.obj",
+          "fact": "(10741, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "fact": "(11170, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command.obj",
+          "fact": "(11171, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00414^c92^tracker^vector^xfer.obj",
+          "fact": "(11283, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^cave^system.obj",
+          "fact": "(11597, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^bezier^projectile^behavior.obj",
+          "fact": "(12063, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^rva00460216^xfer^list.obj",
+          "fact": "(12121, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^spawn^behavior^xfer.obj",
+          "fact": "(12124, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain.obj",
+          "fact": "(12162, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain^xfer.obj",
+          "fact": "(12220, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj",
+          "fact": "(12223, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0046^e^f^d^b^xfer.obj",
+          "fact": "(12308, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00473^f^d4^xfer.obj",
+          "fact": "(12336, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^garrison^contain.obj",
+          "fact": "(12365, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^siege^engine^contain.obj",
+          "fact": "(12394, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^siege^engine^contain.obj",
+          "fact": "(12399, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^propaganda^tower^behavior.obj",
+          "fact": "(12471, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^bone^f^x^update.obj",
+          "fact": "(12547, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^dozer^a^i^update^xfer.obj",
+          "fact": "(12579, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^worker^a^i^update^xfer.obj",
+          "fact": "(12919, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "fact": "(13611, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^state^machine^xfer.obj",
+          "fact": "(13619, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^a^i^player^xfer.obj",
+          "fact": "(13906, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^team^in^queue^xfer.obj",
+          "fact": "(13907, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^tunnel^tracker.obj",
+          "fact": "(13918, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "fact": "(14003, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^xfer^vector^bool.obj",
+          "fact": "(14365, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^move^to^group^order^xfer.obj",
+          "fact": "(14802, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^count^map.obj",
+          "fact": "(14951, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^melee^hold^ground.obj",
+          "fact": "(15432, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^gen00595870^deque^xfer_^rva00586231.obj",
+          "fact": "(15471, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0058731^d^check.obj",
+          "fact": "(15486, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva005^c847^b^record^xfer.obj",
+          "fact": "(15949, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^version^transfer.obj",
+          "fact": "(17027, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_xfer_load.obj",
+          "fact": "(17033, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_rva0060^d2^e9^rva0060^d2^e9^farm.obj",
+          "fact": "(17044, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^xfer^save^blocks.obj",
+          "fact": "(17045, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save^as^text.obj",
+          "fact": "(17049, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine.obj",
+          "fact": "(4670, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type.obj",
+          "fact": "(8206, 'f1f3e35f4ce6', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^body_^active^body.obj",
+          "fact": "(13220, 'f1f3e35f4ce6', None)"
+        }
+      ]
+    },
+    {
+      "symbol": "__CT??_R0?AVXferException@@@8??0XferException@@QAE@ABV0@@Z8",
+      "native_rva": "0x8ffcf4",
+      "size": 28,
+      "object": "000000000000000000000000ffffffff000000000800000000000000",
+      "retail": "00000000803fdb0000000000ffffffff0000000008000000c5884500",
+      "unmasked_differences": [],
+      "relocations": [
+        {
+          "offset": 4,
+          "type": 6,
+          "symbol": "??_R0?AVXferException@@@8",
+          "object_addend": 0,
+          "retail_va": "0xdb3f80",
+          "retail_rva": "0x9b3f80"
+        },
+        {
+          "offset": 24,
+          "type": 6,
+          "symbol": "??0XferException@@QAE@ABV0@@Z",
+          "object_addend": 0,
+          "retail_va": "0x4588c5",
+          "retail_rva": "0x588c5"
+        }
+      ],
+      "published_provider_count": 99,
+      "published_providers": [
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00426^f17^xfer.obj",
+          "fact": "(11590, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer.obj",
+          "fact": "(58, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^vector.obj",
+          "fact": "(560, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "fact": "(985, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^set.obj",
+          "fact": "(1152, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^rva0005^c^c28^xfer^ascii^string^real^map.obj",
+          "fact": "(1184, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^unicode^string^vector.obj",
+          "fact": "(1185, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^logic_^w3^d^ghost^object^scene.obj",
+          "fact": "(1219, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^visual^xfer.obj",
+          "fact": "(1460, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^bit^flags^xfer.obj",
+          "fact": "(2262, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^set^drawable^i^d.obj",
+          "fact": "(2344, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer^do^xfer.obj",
+          "fact": "(2639, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^locomotor^set^xfer^self^and^cur^loco^ptr^rva001^e70^c2.obj",
+          "fact": "(4311, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^set^do^xfer.obj",
+          "fact": "(4322, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^battle.obj",
+          "fact": "(4371, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "fact": "(4376, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^c^p^u^particle^load^post^process.obj",
+          "fact": "(4492, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^load^post^process^bfme2.obj",
+          "fact": "(4493, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^manager^find^template.obj",
+          "fact": "(4562, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^sequential^script^xfer.obj",
+          "fact": "(4674, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save.obj",
+          "fact": "(4684, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^do^xfer.obj",
+          "fact": "(4729, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^game^client^xfer.obj",
+          "fact": "(5389, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "fact": "(5461, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00263569^xfer.obj",
+          "fact": "(6311, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^xfer.obj",
+          "fact": "(6367, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^drawable^do^xfer.obj",
+          "fact": "(6432, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^xfer.obj",
+          "fact": "(6502, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0028^c5^c^c^get.obj",
+          "fact": "(6702, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^set^xfer.obj",
+          "fact": "(6764, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^do^xfer.obj",
+          "fact": "(6849, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "fact": "(6914, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva002^a^c1^a9^xfer^list.obj",
+          "fact": "(7176, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^xfer.obj",
+          "fact": "(7658, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva002^d342^a^xfer20.obj",
+          "fact": "(7799, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^radar^object^xfer.obj",
+          "fact": "(7857, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva002^d^b^d05^get.obj",
+          "fact": "(7887, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^game^state^auto^save.obj",
+          "fact": "(7896, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^xfer.obj",
+          "fact": "(7945, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^pathfind^request^ring_^rva002^e^a^b^f3.obj",
+          "fact": "(8053, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^map^preview^image.obj",
+          "fact": "(8169, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^ghost^object.obj",
+          "fact": "(8203, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^upgrade^mask.obj",
+          "fact": "(8209, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^sides^list_sides^info.obj",
+          "fact": "(8607, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^xfer^s^t^l^object^i^d^list.obj",
+          "fact": "(8704, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^ai^orders^manager.obj",
+          "fact": "(9136, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^attack^priority^info^xfer.obj",
+          "fact": "(9195, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^glow^material.obj",
+          "fact": "(9299, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^list^object^i^d.obj",
+          "fact": "(9383, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^types.obj",
+          "fact": "(9435, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00390911^xfer.obj",
+          "fact": "(9624, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^per^frame^stats^vector^xfer.obj",
+          "fact": "(9766, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^do^xfer.obj",
+          "fact": "(9770, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team.obj",
+          "fact": "(9775, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^xfer.obj",
+          "fact": "(9804, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^load^post^process.obj",
+          "fact": "(9805, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva003^e^d498^count.obj",
+          "fact": "(10629, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "fact": "(10724, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2^c0^c^xfer.obj",
+          "fact": "(10741, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "fact": "(11170, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command.obj",
+          "fact": "(11171, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00414^c92^tracker^vector^xfer.obj",
+          "fact": "(11283, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^cave^system.obj",
+          "fact": "(11597, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^bezier^projectile^behavior.obj",
+          "fact": "(12063, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^rva00460216^xfer^list.obj",
+          "fact": "(12121, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^spawn^behavior^xfer.obj",
+          "fact": "(12124, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain.obj",
+          "fact": "(12162, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain^xfer.obj",
+          "fact": "(12220, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj",
+          "fact": "(12223, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0046^e^f^d^b^xfer.obj",
+          "fact": "(12308, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00473^f^d4^xfer.obj",
+          "fact": "(12336, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^garrison^contain.obj",
+          "fact": "(12365, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^siege^engine^contain.obj",
+          "fact": "(12394, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^siege^engine^contain.obj",
+          "fact": "(12399, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^propaganda^tower^behavior.obj",
+          "fact": "(12471, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^bone^f^x^update.obj",
+          "fact": "(12547, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^dozer^a^i^update^xfer.obj",
+          "fact": "(12579, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^worker^a^i^update^xfer.obj",
+          "fact": "(12919, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "fact": "(13611, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^state^machine^xfer.obj",
+          "fact": "(13619, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^a^i^player^xfer.obj",
+          "fact": "(13906, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^team^in^queue^xfer.obj",
+          "fact": "(13907, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^tunnel^tracker.obj",
+          "fact": "(13918, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "fact": "(14003, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^xfer^vector^bool.obj",
+          "fact": "(14365, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^move^to^group^order^xfer.obj",
+          "fact": "(14802, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^count^map.obj",
+          "fact": "(14951, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^melee^hold^ground.obj",
+          "fact": "(15432, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^gen00595870^deque^xfer_^rva00586231.obj",
+          "fact": "(15471, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0058731^d^check.obj",
+          "fact": "(15486, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva005^c847^b^record^xfer.obj",
+          "fact": "(15949, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^version^transfer.obj",
+          "fact": "(17027, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_xfer_load.obj",
+          "fact": "(17033, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_rva0060^d2^e9^rva0060^d2^e9^farm.obj",
+          "fact": "(17044, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^xfer^save^blocks.obj",
+          "fact": "(17045, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save^as^text.obj",
+          "fact": "(17049, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine.obj",
+          "fact": "(4670, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type.obj",
+          "fact": "(8206, '3590fbc0fe63', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^body_^active^body.obj",
+          "fact": "(13220, '3590fbc0fe63', None)"
+        }
+      ]
+    },
+    {
+      "symbol": "__CTA1?AVXferException@@",
+      "native_rva": "0x8ffd10",
+      "size": 8,
+      "object": "0100000000000000",
+      "retail": "01000000f4fccf00",
+      "unmasked_differences": [],
+      "relocations": [
+        {
+          "offset": 4,
+          "type": 6,
+          "symbol": "__CT??_R0?AVXferException@@@8??0XferException@@QAE@ABV0@@Z8",
+          "object_addend": 0,
+          "retail_va": "0xcffcf4",
+          "retail_rva": "0x8ffcf4"
+        }
+      ],
+      "published_provider_count": 99,
+      "published_providers": [
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00426^f17^xfer.obj",
+          "fact": "(11590, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer.obj",
+          "fact": "(58, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^vector.obj",
+          "fact": "(560, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "fact": "(985, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^set.obj",
+          "fact": "(1152, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^rva0005^c^c28^xfer^ascii^string^real^map.obj",
+          "fact": "(1184, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^unicode^string^vector.obj",
+          "fact": "(1185, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^logic_^w3^d^ghost^object^scene.obj",
+          "fact": "(1219, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^visual^xfer.obj",
+          "fact": "(1460, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^bit^flags^xfer.obj",
+          "fact": "(2262, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^set^drawable^i^d.obj",
+          "fact": "(2344, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer^do^xfer.obj",
+          "fact": "(2639, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^locomotor^set^xfer^self^and^cur^loco^ptr^rva001^e70^c2.obj",
+          "fact": "(4311, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^set^do^xfer.obj",
+          "fact": "(4322, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^battle.obj",
+          "fact": "(4371, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "fact": "(4376, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^c^p^u^particle^load^post^process.obj",
+          "fact": "(4492, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^load^post^process^bfme2.obj",
+          "fact": "(4493, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^manager^find^template.obj",
+          "fact": "(4562, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^sequential^script^xfer.obj",
+          "fact": "(4674, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save.obj",
+          "fact": "(4684, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^do^xfer.obj",
+          "fact": "(4729, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^game^client^xfer.obj",
+          "fact": "(5389, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "fact": "(5461, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00263569^xfer.obj",
+          "fact": "(6311, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^xfer.obj",
+          "fact": "(6367, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^drawable^do^xfer.obj",
+          "fact": "(6432, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^xfer.obj",
+          "fact": "(6502, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0028^c5^c^c^get.obj",
+          "fact": "(6702, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^set^xfer.obj",
+          "fact": "(6764, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^do^xfer.obj",
+          "fact": "(6849, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "fact": "(6914, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva002^a^c1^a9^xfer^list.obj",
+          "fact": "(7176, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^xfer.obj",
+          "fact": "(7658, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva002^d342^a^xfer20.obj",
+          "fact": "(7799, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^radar^object^xfer.obj",
+          "fact": "(7857, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva002^d^b^d05^get.obj",
+          "fact": "(7887, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^game^state^auto^save.obj",
+          "fact": "(7896, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^xfer.obj",
+          "fact": "(7945, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^pathfind^request^ring_^rva002^e^a^b^f3.obj",
+          "fact": "(8053, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^map^preview^image.obj",
+          "fact": "(8169, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^ghost^object.obj",
+          "fact": "(8203, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^upgrade^mask.obj",
+          "fact": "(8209, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^sides^list_sides^info.obj",
+          "fact": "(8607, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^xfer^s^t^l^object^i^d^list.obj",
+          "fact": "(8704, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^ai^orders^manager.obj",
+          "fact": "(9136, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^attack^priority^info^xfer.obj",
+          "fact": "(9195, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^glow^material.obj",
+          "fact": "(9299, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^list^object^i^d.obj",
+          "fact": "(9383, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^types.obj",
+          "fact": "(9435, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00390911^xfer.obj",
+          "fact": "(9624, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^per^frame^stats^vector^xfer.obj",
+          "fact": "(9766, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^do^xfer.obj",
+          "fact": "(9770, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team.obj",
+          "fact": "(9775, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^xfer.obj",
+          "fact": "(9804, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^load^post^process.obj",
+          "fact": "(9805, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva003^e^d498^count.obj",
+          "fact": "(10629, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "fact": "(10724, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2^c0^c^xfer.obj",
+          "fact": "(10741, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "fact": "(11170, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command.obj",
+          "fact": "(11171, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00414^c92^tracker^vector^xfer.obj",
+          "fact": "(11283, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^cave^system.obj",
+          "fact": "(11597, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^bezier^projectile^behavior.obj",
+          "fact": "(12063, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^rva00460216^xfer^list.obj",
+          "fact": "(12121, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^spawn^behavior^xfer.obj",
+          "fact": "(12124, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain.obj",
+          "fact": "(12162, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain^xfer.obj",
+          "fact": "(12220, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj",
+          "fact": "(12223, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0046^e^f^d^b^xfer.obj",
+          "fact": "(12308, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00473^f^d4^xfer.obj",
+          "fact": "(12336, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^garrison^contain.obj",
+          "fact": "(12365, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^siege^engine^contain.obj",
+          "fact": "(12394, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^siege^engine^contain.obj",
+          "fact": "(12399, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^propaganda^tower^behavior.obj",
+          "fact": "(12471, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^bone^f^x^update.obj",
+          "fact": "(12547, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^dozer^a^i^update^xfer.obj",
+          "fact": "(12579, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^worker^a^i^update^xfer.obj",
+          "fact": "(12919, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "fact": "(13611, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^state^machine^xfer.obj",
+          "fact": "(13619, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^a^i^player^xfer.obj",
+          "fact": "(13906, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^team^in^queue^xfer.obj",
+          "fact": "(13907, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^tunnel^tracker.obj",
+          "fact": "(13918, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "fact": "(14003, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^xfer^vector^bool.obj",
+          "fact": "(14365, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^move^to^group^order^xfer.obj",
+          "fact": "(14802, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^count^map.obj",
+          "fact": "(14951, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^melee^hold^ground.obj",
+          "fact": "(15432, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^gen00595870^deque^xfer_^rva00586231.obj",
+          "fact": "(15471, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0058731^d^check.obj",
+          "fact": "(15486, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva005^c847^b^record^xfer.obj",
+          "fact": "(15949, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^version^transfer.obj",
+          "fact": "(17027, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_xfer_load.obj",
+          "fact": "(17033, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_rva0060^d2^e9^rva0060^d2^e9^farm.obj",
+          "fact": "(17044, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^xfer^save^blocks.obj",
+          "fact": "(17045, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save^as^text.obj",
+          "fact": "(17049, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine.obj",
+          "fact": "(4670, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type.obj",
+          "fact": "(8206, 'a0c0f4367c53', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^body_^active^body.obj",
+          "fact": "(13220, 'a0c0f4367c53', None)"
+        }
+      ]
+    },
+    {
+      "symbol": "__TI1?AVXferException@@",
+      "native_rva": "0x8ffd18",
+      "size": 16,
+      "object": "00000000000000000000000000000000",
+      "retail": "0000000030bd42000000000010fdcf00",
+      "unmasked_differences": [],
+      "relocations": [
+        {
+          "offset": 4,
+          "type": 6,
+          "symbol": "??1XferException@@QAE@XZ",
+          "object_addend": 0,
+          "retail_va": "0x42bd30",
+          "retail_rva": "0x2bd30"
+        },
+        {
+          "offset": 12,
+          "type": 6,
+          "symbol": "__CTA1?AVXferException@@",
+          "object_addend": 0,
+          "retail_va": "0xcffd10",
+          "retail_rva": "0x8ffd10"
+        }
+      ],
+      "published_provider_count": 99,
+      "published_providers": [
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00426^f17^xfer.obj",
+          "fact": "(11590, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer.obj",
+          "fact": "(58, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^vector.obj",
+          "fact": "(560, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "fact": "(985, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^ascii^string^set.obj",
+          "fact": "(1152, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^rva0005^c^c28^xfer^ascii^string^real^map.obj",
+          "fact": "(1184, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^unicode^string^vector.obj",
+          "fact": "(1185, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^logic_^w3^d^ghost^object^scene.obj",
+          "fact": "(1219, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^terrain^visual^xfer.obj",
+          "fact": "(1460, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^bit^flags^xfer.obj",
+          "fact": "(2262, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^set^drawable^i^d.obj",
+          "fact": "(2344, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^shrub^buffer^do^xfer.obj",
+          "fact": "(2639, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^locomotor^set^xfer^self^and^cur^loco^ptr^rva001^e70^c2.obj",
+          "fact": "(4311, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^locomotor^set^do^xfer.obj",
+          "fact": "(4322, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^battle.obj",
+          "fact": "(4371, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type^vector.obj",
+          "fact": "(4376, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^c^p^u^particle^load^post^process.obj",
+          "fact": "(4492, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^load^post^process^bfme2.obj",
+          "fact": "(4493, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^system_^particle^system^manager^find^template.obj",
+          "fact": "(4562, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^sequential^script^xfer.obj",
+          "fact": "(4674, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save.obj",
+          "fact": "(4684, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine^do^xfer.obj",
+          "fact": "(4729, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^game^client^xfer.obj",
+          "fact": "(5389, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "fact": "(5461, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00263569^xfer.obj",
+          "fact": "(6311, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^xfer.obj",
+          "fact": "(6367, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^drawable^do^xfer.obj",
+          "fact": "(6432, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^terrain^logic^xfer.obj",
+          "fact": "(6502, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0028^c5^c^c^get.obj",
+          "fact": "(6702, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^set^xfer.obj",
+          "fact": "(6764, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^do^xfer.obj",
+          "fact": "(6849, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^in^game^u^i^xfer.obj",
+          "fact": "(6914, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva002^a^c1^a9^xfer^list.obj",
+          "fact": "(7176, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^weapon^xfer.obj",
+          "fact": "(7658, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva002^d342^a^xfer20.obj",
+          "fact": "(7799, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^radar^object^xfer.obj",
+          "fact": "(7857, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva002^d^b^d05^get.obj",
+          "fact": "(7887, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^save^game_^game^state^auto^save.obj",
+          "fact": "(7896, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^player^xfer.obj",
+          "fact": "(7945, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^pathfind^request^ring_^rva002^e^a^b^f3.obj",
+          "fact": "(8053, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^map^preview^image.obj",
+          "fact": "(8169, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^ghost^object.obj",
+          "fact": "(8203, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^upgrade^mask.obj",
+          "fact": "(8209, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^map_^sides^list_sides^info.obj",
+          "fact": "(8607, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^xfer^s^t^l^object^i^d^list.obj",
+          "fact": "(8704, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^ai^orders^manager.obj",
+          "fact": "(9136, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^attack^priority^info^xfer.obj",
+          "fact": "(9195, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^glow^material.obj",
+          "fact": "(9299, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^list^object^i^d.obj",
+          "fact": "(9383, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^object^types.obj",
+          "fact": "(9435, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00390911^xfer.obj",
+          "fact": "(9624, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^per^frame^stats^vector^xfer.obj",
+          "fact": "(9766, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^score^keeper^do^xfer.obj",
+          "fact": "(9770, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team.obj",
+          "fact": "(9775, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^xfer.obj",
+          "fact": "(9804, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^team^load^post^process.obj",
+          "fact": "(9805, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva003^e^d498^count.obj",
+          "fact": "(10629, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2394^xfer.obj",
+          "fact": "(10724, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva003^f2^c0^c^xfer.obj",
+          "fact": "(10741, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva0040^e19^d^xfer.obj",
+          "fact": "(11170, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^g^u^i_^control^bar_^control^bar^command.obj",
+          "fact": "(11171, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00414^c92^tracker^vector^xfer.obj",
+          "fact": "(11283, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^system_^cave^system.obj",
+          "fact": "(11597, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^bezier^projectile^behavior.obj",
+          "fact": "(12063, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^rva00460216^xfer^list.obj",
+          "fact": "(12121, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^spawn^behavior^xfer.obj",
+          "fact": "(12124, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain.obj",
+          "fact": "(12162, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^open^contain^xfer.obj",
+          "fact": "(12220, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^cave^contain.obj",
+          "fact": "(12223, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0046^e^f^d^b^xfer.obj",
+          "fact": "(12308, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva00473^f^d4^xfer.obj",
+          "fact": "(12336, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^garrison^contain.obj",
+          "fact": "(12365, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^siege^engine^contain.obj",
+          "fact": "(12394, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^siege^engine^contain.obj",
+          "fact": "(12399, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^behavior_^propaganda^tower^behavior.obj",
+          "fact": "(12471, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^bone^f^x^update.obj",
+          "fact": "(12547, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^dozer^a^i^update^xfer.obj",
+          "fact": "(12579, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^worker^a^i^update^xfer.obj",
+          "fact": "(12919, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "fact": "(13611, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^state^machine^xfer.obj",
+          "fact": "(13619, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^a^i^player^xfer.obj",
+          "fact": "(13906, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^team^in^queue^xfer.obj",
+          "fact": "(13907, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^tunnel^tracker.obj",
+          "fact": "(13918, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^rva004^f^a^c^d0^xfer.obj",
+          "fact": "(14003, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^xfer^vector^bool.obj",
+          "fact": "(14365, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^move^to^group^order^xfer.obj",
+          "fact": "(14802, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^thing_^thing^template^count^map.obj",
+          "fact": "(14951, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain_^horde^melee^hold^ground.obj",
+          "fact": "(15432, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^client_^gen00595870^deque^xfer_^rva00586231.obj",
+          "fact": "(15471, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva0058731^d^check.obj",
+          "fact": "(15486, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^rva005^c847^b^record^xfer.obj",
+          "fact": "(15949, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^version^transfer.obj",
+          "fact": "(17027, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_xfer_load.obj",
+          "fact": "(17033, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_rva0060^d2^e9^rva0060^d2^e9^farm.obj",
+          "fact": "(17044, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^libraries_^source_xfer_^xfer^save^blocks.obj",
+          "fact": "(17045, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^save^as^text.obj",
+          "fact": "(17049, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^script^engine_^script^engine.obj",
+          "fact": "(4670, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^common_^system_^xfer^science^type.obj",
+          "fact": "(8206, '72a6f72c19d3', None)"
+        },
+        {
+          "kind": "comdat",
+          "object": "^code_^game^engine_^source_^game^logic_^object_^body_^active^body.obj",
+          "fact": "(13220, '72a6f72c19d3', None)"
+        }
+      ]
+    }
+  ],
+  "source_bindings": [
+    {
+      "variant": "control",
+      "size": 88,
+      "bytes": "558bec83ec0c53568b75088b06576a405b8d4dfc518bce895dfcff5078395dfc741e6a008d45f46a0050e80000000083c40c68000000008d45f450e8000000008b7d0c8b06578bceff507083c7044b75f25f8bc65e5bc9c3",
+      "relocations": [
+        [
+          43,
+          20,
+          "_bfmeFormatText"
+        ],
+        [
+          51,
+          6,
+          "?g_guardTargetTypeThrowInfo@@3HA"
+        ],
+        [
+          60,
+          20,
+          "__CxxThrowException@8"
+        ]
+      ]
+    },
+    {
+      "variant": "exception-throw",
+      "size": 88,
+      "bytes": "558bec83ec0c53568b75088b06576a405b8d4dfc518bce895dfcff5078395dfc741e6a008d45f46a0050e80000000083c40c68000000008d45f450e8000000008b7d0c8b06578bceff507083c7044b75f25f8bc65e5bc9c3",
+      "relocations": [
+        [
+          43,
+          20,
+          "??0XferException@@QAA@HPBDZZ"
+        ],
+        [
+          51,
+          6,
+          "__TI1?AVXferException@@"
+        ],
+        [
+          60,
+          20,
+          "__CxxThrowException@8"
+        ]
+      ]
+    }
+  ],
+  "code_owners": [
+    {
+      "name": "??0XferException@@QAE@ABV0@@Z",
+      "export_rva": "",
+      "target_rva": "0x000588C5",
+      "target_size": "21",
+      "source": "Code/GameEngine/Source/Common/System/XferException.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    {
+      "name": "??0XferException@@QAA@HPBDZZ",
+      "export_rva": "",
+      "target_rva": "0x0060C36E",
+      "target_size": "85",
+      "source": "Code/GameEngine/Source/Common/System/XferException.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    {
+      "name": "??1XferException@@QAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x0002BD30",
+      "target_size": "9",
+      "source": "Code/GameEngine/Source/Common/System/XferException.cpp",
+      "status": "matched",
+      "notes": ""
+    }
+  ],
+  "data_owners": [],
+  "other_symbol_providers": {
+    "??0XferException@@QAA@HPBDZZ": [
+      {
+        "kind": "strong",
+        "object": "^code_^game^engine_^source_^common_^system_^xfer^exception.obj",
+        "fact": "542"
+      },
+      {
+        "kind": "comdat",
+        "object": "^code_^game^engine_^source_^common_^system_^xfer^exception.obj",
+        "fact": "(542, 'b9ba6adb0b94', 'retail')"
+      }
+    ],
+    "??0XferException@@QAE@ABV0@@Z": [
+      {
+        "kind": "strong",
+        "object": "^code_^game^engine_^source_^common_^system_^xfer^exception.obj",
+        "fact": "542"
+      },
+      {
+        "kind": "comdat",
+        "object": "^code_^game^engine_^source_^common_^system_^xfer^exception.obj",
+        "fact": "(542, '34adc14ac5d3', 'retail')"
+      }
+    ],
+    "??1XferException@@QAE@XZ": [
+      {
+        "kind": "strong",
+        "object": "^code_^game^engine_^source_^common_^system_^xfer^exception.obj",
+        "fact": "542"
+      },
+      {
+        "kind": "comdat",
+        "object": "^code_^game^engine_^source_^common_^system_^xfer^exception.obj",
+        "fact": "(542, 'a367ecc44d11', 'retail')"
+      }
+    ],
+    "??_7type_info@@6B@": [
+      {
+        "kind": "comdat",
+        "object": "^code_^libraries_^source_^c^r^t_^type^info^copy^constructor.obj",
+        "fact": "(17228, '5ee55f1ba476', None)"
+      }
+    ]
+  }
+}

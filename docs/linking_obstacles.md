@@ -29,6 +29,15 @@ and 205 identical external definitions. Its owning header verdict retires one
 additional queue entry; five seed header prerequisites remain. No new vtable,
 provider, pin, alias, marker or source-file merge is added.
 
+The exception follow-up adopts canonical XferException and replaces manual
+runtime-throw plumbing with ordinary `throw XferException(0,0)`. The complete
+88-byte getter remains identical. Four naturally emitted compiler metadata
+COMDATs match native bytes and every DIR32 target, with existing provider
+closure. Normal/strict verification passes 87 bodies across the seed and its
+exception/type-info providers; their combined preview retains three LINKS and
+4,499 bytes. The owning lane retires one header queue row; four seed header
+prerequisites remain. [Metadata graph and limits](../reverse/attempt_support/pathfinder-small-headers-20261103/exception-metadata/README.md).
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:
