@@ -81,6 +81,30 @@ def test_import_def_entries_follow_retail_names():
     assert lc.import_name("GetUserNameA@8") == "GetUserNameA" and lc.import_name("free") == "free"
 
 
+def test_import_def_entries_accept_retails_decorated_names():
+    retail = {"_AIL_lock_mutex@0": {"mss32.dll"}, "Sleep": {"kernel32.dll"}}
+    entries, missing = lc.import_def_entries({"__imp__AIL_lock_mutex@0", "__imp__Sleep@4"}, retail)
+    assert entries == {"mss32.dll": ["AIL_lock_mutex@0"], "kernel32.dll": ["Sleep@4"]}
+    assert missing == []
+
+
+def test_undefined_plain_imports_name_only_non_crt_retail_imports():
+    class Symbol:
+        def __init__(self, name, sec=0):
+            self.name, self.sec, self.cls = name, sec, lc.EXTERNAL
+
+    class Objects:
+        paths = ["a.obj"]
+
+        def get(self, _path):
+            return None, {i: y for i, y in enumerate([
+                Symbol("_Netbios@4"), Symbol("_strlen"), Symbol("_NotRetail@4"), Symbol("?x@@YAXXZ"),
+                Symbol("_Owned@4"), Symbol("_Owned@4", sec=1)])}
+
+    retail = {"Netbios": {"netapi32.dll"}, "strlen": {"msvcr71.dll"}, "Owned": {"user32.dll"}}
+    assert lc.undefined_plain_imports(Objects(), retail) == {"__imp__Netbios@4"}
+
+
 @pytest.mark.parametrize("platform, first", [("linux", "wine"), ("win32", "lib.exe")])
 def test_import_libs_run_lib_exe_through_wine_off_windows(tmp_path, monkeypatch, platform, first):
     # lib.exe is a Windows binary checked in without an exec bit: off Windows it runs under wine, as link.exe does
@@ -1523,6 +1547,8 @@ def test_stdcall_import_rewrite_preserves_archive_offsets_and_data_type(tmp_path
     assert struct.unpack_from("<H", changed, 8 + 60 + 18)[0] == (3 << 2) | 1
     lc.undecorate_stdcall_imports(path)
     assert path.read_bytes() == changed
+    lc.undecorate_stdcall_imports(path, keep_decoration=True)
+    assert path.read_bytes() == changed  # already not NOPREFIX: nothing left to rename
 
 
 def test_coff_writer_emits_named_dir32_import_relocation(tmp_path):

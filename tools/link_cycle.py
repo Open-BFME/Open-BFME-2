@@ -438,6 +438,24 @@ def undefined_imports(objs):
     return names
 
 
+def undefined_plain_imports(objs, retail_imports):
+    """`__imp_` spellings for `_X@N` references only an import's thunk can satisfy: a source that
+    declares an imported function without dllimport calls the thunk. msvcr71 stays with msvcrt.lib."""
+    defined = defined_externals(objs)
+    names = set()
+    for p in objs.paths:
+        o = objs.get(p)
+        if not o:
+            continue
+        for y in o[1].values():
+            if (y.sec == 0 and y.cls == EXTERNAL and y.name.startswith("_") and not y.name.startswith("__")
+                    and y.name not in defined):
+                dlls = retail_imports.get(re.sub(r"@\d+$", "", y.name[1:]))
+                if dlls and "msvcr71.dll" not in dlls:
+                    names.add("__imp_" + y.name)
+    return names
+
+
 def import_def_entries(imp_names, retail_imports):
     """{dll: [def entry]} for every referenced __imp_ name retail imports; and the
     names retail does not import (left to stubs)."""
@@ -448,7 +466,8 @@ def import_def_entries(imp_names, retail_imports):
             base, entry = rest, rest
         elif rest.startswith("_"):
             entry = rest[1:]
-            base = re.sub(r"@\d+$", "", entry)
+            # mss32.dll exports decorated names: retail's table lists _AIL_x@N itself.
+            base = rest if rest in retail_imports else re.sub(r"@\d+$", "", entry)
         else:
             missing.append(n)
             continue
@@ -499,15 +518,21 @@ def runtime_libraries():
     return [directory / "msvcrt.lib", directory / "oldnames.lib"]
 
 
-def undecorate_stdcall_imports(path):
+# DLLs whose exports keep their decoration: retail imports these by the full _name@N.
+DECORATED_EXPORT_DLLS = {"mss32.dll"}
+
+
+def undecorate_stdcall_imports(path, keep_decoration=False):
     """Preserve COFF _name@N providers but import the DLL's undecorated name.
 
     lib.exe /DEF retains @N in the DLL import name, including for DATA IAT-only
     entries. Short import objects support UNDECORATE explicitly; changing that
     name-type field leaves member sizes and both archive indexes intact.
     Entries come from import_def_entries, which only accepts these spellings
-    when retail imports the undecorated function.
+    when retail imports the undecorated function. keep_decoration imports the
+    full symbol instead (IMPORT_NAME), for DECORATED_EXPORT_DLLS.
     """
+    name_type = 1 if keep_decoration else 3
     data = bytearray(path.read_bytes())
     at = 8
     while at + 60 <= len(data):
@@ -518,7 +543,7 @@ def undecorate_stdcall_imports(path):
             symbol = bytes(data[start + 20:end]).decode("latin-1")
             kind = struct.unpack_from("<H", data, start + 18)[0]
             if re.fullmatch(r"_[^?@]+@\d+", symbol) and (kind >> 2) & 7 == 2:
-                struct.pack_into("<H", data, start + 18, (kind & ~0x1C) | (3 << 2))
+                struct.pack_into("<H", data, start + 18, (kind & ~0x1C) | (name_type << 2))
         at += 60 + size + (size & 1)
     path.write_bytes(data)
 
@@ -544,7 +569,7 @@ def make_import_libs(entries, outdir, defined=()):
         res = subprocess.run(cmd, capture_output=True, text=True, errors="replace", env=build.compiler_environment(root))
         if res.returncode or not lib.exists():
             raise SystemExit(f"link_cycle: lib.exe failed for {dll}:\n{res.stdout}{res.stderr}")
-        undecorate_stdcall_imports(lib)
+        undecorate_stdcall_imports(lib, dll.lower() in DECORATED_EXPORT_DLLS)
         libs.append(lib)
     return libs
 

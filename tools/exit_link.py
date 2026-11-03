@@ -521,8 +521,10 @@ def link_setup(rows, present):
         raise SystemExit(f"exit_link: the link set is not scaffold-free (scaffolds {bad}, "
                          f"omitted objects {leaked}); nothing linked")
     objects = link_cycle.Objects(inputs)
+    retail_imports = census.retail_imports()
     entries, missing = link_cycle.import_def_entries(
-        link_cycle.undefined_imports(objects), census.retail_imports())
+        link_cycle.undefined_imports(objects) | link_cycle.undefined_plain_imports(objects, retail_imports),
+        retail_imports)
     imports = OUT / "imports"
     imports.mkdir(parents=True, exist_ok=True)
     libs = link_cycle.make_import_libs(entries, imports, link_cycle.defined_externals(objects))
