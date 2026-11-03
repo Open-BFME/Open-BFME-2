@@ -75,13 +75,7 @@ struct Coord3D;
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
-		const Waypoint *way);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 class Rva0044ECCE
 {

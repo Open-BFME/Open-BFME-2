@@ -73,11 +73,7 @@ private:
 };
 
 // The abstract interface at +0x20 (ZH's SpecialPowerUpdateInterface slot).
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void slot00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 // The 0x1C-byte kind-of mask; its ctor is the rowed clear at 0x0024C7B3.
 class Rva0024C7B3Member

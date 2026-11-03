@@ -186,13 +186,7 @@ class Waypoint;
 
 struct Coord3D;
 
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions,
-		const Waypoint *way);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 // The dtor tail-calls the rowed ??1SpecialAbilityUpdate (0x00451F45), and
 // retail's +0x10 and +0x20 tables (0x0084DEE8, 0x008552A4) keep

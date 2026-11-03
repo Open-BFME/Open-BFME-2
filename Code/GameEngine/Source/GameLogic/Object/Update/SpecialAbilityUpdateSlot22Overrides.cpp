@@ -24,11 +24,7 @@ enum WeaponSetType
 extern GameLogic *TheGameLogic;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void specialPowerUpdateAnchor();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:

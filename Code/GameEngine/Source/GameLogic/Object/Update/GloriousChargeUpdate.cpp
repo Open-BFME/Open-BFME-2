@@ -164,11 +164,7 @@ enum UpdateSleepTime
 
 
 
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void specialPowerUpdateAnchor();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 // Primary-vtable slots 1..17 of SpecialAbilityUpdate (vtable 0x00C3FBA8):
 // xfer 0x0044F996 in slot 3 and the pool key in slot 4; only the positions

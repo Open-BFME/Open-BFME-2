@@ -156,12 +156,7 @@ struct SiegeDeployHordeSpecialPowerModuleData
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 class SiegeDeployHordeSpecialPower : public UpdateModule, public SpecialPowerUpdateInterface
 {

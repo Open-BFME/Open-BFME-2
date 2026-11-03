@@ -164,15 +164,7 @@ public:
 	VSLOT(8) VSLOT(9) VSLOT(10) VSLOT(11) VSLOT(12) VSLOT(13)
 	virtual void slot014(bool b);
 };
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way) = 0;
-	virtual bool isSpecialAbility() const = 0;
-	VSLOT(2) VSLOT(3) VSLOT(4) VSLOT(5)
-	virtual bool isPowerCurrentlyInUse(const CommandButton *command) const = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 struct Rva002A8AB1Record;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"

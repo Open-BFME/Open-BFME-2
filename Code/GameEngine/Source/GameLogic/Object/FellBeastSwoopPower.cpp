@@ -109,11 +109,7 @@ class ModuleData;
 
 
 
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void specialPowerUpdateAnchor();
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 //
 // FellBeastSwoopPower::update, retail 0x004C6E49 (254 bytes): slot 0 of the

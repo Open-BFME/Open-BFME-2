@@ -80,16 +80,7 @@ enum CanMakeType { CANMAKE_QUEUE_FULL = 4 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerUpdateModule.h
-class SpecialPowerUpdateInterface
-{
-public:
-	virtual void unusedSlot00();
-	virtual void unusedSlot01();
-	virtual void unusedSlot02();
-	virtual void unusedSlot03();
-	virtual void unusedSlot04();
-	virtual void setSpecialPowerOverridableDestination(const Coord3D *loc);	// vtable +0x14
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Upgrade.h
 class UpgradeTemplate
