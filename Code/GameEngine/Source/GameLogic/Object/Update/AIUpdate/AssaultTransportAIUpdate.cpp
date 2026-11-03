@@ -557,24 +557,7 @@ public:
 
 #include "../../../../../Include/Common/Rva00404781.h"
 
-class VictorySystem
-{
-public:
-    virtual void reset();	// SubsystemInterface slot 9
-    void rva00404B03();
-private:
-    // +0x00 is the SubsystemInterface vtable pointer.
-    unsigned char prefix04[0x14 - 0x04];
-    int field14;
-    unsigned char prefix18[0x78 - 0x18];
-    Rva00404781 table78;
-    unsigned char prefix120[0x12C - 0x120];
-    Rva0056C3E5 *owned[2];
-    bool flag134;
-    unsigned char prefix135[3];
-    int field138;
-    int field13C;
-};
+#include "../../../../../Include/Common/VictorySystem.h"
 
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
 // 0x00E062D8; its one-time guard is VA 0x00E062DC. The named Impl constructor
