@@ -45657,7 +45657,7 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva00530FC5@BooleanBitmapSet@@QAEXXZ,,0x00530FC5,67,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,matched,bitmask guarded 128B clear via memset callers in 0x00533BEC neighbours Disp getters
 ?rva00530FAE@BooleanBitmapSet@@QAEXXZ,,0x00530FAE,23,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,matched,frees m_data at +4 and m_bits at +8 via array delete
 ?SetBit@BooleanBitmapSet@@QAEXH@Z,,0x00531008,57,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,matched,same-class two-level bit set callers in 0x005329C8 0x00532FEA
-?rva005A7974@NAT@@QAEXGPAX@Z,,0x005A7974,290,Code/GameEngine/Source/Common/Rva005A8666BoxNat.cpp,matched,NAT PORT builder via format translate empty-fallback queue-slot-6
+?rva005A7974@NAT@@QAEXGPAX@Z,,0x005A7974,290,Code/GameEngine/Source/GameNetwork/NAT.cpp,matched,NAT PORT builder via format translate empty-fallback queue-slot-6
 ?checkForPatrol@ObjectOrderQueue@@QAEPBVArmorTemplate@@PAXPBV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z,,0x00548117,108,Code/GameEngine/Source/GameLogic/Object/ObjectOrderQueue.cpp,matched,list Armor pair via caller 0x0035545C find 0x00355155 contains 0x00548800
 ?checkForPatrol@ObjectOrderQueue@@QAEPBVArmorTemplate@@PAXPBVRva00548800@@@Z,,0x00548183,118,Code/GameEngine/Source/GameLogic/Object/ObjectOrderQueue.cpp,matched,sibling of 0x00548117 with precheck and subset 0x00548753 caller 0x00355514
 ?setPatrolStartOrder@ObjectOrderQueue@@QAEXW4ObjectID@@H@Z,,0x005481F9,110,Code/GameEngine/Source/GameLogic/Object/ObjectOrderQueue.cpp,matched,find v in key list then slot 7 per resolved armor then flag-gated stores at +0xC and +0x10
