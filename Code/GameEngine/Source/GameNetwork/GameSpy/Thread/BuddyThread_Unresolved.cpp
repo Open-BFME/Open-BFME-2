@@ -137,17 +137,6 @@ public:
 	void set(void *p);
 	MutexClass::LockClass *m_ptr; // +0x00
 };
-class Rva00550B4C
-{
-public:
-	void rva00550B4C();
-	char m_pad00[0x64];
-private:
-	ThreadClass *thread; // +0x64
-	char m_pad68[0x8];
-	Rva0009990D lockOwner; // +0x70
-};
-
 class GameSpyBuddyMessageQueue : public GameSpyBuddyMessageQueueInterface
 {
 public:
@@ -321,5 +310,5 @@ struct BfmeOpaqueOwnedRecord492
 // Native551988..551A06 follows PeerThread cleanup order; target member
 // offsets and the already recovered shutdown distinguish the Buddy owner.
 GameSpyBuddyMessageQueue::~GameSpyBuddyMessageQueue(){
- ((Rva00550B4C*)this)->rva00550B4C();
+ GameSpyBuddyMessageQueue::endThread();
 }

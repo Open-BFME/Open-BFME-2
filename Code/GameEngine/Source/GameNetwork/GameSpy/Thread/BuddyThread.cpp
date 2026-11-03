@@ -184,17 +184,6 @@ public:
 	MutexClass::LockClass *m_ptr; // +0x00
 };
 
-class Rva00550B4C
-{
-public:
-	void rva00550B4C();
-	char m_pad00[0x64];
-private:
-	ThreadClass *thread; // +0x64
-	char m_pad68[0x8];
-	Rva0009990D lockOwner; // +0x70
-};
-
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 
 //-------------------------------------------------------------------------
@@ -1063,15 +1052,16 @@ Rva0055133F::~Rva0055133F()
 // Native550B4C..550B83. Same lock-release/stop/nondeleting-destroy/free
 // order as the matched PeerThread endThread; target offsets64/70 and its
 // direct Stop/clear calls independently establish this partial view.
-void Rva00550B4C::rva00550B4C()
+// Slot 2 of the table 0x00C6B014 the constructor 0x00551A94 installs.
+void GameSpyBuddyMessageQueue::endThread()
 {
-    if (thread) {
-        lockOwner.clear();
-        thread->Stop();
-        void *allocation=thread ? ((Rva00550B4CThreadVtable *)thread)->destroy(0) : 0;
+    if (m_thread) {
+        m_bfme_lock70.clear();
+        ((ThreadClass *)m_thread)->Stop();
+        void *allocation=m_thread ? ((Rva00550B4CThreadVtable *)m_thread)->destroy(0) : 0;
         ::operator delete(allocation);
     }
-    thread=0;
+    m_thread=0;
 }
 
 // tu-skeleton: 0x00550B83 28B ?pop_front@?$deque@VBuddyRequest@@V?$allocator@VBuddyRequest@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_large_bodies.cpp (not merged yet)
