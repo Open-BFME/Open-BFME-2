@@ -25,6 +25,7 @@
 // isOccupied 003FF0FB also tests byte +1A4; isObserver 003FF165 tests +18=-2.
 // reset 003FFF8F proves inGame +10, inProgress +11, map +40, CRC +44,
 // size +48, mask +4C, seed +50, integer +5C, rules +60 and 16-byte tail +CC.
+// ParseAsciiStringToGameInfo 0040116B inlines setMapContentsMask (+4C, 00401EDC).
 // Rowed copies/destructors and the rowed methods below stay out of line.
 // Snapshot's existing capitalized/name-slot switches select the inherited API;
 // those declarations override its existing slots and do not add virtual slots.
@@ -182,6 +183,8 @@ public:
 #else
 	virtual const char *GetSnapshotName() const;
 #endif
+#else
+	virtual void crc(Xfer *);
 #endif
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #ifdef BFME_SNAPSHOT_REFERENCE_XFER
@@ -247,6 +250,7 @@ public:
 	void setGameInProgress(bool value) { m_inProgress = value; }
 	unsigned int getMapCRC() const { return m_mapCRC; }
 	unsigned int getMapSize() const { return m_mapSize; }
+	void setMapContentsMask(int value) { m_mapMask = value; }
 	int getMapContentsMask() const { return m_mapMask; }
 	int getSeed() const { return m_seed; }
 	int getUseStats() const { return m_useStats; }
