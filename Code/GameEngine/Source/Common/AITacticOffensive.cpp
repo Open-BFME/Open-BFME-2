@@ -115,31 +115,31 @@ unsigned char AITacticOffensive::checkTarget(void *targetPtr)
 {
 	Rva002C589B *target = (Rva002C589B *)targetPtr;
 	Rva005DC763Units *units;
-	Object *obj = 0;
+	Object *unit = 0;
 	{
 		void *owner = TheSkirmishAIManager->rva002A8F24(m_player);
 		units = *(Rva005DC763Units **)owner;
 	}
 	for (unsigned int i = 0; i < units->bucket_count(); ++i)
 	{
-		obj = ((Rva0025BFF8 *)units)->rva0025BFF8(i);
-		if (obj && (obj->getTemplate()->m_kindOf108 & 8) && !(obj->getTemplate()->m_kindOf108 & 4))
+		unit = ((Rva0025BFF8 *)units)->rva0025BFF8(i);
+		if (unit && (unit->getTemplate()->m_kindOf108 & 8) && !(unit->getTemplate()->m_kindOf108 & 4))
 		{
 			unsigned char canReach = 0;
 			Object *structure = target->rva002C5DA6();
 			if (structure)
-				canReach = ((TheAI->pathfinder()->QuickDoesPathExistToStructure(obj, &obj->m_pos, structure, 0)));
+				canReach = ((TheAI->pathfinder()->QuickDoesPathExistToStructure(unit, &unit->m_pos, structure, 0)));
 			else
-				canReach = TheAI->pathfinder()->QuickDoesPathExist(obj, &obj->m_pos, &target->m_pos, 0);
+				canReach = TheAI->pathfinder()->QuickDoesPathExist(unit, &unit->m_pos, &target->m_pos, 0);
 			if ((slot10() ^ canReach) == 0)
 				return false;
 			break;
 		}
 	}
-	if (!obj)
+	if (!unit)
 		return false;
-	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(m_player);
-	if (rec->m_16C == 0)
+	Rva002A8AB1Record *playerRecord = TheSkirmishAIManager->rva002A8AB1(m_player);
+	if (playerRecord->m_16C == 0)
 	{
 		Object *structure = target->rva002C5DA6();
 		if (structure && (structure->getTemplate()->m_kindOf120 & 4) && !(structure->m_flags94 & 1) && !(structure->m_status438 & 1))

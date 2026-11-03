@@ -60,7 +60,7 @@ struct Rva00597372Triple
 class Rva00597372
 {
 public:
-	void rva00597372(Rva00597372Triple *out);
+	void rva00597372(Rva00597372Triple *outputTriple);
 };
 
 // 0x005C793A: 1.0 and the most negative Int out.
@@ -117,11 +117,11 @@ AIUpgrade::AIUpgrade()
 
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp
 
-void Rva00597372::rva00597372(Rva00597372Triple *out)
+void Rva00597372::rva00597372(Rva00597372Triple *outputTriple)
 {
-	out->x = 0.0f;
-	out->y = 0.0f;
-	out->z = 0.0f;
+	outputTriple->x = 0.0f;
+	outputTriple->y = 0.0f;
+	outputTriple->z = 0.0f;
 }
 
 // tu-skeleton: 0x0059738A 78B ?build@AIUpgrade@@UAE_NPAX@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeBuild.cpp (not merged yet)

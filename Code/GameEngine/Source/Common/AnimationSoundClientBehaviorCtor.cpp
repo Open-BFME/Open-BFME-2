@@ -101,40 +101,40 @@ private:
 AnimationSoundClientBehavior::AnimationSoundClientBehavior(Thing *thing, const ModuleData *moduleData)
 	: Rva00252B68(thing, moduleData)
 {
-	float fzero = 0.0f;
-	int *slotInit = (int *)&m_secondary0C;
-	*slotInit = (int)((unsigned int)__identifier("??_7?$CategoryModuleClass@$04@FXParticleSystem@@6B@"));
+	float zeroRange = 0.0f;
+	int *initialSecondaryVtableSlot = (int *)&m_secondary0C;
+	*initialSecondaryVtableSlot = (int)((unsigned int)__identifier("??_7?$CategoryModuleClass@$04@FXParticleSystem@@6B@"));
 	m_next14 = 0;
 	m_prev18 = 0;
-	int *vtab = (int *)this;
-	*vtab = (int)((unsigned int)__identifier("??_7AnimationSoundClientBehavior@@6BRva004C9DC9Primary@@@"));
-	int *sec0C = (int *)&m_secondary0C;
-	*sec0C = (int)((unsigned int)__identifier("??_7AnimationSoundClientBehavior@@6BRva004C9E33Iface@@@"));
+	int *primaryVtableSlot = (int *)this;
+	*primaryVtableSlot = (int)((unsigned int)__identifier("??_7AnimationSoundClientBehavior@@6BRva004C9DC9Primary@@@"));
+	int *secondaryVtableSlot = (int *)&m_secondary0C;
+	*secondaryVtableSlot = (int)((unsigned int)__identifier("??_7AnimationSoundClientBehavior@@6BRva004C9E33Iface@@@"));
 	if (TheAudio == 0)
 	{
-		m_float10 = fzero;
+		m_float10 = zeroRange;
 	}
 	else
 	{
-		const ModuleData *mod = m_moduleData04;
-		float maxVal = fzero;
-		_STL::_Rb_tree_node_base *node = mod->m_header08->_M_left;
-		if (node != mod->m_header08)
+		const ModuleData *behaviorData = m_moduleData04;
+		float maximumRange = zeroRange;
+		_STL::_Rb_tree_node_base *node = behaviorData->m_header08->_M_left;
+		if (node != behaviorData->m_header08)
 		{
 			do
 			{
-				Payload98 *p = *(Payload98 **)((char *)node + 0x14);
-				p = (Payload98 *)((char *)p + 0x98);
+				Payload98 *rangePayload = *(Payload98 **)((char *)node + 0x14);
+				rangePayload = (Payload98 *)((char *)rangePayload + 0x98);
 				_ReadWriteBarrier();
-				float v = *(float *)p;
-				if (v > maxVal)
-					maxVal = v;
+				float soundRange = *(float *)rangePayload;
+				if (soundRange > maximumRange)
+					maximumRange = soundRange;
 				node = _STL::_Rb_global<bool>::_M_increment(node);
-			} while (node != mod->m_header08);
+			} while (node != behaviorData->m_header08);
 		}
-		if (maxVal > mod->m_max14)
-			maxVal = mod->m_max14;
-		m_float10 = maxVal * maxVal;
+		if (maximumRange > behaviorData->m_max14)
+			maximumRange = behaviorData->m_max14;
+		m_float10 = maximumRange * maximumRange;
 		if (TheAnimationSoundModuleManager)
 			TheAnimationSoundModuleManager->rva00432F7D((Rva00432F23Node *)this);
 	}

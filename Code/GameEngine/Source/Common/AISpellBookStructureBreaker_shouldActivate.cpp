@@ -44,16 +44,16 @@ private:
 
 bool AISpellBookStructureBreaker::shouldActivate(Object *source)
 {
-	Player *player = source->getControllingPlayer();
-	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
-	void *v = rec->rva002C6ACB();
-	if (v == 0)
+	Player *controllingPlayer = source->getControllingPlayer();
+	Rva002A8AB1Record *playerRecord = TheSkirmishAIManager->rva002A8AB1(controllingPlayer);
+	void *searchPlayer = playerRecord->rva002C6ACB();
+	if (searchPlayer == 0)
 		return false;
-	Coord3D pos;
-	pos.x = 0.0f;
-	pos.y = 0.0f;
-	pos.z = 0.0f;
-	if (m_28.findDenseStructureCenter((Player *)v, source->getControllingPlayer(), &pos))
-		return ((Rva005EE816 *)this)->rva005EE8DD(&pos, source);
+	Coord3D structureCenter;
+	structureCenter.x = 0.0f;
+	structureCenter.y = 0.0f;
+	structureCenter.z = 0.0f;
+	if (m_28.findDenseStructureCenter((Player *)searchPlayer, source->getControllingPlayer(), &structureCenter))
+		return ((Rva005EE816 *)this)->rva005EE8DD(&structureCenter, source);
 	return false;
 }

@@ -74,34 +74,34 @@ struct TwoBytes
 
 void AIUpgrade::DoXfer(Xfer *xfer, void *p)
 {
-	TwoBytes t;
-	t.a = true;
-	t.b = true;
-	*xfer == *reinterpret_cast<Xfer::Version *>(&t);
+	TwoBytes versionBytes;
+	versionBytes.a = true;
+	versionBytes.b = true;
+	*xfer == *reinterpret_cast<Xfer::Version *>(&versionBytes);
 	Rva0055B0CC::Rva0055AED6(xfer, p);
 	*xfer == m_2C;
-	const AsciiString *src;
+	const AsciiString *buttonNameSource;
 	if (m_30 != 0)
-		src = &m_30->m_10;
+		buttonNameSource = &m_30->m_10;
 	else
-		src = &AsciiString::TheEmptyString;
-	AsciiString tmp(*src);
+		buttonNameSource = &AsciiString::TheEmptyString;
+	AsciiString tmp(*buttonNameSource);
 	*xfer == tmp;
 	if (!xfer->IsLoading())
 		return;
 	_ReadWriteBarrier();
 	if (((const StringBase<char> *)&tmp)->compare(*(const StringBase<char> *)&AsciiString::TheEmptyString) == 0)
 		return;
-	Object *obj = TheGameLogic->findObjectByID(m_08);
-	if (obj == 0)
+	Object *object = TheGameLogic->findObjectByID(m_08);
+	if (object == 0)
 		return;
-	const AsciiString *name = obj->rva00290E67();
-	void *world = ((Rva0031D5F8 *)((BfmeWorldRV *)TheControlBar))->rva0031D5F8(name);
+	const AsciiString *commandSetName = object->rva00290E67();
+	void *commandSet = ((Rva0031D5F8 *)((BfmeWorldRV *)TheControlBar))->rva0031D5F8(commandSetName);
 	for (int i = 0; i < 0x20; ++i)
 	{
 		if (m_30 != 0)
 			break;
-		const CommandButton *commandButton = ((CommandSet *)world)->getCommandButton(i);
+		const CommandButton *commandButton = ((CommandSet *)commandSet)->getCommandButton(i);
 		if (commandButton != 0)
 		{
 			if (((const StringBase<char> *)&commandButton->m_10)->compare(*(const StringBase<char> *)&tmp) == 0)

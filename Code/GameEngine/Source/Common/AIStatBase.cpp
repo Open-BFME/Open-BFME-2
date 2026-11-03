@@ -177,8 +177,8 @@ class AIStatBase {public:bool removeObject(void*);};
 class AIUnitStats : public Rva0025C061
 {
 public:
-	bool Register(void *holder);
- bool UnRegister(void *holder);
+	bool Register(void *object);
+ bool UnRegister(void *object);
  private:
   typedef _STL::vector<ObjectID,_STL::allocator<ObjectID> > IdVector;
   IdVector &ids() { return *(IdVector *)((char *)this + 0x98); }   // +0x98
@@ -219,19 +219,19 @@ public:
 
 // ---- from Code/GameEngine/Source/Common/AIUnitStats.cpp
 
-bool AIUnitStats::Register(void *holder)
+bool AIUnitStats::Register(void *object)
 {
-	if (((unsigned char)Rva005960FFGet(holder)) != 0) {
-		void *inner = *(void **)((char *)holder + 4);
-		unsigned int flags = *(unsigned int *)((char *)inner + 0x108);
-		if ((flags & 8) == 0 && (((unsigned char *)inner)[0x113] & 4) == 0) {
+	if (((unsigned char)Rva005960FFGet(object)) != 0) {
+		void *objectTemplate = *(void **)((char *)object + 4);
+		unsigned int flags = *(unsigned int *)((char *)objectTemplate + 0x108);
+		if ((flags & 8) == 0 && (((unsigned char *)objectTemplate)[0x113] & 4) == 0) {
 			if ((flags & 0x4000) != 0) {
-				if (!rva004884B7((Object *)holder))
-					((_STL::vector<ScienceType, _STL::allocator<ScienceType> > *)((char *)this + 0x98))->push_back((ScienceType)*(int *)((char *)holder + 0x74));
+				if (!rva004884B7((Object *)object))
+					((_STL::vector<ScienceType, _STL::allocator<ScienceType> > *)((char *)this + 0x98))->push_back((ScienceType)*(int *)((char *)object + 0x74));
 			}
 		} else {
-			((Rva0025C061 *)this)->addObject(holder);
-			((Rva003ECA69Element *)((char *)this + 0x10))->rva003ECB52((Rva003ECB52Arg *)holder);
+			((Rva0025C061 *)this)->addObject(object);
+			((Rva003ECA69Element *)((char *)this + 0x10))->rva003ECB52((Rva003ECB52Arg *)object);
 		}
 		return true;
 	}
@@ -245,22 +245,22 @@ bool AIUnitStats::Register(void *holder)
 // at each use: native adjusts ESI to it only after pushing the value
 // address, which a cached vector pointer moves ahead of the push.
 // WorldBuilder AIUnitStats::UnRegister, WB VA 0x0148E380 (callgraph lead, score 2).
-bool AIUnitStats::UnRegister(void *holder) {
- if((unsigned char)Rva005960FFGet(holder)) {
-  void *inner=*(void**)((char*)holder+4);
-  unsigned int flags=*(unsigned int*)((char*)inner+0x108);
-  if((flags&8)==0 && (((unsigned char*)inner)[0x113]&4)==0) {
+bool AIUnitStats::UnRegister(void *object) {
+ if((unsigned char)Rva005960FFGet(object)) {
+  void *objectTemplate=*(void**)((char*)object+4);
+  unsigned int flags=*(unsigned int*)((char*)objectTemplate+0x108);
+  if((flags&8)==0 && (((unsigned char*)objectTemplate)[0x113]&4)==0) {
    if(flags&0x4000) {
-    if(!rva004884B7((Object*)holder)) {
-     ObjectID value=*(ObjectID*)((char*)holder+0x74);
+    if(!rva004884B7((Object*)object)) {
+     ObjectID objectId=*(ObjectID*)((char*)object+0x74);
      ObjectID *end=((BfmeIdVectorView*)&ids())->m_finish;
-     ObjectID *found=_STL::find(((BfmeIdVectorView*)&ids())->m_start,end,value);
-     if(found!=end)ids().erase(found);
+     ObjectID *matchingObjectId=_STL::find(((BfmeIdVectorView*)&ids())->m_start,end,objectId);
+     if(matchingObjectId!=end)ids().erase(matchingObjectId);
     }
    }
   } else {
-   if(((AIStatBase*)this)->removeObject(holder))
-    ((Rva003ECA69Element*)((char*)this+0x10))->rva003ECB94((Rva003ECB52Arg*)holder);
+   if(((AIStatBase*)this)->removeObject(object))
+    ((Rva003ECA69Element*)((char*)this+0x10))->rva003ECB94((Rva003ECB52Arg*)object);
   }
   return true;
  }
@@ -287,18 +287,18 @@ bool AIUnitStats::UnRegister(void *holder) {
 // +0x54 matches the second 0x44 element; +0x304 vs +0x2ec selects same player.
 void Rva005961D6::rva00596269()
 {
-	Rva003ECA69Element *elem = reinterpret_cast<Rva003ECA69Element *>((char *)this + 0x54);
-	elem->clear();
+	Rva003ECA69Element *matchingObjectAccumulator = reinterpret_cast<Rva003ECA69Element *>((char *)this + 0x54);
+	matchingObjectAccumulator->clear();
 	void *p = reinterpret_cast<Rva005C4AD1LeaField *>(this)->get();
-	const void *tp = (char *)p + 4;
+	const void *objectIdsEndSlot = (char *)p + 4;
 	ObjectID *begin = *reinterpret_cast<ObjectID **>(p);
-	ObjectID *end = *reinterpret_cast<ObjectID *const *>(tp);
-	for (ObjectID *it = (begin?begin:begin); it != end; ++it) {
-		Object *obj = TheGameLogic->findObjectByID(*it);
-		int v304 = *reinterpret_cast<int *>((char *)obj + 0x304);
-		Player *player = obj->getControllingPlayer();
-		if (v304 == *reinterpret_cast<int *>((char *)player + 0x2ec))
-			elem->rva003ECB52(reinterpret_cast<Rva003ECB52Arg *>(obj));
+	ObjectID *end = *reinterpret_cast<ObjectID *const *>(objectIdsEndSlot);
+	for (ObjectID *objectId = (begin?begin:begin); objectId != end; ++objectId) {
+		Object *object = TheGameLogic->findObjectByID(*objectId);
+		int ownerIndex = *reinterpret_cast<int *>((char *)object + 0x304);
+		Player *controllingPlayer = object->getControllingPlayer();
+		if (ownerIndex == *reinterpret_cast<int *>((char *)controllingPlayer + 0x2ec))
+			matchingObjectAccumulator->rva003ECB52(reinterpret_cast<Rva003ECB52Arg *>(object));
 	}
 }
 

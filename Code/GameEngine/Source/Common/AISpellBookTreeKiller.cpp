@@ -94,8 +94,8 @@ public:
 int Rva00049D20::rva005D772D(int index)
 {
 	char *entry = (char *)m_begin[index];
-	int *vec = (int *)(entry + 0x1c);
-	return (vec[1] - vec[0]) >> 2;
+	int *elementRange = (int *)(entry + 0x1c);
+	return (elementRange[1] - elementRange[0]) >> 2;
 }
 
 // tu-skeleton: 0x005D7745 17B ?rva005D7745@Rva005D7745@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
@@ -106,38 +106,38 @@ int Rva00049D20::rva005D772D(int index)
 
 bool AISpellBookTreeKiller::shouldActivate(Object *source)
 {
-	Rva00049D20 *tbl = TheTerrainLogic->m_584;
-	Coord3D best;
-	best.x = 0.0f;
-	best.y = 0.0f;
-	best.z = 0.0f;
-	unsigned int bestIdx = 0;
+	Rva00049D20 *terrainTable = TheTerrainLogic->m_584;
+	Coord3D bestPosition;
+	bestPosition.x = 0.0f;
+	bestPosition.y = 0.0f;
+	bestPosition.z = 0.0f;
+	unsigned int bestEntryIndex = 0;
 	unsigned int bestCount = 0;
-	unsigned int count = (unsigned int)(((char *)tbl->m_end - (char *)tbl->m_begin) >> 2);
-	for (unsigned int i = 0; i < count; ++i)
+	unsigned int entryCount = (unsigned int)(((char *)terrainTable->m_end - (char *)terrainTable->m_begin) >> 2);
+	for (unsigned int i = 0; i < entryCount; ++i)
 	{
-		TableEntry *tableEntry = (TableEntry *)tbl->m_begin[i];
+		TableEntry *tableEntry = (TableEntry *)terrainTable->m_begin[i];
 		if (tableEntry->m_18 != 0)
 			continue;
-		unsigned int c = (unsigned int)tbl->rva005D772D((int)i);
-		if (c <= bestCount)
+		unsigned int elementCount = (unsigned int)terrainTable->rva005D772D((int)i);
+		if (elementCount <= bestCount)
 			continue;
-		Coord3D cur;
-		tbl->rva00049D20(&cur, (int)i);
-		Player *player = source->getControllingPlayer();
-		int idx = player->m_playerIndex;
-		if (TheShroudManager->getShroudStatusForPlayer(idx, &cur) == 2)
+		Coord3D entryPosition;
+		terrainTable->rva00049D20(&entryPosition, (int)i);
+		Player *controllingPlayer = source->getControllingPlayer();
+		int playerIndex = controllingPlayer->m_playerIndex;
+		if (TheShroudManager->getShroudStatusForPlayer(playerIndex, &entryPosition) == 2)
 			continue;
-		bestIdx = i;
-		c = (unsigned int)tbl->rva005D772D((int)i);
-		best = cur;
-		bestCount = c;
+		bestEntryIndex = i;
+		elementCount = (unsigned int)terrainTable->rva005D772D((int)i);
+		bestPosition = entryPosition;
+		bestCount = elementCount;
 	}
 	if (bestCount > 0)
 	{
-		TableEntry *be = (TableEntry *)tbl->m_begin[bestIdx];
-		be->m_18 = 1;
-		return ((Rva005EE816 *)this)->rva005EE8DD(&best, source);
+		TableEntry *bestEntry = (TableEntry *)terrainTable->m_begin[bestEntryIndex];
+		bestEntry->m_18 = 1;
+		return ((Rva005EE816 *)this)->rva005EE8DD(&bestPosition, source);
 	}
 	return false;
 }

@@ -141,9 +141,9 @@ void AnimationSoundModuleManager::rva00432F7D(Rva00432F23Node *node)
 {
     if (m_cleanHead)
         m_cleanHead->m_prev = node;
-    Rva00432F23Node *head = m_cleanHead;
+    Rva00432F23Node *previousCleanHead = m_cleanHead;
     node->m_prev = 0;
-    node->m_next = head;
+    node->m_next = previousCleanHead;
     m_cleanHead = node;
     if (!m_cleanTail)
         m_cleanTail = node;
@@ -228,16 +228,16 @@ AnimationSoundModuleManager::AnimationSoundModuleManager()
 AnimationSoundModuleManager::~AnimationSoundModuleManager()
 {
 	for (int i = 0; i < 2; i++) {
-		Rva00432F23Node *head;
+		Rva00432F23Node *currentNode;
 		if (i != 0)
-			head = m_cleanHead;
+			currentNode = m_cleanHead;
 		else
-			head = m_dirtyHead;
-		while (head) {
-			Rva00432F23Node *next = head->m_next;
-			head->m_next = 0;
-			head->m_prev = 0;
-			head = next;
+			currentNode = m_dirtyHead;
+		while (currentNode) {
+			Rva00432F23Node *nextNode = currentNode->m_next;
+			currentNode->m_next = 0;
+			currentNode->m_prev = 0;
+			currentNode = nextNode;
 		}
 	}
 }
@@ -261,9 +261,9 @@ static __forceinline float animationSoundLengthSquared(const Coord3D&pos){return
 
 void AnimationSoundModuleManager::update(){
  const Coord3D *listener=((AnimationListenerCalls*)TheAudio)->listener();
- Coord3D delta;delta.x=listener->x;delta.y=listener->y;delta.z=listener->z;
- animationSubtract(delta,m_listenerPosition);
- if(animationSoundLengthSquared(delta)>TheAnimationSoundClientBehaviorGlobalSetting.m_minMicrophoneDistanceToDirty*TheAnimationSoundClientBehaviorGlobalSetting.m_minMicrophoneDistanceToDirty && m_dirtyTail){
+ Coord3D listenerDisplacement;listenerDisplacement.x=listener->x;listenerDisplacement.y=listener->y;listenerDisplacement.z=listener->z;
+ animationSubtract(listenerDisplacement,m_listenerPosition);
+ if(animationSoundLengthSquared(listenerDisplacement)>TheAnimationSoundClientBehaviorGlobalSetting.m_minMicrophoneDistanceToDirty*TheAnimationSoundClientBehaviorGlobalSetting.m_minMicrophoneDistanceToDirty && m_dirtyTail){
   if(m_cleanHead){m_dirtyTail->m_next=m_cleanHead;m_cleanHead->m_prev=m_dirtyTail;}
   m_cleanHead=m_dirtyHead;
   if(!m_cleanTail)m_cleanTail=m_dirtyTail;
@@ -271,8 +271,8 @@ void AnimationSoundModuleManager::update(){
  }
  if(!m_dirtyHead)m_listenerPosition=*((AnimationListenerCalls*)TheAudio)->listener();
  for(Rva00432F23Node *node=m_cleanHead;node;){
-  Rva00432F23Node *next=node->m_next;
-  ((AnimationSoundClientBehavior*)node)->updateAnimationSounds();node=next;
+  Rva00432F23Node *nextNode=node->m_next;
+  ((AnimationSoundClientBehavior*)node)->updateAnimationSounds();node=nextNode;
  }
 }
 

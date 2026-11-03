@@ -23,8 +23,8 @@ class Snapshot;
 class Xfer::Version
 {
 public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
+	Version(unsigned char currentVersion, unsigned char minimumVersion)
+		: m_current(currentVersion), m_minimum(minimumVersion) {}
 
 	unsigned char m_current;
 	unsigned char m_minimum;
@@ -185,7 +185,7 @@ class AISimpleSiegeTactic : public AITacticSiege
 public:
 	virtual ~AISimpleSiegeTactic();
 	virtual bool canRun(void *request);
-	virtual bool initializeTeamTemplate(TeamPrototype *orders, int skip);
+	virtual bool initializeTeamTemplate(TeamPrototype *orders, int skipOrderGeneration);
 	virtual void xfer(Xfer *xfer);
 	virtual void update();
 	bool rva005A9DD4();
@@ -338,22 +338,22 @@ bool AISimpleSiegeTactic::rva005A9DD4()
 	if (findWallTarget()) {
 		Object *target = rva005DCAE5();
 		teamAttackObject(0, target);
-		const Coord3D *from = rva004ECECD(0)->rva0039E8EB()->getPosition();
-		Coord3D dest;
-		dest.x = from->x;
-		dest.y = from->y;
-		dest.z = from->z;
-		dest.x -= target->getPosition()->x;
-		dest.y -= target->getPosition()->y;
-		dest.z -= target->getPosition()->z;
-		dest.Normalize();
-		dest.x *= 500.0f;
-		dest.y *= 500.0f;
-		dest.z *= 500.0f;
-		dest.x = target->getPosition()->x + dest.x;
-		dest.y = target->getPosition()->y + dest.y;
-		dest.z = target->getPosition()->z + dest.z;
-		teamAttackMove(1, &dest);
+		const Coord3D *leaderPosition = rva004ECECD(0)->rva0039E8EB()->getPosition();
+		Coord3D moveDestination;
+		moveDestination.x = leaderPosition->x;
+		moveDestination.y = leaderPosition->y;
+		moveDestination.z = leaderPosition->z;
+		moveDestination.x -= target->getPosition()->x;
+		moveDestination.y -= target->getPosition()->y;
+		moveDestination.z -= target->getPosition()->z;
+		moveDestination.Normalize();
+		moveDestination.x *= 500.0f;
+		moveDestination.y *= 500.0f;
+		moveDestination.z *= 500.0f;
+		moveDestination.x = target->getPosition()->x + moveDestination.x;
+		moveDestination.y = target->getPosition()->y + moveDestination.y;
+		moveDestination.z = target->getPosition()->z + moveDestination.z;
+		teamAttackMove(1, &moveDestination);
 		return true;
 	}
 	return false;
@@ -399,24 +399,24 @@ void AISimpleSiegeTactic::update()
 // TheSkirmishAIManager record; fail when the record held none. The owner and both
 // index reads go through inline accessors as in the WB twin: written as plain
 // member reads, cl keeps the constant 1 in EBX and spills this.
-bool AISimpleSiegeTactic::initializeTeamTemplate(TeamPrototype *orders, int skip)
+bool AISimpleSiegeTactic::initializeTeamTemplate(TeamPrototype *orders, int skipOrderGeneration)
 {
-	if (!skip) {
-		Object *obj = 0;
+	if (!skipOrderGeneration) {
+		Object *object = 0;
 		Rva0025BFF8 *objects = *(Rva0025BFF8 **)TheSkirmishAIManager->rva002A8F24(getPlayer());
-		for (unsigned int idx = 0; idx < ((IntMap *)objects)->bucket_count(); ++idx) {
-			obj = objects->rva0025BFF8(idx);
-			if (obj && obj->getOwnerIndex() == getPlayer()->getPlayerIndex()
-				&& ((Rva005A9CB3Template *)obj->m_04)->m_520 == 7) {
+		for (unsigned int objectIndex = 0; objectIndex < ((IntMap *)objects)->bucket_count(); ++objectIndex) {
+			object = objects->rva0025BFF8(objectIndex);
+			if (object && object->getOwnerIndex() == getPlayer()->getPlayerIndex()
+				&& ((Rva005A9CB3Template *)object->m_04)->m_520 == 7) {
 				Rva0039EA9C order;
 				order.m_00 = 1;
 				order.m_04 = 1;
-				order.m_10 = ((Rva005A9CB3Template *)obj->m_04)->m_name;
+				order.m_10 = ((Rva005A9CB3Template *)object->m_04)->m_name;
 				order.m_14 = -1;
 				orders->addUnitInfo(*(Rva0039D769 *)&order);
 			}
 		}
-		if (!obj)
+		if (!object)
 			return false;
 	}
 	return true;

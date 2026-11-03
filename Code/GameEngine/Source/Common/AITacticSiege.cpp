@@ -41,7 +41,7 @@ class AITacticSiege : public AITacticOffensive
 {
 public:
 	virtual ~AITacticSiege();
-	AITacticSiege(const AsciiString &name);
+	AITacticSiege(const AsciiString &tacticName);
 	bool rva005DCAF4();
 	class Object *rva005DCAE5();
 	bool sideHasIdleSiegeWeapons();
@@ -127,8 +127,8 @@ typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::all
 // 0x005A9C47 0x005A9D5C pass SiegeGates/SimpleSiege names. Base dtor/ctor
 // resolve via pins/rows; identity is address-derived via pin.
 
-AITacticSiege::AITacticSiege(const AsciiString &name)
-	: AITacticOffensive(name)
+AITacticSiege::AITacticSiege(const AsciiString &tacticName)
+	: AITacticOffensive(tacticName)
 	, m_58(0)
 {
 }
@@ -137,8 +137,8 @@ AITacticSiege::AITacticSiege(const AsciiString &name)
 
 bool AITacticSiege::rva005DCAF4()
 {
-	class Object *obj = rva005DCAE5();
-	return !obj || (obj->m_438 & 1);
+	class Object *targetObject = rva005DCAE5();
+	return !targetObject || (targetObject->m_438 & 1);
 }
 
 // tu-skeleton: 0x005DC87B 11B ??1AITacticSiege@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005DC73CDerived.cpp (not merged yet)
@@ -149,17 +149,17 @@ bool AITacticSiege::rva005DCAF4()
 
 bool AITacticSiege::sideHasIdleSiegeWeapons()
 {
-	void *store = TheSkirmishAIManager->rva002A8F24((Player *)m_owner);
-	Rva0025BFF8 *holder = *(Rva0025BFF8 **)store;
-	IntMap *map = (IntMap *)holder;
+	void *playerStats = TheSkirmishAIManager->rva002A8F24((Player *)m_owner);
+	Rva0025BFF8 *objects = *(Rva0025BFF8 **)playerStats;
+	IntMap *map = (IntMap *)objects;
 	for (unsigned int i = 0; i < map->bucket_count(); ++i)
 	{
-		Object *obj = holder->rva0025BFF8((int)i);
-		if (!obj)
+		Object *object = objects->rva0025BFF8((int)i);
+		if (!object)
 			continue;
-		if (obj->m_304 != ((Player *)m_owner)->m_2EC)
+		if (object->m_304 != ((Player *)m_owner)->m_2EC)
 			continue;
-		if (((Inner520 *)obj->m_p4)->m_520 == 7)
+		if (((Inner520 *)object->m_p4)->m_520 == 7)
 			return true;
 	}
 	return false;

@@ -50,7 +50,7 @@ class Rva00342843 : public AIInternalMoveToState
 {
 public:
 	Rva00342843(StateMachine *machine);
-	Rva00342843(StateMachine *machine, unsigned int hash);
+	Rva00342843(StateMachine *stateMachine, unsigned int hash);
 private:
 	int m_4C;
 	bool m_50;
@@ -58,42 +58,42 @@ private:
 class Rva00342892 : public Rva00342843
 {
 public:
-	Rva00342892(StateMachine *machine);
+	Rva00342892(StateMachine *stateMachine);
 };
 class Rva003428AF : public Rva00342843
 {
 public:
-	Rva003428AF(StateMachine *machine);
+	Rva003428AF(StateMachine *stateMachine);
 };
 class Rva003428CC : public Rva00342843
 {
 public:
-	Rva003428CC(StateMachine *machine);
+	Rva003428CC(StateMachine *stateMachine);
 private:
 	bool m_54;
 	char m_pad55[3];
 	int m_58;
 };
 
-Rva00342843::Rva00342843(StateMachine *machine, unsigned int hash)
-	: AIInternalMoveToState(machine, hash)
+Rva00342843::Rva00342843(StateMachine *stateMachine, unsigned int hash)
+	: AIInternalMoveToState(stateMachine, hash)
 {
 	m_4C = 0;
 	m_50 = false;
 }
 
-Rva00342892::Rva00342892(StateMachine *machine)
-	: Rva00342843(machine, 0xD5F5D4FAu)
+Rva00342892::Rva00342892(StateMachine *stateMachine)
+	: Rva00342843(stateMachine, 0xD5F5D4FAu)
 {
 }
 
-Rva003428AF::Rva003428AF(StateMachine *machine)
-	: Rva00342843(machine, 0xE3F474A1u)
+Rva003428AF::Rva003428AF(StateMachine *stateMachine)
+	: Rva00342843(stateMachine, 0xE3F474A1u)
 {
 }
 
-Rva003428CC::Rva003428CC(StateMachine *machine)
-	: Rva00342843(machine, 0xE4366E82u)
+Rva003428CC::Rva003428CC(StateMachine *stateMachine)
+	: Rva00342843(stateMachine, 0xE4366E82u)
 {
 	m_58 = 0;
 	m_54 = false;

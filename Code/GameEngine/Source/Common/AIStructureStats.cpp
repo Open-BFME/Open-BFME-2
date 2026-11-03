@@ -73,9 +73,9 @@ __declspec(noinline) inline Rva005965A5::~Rva005965A5()
 }
 
 // ?bfmeAnchorRva005965A5Dtor absent-from-retail
-void bfmeAnchorRva005965A5Dtor(Rva005965A5 *p)
+void bfmeAnchorRva005965A5Dtor(Rva005965A5 *instance)
 {
-	p->Rva005965A5::~Rva005965A5();
+	instance->Rva005965A5::~Rva005965A5();
 }
 
 // tu-skeleton: 0x00596619 28B ??_GRva005965A5@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp (not merged yet)

@@ -87,26 +87,26 @@ public:
 
 const ArmorTemplate *Rva0035516C::rva0035516C(NameKeyType key) const
 {
-	ArmorTemplateMap::const_iterator it = m_map.find(key);
-	if (it == m_map.end())
+	ArmorTemplateMap::const_iterator matchingEntry = m_map.find(key);
+	if (matchingEntry == m_map.end())
 		return 0;
-	return (const ArmorTemplate *)it->second.m_ptr;
+	return (const ArmorTemplate *)matchingEntry->second.m_ptr;
 }
 
 bool Rva0035516C::rva003551B5(NameKeyType key) const
 {
-	const ArmorTemplate *found = rva0035516C(key);
-	if (found)
-		return found->m_check != 0;
+	const ArmorTemplate *matchingEntry = rva0035516C(key);
+	if (matchingEntry)
+		return matchingEntry->m_check != 0;
 	return false;
 }
 
 void Rva0035516C::rva003551EA(NameKeyType key) const
 {
-	const ArmorTemplate *found = rva0035516C(key);
-	if (!found)
+	const ArmorTemplate *matchingEntry = rva0035516C(key);
+	if (!matchingEntry)
 		return;
-	((Rva0054840A *)found)->rva00548700();
+	((Rva0054840A *)matchingEntry)->rva00548700();
 }
 
 // tu-skeleton: 0x003551D3 23B ?rva003551D3@AiOrdersManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp (not merged yet)

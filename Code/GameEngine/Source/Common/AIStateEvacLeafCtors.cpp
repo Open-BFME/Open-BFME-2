@@ -43,8 +43,8 @@ protected:
 class Rva00342BAE : public AIInternalMoveToState
 {
 public:
-	Rva00342BAE(StateMachine *machine, bool flag);
-	Rva00342BAE(StateMachine *machine, bool flag, bool flag2);
+	Rva00342BAE(StateMachine *stateMachine, bool flag);
+	Rva00342BAE(StateMachine *stateMachine, bool flag, bool flag2);
 protected:
 	struct Offset2D
 	{
@@ -67,12 +67,12 @@ protected:
 class Rva00342C47 : public Rva00342BAE
 {
 public:
-	Rva00342C47(StateMachine *machine, bool flag);
+	Rva00342C47(StateMachine *stateMachine, bool flag);
 };
 class Rva00342D19 : public Rva00342BAE
 {
 public:
-	Rva00342D19(StateMachine *machine);
+	Rva00342D19(StateMachine *stateMachine);
 private:
 	int m_68;
 	int m_6c;
@@ -80,25 +80,25 @@ private:
 class Rva00342C97 : public Rva00342BAE
 {
 public:
-	Rva00342C97(StateMachine *machine);
+	Rva00342C97(StateMachine *stateMachine);
 private:
 	int m_68;
 	int m_6c;
 };
 
-Rva00342C47::Rva00342C47(StateMachine *machine, bool flag)
-	: Rva00342BAE(machine, flag)
+Rva00342C47::Rva00342C47(StateMachine *stateMachine, bool flag)
+	: Rva00342BAE(stateMachine, flag)
 {
 }
 
-Rva00342D19::Rva00342D19(StateMachine *machine)
-	: Rva00342BAE(machine, false), m_68(0), m_6c(0)
+Rva00342D19::Rva00342D19(StateMachine *stateMachine)
+	: Rva00342BAE(stateMachine, false), m_68(0), m_6c(0)
 {
 }
 
 // ??0Rva00342C97@@QAE@PAVStateMachine@@@Z @0x00342C97 34B evidence: gap between ConstIntGetters3 rows; same shape as Rva00342D19 false-flag plus-0x68 0x6c; base row 0x00342BAE; vtable 0x00812A70 store; caller 0x00352308
-Rva00342C97::Rva00342C97(StateMachine *machine)
-	: Rva00342BAE(machine, false), m_68(0), m_6c(0)
+Rva00342C97::Rva00342C97(StateMachine *stateMachine)
+	: Rva00342BAE(stateMachine, false), m_68(0), m_6c(0)
 {
 }
 
@@ -110,8 +110,8 @@ Rva00342C97::Rva00342C97(StateMachine *machine)
 // cleared through an inline member call (Zero Hour's AIFollowWaypointPathState
 // keeps a Coord2D m_groupOffset there): VC7.1 keeps those stores after the
 // vtable store, where plain float assignments are scheduled ahead of it.
-Rva00342BAE::Rva00342BAE(StateMachine *machine, bool flag)
-	: AIInternalMoveToState(machine, 0x6ce5ef54u)
+Rva00342BAE::Rva00342BAE(StateMachine *stateMachine, bool flag)
+	: AIInternalMoveToState(stateMachine, 0x6ce5ef54u)
 {
 	m_4c.zero();
 	m_58 = 0;
@@ -123,8 +123,8 @@ Rva00342BAE::Rva00342BAE(StateMachine *machine, bool flag)
 	m_66 = true;
 }
 
-Rva00342BAE::Rva00342BAE(StateMachine *machine, bool flag, bool flag2)
-	: AIInternalMoveToState(machine, 0x6ce5ef54u)
+Rva00342BAE::Rva00342BAE(StateMachine *stateMachine, bool flag, bool flag2)
+	: AIInternalMoveToState(stateMachine, 0x6ce5ef54u)
 {
 	m_4c.zero();
 	m_58 = 0;

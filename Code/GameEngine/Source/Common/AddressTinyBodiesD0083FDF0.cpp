@@ -21,16 +21,16 @@
 class Rva008C4510Body
 {
 public:
-	int body(int bit) const;
+	int body(int bitIndex) const;
 
 private:
 	char m_pad[0xA];
 	short m_bits;
 };
 
-int Rva008C4510Body::body(int bit) const
+int Rva008C4510Body::body(int bitIndex) const
 {
-	return m_bits & (1 << bit);
+	return m_bits & (1 << bitIndex);
 }
 
 // ?body@Rva008C44F0Body@@QAEXH@Z -- 0x006FBA50

@@ -68,10 +68,10 @@ extern GameLogic *TheGameLogic;
 class AITarget
 {
 public:
-	void rva002C5CF7(const struct Coord3D *pos, float radius, int id);
-	void setTarget(Object *obj, float value);
-    void markApproachHazard(const Coord3D *pos);
-    float checkThreatInArea(const Coord3D *pos);
+	void rva002C5CF7(const struct Coord3D *position, float radius, int objectId);
+	void setTarget(Object *targetObject, float radius);
+    void markApproachHazard(const Coord3D *trialPosition);
+    float checkThreatInArea(const Coord3D *trialPosition);
 private:
     void *m_owner;
     unsigned int m_04;
@@ -123,8 +123,8 @@ public:
 class Xfer::Version
 {
 public:
-	Version(unsigned char current, unsigned char minimum)
-		: m_current(current), m_minimum(minimum) {}
+	Version(unsigned char currentVersion, unsigned char minimumVersion)
+		: m_current(currentVersion), m_minimum(minimumVersion) {}
 
 	unsigned char m_current;
 	unsigned char m_minimum;
@@ -181,50 +181,50 @@ public:
 
 // ?setTarget@AITarget@@QAEXPAVObject@@M@Z @0x002C5D8B 27B: forwards Object+0x38 position plus float plus Object+0x74 to 0x002C5CF7. Evidence pin REL32 at 0x005739CE in AITargetHeuristicBaseDefense slot 1 with 200.0 plus neighbours Rva002C589BXfer Dtor share flags.
 
-void AITarget::setTarget(Object *obj, float value)
+void AITarget::setTarget(Object *targetObject, float radius)
 {
-	rva002C5CF7(&obj->m_38, value, obj->m_74);
+	rva002C5CF7(&targetObject->m_38, radius, targetObject->m_74);
 }
 
 // Existing setTarget and the rowed heuristic caller identify this AITarget
 // setter and its position/radius/id ABI. Native 2C5CF7..2C5D8B RET12 proves
 // the offsets, helper calls, three-component snapshot and 68-byte result.
-void AITarget::rva002C5CF7(const Coord3D *pos, float radius, int id)
+void AITarget::rva002C5CF7(const Coord3D *position, float radius, int objectId)
 {
     reinterpret_cast<Rva002C589B *>(this)->rva002C58B3();
-    m_position = *pos;
-    ThreatFinder *table = m_table;
-    m_id = id;
+    m_position = *position;
+    ThreatFinder *threatFinder = m_table;
+    m_id = objectId;
     m_frame = TheGameLogic->getFrame();
-    Coord3D point;
-    point.x = pos->x;
-    point.y = pos->y;
-    point.z = pos->z;
-    table->m_position = point;
+    Coord3D queryPosition;
+    queryPosition.x = position->x;
+    queryPosition.y = position->y;
+    queryPosition.z = position->z;
+    threatFinder->m_position = queryPosition;
     m_table->m_radius = radius;
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    ThreatInfo result = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
-    m_value = result.values[0];
+    ThreatInfo threatInfo = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
+    m_value = threatInfo.values[0];
 }
 
 // Native 2C590F..2C59CE RET4. Trial position uses the same table as the
 // position setter; keep it only when the first result scalar improves, and
 // otherwise restore the three saved components. Original method name unknown.
-void AITarget::markApproachHazard(const Coord3D *pos)
+void AITarget::markApproachHazard(const Coord3D *trialPosition)
 {
     struct PositionPair { Coord3D point; Coord3D oldPoint; } positions;
     positions.oldPoint.x = m_table->m_position.x;
-    Coord3D *destination = &m_table->m_position;
-    positions.oldPoint.y = destination->y;
-    positions.oldPoint.z = destination->z;
-    positions.point.x = pos->x;
-    positions.point.y = pos->y;
-    positions.point.z = pos->z;
-    *destination = positions.point;
+    Coord3D *finderPosition = &m_table->m_position;
+    positions.oldPoint.y = finderPosition->y;
+    positions.oldPoint.z = finderPosition->z;
+    positions.point.x = trialPosition->x;
+    positions.point.y = trialPosition->y;
+    positions.point.z = trialPosition->z;
+    *finderPosition = positions.point;
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    ThreatInfo result = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
-    if (result.values[0] > m_value)
-        m_value = result.values[0];
+    ThreatInfo threatInfo = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
+    if (threatInfo.values[0] > m_value)
+        m_value = threatInfo.values[0];
     else
     {
         positions.point.x = positions.oldPoint.x;
@@ -240,47 +240,47 @@ void AITarget::markApproachHazard(const Coord3D *pos)
 // point/radius, query enemy and ally threat around the trial point at radius
 // 400, then restore and clear the table. Return positive ally threat minus
 // enemy threat, or zero. The aggregate order reproduces native stack homes.
-float AITarget::checkThreatInArea(const Coord3D *pos)
+float AITarget::checkThreatInArea(const Coord3D *trialPosition)
 {
     struct PositionPair { Coord3D oldPoint; float oldRadius; Coord3D point; } positions;
-    Coord3D *destination=&m_table->m_position;
-    positions.oldPoint.x=destination->x;
-    positions.oldPoint.y=destination->y;
-    positions.oldPoint.z=destination->z;
+    Coord3D *finderPosition=&m_table->m_position;
+    positions.oldPoint.x=finderPosition->x;
+    positions.oldPoint.y=finderPosition->y;
+    positions.oldPoint.z=finderPosition->z;
     positions.oldRadius=m_table->m_radius;
-    positions.point.x=pos->x;
-    positions.point.y=pos->y;
-    positions.point.z=pos->z;
-    *destination=positions.point;
+    positions.point.x=trialPosition->x;
+    positions.point.y=trialPosition->y;
+    positions.point.z=trialPosition->z;
+    *finderPosition=positions.point;
     m_table->m_radius=400.0f;
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    ThreatInfo enemy=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,0,0);
-    ThreatInfo ally=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,1,0);
+    ThreatInfo enemyThreat=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,0,0);
+    ThreatInfo allyThreat=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,1,0);
     positions.point.x=positions.oldPoint.x;
     positions.point.y=positions.oldPoint.y;
     positions.point.z=positions.oldPoint.z;
     m_table->m_position=positions.point;
     m_table->m_radius=positions.oldRadius;
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    return ally.values[0]>0.0f ? ally.values[0]-enemy.values[0] : 0.0f;
+    return allyThreat.values[0]>0.0f ? allyThreat.values[0]-enemyThreat.values[0] : 0.0f;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva002C589BMax.cpp
 
 float Rva002C589B::getEnemyThreat()
 {
-	float vmax = 0.0f;
-	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(*(void **)this);
-	InterestZoneVector *interestZones = (InterestZoneVector *)((char *)rec->m_164 + 0x20);
-	void **it = interestZones->m_start;
+	float maximumZoneThreat = 0.0f;
+	Rva002A8AB1Record *playerRecord = TheSkirmishAIManager->rva002A8AB1(*(void **)this);
+	InterestZoneVector *interestZones = (InterestZoneVector *)((char *)playerRecord->m_164 + 0x20);
+	void **zoneIterator = interestZones->m_start;
 	void **end = interestZones->m_end;
-	while (it != end) {
-		InterestZone *zone = *(InterestZone **)it;
-		if (zone->m_18 > vmax)
-			vmax = zone->m_18;
-		it++;
+	while (zoneIterator != end) {
+		InterestZone *zone = *(InterestZone **)zoneIterator;
+		if (zone->m_18 > maximumZoneThreat)
+			maximumZoneThreat = zone->m_18;
+		zoneIterator++;
 	}
-	return (vmax > m_28) ? vmax : m_28;
+	return (maximumZoneThreat > m_28) ? maximumZoneThreat : m_28;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva002C589BXfer.cpp

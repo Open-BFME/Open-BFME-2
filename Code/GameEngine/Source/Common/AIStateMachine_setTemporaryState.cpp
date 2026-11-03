@@ -81,7 +81,7 @@ extern GameLogic *TheGameLogic;
 class AIStateMachine
 {
 public:
-	StateReturnType setTemporaryState(unsigned int id, int frameLimit);
+	StateReturnType setTemporaryState(unsigned int stateId, int frameLimit);
 private:
 	char m_pad00[0x14];
 	MidObj *m_14;
@@ -90,35 +90,35 @@ private:
 	int m_54;
 };
 
-StateReturnType AIStateMachine::setTemporaryState(unsigned int id, int frameLimit)
+StateReturnType AIStateMachine::setTemporaryState(unsigned int stateId, int frameLimit)
 {
-	State *st = ((StateMachine *)this)->internalGetState(id);
+	State *st = ((StateMachine *)this)->internalGetState(stateId);
 	if (m_50) {
 		m_50->v05(1);
 		m_50 = 0;
 	}
 	if (st) {
-		BigObj *big = m_14->m_258;
-		if (big)
-			big->v136();
+		BigObj *ownerAI = m_14->m_258;
+		if (ownerAI)
+			ownerAI->v136();
 		m_50 = st;
-		StateReturnType cur = st->v04();
-		if (cur) {
+		StateReturnType enterResult = st->v04();
+		if (enterResult) {
 			m_50->v05(0);
 			m_50 = 0;
-			return cur;
+			return enterResult;
 		}
-		int limit = BfmeLogicFramesPerSecond * 60;
-		int v = frameLimit;
-		v = v >= limit ? limit : v;
-		int res;
-		if (v == -2)
-			res = -2;
-		else if (v < 0)
-			res = -1;
+		int maximumFrameLimit = BfmeLogicFramesPerSecond * 60;
+		int clampedFrameLimit = frameLimit;
+		clampedFrameLimit = clampedFrameLimit >= maximumFrameLimit ? maximumFrameLimit : clampedFrameLimit;
+		int expirationFrame;
+		if (clampedFrameLimit == -2)
+			expirationFrame = -2;
+		else if (clampedFrameLimit < 0)
+			expirationFrame = -1;
 		else
-			res = TheGameLogic->getFrame() + v;
-		m_54 = res;
+			expirationFrame = TheGameLogic->getFrame() + clampedFrameLimit;
+		m_54 = expirationFrame;
 		return STATE_CONTINUE;
 	} else {
 		return STATE_FAILURE;
