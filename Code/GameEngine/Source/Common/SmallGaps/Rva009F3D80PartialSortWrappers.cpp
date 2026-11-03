@@ -15,15 +15,7 @@ struct Q3SortCompare { int m_v; };
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/S4Cmp00625BB0.h"
 
-struct S4Cmp00625C10
-{
-	void *m_bfmeState;
-
-	bool operator()(const S4SortElem8 &a, const S4SortElem8 &b) const
-	{
-		return a.m_bfmeKey > b.m_bfmeKey;
-	}
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/S4Cmp00625C10.h"
 
 namespace _STL
 {
