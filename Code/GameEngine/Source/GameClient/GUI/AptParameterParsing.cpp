@@ -18,18 +18,18 @@
 // Native whole helper 00412689..004126A6: initial jump over loop
 // signed char isspace IAT predicate and increment through cursor pointer.
 // All three caller sites use ESI; static C++ naturally selects that private ABI.
-static void Rva00412689SkipSpaces(const char **p)
+static void Rva00412689SkipSpaces(const char **queryCursor)
 {
- while (**p && isspace(**p)) ++*p;
+ while (**queryCursor && isspace(**queryCursor)) ++*queryCursor;
 }
 
 // Native 004126A6..004126BD (EAX = cursor address): advance past the next
 // '=' or to the terminator. Inlined into GetParam after the key.
-static inline void Rva004126A6SkipPastEquals(const char **p)
+static inline void Rva004126A6SkipPastEquals(const char **queryCursor)
 {
- while (**p) {
-  if (**p == '=') { ++*p; return; }
-  ++*p;
+ while (**queryCursor) {
+  if (**queryCursor == '=') { ++*queryCursor; return; }
+  ++*queryCursor;
  }
 }
 

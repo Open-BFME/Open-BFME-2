@@ -6861,3 +6861,11 @@ param,Drawable::rva002788C7::b,Drawable::rva002788C7::direction,inferred,agree:n
 param,Drawable::rva00275DCE::a1,Drawable::rva00275DCE::newState,inferred,agree:nl-302fb65beef5,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
 local,Drawable::calcPitchRoll::v1,Drawable::calcPitchRoll::widthEdge,inferred,agree:nl-7ef694210bf4,Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp,0x00270276
 local,Drawable::calcPitchRoll::v2,Drawable::calcPitchRoll::lengthEdge,inferred,agree:nl-5acf572d9d87,Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp,0x00270276
+local,Drawable::rva00275DCE::c,Drawable::rva00275DCE::clampedRate,inferred,agree:nl-6a8688eee05a,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
+local,Drawable::rva00275DCE::tmp,Drawable::rva00275DCE::defaultRadius,inferred,agree:nl-b44ad87655af,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
+param,Drawable::rva00275DCE::a2,Drawable::rva00275DCE::innerRadius,inferred,agree:nl-087da131ff97,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
+param,Drawable::rva00275DCE::a3,Drawable::rva00275DCE::outerRadius,inferred,agree:nl-cc2ed371795f,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
+param,Drawable::rva00275DCE::a4,Drawable::rva00275DCE::rate,inferred,agree:nl-4264a856a80d,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,0x00275DCE
+local,Drawable::rva0027B18C::o,Drawable::rva0027B18C::nearbyObject,inferred,agree:nl-7be8b4e16d84,Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp,0x0027B18C
+param,Rva00412689SkipSpaces::p,Rva00412689SkipSpaces::queryCursor,inferred,agree:nl-38824eab28c9-ma4e8a4ebf103b3edcf1bb71f,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x00412689
+param,Rva004126A6SkipPastEquals::p,Rva004126A6SkipPastEquals::queryCursor,inferred,agree:nl-71bc44ca7eed-m093462f445e077f30b8e4778,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp,0x004126A6

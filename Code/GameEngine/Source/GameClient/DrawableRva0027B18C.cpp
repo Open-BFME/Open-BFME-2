@@ -238,7 +238,7 @@ void Drawable::rva0027B18C(DamageInfo*damage)
      Rva00260E2AFilter playerFilter(player);
      eventFilter.link(&playerFilter);
      BfmeWideResult objects=ThePartitionManager->iterateObjectsInRange(getPosition(),range,2,&eventFilter,0);
-     for(Object*o=objects.next();o;o=objects.next())if(((Thing*)o)->getDrawable())((Rva00271B03*)((Thing*)o)->getDrawable())->rva00271B03();
+     for(Object*nearbyObject=objects.next();nearbyObject;nearbyObject=objects.next())if(((Thing*)nearbyObject)->getDrawable())((Rva00271B03*)((Thing*)nearbyObject)->getDrawable())->rva00271B03();
      
     }
     

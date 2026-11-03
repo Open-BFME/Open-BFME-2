@@ -289,3 +289,5 @@ direct:nd-f37c1b32a0722d70aa047dd3 parent-reviewed-by w-9cc9c63cadbc codex propo
 agree:nl-82cf98b8c8a3,W3DShrubBuffer::rva000E7016::tmp,W3DShrubBuffer::rva000E7016::initialExtent,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,4db720e98fcbe5ff97429f14fa1031f915da8028231c60646a152193448cc984
 agree:nl-5bb81fc22000,Rva00541579::rva00541579::h,Rva00541579::rva00541579::cachedIndex,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,a8e3bd43dd227b8847e0bbf007080a0cdeb480bfa5923498726fee5eda71c0f8
 agree:nl-2a34f27ebabf,Rva005418CB::rva00541641::h,Rva005418CB::rva00541641::cachedIndex,Code/GameEngine/Source/GameClient/CameraAnimation/LookAtCameraKeyLowerBound.cpp,2ee53e514c92036d04ba3923e3a2c6573ab015a0ff7e4becdde3292f20e09bb3
+agree:nl-6a8688eee05a,Drawable::rva00275DCE::c,Drawable::rva00275DCE::clampedRate,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,441f3ba812e259382be0035890b79e90bfb74d1b326c5f2b7af4bf78a173ee3a
+agree:nl-b44ad87655af,Drawable::rva00275DCE::tmp,Drawable::rva00275DCE::defaultRadius,Code/GameEngine/Source/GameClient/DrawableRva00275DCE.cpp,441f3ba812e259382be0035890b79e90bfb74d1b326c5f2b7af4bf78a173ee3a

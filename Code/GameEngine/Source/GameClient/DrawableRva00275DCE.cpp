@@ -23,7 +23,7 @@ class Drawable
 {
 public:
 	void rva00273648(void *arg);
-	void rva00275DCE(int newState, float a2, float a3, float a4);
+	void rva00275DCE(int newState, float innerRadius, float outerRadius, float rate);
 private:
 	char _00[0xB4];
 	int m_B4;
@@ -48,22 +48,22 @@ private:
 extern int BfmeClientFramesPerSecond;
 float __cdecl GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
 
-void Drawable::rva00275DCE(int newState, float a2, float a3, float a4)
+void Drawable::rva00275DCE(int newState, float innerRadius, float outerRadius, float rate)
 {
 	if (newState == m_164)
 		return;
-	float tmp = 1.0f;
-	m_BC = tmp;
-	m_B8 = tmp;
-	float c;
-	if (0.1f > a4)
-		c = 0.1f;
-	else if (a4 > 60.0f)
-		c = 60.0f;
+	float defaultRadius = 1.0f;
+	m_BC = defaultRadius;
+	m_B8 = defaultRadius;
+	float clampedRate;
+	if (0.1f > rate)
+		clampedRate = 0.1f;
+	else if (rate > 60.0f)
+		clampedRate = 60.0f;
 	else
-		c = a4;
-	m_C0 = c;
-	m_D4 = (int)((double)BfmeClientFramesPerSecond * (double)a4);
+		clampedRate = rate;
+	m_C0 = clampedRate;
+	m_D4 = (int)((double)BfmeClientFramesPerSecond * (double)rate);
 	m_D0 = m_B4;
 	m_164 = newState;
 	switch (newState) {
@@ -74,11 +74,11 @@ void Drawable::rva00275DCE(int newState, float a2, float a3, float a4)
 		break;
 	case 1:
 	case 4: {
-		float lo = *(volatile float *)&a2;
+		float lo = *(volatile float *)&innerRadius;
 		m_B8 = lo;
-		m_BC = a3;
-		m_C4 = (lo + a3) * 0.5f;
-		m_C8 = (a3 - lo) * 0.5f;
+		m_BC = outerRadius;
+		m_C4 = (lo + outerRadius) * 0.5f;
+		m_C8 = (outerRadius - lo) * 0.5f;
 		m_CC = GetGameClientRandomValueReal(0.0f, 3.14159265f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Drawable.cpp", 0x1074);
 		m_43E = 0;
 		if (newState == 4)
