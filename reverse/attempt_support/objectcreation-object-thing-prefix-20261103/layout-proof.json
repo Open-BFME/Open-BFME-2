@@ -1,0 +1,10 @@
+{
+  "scope": "Private compile-time size/offset assertions only",
+  "rows": 20,
+  "missing": [],
+  "errors": [],
+  "assertions": [
+    "sizeof(Thing)==0x60",
+    "offsetof(Object,mask)==0x284"
+  ]
+}

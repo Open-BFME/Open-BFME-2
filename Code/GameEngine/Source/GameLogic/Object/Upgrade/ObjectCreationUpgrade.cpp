@@ -54,7 +54,9 @@ public:
     bool rva00406F9C(const void *other);
     unsigned m_data[32];
 };
-class Object
+#include "../../../Common/Thing/thing.h"
+
+class Object : public Thing
 {
 protected:
     Module *findModule(NameKeyType key) const;
@@ -63,7 +65,7 @@ public:
     void kill(DamageType damageType, DeathType deathType);
     void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);
     Player *getControllingPlayer() const;
-    char pad00[0x284];
+    char pad00[0x284 - sizeof(Thing)];
     Rva00406F9C mask;
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
