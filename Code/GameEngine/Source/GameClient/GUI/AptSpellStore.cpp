@@ -495,14 +495,7 @@ public:
 
 // The declared copy constructor keeps the operator+ result in place when
 // it binds to the helper's reference (retail passes it without a copy).
-struct Rva002226E5TextPlusString
-{
-	Rva002226E5TextPlusString(const Rva002226E5TextPlusString &other);
-	operator AsciiString();
-
-	Rva000B3F84Pair m_left;
-	const AsciiString *m_right;
-};
+#include "../../../Include/GameClient/Rva002226E5TextPlusString.h"
 
 Rva002226E5TextPlusString operator+(const char *left, const AsciiString &right);
 

@@ -361,14 +361,7 @@ AsciiStringPlusText operator+(const AsciiString &left, const char *right)
 
 // ??H@YA?AURva002226E5TextPlusString@@PBDABVAsciiString@@@Z, retail 0x002226E5, 52 bytes.
 // Char-text plus string node mirroring string-plus-text at 0xB49C5: pair from the left literal plus the right string ref. Builds "_nrm" plus extension in makeNrmTextureName 0x317D89 plus 24 other callers. No donor; honest address struct; shape mirrors the rowed sibling with swapped operands.
-struct Rva002226E5TextPlusString
-{
-	int length() const;
-	int write(char *dst);
-	operator AsciiString();
-	Rva000B3F84Pair m_left;
-	AsciiStringRef m_right;
-};
+#include "../../../Include/GameClient/Rva002226E5TextPlusString.h"
 
 Rva002226E5TextPlusString operator+(const char *left, const AsciiString &right)
 {

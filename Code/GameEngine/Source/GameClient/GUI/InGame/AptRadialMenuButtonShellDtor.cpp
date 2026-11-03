@@ -23,10 +23,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../../../Include/Common/Rva000B3F84Pair.h"
 #include "../../../../Include/Common/AsciiStringRef.h"
-struct Rva002226E5TextPlusString : AsciiStringRef
-{
-	Rva000B3F84Pair m_text;
-};
+#include "../../../../Include/GameClient/Rva002226E5TextPlusString.h"
 struct AsciiStringPlusText : Rva002226E5TextPlusString
 {
 };

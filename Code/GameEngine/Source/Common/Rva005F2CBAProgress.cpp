@@ -356,13 +356,7 @@ void Rva0086EE20::rva005F267E(int,float) {}
 // emitted out of line here and ICF-folded at 0x005F17C6 and 0x005D2F96
 // (pinned, these definitions are the fold proofs); the materializer is the
 // pinned 0x005F1D47 (WorldBuilder StringCompose::Concat<...>, three levels).
-struct Rva002226E5TextPlusString
-{
-	Rva002226E5TextPlusString() {}
-
-	Rva000B3F84Pair m_left;
-	AsciiStringRef m_right;
-};
+#include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 Rva002226E5TextPlusString __cdecl operator+(const char *left, const AsciiString &right); // 0x002226E5
 
 struct AptTextPlusStringPlusString : Rva002226E5TextPlusString

@@ -23,7 +23,7 @@ class Rva002034E9Host { public: bool rva002034E9(); };
 class Rva0020F58E { public: int length() const; };
 class Rva00210E7C { public: void rva00210E9D(); };
 class AsciiStringPlusString { public: int length() const; };
-class Rva002226E5TextPlusString { public: int write(char *); int length() const; };
+#include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 class Rva002D2DF6 { public: void rva002D2DF6(); };
 class Xfer;
 class AptPalantir { public: void xfer(Xfer *); };

@@ -394,13 +394,7 @@ class UnicodeString;
 
 #include "../../../../../Include/Common/AsciiStringRef.h"
 
-struct Rva002226E5TextPlusString
-{
-	int length() const;
-	int write(char *dst);
-	Rva000B3F84Pair m_left;
-	AsciiStringRef m_right;
-};
+#include "../../../../../Include/GameClient/Rva002226E5TextPlusString.h"
 
 struct Rva00513E03
 {

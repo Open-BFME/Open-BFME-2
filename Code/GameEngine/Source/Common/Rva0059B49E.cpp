@@ -5,11 +5,7 @@
 
 #include "ascii_string.h"
 
-class Rva002226E5TextPlusString
-{
-public:
-	int length() const;
-};
+#include "../../Include/GameClient/Rva002226E5TextPlusString.h"
 
 class Rva002AC2CFTarget
 {

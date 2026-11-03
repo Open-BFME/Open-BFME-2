@@ -588,14 +588,7 @@ public:
 
 extern unsigned char g_00E01EA8;
 
-struct Rva002226E5TextPlusString
-{
-	Rva002226E5TextPlusString() {}
-	operator AsciiString();
-	const char *m_text;
-	int m_len;
-	const AsciiString *m_right;
-};
+#include "../../../Include/GameClient/Rva002226E5TextPlusString.h"
 Rva002226E5TextPlusString operator+(const char *left, const AsciiString &right);
 
 class Rva004D977D
