@@ -1,0 +1,1108 @@
+{
+ "bases": [
+  "TerrainLogic"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "W3DTerrainLogic",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 22,
+  "inherited": {
+   "base_views": 6,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x62a7e"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "TerrainLogic",
+       "offset": 0,
+       "own_vftable": "0x7c5890",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x62a7e"
+     ],
+     "value": 6436
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x62a7e"
+     ],
+     "value": {
+      "0x1920": [
+       4
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x41ff3"
+     ],
+     "value": 6436
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x62a7e"
+     ],
+     "value": {
+      "0x10": [
+       "0x7c5848"
+      ],
+      "0x14": [
+       "0x7c5838"
+      ],
+      "0x4": [
+       "0x7c5858"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x62a7e"
+     ],
+     "value": {
+      "0x0": "0x7c5890"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c5890"
+     ],
+     "value": {
+      "count": 51,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GW3DTerrainLogic@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x62e8d"
+       },
+       {
+        "name": "?loadPostProcess@W3DTerrainLogic@@MAEXXZ",
+        "slot": 1,
+        "target": "0x62e4a"
+       },
+       {
+        "name": "?GetSnapshotName@W3DTerrainLogic@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x62af1"
+       },
+       {
+        "name": "?xfer@W3DTerrainLogic@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x62e2f"
+       },
+       {
+        "name": "?loadMap@W3DTerrainLogic@@UAE_NABVAsciiString@@PAVChunkInputStream@@_N2@Z",
+        "slot": 4,
+        "target": "0x63153"
+       },
+       {
+        "name": "?newMap@W3DTerrainLogic@@UAEX_N@Z",
+        "slot": 5,
+        "target": "0x62b75"
+       },
+       {
+        "name": "?getGroundHeight@W3DTerrainLogic@@UBEMMMPAUCoord3D@@@Z",
+        "slot": 6,
+        "target": "0x62c45"
+       },
+       {
+        "name": "?getLayerHeight@W3DTerrainLogic@@UBEMMMW4PathfindLayerEnum@@PAUCoord3D@@_N@Z",
+        "slot": 7,
+        "target": "0x62c95"
+       },
+       {
+        "name": "?activeBoundaryExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+        "slot": 8,
+        "target": "0x62ef8"
+       },
+       {
+        "name": "?largestBoundaryExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+        "slot": 9,
+        "target": "0x62f64"
+       },
+       {
+        "name": "?getExtentIncludingBorder@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+        "slot": 10,
+        "target": "0x62b9c"
+       },
+       {
+        "name": "?rva00062E4F@Rva00062E4F@@QAEMXZ",
+        "slot": 11,
+        "target": "0x62e4f"
+       },
+       {
+        "name": "?getMaximumPathfindExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+        "slot": 12,
+        "target": "0x62fff"
+       },
+       {
+        "name": "?Rva0027D5E0@W3DTerrainLogic@@UAEXPAMPBM@Z",
+        "slot": 13,
+        "target": "0x27d5e0"
+       },
+       {
+        "name": "?Rva0027D6DF@W3DTerrainLogic@@UAEXPAMPBM@Z",
+        "slot": 14,
+        "target": "0x27d6df"
+       },
+       {
+        "name": "?isClearLineOfSight@W3DTerrainLogic@@UBE_NABUCoord3D@@0@Z",
+        "slot": 15,
+        "target": "0x62c0f"
+       },
+       {
+        "name": "?rva00062C23@Rva00062FFFTerrainPrefix@@QBEMABUCoord3D@@0@Z",
+        "slot": 16,
+        "target": "0x62c23"
+       },
+       {
+        "name": "?getBridgeModelNameBroken@TerrainRoadType@@QAE?AVAsciiString@@XZ",
+        "slot": 17,
+        "target": "0x62e72"
+       },
+       {
+        "name": "?Rva002811DD@W3DTerrainLogic@@UAE?AW4PathfindLayerEnum@@MABUCoord3D@@_NAAVMatrix3D@@@Z",
+        "slot": 18,
+        "target": "0x2811dd"
+       },
+       {
+        "name": "?Rva0027D77D@W3DTerrainLogic@@UAE_NMMPAM0PA_N@Z",
+        "slot": 19,
+        "target": "0x27d77d"
+       },
+       {
+        "name": "?isCliffCell@W3DTerrainLogic@@UBE_NMM@Z",
+        "slot": 20,
+        "target": "0x62d94"
+       },
+       {
+        "name": "?rva00062DB3@W3DTerrainLogic@@UBEEMM@Z",
+        "slot": 21,
+        "target": "0x62db3"
+       },
+       {
+        "name": "?rva00062DD2@W3DTerrainLogic@@UBEEMM@Z",
+        "slot": 22,
+        "target": "0x62dd2"
+       },
+       {
+        "name": "?rva00062DF1@W3DTerrainLogic@@UBE_NMM@Z",
+        "slot": 23,
+        "target": "0x62df1"
+       },
+       {
+        "name": "?rva00062E10@W3DTerrainLogic@@UBEEMM@Z",
+        "slot": 24,
+        "target": "0x62e10"
+       },
+       {
+        "name": "?Rva0027D815@W3DTerrainLogic@@UAEMMM@Z",
+        "slot": 25,
+        "target": "0x27d815"
+       },
+       {
+        "name": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+        "slot": 26,
+        "target": "0x62aca"
+       },
+       {
+        "name": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+        "slot": 27,
+        "target": "0x62aca"
+       },
+       {
+        "name": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+        "slot": 28,
+        "target": "0x62aec"
+       },
+       {
+        "name": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+        "slot": 29,
+        "target": "0x62aec"
+       },
+       {
+        "name": "?getWaterHeight@W3DTerrainLogic@@UAEMPAX@Z",
+        "slot": 30,
+        "target": "0x27d85b"
+       },
+       {
+        "name": "?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z",
+        "slot": 31,
+        "target": "0x282e20"
+       },
+       {
+        "name": "?changeWaterHeightOverTime@W3DTerrainLogic@@UAEXPAXMMM@Z",
+        "slot": 32,
+        "target": "0x27d88e"
+       },
+       {
+        "name": "?Rva00062AC4Get@@YAHXZ",
+        "slot": 33,
+        "target": "0x62ac4"
+       },
+       {
+        "name": "?getWaypointByName@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+        "slot": 34,
+        "target": "0x281d4c"
+       },
+       {
+        "name": "?getWaypointByID@TerrainLogic@@UAEPAVWaypoint@@I@Z",
+        "slot": 35,
+        "target": "0x28333f"
+       },
+       {
+        "name": "?getClosestWaypointOnPath@TerrainLogic@@UAEPAVWaypoint@@PBUCoord3D@@ABVAsciiString@@@Z",
+        "slot": 36,
+        "target": "0x2812bf"
+       },
+       {
+        "name": "?getWaypointByPath@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+        "slot": 37,
+        "target": "0x2813ea"
+       },
+       {
+        "name": "?isPurposeOfPath@TerrainLogic@@UAE_NPAVWaypoint@@ABVAsciiString@@@Z",
+        "slot": 38,
+        "target": "0x281d92"
+       },
+       {
+        "name": "?getTriggerAreaByName@TerrainLogic@@UAEPAVPolygonTrigger@@ABVAsciiString@@@Z",
+        "slot": 39,
+        "target": "0x281e47"
+       },
+       {
+        "name": "?dlink_next_TeamInstanceList@Team@@QBEPAV1@XZ",
+        "slot": 40,
+        "target": "0x5c4af5"
+       },
+       {
+        "name": "?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z",
+        "slot": 41,
+        "target": "0x27f30a"
+       },
+       {
+        "name": "?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z",
+        "slot": 42,
+        "target": "0x27f337"
+       },
+       {
+        "name": "?objectInteractsWithBridgeLayer@TerrainLogic@@UBE_NPAVObject@@H_N@Z",
+        "slot": 43,
+        "target": "0x2804b2"
+       },
+       {
+        "name": "?objectInteractsWithBridgeEnd@TerrainLogic@@UBE_NPAVObject@@H@Z",
+        "slot": 44,
+        "target": "0x2805c1"
+       },
+       {
+        "name": "?pickBridge@TerrainLogic@@UAE_NABVVector3@@0PAV2@@Z",
+        "slot": 45,
+        "target": "0x281eca"
+       },
+       {
+        "name": "?addBridgeToLogic@TerrainLogic@@UAEXPAVRva0027C36A@@PAVDict@@ABVAsciiString@@@Z",
+        "slot": 46,
+        "target": "0x280294"
+       },
+       {
+        "name": "?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z",
+        "slot": 47,
+        "target": "0x28125c"
+       },
+       {
+        "name": "?deleteBridge@TerrainLogic@@UAEXPAVBridge@@@Z",
+        "slot": 48,
+        "target": "0x281f7f"
+       },
+       {
+        "name": "?updateBridgeDamageStates@TerrainLogic@@UAEXXZ",
+        "slot": 49,
+        "target": "0x281ea5"
+       },
+       {
+        "name": "?rva00063082@W3DTerrainLogic@@UBE_NPBUCoord3D@@@Z",
+        "slot": 50,
+        "target": "0x63082"
+       }
+      ],
+      "table": "0x7c5890"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x7c5890": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GW3DTerrainLogic@@UAEPAXI@Z",
+     "1": "?loadPostProcess@W3DTerrainLogic@@MAEXXZ",
+     "2": "?GetSnapshotName@W3DTerrainLogic@@MBEPBDXZ",
+     "3": "?xfer@W3DTerrainLogic@@MAEXPAVXfer@@@Z",
+     "4": "?loadMap@W3DTerrainLogic@@UAE_NABVAsciiString@@PAVChunkInputStream@@_N2@Z",
+     "5": "?newMap@W3DTerrainLogic@@UAEX_N@Z",
+     "6": "?getGroundHeight@W3DTerrainLogic@@UBEMMMPAUCoord3D@@@Z",
+     "7": "?getLayerHeight@W3DTerrainLogic@@UBEMMMW4PathfindLayerEnum@@PAUCoord3D@@_N@Z",
+     "8": "?activeBoundaryExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+     "9": "?largestBoundaryExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+     "10": "?getExtentIncludingBorder@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+     "11": "?rva00062E4F@Rva00062E4F@@QAEMXZ",
+     "12": "?getMaximumPathfindExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z",
+     "13": "?Rva0027D5E0@W3DTerrainLogic@@UAEXPAMPBM@Z",
+     "14": "?Rva0027D6DF@W3DTerrainLogic@@UAEXPAMPBM@Z",
+     "15": "?isClearLineOfSight@W3DTerrainLogic@@UBE_NABUCoord3D@@0@Z",
+     "16": "?rva00062C23@Rva00062FFFTerrainPrefix@@QBEMABUCoord3D@@0@Z",
+     "17": "?getBridgeModelNameBroken@TerrainRoadType@@QAE?AVAsciiString@@XZ",
+     "18": "?Rva002811DD@W3DTerrainLogic@@UAE?AW4PathfindLayerEnum@@MABUCoord3D@@_NAAVMatrix3D@@@Z",
+     "19": "?Rva0027D77D@W3DTerrainLogic@@UAE_NMMPAM0PA_N@Z",
+     "20": "?isCliffCell@W3DTerrainLogic@@UBE_NMM@Z",
+     "21": "?rva00062DB3@W3DTerrainLogic@@UBEEMM@Z",
+     "22": "?rva00062DD2@W3DTerrainLogic@@UBEEMM@Z",
+     "23": "?rva00062DF1@W3DTerrainLogic@@UBE_NMM@Z",
+     "24": "?rva00062E10@W3DTerrainLogic@@UBEEMM@Z",
+     "25": "?Rva0027D815@W3DTerrainLogic@@UAEMMM@Z",
+     "26": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+     "27": "?rva00062ACA@W3DTerrainLogic@@UAEPAURva0028170EArea@@MMM@Z",
+     "28": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+     "29": "?rva00062AEC@W3DTerrainLogic@@UAEPAXABV?$StringBase@D@@@Z",
+     "30": "?getWaterHeight@W3DTerrainLogic@@UAEMPAX@Z",
+     "31": "?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z",
+     "32": "?changeWaterHeightOverTime@W3DTerrainLogic@@UAEXPAXMMM@Z",
+     "33": "?Rva00062AC4Get@@YAHXZ",
+     "34": "?getWaypointByName@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+     "35": "?getWaypointByID@TerrainLogic@@UAEPAVWaypoint@@I@Z",
+     "36": "?getClosestWaypointOnPath@TerrainLogic@@UAEPAVWaypoint@@PBUCoord3D@@ABVAsciiString@@@Z",
+     "37": "?getWaypointByPath@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z",
+     "38": "?isPurposeOfPath@TerrainLogic@@UAE_NPAVWaypoint@@ABVAsciiString@@@Z",
+     "39": "?getTriggerAreaByName@TerrainLogic@@UAEPAVPolygonTrigger@@ABVAsciiString@@@Z",
+     "40": "?dlink_next_TeamInstanceList@Team@@QBEPAV1@XZ",
+     "41": "?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z",
+     "42": "?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z",
+     "43": "?objectInteractsWithBridgeLayer@TerrainLogic@@UBE_NPAVObject@@H_N@Z",
+     "44": "?objectInteractsWithBridgeEnd@TerrainLogic@@UBE_NPAVObject@@H@Z",
+     "45": "?pickBridge@TerrainLogic@@UAE_NABVVector3@@0PAV2@@Z",
+     "46": "?addBridgeToLogic@TerrainLogic@@UAEXPAVRva0027C36A@@PAVDict@@ABVAsciiString@@@Z",
+     "47": "?addLandmarkBridgeToLogic@TerrainLogic@@UAEXPAVObject@@@Z",
+     "48": "?deleteBridge@TerrainLogic@@UAEXPAVBridge@@@Z",
+     "49": "?updateBridgeDamageStates@TerrainLogic@@UAEXXZ",
+     "50": "?rva00063082@W3DTerrainLogic@@UBE_NPBUCoord3D@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 2,
+  "view_sizes": {
+   "1": 4,
+   "4": 4,
+   "8": 1,
+   "24": 1,
+   "36": 1,
+   "48": 1,
+   "1388": 1,
+   "6428": 2,
+   "6432": 2,
+   "6436": 3
+  },
+  "views": 20,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DTerrainLogic.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogic.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 16,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp",
+    "Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00062B17Init.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00062B17Init.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientColorRva0027DA6A.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientColorRva0027DA6A.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicCellQueries.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientColorRva0027DA6A.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientColorRva0027DA6A.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientColorRva0027DA6A.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1384,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 1388,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1400,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1404,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1408,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1412,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 1416,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 6416,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 6420,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 6424,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00062B17Init.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/TerrainLogicBridges.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicReset.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicXfer.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 6428,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00062B17Init.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicReset.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 6432,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/W3DTerrainLogic.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogicLoadMap.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 32]]": 2,
+    "[[0, 6428]]": 3,
+    "[[0, 6436]]": 1
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "gap01()": 2,
+    "rva00062DD2(float,float)": 1,
+    "slot01()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "gap02()": 2,
+    "rva00062DF1(float,float)": 1,
+    "slot02()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "gap03()": 2,
+    "rva00062E10(float,float)": 1,
+    "slot03()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "gap04()": 2,
+    "rva00063082(Coord3D*)": 1,
+    "slot04()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "gap05()": 2,
+    "rva00062ACA(float,float,float)": 1,
+    "slot05()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "gap09()": 2,
+    "slot09()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "gap0A()": 2,
+    "slot10()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "gap0B()": 2,
+    "slot11()": 2
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot42",
+   "candidates": {
+    "findBridgeLayerAt(Coord3D*,enum,bool)": 1,
+    "gap2A()": 1
+   },
+   "class": "W3DTerrainLogic"
+  },
+  {
+   "attribute": "slot43",
+   "candidates": {
+    "gap2B()": 1,
+    "getLayerHeight(float,float,enum,Coord3D*,bool)": 1
+   },
+   "class": "W3DTerrainLogic"
+  }
+ ],
+ "size": 6436,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "gap0C()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "gap0D()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "gap0E()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "gap0F()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "gap10()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "gap11()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "gap12()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "gap13()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "gap14()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "gap15()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "gap16()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "gap17()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "gap18()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "gap19()"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "gap1A()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "gap1B()"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "gap1C()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "gap1D()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "gap1E()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "gap1F()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "gap20()"
+  },
+  "33": {
+   "decided_by": "bytes",
+   "member": "gap21()"
+  },
+  "34": {
+   "decided_by": "bytes",
+   "member": "gap22()"
+  },
+  "35": {
+   "decided_by": "bytes",
+   "member": "gap23()"
+  },
+  "36": {
+   "decided_by": "bytes",
+   "member": "gap24()"
+  },
+  "37": {
+   "decided_by": "bytes",
+   "member": "gap25()"
+  },
+  "38": {
+   "decided_by": "bytes",
+   "member": "gap26()"
+  },
+  "39": {
+   "decided_by": "bytes",
+   "member": "gap27()"
+  },
+  "40": {
+   "decided_by": "bytes",
+   "member": "gap28()"
+  },
+  "41": {
+   "decided_by": "bytes",
+   "member": "gap29()"
+  },
+  "44": {
+   "decided_by": "bytes",
+   "member": "gap2C()"
+  },
+  "45": {
+   "decided_by": "bytes",
+   "member": "gap2D()"
+  },
+  "46": {
+   "decided_by": "bytes",
+   "member": "addBridgeToLogic(Rva0027C36A*,Dict*,AsciiString*)"
+  },
+  "47": {
+   "decided_by": "bytes",
+   "member": "gap2F()"
+  },
+  "48": {
+   "decided_by": "bytes",
+   "member": "gap30()"
+  },
+  "49": {
+   "decided_by": "bytes",
+   "member": "updateBridgeDamageStates()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "gap06()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "gap07()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "gap08()"
+  }
+ }
+}

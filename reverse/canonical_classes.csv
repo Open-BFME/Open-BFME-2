@@ -398,3 +398,4 @@ AptValueVector,Code/Libraries/Source/Apt/AptValueVector.h,existing header; contr
 AptSaveLoad,Code/GameEngine/Include/GameClient/AptSaveLoad.h,existing header; contract class_contracts/AptSaveLoad.json; 15/28 sampled units adopt
 LivingWorldCampaignManager,Code/GameEngine/Include/Common/LivingWorldCampaignManager.h,existing header; contract class_contracts/LivingWorldCampaignManager.json; 18/25 sampled units adopt
 LuaScriptEngine,Code/GameEngine/Include/GameLogic/LuaScriptEngine.h,existing header; contract class_contracts/LuaScriptEngine.json; 12/22 sampled units adopt
+W3DTerrainLogic,Code/GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h,existing header; contract class_contracts/W3DTerrainLogic.json; 8/22 sampled units adopt
