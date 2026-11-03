@@ -13,13 +13,7 @@ public:
 	void rva003ED9B1(Rva003ED9B1 const &src);
 };
 
-class Rva003ED658
-{
-public:
-	Rva003ED658(Rva003ED658 const &src);
-	~Rva003ED658();
-	char m_pad[12];
-};
+#include "../../../Include/GameLogic/Rva003ED658.h"
 
 class Rva003ED94FDtor
 {

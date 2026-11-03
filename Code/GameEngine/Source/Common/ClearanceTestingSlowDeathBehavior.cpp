@@ -539,14 +539,7 @@ class LargeGroupAudioKeyMap;
 // Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
 // address-derived class and accessor result view preserve the target behavior;
 // no named identity or broader layout is inferred.
-class Rva003ED658
-{
-public:
-	Rva003ED658(Rva003ED658 const &src);
-	~Rva003ED658();
-private:
-	char m_storage[12];
-};
+#include "../../Include/GameLogic/Rva003ED658.h"
 
 class Rva00286CC4
 {

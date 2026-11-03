@@ -46,15 +46,7 @@ public:
 };
 
 // The base is a zero-offset call view of the same key-map storage.
-class Rva003ED658 : public Rva003ED9B1
-{
-public:
-    Rva003ED658(const Rva003ED658 &other);
-    // The native returned aggregate is destroyed through this existing
-    // tree-cleanup owner; no second destructor pin is introduced.
-    __forceinline ~Rva003ED658();
-    char m_storage[12];
-};
+#include "../../../Include/GameLogic/Rva003ED658.h"
 
 // Initialization-only view used by the exact rva003EDD68 provider. Its
 // constructor is folded; the target's cleanup uses the key-map owner.

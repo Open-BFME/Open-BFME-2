@@ -33,15 +33,7 @@ struct Rva00E03CE0
 // Existing data-ledger owner; use typed views of the one registry datum.
 #include "../../Include/Common/ModuleKeyRegistryStorage.h"
 
-class Rva003ED658
-{
-public:
-	Rva003ED658(const Rva003ED658 &other);
-	~Rva003ED658();
-
-private:
-	char m_pad[0xC];
-};
+#include "../../Include/GameLogic/Rva003ED658.h"
 
 class LargeGroupAudioUpdateModuleData : public Rva001408C0Target
 {
