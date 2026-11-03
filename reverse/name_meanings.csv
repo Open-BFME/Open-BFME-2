@@ -1027,3 +1027,4 @@ Code/GameEngine/Source/Common/AptLinker.cpp|local|~Rva006D07E0Key|p,80ecc0e86890
 Code/GameEngine/Source/Common/AptLinker.cpp|local|Rva006D0A30List::rva006D1680|p,e26bf65bd82ed134b716c47b,drz-t27,drz-t27-sv2-1,w-12fda968aca1,2026-11-03,35ad6cb71e01013535d9ddc0
 Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp|param|setCanBuildUnits|b,7ba71570dbefc50f8fa96c4e,drz-t32,drz-t32-sv2-7,w-c9e1ac163f95,2026-11-03,2cef6476c9dd159b536bd90a
 Code/GameEngine/Source/Common/BfmeConv816_bfmeGoELHa.cpp|local|bfmeGoELHa|o,bc04ed5726d83138c65c4144,drz-t48,drz-t48-sv2-4,w-f1ece73c1831,2026-11-03,3faa7ce14c1820b547dd6b58
+Code/Libraries/Source/Apt/Rva006DAEB0Init.cpp|param|Rva006DAEB0::Rva006DAEB0|a1,afffad3399ab03db7cf253c6,drz-t46,drz-t46-sv3-f4a3f,w-d1d37e680132,2026-11-03,e426035327003414bcb4cebc

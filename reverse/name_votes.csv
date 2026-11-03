@@ -23512,3 +23512,5 @@ Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|R
 Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|RvaMapCacheNodeHeader|left08,5baedc344166641c04ceaf22,drz-t44,drz-t44-sv3-3,w-933684398897,2026-11-03
 Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|RvaMapCacheNodeHeader|right0C,ac038d8e3072709ba4aead40,drz-t44,drz-t44-sv3-3,w-933684398897,2026-11-03
 Code/GameEngine/Source/Common/Rva00532165Union.cpp|function|0x00532165|rva00532165,c8806d9a29b3506600e08725,drz-t45,drz-t45-sv3-1,w-0ea1a33d1051,2026-11-03
+Code/Libraries/Source/Apt/Rva006DAEB0Init.cpp|param|Rva006DAEB0::Rva006DAEB0|a1,afffad3399ab03db7cf253c6,drz-t46,drz-t46-sv3-f4a3f,w-d1d37e680132,2026-11-03
+Code/Libraries/Source/Apt/Rva00700170Pop.cpp|local|AptBasePtrStack::rva00700170|s,1777fe72020a15f7cf9eecae,drz-t46,drz-t46-sv3-f1af3,w-d1d37e680132,2026-11-03
