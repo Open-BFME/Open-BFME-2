@@ -24,12 +24,7 @@ private:
 	int m_len;
 };
 
-struct AsciiStringRef
-{
-	int write(char *dst);
-
-	const AsciiString *m_string;
-};
+#include "../../Include/Common/AsciiStringRef.h"
 
 struct Rva000BC834
 {

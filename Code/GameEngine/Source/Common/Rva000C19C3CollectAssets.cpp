@@ -29,7 +29,7 @@ namespace _STL { template <> set<AsciiString, less<AsciiString>, allocator<Ascii
 // Suppress this TU's non-retail copy of ??R?$less@VAsciiString@@@_STL@@QBE_NABVAsciiString@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString;
-struct AsciiStringRef{const AsciiString*m_string;};
+#include "../../Include/Common/AsciiStringRef.h"
 #include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusText:AsciiStringRef{operator AsciiString();Rva000B3F84Pair m_right;};
 AsciiStringPlusText operator+(const AsciiString&,const char*);

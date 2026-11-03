@@ -81,11 +81,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef
-{
-	int write(char *dst);
-	const AsciiString *m_string;
-};
+#include "../../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusText : AsciiStringRef
 {
 	operator AsciiString();

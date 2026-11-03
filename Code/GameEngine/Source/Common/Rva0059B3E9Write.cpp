@@ -6,11 +6,7 @@
 // Evidence: retail push ebx frame lea ecx [edi+8] [edi+0xC] calls; callers 0x0059B3C1 0x005E36A0.
 #include "../../Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringRef
-{
-	int write(char *dst);
-	const void *m_string;
-};
+#include "../../Include/Common/AsciiStringRef.h"
 
 class Rva0059B3E9
 {

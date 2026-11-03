@@ -11,10 +11,7 @@ public:
 };
 extern class ImageCollection *TheMappedImageCollection;
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../Include/Common/AsciiStringRef.h"
 
 struct AsciiStringPlusString : AsciiStringRef
 {

@@ -63,7 +63,7 @@ struct TreeHintRef00217D4C {
 #include "ascii_string.h"
 class UnicodeString;
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef { const AsciiString *m_string; };
+#include "../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusText : AsciiStringRef { operator AsciiString(); Rva000B3F84Pair m_right; };
 AsciiStringPlusText operator+(const AsciiString &,const char *);
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

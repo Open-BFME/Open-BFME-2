@@ -151,7 +151,7 @@ struct DelegateDesc {
 template<class T> __forceinline AptRef<T>::AptRef(DelegateDesc d):Rva00579E47(d) {}
 __forceinline void AptCommandMapAdder::AddCommandMapBinding(const AsciiString &asciiString,DelegateDesc d) {AddCommandMap(asciiString,d);}
 class Rva000B3F84Pair {public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *); const char *ptr; int size;};
-struct AsciiStringRef {const AsciiString *m_string;};
+#include "../../Include/Common/AsciiStringRef.h"
 struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
 struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString(); Rva000B3F84Pair m_right;};
 static __forceinline AsciiStringPlusString operator+(const AsciiString &a,const AsciiString &b) {AsciiStringPlusString t;t.m_string=&a;t.m_second.m_string=&b;return t;}
