@@ -46,11 +46,7 @@ public:
 	void rva002C6A4E(Object *obj);
 };
 
-class AIStatCollector
-{
-public:
-	void UnRegister(void *p);
-};
+#include "../../../Include/GameLogic/AIStatCollector.h"
 
 class Rva002A8F24
 {

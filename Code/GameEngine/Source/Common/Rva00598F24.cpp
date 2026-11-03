@@ -5,11 +5,7 @@ class Player;
 class ModuleData;
 #include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
-class AIStatCollector
-{
-public:
-	void addInfoReceiver(const ModuleData *data);
-};
+#include "../../Include/GameLogic/AIStatCollector.h"
 class Rva00598F24
 {
 public:

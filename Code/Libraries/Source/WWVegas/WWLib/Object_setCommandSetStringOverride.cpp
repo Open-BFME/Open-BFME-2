@@ -28,11 +28,7 @@ private:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AIStatCollector
-{
-public:
-	void Register(Object *a1, int a2);
-};
+#include "../../../../GameEngine/Include/GameLogic/AIStatCollector.h"
 
 void Object::setCommandSetStringOverride(const AsciiString &asciiString)
 {

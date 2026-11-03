@@ -14,11 +14,7 @@ class ModuleData;
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class AIStatCollector
-{
-public:
-	void addInfoReceiver(const ModuleData *m);
-};
+#include "../../Include/GameLogic/AIStatCollector.h"
 
 class AIEconomyBuilder
 {

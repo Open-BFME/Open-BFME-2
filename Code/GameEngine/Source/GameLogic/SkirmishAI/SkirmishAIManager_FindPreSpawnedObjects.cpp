@@ -64,13 +64,7 @@ struct Rva002A8AB1Record
 {
     void rva002C6A3D(Object *);
 };
-class AIStatCollector
-{
-public:
-    void Register(Object *);
-    AIStatCollector(Player *);
-    unsigned char nativeStorage[0x38];
-};
+#include "../../../Include/GameLogic/AIStatCollector.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 typedef bool Bool;
