@@ -1,0 +1,563 @@
+{
+ "bases": [
+  "DrawModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "W3DPropDraw",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 9,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0xceec0"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "DrawModule",
+       "offset": 0,
+       "own_vftable": "0x7cd328",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xceec0"
+     ],
+     "value": 13
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0xceec0"
+     ],
+     "value": {
+      "0xc": [
+       1
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x64d0c"
+     ],
+     "value": 16
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0xceec0"
+     ],
+     "value": {
+      "0x0": "0x7cd328"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7cd328"
+     ],
+     "value": {
+      "count": 62,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva000CEB6F@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0xcef83"
+       },
+       {
+        "name": "?loadPostProcess@UpdateModule@@MAEXXZ",
+        "slot": 1,
+        "target": "0x58b03e"
+       },
+       {
+        "name": "?GetSnapshotName@W3DPropDraw@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0xceee0"
+       },
+       {
+        "name": "?xfer@W3DPropDraw@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0xb221a"
+       },
+       {
+        "name": "?rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0xceee6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 9,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 11,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 12,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 13,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 14,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 15,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 16,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 17,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 18,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 19,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 20,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 21,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 22,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 23,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 24,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 25,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 26,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 27,
+        "target": "0x50b238"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 28,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 29,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 30,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 31,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 32,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+        "slot": 33,
+        "target": "0xd1407"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 34,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 35,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 36,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 37,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?reactToTransformChange@W3DPropDraw@@UAEXPBVMatrix3D@@PBUCoord3D@@M@Z",
+        "slot": 38,
+        "target": "0xcef9f"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 39,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 40,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 41,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 42,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 43,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 44,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 45,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 46,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 47,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 48,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 49,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+        "slot": 50,
+        "target": "0x2bfbf0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 51,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 52,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 53,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 54,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 55,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 56,
+        "target": "0x50b238"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 57,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 58,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 59,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 60,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 61,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x7cd328"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7cd328": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva000CEB6F@@UAEPAXI@Z",
+     "1": "?loadPostProcess@UpdateModule@@MAEXXZ",
+     "2": "?GetSnapshotName@W3DPropDraw@@MBEPBDXZ",
+     "3": "?xfer@W3DPropDraw@@MAEXPAVXfer@@@Z",
+     "4": "?rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "12": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "13": "??1Region2D@@QAE@XZ",
+     "14": "??1Region2D@@QAE@XZ",
+     "15": "??1Region2D@@QAE@XZ",
+     "16": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "17": "?IsCRC@Xfer@@UBE_NXZ",
+     "18": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "19": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "20": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "21": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "22": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "23": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "24": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "25": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "26": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "27": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "28": "??1Region2D@@QAE@XZ",
+     "29": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "30": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "31": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "32": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "33": "?Set_Animation@RenderObjClass@@UAEXPAVHAnimClass@@MH@Z",
+     "34": "??1Region2D@@QAE@XZ",
+     "35": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "36": "??1Region2D@@QAE@XZ",
+     "37": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "38": "?reactToTransformChange@W3DPropDraw@@UAEXPBVMatrix3D@@PBUCoord3D@@M@Z",
+     "39": "??1Region2D@@QAE@XZ",
+     "40": "?IsCRC@Xfer@@UBE_NXZ",
+     "41": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "42": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "43": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "44": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "45": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "46": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "47": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "48": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "49": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "50": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+     "51": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "52": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "53": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "54": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "55": "?IsCRC@Xfer@@UBE_NXZ",
+     "56": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "57": "??1Region2D@@QAE@XZ",
+     "58": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "59": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "60": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "61": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "4": 1,
+   "12": 1,
+   "16": 5
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DPropDraw.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DPropDraw.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_drawable",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Drawable*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_propAdded",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "32": 1,
+    "63": 2
+   },
+   "class": "W3DPropDraw"
+  }
+ ],
+ "size": 16,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
