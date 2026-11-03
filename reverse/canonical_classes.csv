@@ -378,3 +378,4 @@ AptCommandTarget,Code/Libraries/Source/Apt/AptCommandTarget.h,existing header; c
 SpecialAbilityUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h,existing header; contract class_contracts/SpecialAbilityUpdateModuleData.json; 34/47 sampled units adopt
 DelegateDesc,Code/GameEngine/Include/Common/DelegateDesc.h,existing header; contract class_contracts/DelegateDesc.json; 13/75 sampled units adopt
 MilesMutexGuard,Code/GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h,existing header; contract class_contracts/MilesMutexGuard.json; 26/34 sampled units adopt
+AptCIH,Code/Libraries/Source/Apt/AptCIHClass.h,existing header; contract class_contracts/AptCIH.json; 20/59 sampled units adopt

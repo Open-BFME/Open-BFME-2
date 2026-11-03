@@ -1,0 +1,452 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AptCIH",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 40,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 7
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x44": {
+    "4": 8
+   },
+   "0x48": {
+    "4": 11
+   },
+   "0x4c": {
+    "4": 17
+   },
+   "0x5c": {
+    "4": 9
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 30,
+  "retail_vtables": {},
+  "view_errors": 8,
+  "view_sizes": {
+   "1": 4,
+   "4": 3,
+   "72": 1,
+   "80": 12,
+   "92": 3,
+   "96": 9
+  },
+  "views": 32,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 7
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 18,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "mnValueData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:EAStringC",
+   "members": [
+    {
+     "kind": "P",
+     "name": "mpData",
+     "offset": 0,
+     "size": 4,
+     "type": "EAStringC::StringDataC*"
+    }
+   ],
+   "name": "mName",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "EAStringC",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "a",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "b",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "c",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "d",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "tx",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "ty",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "f4",
+   "name": "alphaMultiplier",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "redMultiplier",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "greenMultiplier",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "blueMultiplier",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "alphaOffset",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "redOffset",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "greenOffset",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "blueOffset",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "properties",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {
+    "4": 8
+   },
+   "size": 4,
+   "type": "float*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "parent",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {
+    "4": 11
+   },
+   "size": 4,
+   "type": "AptCIH*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "inst",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {
+    "4": 17
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 22,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "flags",
+   "name_by": "tie",
+   "offset": 92,
+   "retail_widths": {
+    "4": 9
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 17,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 55
+ },
+ "outliers": [
+  {
+   "offset": 80,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp",
+    "Code/Libraries/Source/Apt/AptLoad.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp",
+    "Code/Libraries/Source/Apt/AptLoad.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp",
+    "Code/Libraries/Source/Apt/AptLoad.cpp",
+    "Code/Libraries/Source/Apt/Rva006E11B0Cluster.cpp"
+   ],
+   "views": 11
+  },
+  {
+   "offset": 94,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "mName.mpData": 1,
+    "m_name.m_data": 1,
+    "name.data": 1,
+    "remaining": 1
+   },
+   "class": "AptCIH"
+  },
+  {
+   "attribute": "name@0x5c",
+   "candidates": {
+    "asChanged": 3,
+    "flags": 3,
+    "flagsHigh": 3,
+    "flagsLow": 3,
+    "m_flags5c": 1,
+    "m_kind": 1,
+    "m_rest5c": 1,
+    "nZombieCounter": 1,
+    "state": 1
+   },
+   "class": "AptCIH"
+  },
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "AddRef()": 3,
+    "destroy()": 1,
+    "slot0()": 3,
+    "vtableSlot0()": 2
+   },
+   "class": "AptCIH"
+  }
+ ],
+ "size": 96,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "majority",
+   "member": "Release()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot3()"
+  }
+ }
+}
