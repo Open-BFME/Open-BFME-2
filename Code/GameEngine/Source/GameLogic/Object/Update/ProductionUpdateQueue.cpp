@@ -607,33 +607,7 @@ public:
 
 struct Rva0039BAD2Input;
 class Rva0039BAD2 { public: void rva0039BAD2(Rva0039BAD2Input *,Int); };
-class ProductionUpdateInterface
-{
-public:
-	virtual CanMakeType rva0049CFCD() const;
-	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade) const;
-	virtual ProductionID requestUniqueUnitID();
-	virtual Bool queueUpgrade(const UpgradeTemplate *upgrade);
-	virtual void cancelUpgrade(const UpgradeTemplate *upgrade);
-	virtual void rva0049CC9D(const ThingTemplate *unitType, Bool five);
-	virtual Bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const;
-	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *unitType) const;
-	virtual Bool queueCreateUnit(const ThingTemplate *,Int,ProductionID,Int,Bool,const AsciiString &,Bool);
-	virtual Bool rva0049CC36(ProductionID productionID) const;
-	virtual void cancelUnitCreate(ProductionID productionID);
-	virtual void rva0049CC61(const ThingTemplate *unitType);
-	virtual void i12();
-	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
-	virtual void rva0049CC15(ProductionID productionID, Int value);
-	virtual void cancelAndRefundAllProduction();
-	virtual void rva0049DEC8();
-	virtual void i17();
-	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
-	virtual UnsignedInt rva0049CEE1(Int value) const;
-	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
-	virtual const Rva0049D1B1 *firstProduction() const;
-	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
-};
+#include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 class DieModuleInterface
 {

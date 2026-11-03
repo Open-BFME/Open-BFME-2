@@ -158,12 +158,7 @@ class UpgradeTemplate;
 
 // Slot 3 of what Object::rva0028BC58(0) returns (ZH's
 // ProductionUpdateInterface::queueUpgrade).
-class ProductionUpdateInterface
-{
-public:
-	virtual void pu00(); virtual void pu01(); virtual void pu02();
-	virtual Bool queueUpgrade(const UpgradeTemplate *upgrade);	// +0x0C
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 // The body module isSupplySourceAttacked reads: the no-effect flag of the
 // last damage at +0x78 and the last-damage getters in vtable slots 15 and 16.

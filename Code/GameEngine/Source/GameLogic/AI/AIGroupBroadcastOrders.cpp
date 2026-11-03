@@ -94,14 +94,7 @@ private:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ProductionUpdate.h
-class ProductionUpdateInterface
-{
-public:
-	virtual void unusedSlot00();
-	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade);		// vtable +0x04
-	virtual void unusedSlot02();
-	virtual void queueUpgrade(const UpgradeTemplate *upgrade, Bool bfmeFlag);	// vtable +0x0C
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 class Object

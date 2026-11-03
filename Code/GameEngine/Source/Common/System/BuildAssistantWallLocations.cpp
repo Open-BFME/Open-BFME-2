@@ -281,17 +281,7 @@ void*rva0031D5F8(const AsciiString*key);
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar*TheControlBar;
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
-class ProductionUpdateInterface
-{
-public:
-virtual CanMakeType rva0049CFCD()const;
-virtual void slot01();virtual void slot02();virtual void slot03();
-virtual void slot04();virtual void slot05();virtual void slot06();
-virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate*type)const;
-virtual void slot08();virtual void slot09();virtual void slot10();virtual void slot11();
-virtual void slot12();virtual void slot13();virtual void slot14();
-virtual void cancelAndRefundAllProduction();
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 class Rva00346BC0
 {

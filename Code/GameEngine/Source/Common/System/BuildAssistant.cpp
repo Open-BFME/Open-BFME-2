@@ -360,26 +360,7 @@ private:
 class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
 {
 };
-class ProductionUpdateInterface
-{
-public:
-	virtual CanMakeType rva0049CFCD() const; // +0x00
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *type) const; // +0x1C
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void cancelAndRefundAllProduction(); // +0x3C
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 // The 128-bit object status mask and the rowed two-bit constructor
 // (0x00391F4E) that builds one.
