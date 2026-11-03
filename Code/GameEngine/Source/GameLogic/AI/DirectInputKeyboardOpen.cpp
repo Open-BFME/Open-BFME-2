@@ -94,6 +94,9 @@ struct DIPROPDWORD
 	unsigned long dwData;
 };
 
+// Match the sibling keyboard storage types; keep the existing raw call views below.
+struct IDirectInput8;
+struct IDirectInputDevice8;
 class DirectInputKeyboard
 {
 protected:
@@ -102,8 +105,8 @@ protected:
 
 private:
 	unsigned char m_pad[0xE20];
-	DI8Obj *m_pDirectInput;
-	DIDevObj *m_pKeyboardDevice;
+	IDirectInput8 *m_pDirectInput;
+	IDirectInputDevice8 *m_pKeyboardDevice;
 };
 
 void DirectInputKeyboard::openKeyboard()
@@ -115,19 +118,19 @@ void DirectInputKeyboard::openKeyboard()
 		closeKeyboard();
 		return;
 	}
-	hr = m_pDirectInput->m_table->createDevice(m_pDirectInput, g_00CDF678, (void **)&m_pKeyboardDevice, 0);
+	hr = ((DI8Obj *)m_pDirectInput)->m_table->createDevice((DI8Obj *)m_pDirectInput, g_00CDF678, (void **)&m_pKeyboardDevice, 0);
 	if (hr < 0)
 	{
 		closeKeyboard();
 		return;
 	}
-	hr = m_pKeyboardDevice->m_table->setDataFormat(m_pKeyboardDevice, &g_00C7C9A4);
+	hr = ((DIDevObj *)m_pKeyboardDevice)->m_table->setDataFormat((DIDevObj *)m_pKeyboardDevice, &g_00C7C9A4);
 	if (hr < 0)
 	{
 		closeKeyboard();
 		return;
 	}
-	hr = m_pKeyboardDevice->m_table->setCooperativeLevel(m_pKeyboardDevice, ApplicationHWnd, 6);
+	hr = ((DIDevObj *)m_pKeyboardDevice)->m_table->setCooperativeLevel((DIDevObj *)m_pKeyboardDevice, ApplicationHWnd, 6);
 	if (hr < 0)
 	{
 		closeKeyboard();
@@ -139,11 +142,11 @@ void DirectInputKeyboard::openKeyboard()
 	prop.diph.dwObj = 0;
 	prop.diph.dwHow = 0;
 	prop.dwData = 256;
-	hr = m_pKeyboardDevice->m_table->setProperty(m_pKeyboardDevice, (const void *)1, &prop.diph);
+	hr = ((DIDevObj *)m_pKeyboardDevice)->m_table->setProperty((DIDevObj *)m_pKeyboardDevice, (const void *)1, &prop.diph);
 	if (hr < 0)
 	{
 		closeKeyboard();
 		return;
 	}
-	m_pKeyboardDevice->m_table->acquire(m_pKeyboardDevice);
+	((DIDevObj *)m_pKeyboardDevice)->m_table->acquire((DIDevObj *)m_pKeyboardDevice);
 }
