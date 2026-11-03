@@ -1,7 +1,7 @@
 // cl: /MD
 // ?rva00587204@Rva00587204@@QAEAAURva0046247DPair@@AAU2@@Z, retail 0x00587204 19B.
 // Forwarder: pointer at +4 to rowed rva0046247D 0x0046247D; returns arg. Caller 0x00587AB8 passes stack Pair.
-struct Rva0046247DPair { void *first; void *second; };
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D { public: void rva0046247D(Rva0046247DPair &result); };
 class Rva00587204
 {

@@ -29,11 +29,7 @@ public:
 
 class ContainModuleInterface;
 
-struct Rva0046247DPair
-{
-	ContainModuleInterface *m00;
-	void *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class ContainModuleInterface : public Rva0047CADBSlots<53>
 {

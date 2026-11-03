@@ -4,7 +4,7 @@
 // starts at the node after the head (end = *m04, cur = *end), which is
 // retail's second load.
 
-struct Rva0046247DPair { void *m00; void *m04; };
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class Rva0046247D { public: void rva0046247D(Rva0046247DPair &p); };
 

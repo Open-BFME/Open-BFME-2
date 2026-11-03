@@ -84,11 +84,7 @@ public:
 };
 
 // The pinned pair writer 0x0046247D: returns its argument.
-struct Rva0046247DPair
-{
-	void *m00;
-	void *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D
 {
 public:

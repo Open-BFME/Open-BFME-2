@@ -4,7 +4,7 @@
 // (0x118) then walk list at +4 calling Object::rva0029A12B on node+8.
 // Same pair/list pattern as sibling rva004631FA; slot identities from packet
 // vtable line; callee pin rowed.
-struct Rva0046247DPair { void *m00; void *m04; };
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Object { public: void rva0029A12B();void defect(Object*,bool); };
 struct Rva004631C9Node { void *mNext; int mPad04; Object *mObj; };
 class SlaughterHordeContain {

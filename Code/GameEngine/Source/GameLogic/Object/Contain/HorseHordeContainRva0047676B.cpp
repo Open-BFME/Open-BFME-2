@@ -7,7 +7,7 @@ class Object;
 struct Rva0028AC4EEntry {unsigned char m_pad[0x40];mutable float m_40;};
 class Locomotor {public:float getMaxTurnRate(Object*)const;};
 class Object {public:const Rva0028AC4EEntry*rva0028AC4E()const;char pad[0x44];float angle;float getOrientation()const{return angle;}};
-struct Rva0046247DPair {void*a;void*b;};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class ContainView {public:virtual void d0();
 virtual void d1();
 virtual void d2();
@@ -87,9 +87,9 @@ void HorseHordeContain::rva00476749(){
 bool HorseHordeContain::rva0047676B(float angle){
  Rva0046247DPair pair;
  reinterpret_cast<ContainView*>(reinterpret_cast<char*>(this)-0xFC)->items(pair);
- Node*node=(*static_cast<Node**>(pair.b))->next;
+ Node*node=(*static_cast<Node**>(pair.m04))->next;
  float maxTurn=0.0f;
- for(;node!=*static_cast<Node**>(pair.b);node=node->next){
+ for(;node!=*static_cast<Node**>(pair.m04);node=node->next){
   Object*o=node->object;
   if(maxTurn==0.0f && o->rva0028AC4E())maxTurn=reinterpret_cast<const Locomotor*>(o->rva0028AC4E())->getMaxTurnRate(o);
   if(fabs(normalizeAngle(angle-o->getOrientation()))>maxTurn)return false;

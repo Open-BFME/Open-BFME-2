@@ -25,11 +25,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 typedef ContainmentList IntList;
 
-struct Rva0046247DPair
-{
-	void *m00;
-	void *m04;
-};
+#include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 
 class Rva0046247D
 {
