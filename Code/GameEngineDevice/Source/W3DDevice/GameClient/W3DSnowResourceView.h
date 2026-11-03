@@ -5,6 +5,12 @@
 
 #include "ascii_string.h"
 
+// Retail W3DSnowManager's table at VA 0x00BC8144 has the fourteen
+// SubsystemInterface slots followed by updateIniSettings at +0x38.
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#undef BFME_SUBSYSTEM_SLOTS
+
 // Only observed virtual slots and fields are represented in these views.
 // ReAcquireResources 0x0009390F..0x00093ACB: Zero Hour resource-setup
 // algorithm adapted to retail D3D9 COM arguments, weather flags +44/+45,
@@ -63,13 +69,15 @@ public:
     virtual unsigned long __stdcall Release() = 0;
 };
 
-class SnowManager {
+class SnowManager : public SubsystemInterface {
 public:
     SnowManager();
     virtual ~SnowManager();
     virtual void init();
+    virtual void reset();
+    virtual void updateIniSettings();
 protected:
-    unsigned char m_targetBase04[0x14 - 0x04];
+    unsigned char m_targetBase0C[0x14 - 0x0C];
     int m_14;
     unsigned char m_target18[0x3C - 0x18];
     int m_3c;
@@ -96,6 +104,9 @@ public:
     W3DSnowManager();
     virtual ~W3DSnowManager();
     virtual void init();
+    virtual void reset();
+    virtual void update();
+    virtual void updateIniSettings();
     void ReleaseResources();
     bool ReAcquireResources();
     float rva000932E1();
