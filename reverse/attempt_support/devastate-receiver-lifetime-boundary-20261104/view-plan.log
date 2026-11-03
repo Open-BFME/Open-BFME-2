@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp
+seed: Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp  (4 files)
+  SpecialPowerModule: conflict (3 files)
+      CONFLICT: base clause differs: Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp: `public BehaviorModule, public SpecialPowerModuleInterface, public ModuleInterface`; Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp: `public BehaviorModule, public SpecialPowerModuleInterface`; Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp: `public BehaviorModuleView, public SpecialPowerModuleInterface`
+  DevastateSpecialPower: conflict (3 files)
+      CONFLICT: no one view declares every virtual slot
+  DevastateSpecialPowerModuleData: conflict (3 files)
+      CONFLICT: class-key differs (Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPower.cpp: class, Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp: struct, Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerModuleDataDtor.cpp: class) and no matched name spells it
