@@ -330,7 +330,7 @@ BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004B3FBALeaNegSbbField, 20, 0x04)
 
 BFME_DISP8_NEG_LEA_GETTER(Rva004B3FC7LeaField, 20)
 
-struct BfmeFixedStorage128 { unsigned int words[32]; BfmeFixedStorage128(const BfmeFixedStorage128 &); };
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 
 namespace _STL { template<unsigned N> struct _Base_bitset { unsigned long words[N]; void _M_do_or(const _Base_bitset &); }; }
 

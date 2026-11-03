@@ -1,0 +1,5 @@
+{
+  "assertion": "sizeof(BfmeFixedStorage128)==128",
+  "missing": [],
+  "errors": []
+}
