@@ -22752,3 +22752,9 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00254D38Free.cpp|member|
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterface_isQuickPathAvailable.cpp|local|AIUpdateInterface::isQuickPathAvailable|ai2,c7d537fa09dcb176be0776ac,drz-k5,drz-k5-n46d-12,w-526a51702f64,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp|param|crashSpacing|a,94bd4164371a06c562a5a520,drz-k5,drz-k5-n46d-19,w-526a51702f64,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp|param|crashSpacing|b,c0a7387a765c478334006c74,drz-k5,drz-k5-n46d-19,w-526a51702f64,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00263298.cpp|local|AIUpdateInterface::rva00263298|m,4a0302eb74793d5f3a68026c,drz-k7,drz-k7-n46e-2,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00263298.cpp|local|AIUpdateInterface::rva00263298|s,8e4388ee9f1ed59324c66c58,drz-k7,drz-k7-n46e-2,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp|local|size|n,2d05672803708bd8f2967df9,drz-k7,drz-k7-n46e-16,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp|local|BroadcastStealthUpdate::update|n,dd8a9b0ffcdef7e3b99e286f,drz-k7,drz-k7-n46e-16,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdate.cpp|param|DelayedLuaEventUpdate::rva004A8F0B|f20,fb849df7986d5dadc74336ee,drz-k7,drz-k7-n46e-19,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdate.cpp|param|DelayedLuaEventUpdate::rva004A8F0B|f70,edd8a3eca13ea49c8458d310,drz-k7,drz-k7-n46e-19,w-4471b1f6edef,2026-11-02
