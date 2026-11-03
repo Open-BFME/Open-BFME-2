@@ -221,11 +221,7 @@ public:
 	float m_boundingRadius;		// +0xB0
 };
 
-struct TAiData
-{
-	char m_pad000[0x84];
-	float m_supplyCenterSafeRadius;	// +0x84
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

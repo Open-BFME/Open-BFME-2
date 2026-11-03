@@ -75,12 +75,7 @@ template <> class VSlotsC<0>
 };
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 #include "../Object/object.h"
-struct TAiData
-{
-	unsigned char m_pad00[0x40];
-	UnsignedInt m_guardEnemyScanRate; // +0x40
-	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-};
+#include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;

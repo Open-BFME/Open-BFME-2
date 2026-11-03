@@ -272,11 +272,7 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-struct TAiData
-{
-	char m_pad00[0x64];
-	bool m_enableRepulsors;	// +0x64
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 

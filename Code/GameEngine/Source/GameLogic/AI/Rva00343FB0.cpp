@@ -83,12 +83,7 @@ extern int BfmeLogicFramesPerSecond;
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class TAiData
-{
-public:
-	unsigned char m_pad00[0x8C];
-	Bool m_aiCrushesInfantry; // +0x8C
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

@@ -39,12 +39,7 @@ public:
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-class TAiData : public Snapshot
-{
-public:
-	char m_pad004[0x100 - 4];
-	TAiData *m_next;										// +0x100
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AIGroup.h"
 

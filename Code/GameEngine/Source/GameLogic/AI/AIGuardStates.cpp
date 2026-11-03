@@ -207,13 +207,7 @@ private:
 	unsigned char m_bfme438; // +0x438
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-struct TAiData
-{
-	unsigned char m_pad00[0x3C];
-	UnsignedInt m_guardChaseUnitFrames; // +0x3C
-	UnsignedInt m_guardEnemyScanRate; // +0x40
-	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-};
+#include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;

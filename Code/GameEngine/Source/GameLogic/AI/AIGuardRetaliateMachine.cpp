@@ -142,11 +142,7 @@ public:
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-struct TAiData
-{
-	char m_pad00[0xC8];
-	float m_maxRetaliateDistance;		// +0xC8
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

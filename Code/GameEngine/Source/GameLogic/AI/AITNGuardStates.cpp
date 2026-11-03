@@ -145,12 +145,7 @@ private:
 	unsigned char m_pad25C[0x304 - 0x25C];
 	Team *m_team; // +0x304
 };
-struct TAiData
-{
-	unsigned char m_pad00[0x3C];
-	UnsignedInt m_guardChaseUnitFrames; // +0x3C
-	UnsignedInt m_guardEnemyScanRate; // +0x40
-};
+#include "../../../Include/GameLogic/TAiData.h"
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AITNGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AITNGuard.cpp"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

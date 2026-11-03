@@ -548,21 +548,7 @@ public:
 	AISideInfo *m_next;			// +0x1BC
 };
 
-struct TAiData
-{
-	char m_pad000[0x0C];
-	unsigned int m_resourcesWealthy;	// +0x0C
-	unsigned int m_resourcesPoor;	// +0x10
-	char m_pad014[0x1C - 0x14];
-	Real m_teamWealthyMod;		// +0x1C
-	char m_pad020[0x24 - 0x20];
-	Real m_teamPoorMod;		// +0x24
-	float m_teamResourcesToBuild;	// +0x28
-	char m_pad02C[0x5C - 0x2C];
-	Real m_maxRecruitDistance;	// +0x5C
-	char m_pad060[0xF4 - 0x60];
-	AISideInfo *m_sideInfo;		// +0xF4
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 class NameKeyGenerator
 {

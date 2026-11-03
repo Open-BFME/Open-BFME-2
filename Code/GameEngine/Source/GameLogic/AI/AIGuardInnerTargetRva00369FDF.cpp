@@ -250,11 +250,7 @@ private:
 	Team *m_team;	// +0x304
 };
 
-struct TAiData
-{
-	char m_pad00[0x40];
-	unsigned int m_guardEnemyScanRate;	// +0x40
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

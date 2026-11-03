@@ -261,11 +261,7 @@ struct Rva003642DFResult
 };
 #include "../../../Include/GameLogic/PathfindPath.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
-struct TAiData
-{
-	unsigned char m_pad00[0x58];
-	Real m_skirmishGroupFudgeValue; // +0x58
-};
+#include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 // The AI's command interface (+0x20) entries for the attack-follow commands.

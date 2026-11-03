@@ -210,11 +210,7 @@ enum ObjectStatusTypes
 
 #include "../Object/object.h"
 
-struct TAiData
-{
-	char m_pad00[0x54];
-	Real m_attackPriorityDistanceModifier;	// +0x54
-};
+#include "../../../Include/GameLogic/TAiData.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

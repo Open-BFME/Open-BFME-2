@@ -108,11 +108,7 @@ protected:
 };
 BFME_LITERAL_NAME_GETTER(Rva002DAB5ENamed, "TerrainVisual")
 BFME_LITERAL_NAME_GETTER(Pathfinder, "Pathfinder")
-class TAiData
-{
-public:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../Include/GameLogic/TAiData.h"
 
 const char *TAiData::GetSnapshotName() const
 {
