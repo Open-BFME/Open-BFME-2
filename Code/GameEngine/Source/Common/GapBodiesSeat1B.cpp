@@ -1067,15 +1067,7 @@ int Rva00318E9E::rva00318EAF() const
 }
 
 // --- 0x0031911F (15B): stores +0x54, then the rowed 0x00318EC0 refresh.
-struct LivingWorldArmy
-{
-public:
-	void rva00318EC0();										// 0x00318EC0
-	void rva0031911F(int value);
-private:
-	char m_pad00[0x54];
-	int m_54;
-};
+#include "../../Include/GameLogic/LivingWorldArmy.h"
 
 void LivingWorldArmy::rva0031911F(int value)
 {

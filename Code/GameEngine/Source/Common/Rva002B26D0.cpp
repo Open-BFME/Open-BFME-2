@@ -26,11 +26,7 @@ public:
 	Rva00318C32Ret *rva00318C32();
 	void rva0031A591(float *pair, void *key, void *extra);
 };
-struct LivingWorldArmy
-{
-public:
-	void initiateMove(const Coord2D &pos, Rva00318C32Ret *ret, int extra);
-};
+#include "../../Include/GameLogic/LivingWorldArmy.h"
 
 #include "ArmyMoveCoordinateView.h"
 
