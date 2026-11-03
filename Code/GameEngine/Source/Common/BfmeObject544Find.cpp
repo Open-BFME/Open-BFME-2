@@ -36,19 +36,24 @@ struct BfmeObject544View
 	char m_tail[8];
 };
 
+// The sibling selector view observes begin/end at +08/+0C. The old vector
+// spans +08..+14 (compiler layout); preserve its unread tail as padding.
+struct Rva004CAB8BRecord;
 class Rva004CABE5Store
 {
 public:
 	bool find(int idx, Rva002C99FB *dest, const Rva000CF0D6 *tester);
 private:
 	char m_pad[8];
-	_STL::vector<BfmeObject544View> m_vec;
+	Rva004CAB8BRecord *m_begin;
+	Rva004CAB8BRecord *m_end;
+	char m_pad10[4];
 };
 
 bool Rva004CABE5Store::find(int idx, Rva002C99FB *dest, const Rva000CF0D6 *tester)
 {
-	BfmeObject544View *finish = &*m_vec.end();
-	BfmeObject544View *it = &*m_vec.begin();
+	BfmeObject544View *finish = (BfmeObject544View *)m_end;
+	BfmeObject544View *it = (BfmeObject544View *)m_begin;
 	for (; it != finish; ++it) {
 		if (!tester->test((const Rva000CF0D6 *)it))
 			continue;
