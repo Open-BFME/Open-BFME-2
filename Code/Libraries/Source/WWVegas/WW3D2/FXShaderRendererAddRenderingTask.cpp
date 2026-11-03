@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // stlport
 // ?Add_Rendering_Task@Rva00DF6F94GapFillerContext@@...@Z, retail 0x00174AAD (249B, EH frame, RET 8).
 // FXShaderRenderer::Add_Rendering_Task (WorldBuilder assert string; the address-derived context class name
@@ -36,10 +36,8 @@ public:
 	T *Referent;
 };
 
+#include "RenderingMethod.h"
 namespace FXShader {
-class RenderingMethod : public RefCountClass
-{
-};
 }
 
 struct Rva00174AADLightEnv

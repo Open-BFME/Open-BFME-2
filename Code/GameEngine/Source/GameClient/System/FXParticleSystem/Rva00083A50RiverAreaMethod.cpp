@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // ?rva00083A50@RenderableRiverArea@@QAE?AV?$RefCountPtr@VRenderingMethod@FXShader@@@@XZ
 // retail 0x00083A50..0x00083A7A (42 bytes) thiscall ret 4 hidden return.
 // By-value getter of the rendering method held at +0x54: when the +0x58
@@ -14,10 +14,8 @@
 // Method names are address-derived; class from the shared +0x40 holder.
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderingMethod.h"
 namespace FXShader {
-class RenderingMethod : public RefCountClass
-{
-};
 }
 
 template <class T>
