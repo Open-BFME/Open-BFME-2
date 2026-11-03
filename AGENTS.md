@@ -216,8 +216,8 @@ verified and easy to rebase. Detail for the hook rules:
   renames and banked attempts the same way. Keep substantive changes in
   separate commits. Publish a smaller final batch when the work or session
   ends, even if no headline figure moved.
-- A red `master` comes before other work. The verification alarm names the failure in
-  Discord; whoever is nearest repairs or reverts it, and says so there.
+- A red `master` comes before other work: whoever is nearest repairs or reverts it. The
+  verification alarm's run log names the failure.
 - Allow at least five minutes between successful pushes by the same GitHub
   account to this repository; share that clock across workers using the
   account, and keep working during the cooldown. `push.py` keeps the clock

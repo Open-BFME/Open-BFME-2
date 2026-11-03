@@ -14,6 +14,9 @@ original game runs under automation.
 | Link census | `wings02`, `link-census.yml` (levy) | systemd on that machine; the workflow only reports health | failing at "preparation failed" since 2026-10-29 |
 | Nightly measurement | GitHub, `nightly-measure.yml` | skipped until `NIGHTLY_ENABLED` is set | image ownership receipts |
 
+The alarm and the real link post to Discord only while the repository variable `DISCORD_POSTS` is
+`true`; it is unset, so they print to their run logs instead. The webhook is the progress channel's.
+
 GitHub's scheduler is not dependable here: a `*/5` job fires every five to seven hours, and
 `real-link.yml` and `verification-alarm.yml` have never fired on theirs. Their `schedule:` lines
 stay, but `bfme2-dispatch.timer` on srv1 is what starts them. Do not put anything that matters on

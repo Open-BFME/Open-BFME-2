@@ -133,6 +133,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
+          DISCORD_POSTS: ${{ vars.DISCORD_POSTS }}
         shell: python
         run: |
           import json
@@ -183,6 +184,9 @@ jobs:
                        f"{seen['globals']['contents_differ'] + seen['globals']['ours_zero_retail_not']} globals differ.")
           line += f" <{os.environ['GITHUB_SERVER_URL']}/{os.environ['GH_REPO']}/actions/runs/{RUN}>"
           print(line)
+          if os.environ.get('DISCORD_POSTS') != 'true':
+              print('DISCORD_POSTS is not true: not posting')
+              raise SystemExit(0)
           body = json.dumps({'content': line, 'allowed_mentions': {'parse': []}}).encode()
           request = urllib.request.Request(os.environ['WEBHOOK'], data=body, method='POST',
                                            headers={'Content-Type': 'application/json', 'User-Agent': 'bfme2-alarm'})

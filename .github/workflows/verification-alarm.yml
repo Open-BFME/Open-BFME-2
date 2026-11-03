@@ -42,6 +42,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
+          DISCORD_POSTS: ${{ vars.DISCORD_POSTS }}
           POST_NOW: ${{ inputs.post }}
           TICK: ${{ inputs.tick }}
           TRIGGER_RUN: ${{ github.event.workflow_run.id }}
@@ -150,7 +151,9 @@ jobs:
           if os.environ.get('POST_NOW') == 'true' and not messages:
               messages.append(f"Verification alarm test: master is {latest['conclusion']} at "
                               f"`{latest['head_sha'][:10]}`; {escapes} escapes counted since go-live.")
-          if EVENT != 'workflow_dispatch' or TICK or os.environ.get('POST_NOW') == 'true':
+          if os.environ.get('DISCORD_POSTS') != 'true':
+              print('DISCORD_POSTS is not true: not posting')
+          elif EVENT != 'workflow_dispatch' or TICK or os.environ.get('POST_NOW') == 'true':
               for message in messages:
                   body = json.dumps({'content': message[:1900], 'allowed_mentions': {'parse': []}}).encode()
                   request = urllib.request.Request(os.environ['WEBHOOK'], data=body, method='POST',
