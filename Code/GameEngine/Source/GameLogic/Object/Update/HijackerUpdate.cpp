@@ -148,41 +148,9 @@ Object* HijackerUpdate::getTargetObject() const
 // ------------------------------------------------------------------------------------------------
 // Unverified donor definition banked in reverse/attempt_support/link-seat-20261021/HijackerUpdate-unmatched.cpp.txt
 
-// ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// ?xfer@HijackerUpdate@@ present-unmatched
-void HijackerUpdate::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	UpdateModule::xfer( xfer );
-
-	// target ID
-	xfer->xferObjectID( &m_targetID );
-
-	// eject pos
-	xfer->xferCoord3D( &m_ejectPos );
-
-	// udpate
-	xfer->xferBool( &m_update );
-
-	// is in vehicle
-	xfer->xferBool( &m_isInVehicle );
-
-	// was target airborne
-	xfer->xferBool( &m_wasTargetAirborne );
-
-}
-
-  // end xfer
+// The unverified Zero Hour xfer attempt is banked in
+// reverse/attempt_support/hijackerupdate-xfer-cleanup-20261103.md.
+// Retail 0x004A3FAA remains rowed in Rva004A3F8BXfer.cpp.
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */

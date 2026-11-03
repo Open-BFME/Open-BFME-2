@@ -12765,7 +12765,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp	FloatUpdate::xfer	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdate.cpp	FloatUpdate::~FloatUpdate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp	?	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp	xfer@HijackerUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateModuleDataCtor.cpp	Rva001EAE6FHelper::Rva001EAE6FHelper	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp	?	1
