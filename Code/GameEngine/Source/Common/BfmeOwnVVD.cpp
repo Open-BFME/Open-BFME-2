@@ -341,7 +341,7 @@ extern void *g_00DC8874;
 
 StatsCollector *g_00E032F8;
 
-void *g_00DC8874;
+void *g_00DC8874 = (void *)2;
 
 // Reference: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
 // game/GameEngine/Source/GameClient/MessageStream/LookAtXlat.cpp.
