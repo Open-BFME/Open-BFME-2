@@ -34,18 +34,7 @@ public:
 ParticleSystem *Make001FCBD7();
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
-struct BfmeParticleSystemHandle {
-    ~BfmeParticleSystemHandle();
-    ParticleSystem *volatile m_system;
-    void *m_prev;
-    void *m_next;
-    ParticleSystem *get() const {
-        ParticleSystem *particleSystem = m_system;
-        if (!particleSystem)
-            particleSystem = Make001FCBD7();
-        return particleSystem;
-    }
-};
+#include "../../../../../../GameEngine/Include/GameClient/BfmeParticleSystemHandle.h"
 class W3DTankTruckDraw {
 protected:
     void tossEmitters();

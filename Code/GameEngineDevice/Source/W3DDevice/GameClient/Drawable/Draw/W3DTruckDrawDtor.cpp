@@ -41,13 +41,7 @@ private:
 	char m_pad[0x88 - 4];
 };
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle() throw();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../../../../../GameEngine/Include/GameClient/BfmeParticleSystemHandle.h"
 
 struct RvaSmartPtr12
 {

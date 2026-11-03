@@ -7,13 +7,7 @@
 // at 0x001FBD17 range; class unproven so honest address name.
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
 #include "../../../Include/Common/RvaSmartPtr12.h"
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 struct Rva001F4A22
 {

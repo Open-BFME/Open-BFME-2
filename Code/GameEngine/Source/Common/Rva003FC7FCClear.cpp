@@ -10,13 +10,7 @@ enum ParticleSystemID
 };
 #include "../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	void *m_system;
-	void *m_previous;
-	void *m_next;
-};
+#include "../../Include/GameClient/BfmeParticleSystemHandle.h"
 #include "../../Include/Common/RvaSmartPtr12.h"
 
 class ParticleSystem

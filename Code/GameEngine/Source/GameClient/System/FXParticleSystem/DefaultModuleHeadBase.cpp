@@ -13,13 +13,7 @@
 // ParticleSystemHandle_dtor.cpp and SmartPtrCopyCtor.cpp). Callers: jmp from
 // 0x003A5817 (??1Rva003AEEB3) and 0x003A984D; ??_G at 0x003A57FB calls here.
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 class RvaSmartPtr12
 {

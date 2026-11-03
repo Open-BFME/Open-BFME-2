@@ -84,13 +84,7 @@ Rva0056224F::Rva0056224F()
 	m_34 = 1;
 }
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle() throw();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 class RvaSmartPtr12
 {

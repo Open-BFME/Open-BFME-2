@@ -30,13 +30,7 @@ protected:
 };
 
 Rva0055F72C::Rva0055F72C():m_04(0),m_08(0),m_0C(0),m_10(0),m_14(0),m_18(0),m_1C(1),m_20(0),m_24(0),m_28(0){}
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle() throw();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 class RvaSmartPtr12
 {

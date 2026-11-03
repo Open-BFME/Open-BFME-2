@@ -34,13 +34,7 @@ public:
 	RvaSmartPtr12 *m_lastHandle;	// +0xA0
 };
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle() throw() { if (m_system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0(); }
-	ParticleSystem *m_system;
-	BfmeParticleSystemHandle *m_previous;
-	BfmeParticleSystemHandle *m_next;
-};
+#include "../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 // ?rva002115C5@Rva002115C5@@QAEXXZ, RVA 0x002115C5, 11B: the inline handle
 // dtor's out-of-line copy (cmp [ecx],0 / je / jmp 0x0004CBC0; the tail call

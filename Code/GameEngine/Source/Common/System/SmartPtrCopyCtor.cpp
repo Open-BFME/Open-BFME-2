@@ -13,13 +13,7 @@
 // via the rowed BfmeParticleSystemHandle dtor at 0x4CBC0, raw copy, then
 // conditional attach via 0x4CB9A. Callers include 0x4CCE9 0x4D064 0xC7DC2.
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 class RvaSmartPtr12
 {

@@ -11,13 +11,7 @@
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	void *m_system;
-	void *m_prev;
-	void *m_next;
-};
+#include "../../Include/GameClient/BfmeParticleSystemHandle.h"
 
 class RvaSmartPtr12
 {

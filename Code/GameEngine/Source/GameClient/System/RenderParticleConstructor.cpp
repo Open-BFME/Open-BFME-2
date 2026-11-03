@@ -31,7 +31,7 @@ public:
 	unsigned char m_38;
 	char m_pad39[3];
 };
-class BfmeParticleSystemHandle {public:~BfmeParticleSystemHandle()throw();};
+#include "../../../Include/GameClient/BfmeParticleSystemHandle.h"
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 class RvaSmartPtr12
