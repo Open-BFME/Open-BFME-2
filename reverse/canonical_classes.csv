@@ -377,3 +377,4 @@ CarryoverUnit,Code/GameEngine/Include/GameLogic/CarryoverUnit.h,existing header;
 AptCommandTarget,Code/Libraries/Source/Apt/AptCommandTarget.h,existing header; contract class_contracts/AptCommandTarget.json; 36/36 sampled units adopt
 SpecialAbilityUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h,existing header; contract class_contracts/SpecialAbilityUpdateModuleData.json; 34/47 sampled units adopt
 DelegateDesc,Code/GameEngine/Include/Common/DelegateDesc.h,existing header; contract class_contracts/DelegateDesc.json; 13/75 sampled units adopt
+MilesMutexGuard,Code/GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h,existing header; contract class_contracts/MilesMutexGuard.json; 26/34 sampled units adopt
