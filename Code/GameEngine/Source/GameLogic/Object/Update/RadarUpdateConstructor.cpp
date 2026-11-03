@@ -29,20 +29,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
-class UpdateModule : public ObjectModule,
-	public BehaviorInterface, public UpdateInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();			///< 0x0024A797, out of line
-
-	virtual void behaviorAnchor();
-	virtual void updateAnchor();
-
-	int m_nextCallFrameAndPhase;			///< 0x14
-	int m_indexInLogic;						///< 0x18
-	int m_updateState;						///< 0x1c
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/RadarUpdate.h
 class RadarUpdate : public UpdateModule
