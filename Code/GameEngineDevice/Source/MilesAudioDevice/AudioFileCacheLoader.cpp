@@ -44,12 +44,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 #include "../../../GameEngine/Include/Common/File.h"
 #include "../../../GameEngine/Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
-class MilesMutexGuard {
-public:
- MilesMutexGuard(void *,int); ~MilesMutexGuard();
- bool rva00041037(int); bool rva00041055();
-private: void *m_mutex; bool m_flag;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class OpenAudioFile {
 public:
  AsciiString m_name;

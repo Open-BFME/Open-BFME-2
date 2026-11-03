@@ -4,15 +4,7 @@
 // 0x0005710F/0x00052917; mutex +0x9D4 proven by StopAudio; next sibling
 // MilesAudioManagerBuildProviderList proves MilesAudioManager; retail tests
 // flags 1/0x10/2/4/8 to store val to +0x6A1/+0x6A2/+0x69F/+0x6A0/+0x69E.
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *mutex, int defer);
-    ~MilesMutexGuard();
-private:
-    void *m_mutex;
-    bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class MilesAudioManager
 {

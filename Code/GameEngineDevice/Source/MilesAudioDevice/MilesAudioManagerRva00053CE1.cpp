@@ -5,15 +5,7 @@
 // Layout mirrors Code/GameEngine/Source/Common/Rva00059A25Method.cpp which
 // proves +0x12C stride 0x1C4 with guard over +0x9D4; mutex at +0x9D4 also
 // target-measured for MilesAudioManager in StopAudio TU. Chain from 0x000523A0.
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *obj, int flags);
-    ~MilesMutexGuard();
-private:
-    void *m_obj;
-    int m_flags;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 struct Elem1C4
 {

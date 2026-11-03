@@ -5,15 +5,7 @@
 // stores +0x40 byte calls set at +0x44. Evidence: chain calls 0x0004120E
 // ctor and 0x0004122F dtor and 0x00040F9D set; sibling Rva0010ECB5 proves
 // +0x44 event layout; caller at 0x000A83D9.
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *m, int x);
-    ~MilesMutexGuard();
-private:
-    void *m_mutex; // +0
-    bool m_flag; // +4
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class Rva0040F9D
 {

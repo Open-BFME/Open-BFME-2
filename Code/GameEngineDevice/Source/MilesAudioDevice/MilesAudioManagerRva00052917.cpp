@@ -3,15 +3,7 @@
 // Post-increment counter at +0xD0 under guard over +0x9D4 returning old value.
 // Evidence: same MilesMutexGuard ctor/dtor rows as 0x0005710F; mutex +0x9D4
 // proven by MilesAudioManagerStopAudio; retail lea/mov/lea/mov plus mov eax esi.
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *mutex, int defer);
-    ~MilesMutexGuard();
-private:
-    void *m_mutex;
-    bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class MilesAudioManager
 {

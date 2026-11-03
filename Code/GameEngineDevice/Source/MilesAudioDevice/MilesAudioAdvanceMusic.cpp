@@ -28,14 +28,7 @@ struct PlayingEventRef { AudioEventRTS *m_ptr; AudioEventRTS *get() const { retu
 struct PlayingAudio { char head[0x1C]; PlayingEventRef m_event; };
 class PlayingAudioRef { public: PlayingAudio *m_ptr; PlayingAudio *operator->() const { return m_ptr; } };
 typedef _STL::list<PlayingAudioRef> PlayingAudioList;
-class MilesMutexGuard {
-public:
-    MilesMutexGuard(void *, int);
-    ~MilesMutexGuard();
-private:
-    void *mutex;
-    bool held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class Rva002D9AC3 { public: const char *rva002D9AC3(); };
 struct AudioEventInfoRef {
     OpaqueRefCounted *m_ptr;

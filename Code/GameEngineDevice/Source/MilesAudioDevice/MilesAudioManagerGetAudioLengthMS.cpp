@@ -23,15 +23,7 @@
 
 typedef float Real;
 
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *m, int x);
-	~MilesMutexGuard();
-private:
-	void *m_mutex;
-	bool m_flag;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class AudioEventRTS
 {

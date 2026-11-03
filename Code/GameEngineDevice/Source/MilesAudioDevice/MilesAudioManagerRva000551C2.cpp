@@ -27,15 +27,7 @@ private:
 
 struct BfmePod8 { int a[2]; };
 
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *mutex, int defer);
-    ~MilesMutexGuard();
-private:
-    void *m_mutex;
-    bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class MilesAudioManager
 {

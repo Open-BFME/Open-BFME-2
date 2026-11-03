@@ -11,15 +11,7 @@ public:
     void rva000591EF();
 };
 
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *obj, int flags);
-    ~MilesMutexGuard();
-private:
-    void *m_obj;
-    int m_flags;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
 struct Elem1C4
 {

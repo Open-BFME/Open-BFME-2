@@ -46,15 +46,7 @@ template <> Lk6AsciiSetTree::iterator Lk6AsciiSetTree::insert_unique(Lk6AsciiSet
 template <> _Rb_tree_node<AsciiString> *Lk6AsciiSetTree::_M_create_node(const AsciiString&);
 }
 
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *mutex, int defer);
-	~MilesMutexGuard();
-private:
-	void *m_mutex;
-	int m_flags;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class MilesAudioManager
 {

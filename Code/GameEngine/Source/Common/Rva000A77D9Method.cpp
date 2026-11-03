@@ -6,15 +6,7 @@
 // keeps an honest page-local class with retail-measured +0x40/+0x50.
 // Caller 0x00061ABD/277.
 // cl: /MD
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *obj, int flags);
-	~MilesMutexGuard();
-private:
-	void *m_obj;
-	int m_flags;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 class Rva000A77D9
 {
 public:

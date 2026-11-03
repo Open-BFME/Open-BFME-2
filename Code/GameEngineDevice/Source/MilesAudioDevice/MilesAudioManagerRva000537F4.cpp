@@ -3,16 +3,7 @@
 // inferred from the +0x9D4 mutex and +0x12C/0x1C4 record array. The five-float
 // setter at 0x0005230D remains address-derived.
 
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *mutex, int defer);
-    ~MilesMutexGuard();
-
-private:
-    void *m_mutex;
-    bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class Rva0005230D
 {

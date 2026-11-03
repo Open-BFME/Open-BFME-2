@@ -59,7 +59,7 @@ typedef char AudioTreeLifetimeSize[sizeof(Rva000A7CEE)==0x0c?1:-1];
 class Gen0002857E;
 class AudioFileContainer {Gen0002857E *target;public:~AudioFileContainer();};
 class Rva000A8A6C {public:void rva000A8A6C();};
-class MilesMutexGuard {void *mutex;bool flag;public:MilesMutexGuard(void*,int);~MilesMutexGuard();};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class AudioFileCache:public Rva000A7CE9 {
  Rva00200667 lists14[3];
  Rva000A7CEE unused20;

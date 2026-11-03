@@ -5,15 +5,7 @@
 // Mutex-guarded increment of the counter at +0x34 via MilesMutexGuard over owner mutex at +0x50.
 // Evidence: BFME1 donor game/GameEngine/Source/Common/Gen0002857EHandle.cpp; retail pushes 0 and [eax+0x50] into ctor 0x0004120E and calls dtor 0x0004122F; LINK BONUS caller in Rva00690FF0Handle.cpp.
 
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *m, int x);
-	~MilesMutexGuard();
-private:
-	void *m_mutex;
-	bool m_flag;
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class Gen0002857E;
 

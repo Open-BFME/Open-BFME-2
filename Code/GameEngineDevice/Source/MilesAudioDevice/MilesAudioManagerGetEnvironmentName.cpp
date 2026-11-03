@@ -92,15 +92,7 @@ int getEnvironmentTypeFromName(const AsciiString &name)
 	return -1;
 }
 
-class MilesMutexGuard
-{
-public:
-	MilesMutexGuard(void *mutex, int defer);
-	~MilesMutexGuard();
-private:
-	void *m_mutex;
-	bool m_held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 // MilesAudioManager view: only the +0x9D4 mutex is touched here.
 class MilesAudioManager
