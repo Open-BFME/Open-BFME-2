@@ -79,3 +79,24 @@ destinations. The next allocated destination is
 `Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp`;
 recheck its allocation and the wind-down marker before proceeding. The latest
 Upgrade-scope planner report passed `name_lane.py consolidate --check`.
+
+## Continuation 2 (2026-11-03)
+
+Resumed with `LocomotorSetUpgrade.cpp`, then checked four other allocated TUs.
+All five dry runs accepted zero donors; there were no claims or source/ledger
+edits.
+
+| Destination TU | Dry-run blocker |
+| --- | --- |
+| `LocomotorSetUpgrade.cpp` | LinkGuard: merged object loses `GetSnapshotName@UpgradeModule`, `isSubObjectsUpgrade@UpgradeMux`, and `loadPostProcess@UpgradeModule` |
+| `W3DTornadoDraw.cpp` | target view lacks `xfer`; module-data destructor fails byte check |
+| `HordeMeleeAmoeba.cpp` | STL resize/template errors, missing ctor, byte failures, and LinkGuard selected-copy/vftable refusals |
+| `Chat.cpp` | candidates lose matched rows under carried flags; one donor has no baseline match |
+| `FireWeaponWhenDamagedBehavior.cpp` | duplicate private `Weapon` / `Object` class declarations in donor compositions |
+
+The current shard listing has 93 destinations. After checking current
+allocation, the next destination is
+`Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPower.cpp`;
+recheck it and the wind-down marker before proceeding. `git pull --rebase
+origin master` completed before this handoff update; no source files were
+touched by the rebase.
