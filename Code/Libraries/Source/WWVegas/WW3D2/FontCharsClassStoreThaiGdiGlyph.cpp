@@ -137,19 +137,19 @@ const FontCharsClassCharDataStruct *FontCharsClass::Store_Thai_GDI_Glyph(unsigne
    if(cell_end.y>cell_size.cy) cell_end.y=cell_size.cy;
    for(int y=cell_start.y;y<cell_end.y;++y) {
     unsigned short *dest=pixels+y*cell_size.cx+cell_start.x;
-    int y0=Scale*y;
-    int y1=y0+Scale;
-    if(y1>charSize.cy) y1=charSize.cy;
+    int srcTop=Scale*y;
+    int srcBottom=srcTop+Scale;
+    if(srcBottom>charSize.cy) srcBottom=charSize.cy;
     for(int x=cell_start.x;x<cell_end.x;++x) {
      unsigned int intensity=0;
-     int x0=Scale*x;
-     int x1=x0+Scale;
-     if(x1>charSize.cx) x1=charSize.cx;
-     for(int row=y0;row<y1;++row) {
+     int srcLeft=Scale*x;
+     int srcRight=srcLeft+Scale;
+     if(srcRight>charSize.cx) srcRight=charSize.cx;
+     for(int row=srcTop;row<srcBottom;++row) {
       // Compute the indices into the BMP and surface
-      int index=(row-tile_origin.y)*192+(x0-tile_origin.x)*3;
+      int index=(row-tile_origin.y)*192+(srcLeft-tile_origin.x)*3;
       // Loop over each column
-      for(int col=x0;col<x1;++col) {
+      for(int col=srcLeft;col<srcRight;++col) {
        // Get the pixel color at this location
        unsigned char sample=g_fontCharsGdiState->bits[index];
        index+=3;

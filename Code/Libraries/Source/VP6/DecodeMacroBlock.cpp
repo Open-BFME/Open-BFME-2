@@ -74,29 +74,29 @@ extern "C" void __cdecl VP6_decodeModeAndMotionVector(unsigned char *ctx, int ro
 
 		int sumX = 0;
 		int sumY = 0;
-		for (int b = 0; b < 4; b++) {
-			int kind = state->blockMode[b];
+		for (int blockIndex = 0; blockIndex < 4; blockIndex++) {
+			int kind = state->blockMode[blockIndex];
 			if (kind == 0) {
-				state->blockMv[b].x = 0;
-				state->blockMv[b].y = 0;
+				state->blockMv[blockIndex].x = 0;
+				state->blockMv[blockIndex].y = 0;
 			} else if (kind == 3) {
-				state->blockMv[b].x = state->candidateMv0.x;
-				state->blockMv[b].y = state->candidateMv0.y;
+				state->blockMv[blockIndex].x = state->candidateMv0.x;
+				state->blockMv[blockIndex].y = state->candidateMv0.y;
 				sumX += state->candidateMv0.x;
 				sumY += state->candidateMv0.y;
 			} else if (kind == 4) {
-				state->blockMv[b].x = state->candidateMv1.x;
-				state->blockMv[b].y = state->candidateMv1.y;
+				state->blockMv[blockIndex].x = state->candidateMv1.x;
+				state->blockMv[blockIndex].y = state->candidateMv1.y;
 				sumX += state->candidateMv1.x;
 				sumY += state->candidateMv1.y;
 			} else if (kind == 2) {
 				VP6_decodeMotionVector(state, (short *)&scratch, 2);
 				short vx = ((short *)&scratch)[0];
 				short vy = ((short *)&scratch)[1];
-				state->blockMv[b].x = vx;
-				state->blockMv[b].y = vy;
-				sumX += state->blockMv[b].x;
-				sumY += state->blockMv[b].y;
+				state->blockMv[blockIndex].x = vx;
+				state->blockMv[blockIndex].y = vy;
+				sumX += state->blockMv[blockIndex].x;
+				sumY += state->blockMv[blockIndex].y;
 			}
 		}
 
@@ -151,10 +151,10 @@ extern "C" void __cdecl VP6_decodeModeAndMotionVector(unsigned char *ctx, int ro
 	state->mbMvs[state->mbCols * row + column].x = (short)x;
 	state->mbMvs[state->mbCols * row + column].y = (short)y;
 
-	for (int b = 0; b < 6; b++) {
-		state->blockMv[b].x = (short)x;
-		state->blockMv[b].y = (short)y;
-		state->blockMode[b] = mode;
+	for (int blockIndex = 0; blockIndex < 6; blockIndex++) {
+		state->blockMv[blockIndex].x = (short)x;
+		state->blockMv[blockIndex].y = (short)y;
+		state->blockMode[blockIndex] = mode;
 	}
 }
 

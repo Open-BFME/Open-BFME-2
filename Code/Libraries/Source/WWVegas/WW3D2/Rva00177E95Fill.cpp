@@ -7,16 +7,16 @@
 // ?rva00177E95@@YAXPAMHMMMH@Z
 void rva00177E95(float *dst, int stride, float x, float y, float z, int count)
 {
-	int n = count;
-	if (n == 0)
+	int remaining = count;
+	if (remaining == 0)
 		return;
 	do {
 		dst[0] = x;
 		dst[1] = y;
 		dst[2] = z;
 		dst = (float *)((char *)dst + stride);
-		--n;
-	} while (n != 0);
+		--remaining;
+	} while (remaining != 0);
 }
 
 // 0x00177EC7..0x00177F0D (70B): copy-then-flip of a float pair. The jnp at

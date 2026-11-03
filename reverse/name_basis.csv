@@ -7208,3 +7208,10 @@ local,WeaponModeSpecialPowerUpdateBase::rva005891A3::p1,WeaponModeSpecialPowerUp
 local,WeaponModeSpecialPowerUpdateBase::rva005891DB::p1,WeaponModeSpecialPowerUpdateBase::rva005891DB::outerObject,inferred,agree:nl-14a0495f3003,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x005891DB
 local,WeaponModeSpecialPowerUpdateBase::rva005893AD::p1,WeaponModeSpecialPowerUpdateBase::rva005893AD::outerObject,inferred,agree:nl-8a53d3846dc1,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x005893AD
 local,AptActionQueueC::rva006E39A0::a,AptActionQueueC::rva006E39A0::action,inferred,agree:nl-6860655f705b,Code/Libraries/Source/Apt/Rva006E3230Validate.cpp,0x006E39A0
+local,Rva002B74DE::Update::a,Rva002B74DE::Update::armyView,inferred,agree:nl-fc4b9fe79d08,Code/GameEngine/Source/Common/UpdateRva002BB7D6Farm.cpp,0x002BB7D6
+local,VP6_decodeModeAndMotionVector::b,VP6_decodeModeAndMotionVector::blockIndex,inferred,agree:nl-31c4611eef3a,Code/Libraries/Source/VP6/DecodeMacroBlock.cpp,0x001C63F0
+local,FontCharsClass::Store_Thai_GDI_Glyph::x0,FontCharsClass::Store_Thai_GDI_Glyph::srcLeft,inferred,agree:nl-a99458f4b948,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp,0x00157FF0
+local,FontCharsClass::Store_Thai_GDI_Glyph::x1,FontCharsClass::Store_Thai_GDI_Glyph::srcRight,inferred,agree:nl-f8044851036e,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp,0x00157FF0
+local,FontCharsClass::Store_Thai_GDI_Glyph::y0,FontCharsClass::Store_Thai_GDI_Glyph::srcTop,inferred,agree:nl-b0bb4be2d184,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp,0x00157FF0
+local,FontCharsClass::Store_Thai_GDI_Glyph::y1,FontCharsClass::Store_Thai_GDI_Glyph::srcBottom,inferred,agree:nl-777ed6a0209d,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassStoreThaiGdiGlyph.cpp,0x00157FF0
+local,rva00177E95::n,rva00177E95::remaining,inferred,agree:nl-59a5732d0702,Code/Libraries/Source/WWVegas/WW3D2/Rva00177E95Fill.cpp,0x00177E95

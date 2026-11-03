@@ -72,9 +72,9 @@ Int Rva002B74DE::Update(){
  for(int side=0;side<m_battle->sides();++side){
   int count=((Rva003F468D*)m_battle)->rva003F4DAE(side);
   for(int army=0;army<count;++army,++index){
-   ResolverArmyView *a=(ResolverArmyView*)((Rva003F468D*)m_battle)->rva003F468D(side,army);
-   a->value1c8=m_units[index].getValue();
-   ((Rva002E062EDwordSlot*)a)->set(m_units[index].getCount()-((Rva004E05E9DwordField*)a)->get());
+   ResolverArmyView *armyView=(ResolverArmyView*)((Rva003F468D*)m_battle)->rva003F468D(side,army);
+   armyView->value1c8=m_units[index].getValue();
+   ((Rva002E062EDwordSlot*)armyView)->set(m_units[index].getCount()-((Rva004E05E9DwordField*)armyView)->get());
   }
  }
  index=0;
@@ -85,8 +85,8 @@ Int Rva002B74DE::Update(){
    if((1 ? ((ResolverPlayerRecord*)result->players)[index].side2c : 0)==*(volatile int*)&((ResolverSimHeader*)owned.m_ptr)->winner78){
     if(!found){m_battle->m_side=side;found=true;}
    }else{
-    struct Rva002B89BBInfo *a=(struct Rva002B89BBInfo*)((Rva003F468D*)m_battle)->rva003F468D(side,army);
-    m_logic->rva002B3833(m_battle,a);
+    struct Rva002B89BBInfo *armyView=(struct Rva002B89BBInfo*)((Rva003F468D*)m_battle)->rva003F468D(side,army);
+    m_logic->rva002B3833(m_battle,armyView);
    }
   }
  }
