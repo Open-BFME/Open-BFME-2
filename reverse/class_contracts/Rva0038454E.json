@@ -1,0 +1,1715 @@
+{
+ "bases": [
+  "Rva00553E47StatsCore"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "Rva0038454E",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x55459e",
+      "0x555616"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00553E47StatsCore",
+       "offset": 0,
+       "own_vftable": "0x86b0ec",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x55459e",
+      "0x555616"
+     ],
+     "value": 340
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x55459e",
+      "0x555616"
+     ],
+     "value": {
+      "0x150": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x55459e",
+      "0x555616"
+     ],
+     "value": {
+      "0x0": [
+       "?reset@Rva0038454E@@UAEXXZ"
+      ],
+      "0x154": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x160": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x16c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x178": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x184": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x190": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x19c": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1a8": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1b4": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x1c0": [
+       "??0?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ"
+      ],
+      "0x1cc": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1d8": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1e4": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1f0": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ],
+      "0x1fc": [
+       "??0?$map@EHU?$less@E@_STL@@V?$allocator@U?$pair@$$CBEH@_STL@@@2@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x55459e",
+      "0x555616"
+     ],
+     "value": {
+      "0x0": "0x86b0ec"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x86b0ec"
+     ],
+     "value": {
+      "count": 5,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?reset@Rva0038454E@@UAEXXZ",
+        "slot": 0,
+        "target": "0x553f2f"
+       },
+       {
+        "name": "?rva005550A0@Rva00553E47StatsCore@@UAEXPAVXferStub@@@Z",
+        "slot": 1,
+        "target": "0x5550a0"
+       },
+       {
+        "name": "?rva00555109@Rva0038454E@@UAEXPAVXferStub@@@Z",
+        "slot": 2,
+        "target": "0x55573b"
+       },
+       {
+        "name": "?rva00554AF2@Rva00553E47StatsCore@@UAEXPBV1@@Z",
+        "slot": 3,
+        "target": "0x554af2"
+       },
+       {
+        "name": "?rva0055524B@Rva0038454E@@UAEXPBV1@@Z",
+        "slot": 4,
+        "target": "0x55524b"
+       }
+      ],
+      "table": "0x86b0ec"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x86b0ec": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?reset@Rva0038454E@@UAEXXZ",
+     "1": "?rva005550A0@Rva00553E47StatsCore@@UAEXPAVXferStub@@@Z",
+     "2": "?rva00555109@Rva0038454E@@UAEXPAVXferStub@@@Z",
+     "3": "?rva00554AF2@Rva00553E47StatsCore@@UAEXPBV1@@Z",
+     "4": "?rva0055524B@Rva0038454E@@UAEXPBV1@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "520": 9
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_maps04_0._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maps04_0._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_maps04_0._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_maps04_1._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maps04_1._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_maps04_1._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_maps04_2._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maps04_2._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_maps04_2._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_maps04_3._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maps04_3._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_maps04_3._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_maps04_4._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maps04_4._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_maps04_4._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_maps04_5._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_maps04_5._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_maps04_5._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_maps4c",
+   "name_by": "majority",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 72,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >[72]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_maps94",
+   "name_by": "majority",
+   "offset": 148,
+   "retail_widths": {},
+   "size": 72,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >[72]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_mapsdc_0._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 220,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_0._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 224,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_0._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 228,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_1._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 232,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_1._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 236,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_1._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 240,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_2._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 244,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_2._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 248,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_2._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 252,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_3._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 256,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_3._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 260,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_3._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 264,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_4._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 268,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_4._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 272,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_4._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 276,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_5._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 280,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_5._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 284,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_5._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 288,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_6._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 292,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_6._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 296,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_6._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 300,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapsdc_7._M_t._M_header._M_data",
+   "name_by": "majority",
+   "offset": 304,
+   "retail_widths": {},
+   "size": 4,
+   "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_mapsdc_7._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 308,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_mapsdc_7._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 312,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_13c",
+   "name_by": "majority",
+   "offset": 316,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_140",
+   "name_by": "majority",
+   "offset": 320,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_144",
+   "name_by": "majority",
+   "offset": 324,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_146",
+   "name_by": "majority",
+   "offset": 326,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_148",
+   "name_by": "majority",
+   "offset": 328,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_14a",
+   "name_by": "majority",
+   "offset": 330,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_14c",
+   "name_by": "majority",
+   "offset": 332,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_unmodelled14e",
+   "name_by": "majority",
+   "offset": 334,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_id",
+   "name_by": "majority",
+   "offset": 336,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_map154._M_t._M_node_count",
+   "name_by": "majority",
+   "offset": 344,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::less<unsigned char>",
+   "name": "m_map154._M_t._M_key_compare",
+   "name_by": "majority",
+   "offset": 348,
+   "retail_widths": {},
+   "size": 1,
+   "type": "_STL::less<unsigned char>",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map160",
+   "name_by": "majority",
+   "offset": 352,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map16c",
+   "name_by": "majority",
+   "offset": 364,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map178",
+   "name_by": "majority",
+   "offset": 376,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map184",
+   "name_by": "majority",
+   "offset": 388,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map190",
+   "name_by": "majority",
+   "offset": 400,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map19c",
+   "name_by": "majority",
+   "offset": 412,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1a8",
+   "name_by": "majority",
+   "offset": 424,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1b4",
+   "name_by": "majority",
+   "offset": 436,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,short> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1c0",
+   "name_by": "majority",
+   "offset": 448,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,short,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,short> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1cc",
+   "name_by": "majority",
+   "offset": 460,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1d8",
+   "name_by": "majority",
+   "offset": 472,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1e4",
+   "name_by": "majority",
+   "offset": 484,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1f0",
+   "name_by": "majority",
+   "offset": 496,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 0,
+     "size": 4,
+     "type": "_STL::_Rb_tree_node<_STL::pair<unsigned char const ,float> >*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_node_count",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "S:_STL::less<unsigned char>",
+     "name": "_M_key_compare",
+     "offset": 8,
+     "size": 1,
+     "type": "_STL::less<unsigned char>"
+    }
+   ],
+   "name": "m_map1fc",
+   "name_by": "majority",
+   "offset": 508,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::map<unsigned char,float,_STL::less<unsigned char>,_STL::allocator<_STL::pair<unsigned char const ,float> > >",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 8
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "520:A": 1
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "332:A": 1,
+    "336:A": 1,
+    "4:P": 1,
+    "72:A": 1
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "field@0x154",
+   "candidates": {
+    "12:S:Rva0038204A": 1,
+    "12:S:_STL::_Rb_tree<Rva00387568Element,Rva00387568Element,_STL::_Identity<Rva00387568Element>,_STL::less<Rva00387568Element>,_STL::allocator<Rva00387568Element> >": 1,
+    "180:A": 2,
+    "4:P": 2,
+    "96:A": 1
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "m_maps04_0._M_t._M_header._M_data": 5
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "m_maps04_0._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "m_maps04_0._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "m_maps04_1._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x14",
+   "candidates": {
+    "m_maps04_1._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x18",
+   "candidates": {
+    "m_maps04_1._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x1c",
+   "candidates": {
+    "m_maps04_2._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x20",
+   "candidates": {
+    "m_maps04_2._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x24",
+   "candidates": {
+    "m_maps04_2._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x28",
+   "candidates": {
+    "m_maps04_3._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x2c",
+   "candidates": {
+    "m_maps04_3._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x30",
+   "candidates": {
+    "m_maps04_3._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "m_maps04_4._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x38",
+   "candidates": {
+    "m_maps04_4._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x3c",
+   "candidates": {
+    "m_maps04_4._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x40",
+   "candidates": {
+    "m_maps04_5._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x44",
+   "candidates": {
+    "m_maps04_5._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x48",
+   "candidates": {
+    "m_maps04_5._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xdc",
+   "candidates": {
+    "m_mapsdc_0._M_t._M_header._M_data": 3
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xe0",
+   "candidates": {
+    "m_mapsdc_0._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xe4",
+   "candidates": {
+    "m_mapsdc_0._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xe8",
+   "candidates": {
+    "m_mapsdc_1._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xec",
+   "candidates": {
+    "m_mapsdc_1._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xf0",
+   "candidates": {
+    "m_mapsdc_1._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xf4",
+   "candidates": {
+    "m_mapsdc_2._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xf8",
+   "candidates": {
+    "m_mapsdc_2._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0xfc",
+   "candidates": {
+    "m_mapsdc_2._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x100",
+   "candidates": {
+    "m_mapsdc_3._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x104",
+   "candidates": {
+    "m_mapsdc_3._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x108",
+   "candidates": {
+    "m_mapsdc_3._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x10c",
+   "candidates": {
+    "m_mapsdc_4._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x110",
+   "candidates": {
+    "m_mapsdc_4._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x114",
+   "candidates": {
+    "m_mapsdc_4._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x118",
+   "candidates": {
+    "m_mapsdc_5._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x11c",
+   "candidates": {
+    "m_mapsdc_5._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x120",
+   "candidates": {
+    "m_mapsdc_5._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x124",
+   "candidates": {
+    "m_mapsdc_6._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x128",
+   "candidates": {
+    "m_mapsdc_6._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x12c",
+   "candidates": {
+    "m_mapsdc_6._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x130",
+   "candidates": {
+    "m_mapsdc_7._M_t._M_header._M_data": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x134",
+   "candidates": {
+    "m_mapsdc_7._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x138",
+   "candidates": {
+    "m_mapsdc_7._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x158",
+   "candidates": {
+    "m_map154._M_t._M_node_count": 2
+   },
+   "class": "Rva0038454E"
+  },
+  {
+   "attribute": "nested@0x15c",
+   "candidates": {
+    "m_map154._M_t._M_key_compare": 2
+   },
+   "class": "Rva0038454E"
+  }
+ ],
+ "size": 520,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "rva0055524B(Rva0038454E*)"
+  }
+ }
+}
