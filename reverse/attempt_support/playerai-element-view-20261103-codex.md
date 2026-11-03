@@ -47,7 +47,7 @@ rejections. The mixed StringVectorRecordCopyBFME2.cpp and
 StlportMapForwardersSeat8.cpp sources stay outside this merge.
 
 Application wrote nothing: the tool could not acquire 0x0007FAB3 in its complete
-candidate scope. At 23:00 UTC the claim belonged to
+candidate scope. At the application check the claim belonged to
 `codex-01a1071d-root-recovery-oct11` for RespawnUpdate.cpp, with about 3.6 hours
 remaining. The successful dry run is not a landed file reduction.
 
