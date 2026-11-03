@@ -530,3 +530,4 @@ UserInputTranslator,Code/GameEngine/Include/GameClient/UserInputTranslator.h,exi
 InGameCommandButtonMovieClip,Code/GameEngine/Include/GameClient/InGameCommandButtonMovieClip.h,existing header; contract class_contracts/InGameCommandButtonMovieClip.json; 7/8 sampled units adopt
 LivingWorldBuilding,Code/GameEngine/Include/GameLogic/LivingWorldBuilding.h,existing header; contract class_contracts/LivingWorldBuilding.json; 3/16 sampled units adopt
 DefaultPhysicsModuleInfo,Code/GameEngine/Include/GameClient/DefaultPhysicsModuleInfo.h,existing header; contract class_contracts/DefaultPhysicsModuleInfo.json; 7/14 sampled units adopt
+TeleportToCasterSpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h,existing header; contract class_contracts/TeleportToCasterSpecialPowerModuleData.json; 9/12 sampled units adopt
