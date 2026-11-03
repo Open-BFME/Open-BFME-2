@@ -32705,7 +32705,7 @@ _Rva008143F0,,0x006802F0,5,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matc
 ?ManTheWallsSpecialPowerParse_2526DF@@YAXAAVMultiIniFieldParse@@@Z,,0x004C856F,5,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp,matched,LINK BONUS factory 0x002526DF base 0x493207
 ?HordeDispatchSpecialPowerParse_25287D@@YAXAAVMultiIniFieldParse@@@Z,,0x004C89CB,27,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp,matched,LINK BONUS factory 0x0025287D base 0x493207 empty table
 ?rva00093349@W3DSnowManager@@QAEXXZ,,0x00093349,100,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp,matched,caller 0x0009470A LINK 1 file via W3DSnowManager
-?reset@W3DSnowManager@@UAEXXZ,,0x00093B3F,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManager_reset.cpp,matched,vslot 9 of 0x007C8144 base reset plus copy helper
+?reset@W3DSnowManager@@UAEXXZ,,0x00093B3F,28,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp,matched,vslot 9 of 0x007C8144 base reset plus copy helper
 ?push_back@?$vector@VRva004BA1D0@@V?$allocator@VRva004BA1D0@@@_STL@@@_STL@@QAEXABVRva004BA1D0@@@Z,,0x004BA7E0,55,Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp,matched,vector push_back via explicit instantiation same element and flags as overflow 0x004BA4D3
 ?rva0049E368@ProductionUpdate@@QAEXXZ,,0x0049E368,77,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,matched,ProductionUpdate queue clear via rowed rva002D06CA and erase
 ?rva003F255C@Rva003F255C@@QAEXPBVModuleData@@@Z,,0x003F255C,26,Code/GameEngine/Source/Common/System/Rva003F255C.cpp,matched,unlock lane rowed push_back caller 0x003F2576 prev dtor next Rva003F26AA
