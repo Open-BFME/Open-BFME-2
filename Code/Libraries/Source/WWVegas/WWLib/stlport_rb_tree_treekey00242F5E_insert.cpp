@@ -8,7 +8,7 @@
 // Precedent: stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp (149B via
 // out-of-line nocase compare plus pinned twins). Caller 0x000A7C50 is the
 // single-arg insert_unique for the same tree.
-// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 #include <set>
 
@@ -25,7 +25,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct TreeKey00242F5E { unsigned int m_id; AsciiString m_name; };
+#include "TreeKey00242F5E.h"
 struct Rva000A7AA7Less {
     bool operator()(const TreeKey00242F5E &a, const TreeKey00242F5E &b) const;
 };

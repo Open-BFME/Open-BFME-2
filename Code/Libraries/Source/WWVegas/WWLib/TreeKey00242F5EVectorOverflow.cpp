@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // STLport 4.5.3 _M_insert_overflow; reference headers at BFME1 revision
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76, BFME2 bfmealloc shim.
@@ -26,11 +26,7 @@ __forceinline const unsigned &max(const unsigned &a,const unsigned &b) {
 }
 #include <vector>
 #include "ascii_string.h"
-struct TreeKey00242F5E {
- int m_id; AsciiString m_name;
- TreeKey00242F5E(const TreeKey00242F5E &);
- ~TreeKey00242F5E();
-};
+#include "TreeKey00242F5E.h"
 extern template void _STL::_Construct<_STL::pair<int, AsciiString>, _STL::pair<int, AsciiString> >(_STL::pair<int, AsciiString> *, const _STL::pair<int, AsciiString> &);
 namespace _STL {
 // ?_Construct typed placement adapter absent-from-retail

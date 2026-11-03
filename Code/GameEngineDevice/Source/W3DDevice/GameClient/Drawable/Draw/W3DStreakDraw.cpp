@@ -216,13 +216,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-struct TreeKey00242F5E
-{
-public:
-	unsigned char m_bytes[0x8];
-public:
-	TreeKey00242F5E(const TreeKey00242F5E &other);
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
 
 #include "../../../../../../GameEngine/Include/Common/Geometry.h"
 

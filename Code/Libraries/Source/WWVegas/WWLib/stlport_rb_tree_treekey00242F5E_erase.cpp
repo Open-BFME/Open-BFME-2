@@ -1,4 +1,4 @@
-// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva000A7941@Rva000A7941@@QAEXPAX@Z, retail 0x000A7941, 53 bytes.
 // Rb-tree _M_erase for the TreeKey00242F5E set (unsigned id at +0 plus
 // AsciiString at +4): recurse on right child at node+0x0C then loop on left
@@ -11,12 +11,7 @@
 // clear passes the root; landing this unblocks 0x000A79CE.
 #include <stdlib.h>
 
-struct TreeKey00242F5E
-{
-	~TreeKey00242F5E();
-	unsigned int m_id;
-	void *m_name;
-};
+#include "TreeKey00242F5E.h"
 
 struct Rva000A7941Node
 {

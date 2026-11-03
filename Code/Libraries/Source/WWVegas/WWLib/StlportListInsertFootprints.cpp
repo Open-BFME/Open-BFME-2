@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // STLport 4.5.3 list<T> insert / push_back / push_front forwarders over
@@ -47,7 +47,7 @@ struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F
 // 3572-byte element; layout owner stlport_list_treehintopaque_00436e3b.cpp.
 struct TreeHintOpaque0043671B { char m_pad[3572]; public: TreeHintOpaque0043671B(const TreeHintOpaque0043671B &); ~TreeHintOpaque0043671B(); };
 // 8-byte element; layout owner stlport_list_treekey00242f5e_create_node.cpp.
-struct TreeKey00242F5E { char m_pad[8]; public: TreeKey00242F5E(const TreeKey00242F5E &); ~TreeKey00242F5E(); };
+#include "TreeKey00242F5E.h"
 
 template <> _STL::_List_node<BfmeContainerRecord00462D62> *_STL::list<BfmeContainerRecord00462D62>::_M_create_node(const BfmeContainerRecord00462D62 &);
 template <> _STL::_List_node<BfmePod12> *_STL::list<BfmePod12>::_M_create_node(const BfmePod12 &);
