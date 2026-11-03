@@ -502,3 +502,4 @@ ShroudManager,Code/GameEngine/Include/Common/ShroudManagerClass.h,existing heade
 Rva003844D7,Code/GameEngine/Include/GameNetwork/Rva003844D7.h,existing header; contract class_contracts/Rva003844D7.json; 1/10 sampled units adopt
 BattlePromptMovieClip,Code/GameEngine/Include/GameClient/BattlePromptMovieClip.h,existing header; contract class_contracts/BattlePromptMovieClip.json; 8/13 sampled units adopt
 RAMFile,Code/GameEngine/Include/Common/RAMFileClass.h,existing header; contract class_contracts/RAMFile.json; 6/12 sampled units adopt
+RectClass,Code/Libraries/Source/WWVegas/WWMath/RectClass.h,existing header; contract class_contracts/RectClass.json; 8/12 sampled units adopt
