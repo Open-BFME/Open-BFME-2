@@ -25,7 +25,7 @@ template<class T> AptRef<T> &AptRef<T>::operator=(const AptRef &other){
  }
  return *this;
 }
-class Rva00056F61 {public:void *rva00056F61(const AsciiString *);};
+#include "../../../Include/GameClient/Rva00056F61.h"
 struct TreeHintRef00222C5A;
 class Rva00223F4B {public:TreeHintRef00222C5A &rva00223F4B(const AsciiString &);};
 // Only the map extent and level stride are established; the remaining fields

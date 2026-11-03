@@ -13,9 +13,7 @@
 
 class Rva00056F61;
 #include "../../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 { public:
-    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
-};
+#include "../../../Include/GameClient/Rva00056F61.h"
 class Rva002CFEA5 { public: void *rva002CFEA5(const AsciiString *); };
 extern bool g_flag1;
 // Retail VA 0x00DBC864 starts FF FF 00 00. The addTemplate body reads

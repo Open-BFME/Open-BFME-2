@@ -11,7 +11,7 @@
 // O1/G7 plus explicit returns selects the native PUSH memory and branch;
 // ternary form generates branchless NEG/SBB/AND and is not retail.
 class AsciiString;
-class Rva00056F61 {public:void*rva00056F61(const AsciiString*);};
+#include "../../../Include/GameClient/Rva00056F61.h"
 unsigned int AptComponentWindowDataTableStorage[5];
 void* Rva004110C3Get(const AsciiString*key) {
  void*node=reinterpret_cast<Rva00056F61*>(AptComponentWindowDataTableStorage)->rva00056F61(key);

@@ -106,10 +106,7 @@ struct TreeHintPayload00410E23 { unsigned char m_body[4]; };
 #include "../../Include/GameLogic/Rva000427195.h"
 class Rva00056F61;
 #include "../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 {
-public:
- __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
-};
+#include "../../Include/GameClient/Rva00056F61.h"
 typedef _STL::pair<const AsciiString, Rva0045EF90Object> Rva00461BF0Value;
 
 // ??A?$hash_map@VAsciiString@@VRva0045EF90Object@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@VRva0045EF90Object@@@_STL@@@_STL@@@_STL@@QAEAAVRva0045EF90Object@@ABVAsciiString@@@Z

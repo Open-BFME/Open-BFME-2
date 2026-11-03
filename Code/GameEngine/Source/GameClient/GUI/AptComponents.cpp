@@ -80,7 +80,7 @@ virtual GameWindow*createFromContext(Rva004121D1Context*);
 #undef V
 GameWindow*duplicateGadget(GameWindow*,int);
 protected:int drawWindow(GameWindow*);friend void Rva00411EC3(const Coord2D*,const Coord2D*,const char*,const char*);};extern GameWindowManager*TheWindowManager;
-class Rva00056F61 {public:void*rva00056F61(const AsciiString*);};
+#include "../../../Include/GameClient/Rva00056F61.h"
 class Rva00222947Ref {public:void invoke(int,int,int);};
 struct BfmeAptScreenRefStorage;extern BfmeAptScreenRefStorage g_aptScreenReferences;
 

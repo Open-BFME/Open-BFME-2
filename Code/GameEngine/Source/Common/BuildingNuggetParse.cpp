@@ -50,11 +50,7 @@ struct BuildingNuggetFactoryNode
 class Rva0052B7F8Owner;
 Rva0052B7F8Owner *rva0052B84F();			// 0x0052B84F, the factory table
 
-class Rva00056F61
-{
-public:
-	void *rva00056F61(const AsciiString *key);	// 0x00056F61, the node or null
-};
+#include "../../Include/GameClient/Rva00056F61.h"
 
 // The owning holder: its destructor is the folded 0x000AD6F4.
 class Rva000AD6F4

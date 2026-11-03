@@ -55,17 +55,7 @@ typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
 class Rva00056F61;
 #include "../../../Include/GameClient/Rva0041534BIter.h"
 
-class Rva00056F61
-{
-public:
-    void *rva00056F61(const AsciiString *key);
-    // Same proven read-only exception contract as Rva00056F61IterFind.cpp.
-    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *key);
-    // 0x0020D67C: 121-byte find-or-insert worker, thiscall/ret 4; returns
-    // node+8, the pointer payload. WB 0x00B4FB10 confirms conditional pair
-    // construction, insertion through 0x0020D638, and temporary-key cleanup.
-    void *rva0020D67C(const AsciiString *key);
-};
+#include "../../../Include/GameClient/Rva00056F61.h"
 
 // Reuse the existing global's symbol from Rva007B6880Thunks.cpp.
 extern unsigned int g_Va00DFF494;

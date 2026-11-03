@@ -57,12 +57,7 @@ public:
 };
 class Rva00056F61;
 #include "../../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 {
-public:
-    // Same proven hash/compare-only contract as the rowed iterator provider.
-    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
-    Rva0022304A &rva002249ED(const Rva0022304A &);
-};
+#include "../../../Include/GameClient/Rva00056F61.h"
 
 class Rva00224BDBMap
 {

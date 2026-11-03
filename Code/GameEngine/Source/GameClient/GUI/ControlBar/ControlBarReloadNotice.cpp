@@ -534,12 +534,7 @@ class Xfer;
 enum INILoadType { INI_LOAD_OVERWRITE = 1 };
 #include "../../../../Include/Common/INI/INI.h"
 struct Rva0041534BIter;
-class Rva00056F61
-{
-public:
-	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
-	void *rva00056F61(const AsciiString *key);
-};
+#include "../../../../Include/GameClient/Rva00056F61.h"
 class Rva0031D5F8
 {
 public:
