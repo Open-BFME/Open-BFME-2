@@ -125,11 +125,7 @@ public:
 class Rva00210C66CmpBoolField { public: bool get() const; };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
-class SubsystemInterfaceList
-{
-public:
-	void resetAll(void);
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 class Rva002CEC0A
 {

@@ -19,12 +19,7 @@ public:
 	char m_flagD45;
 };
 
-class SubsystemInterfaceList
-{
-public:
-	char m_padToFlag[4];
-	unsigned char m_initialized;
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern SubsystemInterfaceList *TheSubsystemList;

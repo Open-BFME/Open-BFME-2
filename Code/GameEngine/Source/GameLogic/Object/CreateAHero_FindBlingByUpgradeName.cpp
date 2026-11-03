@@ -207,15 +207,7 @@ private:
 	unsigned char m_data[0x87c];
 };
 
-class SubsystemInterfaceList
-{
-public:
-	Xfer *getXfer() const { return m_xfer; }
-
-private:
-	unsigned char m_pad00[0x24];
-	Xfer *m_xfer;						// +0x24
-};
+#include "../../../Include/Common/SubsystemInterfaceList.h"
 
 extern SubsystemInterfaceList *TheSubsystemList;
 

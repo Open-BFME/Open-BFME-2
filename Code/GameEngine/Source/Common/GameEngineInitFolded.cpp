@@ -4,10 +4,7 @@
 // ZH supplies the addSubsystem/init/setSeed roles; BFME2's direct call sites
 // prove the empty registration operation, reset vslot +0x28 and seed +0x50.
 class SubsystemInterface;
-class SubsystemInterfaceList {
-public:
-    void addSubsystem(SubsystemInterface *sys);
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 void SubsystemInterfaceList::addSubsystem(SubsystemInterface *) {}
 
 #include "../../Include/GameNetwork/GameInfo.h"

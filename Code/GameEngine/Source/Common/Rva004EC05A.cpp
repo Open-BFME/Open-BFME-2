@@ -5,11 +5,7 @@
 
 class SubsystemInterface;
 
-class SubsystemInterfaceList
-{
-public:
-	void addSubsystem(SubsystemInterface *sys);
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 class Rva004EC05A
 {

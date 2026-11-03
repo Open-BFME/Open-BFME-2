@@ -95,13 +95,7 @@ private:
 };
 
 
-class SubsystemInterfaceList
-{
-public:
-    // Target 0x001B5018 takes one pointer in a stack argument, this in ECX,
-    // and returns with RET 4. Its source name remains unresolved.
-    void rva001B5018(class SubsystemInterface *subsystem);
-};
+#include "../../../Include/Common/SubsystemInterfaceList.h"
 
 extern SubsystemInterfaceList *TheSubsystemList;
 

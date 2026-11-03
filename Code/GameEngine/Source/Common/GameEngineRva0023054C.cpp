@@ -32,12 +32,7 @@ class ScriptEngine;
 
 #include "../../Include/GameClient/MapCache.h"
 
-class SubsystemInterfaceList
-{
-public:
-	~SubsystemInterfaceList();								// 0x001B5207
-	void rva001B51C0();										// 0x001B51C0
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 class GameResultsInterface
 {

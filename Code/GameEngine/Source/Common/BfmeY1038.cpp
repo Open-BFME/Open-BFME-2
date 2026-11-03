@@ -20,11 +20,7 @@ class SubsystemInterface;
 
 // The living world logic's leaf shares the empty RET 4 body of
 // SubsystemInterfaceList::addSubsystem (0x0047A69C).
-class SubsystemInterfaceList
-{
-public:
-	void addSubsystem(SubsystemInterface *subsystem);
-};
+#include "../../Include/Common/SubsystemInterfaceList.h"
 
 #include "../../Include/GameLogic/ArmySummary.h"
 

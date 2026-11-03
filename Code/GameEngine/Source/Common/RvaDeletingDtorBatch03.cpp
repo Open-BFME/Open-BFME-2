@@ -16,7 +16,7 @@
 //  0x00239E64 via dtor 0x00239D7A
 
 class Rva002189C5 { public: ~Rva002189C5(); };
-class SubsystemInterfaceList { public: ~SubsystemInterfaceList(); };
+#include "../../Include/Common/SubsystemInterfaceList.h"
 class Rva00229487 { public: ~Rva00229487(); };
 class Rva0042C1B7Item { public: ~Rva0042C1B7Item(); };
 class Rva0023A128 { public: ~Rva0023A128(); };
