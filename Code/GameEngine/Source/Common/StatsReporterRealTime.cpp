@@ -1,4 +1,7 @@
-// cl: /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport46
+#include "../../Include/GameClient/SkirmishPreferencesClass.h"
+#include "../../Include/Common/UserPreferences.h"
 #include "ascii_string.h"
 #include "unicode_string.h"
 // Target: complete5BF4BC..5BFD35 body and native EH maps. WorldBuilder
@@ -8,133 +11,12 @@
 // Player template+34, side+18, scorekeeper+3BC and accessed counter offsets
 // are measured target facts; unused portions of these views remain opaque.
 typedef int Int; typedef bool Bool;
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	virtual void v1();
-	virtual bool write();
-	virtual void v3();
-	virtual void v4();
-	virtual float v5(const AsciiString &s, float x);
-	virtual int v6(const AsciiString &s, int x);
-	virtual void v7();
-	virtual AsciiString v8(const AsciiString &key, const AsciiString &def);
-	virtual void v9();
-	virtual void v10(const AsciiString &s, float x);
-	virtual void v11(const AsciiString &s, int x);
-	virtual void v12(const AsciiString &lhs, const AsciiString &rhs);
-	int rva00535CE4(AsciiString arg);
-	AsciiString rva00535820();
-	void rva00536B3F(AsciiString arg, int x);
-	int rva00536B86(AsciiString arg);
-	void rva00536BD0(AsciiString arg, int x);
-	int rva00536C17(AsciiString arg);
-	int rva0053700F();
-	int rva005370D2();
-	AsciiString rva00537261();
-	void rva00537058(int bits);
-	void rva0053711B(AsciiString arg, int x, int value);
-	UnicodeString rva00535B32(float seconds);
-	void rva0053587C(AsciiString arg, int x);
-	void rva00535BAF(AsciiString arg, int x);
-	void rva00535C9D(AsciiString arg, int x);
-	void rva00535D2E(AsciiString arg, int x);
-	void rva00535DBF(AsciiString arg, int x);
-	void rva00535E50(AsciiString arg, int x);
-	void rva00535EE1(AsciiString arg, int x);
-	void rva00535F72(int x);
-	void rva00536003(int x);
-	void rva00536094(int x);
-	void rva00536125(int x);
-	int rva0053604B();
-	int rva005360DC();
-	int rva0053616D();
-	void rva005361B6(AsciiString arg);
-	AsciiString rva0053620F();
-	int rva00535FBA();
-	int rva005358C3(AsciiString arg);
-	int rva00535BF6(AsciiString arg);
-	int rva00535C40();
-	int rva005373AF();
-	int rva0053734E(AsciiString arg);
-	int rva00537C28();
-	UnicodeString rva00537C3F();
-	void rva00536C61(AsciiString arg, int x);
-	int rva00536CA8(AsciiString arg);
-	void rva00536CF2(AsciiString arg, int x);
-	int rva00536D39(AsciiString arg);
-	void rva00536D83(AsciiString arg, int x);
-	int rva00536DCA(AsciiString arg);
-	void rva00536E14(AsciiString arg, int x);
-	int rva00536E5B(AsciiString arg);
-	void rva00536EA5(AsciiString arg, int x);
-	int rva00536EEC(AsciiString arg);
-	void rva00536F36(AsciiString arg, int x);
-	int rva00536F7D(AsciiString arg);
-	void rva00536FC7(int x);
-	int rva00535D75(AsciiString arg);
-	int rva00535E06(AsciiString arg);
-	int rva00535E97(AsciiString arg);
-	int rva00535F28(AsciiString arg);
-	void rva0053595E(AsciiString arg, float x);
-	float rva0053590D(AsciiString arg);
-	float rva005359A9(AsciiString arg);
-	float rva00535A45(AsciiString arg);
-	float rva00535AE1(AsciiString arg);
-	void rva005359FA(AsciiString arg, float x);
-	void rva00535A96(AsciiString arg, float x);
-	void rva00535781();
-	int rva00537190(AsciiString arg, int x);
-	void rva005372BD(int x);
-	int rva00537305();
-	void rva00537208(AsciiString arg);
-	void rva0053626B(AsciiString arg, int x);
-	int rva005362B2(AsciiString arg);
-	void rva005362FC(AsciiString arg, int x);
-	int rva00536343(AsciiString arg);
-	void rva0053638D(AsciiString arg, int x);
-	int rva005363D4(AsciiString arg);
-	void rva0053641E(AsciiString arg, int x);
-	int rva00536465(AsciiString arg);
-	void rva005364AF(AsciiString arg, int x);
-	int rva005364F6(AsciiString arg);
-	void rva00536540(AsciiString arg, int x);
-	int rva00536587(AsciiString arg);
-	void rva005365D1(AsciiString arg, int x);
-	int rva00536618(AsciiString arg);
-	void rva00536662(AsciiString arg, int x);
-	int rva005366A9(AsciiString arg);
-	void rva005366F3(AsciiString arg, int x);
-	int rva0053673A(AsciiString arg);
-	void rva00536784(AsciiString arg, int x);
-	int rva005367CB(AsciiString arg);
-	int rva00536815(AsciiString arg);
-	void rva0053685F(AsciiString arg, int x);
-	int rva005368A6(AsciiString arg);
-	void rva005368F0(AsciiString arg, int x);
-	int rva00536937(AsciiString arg);
-	void rva00536981(AsciiString arg, float x);
-	float rva005369CC(AsciiString arg);
-	void rva00536A1D(AsciiString arg, int x);
-	int rva00536A64(AsciiString arg);
-	void rva00536AAE(AsciiString arg, int x);
-	int rva00536AF5(AsciiString arg);
- void rva00537A9B(AsciiString,float);
- int rva0053745E(AsciiString,const AsciiString&);
- void rva0053740C(AsciiString,const AsciiString&,int);
- int rva00537505(AsciiString,const AsciiString&);
- void rva005374B3(AsciiString,const AsciiString&,int);
- private: char storage[16];
-};
+
 class ProfilePreferences:public UserPreferences {};
 class RealTimeStatsPreferences:public ProfilePreferences {
  public: RealTimeStatsPreferences(const UnicodeString&);virtual ~RealTimeStatsPreferences();
 };
-class SkirmishPreferences:public UserPreferences {
- public: SkirmishPreferences(int);virtual ~SkirmishPreferences();UnicodeString Rva0043B9F5();
- private: char tail[12];
-};
+
 class GameSlot {
  public:virtual void reset(); bool isAI()const;bool isOccupied()const;
  int getState()const{return state;} int getPlayerTemplate()const{return playerTemplate;}

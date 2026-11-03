@@ -1,4 +1,7 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/GameEngine/Source/Common /ICode/GameEngine/Include
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/GameEngine/Source/Common /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB
+// stlport46
+#include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
+#include "../../../../../Include/Common/UserPreferences.h"
 //
 // ?init@AptLoadScreen@@UAEXPAVGameInfo@@@Z
 // retail 0x0043A5F6..0x0043AE0C (2070 bytes) thiscall RET 4.
@@ -155,16 +158,6 @@ const Image *GetRankIcon(int side, int difficulty);
 int Rva0033A3F4Lookup(const AsciiString &armyName);
 UnicodeString Rva0043A568Get(int rank);
 
-class UserPreferences
-{
-public:
-	virtual ~UserPreferences();
-	int rva005358C3(AsciiString key);
-
-private:
-	unsigned char m_rest[0x14 - 0x04];
-};
-
 class StrategicStatsPreferences : public UserPreferences
 {
 public:
@@ -177,17 +170,6 @@ class RealTimeStatsPreferences : public UserPreferences
 public:
 	RealTimeStatsPreferences(const UnicodeString &profilePath);
 	virtual ~RealTimeStatsPreferences();
-};
-
-class SkirmishPreferences
-{
-public:
-	SkirmishPreferences(int profileIndex);
-	virtual ~SkirmishPreferences();
-	UnicodeString Rva0043B9F5();
-
-private:
-	unsigned char m_rest[0x20 - 0x04];
 };
 
 #include "../../../../../Include/Common/PlayerTemplate.h"

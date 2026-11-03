@@ -1,4 +1,5 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /EHsc /Ireference/shims/bfme2_ascii
+// stlport46
 // BFME1 donor 34f59164f6d1efd413c5fd37f4894ec834c3c0fe:
 // game/GameEngine/Source/GameClient/GUI/SkirmishScreenDestructor.cpp.
 // WB AptSkirmish.cpp's complete destructor and retail 0x00521977/315B
@@ -12,12 +13,12 @@
 // receiver; it does not assert the complete member types' sizeof values.
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
 class _bfme_AptGameWindow { public: virtual ~_bfme_AptGameWindow(); private: char storage[0x218-4]; };
 class AptSkirmishSecondaryView { public: virtual void marker()=0; private: char storage[0x64-4]; };
 class Rva004444D2 { public: virtual ~Rva004444D2(); private: char storage[8]; };
 class AptMpGameSetup { public: virtual ~AptMpGameSetup(); private: char storage[0x3E0-4]; };
 class Rva005C1A36 { public: virtual ~Rva005C1A36(); private: char storage[0x30-4]; };
-class SkirmishPreferences { public: virtual ~SkirmishPreferences(); private: char storage[0x20-4]; };
 class Rva0031455E { public: virtual ~Rva0031455E(); private: char storage[0x10-4]; };
 class GameInfo { public: virtual void* deleteObject(int); };
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;

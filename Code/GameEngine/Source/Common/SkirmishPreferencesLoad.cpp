@@ -1,4 +1,7 @@
-// cl: /O1 /Oy- /MD /EHs /Ireference/shims/bfme2_ascii
+// cl: /O1 /Oy- /MD /EHs /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport46
+#include "../../Include/GameClient/SkirmishPreferencesClass.h"
+#include "../../Include/Common/UserPreferences.h"
 // Target43BC0A..43BD36 (300B): complete independent EH prologue/epilogue.
 // Existing SkirmishPreferences key builder and vtable+20 getAsciiString prove
 // owner; HeroIndexes/GameInfo literals establish the preference import role.
@@ -6,27 +9,12 @@
 // BFME2-only hero extension uses rowed getSlot3FF29F/set3FF0E7 (+5C) for8 slots
 // then ParseAsciiStringToGameInfo40116B. Both globals are existing named owners.
 // Canonical narrow string header; full300 hot/import/string/EH verification.
-// UserPreferences/SkirmishPreferences declarations below are callable views,
-// not complete allocating class layouts; this body uses no private members.
+// Canonical preference layouts supply the inherited getAsciiString slot.
 #include "ascii_string.h"
 #include <stdlib.h>
 #include <string.h>
 class UnicodeString;
-class UserPreferences {
-public:
- virtual ~UserPreferences();
- virtual bool load(const AsciiString&);virtual bool load(const UnicodeString&);virtual bool write();
- virtual bool getBool(const AsciiString&,bool)const;
- virtual float getReal(const AsciiString&,float)const;
- virtual int getInt(const AsciiString&,int)const;
- virtual int getEnumIndex(const char*,const char**,int,int)const;
- virtual AsciiString getAsciiString(const AsciiString&,const AsciiString&)const;
- virtual void setBool(const AsciiString&,bool);virtual void setReal(const AsciiString&,float);
- virtual void setInt(const AsciiString&,int);virtual void setAsciiString(const AsciiString&,const AsciiString&);
-};
-class SkirmishPreferences:public UserPreferences {
-public:AsciiString buildProfileKey(const char*);bool getGameInfo();
-};
+
 class GameSlot;
 #include "../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;

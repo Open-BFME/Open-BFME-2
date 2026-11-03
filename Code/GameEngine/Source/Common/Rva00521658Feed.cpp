@@ -1,4 +1,6 @@
-// cl: /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB
+// stlport46
+#include "../../Include/GameClient/SkirmishPreferencesClass.h"
 // Range-27 Skirmish screen sub-panel feed.
 // ?Rva00521658@Holder00521658@@QAEXXZ @0x00521658 78B
 // Thiscall drives four member objects: virtual slot 4 on +0x668, then
@@ -15,16 +17,6 @@ public:
 	virtual void slot02();
 	virtual void slot03();
 	virtual void slot04();
-};
-
-class SkirmishPreferences
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3slotC();
-	void rva0043BE7C();
 };
 
 class AptMpGameSetup
@@ -50,7 +42,7 @@ struct Holder00521658
 	Obj00521658_668 m_668;
 	char m_pad66C[0x698 - 0x66C];
 	SkirmishPreferences m_skirmishPreferences;
-	char m_pad69C[0x6C4 - 0x69C];
+	char m_pad69C[0x6C4 - 0x6B8]; // Canonical preferences end at +0x6B8.
 	int m_6C4;
 	Obj00521658_6C8 m_6C8;
 	void Rva00521658();
@@ -60,7 +52,7 @@ void Holder00521658::Rva00521658()
 {
 	m_668.slot04();
 	m_skirmishPreferences.rva0043BE7C();
-	m_skirmishPreferences.v3slotC();
+	m_skirmishPreferences.write();
 	m_gameSetup.slot01();
 	m_gameSetup.InitGadgets();
 	m_6C4 &= 0;
