@@ -1,0 +1,491 @@
+{
+ "bases": [
+  "UpdateModule",
+  "Rva004AB3EBIface",
+  "Rva004AB3AEIface"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "WallUpgradeUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 9,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x4ab317"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x854780",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x7e2b78>",
+       "offset": 32,
+       "own_vftable": "0x854768",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      },
+      {
+       "kind": "inference",
+       "name": "<vftable 0x81c780>",
+       "offset": 36,
+       "own_vftable": "0x854764",
+       "rule": "retail-inlined-base-vptr(unnamed)"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4ab317"
+     ],
+     "value": 50
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x4ab317"
+     ],
+     "value": {
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       1
+      ],
+      "0x31": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x4ab317"
+     ],
+     "value": {
+      "0x0": [
+       "?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24f316"
+     ],
+     "value": 52
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x4ab317"
+     ],
+     "value": {
+      "0x10": [
+       "0x854774"
+      ],
+      "0xc": [
+       "0x849800"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x4ab317"
+     ],
+     "value": {
+      "0x0": "0x854780",
+      "0x20": "0x854768",
+      "0x24": "0x854764"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x854780"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva004AB246@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4ab392"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?name@Rva004AB26DNamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x4ab26d"
+       },
+       {
+        "name": "?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4ab273"
+       },
+       {
+        "name": "?getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x4ab2d2"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x854780"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x854764": {
+    "offset": 36,
+    "slots": {},
+    "stores": 1
+   },
+   "0x854768": {
+    "offset": 32,
+    "slots": {},
+    "stores": 1
+   },
+   "0x854780": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva004AB246@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?name@Rva004AB26DNamed@@QBEPBDXZ",
+     "3": "?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 3,
+   "4": 1,
+   "40": 1,
+   "52": 4
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nextCallFrameAndPhase",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_indexInLogic",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_28",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_2C",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_31",
+   "name_by": "majority",
+   "offset": 49,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "bases",
+   "candidates": {
+    "['UpdateModule', 'Rva004AB3EBIface', 'Rva004AB3AEIface']": 1,
+    "['UpdateModule', 'WallUpgradeTrailing1', 'WallUpgradeTrailing2']": 1
+   },
+   "class": "WallUpgradeUpdate",
+   "why": "views that agree with the retail base layout spell it differently"
+  },
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "WallUpgradeUpdate"
+  },
+  {
+   "attribute": "inherited@0xc",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "WallUpgradeUpdate"
+  },
+  {
+   "attribute": "inherited@0x10",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "WallUpgradeUpdate"
+  },
+  {
+   "attribute": "inherited@0x20",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "WallUpgradeUpdate"
+  },
+  {
+   "attribute": "inherited@0x24",
+   "candidates": {
+    "4:P": 1,
+    "4:VPTR": 1
+   },
+   "class": "WallUpgradeUpdate"
+  }
+ ],
+ "size": 52,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
