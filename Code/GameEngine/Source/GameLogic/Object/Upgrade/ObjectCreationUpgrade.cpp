@@ -83,7 +83,6 @@ public:
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
@@ -196,7 +195,38 @@ enum DeathType;
 enum ModelConditionFlagType;
 enum NameKeyType;
 class Module;
-#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+//
+// ?xfer@ObjectCreationUpgrade@@MAEXPAVXfer@@@Z @0x004B421D (62B).
+// Slot 3 (offset 0x0C) of vtable 0x0085762C (class of ??1ObjectCreationUpgrade
+// rowed at 0x004B3F90 in ObjectCreationUpgradeDtor.cpp).
+//
+// ObjectCreationUpgrade xfer: Version1 via rowed 0x53EE, then bool at +0x2C
+// via Xfer slot 0x90, then uint at +0x28 via Xfer slot 0x78, then base
+// UpdateModule xfer via rowed 0x44DF9F, then UpgradeMux base at +0 via rowed
+// upgradeMuxXfer 0x4CE397 (this-8). No IsLightCRC early-out. Layout is the
+// rowed ctor class (UpgradeMux base 8 plus UpdateModule base 0x20 plus uint
+// at +0x28 plus bool at +0x2C) from ObjectCreationUpgradeCtor.cpp. Donor is ZH
+// ObjectCreationUpgrade.cpp:117 version-plus-base; BFME2 adds the two members
+// and the UpgradeMux split. Recipe is the slot-3 xfer pattern.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 BFME_DISP8_BYTECHASE_GETTER(Rva004B4061ByteChase32Field, 0xC, 0x11C)
 
@@ -239,6 +269,8 @@ private:
 // tu-skeleton: 0x004B3F90 36B ??1ObjectCreationUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3FB4 6B ?name@ObjectCreationUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
 
@@ -397,21 +429,13 @@ void ObjectCreationUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // above 0x7F addresses *before* `this` (e.g. 9C = -100). Spelled as a
 // negative byte offset from `this`, which folds to the same disp8 lea.
 
-// tu-skeleton: 0x004B3FCB 17B ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FDC 17B ?notContains@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B40EA 28B ??_GObjectCreationUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCheck.cpp
 
@@ -458,7 +482,32 @@ void Rva004B4130::rva004B41A9()
  else v08();
 }
 
-// tu-skeleton: 0x004B421D 62B ?xfer@ObjectCreationUpgrade@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp (not merged yet)
+// tu-skeleton: 0x004B3FCB 17B ?loadPostProcess@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade_loadPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x004B3FDC 17B ?notContains@Rva00406F9C@@QAEHPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004B3FED 8B ??_EObjectCreationUpgrade@@O7AEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B403A 39B ?getUpgradeActivationMasks@ObjectCreationUpgrade@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4075 15B ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// tu-skeleton: 0x004B40A6 68B ??0ObjectCreationUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B40EA 28B ??_GObjectCreationUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4106 42B ?upgradeImplementation@ObjectCreationUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeXfer.cpp
+
+void ObjectCreationUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	*xfer == m_flag2C;
+	*xfer == m_status28;
+	UpdateModule::xfer(xfer);
+	UpgradeMux::upgradeMuxXfer(xfer);
+}
 
 // tu-skeleton: 0x004B425B 128B ??0ObjectCreationUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataCtor.cpp (not merged yet)
 
