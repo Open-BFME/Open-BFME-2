@@ -83,3 +83,5 @@ repair. The staged audit remains INCONCLUSIVE on the older index and missing
 current Common/0CreateAHeroManager21FE49.cpp receipt; carry the two providers
 and their consumers into the next scheduled census.
 [Evidence and remaining prerequisites](../../reverse/attempt_support/linear-campaign-header-selection-20261030-codex5.md).
+
+**Erase declaration prerequisite (2026-11-03, codex):** the 0x001EBDFA provider now uses real STLport headers with an explicit instantiation; 51/51 bytes and its ordinary link preview remain exact/clean. Refresh the merge probe and check the seed's declaration-only erase specializations next; element identity remains open. [Evidence](../../reverse/attempt_support/linear-campaign-erase-header-20261103-codex.md).

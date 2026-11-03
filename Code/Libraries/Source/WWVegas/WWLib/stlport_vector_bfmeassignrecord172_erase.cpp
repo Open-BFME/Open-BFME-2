@@ -18,58 +18,16 @@ public:
 	int a[43];
 };
 
+// Use STLport's vector layout and helper declarations, as the destination TU
+// does. The kept out-of-line copy and destroy providers are rowed separately.
+#include <vector>
+
 namespace _STL {
-
-struct __false_type {
-};
-
-struct random_access_iterator_tag {
-};
-
-template <class Type>
-class allocator {
-};
-
-template <class Type, class Allocator>
-class vector {
-public:
-	typedef Type *iterator;
-	iterator erase(iterator first, iterator last);
-private:
-	iterator m_start;
-	iterator m_finish;
-	iterator m_endOfStorage;
-};
-
-template <class InputIter, class OutputIter, class Distance>
-OutputIter __copy(InputIter first, InputIter last, OutputIter result, const random_access_iterator_tag &tag, Distance *extra);
-
-template <class InputIter, class OutputIter>
-OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag)
-{
-	__false_type local;
-	return __copy(first, last, result, reinterpret_cast<const random_access_iterator_tag &>(local), (int *)0);
+template <> BfmeAssignRecord172 *__copy<BfmeAssignRecord172 *, BfmeAssignRecord172 *, int>(
+    BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *,
+    const random_access_iterator_tag &, int *);
+template <> void _Destroy<BfmeAssignRecord172 *>(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
 }
 
-template <class ForwardIter>
-void _Destroy(ForwardIter first, ForwardIter last);
-
-}
-
-// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
-// the anchor keeps the noinline body emitted.
-__declspec(noinline) inline _STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::iterator
-_STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::erase(iterator first, iterator last)
-{
-	iterator result = _STL::__copy_ptrs(last, m_finish, first, _STL::__false_type());
-	_STL::_Destroy(result, m_finish);
-	m_finish = result;
-	return first;
-}
-
-// ?bfmeAnchorVectorBfmeAssignRecord172Erase absent-from-retail
-_STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::iterator bfmeAnchorVectorBfmeAssignRecord172Erase(_STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> > *v, _STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::iterator a, _STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::iterator b)
-{
-	return v->erase(a, b);
-}
-
+template _STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::iterator
+_STL::vector<BfmeAssignRecord172, _STL::allocator<BfmeAssignRecord172> >::erase(iterator, iterator);
