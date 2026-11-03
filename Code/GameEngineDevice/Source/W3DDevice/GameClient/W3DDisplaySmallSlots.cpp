@@ -47,11 +47,7 @@ extern BfmeTaintManager *TheTaintManager;
 
 // Retail 0x000731F4 (rowed in W3DShroudCtor.cpp) and the render-object notify
 // at 0x000683DC; the 0x3878 member is the terrain's W3DShroud.
-class W3DShroud
-{
-public:
-	void setShroudLevel(Int x, Int y, unsigned char level, Bool textureOnly);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 
 class Rva000683DC
 {

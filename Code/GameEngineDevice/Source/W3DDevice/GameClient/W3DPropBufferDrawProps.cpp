@@ -200,7 +200,7 @@ class Rva00739800 { public: ObjectShroudStatus rva00739800(Int playerIndex, cons
 
 // BFME 2's shroud hands out the rendering method props draw with when
 // shrouded (0x0006F1FE).
-class W3DShroud { public: RefCountPtr<FXShader::RenderingMethod> rva0006F1FE(void); };
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 class BaseHeightMapRenderObjClass
 {
 public:

@@ -225,11 +225,7 @@ public:
 	unsigned char m_taintOn;
 };
 extern GlobalData *TheWritableGlobalData;
-class W3DShroud
-{
-public:
-	UnsignedByte getShroudLevel(int x, int y);
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 class WorldHeightMap;
 class BaseHeightMapRenderObjClass
 {

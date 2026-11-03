@@ -638,7 +638,7 @@ void Rva00755C80();
 
 class Rva00068D43 { public: void rva00068D43(); };
 
-class W3DShroud { public: void rva00073628(void *); };
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 
 class W3DTaint { public: void render(CameraClass *); };
 

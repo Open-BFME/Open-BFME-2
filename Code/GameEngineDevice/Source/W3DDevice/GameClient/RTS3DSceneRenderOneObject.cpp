@@ -345,7 +345,7 @@ private:
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
-class W3DShroud { public: RefCountPtr<FXShader::RenderingMethod> rva0006F1FE(void); };
+#include "../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 class BaseHeightMapRenderObjClass
 {
 public:

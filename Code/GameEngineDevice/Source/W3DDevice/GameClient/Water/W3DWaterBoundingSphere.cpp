@@ -95,11 +95,7 @@ public:
 	TextureBaseClass *m_ptr;
 };
 
-class W3DShroud
-{
-public:
-	TextureHandle getShroudTexture(void);
-};
+#include "../../../../Include/W3DDevice/GameClient/W3DShroudClass.h"
 #include "W3DDevice/GameClient/W3DWaterTracks.h"
 #include "W3DDevice/GameClient/W3DAssetManager.h"
 #include "assetmgr.h"
