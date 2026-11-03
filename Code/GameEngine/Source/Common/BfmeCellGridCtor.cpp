@@ -11,17 +11,7 @@
 #include <string.h>
 void _bfme_debugRecordCallsite(int kind);
 
-class Rva00404781
-{
-public:
-	Rva00404781();
-	~Rva00404781();
-	void rva0040475C();
-	float m_a[20];
-	float m_b[20];
-	unsigned int m_flags0;
-	unsigned int m_flags1;
-};
+#include "../../Include/Common/Rva00404781.h"
 
 // ??0Rva00404781@@QAE@XZ present-unmatched
 inline Rva00404781::Rva00404781()

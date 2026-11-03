@@ -29,18 +29,7 @@ public:
 class VictorySystem;
 extern VictorySystem *TheVictorySystem;
 
-class Rva00404781
-{
-public:
-	void AddDeath(float v, int i, int j);
-	void rva0040475C();
-	int rva00404CF5(bool useCellRatio);
-private:
-	float m_a[20]; // +0x00
-	float m_b[20]; // +0x50
-	unsigned int m_flags0; // +0xA0
-	unsigned int m_flags1; // +0xA4
-};
+#include "../../Include/Common/Rva00404781.h"
 
 void Rva00404781::AddDeath(float v, int i, int j)
 {
