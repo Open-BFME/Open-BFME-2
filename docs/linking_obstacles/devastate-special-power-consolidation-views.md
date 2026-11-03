@@ -1,0 +1,5 @@
+### DevastateSpecialPower consolidation: receiver, string and lifetime views (2026-11-04)
+
+**Status: Open.** Current supported initial merge accepts0 donors from the four-file11-row clean cohort; four mixed files stay excluded. Concrete refusals are missing shared Devastate override declarations and private/canonical StringBase conflicts. The seed's placeholder base chain, protected destructor marker/other existing owner and ModuleData vtable/lifetime boundaries must be reconciled on current native/provider evidence; no lost body is inferred from its marker.
+
+**Canonical Debug subset:** slots adopt registered debug.h with the actual existing SkipNext/CrashBegin/string-stream/CrashDone operations at native offsets60/6C/38/4C. Normal2/2, one literal and strict frozen pass. Allfive providers/properties/routes stay identical. Owning acceptance retires Debug and the already-canonical BehaviorModule stale key. No rows/signatures/paths/flags/hatches change; interface and seed string/lifetime prerequisites remain. [Native slots, provider identity, acceptance and initial merge evidence](../../reverse/attempt_support/devastate-canonical-debug-20261104/README.md).

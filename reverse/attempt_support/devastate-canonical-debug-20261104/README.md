@@ -1,0 +1,7 @@
+# Canonical Debug operations in Devastate slots, 2026-11-04
+
+Replace the padded dummy-virtual Debug copy in DevastateSpecialPowerSlots.cpp with the existing registered debug.h. Native calls at offsets60/6C/38/4C now spell SkipNext(), CrashBegin(), string streaming and CrashDone(). Their native argument values, offsets and ignored return values stay unchanged; static SkipNext(true) stays unchanged. No function names/signatures, interface slots, rows, source paths, flags, headers, globals, aliases or hatches change.
+
+Both68B/20B rows remain exact. Allfive emitted external providers, complete bytes/relocations, selection/linkage properties and all undefined/weak/alternate/INCLUDE routes are identical. The ordinary object equals the private winner; literal and strict frozen checks pass. Owning acceptance preserves predicted linking and retires the Debug key plus a stale BehaviorModule key whose owning header was already included before this change. No private BehaviorModule was removed by this patch.
+
+The supported initial consolidation accepts no donor: seed/slot Devastate declarations do not yet share all overrides, and the seed's private StringBase conflicts with canonical string/base definitions in location/dtor donors. The seed's old protected destructor marker still names an already-covered placeholder-owned native body; no new body regression or extra row is claimed. Module-data lifetime/vtable and interface/signature reconciliation need separate whole-provider checks. This narrow repair does not clear the entire class or merge.
