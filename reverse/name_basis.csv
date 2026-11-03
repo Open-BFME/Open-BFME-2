@@ -6922,3 +6922,4 @@ local,Rva003AE13C::~Rva003AE13C::b08,Rva003AE13C::~Rva003AE13C::vtableSlot,infer
 param,setCanPathThroughUnits::b,setCanPathThroughUnits::canPathThroughUnits,inferred,agree:nl-a9db763b8a37,Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp,
 param,setUsePreciseZPos::b,setUsePreciseZPos::usePreciseZPos,inferred,agree:nl-9c35b2abf21b,Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp,
 param,Path::rva003641AE::a,Path::rva003641AE::angle,inferred,agree:nl-ef2526dfe9d3,Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp,0x003641AE
+param,Path::rva003641AE::b,Path::rva003641AE::radius,inferred,agree:nl-3a3afbdc1226,Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp,0x003641AE
