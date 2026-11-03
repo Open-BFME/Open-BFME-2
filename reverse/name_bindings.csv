@@ -392,3 +392,4 @@ agree:nl-cdff97f47789,DeblockLoopFilteredBand_C::p3,DeblockLoopFilteredBand_C::r
 agree:nl-51c1c2e1e157,DeblockLoopFilteredBand_C::p4,DeblockLoopFilteredBand_C::rowOffset4,Code/Libraries/Source/VP6/DeblockLoopFilteredBandC.cpp,87ea662b322a67a89bf47bfa872d558a622daed8523e86106c03a5fc015691bc
 agree:nl-04a80af6d435,DeblockLoopFilteredBand_C::p5,DeblockLoopFilteredBand_C::rowOffset5,Code/Libraries/Source/VP6/DeblockLoopFilteredBandC.cpp,87ea662b322a67a89bf47bfa872d558a622daed8523e86106c03a5fc015691bc
 agree:nl-d7348777f558,Rva00503D26Evaluate::u,Rva00503D26Evaluate::oneMinusT,Code/GameEngine/Source/Common/calc.cpp,ef700c73498ee8bd3d70c03a83386cdd2068b653e587049dd160d0f3221bc704
+agree:nl-5f708e2db5de,Rva00503D4ECubic::u,Rva00503D4ECubic::oneMinusT,Code/GameEngine/Source/Common/calc.cpp,09d33fd1e1c925ab4807cff3bfa337902370978ba8dd702aa1d89256a4914ef9

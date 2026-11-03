@@ -57,12 +57,12 @@ float Rva00503DEB::rva00503DEB()
 {
 	return Rva00503D26Evaluate(0.5f, g_Va00863BF8, 1.0f, m_10);
 }
-float __cdecl Rva00503D4ECubic(float a, float b, float c, float d, float t)
+float __cdecl Rva00503D4ECubic(float start, float control1, float control2, float end, float t)
 {
-	float u = 1 - t;
-	float s = a * u + b * t * 3.0f;
-	s = s * u + c * t * t * 3.0f;
-	s = s * u + d * t * t * t;
+	float oneMinusT = 1 - t;
+	float s = start * oneMinusT + control1 * t * 3.0f;
+	s = s * oneMinusT + control2 * t * t * 3.0f;
+	s = s * oneMinusT + end * t * t * t;
 	return s;
 }
 
@@ -177,25 +177,25 @@ bool Rva005042F2::rva005042F2(unsigned int time, Rva005042F2Key *out)
 		*out = last->m_value;
 		return false;
 	}
-	Rva005042F2Node *p2 = p1;
+	Rva005042F2Node *end = p1;
 	p1 = prevNode(p1);
-	Rva005042F2Node *p0 = p1;
+	Rva005042F2Node *before = p1;
 	if (p1 != first)
-		p0 = prevNode(p0);
-	Rva005042F2Node *p3 = p2;
-	if (p2 != last)
-		p3 = nextNode(p3);
-	float t = (float)(time - p1->m_value.time) / (float)(p2->m_value.time - p1->m_value.time);
-	float s = Rva00503D4ECubic(0.0f, ((Rva00503E17 *)&p1->m_value)->rva00503E17(), ((Rva00503DEB *)&p2->m_value)->rva00503DEB(), 1.0f, t);
+		before = prevNode(before);
+	Rva005042F2Node *after = end;
+	if (end != last)
+		after = nextNode(after);
+	float t = (float)(time - p1->m_value.time) / (float)(end->m_value.time - p1->m_value.time);
+	float s = Rva00503D4ECubic(0.0f, ((Rva00503E17 *)&p1->m_value)->rva00503E17(), ((Rva00503DEB *)&end->m_value)->rva00503DEB(), 1.0f, t);
 	Rva002BE7DBValue a, b, c, d;
 	Rva00503F2CPoint pos;
 	Rva00503F2CPoint *res = ((Rva00503F2CCalcRet)&Rva00503F2CCalc)(&pos,
-		(const Rva00503F2CPoint *)&pointOf(p0)->rva002BE7DB(a),
+		(const Rva00503F2CPoint *)&pointOf(before)->rva002BE7DB(a),
 		(const Rva00503F2CPoint *)&pointOf(p1)->rva002BE7DB(b),
-		(const Rva00503F2CPoint *)&pointOf(p2)->rva002BE7DB(c),
-		(const Rva00503F2CPoint *)&pointOf(p3)->rva002BE7DB(d), s);
+		(const Rva00503F2CPoint *)&pointOf(end)->rva002BE7DB(c),
+		(const Rva00503F2CPoint *)&pointOf(after)->rva002BE7DB(d), s);
 	*(Rva00503F2CPoint *)out = *res;
-	out->w = Rva00503D8EEvaluate(p0->m_value.w, p1->m_value.w, p2->m_value.w, p3->m_value.w, s);
+	out->w = Rva00503D8EEvaluate(before->m_value.w, p1->m_value.w, end->m_value.w, after->m_value.w, s);
 	out->time = time;
 	return true;
 }

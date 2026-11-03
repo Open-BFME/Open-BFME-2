@@ -7342,3 +7342,12 @@ param,Rva00503F2CCalc::p0,Rva00503F2CCalc::before,inferred,agree:nl-7cec224c6644
 param,Rva00503F2CCalc::p1,Rva00503F2CCalc::start,inferred,agree:nl-9b66d529ffb7,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C
 param,Rva00503F2CCalc::p2,Rva00503F2CCalc::end,inferred,agree:nl-66e22c880d38,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C
 param,Rva00503F2CCalc::p3,Rva00503F2CCalc::after,inferred,agree:nl-8ddace37b1d9,Code/GameEngine/Source/Common/calc.cpp,0x00503F2C
+local,BaseHeightMapRenderObjClass::updateScorches::e,BaseHeightMapRenderObjClass::updateScorches::extent,inferred,agree:nl-1084ffc99112,Code/GameEngine/Source/Common/BaseHeightMapRenderObjClass_updateScorches.cpp,0x000678BB
+local,Rva00503D4ECubic::u,Rva00503D4ECubic::oneMinusT,inferred,agree:nl-5f708e2db5de,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
+local,Rva005042F2::rva005042F2::p0,Rva005042F2::rva005042F2::before,inferred,agree:nl-20b9004a6fb2,Code/GameEngine/Source/Common/calc.cpp,0x005042F2
+local,Rva005042F2::rva005042F2::p2,Rva005042F2::rva005042F2::end,inferred,agree:nl-b5fb9df0dce9,Code/GameEngine/Source/Common/calc.cpp,0x005042F2
+local,Rva005042F2::rva005042F2::p3,Rva005042F2::rva005042F2::after,inferred,agree:nl-b626912ceb28,Code/GameEngine/Source/Common/calc.cpp,0x005042F2
+param,Rva00503D4ECubic::a,Rva00503D4ECubic::start,inferred,agree:nl-d3ec4fc3de9e,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
+param,Rva00503D4ECubic::b,Rva00503D4ECubic::control1,inferred,agree:nl-d4b9931f177f,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
+param,Rva00503D4ECubic::c,Rva00503D4ECubic::control2,inferred,agree:nl-5f84d90e02aa,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
+param,Rva00503D4ECubic::d,Rva00503D4ECubic::end,inferred,agree:nl-73668593d9d0,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E

@@ -279,8 +279,8 @@ void BaseHeightMapRenderObjClass::updateScorches()
   maxX++;
   Int maxY = WWMath::Float_To_Long(bfmeCeilD((loc.Y + radius) * (1.0f / BFME_MAP_XY_FACTOR)));
   maxY++;
-  if (maxX > m_map->m_xExtent - borderSize) { Int e = m_map->m_xExtent; maxX = e - borderSize; }
-  if (maxY > m_map->m_yExtent - borderSize) { Int e = m_map->m_yExtent; maxY = e - borderSize; }
+  if (maxX > m_map->m_xExtent - borderSize) { Int extent = m_map->m_xExtent; maxX = extent - borderSize; }
+  if (maxY > m_map->m_yExtent - borderSize) { Int extent = m_map->m_yExtent; maxY = extent - borderSize; }
   Int startVertex = m_curNumScorchVertices;
   Real width = (1 ? (maxX - minX - 1) * BFME_MAP_XY_FACTOR : (maxX - minX - 1) * BFME_MAP_XY_FACTOR);
   Real height = (maxY - minY - 1) * BFME_MAP_XY_FACTOR;
