@@ -15,7 +15,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 #include "EAStringC.h"
 class AptCIH;
 #include "AptValue.h"
-class AptCIH : public AptValue {};
+#include "AptCIHClass.h"
 class BfmeAptValue006DCD20;
 class AptBasePtrStack {public:int count,capacity;BfmeAptValue006DCD20 **elements;void Push(BfmeAptValue006DCD20 *);BfmeAptValue006DCD20 *At(int);void rva006FE920();};
 struct AptInitParmsT;

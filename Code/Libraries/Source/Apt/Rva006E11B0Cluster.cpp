@@ -58,29 +58,15 @@ public:
     void DisplayListItem(void *value);
 };
 
-class AptCIH
-{
-public:
-    virtual void vtableSlot0();
-    bool rva006CFCD0() const;
-    void rva006E11B0();
-
-private:
-    unsigned char _pad[0x40];
-    void *m_44;
-    void *m_48;
-    void *m_4C;
-    unsigned char _pad3[8];
-    int m_code;
-};
+#include "AptCIHClass.h"
 
 void AptCIH::rva006E11B0()
 {
     void *display = ((const BfmeAptValue006DCD20 *)this)->rva006E04A0();
-    if (m_48 != 0) {
-        if (!((Rva006DBB40ShrAndField *)m_48)->get()) {
-            ((AptValue *)m_48)->setGCMark(true);
-            ((Rva006DBC30 *)m_48)->s13();
+    if (field48 != 0) {
+        if (!((Rva006DBB40ShrAndField *)field48)->get()) {
+            ((AptValue *)field48)->setGCMark(true);
+            ((Rva006DBC30 *)field48)->s13();
         }
     }
     if (display != 0)
@@ -92,8 +78,8 @@ void AptCIH::rva006E11B0()
             if (g_bfmeAptBreakOnAssertAtDDC01C)
                 __debugbreak();
         }
-        if (m_4C != 0) {
-            void *pDisp = *(void **)((char *)m_4C + 0x24);
+        if (field4C != 0) {
+            void *pDisp = *(void **)((char *)field4C + 0x24);
             if (pDisp == 0) {
                 g_bfmeAptAssertAtE17734("pDisp",
                     "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCIH.cpp", 0x1D4);

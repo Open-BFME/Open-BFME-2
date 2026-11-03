@@ -13,11 +13,7 @@
 
 class AptCIH;
 
-class AptCIH
-{
-public:
-    const AptCIH *rva006E0CB0() const;
-};
+#include "../../../Libraries/Source/Apt/AptCIHClass.h"
 
 class Rva006CD650
 {

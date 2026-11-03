@@ -42,11 +42,7 @@ public:
 	void bfmeGoDXH(void *a);
 };
 
-class AptCIH
-{
-public:
-	void rva006E1DD0(void *pRect);
-};
+#include "AptCIHClass.h"
 
 AptRenderingContext *g_aptRenderingContextAtE180C0; // VA 0x00E180C0
 // Reuse the data ledger owner at VA 0x00E180C4 through the local matrix view.

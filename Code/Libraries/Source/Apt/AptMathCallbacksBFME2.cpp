@@ -249,7 +249,7 @@ AptValue *aptMathRound(void *self, int argc)
 // Native 6FF500..6FF5C6: callback argument checks; x87 bounds comparisons.
 // The owned AptCIH::rva006E1DD0 body proves the four-float bounds output.
 // No source name or donor identity is inferred from the byte match.
-class AptCIH { public: void rva006E1DD0(void *); };
+#include "AptCIHClass.h"
 struct AptRect { float xMin,yMin,xMax,yMax; };
 AptValue *Rva006FF500(AptValue *self,int nParams)
 {

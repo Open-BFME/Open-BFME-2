@@ -419,11 +419,7 @@ public:
 	void rva005FD8C1();
 };
 
-class AptCIH
-{
-public:
-	void rva006dbd80();
-};
+#include "../../../Libraries/Source/Apt/AptCIHClass.h"
 
 #include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
 

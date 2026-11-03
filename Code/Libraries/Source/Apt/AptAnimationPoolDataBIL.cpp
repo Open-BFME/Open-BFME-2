@@ -14,11 +14,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-class AptCIH {
-public:
-    virtual void AddRef();
-    virtual void Release();
-};
+#include "AptCIHClass.h"
 class Rva006DBB30SarDwordField
 {
 public:
