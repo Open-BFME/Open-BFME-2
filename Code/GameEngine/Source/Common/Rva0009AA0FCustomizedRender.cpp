@@ -104,9 +104,7 @@ public:
 
 
 
-class LightClass : public RenderObjClass
-{
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/LightClass.h"
 
 
 

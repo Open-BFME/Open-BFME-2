@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /Ireference/shims/moduledata
+// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /Ireference/shims/moduledata -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 //
 // Opaque scalar deleting destructors, batch B09: the 28-byte wrappers of the
 // classes OpaqueScalarDeletingDtors.cpp modelled with a stand-in three-vptr
@@ -327,7 +327,7 @@ BaseHeightMapRenderObjClass::BaseHeightMapRenderObjClass(EmitVtableTag *)
 // prefix-view cleanup from seating invented intermediate tables; the first
 // cleanup invokes the real LightClass destructor and the second is empty.
 // Constructor6DD6F independently proves LightClass120 plus dynamic leaf174.
-class LightClass {public:virtual ~LightClass();};
+#include "../../../Libraries/Source/WWVegas/WW3D2/LightClass.h"
 class __declspec(novtable) Rva006DD51Base0
 {
 public:
