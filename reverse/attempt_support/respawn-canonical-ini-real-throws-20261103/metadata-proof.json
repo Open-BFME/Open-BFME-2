@@ -1,0 +1,200 @@
+{
+  "image_base": "0x400000",
+  "coff": {
+    "__TI1?AVINIException@@": {
+      "section": ".xdata$x",
+      "section_index": 115,
+      "value": 0,
+      "bytes": "00000000000000000000000000000000",
+      "relocs": [
+        [
+          4,
+          6,
+          "??1INIException@@QAE@XZ"
+        ],
+        [
+          12,
+          6,
+          "__CTA1?AVINIException@@"
+        ]
+      ]
+    },
+    "__CTA1?AVINIException@@": {
+      "section": ".xdata$x",
+      "section_index": 114,
+      "value": 0,
+      "bytes": "0100000000000000",
+      "relocs": [
+        [
+          4,
+          6,
+          "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8"
+        ]
+      ]
+    },
+    "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8": {
+      "section": ".xdata$x",
+      "section_index": 113,
+      "value": 0,
+      "bytes": "000000000000000000000000ffffffff000000000800000000000000",
+      "relocs": [
+        [
+          4,
+          6,
+          "??_R0?AVINIException@@@8"
+        ],
+        [
+          24,
+          6,
+          "??0INIException@@QAE@ABV0@@Z"
+        ]
+      ]
+    },
+    "??_R0?AVINIException@@@8": {
+      "section": ".data",
+      "section_index": 112,
+      "value": 0,
+      "bytes": "00000000000000002e3f4156494e49457863657074696f6e404000",
+      "relocs": [
+        [
+          0,
+          6,
+          "??_7type_info@@6B@"
+        ]
+      ]
+    }
+  },
+  "native": {
+    "throw_info": {
+      "rva": "0x8fe2fc",
+      "bytes": "0000000030bd420000000000f4e2cf00",
+      "dwords": [
+        "0x0",
+        "0x42bd30",
+        "0x0",
+        "0xcfe2f4"
+      ]
+    },
+    "catchable_array": {
+      "rva": "0x8fe2f4",
+      "bytes": "01000000d8e2cf00",
+      "dwords": [
+        "0x1",
+        "0xcfe2d8"
+      ]
+    },
+    "catchable_type": {
+      "rva": "0x8fe2d8",
+      "bytes": "000000005475da0000000000ffffffff0000000008000000c5884500",
+      "dwords": [
+        "0x0",
+        "0xda7554",
+        "0x0",
+        "0xffffffff",
+        "0x0",
+        "0x8",
+        "0x4588c5"
+      ]
+    },
+    "type_descriptor": {
+      "rva": "0x9a7554",
+      "bytes": "30c7c700000000002e3f4156494e49457863657074696f6e40400000c4dbbb00",
+      "dwords": [
+        "0xc7c730",
+        "0x0",
+        "0x56413f2e",
+        "0x45494e49",
+        "0x70656378",
+        "0x6e6f6974",
+        "0x4040",
+        "0xbbdbc4"
+      ],
+      "type_name": ".?AVINIException@@",
+      "vftable_rva": "0x87c730"
+    }
+  },
+  "parser_changes": {
+    "?iniParseDefaultRule@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z": {
+      "bytes_identical": true,
+      "relocations_removed": [
+        [
+          511,
+          6,
+          "_respawnThrowInfoAnchor"
+        ]
+      ],
+      "relocations_added": [
+        [
+          511,
+          6,
+          "__TI1?AVINIException@@"
+        ]
+      ],
+      "row_rva": "0x4afc5f",
+      "native_metadata_fields": [
+        {
+          "offset": 511,
+          "native_va": "0xcfe2fc",
+          "native_rva": "0x8fe2fc",
+          "expected_TI": true
+        }
+      ]
+    },
+    "?iniParseNewRuleForLevel@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z": {
+      "bytes_identical": true,
+      "relocations_removed": [
+        [
+          729,
+          6,
+          "_respawnThrowInfoAnchor"
+        ]
+      ],
+      "relocations_added": [
+        [
+          729,
+          6,
+          "__TI1?AVINIException@@"
+        ]
+      ],
+      "row_rva": "0x4afe6c",
+      "native_metadata_fields": [
+        {
+          "offset": 729,
+          "native_va": "0xcfe2fc",
+          "native_rva": "0x8fe2fc",
+          "expected_TI": true
+        }
+      ]
+    }
+  },
+  "normalized_comparison": {
+    "__TI1?AVINIException@@": {
+      "rva": "0x8fe2fc",
+      "size": 16,
+      "normalized_bytes": "0000000030bd420000000000f4e2cf00",
+      "native_bytes": "0000000030bd420000000000f4e2cf00",
+      "equal": true
+    },
+    "__CTA1?AVINIException@@": {
+      "rva": "0x8fe2f4",
+      "size": 8,
+      "normalized_bytes": "01000000d8e2cf00",
+      "native_bytes": "01000000d8e2cf00",
+      "equal": true
+    },
+    "__CT??_R0?AVINIException@@@8??0INIException@@QAE@ABV0@@Z8": {
+      "rva": "0x8fe2d8",
+      "size": 28,
+      "normalized_bytes": "000000005475da0000000000ffffffff0000000008000000c5884500",
+      "native_bytes": "000000005475da0000000000ffffffff0000000008000000c5884500",
+      "equal": true
+    },
+    "??_R0?AVINIException@@@8": {
+      "rva": "0x9a7554",
+      "size": 27,
+      "normalized_bytes": "30c7c700000000002e3f4156494e49457863657074696f6e404000",
+      "native_bytes": "30c7c700000000002e3f4156494e49457863657074696f6e404000",
+      "equal": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+Accept INI
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+  retired 1 row(s) from reverse/header_queue.tsv; commit it with the adoption
+Accept FieldParse
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+  retired 1 row(s) from reverse/header_queue.tsv; commit it with the adoption
+Accept MultiIniFieldParse
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+  retired 1 row(s) from reverse/header_queue.tsv; commit it with the adoption
+Accept INIException
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
+  retired 1 row(s) from reverse/header_queue.tsv; commit it with the adoption

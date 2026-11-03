@@ -1,0 +1,63 @@
+{
+  "typeinfo_provider": {
+    "source": "Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp",
+    "sha256": "7ae8b9adc0b03c85292afc5538a8372c8dd92a34c3cbb886d9c23ecec0ce6462",
+    "source_current": true,
+    "object_current": true,
+    "header_mismatches": [],
+    "vftable_bytes": "00000000",
+    "vftable_relocations": [
+      [
+        0,
+        6,
+        "??_Etype_info@@UAEPAXI@Z"
+      ]
+    ],
+    "native_vftable_rva": "0x87c730",
+    "native_first_word": "0xa29048",
+    "native_slot0_rva": "0x629048",
+    "rowed_slot0_name": "??_Etype_info@@UAEPAXI@Z",
+    "rowed_slot0_rva": "0x629048"
+  },
+  "old_default_ctor": {
+    "index_meta": {
+      "date": "2026-11-03 18:36",
+      "commit": "23b85ddde5",
+      "clean_tree": true
+    },
+    "providers": 1,
+    "provider_objects": [
+      "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update.obj"
+    ],
+    "touches": [
+      "^code_^game^engine_^source_^game^logic_^object_^update_^respawn^update.obj"
+    ],
+    "incoming": {}
+  },
+  "??1INIException@@QAE@XZ": {
+    "bytes": "ff31e80000000059c3",
+    "relocations": [
+      [
+        3,
+        20,
+        "??_V@YAXPAX@Z"
+      ]
+    ],
+    "source_current": true,
+    "object_current": true,
+    "header_mismatches": []
+  },
+  "??0INIException@@QAE@ABV0@@Z": {
+    "bytes": "56ff7424088bf1832600e8000000008bc65ec20400",
+    "relocations": [
+      [
+        11,
+        20,
+        "??4INIException@@QAEAAV0@ABV0@@Z"
+      ]
+    ],
+    "source_current": true,
+    "object_current": true,
+    "header_mismatches": []
+  }
+}

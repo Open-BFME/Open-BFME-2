@@ -1,0 +1,32 @@
+{
+  "old_rows": 21900,
+  "generated_rows": 34419,
+  "added": 12545,
+  "removed": 26,
+  "changed": 6748,
+  "metadata_row_before": {
+    "address": "0x008FE2FC",
+    "size": "2148",
+    "section": ".rdata",
+    "kind": "rtti",
+    "name": "__TI1?AVINIException@@",
+    "source": "",
+    "status": "literal",
+    "names": "?g_00CFE2FC@@3HB;__TI1?AVINIException@@;_bannerThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp;_emotionThrowInfoAnchor@Code/GameEngine/Source/Common/System/INI_Rva004DC702ParseEmotionKinds.cpp;_flagsThrowInfoAnchor@Code/GameEngine/Source/Common/System/INI_parseTypeFlags.cpp;_friendLookupThrowInfoAnchor@Code/GameEngine/Source/Common/RTS/Science.cpp;_parseLocomotorThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp;_parseMetaMapThrowInfoAnchor@Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp;_respawnThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp;_rva001EB329ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva001EB329Parse.cpp;_rva0023899FThrowInfoAnchor@Code/GameEngine/Source/Common/Rva0023899F.cpp;_rva002E1D22ThrowInfoAnchor@Code/GameEngine/Source/GameLogic/LivingWorld/ParseLivingWorldPlayer.cpp;_rva003F2576ThrowInfoAnchor@Code/GameEngine/Source/Common/System/Rva003F2576Parse.cpp;_rva003F9258ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp;_rva004135CDThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004135CDParse.cpp;_rva00413D58ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva00413D58Parse.cpp;_rva00413DCCThrowInfoAnchor@Code/GameEngine/Source/Common/Rva00413DCCParse.cpp;_rva004214C3ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004214C3Add.cpp;_rva00427294ThrowInfoAnchor@Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp;_rva004FD77CThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004FD77CParse.cpp;_rva00542B61ThrowInfoAnchor@Code/GameEngine/Source/Common/AutoResolveArmorParse.cpp;_scanIndexListThrowInfoAnchor@Code/GameEngine/Source/Common/INI/INI.cpp;_scanLookupListThrowInfoAnchor@Code/GameEngine/Source/Common/INI/INI.cpp;_splitThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseSplitResult.cpp;_throwAnchor00426D14@Code/GameEngine/Source/Common/Rva00426D14Parse.cpp;_upgradeMuxThrowInfoAnchor@Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp",
+    "defs": "24",
+    "refs": "266"
+  },
+  "metadata_row_after": {
+    "address": "0x008FE2FC",
+    "size": "2148",
+    "section": ".rdata",
+    "kind": "rtti",
+    "name": "__TI1?AVINIException@@",
+    "source": "",
+    "status": "literal",
+    "names": "__TI1?AVINIException@@;_bannerThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp;_emotionThrowInfoAnchor@Code/GameEngine/Source/Common/System/EmotionNuggetTemplateIniParseEmotionType.cpp;_flagsThrowInfoAnchor@Code/GameEngine/Source/Common/System/INI_parseTypeFlags.cpp;_friendLookupThrowInfoAnchor@Code/GameEngine/Source/Common/RTS/Science.cpp;_parseLocomotorThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp;_parseMetaMapThrowInfoAnchor@Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp;_rva001EB329ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva001EB329Parse.cpp;_rva0023899FThrowInfoAnchor@Code/GameEngine/Source/Common/Rva0023899F.cpp;_rva003F2576ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva003F8F2BParse.cpp;_rva003F2576ThrowInfoAnchor@Code/GameEngine/Source/Common/System/LivingWorldRegionBuildingRestrictionParseINI.cpp;_rva003F9258ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp;_rva004135CDThrowInfoAnchor@Code/GameEngine/Source/Common/LivingWorldAutoResolveSciencePurchasePointBonus_parseBonusIniSubBlock.cpp;_rva00413D58ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva00413D58Parse.cpp;_rva00413DCCThrowInfoAnchor@Code/GameEngine/Source/Common/LivingWorldAutoResolveResourceBonus_parseBonusIniSubBlock.cpp;_rva004214C3ThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004214C3Add.cpp;_rva00427294ThrowInfoAnchor@Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp;_rva004FD77CThrowInfoAnchor@Code/GameEngine/Source/Common/Rva004FD77CParse.cpp;_rva00542B61ThrowInfoAnchor@Code/GameEngine/Source/Common/AutoResolveArmorParse.cpp;_splitThrowInfoAnchor@Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseSplitResult.cpp;_throwAnchor00426D14@Code/GameEngine/Source/Common/MissionObjectiveTracker_ParseMapMissionObjective.cpp;_upgradeMuxThrowInfoAnchor@Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp",
+    "defs": "21",
+    "refs": "338"
+  },
+  "decision": "Deferred full derived-register regeneration: unrelated whole-tree changes are outside this scoped source/header repair; no hand-pruned alias."
+}

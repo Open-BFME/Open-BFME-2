@@ -1,0 +1,7 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp",
+  "source_sha256": "c0a66315d928a8ca04dcb9363f088a051ae3f6421fb173e25318b354c0b4d11a",
+  "object_sha256": "a0256dd3214bf99c14e0e0877e133b58d3a36f17efee346ee39c7c491d84cb84",
+  "normal_equals_private_winner": true,
+  "definitions": 90
+}

@@ -4,16 +4,16 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include <string.h>
-#define THROW0(message) { INIException e; e.INIException::INIException(3,message); _CxxThrowException(&e, (const _s__ThrowInfo *)&respawnThrowInfoAnchor); __assume(0); }
-#define THROW1(message,token) { INIException e; e.INIException::INIException(3,message,token); _CxxThrowException(&e, (const _s__ThrowInfo *)&respawnThrowInfoAnchor); __assume(0); }
+#define THROW0(message) { throw INIException(3,message); }
+#define THROW1(message,token) { throw INIException(3,message,token); }
 #define FIELD(key,diagnostic,parser,member) \
-    token=ini->getNextToken(ini->colon); \
+    token=ini->getNextToken(ini->m_sepsColon); \
     if(!token || _strcmpi(token,key)!=0) \
         THROW1("RespawnUpdate::iniParseDefaultRule -- RespawnRules entry expecting '" diagnostic "' entry. You specified %s.",token) \
     if(strcmp(token,key)!=0) \
         THROW1("RespawnUpdate::iniParseDefaultRule -- RespawnRules entry for '" diagnostic "' is case sensitive. You specified %s.",token) \
     INI::parser(ini,instance,&rule.member,0);
-#define THROW2(message,a,b) { INIException e; e.INIException::INIException(3,message,a,b); _CxxThrowException(&e, (const _s__ThrowInfo *)&respawnThrowInfoAnchor); __assume(0); }
+#define THROW2(message,a,b) { throw INIException(3,message,a,b); }
 extern GameLogic *TheGameLogic;
 enum UpdateSleepTime
 {
@@ -137,20 +137,8 @@ struct RespawnUpdateModuleDataRef
 extern PlayerList *ThePlayerList;
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
-class INI {
-public:
-    const char *getNextToken(const char *);
-    const char *getNextTokenOrNull(const char *);
-    static void parseBool(INI *, void *, void *, const void *);
-    static void parseInt(INI *, void *, void *, const void *);
-    static void parseUnsignedInt(INI *, void *, void *, const void *);
-    static void parsePercentToReal(INI *, void *, void *, const void *);
-    char unused[0x420]; const char *colon;
-};
-struct INIException { char *message; int code; INIException() {} INIException(int argCount, const char *format, ...); };
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct RespawnThrowInfoAnchor { int a,b,c,d; };
-static const RespawnThrowInfoAnchor respawnThrowInfoAnchor = {0,0,0,0};
+#include "Code/GameEngine/Include/Common/INI/INI.h"
+#include "Code/GameEngine/Include/Common/INI/FieldParse.h"
 struct RespawnRule
 {
     unsigned level;
@@ -357,15 +345,9 @@ public:
     RespawnInsertResult *insertUnique(RespawnInsertResult *out, const RespawnRule &rule);
 };
 
-struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
 extern const FieldParse s_respawnFieldTable[];
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *parseTable, unsigned int extraOffset);
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
@@ -538,7 +520,7 @@ void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *stor
     defaultRule=*(const RespawnRule *)((const char *)node+0x10);
     RespawnRule rule;
     initializeRespawnRule(rule,0);
-    const char *token=ini->getNextToken(ini->colon);
+    const char *token=ini->getNextToken(ini->m_sepsColon);
     if(!token || _strcmpi(token,"Level")!=0) THROW1("RespawnUpdate::iniParseNewRuleForLevel -- RespawnEntry expecting 'Level' entry. You specified %s.",token)
     if(strcmp(token,"Level")!=0) THROW1("RespawnUpdate::iniParseNewRuleForLevel -- RespawnEntry for 'Level' is case sensitive. You specified %s.",token)
     INI::parseUnsignedInt(ini,instance,&rule.level,0);
@@ -547,7 +529,7 @@ void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *stor
     rule.cost=defaultRule.cost;
     rule.time=defaultRule.time;
     rule.health=defaultRule.health;
-    token=ini->getNextTokenOrNull(ini->colon);
+    token=ini->getNextTokenOrNull(ini->m_sepsColon);
     bool gotAuto=false,gotCost=false,gotTime=false,gotHealth=false;
     while(token) {
         if(_strcmpi(token,"AutoSpawn")==0) {
@@ -571,7 +553,7 @@ void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *stor
             INI::parsePercentToReal(ini,instance,&rule.health,0);
             gotHealth=true;
         }
-        token=ini->getNextTokenOrNull(ini->colon);
+        token=ini->getNextTokenOrNull(ini->m_sepsColon);
     }
     rules->insert(rule);
 }
