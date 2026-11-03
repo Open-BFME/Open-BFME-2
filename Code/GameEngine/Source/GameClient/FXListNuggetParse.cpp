@@ -16,35 +16,11 @@
 #include <list>
 
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
-class MultiIniFieldParse
-{
-public:
-	MultiIniFieldParse();
-	void add(const FieldParse *f, unsigned int extraOffset = 0);
-private:
-	char m_storage[0x84];
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
 
 typedef int Int;
-class INIException
-{
-public:
-	INIException(Int code, const char *msg, ...);
-	INIException(const INIException &other);
-	~INIException();
-private:
-	Int m_code;
-	const char *m_msg;
-};
 
 class FXNugget;
 

@@ -17,11 +17,7 @@
 #include "ascii_string.h"
 class INI;
 typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
-struct FieldParse { const char*token; INIFieldParseProc parse; const void*user; int offset; };
-class MultiIniFieldParse {
- const FieldParse* fields[16]; unsigned offsets[16]; int count;
- public:MultiIniFieldParse();void add(const FieldParse*,unsigned);
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 #include "../../Include/GameClient/ModelConditionFlags.h"
 class Rva001EAE6FHelper { char bytes[128];public:Rva001EAE6FHelper(){clear80();}Rva001EAE6FHelper*clear80(); };
