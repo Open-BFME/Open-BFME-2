@@ -46,7 +46,7 @@ void *Rva00223591::rva002237C7(const void *key)
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva00056F61;
 #include "../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 { public: __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *); };
+#include "../../Include/GameClient/Rva00056F61.h"
 class Rva00468520 {
 public:
     TargetRef00217D4C *m_ptr; int m_index;

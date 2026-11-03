@@ -93,11 +93,7 @@ struct AudioCacheCursor
 	AudioCacheCursor(const AudioCacheCursor &audioCacheCursor) { s.first = audioCacheCursor.s.first; s.second = audioCacheCursor.s.second; }
 };
 
-class Rva00056F61
-{
-public:
-	void *rva00056F61(const AsciiString *key);			// 0x00056F61
-};
+#include "../../../Include/GameClient/Rva00056F61.h"
 
 class Rva000427195
 {

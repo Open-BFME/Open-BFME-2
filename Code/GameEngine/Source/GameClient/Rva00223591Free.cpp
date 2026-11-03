@@ -89,7 +89,7 @@ _STL::pair<const AsciiString, TreeHintRef00222C5A> *Rva00223591::rva00223854(con
 // lookup41534B permits its two-word return buffer to become the pair slot.
 class Rva00056F61;
 #include "../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 {public:__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);};
+#include "../../Include/GameClient/Rva00056F61.h"
 typedef _STL::pair<const AsciiString,AsciiString> Rva002240CBPair;
 class Rva002240CB {public:AsciiString &rva002240CB(const AsciiString &);};
 AsciiString &Rva002240CB::rva002240CB(const AsciiString &key) {

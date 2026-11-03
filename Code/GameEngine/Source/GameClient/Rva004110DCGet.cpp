@@ -9,12 +9,7 @@ class AsciiString;
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class Rva00056F61
-{
-public:
-	// Retail keeps no unwind state for the key temporary across this call.
-	void *rva00056F61(const AsciiString *key) throw();
-};
+#include "../../Include/GameClient/Rva00056F61.h"
 
 // g_Va00E02FF8: VA 0x00E02FF8 (.data/bss), defined by its data-row owner
 // Rva004121B2HashMapInits.cpp. Retail's 0x14-byte bucket-table header is

@@ -32,14 +32,7 @@ struct SoundPair21386C
     void *sound;
     SoundPair21386C(const AsciiString &asciiString, void *s) : name(asciiString), sound(s) {}
 };
-class Rva00056F61
-{
-public:
-    // The recovered lookup chain only hashes bytes and calls memcmp; no C++ throw.
-    // Its provider in Rva00056F61IterFind.cpp carries the same contract.
-    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
-    void *rva0021386C(const AsciiString *);
-};
+#include "../../../Include/GameClient/Rva00056F61.h"
 void *Rva00056F61::rva0021386C(const AsciiString *key)
 {
     void *node;

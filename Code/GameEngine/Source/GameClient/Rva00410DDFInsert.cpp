@@ -60,7 +60,7 @@ template<> struct pair<const AsciiString,TreeHintRef00217D4C> {
 typedef _STL::pair<const AsciiString,TreeHintRef00217D4C> ScreenRefPair;
 class Rva00056F61;
 #include "../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 {public:__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);};
+#include "../../Include/GameClient/Rva00056F61.h"
 void *Rva000427195::rva0041112B(const AsciiString *name) {
  void *node;
  {Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(name);node=found.m_node;}

@@ -6,11 +6,7 @@
 
 #include "ascii_string.h"
 
-class Rva00056F61
-{
-public:
-	void *rva00056F61(const AsciiString *key);
-};
+#include "../../Include/GameClient/Rva00056F61.h"
 
 struct Rva00411112GlobalTable
 {

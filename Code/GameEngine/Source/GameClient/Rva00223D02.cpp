@@ -19,11 +19,7 @@ template <> void **vector<void*>::end();
 
 #include "../../Include/GameClient/Rva0041534BIter.h"
 
-class Rva00056F61
-{
-public:
-	Rva0041534BIter rva0041534B(const AsciiString *key);
-};
+#include "../../Include/GameClient/Rva00056F61.h"
 
 class CreateAHeroData;
 
