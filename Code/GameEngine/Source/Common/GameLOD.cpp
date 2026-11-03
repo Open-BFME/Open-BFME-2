@@ -470,14 +470,14 @@ extern class GameLODManager *TheGameLODManager;
 // The retail name list at RVA 0x009B960C (47 names and the null terminator).
 extern const char *const g_00DB960C[48] = { "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "High", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "Medium", "High", "UltraHigh", "Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "VeryHigh", "Low", "High", "XX", "P3", "P4", "K7", 0 };
 
-// The retail lookup list at RVA 0x009B9630 (19 names and the null terminator).
-extern const LookupListRec g_00DB9630[20] = { { "VeryLow", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12465956 }, { "Low", 12465980 }, { "Low", 12465988 }, { "High", 12465968 }, { "Off", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12465996 }, { "Medium", 12465980 }, { "Low", 12465988 }, { "High", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12466000 }, { "Low", 12465988 }, { "High", 12465448 }, { "Low", 12465980 }, { "XX", 12464892 }, { "P4", 12464884 }, { 0, 0 } };
+// The retail name list at RVA 0x009B9630 (38 names and the null terminator).
+extern const char *const g_00DB9630[39] = { "VeryLow", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "High", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "Medium", "High", "UltraHigh", "Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "VeryHigh", "Low", "High", "XX", "P3", "P4", "K7", 0 };
 
-// The retail lookup list at RVA 0x009B9660 (13 names and the null terminator).
-extern const LookupListRec g_00DB9660[14] = { { "Off", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12465996 }, { "Medium", 12465980 }, { "Low", 12465988 }, { "High", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12466000 }, { "Low", 12465988 }, { "High", 12465448 }, { "Low", 12465980 }, { "XX", 12464892 }, { "P4", 12464884 }, { 0, 0 } };
+// The retail name list at RVA 0x009B9660 (26 names and the null terminator).
+extern const char *const g_00DB9660[27] = { "Off", "Low", "Medium", "High", "UltraHigh", "Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "VeryHigh", "Low", "High", "XX", "P3", "P4", "K7", 0 };
 
-// The retail lookup list at RVA 0x009B9650 (15 names and the null terminator).
-extern const LookupListRec g_00DB9650[16] = { { "Low", 12465988 }, { "High", 12465968 }, { "Off", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12465996 }, { "Medium", 12465980 }, { "Low", 12465988 }, { "High", 12465996 }, { "Medium", 12465980 }, { "UltraHigh", 12466000 }, { "Low", 12465988 }, { "High", 12465448 }, { "Low", 12465980 }, { "XX", 12464892 }, { "P4", 12464884 }, { 0, 0 } };
+// The retail name list at RVA 0x009B9650 (30 names and the null terminator).
+extern const char *const g_00DB9650[31] = { "Low", "Medium", "High", "UltraHigh", "Off", "Low", "Medium", "High", "UltraHigh", "Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "VeryHigh", "Low", "High", "XX", "P3", "P4", "K7", 0 };
 
 // The retail name list at RVA 0x009B961C (43 names and the null terminator).
 extern const char *const g_00DB961C[44] = { "VeryLow", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "High", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "Medium", "High", "UltraHigh", "Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "VeryHigh", "Low", "High", "XX", "P3", "P4", "K7", 0 };
