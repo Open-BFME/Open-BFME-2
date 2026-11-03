@@ -5,11 +5,7 @@
 // sentinel list (next at +0, object at +8) summing recursive self.
 // Evidence: thiscall int return, virtuals 0x14/0x118, offsets 0x250/0x5F1.
 
-struct ThingTemplate
-{
-	char m_pad[0x5F1];
-	signed char m_transportSlotCount;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct Tmp;
 struct Node;

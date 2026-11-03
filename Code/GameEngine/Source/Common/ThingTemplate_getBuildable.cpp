@@ -12,15 +12,7 @@ extern GameLogic *TheGameLogic;
 
 enum BuildableStatus { BSTATUS_YES, BSTATUS_IGNORE_PREREQUISITES, BSTATUS_NO, BSTATUS_ONLY_BY_AI };
 
-class ThingTemplate
-{
-public:
-	BuildableStatus getBuildable() const;
-
-private:
-	char m_pad[0x5F2];
-	signed char m_buildable;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 BuildableStatus ThingTemplate::getBuildable() const
 {
