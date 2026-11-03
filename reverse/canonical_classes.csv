@@ -412,3 +412,4 @@ Rva00330757Member,Code/GameEngine/Include/Common/Rva00330757Member.h,existing he
 Rva006DB270,Code/GameEngine/Include/Common/Rva006DB270.h,existing header; contract class_contracts/Rva006DB270.json; 86/88 sampled units adopt
 StancesBehavior,Code/GameEngine/Include/GameLogic/StancesBehavior.h,existing header; contract class_contracts/StancesBehavior.json; 14/19 sampled units adopt
 Rva00253487Base,Code/GameEngine/Include/GameLogic/Module/Rva00253487Base.h,existing header; contract class_contracts/Rva00253487Base.json; 10/28 sampled units adopt
+Rva0036CA00Str,Code/GameEngine/Include/Common/Rva0036CA00Str.h,existing header; contract class_contracts/Rva0036CA00Str.json; 56/92 sampled units adopt
