@@ -47,4 +47,4 @@
   `Rva0024A797Derived.cpp` (expect LINKS, 0 -> 1,590 B for the Derived unit), and
   confirm on the next census. No repair, clearance or census gain is claimed here.
 
-- **2026-11-03 HijackerUpdate recheck:** all five scoped units link in current-object prediction (672/672 B); consolidation instead requires reconciling the seed header environment and ctor/update base clauses. Banked the unreferenced unverified seed xfer; [evidence and next checks](../../reverse/attempt_support/hijackerupdate-xfer-cleanup-20261103.md). Census confirmation remains pending.
+- **2026-11-03 HijackerUpdate recheck:** all five scoped units link in current-object prediction (672/672 B); consolidation instead requires reconciling the seed header environment and ctor/update base clauses. Banked the unreferenced unverified seed xfer; batch audit is inconclusive (older baseline and stale affected-consumer receipt), requiring the next census; [evidence and next checks](../../reverse/attempt_support/hijackerupdate-xfer-cleanup-20261103.md). Census confirmation remains pending.

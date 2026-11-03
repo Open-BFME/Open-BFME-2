@@ -61,4 +61,6 @@ void HijackerUpdate::xfer( Xfer *xfer )
 - `hatch_counters.py --update`: `present_unmatched` 2396 -> 2395; only the seed xfer key disappears.
 - Current-object `link_check.py` after removal: seed 104/104 and retail Xfer owner 102/102 bytes link; before removal, all five scoped units link (672/672 bytes). These predictions do not update census headlines.
 - No source paths, pins, aliases, matched rows or provider identities changed. The removed unrowed symbol has no reference in the published index. No `/alternatename` was removed.
-- The pre-push batch audit remains required; any stale-consumer or older-index result is inconclusive and needs the next census, not a claimed clearance.
+- `link_check.py --prepare-current` on the changed TU passed: all six rows byte-verified with a strict reusable compiler receipt; no census/index/status updates.
+- `link_batch_audit.py --base HEAD^ --tip HEAD --sources-from build/hijackerupdate-verified-sources.bin` after strict preparation returned 2 (inconclusive): index `8661f15284` predates the outgoing base, and affected consumer `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt. The first audit had also refused the changed TU's non-strict receipt; the supported preparation command resolved that narrower issue.
+- The provider-removal audit is therefore not a full clearance. Carry the changed TU and affected consumers into the next census; do not count a linking headline gain.
