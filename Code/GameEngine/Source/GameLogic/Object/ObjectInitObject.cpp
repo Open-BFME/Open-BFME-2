@@ -167,11 +167,7 @@ public:
 	void rva002039B6();
 };
 
-class EmotionSystem
-{
-public:
-	void RegisterScaryObject(Object *obj);
-};
+#include "../../../Include/GameLogic/EmotionSystem.h"
 extern EmotionSystem *TheEmotionSystem;
 
 #include "../../../Include/GameLogic/CreateAHeroManager.h"

@@ -67,12 +67,7 @@ public:
 	Bool m_createDirectly; // +0x18D
 };
 
-class EmotionSystem
-{
-public:
-	Emotion *createEmotion(EmotionTrackerUpdateEntry *entry, Object *object);
-	EmotionNugget *findNugget(const BfmeEmotionName &name);
-};
+#include "../../../../Include/GameLogic/EmotionSystem.h"
 
 extern EmotionSystem *TheEmotionSystem;
 

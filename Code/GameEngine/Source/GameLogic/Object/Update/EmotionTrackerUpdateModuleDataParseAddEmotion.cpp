@@ -19,9 +19,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // Existing lookup ABI spelling; the retained temporary is an AsciiString.
 class BfmeEmotionName;
 class EmotionNugget;
-class EmotionSystem {
-public: EmotionNugget *findNugget(const BfmeEmotionName &);
-};
+#include "../../../../Include/GameLogic/EmotionSystem.h"
 extern EmotionSystem *TheEmotionSystem;
 
 // The verified ctor/copy own this record; only its name and override flag

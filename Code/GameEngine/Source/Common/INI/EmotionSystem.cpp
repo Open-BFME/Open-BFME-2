@@ -24,11 +24,7 @@ private:
 	unsigned char m_unknown00[0x34];
 };
 
-class EmotionSystem
-{
-public:
-	Emotion *createEmotion(EmotionTrackerUpdateEntry *entry, Object *object);
-};
+#include "../../../Include/GameLogic/EmotionSystem.h"
 
 // ---- from Code/GameEngine/Source/Common/INI/EmotionSystem_createEmotion.cpp
 
