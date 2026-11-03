@@ -1168,11 +1168,7 @@ bool ActionManager::canFireWeaponAtLocation(const Object *obj, const Coord3D *lo
 
 // 0x0041C138's player view: Player::getRelationship(const Team *) is the
 // matched 0x002AD0C6 row; the target's team sits at Object+0x304.
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;	// 0x002AD0C6
-};
+#include "../../../Include/Common/Player.h"
 
 // Retail 0x0041C138..0x0041C21B RET12, no REL32 callers. Target evidence:
 // the object's KindOf dword has bit 8 set and bit 27 clear, the target is

@@ -244,11 +244,7 @@ enum Relationship
 
 #include "../../../../Include/Common/TeamBFME2.h"
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *team) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class BuildListInfo
 {

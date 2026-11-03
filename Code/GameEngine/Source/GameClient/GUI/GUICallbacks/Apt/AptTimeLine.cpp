@@ -1432,12 +1432,7 @@ struct Rva005205DAElement;
 // supplies the row ABI only; its LivingWorldPlayer layout is kept separate.
 // All direct calls use their admitted provider names. The flag reader and
 // victory interface retain consuming views; their original types are unknown.
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-	bool isPlayerObserver()const;
-};
+#include "../../../../../Include/Common/Player.h"
 
 class GameSlot
 {

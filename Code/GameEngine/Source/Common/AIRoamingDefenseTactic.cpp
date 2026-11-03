@@ -186,12 +186,7 @@ public:
 
 typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
 
-class Player
-{
-public:
-	char m_pad000[0x2EC];
-	int m_2EC;			// +0x2EC
-};
+#include "../../Include/Common/Player.h"
 
 class Rva002A9BF2
 {

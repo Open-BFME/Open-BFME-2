@@ -17,11 +17,7 @@ public:
 	unsigned int withdraw(unsigned int v, Rva0039B795 *r, bool b);
 };
 
-class Player
-{
-public:
-	char m_data[0x400];
-};
+#include "../../Include/Common/Player.h"
 
 class Rva0039561F
 {

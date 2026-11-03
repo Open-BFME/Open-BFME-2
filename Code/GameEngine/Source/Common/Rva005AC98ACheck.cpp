@@ -16,12 +16,7 @@ enum Relationship
 
 #include "../../Include/Common/PlayerList.h"
 
-class Player
-{
-public:
-	Relationship getRelationship(const Player *other) const;
-	bool rva002AB87D(const UpgradeTemplate *upgrade) const;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/Upgrade.h"
 

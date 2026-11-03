@@ -19,11 +19,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class Player
-{
-public:
-	Object *rva002AC629();
-};
+#include "../../Include/Common/Player.h"
 
 class SpecialPowerTemplate;
 class SpecialPowerStore

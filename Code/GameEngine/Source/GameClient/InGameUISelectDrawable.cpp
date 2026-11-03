@@ -247,11 +247,7 @@ void Drawable::rva002796B8()
 // globals TheGameLogic ThePlayerList TheInGameUI MessageStreamSubsystem;
 // InGameUI slots 0x110/0x108 MessageStream slot 0x48 type 0x3EA per
 // ControlBarToggle0031AFDE precedent.
-class Player
-{
-public:
-	unsigned char m_pad[1];
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

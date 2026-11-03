@@ -64,12 +64,7 @@ public:
 	Rva00049D20 *m_584;
 };
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../Include/Common/Player.h"
 
 class Rva005EE816
 {

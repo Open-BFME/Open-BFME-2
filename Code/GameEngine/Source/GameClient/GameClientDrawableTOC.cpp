@@ -1004,15 +1004,7 @@ class Rva00203ACEByteField { public: unsigned char get() const; };
 
 // ZH PlayerList::getLocalPlayer and Player::getPlayerIndex: the local
 // player at +0x10, its index at +0x54.
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-
-private:
-	unsigned char m_pad[0x54];
-	int m_playerIndex;                                                  // +0x54
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

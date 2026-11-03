@@ -201,11 +201,7 @@ public:
 	Int rva0036E346();
 };
 #include "../../../Include/Common/TeamBFME2.h"
-class Player
-{
-public:
-	Bool isSkirmishAIPlayer();
-};
+#include "../../../Include/Common/Player.h"
 class LocomotorSet;
 typedef UnsignedInt AudioHandle;
 enum AudioHandleSpecialValues

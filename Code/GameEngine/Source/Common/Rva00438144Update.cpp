@@ -46,13 +46,7 @@ public:
 	int m_count14;
 };
 extern PlayerList *ThePlayerList;
-class Player
-{
-public:
-	typedef int (*ObjectIterateFunc)(Object *, void *);
-	int iterateObjects(ObjectIterateFunc func, void *userData) const;
-	Relationship getRelationship(const Team *team) const;
-};
+#include "../../Include/Common/Player.h"
 #include "../../Include/Common/TeamBFME2.h"
 #define ThePlayerList004381C4 ThePlayerList
 int setWakeupIfInRange(Object *obj, void *userData);

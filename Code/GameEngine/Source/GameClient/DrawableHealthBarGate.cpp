@@ -44,16 +44,7 @@ private:
 
 #include "../../Include/Common/TeamBFME2.h"
 
-class Player
-{
-public:
-	Bool isPlayerActive() const;
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-
-private:
-	char m_pad000[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

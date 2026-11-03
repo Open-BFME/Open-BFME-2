@@ -175,16 +175,7 @@ class RadarWindowOverrideSource;
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
-class Player
-{
-public:
-	bool hasScience(ScienceType science) const;
-	bool rva002AB82D(CreateAHeroData *data) const;
-	bool rva002AB855(CreateAHeroData *data) const;
-	bool rva002AA8EF(const UpgradeTemplate *upgrade) const;
-	bool rva002AB87D(const UpgradeTemplate *upgrade) const;
-	bool allowedToBuild(const ThingTemplate *thing) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class ProductionInterface
 {
