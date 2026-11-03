@@ -251,11 +251,7 @@ int rva000EF9A3(int, int second)
 
 class Rva000EF9A8;
 
-class StringClass
-{
-	friend class Rva000EF9A8;
-	static char *m_EmptyString;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 struct GapStringHeader
 {

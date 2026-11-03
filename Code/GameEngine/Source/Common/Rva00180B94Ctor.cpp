@@ -7,12 +7,7 @@
 // which news 0x24 and passes (name esi). Evidence: unlock lane, caller pushes,
 // 0x24 new size matches base 0x14 plus 0x10 members.
 
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-	~StringClass();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 class GenBase009EB7D0
 {

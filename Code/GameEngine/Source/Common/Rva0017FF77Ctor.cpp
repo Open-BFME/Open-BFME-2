@@ -32,13 +32,7 @@ public:
     __declspec(dllimport) __forceinline Rva00135E35() {}
 	virtual ~Rva00135E35();
 };
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-private:
-    char *m_Buffer;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 class Rva0017FF77 : public Rva00135E35
 {
 public:

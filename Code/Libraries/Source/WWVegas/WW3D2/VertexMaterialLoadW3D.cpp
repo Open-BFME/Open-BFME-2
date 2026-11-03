@@ -27,11 +27,7 @@ struct W3dVertexMaterialStruct
 	char data[0x20];
 };
 
-class StringClass
-{
-public:
-	const StringClass &operator=(const char *text);
-};
+#include "../WWLib/StringClassData.h"
 
 class VertexMaterialClass
 {

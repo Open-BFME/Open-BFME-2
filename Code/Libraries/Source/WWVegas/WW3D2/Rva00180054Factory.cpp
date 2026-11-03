@@ -67,15 +67,7 @@ public:
 	EmptyBase0017FF77() {}
 	~EmptyBase0017FF77();
 };
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-	~StringClass() { Free_String(); }
-private:
-	void Free_String();
-	char *m_Buffer;
-};
+#include "../WWLib/StringClassData.h"
 class Rva0017FF77 : public GenBase009EB7D0, public EmptyBase0017FF77
 {
 public:

@@ -7,13 +7,7 @@
 // Layout/semantics follow WWLib hash.h at BFME1 donor a7c38d3b2597121f178ab5190b3062478823257d.
 // The original derived identity remains unknown. The native parent and complete
 // EH graph are exact; caller109CDC and existing54B destructor109C7F agree.
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-private:
-	char *m_Buffer;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 // WWLib hash.h base: native8B layout and BCEF94 table.
 class HashableClass
 {

@@ -11,13 +11,7 @@
 // stays out-of-line via declared-only decls and resolves to its matched row.
 // /G7 for the add-of--7 switch bounds check (dx8wrapper_names.cpp rule).
 
-class StringClass
-{
-public:
-	const StringClass &operator=(const char *string);
-	const StringClass &operator+=(const char *string);
-	int _cdecl Format(const char *format, ...);
-};
+#include "../WWLib/StringClassData.h"
 
 typedef unsigned long D3DRENDERSTATETYPE;
 

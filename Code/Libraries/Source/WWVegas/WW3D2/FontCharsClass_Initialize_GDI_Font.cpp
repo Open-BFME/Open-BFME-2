@@ -2,15 +2,7 @@
 // BFME keeps a floating point font size and one additional integer setting.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h
-class StringClass
-{
-public:
-	int Format(const char *format, ...);
-	const StringClass &operator=(const char *text);
-
-private:
-	char *data;
-};
+#include "../WWLib/StringClassData.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
 class FontCharsClass

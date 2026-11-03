@@ -8,17 +8,7 @@
 #pragma function(strlen)
 #pragma function(memcpy)
 
-class StringClass
-{
-public:
-	const StringClass &operator=(const char *string);
-
-private:
-	void Uninitialised_Grow(int new_len);
-
-	static char *m_EmptyString;
-	char *m_Buffer;
-};
+#include "StringClassData.h"
 
 // StringClass::m_EmptyString: defined in wwstring.cpp (= &m_NullChar).
 

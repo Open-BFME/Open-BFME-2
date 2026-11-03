@@ -32,12 +32,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/wwstring.h
-class StringClass
-{
-public:
-	StringClass() : Buffer(0) {}
-	char *Buffer;
-};
+#include "../WWLib/StringClassData.h"
 
 #include "../WWMath/Matrix3DData.h"
 

@@ -7,13 +7,7 @@ public:
     virtual ~GenBase009EB7D0();
 };
 
-class StringClass
-{
-public:
-    StringClass(int value, bool flag);
-    ~StringClass();
-    char *m_Buffer;
-};
+#include "../WWLib/StringClassData.h"
 
 class Gen_00920A20
 {

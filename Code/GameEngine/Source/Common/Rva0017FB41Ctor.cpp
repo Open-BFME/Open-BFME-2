@@ -10,12 +10,7 @@
 
 class HTreeClass;
 
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-	~StringClass();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 class GenBase009EB7D0
 {

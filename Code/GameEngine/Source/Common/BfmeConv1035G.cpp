@@ -11,14 +11,7 @@ class BfmeG1035;
 // sentinel StringClass::m_NullChar (VA 0xE08C18) and the fix-up is the cdecl
 // StringClass::Format (0x00610DD0), called with the "dyntex_%08x" literal
 // (VA 0xBD2620) and this.
-class StringClass
-{
-public:
-	int __cdecl Format(const char *format, ...);
-private:
-	static char m_NullChar;
-	friend class BfmeG1035;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 class BfmeG1035
 {

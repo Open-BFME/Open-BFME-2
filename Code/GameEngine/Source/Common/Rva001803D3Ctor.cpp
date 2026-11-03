@@ -5,12 +5,7 @@
 // StringClass from (name false) via rowed 0x000F0ED1, +0x1C/+0x20 from
 // second/third args. Called from 0x00180507 which unblocks 0x001804CB.
 // Flags and base from donor Rva00180B94Ctor.cpp.
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-	~StringClass();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 class GenBase009EB7D0
 {

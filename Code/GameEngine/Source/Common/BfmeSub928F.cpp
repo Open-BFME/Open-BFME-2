@@ -19,13 +19,7 @@ public:
 	void Add(HashableClass *entry);
 };
 
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-private:
-	char *m_Buffer;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 class Base4
 {

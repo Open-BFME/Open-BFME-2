@@ -13,12 +13,7 @@ struct TreeLink
 	virtual void *virt0(int x);
 };
 
-class StringClass
-{
-public:
-	StringClass(const char *name, bool flag);
-	~StringClass();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
 
 class GenBase009EB7D0
 {
