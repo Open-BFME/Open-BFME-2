@@ -15,8 +15,11 @@
 
 struct BfmePoolHolder
 {
-	unsigned char m_pad[0x88];
-	OpaqueRefCounted m_ref;
+public:
+	char m_pad00[0xC];
+	unsigned int m_audioHandle0C; // +0x0C
+	char m_pad10[0x78];
+	OpaqueRefCounted m_ref; // +0x88
 };
 
 #include "../../Include/Common/BfmePoolRef10.h"
@@ -35,10 +38,26 @@ struct Holder38FBD
 	__forceinline ~Holder38FBD() { if (m_ptr != 0) free(m_ptr); }
 };
 
+class BfmePoolRef10;
+struct Element005C8E0A;
 class HostClass005C8E0A
 {
 public:
+	void method_005C8E0A();
+	void method_005C9069();
 	void rva005C8F17();
+	BfmePoolRef10 rva005C8E2C();
+	char m_pad00[0x8];
+private:
+	BfmePoolRef10 m_pool08; // +0x08
+	char m_pad0C[0x2C];
+public:
+	Element005C8E0A *m_start; // +0x38
+	Element005C8E0A *m_finish; // +0x3C
+	char m_pad40[0x6];
+private:
+	unsigned char m_byte46; // +0x46
+	char m_pad47[0x1];
 };
 
 class Rva005C8FBD

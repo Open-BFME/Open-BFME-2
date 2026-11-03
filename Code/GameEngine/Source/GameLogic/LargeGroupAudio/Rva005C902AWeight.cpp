@@ -14,7 +14,14 @@ struct TreeOpaqueMapped00372FF4{unsigned m_bits;};
 typedef _STL::pair<const float,TreeOpaqueMapped00372FF4> TreeValue00372FF4;
 typedef _STL::_Rb_tree<float,TreeValue00372FF4,_STL::_Select1st<TreeValue00372FF4>,_STL::less<float>,_STL::allocator<TreeValue00372FF4> > Tree00372FF4;
 class Rva005C8F9A{public:_STL::pair<Tree00372FF4::iterator,bool>rva005C8F9A(const TreeValue00372FF4&);private:Tree00372FF4 m_tree;};
-class TargetObj005C8DBF{public:void method_005C902A(float);void method_005C8D6B();char unknown[0x2c];};
+class TargetObj005C8DBF
+{
+public:
+	void method_005C8DBF(float val);
+	void method_005C902A(float val);
+	void method_005C8D6B();
+	char m_pad00[0x2C];
+};
 void TargetObj005C8DBF::method_005C902A(float value){
  const TreeOpaqueMapped00372FF4 count={0};const TreeValue00372FF4 key(value,count);
  const _STL::pair<Tree00372FF4::iterator,bool>r=((Rva005C8F9A*)((char*)this+0x2c))->rva005C8F9A(key);

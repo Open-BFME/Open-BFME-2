@@ -5,10 +5,13 @@
 #include <map>
 #include <vector>
 
-class TargetObj005C8DBF {
+class TargetObj005C8DBF
+{
 public:
 	void method_005C8DBF(float val);
 	void method_005C902A(float val);
+	void method_005C8D6B();
+	char m_pad00[0x2C];
 };
 
 struct Element005C8E0A {
@@ -102,19 +105,24 @@ public:
 	void method_005C839B(int a0, int a1);
 };
 
-class HostClass005C8E0A {
-public:
-	char pad[0x38];
-public:
-	Element005C8E0A *m_start;
-public:
-	Element005C8E0A *m_finish;
+class HostClass005C8E0A
+{
 public:
 	void method_005C8E0A();
-public:
 	void method_005C9069();
-public:
 	void rva005C8F17();
+	BfmePoolRef10 rva005C8E2C();
+	char m_pad00[0x8];
+private:
+	BfmePoolRef10 m_pool08; // +0x08
+	char m_pad0C[0x2C];
+public:
+	Element005C8E0A *m_start; // +0x38
+	Element005C8E0A *m_finish; // +0x3C
+	char m_pad40[0x6];
+private:
+	unsigned char m_byte46; // +0x46
+	char m_pad47[0x1];
 };
 
 // ---- from Code/GameEngine/Source/Common/HostClass005C8E0A.cpp

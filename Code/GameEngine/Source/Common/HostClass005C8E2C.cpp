@@ -30,16 +30,25 @@ public:
 	void setOverlappedLocking(bool flag);
 };
 
+struct Element005C8E0A;
 class HostClass005C8E0A
 {
 public:
 	void method_005C8E0A();
+	void method_005C9069();
+	void rva005C8F17();
 	BfmePoolRef10 rva005C8E2C();
+	char m_pad00[0x8];
 private:
-	char m_pad00[8];
-	BfmePoolRef10 m_pool08;
-	char m_pad0C[0x3A];
-	unsigned char m_byte46;
+	BfmePoolRef10 m_pool08; // +0x08
+	char m_pad0C[0x2C];
+public:
+	Element005C8E0A *m_start; // +0x38
+	Element005C8E0A *m_finish; // +0x3C
+	char m_pad40[0x6];
+private:
+	unsigned char m_byte46; // +0x46
+	char m_pad47[0x1];
 };
 
 BfmePoolRef10 HostClass005C8E0A::rva005C8E2C()
