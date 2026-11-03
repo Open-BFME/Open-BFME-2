@@ -428,3 +428,4 @@ TAiData,Code/GameEngine/Include/GameLogic/TAiData.h,existing header; contract cl
 BFMEDX8DeviceLock,Code/GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h,existing header; contract class_contracts/BFMEDX8DeviceLock.json; 6/54 sampled units adopt
 SpecialPowerUpdateInterface,Code/GameEngine/Include/GameLogic/Module/SpecialPowerUpdateInterface.h,existing header; contract class_contracts/SpecialPowerUpdateInterface.json; 10/17 sampled units adopt
 WeaponTemplateSetHead,Code/GameEngine/Include/Common/WeaponTemplateSetHead.h,existing header; contract class_contracts/WeaponTemplateSetHead.json; 29/46 sampled units adopt
+Rva005248D0,Code/GameEngine/Include/GameClient/Rva005248D0.h,existing header; contract class_contracts/Rva005248D0.json; 23/70 sampled units adopt

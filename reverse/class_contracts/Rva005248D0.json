@@ -1,0 +1,516 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva005248D0",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 70,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x24": {
+    "1": 3
+   },
+   "0x2b": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2d2c34"
+     ],
+     "value": {
+      "0x10": [
+       "ModuleInfo",
+       "ObjectCreationList",
+       "Rva00174753Allocation",
+       "Rva002F3738",
+       "Rva0035A18D",
+       "Rva003B0412",
+       "Rva003B0433",
+       "Rva0052413E",
+       "Rva005241B0",
+       "Rva00524265"
+      ],
+      "0x34": [
+       "ModuleInfo",
+       "ObjectCreationList",
+       "Rva00174753Allocation",
+       "Rva002F3738",
+       "Rva0035A18D",
+       "Rva003B0412",
+       "Rva003B0433",
+       "Rva0052413E",
+       "Rva005241B0",
+       "Rva00524265"
+      ],
+      "0x4": [
+       "ModuleInfo",
+       "ObjectCreationList",
+       "Rva00174753Allocation",
+       "Rva002F3738",
+       "Rva0035A18D",
+       "Rva003B0412",
+       "Rva003B0433",
+       "Rva0052413E",
+       "Rva005241B0",
+       "Rva00524265"
+      ],
+      "0x40": [
+       "ModuleInfo",
+       "ObjectCreationList",
+       "Rva00174753Allocation",
+       "Rva002F3738",
+       "Rva0035A18D",
+       "Rva003B0412",
+       "Rva003B0433",
+       "Rva0052413E",
+       "Rva005241B0",
+       "Rva00524265"
+      ],
+      "0x4c": [
+       "ModuleInfo",
+       "ObjectCreationList",
+       "Rva00174753Allocation",
+       "Rva002F3738",
+       "Rva0035A18D",
+       "Rva003B0412",
+       "Rva003B0433",
+       "Rva0052413E",
+       "Rva005241B0",
+       "Rva00524265"
+      ]
+     }
+    },
+    "bases_unproven": {
+     "kind": "inference",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x2d2c34"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00524415",
+       "offset": 28,
+       "own_vftable": null,
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2d2c34"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2d2c34"
+     ],
+     "value": {
+      "0x0": "0x802a80"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x802a80"
+     ],
+     "value": {
+      "count": 1,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva005248D0@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2d2c9e"
+       }
+      ],
+      "table": "0x802a80"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x802a80": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva005248D0@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "4": 8,
+   "16": 1,
+   "37": 1,
+   "44": 1,
+   "88": 52,
+   "96": 4
+  },
+  "views": 69,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 63,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_commandMaps.m_names",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 36,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_commandMaps.m_names._M_finish",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_commandMaps.m_names._M_end_of_storage._M_data",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AptExternHandlerAdder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_names",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "externHandlers",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 12,
+   "type": "AptExternHandlerAdder",
+   "views": 28,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_overButtonHandlers.m_names",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_overButtonHandlers.m_names._M_finish",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i1",
+   "name": "m_overButtonHandlers.m_names._M_end_of_storage._M_data",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "1": 3
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 15,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:bitfield",
+   "name": "m_lo28",
+   "name_by": "tie",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 0,
+   "type": "bitfield",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_customRenders.m_names",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 36,
+   "type": "uchar[36]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_customRenders.m_names._M_finish",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_customRenders.m_names._M_end_of_storage._M_data",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_imageAdder.m_names._M_start",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_imageAdder.m_names._M_finish",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_imageAdder.m_names._M_end_of_storage._M_data",
+   "name_by": "majority",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "name@0x28",
+   "candidates": {
+    "m_hi2B": 1,
+    "m_lo28": 1
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x4",
+   "candidates": {
+    "m_commandMaps.m_names": 36
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x8",
+   "candidates": {
+    "m_commandMaps.m_names._M_finish": 13
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "m_commandMaps.m_names._M_end_of_storage._M_data": 13
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x1c",
+   "candidates": {
+    "m_overButtonHandlers.m_names": 14
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x20",
+   "candidates": {
+    "m_overButtonHandlers.m_names._M_finish": 6
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x24",
+   "candidates": {
+    "m_overButtonHandlers.m_names._M_end_of_storage._M_data": 15
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x34",
+   "candidates": {
+    "m_customRenders.m_names": 3
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x38",
+   "candidates": {
+    "m_customRenders.m_names._M_finish": 1
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x3c",
+   "candidates": {
+    "m_customRenders.m_names._M_end_of_storage._M_data": 1
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x40",
+   "candidates": {
+    "m_imageAdder.m_names._M_start": 7
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x44",
+   "candidates": {
+    "m_imageAdder.m_names._M_finish": 4
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "nested@0x48",
+   "candidates": {
+    "m_imageAdder.m_names._M_end_of_storage._M_data": 4
+   },
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "straddle@0x38",
+   "candidates": {},
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "straddle@0x3c",
+   "candidates": {},
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "straddle@0x40",
+   "candidates": {},
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "straddle@0x44",
+   "candidates": {},
+   "class": "Rva005248D0"
+  },
+  {
+   "attribute": "straddle@0x48",
+   "candidates": {},
+   "class": "Rva005248D0"
+  }
+ ],
+ "size": 88,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

@@ -4,7 +4,7 @@
 #ifndef BFME2_APTMPGAMESETUP_H
 #define BFME2_APTMPGAMESETUP_H
 
-#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+#include "Rva005248D0.h"
 
 class AsciiString;
 class UnicodeString;
@@ -16,54 +16,6 @@ class MpGameSetupOwner;
 class Rva0043DA65;
 class TreeHintOpaque0043671B;
 class WinInstanceData;
-
-class Rva005241B0
-{
-public:
-    ~Rva005241B0();
-private:
-    unsigned int holder10[3];
-};
-
-class Rva00524415
-{
-public:
-    ~Rva00524415();
-private:
-    unsigned int holder1c[6];
-};
-
-class Rva00524265
-{
-public:
-    ~Rva00524265();
-private:
-    unsigned int holder34[3];
-};
-
-class Rva005242D7
-{
-public:
-    ~Rva005242D7();
-private:
-    unsigned int holder40[3];
-};
-
-class AptTimerAdder
-{
-public:
-    ~AptTimerAdder();
-private:
-    unsigned int holder4c[3];
-};
-
-class Rva005248D0 : public AptCommandMapAdder, public Rva005241B0,
-    public Rva00524415, public Rva00524265, public Rva005242D7, public AptTimerAdder
-{
-public:
-    Rva005248D0();
-    virtual ~Rva005248D0();
-};
 
 class AptMpGameSetup : public Rva005248D0
 {
