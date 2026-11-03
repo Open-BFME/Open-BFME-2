@@ -43,15 +43,7 @@ BFME_DISP_FLOAT_GETTER(Rva0045A20AFloatField, 0x134)
 // float getter above: 0x00094AEE (8B, field +0x74) ends where it begins and
 // 0x00094AFD (11B, field +0x84) starts where it ends. Receiver classes are
 // unknown; names follow this file's per-address convention.
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityQueryEntry.cpp
 

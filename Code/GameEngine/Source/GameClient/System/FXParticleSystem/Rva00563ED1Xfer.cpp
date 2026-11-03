@@ -33,23 +33,7 @@ class DamageInfo;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT,
-		UNIFORM,
-		GAUSSIAN,
-		TRIANGULAR,
-		LOW_BIAS,
-		HIGH_BIAS
-	};
-
-	DistributionType m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 namespace FXParticleSystem
 {

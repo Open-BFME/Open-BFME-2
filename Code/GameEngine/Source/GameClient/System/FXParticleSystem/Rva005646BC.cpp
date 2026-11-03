@@ -13,15 +13,7 @@ class FXList
 {
 };
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 class Rva0056468E
 {

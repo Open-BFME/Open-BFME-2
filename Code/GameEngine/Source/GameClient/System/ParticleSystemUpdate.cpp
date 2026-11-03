@@ -148,7 +148,7 @@ private:
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
-class GameClientRandomVariable { public: Int type; Real low, high; };
+#include "../../../Include/GameClient/GameClientRandomVariable.h"
 struct ParticleRegion
 {
 public:

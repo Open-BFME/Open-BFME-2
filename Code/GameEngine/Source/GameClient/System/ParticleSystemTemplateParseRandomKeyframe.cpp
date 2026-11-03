@@ -13,24 +13,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../Include/Common/INI/INI.h"
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT,
-		UNIFORM,
-		GAUSSIAN,
-		TRIANGULAR,
-		LOW_BIAS,
-		HIGH_BIAS
-	};
-	void setRange(Real low, Real high, DistributionType type = UNIFORM);
-private:
-	DistributionType m_type;
-	Real m_low;
-	Real m_high;
-};
+#include "../../../Include/GameClient/GameClientRandomVariable.h"
 
 struct RandomKeyframe
 {

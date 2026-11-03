@@ -38,15 +38,7 @@ extern GameClient *TheGameClient;
 
 class W3DFireClientView { public: virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09(); virtual void v0A(); virtual void v0B(); virtual void v0C(); virtual void v0D(); virtual void v0E(); virtual void v0F(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v1A(); virtual void v1B(); virtual void v1C(); virtual void v1D(); virtual void v1E(); virtual unsigned int getFrame(); };
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_distribution;
-	float m_low;
-	float m_high;
-};
+#include "../../../../GameEngine/Include/GameClient/GameClientRandomVariable.h"
 
 class Rva00098690
 {

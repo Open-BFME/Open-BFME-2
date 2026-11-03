@@ -29,15 +29,7 @@ public:
 	ParticleSystem *m_target; // +0x00
 };
 
-class GameClientRandomVariable
-{
-public:
-	float getValue(void) const;
-private:
-	float m_min;
-	float m_max;
-	int m_dist;
-};
+#include "../../../Include/GameClient/GameClientRandomVariable.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

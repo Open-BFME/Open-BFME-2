@@ -11,15 +11,7 @@
 // lead; target sampling calls/layout and the existing376B sibling supply the
 // reconstruction evidence. No original target class name is asserted.
 #include "Common/Snapshot.h"
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 class ParticleSystem;
 

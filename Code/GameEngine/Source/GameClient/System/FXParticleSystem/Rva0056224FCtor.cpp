@@ -28,15 +28,7 @@
 // GameClientRandomVariable fields of the source block are read in retail
 // order and the ParticleSystem values come from the handle's pointee or the
 // fallback Make001FCBD7.
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 class ParticleSystem;
 

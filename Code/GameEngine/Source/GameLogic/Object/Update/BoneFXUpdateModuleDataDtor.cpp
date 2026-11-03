@@ -16,16 +16,7 @@
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 class GameLogicRandomVariable
 {

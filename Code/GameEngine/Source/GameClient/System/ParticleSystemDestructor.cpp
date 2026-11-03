@@ -51,7 +51,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
 struct ParticleVec {float x,y,z;void zero(){z=y=x=0.0f;}};
-class GameClientRandomVariable {public: float getValue()const;int type;float low,high;};
+#include "../../../Include/GameClient/GameClientRandomVariable.h"
 struct ParticleRegion
 {
 public:
