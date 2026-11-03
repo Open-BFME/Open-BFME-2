@@ -539,3 +539,4 @@ DominateEnemySpecialPowerModuleData,Code/GameEngine/Include/GameLogic/Module/Dom
 SkirmishPreferences,Code/GameEngine/Include/GameClient/SkirmishPreferencesClass.h,existing header; contract class_contracts/SkirmishPreferences.json; 9/15 sampled units adopt
 SphereEmissionVolumeInfo,Code/GameEngine/Include/GameClient/SphereEmissionVolumeInfo.h,existing header; contract class_contracts/SphereEmissionVolumeInfo.json; 7/9 sampled units adopt
 LineEmissionVolumeInfo,Code/GameEngine/Include/GameClient/LineEmissionVolumeInfo.h,existing header; contract class_contracts/LineEmissionVolumeInfo.json; 7/9 sampled units adopt
+EventModuleInfo,Code/GameEngine/Include/GameClient/EventModuleInfo.h,existing header; contract class_contracts/EventModuleInfo.json; 5/8 sampled units adopt
