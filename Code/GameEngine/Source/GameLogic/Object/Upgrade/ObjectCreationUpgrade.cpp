@@ -46,14 +46,25 @@ enum ModelConditionFlagType
 {
 	MCF_0 = 0
 };
+class Player;
+class Rva00406F9C
+{
+public:
+    bool rva00406F9C(const void *other);
+    unsigned m_data[32];
+};
+
 class Object
 {
 protected:
-	Module *findModule(NameKeyType key) const;
-	friend class ObjectCreationUpgrade;
+    Module *findModule(NameKeyType key) const;
+    friend class ObjectCreationUpgrade;
 public:
-	void kill(DamageType damageType, DeathType deathType);
-	void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);
+    void kill(DamageType damageType, DeathType deathType);
+    void setSpecialModelConditionState(ModelConditionFlagType flag, unsigned value);
+    Player *getControllingPlayer() const;
+    char pad00[0x284];
+    Rva00406F9C mask;
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
