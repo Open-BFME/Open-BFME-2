@@ -241,6 +241,23 @@ GameSpyBuddyMessageQueue::GameSpyBuddyMessageQueue()
 
 
 
+// Retail's table 0x00C6B014 (stored by the constructor above) holds Zero
+// Hour's slot order: slot 3 isThreadRunning is 0x00550609 and slot 5
+// isConnecting is 0x003889E8. Both bodies are shared with
+// GameSpyPeerMessageQueue (its isThreadRunning and isConnected, rowed in
+// PeerThread.cpp): each queue keeps its thread at +0x64, and the buddy
+// thread's m_isConnecting sits at +0x51 where the peer thread keeps its
+// connected flag, so the linker folded the identical code.
+Bool GameSpyBuddyMessageQueue::isThreadRunning( void )
+{
+	return (m_thread) ? m_thread->Is_Running() : false;
+}
+
+Bool GameSpyBuddyMessageQueue::isConnecting( void )
+{
+	return (m_thread) ? m_thread->isConnecting() : false;
+}
+
 // Retail 0x00551BA7, 77 bytes: vtable 0x00C6B020 slot 5, between addRequest
 // (slot 3) and getResponse (slot 6); the response mutex and queue push.
 void GameSpyBuddyMessageQueue::addResponse( const BuddyResponse& resp )
