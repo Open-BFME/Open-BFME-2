@@ -283,19 +283,6 @@ const ModuleInfo::Nugget *ModuleInfo::getNuggetWithTag( const AsciiString& tag )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parseIntList present-unmatched
-void ThingTemplate::parseIntList(INI* ini, void *instance, void* store, const void* userData)
-{
-	Int numberEntries = (Int)userData;
-	Int *intList = (Int*)store;
-
-	for( Int intIndex = 0; intIndex < numberEntries; intIndex ++ )
-	{
-		const char *token = ini->getNextToken();
-		intList[intIndex] = ini->scanInt(token);
-	}
-}
-
 //-------------------------------------------------------------------------------------------------
 static void parsePrerequisiteUnit( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
 {
@@ -356,21 +343,7 @@ void parseArbitraryFXIntoMap( INI* ini, void *instance, void* /* store */, const
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::parsePerUnitFX present-unmatched
-void ThingTemplate::parsePerUnitFX( INI* ini, void *instance, void *store, const void *userData )
-{
-	PerUnitFXMap* fxmap = (PerUnitFXMap*)store;
 
-	fxmap->clear();
-
-	static const FieldParse myFieldParse[] = 
-	{
-		{ 0, parseArbitraryFXIntoMap, NULL, 0 },
-		{ 0, 0, 0, 0 }
-	};
-
-	ini->initFromINI(fxmap, myFieldParse);
-}
 
 //-------------------------------------------------------------------------------------------Static
 static void parseArbitrarySoundsIntoMap( INI* ini, void *instance, void* /* store */, const void* userData )
@@ -431,57 +404,10 @@ void ThingTemplate::parsePerUnitSounds( INI* ini, void *instance, void *store, c
 //-------------------------------------------------------------------------------------------------
 /** mark the module(s) as being "VverrideableByLikeKind". default module will be replaced by any of the exact same class */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::OverrideableByLikeKind present-unmatched
-void ThingTemplate::OverrideableByLikeKind(INI *ini, void *instance, void *store, const void *userData)
-{
-	ThingTemplate* self = (ThingTemplate*)instance;	
-
-	ModuleParseMode oldMode = (ModuleParseMode)self->m_moduleParsingMode;
-	if (oldMode != MODULEPARSE_NORMAL)
-		throw INI_INVALID_DATA;
-
-	self->m_moduleParsingMode = MODULEPARSE_OVERRIDEABLE_BY_LIKE_KIND;
-
-	ini->initFromINI(self, self->getFieldParse());
-
-	self->m_moduleParsingMode = oldMode;
-}
-
-
-
-
-
-
 //-------------------------------------------------------------------------------------------------
 /** Remove the module whose tag matches moduleToRemove. */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::removeModuleInfo present-unmatched
-Bool ThingTemplate::removeModuleInfo(const AsciiString& moduleToRemove, AsciiString& clearedModuleNameOut)
-{
-	Bool removed = false;
 
-	// do NOT clear... we only want to modify this if we return true.
-	// if we return false, we should leave this unmodified.
-	//clearedModuleNameOut.clear();
-
-	if (m_behaviorModuleInfo.clearModuleDataWithTag(moduleToRemove, clearedModuleNameOut))
-	{
-		DEBUG_ASSERTCRASH(!removed, ("Hmm, multiple removed in ThingTemplate::removeModuleInfo, should this be possible?"));
-		removed = true;
-	}
-	if (m_drawModuleInfo.clearModuleDataWithTag(moduleToRemove, clearedModuleNameOut))
-	{
-		DEBUG_ASSERTCRASH(!removed, ("Hmm, multiple removed in ThingTemplate::removeModuleInfo, should this be possible?"));
-		removed = true;
-	}
-	if (m_clientUpdateModuleInfo.clearModuleDataWithTag(moduleToRemove, clearedModuleNameOut))
-	{
-		DEBUG_ASSERTCRASH(!removed, ("Hmm, multiple removed in ThingTemplate::removeModuleInfo, should this be possible?"));
-		removed = true;
-	}
-
-	return removed;
-}
 
 //-------------------------------------------------------------------------------------------------
 /// @todo srj -- move this to another file
@@ -599,78 +525,7 @@ void ThingTemplate::parseMaxSimultaneous(INI *ini, void *instance, void *store, 
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::validateAudio present-unmatched
-void ThingTemplate::validateAudio()
-{
-#if defined(_DEBUG) || defined(_INTERNAL)
 
-	#define AUDIO_TEST(y) \
-		if (!get##y()->getEventName().isEmpty() && get##y()->getEventName().compareNoCase("NoSound") != 0) { \
-			DEBUG_ASSERTLOG(TheAudio->isValidAudioEvent(get##y()), ("Invalid Sound '%s' in Object '%s'. (%s?)\n", #y, getName().str(), get##y()->getEventName().str())); \
-		}
-
-	AUDIO_TEST(VoiceSelect)
-	AUDIO_TEST(VoiceGroupSelect)
-	AUDIO_TEST(VoiceMove)
-	AUDIO_TEST(VoiceAttack)
-	AUDIO_TEST(VoiceEnter)
-	AUDIO_TEST(VoiceFear)
-	AUDIO_TEST(VoiceSelectElite)
-	AUDIO_TEST(VoiceCreated)
-	AUDIO_TEST(VoiceNearEnemy)
-	AUDIO_TEST(VoiceTaskUnable)
-	AUDIO_TEST(VoiceTaskComplete)
-	AUDIO_TEST(VoiceMeetEnemy)
-	AUDIO_TEST(VoiceGarrison)
-#ifdef ALLOW_SURRENDER
-	AUDIO_TEST(VoiceSurrender)
-#endif
-	AUDIO_TEST(VoiceDefect)
-	AUDIO_TEST(VoiceAttackSpecial)
-	AUDIO_TEST(VoiceAttackAir)
-	AUDIO_TEST(VoiceGuard)
-
-	AUDIO_TEST(SoundMoveStart)
-	AUDIO_TEST(SoundMoveStartDamaged)
-	AUDIO_TEST(SoundMoveLoop)
-	AUDIO_TEST(SoundMoveLoopDamaged)
-	AUDIO_TEST(SoundAmbient)
-	AUDIO_TEST(SoundAmbientDamaged)
-	AUDIO_TEST(SoundAmbientReallyDamaged)
-	AUDIO_TEST(SoundAmbientRubble)
-	AUDIO_TEST(SoundStealthOn)
-	AUDIO_TEST(SoundStealthOff)
-	AUDIO_TEST(SoundCreated)
-
-	AUDIO_TEST(SoundOnDamaged)
-	AUDIO_TEST(SoundOnReallyDamaged)
-	AUDIO_TEST(SoundEnter)
-	AUDIO_TEST(SoundExit)
-	AUDIO_TEST(SoundPromotedVeteran)
-	AUDIO_TEST(SoundPromotedElite)
-	AUDIO_TEST(SoundPromotedHero)
-	
-	#undef AUDIO_TEST
-
-	const PerUnitSoundMap *perUnitSounds = getAllPerUnitSounds();
-	if (!perUnitSounds) 
-	{
-		return;
-	}
-
-	for (PerUnitSoundMap::const_iterator it = perUnitSounds->begin(); it != perUnitSounds->end(); ++it) 
-	{
-		if (!it->second.getEventName().isEmpty() && it->second.getEventName().compareNoCase("NoSound") != 0) 
-		{
-			DEBUG_ASSERTCRASH(TheAudio->isValidAudioEvent(&it->second), 
-												("Invalid UnitSpecificSound '%s' in Object '%s'. (%s?)", 
-												it->first.str(), 
-												getName().str(), 
-												it->second.getEventName().str())); 
-		}
-	}
-#endif
-}
 
 //-------------------------------------------------------------------------------------------------
 // ThingTemplate::validate is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp (0x0033B4CD).
@@ -784,16 +639,7 @@ Bool ThingTemplate::canPossiblyHaveAnyWeapon() const
 }
 
 //-----------------------------------------------------------------------------
-// ?ThingTemplate::getSkillPointValue present-unmatched
-Int ThingTemplate::getSkillPointValue(Int level) const 
-{ 
-	Int value = m_skillPointValues[level]; 
-	
-	if (value == USE_EXP_VALUE_FOR_SKILL_VALUE)
-		value = getExperienceValue(level);
-	
-	return value;
-}
+
 
 //-----------------------------------------------------------------------------
 // ThingTemplate::getBuildFacilityTemplate is defined with its retail-matched body in Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp (0x0033A97F).
@@ -854,11 +700,7 @@ const AudioEventRTS *ThingTemplate::getPerUnitSound(const AsciiString& soundName
 
 
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::isBuildableItem present-unmatched
-Bool ThingTemplate::isBuildableItem(void) const
-{
-	return (getBuildCost() != 0);
-}
+
 
 //-------------------------------------------------------------------------------------------------
 /** NOTE that we're not paying attention to m_override here, instead the portions
@@ -882,73 +724,11 @@ Int ThingTemplate::calcCostToBuild( const Player* player) const
 	* that retrieve template data values use the get() wrappers, which *DO* pay
 	* attention to the override values */
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::calcTimeToBuild present-unmatched
-Int ThingTemplate::calcTimeToBuild( const Player* player) const
-{
-	Int buildTime = getBuildTime() * LOGICFRAMES_PER_SECOND;
-	buildTime *= player->getHandicap()->getHandicap(Handicap::BUILDTIME, this);
 
-	Real factionModifier = 1 + player->getProductionTimeChangePercent( getName() );
-	buildTime *= factionModifier;
-
-#if defined (_DEBUG) || defined (_INTERNAL) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
-	if( player->buildsInstantly() )
-	{
-		buildTime = 1;
-	}
-#endif
-
-	// Adjust build time based on energy supply.
-
-	Real EnergyPercent = player->getEnergy()->getEnergySupplyRatio();	//I'm at 80% Energy
-	if (EnergyPercent > 1.0f)
-		EnergyPercent = 1.0f;	// getEnergySupplyRatio() returns a true ratio, but we don't care about excess.
-	Real EnergyShort = 1.0f - EnergyPercent;					//so I am 20% short
-	EnergyShort *= TheGlobalData->m_LowEnergyPenaltyModifier;	//which is a 40% penalty, or a 10% penalty
-	Real penaltyRate = 1.0f - EnergyShort;
-	penaltyRate = max(penaltyRate, TheGlobalData->m_MinLowEnergyProductionSpeed);	//bind so 0% does not dead stop you
-
-	if( EnergyPercent < 1.0f )	//and make 99% look like 80% (eg) since most of the time you are down only a little
-		penaltyRate = min(penaltyRate, TheGlobalData->m_MaxLowEnergyProductionSpeed);
-
-	if (penaltyRate <= 0.0f)
-		penaltyRate = 0.01f;	// Design won't make the minimum 0, they promise
-
-	buildTime /= penaltyRate;//and voila.  Makes sense, designers have control, all is happy.
-
-	//	Multiple build facilities can have an added production bonus.
-
-	if (getBuildCompletion() == BC_APPEARS_AT_RALLY_POINT)
-	{
-		const ThingTemplate *thingTemplate = getBuildFacilityTemplate(player);	// could be null if none exist
-		Int count = 0;
-		if (thingTemplate)
-		{
-			player->countObjectsByThingTemplate(1, &thingTemplate, false, &count);
-			Real factoryMult = TheGlobalData->m_MultipleFactory;
-			if (factoryMult > 0.0f)
-			{
-				for(int i=0; i < count - 1; i++)
-					buildTime *= factoryMult;
-			}
-		}
-	}
-
-	return(buildTime);
-}
 
 //---------------------------------------------------------------------------------------ModuleInfo
 //-------------------------------------------------------------------------------------------------
-// ?ModuleInfo::friend_getNthData present-unmatched
-ModuleData* ModuleInfo::friend_getNthData(Int i)
-{
-	if (i >= 0 && i < m_info.size())
-	{
-		// This is kinda naughty, but its necessary.
-		return const_cast<ModuleData*>(m_info[i].second);
-	}
-	return NULL;
-}
+
 
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
