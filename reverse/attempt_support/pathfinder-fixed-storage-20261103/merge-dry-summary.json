@@ -1,0 +1,328 @@
+{
+  "tu": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+  "approved": "401",
+  "mixed": {
+    "Code/GameEngine/Source/Common/BfmeConv939.cpp": 1,
+    "Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp": 61,
+    "Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp": 13,
+    "Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp": 12,
+    "Code/GameEngine/Source/Common/GapBodiesGE04.cpp": 23,
+    "Code/GameEngine/Source/Common/GapBodiesGE06.cpp": 13,
+    "Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp": 90,
+    "Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp": 95,
+    "Code/GameEngine/Source/Common/GapLeavesSeat8.cpp": 57,
+    "Code/GameEngine/Source/Common/GapThunksSeat8.cpp": 10,
+    "Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp": 1,
+    "Code/GameEngine/Source/Common/Rva004FD448.cpp": 1,
+    "Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp": 214,
+    "Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp": 41,
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp": 1,
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp": 3,
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp": 1,
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp": 10,
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp": 2,
+    "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp": 8,
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002EF239CreateNode.cpp": 1,
+    "Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp": 16,
+    "Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp": 23,
+    "Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDeque.cpp": 13,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp": 11,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp": 10,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_horde_rank_set.cpp": 1,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_create_node.cpp": 4,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp": 20,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_o1.cpp": 3,
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp": 2,
+    "Code/Libraries/Source/WWVegas/WWMath/region.cpp": 37
+  },
+  "refused": {},
+  "accepted": "[]",
+  "rejected": {
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.ece1796038926379.tu_skeleton.cpp(2852) : error C2600: 'Pathfinder::Pathfinder' : cannot define a compiler-generated special member function (must be declared in the class first) | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.ece1796038926379.tu_skel",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f05a4f336429c33d.tu_skeleton.cpp(2744) : error C2600: 'Pathfinder::~Pathfinder' : cannot define a compiler-generated special member function (must be declared in the class first)",
+    "Code/GameEngine/Source/Common/System/XferSetDrawableID.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.3c76bd18f8a039e5.tu_skeleton.cpp(596) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.3c76bd18f8a039e5.tu_skeleton.cpp(596) : error C2065: 'result' : undeclared identifier | Code\\GameEngine\\Source\\",
+    "Code/GameEngine/Source/Common/Pathfinder_SetBridgeStateRepaired.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.42bcf7cb34e6c8f3.tu_skeleton.cpp(2353) : error C2039: 'SetBridgeStateRepaired' : is not a member of 'Pathfinder' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.42bcf7cb34e6c8f3.tu_skeleton.cpp(2355) : error C2065: 'm_slots' : undeclared identifier |",
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.9e77084b18928d73.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.9e77084b18928d73.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fa2b473657222ab6.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fa2b473657222ab6.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellObjectQuery.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5debe70c10ee59a4.tu_skeleton.cpp(1416) : error C2065: 'm_flags' : undeclared identifier | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5debe70c10ee59a4.tu_skeleton.cpp(2452) : error C2039: 'm_4' : is not a member of 'Object' | Code\\GameEngine\\Source",
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.1affa17291ba8db3.tu_skeleton.cpp(2369) : error C2039: 'IsPointOnRamp' : is not a member of 'Pathfinder' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.1affa17291ba8db3.tu_skeleton.cpp(2371) : error C2065: 'm_head' : undeclared identifier",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderClearCellForDiameter.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.4e17b79c4cea0ec0.tu_skeleton.cpp(828) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.4e17b79c4cea0ec0.tu_skeleton.cpp(1020) : error C2143: syntax error : missing ';' before '*' | Code\\Game",
+    "Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.8696f84a951278f6.tu_skeleton.cpp(1019) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.8696f84a951278f6.tu_skeleton.cpp(1019) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E7BF0Probe.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c4e96edf8ac67b25.tu_skeleton.cpp(830) : error C2143: syntax error : missing ';' before '__cdecl' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c4e96edf8ac67b25.tu_skeleton.cpp(830) : error C2501: 'PathfinderCellPoint' : missing storage-class or typ",
+    "Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.3a38be69ea01d4de.tu_skeleton.cpp(2410) : error C2039: 'm_next' : is not a member of 'PathNode' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.3a38be69ea01d4de.tu_skeleton.cpp(2416) : error C2039: 'm_nextOptimized' : is not a member of 'PathNode' | C",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.ace687e82a5cd719.tu_skeleton.cpp(198) : error C2146: syntax error : missing ';' before identifier 'm_obstacleID' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.ace687e82a5cd719.tu_skeleton.cpp(198) : error C2501: 'PathfindCellInfo::ObjectID' : missi",
+    "Code/GameEngine/Source/Common/Pathfinder_IsValidMovementPositionForObject.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.803857a5d4ca833b.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.803857a5d4ca833b.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E916AFootprintCheck.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.07bdd9efe5ffb897.tu_skeleton.cpp(2483) : error C2039: 'rva002E916A' : is not a member of 'Rva002E7388Owner' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.07bdd9efe5ffb897.tu_skeleton.cpp(2487) : error C2065: 'radiusBefore' : undeclared identifier |",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderLineContexts.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.325eec119b184152.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.325eec119b184152.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fd409a76aa01bcec.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fd409a76aa01bcec.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.2642152a10d48db0.tu_skeleton.cpp(2527) : error C2039: 'rva002E9442' : is not a member of 'Pathfinder' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.2642152a10d48db0.tu_skeleton.cpp(2531) : error C2065: 'm_bridges' : undeclared identifier | Code\\Gam",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.0af5a66deb473767.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.0af5a66deb473767.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCheckForMovement.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.8054ea94af5f4898.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.8054ea94af5f4898.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckMovementOverlap.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c7aac52951874025.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c7aac52951874025.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/Rva002EAB6F.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.2749de4f3f4bb8e8.tu_skeleton.cpp(2540) : error C2039: 'm_04' : is not a member of 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.2749de4f3f4bb8e8.tu_skeleton.cpp(2540) : error C2227: left of '->m_634' must point to class/struct/union | Code",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.b6d586cb2986acc8.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.b6d586cb2986acc8.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.b0815c4b1da226f0.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.b0815c4b1da226f0.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.57379159a43f7d09.tu_skeleton.cpp(1019) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.57379159a43f7d09.tu_skeleton.cpp(1019) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.4085f8b8dcf53f31.tu_skeleton.cpp(2544) : error C2039: 'queueForPath' : is not a member of 'Pathfinder' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.4085f8b8dcf53f31.tu_skeleton.cpp(2546) : error C2065: 'm_requestRing' : undeclared identifier | Cod",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderTintHierarchy.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.6851790b8658c19a.tu_skeleton.cpp(2568) : error C2039: 'getDrawable' : is not a member of 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.6851790b8658c19a.tu_skeleton.cpp(2575) : error C2039: 'contain' : is not a member of 'Object'",
+    "Code/GameEngine/Source/GameLogic/AI/Rva002EC3CEProbe.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.6faec0a801d36b3e.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.6faec0a801d36b3e.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5ba25037fc66a88a.tu_skeleton.cpp(1173) : error C2039: 'definition' : is not a member of 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5ba25037fc66a88a.tu_skeleton.cpp(1173) : error C2227: left of '->priority' must point to class/struct/uni",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002ED15ACellCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fd4f1ecef9c177a3.tu_skeleton.cpp(1023) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fd4f1ecef9c177a3.tu_skeleton.cpp(1023) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSelectBridgeLayer.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.ffea28fd6bfe2b3a.tu_skeleton.cpp(823) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.ffea28fd6bfe2b3a.tu_skeleton.cpp(1116) : error C2039: 'rva002ED236' : is not a member of 'Pathfinder' |",
+    "Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.a78e2cb6a40b66fb.tu_skeleton.cpp(830) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.a78e2cb6a40b66fb.tu_skeleton.cpp(1040) : error C2061: syntax error : identifier 'PathNode' | Code\\GameE",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EDF44.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.50a03dafe52e2c8a.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.50a03dafe52e2c8a.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/Pathfinder_AdjustGroundPathPosition.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fc489013d12cf88e.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.fc489013d12cf88e.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002EDFF9Rva002EDFF9Farm.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.862dcf3fcf9c68bd.tu_skeleton.cpp(838) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.862dcf3fcf9c68bd.tu_skeleton.cpp(1030) : error C2143: syntax error : missing ';' before '*' | Code\\Game",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.643efb8cacc0fe3d.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.643efb8cacc0fe3d.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EE96B.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.29bd21cd526c0ec0.tu_skeleton.cpp(1023) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.29bd21cd526c0ec0.tu_skeleton.cpp(1023) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.1cf84fa21f121f56.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.1cf84fa21f121f56.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002EF216Push.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.87f46cc85568bbdd.tu_skeleton.cpp(1306) : error C2929: 'void _STL::__push_heap<_Rva002EBB53Wrap** ,int,_Rva002EBB53Wrap*,Rva002EBB53Compare>(_Rva002EBB53Wrap ** ,int,int,_Rva002EBB53Wrap *,Rva002EBB53Compare)' : explicit instantiation; cannot explicitly",
+    "Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva002EF27D.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.abc05ed338387a45.tu_skeleton.cpp(1308) : error C2929: 'void _STL::__adjust_heap<_Rva002EBB53Wrap** ,int,_Rva002EBB53Wrap*,Rva002EBB53Compare>(_Rva002EBB53Wrap ** ,int,int,_Rva002EBB53Wrap *,Rva002EBB53Compare)' : explicit instantiation; cannot explicit",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAdjustLayer.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.0ee0aa35e828a6a6.tu_skeleton.cpp(838) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.0ee0aa35e828a6a6.tu_skeleton.cpp(1030) : error C2143: syntax error : missing ';' before '*' | Code\\Game",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.3501651974444f36.tu_skeleton.cpp(814) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.3501651974444f36.tu_skeleton.cpp(1132) : error C2039: 'BuildGroundPath' : is not a member of 'Pathfinde",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderIsValidHordeMemberRegularMovement.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.27b0b1eb55c8c870.tu_skeleton.cpp(838) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.27b0b1eb55c8c870.tu_skeleton.cpp(1030) : error C2143: syntax error : missing ';' before '*' | Code\\Game",
+    "Code/GameEngine/Source/Common/Rva002F0C32Helper.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.e2f90ce8e2d91ea3.tu_skeleton.cpp(1314) : error C2953: '_STL::allocator' : template class has already been defined | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.e2f90ce8e2d91ea3.tu_skeleton.cpp(1320) : error C2953: '_STL::_STLP_alloc_proxy' : templa",
+    "Code/GameEngine/Source/Common/Rva002F0C55Helper.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.368e6cc78ca3982a.tu_skeleton.cpp(1310) : error C2953: '_STL::allocator' : template class has already been defined | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.368e6cc78ca3982a.tu_skeleton.cpp(1316) : error C2953: '_STL::_STLP_alloc_proxy' : templa",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c938bd3f77089fdf.tu_skeleton.cpp(1032) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c938bd3f77089fdf.tu_skeleton.cpp(1032) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002F0DD6Worker.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.70255d8dec3c6cc6.tu_skeleton.cpp(1326) : error C2953: '_STL::_Rb_global' : template class has already been defined | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.70255d8dec3c6cc6.tu_skeleton.cpp(2722) : error C2955: '_STL::_Rb_global' : use of class",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.96ca36adcb18bc4c.tu_skeleton.cpp(198) : error C2146: syntax error : missing ';' before identifier 'm_obstacleID' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.96ca36adcb18bc4c.tu_skeleton.cpp(198) : error C2501: 'PathfindCellInfo::ObjectID' : missi",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderUpdateLayer.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.396350b743a38c0e.tu_skeleton.cpp(838) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.396350b743a38c0e.tu_skeleton.cpp(1593) : error C2065: 'PathfindLayerNativeOne' : undeclared identifier ",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.8c32303b5364aaef.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.8c32303b5364aaef.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/cellCallbackRva002F18D4Farm.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.42aaa3a98c058826.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.42aaa3a98c058826.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/Common/System/Rva002F1BD5Finish.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.49c235eed6b50f0a.tu_skeleton.cpp(198) : error C2146: syntax error : missing ';' before identifier 'm_obstacleID' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.49c235eed6b50f0a.tu_skeleton.cpp(198) : error C2501: 'PathfindCellInfo::ObjectID' : missi",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002F1DDCHintInsert.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.570958728c96df24.tu_skeleton.cpp(2727) : error C2039: 'node' : is not a member of 'Rva002F1DDCIter' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.570958728c96df24.tu_skeleton.cpp(2731) : error C2440: 'type cast' : cannot convert from 'Rva002F1DDCNo",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002F1F02Wrap.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.39a66292dae46695.tu_skeleton.cpp(1306) : error C2929: 'void _STL::__pop_heap_aux<_Rva002EBB53Wrap** ,_Rva002EBB53Wrap*,Rva002EBB53Compare>(_Rva002EBB53Wrap ** ,_Rva002EBB53Wrap ** ,_Rva002EBB53Wrap ** ,Rva002EBB53Compare)' : explicit instantiation; can",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.76d9a7ac9354b61b.tu_skeleton.cpp(198) : error C2146: syntax error : missing ';' before identifier 'm_obstacleID' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.76d9a7ac9354b61b.tu_skeleton.cpp(198) : error C2501: 'PathfindCellInfo::ObjectID' : missi",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAttackView.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f0636ecb430ba23a.tu_skeleton.cpp(2795) : error C2039: 'isAttackViewBlockedByObstacle' : is not a member of 'Pathfinder' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f0636ecb430ba23a.tu_skeleton.cpp(2800) : error C2039: 'definition' : is not a memb",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.a1a1489d9271de6d.tu_skeleton.cpp(1356) : error C2065: 'm_flags' : undeclared identifier | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.a1a1489d9271de6d.tu_skeleton.cpp(2767) : error C2039: 'rva002F36E5' : is not a member of 'Pathfinder' | Code\\GameE",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F3738Heap.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.85cb72db6290e497.tu_skeleton.cpp(1320) : error C2929: 'void _STL::push_heap<_Rva002EBB53Wrap** ,Rva002EBB53Compare>(_Rva002EBB53Wrap ** ,_Rva002EBB53Wrap ** ,Rva002EBB53Compare)' : explicit instantiation; cannot explicitly force and suppress instantiat",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderIsViewBlockedByObstacle.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.870500f653865539.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.870500f653865539.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderAttackViewForwarders.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.053dfba9615b8742.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.053dfba9615b8742.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustTargetDestination.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.6f0768b525075462.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.6f0768b525075462.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.2a1e58de3e768bf2.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.2a1e58de3e768bf2.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F4491CellCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c6db93ebaa83eae8.tu_skeleton.cpp(1023) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.c6db93ebaa83eae8.tu_skeleton.cpp(1023) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.accecec01e71b0bf.tu_skeleton.cpp(1331) : error C2065: 'm_flags' : undeclared identifier | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.accecec01e71b0bf.tu_skeleton.cpp(2022) : error C2065: 'm_flag' : undeclared identifier | Code\\GameEngine\\Source\\Ga",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQuickStructure.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.1f917cbea1ac5fda.tu_skeleton.cpp(1352) : error C2039: 'IsObstaclePresent' : is not a member of 'PathfindCell' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.1f917cbea1ac5fda.tu_skeleton.cpp(1353) : error C2270: 'IsObstaclePresent' : modifiers not al",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F4D8BCellCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.b422946797040560.tu_skeleton.cpp(1023) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.b422946797040560.tu_skeleton.cpp(1023) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.842d8b04410f18c6.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.842d8b04410f18c6.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustCandidate.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5a1fe95e0b598c69.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5a1fe95e0b598c69.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.aadccecdafb4e9d5.tu_skeleton.cpp(1473) : error C2039: 'IsObstaclePresent' : is not a member of 'PathfindCell' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.aadccecdafb4e9d5.tu_skeleton.cpp(1474) : error C2270: 'IsObstaclePresent' : modifiers not al",
+    "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f04eeadb1c6e70bb.tu_skeleton.cpp(2836) : error C2039: 'flags' : is not a member of 'PathfindCell' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f04eeadb1c6e70bb.tu_skeleton.cpp(2839) : error C2039: 'CheckForAdjust' : is not a member of 'Pathfinder'",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5af9b19d236e0f4d.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.5af9b19d236e0f4d.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.51c1f15f655e3f1e.tu_skeleton.cpp(1033) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.51c1f15f655e3f1e.tu_skeleton.cpp(1033) : error C2501: 'Rva002F336AOwner::Pathfinder' : missing storage-class o",
+    "Code/GameEngine/Source/GameLogic/AI/Pathfinder_MoveAlliesAwayFromDestination.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.171a3495a0a445dc.tu_skeleton.cpp(838) : error C2061: syntax error : identifier 'PathfindLayerEnum' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.171a3495a0a445dc.tu_skeleton.cpp(1030) : error C2143: syntax error : missing ';' before '*' | Code\\Game",
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.7eff1a055986f1f4.tu_skeleton.cpp(33) : error C2061: syntax error : identifier 'Object' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.7eff1a055986f1f4.tu_skeleton.cpp(37) : error C2065: 'obj' : undeclared identifier | Code\\GameEngine\\Source\\GameLogi",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002EADB4Release.cpp": "bytes",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002EE9E0Reset.cpp": "bytes",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva002EEA1DReset.cpp": "bytes",
+    "Code/GameEngine/Source/Common/Rva002F301FRva002F301F.cpp": "bytes",
+    "Code/GameEngine/Source/GameLogic/AI/Rva002F70E5QueryCallback.cpp": "bytes",
+    "Code/GameEngine/Source/Common/GlobalFlagClearers_DFF0xx.cpp": "bytes"
+  },
+  "adopt_first": {
+    "Code/GameEngine/Source/Common/Pathfinder_IsValidMovementPositionForObject.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/Common/Pathfinder_SetBridgeStateRepaired.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/Common/Rva002F5925InfoRva002F5925.cpp": [
+      "PathfindCell",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp": [
+      "BfmeFixedStorage0004543D",
+      "PathNode",
+      "PathfindCell",
+      "PathfindLayer",
+      "Pathfinder",
+      "Rva000421C8",
+      "Rva002EE9B7",
+      "XferException"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathDebugOutput.cpp": [
+      "PathNode"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderAdjustCandidate.cpp": [
+      "PathfindCell",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp": [
+      "AI",
+      "GlobalData",
+      "Path",
+      "PathfindCell",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderCheckForMovement.cpp": [
+      "AIUpdateInterface",
+      "PathfindCell",
+      "Pathfinder",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderDestructor.cpp": [
+      "PathfindLayer",
+      "PathfindZoneManager",
+      "Pathfinder",
+      "Rva002EE9B7"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderProcessPathfindQueue.cpp": [
+      "AIUpdateInterface",
+      "GlobalData",
+      "PathfindZoneManager",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQueueForPath.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderQuickStructure.cpp": [
+      "LocomotorSet",
+      "PathfindCell",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E9442.cpp": [
+      "Pathfinder",
+      "Vector3"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F36E5.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F4491CellCallback.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderSameCellRva002EE49B.cpp": [
+      "Pathfinder",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderXfer.cpp": [
+      "PathfindCell",
+      "PathfindZoneManager",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp": [
+      "PathfindCell",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/AI/cellCallbackRva002F18D4Farm.cpp": [
+      "PathfindCell",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_IsPointOnRamp.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAdjustLayer.cpp": [
+      "PathfindCell",
+      "TerrainLogic"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAttackView.cpp": [
+      "Coord3DBase",
+      "Pathfinder",
+      "TerrainLogic",
+      "Weapon"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp": [
+      "AIUpdateInterface",
+      "Bridge",
+      "LocomotorSet",
+      "PathfindCell",
+      "PathfindZoneManager",
+      "Pathfinder",
+      "Player",
+      "Waypoint"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckMovementOverlap.cpp": [
+      "AIUpdateInterface",
+      "PathfindCell",
+      "Pathfinder",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderClearCellForDiameter.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderIsValidHordeMemberRegularMovement.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderMoveAlliesCallback.cpp": [
+      "AICommandInterface",
+      "AIUpdateInterface",
+      "ContainModuleInterface",
+      "PathfindCell",
+      "StateMachine",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderNewMap.cpp": [
+      "PathfindCell",
+      "Pathfinder",
+      "Waypoint"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderReset.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002E9EA7.cpp": [
+      "AIUpdateInterface",
+      "PathfindCell",
+      "ThingTemplate"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002ED15ACellCallback.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F4D8BCellCallback.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp": [
+      "AIUpdateInterface",
+      "Bridge",
+      "LocomotorSet",
+      "PathfindCell",
+      "PathfindLayer",
+      "PathfindZoneManager",
+      "Pathfinder",
+      "Player"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSelectBridgeLayer.cpp": [
+      "PathfindCell",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderTintHierarchy.cpp": [
+      "Drawable"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderUpdateLayer.cpp": [
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E7BF0Probe.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002E916AFootprintCheck.cpp": [
+      "PathfindCell",
+      "Pathfinder",
+      "TerrainLogic"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp": [
+      "PathfindCell",
+      "Pathfinder"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002EDFF9Rva002EDFF9Farm.cpp": [
+      "PathfindCell"
+    ],
+    "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp": [
+      "Bridge",
+      "LocomotorSet",
+      "Path",
+      "PathNode",
+      "PathfindCell",
+      "Player",
+      "Waypoint",
+      "Weapon"
+    ]
+  },
+  "blocked": "no verified merge of two or more donors"
+}

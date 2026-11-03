@@ -1,3 +1,18 @@
+### AIPathfind canonical mask prerequisite (2026-11-03)
+
+The current supported dry merge accepts none of eighty donors (401 approved
+rows; thirty-two mixed sources held aside). Its declaration-order, private-view,
+template and byte obstacles remain; no source paths or ledger rows move.
+The seed separately adopts the canonical 28-byte BfmeFixedStorage0004543D
+header without a token-wide field rename. Private verification preserves all
+83 ledger entries, three EXACT EH graphs and all 205 external definitions;
+normal verification passes 81 active rows and two data rows. The owning header
+lane retires exactly one queue entry. The existing 4,228-byte linking preview
+is retained; no census gain is claimed. Seven seed header prerequisites remain,
+along with the outgoing audit's existing missing consumer receipt for
+Common/0CreateAHeroManager21FE49.cpp.
+[Evidence and remaining work](../reverse/attempt_support/pathfinder-fixed-storage-20261103/README.md).
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

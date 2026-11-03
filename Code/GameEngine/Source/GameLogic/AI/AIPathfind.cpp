@@ -78,10 +78,7 @@ static void ComputeNormalRadialOffset(const Coord3D &from, Coord3D &insert, cons
 	insert.x += fromToNormal.x * radius;
 	insert.y += fromToNormal.y * radius;
 }
-class BfmeFixedStorage0004543D
-{
-	unsigned char bytes[28];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
