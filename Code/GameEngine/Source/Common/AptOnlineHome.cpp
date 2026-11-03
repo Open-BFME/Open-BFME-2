@@ -82,9 +82,9 @@ extern int g_009C075C;
 
 void AptOnlineHome::rva005B947D(int index, int a, int b)
 {
-	UnicodeString tmp;
-	tmp.format(L"%d%s%d%%", a, m_64.str(), b);
-	((Rva005B9378 *)this)->rva005B9378(index, tmp);
+	UnicodeString text;
+	text.format(L"%d%s%d%%", a, m_64.str(), b);
+	((Rva005B9378 *)this)->rva005B9378(index, text);
 }
 
 	// retail RVA 0x00A06524 (.bss), defined here

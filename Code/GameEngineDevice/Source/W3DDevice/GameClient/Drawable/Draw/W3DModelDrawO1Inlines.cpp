@@ -128,12 +128,12 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 typedef std::pair<const ModelConditionFlags, const ModelConditionInfo *> BfmeModelConditionPair;
 #pragma inline_depth(0)
 // ?_bfmeModelDrawO1Anchor@@ absent-from-retail
-const ModelConditionInfo *_bfmeModelDrawO1Anchor(ModelConditionInfo::WeaponBarrelInfo *w, const W3DModelDrawModuleData *d, const ModelConditionFlags &c, PristineBoneInfoMap *m, BfmeModelConditionPair *mp, const ModelConditionInfo *const &info)
+const ModelConditionInfo *_bfmeModelDrawO1Anchor(ModelConditionInfo::WeaponBarrelInfo *barrelInfo, const W3DModelDrawModuleData *d, const ModelConditionFlags &conditionFlags, PristineBoneInfoMap *m, BfmeModelConditionPair *mp, const ModelConditionInfo *const &info)
 {
-	w->ModelConditionInfo::WeaponBarrelInfo::WeaponBarrelInfo();
+	barrelInfo->ModelConditionInfo::WeaponBarrelInfo::WeaponBarrelInfo();
 	m->PristineBoneInfoMap::map();
-	mp->BfmeModelConditionPair::pair(c, info);
-	return d->m_conditionStateMap.findBestInfo(d->m_conditionStates, c);
+	mp->BfmeModelConditionPair::pair(conditionFlags, info);
+	return d->m_conditionStateMap.findBestInfo(d->m_conditionStates, conditionFlags);
 }
 #pragma inline_depth()
 

@@ -22,9 +22,9 @@ public:
 }
 struct Rva003EF9DCNode
 {
-    ObjectID id00;
+    ObjectID m_id;
     char pad04[0x24];
-    Rva003EF9DCNode *next28;
+    Rva003EF9DCNode *m_next;
 };
 
 class Rva003EF8E1 { public: void Rva003EF9DCFill(Rva003EF9DCNode *, _STL::vector<ObjectID, _STL::allocator<ObjectID> > *); };
@@ -32,8 +32,8 @@ void Rva003EF8E1::Rva003EF9DCFill(Rva003EF9DCNode *head, _STL::vector<ObjectID, 
 {
     if (!head)
         return;
-    for (Rva003EF9DCNode *p = head; p; p = p->next28) {
-        ObjectID value = p->id00;
+    for (Rva003EF9DCNode *p = head; p; p = p->m_next) {
+        ObjectID value = p->m_id;
         vec->insert(vec->_M_start, value);
     }
 }

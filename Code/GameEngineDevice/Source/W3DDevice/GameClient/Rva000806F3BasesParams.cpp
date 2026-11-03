@@ -164,9 +164,9 @@ static inline void Rva00080E30Scale(float *v)
 	v[3] *= 1.6f;
 }
 
-static inline float Rva0008103ASum(const Rva000806F3Vector4 &q)
+static inline float Rva0008103ASum(const Rva000806F3Vector4 &vector)
 {
-	return q.x + q.y + q.z + q.w;
+	return vector.x + vector.y + vector.z + vector.w;
 }
 
 // The vector "Mean" (0x00080F95) passes in: subtract half of each X, Y and Z

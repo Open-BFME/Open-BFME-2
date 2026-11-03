@@ -128,7 +128,7 @@ struct Rva00504EADKeyVector
 	float m_outTangent;
 };
 
-struct Rva00504EADKey
+struct CurveKey
 {
 	float m_time;
 	Rva00504EADKeyVector m_value;
@@ -136,7 +136,7 @@ struct Rva00504EADKey
 
 struct Rva00504EADSetLocals
 {
-	Rva00504EADKey m_key;
+	CurveKey m_key;
 	Rva00504EADKeyVector m_values;
 
 	Rva00504EADSetLocals(float time, float value, float inTangent, float outTangent)

@@ -7360,3 +7360,12 @@ function,?bfmeGoVHS@@YAHPAUBfmeLuaVHR@@@Z,?osRename@@YAHPAUBfmeLuaVHR@@@Z,inferr
 carry,bfmeGoVHS::luaState,osRename::luaState,inferred,scope renamed by Rename bfmeGoVHS to osRename (inferred),Code/GameEngine/Source/Common/BfmeConv1367.cpp,0x0074AF70
 function,?Rva00580DBF@@YAXPAPAX0VRva000795C1Record@@@Z,?makeHeap@@YAXPAPAX0VRva000795C1Record@@@Z,inferred,agree:nl-087a3d03b0c7,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,0x00580DBF
 function,?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,?partialSort@@YAXPAPAX00VRva000795C1Record@@@Z,inferred,agree:nl-198df05c3e12,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,0x00580F7F
+member,Rva003EF9DCNode::id00,Rva003EF9DCNode::m_id,inferred,agree:nl-a32b76316106,Code/GameEngine/Source/Common/Rva003EF9DCFill.cpp,
+member,Rva003EF9DCNode::next28,Rva003EF9DCNode::m_next,inferred,agree:nl-cc6f127fccc1,Code/GameEngine/Source/Common/Rva003EF9DCFill.cpp,
+local,AptOnlineHome::rva005B947D::tmp,AptOnlineHome::rva005B947D::text,inferred,agree:nl-5d52ab22b91c-m3fc76bbec03c7e8ac995822f,Code/GameEngine/Source/Common/AptOnlineHome.cpp,0x005B947D
+param,bfmeEmitBitFlags116TestSetAndClear::a,bfmeEmitBitFlags116TestSetAndClear::mustBeSet,inferred,agree:nl-c378f16f836a,Code/GameEngine/Source/Common/BitFlags116TestSetAndClear.cpp,0x0030A8D1
+param,bfmeEmitBitFlags116TestSetAndClear::b,bfmeEmitBitFlags116TestSetAndClear::mustBeClear,inferred,agree:nl-76b2a3f4c12b,Code/GameEngine/Source/Common/BitFlags116TestSetAndClear.cpp,0x0030A8D1
+param,_bfmeModelDrawO1Anchor::c,_bfmeModelDrawO1Anchor::conditionFlags,inferred,agree:nl-d04733a5a59c,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp,
+param,_bfmeModelDrawO1Anchor::w,_bfmeModelDrawO1Anchor::barrelInfo,inferred,agree:nl-fdb9c5ad74f4,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawO1Inlines.cpp,
+param,Rva0008103ASum::q,Rva0008103ASum::vector,inferred,agree:nl-17522713e484-mf698f1870ae201c7c67ae86a,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000806F3BasesParams.cpp,
+class,Rva00504EADKey,CurveKey,inferred,agree:nl-8f1719e90e94,Code/GameEngine/Source/Common/System/Rva00504F09FunctionCurveAddKey.cpp,
