@@ -1,0 +1,800 @@
+{
+ "bases": [
+  "_bfme_AptGameWindow"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptCreateAHero",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 14,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x410": {
+    "4": 2
+   },
+   "0x424": {
+    "4": 1
+   },
+   "0x42f": {
+    "1": 1
+   },
+   "0x430": {
+    "1": 1
+   },
+   "0x431": {
+    "1": 1
+   },
+   "0x432": {
+    "1": 1
+   },
+   "0x433": {
+    "1": 1
+   },
+   "0x434": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5142b0"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "_bfme_AptGameWindow",
+       "offset": 0,
+       "own_vftable": "0x865d20",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5142b0"
+     ],
+     "value": 1080
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5142b0"
+     ],
+     "value": {
+      "0x40c": [
+       4
+      ],
+      "0x410": [
+       4
+      ],
+      "0x414": [
+       4
+      ],
+      "0x418": [
+       4
+      ],
+      "0x41c": [
+       4
+      ],
+      "0x420": [
+       4
+      ],
+      "0x424": [
+       4
+      ],
+      "0x428": [
+       4
+      ],
+      "0x42c": [
+       1
+      ],
+      "0x42d": [
+       1
+      ],
+      "0x42e": [
+       1
+      ],
+      "0x42f": [
+       1
+      ],
+      "0x430": [
+       1
+      ],
+      "0x431": [
+       1
+      ],
+      "0x432": [
+       1
+      ],
+      "0x433": [
+       1
+      ],
+      "0x434": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5142b0"
+     ],
+     "value": {
+      "0x21c": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ],
+      "0x228": [
+       "?AddExternHandler@AptExternHandlerAdder@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z"
+      ],
+      "0x234": [
+       "?AddOverButtonHandler@AptOverButtonHandlerAdder@@QAEXABVAsciiString@@V?$AptRef@VAptOverButtonHandler@@@@@Z"
+      ],
+      "0x24c": [
+       "?AddCustomRender@AptCustomRenderAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCustomRender@@@@@Z"
+      ],
+      "0x27c": [
+       "??0AptMyHero@@QAE@PAVAptCreateAHero@@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x2d1f2a"
+     ],
+     "value": 1080
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x5142b0"
+     ],
+     "value": {
+      "0x218": [
+       "0x865d1c"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5142b0"
+     ],
+     "value": {
+      "0x0": "0x865d20"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x865d20"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptCreateAHero@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x513db4"
+       },
+       {
+        "name": "?rva00513888@Rva00513888Owner@@QAEXHHH@Z",
+        "slot": 1,
+        "target": "0x513888"
+       },
+       {
+        "name": "?rva005138B8@Rva00513888Owner@@QAEXHHH@Z",
+        "slot": 2,
+        "target": "0x5138b8"
+       },
+       {
+        "name": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+        "slot": 3,
+        "target": "0xa12f8"
+       },
+       {
+        "name": "?rva00444680@Rva00444680@@QAEHHH@Z",
+        "slot": 4,
+        "target": "0x444680"
+       },
+       {
+        "name": "?rva005138E8@Rva00513988@@QAEHXZ",
+        "slot": 5,
+        "target": "0x5138e8"
+       },
+       {
+        "name": "?vslot6@GameWindow@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x313913"
+       },
+       {
+        "name": "?Rva0051482FGet@@YAHXZ",
+        "slot": 7,
+        "target": "0x51482f"
+       },
+       {
+        "name": "?vslot8@GameWindow@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x31393a"
+       },
+       {
+        "name": "?vslot9@GameWindow@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x8ff78"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva00513838@Rva00513838@@QAE_NXZ",
+        "slot": 11,
+        "target": "0x513838"
+       },
+       {
+        "name": "?rva00513988@Rva00513988@@QAEXXZ",
+        "slot": 12,
+        "target": "0x513988"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 13,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x865d20"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 11,
+  "retail_vtables": {
+   "0x865d20": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptCreateAHero@@UAEPAXI@Z",
+     "1": "?rva00513888@Rva00513888Owner@@QAEXHHH@Z",
+     "2": "?rva005138B8@Rva00513888Owner@@QAEXHHH@Z",
+     "3": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+     "4": "?rva00444680@Rva00444680@@QAEHHH@Z",
+     "5": "?rva005138E8@Rva00513988@@QAEHXZ",
+     "6": "?vslot6@GameWindow@@UBE_NXZ",
+     "7": "?Rva0051482FGet@@YAHXZ",
+     "8": "?vslot8@GameWindow@@UBE_NXZ",
+     "9": "?vslot9@GameWindow@@UBE_NXZ",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "11": "?rva00513838@Rva00513838@@QAE_NXZ",
+     "12": "?rva00513988@Rva00513988@@QAEXXZ",
+     "13": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 10,
+   "553": 1,
+   "1072": 1,
+   "1080": 2
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 472,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 480,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 484,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 488,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 492,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 500,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 504,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 508,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 512,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 516,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 520,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 524,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 528,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 532,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 544,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 548,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 552,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 556,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 560,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 568,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 572,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 604,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 608,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1036,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1040,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1044,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1048,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1052,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1056,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1060,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1064,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1068,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1069,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1070,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1071,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1072,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1073,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1074,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1075,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 1076,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHero.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x228",
+   "candidates": {
+    "1:S:AptExternHandlerAdder": 1,
+    "4:P": 1
+   },
+   "class": "AptCreateAHero"
+  },
+  {
+   "attribute": "inherited@0x274",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "AptCreateAHero"
+  }
+ ],
+ "size": 1080,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
