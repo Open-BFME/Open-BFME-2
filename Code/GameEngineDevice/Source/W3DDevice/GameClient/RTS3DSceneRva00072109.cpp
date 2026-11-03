@@ -122,11 +122,7 @@ public:
 
 struct MultiListNodeClass;
 
-class MultiListObjectClass
-{
-public:
-	MultiListNodeClass *ListNode;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/GenericMultiListClass.h"
 

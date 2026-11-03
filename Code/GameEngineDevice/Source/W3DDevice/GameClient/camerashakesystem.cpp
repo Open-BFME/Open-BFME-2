@@ -14,15 +14,7 @@
 // rowed multilist.cpp bodies. Placed by compiling the Open-BFME-1 donor at /O1.
 class MultiListNodeClass;
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass(void);
-
-private:
-	// The actual constructor65A39 clears ListNode+4 before Position+8.
-	MultiListNodeClass *ListNode;
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 
 class GenericMultiListClass;
 

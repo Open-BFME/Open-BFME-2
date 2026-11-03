@@ -31,14 +31,7 @@ class W3DMPO
 
 #include "../WWLib/GenericMultiListClass.h"
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-
-private:
-	MultiListNodeClass *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 // The derived list owns the native vptr; its base's emitted table and deleting
 // destructor belong to the retail provider, not this local layout view.

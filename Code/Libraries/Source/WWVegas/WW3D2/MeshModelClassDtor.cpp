@@ -47,14 +47,7 @@ class W3DMPO
 
 #include "../WWLib/GenericMultiListClass.h"
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-
-private:
-	MultiListNodeClass *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 
 class DX8PolygonRendererList : public GenericMultiListClass

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // platformsdk
 //
 // ??0MeshModelClass@@QAE@ABV0@@Z at retail 0x00172940 (361 bytes).
@@ -58,14 +58,7 @@ public:
 	void *List;
 };
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-
-private:
-	MultiListNodeClass *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 #pragma optimize("s", on)
 class GenericMultiListClass

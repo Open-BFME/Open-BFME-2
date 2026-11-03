@@ -244,14 +244,7 @@ private:
 	DX8FVFCategoryContainer *container;	// +0x34
 };
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass(void);
-
-private:
-	void *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 class DX8PolygonRendererClass : public MultiListObjectClass
 {

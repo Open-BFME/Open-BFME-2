@@ -16,12 +16,7 @@
 
 #include <new.h>
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-	void *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 #include "../WWLib/GenericMultiListClass.h"
 

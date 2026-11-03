@@ -1,4 +1,4 @@
-// cl: /EHsc
+// cl: /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva00560135@@QAE@XZ, retail 0x00560135 74B.
 // Empty publisher ctor: STREAK_DRAW getInstance plus Rva005C7889Init then
 // new StreakLineClass (0x19c) into g_00E06224. Evidence: guarded init caller
@@ -29,12 +29,7 @@ class StreakDrawModuleTemplate;
 void __cdecl Rva005C7889Init(void);
 #include <new>
 #include "../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class MultiListObjectClass
-{
-public:
-    virtual ~MultiListObjectClass();
-    void *ListNode;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 class RenderObjClass : public RefCountClass, public MultiListObjectClass
 {
 private:

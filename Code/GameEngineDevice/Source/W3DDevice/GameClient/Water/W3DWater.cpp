@@ -108,7 +108,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
-class MultiListObjectClass { public: virtual ~MultiListObjectClass(); void *node; };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 class RenderObjClass : public RefCountClass,public MultiListObjectClass {
 public: RenderObjClass(); virtual ~RenderObjClass();
 private: char unmodelled[0xC4-0x10];

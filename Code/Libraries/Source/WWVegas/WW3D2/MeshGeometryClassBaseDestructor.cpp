@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Open-BFME: MeshGeometryClass's base (in-place) destructor at retail 0x00927880.
 // Retail body: Reset_Geometry(0,0), then the implicit base-destructor chain in
 // reverse declaration order -- MultiListObjectClass (out-of-line call, "this"
@@ -22,13 +22,7 @@ private:
 #pragma optimize("", on)
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/multilist.h
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-private:
-	void *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 class W3DMPO
 {

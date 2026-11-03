@@ -16,13 +16,7 @@
 // via eh vector destructor 0x00629110) and base MultiListObjectClass
 // (0x006109C0). Caller is the deleting dtor at 0x001460C0 (slot 0).
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-private:
-	void *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 #include "../WWLib/GenericMultiListClass.h"
 

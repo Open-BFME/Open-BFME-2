@@ -1,12 +1,7 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva00065E3C@Rva0065CA4@@QAEXM@Z @0x00065E3C 153B accumulates float into list items and purges thresholded ones via temp Rva0065CA4 list
 // Evidence: calls rowed ??0GenericMultiListClass 0x65815 Internal_Add 0x6107A0 Internal_Remove 0x610930 Internal_Remove_List_Head 0x6109A0; temp vtable 0x7C5C78 with dtor pin ??1Rva0065CA4 0x65CA4; outer head at +4/next at +8 with item ptr at node+0xC and floats at +0x18/+0x20; delete via slot0 with 1
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-	void *m_listNode04;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
 class Rva0065CA4;
 class GenericMultiListClass
 {

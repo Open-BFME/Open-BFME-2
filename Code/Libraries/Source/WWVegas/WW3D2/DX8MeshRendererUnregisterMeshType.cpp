@@ -14,12 +14,7 @@
 // scalar operator delete @0x2FD60, the same idiom as the matched Invalidate
 // and Clear loops. No pins needed (both callees already matched).
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-	void *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 #include "../WWLib/GenericMultiListClass.h"
 

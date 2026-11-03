@@ -26,14 +26,7 @@ class GenericMultiListClass;
 
 #include "../WWLib/GenericMultiListClass.h"
 
-class MultiListObjectClass
-{
-public:
-	__declspec(dllimport) __forceinline MultiListObjectClass() : ListNode(0) {}
-	virtual ~MultiListObjectClass();
-private:
-	MultiListNodeClass *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 // Only the derived member list is constructed; retail stores its vptr.
 
