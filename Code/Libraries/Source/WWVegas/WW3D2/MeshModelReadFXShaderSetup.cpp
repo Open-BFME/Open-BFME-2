@@ -87,11 +87,7 @@ public:
 	DynamicVectorClass<FXShaderSetup *> m_shaderVec; // +0xF4
 };
 
-class MeshModelClass
-{
-protected:
-	bool read_fx_shaders(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
+#include "MeshModelClass.h"
 
 bool MeshModelClass::read_fx_shaders(ChunkLoadClass &cload, MeshLoadContextClass * volatile context)
 {

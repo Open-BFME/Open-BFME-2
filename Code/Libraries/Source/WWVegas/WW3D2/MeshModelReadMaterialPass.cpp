@@ -33,19 +33,7 @@ public:
 	int CurTexStage;
 };
 
-class MeshModelClass
-{
-protected:
-	virtual ~MeshModelClass();
-	bool read_material_pass(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_vertex_material_ids(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_shader_ids(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_dcg(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_dig(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_Rva00188AF0(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_texture_stage(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_Rva00189B50(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
+#include "MeshModelClass.h"
 
 enum
 {

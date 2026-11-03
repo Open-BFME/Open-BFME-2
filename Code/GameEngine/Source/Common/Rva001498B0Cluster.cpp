@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Two one-off bodies in the Disp8ByteFieldGetters.cpp page of
 // Code/GameEngine/Source/Common.  Both act on the same object pointer slot at
 // +0xC4 (a MeshModelClass-family model in 0x00149F20), so they are kept in one
@@ -11,11 +11,7 @@
 // 0x00149F20 (26B): RAM-size query returning the fixed 0x324-byte overhead plus
 //   MeshModelClass::Compute_Ram_Size (rowed 0x001880E0) when the slot is set.
 
-class MeshModelClass
-{
-public:
-	int Compute_Ram_Size();
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/MeshModelClass.h"
 
 class Rva001498B0Object
 {

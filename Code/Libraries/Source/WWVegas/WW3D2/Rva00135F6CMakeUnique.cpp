@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Rva00135F6CMakeUnique@@YAXPAX@Z retail 0x00135F6C 149B chain now-ready via 0x00171780
 // Evidence: calls rowed Make_Unique 0x00149C10 with false; rowed rva0010E4D4 0x0010E4D4; tail jmp rowed rva00171780 0x00171780; callers 0x00137018 0x0013703A push RenderObjClass* from Create_Render_Obj.
 class MeshModelClass;
@@ -13,12 +13,7 @@ class Rva0010E4D4
 public:
     void rva0010E4D4();
 };
-class MeshModelClass
-{
-public:
-    void rva00171780();
-    void Make_Geometry_Unique();
-};
+#include "MeshModelClass.h"
 class Rva00135F6CNode
 {
 public:

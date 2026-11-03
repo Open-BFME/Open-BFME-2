@@ -20,22 +20,7 @@ class VertexMaterialClass;
 
 #include "MeshMatDescClass.h"
 
-class MeshModelClass
-{
-public:
-	VertexMaterialClass *Peek_Material(int vidx, int pass) const;
-	void Set_Single_Texture(const RefCountPtr<TextureClass> &tex, int pass, int stage);
-	void Set_Single_Material(VertexMaterialClass *vmat, int pass);
-	void Set_Material(int vidx, VertexMaterialClass *vmat, int pass);
-	void Set_Texture(int pidx, const RefCountPtr<TextureClass> &tex, int pass, int stage);
-	void Make_UV_Array_Unique(int pass, int stage);
-	void Make_Color_Array_Unique(int array_index);
-	void Replace_Texture(const RefCountPtr<TextureClass> &texture, const RefCountPtr<TextureClass> &new_texture);
-	void Replace_VertexMaterial(VertexMaterialClass *vmat, VertexMaterialClass *new_vmat);
-private:
-	char m_gap00[0x94];
-	MeshMatDescClass *CurMatDesc;	// +0x94
-};
+#include "MeshModelClass.h"
 
 // 0x00143550
 inline __declspec(noinline) VertexMaterialClass *MeshModelClass::Peek_Material(int vidx, int pass) const { return CurMatDesc->Peek_Material(vidx, pass); }

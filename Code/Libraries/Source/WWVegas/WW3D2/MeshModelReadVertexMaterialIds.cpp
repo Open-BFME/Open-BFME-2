@@ -59,20 +59,7 @@ public:
 	VertexMaterialClass *Peek_Vertex_Material(unsigned long index) { return VertexMaterials[index]; }
 };
 
-class MeshModelClass
-{
-	virtual ~MeshModelClass();
-	char m_pad0[0x28 - 4];
-public:
-	int VertexCount;
-private:
-	char m_pad1[0x8C - 0x2C];
-public:
-	MeshMatDescClass *DefMatDesc;
-	int Get_Vertex_Count() const { return VertexCount; }
-protected:
-	bool read_vertex_material_ids(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
+#include "MeshModelClass.h"
 
 // ?read_vertex_material_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 bool MeshModelClass::read_vertex_material_ids(ChunkLoadClass &cload, MeshLoadContextClass *context)

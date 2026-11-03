@@ -121,12 +121,7 @@ public:
 	DynamicVectorClass<BfmeHandleCX> Textures;
 };
 
-class MeshModelClass
-{
-protected:
-	virtual ~MeshModelClass();
-	bool read_textures(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
+#include "MeshModelClass.h"
 
 // ?read_textures@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 bool MeshModelClass::read_textures(ChunkLoadClass &cload, MeshLoadContextClass *context)

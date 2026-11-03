@@ -47,21 +47,7 @@ public:
 	void *Peek_Rva00188AF0Entry(unsigned long index) { return Rva00188AF0Entries[index]; }
 };
 
-class MeshModelClass
-{
-	virtual ~MeshModelClass();
-	char m_pad0[0x24 - 4];
-public:
-	int PolyCount;
-	int VertexCount;
-private:
-	char m_pad1[0x8C - 0x2C];
-public:
-	MeshMatDescClass *DefMatDesc;
-	int Get_Polygon_Count() const { return PolyCount; }
-protected:
-	bool read_Rva00188AF0(ChunkLoadClass &cload, MeshLoadContextClass *context);
-};
+#include "MeshModelClass.h"
 
 // ?read_Rva00188AF0@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 bool MeshModelClass::read_Rva00188AF0(ChunkLoadClass &cload, MeshLoadContextClass *context)

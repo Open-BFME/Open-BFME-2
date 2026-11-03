@@ -75,20 +75,7 @@ public:
 	SimpleVecClass<Vector2> TempUVArray;
 };
 
-class MeshModelClass
-{
-protected:
-	virtual ~MeshModelClass();
-	bool read_texcoords(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_stage_texcoords(ChunkLoadClass &cload, MeshLoadContextClass *context);
-	bool read_Rva00189B50(ChunkLoadClass &cload, MeshLoadContextClass *context);
-
-private:
-	char m_pad0[0x28 - 4];
-	int VertexCount;
-	char m_pad1[0x8C - 0x2C];
-	MeshMatDescClass *DefMatDesc;
-};
+#include "MeshModelClass.h"
 
 // ?read_texcoords@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
 bool MeshModelClass::read_texcoords(ChunkLoadClass &cload, MeshLoadContextClass *context)
