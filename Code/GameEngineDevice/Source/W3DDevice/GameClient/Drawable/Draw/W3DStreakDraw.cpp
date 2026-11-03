@@ -190,10 +190,24 @@ extern const FieldParse g_00BCDB60[] = {
 };
 
 
-class W3DStreakDrawModuleData
+#include "../../../../../../GameEngine/Include/Common/Geometry.h"
+
+// The destructor at 0x000D057C destroys these two owning members before
+// restoring Snapshot's vtable. Keep its vector owner, rather than projecting
+// the vector as unrelated begin/end fields in the constructor's data view.
+struct W3DStreakWeatherVec
+{
+    ~W3DStreakWeatherVec();
+    void *m_start;
+    void *m_finish;
+    void *m_end;
+};
+
+class W3DStreakDrawModuleData : public Snapshot
 {
 public:
-	unsigned char m_pad00[8];
+	virtual ~W3DStreakDrawModuleData();
+	unsigned char m_pad04[4];
 public:
 	float m_length;
 public:
@@ -205,13 +219,11 @@ public:
 public:
 	float m_color[3];
 public:
-	unsigned char m_pad20[4];
+	int m_numSegments;
 public:
 	AsciiString m_textureName;
 public:
-	W3DStreakWeatherTexture *m_weatherBegin;
-public:
-	W3DStreakWeatherTexture *m_weatherEnd;
+	W3DStreakWeatherVec m_weatherTexture;
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
@@ -303,11 +315,11 @@ W3DStreakDraw::W3DStreakDraw(Thing *thing, const ModuleData *moduleData)
 	m_streak = 0;
 	const W3DStreakDrawModuleData *data = (const W3DStreakDrawModuleData *)m_moduleData;
 	const W3DStreakWeatherTexture *found = 0;
-	if ((unsigned int)(data->m_weatherEnd - data->m_weatherBegin) > 0) {
+	if ((unsigned int)((W3DStreakWeatherTexture *)data->m_weatherTexture.m_finish - (W3DStreakWeatherTexture *)data->m_weatherTexture.m_start) > 0) {
 		// Retail reloads the list bounds for the search after the size test.
 		_ReadWriteBarrier();
 		int weather = ((Rva00138GlobalView *)TheWritableGlobalData)->m_weather;
-		for (const W3DStreakWeatherTexture *entry = data->m_weatherBegin; entry != data->m_weatherEnd; ++entry) {
+		for (const W3DStreakWeatherTexture *entry = (W3DStreakWeatherTexture *)data->m_weatherTexture.m_start; entry != (W3DStreakWeatherTexture *)data->m_weatherTexture.m_finish; ++entry) {
 			if (entry->weather == weather) {
 				found = entry;
 				break;
