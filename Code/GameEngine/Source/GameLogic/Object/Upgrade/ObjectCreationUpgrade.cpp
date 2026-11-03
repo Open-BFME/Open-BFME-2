@@ -178,8 +178,11 @@ class GrantUpgradeCreateModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
+#include "Lib/Coord3D.h"
+
 class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
 {
+	friend class ObjectCreationUpgrade;
 public:
 	virtual ~ObjectCreationUpgradeModuleData();
 private:
@@ -191,7 +194,11 @@ private:
 private:
 	AsciiString m_thingToSpawn;
 private:
-	unsigned char m_tail[0x154 - 0x12C];
+	Coord3D m_offset;
+	float m_angleOffset;
+	unsigned char m_pad13C[0x14C - 0x13C];
+	unsigned int m_fadeInTime;
+	bool m_useSpecialContext;
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };

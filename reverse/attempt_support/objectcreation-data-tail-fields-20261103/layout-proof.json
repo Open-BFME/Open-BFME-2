@@ -1,0 +1,88 @@
+{
+  "scope": "Sanctioned private /Z7 type-stream observation; candidate-clean flags unchanged",
+  "missing": [],
+  "errors": [],
+  "layout": {
+    "fwd": false,
+    "key": "class",
+    "size": 340,
+    "bases": [
+      [
+        "Snapshot",
+        0
+      ]
+    ],
+    "fields": [
+      [
+        4,
+        "m_moduleDataState",
+        "uchar[284]",
+        284
+      ],
+      [
+        288,
+        "m_removeUpgrade",
+        "AsciiString",
+        4
+      ],
+      [
+        292,
+        "m_grantUpgrade",
+        "AsciiString",
+        4
+      ],
+      [
+        296,
+        "m_thingToSpawn",
+        "AsciiString",
+        4
+      ],
+      [
+        300,
+        "m_offset",
+        "Coord3D",
+        12
+      ],
+      [
+        312,
+        "m_angleOffset",
+        "float",
+        4
+      ],
+      [
+        316,
+        "m_pad13C",
+        "uchar[16]",
+        16
+      ],
+      [
+        332,
+        "m_fadeInTime",
+        "uint",
+        4
+      ],
+      [
+        336,
+        "m_useSpecialContext",
+        "bool",
+        1
+      ]
+    ],
+    "statics": [],
+    "methods": [
+      "ObjectCreationUpgradeModuleData",
+      "__local_vftable_ctor_closure",
+      "__vecDelDtor",
+      "buildFieldParse",
+      "~ObjectCreationUpgradeModuleData"
+    ],
+    "virtual": [
+      "__vecDelDtor",
+      "~ObjectCreationUpgradeModuleData"
+    ],
+    "vslots": {
+      "0": "__vecDelDtor(uint)"
+    },
+    "vfptr": false
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "Private control vs normal typed-tail plus friend declaration; ordinary external bytes/relocations, not full local/.sxdata or final image selection.",
+  "before": 31,
+  "after": 31,
+  "removed": [],
+  "added": [],
+  "changed": []
+}
