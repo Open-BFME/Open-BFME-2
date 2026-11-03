@@ -113,15 +113,7 @@ private:
 	char m_pad[12];
 };
 
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *init(const char *src);
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRef
 {

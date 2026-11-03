@@ -91,15 +91,7 @@ private:
 };
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRef
 {

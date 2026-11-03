@@ -70,10 +70,7 @@ public:
  virtual void selectClicked();
  virtual void cancelClicked();
 };
-class Rva000B3F84Pair {
-public:Rva000B3F84Pair(){} Rva000B3F84Pair*init(const char*);
- const char*ptr;int len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef{const AsciiString*string;};
 struct AsciiStringPlusString:AsciiStringRef{AsciiStringRef second;};
 struct AsciiStringPlusStringText:AsciiStringPlusString {

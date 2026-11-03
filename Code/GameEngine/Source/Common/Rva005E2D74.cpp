@@ -3,13 +3,7 @@
 // ?rva005E2D74@Rva005E2D74@@QAEHPAD@Z retail 0x005E2D74 22B
 // Evidence: unlock lane; callee write 0x000B44F0; unblocks 0x005E306D; prev Rva005E2144 same /O1 MD; members +0 byte +4 pair.
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class Rva000B3F84Pair
-{
-public:
-	int write(char *dst);
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 class Rva005E2D74
 {
 public:

@@ -131,7 +131,7 @@ void StrategicHUD::ChecklistUIItemMovieClip::Flash()
 	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_04, s, "Flash");
 }
 
-class Rva000B3F84Pair { public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *); const char *m_ptr; int m_len; };
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef { const AsciiString *m_string; };
 struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
 struct AsciiStringPlusStringText : AsciiStringPlusString {

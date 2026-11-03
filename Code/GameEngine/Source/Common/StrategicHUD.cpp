@@ -40,14 +40,7 @@ void Rva005108EB::rva005108EB(const char *name)
 }
 // "string + text", as rowed in RegistryAsciiPath.cpp: the 12-byte node the
 // constructor converts into each "_level%u_On..." name.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef
 {
 	const AsciiString *m_string;

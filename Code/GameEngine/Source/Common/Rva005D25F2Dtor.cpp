@@ -133,7 +133,7 @@ class Rva005D2664 { public:
     void rva005D28F4(const char *); void rva005D2A27(const char *);
 };
 
-class Rva000B3F84Pair { public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *); const char *m_ptr; int m_len; };
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef { const AsciiString *m_string; };
 struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
 struct AsciiStringPlusStringText : AsciiStringPlusString {

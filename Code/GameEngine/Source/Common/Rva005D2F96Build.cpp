@@ -11,13 +11,7 @@
 // rowed. Callers of 0x005D2F96 include 0x00238CFF 0x002D6320 0x005D3417
 // 0x005D3496; callers of 0x005E35F4 include 0x005D3424 0x005D34A3. Honest
 // address names.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair *init(const char *src);
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 struct Rva005D2F96S16
 {

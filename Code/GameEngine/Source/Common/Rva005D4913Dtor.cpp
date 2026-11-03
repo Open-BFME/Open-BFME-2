@@ -32,7 +32,7 @@ Rva005D4913::~Rva005D4913()
 
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class Rva000B3F84Pair { public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *); const char *m_ptr; int m_len; };
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef { const AsciiString *m_string; };
 struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
 struct AsciiStringPlusStringText : AsciiStringPlusString {

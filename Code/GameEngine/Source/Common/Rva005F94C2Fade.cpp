@@ -6,14 +6,7 @@
 // the call sequence and field offsets, not the original class identity.
 #include "ascii_string.h"
 
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *init(const char *text);
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRefWithChar
 {
