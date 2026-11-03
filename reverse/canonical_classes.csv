@@ -410,3 +410,4 @@ AptBoolean,Code/Libraries/Source/Apt/AptBoolean.h,existing header; contract clas
 Rva000B3F84Pair,Code/GameEngine/Include/Common/Rva000B3F84Pair.h,existing header; contract class_contracts/Rva000B3F84Pair.json; 88/96 sampled units adopt
 Rva00330757Member,Code/GameEngine/Include/Common/Rva00330757Member.h,existing header; contract class_contracts/Rva00330757Member.json; 34/51 sampled units adopt
 Rva006DB270,Code/GameEngine/Include/Common/Rva006DB270.h,existing header; contract class_contracts/Rva006DB270.json; 86/88 sampled units adopt
+StancesBehavior,Code/GameEngine/Include/GameLogic/StancesBehavior.h,existing header; contract class_contracts/StancesBehavior.json; 14/19 sampled units adopt
