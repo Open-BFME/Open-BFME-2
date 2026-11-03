@@ -33,15 +33,7 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 AsciiString KEYNAME(NameKeyType key);
 
-struct DataChunkInfo
-{
-	AsciiString label;
-	AsciiString parentLabel;
-	DataChunkVersionType version;
-	Int dataSize;
-public:
-	~DataChunkInfo();
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 #include "../../../Include/Common/DataChunk.h"
 

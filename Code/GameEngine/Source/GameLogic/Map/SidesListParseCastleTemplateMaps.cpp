@@ -53,13 +53,7 @@ namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString
 
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 
-struct DataChunkInfo
-{
-	AsciiString label;
-	AsciiString parentLabel;
-	unsigned short version;				// +0x08
-	int dataSize;
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 class ChunkInputStream
 {

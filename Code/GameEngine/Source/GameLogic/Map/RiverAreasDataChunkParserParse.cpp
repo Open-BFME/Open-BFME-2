@@ -38,11 +38,7 @@ typedef float Real;
 
 #include "../../../Include/Common/DataChunk.h"
 
-struct DataChunkInfo
-{
-	char m_pad00[8];
-	unsigned short version;							// +0x08
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 // Match the quad-strip cleanup emitted by Rva0030C1FCOwnerCtor.cpp:
 // the verified game allocator wrapper owns retail's free at 0x00030830.

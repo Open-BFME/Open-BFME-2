@@ -172,7 +172,7 @@ Rva0030D849::Rva0030D849(void *owner, BfmeParserRegistryVE *registry, const Asci
 // The constructor's ThreeInts spelling denotes coordinate bits; no new pin
 // or original camera class name is inferred. Version 2 adds the last value.
 #include "../../Include/Common/DataChunk.h"
-struct DataChunkInfo { char labels[8]; unsigned short version; };
+#include "../../Include/Common/DataChunkInfo.h"
 struct ThreeInts { int v00,v04,v08; };
 struct NamedCameraPosition { float x,y,z; };
 class Rva0008A234 {

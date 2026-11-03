@@ -117,13 +117,7 @@ void emitScriptNameFixup(ScriptList *list, AsciiString &script)
 // 0x003B37C8) cover the group's sub-chunks while DataChunkInput::parse runs.
 #include "../../../Include/Common/DataChunk.h"
 
-struct DataChunkInfo
-{
-    AsciiString label;
-    AsciiString parentLabel;
-    unsigned short version;
-    int dataSize;
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 class Rva003B40A1Holder
 {

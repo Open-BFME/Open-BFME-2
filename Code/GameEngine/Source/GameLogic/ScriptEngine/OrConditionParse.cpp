@@ -24,7 +24,7 @@ private:
 	void *m_first;
 };
 
-struct DataChunkInfo { AsciiString label; };
+#include "../../../Include/Common/DataChunkInfo.h"
 class DataChunkInput;
 class UserParser;
 typedef bool (__cdecl *ChunkParser)(DataChunkInput &, DataChunkInfo *, void *);

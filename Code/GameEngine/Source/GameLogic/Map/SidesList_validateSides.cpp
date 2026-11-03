@@ -86,13 +86,7 @@ extern const StaticNameKey TheKey_teamName;			// VA 0x00DBD9F4
 
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 
-struct DataChunkInfo
-{
-	AsciiString label;
-	AsciiString parentLabel;
-	unsigned short version;				// +0x08
-	int dataSize;
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 class Dict
 {

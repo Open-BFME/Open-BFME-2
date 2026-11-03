@@ -35,13 +35,7 @@ namespace _STL { void __cdecl free(void *block) throw(...); }
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-struct DataChunkInfo
-{
-	AsciiString label;
-	AsciiString parentLabel;
-	unsigned short version;				// +0x08
-	int dataSize;
-};
+#include "../../../../Include/Common/DataChunkInfo.h"
 
 #include "../../../../Include/Common/DataChunk.h"
 

@@ -150,7 +150,7 @@ void Rva0010225F::rva0010231F() {
 
 // ---- 0x000B071D (314 B): chunk callback "post effect" holder update from a map chunk (version >= 1) ----
 #include "../../Include/Common/DataChunk.h"
-struct DataChunkInfo { AsciiString label, parent; unsigned short version; };
+#include "../../Include/Common/DataChunkInfo.h"
 class Rva001021F7;
 Rva001021F7 *Rva00102215Get();
 class Rva0010223B { public: void rva0010223B(); };

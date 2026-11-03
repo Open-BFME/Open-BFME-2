@@ -41,11 +41,7 @@ typedef bool Bool;
 
 #include "../../../Include/Common/DataChunk.h"
 
-struct DataChunkInfo
-{
-	char m_pad00[8];
-	unsigned short version;							// +0x08
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 namespace _STL { void free(void *); }
 

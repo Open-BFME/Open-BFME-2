@@ -10,14 +10,7 @@
 
 #include "../../Include/Common/DataChunk.h"
 
-struct DataChunkInfo
-{
-	void *m_label;
-	void *m_parentLabel;
-	unsigned short version;
-	unsigned short m_pad;
-	int dataSize;
-};
+#include "../../Include/Common/DataChunkInfo.h"
 
 struct KeyCode
 {

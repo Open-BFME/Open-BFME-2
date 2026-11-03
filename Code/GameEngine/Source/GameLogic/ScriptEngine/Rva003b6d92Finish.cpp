@@ -43,13 +43,7 @@ class Rva00333B02 { public: void rva00333B02(AsciiString); };
 class Rva0034FF50 { public: __declspec(noinline) void checkAndSet(); int m_val0; };
 void Rva0034FF50::checkAndSet() { if (m_val0 == 15) m_val0 = 61; }
 
-struct DataChunkInfo
-{
-	AsciiString label;
-	AsciiString parentLabel;
-	DataChunkVersionType version;
-	Int dataSize;
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 #include "../../../Include/Common/DataChunk.h"
 

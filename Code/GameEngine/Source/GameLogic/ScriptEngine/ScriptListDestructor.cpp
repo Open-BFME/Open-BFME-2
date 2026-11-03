@@ -91,7 +91,7 @@ extern ScriptEngine *TheScriptEngine;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 unsigned char isCorrectMapType();
-struct DataChunkInfo { AsciiString label; };
+#include "../../../Include/Common/DataChunkInfo.h"
 class DataChunkInput;
 bool Rva003B7836(DataChunkInput &, DataChunkInfo *, void *);
 class UserParser;

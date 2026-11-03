@@ -11,7 +11,7 @@
 #include "Lib/Coord3DCtorView.h"
 #include <map>
 #include <list>
-struct DataChunkInfo { char unknown0[8]; unsigned short version; };
+#include "../../Include/Common/DataChunkInfo.h"
 class Dict { public:
  enum DataType {NONE=-1,BOOL,INT,REAL,ASCII,UNICODE};
  Dict(int=0); Dict &operator=(const Dict&); ~Dict() {releaseData();}

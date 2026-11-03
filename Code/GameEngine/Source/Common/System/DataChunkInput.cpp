@@ -118,14 +118,7 @@ public:
 class DataChunkInput;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/DataChunk.h
-struct DataChunkInfo
-{
-	~DataChunkInfo();
-	AsciiString label;
-	AsciiString parentLabel;
-	DataChunkVersionType version;
-	Int dataSize;
-};
+#include "../../../Include/Common/DataChunkInfo.h"
 
 typedef Bool (*DataChunkParserPtr)(DataChunkInput &file, DataChunkInfo *info, void *userData);
 
