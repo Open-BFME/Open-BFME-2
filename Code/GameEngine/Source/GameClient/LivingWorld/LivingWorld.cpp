@@ -137,14 +137,7 @@ struct Rva002BF6D6 { LivingWorldTable m_table; ~Rva002BF6D6(); };
 
 struct Rva002BF75A { LivingWorldTable m_table; ~Rva002BF75A(); void rva002BF75A(void *p); void rva002BF7BE(); };
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-private:
-	int m_storage[0x10 / 4];
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva00213A85
 {

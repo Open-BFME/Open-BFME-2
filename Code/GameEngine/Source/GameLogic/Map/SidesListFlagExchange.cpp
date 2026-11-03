@@ -5,15 +5,7 @@
 // The indexed post stores an opaque second word: the other owner pointer
 // here. The callback is the existing compiler vcall thunk5CB27E, slot20.
 // Callback owner/method identities and the original method name are unknown.
-class Rva00330757Member
-{
-public:
-	__declspec(nothrow) Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	char m_body[0x10];
-};
+#include "../../../Include/Common/Rva00330757Member.h"
 
 class Rva00281A15Listener;
 class SidesListNotifier : public Rva00330757Member

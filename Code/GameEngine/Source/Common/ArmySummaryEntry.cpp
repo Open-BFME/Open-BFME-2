@@ -175,15 +175,7 @@ extern GameLogic *TheGameLogic;
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-private:
-	_STL::vector<BfmeE16> m_items;
-	int m_flags;
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva0040E3EEBase
 {

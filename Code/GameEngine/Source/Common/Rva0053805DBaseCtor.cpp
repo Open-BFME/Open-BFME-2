@@ -38,17 +38,7 @@ public:
 	virtual Rva0030B72CPoint slot6() const = 0;
 };
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-	unsigned int m_index;
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 struct Rva004FA1FObserver;
 namespace _STL

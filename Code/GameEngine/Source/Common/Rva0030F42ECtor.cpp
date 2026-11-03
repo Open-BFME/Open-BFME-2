@@ -10,12 +10,7 @@
 // constructor. Its vtable view matches FreeMemberDeleters.cpp's (destructor only), so
 // both units emit the same table; the setter and third slot need the class reconciled
 // with the Rva0030F388 method views first.
-class Rva00330757Member
-{
-	char m_pad[0x10];
-public:
-	Rva00330757Member();
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva0030F42E:public Rva00330757Member
 {

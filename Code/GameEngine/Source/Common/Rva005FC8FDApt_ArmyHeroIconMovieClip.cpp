@@ -291,15 +291,7 @@ protected:
 // (addObserver / dispatchNotice) is the owner's second base at +0x08: the
 // observer list (vector plus index -1), built and destroyed by the rowed
 // 0x00330757 / 0x0007FAB3 pair, so it is declared under those rows' class name.
-class Rva00330757Member
-{
-public:
-	Rva00330757Member(); // 0x00330757
-	~Rva00330757Member(); // 0x0007FAB3
-
-protected:
-	Rva005FCA6DList m_observers;
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 namespace StrategicHUD {
 class ArmyMemberIconMovieClip : public Rva007C6F20Base, public Rva00330757Member

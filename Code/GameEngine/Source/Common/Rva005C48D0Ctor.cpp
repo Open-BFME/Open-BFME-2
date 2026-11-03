@@ -9,11 +9,7 @@
 extern "C" const void *const vtbl_00C40818[];  // folded, 7 classes; via ??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@
 #pragma comment(linker, "/alternatename:_vtbl_00C40818=??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@")
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva005C48D0
 {

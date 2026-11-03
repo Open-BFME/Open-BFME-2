@@ -9,13 +9,7 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-private:
-	char m_pad[0x10];
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva002834C4
 {

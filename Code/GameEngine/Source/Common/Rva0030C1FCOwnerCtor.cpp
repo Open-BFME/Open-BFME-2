@@ -53,17 +53,7 @@ public:
 // The base as Rva0053805DBaseCtor.cpp lays it out.
 #include "../../Include/Common/Rva0007DF07.h"
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member() throw();
-	~Rva00330757Member();
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_capacity;
-	unsigned int m_index;
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva0053805DBase : public Rva0007DF07, public Rva00330757Member,
 	public virtual Rva00330C50Interface

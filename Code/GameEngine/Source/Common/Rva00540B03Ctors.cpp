@@ -24,17 +24,7 @@ class Rva0054000B { public: Rva0054000B(); int m_00; private: char m_pad04[0x24]
 struct Rva00541021 { int m_field0; Region3D m_region; Rva00541021(); Rva00541021(const Rva00541021 &); };
 class Rva0054103E { public: int m_field0; Region2D m_region; Rva0054103E(); Rva0054103E(const Rva0054103E &); };
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	// The rowed listener-head lifetime is external; only its16B extent is used.
-	char m_items[12];
-	int m_flags;
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva0054034A { public: void rva00540A26(); };
 

@@ -24,14 +24,7 @@ template <> Lk6AsciiSetTree::~_Rb_tree();
 template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
 }
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-private:
-	char m_pad[0x10];
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva005F2381
 {

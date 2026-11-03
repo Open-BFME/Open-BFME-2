@@ -9,13 +9,7 @@
 
 #include "ascii_string.h"
 
-struct Rva00330757Member
-{
-	Rva00330757Member();
-	~Rva00330757Member();
-
-	char m_pad[0x10];
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva0053FADE : public Rva00330757Member
 {

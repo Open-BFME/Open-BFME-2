@@ -8,11 +8,7 @@
 // Prev is holder 0x0057BC63 (same // cl:); next is dtor 0x0057BCEC (different
 // class: that dtor frees via free while this member builds vector via
 // bfmealloc so own address name is kept). Caller at 0x0057BD8E.
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class __declspec(novtable) Rva0057BCD7Base0
 {

@@ -21,16 +21,7 @@ namespace _STL { template <> void _Construct<Rva005F2439Element,Rva005F2439Eleme
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	_STL::vector<BfmeE16> m_items;	// +0x00
-	int m_flags;					// +0x0C
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 struct Rva005F2439Element {
  Rva005F2439Element(); Rva005F2439Element(const Rva005F2439Element&);
