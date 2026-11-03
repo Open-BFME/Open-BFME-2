@@ -4,7 +4,9 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define ASCIISTRING_H
 #include "ascii_string.h"
-#include "PreRTS.h"
+#define _STLP_USE_NEWALLOC 1
+#include <stddef.h>
+#include <new>
 #include <list>
 #include <string.h>
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -14,12 +16,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#include "Common/INI.h"
-#include "Common/Filesystem.h"
-#include "Common/Registry.h"
+#include "../../../Include/Common/INI/INI.h"
+#include "../../../Include/Common/INI/FieldParse.h"
 #include "HeaderTemplateView.h"
-#include "GameClient/GameFont.h"
-#include "GameClient/GlobalLanguage.h"
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
