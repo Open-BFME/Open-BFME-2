@@ -10,14 +10,7 @@ private:
 	const void *m_string;
 };
 
-class Rva000B3F84Pair
-{
-public:
-	int write(char *dst);
-private:
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 
 class Rva0059B1A2 : public AsciiStringPlusText
 {

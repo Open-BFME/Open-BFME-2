@@ -38,7 +38,7 @@ struct TreeHintRef00217D4C {
 #include <windows.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Rva000B3F84Pair { public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *src); const char *m_ptr; int m_len; };
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef { const AsciiString *m_string; };
 struct AsciiStringPlusText : AsciiStringRef { operator AsciiString(); Rva000B3F84Pair m_right; };
 AsciiStringPlusText operator+(const AsciiString &,const char *);

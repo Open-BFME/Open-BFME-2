@@ -57,11 +57,7 @@ struct AsciiStringRefWithChar : AsciiStringRef
 {
 	char m_char;
 };
-struct Rva000B3F84Pair
-{
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringCharPlusText : AsciiStringRefWithChar
 {
 	operator AsciiString();					// 0x00234CA6

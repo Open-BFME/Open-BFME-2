@@ -5,15 +5,7 @@
 // ?length@Rva00513E03@@QBEHXZ @0x00513E03 34B: four-part narrow concat length (Text+String+Text+String); base TextPlusString length at 0x00513B94 plus third pair len at +0x10 plus fourth string len at +0x14; chain from 0x00513B94 landing; callers 0x00513E6F 0x005E3693 0x005E36EA.
 #include "ascii_string.h"
 class UnicodeString;
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *init(const char *src);
-	int write(char *dst);
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef
 {
 	int write(char *dst);

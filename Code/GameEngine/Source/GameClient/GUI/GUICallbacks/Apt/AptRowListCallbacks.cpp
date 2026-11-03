@@ -177,12 +177,7 @@ private:
 // RegistryAsciiPath.cpp's narrow concatenation nodes: "level + name" is a
 // two-string node built in place; appending a char or a text goes out of
 // line, and operator AsciiString() materializes the result.
-class Rva000B3F84Pair
-{
-public:
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRef
 {

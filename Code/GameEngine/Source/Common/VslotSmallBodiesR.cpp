@@ -81,10 +81,7 @@ void WaterTransparencySetting::rva00200BD9()
 
 // slot at 0x00222D26: writes the +0x04 object's leading byte, then its +0x04
 // pair through the rowed Rva000B3F84Pair::write; returns the bytes written.
-struct Rva000B3F84Pair
-{
-	Int write(char *buf);
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct Rva00222D26Data
 {
 	char m_00;

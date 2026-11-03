@@ -22,12 +22,7 @@ struct AsciiStringRef
 {
 	const AsciiString *m_string;
 };
-class Rva000B3F84Pair
-{
-public:
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusText : AsciiStringRef
 {
 	operator AsciiString();				// 0x000BC4F7

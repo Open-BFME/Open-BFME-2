@@ -491,14 +491,7 @@ public:
 
 // RegistryAsciiPath.cpp's "text + AsciiString" node (rowed 0x002226E5) and
 // its materializer 0x0022309D.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 
 // The declared copy constructor keeps the operator+ result in place when
 // it binds to the helper's reference (retail passes it without a copy).

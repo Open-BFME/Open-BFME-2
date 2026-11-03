@@ -61,11 +61,7 @@ int BFME2WideConcatPair::copyPayloads(unsigned short *dst) const
 }
 
 
-class Rva000B3F84Pair
-{
-public:
-	int copyWchars(unsigned short *dst);
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 
 class Rva002DCD9A
 {

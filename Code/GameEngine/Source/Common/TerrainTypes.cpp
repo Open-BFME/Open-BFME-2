@@ -83,7 +83,7 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Constr
 }
 // Instantiate the recovered operation and its required template dependencies.
 template Rva00317CF2Element * _STL::__uninitialized_copy<Rva00317CF2Element const *, Rva00317CF2Element *>(Rva00317CF2Element const *, Rva00317CF2Element const *, Rva00317CF2Element *, _STL::__false_type const &);
-struct Rva000B3F84Pair { const char *text; int length; };
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef { const AsciiString *string; };
 struct Rva002226E5TextPlusString { Rva000B3F84Pair left; AsciiStringRef right; Rva002226E5TextPlusString() {} };
 struct AsciiStringPlusText {

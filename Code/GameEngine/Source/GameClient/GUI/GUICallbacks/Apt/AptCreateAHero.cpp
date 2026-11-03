@@ -390,21 +390,7 @@ extern bool skipCinematicSubsystemExclusions;
 
 class UnicodeString;
 
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-public:
-	Rva000B3F84Pair *init(const char *src);
-public:
-	int write(char *dst);
-public:
-	const char *m_ptr;
-public:
-	int m_len;
-public:
-	int copyWchars(unsigned short *dst);
-};
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRef
 {

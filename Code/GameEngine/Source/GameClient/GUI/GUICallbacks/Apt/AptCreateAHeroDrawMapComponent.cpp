@@ -153,15 +153,7 @@ bool GadgetTextEntryValidateCharacter(unsigned short character, signed char flag
 // The wide string-concatenation nodes (WinMainPairUnicode.cpp's (pointer,
 // length) reference). The empty constructors keep every node non-POD, so
 // each operator+ returns through a hidden slot as retail shows.
-class Rva000B3F84Pair
-{
-public:
-	Rva000B3F84Pair() {}
-	Rva000B3F84Pair *initWide(const unsigned short *src);
-
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../../../../Include/Common/Rva000B3F84Pair.h"
 
 // wide text + string
 struct Rva00513B27Concat
