@@ -65,9 +65,13 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
 - Retail on 2026-11-03: main menu reached; a seeded skirmish gives 30 distinct CRCs over frames
   25-750; the same seed twice gives identical CRCs; `--perturb-frame 300` is caught, with the 12
   earlier CRCs matching and all 18 later ones differing; `save` works.
-- **`load` does not pass yet.** With AI it crashes at 0x66386D in `Team::iterate_TeamMemberList`
-  from `SkirmishAIManager`; without AI at 0x538ADD in `DX8IndexBufferClass`'s destructor. Not yet
-  tried on Windows, so the cause is unknown. Until this clears, a desync result is usable but a
-  save/load result is not.
+- `reload --player` passes: retail saves at frame 120, plays on, calls its own in-game load
+  (0x002DF2F6), which returns 0 after reading all 35 chunks, and resumes at frame 120 through to 853
+  with no crash. The first CRC after the load differs from the CRC at the save, cause unknown, so do
+  not read a post-load CRC as a pass or fail yet.
+- Do not load a save made with the local slot as observer, the default `save` setup: retail throws in
+  `CHUNK_TeamFactory`, returns 3 and quits, then crashes at 0x538ADD in a static destructor on the way
+  out. That crash and the one at 0x66386D with AI came from this setup, not from Wine or the game. The
+  `-file` `load` scenario has not been retried with a `--player` save.
 - The harness cannot judge our own build until the real link produces an image, and it needs a
   `pieces_map` to read one laid out differently from retail.

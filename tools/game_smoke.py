@@ -96,6 +96,7 @@ RVA = {
     "TheGameState": 0x9FF08C,     # GameState*
     "GameEngine::update": 0x225DA9,  # GameEngine vtable slot 10, called once per engine frame by execute()
     "GameState::autoSave": 0x2DD7E6,
+    "GameState::loadByName": 0x2DF2F6,    # int (const UnicodeString &name), the in-game load
     "GameLogic::getCRC": 0x23CB2C,  # thiscall getCRC(int mode), ret 4; GameLogic::update calls it with 0
     "crcInProgress": 0xA02D87,
     # GameLogic::getCRC's blocks; with crcInProgress clear, a set byte skips its block
@@ -245,6 +246,7 @@ class FrameHook:
         self.rng = []                 # (logic frame, logic RNG state hex, base seed) beside each CRC
         self.blocks = []              # (logic frame, {block: CRC of that block + the RNG seed alone})
         self.save_requested, self.save = False, {}
+        self.load_name, self.load, self.after_load = None, {}, False
 
     def due(self, frame, mode):
         """None, "crc" or "save" for an engine frame at this logic frame/mode."""
@@ -252,6 +254,10 @@ class FrameHook:
             return None
         if self.save_requested and not self.save:
             return "save"
+        if self.load_name and not self.load:
+            return "load"
+        if self.after_load:
+            return "crc"
         if any(f == frame for f, _ in self.crcs):
             return None
         if self.at_first and not self.crcs:
@@ -267,7 +273,17 @@ class FrameHook:
             return True
         crc = {"call": game.va("GameLogic::getCRC"), "ecx": game.global_ptr("TheGameLogic"), "args": [0],
                "flag": game.va("crcInProgress")}
+        if what == "load":
+            self.load["requested_frame"] = frame
+            name = game.unicode_string(self.load_name)
+            load = {"call": game.va("GameState::loadByName"), "ecx": game.global_ptr("TheGameState"), "args": [name]}
+
+            def loaded(g, r):
+                self.load.update(from_frame=frame, code=r[0], seconds=g.seconds())
+                self.after_load = True
+            return {"calls": [load], "keep": True, "done": loaded}
         if what == "crc":
+            first_after_load, self.after_load = self.after_load, False
             self.rng.append((frame, (game.read(game.va("theGameLogicSeed"), 24) or b"").hex(),
                              game.u32(game.va("theGameLogicBaseSeed"))))
             skips = {n.split(":", 1)[1]: game.va(n) for n in RVA if n.startswith("crcSkip:")}
@@ -280,6 +296,8 @@ class FrameHook:
 
             def done(g, r):
                 self.crcs.append((frame, r[0]))
+                if first_after_load:
+                    self.load["first_crc"] = (frame, r[0])
                 self.blocks.append((frame, dict(zip(skips, r[1:]))))
             return {"calls": calls, "keep": True, "done": done}
         self.save["requested_frame"] = frame
@@ -347,6 +365,15 @@ class Game:
 
     def va(self, name):
         return self.base + self.rva_map(RVA[name])
+
+    def unicode_string(self, text):
+        """The address of a UnicodeString in the game: a pointer to a StringBase header whose
+        reference count never reaches zero (+0 count, +4 length, +6 capacity, +8 the characters)."""
+        body = struct.pack("<IHH", 0x4000, len(text), len(text) + 1) + (text + "\0").encode("utf-16-le")
+        at = boot_smoke.alloc32(self.k, self.hproc, 0x1000)
+        self.write(at + 16, body)
+        self.write(at, struct.pack("<I", at + 16))
+        return at
 
     def global_ptr(self, name):
         return self.u32(self.va(name))
@@ -1178,6 +1205,58 @@ def cmd_load(a):
     return finish(a, "load", out)
 
 
+def cmd_reload(a):
+    """Load as a player does: skirmish, GameState::autoSave at --save-after seconds, play on for
+    --reload-after seconds, then call retail's in-game load from the top of an engine frame. The
+    Use --player: a game whose local slot is an observer cannot load (retail throws in
+    CHUNK_TeamFactory), and the menu does not start one. pass = load returned 0, the logic frame went
+    back, and the game kept simulating. crc_matches_save is reported, not judged: retail's own run
+    resumes at the saved frame with a different CRC."""
+    samples = []
+    before = {q.name for q in find_saves(a.appdata)}
+    hook = FrameHook(modes=(a.mode,))
+    base_tick = skirmish_tick(a, samples, a.mode)
+
+    def tick(game):
+        why = base_tick(game)
+        started = [t for t, f, m in samples if m == a.mode and f]
+        now = samples[-1][0] if samples else 0
+        if started and not hook.save_requested and now - started[0] >= a.save_after:
+            hook.save_requested = True
+        when = hook.save.get("seconds")
+        if when and not hook.load_name and now - when >= a.reload_after:
+            new = [q for q in find_saves(a.appdata) if q.name not in before]
+            if new:
+                hook.load_name = new[-1].name
+        return why
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
+    game, out = launch(a, f'-file "{a.map}"', handlers, tick)
+    res = out["run"]
+    load, save = hook.load, hook.save
+    after = [f for t, f, m in samples if load.get("seconds") and t > load["seconds"] and m == a.mode and f]
+    first = load.get("first_crc")
+    out.update(samples=samples[::5], save=save, load=load, crcs=hook.crcs[:12], load_name=hook.load_name,
+               frames_after_load=after[:3] + after[-3:])
+    if first and save.get("crc") is not None:
+        out["crc_matches_save"] = first == (save.get("frame"), save["crc"])
+    crash = crash_outcome(res)
+    if crash:
+        out["outcome"] = crash
+    elif "code" not in save or save["code"] != 0:
+        out["outcome"] = "save-failed"
+    elif "code" not in load:
+        out["outcome"] = "load-not-called"
+    elif load["code"] != 0:
+        out["outcome"] = f"load-failed-{load['code']}"
+    elif not after or after[0] >= load["from_frame"]:
+        out["outcome"] = "not-restored"
+    elif after[-1] - after[0] < a.min_frames // 4:
+        out["outcome"] = "no-frames-after-load"
+    else:
+        out["outcome"] = "pass"
+    return finish(a, "reload", out)
+
+
 def perturb_tick(a, game, frame, perturbed):
     """Positive control: xor the logic random seed once at --perturb-frame."""
     if a.perturb_frame is not None and not perturbed and frame and frame >= a.perturb_frame:
@@ -1358,7 +1437,7 @@ def cmd_playback(a):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("scenario", choices=["skirmish", "record", "determinism", "playback", "save", "load", "bisect"])
+    ap.add_argument("scenario", choices=["skirmish", "record", "determinism", "playback", "save", "load", "reload", "bisect"])
     ap.add_argument("--game-dir", type=Path, required=True)
     ap.add_argument("--appdata", type=Path, help="sandbox user-data root (default GAME_DIR/../appdata)")
     ap.add_argument("--retail", action="store_true", help="control: retail's own game.dat")
@@ -1390,6 +1469,7 @@ def main(argv=None):
                     default=[0, 1, 2, 3, 4, 5, 6, 7, 8],
                     help="GameLogic modes sampled in playback (9, seen before a -file game starts, is left out)")
     ap.add_argument("--save-after", type=float, default=30, help="skirmish seconds before the autosave")
+    ap.add_argument("--reload-after", type=float, default=30, help="reload: seconds played between save and load")
     ap.add_argument("--save-name", default="smoke.BfME2Skirmish", help="the save, kept in GAME_DIR")
     ap.add_argument("--saved-frame", type=int, help="load: frame the save was taken at (default: save run's)")
     ap.add_argument("--guard", type=Path, action="append", default=[])
@@ -1419,6 +1499,8 @@ def main(argv=None):
         return cmd_save(a)
     if a.scenario == "load":
         return cmd_load(a)
+    if a.scenario == "reload":
+        return cmd_reload(a)
     return cmd_playback(a)
 
 
