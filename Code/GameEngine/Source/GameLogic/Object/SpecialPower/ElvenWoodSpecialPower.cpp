@@ -147,15 +147,7 @@ extern ThingFactory *TheThingFactory;
 namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 //
 // ?xfer@Rva004C447D@@MAEXPAVXfer@@@Z, retail 0x004C447D, 64 bytes. Virtual
 // slot 3 of vtable 0x0085D304 (ScavengerSpecialPower): Version(1,2) via slot
