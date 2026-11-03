@@ -38,41 +38,7 @@ template<class C,class T,class A>class basic_string {public:basic_string();~basi
 
 typedef _STL::basic_string<char,_STL::char_traits<char>,_STL::allocator<char> > Rva00385333String;
 
-class Rva00553E47StatsCore {
-public:
-    Rva00553E47StatsCore(const Rva00553E47StatsCore &);
-    Rva00553E47StatsCore(int id);
-    virtual void reset();
-    virtual void rva005550A0(XferStub *);
-    virtual void rva00555109(XferStub *);
-    virtual void rva00554AF2(const Rva00553E47StatsCore *);
-    friend class Rva00559D0CRankWeights;
-public:
-    StatsShortMap m_maps04_0;
-    StatsShortMap m_maps04_1;
-    StatsShortMap m_maps04_2;
-    StatsShortMap m_maps04_3;
-    StatsShortMap m_maps04_4;
-    StatsShortMap m_maps04_5;
-
-    StatsShortMap m_maps4c[6];
-    StatsShortMap m_maps94[6];
-    StatsFloatMap m_mapsdc_0;
-    StatsFloatMap m_mapsdc_1;
-    StatsFloatMap m_mapsdc_2;
-    StatsFloatMap m_mapsdc_3;
-    StatsFloatMap m_mapsdc_4;
-    StatsFloatMap m_mapsdc_5;
-    StatsFloatMap m_mapsdc_6;
-    StatsFloatMap m_mapsdc_7;
-
-    unsigned m_13c, m_140;
-    unsigned short m_144, m_146, m_148, m_14a, m_14c;
-    unsigned short m_unmodelled14e;
-public:
-    int m_id;
-    unsigned short getField144() const { return m_144; }
-};
+#include "../../Include/GameNetwork/Rva00553E47StatsCore.h"
 
 typedef char StatsCoreSizeCheck[sizeof(Rva00553E47StatsCore) == 0x154 ? 1 : -1];
 
