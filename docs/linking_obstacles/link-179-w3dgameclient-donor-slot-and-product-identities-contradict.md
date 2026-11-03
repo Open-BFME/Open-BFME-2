@@ -26,3 +26,19 @@ Clear publication d5d6071842 is carried forward: scoped LINKS0->938, but batch
 audit INCONCLUSIVE at index984a4cdc4d/base0d342789bae3f284ec939609c6f004e1a78d09da
 because Clear lacked a current object receipt. Next scheduled census must cover
 Clear and affected consumers; no whole-current-image/runtime closure is claimed.
+
+**Carved row arrived with an unverified link audit (2026-11-03, landed `43744991a7`):**
+`tu_skeleton --split` moved row `0x0004C6C6` (`Rva0004C6C6::setFrameRate`) out of
+`Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp` into this TU. Bytes are exact
+either side of the move: `./build.sh` over both files reports 27/27 matched with float
+and string receipts OK, and `find_declared_unmatched.py` is clean on each. The push
+hook's `link_batch_audit` was **INCONCLUSIVE**, not clean: index `8661f15284`, outgoing
+base `e92c82cbb24`, "1 source object(s) lack current receipts; first:
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp", and it printed
+"linking UNVERIFIED; audit evidence incomplete". So this TU's link state after the
+carve is unmeasured, which the entry's existing INCONCLUSIVE note above already said
+for its Clear receipt. Carry this object and its consumers into the next scheduled
+census together with that one. The tooling audit over the whole outgoing range found no
+added, deleted or renamed path, so no consumer repointing was required beyond the
+repoints the split tool applied to `functions.csv`, `tu_map.csv` and the doxygen input
+list. No linking, debt or census gain is claimed.
