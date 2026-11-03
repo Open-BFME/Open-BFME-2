@@ -42,11 +42,7 @@ enum ObjectStatusTypes
 };
 
 // The shared 0x80-byte clear at 0x001EAE6F, rowed under an address name.
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 // BFME 2's 0x80-byte upgrade mask; its constructor is that clear.
 struct UpgradeMaskType

@@ -4,13 +4,7 @@
 // tests [edi+0x284] vs buf2 via rowed 0x00406F9C (false if true), else Player
 // via rowed getControllingPlayer 0x0028AFA9 and tests [Player+0x13C] vs buf2
 // inverted via neg/sbb/inc. Chain from 0x00406F9C. Caller 0x004B502F.
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 class Rva00406F9C
 {

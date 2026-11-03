@@ -155,14 +155,7 @@ public:
 }
 
 // The shared 0x80-byte clear (0x001EAE6F) the ctor runs on the +0x24 set.
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 // The Xfer's byte-sink packer (0x00291440) the light-CRC xfer path runs.
 class Sink00291440;

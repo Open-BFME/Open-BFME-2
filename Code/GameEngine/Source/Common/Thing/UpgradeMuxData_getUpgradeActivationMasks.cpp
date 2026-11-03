@@ -80,14 +80,7 @@ struct UpgradeMuxThrowInfoAnchor { int a; int b; int c; int d; };
 static const UpgradeMuxThrowInfoAnchor upgradeMuxThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // TU-local views for the activation gate 0x004CB333 (retail-measured offsets).
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-
-private:
-	char m_pad[0x80];
-};
+#include "../../../Include/Common/Rva001EAE6FHelper.h"
 
 class Rva001DFE56
 {

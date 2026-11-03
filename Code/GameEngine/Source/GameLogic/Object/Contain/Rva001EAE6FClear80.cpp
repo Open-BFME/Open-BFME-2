@@ -10,14 +10,7 @@
 
 #include <string.h>
 
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 // ?clear80@Rva001EAE6FHelper@@QAEPAV1@XZ
 Rva001EAE6FHelper *Rva001EAE6FHelper::clear80()

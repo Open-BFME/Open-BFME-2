@@ -25,14 +25,7 @@ public:
 
 }
 
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 class Rva002542F3Member
 {

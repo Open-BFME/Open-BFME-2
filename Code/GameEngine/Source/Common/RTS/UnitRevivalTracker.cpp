@@ -68,7 +68,7 @@ public:
 
 #include "FixedStorage128.h"
 
-class Rva001EAE6FHelper { public: Rva001EAE6FHelper *clear80(); };
+#include "../../../Include/Common/Rva001EAE6FHelper.h"
 // The established storage copy remains a direct member-constructor call.
 // Its default is inlined into the template constructor and calls the
 // independently rowed clear80 helper; no standalone default body is emitted.

@@ -5,13 +5,7 @@
 // 0x00406F9C, then dispatches on virtual +0x34 to rowed 0x002AA292 or rowed
 // 0x00406F9C with mask as this and buf80 as other. Slot 2 of 0x00857660,
 // class of ObjectCreationUpgrade ctor. Chain from 0x00406F9C.
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 class Rva00406F9C
 {

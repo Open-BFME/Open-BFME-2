@@ -57,7 +57,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 class UpgradeTemplate { public: char opaque00[0x38]; unsigned int bit; };
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
-class Rva001EAE6FHelper { public: Rva001EAE6FHelper *clear80(); };
+#include "../../../Include/Common/Rva001EAE6FHelper.h"
 class Rva00406F9C { public: bool rva00406F9C(const void *); unsigned int words[32]; };
 class InitCommandButtonView {
 public:

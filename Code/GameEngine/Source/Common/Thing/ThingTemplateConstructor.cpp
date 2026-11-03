@@ -122,7 +122,7 @@ typedef _STL::_Rb_tree<Rva002CF156Key,TemplateNameValue,_STL::_Select1st<Templat
 struct TemplateNameMapView { TemplateNameTree tree; TemplateNameMapView() : tree(Rva002CF156Less(), TemplateNameTree::allocator_type()) {} ~TemplateNameMapView(); };
 struct Words16 { unsigned int words[4]; Words16(){words[0]=0;words[1]=0;words[2]=0;words[3]=0;} };
 class AssetList { public: AssetList(); ~AssetList(); private: unsigned char layout[0x14]; };
-class Rva001EAE6FHelper { public: Rva001EAE6FHelper *clear80(); };
+#include "../../../Include/Common/Rva001EAE6FHelper.h"
 struct TemplateMask128 { unsigned int words[32]; TemplateMask128(){((Rva001EAE6FHelper *)this)->clear80();} };
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

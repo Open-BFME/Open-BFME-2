@@ -11,13 +11,7 @@
 // data's +0x118 delay (slot 1).
 typedef bool Bool;
 class ModuleData;
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-private:
-	unsigned char m_bytes[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 class Rva004B3CC2Upgrade
 {
 public:

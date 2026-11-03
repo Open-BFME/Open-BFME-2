@@ -10,14 +10,7 @@
 // alias pin (a declared ctor would implicitly construct early AND double
 // with any body call).
 
-class Rva001EAE6FHelper
-{
-public:
-	Rva001EAE6FHelper *clear80();
-
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 class Rva003623E5Member
 {
