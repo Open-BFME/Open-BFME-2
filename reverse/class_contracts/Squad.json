@@ -1,0 +1,262 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Squad",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x1c": 15
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x268cac"
+     ],
+     "value": 4
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x268cac"
+     ],
+     "value": {
+      "0x10": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x4": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x268cac"
+     ],
+     "value": {
+      "0x0": "0x7f9d60"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7f9d60"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva0026AF86@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x26af6a"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva00268CD6Named@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x268cd6"
+       },
+       {
+        "name": "?xfer@Squad@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4d6ec4"
+       }
+      ],
+      "table": "0x7f9d60"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x7f9d60": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva0026AF86@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva00268CD6Named@@QBEPBDXZ",
+     "3": "?xfer@Squad@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "4": 1,
+   "28": 10,
+   "32": 1
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Squad.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Squad.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:_STL::vector<enum ObjectID,_STL::allocator<enum ObjectID> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "enum*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "enum*"
+    }
+   ],
+   "name": "m_objectIDs",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<enum ObjectID,_STL::allocator<enum ObjectID> >",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "S:_STL::vector<Object *,_STL::allocator<Object *> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "Object**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "Object**"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "Object**"
+    }
+   ],
+   "name": "m_objectsCached",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<Object *,_STL::allocator<Object *> >",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/RTS/Player.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "loadPostProcess()": 1,
+    "slot01()": 1,
+    "v01()": 1
+   },
+   "class": "Squad"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "getSnapshotName()": 1,
+    "slot02()": 1,
+    "v02()": 1
+   },
+   "class": "Squad"
+  }
+ ],
+ "size": 28,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}
