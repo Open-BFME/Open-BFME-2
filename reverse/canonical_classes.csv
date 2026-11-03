@@ -490,3 +490,4 @@ S4SortElem8,Code/Libraries/Source/WWVegas/WWLib/S4SortElem8.h,existing header; c
 NetWrapperCommandMsg,Code/GameEngine/Include/GameNetwork/NetWrapperCommandMsg.h,existing header; contract class_contracts/NetWrapperCommandMsg.json; 11/19 sampled units adopt
 InGameNotificationBoxMovieClip,Code/GameEngine/Include/GameClient/InGameNotificationBoxMovieClip.h,existing header; contract class_contracts/InGameNotificationBoxMovieClip.json; 9/16 sampled units adopt
 IMEManager,Code/GameEngine/Include/GameClient/IMEManagerClass.h,existing header; contract class_contracts/IMEManager.json; 5/15 sampled units adopt
+ProductionUpdateInterface,Code/GameEngine/Include/GameLogic/Module/ProductionUpdateInterface.h,existing header; contract class_contracts/ProductionUpdateInterface.json; 9/15 sampled units adopt
