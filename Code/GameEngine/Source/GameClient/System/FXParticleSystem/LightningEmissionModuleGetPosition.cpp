@@ -88,15 +88,7 @@ __forceinline void ITV2(const Matrix3D & matrix3D,const Vector3 & in,Vector3 * o
 	Vector3 diff(input->X - matrix3D[0][3], input->Y - matrix3D[1][3], input->Z - matrix3D[2][3]);
 	ITR2(matrix3D, diff, out);
 }
-class GameClientRandomVariable
-{
-public:
-	float getValue() const;
-private:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();

@@ -19,12 +19,7 @@ class Xfer;
 namespace FXParticleSystem
 {
 
-struct GameClientRandomVariable
-{
-    unsigned int m_type;
-    float m_low;
-    float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 class EmissionVelocityInfo : public Snapshot
 {

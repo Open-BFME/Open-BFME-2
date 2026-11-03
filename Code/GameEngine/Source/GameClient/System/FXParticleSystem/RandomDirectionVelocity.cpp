@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /ICode/Libraries/Include
 #include "Lib/Coord3D.h"
-class GameClientRandomVariable {public:float getValue()const;int mode;float minimum,maximum;};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 Coord3D* __cdecl Rva003AFA64FillUnitVector(Coord3D*);
 class Rva00564AB8 {public:void rva00564AB8(Coord3D*,const void*,const void*);char unknown00[0x1C];GameClientRandomVariable speed;};
 // Native564AB8..564B06 and WB142EFA0: sample speed at1C and normalized

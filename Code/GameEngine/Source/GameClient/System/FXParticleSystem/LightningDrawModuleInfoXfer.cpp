@@ -21,22 +21,7 @@ class Snapshot;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class GameClientRandomVariable
-{
-public:
-	enum DistributionType
-	{
-		CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-	};
-
-	GameClientRandomVariable();
-	void setRange(float low, float high, DistributionType type = UNIFORM);
-
-private:
-	DistributionType m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 

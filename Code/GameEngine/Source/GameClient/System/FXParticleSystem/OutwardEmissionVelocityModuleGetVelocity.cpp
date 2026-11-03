@@ -8,15 +8,7 @@
 // Outward writeINI 0x0055ED5F; vtable shares slot 3 DoXfer 0x0055ED34 with
 // Cylindrical; volume getVelocity via EmissionVolumeModuleInterface slot 0.
 typedef float Real;
-class GameClientRandomVariable
-{
-public:
-	Real getValue() const;
-private:
-	int m_type;
-	Real m_low;
-	Real m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 namespace FXParticleSystem
 {
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

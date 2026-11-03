@@ -140,7 +140,7 @@ static inline float StreakFabs(float val)
 }
 
 
-class GameClientRandomVariable { public:float getValue()const; };
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 class WWMath { public:static float Random_Float(); };
 
 struct Rva00561C34Point:Coord3D { Rva00561C34Point(); };

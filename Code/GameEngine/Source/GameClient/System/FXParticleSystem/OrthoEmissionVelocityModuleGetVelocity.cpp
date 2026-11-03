@@ -25,15 +25,7 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 class GameClientRandomVariable;
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
-class GameClientRandomVariable
-{
-public:
-	Real getValue() const;
-private:
-	int m_type;
-	Real m_low;
-	Real m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 namespace FXParticleSystem
 {
 // Coord3D: shared header/view; no private copy.

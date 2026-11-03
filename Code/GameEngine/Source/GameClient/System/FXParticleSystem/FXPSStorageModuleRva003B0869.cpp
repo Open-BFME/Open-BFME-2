@@ -131,11 +131,7 @@ extern int BfmeClientFramesPerSecond;
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
-class GameClientRandomVariable
-{
-public:
-	Real getValue() const;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 struct Rva003AFA0BVector
 {

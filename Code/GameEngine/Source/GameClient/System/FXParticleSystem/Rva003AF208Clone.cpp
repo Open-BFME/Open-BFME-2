@@ -50,7 +50,7 @@ struct XferUnknown11;
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "Common/Snapshot.h"
-class GameClientRandomVariable { public: int type; float low,high; };
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 Xfer &xferRandomVariable(Xfer &, GameClientRandomVariable &);
 class DefaultModuleHeadBase {
 public:

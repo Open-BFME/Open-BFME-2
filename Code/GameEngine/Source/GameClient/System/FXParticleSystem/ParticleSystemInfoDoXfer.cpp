@@ -31,13 +31,7 @@ void XferParticleShaderType(Xfer *xfer, int *value);
 void XferParticleType(Xfer *xfer, int *value);
 void XferParticlePriorityType(Xfer *xfer, int *value);
 
-class GameClientRandomVariable
-{
-public:
-	int m_type;
-	float m_low;
-	float m_high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &v);
 

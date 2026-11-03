@@ -7,13 +7,7 @@
 // Composition is an ABI view; complete inheritance names are unproven.
 
 class FXList;
-class GameClientRandomVariable
-{
-public:
-    float getValue() const;
-    unsigned kind;
-    float low, high;
-};
+#include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
 namespace FXParticleSystem
 {
