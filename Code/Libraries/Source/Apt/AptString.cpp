@@ -104,11 +104,7 @@ public:
     void bfmeTruncVKK(unsigned int n);
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 class Rva006DB160
 {

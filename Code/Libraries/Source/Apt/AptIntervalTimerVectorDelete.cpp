@@ -3,7 +3,7 @@
 // The owned constructor6E3CF0 and destructor6E4F60 corroborate type/stride;
 // parent6E6060 creates this array, and6E6430 destroys it.
 void Rva006CD460Free(void *);
-class Rva006DB270 {public:void freeBlock(void *,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class AptIntervalTimer {
  char data[32];

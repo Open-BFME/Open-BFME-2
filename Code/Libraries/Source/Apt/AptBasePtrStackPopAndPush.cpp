@@ -16,11 +16,7 @@ extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int);
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class Rva006DB270
-{
-public:
-    void freeBlock(void *p, int bytes);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006DB160
 {
 public:

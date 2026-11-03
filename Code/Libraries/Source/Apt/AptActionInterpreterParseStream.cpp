@@ -49,11 +49,7 @@ class Rva006DB160
 public:
 	void *allocBlock(int);
 };
-class Rva006DB270
-{
-public:
-	void freeBlock(void *,int);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 // Native sized-delete cleanup calls the same22B pool-free owner at6D8680.
 // Expose that real forwarding body so each actual operator delete emits its

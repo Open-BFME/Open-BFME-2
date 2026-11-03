@@ -29,11 +29,7 @@ private:
     static unsigned short m_nStackCount;
 };
 
-class Rva006DB270
-{
-public:
-    void freeBlock(void *pBlock, int size);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 void *g_clipStackBlock;
 extern Rva006DB270 *g_pChainBlockAllocator;

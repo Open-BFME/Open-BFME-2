@@ -1,5 +1,5 @@
 // cl: /O2 /G6 /MD /EHsc /DNDEBUG
-class Rva006DB270 { public: void freeBlock(void *, int); };
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 // The independent EAStringC providers prove the 4-byte string ABI used
 // by the 6D0660 comparison: C-string ctor6D4C80 equal6D3090 dtor6D3010.

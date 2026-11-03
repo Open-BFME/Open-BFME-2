@@ -12,7 +12,7 @@ struct AptControl;
 struct AptCharacter;
 struct AptPseudoData_t;
 class Rva006DB160 { public: void *allocBlock(int); };
-class Rva006DB270 { public: void freeBlock(void *, int); };
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct AptPseudoCIH_t {
  AptPseudoCIH_t(AptControl *, int, int, AptCharacter *);

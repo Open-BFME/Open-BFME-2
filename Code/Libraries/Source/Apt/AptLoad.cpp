@@ -32,7 +32,7 @@ private:
 
 void __cdecl Rva006CC110Log(int, const char *, ...);
 
-class Rva006DB270 { public: void freeBlock(void *, int); };
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 class Rva006DB160 { public: void *allocBlock(int); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *, int); };
 extern Rva006DB270 *g_pChainBlockAllocator;

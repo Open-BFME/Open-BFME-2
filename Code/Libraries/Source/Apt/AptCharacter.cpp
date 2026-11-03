@@ -158,11 +158,7 @@ protected:
     char m_pad15[3];
 };
 
-class Rva006DB270
-{
-public:
-    void freeBlock(void *p, int size);
-};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator;
 

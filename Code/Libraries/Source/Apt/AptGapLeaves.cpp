@@ -287,7 +287,7 @@ int Rva006E3210Field::isValue(int value) const
 // ??_GRva006E00B0Triple@@QAEPAXI@Z @ 0x006E00B0 (40B): scalar deleting
 // destructor of a 0x1C-byte chain-pool object whose destructor clears its
 // first three words.
-class Rva006DB270 {public:void freeBlock(void *, int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006E00B0Triple
 {

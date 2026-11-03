@@ -7,7 +7,7 @@ void __debugbreak();
 extern void (__cdecl*g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern void*g_aptFreeConstantTableSlot;
-class Rva006DB270{public:void freeBlock(void*,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270*g_pChainBlockAllocator;
 class Rva006D0280{public:int m_useCount;int unused4;void*name8;int typeC;void*argument10;void*object14;void*buffer18;~Rva006D0280(); __forceinline void setData(void*a,void*b,void*c){argument10=a;object14=b;buffer18=c;} __forceinline int getState()const{return typeC;}};
 __forceinline static int dec(int*m_refCount){return --*m_refCount;}

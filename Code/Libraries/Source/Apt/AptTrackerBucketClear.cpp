@@ -1,7 +1,7 @@
 // cl: /O2 /DNDEBUG /MD
 // WB1751BF0 remove-node guide; native starts with a head dereference before
 // its subsequent null check. Empty-head callers are not assumed safe.
-class Rva006DB270 {public:void freeBlock(void*,int);};
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct Rva006D01D0Node {void *value;Rva006D01D0Node *next;};
 class Rva006D01D0Tracker {
