@@ -540,3 +540,4 @@ SkirmishPreferences,Code/GameEngine/Include/GameClient/SkirmishPreferencesClass.
 SphereEmissionVolumeInfo,Code/GameEngine/Include/GameClient/SphereEmissionVolumeInfo.h,existing header; contract class_contracts/SphereEmissionVolumeInfo.json; 7/9 sampled units adopt
 LineEmissionVolumeInfo,Code/GameEngine/Include/GameClient/LineEmissionVolumeInfo.h,existing header; contract class_contracts/LineEmissionVolumeInfo.json; 7/9 sampled units adopt
 EventModuleInfo,Code/GameEngine/Include/GameClient/EventModuleInfo.h,existing header; contract class_contracts/EventModuleInfo.json; 5/8 sampled units adopt
+LightningDrawModuleInfo,Code/GameEngine/Include/GameClient/LightningDrawModuleInfo.h,existing header; contract class_contracts/LightningDrawModuleInfo.json; 7/11 sampled units adopt
