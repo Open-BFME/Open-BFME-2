@@ -604,3 +604,4 @@ DrawableInfo,Code/GameEngine/Include/GameClient/DrawableInfoClass.h,existing hea
 SphericalEmissionVelocityInfo,Code/GameEngine/Include/GameClient/SphericalEmissionVelocityInfo.h,existing header; contract class_contracts/SphericalEmissionVelocityInfo.json; 8/11 sampled units adopt
 ProductionUpdate,Code/GameEngine/Include/GameLogic/Module/ProductionUpdateClass.h,existing header; contract class_contracts/ProductionUpdate.json; 2/8 sampled units adopt
 CylindricalEmissionVelocityInfo,Code/GameEngine/Include/GameClient/CylindricalEmissionVelocityInfo.h,existing header; contract class_contracts/CylindricalEmissionVelocityInfo.json; 7/10 sampled units adopt
+AptMessenger,Code/GameEngine/Include/GameClient/AptMessenger.h,existing header; contract class_contracts/AptMessenger.json; 3/25 sampled units adopt

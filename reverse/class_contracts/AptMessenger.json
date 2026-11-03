@@ -1,0 +1,783 @@
+{
+ "bases": [
+  "_bfme_AptGameWindow"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptMessenger",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 25,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x27c": {
+    "4": 2
+   },
+   "0x280": {
+    "4": 5
+   },
+   "0x298": {
+    "4": 1
+   },
+   "0x29c": {
+    "1": 2
+   },
+   "0x29d": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x51215b"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "_bfme_AptGameWindow",
+       "offset": 0,
+       "own_vftable": "0x8659a0",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x51215b"
+     ],
+     "value": 670
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x51215b"
+     ],
+     "value": {
+      "0x27c": [
+       4
+      ],
+      "0x298": [
+       4
+      ],
+      "0x29c": [
+       1
+      ],
+      "0x29d": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x51215b"
+     ],
+     "value": {
+      "0x0": [
+       "?winSetStatus@GameWindow@@QAEII@Z"
+      ],
+      "0x21c": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ],
+      "0x228": [
+       "?AddExternHandler@AptExternHandlerAdder@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z"
+      ],
+      "0x24c": [
+       "?AddCustomRender@AptCustomRenderAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCustomRender@@@@@Z"
+      ],
+      "0x280": [
+       "??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@IABIABV?$allocator@I@1@@Z"
+      ],
+      "0x28c": [
+       "??0?$vector@URva00511E48@@V?$allocator@URva00511E48@@@_STL@@@_STL@@QAE@I@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x51215b"
+     ],
+     "value": {
+      "0x218": [
+       "0x865998"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x51215b"
+     ],
+     "value": {
+      "0x0": "0x8659a0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8659a0"
+     ],
+     "value": {
+      "count": 17,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptMessenger@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x51265c"
+       },
+       {
+        "name": "?rva005117B7@Rva005117B7@@QAEHHEH@Z",
+        "slot": 1,
+        "target": "0x5117b7"
+       },
+       {
+        "name": "?rva00511990@AptMessenger@@QAEHHII@Z",
+        "slot": 2,
+        "target": "0x511990"
+       },
+       {
+        "name": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+        "slot": 3,
+        "target": "0xa12f8"
+       },
+       {
+        "name": "?rva00444680@Rva00444680@@QAEHHH@Z",
+        "slot": 4,
+        "target": "0x444680"
+       },
+       {
+        "name": "?rva00511E6D@AptMessenger@@QAEHXZ",
+        "slot": 5,
+        "target": "0x511e6d"
+       },
+       {
+        "name": "?vslot6@GameWindow@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x313913"
+       },
+       {
+        "name": "?Rva00510D87Get@@YAHXZ",
+        "slot": 7,
+        "target": "0x510d87"
+       },
+       {
+        "name": "?vslot8@GameWindow@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x31393a"
+       },
+       {
+        "name": "?vslot9@GameWindow@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x8ff78"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 11,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva00511826@AptMessenger@@QAEXXZ",
+        "slot": 12,
+        "target": "0x511826"
+       },
+       {
+        "name": "?rva005118B2@AptMessenger@@QAEXXZ",
+        "slot": 13,
+        "target": "0x5118b2"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 14,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 15,
+        "target": "0x47a699"
+       },
+       {
+        "name": "__purecall",
+        "slot": 16,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x8659a0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x8659a0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptMessenger@@UAEPAXI@Z",
+     "1": "?rva005117B7@Rva005117B7@@QAEHHEH@Z",
+     "2": "?rva00511990@AptMessenger@@QAEHHII@Z",
+     "3": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+     "4": "?rva00444680@Rva00444680@@QAEHHH@Z",
+     "5": "?rva00511E6D@AptMessenger@@QAEHXZ",
+     "6": "?vslot6@GameWindow@@UBE_NXZ",
+     "7": "?Rva00510D87Get@@YAHXZ",
+     "8": "?vslot8@GameWindow@@UBE_NXZ",
+     "9": "?vslot9@GameWindow@@UBE_NXZ",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "11": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "12": "?rva00511826@AptMessenger@@QAEXXZ",
+     "13": "?rva005118B2@AptMessenger@@QAEXXZ",
+     "14": "??1Region2D@@QAE@XZ",
+     "15": "?IsCRC@Xfer@@UBE_NXZ",
+     "16": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 12,
+   "4": 1,
+   "536": 1,
+   "644": 2,
+   "664": 1,
+   "672": 6,
+   "676": 2
+  },
+  "views": 25,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 472,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 476,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 480,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 484,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 488,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 492,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 496,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 500,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 504,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 508,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 512,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 516,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 520,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 524,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 528,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 532,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 544,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 548,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 552,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 556,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 560,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 588,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 592,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 596,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 612,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005AE30AConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger_Rva005AE90F.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/Common/Rva00523775Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 669,
+   "sources": [
+    "Code/GameEngine/Source/Common/AptMessengerOnline.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 633]]": 4,
+    "[[0, 636]]": 1
+   },
+   "class": "AptMessenger"
+  }
+ ],
+ "size": 672,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
