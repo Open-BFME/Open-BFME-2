@@ -13230,11 +13230,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightM
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapReadTexClass.cpp	makeNrmTextureName@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp	AssetPointerLinkTree::_M_empty_initialize	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp	AssetPointerLinkTree::_Rb_tree	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp	crc@W3DTerrainLogic@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp	getExtent@W3DTerrainLogic@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp	getExtentIncludingBorder@W3DTerrainLogic@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp	getMaximumPathfindExtent@W3DTerrainLogic@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp	loadMap@W3DTerrainLogic@@	1
 present_unmatched	Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystem.cpp	1Rva00604A5F@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/ATL/atlbase.cpp	bfmeEmitAtlCritSecTerm@ATL@@YAXPAVCComCriticalSection@1@@Z	1
 present_unmatched	Code/Libraries/Source/ATL/atlimage.cpp	bfmeEmitatlimage@@YAXPAVCImage@ATL@@@Z	1
