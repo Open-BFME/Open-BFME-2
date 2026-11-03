@@ -79,11 +79,7 @@ public:
 
 #include "../../../../Include/GameLogic/LivingWorldRegionManager.h"
 
-class LivingWorld
-{
-public:
-	void ZoomInTo(void *arg);				// 0x002BE8F9
-};
+#include "../../../../Include/GameLogic/LivingWorldClass.h"
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 

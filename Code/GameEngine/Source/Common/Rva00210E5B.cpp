@@ -8,11 +8,7 @@
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class LivingWorld
-{
-public:
-	void *FindClickableObject(void *key);
-};
+#include "../../Include/GameLogic/LivingWorldClass.h"
 
 class Rva003FA835
 {

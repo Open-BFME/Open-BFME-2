@@ -151,11 +151,7 @@ void Rva0020E3D6::rva0020E3D6(void *value)
 class Rva002D3627Host;
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class LivingWorld
-{
-public:
-	void *FindClickableObject(void *key);							// 0x002BFDAE
-};
+#include "../../Include/GameLogic/LivingWorldClass.h"
 
 class Rva003FA835
 {

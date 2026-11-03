@@ -99,7 +99,7 @@ class LivingWorld;
 
  extern LivingWorld *TheLivingWorld;
 
-class LivingWorld {public: void *FindClickableObject(void *);};
+#include "../../../Include/GameLogic/LivingWorldClass.h"
 
 struct Rva002B488EResult
 {
