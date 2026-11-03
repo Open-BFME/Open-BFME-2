@@ -7,15 +7,7 @@
 // copy of the entry's holder at +0x04 through the rowed copy constructor
 // 0x004F6093. The two returns of a class with a destructor give retail's
 // return-value flag at [ebp-4].
-class ArmySummaryEntry
-{
-public:
-	void ApplyWorldMapUpgrades();		// 0x0040C6A5
-private:
-	char m_pad[0xBC];
-public:
-	int m_bc;				// +0xBC, gates ApplyWorldMapUpgrades
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 
 class Rva004F6093Holder
 {

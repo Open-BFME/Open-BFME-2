@@ -117,7 +117,7 @@ struct ArmySummaryView {
 class Rva00318C32Ret;
 class Rva00318C79Owner { public: Rva00318C32Ret *rva00318C32(); };
 class Rva003193EC { public: void rva003198B8(Rva003193EC *); void rva003190E7(bool); void rva003191B1(); };
-class ArmySummaryEntry { public: void CancelUpgrades(); };
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder { public: ArmySummaryEntry *entry; };
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

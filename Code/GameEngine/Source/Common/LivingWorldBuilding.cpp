@@ -534,13 +534,7 @@ private:
 	char m_pad[0x44];
 };
 
-class ArmySummaryEntry
-{
-public:
-	ArmySummaryEntry(const ArmySummaryEntry &o);
-private:
-	char m_pad[0xC8];
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 
 class LivingWorldBuilding
 {

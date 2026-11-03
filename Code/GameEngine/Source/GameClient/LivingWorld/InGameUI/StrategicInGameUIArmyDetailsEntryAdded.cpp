@@ -55,7 +55,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 class Rva005F22D2 { public: void rva005F2295(int); };
-class ArmySummaryEntry {};
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {
 public:
  Rva004F6093Holder():m_p(0){}

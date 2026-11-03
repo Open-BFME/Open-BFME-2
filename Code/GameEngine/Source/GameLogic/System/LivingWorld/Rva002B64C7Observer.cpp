@@ -26,7 +26,7 @@ class Rva00318C32Ret;
 class Rva002E2504 { public: bool rva002E2504(Rva00318C32Ret*,_STL::vector<const ModuleData*>*); };
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct EntryView { char pad[0xbc]; int buildingKey; };
-class ArmySummaryEntry { public: void CancelUpgrades(); };
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 struct SummaryView { char pad[0x40]; int begin,end; };
 struct ArmyView { char pad[0x78]; SummaryView *summary; };
 class LivingWorldLogic : public SubsystemInterface, public Snapshot, public LivingWorldBuildingObserver

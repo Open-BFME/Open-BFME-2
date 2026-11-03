@@ -49,7 +49,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 class Rva005F22D2 { public: void rva005F2295(int); };
 class ArmySummary;
 struct Rva005E4300Entry;
-class ArmySummaryEntry {};
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 struct Rva005E3967Template;
 class ThingTemplate;
 #include "../../../../Include/Common/ThingFactory.h"

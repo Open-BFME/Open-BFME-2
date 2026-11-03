@@ -9,10 +9,7 @@ Player *Rva0040C94ALookup(int);
 #include <list>
 // push_back stays an out-of-line call, as in retail.
 namespace _STL { template <> void list<Object *, allocator<Object *> >::push_back(Object *const &); }
-class ArmySummaryEntry {
-public:
-    Object *rva0040C495(Player *, int);
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 struct Rva0040E534Input { ArmySummaryEntry *value; };
 #include "../../Include/GameLogic/ArmySummary.h"
 void ArmySummary::LoadArmyEntry(Rva0040E534Input *input, int count,

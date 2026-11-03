@@ -335,7 +335,7 @@ class Rva0040C804Target {public:bool check();};
 
 class Rva004E0632 {public:int rva004E0632() const;};
 
-class ArmySummaryEntry {public:void MarkForUpgrades(const Rva004E0632*);};
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 
 struct UpgradeSummaryBoundsView { char pad[0x40]; PlayerHeroPairView *begin,*end; };
 

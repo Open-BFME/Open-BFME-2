@@ -49,11 +49,7 @@ int Rva0040CB3AIndexedField::get(int key) const
 	return m_begin[idx].second;
 }
 
-class ArmySummaryEntry
-{
-public:
-	bool rva0040C3BB(const ArmySummaryEntry *other);
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 
 int Rva0040CB3AIndexedField::rva0040CB79(ArmySummaryEntry *key) const
 {

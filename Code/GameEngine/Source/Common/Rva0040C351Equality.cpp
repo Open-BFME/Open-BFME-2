@@ -15,19 +15,7 @@ struct MemberAC
 	int m_04;
 };
 
-class ArmySummaryEntry : public CarryoverUnit
-{
-public:
-	bool rva0040C3BB(const ArmySummaryEntry *other);
-private:
-	MemberAC m_ac;
-	int m_b4;
-	int m_b8;
-	int m_bc;
-	int m_c0;
-	unsigned char m_c4;
-	unsigned char m_c5;
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 
 bool ArmySummaryEntry::rva0040C3BB(const ArmySummaryEntry *other)
 {

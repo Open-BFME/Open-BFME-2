@@ -29,19 +29,7 @@ class Rva004E075FObj;
 int Rva004E075FGet(Rva004E075FObj *o, int a);
 void XferLivingWorldArmyID(Xfer *xfer, int *value);
 void __cdecl Rva004E12D7Parse(void *ini, void *dest);
-class ArmySummaryEntry : public CarryoverUnit
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	char m_ac[8];
-	int m_b4;
-	int m_b8;
-	int m_bc;
-	int m_c0;
-	bool m_c4;
-	bool m_c5;
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 void ArmySummaryEntry::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);

@@ -5,15 +5,7 @@
 
 #include "../../Include/GameLogic/CarryoverUnit.h"
 
-class ArmySummaryEntry : public CarryoverUnit, public Rva0007DF07
-{
-public:
-	virtual ~ArmySummaryEntry();
-protected:
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/Common/ArmySummaryEntry.h"
 
 ArmySummaryEntry::~ArmySummaryEntry()
 {
