@@ -649,3 +649,4 @@ TerrainVisual,Code/GameEngine/Include/GameClient/TerrainVisualClass.h,existing h
 ShroudManagerCell,Code/GameEngine/Include/Common/ShroudManagerCell.h,existing header; contract class_contracts/ShroudManagerCell.json; 4/7 sampled units adopt
 TCreateUnitsInfo,Code/GameEngine/Include/GameLogic/TCreateUnitsInfo.h,existing header; contract class_contracts/TCreateUnitsInfo.json; 3/7 sampled units adopt
 LightSubPoint,Code/Libraries/Source/WWVegas/WW3D2/LightSubPoint.h,existing header; contract class_contracts/LightSubPoint.json; 4/7 sampled units adopt
+W3DShadowGeometryMesh,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowGeometryMesh.h,existing header; contract class_contracts/W3DShadowGeometryMesh.json; 2/8 sampled units adopt
