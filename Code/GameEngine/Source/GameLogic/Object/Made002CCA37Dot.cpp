@@ -30,11 +30,7 @@ public:
 	Rva0043B208 *rva0043B208();
 };
 
-class DOTManager
-{
-public:
-	void rva0043B8C0(int id, const Rva0043B163 *dot);
-};
+#include "../../../Include/GameLogic/DOTManager.h"
 
 #include "object.h"
 

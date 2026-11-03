@@ -460,11 +460,7 @@ public:
 
 extern ControlBar *TheControlBar;
 
-class DOTManager
-{
-public:
-	UnsignedInt rva0043B72D(Int id);	// 0x0043B72D
-};
+#include "../../../../Include/GameLogic/DOTManager.h"
 
 typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<ObjectID> > ObjectPtrHash;
 

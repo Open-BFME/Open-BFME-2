@@ -23,11 +23,7 @@ public:
 	void rva00271C68(int value);
 };
 
-class DOTManager
-{
-public:
-	void rva0043B278(ObjectID id, int value);
-};
+#include "../../../Include/GameLogic/DOTManager.h"
 
 void DOTManager::rva0043B278(ObjectID id, int value)
 {
