@@ -530,6 +530,7 @@ def object_sources(rows):
 
 
 BLOCKERS = "reverse/exit_link_blockers.tsv"
+INITIALIZER_SECTION = 0x40300040     # initialized data, read, align 4
 SCAFFOLD_OBJECT = re.compile(r"^(?:stubs?\.obj|alias(?:es)?\.obj|fill\d+\.obj)$", re.IGNORECASE)
 
 
@@ -538,6 +539,28 @@ def scaffold_free(inputs, omitted):
     bad = [path.name for path in inputs if SCAFFOLD_OBJECT.match(path.name)]
     leaked = sorted(path.name for path in inputs if path in set(omitted))
     return bad, leaked
+
+
+def initializer_table(rows, inputs):
+    """An object registering retail's initializers that no kept object registers, in retail's order.
+
+    A body that exists only as a plain function links and never runs, so its globals are never
+    built. The table lets an image start; it is not the source. Its count is published with each
+    link and must reach 0 for the exit test, as real statics replace it. It goes first, so these run
+    before the initializers objects register themselves; their order against those is not retail's.
+    """
+    import image_report
+    entries, unreachable = image_report.bridge_entries(rows, inputs)
+    names = sorted({name for _rva, name in entries})
+    number = {name: index for index, name in enumerate(names)}
+    path = link_cycle.write_coff(
+        OUT / "retail_initializers.obj",
+        [(".CRT$XCU", INITIALIZER_SECTION, bytes(4 * len(entries)), 0)],
+        [(name, 0, 0, link_cycle.EXTERNAL) for name in names],
+        {1: [(4 * slot, name, link_cycle.DIR32) for slot, (_rva, name) in enumerate(entries)]})
+    assert len(number) == len(names)
+    return path, {"entries": len(entries), "unreachable": unreachable,
+                  "note": "generated from retail's table; must reach 0 for the exit test"}
 
 
 def link_setup(rows, present):
@@ -568,7 +591,9 @@ def link_setup(rows, present):
         "imports_retail_does_not_import": sorted(missing),
         "crt_absolute_symbols": {name: value for name, value in link_cycle.ABSOLUTE.items()},
     }
-    return inputs + libs + [absolute], metadata
+    table, bridge = initializer_table(rows, inputs)
+    metadata["initializer_bridge"] = bridge
+    return [table] + inputs + libs + [absolute], metadata
 
 
 def expected_objects(rows):
@@ -701,7 +726,7 @@ def run_link(rows):
         "currency": {"rule": "build.compile_is_current (source + recorded headers)",
                      "published_index": published_index_meta()},
         "objects": {
-            "linked": len(inputs) - len(setup["import_libraries"]) - 1,
+            "linked": len(inputs) - len(setup["import_libraries"]) - 2,
             "present": len(present),
             "omitted": proof["objects"],
             "omitted_count": len(omitted),

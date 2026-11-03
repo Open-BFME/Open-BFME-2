@@ -33,6 +33,11 @@ the source that referenced it), `result.json` and `link.log`.
 the omission proof named in `refusal`. The numbers are real, but the result cannot count as the
 exit test until the refusal clears.
 
+`initializers_bridged` counts retail's static initializers no object registers. Without them a linked
+game never builds those globals, so `exit_link.py` registers them from a table it generates in
+retail's order (`retail_initializers.obj`). That lets an image start, but it is not the source: the
+count must reach 0 for the exit test.
+
 `image_report.json` compares the kept objects with retail on what the linker cannot see
 (`tools/image_report.py`): initializers registered, vtable lengths, data contents, FieldParse tables
 and duplicate globals. These all pass a link and fail at run time. Its `rows` lists name each case.

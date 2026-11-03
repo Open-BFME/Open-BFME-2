@@ -123,9 +123,11 @@ class Definition:
 
 
 def scan_objects(paths):
-    """({external name: [Definition]} for non-code symbols, [(object, symbol, body, masked)] registered)."""
+    """({external name: [Definition]} for non-code symbols, [(object, symbol, body, masked)] registered,
+    {external names defined in code})."""
     definitions = collections.defaultdict(list)
     registered = []
+    code = set()
     for path in paths:
         raw = path.read_bytes()
         sections, symbols = link_cycle.parse_coff(raw)
@@ -137,6 +139,8 @@ def scan_objects(paths):
             if symbol.sec <= 0 or symbol.cls != link_cycle.EXTERNAL:
                 continue
             section = sections[symbol.sec - 1]
+            if section.name.startswith(".text"):
+                code.add(symbol.name)
             if section.name.startswith((".text", ".debug", ".drectve")):
                 continue
             end = min((v for v in starts[symbol.sec] if v > symbol.value), default=section.size)
@@ -161,11 +165,12 @@ def scan_objects(paths):
                 masked = ({off - symbol.value + k for off, _i, _t in target.relocs for k in range(4)}
                           if target else set())
                 registered.append((path.name, symbol.name, body, masked))
-    return definitions, registered
+    return definitions, registered, code
 
 
 def initializer_report(retail, rows, registered):
-    table = set(retail.initializers())
+    in_order = retail.initializers()
+    table = set(in_order)
     rva_of, row_at = {}, {}
     for row in rows:
         try:
@@ -210,6 +215,7 @@ def initializer_report(retail, rows, registered):
             "registered_retail_entries": len(table & mapped), "not_registered": len(table - mapped),
             "not_registered_kinds": dict(kinds), "registered_not_in_retail": len(mapped - table),
             "registered_unidentified": len(unmapped), "order": "needs an image",
+            "not_registered_rvas": [hex(rva) for rva in in_order if rva not in mapped],
             "plain_functions": plain, "unidentified": unmapped}
 
 
@@ -229,6 +235,30 @@ def known_addresses(rows):
                 if name:
                     addresses[name].add(int(row["address"], 16))
     return addresses
+
+
+def bridge_entries(rows, paths):
+    """([(rva, symbol)] of retail's initializers nothing registers, in retail's order, for a table
+    built at link time; [rva] of those no kept object defines externally)."""
+    retail = Retail(build.EXE.read_bytes())
+    _definitions, registered, code = scan_objects(paths)
+    report = initializer_report(retail, rows, registered)
+    symbols = collections.defaultdict(list)
+    for row in rows:
+        try:
+            rva = int(row["target_rva"], 16)
+        except ValueError:
+            continue
+        symbols[rva].append(build.ledger_object_symbol(row) or row["name"])
+    entries, unreachable = [], []
+    for text in report["not_registered_rvas"]:
+        rva = int(text, 16)
+        name = next((n for n in symbols[rva] if n in code), None)
+        if name is None:
+            unreachable.append(text)
+        else:
+            entries.append((rva, name))
+    return entries, unreachable
 
 
 def ledger_report(retail, definitions, addresses):
@@ -312,7 +342,7 @@ def main(argv=None):
     kept = [path for path in census._object_sources(rows) if path not in omitted]
     present = [path for path in kept if path.exists()]
     retail = Retail(build.EXE.read_bytes())
-    definitions, registered = scan_objects(present)
+    definitions, registered, _code = scan_objects(present)
     report = {"objects_kept": len(kept), "objects_missing": len(kept) - len(present),
               "initializers": initializer_report(retail, rows, registered)}
     report["vtables"], report["globals"], report["fieldparse"], report["duplicates"] = \

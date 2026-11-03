@@ -57,3 +57,17 @@ def test_retail_reads_zero_past_the_file_extent_and_finds_the_table():
     assert retail.read(0x9000, 4) is None
     assert retail.initializers() == [0x1010, 0x1020]
     assert retail.vtable_words(0x2000, 16) == 2
+
+
+def test_initializer_table_is_an_object_of_named_slots(tmp_path, monkeypatch):
+    import exit_link
+    import link_cycle
+    monkeypatch.setattr(exit_link, "OUT", tmp_path)
+    monkeypatch.setattr(ir, "bridge_entries", lambda rows, inputs: ([(0x20, "?b@@YAXXZ"), (0x10, "?a@@YAXXZ")], ["0x30"]))
+    path, bridge = exit_link.initializer_table([], [])
+    assert bridge["entries"] == 2 and bridge["unreachable"] == ["0x30"]
+    sections, symbols = link_cycle.parse_coff(path.read_bytes())
+    assert sections[0].name == ".CRT$XCU" and sections[0].size == 8
+    slots = [(offset, symbols[index].name, kind) for offset, index, kind in sections[0].relocs]
+    assert slots == [(0, "?b@@YAXXZ", link_cycle.DIR32), (4, "?a@@YAXXZ", link_cycle.DIR32)]
+

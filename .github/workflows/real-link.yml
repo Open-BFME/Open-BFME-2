@@ -95,6 +95,7 @@ jobs:
               board.update(linker_exit=data['link']['exit'], image_written=data['link']['image_written'],
                            unresolved=data['errors']['unresolved'], duplicates=data['errors']['duplicates'],
                            objects=data['objects']['linked'],
+                           initializers_bridged=data.get('initializer_bridge', {}).get('entries'),
                            omitted_funclets=[e['name'] for e in
                                              data['omission_proof'].get('uncovered_funclets_recorded', [])])
           (out / 'scoreboard.json').write_text(json.dumps(board, indent=1) + '\n', encoding='utf-8')
