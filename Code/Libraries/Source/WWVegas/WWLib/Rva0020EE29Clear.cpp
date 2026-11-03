@@ -3,15 +3,15 @@
 #include <new>
 #include <hash_map>
 #include <cstddef>
-// Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
-// the retail copy serves the link. Plain declaration-only form (no __imp_).
+// Mutable bucket access is visible so the erase backend has its native shape.
+// The earlier native external provider remains selected under normal COMDAT policy.
 namespace _STL {
-template <> void *&_STL::vector<void*>::operator[](size_t);
+template <> inline void *&_STL::vector<void*>::operator[](size_t n) { return *(this->_M_start + n); }
 }
-// Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
-// the retail copy serves the link. Plain declaration-only form (no __imp_).
+// Visible ordinary size access lets native bucket helpers inline the storage
+// operation; normal COMDAT policy preserves the earlier selected provider.
 namespace _STL {
-template <> size_t vector<void*>::size() const;
+template <> inline size_t vector<void*>::size() const { return size_t(this->_M_finish - this->_M_start); }
 }
 // Suppress this TU's non-retail vector<void*> begin/end copies (family2-LK3 rows 6/9):
 // the retail copies serve the link. Plain declaration-only form (no __imp_).
@@ -25,9 +25,9 @@ namespace _STL {
 template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 }
 #include "ascii_string.h"
-// Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
+// The ordinary const subscript is visible for the same native helper shape.
+// Its external copy is checked against the existing selected provider.
+namespace _STL { template <> inline void *const &vector<void *>::operator[](size_t n) const { return *(this->_M_start + n); } }
 // ?rva0020EE29@Rva0020EE29@@QAEXXZ @0x0020EE29 51B
 // Clears each entry of the pointer vector at inner+0x2c/+0x30 (inner = *(this+8))
 // by calling rowed ?rva003F209C@Rva003F209C@@QAEXXZ. Evidence: retail

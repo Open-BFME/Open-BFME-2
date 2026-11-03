@@ -1,0 +1,1469 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+  "source_sha256": "71bc02f0c4781687b4bbd9689ab34f5f23b20641939c41057b3c81311a968ea4",
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+  "object_sha256": "b74b67b7078c397c820e811d37421b0370577eaa6cb22f781259e51bd9822872",
+  "control_object_sha256": "97d516c24dacaefbab4d482dfd05ba3ec42eca972b9e970a26aa11c720309532",
+  "counts": {
+    "control_definitions": 46,
+    "candidate_definitions": 48,
+    "changed": 4,
+    "added": 2
+  },
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "clear_index_position": 4782,
+  "entries": [
+    {
+      "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+      "control": {
+        "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "538b5c2408568d7104578b3b8bcee8000000008bc833d28bc7f7f18bce52e8000000008b0085c0740d8b1b39580474068b0085c075f55f5e5bc20400",
+        "relocations": [
+          [
+            15,
+            20,
+            "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ"
+          ],
+          [
+            31,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z"
+          ]
+        ]
+      },
+      "candidate": {
+        "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+        "relocations": []
+      },
+      "candidate_scoped_digest": [
+        "19c037c11543",
+        47
+      ],
+      "ledger_rows": [],
+      "pins": [
+        {
+          "name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "address": "0x002888D4",
+          "notes": "ICF-folded STLport hashtable _M_find for LivingWorldManager's +0x218 beacon map hash_map<int / Rva003FD14D*>; caller CreateBeaconObject 0x00213171 fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp"
+        }
+      ],
+      "index_copies": [
+        {
+          "position": 4902,
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "digest": "19c037c11543",
+          "verdict": "retail"
+        },
+        {
+          "position": 4782,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "e7204c085c9b",
+          "verdict": "unknown"
+        }
+      ],
+      "index_strong_positions": [],
+      "index_holder_position": 4782,
+      "index_owner": null,
+      "index_holder_exception": null,
+      "index_referenced": true,
+      "local_root": true,
+      "local_reachable": true,
+      "local_runtime_incoming": [
+        {
+          "target": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "kind": "code",
+          "section": ".text",
+          "offset": 8,
+          "type": 20,
+          "source_names": [
+            "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z"
+          ]
+        },
+        {
+          "target": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "kind": "code",
+          "section": ".text",
+          "offset": 17,
+          "type": 20,
+          "source_names": [
+            "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z"
+          ]
+        }
+      ],
+      "current_indexed_copies": [
+        {
+          "position": 4902,
+          "index_digest": "19c037c11543",
+          "index_verdict": "retail",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "object_sha256": "1eacb88da7afc2db6f24d4342ac9b54aad2069f41b23c54b2b21d64cbd12f86b",
+          "length": 47,
+          "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+          "relocations": [],
+          "scoped_digest": [
+            "19c037c11543",
+            47
+          ]
+        },
+        {
+          "position": 4782,
+          "index_digest": "e7204c085c9b",
+          "index_verdict": "unknown",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "object_sha256": "b74b67b7078c397c820e811d37421b0370577eaa6cb22f781259e51bd9822872",
+          "length": 47,
+          "bytes": "8b442404568b30578b79082b79048bc6c1ff0233d2f7f78b41048b0490eb0739700474068b0085c075f55f5ec20400",
+          "relocations": [],
+          "scoped_digest": [
+            "19c037c11543",
+            47
+          ]
+        }
+      ],
+      "direct_native_target": "0x002888D4",
+      "complete_zero_relocation_native_equal": true
+    },
+    {
+      "name": "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z",
+      "control": {
+        "name": "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "e900000000",
+        "relocations": [
+          [
+            1,
+            20,
+            "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z"
+          ]
+        ]
+      },
+      "candidate": {
+        "name": "?_M_bkt_num@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBHPAVRva003FD14D@@@2@@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+        "relocations": []
+      },
+      "candidate_scoped_digest": [
+        "d05efd8b25a3",
+        26
+      ],
+      "ledger_rows": [],
+      "pins": [],
+      "index_copies": [
+        {
+          "position": 4902,
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "digest": "d05efd8b25a3",
+          "verdict": null
+        },
+        {
+          "position": 4782,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "0dcbb13bb0b0",
+          "verdict": null
+        }
+      ],
+      "index_strong_positions": [],
+      "index_holder_position": 4782,
+      "index_owner": null,
+      "index_holder_exception": null,
+      "index_referenced": false,
+      "local_root": false,
+      "local_reachable": false,
+      "local_runtime_incoming": [],
+      "current_indexed_copies": [
+        {
+          "position": 4902,
+          "index_digest": "d05efd8b25a3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "object_sha256": "1eacb88da7afc2db6f24d4342ac9b54aad2069f41b23c54b2b21d64cbd12f86b",
+          "length": 26,
+          "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "d05efd8b25a3",
+            26
+          ]
+        },
+        {
+          "position": 4782,
+          "index_digest": "0dcbb13bb0b0",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "object_sha256": "b74b67b7078c397c820e811d37421b0370577eaa6cb22f781259e51bd9822872",
+          "length": 26,
+          "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "d05efd8b25a3",
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "name": "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z",
+      "control": {
+        "name": "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "83c104e8000000008bc88b4424048b0033d2f7f18bc2c20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ"
+          ]
+        ]
+      },
+      "candidate": {
+        "name": "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+        "relocations": []
+      },
+      "candidate_scoped_digest": [
+        "d05efd8b25a3",
+        26
+      ],
+      "ledger_rows": [],
+      "pins": [],
+      "index_copies": [
+        {
+          "position": 4782,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "53bbdcdcf0e0",
+          "verdict": null
+        }
+      ],
+      "index_strong_positions": [],
+      "index_holder_position": 4782,
+      "index_owner": null,
+      "index_holder_exception": null,
+      "index_referenced": true,
+      "local_root": false,
+      "local_reachable": false,
+      "local_runtime_incoming": [],
+      "current_indexed_copies": [
+        {
+          "position": 4782,
+          "index_digest": "53bbdcdcf0e0",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "object_sha256": "b74b67b7078c397c820e811d37421b0370577eaa6cb22f781259e51bd9822872",
+          "length": 26,
+          "bytes": "8b4424048b00568b71082b710433d2c1fe02f7f65e8bc2c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "d05efd8b25a3",
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "name": "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+      "control": {
+        "name": "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b442404538b1885db568bf1745455578d430450e8000000008d6e04508bcd89442418e8000000008b383bfb7512ff7424148bcde8000000008b0f890857eb178b07eb083bc3740a8bf88b0085c075f4eb0e8b08890f50e800000000ff4e10595f5d5e5bc20400",
+        "relocations": [
+          [
+            21,
+            20,
+            "?_M_bkt_num_key@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEIABH@Z"
+          ],
+          [
+            36,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            53,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            88,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "candidate": {
+        "name": "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b44240453558b2885ed8bd9745a8b450456578d7b048b4f042b0f33d2c1f902f7f18bcf5289542418e8000000008b303bf57512ff7424148bcfe8000000008b0e890856eb178b06eb083bc5740a8bf08b0085c075f4eb0e8b08890e50e800000000ff4b10595f5e5d5bc20400",
+        "relocations": [
+          [
+            42,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            59,
+            20,
+            "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+          ],
+          [
+            94,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      "candidate_scoped_digest": [
+        "2140c3506ee6",
+        109
+      ],
+      "ledger_rows": [],
+      "pins": [],
+      "index_copies": [
+        {
+          "position": 4782,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "digest": "e1044b131ad5",
+          "verdict": null
+        }
+      ],
+      "index_strong_positions": [],
+      "index_holder_position": 4782,
+      "index_owner": null,
+      "index_holder_exception": null,
+      "index_referenced": true,
+      "local_root": false,
+      "local_reachable": true,
+      "local_runtime_incoming": [
+        {
+          "target": "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+          "kind": "code",
+          "section": ".text",
+          "offset": 22,
+          "type": 20,
+          "source_names": [
+            "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z"
+          ]
+        }
+      ],
+      "current_indexed_copies": [
+        {
+          "position": 4782,
+          "index_digest": "e1044b131ad5",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0020^e^e29^clear.obj",
+          "object_sha256": "b74b67b7078c397c820e811d37421b0370577eaa6cb22f781259e51bd9822872",
+          "length": 109,
+          "bytes": "8b44240453558b2885ed8bd9745a8b450456578d7b048b4f042b0f33d2c1f902f7f18bcf5289542418e8000000008b303bf57512ff7424148bcfe8000000008b0e890856eb178b06eb083bc5740a8bf08b0085c075f4eb0e8b08890e50e800000000ff4b10595f5e5d5bc20400",
+          "relocations": [
+            [
+              42,
+              20,
+              "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+            ],
+            [
+              59,
+              20,
+              "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEAAPAXI@Z"
+            ],
+            [
+              94,
+              20,
+              "_free"
+            ]
+          ],
+          "scoped_digest": [
+            "2140c3506ee6",
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "name": "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z",
+      "control": null,
+      "candidate": {
+        "name": "??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b018b4c24048d0488c20400",
+        "relocations": []
+      },
+      "candidate_scoped_digest": [
+        "77aefc50cdb3",
+        12
+      ],
+      "ledger_rows": [],
+      "pins": [],
+      "index_copies": [
+        {
+          "position": 1059,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva00057^e6^a.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 1100,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_hash_bodies.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 1134,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^owned^bucket^table^dtors^o1.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 2622,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_string_uint_resize.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 3519,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hashtable_asciistring.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 3530,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 4141,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva001^d^d^c^c5.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 4215,
+          "object": "^code_^game^engine_^source_^game^client_^f^x^list.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 4902,
+          "object": "^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 13639,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^armor.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 14805,
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^move^to^formation^group^order.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 17107,
+          "object": "^code_^libraries_^source_assetmanager_^rva0061^f^f^a0.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 17113,
+          "object": "^code_^libraries_^source_assetmanager_assetmanager_impl.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 17138,
+          "object": "^code_^libraries_^source_assetmanager_^asset^manager^impl^refresh.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 985,
+          "object": "^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 1145,
+          "object": "^code_^game^engine_^source_^common_^r^t^s_^player^template.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 4230,
+          "object": "^code_^game^engine_^source_^game^client_^f^x^list^store^parse.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 6602,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^experience^level^assign.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 6607,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^experience^level^store^add^experience^level.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 7054,
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^skirmish^a^i^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 11446,
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^army^definition^manager.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 12246,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 13002,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^emotion^tracker^update_update.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 13611,
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 17101,
+          "object": "^code_^game^engine^device_^source_^w3^d^device_^game^client_^add_^prototype.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        },
+        {
+          "position": 895,
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "77aefc50cdb3",
+          "verdict": null
+        }
+      ],
+      "index_strong_positions": [],
+      "index_holder_position": 895,
+      "index_owner": null,
+      "index_holder_exception": null,
+      "index_referenced": true,
+      "local_root": false,
+      "local_reachable": false,
+      "local_runtime_incoming": [],
+      "current_indexed_copies": [
+        {
+          "position": 1059,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva00057^e6^a.obj",
+          "object_sha256": "b3828eee1d6eca67549b2446289c0cee7f5fff1db8e01a363e787324821febf7",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 1100,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_hash_bodies.obj",
+          "object_sha256": "e1406924aba4816fe8e0792019718dfa663df0db894a4ee77924a6222850e884",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 1134,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^owned^bucket^table^dtors^o1.obj",
+          "object_sha256": "71d5dee50a433a6baf0a4938cc446f7bff8ccad17b2bc4f32ad77ba34eb863a1",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 2622,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hash_map_string_uint_resize.obj",
+          "object_sha256": "ec18c561cfbbd8472984c70b6d4e21fdeb741b9954a9511389a736f3b5df16ae",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 3519,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_hashtable_asciistring.obj",
+          "object_sha256": "b6af08ce84d408925c897687372b02ef8b7e30eea3f169353f6b9f7a6270ec07",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 3530,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+          "object_sha256": "6ec86633dd192149dd471e20ff613b11d21ad32ff75e793ec19be947796ceeb3",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 4141,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^r3^rva001^d^d^c^c5.obj",
+          "object_sha256": "1afa416a4eb7f336e85e3c2497e468c26b819626a0b9e13492838c627096fd88",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 4215,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^list.obj",
+          "object_sha256": "5cb887e8eac0498c2534e49f9ecbc4c7e6fca8beec5e014dd0c61dc69b601c45",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 4902,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+          "object_sha256": "1eacb88da7afc2db6f24d4342ac9b54aad2069f41b23c54b2b21d64cbd12f86b",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 13639,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^armor.obj",
+          "object_sha256": "d627fb94de144d64d8afadf066b2cc1d479883fbc70897941145d6928cf64eeb",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 14805,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^move^to^formation^group^order.obj",
+          "object_sha256": "82c0c22725f33eff89aaec0f06eaa62cf77cd85f09ea297b9d7efe31349d7044",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 17107,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_assetmanager_^rva0061^f^f^a0.obj",
+          "object_sha256": "01d52b8f92e767841dec66ab920b0a8cd1500094292994e72fae077fc9c9f99f",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 17113,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_assetmanager_assetmanager_impl.obj",
+          "object_sha256": "7aac822acf327c1380652cda6d57692766026b2bb74d04355822011d63af121c",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 17138,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_assetmanager_^asset^manager^impl^refresh.obj",
+          "object_sha256": "3a05aaf7d832db016dd1b11562ec9c16ee4138beacd887c19e0931ed3e0c6546",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 985,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^miles^audio^device_^miles^audio^manager.obj",
+          "object_sha256": "b16fa022f551e2a037981f088715a0b4f5d51ec42f82fac9cd3cb0765c220541",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 1145,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^r^t^s_^player^template.obj",
+          "object_sha256": "986e73888919ef3f0afccf7013e79c858159f04e6ddcdcdf640b1642b76d5b01",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 4230,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^f^x^list^store^parse.obj",
+          "object_sha256": "4fe188302f9954af2681ef41b2948376e56fe5b4c2f7d6a952881e333dd4e0b6",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 6602,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^experience^level^assign.obj",
+          "object_sha256": "9947ec20e16bc5a62c14e9be9f9c180eb7a5621d371da0b6f674fb92cfe725c4",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 6607,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^experience^level^store^add^experience^level.obj",
+          "object_sha256": "f4db64873b91b1602fc43b6730a57a2d7b506391cc13ffdb7468d20067658778",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 7054,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^skirmish^a^i_^skirmish^a^i^manager.obj",
+          "object_sha256": "b290ebebd402520f1c50190aba038734a4c051052b89d0281e1b8343ff5c034d",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 11446,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^skirmish^a^i_^army^definition^manager.obj",
+          "object_sha256": "aaf3e9f0fa1924b4aebf4e5b364e1d834b6805b5d8de694d4d23dbf00331b142",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 12246,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "object_sha256": "44a51c94ace1380289471912a1e5a7d72c6e9b5fbee1fa13af4944b610d3647c",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 13002,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^emotion^tracker^update_update.obj",
+          "object_sha256": "38baff821789580f8891679f90fe1f764efd1b326b737ff936f55ca0616cde64",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 13611,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "object_sha256": "b39714cd02f779094c414f1f3ba102834303e5fcec2013f8612b1d1f09d46036",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 17101,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^add_^prototype.obj",
+          "object_sha256": "1641af9622df33c3fe9b6cab1a485ad250a209ea81692a976089b9bd581453ee",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        },
+        {
+          "position": 895,
+          "index_digest": "77aefc50cdb3",
+          "index_verdict": null,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "object_sha256": "80c7dbc4f38cfe093bdbccb6cfa3cf753386fbf8d2c0f3a4a87d28480e32b96c",
+          "length": 12,
+          "bytes": "8b018b4c24048d0488c20400",
+          "relocations": [],
+          "scoped_digest": [
+            "77aefc50cdb3",
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "name": "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+      "control": null,
+      "candidate": {
+        "name": "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+        "kind": "code",
+        "section": ".text",
+        "bytes": "8b41042b01c1f802c3",
+        "relocations": []
+      },
+      "candidate_scoped_digest": [
+        "1703624a7b19",
+        9
+      ],
+      "ledger_rows": [
+        {
+          "name": "?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ",
+          "export_rva": "",
+          "target_rva": "0x00023BC0",
+          "target_size": "25",
+          "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp",
+          "status": "matched",
+          "notes": "vendored vector<void*> instantiation; the unit needs /Od /Ob1; migrated=stlport-4.6"
+        }
+      ],
+      "pins": [],
+      "index_copies": [
+        {
+          "position": 385,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj",
+          "digest": "062d44dd1806",
+          "verdict": "retail"
+        },
+        {
+          "position": 441,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr_alloc.obj",
+          "digest": "062d44dd1806",
+          "verdict": "retail"
+        },
+        {
+          "position": 1118,
+          "object": "^code_^game^engine_^source_^common_^damage^f^x_map^erase^range.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 2023,
+          "object": "^code_^game^engine_^source_^common_^rva00787^c20^hash^owner^tables.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 3530,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 11650,
+          "object": "^code_^game^engine_^source_^game^client_^message^stream_^selection^i^d^map^destructor.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 17039,
+          "object": "^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w4^rva0060^c^b^a^c.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 17138,
+          "object": "^code_^libraries_^source_assetmanager_^asset^manager^impl^refresh.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 4776,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^region^manager.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 4845,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 5461,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 6607,
+          "object": "^code_^game^engine_^source_^game^logic_^system_^experience^level^store^add^experience^level.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 7054,
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^skirmish^a^i^manager.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 11446,
+          "object": "^code_^game^engine_^source_^game^logic_^skirmish^a^i_^army^definition^manager.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 12246,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 13002,
+          "object": "^code_^game^engine_^source_^game^logic_^object_^update_^emotion^tracker^update_update.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 13611,
+          "object": "^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        },
+        {
+          "position": 895,
+          "object": "^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "digest": "1703624a7b19",
+          "verdict": "wrong"
+        }
+      ],
+      "index_strong_positions": [],
+      "index_holder_position": 385,
+      "index_owner": [
+        "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj"
+      ],
+      "index_holder_exception": null,
+      "index_referenced": true,
+      "local_root": false,
+      "local_reachable": false,
+      "local_runtime_incoming": [],
+      "current_indexed_copies": [
+        {
+          "position": 385,
+          "index_digest": "062d44dd1806",
+          "index_verdict": "retail",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr.obj",
+          "object_sha256": "97519ca093aaef68442ba96fdbc39b66473e0b4b106cc9bc30c024fe6adbc58c",
+          "length": 25,
+          "bytes": "558bec51894dfc8b45fc8b4dfc8b40042b01c1f8028be55dc3",
+          "relocations": [],
+          "scoped_digest": [
+            "062d44dd1806",
+            25
+          ]
+        },
+        {
+          "position": 441,
+          "index_digest": "062d44dd1806",
+          "index_verdict": "retail",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_vector_voidptr_alloc.obj",
+          "object_sha256": "0499fdf81efad77b6e853c1a44262c8467430fbd8b114fa38c4f8a5a5b9c818f",
+          "length": 25,
+          "bytes": "558bec51894dfc8b45fc8b4dfc8b40042b01c1f8028be55dc3",
+          "relocations": [],
+          "scoped_digest": [
+            "062d44dd1806",
+            25
+          ]
+        },
+        {
+          "position": 1118,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^damage^f^x_map^erase^range.obj",
+          "object_sha256": "24c3d6ca4108354b12fd856b437c9304b1717c062a8bce81270be71740b49067",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 2023,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva00787^c20^hash^owner^tables.obj",
+          "object_sha256": "4d1eb563cd1b94ec12682656ea8e8fbe7054ff7f9ba6b98024750aa9434154fd",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 3530,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w3^d2_^mesh^geometry^get^edges.obj",
+          "object_sha256": "6ec86633dd192149dd471e20ff613b11d21ad32ff75e793ec19be947796ceeb3",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 11650,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^message^stream_^selection^i^d^map^destructor.obj",
+          "object_sha256": "0d047dcca42e28e09dbcdb8f0d0d3b889c9a8139198985f45f7953e47e356ff0",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 17039,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^w^w^vegas_^w^w^lib_^stl^sweep^w4^rva0060^c^b^a^c.obj",
+          "object_sha256": "d15b247bca95353ef76443fc7a304b57eb3e6265791b58964345d5dbe7f5a01b",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 17138,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_assetmanager_^asset^manager^impl^refresh.obj",
+          "object_sha256": "3a05aaf7d832db016dd1b11562ec9c16ee4138beacd887c19e0931ed3e0c6546",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 4776,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^region^manager.obj",
+          "object_sha256": "97de6bdbb0c45038fbd49320ca4dcb0affcc42487efe3a6791896393e4a7a1d0",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 4845,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^living^world_^living^world^logic.obj",
+          "object_sha256": "9614cedea84488ec47c52fa23494f7b2ba997acf2876ad3cbcb41b3b5a7da8b7",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 5461,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^game^logic^do^xfer.obj",
+          "object_sha256": "75834fbafd48377ad11c1f8b975565f16c327c6b6327e9dd6e0f357a663d2447",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 6607,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^system_^experience^level^store^add^experience^level.obj",
+          "object_sha256": "f4db64873b91b1602fc43b6730a57a2d7b506391cc13ffdb7468d20067658778",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 7054,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^skirmish^a^i_^skirmish^a^i^manager.obj",
+          "object_sha256": "b290ebebd402520f1c50190aba038734a4c051052b89d0281e1b8343ff5c034d",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 11446,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^skirmish^a^i_^army^definition^manager.obj",
+          "object_sha256": "aaf3e9f0fa1924b4aebf4e5b364e1d834b6805b5d8de694d4d23dbf00331b142",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 12246,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^contain_^horde^contain^iface11^c^slots.obj",
+          "object_sha256": "44a51c94ace1380289471912a1e5a7d72c6e9b5fbee1fa13af4944b610d3647c",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 13002,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^emotion^tracker^update_update.obj",
+          "object_sha256": "38baff821789580f8891679f90fe1f764efd1b326b737ff936f55ca0616cde64",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 13611,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^squad.obj",
+          "object_sha256": "b39714cd02f779094c414f1f3ba102834303e5fcec2013f8612b1d1f09d46036",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        },
+        {
+          "position": 895,
+          "index_digest": "1703624a7b19",
+          "index_verdict": "wrong",
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^game^client^drawable^t^o^c.obj",
+          "object_sha256": "80c7dbc4f38cfe093bdbccb6cfa3cf753386fbf8d2c0f3a4a87d28480e32b96c",
+          "length": 9,
+          "bytes": "8b41042b01c1f802c3",
+          "relocations": [],
+          "scoped_digest": [
+            "1703624a7b19",
+            9
+          ]
+        }
+      ]
+    }
+  ],
+  "outside_map_objects": [
+    {
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^living^world_^living^world^manager^create^beacon^object.obj",
+      "object_sha256": "1eacb88da7afc2db6f24d4342ac9b54aad2069f41b23c54b2b21d64cbd12f86b",
+      "runtime_incoming": [
+        {
+          "target": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "kind": "code",
+          "section": ".text",
+          "offset": 8,
+          "type": 20,
+          "source_names": [
+            "??$find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@1@ABH@Z"
+          ]
+        },
+        {
+          "target": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+          "kind": "code",
+          "section": ".text",
+          "offset": 53,
+          "type": 20,
+          "source_names": [
+            "?CreateBeaconObject@LivingWorldManager@@QAEXHPBVCoord2D@@H@Z"
+          ]
+        }
+      ],
+      "referenced_map_names": [
+        "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z"
+      ]
+    }
+  ],
+  "direct_caller_row": {
+    "name": "?rva00212655@Rva00DFE1C8Host@@QAEXH@Z",
+    "export_rva": "",
+    "target_rva": "0x00212655",
+    "target_size": "102",
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp",
+    "status": "matched",
+    "notes": "Whole native 212655..2126BB and WB B608E0 beacon-map cleanup; established +218 int-key map from CreateBeaconObject; string+4 reported on sole DFEF18 owner; virtual slot0 zero then scalar delete; iterator erased by value; no original method name asserted"
+  },
+  "direct_caller_native_calls": [
+    {
+      "offset": 17,
+      "target_name": "??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z",
+      "native_target": "0x002888D4"
+    },
+    {
+      "offset": 55,
+      "target_name": "?rva002C004F@Rva002BFF5A@@QAEXPBD@Z",
+      "native_target": "0x002C004F"
+    },
+    {
+      "offset": 77,
+      "target_name": "??3@YAXPAX@Z",
+      "native_target": "0x0002FD60"
+    },
+    {
+      "offset": 92,
+      "target_name": "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+      "native_target": "0x001E2861"
+    }
+  ],
+  "erase_wrapper": {
+    "name": "?erase@?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEXU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+    "native_target": "0x001E2861",
+    "length": 30,
+    "unmasked_bytes_equal": true,
+    "native_bytes": "558bec51518b45088945f88b450c8945fc8d45f850e8402fe7ffc9c20800",
+    "compiled_bytes": "558bec51518b45088945f88b450c8945fc8d45f850e800000000c9c20800",
+    "relocations": [
+      [
+        22,
+        20,
+        "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z"
+      ]
+    ],
+    "native_calls": [
+      {
+        "offset": 22,
+        "target_name": "?erase@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@U?$_Const_traits@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@2@@Z",
+        "native_target": "0x000557BB"
+      }
+    ]
+  },
+  "native_erase": {
+    "target": "0x000557BB",
+    "extent": 86,
+    "owners": [
+      {
+        "name": "?erase@?$hashtable@U?$pair@$$CBHURva000557BBElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva000557BBElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva000557BBElement@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBHURva000557BBElement@@@_STL@@U?$_Const_traits@U?$pair@$$CBHURva000557BBElement@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva000557BBElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva000557BBElement@@@_STL@@@2@@2@@Z",
+        "export_rva": "",
+        "target_rva": "0x000557BB",
+        "target_size": "86",
+        "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000557BB.cpp",
+        "status": "matched",
+        "notes": "STLport4.5.3 reference; target 0x557BB;86;FUN_004557bb; native call displacements; address-derived element; donor layout is inference; full byte gate"
+      },
+      {
+        "name": "?erase@?$hashtable@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@U?$_Const_traits@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@2@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVRva001E2747@@@_STL@@@2@@2@@Z",
+        "export_rva": "",
+        "target_rva": "0x000557BB",
+        "target_size": "86",
+        "source": "Code/GameEngine/Source/GameClient/FXListStoreParse.cpp",
+        "status": "matched",
+        "notes": "vendored=stlport-4.5.3; actual typed FX-list pointer map from native1E2CAE; complete emitted body and every owner relocation independently proven; genuine ICF with no independent address and zero unique-byte credit; fold-proof=Code/GameEngine/Source/GameClient/FXListStoreParse.cpp"
+      }
+    ],
+    "bytes": "8b44240456578b3885ff8bf174438b4e082b4e048b4704c1f90233d2f7f18b46048d0c908b013bc775078b10891150eb178b08eb083bcf740a8bc18b0985c975f4eb0e8b11891051e828b0fdffff4e10595f5ec20400",
+    "old_length": 103,
+    "candidate_length": 109,
+    "old_equal_native_complete": false,
+    "candidate_equal_native_complete": false,
+    "candidate_first_unmasked_byte_difference": 4
+  },
+  "limitations": [
+    "Saved index order only; no new census/final-library/whole-game selection audit.",
+    "Current holder-symbol reads are independent of whole object/index equality; no strict-current source receipt is manufactured.",
+    "No inferred native address for the two bucket helpers or const[]; direct erase call-chain facts establish target, not an original type/name claim.",
+    "Object roots overapproximate kept non-COMDAT/NODUPLICATES sections; runtime incoming edges and matched caller are recorded separately."
+  ]
+}
