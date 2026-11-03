@@ -561,3 +561,4 @@ AptLoadScreen,Code/GameEngine/Include/GameClient/AptLoadScreen.h,existing header
 DamageFX,Code/GameEngine/Include/Common/DamageFXClass.h,existing header; contract class_contracts/DamageFX.json; 6/10 sampled units adopt
 EmotionSystem,Code/GameEngine/Include/GameLogic/EmotionSystem.h,existing header; contract class_contracts/EmotionSystem.json; 4/11 sampled units adopt
 ArmyMemberIconMovieClip,Code/GameEngine/Include/GameClient/ArmyMemberIconMovieClip.h,existing header; contract class_contracts/ArmyMemberIconMovieClip.json; 7/11 sampled units adopt
+AptMyHero,Code/GameEngine/Include/GameClient/AptMyHero.h,existing header; contract class_contracts/AptMyHero.json; 5/12 sampled units adopt
