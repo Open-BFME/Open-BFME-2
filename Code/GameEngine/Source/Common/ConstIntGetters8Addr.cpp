@@ -27,11 +27,7 @@ int Rva001EF348Get(void)
 // field table TerrainRoads.cpp defines (data row).
 // Follows a ret (pop edi/esi/ebx/ecx / ret). Opaque address-derived name.
 // Declaration-only static-data view; no instance layout is asserted.
-class TerrainRoadType
-{
-public:
-    static const FieldParse m_terrainRoadFieldParseTable[];
-};
+#include "../../Include/GameClient/TerrainRoadType.h"
 
 int Rva001FF282Get(void)
 {

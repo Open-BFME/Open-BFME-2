@@ -47,7 +47,7 @@ class CursorTextureSlot { public: W3DRadarResetSurface Get_Surface_Level(); };
 void BFME_DX8_Thread_Lock(); bool BFME_DX8_Thread_Assert();
 class BFMEDX8DeviceLock { public: BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();} ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();} };
 class Radar { public: bool radarToWorld(const ICoord2D*,Coord3D*); float getTerrainAverageZ() const {return averageZ;} private: char pad0[0x1c];float averageZ;char pad20[0x1430-0x20]; };
-class TerrainRoadType {char pad[0x28];RGBColor radarColor; public: RGBColor getRadarColor(){return radarColor;} };
+#include "../../../../../GameEngine/Include/GameClient/TerrainRoadType.h"
 class TerrainRoadCollection { public: TerrainRoadType *findBridge(AsciiString name); };extern TerrainRoadCollection *TheTerrainRoads;
 class TerrainType { public: AsciiString getTexture() const; };
 struct Bridge { char pad[0x30];float z0;char p34[8];float z1;char p40[8];float z2;char p4c[8];float z3;char p58[8];ObjectID objectID; };

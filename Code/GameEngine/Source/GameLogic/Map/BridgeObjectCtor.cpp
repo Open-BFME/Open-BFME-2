@@ -216,11 +216,7 @@ private:
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class TerrainRoadType
-{
-public:
-	AsciiString getTowerObjectName(BridgeTowerType type);
-};
+#include "../../../Include/GameClient/TerrainRoadType.h"
 
 class TerrainRoadCollection
 {

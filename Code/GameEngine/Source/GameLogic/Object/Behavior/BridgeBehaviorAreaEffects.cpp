@@ -24,17 +24,7 @@ class Matrix3D;
 Real GetGameLogicRandomValueReal(Real lo, Real hi, char *file, int line);
 #define GameLogicRandomValueReal(lo, hi) GetGameLogicRandomValueReal((lo), (hi), __FILE__, __LINE__)
 
-class TerrainRoadType
-{
-public:
-	Real getTransitionEffectsHeight(void) const { return m_transitionEffectsHeight; }
-	Int getNumFXPerType(void) const { return m_numFXPerType; }
-
-private:
-	unsigned char m_unmodelled000[0x144];
-	Real m_transitionEffectsHeight;
-	Int m_numFXPerType;
-};
+#include "../../../../Include/GameClient/TerrainRoadType.h"
 
 class BridgeInfo
 {

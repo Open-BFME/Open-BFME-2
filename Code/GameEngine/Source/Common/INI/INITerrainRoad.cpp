@@ -12,18 +12,7 @@
 struct FieldParse;
 #include "../../../Include/Common/INI/FieldParse.h"
 #include "../../../Include/Common/INI/INI.h"
-class TerrainRoadType
-{
-public:
-    bool isBridge() const { return m_isBridge; }
-    const AsciiString &getName() const { return m_name; }
-    static const FieldParse m_terrainRoadFieldParseTable[];
-    static const FieldParse m_terrainBridgeFieldParseTable[];
-private:
-    char m_unrecovered00[4];
-    AsciiString m_name;
-    bool m_isBridge;
-};
+#include "../../../Include/GameClient/TerrainRoadType.h"
 class TerrainRoadCollection
 {
 public:

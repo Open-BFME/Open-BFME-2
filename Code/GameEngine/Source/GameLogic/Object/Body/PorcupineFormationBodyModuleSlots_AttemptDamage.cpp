@@ -22,11 +22,7 @@
 // 0x004C20D5 distance test (reached as a member; pinned for this class).
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 // Call view for the existing folded fld [ecx+0x14]; ret provider at 0x0049CB57.
-class TerrainRoadType
-{
-public:
-	float getRoadWidth();
-};
+#include "../../../../Include/GameClient/TerrainRoadType.h"
 
 class WeaponTemplate;
 class Object;

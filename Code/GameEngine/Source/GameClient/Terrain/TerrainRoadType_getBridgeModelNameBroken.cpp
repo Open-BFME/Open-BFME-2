@@ -11,15 +11,7 @@
 // out-of-line here, the donor's other bodies omitted.
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class TerrainRoadType
-{
-public:
-	AsciiString getBridgeModelNameBroken();
-
-private:
-	char m_pad[0x4c];
-	AsciiString m_bridgeModelNameBroken;
-};
+#include "../../../Include/GameClient/TerrainRoadType.h"
 
 AsciiString TerrainRoadType::getBridgeModelNameBroken()
 {

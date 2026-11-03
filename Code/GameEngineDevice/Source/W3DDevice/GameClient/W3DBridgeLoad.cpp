@@ -225,18 +225,7 @@ public:
 	void clear();
 };
 
-class TerrainRoadType
-{
-public:
-	float getBridgeScale() const { return m_bridgeScale; }
-	const AsciiString &getTexture() const { return m_texture; }
-	AsciiString getBridgeModelNameBroken();
-private:
-	char m_pad00[0x1C];
-	float m_bridgeScale;
-	char m_pad20[0x38 - 0x20];
-	AsciiString m_texture;
-};
+#include "../../../../GameEngine/Include/GameClient/TerrainRoadType.h"
 
 class TerrainRoadCollection
 {

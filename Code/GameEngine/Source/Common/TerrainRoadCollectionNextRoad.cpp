@@ -5,14 +5,7 @@
 // the body returns the road's next link at +0x10 (BFME 2 TerrainRoadType, see
 // TerrainRoads.cpp). The same 10 bytes are also slot 72 of vtable 0x007C7C90
 // (an ICF fold), which is why the body sits away from TerrainRoads.cpp.
-class TerrainRoadType
-{
-public:
-	TerrainRoadType *friend_getNext( void ) { return m_next; }
-private:
-	char m_prefix[0x10];
-	TerrainRoadType *m_next;	///< 0x10
-};
+#include "../../Include/GameClient/TerrainRoadType.h"
 
 class TerrainRoadCollection
 {
