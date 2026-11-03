@@ -22758,3 +22758,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp|local|
 Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp|local|BroadcastStealthUpdate::update|n,dd8a9b0ffcdef7e3b99e286f,drz-k7,drz-k7-n46e-16,w-4471b1f6edef,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdate.cpp|param|DelayedLuaEventUpdate::rva004A8F0B|f20,fb849df7986d5dadc74336ee,drz-k7,drz-k7-n46e-19,w-4471b1f6edef,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdate.cpp|param|DelayedLuaEventUpdate::rva004A8F0B|f70,edd8a3eca13ea49c8458d310,drz-k7,drz-k7-n46e-19,w-4471b1f6edef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp|param|FreelistPool::init|a2,a666a17e99850cceed5d92ae,drz-k8,drz-k8-n46f-6,w-87ae7cdc64ef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp|param|FreelistPool::init|a3,d4a9ad92332328130fb114ed,drz-k8,drz-k8-n46f-6,w-87ae7cdc64ef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdate.cpp|param|ModelConditionSpecialAbilityUpdate::onExit|a,24337c551e4d051e9ec932cf,drz-k8,drz-k8-n46f-18,w-87ae7cdc64ef,2026-11-02
