@@ -23,7 +23,7 @@ struct DataChunkInfo;
 class UserParser;
 class ChunkInputStream;
 #include "../../../../GameEngine/Include/Common/DataChunk.h"
-struct DataChunkInfo { AsciiString label,parent; unsigned short version; };
+#include "../../../../GameEngine/Include/Common/DataChunkInfo.h"
 class GlobalData { public: char opaque[0x44]; int use3WayTerrainBlends; };
 extern GlobalData *TheWritableGlobalData;
 class Rva000B0565 : public _STL::vector<unsigned char>

@@ -33,13 +33,7 @@ class UserParser;
 class ChunkInputStream;
 #include "../../../../GameEngine/Include/Common/DataChunk.h"
 
-struct DataChunkInfo
-{
-	AsciiString label;
-	AsciiString parentLabel;
-	unsigned short version;
-	int dataSize;
-};
+#include "../../../../GameEngine/Include/Common/DataChunkInfo.h"
 
 class BaseHeightMapRenderObjClass
 {

@@ -35,7 +35,7 @@ public:
 private:
 	unsigned char m_data[0x28]; // +0x00 +0x00
 };
-struct DataChunkInfo { AsciiString label, parent; unsigned short version; };
+#include "../../../../GameEngine/Include/Common/DataChunkInfo.h"
 struct BfmePod8 { int a[2]; };
 class BfmePod8Vector : public _STL::vector<BfmePod8, _STL::allocator<BfmePod8> > {
 public:
