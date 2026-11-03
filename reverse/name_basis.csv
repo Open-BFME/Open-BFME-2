@@ -7241,3 +7241,11 @@ local,Rva005EA58B::rva005EA58B::b,Rva005EA58B::rva005EA58B::begin,inferred,agree
 local,Rva005EA58B::rva005EA58B::e,Rva005EA58B::rva005EA58B::end,inferred,agree:nl-e52689ffd142,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
 local,Rva005EA58B::rva005EA58B::h,Rva005EA58B::rva005EA58B::holder,inferred,agree:nl-65afe0b38630,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
 local,Rva005EA58B::rva005EA58B::p,Rva005EA58B::rva005EA58B::elems,inferred,agree:nl-aca1b901b778,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
+param,setCoord::c,setCoord::coord,inferred,agree:nl-5928b6735a7b,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp,
+local,Rva00043073::rva00043073::g,Rva00043073::rva00043073::lock,inferred,agree:nl-98f31412bcfc,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,0x00043073
+param,Rva00043073::rva00043073::a,Rva00043073::rva00043073::gamma,inferred,agree:nl-3af989fd5939,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,0x00043073
+param,Rva00043073::rva00043073::b,Rva00043073::rva00043073::bright,inferred,agree:nl-67a444847edf,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,0x00043073
+param,Rva00043073::rva00043073::c,Rva00043073::rva00043073::contrast,inferred,agree:nl-85a0967fd1a0,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,0x00043073
+param,Rva00043073::rva00043073::f,Rva00043073::rva00043073::calibrate,inferred,agree:nl-1bc3f5f75d96,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,0x00043073
+local,Rva003F8090::rva003F8090::e,Rva003F8090::rva003F8090::end,inferred,agree:nl-c343eeda1c37,Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F8090.cpp,0x003F8090
+local,Rva003F8090::rva003F8090::p,Rva003F8090::rva003F8090::iter,inferred,agree:nl-6971d88e0809,Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F8090.cpp,0x003F8090

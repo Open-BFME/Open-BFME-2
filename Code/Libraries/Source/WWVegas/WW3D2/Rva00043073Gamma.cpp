@@ -21,14 +21,14 @@ class Rva00043073
 	char m_pad[0x18];
 	unsigned char m_flag18;
 public:
-	void rva00043073(float a, float b, float c, bool f);
+	void rva00043073(float gamma, float bright, float contrast, bool calibrate);
 };
 
-void Rva00043073::rva00043073(float a, float b, float c, bool f)
+void Rva00043073::rva00043073(float gamma, float bright, float contrast, bool calibrate)
 {
 	if (m_flag18 == 0)
 	{
-		Rva00043073Guard g;
-		DX8Wrapper::Set_Gamma(a, b, c, f, 0);
+		Rva00043073Guard lock;
+		DX8Wrapper::Set_Gamma(gamma, bright, contrast, calibrate, 0);
 	}
 }

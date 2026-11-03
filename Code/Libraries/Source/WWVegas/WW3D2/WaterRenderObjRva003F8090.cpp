@@ -26,12 +26,12 @@ private:
 void Rva003F8090::rva003F8090()
 {
 	m_18 = -1;
-	Rva003F7F30 **p = m_0c;
-	Rva003F7F30 **e = m_10;
-	while (p != e)
+	Rva003F7F30 **iter = m_0c;
+	Rva003F7F30 **end = m_10;
+	while (iter != end)
 	{
-		(*p)->rva003F7F30();
-		++p;
+		(*iter)->rva003F7F30();
+		++iter;
 	}
 }
 

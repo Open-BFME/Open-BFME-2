@@ -137,11 +137,11 @@ static inline Vector3 getTranslation(const Matrix3D &matrix3D)
 }
 
 // Coord3D::set; its arguments are evaluated right to left.
-static inline void setCoord(Coord3D *c, Real x, Real y, Real z)
+static inline void setCoord(Coord3D *coord, Real x, Real y, Real z)
 {
-	c->x = x;
-	c->y = y;
-	c->z = z;
+	coord->x = x;
+	coord->y = y;
+	coord->z = z;
 }
 
 class Thing
