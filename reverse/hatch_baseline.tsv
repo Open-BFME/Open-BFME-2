@@ -1728,7 +1728,6 @@ alternatename	Code/GameEngine/Source/Common/LeapYearPredicateThunk.cpp	?dateIsYe
 alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getChars@NarrowStrSource0059B0DD@@UBEHPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getLength@NarrowStrSource0059B0DD@@UBEHXZ	1
 alternatename	Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp	?Version1@Rva001E70C2XferView@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp	_vtbl_00C16574	1
 alternatename	Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp	??0Pivot24@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp	??0VersionBlockEntry@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	??1ObjectModule@@UAE@XZ	1
@@ -2570,6 +2569,7 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??0Rva00218E09R
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp	?orderPairs@GameWindow@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	_strcpy	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	??1FullFadeTransition@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	_vtbl_00C16574	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	_vtbl_00C16594	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeFindBHF@BfmeSubBHF@@QAEPAUBfmeGotBHF@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeFindLC@BfmeKeyLC@@QAEPAUBfmeNodeLC@@XZ	1

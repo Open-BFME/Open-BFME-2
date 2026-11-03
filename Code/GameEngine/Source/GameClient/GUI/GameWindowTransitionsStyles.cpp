@@ -398,30 +398,22 @@ enum
 		SECOND(); \
 	}
 #define BFME_FREE_THEN_MEMBER(HOST, SLOT, FIRST, SECOND) 	class HOST 	{ 	public: 		void SLOT(); 		void SECOND(); 	}; 	void HOST::SLOT() 	{ 		FIRST(); 		SECOND(); 	}
-
 // ??1Rva0035FD0A@@UAE@XZ @0x0035FD0A (105B): virtual dtor storing vtable 0x008166BC.
 // Zeroes +0xC, frees DisplayString at +0x34 via TheDisplayStringManager slot 0x3C,
 // zeroes +0x34, destroys wide StringBase at +0x30/+0x2C via rowed releaseBuffer
 // 0x00036E70, then base dtor via pinned 0x001DBAC3. Caller at 0x0035FF59 is
 // deleting dtor. Prev tail dtors in FamilyTailDtors1DBAC3.cpp.
 class DisplayString;
-
 #include "../../../Include/GameClient/DisplayStringManager.h"
-
 extern DisplayStringManager *TheDisplayStringManager;
-
 class WinInstanceData;
-
 class Rva00314046LeaField
 {
 public:
 	void *get() const;
 };
-
 UnicodeString __cdecl GadgetStaticTextGetText(GameWindow *window);
-
 void __cdecl GadgetStaticTextSetText(GameWindow *win, UnicodeString text);
-
 class CountUpTransition
 {
 public:
@@ -449,21 +441,15 @@ public:
 	Int m_currentValue;	// +0x38
 	Int m_countState;	// +0x3c
 };
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
 #include "../../../Include/Common/INI/FieldParse.h"
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ObjectCreationList.h
 class ObjectCreationNugget
 {
 public:
 	virtual void create();
 };
-
 // same layout as BfmeConv1140.cpp's Rva0035D74A -- duplicated here (TU-scoped
 // shim) rather than shared, per repo convention for these small state objects.
 class BfmeBase1140A
@@ -473,7 +459,6 @@ public:
 	char *volatile m_bfme00;
 	volatile int m_bfme04;
 };
-
 class Rva0035D74A : public BfmeBase1140A
 {
 public:
@@ -493,7 +478,6 @@ public:
 	volatile int m_bfme30;
 	volatile int m_bfme34;
 };
-
 class Rva0059B8F0Nugget : public ObjectCreationNugget
 {
 public:
@@ -505,9 +489,7 @@ public:
 private:
 	Rva0035D74A m_bfme;
 };
-
 #include "../../../Include/Common/INI/INI.h"
-
 // retail does NOT call ObjectCreationList::addObjectCreationNugget here --
 // the third-arg "instance" gets a plain field store at +0x10 instead, landed
 // as the gen-shim setter Gen_00489270::m (game/gen_small/fun_003.cpp,
@@ -518,9 +500,7 @@ struct Gen_00489270
 public:
 	void m(int a);
 };
-
 typedef char ScoreScaleUpTransitionSizeMatchesRetail[(sizeof(ScoreScaleUpTransition) == 0x34) ? 1 : -1];
-
 class Rva0035D6F9Holder
 {
 public:
@@ -528,54 +508,27 @@ public:
 	// former placeholder name), which Player.cpp's alternatename binds.
 	void set(class Rva0035D53C *obj);
 };
-
-// The constructor installs the existing vtable explicitly; keep that store
-// when the constructor donor is composed into this translation unit.
-class __declspec(novtable) MainMenuMediumScaleUpTransition : public Rva001DBAA4
-{
-public:
-    MainMenuMediumScaleUpTransition();
-    virtual ~MainMenuMediumScaleUpTransition();
-    virtual void init(GameWindow *win);
-    virtual void update(Int frame);
-
-    Int m_startFrame;			// +0x10
-    Int m_endFrame;			// +0x14
-    ICoord2D m_pos;			// +0x18
-    ICoord2D m_size;			// +0x20
-    Int m_drawState;			// +0x28
-    ICoord2D m_growPos;			// +0x2c
-    ICoord2D m_growSize;		// +0x34
-    ICoord2D m_incrementSize;		// +0x3c
-    GameWindow *m_growWin;		// +0x44
-};
-
 extern const FieldParse CountUpTransitionFields[];
-
 class Rva0035D47B : public Rva001DBAA4
 {
 public:
     Rva0035D47B();
     virtual ~Rva0035D47B();
 };
-
 struct SmallScaleDownInstanceData
 {
 	unsigned char m_pad[0x18c];
 	AsciiString m_decoratedNameString;
 };
-
 struct MediumScaleUpInstanceData
 {
 	unsigned char m_pad[0x18c];
 	AsciiString m_decoratedNameString;
 };
-
 #if defined(_MSC_VER)
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #endif
-
 struct Rva0035DB3FFields {
     int m_10;
     int m_14;
@@ -591,9 +544,7 @@ struct Rva0035DB3FFields {
     int m_3c;
 __forceinline Rva0035DB3FFields() {m_10=0;m_14=0;m_18=0;m_1c=0;_ReadWriteBarrier();m_20=-1;m_24=0;m_28=0;m_2c=0;m_30=0;m_34=0;m_38=0;m_3c=0;}
 };
-
 class Rva0035DA01 : public Rva001DBAA4 { public:~Rva0035DA01();Rva0035DA01();private:Rva0035DB3FFields fields;};
-
 // ??0Rva0035E00F@@QAE@XZ
 //
 // ??0Rva0035E00F@@QAE@XZ @0x0035E206 86B: derived ctor calling base
@@ -613,9 +564,7 @@ class Rva0035DA01 : public Rva001DBAA4 { public:~Rva0035DA01();Rva0035DA01();pri
 //   reading m_14 back right after m_48 (not at the end) makes the reload use
 //     ecx, matching retail's 8b 4e 14 / 89 4e 04 instead of an eax CSE.
 extern "C" const void *const vtbl_00C16594[];
-
 extern "C" void _ReadWriteBarrier(void);
-
 class Rva0035E00F : public Rva001DBAA4
 {
 public:
@@ -638,7 +587,6 @@ public:
     int m_48;
     int m_4C;
 };
-
 class Image
 {
 public:
@@ -649,9 +597,7 @@ private:
 	unsigned char m_unreconstructed_00[0x24];
 	ICoord2D m_imageSize; // retail this+0x24
 };
-
 #include "../../../Include/GameClient/Display.h"
-
 class ButtonFlashTransition
 {
 public:
@@ -675,7 +621,6 @@ public:
 	Int m_drawState;		// +0x20
 	const Image *m_gradient;	// +0x24
 };
-
 class Rva0035FD0A : public Rva001DBAA4
 {
 public:
@@ -689,30 +634,32 @@ public:
 	UnicodeString m_30;
 	DisplayString *m_34;
 };
-
 // Native [0x0035FD73,0x0035FDCA), 87 bytes. Both this factory and the
 // CountUp factory reference the same complete 48-byte StartFrame/EndFrame
 // field table at VA 0x00C166DC, defined in CountUpTransitionDestructorThunk.cpp.
 typedef char Rva0035FD0ARetailSize[(sizeof(Rva0035FD0A) == 0x38) ? 1 : -1];
-
 class Rva0035FF76;
-
 class Rva003600D6Holder
 {
 public:
 	void set(Rva0035FF76 *obj);
 };
-
 // InGameUI::setScrollAmount: defined in InGameUIInputModes.cpp (its row's unit).
 
 // --- A one-shot flag: answers whether the global byte at VA 0x00DFF005
 // (ledger g_flag2) was set, clearing it (vtable 0x00BC4858 slot 5).
 extern Bool g_flag2;
-
-// The callees below are rowed; they are called by their row names.
-	// 0x0005BBE2
-	// 0x000F4017
 #include "../../../Include/Common/StateMachine.h"
+// ??0MainMenuMediumScaleUpTransition@@QAE@XZ
+//
+// ??0MainMenuMediumScaleUpTransition@@QAE@XZ @0x0035DE55 80B: derived ctor calling base
+// ??0Rva001DBAA4 at 0x001DBAA4, the shorter sibling of the rowed
+// Rva0035E00F ctor 0x0035E206 (Rva0035E00FFinish.cpp, same three levers):
+// window +0x10..+0x44 with +0x14 = 3 and +0x28 = -1, vtable 0x00C16574
+// (the rowed destructor 0x0035DCF9 and vslots 0x0035DD08/0x0035DD9C share
+// it), then the base +4 takes +0x14, +0xC clears and +9 is set.
+extern "C" const void *const vtbl_00C16574[];
+#pragma comment(linker, "/alternatename:_vtbl_00C16574=??_7MainMenuMediumScaleUpTransition@@6B@")
 
 	// 0x003508C5
 
@@ -840,6 +787,27 @@ public:
 	void rva003FDD15();
 };
 
+// The constructor installs the existing vtable explicitly; keep that store
+// when the constructor donor is composed into this translation unit.
+class __declspec(novtable) MainMenuMediumScaleUpTransition : public Rva001DBAA4
+{
+public:
+    MainMenuMediumScaleUpTransition();
+    virtual ~MainMenuMediumScaleUpTransition();
+    virtual void init(GameWindow *win);
+    virtual void update(Int frame);
+
+    Int m_startFrame;			// +0x10
+    Int m_endFrame;			// +0x14
+    ICoord2D m_pos;			// +0x18
+    ICoord2D m_size;			// +0x20
+    Int m_drawState;			// +0x28
+    ICoord2D m_growPos;			// +0x2c
+    ICoord2D m_growSize;		// +0x34
+    ICoord2D m_incrementSize;		// +0x3c
+    GameWindow *m_growWin;		// +0x44
+};
+
 // tu-skeleton: 0x0035D4E6 44B ?update@ReverseSoundTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D512 14B ?rva0035D512@Rva0035D512@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
@@ -847,6 +815,14 @@ public:
 // tu-skeleton: 0x0035D520 28B ??_GRva0035D47B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D53C 15B ??1ScoreScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/INI.h
+
+// The callees below are rowed; they are called by their row names.
+	// 0x0005BBE2
+	// 0x000F4017
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
@@ -2004,14 +1980,6 @@ void __cdecl Rva0035FD73Parse(INI *ini, Rva003600D6Holder *holder)
 	holder->set((Rva0035FF76 *)obj);
 }
 
-// tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D74A 19B ??1Rva0035D74A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035D75D 36B ?update@ControlBarArrowTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotMiscForwarders.cpp
 
 //
@@ -2036,6 +2004,14 @@ void Rva0035D781Self::rva0035F49E() { slot2(0x0A); }
 // A rowed cdecl first callee that takes nothing (it reads only globals):
 // `this` stays in esi across it exactly as for a member call.
 
+// tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D74A 19B ??1Rva0035D74A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// tu-skeleton: 0x0035D75D 36B ?update@ControlBarArrowTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
+
 // tu-skeleton: 0x0035D789 72B ??0Rva0035D74A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D7D1 28B ??_GRva0035D74A@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
@@ -2056,7 +2032,34 @@ void Rva0035D781Self::rva0035F49E() { slot2(0x0A); }
 
 // tu-skeleton: 0x0035DDBD 152B ?draw@MainMenuMediumScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
-// tu-skeleton: 0x0035DE55 80B ??0MainMenuMediumScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp
+
+  // ??_7MainMenuMediumScaleUpTransition@@6B@
+
+MainMenuMediumScaleUpTransition::MainMenuMediumScaleUpTransition()
+{
+	int *p28 = &m_drawState;
+	int *p14 = &m_endFrame;
+	m_startFrame = 0;
+	m_endFrame = 3;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C16574);
+	int *p18 = &m_pos.x;
+	*p18 = 0;
+	m_pos.y = 0;
+	m_size.x = 0;
+	m_size.y = 0;
+	*p28 = -1;
+	m_growPos.x = 0;
+	m_growPos.y = 0;
+	m_growSize.x = 0;
+	m_growSize.y = 0;
+	m_incrementSize.x = 0;
+	m_incrementSize.y = 0;
+	m_frameLength = *p14;
+	m_growWin = 0;
+	m_win = 0;
+	m_isForward = true;
+}
 
 // tu-skeleton: 0x0035E00F 15B ??1Rva0035E00F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 

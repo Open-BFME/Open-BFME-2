@@ -1,5 +1,7 @@
 ### LINK-017: stale link index lacks strict receipts for pending consolidation providers
 
+2026-11-03, input `fdf5abfc55`: medium-menu constructor absorbed into GameWindowTransitionsStyles.cpp (one source removed, 85/85 rows and 17 EXACT EH graphs preserved); the merge guard preserves eight census-linked inputs, while the outgoing audit remains INCONCLUSIVE on index `8661f15284` and the missing current CreateAHeroManager consumer receipt. Carry the destination, retired donor and affected consumers into the next scheduled census; [scope, evidence and remaining donors](../../reverse/attempt_support/gui-medium-tu-merge-20261103-codex3/README.md). No census gain claimed.
+
 2026-10-30 module-header CRT cleanup, base `c9c0fea9be`, index `85f6b7f40c`: Rva0055C9A0Write.cpp replaces its local free declaration with stdlib.h and preserves the proven direct game-allocator call through the unit's `_CRTIMP=` setting. All four rows, EH and external object facts remain exact; paired previews retain LINKS and strict provider preparation passes. The staged-tree batch audit is INCONCLUSIVE on the older index and affected consumer Common/0CreateAHeroManager21FE49.cpp without a current receipt. Carry this scope into the next normal census; [verification and remaining work](../../reverse/attempt_support/module-header-ms-headers-20261030-codexb5.md). No census gain claimed.
 
 2026-10-30 IngameNoticeDisplay reset composition, local base `bd28601b65`:

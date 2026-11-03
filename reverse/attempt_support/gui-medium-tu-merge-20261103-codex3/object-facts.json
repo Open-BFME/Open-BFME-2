@@ -1,0 +1,28 @@
+{
+  "comdats": {
+    "before_union_count": 92,
+    "merged_count": 92,
+    "removed": [],
+    "added": []
+  },
+  "strong": {
+    "before_union_count": 45,
+    "merged_count": 45,
+    "removed": [],
+    "added": []
+  },
+  "undefined": {
+    "before_union_count": 67,
+    "merged_count": 66,
+    "removed": [
+      "??0MainMenuMediumScaleUpTransition@@QAE@XZ"
+    ],
+    "added": []
+  },
+  "weak_aliases": {
+    "before_union_count": 8,
+    "merged_count": 8,
+    "removed": [],
+    "added": []
+  }
+}
