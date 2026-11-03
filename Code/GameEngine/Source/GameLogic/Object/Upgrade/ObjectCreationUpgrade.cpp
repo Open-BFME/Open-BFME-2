@@ -26,6 +26,7 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/Common/Module.h"

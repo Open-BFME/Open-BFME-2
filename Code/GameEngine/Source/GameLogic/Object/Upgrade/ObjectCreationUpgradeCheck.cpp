@@ -5,6 +5,7 @@
 // 0x00406F9C, then dispatches on virtual +0x34 to rowed 0x002AA292 or rowed
 // 0x00406F9C with mask as this and buf80 as other. Slot 2 of 0x00857660,
 // class of ObjectCreationUpgrade ctor. Chain from 0x00406F9C.
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/Rva001EAE6FHelper.h"
 
 class Rva00406F9C
@@ -22,7 +23,7 @@ private:
 	int m_bits[32];
 };
 
-class Player { public: char pad00[0x13C]; Rva00406F9C mask; };
+// Player uses its canonical declaration; the target mask remains an opaque field view.
 enum DamageType;
 enum DeathType;
 enum ModelConditionFlagType;
@@ -95,7 +96,7 @@ haveBits:
 // Copy4548B and OR28C557 prove two 128-byte mask storages independently.
 void Rva004B4130::rva004B41A9()
 {
- BfmeFixedStorage128 mask(*(const BfmeFixedStorage128 *)&owner->getControllingPlayer()->mask);
+ BfmeFixedStorage128 mask(*(const BfmeFixedStorage128 *)((const unsigned char *)owner->getControllingPlayer() + 0x13C));
  ((_STL::_Base_bitset<32> *)&mask)->_M_do_or(*(const _STL::_Base_bitset<32> *)&owner->mask);
  if (v02((Rva00406F9C *)&mask))
  {
