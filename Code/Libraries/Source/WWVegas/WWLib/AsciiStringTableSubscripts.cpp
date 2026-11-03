@@ -22,11 +22,7 @@ typedef _STL::pair<const AsciiString, TreeHintPayload00410B17> StoredPair10B17;
 struct AudioEventInfo;
 
 class Rva00056F61;
-struct Rva0041534BIter {
-    void *m_node;
-    Rva00056F61 *m_table;
-    Rva0041534BIter(void *n, Rva00056F61 *table) : m_node(n), m_table(table) {}
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61 {
 public:
     // 41534B -> 56F61 -> 55041/2BA61 and 69D6/6733/memcmp: read-only,

@@ -13,12 +13,7 @@
 #include "ascii_string.h"
 
 class Rva00056F61;
-struct Rva0041534BIter
-{
-public:
-	void *m_node; // +0x00
-	Rva00056F61 *m_table; // +0x04
-};
+#include "../../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {
 public:

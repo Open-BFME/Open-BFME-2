@@ -7,11 +7,7 @@
 // 0x0022486C; landing unblocks 0x00224818.
 #include "ascii_string.h"
 
-struct Rva0041534BIter
-{
-	void *m_node;
-	void *m_table;
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

@@ -313,11 +313,7 @@ bool Rva002104C7::ActivateRegion(void *a1, void *a2)
 // no construction here, so no user ctor).
 class AsciiString;
 class Rva00056F61;
-struct Rva0041534BIter
-{
-	void *m_node;
-	Rva00056F61 *m_table;
-};
+#include "../../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
 struct Rva00210390Node
 {
 	char m_pad[8];

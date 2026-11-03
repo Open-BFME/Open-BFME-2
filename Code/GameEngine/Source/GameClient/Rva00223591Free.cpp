@@ -88,10 +88,7 @@ _STL::pair<const AsciiString, TreeHintRef00222C5A> *Rva00223591::rva00223854(con
 // Iterator lifetime ends before pair construction; the verified nonthrowing
 // lookup41534B permits its two-word return buffer to become the pair slot.
 class Rva00056F61;
-struct Rva0041534BIter {
- void *m_node;Rva00056F61 *m_table;
- Rva0041534BIter(void *n,Rva00056F61*table):m_node(n),m_table(table){}
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61 {public:__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);};
 typedef _STL::pair<const AsciiString,AsciiString> Rva002240CBPair;
 class Rva002240CB {public:AsciiString &rva002240CB(const AsciiString &);};

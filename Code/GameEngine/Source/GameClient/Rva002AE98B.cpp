@@ -5,11 +5,7 @@
 
 // The data ledger identifies the shared read-only operand as float +0.0.
 
-struct Rva0041534BIter
-{
-	void *m_node;
-	void *m_table;
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

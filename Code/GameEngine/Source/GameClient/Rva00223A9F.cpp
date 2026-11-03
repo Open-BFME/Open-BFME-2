@@ -7,11 +7,7 @@
 // Caller 0x005B232E in 0x005B2295. Adjacent to 0x00223A94 so same offset.
 #include "ascii_string.h"
 
-struct Rva0041534BIter
-{
-	void *m_node;
-	void *m_table;
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

@@ -17,11 +17,7 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-struct Rva0041534BIter
-{
-	void *m_node;
-	void *m_table;
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 
 class Rva00056F61
 {

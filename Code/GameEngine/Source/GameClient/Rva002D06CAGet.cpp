@@ -14,11 +14,7 @@
 #include "ascii_string.h"
 class Rva00056F61;
 class ThingTemplate;
-struct Rva0041534BIter
-{
-	void *m_node;
-	Rva00056F61 *m_table;
-};
+#include "../../Include/GameClient/Rva0041534BIter.h"
 class Rva00056F61
 {
 public:
