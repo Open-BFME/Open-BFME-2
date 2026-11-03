@@ -1,0 +1,282 @@
+{
+ "bases": [
+  "UpdateModule"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "LifetimeUpdate",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 10,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 10,
+   "inherited_spans": [
+    [
+     0,
+     32
+    ]
+   ]
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x3a4b58"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "UpdateModule",
+       "offset": 0,
+       "own_vftable": "0x81b038",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a4b58"
+     ],
+     "value": 41
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x3a4b58"
+     ],
+     "value": {
+      "0x28": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x3a4b58"
+     ],
+     "value": {
+      "0x0": [
+       "?calcSleepDelay@LifetimeUpdate@@AAEIII@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x24e392"
+     ],
+     "value": 44
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x3a4b58"
+     ],
+     "value": {
+      "0x10": [
+       "0x81b02c"
+      ],
+      "0xc": [
+       "0x7eff90"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x3a4b58"
+     ],
+     "value": {
+      "0x0": "0x81b038"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x81b038"
+     ],
+     "value": {
+      "count": 13,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva003A49D1@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x3a4a97"
+       },
+       {
+        "name": "?loadPostProcess@Rva00497805@@MAEXXZ",
+        "slot": 1,
+        "target": "0x497805"
+       },
+       {
+        "name": "?name@Rva003A49EANamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x3a49ea"
+       },
+       {
+        "name": "?xfer@Rva003A49D1@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x3a4afa"
+       },
+       {
+        "name": "?getModuleNameKey@LifetimeUpdate@@UBE?AW4NameKeyType@@XZ",
+        "slot": 4,
+        "target": "0x3a4a27"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 5,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 6,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 7,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+        "slot": 9,
+        "target": "0x50b238"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 10,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 11,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ",
+        "slot": 12,
+        "target": "0x22c4cb"
+       }
+      ],
+      "table": "0x81b038"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x81b038": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva003A49D1@@UAEPAXI@Z",
+     "1": "?loadPostProcess@Rva00497805@@MAEXXZ",
+     "2": "?name@Rva003A49EANamed@@QBEPBDXZ",
+     "3": "?xfer@Rva003A49D1@@MAEXPAVXfer@@@Z",
+     "4": "?getModuleNameKey@LifetimeUpdate@@UBE?AW4NameKeyType@@XZ",
+     "5": "??1Region2D@@QAE@XZ",
+     "6": "??1Region2D@@QAE@XZ",
+     "7": "??1Region2D@@QAE@XZ",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?SkipBadBlock@Xfer@@UAEXAAVSnapshot@@I@Z",
+     "10": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "11": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "12": "?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "36": 2,
+   "44": 3
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_LifetimeUpdate.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/LifetimeUpdate.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirObjectProgress.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainChangeToFormation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirObjectProgress.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirObjectProgress.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 44,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
