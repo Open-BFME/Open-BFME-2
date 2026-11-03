@@ -1,0 +1,312 @@
+{
+ "bases": [
+  "Rva00506B1B"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AIBaseBuilder",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 10,
+  "inherited": {
+   "base_views": 1,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x24": {
+    "1": 3
+   },
+   "0x28": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5070e9"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00506B1B",
+       "offset": 0,
+       "own_vftable": "0x863fac",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5070e9"
+     ],
+     "value": 52
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5070e9"
+     ],
+     "value": {
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       1
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x5070e9"
+     ],
+     "value": {
+      "0xc": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5070e9"
+     ],
+     "value": {
+      "0x0": "0x863fac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x863fac"
+     ],
+     "value": {
+      "count": 3,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAIBaseBuilder@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x507506"
+       },
+       {
+        "name": "?v1@AIBaseBuilder@@UAEXXZ",
+        "slot": 1,
+        "target": "0x506bdc"
+       },
+       {
+        "name": "?v2@AIBaseBuilder@@UAEXXZ",
+        "slot": 2,
+        "target": "0x5071a1"
+       }
+      ],
+      "table": "0x863fac"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 9,
+  "retail_vtables": {
+   "0x863fac": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAIBaseBuilder@@UAEPAXI@Z",
+     "1": "?v1@AIBaseBuilder@@UAEXXZ",
+     "2": "?v2@AIBaseBuilder@@UAEXXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "52": 4
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp",
+    "Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva004EC869.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp",
+    "Code/GameEngine/Source/Common/Rva004EBF4BCopy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp",
+    "Code/GameEngine/Source/Common/Rva004EBF4BCopy.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/Common/AIBaseBuilder.cpp",
+    "Code/GameEngine/Source/Common/Rva004EBF4BCopy.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x4",
+   "candidates": {
+    "1:i1": 1,
+    "48:A": 1
+   },
+   "class": "AIBaseBuilder"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "__vecDelDtor(uint)": 1
+   },
+   "class": "AIBaseBuilder",
+   "why": "beyond the retail vftable's 3 slots"
+  }
+ ],
+ "size": 52,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot01()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  }
+ }
+}
