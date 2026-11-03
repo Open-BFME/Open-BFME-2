@@ -80,16 +80,7 @@ class Xfer::Version { public: unsigned char value, current; Version() : value(1)
 Xfer *XferPathfindLayerEnum(Xfer *, int *);
 enum PathfindLayerEnum { LAYER_INVALID = 0 };
 
-class PathNode
-{
-public:
-	PathNode(const Coord3D *, PathfindLayerEnum) throw();
-	PathNode *next, *previous, *optimized;
-	Coord3D position;
-	PathfindLayerEnum layer;
-	bool canOptimize;
-	unsigned waypoint;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 class Rva0026E4A0 { public: Rva0026E4A0 &set(Rva0026E4A0 *) throw(); };
 class Rva00065964ObjectPool { public: void *rva002635C2() throw(); };
 extern Rva00065964ObjectPool g_pathNodePool;
@@ -140,7 +131,7 @@ void Path::DoXfer(Xfer *xfer)
 	Xfer::Version version;
 	xfer->operator==(version);
 	int count = 0;
-	for (PathNode *node = head; node; node = node->next)
+	for (PathNode *node = head; node; node = node->m_next)
 		++count;
 	xfer->operator==(count);
 	if (xfer->IsStoring()) {
@@ -151,20 +142,20 @@ void Path::DoXfer(Xfer *xfer)
 			ids.idOf(key) = count;
 			xfer->operator==(count);
 			Coord3D position;
-			position.x = node->position.x; position.y = node->position.y; position.z = node->position.z;
+			position.x = node->m_pos.x; position.y = node->m_pos.y; position.z = node->m_pos.z;
 			xfer->operator==(asBase(position));
-			int layer = node->layer;
+			int layer = node->m_layer;
 			XferPathfindLayerEnum(xfer, &layer);
-			bool canOpt = node->canOptimize;
+			bool canOpt = node->m_canOptimize;
 			xfer->operator==(canOpt);
 			int optID = -1;
-			if (node->optimized)
-				optID = ids.idOf((unsigned)node->optimized);
+			if (node->m_nextOpti)
+				optID = ids.idOf((unsigned)node->m_nextOpti);
 			xfer->operator==(optID);
-			unsigned waypoint = node->waypoint;
+			unsigned waypoint = node->m_portalID;
 			xfer->operator==(waypoint);
 			--count;
-			node = node->previous;
+			node = node->m_prev;
 		}
 		int currentID = 0;
 		if (current)
@@ -188,7 +179,7 @@ void Path::DoXfer(Xfer *xfer)
 			void *storage = g_pathNodePool.rva002635C2();
 			PathNode *node = storage ? new (storage) PathNode(&position, (PathfindLayerEnum)layer) : 0;
 			nodes.get(nodeID) = node;
-			node->canOptimize = canOpt; node->waypoint = waypoint;
+			node->m_canOptimize = canOpt; node->m_portalID = waypoint;
 			PathNode *optNode = 0;
 			if (optID > 0)
 				nodes.find(optID, optNode);
@@ -196,7 +187,7 @@ void Path::DoXfer(Xfer *xfer)
 			if (!tail)
 				tail = node;
 			if (optNode)
-				node->optimized = optNode;
+				node->m_nextOpti = optNode;
 			--count;
 		}
 		int currentID;

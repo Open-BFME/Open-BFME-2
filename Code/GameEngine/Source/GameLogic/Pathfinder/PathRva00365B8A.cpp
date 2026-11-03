@@ -7,7 +7,7 @@
 inline float Coord3D::length() const {return (float)sqrt(x*x+y*y+z*z);}
 inline void Coord3D::normalize(){float len=length();if(len!=0.0f){float scale=1.0f/len;x*=scale;y*=scale;z*=scale;}}
 class Object;
-class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D pos;int layer;bool canOptimize;char pad1D[3];int portalID;};
+#include "../../../Include/GameLogic/PathNode.h"
 struct DirectionOptions {bool flag0,flag1;float value4;bool flag8;};
 struct PathWorkingCoord {
  float x,y,z;
@@ -25,7 +25,7 @@ struct PathWorkingCoord {
 void Path::rva00365B8A(Object *obj,PathNode *start,PathNode *end,const Coord3D *input,float radius)
 {
  PathWorkingCoord reverse(*input);reverse.scale(-1.0f);
- PathWorkingCoord direction(end->pos);direction.subtract(start->pos);direction.normalize();
+ PathWorkingCoord direction(end->m_pos);direction.subtract(start->m_pos);direction.normalize();
  DirectionOptions options;options.flag0=false;options.flag1=false;options.value4=radius;options.flag8=true;
  float angle=3.14159265358979323846f;
  float cross=reverse.x*direction.y-direction.x*reverse.y;
@@ -34,10 +34,10 @@ void Path::rva00365B8A(Object *obj,PathNode *start,PathNode *end,const Coord3D *
  PathWorkingCoord side(-direction.y-reverse.y,direction.x+reverse.x,0.0f);side.normalize();
  if(positive)side.scale(-1.0f);
  side.scale(radius*2.0f);
- PathWorkingCoord saved(end->pos);
- PathWorkingCoord target(start->pos);target.add(side);target.add(middle);
- end->pos=*target.coord();
+ PathWorkingCoord saved(end->m_pos);
+ PathWorkingCoord target(start->m_pos);target.add(side);target.add(middle);
+ end->m_pos=*target.coord();
  rva00365309(obj,start,reverse.coord(),&options,0xffff,angle,0);
- end->pos=*saved.coord();side.scale(-1.0f);
+ end->m_pos=*saved.coord();side.scale(-1.0f);
  rva00365309(obj,start,side.coord(),&options,0xffff,angle,0);
 }

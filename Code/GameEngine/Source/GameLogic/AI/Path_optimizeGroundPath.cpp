@@ -18,27 +18,7 @@ enum PathfindLayerEnum
 	LAYER_FIRST_BRIDGE = 16
 };
 
-#include "Lib/Coord3D.h"
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
-class PathNode
-{
-public:
-	// Both getters inline in the native optimizer. Suppress their surplus
-	// standalone copies without changing the member accesses or call ABI.
-	__declspec(dllimport) __forceinline PathNode *getNext(void) const { return m_next; }
-	PathNode *getPrevious(void) const { return m_previous; }
-	PathNode *getNextOptimized(void) const { return m_nextOptimized; }
-	const Coord3D *getPosition(void) const { return &m_position; }
-	__declspec(dllimport) __forceinline PathfindLayerEnum getLayer(void) const { return m_layer; }
-
-private:
-	friend class Path;
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	PathfindLayerEnum m_layer;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPathfind.h
 #include "../../../Include/GameLogic/AIPathfind.h"
@@ -161,7 +141,7 @@ void Path::optimizeGroundPath(Int pathDiameter)
 
 			if (isPassable)
 			{
-				anchor->m_nextOptimized = node;
+				anchor->m_nextOpti = node;
 				anchor = node;
 				optimizedSegment = true;
 				break;
@@ -170,7 +150,7 @@ void Path::optimizeGroundPath(Int pathDiameter)
 
 		if (optimizedSegment == false)
 		{
-			anchor->m_nextOptimized = anchor->getNext();
+			anchor->m_nextOpti = anchor->getNext();
 			anchor = anchor->getNext();
 		}
 	}
@@ -183,7 +163,7 @@ void Path::optimizeGroundPath(Int pathDiameter)
 			Real dx = node->getPosition()->x - anchor->getPosition()->x;
 			Real dy = node->getPosition()->y - anchor->getPosition()->y;
 			if (dx * dx + dy * dy < 390.0f)
-				anchor->m_nextOptimized = node->getNextOptimized();
+				anchor->m_nextOpti = node->getNextOptimized();
 		}
 	}
 

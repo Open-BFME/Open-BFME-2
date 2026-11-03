@@ -13,8 +13,6 @@ enum PathfindLayerEnum
 	LAYER_GROUND = 1
 };
 
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-
 struct Rva003642DFNode;
 #include "../../../Include/GameLogic/Rva003642DFResult.h"
 
@@ -24,19 +22,7 @@ public:
 	Real get() const;
 };
 
-class PathNode
-{
-public:
-	PathNode(const Coord3D *position, PathfindLayerEnum layer) throw();
-
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-	PathfindLayerEnum m_layer;
-	Bool m_canOptimize;
-	Int m_waypointID;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 class Rva00065964ObjectPool
 {
@@ -53,19 +39,19 @@ Rva00065964ObjectPool g_pathNodePool;
 void Path::rva003649B1(const PathNode *pathNode)
 {
 	if (m_isOptimized && m_pathTail) {
-		if (pathNode->m_position.x == m_pathTail->m_position.x && pathNode->m_position.y == m_pathTail->m_position.y)
+		if (pathNode->m_pos.x == m_pathTail->m_pos.x && pathNode->m_pos.y == m_pathTail->m_pos.y)
 			return;
 	}
 	void *mem = g_pathNodePool.rva002635C2();
-	PathNode *node = mem ? new (mem) PathNode(&pathNode->m_position, pathNode->m_layer) : 0;
-	node->m_waypointID = pathNode->m_waypointID;
+	PathNode *node = mem ? new (mem) PathNode(&pathNode->m_pos, pathNode->m_layer) : 0;
+	node->m_portalID = pathNode->m_portalID;
 	PathNode *tail = m_pathTail;
 	if (tail) {
 		tail->m_next = node;
-		node->m_previous = tail;
+		node->m_prev = tail;
 	}
 	if (m_isOptimized && m_pathTail)
-		m_pathTail->m_nextOptimized = node;
+		m_pathTail->m_nextOpti = node;
 	m_pathTail = node;
 	if (m_path == 0)
 		m_path = node;

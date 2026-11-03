@@ -16,7 +16,7 @@ struct PathAngle2D {
 };
 struct PathTemplateView {char pad[0x108];unsigned flags108;};
 class Object {public:void *vtable;PathTemplateView *templ;};
-class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D pos;int layer;bool canOptimize;char pad1D[3];int portalID;bool hasPortal()const{return portalID!=0x7fffffff;}};
+#include "../../../Include/GameLogic/PathNode.h"
 enum PathfindLayerEnum {LAYER_GROUND=1};
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AI.h"
@@ -32,74 +32,74 @@ const Coord3D *input=(const Coord3D *)facing;
  PathNode *anchor,*node;
  if(input) {
   anchor=last;
-  while(anchor && anchor->previous) {
-   int layer=anchor->layer,curLayer=anchor->layer,distance=0;
-   for(node=anchor->previous;node;node=node->previous) {
+  while(anchor && anchor->m_prev) {
+   int layer=anchor->m_layer,curLayer=anchor->m_layer,distance=0;
+   for(node=anchor->m_prev;node;node=node->m_prev) {
     Pathfinder *finder=TheAI->pathfinder();distance+=10;
     bool passable=false;
-    if((unsigned char)finder->IsNonPinchedCliffCell((int)&node->pos,layer))passable=true;
+    if((unsigned char)finder->IsNonPinchedCliffCell((int)&node->m_pos,layer))passable=true;
     else {
-     int dx=node->pos.x-anchor->pos.x,dy=node->pos.y-anchor->pos.y;
+     int dx=node->m_pos.x-anchor->m_pos.x,dy=node->m_pos.y-anchor->m_pos.y;
      if(dx==0 && abs(dy)==distance)passable=true;
      if(dy==0 && abs(dx)==distance)passable=true;
      if(abs(dx)==abs(dy) && abs(dx)==distance)passable=true;
-     if(!passable && (unsigned char)TheAI->pathfinder()->IsLinePassableForOptimize(obj,(void *)surfaces,(PathfindLayerEnum)layer,&anchor->pos,&node->pos,*(void *const *)&blocked))passable=true;
+     if(!passable && (unsigned char)TheAI->pathfinder()->IsLinePassableForOptimize(obj,(void *)surfaces,(PathfindLayerEnum)layer,&anchor->m_pos,&node->m_pos,*(void *const *)&blocked))passable=true;
     }
     if((unsigned char)isGroundOrBridgeLayer(curLayer)) {
-     if(node->layer!=curLayer) {layer=node->layer;if(distance>30)passable=false;}
-    } else if(node->previous && node->previous->layer!=curLayer) {
+     if(node->m_layer!=curLayer) {layer=node->m_layer;if(distance>30)passable=false;}
+    } else if(node->m_prev && node->m_prev->m_layer!=curLayer) {
      if(distance>30)passable=false;
     }
-    curLayer=node->layer;
+    curLayer=node->m_layer;
     if(passable) {
      if(anchor==last && distance>50) {
-      PathAngle2D delta(node->pos.x-anchor->pos.x,node->pos.y-anchor->pos.y);
+      PathAngle2D delta(node->m_pos.x-anchor->m_pos.x,node->m_pos.y-anchor->m_pos.y);
       delta.normalize();float dot=delta.dot(input);
       if(fabs(dot)<0.9f)passable=false;
      }
-     if(passable && node->canOptimize) {node->nextOptimized=anchor;continue;}
+     if(passable && node->m_canOptimize) {node->m_nextOpti=anchor;continue;}
     }
-    node->nextOptimized=anchor;break;
+    node->m_nextOpti=anchor;break;
    }
    anchor=node;
   }
  } else {
   bool groundOnly=(obj->templ->flags108>>11)&1;
   anchor=first;
-  while(anchor && anchor->next) {
-   int count=0,layer=anchor->layer,curLayer=anchor->layer;
-   int portals=(unsigned char)(anchor->portalID!=0x7fffffff)?0:3;
+  while(anchor && anchor->m_next) {
+   int count=0,layer=anchor->m_layer,curLayer=anchor->m_layer;
+   int portals=(unsigned char)(anchor->m_portalID!=0x7fffffff)?0:3;
    int distance=0;
-   for(node=anchor->next;node;node=node->next) {
+   for(node=anchor->m_next;node;node=node->m_next) {
     count++;distance+=10;Pathfinder *finder=TheAI->pathfinder();portals++;
     bool passable=false;
-    if((unsigned char)finder->IsNonPinchedCliffCell((int)&node->pos,layer))passable=true;
+    if((unsigned char)finder->IsNonPinchedCliffCell((int)&node->m_pos,layer))passable=true;
     else {
-     int dx=node->pos.x-anchor->pos.x,dy=node->pos.y-anchor->pos.y;
+     int dx=node->m_pos.x-anchor->m_pos.x,dy=node->m_pos.y-anchor->m_pos.y;
      if(dx==0 && abs(dy)==distance)passable=true;
      if(dy==0 && abs(dx)==distance)passable=true;
      if(abs(dx)==abs(dy) && abs(dx)==distance)passable=true;
      if(!passable) {
-      if(node->portalID==0x7fffffff && portals<3)passable=true;
-      if(node->portalID!=0x7fffffff)passable=true;
-      PathNode *probe=node->next;
-      for(int steps=0;steps<=3;steps++){if(!probe)break;if(probe->portalID!=0x7fffffff)passable=true;probe=probe->next;}
-      if(!passable && (unsigned char)TheAI->pathfinder()->IsLinePassableForOptimize(obj,(void *)surfaces,(PathfindLayerEnum)layer,&anchor->pos,&node->pos,*(void *const *)&blocked))passable=true;
+      if(node->m_portalID==0x7fffffff && portals<3)passable=true;
+      if(node->m_portalID!=0x7fffffff)passable=true;
+      PathNode *probe=node->m_next;
+      for(int steps=0;steps<=3;steps++){if(!probe)break;if(probe->m_portalID!=0x7fffffff)passable=true;probe=probe->m_next;}
+      if(!passable && (unsigned char)TheAI->pathfinder()->IsLinePassableForOptimize(obj,(void *)surfaces,(PathfindLayerEnum)layer,&anchor->m_pos,&node->m_pos,*(void *const *)&blocked))passable=true;
      }
     }
     if((unsigned char)isGroundOrBridgeLayer(curLayer)) {
-     if(node->layer!=curLayer) {layer=node->layer;if(distance>30)passable=false;}
+     if(node->m_layer!=curLayer) {layer=node->m_layer;if(distance>30)passable=false;}
      if(groundOnly && !passable) {
-      int dx=node->pos.x-last->pos.x,dy=node->pos.y-last->pos.y;
-      if(abs(dx)+abs(dy)<40 && TheAI->pathfinder()->IsGroundLineOnly(&anchor->pos,&node->pos))passable=true;
+      int dx=node->m_pos.x-last->m_pos.x,dy=node->m_pos.y-last->m_pos.y;
+      if(abs(dx)+abs(dy)<40 && TheAI->pathfinder()->IsGroundLineOnly(&anchor->m_pos,&node->m_pos))passable=true;
      }
-    } else if(node->next && node->next->layer!=curLayer) {
+    } else if(node->m_next && node->m_next->m_layer!=curLayer) {
      if(distance>30)passable=false;
     }
-    curLayer=node->layer;
-    if(passable && node->canOptimize) {anchor->nextOptimized=node;continue;}
-    if(count>1)node=node->previous;
-    else anchor->nextOptimized=node;
+    curLayer=node->m_layer;
+    if(passable && node->m_canOptimize) {anchor->m_nextOpti=node;continue;}
+    if(count>1)node=node->m_prev;
+    else anchor->m_nextOpti=node;
     break;
    }
    anchor=node;

@@ -8,18 +8,7 @@
 // PathCtor/PathDtor and the matched portal/node accessors. BFME1's reference
 // pathfinder_path.cpp confirms the three node links and coordinate layout;
 // the splice operation itself is target-specific.
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-void __cdecl FreePooledNode(void *);
-
-struct PathNode
-{
-	~PathNode() {}
-	void operator delete(void *node) { FreePooledNode(node); }
-	PathNode *m_next;
-	PathNode *m_previous;
-	PathNode *m_nextOptimized;
-	Coord3D m_position;
-};
+#include "../../../Include/GameLogic/PathNode.h"
 
 class Rva00263404Product;
 #include "../../../Include/GameLogic/PathfindPath.h"
@@ -35,7 +24,7 @@ void Path::SpliceAndPrepend(Rva00263404Product *product)
 		delete other;
 		return;
 	}
-	if (!DoAdvanceAlongPath(&otherTail->m_position, false)) {
+	if (!DoAdvanceAlongPath(&otherTail->m_pos, false)) {
 		delete other;
 		return;
 	}
@@ -45,9 +34,9 @@ void Path::SpliceAndPrepend(Rva00263404Product *product)
 		m_path = next;
 	}
 	PathNode *next = field_10->m_next;
-	other->m_pathTail->m_nextOptimized = next;
+	other->m_pathTail->m_nextOpti = next;
 	other->m_pathTail->m_next = next;
-	next->m_previous = other->m_pathTail;
+	next->m_prev = other->m_pathTail;
 	delete m_path;
 	m_path = other->m_path;
 	other->m_path = 0;

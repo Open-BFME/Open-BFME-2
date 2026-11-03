@@ -1,23 +1,16 @@
 // cl: /DNDEBUG /MD
 //
 // ?rva00363D20@Rva00363D20@@QAENXZ @0x00363D20 (84B).
-// Unlock path-length sum over consecutive PathNode positions (+0xC) via
-// rowed Rva00363C71Approx 0x00363C71 plus BfmeZeroRange float 0. Evidence:
+// Unlock path-length sum over PathNode positions (+0xC) along the optimized
+// (+8) links via rowed Rva00363C71Approx 0x00363C71 plus BfmeZeroRange float 0. Evidence:
 // sibling PathDistance proves Coord3D shape and Approx double clearly,
 // PathCtor proves /O1 flags, callers 7 unclaimed large bodies need length.
 
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Include/GameLogic/PathNode.h"
 
 double __cdecl Rva00363C71Approx(const Coord3D *a, const Coord3D *b);
 double __cdecl Rva00363CF3Distance(const Coord3D *a, const Coord3D *b);
 extern const float BfmeZeroRange; // ?BfmeZeroRange@@3MB
-
-struct PathNode
-{
-	char m_pad00[8];
-	PathNode *m_next; // +8
-	Coord3D m_pos; // +0xC
-};
 
 struct Rva00363D20Head
 {
@@ -44,9 +37,9 @@ double Rva00363D20::rva00363D20()
 	if (first != 0) {
 		float acc = Rva00363C71Approx(&first->m_pos, &m_start);
 		PathNode *cur = m_head->m_first;
-		while (cur->m_next != 0) {
-			acc += Rva00363C71Approx(&cur->m_next->m_pos, &cur->m_pos);
-			cur = cur->m_next;
+		while (cur->m_nextOpti != 0) {
+			acc += Rva00363C71Approx(&cur->m_nextOpti->m_pos, &cur->m_pos);
+			cur = cur->m_nextOpti;
 		}
 		return acc;
 	}
@@ -64,9 +57,9 @@ double Rva00363D20::rva00363D74()
 	if (first != 0) {
 		float acc = Rva00363CF3Distance(&first->m_pos, &m_start);
 		PathNode *cur = m_head->m_first;
-		while (cur->m_next != 0) {
-			acc += Rva00363CF3Distance(&cur->m_next->m_pos, &cur->m_pos);
-			cur = cur->m_next;
+		while (cur->m_nextOpti != 0) {
+			acc += Rva00363CF3Distance(&cur->m_nextOpti->m_pos, &cur->m_pos);
+			cur = cur->m_nextOpti;
 		}
 		return acc;
 	}
