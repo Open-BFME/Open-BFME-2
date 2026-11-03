@@ -13,6 +13,7 @@ private:
 	unsigned int m_storage[ 4 ];
 };
 
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -46,14 +47,6 @@ public:
 	DefaultParticleModule( void *system, void *module_template );
 };
 
-class EmissionVolumeInfo
-{
-public:
-	virtual void unusedVirtual() = 0;
-
-private:
-	unsigned int m_storage;
-};
 
 class LightningEmissionInfo : public EmissionVolumeInfo
 {

@@ -123,6 +123,7 @@ struct ParticleSystemView
 	bool m_isLocal;
 };
 
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -155,15 +156,6 @@ class DefaultParticleModule
 {
 };
 
-class __declspec(novtable) EmissionVolumeInfo
-{
-public:
-	virtual ~EmissionVolumeInfo() = 0;
-
-protected:
-	bool m_is_hollow;
-	unsigned char m_alignment[3];
-};
 
 class LightningEmissionInfo : public EmissionVolumeInfo
 {

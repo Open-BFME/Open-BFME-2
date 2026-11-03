@@ -11,6 +11,7 @@ extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$Modul
 
 extern "C" const void *const __identifier("??_7SphereEmissionVolumeInfo@FXParticleSystem@@6B@")[];
 
+#include "../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -27,15 +28,6 @@ public:
     HemisphericalEmissionVelocityModuleTemplate();
 };
 
-class EmissionVolumeInfo
-{
-private:
-    unsigned int m_unknown0;
-    unsigned int m_unknown4;
-
-public:
-    EmissionVolumeInfo(const EmissionVolumeInfo &that);
-};
 
 class SphereEmissionVolumeInfo : public EmissionVolumeInfo
 {

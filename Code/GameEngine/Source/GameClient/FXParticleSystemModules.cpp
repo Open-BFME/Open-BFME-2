@@ -22,6 +22,7 @@
 class INI;
 
 #include "../../Include/GameClient/WindModuleInfo.h"
+#include "../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -41,16 +42,6 @@ struct FXCoord3D
     float z;
 };
 
-class EmissionVolumeInfo : public ::Snapshot
-{
-public:
-    virtual ~EmissionVolumeInfo();
-    virtual void LoadPostProcess();
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(Xfer &xfer);
-
-    bool m_flag;
-};
 
 class SphereEmissionVolumeInfo : public EmissionVolumeInfo
 {

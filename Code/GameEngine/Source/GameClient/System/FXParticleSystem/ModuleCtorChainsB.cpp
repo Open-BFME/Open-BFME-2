@@ -51,6 +51,7 @@ class RvaSmartPtr12;
 
 #include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -113,14 +114,6 @@ DefaultParticleModule<5>::DefaultParticleModule( void *system, void *module_temp
 {
 }
 
-class EmissionVolumeInfo
-{
-public:
-	virtual void unusedVirtual() = 0;
-
-private:
-	bool m_flag;
-};
 
 class BoxEmissionVolumeInfo : public EmissionVolumeInfo
 {

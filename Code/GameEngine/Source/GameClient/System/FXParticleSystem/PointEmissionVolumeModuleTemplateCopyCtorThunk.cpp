@@ -3,6 +3,7 @@
 // Open-BFME5: PointEmissionVolumeModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class EmissionVolumeInfo
-{
-public:
-	EmissionVolumeInfo(const EmissionVolumeInfo &that);
-	virtual void dummy();
-};
 
 // PointEmissionVolumeModuleTemplate_cvtbl0: matched references place it at VA 0xc1baf0 (retail .rdata value -16).
 extern "C" char PointEmissionVolumeModuleTemplate_cvtbl0 = -16;

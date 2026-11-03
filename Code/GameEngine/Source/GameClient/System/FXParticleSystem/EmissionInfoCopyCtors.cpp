@@ -16,6 +16,7 @@ class Xfer;
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -78,17 +79,6 @@ OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo(const OrthoEmissionVelocity
 {
 }
 
-class EmissionVolumeInfo : public Snapshot
-{
-public:
-    EmissionVolumeInfo(const EmissionVolumeInfo &that);
-    virtual ~EmissionVolumeInfo() {}
-    virtual void LoadPostProcess();
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(::Xfer &);
-
-    bool m_flag;
-};
 
 // New in BFME2: no BFME1 donor. Layout from retail 0x003A6E0E (three 12-byte
 // blocks at +8/+0x14/+0x20, scalar at +0x2C) and the sibling model in

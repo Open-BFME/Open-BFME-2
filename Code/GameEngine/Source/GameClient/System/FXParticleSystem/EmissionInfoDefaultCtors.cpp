@@ -31,6 +31,7 @@ private:
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
+#include "../../../../Include/GameClient/EmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -104,18 +105,6 @@ OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo()
 // so the bool lives in the base here. The virtual destructor is only
 // declared: it resolves to the folded 0x0049B47C family and supplies the
 // unwinding behind the EH frame.
-class EmissionVolumeInfo : public Snapshot
-{
-public:
-	EmissionVolumeInfo() : m_flag(false) {}
-	virtual ~EmissionVolumeInfo() {}
-    virtual void LoadPostProcess();
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(::Xfer &);
-
-protected:
-	bool m_flag;
-};
 
 class TerrainFireEmissionInfo : public EmissionVolumeInfo
 {
