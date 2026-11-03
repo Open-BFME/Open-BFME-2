@@ -1,6 +1,7 @@
-// cl: /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?getBuildFacilityTemplate@ThingTemplate@@QBEPBV1@PBVPlayer@@@Z @0x0033A97F 38B ThingTemplate prereq vector +0x324 element 0x24 tailcalls ProductionPrerequisite::getExistingBuildFacilityTemplate callers 0x0033AB48 donor ThingTemplate.cpp Zero Hour
+#include <math.h>
 #include <vector>
 #include "GameLogicObjectLookupView.h"
 // Whole-file recovery: keep the existing frame-rate data owner, rather than
@@ -71,7 +72,6 @@ static inline const float &buildMin(const float &a,const float &b){return a<b?a:
 // while a C++ cast calls _ftol2. This is an x87 codegen constraint, not a lift.
 // Global owner names and callee contracts are the existing ledger providers;
 // RegistryBuildView::factor has no independently recovered semantic name.
-extern "C" __declspec(dllimport) double __cdecl floor(double);
 static inline float buildFloor(float f){return (float)floor(f);}
 class ThingTemplate; class Player; class GlobalData; class GameLogic;
 class Overridable;
