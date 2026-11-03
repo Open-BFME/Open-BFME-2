@@ -34,33 +34,10 @@ class DamageInfo;
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 void XferRotationType(Xfer *xfer, int *value);
 
+#include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {
 
-class RenderObjectUpdateModuleInfo
-{
-public:
-	RenderObjectUpdateModuleInfo();
-	virtual ~RenderObjectUpdateModuleInfo();
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	GameClientRandomVariable m_var0;
-	GameClientRandomVariable m_var1;
-	GameClientRandomVariable m_var2;
-	GameClientRandomVariable m_var3;
-	GameClientRandomVariable m_var4;
-	GameClientRandomVariable m_var5;
-	GameClientRandomVariable m_var6;
-	GameClientRandomVariable m_var7;
-	GameClientRandomVariable m_var8;
-	GameClientRandomVariable m_var9;
-	GameClientRandomVariable m_var10;
-	GameClientRandomVariable m_var11;
-	int m_mode;
-};
 
 }
 

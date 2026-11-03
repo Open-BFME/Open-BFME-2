@@ -61,16 +61,9 @@ private:
 };
 }
 
+#include "../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {
-class RenderObjectUpdateModuleInfo
-{
-public:
-	RenderObjectUpdateModuleInfo();
-	virtual ~RenderObjectUpdateModuleInfo();
-private:
-	char m_unmodelled_04[0x98 - 0x04];
-};
 }
 
 // ?<bfmeVectorDeleteAnchorV05> absent-from-retail

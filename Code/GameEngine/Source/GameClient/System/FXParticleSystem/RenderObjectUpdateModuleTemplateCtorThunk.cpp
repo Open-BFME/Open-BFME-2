@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc
 // Open-BFME5: clean-C++ RenderObjectUpdateModuleTemplate default constructor.
 
+#include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -40,12 +41,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class RenderObjectUpdateModuleInfo
-{
-public:
-    RenderObjectUpdateModuleInfo();
-    virtual ~RenderObjectUpdateModuleInfo();
-};
 
 class RenderObjectUpdateModuleTemplate : public CategoryModuleTemplate<1>,
     public RenderObjectUpdateModuleInfo

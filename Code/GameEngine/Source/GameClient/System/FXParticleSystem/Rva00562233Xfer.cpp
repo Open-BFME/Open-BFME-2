@@ -23,14 +23,10 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
+#include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {
 
-class RenderObjectUpdateModuleInfo
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
 
 }
 

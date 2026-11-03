@@ -3,6 +3,7 @@
 // Open-BFME5: RenderObjectUpdateModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class RenderObjectUpdateModuleInfo
-{
-public:
-	RenderObjectUpdateModuleInfo(const RenderObjectUpdateModuleInfo &that);
-	virtual void dummy();
-};
 
 // RenderObjectUpdateModuleTemplate_cvtbl0: matched references place it at VA 0xc1bdc0 (retail .rdata value 96).
 extern "C" char RenderObjectUpdateModuleTemplate_cvtbl0 = 96;
