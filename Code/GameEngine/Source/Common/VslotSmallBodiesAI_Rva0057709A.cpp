@@ -262,32 +262,6 @@ Rva0057709A::Rva0057709A(int v)
 	*(const void **)this = g_00C6E8A8;
 }
 
-// 0x0057B9D8 (?rva0057B9D8@Rva0057B9D8@@QAEXXZ), 25B: slot 4 of the table
-// at 0x0086F26C (neighbours -8/-4 are the rowed 0x0057B97C/0x0057B9D0 of the
-// same +0x30/+0x34 layout). Clears the +0x30 hint through the rowed
-// ?clear@Rva002BED91@@QAEXXZ, then tail-jumps to the rowed
-// ?rva005D4F7D@Rva005D4F7D@@QAEXXZ of the +0x34 object when it exists.
-class Rva002BED91
-{
-public:
-	void clear();
-};
-class Rva005D4F7D
-{
-public:
-	void rva005D4F7D();
-};
-class Rva0057B9D8
-{
-public:
-	void rva0057B9D8();
-private:
-	char m_pad00[0x30];
-	Rva002BED91 m_30;
-	Rva005D4F7D *m_34;
-};
-
-
 // 0x00578616, 0x0057861E, 0x00578626 (8B each), after the +0x4C forwarders
 // above in the same Palantir vtable run: the +0x48 object receives the two
 // ints through the leaf thunks 0x005D3272/79/80 (Rva005D3287Thunk.cpp).

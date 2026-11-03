@@ -729,20 +729,6 @@ void Rva005770CB::rva005770CB()
 	m_08->m_14.rva0057702E();
 }
 
-// 0x0057709A: derived ctor of Rva005CBA04 storing vtable 0x00C6E8A8, base temp from global 0x00E0660C, outer arg at +8.
-#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
-extern BfmeFixedStorage002CF0F0 g_00E0660C;
-extern const void *const g_00C6E8A8[];
-
-class Rva005CBA04
-{
-public:
-	virtual ~Rva005CBA04();
-	Rva005CBA04(BfmeFixedStorage002CF0F0 storage);
-private:
-	BfmeFixedStorage002CF0F0 m_storage;
-};
-
 // 0x0057B9D8 (?rva0057B9D8@Rva0057B9D8@@QAEXXZ), 25B: slot 4 of the table
 // at 0x0086F26C (neighbours -8/-4 are the rowed 0x0057B97C/0x0057B9D0 of the
 // same +0x30/+0x34 layout). Clears the +0x30 hint through the rowed
