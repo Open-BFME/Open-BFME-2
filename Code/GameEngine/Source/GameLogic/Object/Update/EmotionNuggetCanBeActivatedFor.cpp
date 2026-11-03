@@ -46,14 +46,7 @@ class AIUpdateInterface;
 class Player;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class AttributeModifierPoolUpdate
-
-{
- public:
- bool rva00403382(int attribute, float *value, int arg);
- 
-}
-;
+#include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class AIUpdateInterface
 
 {
@@ -326,7 +319,6 @@ class EmotionNugget
  
 }
 ;
-// ?rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z present-unmatched
 bool EmotionNugget::CanBeActivatedFor(int a, int b, Rva004DD018Arg *arg)
 {
 	Object *obj = m_object;

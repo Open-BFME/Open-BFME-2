@@ -19323,6 +19323,15 @@ keys. Seven other cohort sources retain base/header or live-vector prerequisites
 and are unchanged. No census or full-link gain is claimed.
 [Verification and remaining cohort](../reverse/attempt_support/attribute-pool-pair-20261103/README.md).
 
+Attribute-pool follow-up: EmotionNugget's unused private declaration also now
+uses the canonical header. Its 494-byte row and all44 complete provider bindings
+remain exact; normal verification, owning acceptance and private LinkGuard pass.
+One header debt retires. The owning hatch scanner removes its stale comment key
+and24 other keys already absent from HEAD. Previous pair publication's broad
+audit was INCONCLUSIVE for two missing current object receipts against index
+984a4cdc4d (base230fdf4dd4); full current linking remains unmeasured.
+[Final main proof and register scope](../reverse/attempt_support/emotion-pool-header-20261103/README.md).
+
 ### Clear current real-link follow-up (2026-11-03)
 
 The current real-link picker again serves the fifteen-row Clear unit. Existing
