@@ -1,0 +1,42 @@
+{
+  "tu": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+  "approved": 401,
+  "accepted": [
+    "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp"
+  ],
+  "flags": [
+    "/DNDEBUG",
+    "/MD",
+    "/D_STLP_USE_STATIC_LIB",
+    "/ICode/Libraries/Include",
+    "/Ireference/shims/bfmealloc",
+    "/ICode/Libraries/Include/Lib",
+    "/I.",
+    "-Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/AI",
+    "/ICode/GameEngine/Source/Common",
+    "/Ireference/shims/bfme2_ascii",
+    "/Ireference/shims/bfmelist",
+    "/ICode/Libraries/Source/WWVegas/WWLib",
+    "/Ireference/shims/ini_bfme2",
+    "/Ireference/shims/moduledata"
+  ],
+  "rows": 87,
+  "carried": {
+    "reverse/hatch_baseline.tsv": "hatch_counters --update"
+  },
+  "trailer": "Verifier-Change: tu_skeleton --merge carried the protected-register keys of 7 absorbed donor(s) to Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp (transfer; totals kept)",
+  "repointed": {
+    "reverse/functions.csv": 8,
+    "reverse/tu_map.csv": 8,
+    "reverse/ms_header_queue.tsv": 1,
+    "reverse/hatch_baseline.tsv": "updated"
+  },
+  "subject": "Merge 8 files into AIPathfind.cpp (87 rows, tu_map approved TU, retail order)"
+}

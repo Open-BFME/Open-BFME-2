@@ -127,6 +127,17 @@ ordinary providers are preserved. Owning acceptance retires the last of the
 eight seed header entries. Donor composition is the next independent check;
 no source-path or census-linked gain is claimed by these preparations.
 
+With all eight seed headers adopted, the supported current-input merge absorbs
+seven donors: eight existing functions move to the approved AIPathfind TU.
+Normal checks pass 89 function rows and two data rows; all 224 external providers
+are byte/relocation identical to the freshly built contributing-object union.
+The callback fprintf ABI finding transfers through the owning queue refresh.
+The scoped LINKS preview retains the combined 4,964 bytes; these donor bytes
+already linked, so there is no census-linked gain. Source files decrease by
+seven. Seventy-three donors and thirty-two mixed sources remain outside this
+merge; the F600C callback needs separate header, ABI and Info-view preparation.
+[Applied merge, audits and remaining limits](../reverse/attempt_support/pathfinder-seven-merge-20261103/README.md).
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

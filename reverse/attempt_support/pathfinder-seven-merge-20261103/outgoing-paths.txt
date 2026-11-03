@@ -1,0 +1,11 @@
+M	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+D	Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp
+D	Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp
+D	Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp
+D	Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp
+D	Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp
+D	Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp
+D	Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp
+M	reverse/functions.csv
+M	reverse/ms_header_queue.tsv
+M	reverse/tu_map.csv

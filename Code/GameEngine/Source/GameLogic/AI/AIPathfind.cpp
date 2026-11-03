@@ -178,7 +178,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
 #pragma comment(linker, "/alternatename:?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva002F3093Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva002F3093Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva002F3093Record@@@2@@Z=?rva002F1DDC@Rva002F1DDCTree@@QAE?AURva002F1DDCIter@@U2@ABVRva002F1DDCValue@@@Z")
 #include "../../../Include/Common/BfmeAccessorMacros.h"
-
 // ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z, retail 0x002E6C23 (42 bytes, ret 4). WorldBuilder
 // PathfindCell::IsObstaclePresent (callgraph lead): whether this obstacle cell's info (+0x00) names the
 // object (info +0x28). Zero Hour's isObstaclePresent, with the info null test kept as a real branch.
@@ -186,13 +185,11 @@ enum ObjectID
 {
 	INVALID_ID = 0
 };
-
 struct PathfindCellInfo
 {
 	char m_pad00[0x28];
 	ObjectID m_obstacleID;		// +0x28
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E6C4D@Rva002E6C4D@@QAEHXZ @0x002E6C4D 19B.
@@ -211,13 +208,11 @@ public:
 	int rva002E6C4D();
 	void *m_ptr; // +0x00
 };
-
 struct Rva002E6C4DInner
 {
 	char m_pad[0x2c];
 	unsigned int m_value;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E6C79@Rva002E6C79@@QAEHXZ @0x002E6C79 20B.
@@ -236,19 +231,16 @@ public:
 	int rva002E6C79();
 	void *m_ptr;
 };
-
 struct Rva002E6C79Mid
 {
 	char m_pad[8];
 	void *m_8;
 };
-
 struct Rva002E6C79Inner
 {
 	char m_pad[0x30];
 	int m_30;
 };
-
 //
 // ?rva002E713F@Rva002E713FOwner@@QAEXXZ @0x002E713F 57B: guarded pair-call
 // (thiscall, void). Returns when +0x10 is null; invokes pinned 0x0052F294
@@ -257,22 +249,17 @@ struct Rva002E6C79Inner
 // address-derived names; member/callee identities unproven.
 
 class PathfindCell;
-
  class PathfindLayer;
-
  struct IRegion2D;
-
 struct Rva002E713F460
 {
 	char m_pad[4];
 };
-
 struct Rva0052F294Node
 {
 	void *m_payload;
 	Rva0052F294Node *m_next;
 };
-
 class Rva0036666B
 {
 public:
@@ -282,12 +269,9 @@ public:
 	int m_a34; // +0x34
 	int m_b38; // +0x38
 };
-
 // 0x00366B77 is rowed as PathfindLayer::ClassifyWallCells.
 class Xfer;
-
 #include "../../../Include/GameLogic/PathfindLayer.h"
-
 class Rva002E713FOwner
 {
 public:
@@ -306,7 +290,6 @@ private:
 	unsigned char m_b1BEB4;
 	unsigned char m_b1BEB5;
 };
-
 // ?AddObjectToPathfindMap@Pathfinder@@QAEXPAVObject@@@Z @0x002E7178
 // ?RemoveObjectFromPathfindMap@Pathfinder@@QAEXPAVObject@@@Z @0x002E718A 17B: adjacent sibling
 // Shard TU: friend_notifyOfNewMapBoundary lives in
@@ -315,13 +298,11 @@ private:
 // to same helper with 0 0 0 vs 1 0 0; same class proven by adjacency and shape.
 
 class Object;
-
 class Rva00366561
 {
 public:
 	bool rva00366561(int a, int b);
 };
-
 // ??0Rva002E7243@@QAE@HH@Z @0x002E7243 30B, RET8, no callers in retail: a
 // five-word record built from two words with the remaining three set to -1.
 // Retail stores +8 between loading and storing the first argument and the
@@ -335,7 +316,6 @@ struct Rva002E7243Pair
 	int m_first;
 	int m_second;
 };
-
 class Rva002E7243
 {
 public:
@@ -346,20 +326,17 @@ private:
 	int m_08;
 	Rva002E7243Pair m_pair;
 };
-
 struct _Rva002E7261Inner
 {
 	char m_pad[0x28];
 	int m_28;
 };
-
 struct _Rva002E7261Arg
 {
 	_Rva002E7261Inner *m_ptr;
 	int m_pad04;
 	unsigned short m_w08;
 };
-
 class Rva002E7261Info
 {
 public:
@@ -371,17 +348,14 @@ private:
 	int m_0C;
 	int m_10;
 };
-
 class Rva0028CECFOwner
 {
 };
-
 struct Rva002E7388Pair
 {
 	int m_a;
 	int m_b;
 };
-
 class Rva002E7388Owner
 {
 public:
@@ -401,7 +375,6 @@ private:
 	Rva0028CECFOwner *m_28;
 	bool m_2C;
 };
-
 // ??0Rva002E73D4@@QAE@HHH@Z @0x002E73D4 39B ctor with three ints at +0/+4/+8 plus zeroed tail; caller at 0x002F3297
 class Rva002E73D4
 {
@@ -416,7 +389,6 @@ public:
 	int m_14; // +0x14
 	int m_18; // +0x18
 };
-
 // ?rva002E7482@Rva002E7482@@QAEMH@Z @0x002E7482 42B
 // Float getter: if Rva001E3679(idx) is false return BfmeZeroRange else return
 // (float)item[idx].m_val where items start at +0x9C with stride 64.
@@ -424,7 +396,6 @@ public:
 // ?BfmeZeroRange@@3MB; callers at 0x00062D68 0x002EF82D 0x002EF846 0x002EF8E0.
 
 bool __cdecl Rva001E3679(int index);
-
 // The data ledger identifies the shared read-only operand as float +0.0.
 
 struct Rva002E7482Item
@@ -432,7 +403,6 @@ struct Rva002E7482Item
 	int m_val;
 	char m_pad[60];
 };
-
 class Rva002E7482
 {
 public:
@@ -442,7 +412,6 @@ private:
 	char m_pad[0x9C];
 	Rva002E7482Item m_items[16];
 };
-
 class Rva002E7542
 {
 public:
@@ -455,13 +424,9 @@ private:
 	int m_0c;
 	int m_10;
 };
-
 extern PartitionManager *ThePartitionManager;
-
 struct Rva002F1BD5Info { Object *theTallBuilding; unsigned int ignoreBuilding; };
-
 #include "../../../Include/GameLogic/PathNode.h"
-
 // ??0Rva002E7B02@@QAE@HHABU_Rva002E7B02Cell@@@Z @0x002E7B02 39B
 // Ctor copying two ints plus a 3-int cell; caller at 0x002EDFD0 passes (esi, 4, [ebp+8]).
 
@@ -471,7 +436,6 @@ struct _Rva002E7B02Cell
 	int y;
 	int z;
 };
-
 class Rva002E7B02
 {
 public:
@@ -483,22 +447,17 @@ private:
 	int m_0C;
 	int m_10;
 };
-
 // ?Rva002E7BB8Get@@YAMXZ @0x002E7BB8 56B
 // Native SSE loads accumulatorDFF0D0 before adding deltaC050CC; source operand
 // order preserves the compiler-selected relocation roles and both addresses.
 // Wraps g_00DFF0D0 by g_00C050CC against g_Va00BBB8D8; callers at 0x002EFD62 0x002EFD6A 0x002EFD72.
 
 extern float g_00DFF0D0;
-
 // Owned here (its only reader); retail .bss zero-initializes it (VA 0x00DFF0D0).
 float g_00DFF0D0 = 0.0f;
-
 // Owned here (its only reader); retail .rdata holds 0.18409086763858795f (VA 0x00C050CC).
 float g_00C050CC = 0.18409086763858795f;
-
 extern float g_Va00BBB8D8;
-
 // ?rva002E7C99@Rva002E7C99@@QAEPAXHHHEHEH@Z @0x002E7C99 50B: 7-arg thiscall setter storing 5 dwords and 2 bytes. Evidence: caller at 0x002F033F in unclaimed FUN_006f00e9; prev/next share flags.
 class Rva002E7C99
 {
@@ -515,19 +474,16 @@ private:
 	unsigned char m_15[3]; // +0x15
 	int m_18; // +0x18
 };
-
 // ??0Rva002E7DF5@@QAE@HABU_Rva002E7DF5Cell@@@Z @0x002E7DF5 49B
 // Ctor copying one int plus a 3-int cell then float global and false flag; caller at 0x002EE8C2.
 
 extern float g_Va00BBB8E0;
-
 struct _Rva002E7DF5Cell
 {
 	int x;
 	int y;
 	int z;
 };
-
 class Rva002E7DF5
 {
 public:
@@ -543,7 +499,6 @@ private:
 	float m_1C;
 	bool m_20;
 };
-
 // LatchRestore<int>'s destructor at 0x002E7F71.
 
 template <typename StoredType>
@@ -557,9 +512,7 @@ public:
 	LatchRestore(StoredType &dest, const StoredType &src);
 	virtual ~LatchRestore(void);
 };
-
 template class LatchRestore<int>;
-
 // Native 0x002E7F80..0x002E7F86 is a complete six-byte leaf after the
 // preceding destructor's RET.  It subtracts 12 from raw word zero and
 // returns the receiver.  The original owner, word interpretation and full
@@ -570,7 +523,6 @@ struct Rva002E7F80Fields
     unsigned int word0;
     Rva002E7F80Fields *decrement();
 };
-
 // ?Rva002E7FEDGet@@YAPAVRva002E7FED@@PAV1@PAH@Z @0x002E7FED 88B: guard index via vtable +0x78 then throw formatted on 0x40 else loop 64x via +0x70. Evidence: same shape as rowed Rva002DBD05Get 0x002DBD05 plus rowed _bfmeFormatText 0x0060C36E plus pin _CxxThrowException 0x00629094.
 class Rva002E7FED
 {
@@ -607,52 +559,37 @@ public:
 	virtual void v29();
 	virtual void unk78(int *idx);
 };
-
 #include "../../../Include/Common/XferException.h"
-
 extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
-
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
 extern int g_guardTargetTypeThrowInfo;
-
 void *__cdecl Rva0002FFC0Alloc(int size, int context);
-
 void __cdecl Rva0002FFE0Free(void *block, int context);
-
 // Native initialized image at DBD4C8: 128 nodes; null block/free lists;
 // allocator/free callbacks 42FFC0/42FFE0; context zero. Both full callbacks
 // are independently rowed. One 24-byte owner replaces the old 4-byte stub.
 // ScienceStore uses the same verified pool layout and callbacks at DB9440.
 Rva002E8548 g_Va00DB9440 = { 128, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0 };
-
 Rva002E8548 g_Va00DBD4C8 = { 128, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0 };
-
 // Native insertion compares the first payload word unsigned; the creator
 // copies two words at node+16. The second word is an opaque storage view;
 // its application type and the original map instantiation remain unknown.
 typedef _STL::pair<const unsigned int,unsigned int> Pair;
-
 // Native unsigned comparison is a verified storage predicate; the original
 // comparator type is unknown. Avoid emitting a wrong shared less<unsigned>.
 struct Rva002F0DD6Less {
     // ?Rva002F0DD6Less::operator() present-unmatched
     bool operator()(const unsigned int &a, const unsigned int &b) const { return a < b; }
 };
-
 typedef _STL::_Rb_tree<unsigned int,Pair,_STL::_Select1st<Pair>,Rva002F0DD6Less,_STL::allocator<Pair> > Tree;
-
 namespace _STL { void dup_0060C9D9(Pair *, const Pair &); }
-
 // Retail's member call supplies ECX but the independently verified34B
 // creator ignores it. Both call views take one stack value pointer and RET4;
 // binding to the address-named stdcall view preserves that full ABI.
 namespace _STL {
 template <> _Rb_tree_node<Pair> *Tree::_M_create_node(const Pair &value);
 }
-
 template Tree::iterator Tree::_M_insert(_STL::_Rb_tree_node_base*,_STL::_Rb_tree_node_base*,const Pair&,_STL::_Rb_tree_node_base*);
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva002E8B47@Rva002E8B47@@QBEHPBQAPAURva002E8B47Record@@0@Z, retail
@@ -667,13 +604,11 @@ struct Rva002E8B47Record
 	char m_pad00[0x10];
 	unsigned short m_10;
 };
-
 class Rva002E8B47
 {
 public:
 	int rva002E8B47(Rva002E8B47Record **const *lhs, Rva002E8B47Record **const *rhs) const;
 };
-
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E8B9B@Rva002E8B9B@@QAEPAVMixFileInfoBuffer@@PAUIn002E6BA1@@@Z, retail 0x002E8B9B, 52 bytes.
 // Calls rowed Rva0052DBCDInit 0x0052DBCD then rowed Rva002E8B7AInit 0x002E8B7A then stores node.
@@ -683,19 +618,13 @@ struct In002E6BA1
 	int m_00;
 	int m_04;
 };
-
 class MixFileInfoBuffer;
-
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, int a, In002E6BA1 *in);
-
 void Rva0052DBCDInit(void);
-
 // 0x00A049D0: the pool head the data ledger names TheMixFileInfoPool (an int
 // there; this unit reads it as the buffer-list head pointer).
 extern int TheMixFileInfoPool;
-
 class Rva002E6BA1;
-
 class MixFileInfoBuffer
 {
 private:
@@ -714,7 +643,6 @@ public:
 	char m_pad14[0x18];
 	unsigned int m_flags; // +0x2C
 };
-
 class Rva002E8B9B
 {
 public:
@@ -722,11 +650,8 @@ public:
 private:
 	MixFileInfoBuffer *m_node;
 };
-
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
-
 #include "../../../Include/GameLogic/PathfindCell.h"
-
 class Rva0052DA63
 {
 public:
@@ -734,9 +659,7 @@ public:
 	char _00[4]; // +0x00
 	void *m_04; // +0x04
 };
-
 #include "../../../Include/GameLogic/PathfindZoneManager.h"
-
 struct Rva002E9042Arg
 {
 	char _00[0x0C];
@@ -744,7 +667,6 @@ struct Rva002E9042Arg
 	char _18[0x48 - 0x18];
 	unsigned char m_48;
 };
-
 class Rva002E9042
 {
 public:
@@ -754,7 +676,6 @@ private:
 	char m_pf[0x460];
 	PathfindZoneManager m_grid;
 };
-
 struct Rva002E9B31Tmpl
 {
 	unsigned char m_pad00[0x109];
@@ -766,7 +687,6 @@ struct Rva002E9B31Tmpl
 	unsigned char m_pad120[0x52C - 0x120];
 	float m_52C;
 };
-
 struct Rva002E9B31Obj
 {
 	unsigned char m_pad00[4];
@@ -774,16 +694,6 @@ struct Rva002E9B31Obj
 	unsigned char m_pad08[0xB8 - 8];
 	float m_B8;
 };
-
-// Native 0x002F3392 uses a two-word callback context and PathNode +0x0C position.
-// The layer value is witnessed as 1; its original enumerator spelling is unknown.
-enum PathfindLayerEnum { PathfindLayerNativeOne = 1 };
-
-struct Rva002E7ED6Info
-{
-	int m_00;
-};
-
 // ?rva002EB416@Rva002EB416@@QAEXPAU_Rva002EB416Node@@@Z, retail 0x002EB416, 50 bytes.
 // Recursive free-list release: depth-first via +0xC, chain via +0x8, push onto head at 0x00DBD4B8.
 // Evidence: self-call with [esi+0xC]; caller 0x002EE9E0 passes [eax+4]; ret 4 one-arg thiscall; unblocks 0x002EE9E0.
@@ -795,13 +705,10 @@ public:
 	_Rva002EB416Node *_m_next; // +0x08
 	_Rva002EB416Node *_m_child; // +0x0C
 };
-
 extern _Rva002EB416Node *g_Va00DBD4B8;
-
 struct Rva002EB416 {
     void rva002EB416(_Rva002EB416Node *p);
 };
-
 class Rva002EB448
 {
 public:
@@ -810,30 +717,24 @@ public:
 private:
 	void *m_head8; // +0x08
 };
-
 struct Rva002EB448Node
 {
 	void *m_next;
 };
-
 struct Rva002EB46E {
     void rva002EB46E(_Rva002EB46ENode *p);
 };
-
 // Dump lane range 13: ?rva002EBA88 @0x002EBA88 67B. Init with defaults
 // (0x80, 0, 0, alloc 0x0002FFC0, free 0x0002FFE0, 0) then the pinned 6-arg
 // 0x001FF36A; returns this. The two code addresses are the rowed default
 // allocator wrappers (DefaultAllocatorWrappers.cpp). Identity unproven.
 void *Rva0002FFC0Alloc(int a1, int a2);
-
 void Rva0002FFE0Free(void *p, int a2);
-
 class Rva001FF36A
 {
 public:
 	bool rva001FF36A(int a1, int a2, int a3, int a4, int a5, int a6);
 };
-
 class Rva002EBA88
 {
 public:
@@ -846,16 +747,13 @@ private:
 	int m_free;
 	int m_context;
 };
-
 struct _Rva002EBB53Inner {
     char m_pad[0x10];
     unsigned short m_key;
 };
-
 struct _Rva002EBB53Wrap {
     _Rva002EBB53Inner *m_inner;
 };
-
 // Empty comparator, greater-than on the payload key: the smallest key is on
 // top of the heap.
 struct Rva002EBB53Compare {
@@ -864,40 +762,30 @@ struct Rva002EBB53Compare {
         return a->m_inner->m_key > b->m_inner->m_key;
     }
 };
-
 template void _STL::__push_heap(_Rva002EBB53Wrap **, int, int, _Rva002EBB53Wrap *, Rva002EBB53Compare);
-
 template void _STL::__adjust_heap(_Rva002EBB53Wrap **, int, int, _Rva002EBB53Wrap *, Rva002EBB53Compare);
-
 // ?Rva002EBBFBIsOdd@@YA_NPAX@Z @0x002EBBFB 25B
 // Free __cdecl bool (void*) wrapping ?Rva002E9B31Get@@YAHPAX@Z parity test.
 // Evidence: 12 callers pass single pointer and use result as bool for WorldToCell;
 // retail cdq/idiv 2 plus dec/neg/sbb/inc is (Get(p)%2)==1; unblocks 0x002EBC14 etc.
 int __cdecl Rva002E9B31Get(void *p);
-
 bool __cdecl Rva002EBBFBIsOdd(void *p);
-
 class Rva002E7964
 {
 public:
 	void rva002E7964(ICoord2D *out, unsigned char center, const Coord3D *pos);
 };
-
 class Rva002EBC34
 {
 public:
 	ICoord2D *rva002EBC34(ICoord2D *a1, void *a2, const Coord3D *a3);
 };
-
 struct PathfinderCellPoint { int x; int y; };
-
 // Rowed 0x002E79A8 returns its cell point through the hidden first argument;
 // this caller forwards that buffer, so it calls the rowed symbol through the
 // five-slot cdecl view.
 PathfinderCellPoint __cdecl rva002E79A8(bool, int, int, PathfindLayerEnum);
-
 typedef void (__cdecl *Rva002E79A8View)(int, unsigned char, int, int, int);
-
 // Dump lane range 13: ?rva002EBC7F @0x002EBC7F 40B. Cdecl helper: rowed
 // IsOdd on one arg (sharing pushed args), then pinned cdecl 0x002E79A8
 // with a struct pair unpacked, returning the first arg. Identity unproven.
@@ -907,22 +795,17 @@ public:
 	int x; // +0x00
 	int y; // +0x04
 };
-
 #include "../../../Include/GameLogic/TerrainLogic.h"
-
 extern TerrainLogic *TheTerrainLogic;
-
 struct Rva002E8C23Pair
 {
 	int m00;
 	int m04;
 };
-
 // ?Rva002E8C4DCall@@YAHHEPAURva002E8C23Pair@@H@Z @0x002E8C4D 33B: free cdecl wrapper
 // passing through two ints plus fields from ptr+0/+4 to pinned 0x002E79A8;
 // evidence pin ?rva002E79A8@@YAXHEHHH@Z and LINK 5 files plus adjacent row 0x002E8C23.
 int __cdecl Rva002E8C4DCall(int a1, unsigned char a2, Rva002E8C23Pair *a3, int a4);
-
 // ?rva002EE9B7@Rva002EE9B7@@QAEXXZ @0x002EE9B7 41B: pool-block reset releases list at +4 via 0x002EADB4 then self-links +8/+12 and clears flags. Evidence: same 41B shape as Rva002EB416::rva002EE9E0 plus caller 0x002F0B67 plus LINK BONUS via 0x003983D4.
 struct _Rva002EADB4Node {
     void *_m_link;
@@ -930,87 +813,61 @@ struct _Rva002EADB4Node {
     _Rva002EADB4Node *_m_next;
     _Rva002EADB4Node *_m_child;
 };
-
 struct Rva002EADB4 {
     void rva002EADB4(_Rva002EADB4Node *p);
 };
-
 #include "../../../Include/GameLogic/Rva002EE9B7.h"
-
 namespace _STL
 {
 template <> void _Construct<_STL::pair<const int, int>, _STL::pair<const int, int> >(_STL::pair<const int, int> *, const _STL::pair<const int, int> &);
 }
-
 class Rva002F0DD6Value
 {
 public:
 	int first;
 	int second;
 };
-
 class Rva002F0DD6Tree
 {
 public:
 	void *rva002EF25B(const Rva002F0DD6Value &value);
 };
-
 struct Coord3D;
-
 class Rva002EF3D9Host
 {
 public:
 	int rva002EF3D9(char *record, int arg);
 };
-
 class Rva002F2865Host
 {
 public:
 	int rva002F2865(char *record, int arg);
 };
-
 struct Rva002F0B8AElement { char bytes[1]; bool operator<(const Rva002F0B8AElement&)const; bool operator==(const Rva002F0B8AElement&)const; };
-
 typedef _STL::pair<const int, Rva002F0B8AElement> _Rva002F0B8APair;
-
 typedef _STL::allocator<_Rva002F0B8APair> _Rva002F0B8AAlloc;
-
 typedef _STL::_Rb_tree<int, _Rva002F0B8APair, _STL::_Select1st<_Rva002F0B8APair>, _STL::less<int>, _Rva002F0B8AAlloc > _Rva002F0B8ATree;
-
 typedef _STL::_Rb_tree_base<_Rva002F0B8APair, _Rva002F0B8AAlloc > _Rva002F0B8ABase;
-
 namespace _STL {
 template <> void _Rva002F0B8ATree::clear();
 template <> _Rva002F0B8ABase::~_Rb_tree_base() throw();
 }
-
 template _Rva002F0B8ATree::~_Rb_tree();
-
 struct Rva002F0BB5Element { char bytes[1]; bool operator<(const Rva002F0BB5Element&)const; bool operator==(const Rva002F0BB5Element&)const; };
-
 typedef _STL::pair<const int, Rva002F0BB5Element> _Rva002F0BB5Pair;
-
 typedef _STL::allocator<_Rva002F0BB5Pair> _Rva002F0BB5Alloc;
-
 typedef _STL::_Rb_tree<int, _Rva002F0BB5Pair, _STL::_Select1st<_Rva002F0BB5Pair>, _STL::less<int>, _Rva002F0BB5Alloc > _Rva002F0BB5Tree;
-
 typedef _STL::_Rb_tree_base<_Rva002F0BB5Pair, _Rva002F0BB5Alloc > _Rva002F0BB5Base;
-
 // Retail's clear() 0x002EEA1D and ~_Rb_tree_base() 0x002EEA46 are defined in
 // Rva002EEA1DReset.cpp; declare them so this unit emits no copies of its own.
 namespace _STL {
 template <> void _Rva002F0BB5Tree::clear();
 template <> _Rva002F0BB5Base::~_Rb_tree_base() throw();
 }
-
 template _Rva002F0BB5Tree::~_Rb_tree();
-
 extern template void _STL::__push_heap_aux(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare, int *, _Rva002EBB53Wrap **);
-
 template void _STL::push_heap(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare);
-
 class Rva002F1DDCValue;
-
 struct Rva002F1DDCNode
 {
 	unsigned int _color;
@@ -1019,7 +876,6 @@ struct Rva002F1DDCNode
 	Rva002F1DDCNode *_right;
 	unsigned int _key;
 };
-
 struct Rva002F1DDCIter
 {
 	::_STL::_Rb_tree_node_base *_M_node;
@@ -1029,7 +885,6 @@ struct Rva002F1DDCIter
 		return *this;
 	}
 };
-
 struct Rva002F1DDCOut
 {
 	Rva002F1DDCNode *node;
@@ -1037,7 +892,6 @@ struct Rva002F1DDCOut
 	Rva002F1DDCOut(const Rva002F1DDCIter &iter, bool flag)
 		: node((Rva002F1DDCNode *)iter._M_node), inserted(flag) {}
 };
-
 class Rva002F1DDCTree
 {
 public:
@@ -1048,18 +902,14 @@ private:
 	Rva002F1DDCNode *m_header; // +0x00
 	unsigned int m_count; // +0x04
 };
-
 extern template void _STL::__pop_heap(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, _Rva002EBB53Wrap **, _Rva002EBB53Wrap *, Rva002EBB53Compare, int *);
-
 template void _STL::__pop_heap_aux(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, _Rva002EBB53Wrap **, Rva002EBB53Compare);
-
 //
 // Retail 0x003E6E90: six-argument thiscall wrapper around 0x003DF580.  Forwards
 // the six arguments plus &arg6 and a trailing 0, then returns whether arg6 is
 // null when the inner call succeeded.
 
 typedef unsigned char Bool;
-
 // Emit the sole ledger body, not every member of seven element families.
 // The broad instantiations emitted a non-retail integer-tree copy constructor
 // that took precedence over the rowed 207-byte provider at 0x00620CA0.
@@ -1078,9 +928,7 @@ public:
  Rva002F0C32Allocator(const Rva002F0C32Allocator&) throw() {}
  template<class U> Rva002F0C32Allocator(const Rva002F0C32Allocator<U>&) throw() {}
 };
-
 template _STL::multiset<int, _STL::less<int>, Rva002F0C32Allocator<int> >::multiset();
-
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -1090,22 +938,17 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-
 struct Rva002F307AElement {
  Rva002F307AElement(); Rva002F307AElement(const Rva002F307AElement&);
  ~Rva002F307AElement(); Rva002F307AElement&operator=(const Rva002F307AElement&);
  char bytes[8];
 };
-
 bool operator<(const Rva002F307AElement&,const Rva002F307AElement&);
-
 // MSVC also instantiates the unused member-tree destructor with this constructor.
 // Keep that operation external; this unit recovers only default construction.
 namespace _STL { template <> _Rb_tree<Rva002F307AElement, Rva002F307AElement, _Identity<Rva002F307AElement>, less<Rva002F307AElement>, allocator<Rva002F307AElement> >::~_Rb_tree(); }
-
 // Emit only the rowed constructor; unrelated set operations require element bodies.
 template _STL::set<Rva002F307AElement>::set();
-
 // map/set<int> internals otherwise instantiate the less<int>::operator()
 // COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
 // specialization takes those calls inline so this TU emits no external copy.
@@ -1114,20 +957,14 @@ template <> __declspec(dllimport) __forceinline
 bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
-
 struct Rva002F3093Record {  char bytes[1]; };
-
 // Instantiate the recovered member; retain only its required template dependencies.
 // Declared only (stl batch): retail's body for this name is the rowed one at its
 // pinned address; this TU's copy is not retail's.
 namespace _STL { template <> _STL::_Rb_tree_iterator<_STL::pair<int const,Rva002F3093Record>,_STL::_Nonconst_traits<_STL::pair<int const,Rva002F3093Record> > > _Rb_tree<int,_STL::pair<int const,Rva002F3093Record>,_STL::_Select1st<_STL::pair<int const,Rva002F3093Record> >,_STL::less<int>,_STL::allocator<_STL::pair<int const,Rva002F3093Record> > >::insert_unique(_STL::_Rb_tree_iterator<_STL::pair<int const,Rva002F3093Record>,_STL::_Nonconst_traits<_STL::pair<int const,Rva002F3093Record> > >,_STL::pair<int const,Rva002F3093Record> const &); }
-
 template _STL::_Rb_tree_iterator<_STL::pair<int const, Rva002F3093Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva002F3093Record> > > _STL::map<int, Rva002F3093Record, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva002F3093Record> > >::insert(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva002F3093Record>, _STL::_Nonconst_traits<_STL::pair<int const, Rva002F3093Record> > >, _STL::pair<int const, Rva002F3093Record> const &);
-
 class Rva002CB35CObj;
-
 #include "../../../Include/GameLogic/AIPathfind.h"
-
 class Rva002F336AOwner
 {
 public:
@@ -1143,12 +980,9 @@ private:
 	void *targetPosition; // +0x18
 	Rva002CB35CObj *weapon; // +0x1C
 };
-
 struct Rva002F3759Compare { bool operator()(unsigned int a,unsigned int b)const{return a<b;} };
-
 // Instantiate the recovered member; retain only its required template dependencies.
 template unsigned int & _STL::map<unsigned int, unsigned int, Rva002F3759Compare, _STL::allocator<_STL::pair<unsigned int const, unsigned int> > >::operator[](unsigned int const &);
-
 // Clean BF1 f98983a7 Rva003D4CD0SetWord.cpp and Rva003D4CF0SetWord.cpp
 // are whole source leads. Their address-owned identities are donor facts.
 // Each native member below follows a complete RET and has its own RET4:
@@ -1163,16 +997,13 @@ public:
 private:
     void *pointee;
 };
-
 class Rva002E6CA2WordChase {
 public:
     void set(unsigned short value);
 private:
     void *pointee;
 };
-
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
-
 // Address-named indexed pointer-chase getter at retail 0x005F6B12.
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
@@ -1186,16 +1017,40 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
 
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
 struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
-
-// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
-// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
-// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
-// Several donor names share each shape, so no donor owner/type is asserted.
-// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
-// and6F6830..6F6836. They read raw words through independently proved offsets.
-// 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
-// INT3 padding before, no reference in the image).
 #include "../../../Include/GameLogic/AI.h"
+struct Rva002F600CInfo
+{
+	char m_pad[4];
+};
+struct Rva002E6F92Info
+{
+	char m_pad[4];
+};
+struct Rva002E7B29Info
+{
+	int m_00;
+};
+struct Rva002E7ED6Info
+{
+public:
+	int m_00;
+public:
+	Int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY);
+};
+struct Rva002E93A7Info;
+struct Rva002F3F7DInfo
+{
+	char m_pad[4];
+};
+// Native 002F6F90..002F70E5, thiscall RET8 AL. WB D6A690 and target
+// diagnostics support adjustment predicate role; original context name unknown.
+// Clean BFME1 IsCheckForAdjust003F2B60 donor revision 9cbfb551 supplies the
+// predicate control flow; field offsets, kind bit and ABI come from retail.
+struct Rva002F600CCoord { float x, y, z; };
+class LocomotorSet;
+// Native 0x002F3392 uses a two-word callback context and PathNode +0x0C position.
+// The layer value is witnessed as 1; its original enumerator spelling is unknown.
+enum PathfindLayerEnum { PathfindLayerNativeOne = 1 };
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
@@ -1376,6 +1231,47 @@ public:
 	void rva0052A36A(Out0052A36A *out);						// 0x0052A36A
 	void rva0052A387(int value);							// 0x0052A387
 };
+
+typedef bool (Pathfinder::*Rva002F52A7Shape)(unsigned int, unsigned int, unsigned char, unsigned int, unsigned int, unsigned int,
+    unsigned int, unsigned char, Rva002F600CCoord *, unsigned int, float, unsigned int *, unsigned int);
+
+struct PathfinderLogFile;
+
+extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
+
+extern unsigned char g_00E03745;
+
+extern "C" void *theLogicRandomLogFile;
+
+struct Rva002F6F90Template { unsigned char pad[0x114]; unsigned int flags; };
+
+struct Rva002F6F90Object { unsigned int word0; Rva002F6F90Template *objectTemplate; };
+
+class Rva002F6F90Context {
+public: bool rva002F6F90(unsigned int first,int second);
+private:
+ Pathfinder *query;
+ Rva002F6F90Object *object;
+ unsigned int word08;
+ bool mode0C,option0D; unsigned char pad0E[2];
+ unsigned int word10,word14,word18;
+ float value1C;
+ unsigned int saved20;
+ int saved24,minimum28;
+ unsigned int word2C;
+ Rva002F600CCoord position30;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
+// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
+// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
+// Several donor names share each shape, so no donor owner/type is asserted.
+// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
+// and6F6830..6F6836. They read raw words through independently proved offsets.
+// 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
+// INT3 padding before, no reference in the image).
 
 // --- 0x005DBB4D (45B): the 8x8 short table at +0x838, 0 out of range.
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
@@ -2363,6 +2259,28 @@ void Rva002EAD39::rva002EAD39(Rva0053476A *replacement)
 	m_ptr = replacement;
 }
 
+// ---- from Code/GameEngine/Source/Common/GapBodiesGE15.cpp
+
+Rva002E7334::Rva002E7334(int value, const GapPair &pair) : m_00(value), m_04(pair.a), m_08(pair.b)
+{
+}
+
+// ?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z @0x002E734E (58B)
+// The trailing "&& 1" keeps retail's movzx between shr 16 and and 1.
+int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow)
+{
+	if (cellColumn == m_04 && cellRow == m_08)
+		return 0;
+	unsigned int flags = to->m_flags;
+	if ((flags & 0xF) == 0 || (flags & 0xF) == 1)
+		return ((unsigned char)(flags >> 16) & 1) && 1;
+	return 1;
+}
+
+// --- 0x0052A603 / 0x0052A634 (30B each): vtables 0x00C684AC / 0x00C684B4
+// over a cleared word and a pair; 0x0052A621 (19B) / 0x0052A652 (8B): the
+// +0x08 member's rowed 0x0052A36A / 0x0052A387.
+
 // tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
@@ -2387,28 +2305,6 @@ void Rva002EAD39::rva002EAD39(Rva0053476A *replacement)
 
 // tu-skeleton: 0x002E7296 158B ?IsValidMovementTerrain@Pathfinder@@QAE_NW4PathfindLayerEnum@@PBVLocomotor@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/GapBodiesGE15.cpp
-
-Rva002E7334::Rva002E7334(int value, const GapPair &pair) : m_00(value), m_04(pair.a), m_08(pair.b)
-{
-}
-
-// ?rva002E734E@Rva002E7334@@QAEHPAURva002E734ECell@@0HH@Z @0x002E734E (58B)
-// The trailing "&& 1" keeps retail's movzx between shr 16 and and 1.
-int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cellColumn, int cellRow)
-{
-	if (cellColumn == m_04 && cellRow == m_08)
-		return 0;
-	unsigned int flags = to->m_flags;
-	if ((flags & 0xF) == 0 || (flags & 0xF) == 1)
-		return ((unsigned char)(flags >> 16) & 1) && 1;
-	return 1;
-}
-
-// --- 0x0052A603 / 0x0052A634 (30B each): vtables 0x00C684AC / 0x00C684B4
-// over a cleared word and a pair; 0x0052A621 (19B) / 0x0052A652 (8B): the
-// +0x08 member's rowed 0x0052A36A / 0x0052A387.
-
 // tu-skeleton: 0x002E73FB 25B ?rva002E73FB@Rva002E734E@@QAEHHPBURva002E734ECell@@HH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // tu-skeleton: 0x002E7414 44B ?rva002E7414@Rva002E7414@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
@@ -2417,7 +2313,16 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 
 // tu-skeleton: 0x002E74AC 9B ?rva002E74AC@Rva002E74ACFlags@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x002E74B5 17B ?SetDebugPathPosition@Pathfinder@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp
+
+// Pathfinder::SetDebugPathPosition (WorldBuilder name, pathfinder.cpp lines 5116..5120: copy the position into +0x4C).
+// was ?rva002E74B5@Rva002E74B5@@QAEXPBUCoord3D@@@Z @0x002E74B5 17B
+// Evidence: unlocks 0x00363930; copies 12B to +0x4C; caller passes Coord3D floats.
+
+void Pathfinder::SetDebugPathPosition(const Coord3D *pos)
+{
+	m_field4C = *pos;
+}
 
 // tu-skeleton: 0x002E74C6 124B ?ChooseBestLocomotorForPosition@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp (not merged yet)
 
@@ -2557,19 +2462,59 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 
 // tu-skeleton: 0x002EADB4 45B ?rva002EADB4@Rva002EADB4@@QAEXPAU_Rva002EADB4Node@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EADB4Release.cpp (not merged yet)
 
-// tu-skeleton: 0x002EAE20 63B ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp
+
+//
+// ?rva002F95B7@Pathfinder@@QAEH... retail 0x002F95B7 63B.
+// Pathfinder helper that converts two world positions to cells via rowed
+// Rva002E7875WorldToCell at 0x002E7875 then runs the private rowed
+// iterateCellsAlongLine for Rva002F600CInfo at 0x002F6D22. Same this as the
+// private walk (same Pathfinder), 4 stack args (ret 0x10), no EH. Caller
+// 0x002FC95E. Flags copy PathfinderCellLineWalks neighbours (/O1 /G7).
+
+int Pathfinder::rva002F95B7(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F600CInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
+
+// ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z retail 0x002EAE20 63B sibling of 0x002F95B7.
+// Same WorldToCell then private iterate shape but for Rva002E6F92Info at
+// 0x002E8348. Same flags and nested-return recipe.
+int Pathfinder::rva002EAE20(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002E6F92Info *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
 
 // tu-skeleton: 0x002EAE5F 700B ?rva002EAE5F@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002EB11B 700B ?rva002EB11B@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// tu-skeleton: 0x002EB3D7 63B ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp
+
+// ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z @0x002EB3D7 63B.
+int Pathfinder::rva002EB3D7(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7B29Info *info)
+{
+	ICoord2D tmp1;
+	ICoord2D tmp2;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmp2, true, a), Rva002E7875WorldToCell(&tmp1, true, b), layer, info);
+}
 
 // tu-skeleton: 0x002EB4A0 63B ?rva002EB4A0@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002EB4DF 406B ?IterateCellsInRectangle@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// tu-skeleton: 0x002EB675 63B ?rva002EB675@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp
+
+int Pathfinder::rva002EB675(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7ED6Info *info)
+{
+	ICoord2D tmp1;
+	ICoord2D tmp2;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmp2, true, a), Rva002E7875WorldToCell(&tmp1, true, b), layer, info);
+}
 
 // tu-skeleton: 0x002EB6B4 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
@@ -2669,7 +2614,14 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 
 // tu-skeleton: 0x002EEA8A 695B ?rva002EEA8A@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// tu-skeleton: 0x002EED41 63B ?rva002EED41@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp
+
+int Pathfinder::rva002EED41(const Coord3D *startWorld, const Coord3D *endWorld, PathfindLayerEnum layer, Rva002E93A7Info *info)
+{
+	ICoord2D endCell;
+	ICoord2D startCell;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&startCell, true, startWorld), Rva002E7875WorldToCell(&endCell, true, endWorld), layer, info);
+}
 
 // tu-skeleton: 0x002EED80 406B ?IterateCellsInRectangle@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E9D09@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
@@ -2867,7 +2819,22 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 
 // tu-skeleton: 0x002F69E3 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F4491Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// tu-skeleton: 0x002F6AE3 63B ?rva002F6AE3@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp
+
+//
+// ?rva002F6AE3@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z @0x002F6AE3 63B.
+// Pathfinder helper converting two Coord3D to cells via rowed Rva002E7875WorldToCell
+// at 0x002E7875 then running the private rowed iterateCellsAlongLine for
+// Rva002F3F7DInfo at 0x002F4391. Evidence: callees rowed WorldToCell
+// PathfindShimWorldToCell.cpp twice plus rowed walk PathfinderCellLineWalks.cpp;
+// caller 0x002F714B in 91B unclaimed; sits between 0x002F69E3 and 0x002F6B22 gap.
+
+int Pathfinder::rva002F6AE3(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F3F7DInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
 
 // tu-skeleton: 0x002F6B22 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F5925Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
@@ -2877,7 +2844,35 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 
 // tu-skeleton: 0x002F6E22 366B ??0Pathfinder@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x002F6F90 341B ?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp
+
+// ?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z
+bool Rva002F6F90Context::rva002F6F90(unsigned int first,int second)
+{
+
+ if(g_00E03745 && theLogicRandomLogFile)
+  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() called with cell=%d,%d",first,second);
+ int count;
+ if(!query->CheckForAdjust((Object *)object,*(const LocomotorSet *)word08,mode0C,first,second,(PathfindLayerEnum)word18,word10,option0D,(Coord3D *)&position30,(const Coord3D *)word14,value1C,&count,word2C)) {
+  if(g_00E03745 && theLogicRandomLogFile)
+   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() checkAdjust failed");
+  return false;
+ }
+
+ if(!count || (object->objectTemplate->flags & 0x20000000)) {
+  if(g_00E03745 && theLogicRandomLogFile)
+   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%s, isInfantry=%s, returning true",count?"TRUE":"FALSE",(object->objectTemplate->flags&0x20000000)?"TRUE":"FALSE");
+  return true;
+ }
+ if(count<minimum28 || !minimum28) {
+  minimum28=count;saved20=first;saved24=second;
+  if(g_00E03745 && theLogicRandomLogFile)
+   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%d, m_foundWithAllies=%d",count,minimum28);
+ }
+ if(g_00E03745 && theLogicRandomLogFile)
+  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() total failure, return false",count,minimum28);
+ return false;
+}
 
 // tu-skeleton: 0x002F70E5 102B ?rva002F70E5@Rva002F70E5Context@@QAE_NIH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva002F70E5QueryCallback.cpp (not merged yet)
 
@@ -2900,8 +2895,6 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 // tu-skeleton: 0x002F92BC 700B ?rva002F92BC@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002F9578 63B ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F4D8BInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCoordLineWalk.cpp (not merged yet)
-
-// tu-skeleton: 0x002F95B7 63B ?rva002F95B7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F600CInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp (not merged yet)
 
 // tu-skeleton: 0x002F95F6 1988B ?FindGroundPath@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@1H@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 

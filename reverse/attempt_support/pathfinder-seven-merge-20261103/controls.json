@@ -1,0 +1,50 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+    "source_sha256": "77cd28a28fa68d5354da04cdb59f5e776248dc972f6495caf6344774f06d3be9",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^a^i^pathfind.obj",
+    "snapshot": "control-0.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp",
+    "source_sha256": "e9a4bbbeae12eac08c362902381e7aff0a26e260cb1dc4319102764f25d6fabb",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^pathfinder_^set^debug^path^position.obj",
+    "snapshot": "control-1.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp",
+    "source_sha256": "40462b55ccbe99210b382a76f8bea8170a3b49698522a7a129e2764a2f2b505d",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^f95^b7.obj",
+    "snapshot": "control-2.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp",
+    "source_sha256": "a797d02f8493bb52e1d119d5c4f7617a4ec28bc6171c30e42dd46bfa357ec00f",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^e^b3^d7.obj",
+    "snapshot": "control-3.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp",
+    "source_sha256": "8a18c22378a0010541d726638799b791516134d4868c5a9da1e89a3066a0d0b2",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^e^b675.obj",
+    "snapshot": "control-4.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp",
+    "source_sha256": "ac836b63742d87d6d7f200d68eefc81eb9005fa57a166236126c26332786c6a8",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^world^line^walk.obj",
+    "snapshot": "control-5.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp",
+    "source_sha256": "75258c4dd069b28f66042852fd97b1c205b1d3c22df21991c59134eee4f4f3f4",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^f6^a^e3.obj",
+    "snapshot": "control-6.obj"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp",
+    "source_sha256": "6ea8b98ad6297ad53a91ba9a9456db0ea68eb33b8707232d5acbbac0564210f1",
+    "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^rva002^f6^f90^query^callback.obj",
+    "snapshot": "control-7.obj"
+  }
+]

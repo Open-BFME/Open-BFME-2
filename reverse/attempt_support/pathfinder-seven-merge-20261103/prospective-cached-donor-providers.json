@@ -1,0 +1,178 @@
+{
+  "scope": "Readonly premerge cached donor providers; not a fresh compiled union comparison",
+  "index_meta": {
+    "date": "2026-11-02 08:35",
+    "commit": "984a4cdc4d",
+    "clean_tree": true,
+    "census_date": "2026-11-02 06:54",
+    "census_commit": "357ce2a88f"
+  },
+  "objects": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^pathfinder_^set^debug^path^position.obj",
+      "exists": true,
+      "sha256": "f51c292ad92e411b8b6eb8a03a7e9086a33f35b0ad2e15ae663a3007771a4158",
+      "defined": [
+        {
+          "name": "?SetDebugPathPosition@Pathfinder@@QAEXPBUCoord3D@@@Z",
+          "size": 17
+        }
+      ],
+      "undefined": [],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^f95^b7.obj",
+      "exists": true,
+      "sha256": "72897f0a22281718f8e0e8d0ad4d98f4b8d491d507fed6aed79e9c524fa0bef8",
+      "defined": [
+        {
+          "name": "?rva002F95B7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F600CInfo@@@Z",
+          "size": 63
+        },
+        {
+          "name": "?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z",
+          "size": 63
+        }
+      ],
+      "undefined": [
+        "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+        "?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z",
+        "?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F600CInfo@@@Z"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^e^b3^d7.obj",
+      "exists": true,
+      "sha256": "0d421fb4564f782f7193e2c5089605c79850052cac67cb9b43f9622125ae71c1",
+      "defined": [
+        {
+          "name": "?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z",
+          "size": 63
+        }
+      ],
+      "undefined": [
+        "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+        "?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^e^b675.obj",
+      "exists": true,
+      "sha256": "be036d9cc0e65e7ce12c563183321835f2c2b80125b7acb67c6bb42718621e0e",
+      "defined": [
+        {
+          "name": "?rva002EB675@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z",
+          "size": 63
+        }
+      ],
+      "undefined": [
+        "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+        "?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^world^line^walk.obj",
+      "exists": true,
+      "sha256": "e8026089afbd069e066890559b6324999785130351df90027e95ee81f67968dd",
+      "defined": [
+        {
+          "name": "?rva002EED41@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z",
+          "size": 63
+        }
+      ],
+      "undefined": [
+        "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+        "?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^pathfinder^rva002^f6^a^e3.obj",
+      "exists": true,
+      "sha256": "21fbfb739eca66eb007fabe851b6b9a71f1cee9b08b7d3cf6feb594fefe2b449",
+      "defined": [
+        {
+          "name": "?rva002F6AE3@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z",
+          "size": 63
+        }
+      ],
+      "undefined": [
+        "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+        "?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^a^i_^rva002^f6^f90^query^callback.obj",
+      "exists": true,
+      "sha256": "378081d4e8d3bf9463cf7edbc25841dcf9e5ed51cb88574dd18ca35a83de20ac",
+      "defined": [
+        {
+          "name": "?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z",
+          "size": 341
+        },
+        {
+          "name": "??_C@_0EO@LLFFMNML@?7?7?5?5Pathfinder_IsCheckForAdjust?$CI@",
+          "size": 78
+        },
+        {
+          "name": "??_C@_05MAJJAKPI@FALSE?$AA@",
+          "size": 6
+        },
+        {
+          "name": "??_C@_04HCDDPBNL@TRUE?$AA@",
+          "size": 5
+        },
+        {
+          "name": "??_C@_0DO@MPNFPBHI@?7?7?5?5Pathfinder_IsCheckForAdjust?$CI@",
+          "size": 62
+        },
+        {
+          "name": "??_C@_0EF@ECGJNBIM@?7?7?5?5Pathfinder_IsCheckForAdjust?$CI@",
+          "size": 69
+        },
+        {
+          "name": "??_C@_0DF@KOHLEAFB@?7?7?5?5Pathfinder_IsCheckForAdjust?$CI@",
+          "size": 53
+        },
+        {
+          "name": "??_C@_0DJ@GPADNNOG@?7?7?5?5Pathfinder_IsCheckForAdjust?$CI@",
+          "size": 57
+        }
+      ],
+      "undefined": [
+        "?CheckForAdjust@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@_NHHW4PathfindLayerEnum@@H2PAUCoord3D@@PBU5@MPAHH@Z",
+        "?g_00E03745@@3EA",
+        "__fltused",
+        "_fprintf",
+        "_theLogicRandomLogFile"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    }
+  ]
+}
