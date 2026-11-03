@@ -313,13 +313,13 @@ float distanceSquared(const Rva00506BADCoord *lhs, const Rva00506BADCoord *rhs)
 // view; GameSlot m_ip +0x34 from GameSlotSetState, globals TheGameInfo
 // and TheNameKeyGenerator DIR32 from retail.
 
-GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg)
+GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *slotQuery)
 {
 	if (TheGameInfo != 0) {
 		for (int i = 0; i < 8; ++i) {
 			GameSlot *slot = TheGameInfo->getSlot(i);
 			NameKeyType key = TheNameKeyGenerator->nameToKey(slot->m_ip);
-			if (key == arg->m_50)
+			if (key == slotQuery->m_50)
 				return slot;
 		}
 	}
@@ -442,8 +442,8 @@ void AIBaseBuilder::notifyBuildingDestroyed(Object *destroyedBuilding)
 			Rva00506FE9Hit *hit = *h;
 			if (hit->m_24 == ((Rva00506FE9ObjectView *)destroyedBuilding)->m_id) {
 				hit->unRegisterWithBuilder(m_08);
-				float previousValue = hit->m_04;
-				hit->m_04 = data->m_88 * previousValue;
+				float previousHitValue = hit->m_04;
+				hit->m_04 = data->m_88 * previousHitValue;
 				hit->v6(m_08, 0);
 			}
 		}
@@ -470,8 +470,8 @@ void AIBaseBuilder::DoXfer(Xfer *xfer)
 			m_0C.clear();
 		}
 		for (unsigned int i = 0; i < baseCount; ++i) {
-			Rva005ADA40 *base = reinterpret_cast<Rva005ADA40 *>(new AIBase(i, m_08));
-			m_0C.push_back(base);
+			Rva005ADA40 *newBase = reinterpret_cast<Rva005ADA40 *>(new AIBase(i, m_08));
+			m_0C.push_back(newBase);
 		}
 	}
 	Rva005ADA40 **end = m_0C.end();
@@ -506,9 +506,9 @@ void AIBaseBuilder::rva0050722A(Coord3D *placementPosition)
 		facingAngle *= -1.0f;
 	facingAngle = normalizeAngle(facingAngle - 1.5707964f);
 	unsigned int index = m_0C.empty() ? 0 : m_0C.size();
-	Rva005ADA40 *base = reinterpret_cast<Rva005ADA40 *>(new AIBase(index, m_08));
-	m_0C.push_back(base);
-	reinterpret_cast<AIBase *>(base)->loadBestFitTemplate(placementPosition, facingAngle, index != 0);
+	Rva005ADA40 *newBase = reinterpret_cast<Rva005ADA40 *>(new AIBase(index, m_08));
+	m_0C.push_back(newBase);
+	reinterpret_cast<AIBase *>(newBase)->loadBestFitTemplate(placementPosition, facingAngle, index != 0);
 }
 
 // tu-skeleton: 0x00506CF5 756B ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)

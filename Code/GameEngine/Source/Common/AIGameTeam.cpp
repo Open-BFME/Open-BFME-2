@@ -291,8 +291,8 @@ bool Rva004E9600::rva004E9600(void *record)
 void AIGameTeam::addPlayer(const ModuleData *player)
 {
 	const AsciiString *name = (const AsciiString *)((const char *)player + 0x58);
-	const ArmorTemplate *armor = g_00E0312C->rva0041F474(*name);
-	SkirmishAI *skirmishAI = new SkirmishAI((Player *)player, (void *)armor, m_map.size() == 0);
+	const ArmorTemplate *armorTemplate = g_00E0312C->rva0041F474(*name);
+	SkirmishAI *skirmishAI = new SkirmishAI((Player *)player, (void *)armorTemplate, m_map.size() == 0);
 	int key = *(const int *)((const char *)player + 0x54);
 	m_map[key] = (int)skirmishAI;
 	m_vec.push_back(player);

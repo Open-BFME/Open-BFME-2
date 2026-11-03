@@ -92,17 +92,17 @@ private:
 
 StateReturnType AIStateMachine::setTemporaryState(unsigned int stateId, int frameLimit)
 {
-	State *st = ((StateMachine *)this)->internalGetState(stateId);
+	State *requestedState = ((StateMachine *)this)->internalGetState(stateId);
 	if (m_50) {
 		m_50->v05(1);
 		m_50 = 0;
 	}
-	if (st) {
+	if (requestedState) {
 		BigObj *ownerAI = m_14->m_258;
 		if (ownerAI)
 			ownerAI->v136();
-		m_50 = st;
-		StateReturnType enterResult = st->v04();
+		m_50 = requestedState;
+		StateReturnType enterResult = requestedState->v04();
 		if (enterResult) {
 			m_50->v05(0);
 			m_50 = 0;

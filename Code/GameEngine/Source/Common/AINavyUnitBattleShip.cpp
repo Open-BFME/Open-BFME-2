@@ -197,14 +197,14 @@ void AINavyUnitBattleShip::patrol()
 		return;
 	Player *player = (Player *)TheSkirmishAIManager->rva002A8AB1(ship->getControllingPlayer())->rva002C6ACB();
 	Rva005AD6C3Holder *playerAIData = (Rva005AD6C3Holder *)TheSkirmishAIManager->rva002A8F24(player);
-	Rva005C4AD1LeaField *trackedUnits = playerAIData->m_08;
+	Rva005C4AD1LeaField *trackedUnitIDField = playerAIData->m_08;
 	bool attackIssued = false;
-	unsigned int trackedUnitCount = ((IntMap *)trackedUnits)->bucket_count();
+	unsigned int trackedUnitCount = ((IntMap *)trackedUnitIDField)->bucket_count();
 	if (trackedUnitCount > 0) {
 		for (unsigned int i = 0; i < trackedUnitCount; ++i) {
 			if (attackIssued)
 				return;
-			Object *obj = TheGameLogic->findObjectByID((*(ObjectID **)trackedUnits->get())[i]);
+			Object *obj = TheGameLogic->findObjectByID((*(ObjectID **)trackedUnitIDField->get())[i]);
 			if (obj->m_04->m_11F & 0x10) {
 				ship->m_ai->m_commands.rva003C7653(obj, CMD_FROM_PLAYER);
 				attackIssued = true;
