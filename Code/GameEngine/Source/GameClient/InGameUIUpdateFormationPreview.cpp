@@ -133,7 +133,7 @@ struct C2 : Coord2D {
  __forceinline void Normalize() {float len=GetLength();float inv=1.0f/len;x*=inv;y*=inv;}
  __forceinline C2 &operator*=(float s) {x*=s;y*=s;return *this;}
  __forceinline void Scale(float s) {x*=s;y*=s;}
- __forceinline void Add(const Coord2D &o) {x+=o.x;y+=o.y;}
+ __forceinline void Add(const Coord2D &other) {x+=other.x;y+=other.y;}
  __forceinline void Set(float ax,float ay) {x=ax;y=ay;}
 };
 #define C2R(v) static_cast<C2&>(v)
@@ -153,9 +153,9 @@ class Matrix3D {
 public:
  __declspec(dllimport) __forceinline Matrix3D(const Vector3 &axis,float angle) {Set(axis,angle);}
  __forceinline void Set(const Vector3 &axis,float angle) {
-  float c = cosf(angle);
+  float cosine = cosf(angle);
   float s = sinf(angle);
-  Set(axis,s,c);
+  Set(axis,s,cosine);
  }
  __forceinline void Set(const Vector3 &axis,float s,float c) {
   Row[0].Set(

@@ -43,8 +43,8 @@ UINT WINAPI SetDIBColorTable(HDC hdc, UINT iStart, UINT cEntries, CONST RGBQUAD 
 // _GetObjectA@12
 typedef int (WINAPI *PFN_GetObjectA)(HGDIOBJ, int, LPVOID);
 extern PFN_GetObjectA __identifier("_imp__GetObjectA@12");
-int WINAPI GetObjectA(HGDIOBJ h, int c, LPVOID pv) {
- return __identifier("_imp__GetObjectA@12")(h, c, pv);
+int WINAPI GetObjectA(HGDIOBJ h, int bufferSize, LPVOID pv) {
+ return __identifier("_imp__GetObjectA@12")(h, bufferSize, pv);
 }
 
 // _RestoreDC@8

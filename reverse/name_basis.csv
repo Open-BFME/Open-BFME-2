@@ -7167,3 +7167,6 @@ param,Rva0006F373::Rva0006F373::d,Rva0006F373::Rva0006F373::allocFunc,inferred,a
 param,Rva0006F373::Rva0006F373::e,Rva0006F373::Rva0006F373::freeFunc,inferred,agree:nl-fe5111455775,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006FAEC
 param,Rva0006F373::rva0006F373::d,Rva0006F373::rva0006F373::allocFunc,inferred,agree:nl-daf464ed25c4,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006F373
 param,Rva0006F373::rva0006F373::e,Rva0006F373::rva0006F373::freeFunc,inferred,agree:nl-15d3cfa33ba4,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006F373
+local,Set#2::c,Set#2::cosine,inferred,agree:nl-2e1e0d1519ce,Code/GameEngine/Source/GameClient/InGameUIUpdateFormationPreview.cpp,
+param,Add::o,Add::other,inferred,agree:nl-aab6032c6b45,Code/GameEngine/Source/GameClient/InGameUIUpdateFormationPreview.cpp,
+param,GetObjectA::c,GetObjectA::bufferSize,inferred,agree:nl-40dd7bc7e313,Code/Libraries/Source/Win32/Gdi32ImportThunks.cpp,0x00006EB0
