@@ -5,17 +5,15 @@
 // ShroudManager::Data::EverSeenByPlayer at EA's own shroudmanager_data.cpp;
 // the class is corroborated by the landed KeepAsGhost / DoSmallFill /
 // UpdateCellsTouched siblings.
-class ShroudManager
-{
-public:
-	class Data
-	{
-		char m_pad[0xC4];
-		char m_slots[20];
+#include "../../Include/Common/ShroudManagerClass.h"
 
-	public:
-		char EverSeenByPlayer(int index);
-	};
+class ShroudManager::Data
+{
+	char m_pad[0xC4];
+	char m_slots[20];
+
+public:
+	char EverSeenByPlayer(int index);
 };
 
 char ShroudManager::Data::EverSeenByPlayer(int index)
