@@ -29,11 +29,7 @@ class WindowLayoutInfo;
 // Observed layout view of the info handed to AptPlayer::WinCreate.
 struct AptLayoutInfoView;
 
-class AptPlayer
-{
-public:
-	GameWindow *WinCreate(const AsciiString *filename, AptLayoutInfoView *info);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

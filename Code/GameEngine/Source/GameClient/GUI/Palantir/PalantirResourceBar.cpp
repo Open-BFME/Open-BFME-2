@@ -45,7 +45,7 @@ public:
  __forceinline AptRef(CommandPoints d){reinterpret_cast<Rva002D45FE*>(this)->Rva002D45FE::Rva002D45FE(reinterpret_cast<const int*>(&d.slot));}
  void *ptr;
 };
-class AptPlayer {public:void AddCustomRender(const AsciiString &,AptRef<AptCustomRender>);void AddOverButtonHandler(const AsciiString &,AptRef<AptOverButtonHandler>);void RemoveOverButtonHandler(const AsciiString &);};
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 __forceinline void AddResourceRender(const AsciiString &name,DelegateDesc desc) {
  reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddCustomRender(name,&desc);
 }

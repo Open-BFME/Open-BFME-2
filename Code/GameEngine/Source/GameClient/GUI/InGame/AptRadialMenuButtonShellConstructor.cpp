@@ -72,11 +72,7 @@ public:
 	}
 };
 
-class AptPlayer
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-};
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

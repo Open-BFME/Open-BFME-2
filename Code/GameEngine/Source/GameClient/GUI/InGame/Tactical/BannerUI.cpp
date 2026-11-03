@@ -572,15 +572,7 @@ public:
 	void *m_ptr;
 };
 
-class AptPlayer
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
-	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
-	bool HideLevel(int);
-	bool ShowLevel(int index);
-	void RemoveOverButtonHandler(const AsciiString &name);
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class Rva00216108 {
     AsciiString m_0;

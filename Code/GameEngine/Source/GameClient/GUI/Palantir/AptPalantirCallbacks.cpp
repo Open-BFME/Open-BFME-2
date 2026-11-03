@@ -1,4 +1,4 @@
-class AptPlayer { public: bool HideLevel(int); };
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's palantir (in-game command bar) Apt callbacks, 0x002D2FD4 onward,

@@ -44,7 +44,7 @@ public:
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
 private:T *ptr;
 };
-class AptPlayer {public:void AddOverButtonHandler(const AsciiString &,AptRef<AptOverButtonHandler>);};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;

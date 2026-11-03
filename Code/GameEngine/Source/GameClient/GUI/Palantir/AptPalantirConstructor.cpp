@@ -720,11 +720,7 @@ __declspec(noinline) inline void RadarWindowOverrideSource::rva002D55EF()
 // Palantir::Impl::~Impl, retail 0x002D5380..0x002D54E5 (357 bytes; WB
 // 0x00F43790): unload the palantir movie, destroy the movie playback and
 // the input window, detach the listed observers, then the members in reverse.
-class AptPlayer
-{
-public:
-	bool RemoveLevel(int level);
-};
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class Rva00224BC9Owner
 {

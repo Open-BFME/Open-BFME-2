@@ -208,7 +208,7 @@ void AptSaveLoad::rva00435224()
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 struct AptSaveLoadWindowsView
 {
 	unsigned char m_pad000[0x27C];

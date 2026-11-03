@@ -880,11 +880,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 // The rowed 0x00222547 window helper, whose integer result the Apt layer
 // passes through as the movie pointer.
-class AptPlayer
-{
-public:
-	static int GetLevelIndex(GameWindow *window);
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // The living world's rowed 0x002B254F, whose int callers read only its low byte.
 class Rva002B254F

@@ -167,7 +167,7 @@ virtual void s48();
 virtual void s4C();
 virtual int load(AsciiString,AsciiString,int,int);
 };
-class AptPlayer {public:bool ShowLevel(int);};
+#include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class Rva004E67B3 {public:void rva004E67B3(unsigned);};
 class Rva002217EA;
 class Rva005045DBTree {public:Rva005045DBTree&self();};

@@ -251,13 +251,7 @@ public:
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
-class AptPlayer
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-public:
-	static int GetLevelIndex(GameWindow *window);
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 UnicodeString GadgetTextEntryGetText(GameWindow *textentry);
 

@@ -95,12 +95,7 @@ typedef bool Bool;
 // (pinned 0x0022277D); 0x00516F21 sends an Apt movie a state message.
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 
-class AptPlayer
-{
-public:
-	bool HideLevel(int);
-	Bool ShowLevel(Int level);			// 0x002224FE, WB AptPlayer::ShowLevel
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class Rva00222A8BTarget; extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void Rva00516F21Invoke(Rva00222A8BTarget *player, void *level, const char *message, const char *arg);	// 0x00516F21

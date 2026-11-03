@@ -1229,11 +1229,7 @@ public:
 
 class AptCustomRender;
 
-class AptPlayer
-{
-public:
-	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class Player;
 

@@ -355,7 +355,7 @@ class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
-class AptPlayer {public:static int GetLevelIndex(GameWindow *window);};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *,void *,const char *,const int &);
 
 void AptSaveLoad::rva00434A2F()

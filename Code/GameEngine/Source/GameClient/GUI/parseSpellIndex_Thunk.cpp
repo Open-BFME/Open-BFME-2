@@ -675,7 +675,7 @@ public:
 // The screen's Apt movie (rowed 0x00222547) and the window manager's
 // ActionScript call 0x00222A8B.
 class GameWindow;
-class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 #include "../../../Include/Common/Rva00222A8BTarget.h"
 

@@ -141,7 +141,7 @@ public:
 class AptScreenInitGadgets;
 class AptCommandMap;
 void _bfme_setAptScreenRef(const AsciiString &,AptRef<AptScreenInitGadgets>);
-class AptPlayer {public:void AddCommandMap(const AsciiString &,AptRef<AptCommandMap>);};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Native 0x5BF177..0x5BF257 binds this sub-screen's two verified callbacks.
 // WB 0x155A5F0 has the same bindings and empty-width setup but its name says

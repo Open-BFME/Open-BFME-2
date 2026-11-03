@@ -23,7 +23,7 @@ class GameInfo { public: virtual void* deleteObject(int); };
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 extern GameInfo *TheGameInfo;
 extern int g_00E04930;
-class AptPlayer { public: void RemoveOverButtonHandler(const AsciiString&); };
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 void _bfme_closeAptScreen(const AsciiString&);
