@@ -2387,14 +2387,7 @@ inline __declspec(noinline) void Rva002E6BA1::rva002E6BA1(int lhs, In002E6BA1 *r
 	++TheMixFileInfoCount;
 }
 
-class MixFileInfoBuffer
-{
-private:
-	void bfmeUnlink();
-	friend class Rva002E6BA1;
-public:
-	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
-};
+#include "../../../Include/Common/MixFileInfoBuffer.h"
 
 // Rehomed 0x002E8B7A (33 B), original Rva002E8B7AInit.cpp: takes the pool
 // head, unlinks it (0x002E6BE2) and initializes it for the cell (0x002E6BA1).

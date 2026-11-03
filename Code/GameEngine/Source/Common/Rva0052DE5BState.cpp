@@ -11,15 +11,7 @@
 // +0x14. Callees are declared-only so the gate resolves them; retail homes
 // this in esi.
 
-class MixFileInfoBuffer
-{
-private:
-	void bfmeUnlink();
-	void bfmeLinkInto(MixFileInfoBuffer **head);
-public:
-	void releaseInto(void *pool);
-	friend class PathfindCell;
-};
+#include "../../Include/Common/MixFileInfoBuffer.h"
 
 extern int TheMixFileInfoPool;
 

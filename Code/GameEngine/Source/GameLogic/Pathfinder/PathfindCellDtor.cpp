@@ -2,7 +2,7 @@
 // Native52DD64..52DD75; WB AllocateCells passes its counterpart as the
 // 16-byte PathfindCell destructor. WB Info::Free asserts in pathfinder_cell.inl
 // independently identify the first-word info release. See five-link evidence.
-class MixFileInfoBuffer { public: void releaseInto(void *pool); };
+#include "../../../Include/Common/MixFileInfoBuffer.h"
 extern int TheMixFileInfoPool;
 class PathfindCell {
 public:
