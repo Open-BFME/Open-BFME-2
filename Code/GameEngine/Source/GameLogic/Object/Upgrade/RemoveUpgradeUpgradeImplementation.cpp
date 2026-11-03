@@ -97,11 +97,7 @@ public:
 	void *rva0026F0F0(const void *mask);
 };
 
-class Player
-{
-public:
-	void removeUpgrade(const UpgradeTemplate *upgrade, int suppressEva);
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object
 {

@@ -55,15 +55,7 @@ template <> class Rva004389DBSlots<0>
 {
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Object *that) const;	// 0x002AD11E
-	Int getPlayerIndex() const { return m_playerIndex; }
-private:
-	char m_pad00[0x54];
-	Int m_playerIndex;	// +0x54
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

@@ -55,16 +55,7 @@ enum BattlePlanStatus
 };
 
 class Rva002AA14DBonuses;
-class Player
-{
-public:
-	void changeBattlePlan(BattlePlanStatus,int,Rva002AA14DBonuses *);
-	int iterateObjects(int (__cdecl *)(Object *,void *),void *) const;
-	char m_pad00[0x54];
-	int index; // +0x54
-	char m_pad58[0x294];
-	Team *m_team; // +0x2EC +0x2ec
-};
+#include "../../../../Include/Common/Player.h"
 
 class PlayerList
 {
@@ -114,7 +105,7 @@ void BattlePlanUpdate::createVisionObject()
 		return;
 	CreateMask mask;
 	memset(&mask, 0, 0x10);
-	Team *team = player->m_team;
+	Team *team = player->m_defaultTeam;
 	Object *newObj = TheThingFactory->newObject((const ThingTemplate *)tmpl, team, &mask, (ObjectID)0);
 	if (newObj == 0)
 		return;

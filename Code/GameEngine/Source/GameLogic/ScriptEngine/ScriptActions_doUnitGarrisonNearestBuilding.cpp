@@ -69,13 +69,7 @@ enum CommandSourceType
 	CMD_FROM_SCRIPT = 1
 };
 
-class Player
-{
-public:
-	unsigned int getPlayerMask() const { return 1 << m_index; }
-	char m_pad00[0x54];
-	int m_index;	// +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 struct Rva003C8F86Contained
 {

@@ -43,12 +43,7 @@ struct Rva2225E0Filter
 {
 	bool accepts(Object *obj, Player *context);
 };
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../../Include/Common/Player.h"
 class DamageInfo
 {
 public:

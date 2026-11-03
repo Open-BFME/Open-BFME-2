@@ -5,12 +5,7 @@
 // ?doPlayerEnableUnitConstruction@ScriptActions@@QAEXABVAsciiString@@@Z @0x003BB45D 62B: ScriptActions member setting Player byte +0x338 for each player in a name mask.
 // Target evidence: calls ScriptEngine::rva00357475 (0x00357475) once then getEachPlayerFromMask (0x002A7BC9) loop writing byte [eax+0x338]=1; globals g_Va009FE16C (0x009FE16C) and ThePlayerList (0x009FEEE8); ret 4; caller 0x003CB87E; sibling of 0x003BB39E.
 class AsciiString;
-class Player
-{
-public:
-	char m_pad00[0x338];
-	unsigned char m_flag338; // +0x338
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PlayerList
@@ -28,6 +23,6 @@ void ScriptActions::doPlayerEnableUnitConstruction(const AsciiString &name)
 	do {
 		player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player)
-			player->m_flag338 = 1;
+			player->m_canBuildUnits = 1;
 	} while (mask != 0);
 }

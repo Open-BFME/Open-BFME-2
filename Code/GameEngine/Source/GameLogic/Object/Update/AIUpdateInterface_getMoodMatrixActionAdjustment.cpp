@@ -20,14 +20,7 @@ public:
 	UnsignedInt m_kindof[6];
 };
 
-class Player
-{
-public:
-	int getPlayerType() const { return m_playerType; }
-private:
-	unsigned char m_pad00[0x5c];
-	int m_playerType;
-};
+#include "../../../../Include/Common/Player.h"
 
 enum PlayerType
 {

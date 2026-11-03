@@ -29,14 +29,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Player
-{
-public:
-	// Matched callers use the target player index at +0x54 directly;
-	// avoid an out-of-line getter shared with incompatible layouts.
-	unsigned char m_pad[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 

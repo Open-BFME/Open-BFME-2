@@ -10,13 +10,7 @@
 extern PartitionManager *ThePartitionManager;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
-class Player
-{
-public:
- unsigned char m_pad000[0x54];
- int m_playerIndex;
- int getPlayerIndex() const { return m_playerIndex; }
-};
+#include "../../../../Include/Common/Player.h"
 // Read Snapshot first with BFME2's name slot and the lower-case slot names that canonical
 // UpdateModule.h overrides; PlayerList.h would otherwise select the capitalized spellings,
 // and UpdateModule's loadPostProcess/xfer then appended slots to ThreatFinderUpdate's table.

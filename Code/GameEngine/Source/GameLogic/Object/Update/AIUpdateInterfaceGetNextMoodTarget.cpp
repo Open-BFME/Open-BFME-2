@@ -192,14 +192,7 @@ class Team;
 #include "../../../../Include/Common/Team.h"
 #include "../../../../Include/Common/TeamBFME2.h"
 
-class Player
-{
-public:
-	Int getPlayerType() const { return m_playerType; }
-private:
-	unsigned char m_pad00[0x5C];
-	Int m_playerType; // +0x5C
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/GameLogic/Weapon.h"
 

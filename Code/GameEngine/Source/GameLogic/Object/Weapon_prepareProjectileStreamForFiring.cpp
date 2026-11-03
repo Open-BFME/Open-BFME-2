@@ -47,12 +47,7 @@ public:
 	ObjectID m_id74;
 };
 
-class Player
-{
-public:
-	char m_pad00[0x2EC];
-	Team *m_team2EC;
-};
+#include "../../../Include/Common/Player.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -87,7 +82,7 @@ void Weapon::prepareProjectileStreamForFiring()
 	CreateMask mask;
 	memset(&mask, 0, 0x10);
 	Player *player = owner->getControllingPlayer();
-	Team *team = player->m_team2EC;
+	Team *team = player->m_defaultTeam;
 	Object *created = TheThingFactory->newObject((const ThingTemplate *)tmpl, team, &mask, (ObjectID)0);
 	if (!created)
 		return;

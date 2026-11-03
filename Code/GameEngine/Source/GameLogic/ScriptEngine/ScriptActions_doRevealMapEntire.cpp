@@ -5,14 +5,7 @@
 // ?doRevealMapEntire@ScriptActions@@QAEXABVAsciiString@@@Z @0x003BB94C 122B: ScriptActions member revealing shroud for a player-name mask, all players when mask is zero.
 // Target evidence: calls ScriptEngine::rva00357475 (0x00357475) once, then getNthPlayer (0x002A7A29) loop over PlayerList count +0x14 checking Player +0x5c or getEachPlayerFromMask (0x002A7BC9) loop reading Player +0x54, both reaching rva00739780 (0x00739780) via TheShroudManager (0x009FE74C); globals g_Va009FE16C (0x009FE16C) and ThePlayerList (0x009FEEE8); ret 4; caller 0x003CBE76.
 class AsciiString;
-class Player
-{
-public:
-	char m_pad00[0x54];
-	int m_index54; // +0x54
-	char m_pad58[0x04];
-	int m_field5C; // +0x5c
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PlayerList
@@ -37,7 +30,7 @@ void ScriptActions::doRevealMapEntire(const AsciiString &name)
 	if (mask == 0) {
 		for (int i = 0; i < ThePlayerList->m_playerCount; ++i) {
 			Player *player = ThePlayerList->getNthPlayer(i);
-			if (player->m_field5C != 0)
+			if (player->m_playerType != 0)
 				continue;
 			((Rva00739780 *)TheShroudManager)->rva00739780(i);
 		}
@@ -46,7 +39,7 @@ void ScriptActions::doRevealMapEntire(const AsciiString &name)
 		do {
 			player = ThePlayerList->getEachPlayerFromMask(mask);
 			if (player)
-				((Rva00739780 *)TheShroudManager)->rva00739780(player->m_index54);
+				((Rva00739780 *)TheShroudManager)->rva00739780(player->m_playerIndex);
 		} while (mask != 0);
 	}
 }

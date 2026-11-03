@@ -109,13 +109,7 @@ public:
 	const Coord3D *getUnitDirectionVector2D() const;
 };
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-	unsigned char m_pad00[0x5C];
-	int m_playerType; // +0x5C (0: human)
-};
+#include "../../../../Include/Common/Player.h"
 
 enum EvaEventID { EVA_EVENT_STUB = 0 };
 

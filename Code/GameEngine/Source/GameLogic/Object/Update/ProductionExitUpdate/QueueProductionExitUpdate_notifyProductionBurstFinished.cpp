@@ -70,12 +70,7 @@ enum CommandSourceType
 {
 	CS_2 = 2
 };
-class Player
-{
-public:
-	char m_pad[0x5c];
-	int m_5c;
-};
+#include "../../../../../Include/Common/Player.h"
 struct Rva002A8AB1Record;
 #include "../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -131,7 +126,7 @@ void QueueProductionExitUpdate::notifyProductionBurstFinished()
 	{
 		Object *selfObj = *(Object **)((char *)this - 0x18);
 		Player *player = selfObj->getControllingPlayer();
-		if (!player || player->m_5c)
+		if (!player || player->m_playerType)
 		{
 			Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
 			if (!rec)

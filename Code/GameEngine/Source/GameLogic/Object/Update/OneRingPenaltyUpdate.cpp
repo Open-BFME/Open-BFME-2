@@ -14,14 +14,7 @@ struct CreateMask
 	unsigned int words[4];
 };
 #include "../../../Common/Thing/thing.h"
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-private:
-	char m_pad[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../../Include/Common/Player.h"
 class PlayerList
 {
 public:
