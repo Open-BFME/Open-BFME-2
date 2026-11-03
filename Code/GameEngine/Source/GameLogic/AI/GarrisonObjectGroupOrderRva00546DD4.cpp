@@ -32,14 +32,7 @@ public:
 	AIHolder *m_258;
 };
 
-class GroupOrder
-{
-public:
-	GroupOrder();
-	virtual ~GroupOrder();
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class GarrisonObjectGroupOrder : public GroupOrder
 {

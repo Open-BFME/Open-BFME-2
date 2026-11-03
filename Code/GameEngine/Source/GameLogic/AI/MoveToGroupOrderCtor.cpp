@@ -102,17 +102,7 @@ typedef std::hash_map<
 
 class Rva0036E346;
 
-class GroupOrder
-{
-public:
-	GroupOrder();
-	GroupOrder(const GroupOrder &other);
-	GroupOrder(Rva0036E346 *holder);
-	virtual ~GroupOrder();
-
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class MoveToGroupOrder : public GroupOrder
 {

@@ -9,14 +9,7 @@
 // type so the call mangles to the row name and links; vtable immediate is
 // DIR32.
 
-class GroupOrder
-{
-public:
-	virtual ~GroupOrder();
-
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class Rva002EE9B7
 {

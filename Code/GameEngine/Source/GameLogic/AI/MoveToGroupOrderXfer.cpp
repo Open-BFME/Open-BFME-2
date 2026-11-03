@@ -356,17 +356,7 @@ Xfer *Rva0054755BXfer(Xfer *xfer, ObjectCoord3DMap *map)
 	return xfer;
 }
 
-class GroupOrder
-{
-public:
-	virtual ~GroupOrder();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class MoveToGroupOrder : public GroupOrder
 {

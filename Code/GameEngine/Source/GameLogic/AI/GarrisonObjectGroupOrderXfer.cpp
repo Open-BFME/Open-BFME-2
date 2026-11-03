@@ -41,16 +41,7 @@ public:
 
 extern void __cdecl XferObjectID(Xfer *xfer, enum ObjectID *id);
 
-class GroupOrder
-{
-public:
-	virtual ~GroupOrder();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-protected:
-	unsigned char m_pad04[0x14];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class GarrisonObjectGroupOrder : public GroupOrder
 {

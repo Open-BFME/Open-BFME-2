@@ -64,19 +64,7 @@ enum ObjectID;
 // the base: the hidden vptr sits at +0 and a declared one shifts every slot.
 // Its table is Snapshot's: loadPostProcess in slot 1, the class-name getter
 // in slot 2 and xfer (0x00548AC2) in slot 3 (GroupOrderDerivedDtors.cpp).
-class GroupOrder : public Snapshot
-{
-public:
-	GroupOrder();
-	GroupOrder(Rva0036E346 *holder);
-	GroupOrder(const GroupOrder &other);
-	virtual ~GroupOrder();
-
-	virtual void xfer(Xfer *xfer);
-
-protected:
-	unsigned char m_pad04[0x14];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 // Table 0x0086A36C: slot 3 xfer 0x00546B91, slot 4 rva00546BED 0x00546BED.
 class ChangeStanceGroupOrder : public GroupOrder

@@ -41,23 +41,7 @@ extern Rva00148F5ECache g_00DD2094;	// "AttackObjectGroupOrder"
 extern Rva00148F5ECache g_00DD20D8;	// "MoveToGroupOrder"
 extern Rva00148F5ECache g_00DD211C;	// "MoveToFormationGroupOrder"
 
-class GroupOrder
-{
-public:
-	virtual ~GroupOrder();
-	virtual void slot01();
-	virtual const char *getClassName();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual NameKeyType getClassKey();
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class SynchronizeGroupOrder : public GroupOrder
 {

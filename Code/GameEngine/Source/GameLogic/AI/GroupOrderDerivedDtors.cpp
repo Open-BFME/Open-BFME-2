@@ -6,14 +6,7 @@
 // Model only the known 0x18 base extent needed by these destructor bodies.
 #include "Common/Snapshot.h"
 
-class GroupOrder : public Snapshot
-{
-public:
-	virtual ~GroupOrder();
-
-private:
-	unsigned char m_pad04[0x14];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class Xfer;
 enum ObjectID;

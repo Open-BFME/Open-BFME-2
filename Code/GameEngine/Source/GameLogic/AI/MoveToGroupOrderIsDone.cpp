@@ -53,19 +53,7 @@ public:
 
 bool Rva00547263(Object *p, const Coord3D *q);
 
-class GroupOrder
-{
-public:
-	virtual ~GroupOrder();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual bool rva00547368(ObjectID id);
-
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class MoveToGroupOrder : public GroupOrder
 {

@@ -38,16 +38,7 @@ public:
 typedef _STL::set<int> SetInt;
 Xfer *Rva002F1CDDXfer(Xfer *xfer, SetInt *set);
 
-class GroupOrder
-{
-public:
-	virtual ~GroupOrder();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-private:
-	unsigned char m_pad04[0x18 - 4];
-};
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 class SynchronizeGroupOrder : public GroupOrder
 {
