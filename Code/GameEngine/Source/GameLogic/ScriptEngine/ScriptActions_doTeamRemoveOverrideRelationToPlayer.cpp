@@ -22,11 +22,7 @@ class NameKeyGenerator
 public:
 	NameKeyType nameToKey(const AsciiString &s);
 };
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../../Include/Common/PlayerList.h"
 class Player
 {
 public:

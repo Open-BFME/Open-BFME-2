@@ -82,11 +82,7 @@ void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTyp
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 int __cdecl Rva003BD46ESum(void *range);

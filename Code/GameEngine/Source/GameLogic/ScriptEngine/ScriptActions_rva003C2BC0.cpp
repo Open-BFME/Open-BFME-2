@@ -19,11 +19,7 @@ struct PlayerInner003C2BC0
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 

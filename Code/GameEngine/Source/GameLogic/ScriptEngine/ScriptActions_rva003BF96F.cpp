@@ -29,11 +29,7 @@ public:
 	virtual void v7(void *a1);
 };
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class Rva00358752Opaque
 {

@@ -17,11 +17,7 @@ struct ScriptCounter;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class Rva0039C0F4
 {

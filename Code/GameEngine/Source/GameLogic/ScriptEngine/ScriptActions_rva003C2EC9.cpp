@@ -35,11 +35,7 @@ public:
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class Rva0039BF67
 {

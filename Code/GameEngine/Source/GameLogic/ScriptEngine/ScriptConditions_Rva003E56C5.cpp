@@ -119,11 +119,7 @@ extern PartitionManager *ThePartitionManager;
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);	// 0x002A7BC9
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

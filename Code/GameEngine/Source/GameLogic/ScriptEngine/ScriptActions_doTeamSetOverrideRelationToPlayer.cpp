@@ -24,11 +24,7 @@ public:
 	NameKeyType nameToKey(const AsciiString &s);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class PlayerList
-{
-public:
-	Player *findPlayerWithNameKey(NameKeyType key);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/TeamBFME2.h"

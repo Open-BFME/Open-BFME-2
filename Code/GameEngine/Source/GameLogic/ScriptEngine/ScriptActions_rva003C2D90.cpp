@@ -24,11 +24,7 @@ public:
 	Rva002A7461 m_60;
 };
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 

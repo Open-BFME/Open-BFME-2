@@ -164,11 +164,7 @@ private:
 	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
 };
 
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(Int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class ObjectTypes;

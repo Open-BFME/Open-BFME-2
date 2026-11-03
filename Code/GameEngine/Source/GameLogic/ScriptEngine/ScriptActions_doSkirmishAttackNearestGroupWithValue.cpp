@@ -30,11 +30,7 @@ enum { NO_MAX_SHOTS_LIMIT = 0x7fffffff };
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	Int getPlayersWithRelationship(Int srcPlayerIndex, UnsignedInt allowedRelationships, bool ignoreSelf);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/AIGroup.h"

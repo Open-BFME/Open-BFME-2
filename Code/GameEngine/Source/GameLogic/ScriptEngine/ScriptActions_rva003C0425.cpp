@@ -70,12 +70,7 @@ public:
 
 #include "../../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	unsigned char m_pad00[0x10];
-	Player *m_localPlayer;
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -89,7 +84,7 @@ void ScriptActions::Rva003C0425Do(const AsciiString &eventName, bool allowOverla
 	AudioEventInfoRef info = reinterpret_cast<Rva003C0425AudioView *>(TheAudio)->findAudioEvent(eventName);
 	BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4 *>(&info), 0);
 	reinterpret_cast<Weapon *>(&event)->setLeechRangeActive(leech);
-	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(ThePlayerList->m_localPlayer->m_playerIndex);
+	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(ThePlayerList->m_local->m_playerIndex);
 	event.m_int78 = extra;
 	event.m_int7C = count;
 	if (!text.isEmpty())
@@ -110,7 +105,7 @@ void ScriptActions::Rva003C0308Do(const AsciiString &eventName, bool allowOverla
 	AudioEventInfoRef info = reinterpret_cast<Rva003C0425AudioView *>(TheAudio)->findAudioEvent(eventName);
 	BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4 *>(&info), 0);
 	reinterpret_cast<Weapon *>(&event)->setLeechRangeActive(leech);
-	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(ThePlayerList->m_localPlayer->m_playerIndex);
+	reinterpret_cast<Rva0033F15DDwordSlot *>(&event)->set(ThePlayerList->m_local->m_playerIndex);
 	event.m_int78 = extra;
 	event.m_int7C = count;
 	if (!text.isEmpty())

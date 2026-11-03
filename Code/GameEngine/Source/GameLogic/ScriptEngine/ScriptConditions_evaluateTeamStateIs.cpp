@@ -789,12 +789,7 @@ int __cdecl Rva003BD46ESum(void *range);
 
 #include "../../../Include/GameLogic/ScriptCondition.h"
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-	Player *getPlayerFromMask(int mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class TeamPrototype
