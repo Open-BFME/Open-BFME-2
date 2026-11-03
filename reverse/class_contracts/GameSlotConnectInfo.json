@@ -1,0 +1,64 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GameSlotConnectInfo",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 24,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "8": 22
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_GameSlotConnectInfo.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameInfo.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_nat",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 22,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i2",
+   "name": "m_port",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 22,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 2
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {}
+}

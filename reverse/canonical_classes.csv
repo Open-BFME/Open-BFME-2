@@ -393,3 +393,4 @@ AptInteger,Code/GameEngine/Include/Common/AptInteger.h,existing header; contract
 TextureAsset,Code/GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h,existing header; contract class_contracts/TextureAsset.json; 52/54 sampled units adopt
 SpawnArmy,Code/GameEngine/Include/Common/SpawnArmy.h,existing header; contract class_contracts/SpawnArmy.json; 10/32 sampled units adopt
 AttributeModifierPoolUpdate,Code/GameEngine/Include/GameLogic/Module/AttributeModifierPoolUpdate.h,existing header; contract class_contracts/AttributeModifierPoolUpdate.json; 16/25 sampled units adopt
+GameSlotConnectInfo,Code/GameEngine/Include/GameNetwork/GameSlotConnectInfo.h,existing header; contract class_contracts/GameSlotConnectInfo.json; 9/24 sampled units adopt
