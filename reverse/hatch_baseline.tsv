@@ -13295,7 +13295,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObj
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Position	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp	OBBoxRenderObjClass::Set_Transform	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	CollectionClass::CollectionClass	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/collect.cpp	CollectionDefClass::CollectionDefClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0AABoxCollisionTestClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	0OBBoxCollisionTestClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp	Cull@AABoxCollisionTestClass@@	1

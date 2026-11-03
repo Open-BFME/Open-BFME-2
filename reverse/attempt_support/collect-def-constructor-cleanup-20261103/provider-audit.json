@@ -1,0 +1,27 @@
+{
+  "base_object_sha256": "597153085713dc3ec7f41cdfbfd42097eb512329911eb968ca55d66fbe938e55",
+  "tip_object_sha256": "f125e7f55249ea149e03643ec334229d6393188ac2a1147f772f0cacf7e7686a",
+  "changed_common_selections": [],
+  "index": {
+    "date": "2026-11-03 20:03",
+    "commit": "8661f15284",
+    "clean_tree": true,
+    "census_date": "2026-11-03 18:36",
+    "census_commit": "23b85ddde5"
+  },
+  "dropped_definitions": [
+    "??0CollectionDefClass@@QAE@XZ"
+  ],
+  "added_definitions": [],
+  "removed_undefined": [],
+  "added_undefined": [],
+  "common_comdat_count": 140,
+  "changed_common_comdats": [],
+  "other_providers": {
+    "??0CollectionDefClass@@QAE@XZ": []
+  },
+  "outside_touches": {
+    "??0CollectionDefClass@@QAE@XZ": []
+  },
+  "aliases_unchanged": true
+}

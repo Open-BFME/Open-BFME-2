@@ -301,21 +301,6 @@ int CollectionClass::Get_Num_Sub_Objects(void) const
 }
 
 
-/***********************************************************************************************
- * CollectionDefClass::CollectionDefClass -- constructor                                       *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/8/98    GTH : Created.                                                                 *
- *=============================================================================================*/
-// ?CollectionDefClass::CollectionDefClass present-unmatched
-CollectionDefClass::CollectionDefClass(void)
-{
-	SnapPoints = NULL;
-}
-
+// Keep the ledger-owned char-pointer vector constructor without the unrowed
+// CollectionDefClass constructor that previously caused its emission.
+template DynamicVectorClass<char *>::DynamicVectorClass(unsigned, char * const *);

@@ -168,3 +168,5 @@ None is a short fix:
 - StlSweepW6Rva0016DEC0 (1 name, element `operator<`): already blocked as
   LINK-055 (re_attempts: native worker proves `find`, not `lower_bound`).
   The W4/R3 element families still need real element identities (LINK-002).
+
+Collect follow-up (2026-11-03, base `678d949f99`): retired only the unused `CollectionDefClass` constructor and one hatch; five rows and 140 retained COMDATs stay exact, no provider consumer is orphaned, and true base/tip previews retain the same 41 unresolved names/four conflicts. Remaining constructor removal still needs EFB4C/5AD93A ownership reconciliation. [Evidence](../../reverse/attempt_support/collect-def-constructor-cleanup-20261103/README.md).
