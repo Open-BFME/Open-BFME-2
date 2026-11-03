@@ -18,6 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <string>
 #include <vector>
 #include "../../Include/GameNetwork/Transport.h"
+#include "../GameNetwork/NATView.h"
 #include <cstddef>
 // bfme link decl-only begin
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(char const *); }
@@ -89,44 +90,14 @@ struct Global003EF728V6
 extern class GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 #define g_00A02340 (*(Global003EF728V6 * *)&TheGameSpyPeerMessageQueue)
 
-struct Rva005A8666Obj
-{
-	char pad[0x40];
-	unsigned char m_40;
-};
-
-struct Rva005A8666Ptr
-{
-	int m_0;
-	short m_4;
-};
-
-struct NAT
-{
-	int m_0;
-	Transport *m_04;
-	Rva005A8666Obj **m_8;
-	int m_C;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1C;
-	int m_20;
-	unsigned char m_24;
-	unsigned char m_25;
-	char pad2[0x90c - 0x26];
-	Rva005A8666Ptr *m_90C[8];
-	void rva005A7974(unsigned short port, void *info);
-};
-
 void NAT::rva005A7974(unsigned short port, void *info)
 {
 	m_24 = 1;
 	if (m_04 != 0 && m_25 != 0)
-		m_04->setDestAddrToSocket(m_18, m_90C[m_18]);
+		m_04->setDestAddrToSocket(m_targetSlot, m_addresses[m_targetSlot]);
 	PeerRequest req;
 	AsciiString portStr;
-	portStr.format("PORT%d %d %08X %X", m_14, port, m_1C, m_20);
+	portStr.format("PORT%d %d %08X %X", m_localSlot, port, m_localIP, m_cookie);
 	req.unknown_00 = 0xd;
 	req.payload_flag0.value = true;
 	req.unknown_34 = "NAT/";

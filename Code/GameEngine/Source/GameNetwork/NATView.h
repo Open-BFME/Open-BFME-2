@@ -83,6 +83,7 @@ public:
 	void rva005A6A4C();
 	void probeMangler();
 	AsciiString rva005A6E7A(int state);
+	void rva005A7974(unsigned short port, void *info);
 	void processGlobalMessage(int slotNum, const char *options);
 	void attachSlotList(GameInfo *game, int localSlot, unsigned int localIP, unsigned int arg, bool isHost);
 	void targetNotifyMeIWasProbed(int slot);
