@@ -122,18 +122,7 @@ enum EvaEventID { EVA_EVENT_STUB = 0 };
 #include "../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 
-class Player
-{
-public:
-	void onUpgradeCompleted(const UpgradeTemplate *upgrade, Int x);
-	void onUpgradeRemoved(const UpgradeTemplate *upgrade, Int x);
-	Relationship getRelationship(const Team *team) const;
-private:
-	char m_pad00[0x2EC];
-	Team *m_team2EC; // +0x2EC
-	char m_pad2F0[0x32C - 0x2F0];
-	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::onUpgradeCompleted(const UpgradeTemplate *upgrade, Int x)
 {
@@ -159,9 +148,9 @@ void Player::onUpgradeCompleted(const UpgradeTemplate *upgrade, Int x)
 	Player *localPlayer = ThePlayerList->m_local;
 	if (this == localPlayer)
 		eventId = upgrade->m_evaOwn;
-	else if (localPlayer != 0 && m_team2EC != 0)
+	else if (localPlayer != 0 && m_defaultTeam != 0)
 	{
-		if (localPlayer->getRelationship(m_team2EC) == ALLIES)
+		if (localPlayer->getRelationship(m_defaultTeam) == ALLIES)
 			eventId = upgrade->m_evaAlly;
 		else
 			eventId = upgrade->m_evaEnemy;
@@ -197,9 +186,9 @@ void Player::onUpgradeRemoved(const UpgradeTemplate *upgrade, Int x)
 	Player *localPlayer = ThePlayerList->m_local;
 	if (this == localPlayer)
 		eventId = upgrade->m_evaRemovedOwn;
-	else if (localPlayer != 0 && m_team2EC != 0)
+	else if (localPlayer != 0 && m_defaultTeam != 0)
 	{
-		if (localPlayer->getRelationship(m_team2EC) == ALLIES)
+		if (localPlayer->getRelationship(m_defaultTeam) == ALLIES)
 			eventId = upgrade->m_evaRemovedAlly;
 		else
 			eventId = upgrade->m_evaRemovedEnemy;

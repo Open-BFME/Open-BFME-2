@@ -59,15 +59,7 @@ public:
 	void rva004D6C9C(ScienceType science);
 };
 
-class Player
-{
-public:
-	void setCurrentlySelectedAIGroup(AIGroup *group);
-	void addAIGroupToCurrentSelection(AIGroup *group);
-private:
-	char m_pad[0x730];
-	Squad *m_currentSelection;
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::setCurrentlySelectedAIGroup(AIGroup *group)
 {

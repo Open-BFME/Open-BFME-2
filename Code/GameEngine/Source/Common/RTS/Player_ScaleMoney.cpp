@@ -37,14 +37,7 @@ inline int Rva002A9E36RealToInt(float a)
 	return b;
 }
 
-class Player
-{
-public:
-	int ScaleMoney(int value);
-private:
-	char m_pad00[0x3AC];
-	int m_3AC;
-};
+#include "../../../Include/Common/Player.h"
 
 int Player::ScaleMoney(int value)
 {

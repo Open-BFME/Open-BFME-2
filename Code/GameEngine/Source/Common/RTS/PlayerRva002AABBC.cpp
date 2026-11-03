@@ -31,15 +31,7 @@ public:
 class AiOrdersManager;
 extern AiOrdersManager *TheAiOrdersManager;
 
-class Player
-{
-public:
-	void rva002AABBC();
-
-private:
-	char m_pad[0x730];
-	Squad *m_currentSelection;
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::rva002AABBC()
 {

@@ -10,7 +10,7 @@
 class Rva002AA14DBonuses {public:float m_armorScalar;int m_bombardment,m_searchAndDestroy,m_holdTheLine;float m_sightRangeScalar;unsigned char masks[0x38];};
 typedef Rva002AA14DBonuses BattlePlanBonuses;
 enum BattlePlanStatus {PLANSTATUS_BOMBARDMENT=1,PLANSTATUS_HOLDTHELINE=2,PLANSTATUS_SEARCHANDDESTROY=3};
-class Player {public:void changeBattlePlan(BattlePlanStatus,int,BattlePlanBonuses*);void applyBattlePlanBonusesForPlayerObjects(const BattlePlanBonuses*);private:char pad[0xAC];int m_bombardBattlePlans,m_holdTheLineBattlePlans,m_searchAndDestroyBattlePlans;};
+#include "../../../Include/Common/Player.h"
 // ZH Player.cpp changeBattlePlan; WB C1E400 uses plan values1/2/3 and
 // the same add/remove transition. Target2ADB4F..2ADC03 establishes counts
 // AC/B0/B4, and bonus field offsets0/10 and4/C/8, capped reciprocals and

@@ -77,20 +77,7 @@ enum
 	NUM_HOTKEY_SQUADS = 10
 };
 
-class Player
-{
-public:
-	void processSelectTeamGameMessage(int hotkeyNum, GameMessage *msg);
-	void processAddTeamGameMessage(int hotkeyNum, GameMessage *msg);
-	PlayerMaskType getPlayerMask() const { return 1 << m_playerIndex; }
-
-private:
-	char m_pad[0x54];
-	int m_playerIndex;							// +0x54
-	char m_pad2[0x708 - 0x58];
-	Squad *m_squads[NUM_HOTKEY_SQUADS];			// +0x708
-	Squad *m_currentSelection;					// +0x730
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::processSelectTeamGameMessage(int hotkeyNum, GameMessage *msg)
 {

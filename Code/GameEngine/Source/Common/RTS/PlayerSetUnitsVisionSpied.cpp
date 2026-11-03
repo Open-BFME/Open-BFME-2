@@ -21,16 +21,7 @@ int callHandleShroud(Object *obj, void *userData)
 	return 1;
 }
 
-class Player
-{
-public:
-	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
-	void setUnitsVisionSpied(bool setting, int byWhom);
-private:
-	char m_pad000[0x358];
-	int m_visionSpiedBy[20];
-	unsigned int m_visionSpiedMask;
-};
+#include "../../../Include/Common/Player.h"
 
 void Player::setUnitsVisionSpied(bool setting, int byWhom)
 {
@@ -38,14 +29,14 @@ void Player::setUnitsVisionSpied(bool setting, int byWhom)
 
 	if (setting)
 	{
-		m_visionSpiedBy[byWhom] = m_visionSpiedBy[byWhom] + 1;
-		if (m_visionSpiedBy[byWhom] == 1)
+		m_358[byWhom] = m_358[byWhom] + 1;
+		if (m_358[byWhom] == 1)
 			needRefresh = true;
 	}
 	else
 	{
-		m_visionSpiedBy[byWhom] = m_visionSpiedBy[byWhom] - 1;
-		if (m_visionSpiedBy[byWhom] == 0)
+		m_358[byWhom] = m_358[byWhom] - 1;
+		if (m_358[byWhom] == 0)
 			needRefresh = true;
 	}
 
@@ -54,13 +45,13 @@ void Player::setUnitsVisionSpied(bool setting, int byWhom)
 		unsigned int workingMask = 0;
 		for (int i = 0; i < 20; ++i)
 		{
-			if (m_visionSpiedBy[i] > 0)
+			if (m_358[i] > 0)
 				workingMask |= (1 << i);
 			else
 				workingMask &= ~(1 << i);
 		}
 
-		m_visionSpiedMask = workingMask;
+		m_3A8 = workingMask;
 
 		iterateObjects(callHandleShroud, 0);
 	}

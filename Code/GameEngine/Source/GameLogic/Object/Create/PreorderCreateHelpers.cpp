@@ -11,12 +11,7 @@
 // The neutral entry view preserves that secondary ABI. Mask bit126 lives
 // at +0x118 in the established +0x10C condition-word view. Reloading the
 // owner inside each branch preserves native ESI lifetime and tail epilogues.
-class Player
-{
-public:
-	unsigned char m_pad[0x33B];
-	unsigned char m_33B;
-};
+#include "../../../../Include/Common/Player.h"
 
 struct Rva004B9301Mask { unsigned int bits[19]; unsigned int test(unsigned int bit)const { return bits[bit>>5] & (1U<<(bit&31)); } void set(unsigned int bit) {bits[bit>>5]|=1U<<(bit&31);} void reset(unsigned int bit){bits[bit>>5]&=~(1U<<(bit&31));}};
 class Object
@@ -38,7 +33,7 @@ void Rva004B9301::rva004B9301()
 {
 	Object *object = *(Object **)((char *)this - 8);
 	Player *player = object->getControllingPlayer();
-	if (player->m_33B != 0)
+	if (player->m_isPreorder != 0)
 	{
 		object = *(Object **)((char *)this - 8);
 		if (object->m_mask.test(126))
