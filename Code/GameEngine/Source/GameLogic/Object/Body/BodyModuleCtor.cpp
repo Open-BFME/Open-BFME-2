@@ -23,15 +23,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class BodyModule : public BehaviorModule, public BodyModuleInterface
-{
-public:
-	BodyModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~BodyModule();
-
-private:
-	float m_damageScalar;
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 
 BodyModule::BodyModule(Thing *thing, const ModuleData *moduleData)
 	: BehaviorModule(thing, moduleData), m_damageScalar(1.0f)

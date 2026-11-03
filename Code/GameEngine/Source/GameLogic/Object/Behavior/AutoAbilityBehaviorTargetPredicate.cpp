@@ -17,10 +17,7 @@ public: bool _M_is_any() const; unsigned int words[N];
 class Rva00331682Holder { public: bool test(const void*) const; };
 class Rva00263546 { public: bool rva00263546(const Rva00263546*) const; };
 class AIUpdateInterface { public: char data00[0x34]; void *active; };
-class BodyModule { public:
- virtual void slot00(); virtual void slot04(); virtual void slot08();
- virtual void slot0C(); virtual void slot10(); virtual float slot14();
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 class CommandButton;
 enum ObjectStatusTypes { AutoAbilityStatus74=74 };
 class Object {

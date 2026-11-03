@@ -25,9 +25,7 @@ enum NameKeyType { NK_UNKNOWN = 0 };
 
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
-class BodyModule : public ObjectModule,public BehaviorModuleInterface,public BodyModuleInterface {
-protected:float damageScalar;
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 
 // Target004BD8A2..004BD8BD RET4 writes two zero floats through the hidden
 // result pointer. The otherwise dead zeroed local is the value-return flags
