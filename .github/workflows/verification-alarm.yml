@@ -19,6 +19,10 @@ on:
         description: 'Post the current state to Discord instead of only printing it'
         type: boolean
         default: false
+      tick:
+        description: 'Run the hourly stale checks and post what they find (srv1 timer: bfme2-dispatch)'
+        type: boolean
+        default: false
 
 permissions:
   actions: read
@@ -39,6 +43,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
           POST_NOW: ${{ inputs.post }}
+          TICK: ${{ inputs.tick }}
           TRIGGER_RUN: ${{ github.event.workflow_run.id }}
         shell: python
         run: |
@@ -52,6 +57,8 @@ jobs:
 
           REPO = os.environ['GITHUB_REPOSITORY']
           EVENT = os.environ['GITHUB_EVENT_NAME']
+          # GitHub's scheduler runs hours late or not at all here, so srv1 dispatches the tick too.
+          TICK = EVENT == 'schedule' or os.environ.get('TICK') == 'true'
           GO_LIVE = dt.datetime(2026, 11, 3, tzinfo=dt.timezone.utc)
           NOW = dt.datetime.now(dt.timezone.utc)
           HEADERS = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'User-Agent': 'bfme2-alarm',
@@ -119,7 +126,7 @@ jobs:
                   span = hours(when(latest['created_at']) - when(red[-1]['created_at']))
                   messages.append(f"**master is green again** at `{latest['head_sha'][:10]}`, "
                                   f"after about {span:.1f} hours red.")
-          if EVENT == 'schedule':
+          if TICK:
               if red_since and 12 <= hours(NOW - red_since) < 13:
                   messages.append(f"**master has been red for over 12 hours**, since "
                                   f"{red_since:%Y-%m-%d %H:%M} UTC. This alone meets the bot-only trigger. "
@@ -143,7 +150,7 @@ jobs:
           if os.environ.get('POST_NOW') == 'true' and not messages:
               messages.append(f"Verification alarm test: master is {latest['conclusion']} at "
                               f"`{latest['head_sha'][:10]}`; {escapes} escapes counted since go-live.")
-          if EVENT != 'workflow_dispatch' or os.environ.get('POST_NOW') == 'true':
+          if EVENT != 'workflow_dispatch' or TICK or os.environ.get('POST_NOW') == 'true':
               for message in messages:
                   body = json.dumps({'content': message[:1900], 'allowed_mentions': {'parse': []}}).encode()
                   request = urllib.request.Request(os.environ['WEBHOOK'], data=body, method='POST',
