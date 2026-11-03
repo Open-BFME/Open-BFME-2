@@ -211,11 +211,7 @@ void MoveToFormationGroupOrder::rva00547F37(ObjectID id)
 // a facing move (or attack-move when +2C is set). No donor identity is asserted.
 enum CommandSourceType {CMD_FROM_PLAYER=0};
 enum PathfindLayerEnum {LAYER_GROUND=1};
-class AICommandInterface {public:
- void aiMoveToPositionAndFaceDirection(const Coord3D*,CommandSourceType,float);
- void aiAttackMoveToPositionAndFaceDirection(const Coord3D*,int,CommandSourceType,float);
-};
-class AIUpdateInterface {public: char prefix[0x20];AICommandInterface commands;};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class FormationTemplateView {public:char prefix[0x11C];unsigned kindHigh;};
 class Object {public:
  char prefix0[4];FormationTemplateView *info;char gap8[0x258-8];AIUpdateInterface *ai;char gap25C[0x274-0x25C];void *physics;
@@ -387,6 +383,6 @@ void MoveToFormationGroupOrder::rva00547E5C(Object *object,const Coord3D *positi
   if(object->info->kindHigh&0x04000000)object->rva0028AD00((int)&goal,m_angle,layer);
   else object->rva0028ACEE((int)&goal,layer);
  }
- if(m_flag2C)ai->commands.aiAttackMoveToPositionAndFaceDirection(position,0x7fffffff,CMD_FROM_PLAYER,m_angle);
- else ai->commands.aiMoveToPositionAndFaceDirection(position,CMD_FROM_PLAYER,m_angle);
+ if(m_flag2C)ai->aiAttackMoveToPositionAndFaceDirection(position,0x7fffffff,CMD_FROM_PLAYER,m_angle);
+ else ai->aiMoveToPositionAndFaceDirection(position,CMD_FROM_PLAYER,m_angle);
 }

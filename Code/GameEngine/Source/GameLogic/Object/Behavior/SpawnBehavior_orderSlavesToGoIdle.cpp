@@ -28,18 +28,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType commandSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../object.h"
 
@@ -67,7 +56,7 @@ void SpawnBehavior::orderSlavesToGoIdle(CommandSourceType cmdSource)
 			AIUpdateInterface *ai = obj->m_ai;
 			if (ai)
 			{
-				ai->m_commands.aiIdle(cmdSource);
+				ai->aiIdle(cmdSource);
 			}
 		}
 	}

@@ -18,29 +18,12 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_5D = 0x5d
 };
 class Object;
-class AICommandInterface
-{
-public:
-	void rva0036EBB8(Object *target, CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #define VSLOTS10(P) \
 	virtual void P##0(); virtual void P##1(); virtual void P##2(); \
 	virtual void P##3(); virtual void P##4(); virtual void P##5(); \
 	virtual void P##6(); virtual void P##7(); virtual void P##8(); \
 	virtual void P##9()
-class AIUpdateInterface
-{
-public:
-	VSLOTS10(a00); VSLOTS10(a01); VSLOTS10(a02); VSLOTS10(a03); VSLOTS10(a04);
-	VSLOTS10(a05); VSLOTS10(a06); VSLOTS10(a07); VSLOTS10(a08); VSLOTS10(a09);
-	VSLOTS10(a10); VSLOTS10(a11); VSLOTS10(a12); VSLOTS10(a13);
-	virtual void a140(); virtual void a141(); virtual void a142();
-	virtual CommandSourceType rvaSlot143();
-	AICommandInterface *getCommandInterface() { return &m_commandInterface; }
-private:
-	unsigned char m_pad04[0x20 - 0x04];
-	AICommandInterface m_commandInterface;	// +0x20
-};
 #include "../object.h"
 extern GameLogic *TheGameLogic;
 class ModuleData;
@@ -74,5 +57,5 @@ void EvacuateGarrisonSpecialPower::finishAbility()
 	if (target == 0)
 		return;
 	self->setStatus(OBJECT_STATUS_5D, true);
-	ai->getCommandInterface()->rva0036EBB8(target, ai->rvaSlot143());
+	ai->rva0036EBB8(target, ai->vslot143());
 }

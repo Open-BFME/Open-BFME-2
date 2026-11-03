@@ -93,26 +93,7 @@ struct CreateMask
 enum ObjectID;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
-class AICommandInterface
-{
-public:
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-};
-class AIUpdateInterface
-{
-public:
-#define V(n) virtual void slot##n();
-#define V10(n) V(n##0) V(n##1) V(n##2) V(n##3) V(n##4) V(n##5) V(n##6) V(n##7) V(n##8) V(n##9)
-	V10(0) V10(1) V10(2) V10(3) V10(4) V10(5) V10(6) V10(7) V10(8) V10(9)
-	V10(10) V10(11) V10(12) V10(13)
-	V(140) V(141)
-	virtual Bool chooseLocomotorSet(Int set);		// slot 142 (+0x238)
-#undef V10
-#undef V
-	void ignoreObstacle(const Object *obj);
-	char m_pad04[0x20 - 0x04];
-	AICommandInterface m_commandInterface;		// +0x20
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/AIPathfind.h"
 class AI
 {
@@ -414,7 +395,7 @@ UpdateSleepTime CivilianSpawnUpdate::update()
 	ai->ignoreObstacle(runToObject);
 	TheAI->bfme_pathfinder()->rva003E3BFB(runToObject->getID());
 	if (TheAI->bfme_pathfinder()->QuickDoesPathExist(newObj, newObj->getPosition(), &pos, 0))
-		ai->m_commandInterface.aiMoveToPosition(&pos, CMD_FROM_AI);
+		ai->aiMoveToPosition(&pos, CMD_FROM_AI);
 	else
 		TheGameLogic->destroyObject(newObj);
 	TheAI->bfme_pathfinder()->rva003E3BFB(INVALID_OBJECT_ID);

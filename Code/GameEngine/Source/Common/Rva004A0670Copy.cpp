@@ -15,18 +15,7 @@ enum PathfindLayerEnum
 
 // Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };
-class AICommandInterface
-{
-public:
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -72,7 +61,7 @@ void Rva004A0670::exitObjectByBudding(Object *dst, Object *src)
 		((Thing *)dst)->setOrientation((*(Object **)((char *)this - 0x18))->m_orient);
 	}
 	if (dst->m_ai != 0)
-		dst->m_ai->m_commands.aiMoveToPosition(&dst->m_pos, (CommandSourceType)2);
+		dst->m_ai->aiMoveToPosition(&dst->m_pos, (CommandSourceType)2);
 	m_4 = (*(Rva004A0670Holder **)((char *)this - 0x1C))->m_20;
 	if (m_count != 0)
 		--m_count;

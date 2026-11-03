@@ -90,17 +90,7 @@ enum CommandSourceType
 {
 	CMD_FROM_AI = 2
 };
-class AICommandInterface
-{
-public:
-	void rva0045003E(int value, CommandSourceType cmdSource);
-};
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_command;
-};
+#include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../GameLogic/Object/object.h"
 
 
@@ -189,7 +179,7 @@ void OathbreakersFadeAwayBehavior::rva004B8B0F()
 	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)obj + 0x258);
 	if (!ai)
 		return;
-	ai->m_command.rva0045003E(0, CMD_FROM_AI);
+	ai->rva0045003E(0, CMD_FROM_AI);
 	obj->setSelectable(false);
 }
 

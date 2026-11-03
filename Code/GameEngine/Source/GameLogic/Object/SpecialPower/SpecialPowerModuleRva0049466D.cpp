@@ -147,21 +147,7 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-	void aiHarvest(const Coord3D *pos, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_command; // +0x20
-	char m_pad21[0x3CC - 0x21];
-	bool m_3cc; // +0x3CC
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ResourceGatheringManager
 {
@@ -461,8 +447,8 @@ void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj,
 				Coord3D pos;
 				if (manager->rva004F5A67(obj, &pos))
 				{
-					ai->m_command.aiHarvest(&pos, CMD_FROM_AI);
-					ai->m_3cc = false;
+					ai->aiHarvest(&pos, CMD_FROM_AI);
+					ai->m_field3CC = false;
 				}
 			}
 		}
@@ -487,7 +473,7 @@ void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj,
 	{
 		AIUpdateInterface *ai = getObject()->getAI();
 		if (ai)
-			ai->m_command.aiIdle(CMD_FROM_AI);
+			ai->aiIdle(CMD_FROM_AI);
 	}
 
 	if (found)

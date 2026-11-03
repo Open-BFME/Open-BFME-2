@@ -26,17 +26,7 @@ enum CommandSourceType
 	CMD_FROM_SCRIPT = 1,
 	CMD_FROM_AI = 2
 };
-class AICommandInterface
-{
-public:
-	void aiEvacuate(Bool exposeStealthUnits, CommandSourceType cmdSource);
-};
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commands; // +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 class Object
 {
@@ -114,7 +104,7 @@ StateReturnType AIMoveAndEvacuateState::update()
 		}
 
 		AIUpdateInterface *ai = obj->getAI();
-		ai->m_commands.aiEvacuate(FALSE, CMD_FROM_AI);
+		ai->aiEvacuate(FALSE, CMD_FROM_AI);
 		obj->bfme_get_team()->setActive();
 	}
 

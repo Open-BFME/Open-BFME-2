@@ -29,13 +29,7 @@ enum CommandSourceType { CMD_FROM_AI=2 };
 enum DamageType { DAMAGE_8=8 };
 enum DeathType { DEATH_0=0 };
 enum ObjectStatusTypes { STATUS_32=0x32 };
-class AICommandInterface { public:
- void aiMoveToAndDie(const Coord3D *,CommandSourceType);
- void aiMoveToAndDelete(const Coord3D *,CommandSourceType);
-};
-class AIUpdateInterface { public:
- AICommandInterface *commands() { return (AICommandInterface *)((char *)this+0x20); }
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 struct DamageInfoSourceView { char pad00[8];ObjectID id; };
 class RunOffBodyView { public:
  
@@ -175,9 +169,9 @@ void RunOffMapBehavior::triggerFlee()
 		return;
 	}
 	if (data->dieOnMap == true)
-		ai->commands()->aiMoveToAndDie(&destination, CMD_FROM_AI);
+		ai->aiMoveToAndDie(&destination, CMD_FROM_AI);
 	else
-		ai->commands()->aiMoveToAndDelete(&destination, CMD_FROM_AI);
+		ai->aiMoveToAndDelete(&destination, CMD_FROM_AI);
 	obj->setStatus(STATUS_32, true);
 	if (!obj->m_conditions.test(0xfc))
 	{

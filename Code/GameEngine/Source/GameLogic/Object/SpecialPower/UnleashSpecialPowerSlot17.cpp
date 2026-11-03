@@ -39,19 +39,7 @@ class SlaveWatcherBehavior;
 // 0x0030D377 is the ICF-folded 4-byte getter matched as NetWrapperCommandMsg::getDataLength.
 #include "../../../../Include/GameNetwork/NetWrapperCommandMsg.h"
 
-class AICommandInterface
-{
-public:
-	virtual void aiCommandInterfaceAnchor();
-	void aiHunt(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commands; // +0x20
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva004CE18AAnswer
 {
@@ -122,7 +110,7 @@ void UnleashSpecialPower::triggerAbilityEffect()
 			answer->rva004CE18ASlot6();
 			AIUpdateInterface *ai = slaver->m_ai;
 			if (ai)
-				ai->m_commands.aiHunt(CMD_FROM_AI);
+				ai->aiHunt(CMD_FROM_AI);
 		}
 	}
 }

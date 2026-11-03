@@ -30,18 +30,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiAttackPosition(const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../object.h"
 
@@ -69,7 +58,7 @@ void SpawnBehavior::orderSlavesToAttackPosition(const Coord3D *pos, int maxShots
 			AIUpdateInterface *ai = obj->m_ai;
 			if (ai)
 			{
-				ai->m_commands.aiAttackPosition(pos, maxShotsToFire, cmdSource);
+				ai->aiAttackPosition(pos, maxShotsToFire, cmdSource);
 			}
 		}
 	}

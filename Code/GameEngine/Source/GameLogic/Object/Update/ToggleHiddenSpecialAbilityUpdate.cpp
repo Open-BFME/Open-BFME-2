@@ -101,25 +101,8 @@ public:
 	void rva004A39D0(bool on);
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiCommandInterfaceAnchor();
-	void aiIdle(CommandSourceType cmdSource);
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
-class AIUpdateInterfaceSlots : public Rva004AE2D0Slots<111>
-{
-public:
-	virtual bool rva004AE394Slot111() = 0;
-};
-
-class AIUpdateInterface : public AIUpdateInterfaceSlots
-{
-public:
-	unsigned char m_pad04[0x20 - 0x04];
-	AICommandInterface m_command; // +0x20
-};
 
 class Rva0010CBits
 {
@@ -356,8 +339,8 @@ void ToggleHiddenSpecialAbilityUpdate::turnOn()
 	if (power)
 		power->rva004AE2D0Slot9(true);
 
-	if ((char)obj->rva0028B7C8() || ai->rva004AE394Slot111())
-		ai->m_command.aiIdle(CMD_FROM_AI);
+	if ((char)obj->rva0028B7C8() || ai->rva00262D8F())
+		ai->aiIdle(CMD_FROM_AI);
 
 	m_88 = TheGameLogic->getFrame();
 	obj->setStatus(HIDDEN_STATUS, true);

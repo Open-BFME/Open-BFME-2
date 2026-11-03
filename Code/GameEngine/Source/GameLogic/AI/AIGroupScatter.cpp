@@ -29,33 +29,7 @@ inline Real sqr(Real x) { return x * x; }
 enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
-// Only the word computeGroundPath reads: Object::m_ai+0x1DC is handed to
-// Pathfinder::IsLineBlocked as its second argument (Zero Hour passes the
-// locomotor set's valid surfaces there to isLinePassable).
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const struct AICommandParms *parms);
-	void aiIdle(CommandSourceType cmdSource);
-	void rva0036F6A7(float angle, CommandSourceType cmdSource);
-	// Zero Hour's aiGoProne (0x0036F400: AICMD 0x1D copying the DamageInfo
-	// into the command block at +0x3C), rowed under a placeholder whose
-	// parameter class Rva003427DD is that DamageInfo.
-	void aiGoProne(const class Rva003427DD *info, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	void *getValidSurfaces() const { return m_validSurfaces; }
-	AICommandInterface *getCommands() { return &m_commands; }
-
-private:
-	char m_pad0[0x20];
-	AICommandInterface m_commands;
-	char m_pad21[0x1DC-0x24];
-	void *m_validSurfaces;	// +0x1DC
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ThingTemplate
 {
@@ -140,6 +114,6 @@ void AIGroup::groupRotateFiringarc(const Coord3D *pos, CommandSourceType cmdSour
 			angle = -ACos(dir.x);
 		else
 			angle = ACos(dir.x);
-		ai->getCommands()->rva0036F6A7(angle, cmdSource);
+		ai->rva0036F6A7(angle, cmdSource);
 	}
 }

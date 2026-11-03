@@ -78,18 +78,7 @@ public:
 
 enum CommandSourceType { CMD_FROM_AI = 2 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commands;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #define SLOT(n) virtual void slot##n();
 
@@ -217,7 +206,7 @@ void Object::defect(Team *newTeam, UnsignedInt detectionTime)
 	AIUpdateInterface *ai = m_ai;
 	makeDirty();
 	if (ai)
-		ai->m_commands.aiIdle(CMD_FROM_AI);
+		ai->aiIdle(CMD_FROM_AI);
 
 	Drawable *dr = m_drawable;
 	if (dr)

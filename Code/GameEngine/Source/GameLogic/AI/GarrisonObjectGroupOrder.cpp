@@ -17,32 +17,8 @@ class Drawable;
 
 class Object;
 
-class AICommandInterface
-{
-public:
-	virtual void aiCommandInterfaceAnchor();
-	void rva0036EBB8(Object *obj, CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-template <int N> class Rva00546E2ESlots : public Rva00546E2ESlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N + 1]) = 0;
-};
-
-template <> class Rva00546E2ESlots<0>
-{
-public:
-	virtual void gap(char (*)[1]) = 0;
-};
-
-class AIUpdateInterface : public Rva00546E2ESlots<109>
-{
-public:
-	virtual bool rva00546E2ESlot110() = 0;
-	char m_pad04[0x20 - 4];
-	AICommandInterface m_commands; // +0x20
-};
 
 class Object
 {
@@ -170,14 +146,14 @@ bool GarrisonObjectGroupOrder::rva00546E2E(ObjectID id)
 	AIUpdateInterface *ai = obj->m_ai;
 	if (ai == 0)
 		return true;
-	if (ai->rva00546E2ESlot110())
+	if (ai->isIdle())
 	{
 		Object *container = obj->m_containedBy;
 		if (container && container->getID() == m_targetID)
 			return true;
 		if (!reinterpret_cast<BFMEActionManager *>(TheActionManager)->canEnterObject(obj, target, CMD_FROM_PLAYER, CHECK_CAPACITY, 1, 0))
 			return true;
-		ai->m_commands.rva0036EBB8(target, CMD_FROM_PLAYER);
+		ai->rva0036EBB8(target, CMD_FROM_PLAYER);
 	}
 	return false;
 }

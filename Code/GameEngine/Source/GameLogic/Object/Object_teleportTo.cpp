@@ -28,21 +28,7 @@ public:
 	void rva002747F9(int mode);
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType source);
-};
-
-class AIUpdateInterface
-{
-public:
-	void destroyPath();
-
-public:
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_ai20;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 template <int N>
 class Rva0029660CSlots : public Rva0029660CSlots<N - 1>
@@ -109,7 +95,7 @@ void Object::teleportTo(const Coord3D *pos, bool flag)
 	AIUpdateInterface *ai = m_ai258;
 	if (ai != 0)
 	{
-		ai->m_ai20.aiIdle(Rva0029660C_SOURCE_2);
+		ai->aiIdle(Rva0029660C_SOURCE_2);
 		ai->destroyPath();
 	}
 }

@@ -375,38 +375,6 @@ public:
 	};
 };
 
-class DozerAIInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0c();
-	virtual void slot10();
-	virtual void slot14();
-	virtual Bool isTaskPending(int task);		// +0x18
-	virtual void slot1c();
-	virtual Bool isAnyTaskPending();		// +0x20
-};
-
-class SupplyTruckAIInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0c();
-	virtual void slot10();
-	virtual Bool isCurrentlyFerryingSupplies();	// +0x14
-	virtual void slot18();
-	virtual void slot1c();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void setForceWantingState(Bool forceWanting);	// +0x2C
-	virtual Bool isForcedIntoWantingState();	// +0x30
-};
-
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
 
 // The rowed wrapper at 0x0047971C takes the exit path by reference; its
@@ -419,154 +387,8 @@ class Object;
 
 class LocomotorSet;
 
-class AICommandInterface
-{
-public:
-	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
-	void aiIdle(CommandSourceType cmdSource);
-	void aiDock(Object *obj, CommandSourceType cmdSource);
-	void rva0036F19B(Object *obj, CommandSourceType cmdSource);	// ZH aiRepair
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class StateMachine
-{
-public:
-	// This local +0x24 view must not emit the shared +0x28 getter.
-	const Coord3D *locomotorGoalPosition() const { return &m_goalPosition; }
-
-	unsigned char m_pad00[0x24];
-	Coord3D m_goalPosition;			// +0x24
-};
-
-class AIUpdateInterface
-{
-public:
-	// The AICommandInterface base sits at +0x20.
-	AICommandInterface *getCommandInterface() { return (AICommandInterface *)((char *)this + 0x20); }
-	__declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)((const char *)this + 0x1CC); }
-	Bool isMoving() const;
-	StateMachine *getStateMachine() const { return m_stateMachine; }
-	// Keep the proven inline view without a competing out-of-line getter.
-	__declspec(dllimport) __forceinline const Coord3D *getGoalPosition() const { return getStateMachine()->locomotorGoalPosition(); }
-
-	virtual void slot000();
-	virtual void slot004();
-	virtual void slot008();
-	virtual void slot00c();
-	virtual void slot010();
-	virtual void slot014();
-	virtual void slot018();
-	virtual void slot01c();
-	virtual void slot020();
-	virtual void slot024();
-	virtual void slot028();
-	virtual void slot02c();
-	virtual void slot030();
-	virtual void slot034();
-	virtual void slot038();
-	virtual void slot03c();
-	virtual void slot040();
-	virtual void slot044();
-	virtual void slot048();
-	virtual void slot04c();
-	virtual void slot050();
-	virtual void slot054();
-	virtual void slot058();
-	virtual void slot05c();
-	virtual void slot060();
-	virtual void slot064();
-	virtual void slot068();
-	virtual void slot06c();
-	virtual void slot070();
-	virtual void slot074();
-	virtual void slot078();
-	virtual void slot07c();
-	virtual void slot080();
-	virtual void slot084();
-	virtual void slot088();
-	virtual void slot08c();
-	virtual void slot090();
-	virtual void slot094();
-	virtual void slot098();
-	virtual void slot09c();
-	virtual void slot0a0();
-	virtual void slot0a4();
-	virtual void slot0a8();
-	virtual void slot0ac();
-	virtual void slot0b0();
-	virtual void slot0b4();
-	virtual void slot0b8();
-	virtual void slot0bc();
-	virtual void slot0c0();
-	virtual void slot0c4();
-	virtual void slot0c8();
-	virtual void slot0cc();
-	virtual void slot0d0();
-	virtual void slot0d4();
-	virtual void slot0d8();
-	virtual void slot0dc();
-	virtual void slot0e0();
-	virtual void slot0e4();
-	virtual void slot0e8();
-	virtual void slot0ec();
-	virtual void slot0f0();
-	virtual void slot0f4();
-	virtual void slot0f8();
-	virtual void slot0fc();
-	virtual void slot100();
-	virtual void slot104();
-	virtual void slot108();
-	virtual void slot10c();
-	virtual void slot110();
-	virtual void slot114();
-	virtual void slot118();
-	virtual void slot11c();
-	virtual void slot120();
-	virtual void slot124();
-	virtual void slot128();
-	virtual void slot12c();
-	virtual void slot130();
-	virtual void slot134();
-	virtual void slot138();
-	virtual void slot13c();
-	virtual void slot140();
-	virtual void slot144();
-	virtual void slot148();
-	virtual void slot14c();
-	virtual void slot150();
-	virtual void slot154();
-	virtual void slot158();
-	virtual void slot15c();
-	virtual void slot160();
-	virtual void slot164();
-	virtual void slot168();
-	virtual void slot16c();
-	virtual void slot170();
-	virtual DozerAIInterface *getDozerAIInterface();		// +0x174
-	virtual void slot178();
-	virtual SupplyTruckAIInterface *getSupplyTruckAIInterface();	// +0x17C
-	virtual void slot180();
-	virtual void slot184();
-	virtual void slot188();
-	virtual void slot18c();
-	virtual void slot190();
-	virtual void slot194();
-	virtual void slot198();
-	virtual void joinTeam();					// +0x19C
-	virtual void slot1a0();
-	virtual void slot1a4();
-	virtual void slot1a8();
-	virtual void slot1ac();
-	virtual void slot1b0();
-	virtual void slot1b4();
-	virtual Bool isIdle() const;					// +0x1B8
-
-	unsigned char m_pad004[0x30 - 0x04];
-	StateMachine *m_stateMachine;			// +0x30
-	unsigned char m_pad034[0x3BE - 0x34];
-	Bool m_bfme3BE;					// +0x3BE
-};
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
@@ -1030,9 +852,9 @@ void AIPlayer::queueUnits()
 					if (ai)
 					{
 						if (hasHome)
-							ai->getCommandInterface()->aiMoveToPosition(&home, CMD_FROM_AI);
+							ai->aiMoveToPosition(&home, CMD_FROM_AI);
 						else
-							ai->getCommandInterface()->aiIdle(CMD_FROM_AI);
+							ai->aiIdle(CMD_FROM_AI);
 					}
 					team->m_team->setActive();
 				}

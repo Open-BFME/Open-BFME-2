@@ -32,21 +32,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	AICommandInterface *getCommands() { return &m_commands; }
-
-private:
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commands; // +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "object.h"
 
@@ -93,6 +79,6 @@ void ObjectGuardingHelper::disbandAllGuarders()
 			m_guarders.remove(*(const BfmePod12 *)&id);
 			continue;
 		}
-		obj->getAI()->getCommands()->aiIdle(CMD_FROM_AI);
+		obj->getAI()->aiIdle(CMD_FROM_AI);
 	}
 }

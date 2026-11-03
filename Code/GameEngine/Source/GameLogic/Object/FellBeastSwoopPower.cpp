@@ -49,21 +49,7 @@ struct AICommandParms
 	void *m_coordsEnd;		// +0x28
 	char m_tail[0xC0 - 0x2C];
 };
-class AICommandInterface
-{
-public:
-	virtual void aiDoCommand(const AICommandParms *parms);
-	void rva004C6D35(Object *obj, CommandSourceType cmdSource);
-	void aiAttackLevelPosition(const Coord3D *pos, CommandSourceType cmdSource);
-};
-template <int N> class Rva004C6E49Slots : public Rva004C6E49Slots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Rva004C6E49Slots<0>
-{
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
 class GeometryInfo
@@ -128,21 +114,6 @@ class ModuleData;
 
 // The Object +0x258 AI interface: slots 110 and 116 are the bool queries
 // update reads; the command interface sits at +0x20.
-class AIUpdateInterface : public Rva004C6E49Slots<110>
-{
-public:
-	virtual bool rva004C6E49Slot110() = 0;
-	virtual void gap111() = 0;
-	virtual void gap112() = 0;
-	virtual void gap113() = 0;
-	virtual void gap114() = 0;
-	virtual void gap115() = 0;
-	virtual bool rva004C6E49Slot116() = 0;
-	AICommandInterface *getCommandInterface() { return &m_commandInterface; }
-private:
-	unsigned char m_pad04[0x20 - 0x04];
-	AICommandInterface m_commandInterface;	// +0x20
-};
 
 // Retail 0x004C6D0F (38 bytes): ?onExit@FellBeastSwoopPower@@MAEX_N0@Z.
 // Identity: slot 13 of the primary vtable 0x00C5DF80 installed by the matched
@@ -355,9 +326,9 @@ void FellBeastSwoopPower::triggerAbilityEffect()
 	const Coord3D *pos = &m_targetPos;
 	Object *target = TheGameLogic->findObjectByID(m_targetID);
 	if (target)
-		ai->getCommandInterface()->rva004C6D35(target, CMD_FROM_AI);
+		ai->rva004C6D35(target, CMD_FROM_AI);
 	else if (pos)
-		ai->getCommandInterface()->aiAttackLevelPosition(pos, CMD_FROM_AI);
+		ai->aiAttackLevelPosition(pos, CMD_FROM_AI);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/FellBeastSwoopPowerUpdate.cpp
@@ -373,7 +344,7 @@ UpdateSleepTime FellBeastSwoopPower::update()
 	{
 		Object *object = m_object;
 		AIUpdateInterface *ai = object->m_ai;
-		if (ai && (ai->rva004C6E49Slot110() || ai->rva004C6E49Slot116()))
+		if (ai && (ai->isIdle() || ai->rva00262D7B()))
 		{
 			onExit(false, false);
 			return UPDATE_SLEEP_FOREVER;
