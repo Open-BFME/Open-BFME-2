@@ -75,13 +75,7 @@ template ImageNameMap::iterator ImageNameMap::insert(ImageNameMap::iterator, con
 // unsigned-key pointer-map operator[] into this worker which drives the rowed
 // PAX lower_bound at 0x4FF3B6 (ICF twin of the PAVImage spelling pinned here)
 // and the rowed PAVImage hint insert at 0x00358211.
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-private:
-	ImageNameMap m_map;
-};
+#include "../../../../GameEngine/Include/GameClient/ImageSubscriptMap.h"
 
 // The rowed operator[] lives in HostValidateColorsRva004422DDFarm.cpp,
 // whose inline copy has the identical whole body and relocations. Keeping a

@@ -838,11 +838,7 @@ void Rva00534641::rva00534693()
 	m_04Flag = 0;
 }
 
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-};
+#include "../../Include/GameClient/ImageSubscriptMap.h"
 
 struct Rva00534AAENode
 {

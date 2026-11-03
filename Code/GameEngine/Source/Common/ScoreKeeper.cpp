@@ -45,11 +45,7 @@ typedef int Int;
 
 class Image;
 
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-};
+#include "../../Include/GameClient/ImageSubscriptMap.h"
 
 enum ObjectStatusTypes
 {

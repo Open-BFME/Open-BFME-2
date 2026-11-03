@@ -9,15 +9,7 @@
 
 class Image;
 
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-private:
-	// Retail indexes these with stride 12 (imul eax,0xc); the rowed
-	// definition holds one 12B ImageNameMap, so pad to that size here.
-	unsigned char m_pad[12];
-};
+#include "../../../../GameEngine/Include/GameClient/ImageSubscriptMap.h"
 
 unsigned long Rva003ECA13Get(const AsciiString &s);
 

@@ -1081,11 +1081,7 @@ public:
 class Image;
 // The shared unsigned-key pointer-map operator[] (0x002077D6) that retail
 // calls for every such map; the id cache is subscripted through it.
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-};
+#include "../../../Include/GameClient/ImageSubscriptMap.h"
 class Rva000421C8
 {
 public:

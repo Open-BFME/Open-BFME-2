@@ -42,11 +42,7 @@ private:
 
 typedef _STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > MapIntVoid0033C432;
 
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-};
+#include "../../Include/GameClient/ImageSubscriptMap.h"
 
 class AttackPriorityInfo : public Snapshot
 {

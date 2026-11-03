@@ -61,11 +61,7 @@ protected:
 // retail folds every unsigned-key pointer-map operator[] into the single
 // shared worker at 0x2077D6 (which drives the rowed PAX _M_lower_bound at
 // 0x4FF3B6), so the call below is pinned there instead of inlining.
-class ImageSubscriptMap
-{
-public:
-	Image *&operator[](const unsigned int &key);
-};
+#include "../../../Include/GameClient/ImageSubscriptMap.h"
 
 // ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z, retail 0x002D92F6 (53B).
 const Image *ImageCollection::findImageByName(const AsciiString &name)
