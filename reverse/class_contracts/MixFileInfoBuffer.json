@@ -1,0 +1,153 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "MixFileInfoBuffer",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x34": {
+    "4": 4
+   },
+   "0x38": {
+    "4": 6
+   }
+  },
+  "retail_layout": {
+   "confidence": "none",
+   "conflicts": [],
+   "facts": {}
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 4,
+   "48": 5,
+   "60": 3
+  },
+  "views": 12,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "x",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "y",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_totalCost",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "m_costSoFar",
+   "name_by": "majority",
+   "offset": 18,
+   "retail_widths": {},
+   "size": 2,
+   "type": "ushort",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flags",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp",
+    "Code/GameEngine/Source/Common/MixFileInfoBufferUnlink.cpp",
+    "Code/GameEngine/Source/Common/PathfindCell_ReleaseClosedList.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp",
+    "Code/GameEngine/Source/Common/MixFileInfoBufferUnlink.cpp",
+    "Code/GameEngine/Source/Common/PathfindCell_ReleaseClosedList.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [],
+ "size": 48,
+ "size_by": "majority",
+ "vslots": {}
+}

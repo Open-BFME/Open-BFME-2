@@ -524,3 +524,4 @@ LANPlayer,Code/GameEngine/Include/GameNetwork/LANPlayerClass.h,existing header; 
 RespawnBodyModuleData,Code/GameEngine/Include/GameLogic/Module/RespawnBodyModuleData.h,existing header; contract class_contracts/RespawnBodyModuleData.json; 5/13 sampled units adopt
 DelayedDeathBodyModuleData,Code/GameEngine/Include/GameLogic/Module/DelayedDeathBodyModuleData.h,existing header; contract class_contracts/DelayedDeathBodyModuleData.json; 9/12 sampled units adopt
 LadderPref,Code/GameEngine/Include/GameNetwork/LadderPref.h,existing header; contract class_contracts/LadderPref.json; 13/16 sampled units adopt
+MixFileInfoBuffer,Code/GameEngine/Include/Common/MixFileInfoBuffer.h,existing header; contract class_contracts/MixFileInfoBuffer.json; 5/13 sampled units adopt
