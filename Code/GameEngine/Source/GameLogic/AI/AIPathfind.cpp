@@ -1018,10 +1018,7 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
 struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 #include "../../../Include/GameLogic/AI.h"
-struct Rva002F600CInfo
-{
-	char m_pad[4];
-};
+struct Rva002F600CInfo;
 struct Rva002E6F92Info
 {
 	char m_pad[4];

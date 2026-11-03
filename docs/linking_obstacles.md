@@ -147,6 +147,12 @@ INCONCLUSIVE: six receipts missing at base 0f12574aadd3, first AIPathfind.cpp;
 carry full affected-consumer closure into the next scheduled census.
 [Callback proof and handoff](../reverse/attempt_support/pathfinder-callback-headers-20261103/README.md).
 
+The seed now replaces its unused four-byte F600C Info definition with a forward
+declaration. All uses are pointers/declarations; the callback retains its real
+existing view. Normal 89-row/two-data and private EH3/224-provider checks pass.
+This clears the known competing-prefix prerequisite without moving any row;
+actual composition is still the next supported-tool check.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:
