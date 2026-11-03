@@ -7313,3 +7313,12 @@ param,lerpMotion::t,lerpMotion::ratio,inferred,agree:nl-22cd8786932d,Code/Librar
 param,Rva00057151::rva00057151::a1,Rva00057151::rva00057151::group,inferred,agree:nl-63270f6de1a6,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp,0x00057151
 param,Rva00057151::rva00057151::a2,Rva00057151::rva00057151::side,inferred,agree:nl-6ba25f421f8c,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp,0x00057151
 param,Rva00057151::rva00057151::a3,Rva00057151::rva00057151::mode,inferred,agree:nl-b6acbc217e50,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp,0x00057151
+member,Rva009AAD20State::m_08,Rva009AAD20State::m_codingMode,inferred,agree:nl-2a26a4ba9a20,Code/Libraries/Source/VP6/PredictBlockToPostProcessBuffer.cpp,
+member,Rva009AAD20State::m_24c,Rva009AAD20State::m_goldenFrame,inferred,agree:nl-5af570a9cd70,Code/Libraries/Source/VP6/PredictBlockToPostProcessBuffer.cpp,
+member,Rva009AAD20State::m_284,Rva009AAD20State::m_tempBuffer,inferred,agree:nl-229d5f367ad8,Code/Libraries/Source/VP6/PredictBlockToPostProcessBuffer.cpp,
+local,DeblockLoopFilteredBand_C::p1,DeblockLoopFilteredBand_C::rowOffset1,inferred,agree:nl-0ec2499526f7,Code/Libraries/Source/VP6/DeblockLoopFilteredBandC.cpp,0x001BD980
+param,Rva0050EE23::rva0050EE23::b,Rva0050EE23::rva0050EE23::other,inferred,agree:nl-b5da45e3e4db,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050EE23
+param,Rva0050EE23::rva0050F1F0::b,Rva0050EE23::rva0050F1F0::other,inferred,agree:nl-b4d339eef194,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050F1F0
+param,rva0050F841::a,rva0050F841::text,inferred,agree:nl-6a1148108947,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050F841
+param,rva0050F841::b,rva0050F841::other,inferred,agree:nl-2e629d3412f1,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050F841
+local,GetClockCyclesFast::n,GetClockCyclesFast::cycles,inferred,agree:nl-2dcadac9de55,Code/Libraries/Source/profile/profile.cpp,0x006C5570

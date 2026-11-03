@@ -176,7 +176,7 @@ __int64 GetClockCyclesFast(void)
 
 	// measure clock cycles 3 times for 20 msec each
 	// then take the 2 counts that are closest, average
-	__int64 n[3];
+	__int64 cycles[3];
 	for (int k = 0; k < 3; k++)
 	{
 		// wait for end of current tick
@@ -189,35 +189,35 @@ __int64 GetClockCyclesFast(void)
 		ProfileGetTime(start);
 		timeEnd += 20;
 		while (timeGetTime() < timeEnd);
-		ProfileGetTime(n[k]);
-		n[k] -= start;
+		ProfileGetTime(cycles[k]);
+		cycles[k] -= start;
 
 		// convert to 1 second
 		if (QueryPerformanceCounter((LARGE_INTEGER *)&endQPC))
 		{
 			__int64 freq;
 			QueryPerformanceFrequency((LARGE_INTEGER *)&freq);
-			n[k] = (n[k] * freq) / (endQPC - startQPC);
+			cycles[k] = (cycles[k] * freq) / (endQPC - startQPC);
 		}
 		else
 		{
-			n[k] = (n[k] * 1000) / 20;
+			cycles[k] = (cycles[k] * 1000) / 20;
 		}
 	}
 
 	// find two closest values
-	__int64 d01 = n[1] - n[0], d02 = n[2] - n[0], d12 = n[2] - n[1];
+	__int64 d01 = cycles[1] - cycles[0], d02 = cycles[2] - cycles[0], d12 = cycles[2] - cycles[1];
 	if (d01 < 0) d01 = -d01;
 	if (d02 < 0) d02 = -d02;
 	if (d12 < 0) d12 = -d12;
 	__int64 avg;
 	if (d01 < d02)
 	{
-		avg = d01 < d12 ? n[0] + n[1] : n[1] + n[2];
+		avg = d01 < d12 ? cycles[0] + cycles[1] : cycles[1] + cycles[2];
 	}
 	else
 	{
-		avg = d02 < d12 ? n[0] + n[2] : n[1] + n[2];
+		avg = d02 < d12 ? cycles[0] + cycles[2] : cycles[1] + cycles[2];
 	}
 
 	// return result

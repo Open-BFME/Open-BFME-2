@@ -9,13 +9,13 @@
 // Layout and dispatch follow the separately matched body at 0x009B5830.
 #include <string.h>
 struct Rva009AAD20State {
- unsigned char pad0[8]; int m_08;
+ unsigned char pad0[8]; int m_codingMode;
  unsigned char padC[0x70-0xc]; int m_70,m_74;
  unsigned char pad78[0x24c-0x78];
- unsigned char *m_24c; unsigned pad250;
+ unsigned char *m_goldenFrame; unsigned pad250;
  unsigned char *m_254; unsigned pad258;
  unsigned char *m_25c; unsigned char pad260[0x270-0x260];
- void *m_270; unsigned char pad274[0x284-0x274]; void *m_284;
+ void *m_270; unsigned char pad274[0x284-0x274]; void *m_tempBuffer;
 };
 struct Rva009B5830State;
 extern void *g_bfmeSlotD84;
@@ -38,23 +38,23 @@ extern void __cdecl Rva009B5530Prepare(Rva009B5830State *, void *, int);
 extern "C" void __cdecl VP6_PredictBlockToPostProcessBuffer(Rva009AAD20State *state, int block)
 {
 	memset(state->m_270,0,128);
-	if (state->m_08 == 0) {
-		((Rva009AAD20CallD84)g_bfmeSlotD84)(state->m_284,
+	if (state->m_codingMode == 0) {
+		((Rva009AAD20CallD84)g_bfmeSlotD84)(state->m_tempBuffer,
 			state->m_25c + state->m_70,
 			state->m_254 + state->m_70,
 			state->m_270, state->m_74);
-	} else if (g_bfmeModeUsesMotion[state->m_08] != 0) {
-		Rva009B5530Prepare((Rva009B5830State*)state, state->m_284, block);
-		((Rva009AAD20CallD88)g_bfmeSlotD88)(state->m_284,
+	} else if (g_bfmeModeUsesMotion[state->m_codingMode] != 0) {
+		Rva009B5530Prepare((Rva009B5830State*)state, state->m_tempBuffer, block);
+		((Rva009AAD20CallD88)g_bfmeSlotD88)(state->m_tempBuffer,
 			state->m_270, state->m_25c + state->m_70,
 			state->m_74);
-	} else if (state->m_08 == 5) {
-		((Rva009AAD20CallD84)g_bfmeSlotD84)(state->m_284,
+	} else if (state->m_codingMode == 5) {
+		((Rva009AAD20CallD84)g_bfmeSlotD84)(state->m_tempBuffer,
 			state->m_25c + state->m_70,
-			state->m_24c + state->m_70,
+			state->m_goldenFrame + state->m_70,
 			state->m_270, state->m_74);
 	} else {
-		((Rva009AAD20CallD8C)g_bfmeSlotD8C)(state->m_284,
+		((Rva009AAD20CallD8C)g_bfmeSlotD8C)(state->m_tempBuffer,
 			state->m_25c + state->m_70,
 			state->m_270, state->m_74);
 	}

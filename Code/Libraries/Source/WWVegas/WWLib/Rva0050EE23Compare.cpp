@@ -16,8 +16,8 @@ int __cdecl compareRangeNoCase(const char *a, int alen, const char *b, int blen,
 class Rva0050EE23
 {
 public:
-	int rva0050EE23(const char *b, int blen, CharCompare tag);
-	int rva0050F1F0(const char *b, CharCompare tag);
+	int rva0050EE23(const char *other, int blen, CharCompare tag);
+	int rva0050F1F0(const char *other, CharCompare tag);
 private:
 	struct Header
 	{
@@ -29,7 +29,7 @@ private:
 	Header *m_data;
 };
 
-int Rva0050EE23::rva0050EE23(const char *b, int blen, CharCompare tag)
+int Rva0050EE23::rva0050EE23(const char *other, int blen, CharCompare tag)
 {
 	int alen;
 	if (m_data)
@@ -41,19 +41,19 @@ int Rva0050EE23::rva0050EE23(const char *b, int blen, CharCompare tag)
 		a = (const char *)&m_data->data[0];
 	else
 		a = "";
-	return compareRangeNoCase(a, alen, b, blen, tag);
+	return compareRangeNoCase(a, alen, other, blen, tag);
 }
 
 // Retail 0x0050F1F0 (41B): C-string overload measuring a non-null argument with
 // strlen (import thunk 0x00629170) before forwarding to 0x0050EE23.
-int Rva0050EE23::rva0050F1F0(const char *b, CharCompare tag)
+int Rva0050EE23::rva0050F1F0(const char *other, CharCompare tag)
 {
-	return rva0050EE23(b, b ? strlen(b) : 0, tag);
+	return rva0050EE23(other, other ? strlen(other) : 0, tag);
 }
 
 // Retail 0x0050F841 (28B): free cdecl wrapper supplying a value-initialized
 // tag; the tribute page factory 0x00510D98 tests its result against zero.
-int __cdecl rva0050F841(Rva0050EE23 *a, const char *b)
+int __cdecl rva0050F841(Rva0050EE23 *text, const char *other)
 {
-	return a->rva0050F1F0(b, CharCompare());
+	return text->rva0050F1F0(other, CharCompare());
 }

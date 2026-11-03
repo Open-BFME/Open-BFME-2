@@ -30,7 +30,7 @@ extern "C" void __cdecl DeblockLoopFilteredBand_C(Vp6LoopFilteredBandInstance *c
 	unsigned int row;
 	unsigned char *rowInput, *rowOutput;
 	index = first;
-	int p1 = stride;
+	int rowOffset1 = stride;
 	int p2 = 2 * stride;
 	int p3 = 3 * stride;
 	int p4 = 4 * stride;
@@ -44,7 +44,7 @@ extern "C" void __cdecl DeblockLoopFilteredBand_C(Vp6LoopFilteredBandInstance *c
 			samples[1] = rowInput[-p4];
 			samples[2] = rowInput[-p3];
 			samples[3] = rowInput[-p2];
-			samples[4] = rowInput[-p1];
+			samples[4] = rowInput[-rowOffset1];
 			samples[5] = rowInput[0];
 			samples[6] = rowInput[stride];
 			samples[7] = rowInput[p2];
