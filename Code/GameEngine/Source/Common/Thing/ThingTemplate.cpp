@@ -204,7 +204,7 @@ const Int USE_EXP_VALUE_FOR_SKILL_VALUE = -999;
 // PRIVATE DATA ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-AudioEventRTS ThingTemplate::s_audioEventNoSound;
+
 
 /* 
 	NOTE NOTE NOTE -- s_objectFieldParseTable and s_objectReskinFieldParseTable must be updated in tandem!
@@ -626,25 +626,7 @@ const FXList *ThingTemplate::getPerUnitFX(const AsciiString& fxName) const
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::getPerUnitSound present-unmatched
-const AudioEventRTS *ThingTemplate::getPerUnitSound(const AsciiString& soundName) const
-{
-	if (soundName.isEmpty()) 
-	{
-		return &s_audioEventNoSound;
-	}
-	
-	PerUnitSoundMap::const_iterator it = m_perUnitSounds.find(soundName);
-	if (it == m_perUnitSounds.end()) 
-	{
-#ifndef DO_UNIT_TIMINGS
-    DEBUG_LOG(("Unknown Audio name (%s) asked for in ThingTemplate (%s).\n", soundName.str(), m_nameString.str()));
-#endif
-    return &s_audioEventNoSound;
-	}
 
-	return &(it->second);
-}
 
 //-------------------------------------------------------------------------------------------------
 // ThingTemplate::getMaxSimultaneousOfType: its only emitted copy is the inline one in

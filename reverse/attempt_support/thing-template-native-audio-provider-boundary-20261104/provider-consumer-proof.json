@@ -1,0 +1,208 @@
+{
+  "index_meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+  "current_owner_receipts": [
+    {
+      "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 267,
+      "header_mismatches": [],
+      "object_sha256": "9a27b313f13405a5e72ed1cffa3cc184475fc5c834ac89f6eab22591895e15ad"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_subscript_002a6a2d.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 61,
+      "header_mismatches": [],
+      "object_sha256": "aa1c614c8cd0ed796c4e040c71962453a4a434eb41bfdfe0fb908ecbadd72367"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002a5895.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 57,
+      "header_mismatches": [],
+      "object_sha256": "fe18127ac080883193c373d49fbc1013fa01ce7f58f26867687cb0b17748e269"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 105,
+      "header_mismatches": [],
+      "object_sha256": "bdcf17f3998a94b7d31175ad836229a9cf6dbb03f39c63cad992b22b1d52f2bb"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00359032.cpp",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "header_count": 59,
+      "header_mismatches": [],
+      "object_sha256": "e9b367c261fed6b4c1f63dd065f5530f3effc08b97b243b225860504005f041c"
+    }
+  ],
+  "audio_consumers": {
+    "?getPerUnitSound@ThingTemplate@@QBEPBVAudioEventRTS@@ABVAsciiString@@@Z": {
+      "index_touches": 4,
+      "actual_outside": [
+        {
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+          "refs": [
+            "undefined"
+          ],
+          "receipt": {
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+            "object_exists": true,
+            "receipt_exists": true,
+            "source_current": false,
+            "object_current": true,
+            "header_count": 275,
+            "header_mismatches": []
+          }
+        },
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp",
+          "refs": [
+            "undefined"
+          ],
+          "receipt": {
+            "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp",
+            "object_exists": true,
+            "receipt_exists": true,
+            "source_current": false,
+            "object_current": true,
+            "header_count": 367,
+            "header_mismatches": []
+          }
+        },
+        {
+          "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+          "refs": [
+            "undefined"
+          ],
+          "receipt": {
+            "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+            "object_exists": true,
+            "receipt_exists": true,
+            "source_current": false,
+            "object_current": true,
+            "header_count": 274,
+            "header_mismatches": []
+          }
+        }
+      ],
+      "absent_objects": []
+    },
+    "?parsePerUnitSounds@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z": {
+      "index_touches": 1,
+      "actual_outside": [],
+      "absent_objects": []
+    },
+    "?myFieldParse@?1??parsePerUnitSounds@ThingTemplate@@KAXPAVINI@@PAX1PBX@Z@4QBUFieldParse@@B": {
+      "index_touches": 0,
+      "actual_outside": [],
+      "absent_objects": []
+    },
+    "?s_audioEventNoSound@ThingTemplate@@0VAudioEventRTS@@A": {
+      "index_touches": 1,
+      "actual_outside": [],
+      "absent_objects": []
+    }
+  },
+  "old_pair_actual_consumers": {
+    "index_touches": 4,
+    "actual_outside": [
+      {
+        "source": "Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp",
+        "refs": [
+          "undefined"
+        ],
+        "receipt": {
+          "source": "Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp",
+          "object_exists": true,
+          "receipt_exists": true,
+          "source_current": true,
+          "object_current": true,
+          "header_count": 15,
+          "header_mismatches": []
+        }
+      },
+      {
+        "source": "Code/Libraries/Source/WWVegas/WWLib/Rva002A408BErase.cpp",
+        "refs": [
+          "undefined"
+        ],
+        "receipt": {
+          "source": "Code/Libraries/Source/WWVegas/WWLib/Rva002A408BErase.cpp",
+          "object_exists": true,
+          "receipt_exists": true,
+          "source_current": true,
+          "object_current": true,
+          "header_count": 21,
+          "header_mismatches": []
+        }
+      }
+    ],
+    "absent_objects": []
+  },
+  "proper_pair_body": {
+    "bytes": "b800000000e80000000051568bf18975f08365fc008d4e04e800000000834dfcff8bcee8000000008b4df45e64890d00000000c9c3",
+    "relocations": [
+      [
+        1,
+        6,
+        "__ehhandler$??1?$pair@$$CBVAsciiString@@UTreeHintOpaque002A484A@@@_STL@@QAE@XZ"
+      ],
+      [
+        6,
+        20,
+        "__EH_prolog"
+      ],
+      [
+        25,
+        20,
+        "??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ"
+      ],
+      [
+        36,
+        20,
+        "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+      ],
+      [
+        47,
+        6,
+        "__except_list"
+      ]
+    ]
+  },
+  "proper_pair_index": {
+    "copies": [
+      [
+        6968,
+        "23ca3d9a3503",
+        "retail"
+      ]
+    ],
+    "owners": [
+      "^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_rb_tree_subscript_002a6a2d.obj"
+    ]
+  },
+  "consumer_query_method": "Inverse object->touched_names index, followed by actual current-cache undefined/weak/alternate/include references; replaces the provisional incorrect name-key lookup",
+  "tracked_reads_stopped": true
+}

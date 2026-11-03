@@ -1,0 +1,255 @@
+{
+  "objects": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+      "providers": [
+        {
+          "name": "?_M_insert@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00359032Value@@U?$_Nonconst_traits@URva00359032Value@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00359032Value@@0@Z",
+          "bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e80000000084c05959751bff75148bcfe8000000008bf089730c8b073b580c752989700ceb24ff75148bcfe8000000008bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+          "size": 148,
+          "relocations": [
+            [
+              35,
+              20,
+              "??M@YA_NABVAsciiString@@0@Z"
+            ],
+            [
+              51,
+              20,
+              "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z"
+            ],
+            [
+              78,
+              20,
+              "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z"
+            ],
+            [
+              127,
+              20,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+            ]
+          ],
+          "normalizing_native_callee_sites": [
+            [
+              35,
+              "??M@YA_NABVAsciiString@@0@Z",
+              "0x5598c"
+            ],
+            [
+              51,
+              "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z",
+              "0x358da0"
+            ],
+            [
+              78,
+              "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z",
+              "0x358da0"
+            ],
+            [
+              127,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+              "0x25490"
+            ]
+          ],
+          "native_normalized_exact": true,
+          "index_copies": [
+            [
+              9146,
+              "ae37e3237d68",
+              "unknown"
+            ]
+          ],
+          "index_copy_count": 1,
+          "comdat_selection": 2
+        }
+      ]
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00359032.cpp",
+      "providers": [
+        {
+          "name": "?_M_insert@?$_Rb_tree@URva00359032Record@@U1@U?$_Identity@URva00359032Record@@@_STL@@U?$less@URva00359032Record@@@3@V?$allocator@URva00359032Record@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@URva00359032Record@@U?$_Nonconst_traits@URva00359032Record@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABURva00359032Record@@0@Z",
+          "bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e80000000084c05959751bff75148bcfe8000000008bf089730c8b073b580c752989700ceb24ff75148bcfe8000000008bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+          "size": 148,
+          "relocations": [
+            [
+              35,
+              20,
+              "??M@YA_NABVAsciiString@@0@Z"
+            ],
+            [
+              51,
+              20,
+              "?_M_create_node@?$_Rb_tree@URva00359032Record@@U1@U?$_Identity@URva00359032Record@@@_STL@@U?$less@URva00359032Record@@@3@V?$allocator@URva00359032Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Record@@@2@ABURva00359032Record@@@Z"
+            ],
+            [
+              78,
+              20,
+              "?_M_create_node@?$_Rb_tree@URva00359032Record@@U1@U?$_Identity@URva00359032Record@@@_STL@@U?$less@URva00359032Record@@@3@V?$allocator@URva00359032Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Record@@@2@ABURva00359032Record@@@Z"
+            ],
+            [
+              127,
+              20,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+            ]
+          ],
+          "normalizing_native_callee_sites": [
+            [
+              35,
+              "??M@YA_NABVAsciiString@@0@Z",
+              "0x5598c"
+            ],
+            [
+              51,
+              "?_M_create_node@?$_Rb_tree@URva00359032Record@@U1@U?$_Identity@URva00359032Record@@@_STL@@U?$less@URva00359032Record@@@3@V?$allocator@URva00359032Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Record@@@2@ABURva00359032Record@@@Z",
+              "0x358da0"
+            ],
+            [
+              78,
+              "?_M_create_node@?$_Rb_tree@URva00359032Record@@U1@U?$_Identity@URva00359032Record@@@_STL@@U?$less@URva00359032Record@@@3@V?$allocator@URva00359032Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Record@@@2@ABURva00359032Record@@@Z",
+              "0x358da0"
+            ],
+            [
+              127,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+              "0x25490"
+            ]
+          ],
+          "native_normalized_exact": true,
+          "index_copies": [
+            [
+              9148,
+              "1b8af64953a5",
+              "retail"
+            ]
+          ],
+          "index_copy_count": 1,
+          "comdat_selection": 2
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+      "providers": [
+        {
+          "name": "?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@0@Z",
+          "bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e80000000084c05959751bff75148bcfe8000000008bf089730c8b073b580c752989700ceb24ff75148bcfe8000000008bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+          "size": 148,
+          "relocations": [
+            [
+              35,
+              20,
+              "??M@YA_NABVAsciiString@@0@Z"
+            ],
+            [
+              51,
+              20,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@@Z"
+            ],
+            [
+              78,
+              20,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@@Z"
+            ],
+            [
+              127,
+              20,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+            ]
+          ],
+          "normalizing_native_callee_sites": [
+            [
+              35,
+              "??M@YA_NABVAsciiString@@0@Z",
+              "0x5598c"
+            ],
+            [
+              51,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@@Z",
+              "0x358da0"
+            ],
+            [
+              78,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@@Z",
+              "0x358da0"
+            ],
+            [
+              127,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+              "0x25490"
+            ]
+          ],
+          "native_normalized_exact": true,
+          "index_copies": [
+            [
+              7652,
+              "b718cc0e2981",
+              "retail"
+            ]
+          ],
+          "index_copy_count": 1,
+          "comdat_selection": 2
+        },
+        {
+          "name": "?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@PBVFXList@@@2@0@Z",
+          "bytes": "558bec538b5d1056578bf93b1f7439837d18007518837d0c00752d8d431050ff7514e80000000084c05959751bff75148bcfe8000000008bf089730c8b073b580c752989700ceb24ff75148bcfe8000000008bf08973088b073bd875078970048b07ebdf3b580875038970088366080083660c00895e048b0783c0045056e800000000ff47048b450859595f89305e5b5dc21400",
+          "size": 148,
+          "relocations": [
+            [
+              35,
+              20,
+              "??M@YA_NABVAsciiString@@0@Z"
+            ],
+            [
+              51,
+              20,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@PBVFXList@@@2@@Z"
+            ],
+            [
+              78,
+              20,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@PBVFXList@@@2@@Z"
+            ],
+            [
+              127,
+              20,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z"
+            ]
+          ],
+          "normalizing_native_callee_sites": [
+            [
+              35,
+              "??M@YA_NABVAsciiString@@0@Z",
+              "0x5598c"
+            ],
+            [
+              51,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@PBVFXList@@@2@@Z",
+              "0x358da0"
+            ],
+            [
+              78,
+              "?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@PBVFXList@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@PBVFXList@@@2@@Z",
+              "0x358da0"
+            ],
+            [
+              127,
+              "?_Rebalance@?$_Rb_global@_N@_STL@@SAXPAU_Rb_tree_node_base@2@AAPAU32@@Z",
+              "0x25490"
+            ]
+          ],
+          "native_normalized_exact": true,
+          "index_copies": [
+            [
+              7652,
+              "d841466316aa",
+              null
+            ]
+          ],
+          "index_copy_count": 1,
+          "comdat_selection": 2
+        }
+      ]
+    }
+  ]
+}

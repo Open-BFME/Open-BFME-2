@@ -1,0 +1,40 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+  "definitions": {
+    "??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z": {
+      "bytes": "8b44240485c0740e8b4c24088b1189108b4904894804c3",
+      "size": 23,
+      "relocations": [],
+      "index_copies": [
+        [
+          9146,
+          "2554abe3631c",
+          null
+        ]
+      ]
+    },
+    "?_M_create_node@?$_Rb_tree@URva00359032Value@@U1@U?$_Identity@URva00359032Value@@@_STL@@U?$less@URva00359032Value@@@3@V?$allocator@URva00359032Value@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Value@@@2@ABURva00359032Value@@@Z": {
+      "bytes": "566a006a18e800000000ff7424108bf08d461050e80000000083c4108bc65ec20400",
+      "size": 34,
+      "relocations": [
+        [
+          6,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ],
+        [
+          21,
+          20,
+          "??$_Construct@URva00359032Value@@U1@@_STL@@YAXPAURva00359032Value@@ABU1@@Z"
+        ]
+      ],
+      "index_copies": [
+        [
+          9146,
+          "35d6dc1bde40",
+          null
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+  "private_control_sha256": "baef48ce0ebcf0181e0d7b206a6a956f2c08c89225aa31d89d03811864e33eee",
+  "current_source_sha256": "baef48ce0ebcf0181e0d7b206a6a956f2c08c89225aa31d89d03811864e33eee",
+  "index_meta": {
+    "date": "2026-11-03 18:36",
+    "commit": "23b85ddde5",
+    "clean_tree": true
+  },
+  "removed": [
+    "??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@1@ABVAsciiString@@@Z",
+    "??$find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@1@ABVAsciiString@@@Z",
+    "??0?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@_STL@@QAE@PAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@1@@Z",
+    "??C?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@_STL@@QBEPBU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@1@XZ",
+    "??D?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@_STL@@QBEABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@1@XZ",
+    "?end@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@XZ",
+    "?end@?$map@VAsciiString@@VAudioEventRTS@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@4@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@XZ",
+    "?find@?$map@VAsciiString@@VAudioEventRTS@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@4@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@ABVAsciiString@@@Z",
+    "?getPerUnitSound@ThingTemplate@@QBEPBVAudioEventRTS@@ABVAsciiString@@@Z",
+    "?s_audioEventNoSound@ThingTemplate@@0VAudioEventRTS@@A"
+  ],
+  "refreshed_consumers": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "object_sha256": "f4e8108abc820ef5b2ebcba702cac52d4bad72711caabd0e3907ed31a244c5b4",
+      "header_count": 275,
+      "header_mismatches": [],
+      "removed_defined": [],
+      "removed_undefined": [],
+      "removed_weak": [],
+      "removed_alternates": {},
+      "removed_includes": []
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^tank^truck^draw.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "object_sha256": "2e37861ccd08603e7b0316865f24e9ec8d6ddd363f5b1278170f4d43bcd4406b",
+      "header_count": 367,
+      "header_mismatches": [],
+      "removed_defined": [],
+      "removed_undefined": [],
+      "removed_weak": [],
+      "removed_alternates": {},
+      "removed_includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^deliver^payload^a^i^update.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "object_sha256": "c9d079a6b765ac7f153673e8f9defca49d4b2c75615cf3a68ab4ee79fcb4e9f1",
+      "header_count": 211,
+      "header_mismatches": [],
+      "removed_defined": [],
+      "removed_undefined": [],
+      "removed_weak": [],
+      "removed_alternates": {},
+      "removed_includes": []
+    }
+  ],
+  "index_outside_objects": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^stealth^update.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "object_sha256": "f4e8108abc820ef5b2ebcba702cac52d4bad72711caabd0e3907ed31a244c5b4",
+      "header_count": 275,
+      "header_mismatches": [],
+      "index_names": [
+        "?getPerUnitSound@ThingTemplate@@QBEPBVAudioEventRTS@@ABVAsciiString@@@Z"
+      ],
+      "removed_defined": [],
+      "removed_undefined": [],
+      "removed_weak": [],
+      "removed_alternates": {},
+      "removed_includes": []
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^tank^truck^draw.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "object_sha256": "2e37861ccd08603e7b0316865f24e9ec8d6ddd363f5b1278170f4d43bcd4406b",
+      "header_count": 367,
+      "header_mismatches": [],
+      "index_names": [
+        "?getPerUnitSound@ThingTemplate@@QBEPBVAudioEventRTS@@ABVAsciiString@@@Z"
+      ],
+      "removed_defined": [],
+      "removed_undefined": [],
+      "removed_weak": [],
+      "removed_alternates": {},
+      "removed_includes": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeliverPayloadAIUpdate.cpp",
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^deliver^payload^a^i^update.obj",
+      "object_exists": true,
+      "receipt_exists": true,
+      "source_current": true,
+      "object_current": true,
+      "object_sha256": "c9d079a6b765ac7f153673e8f9defca49d4b2c75615cf3a68ab4ee79fcb4e9f1",
+      "header_count": 211,
+      "header_mismatches": [],
+      "index_names": [
+        "?getPerUnitSound@ThingTemplate@@QBEPBVAudioEventRTS@@ABVAsciiString@@@Z"
+      ],
+      "removed_defined": [],
+      "removed_undefined": [],
+      "removed_weak": [],
+      "removed_alternates": {},
+      "removed_includes": []
+    }
+  ],
+  "missing_outside_objects": [],
+  "index_touched_object_count": 4,
+  "independent_fact_comparison": {
+    "before_count": 915,
+    "after_count": 905,
+    "removed": [
+      "??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@1@ABVAsciiString@@@Z",
+      "??$find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@1@ABVAsciiString@@@Z",
+      "??0?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@_STL@@QAE@PAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@1@@Z",
+      "??C?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@_STL@@QBEPBU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@1@XZ",
+      "??D?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@_STL@@QBEABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@1@XZ",
+      "?end@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@XZ",
+      "?end@?$map@VAsciiString@@VAudioEventRTS@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@4@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@XZ",
+      "?find@?$map@VAsciiString@@VAudioEventRTS@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@4@@_STL@@QBE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Const_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@ABVAsciiString@@@Z",
+      "?getPerUnitSound@ThingTemplate@@QBEPBVAudioEventRTS@@ABVAsciiString@@@Z",
+      "?s_audioEventNoSound@ThingTemplate@@0VAudioEventRTS@@A"
+    ],
+    "added": [],
+    "retained_payload_changes": [],
+    "retained_property_changes": [],
+    "undefined_added": [],
+    "undefined_removed": [
+      "_atexit"
+    ],
+    "weak_same": true,
+    "alternates_same": true,
+    "includes_same": true
+  },
+  "eh": {
+    "??1?$pair@VAsciiString@@VAudioEventRTS@@@_STL@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??1Nugget@ModuleInfo@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??1?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??1?$_Rb_tree@$$CBV?$BitFlags@$0BB@@@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@U?$_Select1st@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@UMapHelper@?$SparseMatchFinder@VWeaponTemplateSet@@V?$BitFlags@$0BB@@@@@V?$allocator@U?$pair@$$CBV?$BitFlags@$0BB@@@PBVWeaponTemplateSet@@@_STL@@@3@@_STL@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "?parseArbitraryFXIntoMap@@YAXPAVINI@@PAX1PBX@Z": [
+      "EXACT",
+      ""
+    ]
+  },
+  "current_control_matches_private_input": true,
+  "tracked_reads_stopped": true
+}

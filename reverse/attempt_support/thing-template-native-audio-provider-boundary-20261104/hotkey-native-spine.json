@@ -1,0 +1,459 @@
+{
+  "native_functions": {
+    "0x358da0": {
+      "size": 34,
+      "bytes": "566a006a18e8467acdffff7424108bf08d461050e8e7feffff83c4108bc65ec20400",
+      "disassembly": [
+        {
+          "rva": "0x358da0",
+          "bytes": "56",
+          "text": "push esi"
+        },
+        {
+          "rva": "0x358da1",
+          "bytes": "6a00",
+          "text": "push 0"
+        },
+        {
+          "rva": "0x358da3",
+          "bytes": "6a18",
+          "text": "push 0x18"
+        },
+        {
+          "rva": "0x358da5",
+          "bytes": "e8467acdff",
+          "text": "call 0x307f0"
+        },
+        {
+          "rva": "0x358daa",
+          "bytes": "ff742410",
+          "text": "push dword ptr [esp + 0x10]"
+        },
+        {
+          "rva": "0x358dae",
+          "bytes": "8bf0",
+          "text": "mov esi, eax"
+        },
+        {
+          "rva": "0x358db0",
+          "bytes": "8d4610",
+          "text": "lea eax, [esi + 0x10]"
+        },
+        {
+          "rva": "0x358db3",
+          "bytes": "50",
+          "text": "push eax"
+        },
+        {
+          "rva": "0x358db4",
+          "bytes": "e8e7feffff",
+          "text": "call 0x358ca0"
+        },
+        {
+          "rva": "0x358db9",
+          "bytes": "83c410",
+          "text": "add esp, 0x10"
+        },
+        {
+          "rva": "0x358dbc",
+          "bytes": "8bc6",
+          "text": "mov eax, esi"
+        },
+        {
+          "rva": "0x358dbe",
+          "bytes": "5e",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0x358dbf",
+          "bytes": "c20400",
+          "text": "ret 4"
+        }
+      ]
+    },
+    "0x358ca0": {
+      "size": 45,
+      "bytes": "b872d8b700e8de042d00518b4d08894df08365fc0085c97408ff750ce882feffff8b4df464890d00000000c9c3",
+      "disassembly": [
+        {
+          "rva": "0x358ca0",
+          "bytes": "b872d8b700",
+          "text": "mov eax, 0xb7d872"
+        },
+        {
+          "rva": "0x358ca5",
+          "bytes": "e8de042d00",
+          "text": "call 0x629188"
+        },
+        {
+          "rva": "0x358caa",
+          "bytes": "51",
+          "text": "push ecx"
+        },
+        {
+          "rva": "0x358cab",
+          "bytes": "8b4d08",
+          "text": "mov ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": "0x358cae",
+          "bytes": "894df0",
+          "text": "mov dword ptr [ebp - 0x10], ecx"
+        },
+        {
+          "rva": "0x358cb1",
+          "bytes": "8365fc00",
+          "text": "and dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x358cb5",
+          "bytes": "85c9",
+          "text": "test ecx, ecx"
+        },
+        {
+          "rva": "0x358cb7",
+          "bytes": "7408",
+          "text": "je 0x358cc1"
+        },
+        {
+          "rva": "0x358cb9",
+          "bytes": "ff750c",
+          "text": "push dword ptr [ebp + 0xc]"
+        },
+        {
+          "rva": "0x358cbc",
+          "bytes": "e882feffff",
+          "text": "call 0x358b43"
+        },
+        {
+          "rva": "0x358cc1",
+          "bytes": "8b4df4",
+          "text": "mov ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x358cc4",
+          "bytes": "64890d00000000",
+          "text": "mov dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x358ccb",
+          "bytes": "c9",
+          "text": "leave "
+        },
+        {
+          "rva": "0x358ccc",
+          "bytes": "c3",
+          "text": "ret "
+        }
+      ]
+    },
+    "0x358b43": {
+      "size": 34,
+      "bytes": "56578b7c240c578bf1e89fdacdff8b470485c08946047403ff40045f8bc65ec20400",
+      "disassembly": [
+        {
+          "rva": "0x358b43",
+          "bytes": "56",
+          "text": "push esi"
+        },
+        {
+          "rva": "0x358b44",
+          "bytes": "57",
+          "text": "push edi"
+        },
+        {
+          "rva": "0x358b45",
+          "bytes": "8b7c240c",
+          "text": "mov edi, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x358b49",
+          "bytes": "57",
+          "text": "push edi"
+        },
+        {
+          "rva": "0x358b4a",
+          "bytes": "8bf1",
+          "text": "mov esi, ecx"
+        },
+        {
+          "rva": "0x358b4c",
+          "bytes": "e89fdacdff",
+          "text": "call 0x365f0"
+        },
+        {
+          "rva": "0x358b51",
+          "bytes": "8b4704",
+          "text": "mov eax, dword ptr [edi + 4]"
+        },
+        {
+          "rva": "0x358b54",
+          "bytes": "85c0",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0x358b56",
+          "bytes": "894604",
+          "text": "mov dword ptr [esi + 4], eax"
+        },
+        {
+          "rva": "0x358b59",
+          "bytes": "7403",
+          "text": "je 0x358b5e"
+        },
+        {
+          "rva": "0x358b5b",
+          "bytes": "ff4004",
+          "text": "inc dword ptr [eax + 4]"
+        },
+        {
+          "rva": "0x358b5e",
+          "bytes": "5f",
+          "text": "pop edi"
+        },
+        {
+          "rva": "0x358b5f",
+          "bytes": "8bc6",
+          "text": "mov eax, esi"
+        },
+        {
+          "rva": "0x358b61",
+          "bytes": "5e",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0x358b62",
+          "bytes": "c20400",
+          "text": "ret 4"
+        }
+      ]
+    },
+    "0x358b65": {
+      "size": 57,
+      "bytes": "b840d8b700e819062d0051568bf18975f08b4e048365fc0085c97405e86953d2ff834dfcff8bcee87fd8cdff8b4df45e64890d00000000c9c3",
+      "disassembly": [
+        {
+          "rva": "0x358b65",
+          "bytes": "b840d8b700",
+          "text": "mov eax, 0xb7d840"
+        },
+        {
+          "rva": "0x358b6a",
+          "bytes": "e819062d00",
+          "text": "call 0x629188"
+        },
+        {
+          "rva": "0x358b6f",
+          "bytes": "51",
+          "text": "push ecx"
+        },
+        {
+          "rva": "0x358b70",
+          "bytes": "56",
+          "text": "push esi"
+        },
+        {
+          "rva": "0x358b71",
+          "bytes": "8bf1",
+          "text": "mov esi, ecx"
+        },
+        {
+          "rva": "0x358b73",
+          "bytes": "8975f0",
+          "text": "mov dword ptr [ebp - 0x10], esi"
+        },
+        {
+          "rva": "0x358b76",
+          "bytes": "8b4e04",
+          "text": "mov ecx, dword ptr [esi + 4]"
+        },
+        {
+          "rva": "0x358b79",
+          "bytes": "8365fc00",
+          "text": "and dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x358b7d",
+          "bytes": "85c9",
+          "text": "test ecx, ecx"
+        },
+        {
+          "rva": "0x358b7f",
+          "bytes": "7405",
+          "text": "je 0x358b86"
+        },
+        {
+          "rva": "0x358b81",
+          "bytes": "e86953d2ff",
+          "text": "call 0x7deef"
+        },
+        {
+          "rva": "0x358b86",
+          "bytes": "834dfcff",
+          "text": "or dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x358b8a",
+          "bytes": "8bce",
+          "text": "mov ecx, esi"
+        },
+        {
+          "rva": "0x358b8c",
+          "bytes": "e87fd8cdff",
+          "text": "call 0x36410"
+        },
+        {
+          "rva": "0x358b91",
+          "bytes": "8b4df4",
+          "text": "mov ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x358b94",
+          "bytes": "5e",
+          "text": "pop esi"
+        },
+        {
+          "rva": "0x358b95",
+          "bytes": "64890d00000000",
+          "text": "mov dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x358b9c",
+          "bytes": "c9",
+          "text": "leave "
+        },
+        {
+          "rva": "0x358b9d",
+          "bytes": "c3",
+          "text": "ret "
+        }
+      ]
+    },
+    "0x7deef": {
+      "size": 24,
+      "bytes": "ff49048b410485c07f0d8b016a00ff1050e85b1efbff59c3",
+      "disassembly": [
+        {
+          "rva": "0x7deef",
+          "bytes": "ff4904",
+          "text": "dec dword ptr [ecx + 4]"
+        },
+        {
+          "rva": "0x7def2",
+          "bytes": "8b4104",
+          "text": "mov eax, dword ptr [ecx + 4]"
+        },
+        {
+          "rva": "0x7def5",
+          "bytes": "85c0",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0x7def7",
+          "bytes": "7f0d",
+          "text": "jg 0x7df06"
+        },
+        {
+          "rva": "0x7def9",
+          "bytes": "8b01",
+          "text": "mov eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x7defb",
+          "bytes": "6a00",
+          "text": "push 0"
+        },
+        {
+          "rva": "0x7defd",
+          "bytes": "ff10",
+          "text": "call dword ptr [eax]"
+        },
+        {
+          "rva": "0x7deff",
+          "bytes": "50",
+          "text": "push eax"
+        },
+        {
+          "rva": "0x7df00",
+          "bytes": "e85b1efbff",
+          "text": "call 0x2fd60"
+        },
+        {
+          "rva": "0x7df05",
+          "bytes": "59",
+          "text": "pop ecx"
+        },
+        {
+          "rva": "0x7df06",
+          "bytes": "c3",
+          "text": "ret "
+        }
+      ]
+    }
+  },
+  "native_rows": [
+    {
+      "name": "??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z",
+      "export_rva": "",
+      "target_rva": "0x00358B43",
+      "target_size": "34",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp",
+      "status": "matched",
+      "notes": "STLport reference; AsciiString key and proven refcounted pointer copy; complete body strict exact; unknown application type remains opaque"
+    },
+    {
+      "name": "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+      "export_rva": "",
+      "target_rva": "0x0007DEEF",
+      "target_size": "24",
+      "source": "Code/GameEngine/Source/Common/TreeHintRefReleaseBFME2.cpp",
+      "status": "matched",
+      "notes": "Actual pairdtor2175CE calls ECX refrelease7DEEF; refs+4 <=0 virtualslot0 flags0 then delete2FD60; full24B strict exact; original object identity unknown"
+    },
+    {
+      "name": "?Rva00358CA0Construct@@YAXPAXPBX@Z",
+      "export_rva": "",
+      "target_rva": "0x00358CA0",
+      "target_size": "45",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+      "status": "matched",
+      "notes": "Distinct native placement-copy owner using existing ConstructPairHR reference operation; two-pointer cdecl ABI and constructor edge established from target; complete45B and whole EH graph EXACT; source type is inherited reference/structural evidence, original application type and signature spelling unknown; replaces synthetic object alias; evidence=reverse/attempt_support/placement-copy-stl-second-20261020.md"
+    },
+    {
+      "name": "??1Rva00358B65@@QAE@XZ",
+      "export_rva": "",
+      "target_rva": "0x00358B65",
+      "target_size": "57",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+      "status": "matched",
+      "notes": "holder TargetRef Release plus StringBase"
+    },
+    {
+      "name": "?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@0@Z",
+      "export_rva": "",
+      "target_rva": "0x00358E9F",
+      "target_size": "148",
+      "source": "Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp",
+      "status": "matched",
+      "notes": "unique masked-byte placement (locate.py sweep)"
+    },
+    {
+      "name": "?_M_create_node@?$_Rb_tree@URva00358DA0Element@@U?$pair@$$CBURva00358DA0Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@U?$less@URva00358DA0Element@@@3@V?$allocator@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@2@ABU?$pair@$$CBURva00358DA0Element@@H@2@@Z",
+      "export_rva": "",
+      "target_rva": "0x00358DA0",
+      "target_size": "34",
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp",
+      "status": "matched",
+      "notes": "STLport4.5.3 reference; target 0x358DA0;34;FUN_00758da0; native call displacements; address-derived element; donor layout is inference; full byte gate"
+    },
+    {
+      "name": "?_M_create_node@?$_Rb_tree@URva00359032Record@@U1@U?$_Identity@URva00359032Record@@@_STL@@U?$less@URva00359032Record@@@3@V?$allocator@URva00359032Record@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva00359032Record@@@2@ABURva00359032Record@@@Z",
+      "export_rva": "",
+      "target_rva": "0x00358DA0",
+      "target_size": "34",
+      "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00359032.cpp",
+      "status": "matched",
+      "notes": "ICF twin;fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00359032.cpp;compiler-emitted body a code-identity reference reaches at this retail address: this unit keeps the copy link.exe selects and it equals retail in bytes and resolved relocations;no unique coverage added;lowers the unit's link place with no code or data COMDAT content change against the objects it passes"
+    }
+  ]
+}
