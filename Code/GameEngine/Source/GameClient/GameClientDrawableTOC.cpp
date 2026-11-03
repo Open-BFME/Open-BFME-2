@@ -818,12 +818,7 @@ enum GameMessageDisposition
 
 // BFME 2 GameMessageTranslator: translateGameMessage in slot 0, the deleting
 // dtor (folded at 0x004296EE) in slot 1.
-class GameMessageTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg) = 0;
-	virtual ~GameMessageTranslator() {}
-};
+#include "../../Include/GameClient/FormationTranslator.h"
 
 // Both mode constructors install BED684 and use WindowTranslator's handler.
 // The derived default constructor selects mode zero.
@@ -907,15 +902,6 @@ private:
 	unsigned char m_pad[0x18 - 4];
 };
 
-class FormationTranslator : public GameMessageTranslator
-{
-public:
-	FormationTranslator();
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
-
-private:
-	unsigned char m_pad[0x0C - 4];
-};
 
 class Rva005B1A00 : public GameMessageTranslator
 {

@@ -12,11 +12,7 @@ public:
 
 extern Mouse *TheMouse;
 
-class FormationTranslator
-{
-public:
-	class WaitForSecondButtonDownStateHandler;
-};
+#include "../../Include/GameClient/FormationTranslator.h"
 class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	int m_00;

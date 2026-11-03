@@ -22,11 +22,7 @@ public:
 	bool rva00431978(ICoord2D *p);
 };
 
-class FormationTranslator
-{
-public:
-	class WaitForSecondButtonDownStateHandler;
-};
+#include "../../Include/GameClient/FormationTranslator.h"
 class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	void *m_00;

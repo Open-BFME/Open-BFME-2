@@ -24,11 +24,7 @@ public:
     int type;
 };
 class Rva00431978 { public: bool rva00431978(ICoord2D *point); };
-class FormationTranslator
-{
-public:
-    class WaitForSecondButtonDownStateHandler;
-};
+#include "../../Include/GameClient/FormationTranslator.h"
 class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 public:

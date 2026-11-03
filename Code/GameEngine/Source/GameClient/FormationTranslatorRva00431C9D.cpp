@@ -54,11 +54,7 @@ struct Rva00431C35Param
 class Object;
 #include "../../Include/Common/Rva00575674.h"
 
-class FormationTranslator
-{
-public:
-	class WaitForSecondButtonDownStateHandler;
-};
+#include "../../Include/GameClient/FormationTranslator.h"
 class FormationTranslator::WaitForSecondButtonDownStateHandler
 {
 	void *m_00;
