@@ -21,15 +21,7 @@ struct SoundHolder
 	OpaqueRefCounted *m_ptr;
 };
 
-class __declspec(novtable) TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x64 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class __declspec(novtable) Rva002544B5 : public TransportAIUpdateModuleData
 {

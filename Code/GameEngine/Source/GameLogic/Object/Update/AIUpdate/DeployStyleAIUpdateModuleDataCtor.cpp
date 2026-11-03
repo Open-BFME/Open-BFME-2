@@ -23,15 +23,7 @@
 // stores to source position, folding to addressing mode with zero emitted
 // bytes, while the reg-only xor still floats above the vtable. 42 of 42.
 
-class TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x64 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class DeployStyleAIUpdateModuleData : public TransportAIUpdateModuleData
 {

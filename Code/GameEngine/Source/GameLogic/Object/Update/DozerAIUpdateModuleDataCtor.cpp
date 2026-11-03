@@ -34,18 +34,7 @@ class MultiIniFieldParse;
 struct FieldParse;
 
 
-class __declspec(novtable) TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-
-private:
-	// +0x00 vptr (novtable: no compiler install here).
-	// Remainder is opaque (0x60 bytes); only the 0x64 size matters.
-	unsigned char m_opaque[0x60];
-};
+#include "../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class __declspec(novtable) DozerAIUpdateModuleData : public TransportAIUpdateModuleData
 {

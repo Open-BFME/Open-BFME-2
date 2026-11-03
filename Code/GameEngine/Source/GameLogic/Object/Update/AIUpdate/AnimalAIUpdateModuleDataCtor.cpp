@@ -12,15 +12,7 @@
 // AnimalAIUpdate pool key (0x47EC1A) names the family. Sole raw caller is
 // the ModuleData factory 0x24BED0 which news 0x80.
 
-class TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x64 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class AnimalAIUpdateModuleData : public TransportAIUpdateModuleData
 {

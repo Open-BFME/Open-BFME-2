@@ -58,15 +58,7 @@ extern "C" const void *const vtbl_00BF23C8[31] = {
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 29 0x000D43D0
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 30 0x0050B5C6
 };
-class TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x64 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class WorkerAIUpdateModuleData : public TransportAIUpdateModuleData
 {

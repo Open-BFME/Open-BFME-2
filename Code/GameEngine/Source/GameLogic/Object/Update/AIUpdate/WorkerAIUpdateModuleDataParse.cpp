@@ -14,11 +14,7 @@ class MultiIniFieldParse;
 
 extern const FieldParse s_workerAiFieldTable[];
 
-class TransportAIUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class WorkerAIUpdateModuleData
 {

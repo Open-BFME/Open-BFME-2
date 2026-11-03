@@ -24,11 +24,7 @@ extern const FieldParse s_assaultTransportFieldTable[];
 extern const FieldParse s_animalAiFieldTable[];
 extern const FieldParse s_wanderAiFieldTable[];
 
-class TransportAIUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 // ?buildFieldParse@TransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void TransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)

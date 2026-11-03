@@ -412,11 +412,7 @@ public:
 };
 
 
-class TransportAIUpdateModuleData
-{
-public:
-	virtual ~TransportAIUpdateModuleData();
-};
+#include "../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class __declspec(novtable) Rva004905B0 : public TransportAIUpdateModuleData
 {

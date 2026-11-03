@@ -19,17 +19,7 @@ class MultiIniFieldParse;
 
 #include "../../../../../Include/Common/INI/INI.h"
 
-class TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x64 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 // ?friend_newModuleData@TransportAIUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *TransportAIUpdateModuleData::friend_newModuleData(INI *ini)

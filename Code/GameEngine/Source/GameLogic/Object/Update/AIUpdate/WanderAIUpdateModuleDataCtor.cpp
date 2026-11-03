@@ -12,15 +12,7 @@
 // plus ConditionForEntry plus Selectable plus WanderDistance). Sole raw
 // caller is the ModuleData factory 0x24F248 which news 0x74.
 
-class TransportAIUpdateModuleData
-{
-public:
-	TransportAIUpdateModuleData();
-	virtual ~TransportAIUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x64 - 4];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 
 class WanderAIUpdateModuleData : public TransportAIUpdateModuleData
 {

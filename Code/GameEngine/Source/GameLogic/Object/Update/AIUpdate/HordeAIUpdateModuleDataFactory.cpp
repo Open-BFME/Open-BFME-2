@@ -9,14 +9,7 @@
 class ModuleData;
 class MultiIniFieldParse;
 #include "../../../../../Include/Common/INI/INI.h"
-class TransportAIUpdateModuleData {
-public:
-    TransportAIUpdateModuleData();
-    virtual ~TransportAIUpdateModuleData();
-    static void buildFieldParse(MultiIniFieldParse &);
-protected:
-    unsigned char m_opaque[0x60];
-};
+#include "../../../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 // Implicit ctor and destructor, as ZH's module data declare them: the
 // compiler installs the class's own vtable (retail's folded 0x0084B6C8).
 class HordeAIUpdateModuleData : public TransportAIUpdateModuleData {
