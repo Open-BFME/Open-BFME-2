@@ -220,11 +220,7 @@ extern ControlBar *TheControlBar;
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();	// 0x002FEC4B
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"

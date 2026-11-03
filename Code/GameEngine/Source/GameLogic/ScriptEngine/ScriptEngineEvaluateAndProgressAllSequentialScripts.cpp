@@ -211,11 +211,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 class TeamPrototype

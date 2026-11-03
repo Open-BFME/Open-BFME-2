@@ -1951,11 +1951,7 @@ public:
 	virtual bool slot110();
 };
 
-class AI
-{
-public:
-	static bool rva002FE193(Object *a, Object *b);
-};
+#include "../../../Include/GameLogic/AI.h"
 
 class Rva000421C8
 {

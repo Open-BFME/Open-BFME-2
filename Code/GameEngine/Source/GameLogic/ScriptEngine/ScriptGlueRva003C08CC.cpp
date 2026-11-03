@@ -48,11 +48,7 @@ class Player;
 extern ScriptEngine *TheScriptEngine;
 
 class AIGroup;
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/GameLogic/AIGroup.h"

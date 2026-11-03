@@ -42,11 +42,7 @@ public:
 	virtual Waypoint *getWaypointByName(const AsciiString &) = 0;
 };
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 

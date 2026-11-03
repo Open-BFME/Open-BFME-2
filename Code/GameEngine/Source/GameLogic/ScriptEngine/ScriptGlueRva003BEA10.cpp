@@ -58,11 +58,7 @@ public:
 	void groupGatherAndMoveInFormationToPosition(int pos, int a, int b, int c);
 };
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"

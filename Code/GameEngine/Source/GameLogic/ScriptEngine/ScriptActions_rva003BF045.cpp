@@ -33,11 +33,7 @@ public:
 #include "../Object/object.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/GameLogic/AIGroup.h"
 class Rva0036FAF8
 {

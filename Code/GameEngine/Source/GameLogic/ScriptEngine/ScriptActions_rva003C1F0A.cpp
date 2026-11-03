@@ -10,11 +10,7 @@ class AIGroup;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class AI
-{
-public:
-	AIGroup *createGroup();
-};
+#include "../../../Include/GameLogic/AI.h"
 extern class AI *TheAI;
 
 #include "../../../Include/Common/TeamBFME2.h"
