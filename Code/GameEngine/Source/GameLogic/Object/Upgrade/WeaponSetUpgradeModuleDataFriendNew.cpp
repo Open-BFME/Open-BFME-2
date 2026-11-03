@@ -12,17 +12,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class WeaponSetUpgradeModuleData
-{
-public:
-	WeaponSetUpgradeModuleData();
-	virtual ~WeaponSetUpgradeModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x128 - 4];
-};
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 
 // ?friend_newModuleData@WeaponSetUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *WeaponSetUpgradeModuleData::friend_newModuleData(INI *ini)

@@ -277,14 +277,7 @@ int Rva004CE29DGet(void);
 
 int Rva004CE52EGet(void);
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-
-private:
-	unsigned char m_pad[0x110];
-};
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 
 class DieMuxData
 {
@@ -349,11 +342,6 @@ public:
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 enum NameKeyType;
 

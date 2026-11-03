@@ -82,11 +82,7 @@ void Rva0033DC9CParse(INI *, void *, void *, const void *);
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 
 // Retail VA 0x00BEF008: 2 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;

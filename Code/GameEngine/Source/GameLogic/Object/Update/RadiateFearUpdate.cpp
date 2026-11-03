@@ -176,11 +176,7 @@ private:
 	int m_filterData; // +0x00
 };
 
-class Rva0025342CMember
-{
-public:
-	Rva0025342CMember *construct();
-};
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 
 class UpdateModuleData
 {
@@ -391,11 +387,6 @@ public:
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp
 

@@ -1149,11 +1149,7 @@ inline void GarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-class WeaponSetUpgradeModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 
 // ?buildFieldParse@RemoveUpgradeUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B7F82 (34 bytes): double-add on the rowed ModuleData getter
