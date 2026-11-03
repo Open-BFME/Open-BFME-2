@@ -8544,3 +8544,4 @@ param,fast_float2long_round::f,fast_float2long_round::inputValue,inferred,"direc
 local,fast_float2long_round::i,fast_float2long_round::roundedValue,inferred,"direct:nd-068f027cdfe1715d3c9bd597 parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/scoped500_propose_a,/root/scoped500_propose_b,/root/scoped500_propose_c",Code/GameEngine/Source/GameLogic/Pathfinder/Rva002ECE6AInfoCtor.cpp,
 member,Rva005964B0Object::m_254,Rva005964B0Object::m_body,inferred,agree:nl-d8d6c266b0e0,Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp,
 class,Rva005F0152,MappedImageCache,inferred,agree:nl-0c5f2f7f35e3,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,
+member,Rva00062E4FTerrain::m_block37C0,Rva00062E4FTerrain::m_map,inferred,agree:nl-adfa3cffb405,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,

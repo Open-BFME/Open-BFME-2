@@ -190,7 +190,7 @@ struct Rva00062E4FBlock
 struct Rva00062E4FTerrain
 {
 	char m_pad00[0x37C0];
-	Rva00062E4FBlock *m_block37C0;
+	Rva00062E4FBlock *m_map;
 };
 
 class Rva00062E4F
@@ -201,7 +201,7 @@ public:
 
 float Rva00062E4F::rva00062E4F()
 {
-	return ((Rva00062E4FTerrain *)TheTerrainRenderObject)->m_block37C0->m_value10 * 10.0f;
+	return ((Rva00062E4FTerrain *)TheTerrainRenderObject)->m_map->m_value10 * 10.0f;
 }
 
 // 0x000851B7 / 0x000851CD / 0x000851E2 / 0x00086093: setters of the words
