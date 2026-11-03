@@ -60,7 +60,7 @@ class CommandButton { public: unsigned char m_pad[0x10C]; bool m_10C; };
 class CommandSet { public: const CommandButton *getCommandButton(int) const; };
 class ControlBar { public: const CommandButton *findCommandButton(const AsciiString &); }; extern ControlBar *TheControlBar;
 class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
-class AutoAbilityBehavior { public: void rva0045A748(void *,bool); };
+#include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
 void ScriptActions::rva003C32CC(const AsciiString &teamName, const AsciiString &buttonName, bool flag)
 {

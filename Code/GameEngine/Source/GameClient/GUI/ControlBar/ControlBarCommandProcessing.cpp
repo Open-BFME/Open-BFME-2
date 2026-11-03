@@ -80,7 +80,7 @@ class Rva0035B164 { public: int rva0035B164(int); };
 class Rva0028B7C1DwordField { public: int get() const; };
 class Thing { public: Drawable *getDrawable() const; };
 struct Rva0045A6D3Arg;
-class AutoAbilityBehavior { public: int isAutoAbilityCommand(const Rva0045A6D3Arg*); };
+#include "../../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 class CommandProductionView { public: virtual void slot0(); virtual int canQueue(const UpgradeTemplate*); };
 class CommandUI { public:
  virtual void slot0();

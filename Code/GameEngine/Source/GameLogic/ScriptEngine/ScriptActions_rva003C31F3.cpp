@@ -43,11 +43,7 @@ public:
 	void *rva0031D5F8(const AsciiString *name);
 };
 #include "../../../Include/GameClient/CommandSet.h"
-class AutoAbilityBehavior
-{
-public:
-	void rva0045A748(void *button, bool flag);
-};
+#include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
 void ScriptActions::Rva003C31F3Do(const AsciiString &unitName, const AsciiString &buttonName, bool flag)
 {

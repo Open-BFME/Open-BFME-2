@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class AutoAbilityBehavior
-{
-public:
-	AutoAbilityBehavior(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x34];
-};
+#include "../../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
 // ?friend_newModuleInstance@AutoAbilityBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *AutoAbilityBehavior::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

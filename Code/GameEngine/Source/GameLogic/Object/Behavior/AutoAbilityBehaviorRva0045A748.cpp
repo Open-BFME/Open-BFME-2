@@ -27,22 +27,12 @@ struct Rva0045A748Arg
 	AsciiString m_str10;
 };
 
-class AutoAbilityBehavior : public UpdateModule
-{
-public:
-	void rva0045A748(void *src, bool flag);
-	void rva0045A8C2(Object *source, Object *target, const struct Rva0045A8C2Options *options);
-	void rva0045A413();
-	void rva0045A421(void *src);
-
-private:
-	AsciiString m_str20;
-};
+#include "../../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 
 void AutoAbilityBehavior::rva0045A748(void *src, bool flag)
 {
 	Rva0045A748Arg *source = (Rva0045A748Arg *)src;
-	if (!source || source->m_str10.compare(m_str20) != 0 || flag != false) {
+	if (!source || source->m_str10.compare(m_20) != 0 || flag != false) {
 		rva0045A421(source);
 		return;
 	}

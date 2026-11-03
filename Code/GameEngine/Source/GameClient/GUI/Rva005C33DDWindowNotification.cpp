@@ -202,7 +202,7 @@ class AsciiString;
 struct Rva0045A63FObject;class Rva0045A63FModule;
 Rva0045A63FModule *Rva0045A63F(const Rva0045A63FObject *,const AsciiString &);
 struct Rva0045A6D3Arg;
-class AutoAbilityBehavior {public:int isAutoAbilityCommand(const Rva0045A6D3Arg *);};
+#include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
 class Rva005C7C75 {public:void rva005C7C75(int);};
 class Rva005C7C5D {public:void rva005C7C5D(bool);void rva005C7C65(bool);};
