@@ -1,0 +1,471 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva006E34D0",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 28,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 3
+   },
+   "0x10": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 2
+   },
+   "0x6c": {
+    "4": 3
+   },
+   "0x7c": {
+    "4": 1
+   },
+   "0x80": {
+    "4": 1
+   },
+   "0x84": {
+    "1": 1
+   },
+   "0x9c": {
+    "4": 3
+   },
+   "0xac": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 5,
+  "retail_vtables": {},
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 4,
+   "8": 1,
+   "25": 2,
+   "40": 1,
+   "48": 4,
+   "52": 1,
+   "64": 2,
+   "104": 1,
+   "112": 1,
+   "124": 1,
+   "164": 3,
+   "168": 1,
+   "172": 3,
+   "176": 2
+  },
+  "views": 27,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "unaccessed00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "AptCIH**",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListMergeHelpers.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp",
+    "Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 10,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp",
+    "Code/Libraries/Source/Apt/AptObject/AptKey.cpp",
+    "Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 26,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 34,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp",
+    "Code/Libraries/Source/Apt/AptMiscObjects.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp",
+    "Code/Libraries/Source/Apt/AptMiscObjects.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 42,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCharacter.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterCreateTextField.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterObjectMemberLookup.cpp",
+    "Code/Libraries/Source/Apt/AptDisplayListRegisterInst.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/Libraries/Source/Apt/Apt.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptValue/Rva006CD6F0.cpp",
+    "Code/Libraries/Source/Apt/Apt_Rva006CDB70Owner.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/Libraries/Source/Apt/Apt.cpp",
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/Apt_Rva006CDB70Owner.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0.cpp",
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0.cpp",
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHMCInfo006E2560.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptAnimation.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva006CD100Apt.cpp",
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva0070F680.cpp",
+    "Code/Libraries/Source/Apt/AptCIH.cpp",
+    "Code/Libraries/Source/Apt/AptCIHQueueClipEvents.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp",
+    "Code/Libraries/Source/Apt/AptAnimation.cpp",
+    "Code/Libraries/Source/Apt/Rva006E34D0Mark.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/Libraries/Source/Apt/Rva006E34D0.cpp",
+    "Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 48,
+ "size_by": "majority",
+ "vslots": {}
+}
