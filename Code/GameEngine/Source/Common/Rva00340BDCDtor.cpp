@@ -15,29 +15,9 @@ public:
     virtual void *scalarDeletingDestructor(unsigned int flags);
 };
 
-enum StateExitType
-{
-    EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-    STATE_CONTINUE = 0,
-    STATE_SUCCESS = -1,
-    STATE_FAILURE = -2
-};
 class Xfer;
 
-class State
-{
-public:
-    virtual ~State();
-    virtual void slot01();
-    virtual void slot02();
-    virtual void xfer(Xfer *xfer);
-    virtual StateReturnType onEnter();
-    virtual void onExit(StateExitType status);
-    virtual StateReturnType update();
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class AIInternalMoveToState : public State
 {
@@ -54,7 +34,7 @@ public:
     virtual ~Rva0033FF2B();
 
 private:
-    char m_pad04[0x40 - 0x04];
+    char m_pad20[0x40 - 0x20];
     unsigned int m_handle40;
 };
 
