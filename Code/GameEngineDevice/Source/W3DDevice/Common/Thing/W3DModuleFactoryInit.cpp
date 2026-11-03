@@ -65,7 +65,7 @@ public:
 	static Module *friend_newModuleInstance(Thing *, const ModuleData *);
 	static ModuleData *friend_newModuleData(INI *);
 };
-class W3DRopeDraw { public: static Module *friend_newModuleInstance(Thing *, const ModuleData *); };
+#include "../../../../Include/W3DDevice/GameClient/Module/W3DRopeDrawClass.h"
 class W3DSupplyDraw
 {
 public:

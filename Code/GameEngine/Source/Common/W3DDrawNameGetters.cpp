@@ -15,11 +15,7 @@ BFME_LITERAL_NAME_GETTER(W3DDefaultDraw, "W3DDefaultDraw")
 BFME_LITERAL_NAME_GETTER(Rva000C1246Named, "W3DScriptedModelDraw")
 BFME_LITERAL_NAME_GETTER(Rva000C9C11Named, "W3DLaserDraw")
 BFME_LITERAL_NAME_GETTER(Rva000CA113Named, "W3DQuadrupedDraw")
-class W3DRopeDraw
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DRopeDrawClass.h"
 
 const char *W3DRopeDraw::GetSnapshotName() const
 {

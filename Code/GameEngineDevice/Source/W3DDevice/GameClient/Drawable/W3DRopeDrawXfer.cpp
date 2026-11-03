@@ -40,34 +40,8 @@ class Object;
 
 #include "../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-class RopeDrawInterface
-{
-public:
-	virtual void ropeSlot();
-};
+#include "../../../../Include/W3DDevice/GameClient/Module/W3DRopeDrawClass.h"
 
-class W3DRopeDraw : public DrawModule, public RopeDrawInterface
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	void tossSegments();
-
-	char m_pad10[12];
-	float m_curLen;
-	float m_maxLen;
-	float m_width;
-	RGBColor m_color;
-	float m_curSpeed;
-	float m_maxSpeed;
-	float m_accel;
-	float m_wobbleLen;
-	float m_wobbleAmp;
-	float m_wobbleRate;
-	float m_curWobblePhase;
-	float m_curZOffset;
-};
 
 void W3DRopeDraw::xfer(Xfer *xfer)
 {
