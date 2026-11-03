@@ -9,7 +9,7 @@
 // the emitted tree find names the rowed AsciiString worker; the 8-byte value
 // is recast. The branch shape (== end with the static in the taken path,
 // result in the fall-through) is the retail-measured form.
-// cl: /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native 0x0041541B..0x0041547C (97B) RET4: lookup in the receiver's
 // AsciiString tree at +0x1C0; found returns the node payload, else a static
 // 8-byte Rva002390CB default at 0x00E03080 with a guard byte at 0x00E03088
@@ -37,12 +37,7 @@ template <> struct less<AsciiString>
 }
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-class Rva002390CB { public:
-    Rva002390CB();
-    Rva002390CB(const Rva002390CB&);
-    ~Rva002390CB();
-    int id; OpaqueRefCounted *ref;
-};
+#include "../../Include/Common/Rva002390CB.h"
 
 // The mapped payload is spelled AsciiString so the emitted tree find names
 // the rowed AsciiString worker at 0x001F8437; the 8-byte value is recast.

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // ??1Rva0041573F@@QAE@XZ @0x004156BC 64B
 // Dtor for the Rva0041573F container (copy 0x0041573F 67B): 56 x Rva002390CB
@@ -11,13 +11,7 @@
 #include <map>
 #include "ascii_string.h"
 
-class Rva002390CB
-{
-	void *m_unknown00;
-	void *m_owner04;
-public:
-	~Rva002390CB();
-};
+#include "../../Include/Common/Rva002390CB.h"
 
 struct BfmeStringRecord002CF550
 {

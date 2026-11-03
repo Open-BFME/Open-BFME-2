@@ -1,16 +1,10 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // The target copies 56 eight-byte records with established copy/cleanup callbacks.
 // Each record owns a reference at +4; original array and owner names are unknown.
 #include <vector>
 
-class Rva002390CB {
-    void *m_unknown;
-    void *m_owner;
-public:
-    __declspec(nothrow) Rva002390CB(const Rva002390CB &);
-    ~Rva002390CB();
-};
+#include "../../Include/Common/Rva002390CB.h"
 
 class BfmeOwnedRecordArray56 {
     Rva002390CB m_records[56];

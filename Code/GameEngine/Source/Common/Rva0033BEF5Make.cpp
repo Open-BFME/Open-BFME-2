@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Rva0033BEF5Make@@YA?AURva0033B830@@ABV?$StringBase@D@@ABVRva002390CB@@@Z @0x0033BEF5 27B.
 // Hidden-dest forwarder over the rowed Rva0033B830 two-member ctor 0x33B830.
 // Chain from 0x33B830: this makes the 0x33DBE5 container parse/buttons path
@@ -15,14 +15,7 @@ public:
     ~StringBase() { releaseBuffer(); }
 };
 
-class Rva002390CB
-{
-    void *m00;
-    void *m04;
-public:
-    Rva002390CB(const Rva002390CB &other);
-    ~Rva002390CB();
-};
+#include "../../Include/Common/Rva002390CB.h"
 
 struct Rva0033B830
 {

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE /G7 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // BFME2 record copies with verified StringBase member operations.
 // Layouts are read from the complete retail constructors and their STLport
@@ -238,12 +238,7 @@ template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08
 
 
 #include "../../Include/Common/Rva0036CA00Str.h"
-class Rva002390CB {
-    void *m_00; Rva0036CA00Str m_04;
-public:
-    __declspec(nothrow) Rva002390CB(const Rva002390CB &);
-    ~Rva002390CB();
-};
+#include "../../Include/Common/Rva002390CB.h"
 struct BfmeStringRecord002CF550 {
     AsciiString text;
     Rva002390CB ref;

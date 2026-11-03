@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva004CA167@AnimationSoundTree@@QAEXPAX@Z, retail 0x004CA167, 53 bytes.
 // AnimationSoundTree node free helper: if the node is null returns; otherwise
 // recurses on the child at +0x0C with the same tree, saves the sibling at +8,
@@ -11,11 +11,7 @@
 // after ??0Rva004C9FBF / ??0Rva004CA125 with the same // cl: line.
 #pragma comment(linker, "/alternatename:?rva004C9D93Compare@Rva004C9D93Cmp@@QBE_NPAX0@Z=?Rva004C9D93Less@@YG_NPAX0@Z")
 
-class Rva002390CB
-{
-public:
-	~Rva002390CB();
-};
+#include "../../Include/Common/Rva002390CB.h"
 
 extern "C" void free(void *);
 

@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHs /MD
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHs /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1ThingTemplate@@UAE@XZ @0x0033DDA1 713B.
 // Virtual scalar destructor of the large ThingTemplate-side record holder:
 // vptr store, 20 member-dtor calls in reverse order, three ehvec array
@@ -89,14 +89,7 @@ private:
 // calls the verified 16-byte destructor at 0x00254B72. Use that owner and
 // its 8-byte record callback (0x004C9F38), rather than a private nested name.
 class OpaqueRefCounted;
-class Rva002390CB
-{
-public:
-	~Rva002390CB();
-private:
-	void *unknown00;
-	OpaqueRefCounted *owner04;
-};
+#include "../../../Include/Common/Rva002390CB.h"
 
 class Rva00254B72
 {
