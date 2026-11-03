@@ -1,0 +1,17 @@
+{
+"??1ObjectCreationUpgradeModuleData@@UAE@XZ@0x004B45E8": [
+"EXACT",
+"",
+"Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+],
+"?rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ@0x004B3FF5": [
+"bytes_differ",
+".text$x guard-and @0x78EB7A: 3 byte(s)",
+"Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+],
+"?rva004B463C@ObjectCreationUpgrade@@QAEXXZ@0x004B463C": [
+"bytes_differ",
+".text$x guard-and @0x78EBD6: 3 byte(s)",
+"Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+]
+}

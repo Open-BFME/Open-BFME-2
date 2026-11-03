@@ -1,0 +1,21 @@
+# ObjectCreationUpgrade common /G6 profile private probe
+
+Scratch-only compiler-profile experiment,2026-11-03. Control text is the current20-row seed after canonical Thing prefix adoption, saved in the preceding ModuleData probe's control.cpp. Candidate changes only managed compiler flags from /O1 /arch:SSE /G7 to /O1 /G6 /arch:SSE. All body, include, field, identity and storage text stays identical. Verifier(flags=...) explicitly applies the candidate profile rather than letting regional defaults silently replace it; candidate.cpp carries the actual effective /G6 /arch:SSE cl-line.
+
+Private Verifier control passes20/20. Candidate's ordinary explicit-row check passes18/20, with only the two compiler-local label lookups failing: ledger $L430 at0x0078EB7B and $L414 at0x0078EBD7 renumber to $L3925 and $L3911. All31 ordinary external code/data definitions, bytes and symbolic relocations remain identical, with no additions/removals/changes. Normal build can resolve compiler-local renumbering, so these lookup misses alone would not prove a codegen blocker.
+
+However, the subsequent actual owning EH verifier on the private candidate object reports EXACT1 and bytes_differ2: both static-guard parent EH graphs differ in their .text$x guard-and section by three bytes, at0x78EB7A and0x78EBD6. A normal funclet-label repoint is therefore NOT a verified remedy. This corrects the initial provisional message that only label lookup failed. The G6 profile is currently blocked on real EH byte differences despite identical ordinary external definitions. No false-reject or exception is claimed. Keep normal build/EH gates authoritative if another concrete profile hypothesis is attempted.
+
+The EH run used tools/eh_verify.py SOURCE --objdir build/objectcreation-g6-profile-20261103/obj --json .../eh-proof.json, reading only a copy of the sanctioned private candidate object. No shared match cache object was overwritten. Its printed FAIL is retained in eh-proof.json; no gate was bypassed or baseline updated. The later source inspection in that same command returned shell exit0, which does not supersede the EH verifier's explicit failed verdict.
+
+Artifacts: control.cpp, explicit-profile candidate.cpp, control/candidate objects, proof.json, eh-proof.json and probe.py. No tracked source, row, funclet, baseline, claim or network mutation occurred. No sourcefile/census gain is claimed. ModuleData README is separately complete; no inline ModuleData destructor or shared-header experiment was attempted.
+
+## Control validation: real compiler difference confirmed
+
+The SAME owning EH verifier run on control.obj with a separate private --objdir returns EXACT3, exit0. It has no section placement conflicts. Both control and candidate use the SAME local labels $L3925 and $L3911; their difference from stale ledger spellings is common to both and not the G6 failure's cause.
+
+For each guard cleanup, control has `A1 <guard> 24 FE A3 <guard> C3`, while G6 has `A1 <guard> 83 E0 FE A3 <guard> C3`. G7 uses two-byte `and al,0xFE`; G6 uses three-byte `and eax,-2`. The associative .text$x section (cleanup plus ten-byte handler) grows23->24B. Symbolic bindings remain identical: the correct parent's guard global twice, its FuncInfo, and ___CxxFrameHandler. Their relocation offsets shift1,8,14,19 ->1,9,15,20; no wrong global or parent association caused this result.
+
+Control graph anchors agree at cleanup starts0x78EB7B and0x78EBD7. G6's handler placement derives starts0x78EB7A and0x78EBD6, disagreeing with the cleanup pointer anchor and recording .text$x placement conflicts. At those derived starts the verifier's exact three unmasked differences are: pool-key0x78EB7A A1 vs FF,0x78EB7F83 vs00,0x78EB80E0 vs24; removal0x78EBD6A1 vsFF,0x78EBDB83 vs00,0x78EBDCE0 vs24. These shifted comparisons arise from the concrete one-byte instruction growth; they are not evidence of three unrelated semantic bugs.
+
+Full raw control/candidate/native bytes, symbolic relocations, parent names, conflict lists and each exact comparison site are in guard-control-comparison.json. control-eh-proof.json confirms the independent clean control. No further source/profile experiment or tracked read is needed for this bounded result.

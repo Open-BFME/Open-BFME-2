@@ -1,0 +1,236 @@
+[
+  {
+    "parent": "?rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ",
+    "rva": "0x4b3ff5",
+    "variants": [
+      {
+        "label": "control",
+        "verdict": [
+          "EXACT",
+          ""
+        ],
+        "placement_conflicts": [],
+        "text_sections": [
+          {
+            "section_start": "0x78eb7b",
+            "length": 23,
+            "object_raw": "a10000000024fea300000000c3b800000000e900000000",
+            "retail": "a1003ee00024fea3003ee000c3b86cf7d300e9f0a5e9ff",
+            "relocations": [
+              {
+                "offset": 1,
+                "type": 6,
+                "symbol": "?$S2@?1??rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ@4IA"
+              },
+              {
+                "offset": 8,
+                "type": 6,
+                "symbol": "?$S2@?1??rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ@4IA"
+              },
+              {
+                "offset": 14,
+                "type": 6,
+                "symbol": "$T3927"
+              },
+              {
+                "offset": 19,
+                "type": 20,
+                "symbol": "___CxxFrameHandler"
+              }
+            ],
+            "unmasked_differences": [],
+            "labels": [
+              {
+                "name": "$L3925",
+                "offset": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "candidate",
+        "verdict": [
+          "bytes_differ",
+          ".text$x guard-and @0x78EB7A: 3 byte(s)"
+        ],
+        "placement_conflicts": [
+          ".text$x"
+        ],
+        "text_sections": [
+          {
+            "section_start": "0x78eb7a",
+            "length": 24,
+            "object_raw": "a10000000083e0fea300000000c3b800000000e900000000",
+            "retail": "ffa1003ee00024fea3003ee000c3b86cf7d300e9f0a5e9ff",
+            "relocations": [
+              {
+                "offset": 1,
+                "type": 6,
+                "symbol": "?$S2@?1??rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ@4IA"
+              },
+              {
+                "offset": 9,
+                "type": 6,
+                "symbol": "?$S2@?1??rva004B3FF5@ObjectCreationUpgrade@@SA?AW4NameKeyType@@XZ@4IA"
+              },
+              {
+                "offset": 15,
+                "type": 6,
+                "symbol": "$T3927"
+              },
+              {
+                "offset": 20,
+                "type": 20,
+                "symbol": "___CxxFrameHandler"
+              }
+            ],
+            "unmasked_differences": [
+              {
+                "offset": 0,
+                "rva": "0x78eb7a",
+                "object": "a1",
+                "retail": "ff"
+              },
+              {
+                "offset": 5,
+                "rva": "0x78eb7f",
+                "object": "83",
+                "retail": "00"
+              },
+              {
+                "offset": 6,
+                "rva": "0x78eb80",
+                "object": "e0",
+                "retail": "24"
+              }
+            ],
+            "labels": [
+              {
+                "name": "$L3925",
+                "offset": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "parent": "?rva004B463C@ObjectCreationUpgrade@@QAEXXZ",
+    "rva": "0x4b463c",
+    "variants": [
+      {
+        "label": "control",
+        "verdict": [
+          "EXACT",
+          ""
+        ],
+        "placement_conflicts": [],
+        "text_sections": [
+          {
+            "section_start": "0x78ebd7",
+            "length": 23,
+            "object_raw": "a10000000024fea300000000c3b800000000e900000000",
+            "retail": "a1103ee00024fea3103ee000c3b8e8f7d300e994a5e9ff",
+            "relocations": [
+              {
+                "offset": 1,
+                "type": 6,
+                "symbol": "?$S1@?5??rva004B463C@ObjectCreationUpgrade@@QAEXXZ@4IA"
+              },
+              {
+                "offset": 8,
+                "type": 6,
+                "symbol": "?$S1@?5??rva004B463C@ObjectCreationUpgrade@@QAEXXZ@4IA"
+              },
+              {
+                "offset": 14,
+                "type": 6,
+                "symbol": "$T3915"
+              },
+              {
+                "offset": 19,
+                "type": 20,
+                "symbol": "___CxxFrameHandler"
+              }
+            ],
+            "unmasked_differences": [],
+            "labels": [
+              {
+                "name": "$L3911",
+                "offset": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "candidate",
+        "verdict": [
+          "bytes_differ",
+          ".text$x guard-and @0x78EBD6: 3 byte(s)"
+        ],
+        "placement_conflicts": [
+          ".text$x"
+        ],
+        "text_sections": [
+          {
+            "section_start": "0x78ebd6",
+            "length": 24,
+            "object_raw": "a10000000083e0fea300000000c3b800000000e900000000",
+            "retail": "ffa1103ee00024fea3103ee000c3b8e8f7d300e994a5e9ff",
+            "relocations": [
+              {
+                "offset": 1,
+                "type": 6,
+                "symbol": "?$S1@?5??rva004B463C@ObjectCreationUpgrade@@QAEXXZ@4IA"
+              },
+              {
+                "offset": 9,
+                "type": 6,
+                "symbol": "?$S1@?5??rva004B463C@ObjectCreationUpgrade@@QAEXXZ@4IA"
+              },
+              {
+                "offset": 15,
+                "type": 6,
+                "symbol": "$T3915"
+              },
+              {
+                "offset": 20,
+                "type": 20,
+                "symbol": "___CxxFrameHandler"
+              }
+            ],
+            "unmasked_differences": [
+              {
+                "offset": 0,
+                "rva": "0x78ebd6",
+                "object": "a1",
+                "retail": "ff"
+              },
+              {
+                "offset": 5,
+                "rva": "0x78ebdb",
+                "object": "83",
+                "retail": "00"
+              },
+              {
+                "offset": 6,
+                "rva": "0x78ebdc",
+                "object": "e0",
+                "retail": "24"
+              }
+            ],
+            "labels": [
+              {
+                "name": "$L3911",
+                "offset": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
