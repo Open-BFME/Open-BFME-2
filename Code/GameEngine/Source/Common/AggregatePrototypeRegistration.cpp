@@ -11,11 +11,10 @@
 bool __cdecl Render_Obj_Exists(const char*);
 #include <new>
 void __cdecl Add_Prototype(void*);
-class StringClass {
- char *buffer;void Free_String();
-public:StringClass(const StringClass&,bool=false);__forceinline ~StringClass(){Free_String();}
- const StringClass &operator+=(const char*);__forceinline const char*str()const{return buffer;}
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+
+__forceinline StringClass::~StringClass() { Free_String(); }
+__forceinline StringClass::operator const char *() const { return m_Buffer; }
 class Rva00180B94_Prototype {char pad[0x14];void *definition;StringClass name;int start,size;
 public:Rva00180B94_Prototype(const char*,void*);void rva00180D4A();};
 class AggregatePayload {public:virtual ~AggregatePayload();};
@@ -37,7 +36,7 @@ public:AggregateDefClass();virtual ~AggregateDefClass();
 };
 void Rva00180B94_Prototype::rva00180D4A() {
  StringClass filename(name,false);filename+=".w3d";
- File *file=GetGameFilePart(filename.str(),start,size);
+ File *file=GetGameFilePart(filename,start,size);
  if(file) {
   ChunkLoadClass chunk((BFMEChunkInput*)file);
   if(chunk.Open_Chunk()&&chunk.Cur_Chunk_ID()==0x600) {

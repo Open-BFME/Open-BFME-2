@@ -14,13 +14,9 @@ public:
 	~HTreeClass();
 };
 
-class StringClass
-{
-public:
-	~StringClass() { Free_String(); }
-private:
-	void Free_String();
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+
+inline StringClass::~StringClass() { Free_String(); }
 
 class Rva0061ED80
 {

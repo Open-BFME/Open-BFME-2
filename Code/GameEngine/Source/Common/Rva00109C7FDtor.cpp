@@ -8,15 +8,10 @@
 // lifetimes independently prove that relationship. Derived identity stays
 // address-derived. Native key getter returns the buffer at+8 in4B.
 // Owner bytes, both deleting callback bytes and native EH graph are exact.
-class StringClass
-{
-	void Free_String();
-public:
-	__forceinline ~StringClass(void) { Free_String(); }
-    operator const char *() const { return m_Buffer; }
-private:
-	char *m_Buffer;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+
+__forceinline StringClass::~StringClass() { Free_String(); }
+inline StringClass::operator const char *() const { return m_Buffer; }
 class HashableClass
 {
 public:

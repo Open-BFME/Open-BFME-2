@@ -14,10 +14,9 @@ class Rva009EB810TailBase {
 public: virtual ~Rva009EB810TailBase();
 private: unsigned char unknown04[0x10];
 };
-class StringClass {
-public: ~StringClass() { Free_String(); }
-private: void Free_String(); char *buffer;
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
+
+inline StringClass::~StringClass() { Free_String(); }
 class HLodDefClass { public: ~HLodDefClass(); };
 class Rva0017FFCA : public Rva009EB810TailBase {
 public: virtual ~Rva0017FFCA();
