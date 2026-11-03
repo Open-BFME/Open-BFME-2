@@ -303,11 +303,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class Player
-{
-public:
-	bool rva002AB87D(const UpgradeTemplate *tmpl) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class FXList
 {

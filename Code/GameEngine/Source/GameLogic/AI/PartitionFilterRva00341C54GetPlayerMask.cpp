@@ -7,12 +7,7 @@
 // the players with relationship 4 to that player, the shape of the rowed
 // Rva00261409Filter::getPlayerMask with an object instead of a player.
 #include "../../Common/GameLogicObjectLookupView.h"
-class Player
-{
-public:
-	unsigned char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 enum Relationship{REL_ZERO=0};
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 struct FilterCoordCopy : Coord3D

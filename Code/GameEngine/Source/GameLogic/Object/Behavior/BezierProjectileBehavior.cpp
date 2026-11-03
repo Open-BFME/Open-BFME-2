@@ -571,15 +571,7 @@ struct Rva0045B9FBPoint : Coord3D
 // this unit adds neither an alias definition nor a guessed virtual contract.
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
 
-class Player
-{
-public:
-	Bool isPlayerActive() const;	// 0x002AA231
-	unsigned char m_pad000[0x54];
-	Int m_playerIndex;		// +0x54
-	unsigned char m_pad058[0x2EC - 0x58];
-	Team *m_defaultTeam;		// +0x2EC
-};
+#include "../../../../Include/Common/Player.h"
 
 class PlayerList
 {

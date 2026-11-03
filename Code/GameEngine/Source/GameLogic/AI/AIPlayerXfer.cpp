@@ -54,12 +54,7 @@ public:
 // TeamInQueue: the build-queue record ctor 0x004EF5CE (new 0x30).
 #include "TeamInQueue.h"
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 class AIPlayer
 {

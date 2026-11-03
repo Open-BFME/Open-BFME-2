@@ -136,9 +136,7 @@ struct Rva00475F61ModuleData {
     char pad1B0[0x24C-0x1B0];
     bool m_sameRank;
 };
-class Player { public: char pad[0x2EC]; Team *m_defaultTeam;
-    Team *getDefaultTeam() { return m_defaultTeam; }
-    const Team *getDefaultTeam() const { return m_defaultTeam; } };
+#include "../../../../Include/Common/Player.h"
 struct CreateMask { unsigned int bits[4]; };
 enum ObjectID; class ThingFactory { public:
     const ThingTemplate *findTemplate(const AsciiString &);

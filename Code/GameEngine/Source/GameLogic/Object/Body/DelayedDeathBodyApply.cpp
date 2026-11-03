@@ -9,7 +9,7 @@ class UpgradeTemplate; class Module; class DamageInfo { public: unsigned char be
 enum NameKeyType;
 // Native Player predicate 0x2AB87D is the rowed const UpgradeTemplate bit test.
 // NameKeyGenerator 0x148E1A returns the same 32-bit NameKeyType enum.
-class Player { public: bool rva002AB87D(const UpgradeTemplate*) const; };
+#include "../../../../Include/Common/Player.h"
 class Object { public:
  Player *getControllingPlayer() const;
  bool hasUpgrade(const UpgradeTemplate*) const;

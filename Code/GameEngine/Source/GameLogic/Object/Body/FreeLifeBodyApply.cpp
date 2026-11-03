@@ -10,7 +10,7 @@ class UpgradeTemplate;
 enum ObjectID;
 enum ModelConditionFlagType;
 class DamageInfo { public: unsigned char before08[8]; ObjectID source; };
-class Player { public: bool rva002AB87D(const UpgradeTemplate *) const; };
+#include "../../../../Include/Common/Player.h"
 #include "../object.h"
 struct Rva00294D61 { void report(Object *, int); };
 #include "../../../Common/GameLogicObjectLookupView.h"

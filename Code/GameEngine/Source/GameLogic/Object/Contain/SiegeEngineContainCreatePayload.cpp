@@ -27,13 +27,7 @@ extern int BfmeLogicFramesPerSecond;
 
 class Team;
 
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-	unsigned char m_pad00[0x2EC];
-	Team *m_defaultTeam;
-};
+#include "../../../../Include/Common/Player.h"
 
 class ThingTemplate
 {

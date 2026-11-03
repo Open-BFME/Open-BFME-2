@@ -20,11 +20,7 @@ enum Relationship
 
 class Object;
 
-class Player
-{
-public:
-	Relationship getRelationship(const Object *that) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../object.h"
 

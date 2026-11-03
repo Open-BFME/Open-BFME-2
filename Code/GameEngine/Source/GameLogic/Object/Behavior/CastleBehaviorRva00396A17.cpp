@@ -6,11 +6,7 @@
 class Player;
 class Team;
 
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return *(Team **)((const char *)this + 0x2ec); }
-};
+#include "../../../../Include/Common/Player.h"
 
 extern GameLogic *TheGameLogic;
 

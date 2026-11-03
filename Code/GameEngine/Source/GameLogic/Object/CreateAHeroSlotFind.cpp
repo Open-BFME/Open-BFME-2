@@ -33,12 +33,7 @@ extern GameInfo *TheGameInfo;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Player
-{
-public:
-	char m_pad00[0x50];
-	Int m_key50;
-};
+#include "../../../Include/Common/Player.h"
 
 // ?Rva0021B37AFind@@YAPAVGameSlot@@PBVPlayer@@@Z
 GameSlot *Rva0021B37AFind(const Player *player)
@@ -51,7 +46,7 @@ GameSlot *Rva0021B37AFind(const Player *player)
 			{
 				AsciiString s(TheGameInfo->getSlot(i)->m_name34);
 				NameKeyType key = TheNameKeyGenerator->nameToKey(s);
-				if (player->m_key50 == (Int)key)
+				if (player->m_playerNameKey == (Int)key)
 					found = TheGameInfo->getSlot(i);
 			}
 		}

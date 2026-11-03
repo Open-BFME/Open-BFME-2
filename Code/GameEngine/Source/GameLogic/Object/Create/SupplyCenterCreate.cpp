@@ -30,12 +30,7 @@ public:
 	void rva004F5C44(Object *obj);
 };
 
-class Player
-{
-public:
-	char m_pad000[0x2E4];
-	ResourceGatheringManager *m_resourceGatheringManager;
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/Common/PlayerList.h"
 

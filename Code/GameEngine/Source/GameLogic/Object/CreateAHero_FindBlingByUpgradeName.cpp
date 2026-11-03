@@ -214,17 +214,7 @@ extern SubsystemInterfaceList *TheSubsystemList;
 // The dword at VA 0x00DFE348 (ColdGlobalDwordGetters.cpp) gates init's load.
 extern int g_Va00DFE348;
 
-class Player
-{
-public:
-	Bool isLocalPlayer() const;
-	void removeUpgrade(const class UpgradeTemplate *, Int);
-	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
-
-private:
-	unsigned char m_pad00[0x50];
-	NameKeyType m_playerNameKey;				// +0x50
-};
+#include "../../../Include/Common/Player.h"
 
 
 enum FactionType { FACTION_UNKNOWN=-1 };

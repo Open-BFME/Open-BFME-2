@@ -12,12 +12,7 @@
 //           argument is unused.
 // Slot names by address.
 #include "../../../Common/GameLogicObjectLookupView.h"
-class Player
-{
-public:
-	unsigned char m_pad00[0x54];
-	int m_54;			// +0x54
-};
+#include "../../../../Include/Common/Player.h"
 #include "../object.h"
 extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Damage.h"
@@ -65,7 +60,7 @@ void DamageFilteredCreateObjectDie::onDamage(DamageInfo *damageInfo)
 		{
 			Player *player = source->getControllingPlayer();
 			if (player)
-				m_playerValue = player->m_54;
+				m_playerValue = player->m_playerIndex;
 		}
 	}
 }

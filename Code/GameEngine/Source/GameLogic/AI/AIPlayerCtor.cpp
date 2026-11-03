@@ -9,14 +9,7 @@
 // seconds float +0x08). The two queue heads are constructed subobjects; as
 // plain pointers the scheduler hoists the scalar stores above the vptr.
 
-class Player
-{
-public:
-	void setCanBuildUnits(bool b) { m_canBuildUnits = b; }
-private:
-	char m_pad[0x338];
-	bool m_canBuildUnits;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

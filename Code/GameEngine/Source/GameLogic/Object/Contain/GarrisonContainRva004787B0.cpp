@@ -11,12 +11,7 @@
 class AsciiString;
 class ThingTemplate;
 class Team;
-class Player
-{
-public:
-	char m_pad[0x2EC];
-	Team *m_team;
-};
+#include "../../../../Include/Common/Player.h"
 class Object;
 class Payload
 {
@@ -107,7 +102,7 @@ void GarrisonContain::rva004787B0()
 	{
 		memset(&mask, 0, 0x10);
 		Player *player = obj->getControllingPlayer();
-		Team *team = player->m_team;
+		Team *team = player->m_defaultTeam;
 		Object *created = TheThingFactory->newObject((const ThingTemplate *)tmpl, team, &mask, (ObjectID)0);
 		Payload *payload = obj->m_250;
 		if (payload)

@@ -9,14 +9,7 @@
 // +0x78..+0x9C, m_frameLastBuildingBuilt = TheGameLogic->getFrame() (+0x40),
 // then p->setCanBuildUnits(true) (Player +0x338). Caller: 0x002A9AAC.
 
-class Player
-{
-public:
-	void setCanBuildUnits(bool b) { m_canBuildUnits = b; }
-private:
-	char m_pad[0x338];
-	bool m_canBuildUnits;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
