@@ -595,3 +595,4 @@ AssetRegistry,Code/GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h
 ArmyDetailsMovieClip,Code/GameEngine/Include/GameClient/ArmyDetailsMovieClip.h,existing header; contract class_contracts/ArmyDetailsMovieClip.json; 10/10 sampled units adopt
 HordeContainInterface,Code/GameEngine/Include/GameLogic/Module/HordeContainInterface.h,existing header; contract class_contracts/HordeContainInterface.json; 10/14 sampled units adopt
 GiveUpgradeUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h,existing header; contract class_contracts/GiveUpgradeUpdateModuleData.json; 8/13 sampled units adopt
+DestroyDieModuleData,Code/GameEngine/Include/GameLogic/Module/DestroyDieModuleData.h,existing header; contract class_contracts/DestroyDieModuleData.json; 5/14 sampled units adopt
