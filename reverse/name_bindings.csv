@@ -393,3 +393,6 @@ agree:nl-51c1c2e1e157,DeblockLoopFilteredBand_C::p4,DeblockLoopFilteredBand_C::r
 agree:nl-04a80af6d435,DeblockLoopFilteredBand_C::p5,DeblockLoopFilteredBand_C::rowOffset5,Code/Libraries/Source/VP6/DeblockLoopFilteredBandC.cpp,87ea662b322a67a89bf47bfa872d558a622daed8523e86106c03a5fc015691bc
 agree:nl-d7348777f558,Rva00503D26Evaluate::u,Rva00503D26Evaluate::oneMinusT,Code/GameEngine/Source/Common/calc.cpp,ef700c73498ee8bd3d70c03a83386cdd2068b653e587049dd160d0f3221bc704
 agree:nl-5f708e2db5de,Rva00503D4ECubic::u,Rva00503D4ECubic::oneMinusT,Code/GameEngine/Source/Common/calc.cpp,09d33fd1e1c925ab4807cff3bfa337902370978ba8dd702aa1d89256a4914ef9
+agree:nl-025fea6ea62f-m5c3f04b2391afe2cfb16d4e2,AptComponents::UpdateView3D::x,AptComponents::UpdateView3D::lightX,Code/GameEngine/Source/Common/AptComponents.cpp,8869c28f722f244b3aae8157feef1f2290d286d6f574bd5f80efdb6051ea47a1
+agree:nl-bea1ccc2344b-ma4a6116d6336ce14eafe6ce3,AptComponents::UpdateView3D::y,AptComponents::UpdateView3D::lightY,Code/GameEngine/Source/Common/AptComponents.cpp,8869c28f722f244b3aae8157feef1f2290d286d6f574bd5f80efdb6051ea47a1
+agree:nl-ccfb79ff6226,Rva000B348E::rva000B348E::v,Rva000B348E::rva000B348E::flags,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp,dae02b07b13a6ac926f3e4b327409b4dca28d2a0a915411c0c1f6724bf47092e

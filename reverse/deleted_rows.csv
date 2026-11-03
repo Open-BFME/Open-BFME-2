@@ -4629,3 +4629,4 @@ __ehhandler$?rva007B4874@@YAXXZ,0x007A0AD0,"Renamed to __ehhandler$?registerStre
 ?rva007B48CB@@YAXXZ,0x007B48CB,"Renamed to ?registerUpgradeTroops@@YAXXZ by tools/rename.py (inferred)"
 __ehhandler$?rva007B48CB@@YAXXZ,0x007A0B40,"Renamed to __ehhandler$?registerUpgradeTroops@@YAXXZ by tools/rename.py (inferred)"
 ?rva0009AFA5@Rva0009D55BProduct@@UAEXM@Z,0x0009AFA5,"Renamed to ?setPosition@Rva0009D55BProduct@@UAEXM@Z by tools/rename.py (inferred)"
+?bfmeResetVMP@BfmeCtxVMP@@QAEXXZ,0x00666080,"Renamed to ?reset@BfmeCtxVMP@@QAEXXZ by tools/rename.py (inferred)"

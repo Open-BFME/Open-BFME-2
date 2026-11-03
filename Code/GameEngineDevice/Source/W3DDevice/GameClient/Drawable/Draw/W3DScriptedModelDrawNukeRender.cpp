@@ -223,10 +223,10 @@ void Rva000B348E::rva000B348E(bool b)
 	d = u;
 	if (!m)
 		return;
-	unsigned int v = m->vslot120();
+	unsigned int flags = m->vslot120();
 	if (u)
-		v |= 4;
+		flags |= 4;
 	else
-		v &= ~4u;
-	m->vslot121(v, 1);
+		flags &= ~4u;
+	m->vslot121(flags, 1);
 }

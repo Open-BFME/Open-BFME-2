@@ -10,7 +10,7 @@ class Rva00262176Timer
 {
 public:
 	int m_bfmeHead[8];					// +0x00
-	int m_bfmeDeadline;					// +0x20
+	int m_deadline;					// +0x20
 };
 
 class Rva00262176
@@ -20,20 +20,20 @@ public:
 
 private:
 	int m_bfmeHead;						// +0x00
-	int *m_bfmeOwner;					// +0x04
+	int *m_owner;					// +0x04
 	int m_bfmeGap[2];					// +0x08
-	Rva00262176Timer *m_bfmeTimer;				// +0x10
+	Rva00262176Timer *m_timer;				// +0x10
 };
 
 // ?rva00262176@Rva00262176@@QBE_NXZ
 bool Rva00262176::rva00262176(void) const
 {
-	if (!m_bfmeOwner)
+	if (!m_owner)
 		return false;
 
-	if (!m_bfmeTimer)
+	if (!m_timer)
 		return false;
 
-	return m_bfmeTimer->m_bfmeDeadline != 0x7FFFFFFF;
+	return m_timer->m_deadline != 0x7FFFFFFF;
 }
 

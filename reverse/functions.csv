@@ -8202,7 +8202,7 @@ _VP6_DecodeMode,,0x001C59F0,270,Code/Libraries/Source/VP6/DecodeMode.cpp,matched
 _vp6_writeframe,,0x001BB3B0,104,Code/Libraries/Source/VP6/WriteFrame.cpp,matched,Clean-room spec 001bb3b0; vp6_writeframe: cdecl dumping the recon planes to a y%04d.raw file; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001bb3b0.md and retail only
 ?bfmeMask@@YAHPAVBfmeThingBW@@@Z,,0x006A45B0,25,Code/GameEngine/Source/Common/Bfme5TinyThree.cpp,matched,BFME1 byte-identical donor; b1 0x008636E0
 ?bfmeScale@@YANI@Z,,0x006B8C60,25,Code/GameEngine/Source/Common/Bfme5TinyThree.cpp,matched,BFME1 byte-identical donor; b1 0x008793D0
-?bfmeResetVMP@BfmeCtxVMP@@QAEXXZ,,0x00666080,75,Code/GameEngine/Source/Common/BfmeConv1455.cpp,matched,BFME1 byte-identical donor; b1 0x007F9B30
+?reset@BfmeCtxVMP@@QAEXXZ,,0x00666080,75,Code/GameEngine/Source/Common/BfmeConv1455.cpp,matched,BFME1 byte-identical donor; b1 0x007F9B30
 ?bfmeDelTVC@BfmeThingTVC@@QAEPAXE@Z,,0x00665BD0,55,Code/Libraries/Source/Fesl/transactor.cpp,matched,BFME1 byte-identical donor; b1 0x007F9660
 ??0BfmeThingTUA@@QAE@XZ,,0x0066CCC0,50,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 byte-identical donor; b1 0x008008E0
 ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z,,0x00656C30,52,Code/GameEngine/Source/Common/BfmeConv1324.cpp,matched,BFME1 port; CloseHandle import plus scalar delete replace BFME1 helpers

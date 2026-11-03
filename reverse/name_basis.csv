@@ -7384,3 +7384,13 @@ param,Rva0056B8F4::rva0056B8F4::arg,Rva0056B8F4::rva0056B8F4::index,inferred,agr
 param,Rva0056B929::rva0056B929::arg,Rva0056B929::rva0056B929::flag,inferred,agree:nl-7856de77e38b-m9a8f1a3b5d545b3c984cecbb,Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp,0x0056B929
 local,Rva000B348E::rva000B348E::o,Rva000B348E::rva000B348E::owner,inferred,agree:nl-a880ba34ab0c-m4de1c6664c418350a8ad09ec,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp,0x000B348E
 function,?rva0009AFA5@Rva0009D55BProduct@@UAEXM@Z,?setPosition@Rva0009D55BProduct@@UAEXM@Z,inferred,agree:nl-9f4b716a811c,Code/GameEngine/Source/Common/Rva0009ADA0ScreenToTerrain.cpp,0x0009AFA5
+member,BfmeCtxVMP::m_bfme18,BfmeCtxVMP::m_buffer,inferred,agree:nl-5bc4ffb902be,Code/GameEngine/Source/Common/BfmeConv1455.cpp,
+member,Rva00262176Timer::m_bfmeDeadline,Rva00262176Timer::m_deadline,inferred,agree:nl-a7d51a1b7c8e,Code/GameEngine/Source/GameLogic/Object/Update/Rva00262176Activity.cpp,
+member,Rva00262176::m_bfmeOwner,Rva00262176::m_owner,inferred,agree:nl-1d630b0b8764,Code/GameEngine/Source/GameLogic/Object/Update/Rva00262176Activity.cpp,
+member,Rva00262176::m_bfmeTimer,Rva00262176::m_timer,inferred,agree:nl-5467e9c6861e,Code/GameEngine/Source/GameLogic/Object/Update/Rva00262176Activity.cpp,
+local,AptComponents::UpdateView3D::x,AptComponents::UpdateView3D::lightX,inferred,agree:nl-025fea6ea62f-m5c3f04b2391afe2cfb16d4e2,Code/GameEngine/Source/Common/AptComponents.cpp,0x004107CD
+local,AptComponents::UpdateView3D::y,AptComponents::UpdateView3D::lightY,inferred,agree:nl-bea1ccc2344b-ma4a6116d6336ce14eafe6ce3,Code/GameEngine/Source/Common/AptComponents.cpp,0x004107CD
+local,BfmeCtxVMP::bfmeResetVMP::b,BfmeCtxVMP::bfmeResetVMP::buffer,inferred,agree:nl-c0ab95785a66-m855d4dc09473ce49855c7bce,Code/GameEngine/Source/Common/BfmeConv1455.cpp,0x00666080
+local,Rva000B348E::rva000B348E::v,Rva000B348E::rva000B348E::flags,inferred,agree:nl-ccfb79ff6226,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp,0x000B348E
+function,?bfmeResetVMP@BfmeCtxVMP@@QAEXXZ,?reset@BfmeCtxVMP@@QAEXXZ,inferred,agree:nl-bfb1e2dbfdd6,Code/GameEngine/Source/Common/BfmeConv1455.cpp,0x00666080
+carry,BfmeCtxVMP::bfmeResetVMP::buffer,BfmeCtxVMP::reset::buffer,inferred,scope renamed by Rename bfmeResetVMP to reset (inferred),Code/GameEngine/Source/Common/BfmeConv1455.cpp,0x00666080
