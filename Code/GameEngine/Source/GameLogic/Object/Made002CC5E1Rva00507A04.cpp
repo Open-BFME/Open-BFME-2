@@ -114,13 +114,7 @@ struct Made002CC5E1Request
 	unsigned int m_frame;         // +0x1C
 };
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-private:
-	char m_pad04[0x128 - 4];
-};
+#include "../../../Include/GameLogic/Module/Rva00507823.h"
 
 class DamageNugget : public Rva00507823
 {

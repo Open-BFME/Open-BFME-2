@@ -229,11 +229,7 @@ protected:
 	virtual void xfer(Xfer *a);
 };
 
-class Rva00507823
-{
-public:
-	virtual void rva00507877();
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 class _bfme_AptGameWindow
 {

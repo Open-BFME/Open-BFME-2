@@ -65,17 +65,7 @@ struct Rva00507558Arg
 	ObjectID m_id08;
 };
 
-class Rva00507823
-{
-public:
-	unsigned char rva00507558(const void *arg);
-	unsigned char rva0050774A(const void *arg, int unused);
-	unsigned char rva005075D6(const void *arg, Object *target);
-private:
-	char m_pad00[4];
-	_STL::_Base_bitset<32> m_need04;
-	_STL::_Base_bitset<32> m_ban84;
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 // ZH ControlBar.cpp isValidObjectTarget supplies the relationship-mask guide.
 // Target 5075D6..50774A proves the larger BF2 filter, receiver+120,

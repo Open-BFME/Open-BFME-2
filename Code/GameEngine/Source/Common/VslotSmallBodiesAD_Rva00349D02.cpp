@@ -166,11 +166,7 @@ void ActivateModuleSpecialPower::onExit(bool a, bool b)
 // object with the first argument.
 // 0x00508925: whether the rowed 0x005075D6 (Rva005075D6TargetFilter.cpp)
 // accepts both arguments on this.
-class Rva00507823
-{
-public:
-	unsigned char rva005075D6(const void *arg, Object *target);
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 class Rva00508925
 {

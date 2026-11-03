@@ -9,13 +9,7 @@
 // shape as rowed CloudBreak 0x004C47F3.
 #include "ascii_string.h"
 
-class Rva00507823
-{
-public:
-	virtual ~Rva00507823();
-private:
-	unsigned char m_pad[0x128 - 4];
-};
+#include "../../Include/GameLogic/Module/Rva00507823.h"
 
 class __declspec(novtable) Rva00508CF7 : public Rva00507823
 {
