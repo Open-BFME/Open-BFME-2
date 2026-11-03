@@ -272,15 +272,44 @@ Rva004CDD39::~Rva004CDD39()
 }
 
 static int s_dummy52C8;
-extern "C"
-{
-	int s_dummy5348;
+extern "C" {
+void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
+void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
+void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
+void __identifier("?get@Rva005C4AE5ByteField@@QBEEXZ")();
+void __identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z")();
+void __identifier("?rva0044EDA6@ToggleDeploySpecialAbilityUpdate@@UAE_NH@Z")();
+void __identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z")();
+void __identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z")();
+void __identifier("?rva004CE0D9@UnleashSpecialPower@@UAE_NH@Z")();
+void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
 }
+
+// RVA 0x00855348; 9 code pointers; the next native word is zero padding.
+extern "C" const void *const s_dummy5348[9] = {
+	(const void *)&__identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z"), // slot 0, RVA 0x004500A3
+	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 1, RVA 0x0050B5C6
+	(const void *)&__identifier("?get@Rva005C4AE5ByteField@@QBEEXZ"), // slot 2, RVA 0x005C4AE5
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 3, RVA 0x000D43D0
+	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 4, RVA 0x0047A699
+	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5, RVA 0x0047A69C
+	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // slot 6, RVA 0x0044EECA
+	(const void *)&__identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z"), // slot 7, RVA 0x0044F09F
+	(const void *)&__identifier("?rva0044EDA6@ToggleDeploySpecialAbilityUpdate@@UAE_NH@Z"), // slot 8, RVA 0x004AE583
+};
 static int s_dummyDF74;
-extern "C"
-{
-	int s_dummyFD98;
-}
+// RVA 0x0085FD98; 9 code pointers; the next native word is zero padding.
+extern "C" const void *const s_dummyFD98[9] = {
+	(const void *)&__identifier("?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z"), // slot 0, RVA 0x004500A3
+	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 1, RVA 0x0050B5C6
+	(const void *)&__identifier("?get@Rva005C4AE5ByteField@@QBEEXZ"), // slot 2, RVA 0x005C4AE5
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 3, RVA 0x000D43D0
+	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 4, RVA 0x0047A699
+	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5, RVA 0x0047A69C
+	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // slot 6, RVA 0x0044EECA
+	(const void *)&__identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z"), // slot 7, RVA 0x0044F09F
+	(const void *)&__identifier("?rva004CE0D9@UnleashSpecialPower@@UAE_NH@Z"), // slot 8, RVA 0x004CE0D9
+};
 
 
 
@@ -312,11 +341,40 @@ Rva004CE03D::~Rva004CE03D()
 	m_p20 = &s_dummyFD98;
 }
 
-extern "C"
-{
-	int s_dummy5198;
-	int s_dummy5188;
+extern "C" {
+void __identifier("??1Region2D@@QAE@XZ")();
+void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
+void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
+void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
+void __identifier("?get@Rva005C4AE5ByteField@@QBEEXZ")();
+void __identifier("?rva0044EDA6@SpecialAbilityUpdate@@UAE_NH@Z")();
+void __identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z")();
+void __identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z")();
+void __identifier("?rva004ADBD7@Rva004ADBD7@@UAEXXZ")();
+void __identifier("?rva004ADC38@Rva004ADC38@@QAEXHHHHH@Z")();
+void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
 }
+
+// RVA 0x00855198; 9 code pointers; the next native word is zero padding.
+extern "C" const void *const s_dummy5198[9] = {
+	(const void *)&__identifier("?rva004ADC38@Rva004ADC38@@QAEXHHHHH@Z"), // slot 0, RVA 0x004ADC38
+	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 1, RVA 0x0050B5C6
+	(const void *)&__identifier("?get@Rva005C4AE5ByteField@@QBEEXZ"), // slot 2, RVA 0x005C4AE5
+	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 3, RVA 0x000D43D0
+	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 4, RVA 0x0047A699
+	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"), // slot 5, RVA 0x0047A69C
+	(const void *)&__identifier("?rva0044EECA@Rva0044EECA@@QAE_NPAURva0044EECAParam@@@Z"), // slot 6, RVA 0x0044EECA
+	(const void *)&__identifier("?rva0044F09F@Rva0044F09F@@UAE_NH@Z"), // slot 7, RVA 0x0044F09F
+	(const void *)&__identifier("?rva0044EDA6@SpecialAbilityUpdate@@UAE_NH@Z"), // slot 8, RVA 0x0044EDA6
+};
+
+// RVA 0x00855188; 4 code pointers; followed immediately by the next table.
+extern "C" const void *const s_dummy5188[4] = {
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 0, RVA 0x000B3FD0
+	(const void *)&__identifier("?rva004ADBD7@Rva004ADBD7@@UAEXXZ"), // slot 1, RVA 0x004ADBD7
+	(const void *)&__identifier("??1Region2D@@QAE@XZ"), // slot 2, RVA 0x000B3FD0
+	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 3, RVA 0x0047A699
+};
 
 class Rva004AD9B0 : public Rva0044EF5E
 {
