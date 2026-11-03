@@ -39,8 +39,8 @@ inline bool BitFlags<116>::testSetAndClear(const BitFlags &mustBeSet, const BitF
 // 0x0030A8D1 (object pointer as the first stack argument), which is rowed
 // under this placeholder name; that forwarder's real identity is unknown.
 #pragma inline_depth(0)
-void bfmeEmitBitFlags116TestSetAndClear(BitFlags<116> *p, const BitFlags<116> &a, const BitFlags<116> &b)
+void bfmeEmitBitFlags116TestSetAndClear(BitFlags<116> *flags, const BitFlags<116> &a, const BitFlags<116> &b)
 {
-	p->testSetAndClear(a, b);
+	flags->testSetAndClear(a, b);
 }
 #pragma inline_depth()

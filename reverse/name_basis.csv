@@ -7351,3 +7351,12 @@ param,Rva00503D4ECubic::a,Rva00503D4ECubic::start,inferred,agree:nl-d3ec4fc3de9e
 param,Rva00503D4ECubic::b,Rva00503D4ECubic::control1,inferred,agree:nl-d4b9931f177f,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
 param,Rva00503D4ECubic::c,Rva00503D4ECubic::control2,inferred,agree:nl-5f84d90e02aa,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
 param,Rva00503D4ECubic::d,Rva00503D4ECubic::end,inferred,agree:nl-73668593d9d0,Code/GameEngine/Source/Common/calc.cpp,0x00503D4E
+param,bfmeGoVHR::L,bfmeGoVHR::luaState,inferred,agree:nl-f1050859111d,Code/GameEngine/Source/Common/BfmeConv1367.cpp,0x0074AF10
+param,bfmeGoVHS::L,bfmeGoVHS::luaState,inferred,agree:nl-334a13ce8cab,Code/GameEngine/Source/Common/BfmeConv1367.cpp,0x0074AF70
+param,bfmeEmitBitFlags116TestSetAndClear::p,bfmeEmitBitFlags116TestSetAndClear::flags,inferred,agree:nl-0e49ec8f78d9,Code/GameEngine/Source/Common/BitFlags116TestSetAndClear.cpp,0x0030A8D1
+param,Base003F877E::b,Base003F877E::phase,inferred,agree:nl-0d1323d28d15,Code/GameEngine/Source/Common/Rva003F877ECtor.cpp,
+function,?rva00030AF0@@YAIII@Z,?add@@YAIII@Z,inferred,agree:nl-1dc54dcdf578,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,0x00030AF0
+function,?bfmeGoVHS@@YAHPAUBfmeLuaVHR@@@Z,?osRename@@YAHPAUBfmeLuaVHR@@@Z,inferred,agree:nl-8817692edbde,Code/GameEngine/Source/Common/BfmeConv1367.cpp,0x0074AF70
+carry,bfmeGoVHS::luaState,osRename::luaState,inferred,scope renamed by Rename bfmeGoVHS to osRename (inferred),Code/GameEngine/Source/Common/BfmeConv1367.cpp,0x0074AF70
+function,?Rva00580DBF@@YAXPAPAX0VRva000795C1Record@@@Z,?makeHeap@@YAXPAPAX0VRva000795C1Record@@@Z,inferred,agree:nl-087a3d03b0c7,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,0x00580DBF
+function,?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,?partialSort@@YAXPAPAX00VRva000795C1Record@@@Z,inferred,agree:nl-198df05c3e12,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp,0x00580F7F

@@ -79,13 +79,13 @@ void __cdecl finalInsertionSort(void **first, void **last, Rva000795C1Record com
 
 void ** __cdecl median(void * const &, void * const &, void * const &, Rva000795C1Record);
 void ** __cdecl unguardedPartition(void **, void **, void *, Rva000795C1Record);
-void __cdecl Rva00580F7FPartialSort(void **, void **, void **, Rva000795C1Record);
+void __cdecl partialSort(void **, void **, void **, Rva000795C1Record);
 // Native580FD1..5810B6/229B; STLport introsort depth fallback and median partition.
 // ?introsortLoop@@YAXPAPAX00HVRva000795C1Record@@@Z
 void __cdecl introsortLoop(void **first, void **last, void **, int depth, Rva000795C1Record compare) {
     while (last-first > 16) {
         if (depth == 0) {
-            Rva00580F7FPartialSort(first,last,last,compare);
+            partialSort(first,last,last,compare);
             return;
         }
         --depth;
@@ -133,8 +133,8 @@ void ** __cdecl unguardedPartition(void **first, void **last, void *pivot, Rva00
 // Called only when the rowed introsort loop exhausts its depth budget. The
 // three iterator arguments and comparator copy are target-supported by that
 // call site; the helper's address-derived identity remains provisional.
-// ?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z
-void __cdecl Rva00580F7FPartialSort(void **first, void **middle, void **last, Rva000795C1Record compare) {
+// ?partialSort@@YAXPAPAX00VRva000795C1Record@@@Z
+void __cdecl partialSort(void **first, void **middle, void **last, Rva000795C1Record compare) {
     Rva00580ED0PartialSortImpl(first, middle, last, (void **)0, compare);
 }
 
@@ -147,8 +147,8 @@ void __cdecl Rva00580CE2(void **first, void **last, void **, Rva000795C1Record c
 
 // The adjacent heap routine uses this wrapper with its target-proven iterator
 // pair and 16B comparator; the helper and template identity stay address-only.
-// ?Rva00580DBF@@YAXPAPAX0VRva000795C1Record@@@Z
-void __cdecl Rva00580DBF(void **first, void **last, Rva000795C1Record compare) {
+// ?makeHeap@@YAXPAPAX0VRva000795C1Record@@@Z
+void __cdecl makeHeap(void **first, void **last, Rva000795C1Record compare) {
     Rva00580C6F(first, last, compare, (void **)0, (void **)0);
 }
 
@@ -212,7 +212,7 @@ void __cdecl sortHeap(void **first, void **last, Rva000795C1Record compare)
 // ?Rva00580ED0PartialSortImpl@@YAXPAPAX000VRva000795C1Record@@@Z
 void __cdecl Rva00580ED0PartialSortImpl(void **first, void **middle, void **last, void **, Rva000795C1Record compare)
 {
-	Rva00580DBF(first, middle, compare);
+	makeHeap(first, middle, compare);
 	for (void **i = middle; i < last; ++i)
 	{
 		if (compare.compareRva005803C0(*i, *first))

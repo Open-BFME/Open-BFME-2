@@ -4612,3 +4612,7 @@ __ehhandler$?Rva004617CFFind@@YAPAVBehaviorModule@@PAUFakePortalObjectView@@@Z,0
 ?Rva003BE553AdjustHeap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z,0x003BE553,"Renamed to ?__adjust_heap@@YAXPAPAURva003BD485Keyed@@HHPAU1@H@Z by tools/rename.py (inferred)"
 ?Rva003C3AC7PopHeap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z,0x003C3AC7,"Renamed to ?__pop_heap@@YAXPAPAURva003BD485Keyed@@00PAU1@H@Z by tools/rename.py (inferred)"
 ?Rva003C3AF0MakeHeap@@YAXPAPAURva003BD485Keyed@@0H@Z,0x003C3AF0,"Renamed to ?__make_heap@@YAXPAPAURva003BD485Keyed@@0H@Z by tools/rename.py (inferred)"
+?rva00030AF0@@YAIII@Z,0x00030AF0,"Renamed to ?add@@YAIII@Z by tools/rename.py (inferred)"
+?bfmeGoVHS@@YAHPAUBfmeLuaVHR@@@Z,0x0074AF70,"Renamed to ?osRename@@YAHPAUBfmeLuaVHR@@@Z by tools/rename.py (inferred)"
+?Rva00580DBF@@YAXPAPAX0VRva000795C1Record@@@Z,0x00580DBF,"Renamed to ?makeHeap@@YAXPAPAX0VRva000795C1Record@@@Z by tools/rename.py (inferred)"
+?Rva00580F7FPartialSort@@YAXPAPAX00VRva000795C1Record@@@Z,0x00580F7F,"Renamed to ?partialSort@@YAXPAPAX00VRva000795C1Record@@@Z by tools/rename.py (inferred)"

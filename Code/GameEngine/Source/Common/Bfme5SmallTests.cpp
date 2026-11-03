@@ -248,7 +248,7 @@ Rva00140BE0WordCell *rva00140BE0(Rva00140BE0WordCell *list,
 // is established. Donor BfmeConv1011.cpp BFME1@6583b3c1ff21db4a561285717028fdafc780b7db
 // blob6bbbffd104ce4700826f2663a9616e1e88c480ff: at<T> is an address-offset
 // semantic lead only, with eight tied donor labels. Preserve raw addition.
-unsigned int __cdecl rva00030AF0(unsigned int first, unsigned int second)
+unsigned int __cdecl add(unsigned int first, unsigned int second)
 {
     return second + first;
 }

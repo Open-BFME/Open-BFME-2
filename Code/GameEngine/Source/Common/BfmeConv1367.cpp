@@ -13,30 +13,30 @@ extern "C" void __cdecl lua_pushusertag(BfmeLuaVHR *L, void *u, int tag);
 // msvcr71!rename @0xBBA718), so declare the true import names here.
 extern "C" __declspec(dllimport) int __cdecl remove(const char *path);
 
-int __cdecl bfmeGoVHR(BfmeLuaVHR *L)
+int __cdecl bfmeGoVHR(BfmeLuaVHR *luaState)
 {
-	if (remove(luaL_check_lstr(L, 1, 0)) == 0)
+	if (remove(luaL_check_lstr(luaState, 1, 0)) == 0)
 	{
-		lua_pushusertag(L, 0, 0);
+		lua_pushusertag(luaState, 0, 0);
 		return 1;
 	}
-	lua_pushnil(L);
-	lua_pushstring(L, "generic I/O error");
-	lua_pushnumber(L, -1.0);
+	lua_pushnil(luaState);
+	lua_pushstring(luaState, "generic I/O error");
+	lua_pushnumber(luaState, -1.0);
 	return 3;
 }
 
 extern "C" __declspec(dllimport) int __cdecl rename(const char *from, const char *to);
 
-int __cdecl bfmeGoVHS(BfmeLuaVHR *L)
+int __cdecl osRename(BfmeLuaVHR *luaState)
 {
-	if (rename(luaL_check_lstr(L, 1, 0), luaL_check_lstr(L, 2, 0)) == 0)
+	if (rename(luaL_check_lstr(luaState, 1, 0), luaL_check_lstr(luaState, 2, 0)) == 0)
 	{
-		lua_pushusertag(L, 0, 0);
+		lua_pushusertag(luaState, 0, 0);
 		return 1;
 	}
-	lua_pushnil(L);
-	lua_pushstring(L, "generic I/O error");
-	lua_pushnumber(L, -1.0);
+	lua_pushnil(luaState);
+	lua_pushstring(luaState, "generic I/O error");
+	lua_pushnumber(luaState, -1.0);
 	return 3;
 }

@@ -17,7 +17,7 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 struct Base003F877E
 {
-	Base003F877E(int a, int b) : m_04(a), m_08(b) {}
+	Base003F877E(int a, int phase) : m_04(a), m_08(phase) {}
 	int m_04;
 	int m_08;
 };
