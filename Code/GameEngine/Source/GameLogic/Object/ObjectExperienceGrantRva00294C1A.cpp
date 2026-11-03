@@ -14,7 +14,7 @@ class Rva0039ADF3 { public: bool rva0039AE04() const; };
 class Rva0039ACBD { public: int rva0039ACBD(const Object *,bool); };
 class Rva0039AF9B { public: float rva0039AF9B(float); };
 class ExperienceTracker { public: void rva0039B315(float,bool,bool,bool,bool); unsigned char pad[0x20]; unsigned char flag; };
-class AttributeModifierPoolUpdate { public: bool rva00403448(int,float*,int,int); };
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class ObjectVirtualView {
 public:
 	virtual void slot0();

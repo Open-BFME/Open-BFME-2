@@ -145,7 +145,7 @@ public:
  char unknown00[0x140];
  Rva001E3591 *path;
 };
-class AttributeModifierPoolUpdate { public: bool rva00403382(int,float *,int); };
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
 struct ObjectCrushLevelsView {
  char unknown00[0x5f9];

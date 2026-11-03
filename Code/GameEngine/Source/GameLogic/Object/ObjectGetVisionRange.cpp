@@ -18,11 +18,7 @@ typedef int Int;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class AttributeModifierPoolUpdate
-{
-public:
-	Bool rva00403382(Int attribute, Real *value, Int arg);
-};
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 // LINK: the clamp binds the rowed owner at 0x0028A8B5 (Rva0028A8B5::rva0028A8B5, Rva0028A8B5Clamp.cpp).
 class Rva0028A8B5 { public: void rva0028A8B5(Real *value) const; };

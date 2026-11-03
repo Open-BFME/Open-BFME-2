@@ -13,7 +13,7 @@
 // DamageInfo local uses already-pinned ctor263895 and actual named attemptDamage.
 #include "GameLogicObjectLookupView.h"
 struct Coord3D;
-class AttributeModifierPoolUpdate {public:unsigned char isCategoryDisabled(int);};
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 struct Rva005086CEPair {void *context;void *list;};
 class Rva00291793 {public:int rva00291793();};
 class Rva005086CEContain {public:

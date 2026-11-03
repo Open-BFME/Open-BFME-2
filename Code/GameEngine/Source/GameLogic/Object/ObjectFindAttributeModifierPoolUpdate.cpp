@@ -15,11 +15,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AttributeModifierPoolUpdate
-{
-public:
-	bool rva00403382(int id, float *value, int index);
-};
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 #include "../../../Include/Common/Module.h"
 

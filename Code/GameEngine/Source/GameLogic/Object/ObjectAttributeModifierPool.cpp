@@ -28,12 +28,7 @@ public:
 	void addCommandPoints(Rva002A7588In *obj);		// 0x002A9B35
 };
 
-class AttributeModifierPoolUpdate
-{
-public:
-	bool addModifierToPool(const AsciiString &name, int value);	// 0x00403E72
-	void rva00403744(const AsciiString &name);		// 0x00403744
-};
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 class Rva0028EA91Horde
 {

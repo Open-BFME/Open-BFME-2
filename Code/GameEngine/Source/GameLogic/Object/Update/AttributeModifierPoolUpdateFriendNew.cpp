@@ -9,15 +9,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class AttributeModifierPoolUpdate
-{
-public:
-	AttributeModifierPoolUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0xA8];
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 // ?friend_newModuleInstance@AttributeModifierPoolUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *AttributeModifierPoolUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

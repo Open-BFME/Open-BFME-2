@@ -165,11 +165,7 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
-class AttributeModifierPoolUpdate
-{
-public:
-	void rva00403415(int *categories, int endFrame);
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 typedef void (*ContainIterateFunc)(Object *obj, void *userData);
 

@@ -80,7 +80,7 @@ private:
 // Receiver/provider view spellings remain ABI names, not application identity.
 struct AttributeLocalPoint:Coord3D{__forceinline void set(const float*p){x=p[0];y=p[1];z=p[2];} __forceinline void sub(const float*p){x-=p[0];y-=p[1];z-=p[2];}};
 
-class AttributeModifierPoolUpdate {public:void rva00403415(int*,int);};
+#include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 enum NameKeyType{KEY0=0};
 

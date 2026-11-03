@@ -150,7 +150,7 @@ extern AI *TheAI;
 
 class Rva001E3591 { public: bool rva001E3591(); };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class AttributeModifierPoolUpdate { public: bool rva00403382(int,float *,int);bool rva00403448(int,float*,int,int); };
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
 struct ObjectCrushLevelsView {
  char unknown00[0x5f9];

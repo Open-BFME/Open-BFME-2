@@ -65,7 +65,7 @@ public:
 	char pad0[0x5c];
 	bool flag5c;
 };
-class AttributeModifierPoolUpdate { public: bool rva00403382(int, float *, int); };
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 struct ShockBodyEntry { char pad0[8]; ObjectID source; };
 class BodyModule : public ShockSlots<15>
 {

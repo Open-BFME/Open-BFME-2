@@ -46,11 +46,7 @@ public:
 	bool any() const;
 	unsigned int m_words[(N + 31) / 32];
 };
-class AttributeModifierPoolUpdate
-{
-public:
-	void rva00403415(int *mask, int value);
-};
+#include "../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class Player
 {
 public:

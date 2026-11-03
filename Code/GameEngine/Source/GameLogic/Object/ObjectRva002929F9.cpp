@@ -69,11 +69,7 @@ public:
 extern AudioManager *TheAudio;
 extern int BfmeLogicFramesPerSecond;
 
-class AttributeModifierPoolUpdate
-{
-public:
-	Bool rva00403448(Int attribute, Real *value, Int arg, Int arg2);
-};
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 class Rva002627E8
 {

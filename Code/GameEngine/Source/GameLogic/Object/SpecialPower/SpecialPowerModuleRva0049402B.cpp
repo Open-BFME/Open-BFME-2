@@ -93,11 +93,7 @@ public:
 
 class Module;
 class SpecialPowerModule;
-class AttributeModifierPoolUpdate
-{
-public:
-	void rva00403415(int *mask, int value);
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 
