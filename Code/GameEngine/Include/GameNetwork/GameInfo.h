@@ -28,6 +28,8 @@
 // Rowed copies/destructors and the rowed methods below stay out of line.
 // Snapshot's existing capitalized/name-slot switches select the inherited API;
 // those declarations override its existing slots and do not add virtual slots.
+// Without the name slot, GameSlot overrides slot 2 under Snapshot's crc
+// spelling, so the class stays concrete for setSlot's by-value parameter.
 // Donor facts: Zero Hour GameInfo.h supplies the established accessor and
 // scalar names; unidentified slots and storage retain neutral names.
 #pragma once
@@ -59,6 +61,9 @@ protected:
 	virtual void LoadPostProcess();
 #else
 	virtual void loadPostProcess();
+#endif
+#ifndef BFME_SNAPSHOT_NAME_SLOT
+	virtual void crc(Xfer *);
 #endif
 public:
 #ifdef BFME_SNAPSHOT_NAME_SLOT
