@@ -917,11 +917,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);	// 0x00132D89
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 long Rva00077E05Load(const char *name, unsigned long *handle);	// 0x00077E05
 extern UnsignedInt g_Va00DEC1CC;
 

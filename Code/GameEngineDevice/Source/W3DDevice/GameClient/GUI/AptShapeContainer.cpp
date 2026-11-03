@@ -116,7 +116,7 @@ class GameFont;
 #define s_aptScaleX (*(const Real *)(g_aptHostStateStorage + 0x10))
 #define s_aptScaleY (*(const Real *)(g_aptHostStateStorage + 0x14))
 
-class TextureAsset {public:static BFME2ParticleTextureHandle Get(const char*,int,int);void SetQualityLevel(int);};
+#include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class ShroudFilter;
 

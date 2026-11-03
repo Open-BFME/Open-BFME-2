@@ -145,11 +145,7 @@ Rva00132D43TextureCtor::Rva00132D43TextureCtor(const char *filename)
 // names TextureAsset::Get at EA's own texture.cpp (callgraph 22); the same
 // recovery pattern as the landed AnimationAsset::Get. The handle-class return
 // spelling is kept (its original name is unproven).
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int option0, int option1);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 BFME2ParticleTextureHandle TextureAsset::Get(
 	const char *filename, int option0, int option1)

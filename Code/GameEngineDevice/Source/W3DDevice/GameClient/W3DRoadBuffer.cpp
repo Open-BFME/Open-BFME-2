@@ -236,11 +236,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 // directly; bind the release target the views above and the shim's +0x18
 // reference call to it.
 #pragma comment(linker, "/alternatename:?Release_Ref@W3DRoadBufferRef18Target@@QAEXXZ=?Release_Ref@TextureBaseClass@@QAEXXZ")
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *filename, int a, int b);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 AsciiString makeNrmTextureName(const AsciiString &in);
 bool Render_Obj_Exists(const char *name);
 

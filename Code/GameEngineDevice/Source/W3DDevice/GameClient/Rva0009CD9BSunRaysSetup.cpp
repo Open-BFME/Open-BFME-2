@@ -46,11 +46,7 @@ public:
     TextureClass *Ptr;
     ~BFME2ParticleTextureHandle() { if (Ptr) Ptr->Release_Ref(); }
 };
-class TextureAsset {
-public:
-    static BFME2ParticleTextureHandle Get(const char *,int,int);
-    void rva00132FE9(bool);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 class Rva0009B266 {
 public:
     virtual void Release();

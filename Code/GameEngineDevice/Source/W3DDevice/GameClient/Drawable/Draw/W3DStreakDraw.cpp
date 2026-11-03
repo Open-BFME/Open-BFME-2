@@ -26,11 +26,7 @@ class BFME2ParticleTextureHandle { public:
 	TextureClass *Ptr;
 	~BFME2ParticleTextureHandle() { if (Ptr) Ptr->Release_Ref(); }
 };
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *, int, int);
-};
+#include "../../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 class DrawModule
 {
 public:

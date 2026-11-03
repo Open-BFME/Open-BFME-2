@@ -89,11 +89,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass> {
 public:
  ~BFME2ParticleTextureHandle() { if(ptr) ptr->Release_Ref(); }
 };
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *,int,int);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class Object { public: int rva0028B511() const; char prefix00[8]; Matrix3D transform; };
 class Drawable { public: char prefix00[0xFC]; Object *m_object; };

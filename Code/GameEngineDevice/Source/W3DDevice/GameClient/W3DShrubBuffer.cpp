@@ -464,11 +464,7 @@ public:
 	ProxyClass::ProxyData *m_data;
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *name, Int a, Int b);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class HierarchyPrototype : public ProxyClass::ProxyData
 {

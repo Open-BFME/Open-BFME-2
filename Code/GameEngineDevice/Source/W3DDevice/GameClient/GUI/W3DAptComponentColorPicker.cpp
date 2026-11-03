@@ -72,7 +72,7 @@ class TextureClass {public:void Release_Ref();};
 
 class BFME2ParticleTextureHandle {public:TextureClass *Ptr;~BFME2ParticleTextureHandle(){if(Ptr)Ptr->Release_Ref();}};
 
-struct TextureAsset {static BFME2ParticleTextureHandle Get(const char *,int,int);};
+#include "../../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class W3DRadarResetSurface {public:void *ptr;~W3DRadarResetSurface();};
 

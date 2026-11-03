@@ -939,11 +939,7 @@ public:
 	TextureClass *Ptr;
 };
 
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *, int, int);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
 class TextureBaseClass
 {

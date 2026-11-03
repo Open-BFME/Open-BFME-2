@@ -28,11 +28,7 @@ class RenderObjClass;
 RenderObjClass *Create_Render_Obj(const char *);
 bool Render_Obj_Exists(const char *);
 AsciiString makeNrmTextureName(const AsciiString &);
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *,int,int);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 struct BfmeResetTextureRef { void clear(); };
 struct CursorTextureSlot { void operator=(const BFME2ParticleTextureHandle &); };
 class FloorMaterialDispatch;

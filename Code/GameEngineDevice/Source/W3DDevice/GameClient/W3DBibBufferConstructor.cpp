@@ -10,11 +10,7 @@ class BFME2ParticleTextureHandle { public:
  TextureClass *Ptr;
  ~BFME2ParticleTextureHandle() { if(Ptr) Ptr->Release_Ref(); }
 };
-class TextureAsset
-{
-public:
-	static BFME2ParticleTextureHandle Get(const char *,int,int);
-};
+#include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 class ShroudFilter { public: char pad[12]; int u,v; };
 class ShroudTexture { public: ShroudFilter *getFilter(); };
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
