@@ -22,33 +22,12 @@
 
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
-class Rva0041FE0E : public SubsystemInterface
-{
-public:
-	Rva0041FE0E();
-	virtual ~Rva0041FE0E();
-	int m_0C;
-};
+#include "../../Include/GameLogic/VictoryConditionsClass.h"
 
 inline Rva0041FE0E::~Rva0041FE0E()
 {
 }
 
-class VictoryConditions : public Rva0041FE0E
-{
-public:
-	VictoryConditions();
-    virtual ~VictoryConditions();
-    void rva00420110();
-    void rva00420254(const AsciiString &,bool,const AsciiString &,const AsciiString &);
-private:
-    bool m_endGameShowing; // +10
-    unsigned m_endGameShowTime; // +14
-    char m_state18[0x8c-0x18];
-    int m_field8C;
-    bool m_field90;
-    bool m_field91;
-};
 
 // VictoryConditions::~VictoryConditions is rowed in its home unit; this copy was a duplicate definition.
 
@@ -84,16 +63,16 @@ class Display;extern Display *TheDisplay;
 // Original UI slot name inferred from ShowEndGame string, not source identity.
 void VictoryConditions::rva00420254(const AsciiString &label,bool defeat,const AsciiString &name,const AsciiString &extra)
 {
- switch (1) { case 1: if(!g_bfmeAptWindowManager || m_endGameShowing) break;
+ switch (1) { case 1: if(!g_bfmeAptWindowManager || m_10) break;
  { AsciiString key(":VictoryDefeat");
       ((BfmeAptWindowManager *)g_bfmeAptWindowManager)->bfmeSetText(key,((VictoryTextPrefix *)TheGameText)->fetchName(&label,0),false); }
  const char *suffix;
  if (!extra.isEmpty()) suffix=extra.str();
  else suffix="";
  ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke((void *)13,"ShowEndGame",3,defeat?"0":"1",(void *)name.str(),(void *)suffix,0,0);
-  m_endGameShowing=true;
+  m_10=true;
   unsigned long t = (true ? timeGetTime() : timeGetTime());
-  m_endGameShowTime=t;
+  m_14=t;
   *(bool *)((char *)TheDisplay+0x140)=false;
  }
 }

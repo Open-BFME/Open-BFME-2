@@ -7,47 +7,7 @@
 
 #include <windows.h>
 
-class VictoryConditions
-{
-public:
-	virtual void d00();
-	virtual void d01();
-	virtual void d02();
-	virtual void d03();
-	virtual void d04();
-	virtual void d05();
-	virtual void d06();
-	virtual void d07();
-	virtual void d08();
-	virtual void d09();
-	virtual void d10();
-	virtual void d11();
-	virtual void d12();
-	virtual void d13();
-	virtual void d14();
-	virtual void d15();
-	virtual void d16();
-	virtual void d17();
-	virtual void d18();
-	virtual void d19();
-	virtual void d20();
-	virtual void d21();
-	virtual void d22();
-	virtual void d23();
-	virtual void slot24();
-	virtual void d25();
-	virtual void d26();
-	virtual void d27();
-	virtual void d28();
-	virtual void d29();
-	virtual void d30();
-	virtual void rva0041FE63();
-private:
-	unsigned char m_pad0[12];
-	unsigned char m_10;
-	unsigned char m_pad11[3];
-	DWORD m_14;
-};
+#include "../../Include/GameLogic/VictoryConditionsClass.h"
 
 void VictoryConditions::rva0041FE63()
 {

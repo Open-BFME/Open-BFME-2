@@ -41,16 +41,7 @@ public:
 	void setGroup(AsciiString groupName, bool immediate);
 };
 
-class VictoryConditions
-{
-public:
-	void rva00420110();
-private:
-	char m_pad00[0x10];
-	unsigned char m_10;
-	char m_pad11[0x85 - 0x11];
-	unsigned char m_85;
-};
+#include "../../Include/GameLogic/VictoryConditionsClass.h"
 
 void VictoryConditions::rva00420110()
 {
@@ -59,7 +50,7 @@ void VictoryConditions::rva00420110()
 		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke((void *)13, "HideEndGame", 0, 0, 0, 0, 0, 0);
 		m_10 = 0;
 		TheDisplay->m_140 = 1;
-		if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() != 0 && m_85 != 0)
+		if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() != 0 && m_singleAllianceRemaining != 0)
 		{
 			TheTransitionHandler->setGroup(AsciiString("MPorSkirmishFadeToScoreScreen"), 0);
 		}
