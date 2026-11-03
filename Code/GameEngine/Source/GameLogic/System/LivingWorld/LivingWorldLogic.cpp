@@ -263,31 +263,14 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);	// 0x0007DEE
 
 class Rva004E0632;
 
-class ArmySummaryEntry
-{
-public:
-	void MarkForUpgrades(const Rva004E0632 *upgrades);	// 0x0040C430
-	void CancelUpgrades();					// 0x0040C45C
-
-	// The pending move target at +0xB8 (cleared by WB's
-	// CancelArmyMemberMove); an entry already moving takes no upgrades.
-	Int getMoveTarget() const { return m_moveTarget; }
-
-	unsigned char m_pad00[0xac];
-	unsigned char m_padAC[4];					// +0xAC
-	Int m_referenceCount;					// +0xB0
-	unsigned char m_padB4[4];
-	Int m_moveTarget;					// +0xB8
-	unsigned char m_padBC[0xc4 - 0xbc];
-	Bool m_disbanded;					// +0xC4, set by DisbandArmyMember
-};
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 
 struct ArmySummaryEntryRef
 {
 	ArmySummaryEntryRef(const ArmySummaryEntryRef &that) : m_entry(that.m_entry)
 	{
 		if (m_entry)
-			++m_entry->m_referenceCount;
+			++m_entry->m_04;
 	}
 
 	~ArmySummaryEntryRef()
@@ -1084,7 +1067,7 @@ static Bool CanDisbandArmyMember(ArmySummaryEntry *entry)
 		if (!((Rva003B8BAAEntryVet *)((LivingWorldCampaignManager *)TheCampaignManager)->rva003B8BAA())->vetEntry(entry))
 			return 0;
 	}
-	if (entry->m_disbanded)
+	if (entry->m_c4)
 		return 0;
 	const ThingTemplateKindOf *thing = (const ThingTemplateKindOf *)TheThingFactory->findTemplate(*((const AsciiString *)((char *)entry + 4)));
 	if (thing == 0)
@@ -1114,7 +1097,7 @@ void DisbandArmyMember(LivingWorldArmy *army, Int entryID)
 	ArmySummaryEntry *bound = entry.m_entry;
 	if (bound != 0 && CanDisbandArmyMember(bound))
 	{
-		entry.m_entry->m_disbanded = 1;
+		entry.m_entry->m_c4 = 1;
 		entry.m_entry->CancelUpgrades();
 	}
 }
@@ -1219,13 +1202,13 @@ static __declspec(noinline) void CancelArmyMemberMove(LivingWorldArmy *currentAr
 	ArmySummaryEntryRef entry = summary->GetEntry(entryID);
 	if (entry.m_entry != 0)
 	{
-		Int sourceArmyID = entry.m_entry->m_moveTarget;
+		Int sourceArmyID = entry.m_entry->m_b8;
 		LivingWorldArmy *sourceArmy = (LivingWorldArmy *)((Rva002BA8F1Logic *)((Rva002B254F *)TheLivingWorldLogic))->rva002B488E(sourceArmyID);
 		if (sourceArmy != 0)
 		{
 			if (((Rva002B6C9F *)TheLivingWorldLogic)->rva002B8019((Int)currentArmy, (Int)entry.m_entry, (Int)sourceArmy))
 			{
-				entry.m_entry->m_moveTarget = 0;
+				entry.m_entry->m_b8 = 0;
 				sourceArmy->rva00319EF9(currentArmy, entryID);
 			}
 		}
@@ -3698,7 +3681,7 @@ static __declspec(noinline) void DisbandArmy(void*self){
  int count=(int)((Rva002B3325Summary*)summary)->m_entries.size();
  for(int i=0;i<count;++i){
   ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary)->get(i);
-  if(CanDisbandArmyMember(entry)){entry->m_disbanded=true;entry->CancelUpgrades();}
+  if(CanDisbandArmyMember(entry)){entry->m_c4=true;entry->CancelUpgrades();}
  }
 }
 class DispatcherClient {
@@ -3759,7 +3742,7 @@ static __declspec(noinline) void HandleSwapArmiesInBattleMessage(GameMessage *ms
 }
 
 
-__forceinline void CancelArmyMemberDisband(LivingWorldArmy*army,int id){ArmySummaryEntryRef entry=army->m_summary->GetEntry(id);if(entry.m_entry)entry.m_entry->m_disbanded=false;}
+__forceinline void CancelArmyMemberDisband(LivingWorldArmy*army,int id){ArmySummaryEntryRef entry=army->m_summary->GetEntry(id);if(entry.m_entry)entry.m_entry->m_c4=false;}
 // Native2B5256: count eligible human players in the actual +8C member vector.
 int Rva002BA8F1Logic::rva002B5256(bool flag){int count=0;for(unsigned i=0;i<players.size();++i){DispatcherPlayer*playerView=players[i];if(playerView->kind==0&&(!playerView->gone||flag))++count;}return count;}
 void LivingWorldLogic::logicMessageDispatcher(GameMessage*msg,void*unused){

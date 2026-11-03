@@ -28,7 +28,7 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 }
 typedef _STL::set<int> SelectedMemberSet;
 struct Rva005F56B0Selection {char prefix[0x10]; SelectedMemberSet members;};
-class ArmySummaryEntry {public: char prefix[0xb8]; int target; int fieldBC; char padC0[4]; bool fieldC4; __forceinline bool hasUpgrade()const{return fieldBC!=0;}};
+#include "../../Include/Common/ArmySummaryEntry.h"
 class Rva0040CB3AIndexedField {public: int get(int) const;};
 struct LivingWorldArmy {char prefix[0x20]; int id; char pad24[0x78-0x24]; Rva0040CB3AIndexedField *summary;};
 struct Arg54;
@@ -61,7 +61,7 @@ static bool CanCancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army)
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
-   int target=entry->target;
+   int target=entry->m_b8;
    if(!target)return false;
    Rva002B488EResult *targetArmy=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->rva002B488E(target);
    if(!targetArmy || !reinterpret_cast<Rva002B6C9F*>(TheLivingWorldLogic)->rva002B8019(reinterpret_cast<int>(army),reinterpret_cast<int>(entry),reinterpret_cast<int>(targetArmy)))return false;
@@ -79,7 +79,7 @@ static void CancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
-   if(entry->target) {
+   if(entry->m_b8) {
     GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_0x6B0);
     message->appendIntegerArgument(army->id);
     message->appendIntegerArgument(*it);
@@ -106,13 +106,13 @@ static bool ShouldEnableButton(Rva005F56B0Selection *selection,LivingWorldArmy *
  if(!TheLivingWorldLogic || TheLivingWorldLogic->flagF4 || !selection->members.size())return false;
  Rva0040CB3AIndexedField *summary=army->summary;
  SelectedMemberSet::iterator it=selection->members.begin();
- bool state=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it))->fieldC4;
+ bool state=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it))->m_c4;
  if(!state && !CanDisbandArmyMember(army,*it))return false;
  SelectedMemberSet::iterator end=selection->members.end();
  for(++it;it!=end;++it) {
   ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
-  if(state) {if(!entry->fieldC4)return false;}
-  else {if(entry->fieldC4 || !CanDisbandArmyMember(army,*it))return false;}
+  if(state) {if(!entry->m_c4)return false;}
+  else {if(entry->m_c4 || !CanDisbandArmyMember(army,*it))return false;}
  }
  return true;
 }
@@ -125,7 +125,7 @@ static void DisbandArmyMembers(LivingWorldArmy *army,Rva005F56B0Selection *selec
  for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
   ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
   GameMessage::Type type;
-  if(entry->fieldC4)type=GameMessage::MSG_0x6B3;
+  if(entry->m_c4)type=GameMessage::MSG_0x6B3;
   else if(CanDisbandArmyMember(army,*it))type=GameMessage::MSG_0x6B1;
   else continue;
   GameMessage *message=TheMessageStream->appendMessage(type);
@@ -161,7 +161,7 @@ bool StrategicInGameUI::CanUpgradeAny(LivingWorldArmy *army,Rva005F56B0Selection
  SelectedMemberSet::iterator end=selection->members.end();
  for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
   ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
-  if(!entry->fieldBC && TheLivingWorldLogic->GetArmoryToUpgradeTroop(entry,army,region))return true;
+  if(!entry->m_bc && TheLivingWorldLogic->GetArmoryToUpgradeTroop(entry,army,region))return true;
  }
  return false;
 }
@@ -207,7 +207,7 @@ void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Sel
   SelectedMemberSet::iterator end=selection->members.end();
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
-   if(!entry->fieldBC && TheLivingWorldLogic->GetArmoryToUpgradeTroop(entry,army,region)) {
+   if(!entry->m_bc && TheLivingWorldLogic->GetArmoryToUpgradeTroop(entry,army,region)) {
     GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_0x6BF);
     message->appendIntegerArgument(army->id);
     message->appendIntegerArgument(*it);

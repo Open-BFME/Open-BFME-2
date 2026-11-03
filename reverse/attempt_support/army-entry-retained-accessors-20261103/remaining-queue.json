@@ -1,0 +1,47 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/ArmySummaryEntry.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/ExperienceTrackerAutoResolve.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva002B4076Dispatch.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ArmySummaryCopyBFME2.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ArmySummarySpawn.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/ArmySummaryXferBFME2.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveApplyResults.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveUnit.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp"
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp"
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Rva0040ECCF.cpp"
+  }
+]

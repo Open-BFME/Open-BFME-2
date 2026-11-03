@@ -19,6 +19,9 @@ public:
     ArmySummaryEntry(const ArmySummaryEntry &);
     virtual ~ArmySummaryEntry();
 
+    bool hasUpgrade() const { return m_bc != 0; }
+    int getMoveTarget() const { return m_b8; }
+
     void Parse(INI *);
     void MarkForUpgrades(const Rva004E0632 *);
     void CancelUpgrades();

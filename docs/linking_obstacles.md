@@ -19467,3 +19467,22 @@ W3D cleanup9568bd202d's batch audit is carried: INCONCLUSIVE at
 index984a4cdc4d/base859c899741cc15ce70c1889688e3fa1de70ba7a9, missing W3DGameClient
 current-object receipt. Carry that source and affected consumers to the next
 scheduled census; neither W3D cleanup nor this adoption claims a census gain.
+
+### ArmySummaryEntry retained accessor follow-up (2026-11-03)
+
+The panel follow-up now extends to Swapper and LivingWorldLogic: the canonical
+header retains their existing ordinary inline hasUpgrade/getMoveTarget member
+calls, preserving the native callers that direct expressions missed. All16 and
+174 unique addresses pass (175 Logic rows), with36 EXACT Logic EH graphs.
+All21/427 provider names/properties/routes remain; only29 dispatcher local-label
+spellings change, each resolving to its unchanged own-section offset, with all
+3170 raw bytes identical. No new name, virtual slot, pin, release cast or hatch.
+Broader15-source normal verification passes423rows/twodata; preview keeps
+15/15 LINKS for32,656 existing bytes. Owning acceptance retires two additional
+header debts, making3/18 in this cohort; the other15 remain structural work.
+[Full provider, label, scope and remaining-queue evidence](../reverse/attempt_support/army-entry-retained-accessors-20261103/README.md).
+
+Panel publication86f87c9a1b is carried as INCONCLUSIVE at
+index984a4cdc4d/base9eb7c8841c0afd4e5e373eb44500555636fa9457, missing its current
+object receipt. Include that source and affected consumers in the next scheduled
+census; current previews do not establish whole-image or runtime closure.
