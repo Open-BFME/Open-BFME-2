@@ -620,3 +620,4 @@ GhostObjectManager,Code/GameEngine/Include/GameLogic/GhostObjectManager.h,existi
 AITNGuardMachine,Code/GameEngine/Include/GameLogic/AITNGuardMachine.h,existing header; contract class_contracts/AITNGuardMachine.json; 3/9 sampled units adopt
 SidesListNotifier,Code/GameEngine/Include/Common/SidesListNotifier.h,existing header; contract class_contracts/SidesListNotifier.json; 3/8 sampled units adopt
 RegionAwardDispute,Code/GameEngine/Include/GameLogic/RegionAwardDispute.h,existing header; contract class_contracts/RegionAwardDispute.json; 5/10 sampled units adopt
+GateOpenAndCloseBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h,existing header; contract class_contracts/GateOpenAndCloseBehaviorModuleData.json; 4/9 sampled units adopt
