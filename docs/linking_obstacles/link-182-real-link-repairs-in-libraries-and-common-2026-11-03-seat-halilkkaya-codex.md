@@ -12,3 +12,17 @@ normal checks pass389 rows; true base/tip preview retains five LINKS units
 and changes CDManager0->54B, with no loss. Scoped DIR32389+17 witnesses passes.
 No full real-link rerun or census confirmation is claimed; the actual CDManager
 implementation remains separate work. [Audit and name list](../reverse/attempt_support/real-link-cdmanager-20261103.md).
+
+
+### Dynamesh/shatter real-link donor closure (2026-11-03, halilkkaya-codex)
+
+Base02ba74b593: retain the five owned leaves and remove both unrowed donor
+contexts together. All21+12 consumer undefined references disappear;25 unique
+artifact names are attributed only to this pair. Normal49-row/eight-source
+checks and scoped DIR3249+12 witnesses pass. True A/B retains four LINKS peers
+and adds both units (246 existing bytes); matinfo and twiddler are already
+blocked at base. The13 common COMDAT fingerprints are identical; no external
+provider is added and no remaining outside reference loses its last provider.
+Global real-link/census confirmation remains pending. Collect inline ownership,
+Twiddler element identity and the particle class cohort remain open; failed
+trials are restored. [Name list, audits and exact boundaries](../reverse/attempt_support/real-link-mesh-pair-20261103.md).
