@@ -44,11 +44,7 @@ class Snapshot;
 
 #include "../../../../../../Include/Common/XferVersion.h"
 
-class AIBaseBuilder
-{
-public:
-	void rva0050722A(Coord3D *point);
-};
+#include "../../../../../../Include/GameLogic/AIBaseBuilder.h"
 
 struct Rva002A8AB1Record
 {

@@ -118,11 +118,7 @@ struct AIEconomyFarmLibraryStorage
 	Rva004EA4E5Farm **m_endOfStorage;
 };
 
-class AIBaseBuilder
-{
-public:
-	bool rva00506B74(Coord3D *out);	// 0x00506B74 base position
-};
+#include "../../../../Include/GameLogic/AIBaseBuilder.h"
 
 struct Rva002A8AB1Record
 {

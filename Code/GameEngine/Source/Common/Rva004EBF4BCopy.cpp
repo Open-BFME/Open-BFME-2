@@ -9,13 +9,7 @@
 // AIBaseBuilder at +4 carries the +0x28 member so ecx+4 lands at +0x2C.
 #include "Lib/Coord3DCtorView.h"
 
-class AIBaseBuilder
-{
-public:
-	char m_pad[0x28];
-	Coord3D m_28;
-	bool rva00506B74(Coord3D *out);
-};
+#include "../../Include/GameLogic/AIBaseBuilder.h"
 
 class Rva004EBF4B
 {

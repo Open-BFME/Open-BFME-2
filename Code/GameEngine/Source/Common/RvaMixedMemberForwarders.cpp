@@ -93,11 +93,7 @@ public:
 };
 
 class Rva005AD9C0Hit;
-class AIBaseBuilder
-{
-public:
-	Rva005AD9C0Hit *rva00506BF7(void *arg);
-};
+#include "../../Include/GameLogic/AIBaseBuilder.h"
 
 class Rva005748B2
 {
