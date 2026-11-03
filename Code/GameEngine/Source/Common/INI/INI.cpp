@@ -624,7 +624,7 @@ extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__T
 extern const char g_00BBDC80[] =
 	"\nINI ERROR:\n"
 	"===================================================================\n"
-	"\n%s\\%s(%d):\n";
+	"%s\\%s(%d):\n";
 
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 
