@@ -508,3 +508,4 @@ PointGroupClass,Code/Libraries/Source/WWVegas/WW3D2/PointGroupClass.h,existing h
 AIGuardMachine,Code/GameEngine/Include/GameLogic/AIGuardMachine.h,existing header; contract class_contracts/AIGuardMachine.json; 3/11 sampled units adopt
 OpenContainModuleData,Code/GameEngine/Include/GameLogic/Module/OpenContainModuleData.h,existing header; contract class_contracts/OpenContainModuleData.json; 9/15 sampled units adopt
 RenderObjectDrawModuleInfo,Code/GameEngine/Include/GameClient/RenderObjectDrawModuleInfo.h,existing header; contract class_contracts/RenderObjectDrawModuleInfo.json; 10/15 sampled units adopt
+AiOrdersManager,Code/GameEngine/Include/GameLogic/AiOrdersManager.h,existing header; contract class_contracts/AiOrdersManager.json; 11/14 sampled units adopt

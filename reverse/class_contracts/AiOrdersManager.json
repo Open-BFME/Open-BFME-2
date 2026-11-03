@@ -1,0 +1,105 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AiOrdersManager",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 14,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 15,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 13,
+   "56": 1
+  },
+  "views": 14,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 37,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 38,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "16:A": 1,
+    "1:S:Rva0035516C": 1
+   },
+   "class": "AiOrdersManager"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {}
+}
