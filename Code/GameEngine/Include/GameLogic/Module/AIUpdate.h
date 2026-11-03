@@ -47,6 +47,12 @@
 // dispatches it through primary slot 93.
 // AIAttackState::onEnter calls the protected Object overload of
 // playAttackVoiceResponse at 0x0034B870, requiring access from that state.
+// rva00262989 0x00262989 stores its argument and the frame into 4-entry
+// arrays at +0x1A8 (0x002629DF) and +0x1B8 (0x002629D4), counted at +0x1C8.
+// Out-of-line setDesiredSpeed 0x002628F9 (called at 0x0034F146) stores +0x44;
+// getIgnoredObstacleID 0x0006E009 (called at 0x0034C913) reads +0x164.
+// 0x003E995A and 0x003E9A93 read the completed waypoint +0x13C inline.
+// Zero Hour AIUpdate.h names these three accessors.
 
 #pragma once
 #ifndef __BFME2_AIUPDATE_H_
@@ -431,6 +437,9 @@ public:
     void markAsDead();
     void rva00262989(unsigned int);
     void setCompletedWaypoint(Waypoint const *);
+    const Waypoint *getCompletedWaypoint() const { return m_completedWaypoint; }
+    void setDesiredSpeed(float);
+    ObjectID getIgnoredObstacleID() const;
     unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction)const;
     int rva0026417F(bool);
     void rva00489DE3();
@@ -529,7 +538,8 @@ public:
     ObjectID m_moveOutOfWay2;
     float m_field1A0;
     unsigned int m_field1A4;
-    unsigned char m_storage1A8[0x20];
+    unsigned int m_field1A8[4];
+    unsigned int m_field1B8[4];
     unsigned int m_field1C8;
     unsigned char m_storage1CC[0x10];
     int m_field1DC;
