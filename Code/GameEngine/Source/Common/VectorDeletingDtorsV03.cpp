@@ -38,16 +38,9 @@ private:
 };
 }
 
+#include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
-class SphereEmissionVolumeInfo
-{
-public:
-	SphereEmissionVolumeInfo();
-	virtual ~SphereEmissionVolumeInfo();
-private:
-	char m_unmodelled_04[0xC - 0x04];
-};
 }
 
 namespace FXParticleSystem

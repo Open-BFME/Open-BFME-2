@@ -38,6 +38,7 @@ class INI;
 #include "../../Include/GameClient/WindModuleInfo.h"
 #include "../../Include/GameClient/EmissionVolumeInfo.h"
 #include "../../Include/GameClient/DefaultPhysicsModuleInfo.h"
+#include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -59,11 +60,6 @@ struct FXCoord3D
 };
 
 
-class SphereEmissionVolumeInfo : public EmissionVolumeInfo
-{
-public:
-    float m_radius;
-};
 
 class BoxEmissionVolumeInfo : public EmissionVolumeInfo
 {

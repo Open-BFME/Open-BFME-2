@@ -3,6 +3,7 @@
 // Open-BFME5: SphereEmissionVolumeModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/SphereEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class SphereEmissionVolumeInfo
-{
-public:
-	SphereEmissionVolumeInfo(const SphereEmissionVolumeInfo &that);
-	virtual void dummy();
-};
 
 // SphereEmissionVolumeModuleTemplate_cvtbl0: matched references place it at VA 0xc1bb80 (retail .rdata value 13).
 extern "C" char SphereEmissionVolumeModuleTemplate_cvtbl0 = 13;

@@ -52,6 +52,7 @@ class RvaSmartPtr12;
 #include "../../../../Include/GameClient/DefaultModuleHeadBase.h"
 
 #include "../../../../Include/GameClient/EmissionVolumeInfo.h"
+#include "../../../../Include/GameClient/SphereEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -124,11 +125,6 @@ private:
 	float m_extents[ 3 ];
 };
 
-class SphereEmissionVolumeInfo : public EmissionVolumeInfo
-{
-public:
-	SphereEmissionVolumeInfo( const SphereEmissionVolumeInfo &that );
-};
 
 class TerrainFireEmissionInfo : public EmissionVolumeInfo
 {

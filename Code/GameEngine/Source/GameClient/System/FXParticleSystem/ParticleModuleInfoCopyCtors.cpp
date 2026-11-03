@@ -145,6 +145,7 @@ Rva003AF57F::Rva003AF57F(const Rva003AF57F &other)
 // Evidence: calls rowed base 0x003AF50D then rowed Sphere copy 0x003A67FD; neg/sbb/and null-guarded
 // adjustment of source to +0x1c for the Sphere base; vptrs at +0/+0x14/+0x18/+0x1c DIR32;
 // same Intermediate3AFC6FC pre-Sphere stores as rowed 0x003AF5AC Line version; unlocks 0x003AF70B.
+#include "../../../../Include/GameClient/SphereEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 class Snapshot738
@@ -157,14 +158,6 @@ class EmissionVolumeInfo738 : public Snapshot738
 public:
 	virtual ~EmissionVolumeInfo738();
 	bool m_flag;
-};
-class SphereEmissionVolumeInfo : public EmissionVolumeInfo738
-{
-public:
-  SphereEmissionVolumeInfo(const SphereEmissionVolumeInfo &that) throw();
-  virtual ~SphereEmissionVolumeInfo();
-private:
-  float m_radius;
 };
 }
 
