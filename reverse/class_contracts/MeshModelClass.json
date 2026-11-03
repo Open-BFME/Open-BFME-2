@@ -1,0 +1,1018 @@
+{
+ "bases": [
+  "MeshGeometryClass"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "MeshModelClass",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": [
+    "MeshGeometryClass"
+   ]
+  },
+  "census": 40,
+  "inherited": {
+   "base_views": 9,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "1": 1,
+    "4": 1
+   },
+   "0x19": {
+    "1": 4
+   },
+   "0x1a": {
+    "1": 1
+   },
+   "0x1c": {
+    "1": 3
+   },
+   "0x24": {
+    "4": 5
+   },
+   "0x28": {
+    "4": 10
+   },
+   "0x2c": {
+    "4": 2
+   },
+   "0x30": {
+    "4": 5
+   },
+   "0x34": {
+    "4": 2
+   },
+   "0x38": {
+    "4": 2
+   },
+   "0x50": {
+    "4": 2
+   },
+   "0x54": {
+    "4": 2
+   },
+   "0x88": {
+    "4": 2
+   },
+   "0x8c": {
+    "4": 17
+   },
+   "0x90": {
+    "4": 8
+   },
+   "0x94": {
+    "4": 38
+   },
+   "0x98": {
+    "4": 6
+   },
+   "0xa0": {
+    "4": 1
+   },
+   "0xa4": {
+    "4": 1
+   },
+   "0xbc": {
+    "4": 1
+   },
+   "0xc0": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xc4": 2
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x1727e0",
+      "0x172940"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "MeshGeometryClass",
+       "offset": 0,
+       "own_vftable": "0x7d46c4",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1727e0",
+      "0x172940"
+     ],
+     "value": 193
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1727e0",
+      "0x172940"
+     ],
+     "value": {
+      "0x18": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1727e0",
+      "0x172940"
+     ],
+     "value": {
+      "0x0": [
+       "?clone_materials@MeshModelClass@@IAEXABV1@@Z"
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x1727e0",
+      "0x172940"
+     ],
+     "value": {
+      "0x8": [
+       "0x7d46c0"
+      ],
+      "0x9c": [
+       "0x7d34e0"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1727e0",
+      "0x172940"
+     ],
+     "value": {
+      "0x0": "0x7d46c4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d46c4"
+     ],
+     "value": {
+      "count": 6,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GMeshModelClass@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x172e50"
+       },
+       {
+        "name": "?Load_W3D@MeshModelClass@@UAE_NAAVChunkLoadClass@@@Z",
+        "slot": 2,
+        "target": "0x18ba10"
+       },
+       {
+        "name": "?Compute_Plane_Equations@MeshGeometryClass@@MAEXPAVVector4@@@Z",
+        "slot": 3,
+        "target": "0x16a850"
+       },
+       {
+        "name": "?Compute_Vertex_Normals@MeshGeometryClass@@MAEXPAVVector3@@_N@Z",
+        "slot": 4,
+        "target": "0x16cfc0"
+       },
+       {
+        "name": "?Compute_Bounds@MeshGeometryClass@@MAEXPAVVector3@@@Z",
+        "slot": 5,
+        "target": "0x16a9f0"
+       }
+      ],
+      "table": "0x7d46c4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 65,
+  "retail_vtables": {
+   "0x7d46c4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GMeshModelClass@@UAEPAXI@Z",
+     "2": "?Load_W3D@MeshModelClass@@UAE_NAAVChunkLoadClass@@@Z",
+     "3": "?Compute_Plane_Equations@MeshGeometryClass@@MAEXPAVVector4@@@Z",
+     "4": "?Compute_Vertex_Normals@MeshGeometryClass@@MAEXPAVVector3@@_N@Z",
+     "5": "?Compute_Bounds@MeshGeometryClass@@MAEXPAVVector3@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "4": 2,
+   "8": 1,
+   "28": 1,
+   "40": 1,
+   "44": 1,
+   "52": 1,
+   "88": 1,
+   "144": 4,
+   "152": 11,
+   "156": 2,
+   "180": 4,
+   "192": 4,
+   "196": 4,
+   "200": 1
+  },
+  "views": 40,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/meshmdl.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 22,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 11,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "ListNode",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "MultiListNodeClass*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "MeshName",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<char>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "Flags",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<char>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "UserText",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {
+    "1": 1,
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flagByte",
+   "name_by": "majority",
+   "offset": 25,
+   "retail_widths": {
+    "1": 4
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "SortLevel",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {
+    "1": 3
+   },
+   "size": 1,
+   "type": "char",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "W3dAttributes",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ulong",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "PolyCount",
+   "name_by": "zh",
+   "offset": 36,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "int",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "VertexCount",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {
+    "4": 10
+   },
+   "size": 4,
+   "type": "int",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "P",
+   "name": "Poly",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3i16>*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "Vertex",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3>*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "VertexNorm",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "P",
+   "name": "PlaneEq",
+   "name_by": "zh",
+   "offset": 56,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector4>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "VertexShadeIdx",
+   "name_by": "zh",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<unsigned long>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "zh",
+   "kind": "P",
+   "name": "VertexBoneLink",
+   "name_by": "zh",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<unsigned short>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PolySurfaceType",
+   "name_by": "zh",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<unsigned char>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMin.X",
+   "name_by": "zh",
+   "offset": 72,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<Vector4>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMin.Y",
+   "name_by": "zh",
+   "offset": 76,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<unsigned long>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMin.Z",
+   "name_by": "zh",
+   "offset": 80,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned short>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMax.X",
+   "name_by": "zh",
+   "offset": 84,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned short>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMax.Y",
+   "name_by": "zh",
+   "offset": 88,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShareBufferClass<unsigned char>*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "BoundBoxMax.Z",
+   "name_by": "zh",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RefCountClass*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereCenter.X",
+   "name_by": "zh",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereCenter.Y",
+   "name_by": "zh",
+   "offset": 100,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereCenter.Z",
+   "name_by": "zh",
+   "offset": 104,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereRadius",
+   "name_by": "zh",
+   "offset": 108,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "CullTree",
+   "name_by": "zh",
+   "offset": 112,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundBoxMax.Z",
+   "name_by": "majority",
+   "offset": 116,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereCenter.X",
+   "name_by": "majority",
+   "offset": 120,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereCenter.Y",
+   "name_by": "majority",
+   "offset": 124,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereCenter.Z",
+   "name_by": "majority",
+   "offset": 128,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "BoundSphereRadius",
+   "name_by": "majority",
+   "offset": 132,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "CullTree",
+   "name_by": "majority",
+   "offset": 136,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "AABTreeClass*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "DefMatDesc",
+   "name_by": "majority",
+   "offset": 140,
+   "retail_widths": {
+    "4": 17
+   },
+   "size": 4,
+   "type": "MeshMatDescClass*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "DefMatDesc",
+   "name_by": "zh",
+   "offset": 144,
+   "retail_widths": {
+    "4": 8
+   },
+   "size": 4,
+   "type": "MeshMatDescClass*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "AlternateMatDesc",
+   "name_by": "zh",
+   "offset": 148,
+   "retail_widths": {
+    "4": 38
+   },
+   "size": 4,
+   "type": "MeshMatDescClass*",
+   "views": 21,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 28
+ },
+ "outliers": [
+  {
+   "offset": 152,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass_ComputeRamSize.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelReset.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8MeshRendererUnregisterMeshType.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryDtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelTextureReplacement.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00171720Finish.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00171720Finish.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshClassRenderWithFXMaterial.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00171720Finish.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/BfmeAssignRecord32.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassCopyCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDefaultCtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryInitFromHLOD.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 140]]": 2,
+    "[[0, 16]]": 1,
+    "[[0, 26]]": 1,
+    "[[0, 28]]": 2,
+    "[[24, 28]]": 1,
+    "[[40, 52]]": 1,
+    "[]": 1
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x48",
+   "candidates": {
+    "BoundBoxMin.X": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x4c",
+   "candidates": {
+    "BoundBoxMin.Y": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x50",
+   "candidates": {
+    "BoundBoxMin.Z": 3
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x54",
+   "candidates": {
+    "BoundBoxMax.X": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x58",
+   "candidates": {
+    "BoundBoxMax.Y": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x5c",
+   "candidates": {
+    "BoundBoxMax.Z": 1
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x60",
+   "candidates": {
+    "BoundSphereCenter.X": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x64",
+   "candidates": {
+    "BoundSphereCenter.Y": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x68",
+   "candidates": {
+    "BoundSphereCenter.Z": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x74",
+   "candidates": {
+    "BoundBoxMax.Z": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x78",
+   "candidates": {
+    "BoundSphereCenter.X": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x7c",
+   "candidates": {
+    "BoundSphereCenter.Y": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "nested@0x80",
+   "candidates": {
+    "BoundSphereCenter.Z": 2
+   },
+   "class": "MeshModelClass"
+  },
+  {
+   "attribute": "straddle@0x19",
+   "candidates": {},
+   "class": "MeshModelClass"
+  }
+ ],
+ "size": 192,
+ "size_by": "zh",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
