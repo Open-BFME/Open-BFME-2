@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 // _STL::__push_heap<S4SortElem8 *, int, S4SortElem8,
 // S4SortElem8LessCmp>, retail 0x00625A70, 96 bytes. The body carried only a
@@ -18,11 +18,7 @@
 // frame rather than through a pointer, and the final store writes it back into
 // the array.
 
-struct S4SortElem8
-{
-	int m_bfmeA;						// +0x00
-	float m_bfmeKey;					// +0x04
-};
+#include "S4SortElem8.h"
 
 struct S4SortElem8LessCmp
 {
