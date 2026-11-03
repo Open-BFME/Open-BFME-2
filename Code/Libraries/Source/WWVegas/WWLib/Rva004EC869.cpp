@@ -70,11 +70,7 @@ public:
 	void unRegisterDozer(Rva005996FFArg *arg, bool flag);
 };
 
-class AIDozerManager
-{
-public:
-	void rva00599825(int id);
-};
+#include "../../../../GameEngine/Include/GameLogic/AIDozerManager.h"
 
 class Rva004E9378
 {

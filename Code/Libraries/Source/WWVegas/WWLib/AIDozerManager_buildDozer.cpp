@@ -62,22 +62,13 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 
-class AIDozerManager
-{
-public:
-	void buildDozer(Object *obj);
-private:
-	char m_pad00[8];
-	AsciiString m_str; // +0x08
-	void *m_0c; // +0x0c
-	unsigned char m_10; // +0x10
-};
+#include "../../../../GameEngine/Include/GameLogic/AIDozerManager.h"
 
 void AIDozerManager::buildDozer(Object *obj)
 {
 	int zero = 0;
-	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(m_0c);
-	if (m_10 != zero || rec->m_16c > zero) {
+	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(field0C);
+	if (field10 != zero || rec->m_16c > zero) {
 		SuffixObj *suffixObj = (SuffixObj *)obj->rva0028BC58(zero);
 		if (suffixObj != (SuffixObj *)zero) {
 			if (suffixObj->v11() == 1) {
@@ -93,7 +84,7 @@ void AIDozerManager::buildDozer(Object *obj)
 				goto done;
 docall:
 			void *r = suffixObj->v02();
-			void *thingTemplate = (void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(m_str);
+			void *thingTemplate = (void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(field08);
 			suffixObj->v08(thingTemplate, -1, r, -1, zero, &AsciiString::TheEmptyString, zero);
 		}
 	}

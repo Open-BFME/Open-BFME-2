@@ -75,7 +75,7 @@ class AIBuildable{public:int doCanMake(Player*);bool doBuild(Player*);};
 class AIUnitBuilder{public:Object*Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);};
 struct Rva005996FFArg;
 class Rva005996FF{public:void unRegisterDozer(Rva005996FFArg*,bool);};
-class AIDozerManager{public:void rva00599EDC();char data[0x14];};
+#include "../../../Include/GameLogic/AIDozerManager.h"
 // 0x00599870 is rowed as Rva005997CD::rva00599870 (Rva005997CDNearestPick.cpp),
 // the nearest-entry pick over the dozer manager; called by that row's name.
 struct Vec2;

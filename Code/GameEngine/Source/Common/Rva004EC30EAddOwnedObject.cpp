@@ -51,11 +51,7 @@ public:
 	void registerUnitFactory(ObjectID objectID);
 };
 
-class AIDozerManager
-{
-public:
-	void rva00599825(int objectID);
-};
+#include "../../Include/GameLogic/AIDozerManager.h"
 
 class AIBuilder
 {
