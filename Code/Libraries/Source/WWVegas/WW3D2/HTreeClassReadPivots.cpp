@@ -147,26 +147,26 @@ static __forceinline void compose2(const S2CompactTransform&a,const S2CompactTra
  result.Q=a.Q*b.Q;
 }
 
-static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &rotation,const S2CompactTransform &q,Matrix3D &m) {
+static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &rotation,const S2CompactTransform &transform,Matrix3D &matrix) {
  const float xx=rotation.X*rotation.X*2.0f,xy=2.0f*(rotation.X*rotation.Y),xz=rotation.Z*rotation.X*2.0f,wx=rotation.W*rotation.X*2.0f;
  const float yy=rotation.Y*rotation.Y*2.0f,yz=rotation.Z*rotation.Y*2.0f,wy=rotation.W*rotation.Y*2.0f;
  const float zz=rotation.Z*rotation.Z*2.0f,wz=rotation.W*rotation.Z*2.0f;
- m[0][0]=1.0f-yy-zz;m[0][1]=xy-wz;m[0][2]=xz+wy;
- m[1][0]=xy+wz;m[1][1]=1.0f-zz-xx;m[1][2]=yz-wx;
- m[2][0]=xz-wy;m[2][1]=yz+wx;m[2][2]=1.0f-yy-xx;
- m[0][3]=q.Position.X;m[1][3]=q.Position.Y;m[2][3]=q.Position.Z;
- return m;
+ matrix[0][0]=1.0f-yy-zz;matrix[0][1]=xy-wz;matrix[0][2]=xz+wy;
+ matrix[1][0]=xy+wz;matrix[1][1]=1.0f-zz-xx;matrix[1][2]=yz-wx;
+ matrix[2][0]=xz-wy;matrix[2][1]=yz+wx;matrix[2][2]=1.0f-yy-xx;
+ matrix[0][3]=transform.Position.X;matrix[1][3]=transform.Position.Y;matrix[2][3]=transform.Position.Z;
+ return matrix;
 }
 bool HTreeClass::Simple_Evaluate_Pivot(HAnimClass *motion,int pivot_index,float frame,const Matrix3D &obj_tm,Matrix3D *end_tm)const {
  if(!end_tm)return false;
  end_tm->Make_Identity();
  if(!motion || pivot_index<0 || pivot_index>=NumPivots)return false;
  S2CompactTransform total(true);
- for(S2PivotView *p=&reinterpret_cast<S2PivotView *>(Pivot)[pivot_index];p && p->Parent;p=p->Parent){
+ for(S2PivotView *pivot=&reinterpret_cast<S2PivotView *>(Pivot)[pivot_index];pivot && pivot->Parent;pivot=pivot->Parent){
   S2CompactTransform anim;
-  ((S2CompactAnimView*)motion)->rva_vt28(anim,p->Index,frame);
+  ((S2CompactAnimView*)motion)->rva_vt28(anim,pivot->Index,frame);
   anim.Position*=ScaleFactor;
-  S2CompactTransform current;compose(p->Base,anim,current);
+  S2CompactTransform current;compose(pivot->Base,anim,current);
   compose2(current,total,total);
  }
  S2PivotMatrix(total.Q,total,*end_tm);
@@ -176,16 +176,16 @@ bool HTreeClass::Simple_Evaluate_Pivot(HAnimClass *motion,int pivot_index,float 
 
 // Rebase the completed source pose through the root transform.
 static __forceinline void SlaveProduct(const Quaternion &a,const Quaternion &b,Quaternion &out) {
- Quaternion q;
- q.X=a.Y*b.Z-b.Y*a.Z;
- q.X+=a.W*b.X;
- q.X+=b.W*a.X;
- q.Y=(a.W*b.Y+b.W*a.Y)-(a.X*b.Z-b.X*a.Z);
- q.Z=a.X*b.Y-b.X*a.Y;
- q.Z+=a.W*b.Z;
- q.Z+=b.W*a.Z;
- q.W=a.W*b.W-(a.X*b.X+a.Y*b.Y+a.Z*b.Z);
- out=q;
+ Quaternion product;
+ product.X=a.Y*b.Z-b.Y*a.Z;
+ product.X+=a.W*b.X;
+ product.X+=b.W*a.X;
+ product.Y=(a.W*b.Y+b.W*a.Y)-(a.X*b.Z-b.X*a.Z);
+ product.Z=a.X*b.Y-b.X*a.Y;
+ product.Z+=a.W*b.Z;
+ product.Z+=b.W*a.Z;
+ product.W=a.W*b.W-(a.X*b.X+a.Y*b.Y+a.Z*b.Z);
+ out=product;
 }
 static __forceinline void SlaveCompose(const S2CompactTransform&a,const S2CompactTransform&b,S2CompactTransform&result){
  Vector3 rotated;rotate(a.Q,b.Position,&rotated);result.Position=rotated+a.Position;

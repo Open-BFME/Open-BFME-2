@@ -361,3 +361,4 @@ agree:nl-a9cd788b2e61,InGameUI::createCommandHint::t,InGameUI::createCommandHint
 agree:nl-7b898318ee05,Rva006E3410::rva006E3410::n,Rva006E3410::rva006E3410::count,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
 agree:nl-4ca868c6fe26,Rva006E3410::rva006E3410::p,Rva006E3410::rva006E3410::cursor,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
 agree:nl-bb120f6dec6a,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::target,Code/Libraries/Source/Apt/Rva006E3410.cpp,c789131260e63aa6d2688cc2830aff8aba86913ed49ffc097310a465deb1b2f4
+agree:nl-3ac61585f150,Rva005EA58B::rva005EA58B::n,Rva005EA58B::rva005EA58B::rangesLeft,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,040cf0b976ca7a3920651893982a0a2a087302d44714b2e7651e13262cce0014

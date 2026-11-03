@@ -7231,3 +7231,9 @@ param,rotate2::v,rotate2::vector,inferred,agree:nl-3b3358eeb8d7,Code/Libraries/S
 param,rotate::q,rotate::rotation,inferred,agree:nl-1818e9707eed,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
 param,rotate::v,rotate::vector,inferred,agree:nl-070b44746519,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
 param,Rva0020EEF4Outer::rva0020EEF4::v,Rva0020EEF4Outer::rva0020EEF4::criteria,inferred,agree:nl-f816116b72a3,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,0x0020EEF4
+local,HTreeClass::Simple_Evaluate_Pivot::p,HTreeClass::Simple_Evaluate_Pivot::pivot,inferred,agree:nl-5c2994619d32,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,0x00161700
+local,SlaveProduct::q,SlaveProduct::product,inferred,agree:nl-be36c2e16d19,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,S2PivotMatrix::m,S2PivotMatrix::matrix,inferred,agree:nl-1928bbc5b2a2,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,S2PivotMatrix::q,S2PivotMatrix::transform,inferred,agree:nl-a500c166d519,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+local,Rva005EA58B::rva005EA58B::n,Rva005EA58B::rva005EA58B::rangesLeft,inferred,agree:nl-3ac61585f150,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B
+local,Rva005EA58B::rva005EA58B::r,Rva005EA58B::rva005EA58B::range,inferred,agree:nl-b10b6fd2f680,Code/Libraries/Source/WWVegas/WWMath/Rva005EA58BMethod.cpp,0x005EA58B

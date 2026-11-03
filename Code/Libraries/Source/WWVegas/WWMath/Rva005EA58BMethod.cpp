@@ -48,19 +48,19 @@ private:
 };
 void Rva005EA58B::rva005EA58B()
 {
-	Rva005EA58BRange *r = m_ranges;
-	int n = 2;
+	Rva005EA58BRange *range = m_ranges;
+	int rangesLeft = 2;
 	do {
-		Rva005EA58BElem *b = r->m_begin;
-		Rva005EA58BElem *e = r->m_end;
+		Rva005EA58BElem *b = range->m_begin;
+		Rva005EA58BElem *e = range->m_end;
 		for (Rva005EA58BElem *p = b; p != e; ++p) {
 			Rva005EA58BHolder *h = p->m_holder;
 			if (h)
 				h->m_str.validate();
 		}
-		++r;
-		--n;
-	} while (n != 0);
+		++range;
+		--rangesLeft;
+	} while (rangesLeft != 0);
 }
 void Rva005EA58B::rva005EA8C4()
 {
