@@ -15,9 +15,9 @@ struct AIState
 	int m_id;
 };
 
-#include "../../../../Include/GameLogic/AIStateMachineClass.h"
-
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
+
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 int AIUpdateInterface::getCurrentStateID() const
 {

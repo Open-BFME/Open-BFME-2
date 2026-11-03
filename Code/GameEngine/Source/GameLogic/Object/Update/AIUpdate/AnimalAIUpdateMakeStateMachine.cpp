@@ -10,9 +10,9 @@ typedef unsigned int UnsignedInt;
 
 class Object;
 
-#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
-
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
+
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
 #include "../../../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 

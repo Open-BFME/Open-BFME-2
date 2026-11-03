@@ -16,16 +16,7 @@ unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void __cdecl fprintf(void *sink, const char *format, ...);
 
-#include "../../../../../Include/Common/BfmeStringData.h"
-
-template <typename T> class StringBase
-{
-public:
-	const T *str() const { return m_data ? m_data->text : ""; }
-
-private:
-	BfmeStringData<T> *m_data;
-};
+#include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class Overridable
 {
@@ -38,11 +29,11 @@ public:
 class ThingTemplate : public Overridable
 {
 public:
-	const StringBase<char> &getName() const { return m_name; }
+	const AsciiString &getName() const { return m_name; }
 
 private:
 	char m_pad0c[0x64 - 0x0c];
-	StringBase<char> m_name;
+	AsciiString m_name;
 };
 
 #include "../../../../Common/GameLogicObjectLookupView.h"

@@ -51,7 +51,7 @@ enum LocomotorSurfaceType
 
 void AIUpdateInterface::requestPath( Coord3D *destination, Bool isFinalGoal )
 {
-	if (m_field1DC == 0)
+	if (m_locomotorSet.getValidSurfaces() == 0)
 		return;
 
 	if (g_00E03745)
@@ -89,7 +89,7 @@ Bool AIUpdateInterface::canComputeQuickPath( void )
 {
 	/* Basically, if a unit is moving through the air, we can quick path.  jba. */
 	Bool landBound = false;
-	if (!(m_field1DC & LOCOMOTORSURFACE_AIR))
+	if (!(m_locomotorSet.getValidSurfaces() & LOCOMOTORSURFACE_AIR))
 	{
 		landBound = true;
 	}

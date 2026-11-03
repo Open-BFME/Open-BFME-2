@@ -112,7 +112,7 @@ bool Team::didAllEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		AIUpdateInterface *ai = cur->m_ai;
 		if (ai) {
 			UnsignedInt mask = 1u << whichToConsider;
-			if ((ai->m_field1DC & mask) == 0)
+			if ((ai->getLocomotorSet().getValidSurfaces() & mask) == 0)
 				continue;
 		} else {
 			unsigned char mask8 = (unsigned char)(1u << whichToConsider);
@@ -145,7 +145,7 @@ bool Team::didAllExit(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		AIUpdateInterface *ai = cur->m_ai;
 		if (ai) {
 			UnsignedInt mask = 1u << whichToConsider;
-			if ((ai->m_field1DC & mask) == 0)
+			if ((ai->getLocomotorSet().getValidSurfaces() & mask) == 0)
 				continue;
 		} else {
 			unsigned char mask8 = (unsigned char)(1u << whichToConsider);

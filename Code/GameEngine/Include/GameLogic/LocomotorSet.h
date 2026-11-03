@@ -14,8 +14,8 @@
 class Xfer;
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-#if !defined(BFME_SNAPSHOT_NAME_SLOT) || !defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT) || defined(BFME_SNAPSHOT_REFERENCE_XFER)
-#error LocomotorSet requires Snapshot's const name getter and DoXfer(Xfer *) slots
+#if defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT) || defined(BFME_SNAPSHOT_REFERENCE_XFER)
+#error LocomotorSet requires Snapshot's const name getter and pointer transfer slot
 #endif
 
 class INI;
@@ -29,13 +29,21 @@ public:
     LocomotorSet();
     virtual ~LocomotorSet();
 
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void LoadPostProcess();
+#else
+    virtual void loadPostProcess();
+#endif
 #ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
 #else
     virtual void crc(Xfer *xfer);
 #endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void DoXfer(Xfer *xfer);
+#else
+    virtual void xfer(Xfer *xfer);
+#endif
 
     void clear();
     void addLocomotor(const LocomotorTemplate *lt, bool flag);

@@ -27,19 +27,7 @@ enum PathfindLayerEnum
  PATHFIND_LAYER_GROUND = 1
 };
 typedef int LocomotorSurfaceTypeMask;
-class LocomotorSet
-{
- public:
- LocomotorSurfaceTypeMask getValidSurfaces() const
- {
-  return m_validLocomotorSurfaces;
- }
- private:
- char m_pad[0x10];
- LocomotorSurfaceTypeMask m_validLocomotorSurfaces;
- Bool m_downhillOnly;
- Bool m_scalesWalls;
-};
+class LocomotorSet;
 #include "../../../Include/Common/Player.h"
 // Relationship order is established by the rowed Object::getRelationship.
 class AIUpdateInterface;

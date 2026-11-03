@@ -25,7 +25,7 @@
 // +0x134..+0x1A4, +0x1C8, +0x1F0..+0x220, +0x234..+0x240 and +0x3DC;
 // its +0x74 vector construction is 16 records of 12 bytes. Its byte stores
 // establish +0x3B0..+0x3CF and +0x3E0. Member calls place opaque storage at
-// +0x1CC (0x001E7087), +0x224 (0x0026E7C8), +0x244/+0x290 (0x00042526),
+// +0x224 (0x0026E7C8), +0x244/+0x290 (0x00042526),
 // +0x2DC (0x0024CA24), +0x2EC (0x0026AFDA) and +0x3D0 (0x00262436).
 // destroyPath 0x00262A8A reads +0x140; requestSafePath 0x00263EA2 proves
 // destination +0x148, timestamp +0x160, repulsors +0x18C/+0x190 and flags
@@ -38,6 +38,10 @@
 // victim ID at +0x40. Turret queries 0x002626B7 and destructor 0x0026E836
 // bound m_turretAI to one pointer at +0x20C. Ground-movement predicate
 // 0x0026731C reads the locomotor-set surface mask at +0x1DC.
+// The constructor calls LocomotorSet's constructor 0x001E7087 on +0x1CC at
+// 0x0026EA4F, the destructor its destructor 0x001E86D0 at 0x0026E909, and
+// chooseLocomotorSetExplicit 0x00268A37 its clear 0x001E7E25 at 0x00268A59.
+// Zero Hour AIUpdate.h names m_locomotorSet and the inline getLocomotorSet.
 // TurretAI::removeSelfAsTargeter calls primary slot 129 at 0x004D8290;
 // AIAttackState::onEnter 0x0034B502 calls slot 144. Zero Hour AIUpdate.h
 // names these addTargeter and notifyVictimIsDead, and supplies the inline
@@ -62,6 +66,7 @@
 #define __BFME2_AIUPDATE_H_
 
 #include "UpdateModule.h"
+#include "../LocomotorSet.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/BitFlags11.h"
 
@@ -434,6 +439,7 @@ public:
     bool rva00262DD3(Object const *)const;
     void rva002632E1();
     Locomotor *getCurLocomotor() { return m_curLocomotor; }
+    const LocomotorSet &getLocomotorSet() const { return m_locomotorSet; }
     int rva00265143();
     void transferAttack(ObjectID,ObjectID);
     void rva00263298();
@@ -544,9 +550,7 @@ public:
     unsigned int m_field1A8[4];
     unsigned int m_field1B8[4];
     unsigned int m_field1C8;
-    unsigned char m_storage1CC[0x10];
-    int m_field1DC;
-    unsigned char m_storage1E0[0x10];
+    LocomotorSet m_locomotorSet;
     Locomotor *m_curLocomotor;
     int m_curLocomotorSet;
     float m_field1F8;
