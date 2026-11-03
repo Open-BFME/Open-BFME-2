@@ -1,0 +1,388 @@
+diff --git a/Code/GameEngine/Source/GameClient/InGameUICtor.cpp b/Code/GameEngine/Source/GameClient/InGameUICtor.cpp
+index 9cfca84320..462bca4401 100644
+--- a/Code/GameEngine/Source/GameClient/InGameUICtor.cpp
++++ b/Code/GameEngine/Source/GameClient/InGameUICtor.cpp
+@@ -33,21 +33,28 @@
+ #include <vector>
+ #include "ascii_string.h"
+ #include "unicode_string.h"
++#define BFME_SNAPSHOT_NAME_SLOT
+ #include "Common/Snapshot.h"
+ #include "../Common/GameLogicObjectLookupView.h"
+ #include "../../../Libraries/Include/Lib/Coord3D.h"
+ 
++#define BFME_SUBSYSTEM_SLOTS
+ #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+ 
+ // The five-slot interface at +0x10: its table 0x00C078DC is all purecall.
++// Its slots carry the canonical InGameUI.h signatures.
++class Rva002217EA;
++class AnimateWindow;
+ class InGameUIInterface10
+ {
+ public:
+ 	InGameUIInterface10() {}
+ 	~InGameUIInterface10() {}
+-#define SLOT(N) virtual void slot##N() = 0;
+-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04)
+-#undef SLOT
++	virtual void slot10_00() = 0;
++	virtual void slot10_01() = 0;
++	virtual void rva0029B56E(const UnicodeString &, const Rva002217EA &, int) = 0;
++	virtual bool slot10_03(class AnimateWindow *) = 0;
++	virtual int slot10_04() = 0;
+ };
+ 
+ // The helper at +0x7F4: slot 1 initializes it.
+@@ -361,6 +368,20 @@ struct Rva0035C9A6Entry
+ 	int b;
+ };
+ 
++class Coord2D;
++struct ICoord2D;
++struct IRegion2D;
++struct RGBColor;
++class Player;
++class CommandButton;
++class SpecialPowerTemplate;
++class GameMessage;
++class MaterialPassClass;
++class Overridable;
++class Xfer;
++enum LegalBuildCode;
++enum KindOfType;
++
+ class InGameUI : public SubsystemInterface, public Snapshot, public InGameUIInterface10
+ {
+ public:
+@@ -373,15 +394,133 @@ public:
+ 	};
+ 
+ 	InGameUI();
++	// InGameUI's full virtual surface in canonical InGameUI.h order, so this
++	// unit's vftables are retail's 0x00BFD410 (120 slots), +0xC 0x00BFD400 and
++	// +0x10 0x00BC7A64. The canonical header's inline slot bodies are emitted
++	// by W3DInGameUI's unit; here they are declarations only.
+ 	virtual ~InGameUI();
+-	// Declared in the order InGameUIDtor.cpp declares them, so both units
+-	// emit the same vtable copy.
++	virtual void init();
++	virtual void reset();
++	virtual void update();
++	virtual void vslot12() = 0;
++	virtual void __cdecl rva0029E99F(const RGBColor *, UnicodeString, ...);
++	virtual void __cdecl rva0029E656(AsciiString, ...);
++	virtual void __cdecl rva0029E846(UnicodeString, ...);
++	virtual void __cdecl messageColor(const RGBColor *, UnicodeString, ...);
++	virtual void __cdecl message(UnicodeString, ...);
++	virtual void __cdecl message(AsciiString, ...);
++	virtual void toggleMessages();
++	virtual bool isMessagesOn();
++	virtual void militarySubtitle(const AsciiString &, int);
++	virtual void militarySubtitle(UnicodeString, int);
+ 	virtual void removeMilitarySubtitle();	// slot 24
++	virtual void displayCantBuildMessage(LegalBuildCode);
++	virtual void beginAreaSelectHint(const GameMessage *);
++	virtual void endAreaSelectHint(const GameMessage *);
++	virtual void createMoveHint(const GameMessage *);
++	virtual void createAttackHint(const GameMessage *);
++	virtual void createForceAttackHint(const GameMessage *);
++	virtual void createMouseoverHint(const GameMessage *);
++	virtual void createCommandHint(const GameMessage *);
++	virtual void createGarrisonHint(const GameMessage *);
++	virtual void addSuperweapon(int, const AsciiString &, ObjectID, const SpecialPowerTemplate *);
++	virtual bool removeSuperweapon(int, const AsciiString &, ObjectID, const SpecialPowerTemplate *);
++	virtual void objectChangedTeam(const Object *, int, int);
++	virtual void setSuperweaponDisplayEnabledByScript(bool);
++	virtual bool getSuperweaponDisplayEnabledByScript() const;
++	virtual void hideObjectSuperweaponDisplayByScript(const Object *);
++	virtual void showObjectSuperweaponDisplayByScript(const Object *);
++	virtual void setScrolling(bool);
++	virtual bool isScrolling();
++	virtual void setSelecting(bool);
++	virtual bool isSelecting();
++	virtual void setScrollAmount(Coord2D);
++	virtual Coord2D getScrollAmount();
++	virtual void setGUICommand(const CommandButton *);
++	virtual const CommandButton *getGUICommand() const;
++	virtual void slot49(const Coord3D *);
++	virtual void slot50(const Coord3D *);
++	virtual bool slot51();
++	virtual int slot52();
++	virtual void updateFormationPreview();
++	virtual bool rva0029DB61();
+ 	virtual void placeBuildAvailable( const ThingTemplate *build, Drawable *buildDrawable );	// slot 55
++	virtual const ThingTemplate *getPendingPlaceType();
++	virtual ObjectID getPendingPlaceSourceObjectID();
++	virtual void setPlacementStart(const ICoord2D *);
++	virtual void setPlacementEnd(const ICoord2D *);
++	virtual bool isPlacementAnchored();
++	virtual void getPlacementPoints(ICoord2D *, ICoord2D *);
++	virtual float getPlacementAngle();
++	virtual bool slot63();
++	virtual void slot64(bool);
++	virtual void slot65();
++	virtual void selectDrawable(Drawable *);
++	virtual void deselectDrawable(Drawable *);
++	virtual void deselectAllDrawables();
++	virtual void rva0029BE05(bool, Player *);
++	virtual int getSelectCount();
++	virtual int getMaxSelectCount();
++	virtual unsigned int getFrameSelectionChanged();
++	virtual const _STL::list<Drawable *, _STL::allocator<Drawable *> > *getAllSelectedDrawables() const;
++	virtual const _STL::list<Drawable *, _STL::allocator<Drawable *> > *getAllSelectedLocalDrawables();
++	virtual Drawable *getFirstSelectedDrawable();
++	virtual int slot76();
++	virtual bool slot77(int) const;
++	virtual bool isAnySelectedKindOf(KindOfType) const;
++	virtual bool isAllSelectedKindOf(KindOfType) const;
++	virtual void rva0029FD1B(int, MaterialPassClass *, Overridable *, int);
+ 	virtual void setRadiusCursorNone();		// slot 81
++	virtual void setInputEnabled(bool, bool *);
++	virtual void disregardDrawable(Drawable *);
++	virtual void preDraw();
++	virtual void postDraw();
++	virtual void drawMilitarySubtitle();
++	virtual void slot87(const AsciiString &);
+ 	virtual void stopMovie();				// slot 88
++	virtual int slot89();
++	virtual void playCameoMovie(const AsciiString &);
+ 	virtual void stopCameoMovie();			// slot 91
++	virtual int slot92();
++	virtual int getMousedOverDrawableID() const;
++	virtual void rva0029AC03(bool);
++	virtual bool slot95() const;
++	virtual const void *slot96() const;
++	virtual int selectUnitsMatchingCurrentSelection();
++	virtual int selectMatchingAcrossScreen();
++	virtual int selectMatchingAcrossMap();
++	virtual int selectMatchingAcrossRegion(IRegion2D *);
++	virtual void mergeRva0029AF3F(const int *, const int *, int *);
++	virtual bool getDisplayedMaxWarning();
++	virtual void setDisplayedMaxWarning(bool);
++	virtual void addFloatingText(const UnicodeString &, const Coord3D *, int);
++	virtual void addIdleWorker(Object *);
++	virtual void removeIdleWorker(Object *, int);
++	virtual void selectNextIdleWorker();
++	virtual void recreateControlBar();
++	virtual void setRva0029B04D(int);
++	virtual void clearRva0029B060();
++	virtual bool areTooltipsDisabled() const;
++private:
++	virtual int getIdleWorkerCount();
++	virtual Object *findIdleWorker(Object *);
++	virtual void showIdleWorkerLayout();
++	virtual void hideIdleWorkerLayout();
++	virtual void updateIdleWorker();
++public:
+ 	virtual void resetIdleWorker();			// slot 117
++	virtual void *slot118() = 0;
++	virtual void slot119() = 0;
++protected:
++	virtual void loadPostProcess();
++	virtual const char *GetSnapshotName() const;
++	virtual void xfer(Xfer *);
++public:
++	virtual void slot10_00();
++	virtual void slot10_01();
++	virtual void rva0029B56E(const UnicodeString &, const Rva002217EA &, int);
++	virtual bool slot10_03(class AnimateWindow *);
++	virtual int slot10_04();
+ 
+ protected:
+ 	bool m_superweaponHiddenByScript;		// +0x14
+diff --git a/Code/GameEngine/Source/GameClient/InGameUIDtor.cpp b/Code/GameEngine/Source/GameClient/InGameUIDtor.cpp
+index 5393aec39c..c64c94579b 100644
+--- a/Code/GameEngine/Source/GameClient/InGameUIDtor.cpp
++++ b/Code/GameEngine/Source/GameClient/InGameUIDtor.cpp
+@@ -28,10 +28,12 @@
+ #include <vector>
+ #include "ascii_string.h"
+ #include "unicode_string.h"
++#define BFME_SNAPSHOT_NAME_SLOT
+ #include "Common/Snapshot.h"
+ #include "../Common/GameLogicObjectLookupView.h"
+ #include "../../../Libraries/Include/Lib/Coord3D.h"
+ 
++#define BFME_SUBSYSTEM_SLOTS
+ #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+ 
+ class ControlBar : public SubsystemInterface {};
+@@ -43,13 +45,19 @@ extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+ extern BannerUI *TheBannerUI;
+ 
+ // The five-slot interface at +0x10: its table 0x00C078DC is all purecall.
++// Its slots carry the canonical InGameUI.h signatures.
++class Rva002217EA;
++class AnimateWindow;
+ class InGameUIInterface10
+ {
+ public:
++	InGameUIInterface10() {}
+ 	~InGameUIInterface10() {}
+-#define SLOT(N) virtual void slot##N() = 0;
+-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04)
+-#undef SLOT
++	virtual void slot10_00() = 0;
++	virtual void slot10_01() = 0;
++	virtual void rva0029B56E(const UnicodeString &, const Rva002217EA &, int) = 0;
++	virtual bool slot10_03(class AnimateWindow *) = 0;
++	virtual int slot10_04() = 0;
+ };
+ 
+ // The helper at +0x7F4 (reset through slot 9 by InGameUI::reset).
+@@ -209,6 +217,20 @@ private:
+ 	void *m_node;
+ };
+ 
++class Coord2D;
++struct ICoord2D;
++struct IRegion2D;
++struct RGBColor;
++class Player;
++class CommandButton;
++class SpecialPowerTemplate;
++class GameMessage;
++class MaterialPassClass;
++class Overridable;
++class Xfer;
++enum LegalBuildCode;
++enum KindOfType;
++
+ class InGameUI : public SubsystemInterface, public Snapshot, public InGameUIInterface10
+ {
+ public:
+@@ -220,13 +242,133 @@ public:
+ 		Color color;						// +0x0C
+ 	};
+ 
++	// InGameUI's full virtual surface in canonical InGameUI.h order, so this
++	// unit's vftables are retail's 0x00BFD410 (120 slots), +0xC 0x00BFD400 and
++	// +0x10 0x00BC7A64. The canonical header's inline slot bodies are emitted
++	// by W3DInGameUI's unit; here they are declarations only.
+ 	virtual ~InGameUI();
++	virtual void init();
++	virtual void reset();
++	virtual void update();
++	virtual void vslot12() = 0;
++	virtual void __cdecl rva0029E99F(const RGBColor *, UnicodeString, ...);
++	virtual void __cdecl rva0029E656(AsciiString, ...);
++	virtual void __cdecl rva0029E846(UnicodeString, ...);
++	virtual void __cdecl messageColor(const RGBColor *, UnicodeString, ...);
++	virtual void __cdecl message(UnicodeString, ...);
++	virtual void __cdecl message(AsciiString, ...);
++	virtual void toggleMessages();
++	virtual bool isMessagesOn();
++	virtual void militarySubtitle(const AsciiString &, int);
++	virtual void militarySubtitle(UnicodeString, int);
+ 	virtual void removeMilitarySubtitle();	// slot 24
++	virtual void displayCantBuildMessage(LegalBuildCode);
++	virtual void beginAreaSelectHint(const GameMessage *);
++	virtual void endAreaSelectHint(const GameMessage *);
++	virtual void createMoveHint(const GameMessage *);
++	virtual void createAttackHint(const GameMessage *);
++	virtual void createForceAttackHint(const GameMessage *);
++	virtual void createMouseoverHint(const GameMessage *);
++	virtual void createCommandHint(const GameMessage *);
++	virtual void createGarrisonHint(const GameMessage *);
++	virtual void addSuperweapon(int, const AsciiString &, ObjectID, const SpecialPowerTemplate *);
++	virtual bool removeSuperweapon(int, const AsciiString &, ObjectID, const SpecialPowerTemplate *);
++	virtual void objectChangedTeam(const Object *, int, int);
++	virtual void setSuperweaponDisplayEnabledByScript(bool);
++	virtual bool getSuperweaponDisplayEnabledByScript() const;
++	virtual void hideObjectSuperweaponDisplayByScript(const Object *);
++	virtual void showObjectSuperweaponDisplayByScript(const Object *);
++	virtual void setScrolling(bool);
++	virtual bool isScrolling();
++	virtual void setSelecting(bool);
++	virtual bool isSelecting();
++	virtual void setScrollAmount(Coord2D);
++	virtual Coord2D getScrollAmount();
++	virtual void setGUICommand(const CommandButton *);
++	virtual const CommandButton *getGUICommand() const;
++	virtual void slot49(const Coord3D *);
++	virtual void slot50(const Coord3D *);
++	virtual bool slot51();
++	virtual int slot52();
++	virtual void updateFormationPreview();
++	virtual bool rva0029DB61();
+ 	virtual void placeBuildAvailable( const ThingTemplate *build, Drawable *buildDrawable );	// slot 55
++	virtual const ThingTemplate *getPendingPlaceType();
++	virtual ObjectID getPendingPlaceSourceObjectID();
++	virtual void setPlacementStart(const ICoord2D *);
++	virtual void setPlacementEnd(const ICoord2D *);
++	virtual bool isPlacementAnchored();
++	virtual void getPlacementPoints(ICoord2D *, ICoord2D *);
++	virtual float getPlacementAngle();
++	virtual bool slot63();
++	virtual void slot64(bool);
++	virtual void slot65();
++	virtual void selectDrawable(Drawable *);
++	virtual void deselectDrawable(Drawable *);
++	virtual void deselectAllDrawables();
++	virtual void rva0029BE05(bool, Player *);
++	virtual int getSelectCount();
++	virtual int getMaxSelectCount();
++	virtual unsigned int getFrameSelectionChanged();
++	virtual const _STL::list<Drawable *, _STL::allocator<Drawable *> > *getAllSelectedDrawables() const;
++	virtual const _STL::list<Drawable *, _STL::allocator<Drawable *> > *getAllSelectedLocalDrawables();
++	virtual Drawable *getFirstSelectedDrawable();
++	virtual int slot76();
++	virtual bool slot77(int) const;
++	virtual bool isAnySelectedKindOf(KindOfType) const;
++	virtual bool isAllSelectedKindOf(KindOfType) const;
++	virtual void rva0029FD1B(int, MaterialPassClass *, Overridable *, int);
+ 	virtual void setRadiusCursorNone();		// slot 81
++	virtual void setInputEnabled(bool, bool *);
++	virtual void disregardDrawable(Drawable *);
++	virtual void preDraw();
++	virtual void postDraw();
++	virtual void drawMilitarySubtitle();
++	virtual void slot87(const AsciiString &);
+ 	virtual void stopMovie();				// slot 88
++	virtual int slot89();
++	virtual void playCameoMovie(const AsciiString &);
+ 	virtual void stopCameoMovie();			// slot 91
++	virtual int slot92();
++	virtual int getMousedOverDrawableID() const;
++	virtual void rva0029AC03(bool);
++	virtual bool slot95() const;
++	virtual const void *slot96() const;
++	virtual int selectUnitsMatchingCurrentSelection();
++	virtual int selectMatchingAcrossScreen();
++	virtual int selectMatchingAcrossMap();
++	virtual int selectMatchingAcrossRegion(IRegion2D *);
++	virtual void mergeRva0029AF3F(const int *, const int *, int *);
++	virtual bool getDisplayedMaxWarning();
++	virtual void setDisplayedMaxWarning(bool);
++	virtual void addFloatingText(const UnicodeString &, const Coord3D *, int);
++	virtual void addIdleWorker(Object *);
++	virtual void removeIdleWorker(Object *, int);
++	virtual void selectNextIdleWorker();
++	virtual void recreateControlBar();
++	virtual void setRva0029B04D(int);
++	virtual void clearRva0029B060();
++	virtual bool areTooltipsDisabled() const;
++private:
++	virtual int getIdleWorkerCount();
++	virtual Object *findIdleWorker(Object *);
++	virtual void showIdleWorkerLayout();
++	virtual void hideIdleWorkerLayout();
++	virtual void updateIdleWorker();
++public:
+ 	virtual void resetIdleWorker();			// slot 117
++	virtual void *slot118() = 0;
++	virtual void slot119() = 0;
++protected:
++	virtual void loadPostProcess();
++	virtual const char *GetSnapshotName() const;
++	virtual void xfer(Xfer *);
++public:
++	virtual void slot10_00();
++	virtual void slot10_01();
++	virtual void rva0029B56E(const UnicodeString &, const Rva002217EA &, int);
++	virtual bool slot10_03(class AnimateWindow *);
++	virtual int slot10_04();
+ 
+ protected:
+ 	char m_opaque014[0x18 - 0x14];
