@@ -199,8 +199,8 @@ public:
 	char m_pad000[0x38];
 	Rva005964B0Position m_position;		// +0x38
 	char m_pad044[0x254 - 0x44];
-	Rva005964B0Member *m_254;			// +0x254
-	Rva005964B0Member *get254() const { return m_254; }
+	Rva005964B0Member *m_body;			// +0x254
+	Rva005964B0Member *get254() const { return m_body; }
 };
 
 class Object;
