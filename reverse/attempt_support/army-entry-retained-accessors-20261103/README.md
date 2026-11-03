@@ -11,7 +11,7 @@ the same proven +BC/+B8 fields. Existing names are carried, not newly inferred
 English names or a claim of a recovered original header. Retaining member calls
 recovers native inlining that direct-field expression trials lost. Swapper's
 old __forceinline is not carried; ordinary inline already preserves all16 rows.
-LivingWorldLogic retains174 unique addresses (175 ledger rows) and36 EXACT EH
+LivingWorldLogic retains174 unique addresses (174 ledger rows) and36 EXACT EH
 graphs. Fields map only in these typed Entry uses: B8/BC/C4, and the proven
 secondary base's +B0 word. Existing release-view expressions are unchanged.
 

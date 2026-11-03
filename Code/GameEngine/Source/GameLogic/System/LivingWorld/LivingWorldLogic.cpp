@@ -2441,7 +2441,7 @@ class Rva0023D2D8DwordClearer { public: void clear(); };
 class Rva00210C66CmpBoolField { public: Bool get() const{int value=*(const int*)((const char*)this+0x114);return value==1||value==2;} };
 void Rva00437E9C(Int);
 class BfmeAptWindowManager; extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00222A8BTarget { public: void rva00222F55(Bool); };
+#include "../../../../Include/Common/Rva00222A8BTarget.h"
 class Rva002BBBE7 { public: void rva002BC39D(); };
 extern UnsignedInt g_Va00E04544;
 class Rva002D3627Host; class LivingWorld; extern LivingWorld *TheLivingWorld;

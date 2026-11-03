@@ -1,0 +1,23 @@
+{
+  "push": "c1325ac0b6",
+  "audit": "INCONCLUSIVE",
+  "index": "984a4cdc4d",
+  "outgoing_base": "33936a1dc4e1f4dc703ebede1b06bfd523153bea",
+  "missing_receipts": [
+    "Code/GameEngine/Source/Common/ArmySummaryEntry_xfer.cpp",
+    "Code/GameEngine/Source/Common/ArmySummaryGetEntry.cpp",
+    "Code/GameEngine/Source/Common/ArmySummary_LoadArmyEntry.cpp",
+    "Code/GameEngine/Source/Common/LivingWorldBuilding.cpp",
+    "Code/GameEngine/Source/Common/Rva0040C351Dtor.cpp",
+    "Code/GameEngine/Source/Common/Rva0040C351Equality.cpp",
+    "Code/GameEngine/Source/Common/Rva0040CB3ABinarySearch.cpp",
+    "Code/GameEngine/Source/GameClient/ArmyUnitSwapperSelection.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsCreateIcon.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsEntryAdded.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B64C7Observer.cpp"
+  ]
+}

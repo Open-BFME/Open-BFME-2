@@ -44,13 +44,7 @@ class Rva005E1008 {public: void rva005E0E99(bool);};
 class Rva005E1160Flag {public: __declspec(noinline) void rva005E1160(bool); char prefix[8]; Rva005E1008 *inner;};
 void Rva005E1160Flag::rva005E1160(bool enabled){inner->rva005E0E99(enabled);}
 class Rva005E0D94 {public: void rva005E0D94();};
-class GameMessage {public: enum Type {MSG_0x6B0=0x6b0,MSG_0x6A9=0x6a9,MSG_0x6B1=0x6b1,MSG_0x6B3=0x6b3,MSG_0x6BF=0x6bf}; void appendIntegerArgument(int);};
-class MessageStream {public:
-#define V(n) virtual void slot##n();
-V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17)
-#undef V
-virtual GameMessage *appendMessage(GameMessage::Type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern MessageStream *TheMessageStream;
 // WorldBuilder StrategicInGameUI::CanCancelMove, WB VA 0x0162A1C0 (callgraph lead, score 2.0).
 namespace StrategicInGameUI {
@@ -80,13 +74,13 @@ static void CancelMove(Rva005F56B0Selection *selection,LivingWorldArmy *army) {
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
    if(entry->m_b8) {
-    GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_0x6B0);
+    GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_LW_CANCEL_ARMY_MEMBER_MOVE);
     message->appendIntegerArgument(army->id);
     message->appendIntegerArgument(*it);
    }
   }
  }else if(reinterpret_cast<Rva00318F42*>(army)->rva00318F42()) {
-  GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_0x6A9);
+  GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_LW_CANCEL_ARMY_MOVE_REQUEST);
   message->appendIntegerArgument(army->id);
  }
 }
@@ -125,8 +119,8 @@ static void DisbandArmyMembers(LivingWorldArmy *army,Rva005F56B0Selection *selec
  for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
   ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
   GameMessage::Type type;
-  if(entry->m_c4)type=GameMessage::MSG_0x6B3;
-  else if(CanDisbandArmyMember(army,*it))type=GameMessage::MSG_0x6B1;
+  if(entry->m_c4)type=GameMessage::MSG_LW_CANCEL_ARMY_MEMBER_DISBAND;
+  else if(CanDisbandArmyMember(army,*it))type=GameMessage::MSG_LW_DISBAND_ARMY_MEMBER;
   else continue;
   GameMessage *message=TheMessageStream->appendMessage(type);
   message->appendIntegerArgument(army->id);
@@ -208,7 +202,7 @@ void StrategicInGameUI::SendUpgradeMessages(LivingWorldArmy *army,Rva005F56B0Sel
   for(SelectedMemberSet::iterator it=selection->members.begin();it!=end;++it) {
    ArmySummaryEntry *entry=reinterpret_cast<ArmySummaryEntry*>(summary->get(*it));
    if(!entry->m_bc && TheLivingWorldLogic->GetArmoryToUpgradeTroop(entry,army,region)) {
-    GameMessage *message=TheMessageStream->appendMessage(GameMessage::MSG_0x6BF);
+    GameMessage *message=TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x6BF));
     message->appendIntegerArgument(army->id);
     message->appendIntegerArgument(*it);
     if(--countA<=0)break;

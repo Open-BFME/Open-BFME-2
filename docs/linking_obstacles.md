@@ -19473,7 +19473,7 @@ scheduled census; neither W3D cleanup nor this adoption claims a census gain.
 The panel follow-up now extends to Swapper and LivingWorldLogic: the canonical
 header retains their existing ordinary inline hasUpgrade/getMoveTarget member
 calls, preserving the native callers that direct expressions missed. All16 and
-174 unique addresses pass (175 Logic rows), with36 EXACT Logic EH graphs.
+174 unique addresses pass (174 Logic rows), with36 EXACT Logic EH graphs.
 All21/427 provider names/properties/routes remain; only29 dispatcher local-label
 spellings change, each resolving to its unchanged own-section offset, with all
 3170 raw bytes identical. No new name, virtual slot, pin, release cast or hatch.
@@ -19492,3 +19492,21 @@ findings in LivingWorldLogic (eight bindings, three divergent COMDAT names).
 The provider proof retains these bindings/payloads; no identity key is retired.
 All diagnostics are preserved in the retained-accessor packet shadow-findings.json.
 The15-source LINKS preview does not establish global identity cleanliness.
+
+### Living-world interface headers: four debts retired (2026-11-03)
+
+Logic's one-method Apt view now uses canonical Rva00222A8BTarget, and its already
+included MessageStream passes owning acceptance. Swapper now consumes canonical
+GameMessage/MessageStream with their existing named IDs; unknown1727 remains an
+explicit enum value. Owning acceptance retires4 debts. All174+16 rows remain
+exact, with36 EH graphs; all427/21 providers/properties/routes are retained.
+Only29 dispatcher label spellings renumber, each retaining its own parent offset
+and identical raw3170B. Two-source LINKS21,372 is preserved; prior11 shadow
+identity findings remain. The earlier175 Logic-row prose is corrected to the
+actual174-row ledger/build result; no function row changes in this batch.
+[Complete current proofs and prior15-source census carry scope](../reverse/attempt_support/livingworld-interface-headers-20261103/README.md).
+
+Accessor publicationc1325ac0b6 passed423rows/61EH in15sources and landed on its
+second immediate retry. Batch audit remains INCONCLUSIVE at index984a4cdc4d/
+base33936a1dc4e1f4dc703ebede1b06bfd523153bea, with15 missing current receipts.
+Their complete paths and affected consumers must carry to the next census.
