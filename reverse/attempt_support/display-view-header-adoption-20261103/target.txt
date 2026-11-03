@@ -1,0 +1,14 @@
+0025c134 push esi
+0025c135 mov esi, ecx
+0025c137 mov ecx, dword ptr [esp + 8]
+0025c13b push dword ptr [esi + 0x1c]
+0025c13e mov eax, dword ptr [ecx]
+0025c140 call dword ptr [eax + 0x25c]
+0025c146 mov dword ptr [esi + 0x1c], eax
+0025c149 pop esi
+0025c14a ret 4
+View slot 151 VA 0x96de1f
+0096de1f mov eax, ecx
+0096de21 mov ecx, dword ptr [esp + 4]
+0096de25 mov dword ptr [eax + 4], ecx
+0096de28 ret 4

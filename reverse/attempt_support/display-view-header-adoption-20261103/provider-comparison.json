@@ -1,0 +1,52 @@
+{
+  "source": "Code/GameEngine/Source/Common/BfmeStrVM0Rva0025C134.cpp",
+  "base": "81d62487b5",
+  "before": {
+    "object_sha256": "68bbecb7e0164889ac0cf502456d12678b134c3d1d50cd6da190e597b4ab594f",
+    "definitions": [
+      "?rva0025C134@Display@@UAEXPAV1@@Z"
+    ],
+    "references": [],
+    "weak_externals": [],
+    "alternates": {},
+    "includes": [],
+    "comdats": [
+      {
+        "name": "?rva0025C134@Display@@UAEXPAV1@@Z",
+        "body_hex": "568bf18b4c2408ff761c8b01ff905c02000089461c5ec20400",
+        "digest": "b963ddf55d67",
+        "relocations": []
+      }
+    ]
+  },
+  "after": {
+    "object_sha256": "5c90aa3354354c88311397019eff3aea4e50cb00ff4e4cb8675cb1eec92f457c",
+    "definitions": [
+      "?rva0025C134@Display@@UAEXPAV1@@Z"
+    ],
+    "references": [],
+    "weak_externals": [],
+    "alternates": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "includes": [],
+    "comdats": [
+      {
+        "name": "?rva0025C134@Display@@UAEXPAV1@@Z",
+        "body_hex": "568bf18b4c2408ff761c8b01ff905c02000089461c5ec20400",
+        "digest": "b963ddf55d67",
+        "relocations": []
+      }
+    ]
+  },
+  "changed_properties": [
+    "alternates"
+  ],
+  "interpretation": "Same single code definition, byte payload and relocations; same undefined, weak and INCLUDE routes. Seven existing canonical AsciiString header aliases are additionally emitted through the header dependency chain. No alias was authored or removed."
+}
