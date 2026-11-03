@@ -23,11 +23,7 @@ struct Rva002A8AB1Record
 	int m_16c; // +0x16c
 };
 
-class ProductionEntry
-{
-public:
-	bool getProductionObject() const;
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/ProductionEntry.h"
 
 #include "../../../../GameEngine/Include/Common/ThingFactory.h"
 

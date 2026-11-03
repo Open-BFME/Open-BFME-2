@@ -92,12 +92,7 @@ class UpgradeTemplate;
 
 enum ProductionType { PRODUCTION_INVALID = 0, PRODUCTION_UNIT, PRODUCTION_UPGRADE, PRODUCTION_HORDE_UNIT };
 
-class ProductionEntry
-{
-public:
-    virtual void *scalarDeleting(unsigned int flags);
-    Bool getProductionObject() const;
-};
+#include "../../../../Include/GameLogic/Module/ProductionEntry.h"
 
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.

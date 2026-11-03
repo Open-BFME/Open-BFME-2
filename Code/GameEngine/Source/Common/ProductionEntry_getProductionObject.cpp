@@ -4,15 +4,9 @@
 // m_value at +0x04. Evidence: frameless shape matches Disp8CmpBoolGetters
 // siblings; 7 callers test al and walk +0x08/+0x10/+0x48 lists.
 
-class ProductionEntry
-{
-public:
-	bool getProductionObject() const;
-	char m_lead[4];
-	int m_value;
-};
+#include "../../Include/GameLogic/Module/ProductionEntry.h"
 
 bool ProductionEntry::getProductionObject() const
 {
-	return m_value == 1 || m_value == 3;
+	return m_type == 1 || m_type == 3;
 }

@@ -464,11 +464,7 @@ public:
 	static Module *rva000395708(Object *obj);
 };
 
-class ProductionEntry
-{
-public:
-	Bool getProductionObject() const;
-};
+#include "../../../../Include/GameLogic/Module/ProductionEntry.h"
 
 // ProductionEntry.
 class Rva0049D1B1

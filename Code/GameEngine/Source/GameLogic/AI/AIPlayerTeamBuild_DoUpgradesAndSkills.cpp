@@ -494,13 +494,7 @@ public:
 };
 extern BuildAssistant *TheBuildAssistant;
 
-class ProductionEntry
-{
-public:
-	void *m_vtable;
-	Int m_type;
-	ThingTemplate *m_thing;
-};
+#include "../../../Include/GameLogic/Module/ProductionEntry.h"
 
 #include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
