@@ -16,20 +16,10 @@ class Object;
 class LocomotorSet;
 struct Coord3D;
 enum PathfindLayerEnum { BFME_LAYER_GROUND };
-class Pathfinder
-{
-public:
-    bool CheckForAdjust(Object *obj, const LocomotorSet &locoSet, bool a, int b, int c, PathfindLayerEnum layer, int d,
-        bool e, Coord3D *position, const Coord3D *zero, float value, int *word, int finalZero);
-};
-typedef bool (Pathfinder::*Rva002F52A7Shape)(unsigned int, unsigned int, unsigned char, unsigned int, unsigned int, unsigned int,
+#include "../../../Include/GameLogic/AIPathfind.h"
+typedef bool (PathfindServicesInterface::*Rva002F52A7Shape)(unsigned int, unsigned int, unsigned char, unsigned int, unsigned int, unsigned int,
     unsigned int, unsigned char, Rva002F600CCoord *, unsigned int, float, unsigned int *, unsigned int);
-class PathfindCell
-{
-public:
-    unsigned char prefix0C[12];
-    unsigned int flags;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 struct Rva002F600CInfo
 {
     int cellCallback(PathfindCell *from, PathfindCell *to, int x, int y);
@@ -48,10 +38,12 @@ int Rva002F600CInfo::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
 {
     if (from)
     {
-        unsigned int kind = (to->flags >> 4) & 63;
+        unsigned int kind = (to->m_0C >> 4) & 63;
         unsigned int adjust;
         if (kind14 == kind &&
-            (((Pathfinder *)query)->*reinterpret_cast<Rva002F52A7Shape>(&Pathfinder::CheckForAdjust))(word04, word08, 1, x, y, kind, word0C,
+            (static_cast<PathfindServicesInterface *>((Pathfinder *)query)->*reinterpret_cast<Rva002F52A7Shape>(
+                static_cast<bool(PathfindServicesInterface::*)(Object *, const LocomotorSet &, bool, int, int, PathfindLayerEnum, int, bool, Coord3D *, const Coord3D *, float, int *, int)>(
+                    &Pathfinder::CheckForAdjust)))(word04, word08, 1, x, y, kind, word0C,
                 option10, &position1C, 0, 0.0f, &adjust, 0) && !adjust)
         {
             success18 = true;

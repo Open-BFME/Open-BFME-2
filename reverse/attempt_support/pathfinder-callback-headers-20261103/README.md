@@ -1,0 +1,9 @@
+# F600C callback canonical-header preparation
+
+The complete105-byte callback now uses the existing registered PathfindCell and Pathfinder headers. The cell's sole direct packed-field access maps flags to canonical m_0C at+0x0C. The existing call-shape typedef is placed on the real primary PathfindServicesInterface; an exact-signature standard member-pointer conversion and explicit primary-base receiver preserve the old argument view and direct native call. No new semantic callee parameter recovery is claimed.
+
+The bounded private cell-only trial preserves the105-byte body and sole provider. The subsequent control/naive-canonical/primary-base experiment demonstrates the actual ABI obstacle: naive multiple-inheritance view119B fails, explicit primary-base105B passes, and bytes plus ordered symbolic relocation targets remain identical with no extra/removed definition or EH graph. Current-main normal build passes1/1. Both owning header acceptances PASS and each retires one queue row,2 total. No new pin, alias, assembly, pragma, helper, private canonical class or marker is introduced.
+
+This is a standalone preparation, not source consolidation. The callback's concrete Info view still competes with an unused four-byte prefix in AIPathfind. That separate pair must reconcile before a supported current-input merge can admit the body; neither these byte checks nor the existing dated index proves final composition or whole-image provider selection.
+
+Publication handoff from the preceding c55b051ada source merge: normal89-row/two-data checks, EH3 and224-provider union pass; the pre-push broad audit is INCONCLUSIVE at index984a4cdc4d, outgoing base0f12574aadd33eab1789026f4eed94d56a7f17ff. Six current receipts were missing (first AIPathfind.cpp), so complete affected-consumer closure remains for the next scheduled census. This does not claim a census/runtime gain. No measurement or game runner was started.

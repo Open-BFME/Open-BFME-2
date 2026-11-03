@@ -137,6 +137,16 @@ seven. Seventy-three donors and thirty-two mixed sources remain outside this
 merge; the F600C callback needs separate header, ABI and Info-view preparation.
 [Applied merge, audits and remaining limits](../reverse/attempt_support/pathfinder-seven-merge-20261103/README.md).
 
+The F600C callback now independently adopts canonical PathfindCell and
+Pathfinder, with the real primary-base member-pointer conversion preserving
+its original argument view and exact 105-byte body. Normal verification and
+both owning acceptances pass, retiring two header entries. Its competing Info
+prefix still needs separate reconciliation before composition. The preceding
+c55b051ada merge push retained all scoped checks but its broader audit remained
+INCONCLUSIVE: six receipts missing at base 0f12574aadd3, first AIPathfind.cpp;
+carry full affected-consumer closure into the next scheduled census.
+[Callback proof and handoff](../reverse/attempt_support/pathfinder-callback-headers-20261103/README.md).
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:
