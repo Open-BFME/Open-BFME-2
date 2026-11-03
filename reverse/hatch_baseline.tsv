@@ -10485,6 +10485,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",o
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp	"t",on	1
@@ -11465,9 +11468,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_moduledatalist_insert.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_moduledatalist_insert.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_moduledatalist_insert.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair_char_insert_overflow.cpp	"",on	1
