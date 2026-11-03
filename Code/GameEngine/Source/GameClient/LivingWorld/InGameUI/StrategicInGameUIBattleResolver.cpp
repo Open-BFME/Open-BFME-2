@@ -11,11 +11,7 @@
 // m_veterancyData) it builds the auto-resolve data from the event's three
 // arguments (0x005ED15D in StrategicVeterancy.cpp). Argument types are
 // passed through untyped.
-class StrategicVeterancy
-{
-public:
-	class Data;
-};
+#include "../../../../Include/GameClient/StrategicVeterancy.h"
 
 StrategicVeterancy::Data *__cdecl Rva005ED15DCreateAutoResolve(void *a, void *b, void *c);
 

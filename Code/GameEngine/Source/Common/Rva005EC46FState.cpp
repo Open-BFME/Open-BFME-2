@@ -18,11 +18,7 @@ public:
 	bool rva005FA854();
 };
 
-class StrategicVeterancy
-{
-public:
-	void FadeOut();
-};
+#include "../../Include/GameClient/StrategicVeterancy.h"
 
 class Rva005EC46F
 {

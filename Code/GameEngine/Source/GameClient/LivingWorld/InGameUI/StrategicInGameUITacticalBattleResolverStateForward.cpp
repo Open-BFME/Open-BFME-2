@@ -10,7 +10,7 @@
 class Rva005EC832Owner{public:Rva005EC832Owner*rva005EC832(int);};
 class Rva005EC422{public:Rva005EC422(void*p){((Rva005EC832Owner*)this)->rva005EC832((int)p);}~Rva005EC422();void*ptr;};
 class Rva005D1035{public:Rva005D1035(void*p):owner(p){}virtual ~Rva005D1035(){}virtual void slot1()=0;void*owner;};
-class StrategicVeterancy{public:bool Show();};
+#include "../../../../Include/GameClient/StrategicVeterancy.h"
 class Rva005D10F9:public Rva005D1035{public:Rva005D10F9(void*,void*);virtual ~Rva005D10F9();virtual void slot1();Rva005EC422 view;};
 
 #include <new>
