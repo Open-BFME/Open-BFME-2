@@ -236,12 +236,7 @@ class SkirmishFindMap { public:
     SkirmishFindNode *head; unsigned char remainder[8];
 };
 
-class GameSpyConfigInterface { public:
-    virtual ~GameSpyConfigInterface();
-    virtual _STL::list<AsciiString> getPingServers()=0;
-    virtual int getNumPingRepetitions()=0;
-    virtual int getPingTimeoutInMs()=0;
-};
+#include "../../../../../Include/GameNetwork/GameSpyConfigInterface.h"
 
 extern GameSpyConfigInterface *TheGameSpyConfig;
 

@@ -40,14 +40,7 @@ struct BfmePingString
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/GSConfig.h
-class GameSpyConfigInterface
-{
-public:
-	virtual ~GameSpyConfigInterface() {}
-	virtual void slot_004() = 0;
-	virtual void slot_008() = 0;
-	virtual Int getPingTimeoutInMs() = 0;
-};
+#include "../../../Include/GameNetwork/GameSpyConfigInterface.h"
 
 // TheGameSpyConfig: matched references place it at VA 0x00E05FB4 (zero-filled
 // .bss, 4 bytes; data_xrefs: read/write by 35 functions, this unit among them).

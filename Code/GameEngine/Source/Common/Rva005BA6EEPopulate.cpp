@@ -21,18 +21,7 @@ void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool 
 class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
 extern GameTextInterface *TheGameText;
 
-class GameSpyConfigInterface {
-public:
-  virtual void s0();
-  virtual void s1();
-  virtual void s2();
-  virtual int getPingTimeoutInMs();
-  virtual void s4();
-  virtual void s5();
-  virtual _STL::list<AsciiString> getQMMaps();
-  virtual int getQMBotID();
-  virtual int getQMChannel();
-};
+#include "../../Include/GameNetwork/GameSpyConfigInterface.h"
 extern GameSpyConfigInterface *TheGameSpyConfig;
 
 // Chat.cpp owns the colour array at VA 0x00DB9198; index/addend unchanged.

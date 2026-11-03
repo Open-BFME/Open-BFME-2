@@ -185,18 +185,7 @@ struct BfmeOpaqueOwnedRecord492 {
           } payload_8c;
         };
 };
-class GameSpyConfigInterface {
-public:
-  virtual void s0();
-  virtual void s1();
-  virtual void s2();
-  virtual int getPingTimeoutInMs();
-  virtual void s4();
-  virtual void s5();
-  virtual _STL::list<AsciiString> getQMMaps();
-  virtual int getQMBotID();
-  virtual int getQMChannel();
-};
+#include "../../../../../Include/GameNetwork/GameSpyConfigInterface.h"
 extern GameSpyConfigInterface *TheGameSpyConfig;
 class Rva0054D8D8
 {

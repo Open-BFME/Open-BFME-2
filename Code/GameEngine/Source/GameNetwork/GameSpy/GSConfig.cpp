@@ -11,37 +11,7 @@ static __forceinline void configAppendChar(AsciiString &text,char c){((StringBas
 #include "Common/GameState.h"
 #include "GameClient/MapUtil.h"
 #define __GSCONFIG_H__
-class GameSpyConfigInterface
-{
-public:
-	virtual ~GameSpyConfigInterface() {}
-
-	// Pings
-	virtual std::list<AsciiString> getPingServers(void) = 0;
-	virtual Int getNumPingRepetitions(void) = 0;
-	virtual Int getPingTimeoutInMs(void) = 0;
-	virtual Int getPingCutoffGood( void ) = 0;
-	virtual Int getPingCutoffBad( void ) = 0;
-
-	// QM
-	virtual std::list<AsciiString> getQMMaps(void) = 0;
-	virtual Int getQMBotID(void) = 0;
-	virtual Int getQMChannel(void) = 0;
-	virtual void setQMChannel(Int channel) = 0;
-
-	// Player Info
-	virtual Bool isPlayerVIP(Int id) = 0;
-
-	// mangler Info
-	virtual Bool getManglerLocation(Int index, AsciiString& host, UnsignedShort& port) = 0;
-
-	// Ladder / Any other external parsing
-	virtual AsciiString getLeftoverConfig(void) = 0;
-
-	// Custom match
-	virtual Bool restrictGamesToLobby() = 0;
-	static GameSpyConfigInterface* create(AsciiString config);
-};
+#include "../../../Include/GameNetwork/GameSpyConfigInterface.h"
 #include "GameNetwork/RankPointValue.h"
 // codegen otherwise instantiates the max<unsigned> COMDAT (one byte shape
 // per TU flags); a file-static overload takes those calls instead so this
