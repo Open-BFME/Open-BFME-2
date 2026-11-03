@@ -40,12 +40,7 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class CustomMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~CustomMatchPreferences();
-	void setDisallowAsianText(Bool val);
-};
+#include "../../../../../Include/Common/CustomMatchPreferencesClass.h"
 
 // ?setDisallowAsianText@CustomMatchPreferences@@QAEX_N@Z
 void CustomMatchPreferences::setDisallowAsianText(Bool val)

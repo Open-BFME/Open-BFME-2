@@ -45,12 +45,7 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class CustomMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~CustomMatchPreferences();
-	void setLastLadder(const AsciiString &addr, UnsignedShort port);
-};
+#include "../../../../../Include/Common/CustomMatchPreferencesClass.h"
 
 // ?setLastLadder@CustomMatchPreferences@@QAEXABVAsciiString@@G@Z
 void CustomMatchPreferences::setLastLadder(const AsciiString &addr, UnsignedShort port)

@@ -283,12 +283,7 @@ extern GlobalData *TheWritableGlobalData;
 class FileSystem;
 extern FileSystem *TheFileSystem;
 // Rva0054F508 is CustomMatchPreferences; its getters are rowed by name.
-class CustomMatchPreferences
-{
-public:
-	Bool getDisallowAsianText(void);
-	Bool getDisallowNonAsianText(void);
-};
+#include "../../../Include/Common/CustomMatchPreferencesClass.h"
 
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;	// 0x00E05FBC

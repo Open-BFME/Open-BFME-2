@@ -38,12 +38,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
-class CustomMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~CustomMatchPreferences();
-	Bool getDisallowAsianText();
-};
+#include "../../../../../Include/Common/CustomMatchPreferencesClass.h"
 
 Bool CustomMatchPreferences::getDisallowAsianText(void)
 {

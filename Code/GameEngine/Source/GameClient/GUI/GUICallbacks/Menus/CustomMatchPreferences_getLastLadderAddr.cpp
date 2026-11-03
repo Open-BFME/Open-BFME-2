@@ -52,12 +52,7 @@ template <> struct less<AsciiString>
 
 typedef _STL::map<AsciiString, AsciiString> AsciiPreferenceMap;
 
-class CustomMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~CustomMatchPreferences();
-	AsciiString getLastLadderAddr();
-};
+#include "../../../../../Include/Common/CustomMatchPreferencesClass.h"
 
 AsciiString CustomMatchPreferences::getLastLadderAddr(void)
 {

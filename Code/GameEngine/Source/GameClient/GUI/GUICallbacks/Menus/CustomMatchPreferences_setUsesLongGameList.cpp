@@ -40,12 +40,7 @@ namespace _STL
 template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
 }
 
-class CustomMatchPreferences : public AsciiPreferenceMap
-{
-public:
-	virtual ~CustomMatchPreferences();
-	void setUsesLongGameList(Bool val);
-};
+#include "../../../../../Include/Common/CustomMatchPreferencesClass.h"
 
 // ?setUsesLongGameList@CustomMatchPreferences@@QAEX_N@Z
 void CustomMatchPreferences::setUsesLongGameList(Bool val)
