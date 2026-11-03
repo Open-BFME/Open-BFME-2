@@ -1,0 +1,549 @@
+{
+ "bases": [
+  "_bfme_AptGameWindow"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptSaveLoad",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 28,
+  "inherited": {
+   "base_views": 3,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x27c": {
+    "4": 11
+   },
+   "0x280": {
+    "4": 3
+   },
+   "0x288": {
+    "4": 4
+   },
+   "0x28c": {
+    "4": 3
+   },
+   "0x290": {
+    "4": 1
+   },
+   "0x294": {
+    "4": 1
+   },
+   "0x29c": {
+    "1": 1
+   },
+   "0x2a0": {
+    "4": 4
+   },
+   "0x2a8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x436259"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "_bfme_AptGameWindow",
+       "offset": 0,
+       "own_vftable": "0x83cdc8",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x436259"
+     ],
+     "value": 684
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x436259"
+     ],
+     "value": {
+      "0x27c": [
+       4
+      ],
+      "0x280": [
+       4
+      ],
+      "0x284": [
+       1
+      ],
+      "0x288": [
+       4
+      ],
+      "0x28c": [
+       4
+      ],
+      "0x290": [
+       4
+      ],
+      "0x294": [
+       4
+      ],
+      "0x298": [
+       4
+      ],
+      "0x29c": [
+       1
+      ],
+      "0x29d": [
+       1
+      ],
+      "0x2a0": [
+       4
+      ],
+      "0x2a4": [
+       1
+      ],
+      "0x2a8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x436259"
+     ],
+     "value": {
+      "0x21c": [
+       "?AddCommandMap@AptCommandMapAdder@@QAEXABVAsciiString@@V?$AptRef@VAptCommandMap@@@@@Z"
+      ],
+      "0x2ac": [
+       "??0?$_List_base@UTreeHintOpaque0043671B@@V?$allocator@UTreeHintOpaque0043671B@@@_STL@@@_STL@@QAE@ABV?$allocator@UTreeHintOpaque0043671B@@@1@@Z"
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x2d20fa"
+     ],
+     "value": 688
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x436259"
+     ],
+     "value": {
+      "0x218": [
+       "0x83cdc4"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x436259"
+     ],
+     "value": {
+      "0x0": "0x83cdc8"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83cdc8"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptSaveLoad@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x436197"
+       },
+       {
+        "name": "?rva00434132@Rva00434132@@QAEHHEE@Z",
+        "slot": 1,
+        "target": "0x434132"
+       },
+       {
+        "name": "?rva00435BB3@AptSaveLoad@@QAEHHPAVGameWindow@@H@Z",
+        "slot": 2,
+        "target": "0x435bb3"
+       },
+       {
+        "name": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+        "slot": 3,
+        "target": "0xa12f8"
+       },
+       {
+        "name": "?rva00444680@Rva00444680@@QAEHHH@Z",
+        "slot": 4,
+        "target": "0x444680"
+       },
+       {
+        "name": "?rva00437053@AptSaveLoad@@QAEHXZ",
+        "slot": 5,
+        "target": "0x437053"
+       },
+       {
+        "name": "?vslot6@GameWindow@@UBE_NXZ",
+        "slot": 6,
+        "target": "0x313913"
+       },
+       {
+        "name": "?Rva00436846Get@@YAHXZ",
+        "slot": 7,
+        "target": "0x436846"
+       },
+       {
+        "name": "?vslot8@GameWindow@@UBE_NXZ",
+        "slot": 8,
+        "target": "0x31393a"
+       },
+       {
+        "name": "?vslot9@GameWindow@@UBE_NXZ",
+        "slot": 9,
+        "target": "0x8ff78"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 10,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 11,
+        "target": "0x50b5c6"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 13,
+        "target": "0xb3fd0"
+       }
+      ],
+      "table": "0x83cdc8"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 26,
+  "retail_vtables": {
+   "0x83cdc8": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptSaveLoad@@UAEPAXI@Z",
+     "1": "?rva00434132@Rva00434132@@QAEHHEE@Z",
+     "2": "?rva00435BB3@AptSaveLoad@@QAEHHPAVGameWindow@@H@Z",
+     "3": "?draw@GameWindow@@UAEHPAVWinInstanceData@@@Z",
+     "4": "?rva00444680@Rva00444680@@QAEHHH@Z",
+     "5": "?rva00437053@AptSaveLoad@@QAEHXZ",
+     "6": "?vslot6@GameWindow@@UBE_NXZ",
+     "7": "?Rva00436846Get@@YAHXZ",
+     "8": "?vslot8@GameWindow@@UBE_NXZ",
+     "9": "?vslot9@GameWindow@@UBE_NXZ",
+     "10": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "11": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "??1Region2D@@QAE@XZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 17,
+   "628": 1,
+   "640": 1,
+   "644": 1,
+   "656": 1,
+   "664": 1,
+   "676": 2,
+   "684": 1,
+   "688": 3
+  },
+  "views": 28,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 536,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 540,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 552,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 564,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 624,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 628,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 632,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 636,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00433FDDSet.cpp",
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadListEvent.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadPromptAddFriend.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad_Externs.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 640,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00433FDDSet.cpp",
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 644,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 648,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadListEvent.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00433F7F.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043684C.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 652,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadListEvent.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00433F7F.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043684C.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 656,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadListEvent.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 660,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadListEvent.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043684C.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad_Externs.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 664,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad_Externs.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 668,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 669,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 672,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva004340ACMethod.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad_Externs.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 676,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 680,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 684,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoad.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva00435DE7Dtor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043684C.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-extent",
+   "candidates": {
+    "[[0, 628]]": 2,
+    "[[0, 633]]": 1
+   },
+   "class": "AptSaveLoad"
+  }
+ ],
+ "size": 688,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
