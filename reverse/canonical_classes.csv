@@ -431,3 +431,4 @@ WeaponTemplateSetHead,Code/GameEngine/Include/Common/WeaponTemplateSetHead.h,exi
 Rva005248D0,Code/GameEngine/Include/GameClient/Rva005248D0.h,existing header; contract class_contracts/Rva005248D0.json; 23/70 sampled units adopt
 BfmeParticleSystemHandle,Code/GameEngine/Include/GameClient/BfmeParticleSystemHandle.h,existing header; contract class_contracts/BfmeParticleSystemHandle.json; 12/46 sampled units adopt
 Rva0052413E,Code/GameEngine/Include/Common/Rva0052413E.h,existing header; contract class_contracts/Rva0052413E.json; 33/40 sampled units adopt
+TreeKey00242F5E,Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h,existing header; contract class_contracts/TreeKey00242F5E.json; 21/39 sampled units adopt
