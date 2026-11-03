@@ -124,15 +124,9 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
+#include "../../../../Include/GameLogic/ManualPhaseEnder.h"
 namespace StrategicInGameUI
 {
-class ManualPhaseEnder
-{
-public:
-	GameMessageDisposition Translate(const GameMessage *msg);
-	void Update();
-	void OnEndPhase(); // 0x005CD8A5 (WorldBuilder name, pinned)
-};
 }
 
 GameMessageDisposition StrategicInGameUI::ManualPhaseEnder::Translate(const GameMessage *msg)

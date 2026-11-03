@@ -672,12 +672,8 @@ public:
 // The +0x18 and +0x28 translators are rowed as
 // StrategicInGameUI::ManualPhaseEnder::Translate (0x005CD8F7) and
 // StrategicInGameUI::PlayerStatusDisplayer::rva005CD690 (0x005CD690).
+#include "../../Include/GameLogic/ManualPhaseEnder.h"
 namespace StrategicInGameUI {
-class ManualPhaseEnder
-{
-public:
-	GameMessageDisposition Translate(const GameMessage *msg);
-};
 class PlayerStatusDisplayer
 {
 public:

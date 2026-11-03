@@ -47,16 +47,9 @@ public:
 
 // The translators behind the behavior (ManualPhaseEnder.cpp's and
 // PlayerStatusDisplayer.cpp's units).
+#include "../../../../Include/GameLogic/ManualPhaseEnder.h"
 namespace StrategicInGameUI
 {
-class ManualPhaseEnder
-{
-public:
-	GameMessageDisposition Translate(const GameMessage *msg); // 0x005CD8F7
-
-private:
-	char m_data[0x10];
-};
 }
 namespace StrategicInGameUI
 {

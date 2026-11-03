@@ -29,15 +29,9 @@ public:
 	Rva00574AACAddDwordField *m_04;		// +0x04
 };
 
+#include "../../../../Include/GameLogic/ManualPhaseEnder.h"
 namespace StrategicInGameUI
 {
-class ManualPhaseEnder
-{
-public:
-	void Update();
-private:
-	char m_data[0x10];
-};
 }
 
 class Rva005CD708
