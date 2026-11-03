@@ -5,7 +5,8 @@
 // The destructor calls ~Overridable at RVA 0x0033E058; the base destructor (RVA 0x001E3624) installs its own VA 0x00BDDC48 at RVA 0x001E362C. That base-phase table is not ThingTemplate's table. The constructor initializes the base prefix (+4 = 0, byte +8 = 0, +0xC = -1) at RVAs 0x0033E1D1..0x0033E1D8; the first own member is the float at +0x10 (RVA 0x0033E1E3).
 // RVA 0x002D1AD1 pushes 0x640 for operator new (0x002D1AD6), then calls the constructor at 0x002D1AE9. Constructor stores end at +0x63C, and assignment RVA 0x002D1101 copies the same member extents after calling Overridable::operator= at RVA 0x002D110F. Constructor, destructor and assignment remain out of line.
 // The constructor and assignment establish the member boundaries below, including strings +0x64, geometry +0xA0..0xFC, seven kind-mask words +0x108..0x124, module lists +0x2E4..0x314 and the scalar tail +0x484..0x640. The FieldParse table at RVA 0x009BECD8 (16-byte entries, member offset in word 3, terminator 0x009BF8C8) proves INI names and offsets; Zero Hour declarations supply matching member spellings. Unnamed members keep offset names; opaque storage preserves extents without supplying substitute container bodies.
-// Method names and signatures follow the ledger RVAs beside their declarations. isKindOf (0x000456AC) and isKindOfMulti (0x0030A8E3) address +0x108; friend_getNextTemplate (0x00406D4A) reads +0x1BC. These rowed methods are declared only. Zero Hour's getName declaration and copyFrom (0x0033EBEB) support the inline name accessor at +0x64.
+// Method names and signatures follow the ledger RVAs beside their declarations. isKindOf (0x000456AC) and isKindOfMulti (0x0030A8E3) address +0x108; friend_getNextTemplate (0x00406D4A) reads +0x1BC. These rowed methods are declared only. Zero Hour's getName declaration and copyFrom (0x0033EBEB) support the inline name accessor at +0x64. The other inline accessors are Zero Hour's inline declarations whose bodies retail inlines at the addresses beside them.
+// The kind mask is seven words (KindOfMaskType, BitFlags<218> per the KindOf name lookup 0x002AA2F9); consumers test single bytes of it, as Team::didAllEnter does with test byte [+0x113] at 0x0039E1B7.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -42,6 +43,13 @@ public:
 	ThingTemplate &operator=( const ThingTemplate &that );		// 0x002D1101
 
 	const AsciiString &getName() const { return m_nameString; }
+	void friend_setTemplateName( const AsciiString &name ) { m_nameString = name; }	// inlined in ThingFactory::newTemplate 0x002D1BD7
+	void friend_setTemplateID( unsigned short id ) { m5D8 = id; }						// inlined in ThingFactory::newTemplate 0x002D1BDA
+	unsigned short getTemplateID() const { return m5D8; }								// inlined: PlaceEventTranslator 0x00432648 movzx +0x5D8
+	float getShadowSizeX() const { return m_shadowSizeX; }								// inlined: W3DModelDraw::setTerrainDecal 0x000B9D46
+	float getShadowSizeY() const { return m_shadowSizeY; }								// inlined: 0x000B9D5B
+	float getShadowOffsetX() const { return m_shadowOffsetX; }							// inlined: 0x000B9D68
+	float getShadowOffsetY() const { return m_shadowOffsetY; }							// inlined: 0x000B9D75
 
 	int calcTimeToBuild( const Player *player, int second, int third ) const;			// 0x0033AA1F
 	void copyFrom( const ThingTemplate *that );											// 0x0033EBEB
@@ -109,7 +117,7 @@ public:
 	AsciiString m_experienceScalarTable;						// +0x09C
 	unsigned char m_geometryInfo[0x5C];							// +0x0A0 GeometryInfo (vftable + 0x58)
 	unsigned char m_geometryOther[12];							// +0x0FC vector (Rva0033C3F3)
-	unsigned int m_kindof[7];									// +0x108 KindOf mask words (KindOfMaskType)
+	unsigned int m_kindof[7];									// +0x108 KindOfMaskType, seven words: ctor 0x0033E2C4 builds it with 0x0024C7B3, 0x0033E6C4 copies 7 dwords from VA 0x00DFEFA4
 	unsigned char m124[0x1C0];									// +0x124 56 eight-byte records (Rva00254FE4Member)
 	unsigned char m_behaviorModuleInfo[12];						// +0x2E4 ModuleInfo (Behavior)
 	unsigned char m_drawModuleInfo[12];							// +0x2F0 ModuleInfo (Draw)
@@ -219,7 +227,7 @@ public:
 	unsigned int m_evaEventDetectedAlly;						// +0x5CC
 	unsigned int m_evaEventDetectedOwner;						// +0x5D0
 	unsigned int m_campnessValue;								// +0x5D4
-	unsigned short m5D8;										// +0x5D8
+	unsigned short m5D8;										// +0x5D8 template id: ctor 0x0033E5CB zeroes it, newTemplate 0x002D1BDA stores the factory counter
 	unsigned short m_buildCost;									// +0x5DA
 	unsigned short m_refundValue;								// +0x5DC
 	unsigned short m_threatValue;								// +0x5DE
