@@ -1,0 +1,419 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ArmySummaryEntry",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 30,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 3
+   },
+   "0x8": {
+    "4": 1
+   },
+   "0xb4": {
+    "4": 1
+   },
+   "0xb8": {
+    "4": 1
+   },
+   "0xbc": {
+    "4": 6
+   },
+   "0xc": {
+    "4": 4
+   },
+   "0xc0": {
+    "4": 2
+   },
+   "0xc4": {
+    "1": 1
+   },
+   "0xc5": {
+    "1": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "conflict",
+   "conflicts": [
+    {
+     "candidates": {
+      "[('0x0', '0x83944c'), ('0xac', '0x83945c')]": 1,
+      "[('0x0', '0x83944c')]": 1
+     },
+     "fact": "vftables"
+    }
+   ],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xc8": 12
+     }
+    },
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x40c351",
+      "0x40d688"
+     ],
+     "value": {
+      "0x0": [
+       "CarryoverUnit"
+      ]
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x40c351",
+      "0x40d688"
+     ],
+     "value": 198
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x40c351",
+      "0x40d688"
+     ],
+     "value": {
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       4
+      ],
+      "0xbc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       1
+      ],
+      "0xc5": [
+       1
+      ]
+     }
+    },
+    "unknown_subobject_vptrs": {
+     "kind": "inference",
+     "rule": "retail-ctor-vptr-after-own",
+     "sites": [
+      "0x40c351",
+      "0x40d688"
+     ],
+     "value": {
+      "0xac": [
+       "0x83945c"
+      ]
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 7,
+   "8": 1,
+   "180": 3,
+   "188": 1,
+   "192": 1,
+   "200": 17
+  },
+  "views": 30,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "templateName",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "f4",
+   "name": "m_f08",
+   "name_by": "tie",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "m_c0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_h10",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 128,
+   "type": "uchar[128]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_90",
+   "name_by": "majority",
+   "offset": 144,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_tail94",
+   "name_by": "majority",
+   "offset": 148,
+   "retail_widths": {},
+   "size": 24,
+   "type": "uchar[24]",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:TargetRef00217D4C",
+   "name": "ref",
+   "name_by": "majority",
+   "offset": 172,
+   "retail_widths": {},
+   "size": 8,
+   "type": "TargetRef00217D4C",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_ac.m_04",
+   "name_by": "majority",
+   "offset": 176,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "retail-access",
+   "kind": "i4",
+   "name": "m_b4",
+   "name_by": "majority",
+   "offset": 180,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_b8",
+   "name_by": "majority",
+   "offset": 184,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_bc",
+   "name_by": "majority",
+   "offset": 188,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_c0",
+   "name_by": "majority",
+   "offset": 192,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_c4",
+   "name_by": "majority",
+   "offset": 196,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_c5",
+   "name_by": "tie",
+   "offset": 197,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "bytesC6",
+   "name_by": "majority",
+   "offset": 198,
+   "retail_widths": {},
+   "size": 2,
+   "type": "char[2]",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 12
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "retail-vftables",
+   "candidates": {
+    "[('0x0', '0x83944c'), ('0xac', '0x83945c')]": 1,
+    "[('0x0', '0x83944c')]": 1
+   },
+   "class": "ArmySummaryEntry",
+   "why": "the class's retail constructors or destructors disagree"
+  },
+  {
+   "attribute": "name@0x8",
+   "candidates": {
+    "bytes08": 4,
+    "experience": 1,
+    "m_f08": 4,
+    "m_value": 1
+   },
+   "class": "ArmySummaryEntry"
+  },
+  {
+   "attribute": "name@0xc5",
+   "candidates": {
+    "flagged": 3,
+    "m_c5": 3,
+    "m_default": 1
+   },
+   "class": "ArmySummaryEntry"
+  },
+  {
+   "attribute": "nested@0xb0",
+   "candidates": {
+    "m_ac.m_04": 7
+   },
+   "class": "ArmySummaryEntry"
+  },
+  {
+   "attribute": "straddle@0xb0",
+   "candidates": {},
+   "class": "ArmySummaryEntry"
+  }
+ ],
+ "size": 200,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

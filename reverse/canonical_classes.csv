@@ -479,3 +479,4 @@ Rva00056F61,Code/GameEngine/Include/GameClient/Rva00056F61.h,existing header; co
 BfmePoolRef10,Code/GameEngine/Include/Common/BfmePoolRef10.h,existing header; contract class_contracts/BfmePoolRef10.json; 10/24 sampled units adopt
 Rva0038404A,Code/GameEngine/Include/Common/Rva0038404A.h,existing header; contract class_contracts/Rva0038404A.json; 16/18 sampled units adopt
 Rva005B61B3,Code/GameEngine/Include/Common/Rva005B61B3.h,existing header; contract class_contracts/Rva005B61B3.json; 17/18 sampled units adopt
+ArmySummaryEntry,Code/GameEngine/Include/Common/ArmySummaryEntry.h,existing header; contract class_contracts/ArmySummaryEntry.json; 12/30 sampled units adopt
