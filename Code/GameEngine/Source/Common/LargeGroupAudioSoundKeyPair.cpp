@@ -817,7 +817,7 @@ struct Rva0056A378Source {
 
 class LargeGroupAudioKeyMap {public: LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &);};
 
-struct OpaqueRefElement4 { void *m_referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 // Existing rowed adjustor destructor5C8565, called before scalar delete.
 class Rva005C8565

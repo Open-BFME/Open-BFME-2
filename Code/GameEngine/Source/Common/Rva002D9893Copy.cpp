@@ -3,11 +3,7 @@
 // Evidence: honest address Copy method void(const ref) ret 4 skips vptr; AsciiString +0x04 +0x1C +0x20 +0x84 via set; Opaque +0x08 via rowed assign; Pool10 +0x10 via rowed assign; 12B at +0x3C via struct assign for movsd x3; cond +0x34 if +0x38 in 1..5; landing unlocks 0x002D9A31 0x002D99E3; neighbours Rva002D9622Audio and tailrecord dtor.
 #include "ascii_string.h"
 
-struct OpaqueRefElement4
-{
-	void *m_ptr;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 class BfmePoolRef10
 {

@@ -60,11 +60,7 @@ private:
 struct OpaqueRefElement4;
 class OpaqueRefCounted;
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *m_ptr;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 

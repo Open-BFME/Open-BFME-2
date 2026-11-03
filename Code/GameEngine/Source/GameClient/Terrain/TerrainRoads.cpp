@@ -53,13 +53,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 
 // BFME 2 keeps the bridge sound slots as 4-byte reference records assigned
 // through the rowed operator= 0x00239099 (the audio-token parser fills them).
-struct OpaqueRefElement4
-{
-	struct OpaqueRefCounted *referent;
-	OpaqueRefElement4() : referent(0) {}
-	~OpaqueRefElement4();
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../Include/Common/OpaqueRefElement4.h"
 
 // BFME 2 layout: the road allocation/INI paths establish name +4, bridge +8,
 // ID +0xC, next +0x10, widths +0x14/+0x18 and texture +0x38. Other prefix

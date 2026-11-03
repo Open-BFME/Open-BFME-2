@@ -16,12 +16,7 @@
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *m_ptr;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-	~OpaqueRefElement4() { if (m_ptr) m_ptr->Release_Ref(); }
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 class AudioManager
 {
@@ -63,7 +58,7 @@ void GadgetButtonSetAltSound(GameWindow *window, AsciiString sound)
 	if (userData == 0)
 		return;
 	OpaqueRefElement4 tmp = TheAudio->Unknown75(&sound);
-	if (tmp.m_ptr == 0 && !sound.isEmpty())
+	if (tmp.referent == 0 && !sound.isEmpty())
 		sound.compare("NoSound");
 	userData->m_sound = tmp;
 }

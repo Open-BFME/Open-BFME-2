@@ -259,11 +259,7 @@ private:
 // through its rowed operator= 0x00239099, copies byte +0xC; dword +0 is
 // intentionally not assigned. Returns *this. Unblocks 0x005657B2.
 
-struct OpaqueRefElement4
-{
-	void *m_referent;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva00564DCB
 {

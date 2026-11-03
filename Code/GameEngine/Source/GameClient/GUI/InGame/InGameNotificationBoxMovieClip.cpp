@@ -17,7 +17,7 @@ extern "C" { static float __cdecl floorf(float); }
 #include "Coord2D.h"
 #include "wwmath.h"
 struct OpaqueRefCounted;
-struct OpaqueRefElement4{OpaqueRefCounted*referent;OpaqueRefElement4():referent(0){}OpaqueRefElement4&operator=(const OpaqueRefElement4&);};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 #include <stdlib.h>
 // Notification-box ownership transfer: native004E6BF6..004E6C34 RET4;
 // WorldBuilder013238A0 returns a consuming holder through a hidden result.

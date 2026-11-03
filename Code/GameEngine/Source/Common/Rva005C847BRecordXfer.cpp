@@ -14,12 +14,7 @@ public:
     BfmePoolHolder88 *m_target;
     void rva00053D26(BfmePoolHolder88 *p);
 };
-struct OpaqueRefElement4
-{
-    OpaqueRefCounted *referent;
-    __forceinline OpaqueRefElement4() : referent(0) {}
-    __forceinline ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 class Rva0051D93
 {
 public:

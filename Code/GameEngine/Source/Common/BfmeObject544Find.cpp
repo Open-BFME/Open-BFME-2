@@ -13,10 +13,7 @@ public:
 	unsigned int m_bits[19];
 };
 
-struct OpaqueRefElement4
-{
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva002C99FB
 {

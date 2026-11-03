@@ -5,11 +5,7 @@
 // Evidence: push esi push edi mov edi [esp+0xc] push edi call 0x00239099
 // mov eax [edi+4] mov [esi+4] eax pop edi mov eax esi ret 4; callers at
 // 0x00062260 and 0x001D9BBD.
-struct OpaqueRefElement4
-{
-    struct OpaqueRefCounted *m_ptr;
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 class Rva000A8CAE
 {

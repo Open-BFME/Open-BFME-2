@@ -41,16 +41,7 @@ class AsciiString;
 
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	~OpaqueRefElement4()
-	{
-		if (referent)
-			referent->Release_Ref();
-	}
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva002C99FB
 {

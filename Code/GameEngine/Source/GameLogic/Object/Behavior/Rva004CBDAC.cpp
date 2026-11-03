@@ -6,10 +6,7 @@
 // through rowed operator= 0x002C99FB into out and true. Layout stride 8 plus
 // rowed callee from retail; honest owner unknown.
 // Evidence: callee rowed 0x002C99FB; caller at 0x004CBDFA in 0x004CBDCF.
-struct OpaqueRefElement4
-{
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva002C99FB
 {

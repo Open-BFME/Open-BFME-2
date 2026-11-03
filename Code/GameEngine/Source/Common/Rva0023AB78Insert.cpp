@@ -44,10 +44,7 @@ public:
 
 extern AudioManager *TheAudio;
 
-struct OpaqueRefElement4
-{
-	void *m_ptr;
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> OpaqueRefElement4 * vector<OpaqueRefElement4,allocator<OpaqueRefElement4> >::erase(OpaqueRefElement4 *,OpaqueRefElement4 *); }
 // Bind to the kept retail copy instead of emitting this unit's own.

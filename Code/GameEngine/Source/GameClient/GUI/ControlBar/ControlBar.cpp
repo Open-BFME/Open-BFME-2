@@ -674,10 +674,7 @@ private:
 // __copy for 8-byte Rva002C99FB via rowed operator= 0x002C99FB (sar 3 count,
 // EBP frame, loop with add [ebp+8]/[ebp+0x10]). Caller 0x0031BDA4.
 // Evidence: (last-first)/8 count; landing unblocks 0x0031BDA4.
-struct OpaqueRefElement4
-{
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 struct Rva002C99FB
 {
     int m_first;

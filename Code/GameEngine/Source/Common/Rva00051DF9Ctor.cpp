@@ -6,13 +6,7 @@
 // Release_Ref rowed, vtables BC5324 and BC5320 per Rva005813E comment in that TU.
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
-struct OpaqueRefElement4
-{
-    OpaqueRefCounted *referent;
-    OpaqueRefElement4() : referent(0) {}
-    ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
-    OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 
 struct EmitVtableTag;
 

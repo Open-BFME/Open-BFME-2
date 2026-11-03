@@ -6,10 +6,7 @@
 // rowed 0x004CBDAC on target at this-8 and return it. Stride and floats from
 // retail; honest owner unknown.
 // Evidence: callees rowed 0x004CBCF2 plus 0x004CBDAC; no callers.
-struct OpaqueRefElement4
-{
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &other);
-};
+#include "../../../../Include/Common/OpaqueRefElement4.h"
 
 struct Rva002C99FB
 {

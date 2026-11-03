@@ -174,11 +174,7 @@ struct Rva0010F149Handle
 	~Rva0010F149Handle() { if (referent) referent->Release_Ref(); }
 	OpaqueRefCounted *referent;
 };
-struct OpaqueRefElement4
-{
-	OpaqueRefCounted *referent;
-	OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
+#include "../../Include/Common/OpaqueRefElement4.h"
 class Rva000A8C9B
 {
 public:
