@@ -422,17 +422,17 @@ public:
 		ANIM_MODE_ONCE_BACKWARDS,
 	};
 
-	// BFME: retail Set_Animation overload order is (void), (combo), (5-arg),
-	// (motion,frame,mode) — reversed vs ZH after the no-arg version.
+	// BFME: retail table 0x00BD2F68 holds Set_Animation as (combo) +0xAC, (5-arg) +0xB0,
+	// (motion,frame,mode) +0xB4, (void) +0xB8; cl lays the group out in reverse declaration order.
 	virtual void					Set_Animation( void )														{ }
-	virtual void					Set_Animation( HAnimComboClass * anim_combo)							{ }
+	virtual void					Set_Animation( HAnimClass * motion,
+															float frame, int anim_mode = ANIM_MODE_MANUAL)	{ }
 	virtual void					Set_Animation( HAnimClass * motion0,
 															float frame0,
 															HAnimClass * motion1,
 															float frame1,
 															float percentage)											{ }
-	virtual void					Set_Animation( HAnimClass * motion,
-															float frame, int anim_mode = ANIM_MODE_MANUAL)	{ }
+	virtual void					Set_Animation( HAnimComboClass * anim_combo)							{ }
 
 	virtual HAnimClass *			Peek_Animation( void )														{ return NULL; }
 	virtual int						Get_Num_Bones(void)															{ return 0; }
@@ -541,9 +541,10 @@ public:
 //	virtual float					Calculate_Texture_Reduction_Factor(float norm_screensize);
 //	virtual void					Set_Texture_Reduction_Factor(float trf);
 	virtual float					Get_Screen_Size(CameraClass &camera);
-	// BFME: retail has the 3-float Scale overload before the 1-float one.
-	virtual void					Scale(float scalex, float scaley, float scalez)						{ };
+	// BFME: retail holds Scale(x,y,z) at +0x16C and Scale(float) at +0x170; cl lays the
+	// group out in reverse declaration order, so the one-float overload is declared first.
 	virtual void					Scale(float scale) 															{ };
+	virtual void					Scale(float scalex, float scaley, float scalez)						{ };
  	virtual void					Set_ObjectScale(float scale) { ObjectScale=scale;}	//set's a scale factor that's factored into transform matrix.									{ScaleFactor=scale; };
 	const float						Get_ObjectScale( void ) const { return ObjectScale; };
  	void							Set_ObjectColor(unsigned int color);	//the color that was used to modify the asset for player team color (for Generals). -MW
