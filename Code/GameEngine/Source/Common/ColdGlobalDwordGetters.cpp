@@ -1,4 +1,4 @@
-// cl: /GX- /O1 /G7 /arch:SSE /Ob2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /GX- /O1 /G7 /arch:SSE /Ob2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
 // platformsdk
 // Cold-slice global dword getters without vtable carriage (twin-free TU).
 //
@@ -13,12 +13,7 @@
 // TU-scoped friend views: real decorations, no alias, no second datum.
 class LightEnvironmentClass;
 #include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
-class DX8Wrapper
-{
-	friend int Rva0014D241Get(void);
-protected:
-	static LightEnvironmentClass *Light_Environment;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 // ?Rva00083B7BGet@@YAHXZ @ 0x00083b7b (6B) over 0x00DEC3CC.
 // Follows a ret-with-pop (prev C2), no .rdata vtable slot, no direct callers,

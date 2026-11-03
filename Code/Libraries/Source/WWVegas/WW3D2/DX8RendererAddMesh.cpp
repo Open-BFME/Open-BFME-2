@@ -1,4 +1,4 @@
-// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
+// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -ICode/Libraries/Source/WWVegas/WW3D2
 // Retail dx8renderer.cpp's Vertex_Split_Table closure (BFME 2, WW3D2 region
 // /O2 /arch:SSE /G7): DX8RigidFVFCategoryContainer::Add_Mesh (0x00148180) and
 // every function its local split table is passed to, directly or through a
@@ -211,7 +211,7 @@ public:
 static inline VertexMaterialClass *Model_Peek_Material(const MeshModelClass *model,int i,int p) { return model->CurMatDesc->Peek_Material(i,p); }
 
 class DX8Caps {public: char pad[0x13b]; bool npatches; bool Support_NPatches() const {return npatches;}};
-class DX8Wrapper {protected:static DX8Caps *CurrentCaps; public:static DX8Caps *Get_Current_Caps() {return CurrentCaps;}};
+#include "DX8WrapperClass.h"
 #include "WW3DClass.h"
 
 class Vertex_Split_Table
