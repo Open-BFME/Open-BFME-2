@@ -288,3 +288,67 @@ def test_inline_adapter_requires_current_absent_object_symbol(
         tool.main()
         assert "All defined functions are already matched." in capsys.readouterr().out
     assert all(strict for _, _, strict in current_calls)
+
+
+TYPED_ALIASES = """class Key;
+class Payload;
+typedef _STL::hash_map<Key, Payload *> Map;
+typedef Map::value_type Value;
+typedef _STL::hashtable<Value, Key> TableAlias;
+"""
+
+
+def test_record_witnesses_expand_the_stlport_map_value_type():
+    from find_declared_unmatched import inline_type_identifiers
+    assert inline_type_identifiers(TYPED_ALIASES, "_STL::TableAlias") == {"Key", "Payload"}
+
+
+@pytest.mark.parametrize("aliases", [
+    "typedef Other::value_type TableAlias;",
+    "typedef Other::Inner TableAlias;",
+    "typedef _STL::other<Key, Payload>::value_type TableAlias;",
+    "typedef Value TableAlias; typedef TableAlias Value;",
+    "typedef Key TableAlias; typedef Payload TableAlias;",
+])
+def test_unknown_or_ambiguous_typedefs_supply_no_exclusion_witness(aliases):
+    from find_declared_unmatched import inline_type_identifiers
+    assert inline_type_identifiers("class Other; class Key; class Payload;\n" + aliases,
+                                   "TableAlias") == set()
+
+
+@pytest.mark.parametrize("obstacle", [
+    None, "same-type", "import", "source-macro", "header-macro", "command-macro",
+    "spliced-macro",
+])
+def test_distinct_template_methods_need_unexpanded_record_witnesses(
+        tmp_path, monkeypatch, obstacle):
+    import json
+    import build
+    import find_declared_unmatched as tool
+    from test_gate_exploits import coff, TEXT
+    source = tmp_path / "Walkers.cpp"
+    text = TYPED_ALIASES + INLINE_ADAPTER
+    if obstacle == "source-macro":
+        text = "#define Payload Other\n" + text
+    if obstacle == "spliced-macro":
+        text = "#define " + chr(92) + "\nPayload Other\n" + text
+    source.write_text(text)
+    obj = tmp_path / "Walkers.obj"
+    payload = "Payload" if obstacle in ("same-type", "import") else "Other"
+    name = f"?_M_bkt_num_key@?$hashtable@VKey@@V{payload}@@@_STL@@QAEIXZ"
+    if obstacle == "import":
+        name = "__imp_" + name
+    obj.write_bytes(coff([(".text", TEXT, b"\xc3", [])],
+                         [(name, 0, 0 if obstacle == "import" else 1, 0x20, 2, 0)]))
+    header = tmp_path / "Header.h"
+    header.write_text("#define Payload Other\n" if obstacle == "header-macro" else "// header\n")
+    obj.with_suffix(".deps.json").write_text(json.dumps({"deps": {str(header): "hash"}}))
+    monkeypatch.setattr(build, "obj_path", lambda *_: obj)
+    monkeypatch.setattr(build, "compile_is_current", lambda *_, **__: True)
+    monkeypatch.setattr(build, "compiler_command", lambda *_: (
+        ["cl", "/DPayload=Other"] if obstacle == "command-macro" else ["cl"], {}))
+    candidates = set()
+    tool.find_defined_functions(text, inline_candidates=candidates)
+    assert candidates
+    assert tool.inline_only_definitions(source, text, candidates) == (
+        candidates if obstacle is None else set())

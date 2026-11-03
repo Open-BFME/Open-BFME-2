@@ -310,6 +310,61 @@ def find_defined_functions(text: str, *, inline_candidates=None):
     return results
 
 
+def inline_type_identifiers(text, class_name):
+    """Necessary record names for a narrowly understood typedef specialization.
+
+    These are exclusion witnesses, not a mangler: sharing every name does not
+    prove equality. Unknown/ambiguous aliases and dependent types yield no
+    witness, so the object check remains conservative.
+    """
+    code = re.sub(r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"', ' ', text)
+    aliases = {}
+    for match in re.finditer(r'\btypedef\s+([\w\s:*<>,]+?)\s+(\w+)\s*;', code):
+        aliases.setdefault(match[2], []).append(match[1])
+    expanded = {}
+
+    def expand(name, active=()):
+        if name in expanded:
+            return expanded[name]
+        if name in active or len(active) > 20 or len(aliases.get(name, [])) != 1:
+            raise ValueError("unresolved typedef")
+        expression = aliases[name][0]
+        expression = re.sub(r'\b\w+\b', lambda m: (
+            expand(m[0], (*active, name)) if m[0] in aliases else m[0]), expression)
+        if "::value_type" in expression:
+            # STLport 4.6 _hash_map.h: hash_map<K,V,...>::value_type is
+            # pair<const K,V>. No general dependent-member inference is safe.
+            match = re.fullmatch(r'\s*_STL::hash_map\s*<(.*)>\s*::value_type\s*', expression,
+                                 re.DOTALL)
+            if not match:
+                raise ValueError("unknown dependent type")
+            args, start, depth = [], 0, 0
+            for i, char in enumerate(match[1]):
+                if char == '<':
+                    depth += 1
+                elif char == '>':
+                    depth -= 1
+                elif char == ',' and depth == 0:
+                    args.append(match[1][start:i])
+                    start = i + 1
+            args.append(match[1][start:])
+            if depth != 0 or len(args) < 2:
+                raise ValueError("incomplete hash_map type")
+            expression = f'_STL::pair<const {args[0]}, {args[1]}>'
+        if (re.search(r'>\s*::|\b(?!_STL\b|rts\b)\w+\s*::', expression)
+                or len(expression) > 20000):
+            raise ValueError("unknown dependent type")
+        expanded[name] = expression
+        return expression
+
+    try:
+        expression = expand(class_name.split("::")[-1])
+    except ValueError:
+        return set()
+    records = set(re.findall(r'\b(?:class|struct|enum)\s+(\w+)\s*[;:{]', code))
+    return records & set(re.findall(r'\b\w+\b', expression))
+
+
 def inline_only_definitions(source, text, candidates):
     """Prove absence of both emitted bodies and imports, never trust inline syntax.
 
@@ -321,6 +376,7 @@ def inline_only_definitions(source, text, candidates):
     if not candidates or source.read_text(encoding="utf-8") != text:
         return set()
     import build
+    import json
     import struct
     obj = build.obj_path(source)
     try:
@@ -328,14 +384,37 @@ def inline_only_definitions(source, text, candidates):
             return set()
         before = obj.stat()
         names = [symbol["name"] for symbol in build.read_object_symbols(obj.read_bytes())]
+        required_by_definition = {d: inline_type_identifiers(text, d[0]) for d in candidates}
+        # A raw source identifier is no witness if preprocessing could rename
+        # it. Check all recorded headers and command-line definitions too.
+        if any(required_by_definition.values()):
+            meta = json.loads(obj.with_suffix(".deps.json").read_text())
+            dependencies = [Path(p) if os.path.isabs(p) else ROOT / p for p in meta["deps"]]
+            macros = set()
+            for path in [source, *dependencies]:
+                contents = path.read_text(encoding="utf-8", errors="replace")
+                contents = re.sub(r'(?:\\|\?\?/)[\r]?\n', '', contents)
+                macros.update(re.findall(r'^\s*#\s*define\s+(\w+)',
+                                         contents, re.MULTILINE))
+            command, _ = build.compiler_command(source, obj)
+            macros.update(m[1] for arg in command
+                          if (m := re.match(r'[-/]D([A-Za-z_]\w*)', arg)))
+            required_by_definition = {d: required - macros
+                                      for d, required in required_by_definition.items()}
         if obj.stat() != before or not build.compile_is_current(source, obj, strict=True):
             return set()
     except (OSError, ValueError, KeyError, struct.error):
         return set()
-    return {definition for definition in candidates
-            if re.fullmatch(r"[A-Za-z_]\w*", definition[1])
-            and definition[1] != definition[0].split("::")[-1]
-            and not any(f"?{definition[1]}@" in name for name in names)}
+    proved = set()
+    for definition in candidates:
+        cls, method, _ = definition
+        if not re.fullmatch(r"[A-Za-z_]\w*", method) or method == cls.split("::")[-1]:
+            continue
+        required = required_by_definition[definition]
+        if not any(f"?{method}@" in name and all(record in name for record in required)
+                   for name in names):
+            proved.add(definition)
+    return proved
 
 
 def read_path_list(name):
