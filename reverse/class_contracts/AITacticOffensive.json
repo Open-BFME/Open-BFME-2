@@ -1,0 +1,318 @@
+{
+ "bases": [
+  "AITactic"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AITacticOffensive",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 23,
+  "inherited": {
+   "base_views": 18,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x24": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x5dc722"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "AITactic",
+       "offset": 0,
+       "own_vftable": "0x8767dc",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x5dc722"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x5dc722"
+     ],
+     "value": {
+      "0x0": "0x8767dc"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8767dc"
+     ],
+     "value": {
+      "count": 11,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAITacticOffensive@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x5dc747"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?initializeTeamTemplate@AITactic@@UAE_NPAXH@Z",
+        "slot": 3,
+        "target": "0x4ece61"
+       },
+       {
+        "name": "?Create@GameFileClass@@UAEHXZ",
+        "slot": 4,
+        "target": "0x910fb"
+       },
+       {
+        "name": "?xfer@AITactic@@UAEXPAVXfer@@@Z",
+        "slot": 5,
+        "target": "0x4eda8c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva004EDDAA@AITactic@@QAEXXZ",
+        "slot": 8,
+        "target": "0x4eddaa"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 10,
+        "target": "0x47a699"
+       }
+      ],
+      "table": "0x8767dc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x8767dc": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAITacticOffensive@@UAEPAXI@Z",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "?initializeTeamTemplate@AITactic@@UAE_NPAXH@Z",
+     "4": "?Create@GameFileClass@@UAEHXZ",
+     "5": "?xfer@AITactic@@UAEXPAVXfer@@@Z",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "?rva004EDDAA@AITactic@@QAEXXZ",
+     "9": "__purecall",
+     "10": "?IsCRC@Xfer@@UBE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 4,
+   "40": 1,
+   "88": 18
+  },
+  "views": 23,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 23,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_running",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 12,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_record",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva005A990BRecord*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_owner",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "Player*",
+   "views": 17,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_text",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    }
+   ],
+   "name": "m_name",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiString",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_30",
+   "name_by": "tie",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 2,
+    "10": 15,
+    "4": 1
+   },
+   "class": "AITacticOffensive"
+  },
+  {
+   "attribute": "name@0x30",
+   "candidates": {
+    "m_30": 1,
+    "m_id": 1
+   },
+   "class": "AITacticOffensive"
+  }
+ ],
+ "size": 88,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "slot01()"
+  },
+  "10": {
+   "decided_by": "bytes",
+   "member": "slot10()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "slot02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "slot03()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "slot04()"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "slot05()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "slot06()"
+  },
+  "7": {
+   "decided_by": "bytes",
+   "member": "slot07()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot08()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "slot09()"
+  }
+ }
+}

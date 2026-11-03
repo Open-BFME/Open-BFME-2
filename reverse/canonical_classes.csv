@@ -468,3 +468,4 @@ ParticleSystem,Code/GameEngine/Include/GameClient/ParticleSystemClass.h,existing
 AptCreateAHero,Code/GameEngine/Include/Common/AptCreateAHero.h,existing header; contract class_contracts/AptCreateAHero.json; 10/14 sampled units adopt
 Rva0056AC26,Code/GameEngine/Include/Common/Rva0056AC26.h,existing header; contract class_contracts/Rva0056AC26.json; 7/18 sampled units adopt
 MeshModelClass,Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.h,existing header; contract class_contracts/MeshModelClass.json; 14/63 sampled units adopt
+AITacticOffensive,Code/GameEngine/Include/Common/AITacticOffensive.h,existing header; contract class_contracts/AITacticOffensive.json; 3/23 sampled units adopt
