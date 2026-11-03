@@ -8549,3 +8549,4 @@ function,?rva001DD276@Rva001DD240@@QAEXE@Z,?setFlag@Rva001DD240@@QAEXE@Z,inferre
 function,?rva0082B120Set@@YAHH@Z,?setMallocHandler@@YAHH@Z,inferred,agree:nl-6848b988ee69,Code/GameEngine/Source/Common/Rva0082BC30Empty.cpp,0x00023A90
 function,?rva0050EE23@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,?compareNoCase@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,inferred,agree:nl-a0407a81e9c7,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050EE23
 carry,Rva0050EE23::rva0050EE23::other,Rva0050EE23::compareNoCase::other,inferred,scope renamed by Rename rva0050EE23 to compareNoCase (inferred),Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050EE23
+member,Rva004E7A85World10::m_54,Rva004E7A85World10::m_playerIndex,inferred,agree:nl-64c38cde24ff,Code/GameEngine/Source/Common/Rva004E7A85Refresh.cpp,

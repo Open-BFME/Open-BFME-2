@@ -14,7 +14,7 @@ class Rva004E7A85World10
 {
 public:
 	char m_pad[0x54];
-	int m_54;
+	int m_playerIndex;
 };
 
 class Rva004E7A85World
@@ -72,7 +72,7 @@ void Rva004E7A85::show()
 		Rva004E7A85World *world = (*(Rva004E7A85World **)&ThePlayerList);
 		int rel = 0;
 		if (world != 0 && world->m_10 != 0) {
-			int idx = world->m_10->m_54;
+			int idx = world->m_10->m_playerIndex;
 			rel = ((PlayerList *)world)->getPlayersWithRelationship(idx, 3, false);
 		}
 		((Rva00359D42Target *)TheGameLogic)->m_170->enumerateRegisteredClaimants(rel, (Cb00359D42 *)resourceEntryCollector);
