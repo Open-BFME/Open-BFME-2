@@ -28,12 +28,12 @@ private:
 bool Rva002A7461::rva002A7557(Rva002A7557In *p, int unused)
 {
 	(void)unused;
-	int v = p->m_val618;
-	if (v == 0)
+	int commandPoints = p->m_val618;
+	if (commandPoints == 0)
 		return true;
 	int base = m_base8;
 	int total = rva002A7461();
-	bool ok = (base + v <= total);
+	bool ok = (base + commandPoints <= total);
 	if (p->m_flags11A & 0x80)
 		return true;
 	return ok;

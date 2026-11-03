@@ -6954,3 +6954,11 @@ param,ObjectOrderQueue::setPatrolStartOrder::v,ObjectOrderQueue::setPatrolStartO
 local,Object::rva0028C1A9::m,Object::rva0028C1A9::behaviorModule,inferred,agree:nl-73baec458091,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp,0x0028C1A9
 param,Object::rva0028C264::n,Object::rva0028C264::seconds,inferred,agree:nl-0177ba51f02e,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C264.cpp,0x0028C264
 param,Object::rva0026381B::b,Object::rva0026381B::position,inferred,agree:nl-2fcfc1b65fba,Code/GameEngine/Source/GameLogic/Object/Object_rva002637E2Worker.cpp,0x0026381B
+param,Object::rva002930A9::arg,Object::rva002930A9::damageInfo,inferred,agree:nl-d585c424169d,Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp,0x002930A9
+local,Rva00263778Distance::t,Rva00263778Distance::gapDistance,inferred,agree:nl-0aa53db728f3,Code/GameEngine/Source/GameLogic/Object/Rva00263778Distance.cpp,0x00263778
+local,Rva002A7461::rva002A7557::v,Rva002A7461::rva002A7557::commandPoints,inferred,agree:nl-e2466bc4e719,Code/GameEngine/Source/GameLogic/Object/Rva002A7557.cpp,0x002A7557
+param,Rva003559B5Host::rva00355A09::a,Rva003559B5Host::rva00355A09::mode,inferred,agree:nl-ecfd7c26744a,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A09
+param,Rva003559B5Host::rva00355A09::b,Rva003559B5Host::rva00355A09::holder,inferred,agree:nl-f80b0b26136e,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A09
+param,Rva003559B5Host::rva00355A09::c,Rva003559B5Host::rva00355A09::val,inferred,agree:nl-1312fbb8c326,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A09
+param,Rva003559B5Host::rva00355A5D::a,Rva003559B5Host::rva00355A5D::mode,inferred,agree:nl-19e67deb2def,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A5D
+param,Rva003559B5Host::rva00355A5D::b,Rva003559B5Host::rva00355A5D::holder,inferred,agree:nl-3f5d31a1cf66,Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp,0x00355A5D

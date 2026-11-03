@@ -52,7 +52,7 @@ public:
 	bool rva0028C4ED() const;
 	ObjectID rva0028C513() const;
 	Bool rva00293926(KindOfType kind);
-	void rva002930A9(void *arg);
+	void rva002930A9(void *damageInfo);
 	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
 	int rva002933CD();
 	void *rva0029439D();
@@ -153,7 +153,7 @@ bool Object::rva00293408()
 // argument) when it has one, otherwise through the child of the holder at producer +0x250
 // (virtual slot 31, then that child's slot 13 with this object) when both exist.
 // Evidence: target bytes and the rowed callees; the interface and holder names are neutral.
-void Object::rva002930A9(void *arg)
+void Object::rva002930A9(void *damageInfo)
 {
 	Object *producer = TheGameLogic->findObjectByID(m_producerID);
 	if (producer == 0)
@@ -161,7 +161,7 @@ void Object::rva002930A9(void *arg)
 	SpawnBehaviorInterface *spawn = producer->getSpawnBehaviorInterface();
 	if (spawn != 0)
 	{
-		spawn->onSpawnDeath(m_id74, arg);
+		spawn->onSpawnDeath(m_id74, damageInfo);
 		return;
 	}
 	Rva002930A9Holder **holder = &producer->m_holder250;

@@ -15,10 +15,10 @@ float Rva00263778Distance(Coord3D const *a, float b, float c, Coord3D const *d, 
 	float dy = a->y - d->y;
 	float dz = b + a->z - d->z - e;
 	float dist = (float)sqrt(dx * dx + dy * dy + dz * dz);
-	float t = dist - c - f;
-	if (t < 0.0f)
-		t = 0.0f;
+	float gapDistance = dist - c - f;
+	if (gapDistance < 0.0f)
+		gapDistance = 0.0f;
 	else
-		t = t * t;
-	return t;
+		gapDistance = gapDistance * gapDistance;
+	return gapDistance;
 }
