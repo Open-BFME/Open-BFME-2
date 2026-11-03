@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /I. /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/moduledata  /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ, retail 0x0039C09C (88B,
@@ -26,7 +26,7 @@ namespace _STL {
 void *__copy_trivial(const void *__first, const void *__last, void *__result) throw();
 }
 
-#include "Code/GameEngine/Source/Common/ScoredKillTrackerView.h"
+#include "../ScoredKillTrackerView.h"
 
 class ScoreKeeper
 {

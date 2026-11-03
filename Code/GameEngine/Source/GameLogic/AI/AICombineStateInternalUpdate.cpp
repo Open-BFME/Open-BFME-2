@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc
+// cl:  /O1 /G7 /arch:SSE /MD /EHsc
 // Native34612C..346214 (232B RET0); WB E2C440 names AICombineState::internalUpdate.
 // Called by the named combine-state onEnter at34FCAC; WB callgraph and
 // target owner/goal flags establish the identity independently of old pins.
@@ -7,7 +7,7 @@
 // AI258/flags438, and contain31/Horde29,68 virtual slots.
 // Combine/target role names follow the WB assertion and call relationships;
 // precise virtual method names, access and full class extents remain inferred.
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 typedef unsigned UnsignedInt;
 enum StateReturnType{STATE_CONTINUE=0,STATE_SUCCESS=-1,STATE_FAILURE=-2};
 class Object;

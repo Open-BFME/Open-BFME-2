@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 -Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7 -Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 //
 // ?Rva003BECCDSet@@YGXABVAsciiString@@HH@Z @0x003BECCD 52B (dump range 18).
 // Team pair setter through the doSetTeamState argument idiom: copies the

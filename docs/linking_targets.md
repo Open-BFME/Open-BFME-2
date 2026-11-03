@@ -1,5 +1,10 @@
 # Linking target checklist
 
+### Include-inventory repairs 20261103-1128
+
+18 independently verified sources remove redundant whole-checkout include roots and anchor the same headers. All 40 native/EH rows and complete non-debug sections remain exact. Strict source receipts and new-variant checks pass; stale-index selection remains UNKNOWN, not a full linking pass.
+[Batch evidence](../reverse/attempt_support/include-inventory-batch-20261103-1128.md).
+
 ### Canonical vector storage batch 20261103-0008
 
 2 existing source units adopt registered storage; 4 units clean up local standard declarations or include inventory; 2 stale completed Microsoft-header queue key(s) refreshed; 137 native/EH rows and 255 retained external definitions preserved. Owning queue acceptance, strict receipts and new-variant checks pass. Full current linking/runtime remain unproven.

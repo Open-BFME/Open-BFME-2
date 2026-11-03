@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /MD /EHsc /I.
+// cl: /O2 /G7 /MD /EHsc 
 // ClosestPointOnLineSegment, native 0x006B3100..0x006B3200 (256B), named by
 // game.dat export 1138. The WorldBuilder twin (0x6F6610) attributes it to
 // libraries/source/math/MathCoord2D.h lines 403..423, an inline header body,
@@ -11,7 +11,7 @@
 // unit flags and imported inline definitions all change the caller's bytes.
 // A distinct projection quotient gives retail's interleaved result copies.
 #define COORD2D_VIEW_DTOR
-#include "Code/Libraries/Include/Lib/Coord2DCtorView.h"
+#include "../../Include/Lib/Coord2DCtorView.h"
 inline Coord2D operator-(Coord2D left, const Coord2D &right) { left.x -= right.x; left.y -= right.y; return left; }
 inline Coord2D operator+(Coord2D left, const Coord2D &right) { left.x += right.x; left.y += right.y; return left; }
 

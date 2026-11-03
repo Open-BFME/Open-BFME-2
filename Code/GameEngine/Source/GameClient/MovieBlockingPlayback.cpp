@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc  /Ireference/shims/bfme2_ascii
 // platformsdk
 // BF1 f989 MovieOpen0040E3B0.cpp play0040F780 guides movie loop; target25D6F5..25D904 RET12.
 // Native removes thread priority and per-frame keyboard scan, retains helper25CEEF and rva25C3AA.
@@ -8,7 +8,7 @@
 // Timing and window globals reuse established BfmeConv1435/ApplicationHWnd providers. No global is defined here.
 #include <windows.h>
 #include "ascii_string.h"
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../Common/GameLogicObjectLookupView.h"
 extern void*ApplicationHWnd;extern __int64 g_bfmeVM0Total;extern double g_bfmeVM0Scale;
 extern GameLogic*TheGameLogic;
 bool bfmeGoEMEa(void*);void bfmeSetReceiverFlag(int);void setFPMode();bool Rva0025CEEFCheck(bool);

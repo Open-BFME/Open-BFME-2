@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl:  /O1 /G7 /arch:SSE /DNDEBUG /MD
 // Native 0x00265514..0x00265596 (130B), RET8.
 // WB 0x00BB5F00 establishes a user-constructed Coord3D return and a common
 // zero/scale then return. This unnamed method keeps its neutral name.
@@ -7,7 +7,7 @@
 // WB zero/scale/common-return order and the shared user-written constructors
 // preserve the return buffer's scalar stores and native SIMD allocation.
 #define COORD3D_VIEW_INLINE
-#include "Code/Libraries/Include/Lib/Coord3DCtorView.h"
+#include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 
 class Object {
 public:

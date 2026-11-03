@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl:  /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
 // ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z, retail 0x0026c0d6, 122 bytes. Banked partial (score 0.9) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -11,8 +11,8 @@
 // BFME1 9cbfb551 command_source_type.h. Opaque prefixes assert only accesses.
 // Fresh123B instead122: target is reloaded from argument rather than cached
 // in EBX; O1/O2-Os/forceinline/named target unchanged, Ot126.
-#include "Code/Libraries/Include/Lib/Coord3D.h"
-#include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 // 0x002907A1 (pinned as isMobile) is the row ?isMobile@Object@@QBE_NXZ (Rva002907A1Finish.cpp).
 class Object {public:bool isMobile() const;const Coord3D*getPosition()const{return &position;}private:char prefix[0x38];Coord3D position;};
 enum StateID {BFME_AI_ATTACK_MOVE_TO=0x21};

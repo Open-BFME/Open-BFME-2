@@ -3,7 +3,7 @@
 // the pristine SDK header pinned by Open-BFME-1 revision
 // 64d369b90170b7e9ec917d646f020b11f13eb0d5.
 // compiler: vc71-sp1
-// cl: /I. /O1 /G7 /MT /DNDEBUG /hotpatch /Oy-
+// cl:  /O1 /G7 /MT /DNDEBUG /hotpatch /Oy-
 // Identity: the August 2005 DXErr archive names these exact COMDATs and its
 // relocations bind the A/W wrappers to their respective workers in retail.
 #include <stdio.h>
@@ -11,7 +11,7 @@
 // Select that existing stdio.h overload without editing SDK definitions.
 #define _vsnwprintf vswprintf
 #define STRSAFE_NO_DEPRECATE
-#include "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include/strsafe.h"
+#include "../../../../reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include/strsafe.h"
 #undef _vsnwprintf
 #undef StringCopyWorkerA
 #undef StringCopyWorkerW

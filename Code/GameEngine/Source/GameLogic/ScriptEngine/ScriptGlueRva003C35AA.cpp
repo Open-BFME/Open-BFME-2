@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 -Ireference/shims/bfme2_ascii -ICode/GameEngine/Include -DNDEBUG -MD /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7 -Ireference/shims/bfme2_ascii -ICode/GameEngine/Include -DNDEBUG -MD  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 //
 // ?Rva003C35AADo@@YGXPBVAsciiString@@PAX_N@Z @0x003C35AA 77B (dump range 18).
 // Trigger-area wiring: team-name copy, rowed ScriptEngine

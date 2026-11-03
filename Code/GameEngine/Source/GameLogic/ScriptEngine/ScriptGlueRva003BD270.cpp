@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 -DNDEBUG -MD /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7 -DNDEBUG -MD  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 //
 // Two small stdcall free functions from the 0x003BD2xx ScriptEngine/GameLogic
 // glue area (dump range 18).
@@ -33,7 +33,7 @@ void ScriptActions::doHeroSelectButtonFlash(int a, int b)
 	((Rva002D36AEHost *)theRadarWindowOverrideSource)->rva002D36AE(a, BfmeClientFramesPerSecond * b);
 }
 
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 

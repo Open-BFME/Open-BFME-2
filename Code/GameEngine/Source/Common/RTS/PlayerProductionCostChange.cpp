@@ -1,4 +1,4 @@
-// cl: /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /I. /O1 /G7 /arch:SSE /MD
+// cl: /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS  /O1 /G7 /arch:SSE /MD
 // stlport
 #include <vector>
 // Native 0x002ACD6B..0x002ACE2B. WorldBuilder 0x00C1FC70 names
@@ -7,7 +7,7 @@
 // at +0, float vector at +4/+8/+C, owner object ID at +0x10, flag at +0x14.
 // Modifier ordering and saturating last-discount choice are target behavior;
 // the original discount-entry class name remains unresolved.
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../GameLogicObjectLookupView.h"
 extern GameLogic* TheGameLogic;
 class ThingTemplate;
 class Player;

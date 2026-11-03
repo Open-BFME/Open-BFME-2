@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?doNamedEnableCameraFading@ScriptActions@@IAEXPAVParameter@@PAX@Z @ 0x003BBD02 (55B).
 // Free-function wrapper: looks up Object via TheScriptEngine getUnitNamed

@@ -1,6 +1,6 @@
-// cl: -O1 -arch:SSE -G7 /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: -O1 -arch:SSE -G7  /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-#include "Code/GameEngine/Include/GameLogic/ScriptActionsBFME2.h"
+#include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003BD01FSet@ScriptActions@@QAEX_N@Z retail 0x003BD01F 19 bytes.
 // Byte setter: TheGameClient+0xC1 = al([esp+4]). Evidence: caller 0x003CE64A; neighbours Rva003BD011Forward prev Rva003BD032Set next same /O1.

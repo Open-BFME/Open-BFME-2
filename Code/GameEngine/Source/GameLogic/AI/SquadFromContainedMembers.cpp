@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /I. /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs  /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Native4D6DF3..4D6E95 RET8; callers in privateAttackObject and
 // privateForceAttackObject pass an Object and true to a 1C-byte Squad.
@@ -20,7 +20,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <vector>
 #include <list>
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 // bfme link decl-only begin
 namespace _STL { template <> ObjectID * vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *, ObjectID *); }
 namespace _STL { template <> void vector<ObjectID>::push_back(ObjectID const &); }
