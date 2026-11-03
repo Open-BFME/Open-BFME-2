@@ -26,9 +26,7 @@ private: unsigned char storage[36];
 class AptMessengerLan {
 public: virtual void *CreateChatWindow(int selector);
 };
-class AptMessengerOnline {
-public: virtual void *CreateChatWindow(int selector);
-};
+#include "../../../Include/GameClient/AptMessengerOnline.h"
 void *AptMessengerLan::CreateChatWindow(int selector)
 {
  switch(selector) {

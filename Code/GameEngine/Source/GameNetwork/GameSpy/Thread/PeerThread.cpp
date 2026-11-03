@@ -3554,7 +3554,7 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 // Their bodies and semantic names are outside this recovered response pump.
 extern void __cdecl HandleBuddyResponses(void);
 extern void __cdecl HandlePersistentStorageResponses(void);
-class AptMessengerOnline { public: static bool ProcessGameSpyResponse(void *response); };
+#include "../../../../Include/GameClient/AptMessengerOnline.h"
 
 // The native call uses GameSpyInfo vtable slot 0x5D. Earlier slots have no
 // identity claim in this TU; this view exists only to express that call.

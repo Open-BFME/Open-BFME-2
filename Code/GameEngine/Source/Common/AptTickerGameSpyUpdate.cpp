@@ -55,7 +55,7 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 extern Shell *TheShell;
 void HandleBuddyResponses();			// ZH HandleBuddyResponses (pinned)
 void HandlePersistentStorageResponses();			// ZH HandlePersistentStorageResponses (pinned)
-class AptMessengerOnline { public: static bool ProcessGameSpyResponse(void *resp); };	// shared peer-response hook
+#include "../../Include/GameClient/AptMessengerOnline.h"
 void Rva00548C1ACleanup();	// ZH GameSpyCloseAllOverlays
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)());
 void TearDownGameSpy();

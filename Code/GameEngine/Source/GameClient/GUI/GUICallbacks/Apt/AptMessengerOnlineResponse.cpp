@@ -241,11 +241,7 @@ extern int GameSpyColor[2];
 void Rva00381C2DClear(unsigned int index);
 void Rva00381C82AddChatText(int index, const UnicodeString &text, int color);
 
-class AptMessengerOnline
-{
-public:
-    static bool ProcessGameSpyResponse(void *p);
-};
+#include "../../../../../Include/GameClient/AptMessengerOnline.h"
 
 bool AptMessengerOnline::ProcessGameSpyResponse(void *p)
 {

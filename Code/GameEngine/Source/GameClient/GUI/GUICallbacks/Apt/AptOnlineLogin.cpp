@@ -427,7 +427,7 @@ void HandleBuddyResponses();
 
 void HandlePersistentStorageResponses();
 
-class AptMessengerOnline { public: static bool ProcessGameSpyResponse(void *); };
+#include "../../../../../Include/GameClient/AptMessengerOnline.h"
 
 void TearDownGameSpy();
 
