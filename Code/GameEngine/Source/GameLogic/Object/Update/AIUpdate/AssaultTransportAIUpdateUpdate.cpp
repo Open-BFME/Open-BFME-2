@@ -86,11 +86,7 @@ public:
 	virtual void getContainedItemsList(ContainedItemsPair &pair); // slot 70
 };
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 class Thing
 {

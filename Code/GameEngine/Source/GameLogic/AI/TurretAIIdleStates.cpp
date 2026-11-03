@@ -65,12 +65,7 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 Real GetGameLogicRandomValueReal(Real low, Real high, char *file, int line);
 #define TURRETAI_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\TurretAI.cpp"
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../Include/Common/StateMachineClass.h"
 #define STATE_SLEEP(x) ((StateReturnType)(x))
 #define FOREVER 0x3fffffff
 
@@ -124,34 +119,6 @@ enum KindOfType
 };
 
 
-class StateMachine
-{
-public:
-	virtual void _rsvd00();
-	virtual void _rsvd01();
-	virtual void _rsvd02();
-	virtual void _rsvd03();
-	virtual void _rsvd04();
-	virtual void _rsvd05();
-	virtual void _rsvd06();
-	virtual void _rsvd07();
-	virtual void _rsvd08();
-	virtual void _rsvd09();
-	virtual void _rsvd10();
-	virtual void _rsvd11();
-	virtual void _rsvd12();
-	virtual void _rsvd13();
-	virtual void setGoalObject(Object *o); // slot 0x38
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x20 - 0x18];
-public:
-	ObjectID m_goalObjectID; // +0x20
-	Coord3D m_goalPosition; // +0x24
-};
 
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -363,26 +330,9 @@ public:
 	TurretAI *getTurretAI() const { return m_turretAI; }
 	Object *getGoalObject();
 private:
-	unsigned char m_pad30[0x3C - 0x30];
 	TurretAI *m_turretAI; // +0x3C
 };
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(Int status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class TurretState : public State
 {
@@ -402,7 +352,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	UnsignedInt m_nextIdleScan; // +0x20
 };
 
@@ -418,7 +367,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	Real m_desiredAngle; // +0x20
 };
 
@@ -435,7 +383,6 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	UnsignedInt m_timestamp; // +0x20
 };
 

@@ -6,7 +6,7 @@
 // Evidence: neighbours rva0026320D/rva002632B3 share +0x30 machine and
 // +0x50 state layout; caller 0x004DCECE.
 
-enum StateReturnType { STATE_CONTINUE = 0, STATE_SUCCESS = -1, STATE_FAILURE = -2 };
+#include "../../../../Include/Common/StateMachine.h"
 
 class AIStateMachine
 {

@@ -4,18 +4,7 @@
 class Object { public: bool isMobile() const; };
 class Waypoint;
 class AIStateMachine { public: void setGoalWaypoint(const Waypoint *p); };
-class StateMachine {
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void s8(int v);
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 class Rva00368542 {
 public:
 	virtual void v0();
@@ -157,8 +146,8 @@ void Rva00368542::rva00368542(int flag, const Waypoint *wp)
 	if (!m_gate08->isMobile())
 		return;
 	((AIStateMachine *)this)->setGoalWaypoint(wp);
-	m_machine->s5();
+	m_machine->clear();
 	v122(flag);
-	m_machine->s8(0x3EF);
+	m_machine->setState(0x3EF);
 	m_done = 1;
 }

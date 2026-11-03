@@ -38,12 +38,6 @@ typedef float Real;
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 enum WeaponSlotType
 {
@@ -62,10 +56,6 @@ enum ModelConditionFlagType
 	MODELCONDITION_BFME_AC = 0xAC
 };
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
 enum WeaponStatus
 {
@@ -356,30 +346,8 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 4];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIGiantBirdAttackState : public State
 {
@@ -388,7 +356,6 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[4];
 	ObjectID m_targetID; // +0x20
 };
 

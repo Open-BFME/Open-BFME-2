@@ -21,12 +21,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../../Include/Common/StateMachine.h"
 #include "../../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
 #define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
 	class NAME \

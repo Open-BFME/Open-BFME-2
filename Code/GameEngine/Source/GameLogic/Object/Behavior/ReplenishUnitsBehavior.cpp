@@ -74,12 +74,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
+#include "../../../../Include/Common/StateMachine.h"
 #include "../../../../../../reference/shims/bfme2_statemachine/StateMachineView.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 

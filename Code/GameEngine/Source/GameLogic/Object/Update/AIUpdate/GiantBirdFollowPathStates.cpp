@@ -52,16 +52,6 @@ public:
 	void *rva00346FA5(int index) const;
 };
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
 #include "../../../../Common/Thing/thing.h"
 class BfmeVec3EJ;
@@ -173,30 +163,8 @@ private:
 	unsigned char m_status438; // +0x438
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
 
 class AIFollowPathState : public State
 {
@@ -212,7 +180,7 @@ public:
 	virtual StateReturnType update();
 	Bool followToNextPointNow();
 private:
-	unsigned char m_pad1C[0x58 - 0x1C];
+	unsigned char m_pad20[0x58 - 0x20];
 	int m_pointIndex; // +0x58
 };
 
@@ -324,7 +292,6 @@ public:
 	virtual StateReturnType update();
 	Bool followToNextPointNow();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	int m_pointIndex; // +0x20
 };
 

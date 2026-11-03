@@ -17,25 +17,7 @@
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 
-class StateMachine
-{
-public:
-	virtual void m0();
-	virtual void m1();
-	virtual void m2();
-	virtual void m3();
-	virtual void m4();
-	virtual void m5();
-	virtual void m6();
-	virtual void m7();
-	virtual void m8(int v);
-	virtual void m9();
-	virtual void m10();
-	virtual void m11();
-	virtual void m12();
-	virtual void m13();
-	virtual void m14(void *target);
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 #include "../../../../../Include/GameLogic/Weapon.h"
 
@@ -71,11 +53,11 @@ void AIUpdateInterface::privateGuardRetaliate(Object *victim, const Coord3D *pos
 {
 	if (victim == 0)
 		return;
-	m_machine->m5();
-	m_machine->m14(victim);
+	m_machine->clear();
+	m_machine->setGoalObject(victim);
 	rva00265667(pos, cmdSource);
 	m_lastCommandSource = cmdSource;
-	m_machine->m8(62);
+	m_machine->setState(62);
 	const Weapon *weapon = m_object->getCurrentWeapon((WeaponSlotType *)0);
 	if (weapon == 0)
 		return;
