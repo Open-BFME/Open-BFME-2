@@ -1,0 +1,345 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ListboxData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "24": 1,
+   "40": 2,
+   "46": 1,
+   "48": 1,
+   "56": 2,
+   "72": 2,
+   "76": 1
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "listLength",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 2,
+   "type": "short",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "columns",
+   "name_by": "majority",
+   "offset": 2,
+   "retail_widths": {},
+   "size": 2,
+   "type": "short",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "autoScroll",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "autoPurge",
+   "name_by": "majority",
+   "offset": 9,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "scrollBar",
+   "name_by": "majority",
+   "offset": 10,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "multiSelect",
+   "name_by": "majority",
+   "offset": 11,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "forceSelect",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "scrollIfAtEnd",
+   "name_by": "majority",
+   "offset": 13,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_autoScrollBar",
+   "name_by": "majority",
+   "offset": 17,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag12",
+   "name_by": "majority",
+   "offset": 18,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag13",
+   "name_by": "majority",
+   "offset": 19,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "columnWidth",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "listData",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ListEntryRow*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "upButton",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "downButton",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "slider",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "totalHeight",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i2",
+   "name": "endPos",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 2,
+   "type": "short",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_unmodelled2E",
+   "name_by": "majority",
+   "offset": 46,
+   "retail_widths": {},
+   "size": 14,
+   "type": "uchar[14]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "selectPos",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxAdjustSlider.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSetBottomVisibleEntry.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 62,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSetBottomVisibleEntry.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxAdjustSlider.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSetBottomVisibleEntry.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x4",
+   "candidates": {
+    "4:P": 2,
+    "9:A": 2
+   },
+   "class": "ListboxData"
+  },
+  {
+   "attribute": "field@0xe",
+   "candidates": {
+    "10:A": 1,
+    "1:i1": 1,
+    "30:A": 1
+   },
+   "class": "ListboxData"
+  },
+  {
+   "attribute": "straddle@0x30",
+   "candidates": {},
+   "class": "ListboxData"
+  },
+  {
+   "attribute": "straddle@0x34",
+   "candidates": {},
+   "class": "ListboxData"
+  }
+ ],
+ "size": 72,
+ "size_by": "majority",
+ "vslots": {}
+}
