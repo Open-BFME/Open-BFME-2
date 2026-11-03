@@ -39,6 +39,7 @@ class INI;
 #include "../../Include/GameClient/EmissionVolumeInfo.h"
 #include "../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 #include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
+#include "../../Include/GameClient/LineEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -67,12 +68,6 @@ public:
     FXCoord3D m_half;
 };
 
-class LineEmissionVolumeInfo : public EmissionVolumeInfo
-{
-public:
-    FXCoord3D m_start;
-    FXCoord3D m_end;
-};
 
 class CylinderEmissionVolumeInfo : public EmissionVolumeInfo
 {

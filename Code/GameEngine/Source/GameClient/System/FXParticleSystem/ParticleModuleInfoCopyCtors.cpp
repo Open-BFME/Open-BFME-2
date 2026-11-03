@@ -72,6 +72,7 @@ Rva003AF50D::Rva003AF50D(const Rva003AF50D &other)
 // Evidence: calls rowed base 0x003AF50D then rowed Line copy 0x003A653B; neg/sbb/and null-guarded
 // adjustment of source to +0x1c for the Line base; vptrs at +0/+0x14/+0x18/+0x1c DIR32;
 // caller 0x003AF57F (45B) calls this then installs its own 4 vptrs; unlocks 0x003AF57F.
+#include "../../../../Include/GameClient/LineEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 class Snapshot5AC
@@ -84,14 +85,6 @@ class EmissionVolumeInfo5AC : public Snapshot5AC
 public:
 	virtual ~EmissionVolumeInfo5AC();
 	bool m_flag;
-};
-class LineEmissionVolumeInfo : public EmissionVolumeInfo5AC
-{
-public:
-  LineEmissionVolumeInfo(const LineEmissionVolumeInfo &that) throw();
-  virtual ~LineEmissionVolumeInfo();
-private:
-  float m_unk[6];
 };
 }
 

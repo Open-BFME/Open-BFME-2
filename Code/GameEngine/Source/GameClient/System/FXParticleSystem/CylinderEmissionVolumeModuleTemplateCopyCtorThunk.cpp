@@ -3,6 +3,7 @@
 // Open-BFME5: CylinderEmissionVolumeModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/LineEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -14,12 +15,6 @@ public:
 };
 
 // Retail's sub copy is the rowed LineEmissionVolumeInfo copy ctor at 0x003A653B.
-class LineEmissionVolumeInfo
-{
-public:
-	LineEmissionVolumeInfo(const LineEmissionVolumeInfo &that);
-	virtual void dummy();
-};
 
 // The three vftables (VA 0xc1bb90, 0xc1c780, 0xc1bb10) are the class's own,
 // emitted by FXParticleSystem.cpp; __identifier spells those symbols exactly.

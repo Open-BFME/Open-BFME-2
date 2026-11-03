@@ -9,6 +9,7 @@ extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@
 extern "C" const void *const __identifier("??_7LineEmissionVolumeModuleTemplate@FXParticleSystem@@6BModuleTemplate@1@@")[];
 extern "C" char s_slot3E4first;
 
+#include "../../../../Include/GameClient/LineEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -19,12 +20,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class LineEmissionVolumeInfo
-{
-public:
-	LineEmissionVolumeInfo(const LineEmissionVolumeInfo &that);
-	virtual void dummy();
-};
 
 class LineEmissionVolumeModuleTemplate
 {

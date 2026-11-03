@@ -8,6 +8,7 @@ extern "C" void *s_slot3E4first;
 extern "C" const void *const __identifier("??_7Rva003AF7FE@@6BDefaultModuleHeadBase@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AF7FE@@6BLineEmissionVolumeInfo@FXParticleSystem@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AF7D1@@6BIntermediate3AFC6FC@@@")[];
+#include "../../../../Include/GameClient/LineEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 template <int N> class DefaultParticleModule
@@ -17,13 +18,6 @@ public:
 	virtual void baseSlot();
 private:
 	char m_pad[0x14 - 4];
-};
-class LineEmissionVolumeInfo
-{
-public:
-	LineEmissionVolumeInfo(const LineEmissionVolumeInfo &other);
-private:
-	char m_pad[4];
 };
 }
 class __declspec(novtable) Rva003AC0DA : public FXParticleSystem::DefaultParticleModule<5>
