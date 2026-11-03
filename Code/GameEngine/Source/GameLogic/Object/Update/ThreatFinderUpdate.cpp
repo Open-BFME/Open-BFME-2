@@ -337,11 +337,7 @@ public:
 // 0x4C184F) call this one as their base. Identity: ModuleFactory registers
 // ctor 0x4C14DF and this proc under "RespawnBody"; formerly misnamed
 // RespawnUpdateModuleData.
-class RespawnBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 
 // Chained proc: ?buildFieldParse@StructureBodyModuleData@@,
 // retail 0x002514AF, 27 bytes. Calls the ActiveBodyModuleData base proc

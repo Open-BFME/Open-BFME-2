@@ -284,11 +284,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class RespawnBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 
 class DelayedDeathBodyModuleData
 {

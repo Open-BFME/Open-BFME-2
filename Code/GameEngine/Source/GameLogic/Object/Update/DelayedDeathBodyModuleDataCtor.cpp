@@ -58,14 +58,7 @@ extern const void *const g_00C5BC48[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class RespawnBodyModuleData
-{
-public:
-	RespawnBodyModuleData();
-
-private:
-	unsigned char m_pad[0x6C];
-};
+#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 
 class DelayedDeathBodyModuleData : public RespawnBodyModuleData
 {

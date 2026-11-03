@@ -23,17 +23,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class RespawnBodyModuleData
-{
-public:
-	RespawnBodyModuleData();
-	virtual ~RespawnBodyModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x6C - 4];
-};
+#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
 
 // ?friend_newModuleData@RespawnBodyModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *RespawnBodyModuleData::friend_newModuleData(INI *ini)
