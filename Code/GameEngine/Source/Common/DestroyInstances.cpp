@@ -238,10 +238,7 @@ struct LightSubPoint
 {
 	~LightSubPoint();
 };
-struct TreeHintOpaque0043671B
-{
-	~TreeHintOpaque0043671B();
-};
+#include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 struct Rva004F6986
 {
 	~Rva004F6986();

@@ -54,11 +54,7 @@ public:
 	virtual void reset();
 };
 
-class TreeHintOpaque0043671B
-{
-public:
-	~TreeHintOpaque0043671B();
-};
+#include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 
 class EmptyBase
 {

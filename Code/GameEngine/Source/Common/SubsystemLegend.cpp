@@ -96,7 +96,7 @@ private:
 #include "../../Include/Common/RvaSmartPtr12.h"
 
 // 3572-byte element; layout owner stlport_list_treehintopaque_00436e3b.cpp.
-struct TreeHintOpaque0043671B { char m_pad[3572]; public: TreeHintOpaque0043671B(const TreeHintOpaque0043671B &); ~TreeHintOpaque0043671B(); };
+#include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 
 // 8-byte element; layout owner stlport_list_treekey00242f5e_create_node.cpp.
 #include "../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"

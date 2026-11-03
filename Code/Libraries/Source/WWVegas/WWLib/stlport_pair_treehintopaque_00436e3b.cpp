@@ -5,19 +5,7 @@
 #include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
-struct BfmeSubobject0022CE19 {
-    virtual ~BfmeSubobject0022CE19();
-    unsigned char m_opaque[0xDE4];
-    BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-};
-struct TreeHintOpaque0043671B {
-    UnicodeString m_text;
-    BfmeSubobject0022CE19 m_subobject;
-    unsigned int m_wordDEC, m_wordDF0;
-    TreeHintOpaque0043671B();
-    TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
-    ~TreeHintOpaque0043671B();
-};
+#include "../../../../GameEngine/Include/GameClient/TreeHintOpaque0043671B.h"
 inline bool operator<(const AsciiString &, const AsciiString &);
 typedef _STL::pair<const AsciiString, TreeHintOpaque0043671B> TreeHintPair0043671B;
 template void _STL::_Destroy<TreeHintPair0043671B>(TreeHintPair0043671B *);

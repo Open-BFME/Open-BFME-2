@@ -22,22 +22,7 @@ bool operator<(const AsciiString &, const AsciiString &);
 // Full 216-byte retail constructor 0x22CE19 installs vptr 0xBE7560,
 // copies string/scalar members and nested subobjects. Keep its ownership
 // operations out of line; its application class and virtual slots are unknown.
-struct BfmeSubobject0022CE19 {
-    virtual ~BfmeSubobject0022CE19();
-    unsigned char m_opaque[0xDE4];
-    BfmeSubobject0022CE19();
-    BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-    BfmeSubobject0022CE19 &operator=(const BfmeSubobject0022CE19 &);
-};
-struct TreeHintOpaque0043671B {
-    UnicodeString m_text;
-    BfmeSubobject0022CE19 m_subobject;
-    unsigned int m_wordDEC, m_wordDF0;
-    TreeHintOpaque0043671B();
-    TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
-    ~TreeHintOpaque0043671B();
-    TreeHintOpaque0043671B &operator=(const TreeHintOpaque0043671B &);
-};
+#include "../../../../GameEngine/Include/GameClient/TreeHintOpaque0043671B.h"
 inline TreeHintOpaque0043671B::TreeHintOpaque0043671B(const TreeHintOpaque0043671B &other)
     : m_text(other.m_text), m_subobject(other.m_subobject),
       m_wordDEC(other.m_wordDEC), m_wordDF0(other.m_wordDF0) {}

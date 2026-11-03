@@ -11,19 +11,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
-struct BfmeSubobject0022CE19 {
-    virtual ~BfmeSubobject0022CE19();
-    unsigned char m_opaque[0xDE4];
-    BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-};
-struct TreeHintOpaque0043671B {
-    UnicodeString m_text;
-    BfmeSubobject0022CE19 m_subobject;
-    unsigned int m_wordDEC, m_wordDF0;
-    TreeHintOpaque0043671B();
-    TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
-    ~TreeHintOpaque0043671B();
-};
+#include "../../../../../Include/GameClient/TreeHintOpaque0043671B.h"
 typedef _STL::pair<const AsciiString, TreeHintOpaque0043671B> TreeHintPair0043671B;
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair0043671B, _STL::_Select1st<TreeHintPair0043671B>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair0043671B> > TreeHint0043671B;
 

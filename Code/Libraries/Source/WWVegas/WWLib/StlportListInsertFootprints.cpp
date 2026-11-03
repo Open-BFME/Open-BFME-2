@@ -45,7 +45,7 @@ struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F
 // 12-byte element; layout owner stlport_list_create_nodes.cpp.
 #include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 // 3572-byte element; layout owner stlport_list_treehintopaque_00436e3b.cpp.
-struct TreeHintOpaque0043671B { char m_pad[3572]; public: TreeHintOpaque0043671B(const TreeHintOpaque0043671B &); ~TreeHintOpaque0043671B(); };
+#include "../../../../GameEngine/Include/GameClient/TreeHintOpaque0043671B.h"
 // 8-byte element; layout owner stlport_list_treekey00242f5e_create_node.cpp.
 #include "TreeKey00242F5E.h"
 

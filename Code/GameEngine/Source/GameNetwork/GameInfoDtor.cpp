@@ -18,11 +18,7 @@ private:
 	char m_pad[0x30];
 };
 
-class TreeHintOpaque0043671B
-{
-public:
-	~TreeHintOpaque0043671B();
-};
+#include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 
 class Xfer;
 #include "Common/Snapshot.h"
