@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??1?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAE@XZ @0x0007C5D5 63B:
 // STLport 4.5.3 vector<Rva0007BB16Record>::~vector over the 0x24-byte
@@ -10,13 +10,6 @@
 
 #include "ascii_string.h"
 
-struct Rva0007BB16Record
-{
-	~Rva0007BB16Record();
-	AsciiString m_00;
-	int m_04;
-	AsciiString m_08;
-	int m_tail0C[6];
-};
+#include "Rva0007BB16Record.h"
 
 template _STL::vector<Rva0007BB16Record>::~vector();

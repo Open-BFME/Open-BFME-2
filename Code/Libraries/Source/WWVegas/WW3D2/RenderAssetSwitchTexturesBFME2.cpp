@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /O1 /Ob1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // Native136BE7..136E95 SwitchTextureOnMesh (WB9B3140 renderasset.cpp90).
 // Native136E95..136F3F is the recursive render-object traversal.
@@ -13,7 +13,7 @@ class TextureClass:public TextureBaseClass{};
 template<class T>class RefCountPtr{public:T *p;RefCountPtr(const RefCountPtr &);const RefCountPtr &operator=(const RefCountPtr &);~RefCountPtr(){if(p)p->Release_Ref();}};
 class FXShaderSetup;
 class Rva0010E482 {public:int rva0010E482(int);char prefix[0xB8];FXShaderSetup *setup;};
-struct Rva0007BB16Record {AsciiString m_00;int m_04;AsciiString m_08;int tail[6];~Rva0007BB16Record();};
+#include "../WWLib/Rva0007BB16Record.h"
 namespace _STL {template<>vector<Rva0007BB16Record>::vector(const vector<Rva0007BB16Record>&);template<>vector<Rva0007BB16Record>::~vector();}
 class Rva00151288{public:void rva00151288(const char *);};
 class FXShaderSetup{public:char prefix[12];_STL::vector<Rva0007BB16Record> params;bool UpdateParameterList(const _STL::vector<Rva0007BB16Record>&);};

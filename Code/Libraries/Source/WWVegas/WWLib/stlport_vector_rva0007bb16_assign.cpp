@@ -1,4 +1,4 @@
-// cl: /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??4?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z, retail 0x001522CF, 206 bytes.
 // Vector Rva0007BB16Record assign via rowed allocate_and_copy 0x00151DCB plus
@@ -13,13 +13,7 @@ struct BfmeAssignRecord36
 	~BfmeAssignRecord36();
 	unsigned char m_pad[36];
 };
-struct Rva0007BB16Record
-{
-	Rva0007BB16Record();
-	Rva0007BB16Record(const Rva0007BB16Record &other);
-	~Rva0007BB16Record();
-	unsigned char m_pad[36];
-};
+#include "Rva0007BB16Record.h"
 namespace _STL
 {
 struct __false_type

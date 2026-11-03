@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva00082EB8@Rva00082EB8@@QAEXABURva00082EB8Rec@@@Z @0x00082EB8 61B: Vector find-or-insert by compareNoCase with assign-or-push_back. Evidence: linkbody lane plus 20 callers plus compare-assign-push_back shape plus 0x24 stride.
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
@@ -14,7 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "ascii_string.h"
 #include <vector>
-struct Rva0007BB16Record { char m_pad[36]; public: Rva0007BB16Record(const Rva0007BB16Record &); ~Rva0007BB16Record(); };
+#include "../../../../../Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h"
 struct BfmeAssignRecord36 { BfmeAssignRecord36 &operator=(const BfmeAssignRecord36 &rhs); };
 struct Rva00082EB8Rec { AsciiString m_key; char m_pad[32]; };
 class Rva00082EB8 {

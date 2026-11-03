@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // STLport 4.5.3 vector growth paths and their fill/copy helpers for BFME2
@@ -54,15 +54,7 @@ struct BfmeStringRecord005ED5F3 { char m_pad[20]; public: BfmeStringRecord005ED5
 // 36-byte element; the first and second fields are AsciiString. The copy
 // constructor's retail body initializes those two fields before calling the
 // matched BfmeAssignRecord36 assignment worker.
-struct Rva0007BB16Record
-{
-    AsciiString m_00;
-    int m_04;
-    AsciiString m_08;
-    int m_tail0C[6];
-    Rva0007BB16Record(const Rva0007BB16Record &);
-    ~Rva0007BB16Record();
-};
+#include "Rva0007BB16Record.h"
 struct BfmeAssignRecord36
 {
     char m_pad[36];

@@ -18,11 +18,7 @@
 #include <vector>
 #include "ascii_string.h"
 class RenderObjClass;
-struct Rva0007BB16Record {
-    unsigned char storage[36];
-    Rva0007BB16Record(const Rva0007BB16Record &);
-    ~Rva0007BB16Record();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h"
 namespace _STL {
 template<> vector<Rva0007BB16Record>::vector(const vector<Rva0007BB16Record> &);
 template<> vector<Rva0007BB16Record>::~vector();

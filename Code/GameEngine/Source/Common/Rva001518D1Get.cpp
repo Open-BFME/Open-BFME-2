@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva001518D1@Rva001518D1@@QAEPAVRva00082EB8@@XZ at 0x001518D1 (68B).
 // Getter returning the shader parameter vector at +0x0C or its static empty value.
@@ -11,14 +11,7 @@
 // The native atexit callback at 0x007B71AA calls the 0x0007C632
 // wrapper, which destroys vector<Rva0007BB16Record> at 0x0007C5D5.
 // The wrapper destructor already has a verified row in the post-FX lookup TU.
-struct Rva0007BB16Record
-{
-	~Rva0007BB16Record();
-	AsciiString m_00;
-	int m_04;
-	AsciiString m_08;
-	int m_tail0C[6];
-};
+#include "../../../Libraries/Source/WWVegas/WWLib/Rva0007BB16Record.h"
 namespace _STL { template <> vector<Rva0007BB16Record>::~vector(); }
 class Rva00082EB8 : public _STL::vector<Rva0007BB16Record>
 {

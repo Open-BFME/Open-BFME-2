@@ -1,4 +1,4 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // The BFME2 texture mappers' FXShader conversion virtual (vtable +0x20; WB 0x00A33B70 by its
 // strings): each checks its own Mapper_ID, rejects unsupported stages or options through the
 // debug report, and otherwise appends a "TexCoordMapper_<stage>" int parameter and a vector
@@ -33,10 +33,7 @@ public:
 };
 extern Debug *theDebug;
 
-struct Rva0007BB16Record
-{
-	~Rva0007BB16Record();
-};
+#include "../WWLib/Rva0007BB16Record.h"
 
 // The 36-byte FXShader parameter record: name and type through the rowed
 // constructor, the float vector value at +0x0C and the integer value at +0x1C.

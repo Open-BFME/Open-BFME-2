@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??$_Destroy@PAURva0007BB16Record@@@_STL@@YAXPAURva0007BB16Record@@0@Z @0x0007C2D7 25B:
 // ?_M_clear@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@IAEXXZ @0x0007C614 30B:
@@ -26,18 +26,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct Rva0007BB16Record;
 namespace _STL { template <> void vector<Rva0007BB16Record,allocator<Rva0007BB16Record> >::_M_fill_insert(Rva0007BB16Record *,unsigned int,Rva0007BB16Record const &); }
 
-struct Rva0007BB16Record
-{
-	~Rva0007BB16Record();
-	// Declared only: the copy is rowed in StlportVectorGrowthFootprints.cpp
-	// (0x001513AD); an implicit one here would be emitted with this unit's flags.
-	Rva0007BB16Record(const Rva0007BB16Record &);
-	Rva0007BB16Record();	// as the implicit one
-	AsciiString m_00;
-	int m_04;
-	AsciiString m_08;
-	int m_tail0C[6];
-};
+#include "Rva0007BB16Record.h"
 
 namespace _STL
 {
