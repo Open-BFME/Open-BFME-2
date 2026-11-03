@@ -5,14 +5,14 @@ float __cdecl Rva00503D8EEvaluate(float p0, float p1, float p2, float p3, float 
 class CameraAnimationFrameData
 {
 public:
-	float doInterpolate(float t, float *pa, int ta, float *pc, int tc, float *pf, int tf, float *pd, int td);
+	float doInterpolate(float fraction, float *pa, int ta, float *pc, int tc, float *pf, int tf, float *pd, int td);
 	int m_key;
 };
-float CameraAnimationFrameData::doInterpolate(float t, float *pa, int ta, float *pc, int tc, float *pf, int tf, float *pd, int td)
+float CameraAnimationFrameData::doInterpolate(float fraction, float *pa, int ta, float *pc, int tc, float *pf, int tf, float *pd, int td)
 {
 	switch (m_key) {
 	case 1:
-		return (1.0f - t) * (*pc) + t * (*pf);
+		return (1.0f - fraction) * (*pc) + fraction * (*pf);
 	case 2: {
 		float d0 = (float)(tc - ta);
 		float d1 = (float)(tf - tc);
@@ -23,7 +23,7 @@ float CameraAnimationFrameData::doInterpolate(float t, float *pa, int ta, float 
 		else
 			v0 = *pa;
 		float v1 = (d2 > 0.0f) ? (*pf + ((*pd - *pf) / d2) * d1) : *pd;
-		return Rva00503D8EEvaluate(v0, *pc, *pf, v1, t);
+		return Rva00503D8EEvaluate(v0, *pc, *pf, v1, fraction);
 	}
 	default:
 		return *pc;

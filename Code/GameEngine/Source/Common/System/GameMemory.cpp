@@ -33,16 +33,16 @@ void * __gameMemDumpFragmentationPtr;
 void * __gameMemReallocatePtr;
 
 	// retail RVA 0x009E0400 (.bss), defined here
-extern void *g_00DE03F8;
+extern void *__gameMemIsValidBlockPtr;
 
-extern void *g_00DE03F4;
+extern void *__gameMemGetBlockSizePtr;
 
 void * __gameMemGetBlockHeapPtr;
 
 	// retail RVA 0x009E03F0 (.bss), defined here
-extern void *g_00DE03EC;
+extern void *__gameMemVerifyIntegrityPtr;
 
-extern void *g_00DE03E4;
+extern void *__gameMemGetHeapAllocatorPtr;
 
 void * __gameMemGetHeapAllocatorByIndexPtr;
 
@@ -58,12 +58,12 @@ void InitFunctionPointers()
 	__gameMemAllocatePtr = (GameAllocateFunction)GetProcAddress(hMod, "?_Allocate@MemoryPool@@YAPAXIW4AllocType@1@I@Z");
 	__gameMemReallocatePtr = (void *)GetProcAddress(hMod, "?_Reallocate@MemoryPool@@YAPAXPAXIW4AllocType@1@I@Z");
 	__gameMemFreePtr = (GameFreeFunction)GetProcAddress(hMod, "?_Free@MemoryPool@@YAXPAXW4AllocType@1@@Z");
-	g_00DE03F8 = (void *)GetProcAddress(hMod, "?_IsValidBlock@MemoryPool@@YA_NPAXI@Z");
-	g_00DE03F4 = (void *)GetProcAddress(hMod, "?_GetBlockSize@MemoryPool@@YAIPAXI@Z");
+	__gameMemIsValidBlockPtr = (void *)GetProcAddress(hMod, "?_IsValidBlock@MemoryPool@@YA_NPAXI@Z");
+	__gameMemGetBlockSizePtr = (void *)GetProcAddress(hMod, "?_GetBlockSize@MemoryPool@@YAIPAXI@Z");
 	__gameMemGetBlockHeapPtr = (void *)GetProcAddress(hMod, "?_GetBlockHeap@MemoryPool@@YAIPAX@Z");
-	g_00DE03EC = (void *)GetProcAddress(hMod, "?_VerifyIntegrity@MemoryPool@@YAXXZ");
+	__gameMemVerifyIntegrityPtr = (void *)GetProcAddress(hMod, "?_VerifyIntegrity@MemoryPool@@YAXXZ");
 	g_Va00DE03E8 = (void (__cdecl *)(unsigned int, unsigned int))GetProcAddress(hMod, "?_AddHeap@MemoryPool@@YAXII@Z");
-	g_00DE03E4 = (void *)GetProcAddress(hMod, "?_GetHeapAllocator@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z");
+	__gameMemGetHeapAllocatorPtr = (void *)GetProcAddress(hMod, "?_GetHeapAllocator@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z");
 	__gameMemGetHeapAllocatorByIndexPtr = (void *)GetProcAddress(hMod, "?_GetHeapAllocatorByIndex@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z");
 }
 }
@@ -79,10 +79,10 @@ extern "C" void __cdecl free(void *block)
 // here, nothing else defines it.
 void (__cdecl *g_Va00DE03E8)(unsigned int id, unsigned int size) = 0;
 
-void * g_00DE03F4;
+void * __gameMemGetBlockSizePtr;
 
 	// retail RVA 0x009E03F4 (.bss), defined here
-void * g_00DE03EC;
+void * __gameMemVerifyIntegrityPtr;
 
 	// retail RVA 0x009E03EC (.bss), defined here
 
@@ -92,14 +92,14 @@ typedef void (__cdecl *VerifyIntegrityFunction)(void);
 
 // --- 0x00030850 (6B): tail-jump into the block-validity slot VA 0x00DE03F8
 // (?_IsValidBlock@MemoryPool@@YA_NPAXI@Z), unreferenced.
-void * g_00DE03F8;
+void * __gameMemIsValidBlockPtr;
 
 // --- 0x000308F0 (6B): tail-jump into the heap-allocator slot VA 0x00DE03E4
 // (?_GetHeapAllocator@MemoryPool@@YAPAVGeneralAllocator@Allocator@EA@@I@Z),
 // unreferenced.
 namespace EA { namespace Allocator { class GeneralAllocator; } }
 
-void * g_00DE03E4;
+void * __gameMemGetHeapAllocatorPtr;
 
 // tu-skeleton: 0x00030000 406B ?_Init@MemoryPool@@YAXXZ -- matched in Code/GameEngine/Source/Common/System/MemoryPoolInit.cpp (not merged yet)
 
@@ -241,27 +241,27 @@ unsigned int getBlockSize(void *block, unsigned int heap)
 {
 	if (block == 0)
 		return 0;
-	return ((GetBlockSizeFunction)g_00DE03F4)(block, heap);
+	return ((GetBlockSizeFunction)__gameMemGetBlockSizePtr)(block, heap);
 }
 
 // --- 0x00030880 (6B): tail-jump into the integrity-check slot.
 void verifyIntegrity()
 {
-	((VerifyIntegrityFunction)g_00DE03EC)();
+	((VerifyIntegrityFunction)__gameMemVerifyIntegrityPtr)();
 }
 
 	// retail RVA 0x009E03F8 (.bss), defined here
 
-bool rva00030850(void *block, unsigned int heap)
+bool isValidBlock(void *block, unsigned int heap)
 {
-	return ((bool (__cdecl *)(void *, unsigned int))g_00DE03F8)(block, heap);
+	return ((bool (__cdecl *)(void *, unsigned int))__gameMemIsValidBlockPtr)(block, heap);
 }
 
 	// retail RVA 0x009E03E4 (.bss), defined here
 
-EA::Allocator::GeneralAllocator *rva000308F0(unsigned int id)
+EA::Allocator::GeneralAllocator *getHeapAllocator(unsigned int id)
 {
-	return ((EA::Allocator::GeneralAllocator *(__cdecl *)(unsigned int))g_00DE03E4)(id);
+	return ((EA::Allocator::GeneralAllocator *(__cdecl *)(unsigned int))__gameMemGetHeapAllocatorPtr)(id);
 }
 
 // tu-skeleton: 0x000308D0 6B ?Rva000308D0GetByte@@YAEXZ -- matched in Code/GameEngine/Source/Common/GlobalByteGetters.cpp (not merged yet)

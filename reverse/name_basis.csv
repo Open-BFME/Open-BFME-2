@@ -7432,3 +7432,12 @@ function,?bfmeGoDEB@@YAIPAVBfmeThingDEB@@@Z,?getColor@@YAIPAVBfmeThingDEB@@@Z,in
 function,?rva00030860@@YAIPAXI@Z,?getBlockSize@@YAIPAXI@Z,inferred,agree:nl-ce5ded225210,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030860
 function,?rva00030880@@YAXXZ,?verifyIntegrity@@YAXXZ,inferred,agree:nl-0b6f33684334,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030880
 function,?rva00309F23@FireEffect@@QAEPAU1@XZ,?initDefaults@FireEffect@@QAEPAU1@XZ,inferred,agree:nl-042013c98f71,Code/GameEngine/Source/GameClient/Drawable_Rva0030a040.cpp,0x00309F23
+member,Rva000C445D::at1bd,Rva000C445D::m_fadeDirty,inferred,agree:nl-04b062c9aa69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp,
+member,Rva000C445D::at68,Rva000C445D::m_fadeRecords,inferred,agree:nl-8d2a919920f1,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp,
+param,CameraAnimationFrameData::doInterpolate::t,CameraAnimationFrameData::doInterpolate::fraction,inferred,agree:nl-5f1091d78050-m8083a9fcba8dc1ecb5654c7b,Code/GameEngine/Source/Common/CameraAnimationFrameData_doInterpolate.cpp,0x005C70DB
+global,?g_00DE03E4@@3PAXA,?__gameMemGetHeapAllocatorPtr@@3PAXA,inferred,agree:nl-b44ff2fd10a7,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x009E03E4
+global,?g_00DE03EC@@3PAXA,?__gameMemVerifyIntegrityPtr@@3PAXA,inferred,agree:nl-c3e9729a1db9,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x009E03EC
+global,?g_00DE03F4@@3PAXA,?__gameMemGetBlockSizePtr@@3PAXA,inferred,agree:nl-b29fdfd9405b,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x009E03F4
+global,?g_00DE03F8@@3PAXA,?__gameMemIsValidBlockPtr@@3PAXA,inferred,agree:nl-02aa6a1e62fb,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x009E03F8
+function,?rva00030850@@YA_NPAXI@Z,?isValidBlock@@YA_NPAXI@Z,inferred,agree:nl-8d7c34bc3b1d,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x00030850
+function,?rva000308F0@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,?getHeapAllocator@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,inferred,agree:nl-4391a49589bf,Code/GameEngine/Source/Common/System/GameMemory.cpp,0x000308F0

@@ -68991,10 +68991,10 @@ _$E8,,0x007ACE70,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva0000101A@@YAXPAX@Z,,0x0000101A,6,Code/Libraries/Source/ATL/atlconv.cpp,matched,free forwarder tail jump through the import; unreferenced
 ?_AtlGetConversionACP@ATL@@YGIXZ,,0x0000111F,6,Code/Libraries/Source/ATL/atlconv.cpp,matched,ATL 7.1 atlconv.h inline out of line: jmp through g pfnGetThreadACP; unreferenced
 ?InterlockedExchangePointer@@YGPAXPAPAXPAX@Z,,0x00001079,6,Code/Libraries/Source/ATL/atlconv.cpp,matched,ATL 7.1 atlbase.h x86 InterlockedExchangePointer over the InterlockedExchange import; unreferenced
-?rva00030850@@YA_NPAXI@Z,,0x00030850,6,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched,tail jump into the IsValidBlock memory-pool slot VA 0x00DE03F8; unreferenced
+?isValidBlock@@YA_NPAXI@Z,,0x00030850,6,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched,tail jump into the IsValidBlock memory-pool slot VA 0x00DE03F8; unreferenced
 ?get@Rva00042F91FloatField@@QBEMXZ,,0x00042F91,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,float at +0x37E8; unreferenced
 ?Is_Snapshot_Activated@WW3D@@SA_NXZ,,0x00065F60,6,Code/Libraries/Source/WWVegas/WW3D2/ww3d_snapshot_activated.cpp,matched,ZH ww3d.h inline out of line: SnapshotActivated VA 0x00DEC3FD; unreferenced
-?rva000308F0@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,,0x000308F0,6,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched,tail jump into the GetHeapAllocator memory-pool slot VA 0x00DE03E4; unreferenced
+?getHeapAllocator@@YAPAVGeneralAllocator@Allocator@EA@@I@Z,,0x000308F0,6,Code/GameEngine/Source/Common/System/GameMemory.cpp,matched,tail jump into the GetHeapAllocator memory-pool slot VA 0x00DE03E4; unreferenced
 ?clear@?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@QAEXXZ,,0x000589A0,5,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp,matched,STLport 4.5.3 set<AsciiString> clear tail jump into rowed tree clear 0x00057B4B; unreferenced
 ?erase@?$map@URva0005B5EAElement@@HU?$less@URva0005B5EAElement@@@_STL@@V?$allocator@U?$pair@$$CBURva0005B5EAElement@@H@_STL@@@3@@_STL@@QAEIABURva0005B5EAElement@@@Z,,0x0005CC1E,5,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0005B5EA.cpp,matched,STLport 4.5.3 map erase(key) tail jump into rowed tree erase 0x0005B5EA; unreferenced
 ??1Rva0002CD71@@QAE@XZ,,0x0002CD71,5,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CD71.cpp,matched,holder dtor tail-jumping into rowed hashtable dtor 0x0002CCC3; unreferenced

@@ -17,9 +17,9 @@ struct BfmeStringRecord000B9534 {
 namespace _STL {template<>void vector<BfmeStringRecord000B9534,allocator<BfmeStringRecord000B9534> >::push_back(const BfmeStringRecord000B9534&);}
 class Rva000C445D {
  char at00[0x5C];
- _STL::vector<BfmeStringRecord000B9534,_STL::allocator<BfmeStringRecord000B9534> > at5c,at68;
+ _STL::vector<BfmeStringRecord000B9534,_STL::allocator<BfmeStringRecord000B9534> > at5c,m_fadeRecords;
  char at74[0x1BC-0x74];
- bool at1bc,at1bd;
+ bool at1bc,m_fadeDirty;
 public:
  void rva000C445D(const AsciiString& name,bool show,bool fade,float value08,float value10);
 };
@@ -27,16 +27,16 @@ void Rva000C445D::rva000C445D(const AsciiString& name,bool show,bool fade,float 
  if(!name.isEmpty()) {
   if(fade) {
    bool found=false;
-   for(BfmeStringRecord000B9534* it=at68.begin();it!=at68.end();++it) {
+   for(BfmeStringRecord000B9534* it=m_fadeRecords.begin();it!=m_fadeRecords.end();++it) {
     if(_strcmpi(it->name.str(),name.str())==0) {
-     at1bd=true; it->hide=!show; it->at08=value08; it->at10=value10; it->at14=1.0f; found=true;
+     m_fadeDirty=true; it->hide=!show; it->at08=value08; it->at10=value10; it->at14=1.0f; found=true;
     }
    }
    if(!found) {
-    at1bd=true;
+    m_fadeDirty=true;
     BfmeStringRecord000B9534 info;
     info.name=name; info.hide=!show; info.at08=value08; info.at10=value10; info.at14=1.0f; info.at0c=show?0.9999f:0.0001f;
-    at68.push_back(info);
+    m_fadeRecords.push_back(info);
    }
   } else {
    bool found=false;
