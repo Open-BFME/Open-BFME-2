@@ -67,10 +67,10 @@ class Rva002B85B1
 public:
 	virtual bool rva002B85B1(Rva003190A5 *a);
  ~Rva002B85B1() {}
- Rva002B85B1(_STL::vector<Object*> *out, int id):m_vec04(out),m_08(id) {}
+ Rva002B85B1(_STL::vector<Object*> *out, int id):m_vec04(out),m_id(id) {}
 private:
 	_STL::vector<Object *> *m_vec04;
-	int m_08;
+	int m_id;
 };
 
 bool Rva002B85B1::rva002B85B1(Rva003190A5 *a)
@@ -80,7 +80,7 @@ bool Rva002B85B1::rva002B85B1(Rva003190A5 *a)
 		return true;
 	if (!a->query())
 		return true;
-	if (a->m_54 != m_08)
+	if (a->m_54 != m_id)
 		return true;
 	m_vec04->push_back(obj);
 	return true;

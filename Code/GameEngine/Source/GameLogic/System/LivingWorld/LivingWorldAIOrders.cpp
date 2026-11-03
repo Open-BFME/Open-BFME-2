@@ -56,8 +56,8 @@ private:
 template<class T> __forceinline void clearOrderVector(_STL::vector<T>&orders) {orders.erase(orders.begin(),orders.end());}
 void LivingWorldAI::SubmitOrders() {
  if(!owner)return;
- unsigned n=orders68.size();
- for(unsigned i=0;i<n;++i) {
+ unsigned orderCount=orders68.size();
+ for(unsigned i=0;i<orderCount;++i) {
   Rva004E0625 *region=(Rva004E0625*)TheLivingWorldLogic->getSpawnerRegions()->rva0020EEF4(orders68[i].a[0]);
   if(region) {
    ArmySpawnerOrderView *spawner=(ArmySpawnerOrderView*)region->rva004E0625();
@@ -65,8 +65,8 @@ void LivingWorldAI::SubmitOrders() {
   }
  }
  clearOrderVector(orders68);
- n=orders74.size();
- for(unsigned i=0;i<n;++i) {
+ orderCount=orders74.size();
+ for(unsigned i=0;i<orderCount;++i) {
   LivingWorldRegion *region=(LivingWorldRegion*)TheLivingWorldLogic->getRegions()->rva0020EAF6(orders74[i].a[1]);
   if(region) {
    if(*(bool*)&orders74[i])((Rva003F1093*)region)->rva003F1CFE((void*)orders74[i].a[3],1);
@@ -77,8 +77,8 @@ void LivingWorldAI::SubmitOrders() {
   }
  }
  clearOrderVector(orders74);
- n=orders80.size();
- for(unsigned i=0;i<n;++i) {
+ orderCount=orders80.size();
+ for(unsigned i=0;i<orderCount;++i) {
   LivingWorldArmy *army=(LivingWorldArmy*)owner->rva002E0A9F((void*)orders80[i].words[0]);
   if(army && (((Rva00318F42*)army)->rva00318F42() || ((AsciiString*)((char*)army+0x18))->isEmpty()))continue;
   if(orders80[i].words[2]) {
@@ -88,8 +88,8 @@ void LivingWorldAI::SubmitOrders() {
  }
 }
 void LivingWorldAI::rva004FB7B2() {
- unsigned n=orders80.size();
- for(unsigned i=0;i<n;++i) {
+ unsigned orderCount=orders80.size();
+ for(unsigned i=0;i<orderCount;++i) {
   LivingWorldArmy *army=(LivingWorldArmy*)owner->rva002E0A9F((void*)orders80[i].words[0]);
   if(army && (((Rva00318F42*)army)->rva00318F42() || !((AsciiString*)((char*)army+0x18))->isEmpty()))continue;
   if(orders80[i].words[2]) {

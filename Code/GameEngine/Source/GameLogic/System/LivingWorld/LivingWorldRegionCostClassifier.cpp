@@ -61,7 +61,7 @@ public:
     void *unknown00;
     int owner04;
     float otherNamed08, otherAny0c, ownNamed10, ownAny14, otherRegion18;
-    RegionAnchorView *selected1c, *otherAny20, *ownNamed24;
+    RegionAnchorView *m_selectedAnchor, *otherAny20, *ownNamed24;
     Rva0020E89C *neutral28;
     float neutral2c;
     Rva0020E89C *owned30;
@@ -113,14 +113,14 @@ void Rva003F7260::rva003F7260(int *input)
                             if (otherAny0c > newCost) {
                                 otherAny0c = newCost;
                                 otherAny20 = anchors[anchorIndex];
-                                selected1c = anchors[anchorIndex];
+                                m_selectedAnchor = anchors[anchorIndex];
                             }
                         }
                     }
                 } else if (!anchor->flag74 && player == owner) {
                     if (ownAny14 > newCost) {
                         ownAny14 = newCost;
-                        selected1c = anchors[anchorIndex];
+                        m_selectedAnchor = anchors[anchorIndex];
                     }
                 }
             }

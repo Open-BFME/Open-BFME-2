@@ -7024,3 +7024,9 @@ local,LivingWorldBuildingNuggetSpawnArmy::canQueueUnit::tmpl,LivingWorldBuilding
 param,Rva004FA978::rva004FA978::arg,Rva004FA978::rva004FA978::userData,inferred,agree:nl-c44df9a91310-m309aed1420195e84fb2488f1,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmy.cpp,0x004FA978
 param,Rva004FA992::rva004FA992::arg,Rva004FA992::rva004FA992::userData,inferred,agree:nl-75ac7b7480c4-m1542d787d36111c144125d97,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingNuggetSpawnArmy.cpp,0x004FA992
 param,Rva0020F0EE::rva0020F0EE::arg,Rva0020F0EE::rva0020F0EE::region,inferred,agree:nl-694a4e6cc390,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionBonusLookup.cpp,0x0020F0EE
+member,Rva003F7260::selected1c,Rva003F7260::m_selectedAnchor,inferred,agree:nl-9d6232cd042c,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionCostClassifier.cpp,
+member,Rva002B85B1::m_08,Rva002B85B1::m_id,inferred,agree:nl-1eacd694a31c,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B8573Method.cpp,
+local,LivingWorldAI::SubmitOrders::n,LivingWorldAI::SubmitOrders::orderCount,inferred,agree:nl-275c32deb301-m1a2fa862c563989a31f62277,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp,0x004FB924
+local,LivingWorldAI::rva004FB7B2::n,LivingWorldAI::rva004FB7B2::orderCount,inferred,agree:nl-8991fdb371c4-m9aa6816fad83053a85affbc1,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp,0x004FB7B2
+local,Rva004FBEAB::rva004FBEAB::b,Rva004FBEAB::rva004FBEAB::begin,inferred,agree:nl-3fe1839ec423,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,0x004FBEAB
+local,Rva001DCDAF::rva001DCDAF::f,Rva001DCDAF::rva001DCDAF::candidate,inferred,agree:nl-0cc26b2a4e3d,Code/GameEngine/Source/GameLogic/System/Rva001DCDAF.cpp,0x001DCDAF

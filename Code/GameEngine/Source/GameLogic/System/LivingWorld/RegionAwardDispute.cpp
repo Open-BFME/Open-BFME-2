@@ -263,9 +263,9 @@ void RegionAwardDispute::rva004FC0AD(const Rva002E2903Player *player) {
 bool Rva004FBEAB::rva004FBEAB(CreateAHeroData *val)
 {
 	CreateAHeroData *createAHeroData = val;
-	CreateAHeroData **b = m_begin;
+	CreateAHeroData **begin = m_begin;
 	CreateAHeroData **e = m_end;
-	CreateAHeroData **found = _STL::find(b, e, createAHeroData);
+	CreateAHeroData **found = _STL::find(begin, e, createAHeroData);
 	return found != e;
 }
 

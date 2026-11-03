@@ -40,9 +40,9 @@ private:
 bool Rva001DCDAF::rva001DCDAF(Arg001DCDAF const *a, Vec001DCDAF const *b, Vec001DCDAF const *c)
 {
     if (m_0 > 0.0f) {
-        float f = (float)a->u8;
-        if (f > m_0)
-            m_0 = f;
+        float candidate = (float)a->u8;
+        if (candidate > m_0)
+            m_0 = candidate;
         return false;
     } else {
         m_4 = (float)a->u4;
