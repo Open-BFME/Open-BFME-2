@@ -4680,3 +4680,5 @@ __ehhandler$?rva00397BD9@Rva00397BD9@@UAEXHHH@Z,0x00780ED2,"Renamed to __ehhandl
 __ehhandler$??0?$vector@UGen003AA0D0@@V?$allocator@UGen003AA0D0@@@_STL@@@_STL@@QAE@I@Z,0x007A2E37,Renamed to __ehhandler$??0?$vector@VRva005DE5B5@@V?$allocator@VRva005DE5B5@@@_STL@@@_STL@@QAE@I@Z: Gen003AA0D0 is the rowed nonvirtual Rva005DE5B5 (direct ctor 0x005DE5EA and dtor 0x005DE5B5 calls); evidence reverse/attempt_support/gen003aa0d0-is-rva005de5b5-20261024.md
 ?updateFormationPreview@InGameUI@@QAEXXZ,0x002A4E1F,"Renamed to ?updateFormationPreview@InGameUI@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
 __ehhandler$?updateFormationPreview@InGameUI@@QAEXXZ,0x00775081,"Renamed to __ehhandler$?updateFormationPreview@InGameUI@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+?rva0029DB61@InGameUI@@QAE_NXZ,0x0029DB61,"Renamed to ?rva0029DB61@InGameUI@@UAE_NXZ by tools/rename.py (virtual: retail vtable slot)"
+?rva0029FD1B@InGameUI@@QAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z,0x0029FD1B,"Renamed to ?rva0029FD1B@InGameUI@@UAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z by tools/rename.py (virtual: retail vtable slot)"

@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
-// ?rva0029FD1B@InGameUI@@QAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z, retail 0x0029FD1B, 387 bytes.
+// ?rva0029FD1B@InGameUI@@UAEXHPAVMaterialPassClass@@PAVOverridable@@H@Z, retail 0x0029FD1B, 387 bytes.
 // Lever: the m_890 decal call is an equal-arm conditional on the member (m_890 ? call : call), which makes cl
 // compute the colour before the null test like retail.
 // @0x0029FD1B 387B, retail-guided InGameUI radius decal.
@@ -50,7 +50,6 @@ struct RadiusDecalTemplateNode
 class InGameUI
 {
 public:
-	void rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int isValid);
 protected:
 	void handleRadiusCursor();
 public:
@@ -64,7 +63,7 @@ public:
 	virtual void *v70();
 	virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74();
 	virtual void *v75();
-	virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79(); virtual void v80();
+	virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79(); virtual void rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int isValid);
 	virtual void v81();
 #undef BFME_V8
 private:
