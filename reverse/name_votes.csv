@@ -23451,3 +23451,5 @@ Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Memb
 Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_0C,466107641c3916105c282c31,drz-t13,drz-t13-sv2-5,w-14744362fb11,2026-11-03
 Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp|function|0x005CEDAF|rva005CEDAF,647060cd0a3c59c02a3a2fdf,drz-t13,drz-t13-sv2-12,w-14744362fb11,2026-11-03
 Code/GameEngine/Source/GameClient/GUI/Rva005FB872Finish.cpp|function|0x005FB872|rva005FB872,27fa7626e1d8cf5346b04d17,drz-t16,drz-t16-sv2-14,w-c68e8a9b002b,2026-11-03
+Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp|param|bfmeAnchorCountedGuardDtor|p,9a31d236df1a956206db7497,drz-t08,drz-t08-sv2-5,w-50a2e09e8e09,2026-11-03
+Code/GameEngine/Source/Main/WinMainPairUnicode.cpp|local|Rva000B3F84Pair::convertToWide|n,837158e939f532e6279b1387,drz-t08,drz-t08-sv2-11,w-50a2e09e8e09,2026-11-03
