@@ -1,4 +1,4 @@
-// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHs /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // ?_M_insert@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABUBfmePod20@@0@Z
 // retail 0x004AF3E6 136 bytes plus ?insert_unique@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@_STL@@_N@2@ABUBfmePod20@@@Z
@@ -31,12 +31,6 @@ typedef _STL::_Rb_tree<BfmePod20, BfmePod20, _STL::_Identity<BfmePod20>, _STL::l
 // _M_insert calls the rowed node builder 0x004AF2BC (stlport_rb_tree_create_nodes);
 // declare it so this unit does not emit its own non-retail copy.
 template <> UBfmePod20SetTree::_Link_type UBfmePod20SetTree::_M_create_node(const BfmePod20 &);
-namespace _STL {
-template <> class allocator<char> {
-public:
-    static char *allocate(unsigned int bytes, const void *hint);
-};
-}
 template _STL::pair<UBfmePod20SetTree::iterator, bool> UBfmePod20SetTree::insert_unique(const UBfmePod20SetTree::value_type &);
 template void UBfmePod20SetTree::_M_erase(UBfmePod20SetTree::_Link_type);
 template void UBfmePod20SetTree::clear();

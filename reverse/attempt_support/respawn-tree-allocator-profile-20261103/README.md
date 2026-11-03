@@ -1,0 +1,7 @@
+# Respawn tree allocator-profile prerequisite, 2026-11-03
+
+Use the existing reference/shims/bfmealloc include profile in stlport_rb_tree_bfmepod20_insert.cpp and remove its redundant minimal allocator<char> specialization. The existing shim already supplies that specialization and the same static allocate(size_type,const void*) declaration. All other original tree flags, macros, explicit bodies/instantiations, malloc specializations and existing alias stay unchanged. No shared shim, source path, pin, row, name or hatch is added.
+
+Normal8/8 rows, the applicable parent EH graph and strict frozen checks pass. All30 external definitions, complete code/data payloads and relocations, selection/linkage properties and all undefined/weak/alternate/INCLUDE routes are identical. The normal object equals the private winner. Current preview preserves LINKED436B and the existing unreferenced less diagnostic. This fixes the concrete allocator<char> C2766 composition prerequisite; it alone claims no source reduction or new linking coverage. Retry the supported current planner/merger; every later selected-tree provider and class/lifetime refusal still applies.
+
+The prior30342b10cd audit remains INCONCLUSIVE at index23b85ddde5/baseba0f95cdd5180957110543e2b8cc15bacde05718 with one baseline receipt gap first RespawnUpdate.cpp. Carry the seed and affected consumers into the next scheduled census; no full-game measurement is inferred from these scoped checks.
