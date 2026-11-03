@@ -1,0 +1,22 @@
+{
+  "revision": "43907a63fa6cf1974a5fb004468de16809746282",
+  "source": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+  "original_order": [
+    "#pragma inline_depth( 0 )",
+    "AsciiString g_systemCallbackName;",
+    "AsciiString g_inputCallbackName;",
+    "AsciiString g_tooltipCallbackName;",
+    "AsciiString g_drawCallbackName;",
+    "#pragma inline_depth()"
+  ],
+  "composed_order": [
+    "#pragma inline_depth( 0 )",
+    "#pragma inline_depth()",
+    "AsciiString g_systemCallbackName;",
+    "AsciiString g_inputCallbackName;",
+    "AsciiString g_tooltipCallbackName;",
+    "AsciiString g_drawCallbackName;"
+  ],
+  "baseline": "./build.sh source: 30/30 rows, literals and imports pass",
+  "dry_run": "exit 2; accepted []; seed rejected: bytes; class/view, function-anchor and CRT linkage conflicts also remain"
+}
