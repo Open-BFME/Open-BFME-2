@@ -7265,3 +7265,12 @@ local,__copy_backward::v,__copy_backward::src,inferred,agree:nl-0248d2d74e77,Cod
 local,fill::v,fill::src,inferred,agree:nl-b4dff8f708f4,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,
 param,Rva0023E8D8::Rva0023E8D8::p,Rva0023E8D8::Rva0023E8D8::funcHolder,inferred,agree:nl-679c90f678c4,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,0x0023E8D8
 param,Rva0023E8D8Impl::p,Rva0023E8D8Impl::funcHolder,inferred,agree:nl-83d0db9a2351,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,
+local,BTREE_findbest::i1,BTREE_findbest::followByte,inferred,agree:nl-e803dbbb56b9,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0x0068CCC0
+local,BTREE_findbest::i2,BTREE_findbest::leadByte,inferred,agree:nl-26d827607fa5,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0x0068CCC0
+local,BTREE_joinnodes::d,BTREE_joinnodes::destination,inferred,agree:nl-17d2688ffcfe-m758a6dfdec1b9b1f55cc6fd7,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,0x0068CC20
+local,Rva000AFA92::rva000AFA92::t,Rva000AFA92::rva000AFA92::tileTable,inferred,agree:nl-79679828ad74,Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp,0x000AFA92
+param,Rva000AFA92::rva000AFA92::a,Rva000AFA92::rva000AFA92::tileX,inferred,agree:nl-87abf613cf54,Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp,0x000AFA92
+param,Rva000AFA92::rva000AFA92::b,Rva000AFA92::rva000AFA92::tileY,inferred,agree:nl-491afe771722,Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp,0x000AFA92
+local,Rva0023E8D8::Rva0023E8D8::q,Rva0023E8D8::Rva0023E8D8::impl,inferred,agree:nl-73a1a16c06e9,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,0x0023E8D8
+param,bfmeEmitRva0023E8D8Ctor::p,bfmeEmitRva0023E8D8Ctor::storage,inferred,agree:nl-5d19f0015f69,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,
+param,bfmeEmitRva0023E8D8Ctor::q,bfmeEmitRva0023E8D8Ctor::funcHolder,inferred,agree:nl-a1412cddab42,Code/Libraries/Source/WWVegas/WWLib/Rva0023E8D8Ctor.cpp,

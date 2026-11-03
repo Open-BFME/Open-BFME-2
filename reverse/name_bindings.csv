@@ -370,3 +370,7 @@ agree:nl-fd268c13f9fc,LoopFilter::n,LoopFilter::col,Code/Libraries/Source/VP6/Lo
 agree:nl-8ef2e8e7289f,__copy_backward::p,__copy_backward::dst,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,383b79afa03aa4528ce7a8be36f30b24bee5b3ef702e7d4e05d7b4d384618ed4
 agree:nl-0248d2d74e77,__copy_backward::v,__copy_backward::src,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,383b79afa03aa4528ce7a8be36f30b24bee5b3ef702e7d4e05d7b4d384618ed4
 agree:nl-b4dff8f708f4,fill::v,fill::src,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,60972c037a03e46aac0c5f5f9f0047a077f4e7cfc18fcd33679b65fd1c03c6c3
+agree:nl-e803dbbb56b9,BTREE_findbest::i1,BTREE_findbest::followByte,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,373890f7b1c6c6f8740b2e77fdd3f28ef2ee91473a7aea26960489df3e3e8f20
+agree:nl-26d827607fa5,BTREE_findbest::i2,BTREE_findbest::leadByte,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,373890f7b1c6c6f8740b2e77fdd3f28ef2ee91473a7aea26960489df3e3e8f20
+agree:nl-17d2688ffcfe-m758a6dfdec1b9b1f55cc6fd7,BTREE_joinnodes::d,BTREE_joinnodes::destination,Code/Libraries/Source/Compression/EAC/btreeencode.cpp,dbe8e408ea6c439ec970f7b941cba3930c8d7eff892f541619e873d68049f48a
+agree:nl-79679828ad74,Rva000AFA92::rva000AFA92::t,Rva000AFA92::rva000AFA92::tileTable,Code/Libraries/Source/WWVegas/WWLib/Rva000AFA92.cpp,1729bb2a6ac7dcbaa978bc7454783d2d9150f78148a54a74293f3503d0e384db

@@ -21,7 +21,7 @@ public:
 class Rva000AFA92
 {
 public:
-	bool rva000AFA92(int a, int b, int c, int d, int e);
+	bool rva000AFA92(int tileX, int tileY, int c, int d, int e);
 
 private:
 	char m_pad00[0x8];
@@ -35,15 +35,15 @@ private:
 	int m_120E4;
 };
 
-bool Rva000AFA92::rva000AFA92(int a, int b, int c, int d, int e)
+bool Rva000AFA92::rva000AFA92(int tileX, int tileY, int c, int d, int e)
 {
-	int idx = (m_120E4 + b) * m_8 + m_120E0 + a;
+	int idx = (m_120E4 + tileY) * m_8 + m_120E0 + tileX;
 	if (idx < m_20)
 	{
-		unsigned short *t = m_98;
-		if (t)
+		unsigned short *tileTable = m_98;
+		if (tileTable)
 		{
-			unsigned short w = t[idx];
+			unsigned short w = tileTable[idx];
 			return ((Rva000AE490 *)this)->getUVForTileIndex(idx, (short)w, (float *)c, (float *)d, *(bool *)&e);
 		}
 	}

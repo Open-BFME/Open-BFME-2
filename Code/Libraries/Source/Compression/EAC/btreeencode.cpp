@@ -214,7 +214,7 @@ static void BTREE_joinnodes(struct BTreeEncodeContext *EC,
                             unsigned int  clue)
 {
 	unsigned char			*s;
-	unsigned char			*d;
+	unsigned char			*destination;
 	unsigned char			*bend;
 	unsigned int			i;
 
@@ -223,39 +223,39 @@ static void BTREE_joinnodes(struct BTreeEncodeContext *EC,
     s = EC->bufbase;
 	if (s==EC->buf1)
 	{
-		d = EC->buf2;
+		destination = EC->buf2;
 	}
 	else
     {
-		d = EC->buf1;
+		destination = EC->buf1;
 	}
-	EC->bufbase = d;
+	EC->bufbase = destination;
 	bend = EC->bufend;
 
 	*bend = (unsigned char) clue;
 	while (s<=bend)
 	{
-		while (!cluep[(unsigned int) (*d++ = *s++)])
+		while (!cluep[(unsigned int) (*destination++ = *s++)])
 			;
 
 		i = (unsigned int) *(s-1);
 
 		if (cluep[i]==1)
 		{	if (*s==rightp[i])
-			{	*(d-1) = joinp[i];
+			{	*(destination-1) = joinp[i];
 				++s;
 			}
 		}
 		else
 		{	if (cluep[i]==3)
-			{	*(d-1) = (unsigned char) clue;
-				*d++ = *(s-1);
+			{	*(destination-1) = (unsigned char) clue;
+				*destination++ = *(s-1);
 			}
 			else
-				*d++ = *s++;
+				*destination++ = *s++;
 		}
 	}
-	EC->bufend = d-2;
+	EC->bufend = destination-2;
 }
 
 
@@ -268,8 +268,8 @@ static unsigned int	BTREE_findbest(BTREEWORD     *countptr,
                                    int			  ratio)
 {
 	unsigned int				i;
-	unsigned int				i1;
-	unsigned int				i2;
+	unsigned int				followByte;
+	unsigned int				leadByte;
 	unsigned int				bestsize;
 
 	unsigned int				i3;
@@ -278,14 +278,14 @@ static unsigned int	BTREE_findbest(BTREEWORD     *countptr,
 	bestsize = 1;
 	i = 3;
 	l = 0;
-	for (i2=0;i2<256;++i2)
+	for (leadByte=0;leadByte<256;++leadByte)
 	{
-		if (tryq[i2])
-		{	for (i1=0;i1<256;++i1)
+		if (tryq[leadByte])
+		{	for (followByte=0;followByte<256;++followByte)
 			{
 				if (*countptr++>(BTREEWORD)i)
 				{
-					if (tryq[i1])
+					if (tryq[followByte])
 					{	i = *(countptr-1);
 						i3=bestsize;
 						while (bestval[i3-1]<i)
@@ -294,7 +294,7 @@ static unsigned int	BTREE_findbest(BTREEWORD     *countptr,
 							bestval[i3] = bestval[i3-1];
 							--i3;
 						}
-						bestn[i3] = l+i1;
+						bestn[i3] = l+followByte;
 						bestval[i3] = i;
 						if (bestsize<48)
 							++bestsize;

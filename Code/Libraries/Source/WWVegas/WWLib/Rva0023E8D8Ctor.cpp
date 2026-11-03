@@ -23,15 +23,15 @@ public:
 // body emitted.
 inline Rva0023E8D8::Rva0023E8D8(void *funcHolder)
 {
-	Rva0023E8D8Impl *q = new Rva0023E8D8Impl(funcHolder);
-	m_ptr = q;
-	if (q)
-		++q->m_ref;
+	Rva0023E8D8Impl *impl = new Rva0023E8D8Impl(funcHolder);
+	m_ptr = impl;
+	if (impl)
+		++impl->m_ref;
 }
 
 // Retain the inline body's ledger emission without changing its callers.
 // ?bfmeEmitRva0023E8D8Ctor@@YAXPAVRva0023E8D8@@PAX@Z absent-from-retail
-void bfmeEmitRva0023E8D8Ctor(Rva0023E8D8 *p, void *q)
+void bfmeEmitRva0023E8D8Ctor(Rva0023E8D8 *storage, void *funcHolder)
 {
-	new (p) Rva0023E8D8(q);
+	new (storage) Rva0023E8D8(funcHolder);
 }
