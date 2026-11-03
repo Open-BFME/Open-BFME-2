@@ -552,15 +552,7 @@ public:
 };
 extern AI *TheAI;
 
-struct TCreateUnitsInfo
-{
-	Int minUnits;			// +0x00
-	Int maxUnits;			// +0x04
-	Int m_08;			// +0x08
-	AsciiString m_bfmeString0C;	// +0x0C
-	AsciiString unitThingName;	// +0x10
-	Int m_14;			// +0x14
-};
+#include "../../../Include/GameLogic/TCreateUnitsInfo.h"
 
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
