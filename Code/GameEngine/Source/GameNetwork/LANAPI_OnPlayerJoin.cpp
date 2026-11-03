@@ -19,12 +19,7 @@ typedef unsigned char UnsignedByte;
 #include "unicode_string.h"
 
 
-struct BfmeNetAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-	Bool Rva00248CBF(const BfmeNetAddress *other) const;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 class Holder44
 {

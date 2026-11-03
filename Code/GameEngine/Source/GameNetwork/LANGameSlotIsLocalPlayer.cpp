@@ -17,12 +17,7 @@ extern "C" void _ReadWriteBarrier(void);
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
-struct BfmeNetAddress
-{
-	bool Rva00248CBF(const BfmeNetAddress *other) const;
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
@@ -67,7 +62,7 @@ Bool LANGameSlot::isLocalPlayer(void) const
 			*(volatile UnsignedInt *)&((UnsignedInt *)&alternate)[1] = second;
 		}
 		_ReadWriteBarrier();
-		alternate.m_port += 8;
+		alternate.port += 8;
 		return alternate.Rva00248CBF(&m_address);
 	}
 	return false;

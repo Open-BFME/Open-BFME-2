@@ -133,11 +133,7 @@ public:
 	NetCommandList *getReadyCommands();
 };
 
-struct BfmeNetAddress
-{
-	UnsignedInt m_ip;
-	UnsignedInt m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 class NetPacket
 {

@@ -16,12 +16,7 @@ typedef bool Bool;
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-struct BfmeNetAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-	Bool Rva00248CBF(const BfmeNetAddress *other) const;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 struct LANMessage
 {

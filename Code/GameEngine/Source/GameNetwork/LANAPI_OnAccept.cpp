@@ -17,12 +17,7 @@ typedef unsigned short UnsignedShort;
 typedef bool Bool;
 typedef unsigned char UnsignedByte;
 
-struct BfmeNetAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-	Bool Rva00248CBF(const BfmeNetAddress *other) const;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 template<typename T> class StringBase
 {

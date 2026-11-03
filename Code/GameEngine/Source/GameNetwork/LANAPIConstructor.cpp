@@ -51,11 +51,7 @@ public:
 
 #include "../../Include/GameNetwork/Transport.h"
 
-struct BfmeNetAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 struct LANMessage
 {

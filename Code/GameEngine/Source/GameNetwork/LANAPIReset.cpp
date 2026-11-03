@@ -18,11 +18,7 @@ typedef unsigned short UnsignedShort;
 typedef unsigned char UnsignedByte;
 typedef bool Bool;
 
-struct BfmeNetAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 struct LANMessage
 {

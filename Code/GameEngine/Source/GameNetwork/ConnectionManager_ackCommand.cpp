@@ -28,13 +28,7 @@ enum
 	MAX_SLOTS = 8
 };
 
-struct BfmeNetAddress
-{
-	bool Rva00248CBF(const BfmeNetAddress *other) const;
-
-	UnsignedInt m_ip;
-	UnsignedShort m_port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 class NetCommandMsg
 {

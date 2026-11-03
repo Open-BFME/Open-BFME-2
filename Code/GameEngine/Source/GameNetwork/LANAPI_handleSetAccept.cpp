@@ -9,12 +9,7 @@ typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
 typedef unsigned char UnsignedByte;
 
-struct BfmeNetAddress
-{
-	bool Rva00248CBF(const BfmeNetAddress *other) const;
-	UnsignedInt ip;
-	UnsignedShort port;
-};
+#include "../../Include/GameNetwork/BfmeNetAddress.h"
 
 struct LANMessage
 {
