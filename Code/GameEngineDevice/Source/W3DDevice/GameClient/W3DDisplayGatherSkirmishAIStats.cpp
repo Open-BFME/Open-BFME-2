@@ -33,16 +33,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 #include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x64];
-	AsciiString m_displayName;			// +0x64
-	unsigned char m_pad68[0x113 - 0x68];
-	unsigned char m_kindOf113;			// +0x113, bit 2: hero
-	unsigned char m_pad114[0x121 - 0x114];
-	unsigned char m_kindOf121;			// +0x121, bit 4: searched for a structure
-};
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -260,7 +251,7 @@ void W3DDisplay::gatherSkirmishAIStats()
 					Object *unit = units->rva0025BFF8(unitIndex);
 					if (unit->m_team == player->m_defaultTeam)
 						idleUnits++;
-					if (unit->getTemplate()->m_kindOf113 & 4)
+					if (unit->getTemplate()->m_kindof[2] & (1U << 26))
 						heroUnits++;
 					else
 						hordeUnits++;
@@ -332,7 +323,7 @@ void W3DDisplay::gatherSkirmishAIStats()
 							Object *obj = target->rva002C5DA6();
 							if (obj)
 							{
-								if (obj->getTemplate()->m_kindOf121 & 0x10)
+								if (obj->getTemplate()->m_kindof[6] & (1U << 12))
 								{
 									BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), 300.0f, 0,
 										&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 50),
@@ -340,7 +331,7 @@ void W3DDisplay::gatherSkirmishAIStats()
 									obj = iter.next();
 								}
 								if (obj)
-									cell.format("%s", obj->getTemplate()->m_displayName.str());
+									cell.format("%s", obj->getTemplate()->m_nameString.str());
 							}
 							else
 								cell.format("Positional");

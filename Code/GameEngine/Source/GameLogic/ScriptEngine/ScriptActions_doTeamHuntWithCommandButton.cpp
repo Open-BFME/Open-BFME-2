@@ -73,20 +73,7 @@ public:
 
 class Module;
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getName copy loses to the first-in-order copy (no
-	// retail address); both call sites below inline it but still emit the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	const AsciiString &bfme_get_name() const { return m_name; }
-private:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name;	// +0x64
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -212,7 +199,7 @@ void ScriptActions::doTeamHuntWithCommandButton(const AsciiString &teamName, con
 		}
 		if (!foundCommand) {
 			AsciiString msg = "Error - Team hunt with command button - unit type '";
-			msg += obj->getTemplate()->bfme_get_name().str();
+			msg += (obj->getTemplate()->m_nameString).str();
 			msg += "' is not valid for ability ";
 			msg += ability;
 			TheScriptEngine->AppendDebugMessage(msg, false);
@@ -232,7 +219,7 @@ void ScriptActions::doTeamHuntWithCommandButton(const AsciiString &teamName, con
 				huntUpdate->rva0049575A(&ability);
 			} else {
 				AsciiString msg = "Error - Team hunt with command button - unit type '";
-				msg += obj->getTemplate()->bfme_get_name().str();
+				msg += (obj->getTemplate()->m_nameString).str();
 				msg += "' requires CommandButtonHuntUpdate in .ini definition to hunt with ";
 				msg += ability;
 				TheScriptEngine->AppendDebugMessage(msg, false);

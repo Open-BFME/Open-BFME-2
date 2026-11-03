@@ -361,16 +361,7 @@ void AITeamBuilder::recruitUnDefined(Team* teamToBuild,int* curNumUnits) {
 // Count team members whose template kind bytes have bit 8 at +0x108 or bit 4
 // at +0x113. Evidence: unlock lane, iterate at 0x00263864 plus advance,
 // ret-4 single Team arg, 2 callers, OR of two byte tests, honest Count verb.
-class ThingTemplate
-{
-public:
-	char m_pad00[0x108];
-	unsigned char m_kind0; // +0x108
-	char m_pad109[0xA];
-	unsigned char m_kind1; // +0x113
-	char m_pad114[0x408];
-	float m_threatLevel; // +0x51C
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 #include <stl/_algobase.h>
@@ -686,7 +677,7 @@ int AITeamBuilder::getCurNumUnits(Team *team)
 	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((DLINK_ITERATOR<Object> &)iter).advance()) {
 		Object *cur = iter.cur();
 		ThingTemplate *thingTemplate = (ThingTemplate *)cur->objectTemplate;
-		if ((thingTemplate->m_kind0 & 8) != 0 || (thingTemplate->m_kind1 & 4) != 0)
+		if ((thingTemplate->m_kindof[0] & (1U << 3)) != 0 || (thingTemplate->m_kindof[2] & (1U << 26)) != 0)
 			++count;
 	}
 	return count;
@@ -705,7 +696,7 @@ int AITeamBuilder::doesTeamMeetThreat(Team *team)
 	{
 		Object *cur = iter.cur();
 		ThingTemplate *thingTemplate = (ThingTemplate *)cur->objectTemplate;
-		if ((thingTemplate->m_kind0 & 8) != 0 || (thingTemplate->m_kind1 & 4) != 0)
+		if ((thingTemplate->m_kindof[0] & (1U << 3)) != 0 || (thingTemplate->m_kindof[2] & (1U << 26)) != 0)
 			sum += thingTemplate->m_threatLevel;
 	}
 	return sum >= vmax;

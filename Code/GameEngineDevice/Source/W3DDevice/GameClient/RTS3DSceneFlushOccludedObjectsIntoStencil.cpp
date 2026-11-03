@@ -176,12 +176,7 @@ extern PlayerList *ThePlayerList;
 
 #include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x5E2];
-	UnsignedShort m_occlusionBits;
-};
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 class Drawable
 {
@@ -318,7 +313,7 @@ void RTS3DScene::flushOccludedObjectsIntoStencil(RenderInfoClass &rinfo)
 			continue;
 		*lastPlayerObject[index] = robj;
 		lastPlayerObject[index]++;
-		((DrawableInfo *)robj->Get_User_Data())->m_flags |= draw->getTemplate()->m_occlusionBits & 0x380;
+		((DrawableInfo *)robj->Get_User_Data())->m_flags |= draw->getTemplate()->m_shadowType & 0x380;
 	}
 
 	DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILENABLE, true);
@@ -382,7 +377,7 @@ void RTS3DScene::flushOccludedObjectsIntoStencil(RenderInfoClass &rinfo)
 	for (i = 0; i < m_numPotentialOccluders; i++)
 	{
 		RenderObjClass *robj = *occluderList;
-		Int bits = (((DrawableInfo *)robj->Get_User_Data())->m_drawable->getTemplate()->m_occlusionBits >> 3) & 0x70;
+		Int bits = (((DrawableInfo *)robj->Get_User_Data())->m_drawable->getTemplate()->m_shadowType >> 3) & 0x70;
 		if (bits)
 		{
 			rva001173f0((UnsignedInt)&rinfo);
@@ -411,7 +406,7 @@ void RTS3DScene::flushOccludedObjectsIntoStencil(RenderInfoClass &rinfo)
 	for (i = 0; i < m_numNonOccluderOrOccludee; i++)
 	{
 		robj = *nonOccluderOrOccludeeList;
-		Int bits = (((DrawableInfo *)robj->Get_User_Data())->m_drawable->getTemplate()->m_occlusionBits >> 3) & 0x70;
+		Int bits = (((DrawableInfo *)robj->Get_User_Data())->m_drawable->getTemplate()->m_shadowType >> 3) & 0x70;
 		if (bits)
 		{
 			rva001173f0((UnsignedInt)&rinfo);

@@ -22,12 +22,7 @@
 
 typedef float Real;
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x4A8];
-	Real m_float4A8;
-};
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -120,10 +115,10 @@ void W3DModelDraw::reactToTransformChange(const Matrix3D *oldMtx, const Coord3D 
 	const ThingTemplate *thingTemplate = getDrawable()->getTemplate();
 	const Coord3D *pos = getDrawable()->getPosition();
 
-	if (thingTemplate->m_float4A8 > 1.0f)
+	if (thingTemplate->m_removeTerrainRadius > 1.0f)
 	{
-		TheTerrainRenderObject->getMask()->rva000ADF90((const MaskCirclePoint *)oldPos, thingTemplate->m_float4A8, 1);
-		TheTerrainRenderObject->getMask()->rva000ADF90((const MaskCirclePoint *)pos, thingTemplate->m_float4A8, 0);
+		TheTerrainRenderObject->getMask()->rva000ADF90((const MaskCirclePoint *)oldPos, thingTemplate->m_removeTerrainRadius, 1);
+		TheTerrainRenderObject->getMask()->rva000ADF90((const MaskCirclePoint *)pos, thingTemplate->m_removeTerrainRadius, 0);
 	}
 
 	if (m_renderObject)

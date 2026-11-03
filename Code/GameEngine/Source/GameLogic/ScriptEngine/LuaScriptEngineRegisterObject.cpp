@@ -30,12 +30,7 @@ AsciiString Rva00333374Get(const Rva00333374IdOwner *obj);	// 0x00333374
 
 enum { LUA_TNIL = 1 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x630];
-	bool m_x630;					// +0x630
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -77,7 +72,7 @@ private:
 
 void LuaDrawableState::rva00333E5B(Object *obj)
 {
-	if (obj->getX258() == 0 && !obj->getTemplate()->m_x630)
+	if (obj->getX258() == 0 && !obj->getTemplate()->m_forceLuaRegistration)
 		return;
 	lua_settop(m_x10, 0);
 	AsciiString name = Rva00333374Get((const Rva00333374IdOwner *)obj);

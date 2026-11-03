@@ -36,15 +36,7 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 namespace _STL {template<>void vector<AsciiString>::push_back(const AsciiString&);}
-class ThingTemplate
-{
-public:
-    char opaque00[0x64];
-    AsciiString name;
-    char unknown68[0x108-0x68];
-    unsigned kindOf[7];
-    bool isEquivalentTo(const ThingTemplate *) const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 template<int N> class BitFlags;
 class Player;
 #include "../../../Include/GameLogic/ObjectFilter.h"
@@ -72,11 +64,11 @@ void ObjectFilter::DoTemplatesXfer(Xfer *xfer,
     for (it = special->begin(); it != special->end(); ++it)
     {
         AsciiString name("S:");
-        name += (*it)->name;
+        name += (*it)->m_nameString;
         (*xfer == name);
     }
     for (it = normal->begin(); it != normal->end(); ++it)
-        (*xfer == (*it)->name);
+        (*xfer == (*it)->m_nameString);
 }
 
 // Existing verified 218-bit flag provider; only its member ABI is used here.
@@ -237,13 +229,13 @@ bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player
   const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x18);
   int count=list->size();
   for(int i=0;i<count;++i)
-   if(thingTemplate->name.compare((*list)[i]->name)==0) return true;
+   if(thingTemplate->m_nameString.compare((*list)[i]->m_nameString)==0) return true;
  }
  {
   const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x24);
   int count=list->size();
   for(int i=0;i<count;++i)
-   if(thingTemplate->name.compare((*list)[i]->name)==0) return false;
+   if(thingTemplate->m_nameString.compare((*list)[i]->m_nameString)==0) return false;
  }
  {
   const _STL::vector<ThingTemplate*> *list=reinterpret_cast<const _STL::vector<ThingTemplate*>*>(data->bytes+0x30);
@@ -258,12 +250,12 @@ bool ObjectFilter::testTemplate(const ThingTemplate *thingTemplate, const Player
    if(thingTemplate->isEquivalentTo((*list)[i])) return false;
  }
  BitFlags<218> *reject=reinterpret_cast<BitFlags<218>*>(data->bytes+0x64);
- if(reject->any() && reinterpret_cast<BitFlags<69>*>(reject)->test(thingTemplate->kindOf)) return false;
+ if(reject->any() && reinterpret_cast<BitFlags<69>*>(reject)->test(thingTemplate->m_kindof)) return false;
  int &mode=*reinterpret_cast<int*>(data->bytes+0x80);
 
  switch(mode) {
-  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(thingTemplate->kindOf)) return true; break; }
-  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<const BitFlags<116>*>(thingTemplate->kindOf)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
+  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(thingTemplate->m_kindof)) return true; break; }
+  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<const BitFlags<116>*>(thingTemplate->m_kindof)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
   case 0: mode=3; break;
  }
  bool result=mode==3; return result;

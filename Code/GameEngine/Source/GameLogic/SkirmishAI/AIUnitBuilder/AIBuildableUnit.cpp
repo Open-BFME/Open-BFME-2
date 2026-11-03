@@ -14,11 +14,7 @@ enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_
 
 class Player;
 
-class ThingTemplate { public:
- unsigned char pad0[0x113];unsigned char flags113;unsigned char pad114[7];unsigned char flags11B;
- int rva0033A69A(const Player *player,int builder,int value)const;
- int calcTimeToBuild(const Player *player,int builder,int value)const;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class ProductionUpdateInterface
 {
@@ -247,11 +243,11 @@ Real AIBuildableUnit::rva005DAEDF(Player *player) {
  ThingTemplate *unit=(ThingTemplate*)TheThingFactory->findTemplate(m_templateName);
  Object *factory=TheGameLogic->findObjectByID(m_factoryID);
  int cost=0;
- if(unit->flags113&4) {
+ if(unit->m_kindof[2] & (1U << 26)) {
   Rva0037EE4C *tracker=&player->m_productionQuantities;
   int index=tracker->rva0037EE4C(unit,-1,0);
   cost=((Rva0037E6E8*)tracker)->rva0037E649(index,factory);
- } else if(!(unit->flags11B&0x20)) cost=unit->rva0033A69A(player,(int)factory,-1);
+ } else if(!(unit->m_kindof[4] & (1U << 29))) cost=unit->rva0033A69A(player,(int)factory,-1);
  return (float)cost;
 }
 
@@ -259,7 +255,7 @@ Real AIBuildableUnit::rva005DAF59(Player *player) {
  ThingTemplate *unit=(ThingTemplate*)TheThingFactory->findTemplate(m_templateName);
  Object *factory=TheGameLogic->findObjectByID(m_factoryID);
  int time;
- if(unit->flags113&4) {
+ if(unit->m_kindof[2] & (1U << 26)) {
   Rva0037EE4C *tracker=&player->m_productionQuantities;
   int index=tracker->rva0037EE4C(unit,-1,0);
   time=((Rva0037E787*)tracker)->rva0037E787((void*)index,factory);

@@ -95,12 +95,7 @@ public:
 	bool m_33b;
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x108];
-	unsigned int m_kindOf[14];
-};
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -247,7 +242,7 @@ void W3DScriptedModelDraw::onDrawableBoundToObject()
 	}
 
 	Object *obj = getDrawable()->m_object;
-	if (obj && (obj->getTemplate()->m_kindOf[0] & (1u << 28)) != 0)
+	if (obj && (obj->getTemplate()->m_kindof[0] & (1u << 28)) != 0)
 	{
 		Player *player = obj->getControllingPlayer();
 		if (player && !player->m_33b)

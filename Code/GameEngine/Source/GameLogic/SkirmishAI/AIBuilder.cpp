@@ -209,17 +209,7 @@ extern GameLogic *TheGameLogic;
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern int BfmeLogicFramesPerSecond;
 enum ObjectStatusTypes;
-class ThingTemplate
-{
-public:
-    unsigned char prefix00[0x108];
-    unsigned char kindOf108;
-    unsigned char kindOf109;
-    unsigned char gap10a[5];
-    unsigned char kindOf10f;
-    unsigned char gap110[0x10];
-    unsigned char kindOf120;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 #include "../Object/object.h"
 void __cdecl Rva00030830FreeAllocation(void *);
 namespace _STL
@@ -333,18 +323,18 @@ void AIBuilder::moneySaverUpdate()
 // is assigned to that helper or to the order payload's other virtual slots.
 void AIBuilder::unRegisterProducedObject(Object *object)
 {
-    if (object->m_template->kindOf120 & 4)
+    if (object->m_template->m_kindof[6] & (1U << 2))
         reinterpret_cast<Rva00599534 *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599534(object->m_id);
-    if (object->m_template->kindOf10f & 0x80)
+    if (object->m_template->m_kindof[1] & (1U << 31))
         reinterpret_cast<Rva00598149 *>(reinterpret_cast<unsigned char *>(this) + 0x38)->rva00598149(reinterpret_cast<void *>(object->m_id));
-    if ((object->m_template->kindOf108 & 0x80) && (object->m_privateStatus & 1) &&
+    if ((object->m_template->m_kindof[0] & (1U << 7)) && (object->m_privateStatus & 1) &&
         ((object->m_constructionPercent < 0.0f && !Rva00486687Find(object)) ||
          object->testStatus(static_cast<ObjectStatusTypes>(2))))
     {
         if (object->testStatus(static_cast<ObjectStatusTypes>(2)))
         {
             Object *producer = TheGameLogic->findObjectByID(object->m_producerID);
-            if (producer && (producer->m_template->kindOf109 & 0x40) && !(producer->m_privateStatus & 1))
+            if (producer && (producer->m_template->m_kindof[0] & (1U << 14)) && !(producer->m_privateStatus & 1))
                 reinterpret_cast<AIDozerManager *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599825(producer->m_id);
             AIBuilderOrderNode *end = *reinterpret_cast<AIBuilderOrderNode **>(&orders13c);
             for (AIBuilderOrderNode *it = end->next; it != end; it = it->next)
@@ -356,7 +346,7 @@ void AIBuilder::unRegisterProducedObject(Object *object)
         }
         reinterpret_cast<AIBaseBuilder *>(reinterpret_cast<unsigned char *>(this) + 4)->notifyBuildingDestroyed(object);
     }
-    if ((object->m_template->kindOf109 & 0x40) && (object->m_privateStatus & 1))
+    if ((object->m_template->m_kindof[0] & (1U << 14)) && (object->m_privateStatus & 1))
         notifyDozerDead(reinterpret_cast<Rva005996FFArg *>(object));
 }
 
@@ -417,7 +407,7 @@ void AIBuilder::checkForNewUpgrades()
         do
         {
             Object *object = TheGameLogic->findObjectByID(*it);
-            if (object && (object->m_template->kindOf120 & 4) &&
+            if (object && (object->m_template->m_kindof[6] & (1U << 2)) &&
                 !(*(unsigned char *)((unsigned char *)object + 0x94) & 1) &&
                 !(object->m_privateStatus & 1))
                 changed.push_back(object);

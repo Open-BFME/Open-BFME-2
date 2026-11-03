@@ -24,13 +24,7 @@ enum PathfindLayerEnum { LAYER_GROUND = 0, LAYER_WALL = 1 };
 enum ObjectID { INVALID_ID = 0 };
 PathfinderCellPoint rva002E79A8(Bool centerInCell, Int cellX, Int cellY, PathfindLayerEnum layer);
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const { return m_kindOf[bit >> 5] & (1U << (bit & 0x1f)); }
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -108,7 +102,7 @@ static inline Bool IS_IMPASSABLE(PathfindCell::CellType type)
 
 bool Pathfinder::rva002E9EA7(Object *obj, Int cellX, Int cellY, PathfindLayerEnum layer, Int iRadius, UnsignedByte centerInCell, Int *count)
 {
-	if (obj->getTemplate()->isKindOf(0x6d))
+	if ((obj->getTemplate()->m_kindof[3] & (1U << (0x6d & 0x1f))))
 	{
 		if (layer != LAYER_WALL)
 		{
@@ -125,7 +119,7 @@ bool Pathfinder::rva002E9EA7(Object *obj, Int cellX, Int cellY, PathfindLayerEnu
 			}
 		}
 	}
-	if (obj->getTemplate()->isKindOf(0x5a) && obj->getTemplate()->isKindOf(8) && layer != LAYER_WALL)
+	if ((obj->getTemplate()->m_kindof[2] & (1U << (0x5a & 0x1f))) && (obj->getTemplate()->m_kindof[0] & (1U << (8 & 0x1f))) && layer != LAYER_WALL)
 	{
 		iRadius = 1;
 		centerInCell = false;

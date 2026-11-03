@@ -60,15 +60,7 @@ enum ObjectStatusTypes
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class ThingTemplate
-{
-public:
-	// KindOf bit 0x6D (byte +0x115, bit 5); BFME 1 tests KINDOF_HORDE here.
-	bool isHorde() const { return (m_kindOf115 & 0x20) != 0; }
-private:
-	unsigned char m_pad000[0x115];
-	unsigned char m_kindOf115;	// +0x115
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -129,7 +121,7 @@ void ScriptActions::doUnitStandGround(Parameter *unitParameter, Parameter *stand
 		return;
 
 	obj->setStatus(OBJECT_STATUS_STAND_GROUND, standGroundParameter->getInt() != 0);
-	if (!obj->getTemplate()->isHorde())
+	if (!((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 		return;
 	Rva0028C197Members *horde = (Rva0028C197Members *)obj->rva0028C197();
 	if (!horde)
@@ -149,7 +141,7 @@ void ScriptActions::doTeamStandGround(Parameter *teamParameter, Parameter *stand
 	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 		Object *obj = iter.cur();
 		obj->setStatus(OBJECT_STATUS_STAND_GROUND, standGroundParameter->getInt() != 0);
-		if (!obj->getTemplate()->isHorde())
+		if (!((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 			continue;
 		Rva0028C197Members *horde = (Rva0028C197Members *)obj->rva0028C197();
 		if (!horde)

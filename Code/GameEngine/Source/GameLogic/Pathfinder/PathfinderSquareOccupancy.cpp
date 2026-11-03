@@ -11,12 +11,7 @@
 typedef bool Bool;
 enum PathfindLayerEnum { LAYER_INVALID=0, LAYER_GROUND=1 };
 enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
-class ThingTemplate {
-public:
- Bool isKind212()const {return (m_kinds[0x1A]&0x10)!=0;}
-private:
- unsigned char m_pad[0x108];unsigned char m_kinds[24+4];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object {
 public:
  Bool rva0028AFBB()const;
@@ -65,10 +60,10 @@ Bool Rva002EC3CEProbes::rva002EAA41(int objectAddress,int cellX,int cellY,int la
    if(cell->getType()==5)return false;
    if(cell->getAircraftByte()&1)if(obj->rva0028AFBB())return false;
    if(cell->getType()==4)return false;
-   if(obj->getTemplate()->isKind212()) {
+   if(((obj->getTemplate()->m_kindof[6] & (1U << 20))!=0)) {
     if(cell->getInfo()) for(OccupantNode *node=cell->getObstacles();node;node=node->next) {
      if(node->object->getID()==objectID)continue;
-     if(node->object->getTemplate()->isKind212())return false;
+     if(((node->object->getTemplate()->m_kindof[6] & (1U << 20))!=0))return false;
     }
    } else {
     if(!((Rva0052DB73*)cell)->rva0052DB73(objectID))return false;

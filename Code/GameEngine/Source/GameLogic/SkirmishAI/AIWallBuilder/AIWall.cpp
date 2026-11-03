@@ -217,12 +217,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x120];
-	unsigned m_120;		// +0x120 (bit 11 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class UpgradeTemplate
 {
@@ -602,7 +597,7 @@ void AIWall::buildGate()
 			if (!upgrade)
 				continue;
 			const ThingTemplate *thingTemplate = button->rva0035B570();
-			if (!thingTemplate || !(thingTemplate->m_120 & 0x800))
+			if (!thingTemplate || !(thingTemplate->m_kindof[6] & 0x800))
 				continue;
 			if (other->affectedByUpgrade(upgrade)) {
 				m_14->m_2C = upgrade->calcCostToBuild(m_18, (unsigned)other);

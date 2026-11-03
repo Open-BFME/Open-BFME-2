@@ -23,15 +23,7 @@ class Player;
 
 #include "../../../Include/GameLogic/ScriptCounter.h"
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-private:
-	char m_unknown[0x108];
-	unsigned char m_kindOf[28];		// +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -96,7 +88,7 @@ void ScriptEngine::setCounterToThreat(ScriptAction *pAction, bool useTeam)
 	} else {
 		Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(pAction->getParameter(1)->m_string);
 		if (obj) {
-			if (obj->getTemplate()->isKindOf(0xC3)) {
+			if (((obj->getTemplate()->m_kindof[6] & (1U << 3)) != 0)) {
 				ThreatFinder *finder = (ThreatFinder *)((const ArmorStore *)TheThreatFinderManager)->rva0041F474(pAction->getParameter(1)->m_string);
 				if (finder) {
 					Player *player = obj->getControllingPlayer();

@@ -88,12 +88,7 @@ public:
 	void disable();
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x120];
-	UnsignedInt m_flags120;
-};
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 class DoDrawSlaveView
 {
 public:
@@ -383,7 +378,7 @@ void W3DModelDraw::doDrawModule(const Matrix3D *transformMtx)
 	if (m_renderObject)
 	{
 		Matrix3D mtx(true);
-		if (getDrawable()->getTemplate()->m_flags120 & 0x10000)
+		if (getDrawable()->getTemplate()->m_kindof[6] & 0x10000)
 		{
 			mtx.Set_Translation(transformMtx->Get_Translation());
 			mtx.Rotate_Z(TheTacticalView->getAngle());
