@@ -10,15 +10,7 @@
 // only the count matters to the bytes. No /G7: it emits a loop-align nop
 // retail does not have.
 
-class GameMessage
-{
-public:
-	GameMessage *next(void) { return m_next; }
-
-private:
-	void *vptr;
-	GameMessage *m_next;
-};
+#include "../../Include/Common/CommandList.h"
 
 class CommandListReplica
 {
@@ -40,11 +32,6 @@ public:
 	virtual void appendMessage(GameMessage *msg);
 };
 
-class CommandList : public CommandListReplica
-{
-public:
-	void appendMessageList(GameMessage *list);
-};
 
 // ?appendMessageList@CommandList@@QAEXPAVGameMessage@@@Z
 void CommandList::appendMessageList(GameMessage *list)

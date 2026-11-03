@@ -208,11 +208,7 @@ public:
 	void rva0030BBE5(int a);
 };
 
-class CommandList
-{
-public:
-	void destroyAllMessages();
-};
+#include "../../Include/Common/CommandList.h"
 
 #include "../../Include/Common/SidesList.h"
 
