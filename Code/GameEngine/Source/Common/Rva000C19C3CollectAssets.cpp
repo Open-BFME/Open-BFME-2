@@ -31,7 +31,7 @@ namespace _STL { template <> set<AsciiString, less<AsciiString>, allocator<Ascii
 class AsciiString;
 #include "../../Include/Common/AsciiStringRef.h"
 #include "../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringPlusText:AsciiStringRef{operator AsciiString();Rva000B3F84Pair m_right;};
+#include "../../Include/Common/AsciiStringPlusText.h"
 AsciiStringPlusText operator+(const AsciiString&,const char*);
 struct Rva001408C0Target;
 class AssetList{public:AssetList&operator<<(const AssetList&);AssetList&operator<<(const AsciiString&);bool empty()const{return prototypes.empty();}private:_STL::set<Rva001408C0Target*>prototypes;int pad;bool changed;};

@@ -40,7 +40,7 @@ struct TreeHintRef00217D4C {
 #include "unicode_string.h"
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 #include "../../../../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusText : AsciiStringRef { operator AsciiString(); Rva000B3F84Pair m_right; };
+#include "../../../../../Include/Common/AsciiStringPlusText.h"
 AsciiStringPlusText operator+(const AsciiString &,const char *);
 // (prefix + movie) + "_OnX" nodes, as in Rva005794EDDtor.cpp: concat
 // 0x00109CFD (pinned ICF fold) and conversion 0x0050F74B.

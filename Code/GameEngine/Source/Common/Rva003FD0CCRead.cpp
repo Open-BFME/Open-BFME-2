@@ -33,7 +33,7 @@ void Rva003FD0CC::rva003FD0CC(char *dst, int offset, int count)
 // buffer address. The original concatenation-template type is unproven.
 // Prefix +0 is the rowed 12-byte string/text node; suffix +0xC is an
 // AsciiString reference, independently shown by its buffer and +8 text.
-class AsciiStringPlusText {public: int length() const;};
+#include "../../Include/Common/AsciiStringPlusText.h"
 class Rva003FD05ETarget
 {
  Rva003FD0CC m_prefix;

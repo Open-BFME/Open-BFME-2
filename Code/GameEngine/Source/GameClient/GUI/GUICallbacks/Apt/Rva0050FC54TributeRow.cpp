@@ -23,12 +23,7 @@ class UnicodeString;
 // "string + text" (RegistryAsciiPath.cpp).
 #include "../../../../../Include/Common/AsciiStringRef.h"
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringPlusText : AsciiStringRef
-{
-	operator AsciiString();				// 0x000BC4F7
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../../../../Include/Common/AsciiStringPlusText.h"
 AsciiStringPlusText operator+(const AsciiString &left, const char *right);	// 0x000B49C5
 
 class __multiple_inheritance FunctorTarget;

@@ -49,12 +49,7 @@ struct AsciiStringPlusStringText : AsciiStringPlusString
 	Rva000B3F84Pair m_text;
 };
 
-struct AsciiStringPlusText : AsciiStringRef
-{
-	operator AsciiString();
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../../../../Include/Common/AsciiStringPlusText.h"
 
 static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
 {

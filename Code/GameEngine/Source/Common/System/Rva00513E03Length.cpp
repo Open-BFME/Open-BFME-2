@@ -95,13 +95,7 @@ Rva005F1D06::operator AsciiString()
 // body at 0x002DBF50, then add the dword at this+0x10. The four bytes at
 // this+0x0C are only layout padding here; the containing type is unresolved.
 // This declaration matches the AsciiStringPlusText layout in RegistryAsciiPath.cpp.
-struct AsciiStringPlusText : AsciiStringRef
-{
-	int length() const;
-	int write(char *dst);
-	operator AsciiString();
-	Rva000B3F84Pair m_right;
-};
+#include "../../../Include/Common/AsciiStringPlusText.h"
 
 struct Rva0059B115 : AsciiStringPlusText
 {

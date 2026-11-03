@@ -223,7 +223,7 @@ private:
 // that layout. The other original receiver names and character widths
 // remain unknown. Existing fold spellings below expose only receiver calls;
 // none of these consumed-prefix views is allocated or claimed complete.
-class AsciiStringPlusText {public:int length() const;};
+#include "../../Include/Common/AsciiStringPlusText.h"
 
 class Rva0059B122Prefix {
 public: char unknown00[0x10];int first;char unknown14[4];int second;

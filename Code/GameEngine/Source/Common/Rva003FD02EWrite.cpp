@@ -13,12 +13,7 @@ class AsciiString;
 
 #include "../../Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringPlusText : AsciiStringRef
-{
-	int write(char *dst);
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../Include/Common/AsciiStringPlusText.h"
 
 struct Rva003FD02ETarget
 {

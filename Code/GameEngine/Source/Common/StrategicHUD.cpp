@@ -42,12 +42,7 @@ void Rva005108EB::rva005108EB(const char *name)
 // constructor converts into each "_level%u_On..." name.
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusText : AsciiStringRef
-{
-	operator AsciiString();
-
-	Rva000B3F84Pair m_right;
-};
+#include "../../Include/Common/AsciiStringPlusText.h"
 AsciiStringPlusText __cdecl operator+(const AsciiString &left, const char *right);
 // The pointees, with their constructors' addresses.
 // The help-box pointee is built by the 0x00527C04 constructor rowed under

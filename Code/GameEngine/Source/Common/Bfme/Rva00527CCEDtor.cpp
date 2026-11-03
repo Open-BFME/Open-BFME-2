@@ -24,11 +24,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../../Include/Common/Rva000B3F84Pair.h"
 #include "../../../Include/Common/AsciiStringRef.h"
-struct AsciiStringPlusText : AsciiStringRef
-{
-	operator AsciiString();
-	Rva000B3F84Pair m_right;
-};
+#include "../../../Include/Common/AsciiStringPlusText.h"
 AsciiStringPlusText operator+(const AsciiString &left, const char *right);
 
 class Rva00527827Base
