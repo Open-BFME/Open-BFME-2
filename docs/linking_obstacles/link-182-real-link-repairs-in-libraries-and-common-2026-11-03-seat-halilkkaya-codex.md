@@ -49,3 +49,14 @@ linking peers stay linked in true A/B; this consumer retains three base-view
 unresolveds. Its32B constructor installs native fifteen-slot Apt tableCE8BA0,
 so the old DrawableModule/Snapshot constructor context needs complete identity
 reconciliation. No whole-image/census credit is claimed. [Proof and boundary](../reverse/attempt_support/real-link-apt-laser-donor-20261103.md).
+
+
+### Vslot AG native FieldParse providers (2026-11-03, halilkkaya-codex)
+
+Base007bf15b24: define the three previously missing tables at VAC74540/C74630/
+C74704 under their existing opaque names. Three data rows independently verify
+all160B, callbacks, offsets and both complete enum lists; ten code rows remain
+exact. Six-source154-row checks and scoped DIR32154+62 pass. True A/B retains
+five LINKS peers/9873B and reduces this consumer U7->U4. The two ABI helpers
+and two aliases of held47A69C remain open; no helper change or alias was kept.
+No global/census closure is claimed. [Tables and remaining contracts](../reverse/attempt_support/real-link-vslot-fieldparse-20261103.md).

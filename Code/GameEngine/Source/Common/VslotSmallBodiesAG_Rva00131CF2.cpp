@@ -139,9 +139,35 @@ void Rva005FEEC7::rva005FEEE6(Int index)
 // VA 0x00C74540 (resp. 0x00C74630) with offset 0.
 struct FieldParse;
 #include "../../Include/Common/INI/FieldParse.h"
-extern const FieldParse g_rva005C4352FieldParse[];
-extern const FieldParse g_rva005C4553FieldParse[];
-extern const FieldParse g_rva005C47A8FieldParse[];
+#include "../../Include/Common/INI/INI.h"
+
+// Native table bytes establish the names, offsets and parser pointers.
+// Keep the existing opaque global spellings; no original owner type is inferred.
+class LivingWorldAutoResolveBattleBonusTable
+{
+public:
+    static void iniAppendBonusToTable(INI *, void *, void *, const void *);
+};
+
+static const char *const typeNames[] = { "TACTICAL", "WORLD", 0 };
+static const char *const strengtheningRangeNames[] = { "THIS_TERRIORITY", "ALL_ARMIES", 0 };
+
+extern const FieldParse g_rva005C4352FieldParse[] = {
+    { "Type", &INI::parseIndexList, typeNames, 0x08 },
+    { "Amount", &INI::parseInt, 0, 0x0C },
+    { 0, 0, 0, 0 }
+};
+extern const FieldParse g_rva005C4553FieldParse[] = {
+    { "StrengtheningRange", &INI::parseIndexList, strengtheningRangeNames, 0x08 },
+    { "BonusKey", &INI::parseAsciiString, 0, 0x0C },
+    { "Bonus", &LivingWorldAutoResolveBattleBonusTable::iniAppendBonusToTable, 0, 0x10 },
+    { 0, 0, 0, 0 }
+};
+extern const FieldParse g_rva005C47A8FieldParse[] = {
+    { "NumUpgradesPerTurn", &INI::parseInt, 0, 0x08 },
+    { "UpgradeableUnits", &INI::parseAsciiStringVectorAppend, 0, 0x0C },
+    { 0, 0, 0, 0 }
+};
 class Rva005C4352Base
 {
 public:
