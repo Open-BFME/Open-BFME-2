@@ -25,13 +25,7 @@ public:
 // The update at Object+0x24C (see EmotionTrackerUpdateRva004B0EBC.cpp for
 // its per-emotion arrays: active flags at +0x24, frames at +0x30, source
 // IDs at +0x60).
-class EmotionTrackerUpdate
-{
-public:
-	void rva004B0D4C(int index, void *source);
-	void PulseEmotion(int index, void *source, int delay);
-	void ForceEmotion(int index, float value, int arg);
-};
+#include "../../../Include/GameLogic/Module/EmotionTrackerUpdate.h"
 
 // Rowed owner of the 12B indexed byte-clear at 0x004B0DA0
 // (Code/GameEngine/Source/Common/Rva004B0DA0Setter.cpp): same this+index+0x24

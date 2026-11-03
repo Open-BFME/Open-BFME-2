@@ -99,11 +99,7 @@ extern AI *TheAI;
 
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 
-class EmotionTrackerUpdate
-{
-public:
-	class TauntPointFilter;
-};
+#include "../../../../Include/GameLogic/Module/EmotionTrackerUpdate.h"
 
 class EmotionTrackerUpdate::TauntPointFilter:public Rva000421C8
 {

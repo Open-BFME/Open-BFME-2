@@ -110,11 +110,7 @@ public:
 	virtual Rva0028C428Iface *getIface();
 };
 
-class EmotionTrackerUpdate
-{
-public:
-	bool rva004B0EBC();
-};
+#include "../../../Include/GameLogic/Module/EmotionTrackerUpdate.h"
 
 class Object
 {

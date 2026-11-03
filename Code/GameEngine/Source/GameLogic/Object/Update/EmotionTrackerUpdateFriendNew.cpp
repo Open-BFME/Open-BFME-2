@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class EmotionTrackerUpdate
-{
-public:
-	EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0xC8];
-};
+#include "../../../../Include/GameLogic/Module/EmotionTrackerUpdate.h"
 
 // ?friend_newModuleInstance@EmotionTrackerUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *EmotionTrackerUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
