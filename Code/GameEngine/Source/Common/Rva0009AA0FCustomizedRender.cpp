@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2
 // dxsdk
 // platformsdk
 //
@@ -86,19 +86,7 @@ protected:
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class CameraClass
-{
-public:
-#define G(n) virtual void v##n();
-	G(00) G(01) G(02) G(03) G(04) G(05) G(06) G(07) G(08) G(09)
-	G(10) G(11) G(12) G(13) G(14) G(15) G(16) G(17) G(18) G(19)
-#undef G
-	virtual void Validate_Transform(void) const; // 20
-	const Matrix3D &Get_Transform(void) const { Validate_Transform(); return Transform; }
-private:
-	char m_pad04[0x18 - 0x04];
-	Matrix3D Transform; // +0x18
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 class LightEnvironmentClass;
 

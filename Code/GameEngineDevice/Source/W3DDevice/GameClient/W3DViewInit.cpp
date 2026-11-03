@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Oy- /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Oy- /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Reference-first recovery of GeneralsMD W3DView::init (GPLv3), reviewed at
 // BFME1 revision 874e38488c7dcf8cf3343452e8e5371bb3a0e64c.
 // Target evidence: native 0x0008C224..0x0008C3AC, "W3DView" name,
@@ -12,17 +12,7 @@
 #include "ascii_string.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class BfmeThingBFG {public:void bfmeGoBFG();};
-class CameraClass {public:
- CameraClass();
- virtual void s00();virtual void s01();virtual void s02();virtual void s03();
- virtual void s04();virtual void s05();virtual void s06();virtual void s07();
- virtual void s08();virtual void s09();virtual void s10();virtual void s11();
- virtual void s12();virtual void s13();virtual void s14();virtual void s15();
- virtual void s16();virtual void s17();virtual void s18();virtual void s19();
- virtual void s20();virtual void s21();virtual void Set_Position(const Vector3&);
- void Set_View_Plane(const Vector2&,const Vector2&);void Set_Clip_Planes(float,float);
- char pad[0x3fc-4];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "Coord3D.h"
 class Rva00BCF670CameraSettings {
 public:

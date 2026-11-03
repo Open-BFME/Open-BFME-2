@@ -31,11 +31,7 @@ enum { SNOW_NOISE_X = 64, SNOW_NOISE_Y = 64 };
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class CameraClass : public RenderObjClass
-{
-public:
-	void Get_View_Matrix(Matrix3D *set_tm);
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 class RenderInfoClass
 {
