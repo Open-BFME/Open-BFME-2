@@ -24,11 +24,7 @@ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) 
  char pad04[0x1F0-4];AerialMotionInfo* motion;
 };
 
-class Object {public:
- void* vtable;ThingTemplate* thing;char pad8[0x38-8];Coord3D position;float angle;
- char pad48[0x74-0x48];unsigned id;char pad78[0xA8-0x78];GeometryInfo geometry;
- char padC0[0x258-0xC0];AerialAI* ai;
-};
+#include "../Object/object.h"
 
 class Rva000421C8 {public:
  Rva000421C8():next(0){} virtual ~Rva000421C8(){} virtual bool allow(Object*)=0;virtual int getPlayerMask();
@@ -108,25 +104,25 @@ static __forceinline void nativeNormalize(Coord3D*p) throw(){p->normalize();}
 
 bool AerialPathfinder::rva00375C28(Object*obj,const Coord3D*pos,float*worstOverlap,Coord3D*push){
  bool clear=true;
- AerialAI* ai=obj->ai;
- float radius=obj->geometry.radius;
+ AerialAI* ai=(AerialAI *)obj->m_ai;
+ float radius=((GeometryInfo *)obj->m_geometryInfo)->radius;
  unsigned partnerID=0;
  if(ai){AerialPartner*partner=ai->getPartner();if(partner)partnerID=partner->id;}
  const BfmeWideResult& found=ThePartitionManager->iterateObjectsInRange(pos,radius,3,
- &Rva00261603Filter(*pos,obj->geometry,obj->angle,true),0);
+ &Rva00261603Filter(*pos,*(GeometryInfo *)obj->m_geometryInfo,obj->m_cachedAngle,true),0);
  Object*them;
  while((them=const_cast<BfmeWideResult&>(found).next())!=0){
   if(them==obj)continue;
-  if(partnerID!=0&&partnerID==them->id)continue;
-  if((them->thing->kinds[0]&0x100)!=0)continue;
-  if((them->thing->kinds[0]&0x200)!=0)continue;
-  if((them->thing->kinds[3]&0x2000)!=0)continue;
-  if((them->thing->kinds[0]&4)==0){
+  if(partnerID!=0&&partnerID==them->m_id)continue;
+  if((them->m_template->kinds[0]&0x100)!=0)continue;
+  if((them->m_template->kinds[0]&0x200)!=0)continue;
+  if((them->m_template->kinds[3]&0x2000)!=0)continue;
+  if((them->m_template->kinds[0]&4)==0){
    float range=radius*1.2f;
-   if(((Gen_000E5A50*)them)->Get3DCenterDistanceSquared((BfmeVec3EJ*)&obj->position)>range*range)continue;
+   if(((Gen_000E5A50*)them)->Get3DCenterDistanceSquared((BfmeVec3EJ*)&obj->m_cachedPos)>range*range)continue;
   }
   Coord3D delta;((Rva001E438B*)them)->rva001E438B(&delta.x,&pos->x);
-  float overlap=them->geometry.radius*2.0f+obj->geometry.radius-nativeLength(&delta);
+  float overlap=((GeometryInfo *)them->m_geometryInfo)->radius*2.0f+((GeometryInfo *)obj->m_geometryInfo)->radius-nativeLength(&delta);
   if(*worstOverlap<overlap)*worstOverlap=overlap;
   nativeNormalize(&delta);
   delta.x*=overlap;delta.y*=overlap;delta.z*=overlap;
@@ -150,7 +146,7 @@ bool AerialPathfinder::rva00375C28(Object*obj,const Coord3D*pos,float*worstOverl
 
 bool AerialPathfinder::rva00375DFF(Object *obj, Rva00375A73Context *context, float distance, float clearance)
 {
-	if ((1 ? (!obj->ai || !context->valid24) : (!obj->ai || !context->valid24)))
+	if ((1 ? (!obj->m_ai || !context->valid24) : (!obj->m_ai || !context->valid24)))
 		return true;
 	Rva00375A73Coord pos;
 	if (!rva00375A73(context, distance, &pos))
@@ -184,11 +180,11 @@ bool AerialPathfinder::rva00375DFF(Object *obj, Rva00375A73Context *context, flo
 
 int AerialPathfinder::rva00375ED7(Object*obj,const Coord3D*pos,Coord3D*push)
 {
- AerialAI*ai=obj->ai;
+ AerialAI*ai=(AerialAI *)obj->m_ai;
  if(!ai)return 2;
  push->x=0;push->y=0;push->z=0;
  float height=ai->motion->height;
- float radius=obj->geometry.radius;
+ float radius=((GeometryInfo *)obj->m_geometryInfo)->radius;
  Coord3D sample={0,0,0};
  float worst=0;
  sample.z=pos->z-height*0.5f;
