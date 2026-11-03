@@ -448,3 +448,4 @@ TreeHintOpaque0043671B,Code/GameEngine/Include/GameClient/TreeHintOpaque0043671B
 ScriptCounter,Code/GameEngine/Include/GameLogic/ScriptCounter.h,existing header; contract class_contracts/ScriptCounter.json; 23/24 sampled units adopt
 MilesAudioManager,Code/GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h,existing header; contract class_contracts/MilesAudioManager.json; 25/90 sampled units adopt
 FXShaderSetup,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h,existing header; contract class_contracts/FXShaderSetup.json; 13/22 sampled units adopt
+DefaultModuleHeadBase,Code/GameEngine/Include/GameClient/DefaultModuleHeadBase.h,existing header; contract class_contracts/DefaultModuleHeadBase.json; 14/20 sampled units adopt
