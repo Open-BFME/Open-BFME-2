@@ -22,10 +22,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 #include "../../../../Include/Common/Rva000B3F84Pair.h"
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../../Include/Common/AsciiStringRef.h"
 struct Rva002226E5TextPlusString : AsciiStringRef
 {
 	Rva000B3F84Pair m_text;

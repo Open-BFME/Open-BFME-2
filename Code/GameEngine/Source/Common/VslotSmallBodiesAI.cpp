@@ -160,11 +160,7 @@ void Rva0060037E::rva00600386()
 }
 
 // 0x002ABC76: the rowed AsciiStringRef::write of the +0x04 reference.
-class AsciiStringRef
-{
-public:
-	Int write(char *buf);
-};
+#include "../../Include/Common/AsciiStringRef.h"
 class Rva002ABC76
 {
 public:

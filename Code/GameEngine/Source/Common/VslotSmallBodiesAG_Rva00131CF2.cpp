@@ -331,13 +331,7 @@ private:
 };
 
 
-class AsciiStringRef
-{
-public:
-	Int write(char *buf);
-private:
-	Int m_ref;
-};
+#include "../../Include/Common/AsciiStringRef.h"
 struct Rva0032AFA4Pair
 {
 	AsciiStringRef m_a;

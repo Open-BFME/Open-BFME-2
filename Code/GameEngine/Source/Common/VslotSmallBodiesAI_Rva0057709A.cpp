@@ -55,11 +55,7 @@ private:
 // 0x0060037E and 0x00600386 (three tables each): slots 2 and 3 of the
 // +0x08 object.
 // 0x002ABC76: the rowed AsciiStringRef::write of the +0x04 reference.
-class AsciiStringRef
-{
-public:
-	Int write(char *buf);
-};
+#include "../../Include/Common/AsciiStringRef.h"
 // 0x0057433D: the rowed getter 0x0042D6B4 of the +0x08 object.
 // 0x005753AC (two tables): the rowed RAMFile::write of the +0x04 file,
 // called directly.

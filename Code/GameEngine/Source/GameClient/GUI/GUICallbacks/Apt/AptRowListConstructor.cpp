@@ -174,10 +174,7 @@ private:
 // line, and operator AsciiString() materializes the result.
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../../../Include/Common/AsciiStringRef.h"
 
 struct AsciiStringRefWithChar : AsciiStringRef
 {

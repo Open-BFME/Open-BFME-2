@@ -21,10 +21,7 @@
 class UnicodeString;
 
 // "string + text" (RegistryAsciiPath.cpp).
-struct AsciiStringRef
-{
-	const AsciiString *m_string;
-};
+#include "../../../../../Include/Common/AsciiStringRef.h"
 #include "../../../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusText : AsciiStringRef
 {
