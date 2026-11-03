@@ -205,11 +205,7 @@ namespace StrategicInGameUI {
 // the evaluated semantics are the plain write/compare/forward.
 extern "C" void _ReadWriteBarrier(void);
 
-class RAMFile
-{
-public:
-	virtual int write(const void *a, int b);
-};
+#include "../../Include/Common/RAMFileClass.h"
 
 // tu-skeleton: 0x005960E0 31B ?rva005960E0@AIStatBase@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596095Bits.cpp (not merged yet)
 

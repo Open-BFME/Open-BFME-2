@@ -113,7 +113,7 @@ union GameMessageArgumentType {Rva0042C083Param position;int integer;};
 class GameMessage {public:const GameMessageArgumentType*getArgument(int)const;char unknown0[0x10];int type;};
 class Rva005E6817Mid {public:int fwd(GameMessage*);};
 class Rva0042C083 {public:void rva0042C083(const Rva0042C083Param*);};
-class RAMFile {public:virtual int write(const void*,int);};
+#include "../../Include/Common/RAMFileClass.h"
 class Mouse {public:
  virtual void m0();virtual void m1();virtual void m2();virtual void m3();virtual void m4();
  virtual void m5();virtual void m6();virtual void m7();virtual void m8();virtual void m9();

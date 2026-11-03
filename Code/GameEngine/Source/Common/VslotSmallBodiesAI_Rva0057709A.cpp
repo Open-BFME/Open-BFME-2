@@ -59,11 +59,7 @@ private:
 // 0x0057433D: the rowed getter 0x0042D6B4 of the +0x08 object.
 // 0x005753AC (two tables): the rowed RAMFile::write of the +0x04 file,
 // called directly.
-class RAMFile
-{
-public:
-	virtual Int write(const void *buffer, Int bytes);
-};
+#include "../../Include/Common/RAMFileClass.h"
 // 0x005785CD: target starts after the ret at 0x005785CC and ends at the ret
 // before the rowed 0x005785F6 entry. It conditionally calls the rowed
 // StrategicHUD::CommandUIImpl::Update 0x005D2A53 for this+0x44 then the shared

@@ -21,7 +21,7 @@ int Rva005CDE01::rva005CDE01(GameMessage*msg){
 // test and same fallback receiver+C, but the true path calls the rowed
 // RAMFile-write wrapper 0x5E5920 on this and the fallback is the rowed
 // 0x5D1F14.  The 5E5920/5D1F14 call slots are 8-byte (ret 8).
-class RAMFile { public: virtual int write(const void *, int); };
+#include "../../Include/Common/RAMFileClass.h"
 class Rva005E5884 { public: int rva005E5884(void *, int); };
 class Rva005E5920 : public RAMFile
 {

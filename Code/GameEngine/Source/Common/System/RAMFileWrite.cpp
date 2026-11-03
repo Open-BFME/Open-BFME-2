@@ -8,11 +8,7 @@ class AsciiString;
 
 #include "../../../Include/Common/File.h"
 
-class RAMFile : public File
-{
-public:
-	virtual int write(const void *buffer, int bytes);
-};
+#include "../../../Include/Common/RAMFileClass.h"
 
 int RAMFile::write(const void *buffer, int bytes)
 {

@@ -196,11 +196,7 @@ Int Rva0057433D::rva0057433D()
 
 // 0x005753AC (two tables): the rowed RAMFile::write of the +0x04 file,
 // called directly.
-class RAMFile
-{
-public:
-	virtual Int write(const void *buffer, Int bytes);
-};
+#include "../../Include/Common/RAMFileClass.h"
 class Rva005753AC
 {
 public:
