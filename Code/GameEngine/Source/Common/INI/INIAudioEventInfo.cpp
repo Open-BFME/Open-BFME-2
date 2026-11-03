@@ -104,27 +104,12 @@ enum AudioType
 // Zero Hour's SoundType bit for voice events.
 enum { ST_VOICE = 0x0010 };
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 struct FieldParse;
 
 class INI;
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
 
 class INI
 {
