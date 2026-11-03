@@ -19486,3 +19486,9 @@ Panel publication86f87c9a1b is carried as INCONCLUSIVE at
 index984a4cdc4d/base9eb7c8841c0afd4e5e373eb44500555636fa9457, missing its current
 object receipt. Include that source and affected consumers in the next scheduled
 census; current previews do not establish whole-image or runtime closure.
+
+ArmySummaryEntry accessor commit8b65685e2e also reports11 shadow identity
+findings in LivingWorldLogic (eight bindings, three divergent COMDAT names).
+The provider proof retains these bindings/payloads; no identity key is retired.
+All diagnostics are preserved in the retained-accessor packet shadow-findings.json.
+The15-source LINKS preview does not establish global identity cleanliness.

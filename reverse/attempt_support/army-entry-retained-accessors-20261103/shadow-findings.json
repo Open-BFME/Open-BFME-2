@@ -1,0 +1,17 @@
+{
+  "mode": "shadow",
+  "findings": [
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | $L26855 | ??1?$vector@URva002BBB96Element@@V?$allocator@URva002BBB96Element@@@_STL@@@_STL@@QAE@XZ | 0x002BBD4D | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?CheckHeadToHeadBattles@LivingWorldLogic@@QAEXXZ | ??0?$set@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000D3A71 | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?rva002B77B2@LivingWorldLogic@@QAEIXZ | ??0?$set@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000D3A71 | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?rva002B77B2@LivingWorldLogic@@QAEIXZ | ??1?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000730DE | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?rva002B77F7@LivingWorldLogic@@QAEIXZ | ??0?$set@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000D3A71 | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?rva002B77F7@LivingWorldLogic@@QAEIXZ | ??1?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000730DE | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?rva002B9DC7@LivingWorldLogic@@QAEXXZ | ??0?$set@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000D3A71 | wrong",
+    "code identity: binding: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp | ?rva002B9DC7@LivingWorldLogic@@QAEXXZ | ??1?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE@XZ | 0x000730DE | wrong",
+    "code identity: definition: divergent | ??0?$pair@HH@_STL@@QAE@ABH0@Z",
+    "code identity: definition: divergent | ?end@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@XZ",
+    "code identity: definition: divergent | ?end@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@XZ"
+  ],
+  "identity_debts_retired": 0
+}

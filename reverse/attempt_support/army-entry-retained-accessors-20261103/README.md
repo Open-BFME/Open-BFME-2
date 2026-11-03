@@ -41,3 +41,10 @@ receipt. Carry the panel and affected consumers to the next scheduled census.
 Earlier W3D/Clear scopes remain in their prior packets. This bounded preview
 and successful normal verification do not replace the official census or
 establish current whole-image/runtime closure. No new coverage is claimed.
+
+Normal commit hook follow-up: the shadow identity scan reports11 findings in
+LivingWorldLogic: eight binding diagnostics and three divergent COMDAT names.
+The complete provider proof preserves these bindings/payloads; this adoption
+does not resolve or retire those identity debts. shadow-findings.json records
+every diagnostic. The15-unit LINKS preview and these shadow warnings describe
+different checks; no global identity-clean claim is made.
