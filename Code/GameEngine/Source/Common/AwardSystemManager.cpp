@@ -4,7 +4,8 @@
 #include <vector>
 #include "ascii_string.h"
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "debug.h"
 #include <new>
 #include <stdlib.h>
