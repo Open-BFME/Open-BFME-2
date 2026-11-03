@@ -54,3 +54,21 @@ clears a family because one consumer links.
 Clearance: pending. Prediction-only, scoped to the 23 units above against index `8661f15284`.
 No linked-byte, debt or census gain is claimed.
 Census confirmation: awaiting the next published census.
+
+**The other 70 are 70 separate problems (2026-11-03):**
+Grouping the same sweep's findings by missing symbol: 68 units report findings naming 343
+distinct symbols, and **332 of those 343 block exactly one unit**. The largest shared cause
+reaches three units (`__imp_?allocate@__new_alloc@_STL@@SAPAXI@Z`, in
+`Common/RTS/ProductionPrerequisite.cpp`, `Common/Thing/ThingFactory.cpp` and
+`GameNetwork/GameSpy/Thread/BuddyThread_Unresolved.cpp`), and the next ones reach two
+(`__imp_?deallocate@__new_alloc@...`, `?s_objectFieldParseTable@ThingTemplate@@`,
+`??0AudioEventRTS@@QAE@ABV0@@Z` and `??1AudioEventRTS@@UAE@XZ`,
+`??1ArmyHeroIcon@StrategicInGameUI@@UAE@XZ`, `?crc@UpdateModule@@MAEXPAVXfer@@@Z`).
+So there is no single provider whose repair unlocks a batch of the remainder: planning
+should treat them as individual items, and a seat looking for leverage will not find it
+here. The `__imp_` cases are not a family either — `__declspec(dllimport)` is a deliberate,
+widely used device in this tree (7,503 occurrences across 2,779 sources) for suppressing a
+TU's own COMDAT copy so the link keeps retail's, and an unresolved `__imp_` means one call
+in that unit was not inlined after all. `ProductionPrerequisite.cpp` additionally carries
+LINK-064's open retyping prerequisite. Measurement only; nothing was edited and no gain is
+claimed.
