@@ -420,3 +420,4 @@ OpaqueRefElement4,Code/GameEngine/Include/Common/OpaqueRefElement4.h,existing he
 TerrainRoadType,Code/GameEngine/Include/GameClient/TerrainRoadType.h,existing header; contract class_contracts/TerrainRoadType.json; 10/16 sampled units adopt
 Rva007EB810Diag,Code/GameEngine/Include/GameNetwork/Rva007EB810Diag.h,existing header; contract class_contracts/Rva007EB810Diag.json; 39/43 sampled units adopt
 Rva00507823,Code/GameEngine/Include/GameLogic/Module/Rva00507823.h,existing header; contract class_contracts/Rva00507823.json; 45/57 sampled units adopt
+AsciiStringRef,Code/GameEngine/Include/Common/AsciiStringRef.h,existing header; contract class_contracts/AsciiStringRef.json; 78/83 sampled units adopt
