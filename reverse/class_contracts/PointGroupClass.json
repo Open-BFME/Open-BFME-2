@@ -1,0 +1,597 @@
+{
+ "bases": [],
+ "bases_by": "zh",
+ "class": "PointGroupClass",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x10": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 2
+   },
+   "0x18": {
+    "4": 2
+   },
+   "0x1c": {
+    "4": 7
+   },
+   "0x20": {
+    "1": 4
+   },
+   "0x24": {
+    "4": 2
+   },
+   "0x28": {
+    "4": 2
+   },
+   "0x2a": {
+    "1": 1
+   },
+   "0x2c": {
+    "4": 6
+   },
+   "0x30": {
+    "4": 3
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 3
+   },
+   "0x3c": {
+    "4": 3
+   },
+   "0x4": {
+    "4": 5
+   },
+   "0x40": {
+    "4": 3
+   },
+   "0x44": {
+    "4": 2
+   },
+   "0x48": {
+    "1": 1
+   },
+   "0x49": {
+    "1": 1
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x54": {
+    "4": 1
+   },
+   "0x58": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 2
+   },
+   "0xc": {
+    "4": 4
+   }
+  },
+  "retail_layout": {
+   "confidence": "full",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x178e50"
+     ],
+     "value": 92
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x178e50"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       1
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       1
+      ],
+      "0x49": [
+       1
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "sizeof": {
+     "kind": "target",
+     "rule": "retail-operator-new",
+     "sites": [
+      "0x55c8ea"
+     ],
+     "value": 92
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x178e50"
+     ],
+     "value": {
+      "0x0": "0x7d4e94"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d4e94"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GPointGroupClass@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x179a20"
+       }
+      ],
+      "table": "0x7d4e94"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 26,
+  "retail_vtables": {
+   "0x7d4e94": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GPointGroupClass@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 7,
+  "view_sizes": {
+   "1": 2,
+   "40": 1,
+   "92": 3
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/pointgr.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PointLoc",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {
+    "4": 5
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector3>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PointDiffuse",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<Vector4>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "APT",
+   "name_by": "zh",
+   "offset": 12,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned int>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PointSize",
+   "name_by": "zh",
+   "offset": 16,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<float>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PointOrientation",
+   "name_by": "zh",
+   "offset": 20,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned char>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "PointFrame",
+   "name_by": "zh",
+   "offset": 24,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "ShareBufferClass<unsigned char>*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "PointCount",
+   "name_by": "zh",
+   "offset": 28,
+   "retail_widths": {
+    "4": 7
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "FrameRowColumnCountLog2",
+   "name_by": "zh",
+   "offset": 32,
+   "retail_widths": {
+    "1": 4
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:RefCountPtr<TextureClass>",
+   "members": [
+    {
+     "kind": "P",
+     "name": "Texture",
+     "offset": 0,
+     "size": 4,
+     "type": "TextureClass*"
+    }
+   ],
+   "name": "Texture",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "RefCountPtr<TextureClass>",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:ShaderClass",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "ShaderBits",
+     "offset": 0,
+     "size": 4,
+     "type": "uint"
+    }
+   ],
+   "name": "Shader",
+   "name_by": "zh",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ShaderClass",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "PointMode",
+   "name_by": "zh",
+   "offset": 44,
+   "retail_widths": {
+    "4": 6
+   },
+   "size": 4,
+   "type": "enum",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Flags",
+   "name_by": "zh",
+   "offset": 48,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "uint",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "DefaultPointSize",
+   "name_by": "zh",
+   "offset": 52,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Vector3",
+   "members": [
+    {
+     "kind": "f4",
+     "name": "X",
+     "offset": 0,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Y",
+     "offset": 4,
+     "size": 4,
+     "type": "float"
+    },
+    {
+     "kind": "f4",
+     "name": "Z",
+     "offset": 8,
+     "size": 4,
+     "type": "float"
+    }
+   ],
+   "name": "DefaultPointColor",
+   "name_by": "zh",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 12,
+   "type": "Vector3",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "DefaultPointAlpha",
+   "name_by": "zh",
+   "offset": 68,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "DefaultPointOrientation",
+   "name_by": "zh",
+   "offset": 72,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "DefaultPointFrame",
+   "name_by": "zh",
+   "offset": 73,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "uchar",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "VPXMin",
+   "name_by": "zh",
+   "offset": 76,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "VPYMin",
+   "name_by": "zh",
+   "offset": 80,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "VPXMax",
+   "name_by": "zh",
+   "offset": 84,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "VPYMax",
+   "name_by": "zh",
+   "offset": 88,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "float",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "zh",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 92,
+ "size_by": "retail-new",
+ "vslots": {
+  "0": {
+   "decided_by": "zh",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
