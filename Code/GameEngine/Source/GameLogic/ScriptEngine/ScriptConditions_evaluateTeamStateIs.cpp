@@ -451,11 +451,7 @@ class Module;
 
 // The module findModule returns for the "StancesBehavior" key; the rowed
 // 0x0045ED4B reads its current stance.
-class StancesBehavior
-{
-public:
-	int rva0045ED4B() const;
-};
+#include "../../../Include/GameLogic/StancesBehavior.h"
 
 class ObjectTypes;
 

@@ -176,11 +176,7 @@ public:
 	UnsignedInt m_dieFrame;							// +0x20
 };
 
-class StancesBehavior
-{
-public:
-	Bool changeStance(Int stance);
-};
+#include "../../../../Include/GameLogic/StancesBehavior.h"
 NameKeyType Rva0045EE2CGet();
 
 struct Rva0028F59A

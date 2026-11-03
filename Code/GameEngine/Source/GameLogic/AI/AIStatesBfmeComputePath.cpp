@@ -158,11 +158,7 @@ public:
 class Object;
 #include "../../../Include/GameLogic/Weapon.h"
 
-class StancesBehavior
-{
-public:
-	void rva0045F235();
-};
+#include "../../../Include/GameLogic/StancesBehavior.h"
 
 NameKeyType Rva0045EE2CGet();
 enum ObjectStatusTypes

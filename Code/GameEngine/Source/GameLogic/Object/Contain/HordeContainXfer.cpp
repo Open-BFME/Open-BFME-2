@@ -163,15 +163,7 @@ protected:
 	friend class HordeContain;
 };
 
-class StancesBehavior
-{
-public:
-	Int getStance() const { return m_stance; }
-	bool changeStanceFromXfer(int arg);
-private:
-	char m_pad00[0x30];
-	Int m_stance; // +0x30
-};
+#include "../../../../Include/GameLogic/StancesBehavior.h"
 
 template <int NUMBITS> class BitFlags
 {

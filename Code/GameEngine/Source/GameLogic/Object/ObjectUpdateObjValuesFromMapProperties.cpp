@@ -158,11 +158,7 @@ public:
 	void set(Int value);
 };
 
-class StancesBehavior
-{
-public:
-	bool changeStance(Int stance);
-};
+#include "../../../Include/GameLogic/StancesBehavior.h"
 NameKeyType Rva0045EE2CGet();
 
 class HealthTarget

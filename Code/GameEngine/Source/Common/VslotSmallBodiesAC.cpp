@@ -15,11 +15,7 @@ NameKeyType Rva0045EE2CGet();
 
 class Module;
 class Object;
-class StancesBehavior
-{
-public:
-	Int rva0045ED4B() const;
-};
+#include "../../Include/GameLogic/StancesBehavior.h"
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {

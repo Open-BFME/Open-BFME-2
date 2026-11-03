@@ -23,11 +23,7 @@ protected:
 public:
 	void *rva0028C197() const;
 };
-class StancesBehavior
-{
-public:
-	int rva0045ED4B() const;
-};
+#include "../../Include/GameLogic/StancesBehavior.h"
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 class Rva264Float
 {

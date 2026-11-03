@@ -1116,11 +1116,7 @@ private:
 
 #include "../../../Include/GameClient/Drawable.h"
 
-class StancesBehavior
-{
-public:
-	bool changeStance(int v);
-};
+#include "../../../Include/GameLogic/StancesBehavior.h"
 
 class Rva0036FAF8
 {

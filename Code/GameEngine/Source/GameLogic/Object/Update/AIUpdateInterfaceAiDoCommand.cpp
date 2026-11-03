@@ -23,7 +23,7 @@ class AIUpdateInterface;
 class Rva001E3591 { public: bool rva001E3591(); };
 class Module;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class StancesBehavior { public: void rva0045F21C(); };
+#include "../../../../Include/GameLogic/StancesBehavior.h"
 NameKeyType Rva0045EE2CGet();
 enum ObjectStatusTypes { STATUS_26=0x26, STATUS_41=0x41, STATUS_46=0x46, STATUS_4A=0x4A };
 class Object {

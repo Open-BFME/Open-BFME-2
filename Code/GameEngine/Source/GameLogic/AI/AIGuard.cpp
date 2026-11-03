@@ -257,11 +257,7 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 
-class StancesBehavior
-{
-public:
-	Int rva0045ED4B() const;
-};
+#include "../../../Include/GameLogic/StancesBehavior.h"
 
 NameKeyType Rva0045EE2CGet();
 

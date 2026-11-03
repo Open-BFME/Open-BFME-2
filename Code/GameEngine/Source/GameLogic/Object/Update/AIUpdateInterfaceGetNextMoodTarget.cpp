@@ -116,11 +116,7 @@ Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 #define GameLogicRandomValueAt(lo, hi) GetGameLogicRandomValue((lo), (hi), "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AIUpdate.cpp", 0x200a)
 NameKeyType Rva0045EE2CGet();
 
-class StancesBehavior
-{
-public:
-	Int rva0045ED4B() const;
-};
+#include "../../../../Include/GameLogic/StancesBehavior.h"
 
 class Rva0028B7AELeaGetter
 {

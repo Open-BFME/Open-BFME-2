@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class StancesBehavior
-{
-public:
-	StancesBehavior(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x34];
-};
+#include "../../../../Include/GameLogic/StancesBehavior.h"
 
 // ?friend_newModuleInstance@StancesBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *StancesBehavior::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

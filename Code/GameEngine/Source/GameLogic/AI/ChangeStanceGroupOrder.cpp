@@ -38,11 +38,7 @@ enum NameKeyType
 };
 NameKeyType Rva0045EE2CGet();
 class Module;
-class StancesBehavior
-{
-public:
-	bool changeStance(int stance);
-};
+#include "../../../Include/GameLogic/StancesBehavior.h"
 class ChangeStanceGroupOrder;
 class Object
 {
