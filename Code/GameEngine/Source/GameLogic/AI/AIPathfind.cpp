@@ -1018,15 +1018,23 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva002E8B70PtrChase32Field, 0x04, 0x56C)
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
 struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 #include "../../../Include/GameLogic/AI.h"
+class Rva002F52A7Query;
+// Native 0x002F3392 uses a two-word callback context and PathNode +0x0C position.
+// The layer value is witnessed as 1; its original enumerator spelling is unknown.
+enum PathfindLayerEnum { PathfindLayerNativeOne = 1 };
+
 struct Rva002F600CInfo;
+
 struct Rva002E6F92Info
 {
 	char m_pad[4];
 };
+
 struct Rva002E7B29Info
 {
 	int m_00;
 };
+
 struct Rva002E7ED6Info
 {
 public:
@@ -1034,20 +1042,21 @@ public:
 public:
 	Int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY);
 };
+
 struct Rva002E93A7Info;
+
 struct Rva002F3F7DInfo
 {
 	char m_pad[4];
 };
+
 // Native 002F6F90..002F70E5, thiscall RET8 AL. WB D6A690 and target
 // diagnostics support adjustment predicate role; original context name unknown.
 // Clean BFME1 IsCheckForAdjust003F2B60 donor revision 9cbfb551 supplies the
 // predicate control flow; field offsets, kind bit and ABI come from retail.
 struct Rva002F600CCoord { float x, y, z; };
+
 class LocomotorSet;
-// Native 0x002F3392 uses a two-word callback context and PathNode +0x0C position.
-// The layer value is witnessed as 1; its original enumerator spelling is unknown.
-enum PathfindLayerEnum { PathfindLayerNativeOne = 1 };
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
@@ -1229,8 +1238,6 @@ public:
 	void rva0052A387(int value);							// 0x0052A387
 };
 
-
-
 struct PathfinderLogFile;
 
 extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
@@ -1257,6 +1264,24 @@ private:
  unsigned int word2C;
  Rva002F600CCoord position30;
 };
+
+typedef bool (PathfindServicesInterface::*Rva002F52A7Shape)(unsigned int, unsigned int, unsigned char, unsigned int, unsigned int, unsigned int,
+    unsigned int, unsigned char, Rva002F600CCoord *, unsigned int, float, unsigned int *, unsigned int);
+
+struct Rva002F600CInfo
+{
+    int cellCallback(PathfindCell *from, PathfindCell *to, int x, int y);
+    Rva002F52A7Query *query;
+    unsigned int word04, word08, word0C;
+    unsigned char option10;
+    unsigned char padding11[3];
+    unsigned int kind14;
+    bool success18;
+    unsigned char padding19[3];
+    Rva002F600CCoord position1C, position28;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
 
@@ -2277,6 +2302,135 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 // over a cleared word and a pair; 0x0052A621 (19B) / 0x0052A652 (8B): the
 // +0x08 member's rowed 0x0052A36A / 0x0052A387.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp
+
+// Pathfinder::SetDebugPathPosition (WorldBuilder name, pathfinder.cpp lines 5116..5120: copy the position into +0x4C).
+// was ?rva002E74B5@Rva002E74B5@@QAEXPBUCoord3D@@@Z @0x002E74B5 17B
+// Evidence: unlocks 0x00363930; copies 12B to +0x4C; caller passes Coord3D floats.
+
+void Pathfinder::SetDebugPathPosition(const Coord3D *pos)
+{
+	m_field4C = *pos;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp
+
+//
+// ?rva002F95B7@Pathfinder@@QAEH... retail 0x002F95B7 63B.
+// Pathfinder helper that converts two world positions to cells via rowed
+// Rva002E7875WorldToCell at 0x002E7875 then runs the private rowed
+// iterateCellsAlongLine for Rva002F600CInfo at 0x002F6D22. Same this as the
+// private walk (same Pathfinder), 4 stack args (ret 0x10), no EH. Caller
+// 0x002FC95E. Flags copy PathfinderCellLineWalks neighbours (/O1 /G7).
+
+int Pathfinder::rva002F95B7(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F600CInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
+
+// ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z retail 0x002EAE20 63B sibling of 0x002F95B7.
+// Same WorldToCell then private iterate shape but for Rva002E6F92Info at
+// 0x002E8348. Same flags and nested-return recipe.
+int Pathfinder::rva002EAE20(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002E6F92Info *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp
+
+// ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z @0x002EB3D7 63B.
+int Pathfinder::rva002EB3D7(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7B29Info *info)
+{
+	ICoord2D tmp1;
+	ICoord2D tmp2;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmp2, true, a), Rva002E7875WorldToCell(&tmp1, true, b), layer, info);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp
+
+int Pathfinder::rva002EB675(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7ED6Info *info)
+{
+	ICoord2D tmp1;
+	ICoord2D tmp2;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmp2, true, a), Rva002E7875WorldToCell(&tmp1, true, b), layer, info);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp
+
+int Pathfinder::rva002EED41(const Coord3D *startWorld, const Coord3D *endWorld, PathfindLayerEnum layer, Rva002E93A7Info *info)
+{
+	ICoord2D endCell;
+	ICoord2D startCell;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&startCell, true, startWorld), Rva002E7875WorldToCell(&endCell, true, endWorld), layer, info);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp
+
+//
+// ?rva002F6AE3@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z @0x002F6AE3 63B.
+// Pathfinder helper converting two Coord3D to cells via rowed Rva002E7875WorldToCell
+// at 0x002E7875 then running the private rowed iterateCellsAlongLine for
+// Rva002F3F7DInfo at 0x002F4391. Evidence: callees rowed WorldToCell
+// PathfindShimWorldToCell.cpp twice plus rowed walk PathfinderCellLineWalks.cpp;
+// caller 0x002F714B in 91B unclaimed; sits between 0x002F69E3 and 0x002F6B22 gap.
+
+int Pathfinder::rva002F6AE3(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F3F7DInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp
+
+// ?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z
+bool Rva002F6F90Context::rva002F6F90(unsigned int first,int second)
+{
+
+ if(g_00E03745 && theLogicRandomLogFile)
+  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() called with cell=%d,%d",first,second);
+ int count;
+ if(!query->CheckForAdjust((Object *)object,*(const LocomotorSet *)word08,mode0C,first,second,(PathfindLayerEnum)word18,word10,option0D,(Coord3D *)&position30,(const Coord3D *)word14,value1C,&count,word2C)) {
+  if(g_00E03745 && theLogicRandomLogFile)
+   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() checkAdjust failed");
+  return false;
+ }
+
+ if(!count || (object->objectTemplate->flags & 0x20000000)) {
+  if(g_00E03745 && theLogicRandomLogFile)
+   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%s, isInfantry=%s, returning true",count?"TRUE":"FALSE",(object->objectTemplate->flags&0x20000000)?"TRUE":"FALSE");
+  return true;
+ }
+ if(count<minimum28 || !minimum28) {
+  minimum28=count;saved20=first;saved24=second;
+  if(g_00E03745 && theLogicRandomLogFile)
+   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%d, m_foundWithAllies=%d",count,minimum28);
+ }
+ if(g_00E03745 && theLogicRandomLogFile)
+  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() total failure, return false",count,minimum28);
+ return false;
+}
+
 // tu-skeleton: 0x002E6C60 18B ?rva002E6C60@Rva002E6B19@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // tu-skeleton: 0x002E6C72 7B ?rva002E6C72@Rva002E6C72@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
@@ -2308,17 +2462,6 @@ int Rva002E7334::rva002E734E(Rva002E734ECell *from, Rva002E734ECell *to, int cel
 // tu-skeleton: 0x002E7440 66B ?rva002E7440@Rva002E7440@@QAE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002E74AC 9B ?rva002E74AC@Rva002E74ACFlags@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Pathfinder_SetDebugPathPosition.cpp
-
-// Pathfinder::SetDebugPathPosition (WorldBuilder name, pathfinder.cpp lines 5116..5120: copy the position into +0x4C).
-// was ?rva002E74B5@Rva002E74B5@@QAEXPBUCoord3D@@@Z @0x002E74B5 17B
-// Evidence: unlocks 0x00363930; copies 12B to +0x4C; caller passes Coord3D floats.
-
-void Pathfinder::SetDebugPathPosition(const Coord3D *pos)
-{
-	m_field4C = *pos;
-}
 
 // tu-skeleton: 0x002E74C6 124B ?ChooseBestLocomotorForPosition@Pathfinder@@QAEXW4PathfindLayerEnum@@PAVRva001E48E8@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Pathfinder_ChooseBestLocomotorForPosition.cpp (not merged yet)
 
@@ -2458,59 +2601,13 @@ void Pathfinder::SetDebugPathPosition(const Coord3D *pos)
 
 // tu-skeleton: 0x002EADB4 45B ?rva002EADB4@Rva002EADB4@@QAEXPAU_Rva002EADB4Node@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002EADB4Release.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F95B7.cpp
-
-//
-// ?rva002F95B7@Pathfinder@@QAEH... retail 0x002F95B7 63B.
-// Pathfinder helper that converts two world positions to cells via rowed
-// Rva002E7875WorldToCell at 0x002E7875 then runs the private rowed
-// iterateCellsAlongLine for Rva002F600CInfo at 0x002F6D22. Same this as the
-// private walk (same Pathfinder), 4 stack args (ret 0x10), no EH. Caller
-// 0x002FC95E. Flags copy PathfinderCellLineWalks neighbours (/O1 /G7).
-
-int Pathfinder::rva002F95B7(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F600CInfo *info)
-{
-	ICoord2D tmpDest;
-	ICoord2D tmpStart;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
-}
-
-// ?rva002EAE20@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E6F92Info@@@Z retail 0x002EAE20 63B sibling of 0x002F95B7.
-// Same WorldToCell then private iterate shape but for Rva002E6F92Info at
-// 0x002E8348. Same flags and nested-return recipe.
-int Pathfinder::rva002EAE20(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002E6F92Info *info)
-{
-	ICoord2D tmpDest;
-	ICoord2D tmpStart;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
-}
-
 // tu-skeleton: 0x002EAE5F 700B ?rva002EAE5F@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002EB11B 700B ?rva002EB11B@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB3D7.cpp
-
-// ?rva002EB3D7@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002E7B29Info@@@Z @0x002EB3D7 63B.
-int Pathfinder::rva002EB3D7(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7B29Info *info)
-{
-	ICoord2D tmp1;
-	ICoord2D tmp2;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmp2, true, a), Rva002E7875WorldToCell(&tmp1, true, b), layer, info);
-}
-
 // tu-skeleton: 0x002EB4A0 63B ?rva002EB4A0@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002EB4DF 406B ?IterateCellsInRectangle@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EB675.cpp
-
-int Pathfinder::rva002EB675(const Coord3D *a, const Coord3D *b, PathfindLayerEnum layer, Rva002E7ED6Info *info)
-{
-	ICoord2D tmp1;
-	ICoord2D tmp2;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmp2, true, a), Rva002E7875WorldToCell(&tmp1, true, b), layer, info);
-}
 
 // tu-skeleton: 0x002EB6B4 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E93A7Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
@@ -2609,15 +2706,6 @@ int Pathfinder::rva002EB675(const Coord3D *a, const Coord3D *b, PathfindLayerEnu
 // tu-skeleton: 0x002EEA72 24B ?rva002EEA72@Rva002EEA5A@@QAEPAXIPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
 
 // tu-skeleton: 0x002EEA8A 695B ?rva002EEA8A@Pathfinder@@QAE_NPBUICoord2D@@HPAU2@PAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderWorldLineWalk.cpp
-
-int Pathfinder::rva002EED41(const Coord3D *startWorld, const Coord3D *endWorld, PathfindLayerEnum layer, Rva002E93A7Info *info)
-{
-	ICoord2D endCell;
-	ICoord2D startCell;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&startCell, true, startWorld), Rva002E7875WorldToCell(&endCell, true, endWorld), layer, info);
-}
 
 // tu-skeleton: 0x002EED80 406B ?IterateCellsInRectangle@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E9D09@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
@@ -2807,30 +2895,33 @@ int Pathfinder::rva002EED41(const Coord3D *startWorld, const Coord3D *endWorld, 
 
 // tu-skeleton: 0x002F5C7A 914B ?CheckPathCost@Pathfinder@@QAEHPAVObject@@ABVLocomotorSet@@PBUCoord3D@@2@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
-// tu-skeleton: 0x002F600C 105B ?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp
+
+// ?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z
+int Rva002F600CInfo::cellCallback(PathfindCell *from, PathfindCell *to, int x, int y)
+{
+    if (from)
+    {
+        unsigned int kind = (to->m_0C >> 4) & 63;
+        unsigned int adjust;
+        if (kind14 == kind &&
+            (static_cast<PathfindServicesInterface *>((Pathfinder *)query)->*reinterpret_cast<Rva002F52A7Shape>(
+                static_cast<bool(PathfindServicesInterface::*)(Object *, const LocomotorSet &, bool, int, int, PathfindLayerEnum, int, bool, Coord3D *, const Coord3D *, float, int *, int)>(
+                    &Pathfinder::CheckForAdjust)))(word04, word08, 1, x, y, kind, word0C,
+                option10, &position1C, 0, 0.0f, &adjust, 0) && !adjust)
+        {
+            success18 = true;
+            position28 = position1C;
+        }
+    }
+    return 0;
+}
 
 // tu-skeleton: 0x002F6075 1128B ?GetHordeUnitPath@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002F64DD 1286B ?FindCollisionFreeQuickPath@Pathfinder@@UAEPAVPath@@PAVObject@@PBUCoord3D@@PAVPathNode@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
 
 // tu-skeleton: 0x002F69E3 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F4491Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F6AE3.cpp
-
-//
-// ?rva002F6AE3@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F3F7DInfo@@@Z @0x002F6AE3 63B.
-// Pathfinder helper converting two Coord3D to cells via rowed Rva002E7875WorldToCell
-// at 0x002E7875 then running the private rowed iterateCellsAlongLine for
-// Rva002F3F7DInfo at 0x002F4391. Evidence: callees rowed WorldToCell
-// PathfindShimWorldToCell.cpp twice plus rowed walk PathfinderCellLineWalks.cpp;
-// caller 0x002F714B in 91B unclaimed; sits between 0x002F69E3 and 0x002F6B22 gap.
-
-int Pathfinder::rva002F6AE3(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F3F7DInfo *info)
-{
-	ICoord2D tmpDest;
-	ICoord2D tmpStart;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
-}
 
 // tu-skeleton: 0x002F6B22 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F5925Info@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
@@ -2839,36 +2930,6 @@ int Pathfinder::rva002F6AE3(const Coord3D *startPos, const Coord3D *destPos, Pat
 // tu-skeleton: 0x002F6D22 256B ?iterateCellsAlongLine@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002F600CInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp (not merged yet)
 
 // tu-skeleton: 0x002F6E22 366B ??0Pathfinder@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F6F90QueryCallback.cpp
-
-// ?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z
-bool Rva002F6F90Context::rva002F6F90(unsigned int first,int second)
-{
-
- if(g_00E03745 && theLogicRandomLogFile)
-  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() called with cell=%d,%d",first,second);
- int count;
- if(!query->CheckForAdjust((Object *)object,*(const LocomotorSet *)word08,mode0C,first,second,(PathfindLayerEnum)word18,word10,option0D,(Coord3D *)&position30,(const Coord3D *)word14,value1C,&count,word2C)) {
-  if(g_00E03745 && theLogicRandomLogFile)
-   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() checkAdjust failed");
-  return false;
- }
-
- if(!count || (object->objectTemplate->flags & 0x20000000)) {
-  if(g_00E03745 && theLogicRandomLogFile)
-   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%s, isInfantry=%s, returning true",count?"TRUE":"FALSE",(object->objectTemplate->flags&0x20000000)?"TRUE":"FALSE");
-  return true;
- }
- if(count<minimum28 || !minimum28) {
-  minimum28=count;saved20=first;saved24=second;
-  if(g_00E03745 && theLogicRandomLogFile)
-   fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() allyCount=%d, m_foundWithAllies=%d",count,minimum28);
- }
- if(g_00E03745 && theLogicRandomLogFile)
-  fprintf((PathfinderLogFile*)theLogicRandomLogFile,"\t\t  Pathfinder_IsCheckForAdjust() total failure, return false",count,minimum28);
- return false;
-}
 
 // tu-skeleton: 0x002F70E5 102B ?rva002F70E5@Rva002F70E5Context@@QAE_NIH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva002F70E5QueryCallback.cpp (not merged yet)
 

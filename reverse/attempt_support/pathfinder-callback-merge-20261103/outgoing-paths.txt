@@ -1,0 +1,9 @@
+M	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp
+D	Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp
+M	docs/linking_obstacles.md
+M	reverse/attempt_support/pathfinder-callback-headers-20261103/README.md
+A	reverse/attempt_support/pathfinder-callback-headers-20261103/composition-proof.json
+A	reverse/attempt_support/pathfinder-callback-headers-20261103/declaration-composition-proof.json
+A	reverse/attempt_support/pathfinder-callback-headers-20261103/declaration-order-build.log
+M	reverse/functions.csv
+M	reverse/tu_map.csv

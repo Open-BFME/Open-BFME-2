@@ -161,6 +161,15 @@ identical. Private LinkGuard sees stale active donors in its older checkout,
 so actual main CLI/current-ledger guard approval remains required before moving
 this callback. No guard is bypassed and no source-file gain is credited yet.
 
+The current-main supported merge and unmodified LinkGuard now accept F600C.
+One existing 105-byte row moves into approved AIPathfind, removing one source
+file. Normal checks preserve all90 function rows, both data rows and225 exact
+providers; the combined preview retains LINKS and5,069 own bytes, with no census
+gain inferred. The remaining fprintf header finding calls a game helper at
+RVA2CEC42 at all five sites, not CRT stdio. Preserve it for a separate owner/
+caller naming-and-ABI cohort; no FILE*, CRT-mode or macro substitution is valid.
+[Current merge, full path audit and native logging evidence](../reverse/attempt_support/pathfinder-callback-merge-20261103/README.md).
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

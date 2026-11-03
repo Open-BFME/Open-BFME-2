@@ -1,0 +1,19 @@
+# F600C callback consolidation
+
+The supported current-main tu_skeleton merge absorbs the single remaining prepared callback into its current approved AIPathfind TU. One existing105-byte function row moves; its symbol, RVA, extent and notes remain unchanged. The matching current TU-map source cell follows without regenerating assignments. One source file is removed. The tool's88-row score counts unique RVAs; normal verification independently passes all90 function-ledger rows, both data entries,7 strings,16 compiler float literals and the named import. The existing4 admitted/unclaimed definitions remain.
+
+The current-main unmodified LinkGuard approves this composition. The fresh normal merged object preserves all225 external definitions from the two normally verified control objects, with identical payload bytes and ordered symbolic relocations and no contradictory, missing, added or changed definition. Private supported composition also retained all90 rows and three EXACT parent EH graphs; normal commit/push hooks recheck those graphs. The own-unit preview retains LINKS and5,069 bytes; these include the absorbed105 bytes already linked in the old source, so this is not a census-linked gain. The last census remains154 unlinked units.
+
+## Complete outgoing path audit
+
+Audited immediately before publishing the complete pending batch against origin/master db4de387d1e642d1c68c5715480dbfa83ef1a6f1. Outgoing declaration preparation changes two sources but makes no move; the subsequent consolidation deletes exactly AI/Rva002F600CQueryCallback.cpp into existing AI/AIPathfind.cpp. No other Code source-path move is pending (outgoing-paths.txt).
+
+The combined basename/full-path search covers active tools, hooks, workflows, source/header includes, build/configuration surfaces, registries and documentation. All remaining matches are one retained source-origin comment, historical census/attempt entries or banked proof evidence. No active include, tool, hook, workflow or configuration needs an old path updated. The existing AI directory remains and recursive source discovery reaches the destination. No old donor receipt is used to prove the merged source.
+
+The owning tool repoints one functions.csv and one tu_map.csv source cell. No donor debt key remains in header, Microsoft-header, code-identity, data, gate, hatch or flag registers: both donor header entries were retired in the earlier verified/public acceptance commit. The2 pool owners and existing destination fprintf debt remain. Hatch refresh yields no baseline difference. This current-ledger guard and provider comparison supersede the older private checkout's artificial duplicate-provider refusal; no guard is bypassed or edited. Broader pre-push audit limitations must still carry to the next scheduled census.
+
+## Remaining logging identity obstacle
+
+All five native F6F90 logging calls directly reach RVA2CEC42, whose existing108-byte matched reconstruction is a game format-and-append helper under the misleading fprintf spelling. It formats through _vsnprintf and appends an AsciiString to an object vector at+4. Its current owner declares void/FprintfTarget*, while this consumer's legacy declaration says int/opaque PathfinderLogFile*. The native call targets and game operation are target facts; current declaration spellings are reconstruction facts, not proof of the original source signature or name.
+
+Real FILE* adoption would misdescribe this game API. No new stdio/compiler/macro experiment was run after checking the native target, and no /MT or _CRTIMP change is proposed. Preserve the Microsoft-header finding until a separate correctly scoped owner/caller naming-and-ABI reconciliation addresses it. No new pin, alias, helper or check exception is introduced. Remaining donor declaration/codegen obstacles require individual evidence; the mixed foreign-held Pathfinder/pathfinder.cpp stays untouched.

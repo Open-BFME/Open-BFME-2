@@ -1,0 +1,15 @@
+reverse\link_status.csv:9426:Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp,yes,0,0,0,0,0
+reverse\re_attempts.log:64064:?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z	0x002F600C	105	landed	add_match verified Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp 105B; cell callback of walker 0x002F6D22 under the spelling the walker calls; renamed from Rva002F600CContext::rva002F600C with from/to cells and x/y; the 0x002F52A7 out word is a block local MSVC places in the dead from slot
+reverse\attempt_support\pathfinder-callback-headers-20261103\primary-base-proof.json:2:  "source": "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp",
+reverse\attempt_support\pathfinder-callback-headers-20261103\primary-base-proof.json:11:      "source": "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp",
+reverse\attempt_support\pathfinder-callback-headers-20261103\pathfinder-accept.log:1:  PASS Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp
+reverse\attempt_support\pathfinder-callback-headers-20261103\normal-build.log:3:  ?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z (Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp)
+reverse\attempt_support\pathfinder-callback-headers-20261103\declaration-composition-proof.json:56:        "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp"
+reverse\attempt_support\pathfinder-callback-headers-20261103\composition-proof.json:10:    "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp": 1
+reverse\attempt_support\pathfinder-callback-headers-20261103\cell-header-proof.json:2:  "source": "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp",
+reverse\attempt_support\pathfinder-callback-headers-20261103\cell-header-proof.json:11:      "source": "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp",
+reverse\attempt_support\pathfinder-callback-headers-20261103\cell-accept.log:1:  PASS Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp
+reverse\attempt_support\pathfinder-seven-merge-20261103\prospective-register-snapshot.json:1815:        "text": "0x002F600C,105,code,Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp,approved,C,C=0x002F5C7A..0x002F6075,Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp"
+reverse\attempt_support\pathfinder-fixed-storage-20261103\merge-dry-summary.json:110:    "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp": "compile: Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f04eeadb1c6e70bb.tu_skeleton.cpp(2836) : error C2039: 'flags' : is not a member of 'PathfindCell' | Code\\GameEngine\\Source\\GameLogic\\AI\\.AIPathfind.f04eeadb1c6e70bb.tu_skeleton.cpp(2839) : error C2039: 'CheckForAdjust' : is not a member of 'Pathfinder'",
+reverse\attempt_support\pathfinder-fixed-storage-20261103\merge-dry-summary.json:208:    "Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp": [
+Code\GameEngine\Source\GameLogic\AI\AIPathfind.cpp:2898:// ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp
