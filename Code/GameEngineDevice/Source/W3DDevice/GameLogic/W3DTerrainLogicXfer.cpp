@@ -54,11 +54,7 @@ typedef unsigned int UnsignedInt;
 
 #include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
-class W3DTerrainLogic : public TerrainLogic
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-};
+#include "../../../Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer

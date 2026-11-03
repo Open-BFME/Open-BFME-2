@@ -58,11 +58,7 @@ BFME_LITERAL_NAME_GETTER(Rva000D0B63Named, "W3DBoatWakeModelDraw")
 BFME_LITERAL_NAME_GETTER(W3DProjectileStreamDraw, "W3DProjectileStreamDraw")
 BFME_LITERAL_NAME_GETTER(W3DTornadoDraw, "W3DTornadoDraw")
 BFME_LITERAL_NAME_GETTER(Rva000D1BA0Named, "TBuff")
-class W3DTerrainLogic
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 const char *W3DTerrainLogic::GetSnapshotName() const
 {

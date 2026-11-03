@@ -422,18 +422,7 @@ public:
 	BridgeTriangle triangle[2]; // +0x9C
 };
 
-class W3DTerrainLogic
-{
-public:
-#define G(n) virtual void gap##n();
-	G(00) G(01) G(02) G(03) G(04) G(05) G(06) G(07) G(08) G(09) G(0A) G(0B) G(0C) G(0D) G(0E) G(0F)
-	G(10) G(11) G(12) G(13) G(14) G(15) G(16) G(17) G(18) G(19) G(1A) G(1B) G(1C) G(1D) G(1E) G(1F)
-	G(20) G(21) G(22) G(23) G(24) G(25) G(26) G(27) G(28) G(29) G(2A) G(2B) G(2C) G(2D)
-	virtual void addBridgeToLogic(Rva0027C36A *pInfo, Dict *props, const AsciiString &bridgeTemplateName); // +0xB8
-	G(2F) G(30)
-#undef G
-	virtual void updateBridgeDamageStates(void); // +0xC4
-};
+#include "../../../Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 enum BodyDamageType
 {

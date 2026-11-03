@@ -180,11 +180,7 @@ float Rva00062FFFTerrainPrefix::rva00062C23(const Coord3D &pos, const Coord3D &p
 // newMap); slot 6 (+0x18) is this body here and the rowed
 // TerrainLogic::getGroundHeight 0x0027CE9A there, so this is the W3D
 // override, as in Zero Hour.
-class W3DTerrainLogic
-{
-public:
-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) const;
-};
+#include "../../../Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 Real W3DTerrainLogic::getGroundHeight(Real x, Real y, Coord3D *normal) const {
  if(normal) {normal->x=0.0f;normal->y=0.0f;normal->z=1.0f;}

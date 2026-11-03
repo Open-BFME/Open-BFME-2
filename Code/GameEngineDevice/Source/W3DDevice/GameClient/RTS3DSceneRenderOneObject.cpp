@@ -345,7 +345,7 @@ struct DrawableInfo
 	Drawable *m_drawable;												// +0x04
 };
 
-class W3DTerrainLogic { public: bool rva0027DA6A(const float *pos, float *color); };
+#include "../../../Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 

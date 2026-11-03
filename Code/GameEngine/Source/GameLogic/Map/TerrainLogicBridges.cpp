@@ -744,11 +744,7 @@ Bool Bridge::isCellEntryPoint(const Region2D *cell, Real *z)
 // "W3DTerrainLogic"). Zero Hour's W3DTerrainLogic::loadPostProcess only
 // extends the base, so it is a tail jump to TerrainLogic::loadPostProcess
 // above (slot 1 of TerrainLogic's vtable 0x007FB2C8).
-class W3DTerrainLogic : public TerrainLogic
-{
-protected:
-	virtual void loadPostProcess(void);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameLogic/W3DTerrainLogicClass.h"
 
 void W3DTerrainLogic::loadPostProcess(void)
 {
