@@ -347,7 +347,17 @@ FAKE_CLAUDE = r'''
 import json, os, sys, time
 mode=sys.argv[1]
 flags=sys.argv[2:]
-assert '--safe-mode' in flags and '--no-session-persistence' in flags
+# Capability probe: advertise this generation's flags. ADVERTISED is rewritten per test
+# so one fake stands in for a CLI with --safe-mode and for one with --setting-sources.
+ADVERTISED='--print --no-session-persistence --tools --disallowedTools --strict-mcp-config --mcp-config --model --output-format --verbose --json-schema --setting-sources'
+if flags == ['--help']:
+    print(ADVERTISED); sys.exit(0)
+# Customizations must be off, by whichever flag this generation offers.
+if '--safe-mode' in flags:
+    pass
+else:
+    assert flags[flags.index('--setting-sources')+1] == ''
+assert '--no-session-persistence' in flags
 assert flags[flags.index('--tools')+1] == ''
 assert flags[flags.index('--disallowedTools')+1] == 'mcp__*'
 assert '--strict-mcp-config' in flags
@@ -388,6 +398,35 @@ def test_claude_adapter_is_packet_only_and_fails_closed(tmp_path, monkeypatch, m
     else:
         with pytest.raises(name_review.ReviewError):
             name_review.run_claude(packet, config, job)
+
+
+def test_claude_isolation_adapts_to_the_installed_cli(tmp_path):
+    """The reviewer must run on a CLI with --safe-mode and on one that dropped it.
+
+    Hardcoding --safe-mode silently broke every review on Claude Code 2.1, which exits
+    with "unknown option" before reading the packet.
+    """
+    def cli(name, advertised):
+        script = tmp_path / f"help-{name}.py"
+        script.write_text(f"import sys\nprint({advertised!r})\n")
+        return [sys.executable, str(script)]
+
+    legacy = cli("legacy", "--print --safe-mode --no-session-persistence --tools")
+    assert name_review.claude_isolation_flags(legacy) == ["--safe-mode"]
+
+    current = cli("current", "--print --setting-sources <sources> --no-session-persistence")
+    assert name_review.claude_isolation_flags(current) == ["--setting-sources", ""]
+
+    # Neither flag: still review, relying on empty --tools, blocked MCP and a throwaway cwd.
+    unknown = cli("unknown", "--print --no-session-persistence")
+    assert name_review.claude_isolation_flags(unknown) == []
+
+    # --bare would break a subscription login, so it is never selected on its own.
+    bare = cli("bare", "--print --bare --no-session-persistence")
+    assert name_review.claude_isolation_flags(bare) == []
+
+    # A CLI that cannot be probed must not fail the review.
+    assert name_review.claude_isolation_flags([str(tmp_path / "does-not-exist")]) == []
 
 
 @pytest.mark.parametrize("backend, model", [("codex", "gpt-6.1-sol"), ("claude", "sonnet"),

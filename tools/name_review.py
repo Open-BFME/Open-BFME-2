@@ -6,6 +6,7 @@ Its stable worker identity is reused across batches, never minted per vote.
 """
 import argparse
 import contextlib
+import functools
 import hashlib
 import json
 import os
@@ -102,6 +103,40 @@ def claude_command():
             raise ReviewError("put the native Claude executable or its standard npm installation on PATH")
         return [node, str(script)]
     return [executable]
+
+
+@functools.lru_cache(maxsize=8)
+def claude_supported_flags(command):
+    """Long flags the installed Claude CLI advertises, so one reviewer works on any version.
+
+    Probed once per command and cached: a packet run must not pay for a second spawn.
+    A probe that cannot run returns nothing, which falls back to the flags every version
+    has rather than failing the review.
+    """
+    try:
+        probe = subprocess.run([*command, "--help"], capture_output=True, text=True,
+                               encoding="utf-8", timeout=60, check=False)
+    except (OSError, subprocess.SubprocessError):
+        return frozenset()
+    return frozenset(re.findall(r"--[A-Za-z][\w-]*", probe.stdout or ""))
+
+
+def claude_isolation_flags(command):
+    """Drop the operator's customizations from a review without touching its login.
+
+    `--safe-mode` did this until it was removed after Claude Code 2.0; on a CLI without
+    it, `--setting-sources ""` loads no user, project or local settings, which is the part
+    a blind review needs. `--bare` is deliberately NOT used: it also stops the CLI reading
+    OAuth/keychain credentials, so it would break every reviewer on a subscription login.
+    Either way the packet stays isolated by the caller's empty --tools, blocked MCP,
+    scrubbed environment and throwaway cwd.
+    """
+    supported = claude_supported_flags(tuple(command))
+    if "--safe-mode" in supported:
+        return ["--safe-mode"]
+    if "--setting-sources" in supported:
+        return ["--setting-sources", ""]
+    return []
 
 
 def configured_claude_model():
@@ -339,7 +374,7 @@ def run_claude(packet, config, job, *, resolution=False):
 
     Flags/output contract: https://code.claude.com/docs/en/cli-reference and
     https://code.claude.com/docs/en/headless (structured_output in the final result).
-    Safe mode retains subscription authentication while disabling customizations.
+    claude_isolation_flags() drops the operator's customizations while keeping their login.
     """
     schema = response_schema([item["key"] for item in packet["targets"]])
     save_json(job / "response-schema.json", schema)
@@ -348,7 +383,8 @@ def run_claude(packet, config, job, *, resolution=False):
     for key in ("CODEX_THREAD_ID", "CLAUDE_CODE_SESSION_ID", "CLAUDECODE", "BFME_RUN_ID", "BFME_CLAIM_OWNER"):
         env.pop(key, None)
     with tempfile.TemporaryDirectory(prefix="bfme-blind-review-") as isolated:
-        command = claude_command() + ["--print", "--safe-mode", "--no-session-persistence",
+        executable = claude_command()
+        command = executable + ["--print", *claude_isolation_flags(executable), "--no-session-persistence",
             "--tools", "", "--disallowedTools", "mcp__*", "--strict-mcp-config",
             "--mcp-config", '{"mcpServers":{}}', "--model", config["model"],
             "--output-format", "stream-json", "--verbose", "--json-schema", json.dumps(schema)]
