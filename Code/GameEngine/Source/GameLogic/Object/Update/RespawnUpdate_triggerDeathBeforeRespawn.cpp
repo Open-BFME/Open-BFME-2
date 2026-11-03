@@ -25,13 +25,7 @@ class Player;
 class FXList;
 class InGameUI;
 
-class ExperienceTracker
-{
-public:
-	char m_pad00[0x24];
-	int m_level;
-	int m_28;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 enum DisabledType;
 enum ObjectStatusTypes;
@@ -209,7 +203,7 @@ void RespawnUpdate::triggerDeathBeforeRespawn()
 		return;
 
 	RespawnRule rule;
-	initializeRespawnRule(rule, (unsigned)obj->m_experienceTracker->m_level);
+	initializeRespawnRule(rule, (unsigned)obj->m_experienceTracker->m_24);
 	RespawnRuleNode *found = (RespawnRuleNode *)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
 	RespawnRuleNode *end = (RespawnRuleNode *)reinterpret_cast<const BFME2RespawnRuleTree &>(data->m_rules).sentinel;
 	if (found == end)

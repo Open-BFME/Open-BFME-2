@@ -30,13 +30,7 @@ class BodyModuleInterface;
 class FXList;
 class InGameUI;
 
-class ExperienceTracker
-{
-public:
-	char m_pad00[0x24];
-	int m_level;
-	int m_28;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 enum DisabledType;
 enum ObjectStatusTypes;
@@ -218,7 +212,7 @@ void RespawnUpdate::triggerRevival(Object *at) {
  RespawnRule rule;
  float health=*(const volatile float *)&one;rule.cost=0;rule.time=0;
  m_2C=4;
- rule.level=(unsigned)obj->m_experienceTracker->m_level;rule.health=health;rule.autoSpawn=false;
+ rule.level=(unsigned)obj->m_experienceTracker->m_24;rule.health=health;rule.autoSpawn=false;
  RespawnRuleNode *found=(RespawnRuleNode*)reinterpret_cast<const RespawnRuleTree &>(data->m_rules).find<unsigned int>(rule.level)._M_node;
  RespawnRuleNode *end=(RespawnRuleNode*)reinterpret_cast<const BFME2RespawnRuleTree &>(data->m_rules).sentinel;
  if(found==end) {
