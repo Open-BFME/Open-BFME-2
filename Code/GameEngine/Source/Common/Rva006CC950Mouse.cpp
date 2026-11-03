@@ -4,11 +4,7 @@
 // otherwise. Evidence: chain lane packet; globals E17700/E176D4/E176D0;
 // callee rva006E3580 rowed; warning string pinned by string_xrefs.
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
-class Rva006E34D0
-{
-public:
-    void rva006E3580(int x, int y);
-};
+#include "../../../Libraries/Source/Apt/Rva006E34D0.h"
 extern int g_bfmeAptInitAtE17700;
 // g_bfmeAptInitAtE17700: matched references place it at VA 0xe17700 (zero-filled .bss).
 int g_bfmeAptInitAtE17700;

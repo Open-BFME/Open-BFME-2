@@ -852,7 +852,7 @@ Rva006F7DA0::Rva006F7DA0()
 }
 class Rva006EBFF0 {public:void rva006EBE60(AptValue*);};
 struct TextInst {const void*vtable;int value;int frame;AptCharacter*character;char unknown10[8];EAStringC text,variable;char unknown20[0x6c-0x20];int flags;};
-class Rva006E34D0 {public:AptCIH**newInsts;int count;char unknown08[0xa4-8];int capacity;};
+#include "Rva006E34D0.h"
 extern Rva006E34D0*g_bfmeAptPtrAtE176D0;
 static __forceinline AptCharacterInst*spriteInst(AptCIH*aptCIH)
 {
@@ -928,13 +928,13 @@ void AptDisplayList::instantiateCharacter(int depth,AptCharacter*character,EAStr
    if(!name->IsEmpty()){AptNativeHash*hash=((AptCharacterInst*)parent->rva006E1170())->hash;hash->Set(name,(AptValue*)current);}
   }
   if(type==13 || type==14) {
-   if(!(g_bfmeAptPtrAtE176D0->count<g_bfmeAptPtrAtE176D0->capacity)) {
+   if(!(g_bfmeAptPtrAtE176D0->m_field04<g_bfmeAptPtrAtE176D0->m_fieldA4)) {
     g_bfmeAptAssertAtE17734("gpPool->nNewInsts < gpPool->GetMaxNewMovieClips()","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp",0x2f3);
     if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
     _ReadWriteBarrier();
    }
-   g_bfmeAptPtrAtE176D0->newInsts[g_bfmeAptPtrAtE176D0->count]=current;
-   ++g_bfmeAptPtrAtE176D0->count;
+   g_bfmeAptPtrAtE176D0->m_field00[g_bfmeAptPtrAtE176D0->m_field04]=current;
+   ++g_bfmeAptPtrAtE176D0->m_field04;
    current->v0();
   } else if(type==15) {
    TextInst*text=(TextInst*)((BfmeAptValue006DCD20*)current)->rva006E0F40();

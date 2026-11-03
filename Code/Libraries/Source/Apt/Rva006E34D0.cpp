@@ -22,27 +22,16 @@ extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *, int);
 #define G_Value g_rva00891FA0Value
 #define G_Send Rva00891FA0SendRecord
 
-class Rva006E34D0
-{
-public:
-	void rva006E34D0(int v);
-	void rva006E3580(int a, int b);
-private:
-	char m_pad0[0x3C];
-	int m_count;
-	int *m_arr;
-	char m_pad1[0xAC - 0x44];
-	int m_cap;
-};
+#include "Rva006E34D0.h"
 
 void Rva006E34D0::rva006E34D0(int v)
 {
-	if (m_count >= m_cap)
+	if (m_field3C >= m_fieldAC)
 		return;
-	if (m_count > 0 && m_arr[m_count - 1] == v)
+	if (m_field3C > 0 && m_field40[m_field3C - 1] == v)
 		return;
-	m_arr[m_count] = v;
-	++m_count;
+	m_field40[m_field3C] = v;
+	++m_field3C;
 	int ready = G_Ready;
 	if (ready) {
 		Rva00891FA0Record r;

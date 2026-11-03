@@ -16,7 +16,7 @@ extern AptValue *gpUndefinedValue;
 
 template<class T> class AptValueSet {public: bool has(T)const;};
 
-class Rva006E34D0 {public:unsigned char unaccessed00[0x18];AptValueSet<AptValue *> listenerSet;};
+#include "../Rva006E34D0.h"
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 

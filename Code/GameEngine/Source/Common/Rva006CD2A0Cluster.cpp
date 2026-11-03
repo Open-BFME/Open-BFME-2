@@ -19,13 +19,7 @@
 // are declared but not defined here (defined at their own addresses by other
 // work), so this TU is a call site only.
 
-class Rva006E34D0
-{
-public:
-	void rva006E3580(int x, int y);
-	void rva006E3530(int a, int b, int c);
-	void rva006E47C0();
-};
+#include "../../../Libraries/Source/Apt/Rva006E34D0.h"
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 // g_bfmeAptPtrAtE176D0: matched references place it at VA 0xe176d0 (zero-filled .bss).

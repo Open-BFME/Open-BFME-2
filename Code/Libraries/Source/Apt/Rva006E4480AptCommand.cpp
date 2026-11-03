@@ -4,41 +4,21 @@
 // Its first two words and byte8 feed the native records; word12 is the ID.
 // Grouping the parameters correctly preserves this whole98B callee.
 struct Rva006CC9F0Input { int first,second; unsigned char flag; char pad09[3]; int eventId; };
-class Rva006E34D0
-{
-public:
-	void rva006E34D0(int value);
-	void rva006E4480(Rva006CC9F0Input input);
-
-private:
-	char pad00[0x3c];
-	int m_count;
-	int *m_arr;
-	char pad44[0x7c - 0x44];
-	int m_7c;
-	int m_80;
-	unsigned char m_84;
-	char pad85[7];
-	int m_8c;
-	int m_90;
-	unsigned char m_94;
-	char pad95[0xac - 0x95];
-	int m_cap;
-};
+#include "Rva006E34D0.h"
 
 void Rva006E34D0::rva006E4480(Rva006CC9F0Input input)
 {
 	if (input.eventId == 0x1f5)
 	{
-		m_7c = input.first;
-		m_80 = input.second;
-		m_84 = input.flag;
+		m_field7C = input.first;
+		m_field80 = input.second;
+		m_field84 = input.flag;
 	}
 	else if (input.eventId == 0x1f6)
 	{
-		m_8c = input.first;
-		m_90 = input.second;
-		m_94 = input.flag;
+		m_field8C = input.first;
+		m_field90 = input.second;
+		m_field94 = input.flag;
 	}
 	int packed = input.eventId;
 	packed <<= 15;

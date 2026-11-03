@@ -368,24 +368,7 @@ class AptActionQueueC;
 
 class Rva006E0DE0 {public:int rva006E0DE0(AptValue *);char data[8];};
 
-class Rva006E34D0
-{
-public:
-	AptCIH **array; // +0x00
-	int count; // +0x04
-	Rva006E0DE0 s8; // +0x08
-	char m_pad10[0x8];
-	Rva006E0DE0 s18; // +0x18
-	Rva006E0DE0 s20; // +0x20
-	Rva006E0DE0 s28; // +0x28
-	char m_pad30[0x30];
-	AptValue *v60; // +0x60
-	AptValue *v64; // +0x64
-	char m_pad68[0x4];
-	BfmeNode1279 *m_6c; // +0x6C
-	char m_pad70[0x30];
-	AptActionQueueC *m_queue; // +0xA0
-};
+#include "Rva006E34D0.h"
 
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 
@@ -825,15 +808,15 @@ bool AptCIH::rva006E24E0() const
 void BfmeNode1279::bfmeFinish1279()
 {
 	(*(BfmeTracker4310 **)&g_bfmeAptLinkerAtE176F8)->bfmeDrop((BfmeObj4310 *)this);
-	if (g_bfmeAptPtrAtE176D0->m_6c == this) {
-		g_bfmeAptPtrAtE176D0->m_6c->Release();
-		g_bfmeAptPtrAtE176D0->m_6c = 0;
+	if (g_bfmeAptPtrAtE176D0->m_field6C == this) {
+		g_bfmeAptPtrAtE176D0->m_field6C->Release();
+		g_bfmeAptPtrAtE176D0->m_field6C = 0;
 	}
 	if (g_00E18348)
 		((AptCIH *)this)->ClearCIH(0);
 	else
 		((AptCIH *)this)->ClearCIH(1);
-	g_bfmeAptPtrAtE176D0->m_queue->RemoveActionFor(this);
+	g_bfmeAptPtrAtE176D0->m_fieldA0->RemoveActionFor(this);
 	((AptAnimationPoolData *)g_bfmeAptPtrAtE176D0)->removeFromBIL((AptCIH *)this);
 	if (getRefCount() > 1) {
 		if (m_54 != 0 || m_50 != 0) {

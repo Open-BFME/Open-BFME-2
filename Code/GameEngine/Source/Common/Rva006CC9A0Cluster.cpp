@@ -14,13 +14,7 @@
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
 
 struct Rva006CC9F0Input { int first,second; unsigned char flag; char pad09[3]; int eventId; };
-class Rva006E34D0
-{
-public:
-	void rva006E3580(int x, int y);
-	void rva006E3530(int a, int b, int c);
-	void rva006E4480(Rva006CC9F0Input input);
-};
+#include "../../../Libraries/Source/Apt/Rva006E34D0.h"
 
 extern int g_bfmeAptInitAtE17700;
 // g_bfmeAptInitAtE17700: matched references place it at VA 0xe17700 (zero-filled .bss).

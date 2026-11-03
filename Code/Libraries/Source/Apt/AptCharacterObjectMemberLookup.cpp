@@ -63,9 +63,7 @@ class Rva006EBFF0 {public:void rva006EBE60(AptValue*);void rva006EBFF0(AptValue*
 class Rva006E1260 {public:void call(void*);};
 class Rva006E9A40List {public:void add(AptCIH*);};
 template<class T>class AptValueSet {public:unsigned short reserved,count;T *items;bool has(T)const;};
-class Rva006E34D0 {public:
- char unknown00[0x20]; AptValueSet<AptValue*> contexts,cihs;
-};
+#include "Rva006E34D0.h"
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 static __forceinline void addSet(AptValueSet<AptValue*> *set,AptValue *v){((Rva006E9A40List*)set)->add((AptCIH*)v);}
 struct AptActionInterpreter {bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);};

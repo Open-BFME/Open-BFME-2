@@ -6,12 +6,7 @@
 // ((a<<7 | b&0x7F) << 10) | 5; otherwise ((((a<<7 | b&0x7F) << 8) | c&0xFF) << 2) | 1.
 // Evidence: retail stdcall-style ret 0xC after pushing one dword to 0x6E34D0.
 // Address-derived names: the meaning of the fields is not proven.
-class Rva006E34D0
-{
-public:
-	void rva006E34D0(int v);
-	void rva006E3530(int a, int b, int c);
-};
+#include "Rva006E34D0.h"
 
 void Rva006E34D0::rva006E3530(int a, int b, int c)
 {

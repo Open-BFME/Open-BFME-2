@@ -298,41 +298,32 @@ AptValue *Rva006ED770RemoveMovieClip(AptValue *self,int){
 // the indices); the first bound clears the other three. Returns undefined.
 // Names of the context type, its fields and the native are not proved.
 #include "BfmeAptValue006DCD20.h"
-class Rva006E34D0
-{
-public:
- char m_pad0[0x44];
- AptValue *m_dragTarget;
- float m_left,m_top,m_right,m_bottom;
- float m_offsetX,m_offsetY;
- char m_pad60[0x14];
- int m_mouseX,m_mouseY;
-};
+#include "Rva006E34D0.h"
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 class BfmeAptSlot0Target {public:virtual void slot00();};
 AptValue *__cdecl Rva006EC900StartDrag(AptValue *self,int count)
 {
  ((BfmeAptSlot0Target*)self)->slot00();
- g_bfmeAptPtrAtE176D0->m_dragTarget=self;
- g_bfmeAptPtrAtE176D0->m_offsetX=0;
- g_bfmeAptPtrAtE176D0->m_offsetY=0;
- g_bfmeAptPtrAtE176D0->m_left=-9999.0f;
- g_bfmeAptPtrAtE176D0->m_top=-9999.0f;
- g_bfmeAptPtrAtE176D0->m_right=-9999.0f;
- g_bfmeAptPtrAtE176D0->m_bottom=-9999.0f;
+ g_bfmeAptPtrAtE176D0->m_field44=self;
+ g_bfmeAptPtrAtE176D0->m_field58=0;
+ g_bfmeAptPtrAtE176D0->m_field5C=0;
+ g_bfmeAptPtrAtE176D0->m_field48=-9999.0f;
+ g_bfmeAptPtrAtE176D0->m_field4C=-9999.0f;
+ g_bfmeAptPtrAtE176D0->m_field50=-9999.0f;
+ g_bfmeAptPtrAtE176D0->m_field54=-9999.0f;
  if(count==0||!((AptValue*)((BfmeAptValue006DCD20*)g_aptDateInterpreter.stack.At(0))->rva006DCEA0())->toInteger()){
-  g_bfmeAptPtrAtE176D0->m_offsetX=(float)g_bfmeAptPtrAtE176D0->m_mouseX-((float*)self->c_cih(false))[7];
-  g_bfmeAptPtrAtE176D0->m_offsetY=(float)g_bfmeAptPtrAtE176D0->m_mouseY-((float*)self->c_cih(false))[8];
+  g_bfmeAptPtrAtE176D0->m_field58=(float)g_bfmeAptPtrAtE176D0->m_field74-((float*)self->c_cih(false))[7];
+  g_bfmeAptPtrAtE176D0->m_field5C=(float)g_bfmeAptPtrAtE176D0->m_field78-((float*)self->c_cih(false))[8];
  }
  if(count>0){
-  g_bfmeAptPtrAtE176D0->m_left=g_aptDateInterpreter.stack.At(1)->toFloat();
-  g_bfmeAptPtrAtE176D0->m_top=0;
-  g_bfmeAptPtrAtE176D0->m_right=0;
-  g_bfmeAptPtrAtE176D0->m_bottom=0;
+  g_bfmeAptPtrAtE176D0->m_field48=g_aptDateInterpreter.stack.At(1)->toFloat();
+  g_bfmeAptPtrAtE176D0->m_field4C=0;
+  g_bfmeAptPtrAtE176D0->m_field50=0;
+  g_bfmeAptPtrAtE176D0->m_field54=0;
  }
- if(count>1)g_bfmeAptPtrAtE176D0->m_top=g_aptDateInterpreter.stack.At(2)->toFloat();
- if(count>2)g_bfmeAptPtrAtE176D0->m_right=g_aptDateInterpreter.stack.At(3)->toFloat();
- if(count>3)g_bfmeAptPtrAtE176D0->m_bottom=g_aptDateInterpreter.stack.At(4)->toFloat();
+ if(count>1)g_bfmeAptPtrAtE176D0->m_field4C=g_aptDateInterpreter.stack.At(2)->toFloat();
+ if(count>2)g_bfmeAptPtrAtE176D0->m_field50=g_aptDateInterpreter.stack.At(3)->toFloat();
+ if(count>3)g_bfmeAptPtrAtE176D0->m_field54=g_aptDateInterpreter.stack.At(4)->toFloat();
  return gpUndefinedValue;
 }
 

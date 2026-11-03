@@ -39,12 +39,7 @@ struct AptMid
 	AptInner54 *m_0;
 };
 
-class Rva006E34D0
-{
-public:
-	unsigned char m_pad[0x30];
-	AptMid *m_30;
-};
+#include "../Rva006E34D0.h"
 
 struct AnimTable
 {
@@ -69,11 +64,11 @@ void __cdecl Rva006CD6F0Get(void **out1, void **out2)
 	Rva006E34D0 *apt = g_bfmeAptPtrAtE176D0;
 	if (!apt)
 		return;
-	Rva006CD650 *val = apt->m_30->m_0->m_54;
+	Rva006CD650 *val = apt->m_field30->m_0->m_54;
 	if (val) {
 		if (((const Rva006DBB30SarDwordField *)val)->get() == 0x12) {
 			if (!((const BfmeAptValue006DCD20 *)val)->isUndefined()) {
-				AnimData *anim = (AnimData *)g_bfmeAptPtrAtE176D0->m_30->m_0->m_54->rva006CD650();
+				AnimData *anim = (AnimData *)g_bfmeAptPtrAtE176D0->m_field30->m_0->m_54->rva006CD650();
 				if (out1)
 					*out1 = anim->m_0c->m_1c;
 				if (out2)
