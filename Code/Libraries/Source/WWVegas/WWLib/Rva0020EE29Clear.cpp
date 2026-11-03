@@ -174,32 +174,17 @@ public:
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 #include "../../../../GameEngine/Include/Common/RegionTurnObserverView.h"
-class LivingWorldRegionManager : public Snapshot, public RegionTurnObserverView
-{
-public:
-	virtual ~LivingWorldRegionManager();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *);
-	virtual void BeginTurn(int, int);
-	virtual void OnTurnEnding(int, int);
-
-
-private:
-	Rva0020EE29Inner *m_08;
-	int m_0C;
-	int m_10;
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldRegionManager.h"
 
 void LivingWorldRegionManager::OnTurnEnding(int a1, int a2)
 {
 	((Rva0020F685 *)this)->rva0020F685();
-	m_0C = 0;
-	m_10 = 0;
+	field0C = 0;
+	field10 = 0;
 	// Retail advances past the inner header once and reads begin/end from
 	// the advanced pointer ([esi]/[esi+4]), so the traversal below addresses
 	// the begin/end pair through &m_begin rather than re-adding +0x2c.
-	Rva003F209C ***bounds = &m_08->m_begin;
+	Rva003F209C ***bounds = &((Rva0020EE29Inner *)field08)->m_begin;
 	for (unsigned i = 0; i < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++i)
 		bounds[0][i]->rva003F20E5(a1, a2);
 }
@@ -478,11 +463,11 @@ public:
 
 void LivingWorldRegionManager::loadPostProcess()
 {
-	Rva002102CAElem ***bounds = (Rva002102CAElem ***)&m_08->m_begin;
+	Rva002102CAElem ***bounds = (Rva002102CAElem ***)&((Rva0020EE29Inner *)field08)->m_begin;
 	for (unsigned i = 0; i < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++i)
 		bounds[0][i]->v01();
 	reinterpret_cast<Rva0020EE29 *>(this)->rva0020F483();
-	m_08->rva0020F5B3();
+	((Rva0020EE29Inner *)field08)->rva0020F5B3();
 }
 
 // ?rva0020F795@Rva0020EE29@@QAEXXZ @0x0020F795 157B

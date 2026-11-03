@@ -19313,3 +19313,14 @@ Remedy applied: `python3 tools/link_check.py --fetch-index` pulled the current i
 (984a4cdc4d, 2026-11-02 08:35, 14,831 objects into the object store), so a subsequent push
 from this clone can produce a conclusive audit. No per-unit obstacle is recorded here, because
 none was identified — the gap was measurement, not a prerequisite.
+
+### Clear current real-link follow-up (2026-11-03)
+
+The current real-link picker again serves the fifteen-row Clear unit. Existing
+21BEC1 scope/ABI evidence remains, but no canonical identifier or approved
+repair was found in current headers, WB leads or official local references.
+The separate LivingWorldRegionManager header adoption now passes: replace its
+whole private definition and map fields only in its two own bodies. Main15-row
+checks and owning acceptance retire one header key; all46 private providers,
+properties and routes remain identical. Unrelated m_08 views stay unchanged.
+[Proof, exact boundary and remaining naming prerequisite](../reverse/attempt_support/clear-region-header-20261103/README.md).
