@@ -4,9 +4,7 @@
 // this + 0x174. Caller declarations identify the manager and return type;
 // the CRC routine's same-this call supports its zero-offset base relationship.
 
-class Rva0040A3F9
-{
-};
+#include "../../Include/Common/Rva0040A3F9.h"
 
 class CreateAHeroCRC
 {

@@ -299,14 +299,7 @@ struct CreateAHeroName
 
 // The hero list at the hero manager's +0x174 (Rva0040A3F9Find.cpp's
 // vector of CreateAHeroData pointers).
-class Rva0040A3F9
-{
-public:
-	// Unrowed 0x0040A32F (28 bytes; the pointer at an index, or 0 past the
-	// end), pinned by address.
-	CreateAHeroData *rva0040A32F(int index);
-	int findIndex(CreateAHeroData *value) const;
-};
+#include "../../../Include/Common/Rva0040A3F9.h"
 
 // The side mask 0x00219F8E returns: bitset words, tested as STLport's
 // bitset does (word pos / 32, bit pos % 32).

@@ -344,7 +344,7 @@ inline char BlingFirstChar(const AsciiString &string)
     return buffer ? buffer[8] : 0;
 }
 
-class Rva0040A3F9 { public: CreateAHeroData *rva0040A32F(int); };
+#include "../../Include/Common/Rva0040A3F9.h"
 class Rva002196A9 { public: int rva002196A9(unsigned); };
 Bool CreateAHeroManager::GetAvailableHeroesForFaction(std::vector<unsigned int> *result, int faction)
 {

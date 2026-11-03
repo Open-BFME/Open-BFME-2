@@ -110,11 +110,7 @@ public:
 // Create-A-Hero data offsets are also read by rowed lobby slot code.
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva0040A3F9
-{
-public:
-	CreateAHeroData *rva0040A32F(int index);
-};
+#include "../../Include/Common/Rva0040A3F9.h"
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 

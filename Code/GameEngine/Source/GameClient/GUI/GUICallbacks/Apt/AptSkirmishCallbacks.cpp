@@ -535,12 +535,7 @@ public:
 	int m_hero; // +0x5C, CreateAHeroData list index
 };
 
-class Rva0040A3F9
-{
-public:
-	CreateAHeroData *rva0040A32F(int index);
-	int findIndex(CreateAHeroData *hero) const;
-};
+#include "../../../../../Include/Common/Rva0040A3F9.h"
 
 #include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 

@@ -16,7 +16,7 @@ template <> inline void vector<unsigned int>::_M_clear() {
 // Native HeroTransfer.cpp family. WB names are leads; field offsets and
 // call ABIs below are from the complete retail bodies and their providers.
 class CreateAHeroData;
-class Rva0040A3F9 {public:CreateAHeroData *rva0040A32F(int);};
+#include "../../Include/Common/Rva0040A3F9.h"
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 class Rva003FF0E7DwordSlot {public:void set(int);};

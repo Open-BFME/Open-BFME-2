@@ -18,15 +18,7 @@ public:
 	unsigned char m_flag48;
 };
 
-class Rva0040A3F9
-{
-public:
-	CreateAHeroData *rva0040A32F(int index);
-
-public:
-	CreateAHeroData **m_begin;
-	CreateAHeroData **m_end;
-};
+#include "../../Include/Common/Rva0040A3F9.h"
 
 class CreateAHeroManager
 {
@@ -42,7 +34,7 @@ private:
 CreateAHeroData *CreateAHeroManager::GetDefaultHero(int v)
 {
 	Rva0040A3F9 *heroes = &m_heroes174;
-	unsigned int count = (unsigned int)(heroes->m_end - heroes->m_begin);
+	unsigned int count = (unsigned int)(heroes->m_field04 - heroes->m_field00);
 	for (unsigned int i = 0; i < count; ++i) {
 		CreateAHeroData *data = heroes->rva0040A32F((int)i);
 		if (data != 0 && data->m_flag48 != 0 && GetPreferedFaction(data->m_o0C, data->m_i10) == v)

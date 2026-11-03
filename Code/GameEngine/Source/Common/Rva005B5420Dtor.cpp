@@ -12,17 +12,7 @@
 // The earlier tree spelling was only a donor guess: its clear pin targets
 // the pointer-list clear body 0x0040A59B, not a tree operation.
 class CreateAHeroData;
-class Rva0040A3F9
-{
-public:
-    __forceinline ~Rva0040A3F9() { if (m_begin) free(m_begin); }
-    CreateAHeroData **m_begin;
-    CreateAHeroData **m_end;
-    CreateAHeroData **m_capacity;
-    bool m_flag;
-    unsigned int size() const { return m_end - m_begin; }
-    CreateAHeroData *rva0040A32F(int index);
-};
+#include "../../Include/Common/Rva0040A3F9.h"
 class Rva0040A530 : public Rva0040A3F9
 {
 public:

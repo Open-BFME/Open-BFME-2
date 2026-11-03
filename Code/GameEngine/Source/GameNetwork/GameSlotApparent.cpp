@@ -93,11 +93,7 @@ public:
 
 #include "../../Include/GameLogic/CreateAHeroData.h"
 
-class Rva0040A3F9
-{
-public:
-	CreateAHeroData *rva0040A32F(int index);
-};
+#include "../../Include/Common/Rva0040A3F9.h"
 
 struct OuterElem32
 {

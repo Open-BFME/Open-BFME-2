@@ -34,7 +34,7 @@ void GadgetTextEntrySetText(GameWindow*,UnicodeString);
 class LanguageFilter {public:void filterLine(UnicodeString&);};extern LanguageFilter*TheLanguageFilter;
 class CreateAHeroData;
 struct AppearanceHeroNameView {char unknown00[8];UnicodeString name;};
-class Rva0040A3F9 {public:CreateAHeroData*rva0040A32F(int);int size()const{return end-begin;}private:CreateAHeroData**begin,**end;};
+#include "../../Include/Common/Rva0040A3F9.h"
 #include "../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager*TheCreateAHeroManager;
 class GameWindowManager;extern GameWindowManager*TheWindowManager;
