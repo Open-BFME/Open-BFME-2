@@ -38,11 +38,7 @@ class Rva00323674 { public: Rva00323674(GameWindow *); };
 
 // Native 2C5761 is the rowed thiscall GameWindowManager::rva002C5761 (it
 // ignores ECX and returns with RET4); the caller loads the manager.
-class GameWindowManager
-{
-public:
-	void rva002C5761(GameWindow *window);
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 

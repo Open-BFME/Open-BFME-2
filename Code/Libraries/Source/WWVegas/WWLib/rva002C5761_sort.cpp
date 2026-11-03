@@ -38,11 +38,7 @@ struct RvaHead
 class BfmeItemEG;
 bool bfmeLess(const BfmeItemEG *, const BfmeItemEG *); // rowed 0x002C0C45, the sort comparator
 class GameWindow;
-class GameWindowManager
-{
-public:
-	void rva002C5761(GameWindow *window);
-};
+#include "../../../../GameEngine/Include/GameClient/GameWindowManager.h"
 
 void GameWindowManager::rva002C5761(GameWindow *window)
 {

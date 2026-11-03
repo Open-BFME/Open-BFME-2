@@ -7,24 +7,7 @@
 // 0x002C08EF, prev/next flags. Identity: ZH/BFME1 winDestroyAll.
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindowManager
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34)
-#undef V
-	virtual int winDestroy(GameWindow *window) = 0;
-	virtual int winDestroyAll();
-protected:
-	void processDestroyList();
-private:
-	char m_pad04[8];
-	GameWindow *m_windowList;
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 int GameWindowManager::winDestroyAll()
 {

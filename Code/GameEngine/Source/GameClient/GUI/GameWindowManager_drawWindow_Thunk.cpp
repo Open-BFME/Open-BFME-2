@@ -53,11 +53,7 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
-class GameWindowManager
-{
-protected:
-	Int drawWindow(GameWindow *window);
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 // ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z
 Int GameWindowManager::drawWindow(GameWindow *window)

@@ -52,11 +52,7 @@ template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(ch
 
 class GameWindow;
 
-class GameWindowManager
-{
-public:
-	void rva002C5761(GameWindow *window);
-};
+#include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 
 class Rva00222A8BTarget;
