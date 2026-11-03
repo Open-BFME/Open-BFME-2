@@ -23507,3 +23507,7 @@ Code/GameEngine/Source/Common/Rva003F7478Scale.cpp|function|0x003F7465|rva003F74
 Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp|function|0x005ED861|rva005ED861,8cb7932484e39026e21f3591,drz-t28,drz-t28-sv3-2,w-f1463ee6b143,2026-11-03
 Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp|function|0x005ED986|rva005ED986,82b3c3e4070237db0c09177f,drz-t28,drz-t28-sv3-2,w-f1463ee6b143,2026-11-03
 Code/GameEngine/Source/Common/Rva005CECF3Clone.cpp|function|0x005CECF3|rva005CECF3,b0b96f686e0369ded6553d37,drz-t42,drz-t42-sv3-4,w-00081a1d960c,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|RvaMapCacheNodeHeader|color00,4db2c6938fab07ec1ff864e5,drz-t44,drz-t44-sv3-3,w-933684398897,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|RvaMapCacheNodeHeader|parent04,7df05884b3becb70e6e1dfab,drz-t44,drz-t44-sv3-3,w-933684398897,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|RvaMapCacheNodeHeader|left08,5baedc344166641c04ceaf22,drz-t44,drz-t44-sv3-3,w-933684398897,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|RvaMapCacheNodeHeader|right0C,ac038d8e3072709ba4aead40,drz-t44,drz-t44-sv3-3,w-933684398897,2026-11-03
