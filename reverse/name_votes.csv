@@ -23453,3 +23453,4 @@ Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp|function|0x005CEDAF|rva005CED
 Code/GameEngine/Source/GameClient/GUI/Rva005FB872Finish.cpp|function|0x005FB872|rva005FB872,27fa7626e1d8cf5346b04d17,drz-t16,drz-t16-sv2-14,w-c68e8a9b002b,2026-11-03
 Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp|param|bfmeAnchorCountedGuardDtor|p,9a31d236df1a956206db7497,drz-t08,drz-t08-sv2-5,w-50a2e09e8e09,2026-11-03
 Code/GameEngine/Source/Main/WinMainPairUnicode.cpp|local|Rva000B3F84Pair::convertToWide|n,837158e939f532e6279b1387,drz-t08,drz-t08-sv2-11,w-50a2e09e8e09,2026-11-03
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreen.cpp|local|Rva005DB5F2::rva005DB5F2|o,7f1528374efe9ee2e2cc9f2b,drz-t12,drz-t12-sv2-3,w-02b96a65a6a1,2026-11-03
