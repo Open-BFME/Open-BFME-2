@@ -207,6 +207,9 @@ public:
     virtual bool slot10_03(class AnimateWindow *);
     virtual int slot10_04();
 
+    bool getInputEnabled() { return field015 && field016; }
+    bool isInWaypointMode() const { return field8B0; }
+    bool isInForceAttackMode() const { return field8B8; }
     void setEngineInputEnabled(bool);
     void setInputEnabled(bool);
     void resetCamera();
@@ -277,18 +280,33 @@ public:
     int field568;
     int field56C;
     unsigned int field570;
-    char opaque574[0x7EC - 0x574];
+    char opaque574[0x5CC - 0x574];
+    void *m_5CC;
+    char opaque5D0[0x7A8 - 0x5D0];
+    int m_drawableCaptionColor;
+    char opaque7AC[0x7EC - 0x7AC];
     unsigned int field7EC;
-    char opaque7F0[0x811 - 0x7F0];
+    char opaque7F0[0x7FC - 0x7F0];
+    int m_7FC;
+    int m_800;
+    unsigned int m_804;
+    char opaque808[0x811 - 0x808];
     bool field811;
     char opaque812[0x8B0 - 0x812];
     bool field8B0;
     char opaque8B1[0x8B8 - 0x8B1];
     bool field8B8;
     bool field8B9;
-    char opaque8BA[0x988 - 0x8BA];
+    char opaque8BA[0x8C5 - 0x8BA];
+    unsigned char m_8C5;
+    char opaque8C6[0x978 - 0x8C6];
+    GameWindow *m_idleWorkerWin;
+    int m_97C;
+    char opaque980[0x988 - 0x980];
     unsigned int field988;
-    char opaque98C[0x9CC - 0x98C];
+    char opaque98C[0x9B4 - 0x98C];
+    unsigned char m_9B4;
+    char opaque9B5[0x9CC - 0x9B5];
     void *field9CC;
     char opaque9D0[0x9F0 - 0x9D0];
 };
