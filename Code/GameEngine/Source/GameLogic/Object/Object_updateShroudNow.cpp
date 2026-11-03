@@ -13,11 +13,7 @@
 // this Object wrapper updateShroudNow.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
-class PartitionData
-{
-public:
-	void friend_updateCellsTouched();
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 // The stand-in prefix exists only to put Object's virtual-base pointer at the
 // observed retail offset. It makes no claim about the intervening fields.

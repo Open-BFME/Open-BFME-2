@@ -1,9 +1,5 @@
 // cl: /O1 /MD
-class PartitionData
-{
-public:
-	void makeDirty();
-};
+#include "../../Include/GameLogic/PartitionData.h"
 class PartitionManager
 {
 public:

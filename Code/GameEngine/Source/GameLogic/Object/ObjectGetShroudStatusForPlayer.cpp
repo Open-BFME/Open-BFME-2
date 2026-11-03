@@ -34,11 +34,7 @@ struct ObjectTemplate
 	unsigned char m_kind113;
 };
 
-class PartitionData
-{
-public:
-	ObjectShroudStatus getShroudedStatus(int playerIndex);
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../Include/Common/NameKeyGenerator.h"

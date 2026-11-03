@@ -104,11 +104,7 @@ public:
 	unsigned int m_words[4];
 };
 
-class PartitionData
-{
-public:
-	void makeDirty( void );
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 #include <float.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

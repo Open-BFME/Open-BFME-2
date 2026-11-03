@@ -83,7 +83,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class PartitionData { public: void makeDirty(); };
+#include "../../../Include/GameLogic/PartitionData.h"
 class Rva00625840 { public: void rva00625840(); };
 class Rva009A2350 { public: void init(); };
 

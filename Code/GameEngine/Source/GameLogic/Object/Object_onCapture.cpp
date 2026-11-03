@@ -54,11 +54,7 @@ public:
 };
 }
 
-class PartitionData
-{
-public:
-	void makeDirty();
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 class Rva009A2350
 {

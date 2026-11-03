@@ -31,15 +31,7 @@ class ShroudManagerImpl008FBA40Node;
 class ShroudManagerCell;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
-class PartitionData
-{
-public:
-	void unlink();
-	void makeDirty();
-
-private:
-	friend class ShroudManagerImpl;
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 typedef void (__cdecl *ShroudManagerImpl008FBA40RefreshCallback)(
 	int x, int y, int status);

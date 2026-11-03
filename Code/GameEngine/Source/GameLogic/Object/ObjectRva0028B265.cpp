@@ -56,11 +56,7 @@ class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
 {
 };
 
-class PartitionData
-{
-public:
-	void maybePrepend();
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 class Rva009A2350
 {

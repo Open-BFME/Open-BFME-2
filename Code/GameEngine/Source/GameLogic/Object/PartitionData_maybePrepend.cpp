@@ -9,18 +9,10 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
-class PartitionData
-{
-	PartitionDirtyListOwner *m_owner;
-	char m_pad[0x10];
-	void *m_field14;
-
-public:
-	void maybePrepend();
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 void PartitionData::maybePrepend()
 {
-	if (!m_field14)
+	if (!m_prevDirty)
 		m_owner->prependDirtyModule(this);
 }

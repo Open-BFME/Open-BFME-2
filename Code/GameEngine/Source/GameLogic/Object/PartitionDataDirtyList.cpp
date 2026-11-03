@@ -41,13 +41,7 @@
 /// PartitionData node stand-in local to this TU: only the two dirty-list link
 /// fields this function touches are modeled; other members are unrecovered.
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PartitionManager.h
-class PartitionData
-{
-public:
-	unsigned char		_bfme_unknown0[ 0x14 ];
-	PartitionData**	m_prevDirty;						///< +0x14
-	PartitionData*	m_nextDirty;						///< +0x18
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 //-------------------------------------------------------------------------------------------------
 /// BFME-only container for PartitionData's dirty-modules list (descriptive

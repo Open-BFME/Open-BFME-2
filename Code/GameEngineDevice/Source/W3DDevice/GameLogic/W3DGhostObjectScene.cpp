@@ -493,11 +493,7 @@ enum ObjectShroudStatus
 	OBJECTSHROUD_INVALID
 };
 
-class PartitionData
-{
-public:
-	ObjectShroudStatus getShroudedStatus( Int playerIndex );
-};
+#include "../../../../GameEngine/Include/GameLogic/PartitionData.h"
 
 // The ghost's partition data release reset uses: the rowed address-named
 // 0x0073B220, which releases the data or destroys and frees it.

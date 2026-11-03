@@ -19,19 +19,7 @@ public:
 };
 
 /// PartitionData stand-in: BFME makeDirty() takes no argument.
-class PartitionData
-{
-public:
-	void makeDirty( void );
-
-private:
-	PartitionDirtyListOwner *m_owner;
-	unsigned char _bfme_unknown04[ 0x14 - 0x04 ];
-	PartitionData **m_prevDirty;
-	PartitionData *m_nextDirty;
-	unsigned char _bfme_unknown1c[ 0x118 - 0x1C ];
-	unsigned char m_isDirty;
-};
+#include "../../../Include/GameLogic/PartitionData.h"
 
 // ?makeDirty@PartitionData@@QAEXXZ
 __declspec( noinline ) void PartitionData::makeDirty( void )
