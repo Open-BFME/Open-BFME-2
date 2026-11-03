@@ -37,34 +37,34 @@ public:
 struct Rva001364F7 {
 	RvaNode1364F7 *m_root;
 	unsigned m_count;
-	Rva001364F7Iter rva001364F7(RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c);
+	Rva001364F7Iter rva001364F7(RvaNode1364F7 *left, RvaNode1364F7 *parent, const TreeKey00242F5E *key, RvaNode1364F7 *right);
 	RvaOut13657F *rva0013657F(RvaOut13657F *out, const TreeKey00242F5E *v);
 	Rva001364F7Iter rva00136642(Rva001364F7Iter position, const TreeKey00242F5E &value);
 };
 
-Rva001364F7Iter Rva001364F7::rva001364F7(RvaNode1364F7 *a, RvaNode1364F7 *b, const TreeKey00242F5E *v, RvaNode1364F7 *c)
+Rva001364F7Iter Rva001364F7::rva001364F7(RvaNode1364F7 *left, RvaNode1364F7 *parent, const TreeKey00242F5E *key, RvaNode1364F7 *right)
 {
 	RvaNode1364F7 *node;
-	if (b != m_root && (c != 0 || (a == 0 && v->m_id >= b->_key.m_id))) {
-		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(v);
-		b->_right = node;
+	if (parent != m_root && (right != 0 || (left == 0 && key->m_id >= parent->_key.m_id))) {
+		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(key);
+		parent->_right = node;
 		RvaNode1364F7 *root = m_root;
-		if (b == root->_right)
+		if (parent == root->_right)
 			root->_right = node;
 	} else {
-		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(v);
-		b->_left = node;
+		node = (RvaNode1364F7 *)((Rva001364AC *)this)->rva001364AC(key);
+		parent->_left = node;
 		RvaNode1364F7 *root = m_root;
-		if (b == root) {
+		if (parent == root) {
 			root->_parent = node;
 			m_root->_right = node;
-		} else if (b == root->_left) {
+		} else if (parent == root->_left) {
 			root->_left = node;
 		}
 	}
 	node->_left = 0;
 	node->_right = 0;
-	node->_parent = b;
+	node->_parent = parent;
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node, (_STL::_Rb_tree_node_base *&)m_root->_parent);
 	++m_count;
 	return Rva001364F7Iter(node);

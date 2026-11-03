@@ -20,9 +20,9 @@ struct Rva00503F2CPoint
 	float z;
 };
 
-float __cdecl Rva00503D8EEvaluate(float p0, float p1, float p2, float p3, float t)
+float __cdecl Rva00503D8EEvaluate(float before, float start, float p2, float p3, float t)
 {
-	return ((((p1 * 3.0f - p0 - p2 * 3.0f + p3) * t + (p0 + p0 - p1 * 5.0f + p2 * 4.0f - p3)) * t + (p2 - p0)) * t + (p1 + p1)) * 0.5f;
+	return ((((start * 3.0f - before - p2 * 3.0f + p3) * t + (before + before - start * 5.0f + p2 * 4.0f - p3)) * t + (p2 - before)) * t + (start + start)) * 0.5f;
 }
 
 void __cdecl Rva00503F2CCalc(Rva00503F2CPoint *out, const Rva00503F2CPoint *p0, const Rva00503F2CPoint *p1, const Rva00503F2CPoint *p2, const Rva00503F2CPoint *p3, float t)
