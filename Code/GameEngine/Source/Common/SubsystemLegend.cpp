@@ -90,7 +90,7 @@ private:
 };
 
 // 4-byte element; layout owner stlport_list_create_nodes.cpp.
-class Rva0036CA00Str { char m_pad[4]; public: Rva0036CA00Str(const Rva0036CA00Str &); ~Rva0036CA00Str(); };
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 // 12-byte element; layout owner stlport_list_create_nodes.cpp.
 #include "../../Include/Common/RvaSmartPtr12.h"

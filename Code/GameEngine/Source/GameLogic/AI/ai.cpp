@@ -343,11 +343,7 @@ public:
 	void set(const StringBase<T> &other);
 };
 
-class Rva0036CA00Str
-{
-private:
-	void *m_item;
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
 
 struct Rva0014A470Pod
 {

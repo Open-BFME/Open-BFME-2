@@ -109,12 +109,7 @@ template void _STL::_Construct<BfmeContainerRecord000C0B85,BfmeContainerRecord00
 
 // Shared string member copy at 0xA8C7C retains the pointed reference count.
 // Its nontrivial destructor participates in constructor exception cleanup.
-class Rva0036CA00Str {
-    void *data;
-public:
-    __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &);
-    ~Rva0036CA00Str();
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 struct BfmeRecord001ECAF9{AsciiString a0,a4,a8,aC;Rva0036CA00Str s10;unsigned int w14;_STL::vector<AsciiString> v18;BfmeRecord001ECAF9(const BfmeRecord001ECAF9&other):a0(other.a0),a4(other.a4),a8(other.a8),aC(other.aC),s10(other.s10),w14(other.w14),v18(other.v18){}};template void _STL::_Construct<BfmeRecord001ECAF9,BfmeRecord001ECAF9>(BfmeRecord001ECAF9*,const BfmeRecord001ECAF9&);
 
 struct BfmeRecord001DD3BC{AsciiString a0;Rva0036CA00Str a4;BfmeRecord001DD3BC(const BfmeRecord001DD3BC&other):a0(other.a0),a4(other.a4){}};template void _STL::_Construct<BfmeRecord001DD3BC,BfmeRecord001DD3BC>(BfmeRecord001DD3BC*,const BfmeRecord001DD3BC&);

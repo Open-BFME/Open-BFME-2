@@ -7,12 +7,7 @@
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
-class Rva0036CA00Str {
-public:
-    __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-    ~Rva0036CA00Str();
-    void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 class BfmeFixedStorage002CF0F0 {
 public:

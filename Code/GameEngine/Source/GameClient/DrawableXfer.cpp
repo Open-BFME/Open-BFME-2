@@ -99,15 +99,7 @@ public:
 	OpaqueRefCounted *m_ptr;
 };
 
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str() : item(0) {}
-	Rva0036CA00Str(const Rva0036CA00Str &);
-	~Rva0036CA00Str() { if (item) item->Release_Ref(); }
-	operator const OpaqueRefElement4 &() const { return *reinterpret_cast<const OpaqueRefElement4 *>(this); }
-	OpaqueRefCounted *item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 Rva0036CA00Str Rva00274DD4();
 

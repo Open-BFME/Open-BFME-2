@@ -349,7 +349,7 @@ struct BfmeStringRecord00222E08 {
     BfmeStringRecord00222E08(const BfmeStringRecord00222E08 &source);
 };
 template void _STL::_Construct<BfmeStringRecord00222E08,BfmeStringRecord00222E08>(BfmeStringRecord00222E08*,const BfmeStringRecord00222E08&);
-class Rva0036CA00Str { void *m_item; public: __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &); ~Rva0036CA00Str(); };
+#include "../../Include/Common/Rva0036CA00Str.h"
 class Rva002390CB {
     void *m_00; Rva0036CA00Str m_04;
 public:

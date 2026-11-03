@@ -7,7 +7,7 @@
 #include "../../Include/Common/Rva00041004Lock.h"
 // Same12B queue element as the actual producer/consumer and list provider.
 #include <list>
-class Rva0036CA00Str {public:void *m_item;Rva0036CA00Str();Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str();};
+#include "../../Include/Common/Rva0036CA00Str.h"
 struct TargetNestedHandleData;
 struct TargetNestedHandle {TargetNestedHandleData*item;};
 struct Rva0073EEE0ListValue {Rva0036CA00Str helperManagedPointer;unsigned unknown_04;TargetNestedHandle handle_08;Rva0073EEE0ListValue();Rva0073EEE0ListValue(const Rva0073EEE0ListValue&);~Rva0073EEE0ListValue();};

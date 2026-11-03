@@ -1,10 +1,6 @@
 // cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ob0
 
-class Rva0036CA00Str
-{
-private:
-	void *m_item;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 struct Rva0034FE00Pod
 {

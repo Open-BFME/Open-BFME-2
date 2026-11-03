@@ -3,13 +3,7 @@
 // Copy ctor: Rva0036CA00Str at +0 via rowed 0x000A8C7C then Rva004D964E at +4
 // via rowed 0x004D964E, edi holds src across calls, return-this ret-4.
 // Evidence: chain lane, push-esi-edi plus add-edi-4 shape, caller 0x004D9ADA.
-class Rva0036CA00Str
-{
-private:
-	void *m_item;
-public:
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 class Rva002390CB
 {

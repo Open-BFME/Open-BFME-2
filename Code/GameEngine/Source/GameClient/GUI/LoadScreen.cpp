@@ -260,13 +260,7 @@ private:
 	int m_20;
 };
 
-class Rva0036CA00Str
-{
-	void *m_item;
-public:
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-	~Rva0036CA00Str();
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
 
 class Rva0035615D : public Rva00355D66
 {

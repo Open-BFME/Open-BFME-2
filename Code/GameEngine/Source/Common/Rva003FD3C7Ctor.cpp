@@ -6,12 +6,7 @@
 // handle copy 0x000A8C7C. Without /EHsc: retail carries no unwind state here.
 // Target evidence: bytes and callee relocations of 0x003FD3C7; layout from the rowed
 // dtor Rva003FD3EFDtor.cpp (m_pad04[8], handle at +0x0C).
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str(const Rva0036CA00Str &other);
-	void *m_ref;
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 
 class Xfer;
 class BfmeBaseVNH

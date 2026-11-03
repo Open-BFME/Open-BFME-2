@@ -1,12 +1,7 @@
 // Complete29-byte constructor: pointer field plus atomic-refcounted member.
 // Identity follows the independently decoded A8C7C member operation.
 // cl: /Ob0 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-class Rva0036CA00Str {
-    void *m_item;
-public:
-    __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &other);
-    ~Rva0036CA00Str();
-};
+#include "../../Include/Common/Rva0036CA00Str.h"
 class Rva002390CB {
     void *m_00;
     Rva0036CA00Str m_04;

@@ -181,12 +181,7 @@ struct RGBColor;
 struct RGBAColorReal;
 struct RGBAColorInt;
 class ModuleData;
-class Rva0036CA00Str
-{
-public:
-private:
-	void *m_item;
-};
+#include "../../../Include/Common/Rva0036CA00Str.h"
 class Rva00336C90
 {
 	virtual void handle();
