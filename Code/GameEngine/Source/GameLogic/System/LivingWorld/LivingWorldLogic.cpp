@@ -1,6 +1,6 @@
 // Eva::reportEvaEvent uses the target enum and two nullable position pointers.
 enum EvaEventID { EVA_INVALID = -1 };
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // LivingWorldLogic.cpp -- LivingWorldLogic members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function and
@@ -633,7 +633,7 @@ struct LivingWorldCollectorPlayerView
  char pad38[0x3c4-0x38];
  unsigned char flag3C4;
 };
-class Rva00072FE6 { public: void rva00072FE6(); ~Rva00072FE6(); };
+#include "../../../../Include/Common/Rva00072FE6.h"
 
 struct Parent0057605D;struct Parent00575EEA;
 class Rva004E071D {public:void rva004E071D(Bool);};

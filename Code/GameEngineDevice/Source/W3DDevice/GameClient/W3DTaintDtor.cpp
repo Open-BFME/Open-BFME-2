@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1W3DTaint@@QAE@XZ, retail 0x00073BFE (124 bytes, EH). Destructor of the
 // class W3DTaint.cpp builds (ctor 0x00074136; this unit keeps a
 // destructor-only view of the same members). Target facts: the resource
@@ -28,12 +28,7 @@ public:
 	void rva000728E2();
 };
 
-class Rva00072FE6
-{
-public:
-	~Rva00072FE6();
-	char m_data[12];
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 // The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
 // view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??1Rva004E2382@@QAE@XZ @ 0x004E2941 (74B).
 // Dtor of Rva004E2382 whose ctor is 0x004E2382: frees vector buffer at +0x14
 // via rowed _free 0x00030830 then destroys trivial tree at +8 via rowed
@@ -17,12 +17,7 @@
 
 #include "ascii_string.h"
 
-class Rva00072FE6 {
-public:
-    ~Rva00072FE6();
-private:
-    char m_pad[12];
-};
+#include "../../Include/Common/Rva00072FE6.h"
 
 // The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
 // view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // wb-lead 2.000 callgraph: Pathfinder::SetBridgeStateRepaired at 0x002E7205.
 // Identity evidence: the GeneralsMD AIPathfind.cpp implementation
@@ -6727,11 +6727,7 @@ namespace _STL { template <> void FoldQueueCtor::_M_initialize_map(size_t); }
 typedef _STL::deque<void *> FoldQueue;                                // 0x00423BD8 0x002EE9A0
 typedef _STL::_Deque_base<void *, _STL::allocator<void *> > FoldQueueDtor; // 0x0054FAAC
 
-class Rva00072FE6
-{
-public:
-	~Rva00072FE6();
-};
+#include "../../../Include/Common/Rva00072FE6.h"
 
 namespace _STL {
 template <> FoldQueueDtor::~_Deque_base();

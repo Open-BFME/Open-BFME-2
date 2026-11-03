@@ -74,10 +74,7 @@ extern class PartitionManager *TheShroudManager;
 // ?rva000731AE@Rva000731AE@@QAEXXZ @0x000731AE 70B via tail clear plus three array deletes
 // Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x00066700 0x000668AB 0x0006D668
 // Retail frees +0x18 +0x38 +0x3C via delete[] then zeroes then sets +0x35 to 1 then tail-jmps to clear of embedded map at +0x4C
-struct Rva00072FE6 {
-  void rva00072FE6();
-  unsigned char _pad[0x18];
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 #include <new>
 #include <set>
 #include "../../../../GameEngine/Include/Common/Rva0007DF07.h"

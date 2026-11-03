@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHs /MD /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /O1 /G7 /arch:SSE /EHs /MD /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 extern "C" void _ReadWriteBarrier(void);
@@ -138,7 +138,7 @@ class GameWindowManager {public:
 #undef V
 };
 extern GameWindowManager *TheWindowManager;
-class Rva00072FE6 {public:~Rva00072FE6();};
+#include "../../../Include/Common/Rva00072FE6.h"
 // The selection ids are a set<int>: its constructor is the shared 25-byte
 // STLport empty-set body at 0x000D3A71 (??0Rva002EE9B7@@QAE@XZ, provided by
 // HordeContainCtor.cpp). Declared only, as CastleBehaviorCtor.cpp does: an

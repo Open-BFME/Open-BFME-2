@@ -436,10 +436,7 @@ __forceinline float taintCeil(float value) { return float(ceil(double(value))); 
 // ?rva00073C7A@Rva00073C7A@@QAEXXZ @0x00073C7A 70B via tail clear plus three array deletes
 // Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x000668C3 0x0006D68C 0x00074414
 // Retail frees +0x18 +0x38 +0x3C via delete[] then zeroes then sets +0x35 to 1 then tail-jmps to clear of embedded map at +0x44
-struct Rva00072FE6 {
-  void rva00072FE6();
-  unsigned char _pad[0x18];
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 struct IDirect3DDevice8;
 

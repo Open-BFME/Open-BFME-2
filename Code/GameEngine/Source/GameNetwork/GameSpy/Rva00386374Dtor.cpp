@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??1Rva00386374@@UAE@XZ 0x00386374 344B
 // Evidence: leaf dtor with pin; vtable 0x00C19500 then 0x00C19230; TheGameInfo vs TheGameSpyGame clear then GameSpyInfo::reset 0x385D25 then 20 member dtors descending from +0x162C to +0xC; caller deleting dtor 0x38745D; donor PeerDefs GameSpyInfo reset plus Rva0046A93E member shapes.
@@ -32,10 +32,7 @@ typedef _STL::_Rb_tree<AsciiString, PlayerInfoMapValue, _STL::_Select1st<PlayerI
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, _STL::less<AsciiString>, _STL::allocator<AsciiString> > FactionSetTree;
 
-struct Rva00072FE6
-{
-	~Rva00072FE6();
-};
+#include "../../../Include/Common/Rva00072FE6.h"
 
 // The member is a set<int>: its tree destructor is the rowed 0x000730DE (the
 // view above), and set<int>::~set is the 5-byte thunk 0x00073116 that the
