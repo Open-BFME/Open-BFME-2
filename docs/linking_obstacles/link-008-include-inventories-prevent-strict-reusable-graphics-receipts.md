@@ -2,6 +2,8 @@
 
 **Status: Blocked on complete include inventories. Updated: 2026-10-27.**
 
+- 2026-11-03: [AIStatBase consolidation and AIGameTeam reconciliation scope](../../reverse/attempt_support/aistatbase-consolidation-20261103.md) preserves ordinary previews; the older-index batch audit lacks three strict receipts (first AIGameTeam), so carry this additional cohort and consumers into the next scheduled census.
+
 - **Eva/thread subset repaired (2026-10-29):**
   [explicit native include operands](../../reverse/attempt_support/consumer-include-roots-20261029/readme.md)
   remove the two macro-include ambiguities without changing the resolved

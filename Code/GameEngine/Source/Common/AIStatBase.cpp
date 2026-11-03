@@ -86,7 +86,6 @@ void Rva005962E7::rva005962E7()
 #define COORD3D_VIEW_EXTERN_DTOR
 #include "../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #pragma intrinsic(_ReadWriteBarrier)
-
 // ?Register@AIUnitStats@@QAE_NPAX@Z @0x005962F7 111B.
 // Predicate over holder driven by 0x005960FF bit-test plus base push and
 // element clear with Science vector at plus 0x98 on the Check-false path.
@@ -95,20 +94,14 @@ void Rva005962E7::rva005962E7()
 // vector push_back 0x002E01C6 rowed; callers at 0x004E024A unclaimed;
 // prev 0x005962E7 step next 0x00596366 ctor prove Common owner.
 typedef int Int;
-
 Int __stdcall Rva005960FFGet(void *arg);
-
 bool __cdecl rva004884B7(Object *obj);
-
 enum ScienceType
 {
 	SCIENCE_FIRST = 0
 };
-
 class Object;
-
 class Player;
-
 class Rva003ECA69Element
 {
 public:
@@ -116,30 +109,24 @@ public:
 	class Rva003ECA69Element *rva003ECB52(struct Rva003ECB52Arg *arg);
 	Rva003ECA69Element *rva003ECB94(Rva003ECB52Arg *arg);
 };
-
 struct Rva003ECB52Inner
 {
 	char m_pad[0x51c];
 	float m_value;
 	int m_index;
 };
-
 struct Rva003ECB52Arg
 {
 	void *m_vtbl;
 	Rva003ECB52Inner *m_ptr;
 };
-
 class Rva005C4AD1LeaField
 {
 public:
 	void *get() const;
 };
-
 #include "../GameLogic/Object/object.h"
-
 extern GameLogic *TheGameLogic;
-
 namespace _STL
 {
 // Bind the three vector/find calls to their rowed bodies (push_back
@@ -149,7 +136,6 @@ template <> ObjectID *find(ObjectID *, ObjectID *, const ObjectID &);
 template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
 template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *);
 }
-
 // The canonical vector keeps its three pointers protected; read them through a
 // layout view of the same 12 bytes.
 struct BfmeIdVectorView
@@ -158,7 +144,6 @@ struct BfmeIdVectorView
 	ObjectID *m_finish;
 	ObjectID *m_end;
 };
-
 class Rva0025C061
 {
 public:
@@ -167,11 +152,8 @@ private:
 	int m_unk0;
 	_STL::vector<ScienceType, _STL::allocator<ScienceType> > m_sciences;
 };
-
 struct Rva003ECB52Arg;
-
 class AIStatBase {public:bool removeObject(void*);};
-
 class AIUnitStats : public Rva0025C061
 {
 public:
@@ -182,12 +164,9 @@ public:
   IdVector &ids() { return *(IdVector *)((char *)this + 0x98); }   // +0x98
  public:
 };
-
 #include "../../Include/Common/Overridable.h"
-
 namespace StrategicInGameUI {
 }
-
 // Native 0x005E6B8F..0x005E6BA3, 20B. The +0x14 member runs the
 // complete 81B no-argument helper; the tail uses this-0x0C and the
 // existing 0x005F327A owner through its 0x005F604C retail jump thunk.
@@ -202,12 +181,13 @@ namespace StrategicInGameUI {
 // barrier after the call are codegen carriers that only shape the schedule;
 // the evaluated semantics are the plain write/compare/forward.
 extern "C" void _ReadWriteBarrier(void);
-
 #include "../../Include/Common/RAMFileClass.h"
 
 // tu-skeleton: 0x005960E0 31B ?rva005960E0@AIStatBase@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596095Bits.cpp (not merged yet)
 
 // tu-skeleton: 0x005960FF 76B ?Rva005960FFGet@@YGHPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596095Bits.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AIStatBase.cpp
 
 // ---- from Code/GameEngine/Source/Common/AIStatBase.cpp
 
@@ -296,11 +276,28 @@ void Rva005961D6::rva00596269()
 	}
 }
 
-// tu-skeleton: 0x00596225 68B ??1Rva005961D6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp
 
 // Coord3D: shared header/view; no private copy.
+
+// ---- from Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
+
+// ??1Rva005961D6@@UAE@XZ retail 0x00596225 68B
+// Own vptr C70A4C; the owned buffer at +0x98 is freed when set (EH state 0),
+// then the rowed base dtor ??1Rva0025BFE3@@UAE@XZ 0x0025BFE3. Caller: the
+// slot-0 ??_G 0x005962CB. Names address-derived.
+
+// Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
+// the anchor keeps the noinline body emitted.
+__declspec(noinline) inline Rva005961D6::~Rva005961D6()
+{
+}
+
+// ?bfmeAnchorRva005961D6Dtor absent-from-retail
+void bfmeAnchorRva005961D6Dtor(Rva005961D6 *p)
+{
+	p->Rva005961D6::~Rva005961D6();
+}
 
 // tu-skeleton: 0x00596366 35B ??0AIEconomyStats@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp (not merged yet)
 
@@ -321,7 +318,3 @@ void Rva005961D6::rva00596269()
 // tu-skeleton: 0x00596472 31B ?rva00596472@Rva0025C061@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596095Bits.cpp (not merged yet)
 
 // tu-skeleton: 0x00596491 31B ?UnRegister@AIStatBase@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/Rva00596095Bits.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D2CD 8B $L341 -- matched in Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079D2D5 10B __ehhandler$??1Rva005961D6@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp (not merged yet)
