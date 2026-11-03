@@ -73,10 +73,8 @@ Verification for each unit:
   W3DGhostObjectScene.cpp today. It follows that file's merge.
 
 **Blocked: needs class work rather than body drops.**
-- **Rva0008EF3FProductCtor_Unresolved (35).** The canonical `InGameUI.h` slot names (slot52,
-  slot10_xx, crc, ...) have no definers. Retail table 0x00BC7A88 points those slots at ICF-shared
-  bodies rowed under other names. The fix is either fold rows (`add_match --icf-owner`) or slot
-  renames in the shared header.
+- **Rva0008EF3FProductCtor_Unresolved (35, now 16).** Partly repaired by halilkkaya-rl-o2; see
+  "W3DInGameUI's vtable" below.
 - **EvaMessageVectorAssign.** `??1EvaMessageInfo` is retail 0x003F60C8, rowed as
   `??1BfmeStringRecord00111ACF`. The fix is a placeholder-class rename.
 - **W3DShaderManagerScreenBWFilterInit and Rva000FDCD7Get.** Both need the unowned screen-filter
@@ -88,6 +86,67 @@ Verification for each unit:
   - `loadPostProcess` is the ICF-shared 0x00497805.
   - `crc` has no BFME 2 slot.
   - Fix in the consumer: drop its ZH bodies and keep the `isDieApplicable` row 0x0045D49E emitted.
+
+**W3DInGameUI's vtable (seat halilkkaya-rl-o2, 2026-11-03, base `c3bdb94097`).**
+Rva0008EF3FProductCtor_Unresolved.cpp builds W3DInGameUI, and its constructor emits the vtable
+0x00BC7A88 against the canonical `InGameUI.h`. Retail InGameUI's own table 0x00BFD410 equals it
+except for the overrides. The unit went from 35 unresolved names to 16.
+
+| Commit | Names | How |
+|---|---|---|
+| `7ff7f42ca1`, `061dff9d0a` | 3 | `updateFormationPreview`, `rva0029DB61` and `rva0029FD1B` were rowed non-virtual (`QAE`). `rename.py function --virtual` respelled them. In each private view the method takes its neutral pad slot (slot53, slot54, v80), so later slots keep their index. A plain `--virtual` put the new slot first and shifted the +0x118/+0x12C/+0x144 calls. |
+| `76cadac5d7` | 16 | `InGameUI.h` defines the inline slots and protects the snapshot methods (below). |
+
+The inline-slot evidence for `76cadac5d7`:
+- Right after its constructor, in table order, retail W3DInGameUI's object holds the bodies of
+  slots 20, 21, 51, 63, 64, 71, 76 and 95, and of +0xC slot 2 (0x0008EF81..0x0008EFD2).
+- InGameUI's own tables point at these same copies, so they are inline COMDATs of InGameUI.
+- Slots 52, 70, 72, 102 and 103 point at identical bodies folded elsewhere by ICF.
+- Zero Hour declares six of these inline with the same bodies, and its snapshot methods protected.
+- The `loadPostProcess`/`xfer` rows are `MAE`. +0xC slot 2 is `GetSnapshotName`, which returns
+  "InGameUI".
+- Every emitted COMDAT is byte-equal to its retail copy.
+- The header gate covered 133 dependents (1,557/1,557).
+- link_check over the 132 includer units shows no unit going from LINKS to not linking.
+
+Still open in this unit (16 names):
+- **`??1Rva0008EF3FProduct`.**
+  - `rename.py class --fold Rva008F00D --into Rva0008EF3FProduct --dry-run` plans cleanly: 4 rows
+    and 1 pin across Rva0008F00DDtor.cpp and OpaqueScalarDeletingDtorsB09.cpp.
+  - Both files were held by StarkillerHDX@fleet on 2026-11-03.
+- **13 out-of-line slots, rowed under placeholder classes in Common units.** All lie in the range
+  tu_map approves for InGameUI.cpp. Route: `rename.py function --to-class InGameUI` (`40e5b4c325`),
+  with each definition prepared under the canonical header. Its installer check may stop on
+  InGameUICtor.cpp's six-slot private view. The slots:
+  - slot10_00, slot10_01, slot10_04: 0x0029B558/63/D8 (Rva0029B558, GapBodiesS3B.cpp).
+  - slot10_03: 0x0029B5CD (GapBodiesSeat1A.cpp).
+  - getScrollAmount: 0x0029A872 (VtableSlotBodiesR3F.cpp).
+  - slot49, slot50: 0x0029AA62/0x0029AAC8 (Rva0029AA3F.cpp).
+  - getPendingPlaceSourceObjectID 0x0029A9BB and getMousedOverDrawableID 0x0029A7EA
+    (DispDwordFieldGetters.cpp).
+  - slot65: 0x0029AB03 (DispByteOneSetters.cpp).
+  - slot77: 0x0029C0A9 (VslotSmallBodiesC.cpp).
+  - slot87: 0x0029ACE3, rowed `?bfmeGoBLD@@YGXPAX@Z` in BfmeConv485.cpp, a stdcall free-function
+    spelling of a thiscall slot.
+  - slot89: 0x0029ACFB (GapBodiesS3B.cpp).
+- **slot92.** Its body is the ICF-shared 0x0043812F, `mov eax,[ecx+0x5C8]`. The header's
+  `int slot92()` would return the VideoBuffer pointer: fix the return type before inlining it.
+- **slot96.** 0x0008EFCC returns InGameUI's field-parse table 0x00BFC338, which today exists only
+  as the address-named `g_00BFC338` (INIThinFieldParsers2.cpp).
+
+Bookkeeping that waits for the unit to link:
+- The nine retail copies 0x0008EF81..0x0008EFD2 keep their placeholder rows in VslotSmallBodiesC,
+  DispByteFieldGetters, DispByteFieldSetters, DispDwordFieldGetters and SubsystemNameGetters.
+- A trial repoint of these rows to this unit verified 9/9, but it moves 81 census-linked bytes into
+  a unit that does not link yet. Land it, and fold rows for slots 52/70/72/102/103, with the
+  unit's last fix.
+
+Screen filters (the W3DShaderManagerScreenBWFilterInit and Rva000FDCD7Get entries above):
+- 0x009B5B54.. are statically initialized filter objects: vptr 0x00BCF364/0x00BCF380/0x00BCF440
+  plus zero fields.
+- Defining them emits those vtables, and their slots are rowed under mixed placeholder classes
+  (BfmeThingDF, Rva000FBA0F, Rva000FBA4A, Rva000FC63DFilter, Rva000FDD1C).
+- Prerequisite: `--to-class` those slots into the filter classes before defining the globals.
 
 **SlowDeathBehavior TU merge (2026-11-02).**
 - The native seed (`0f8974c269`) drops the ZH chain, and the seed now links (28 B).
