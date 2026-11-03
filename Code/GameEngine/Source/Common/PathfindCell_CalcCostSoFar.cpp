@@ -5,18 +5,10 @@
 // word+0x12, this byte+0xE flag. Callee Rva002E6C79 returns pointer pair but its
 // row types it as int; declared here as pointer (row types wrong). Evidence:
 // unlocks 4 callers; ret 4 one stack arg plus ecx thiscall; prev 0x0052DC3F.
-struct Rva0052DC97Pt
-{
-	int x;
-	int y;
-	char _08[10];
-	unsigned short m_12;
-};
-
-struct Rva0052DC97Ret
-{
-	Rva0052DC97Pt *m_0;
-};
+// rva002E6C79 returns the parent info's +0x30 dword, the owning PathfindCell
+// (MixFileInfoBuffer::field30), whose info supplies the second point.
+#include "../../Include/Common/MixFileInfoBuffer.h"
+#include "../../Include/GameLogic/PathfindCell.h"
 
 class Rva002E6C79
 {
@@ -25,39 +17,29 @@ public:
 	void *m_ptr;
 };
 
-class PathfindCell
-{
-public:
-	int CalcCostSoFar(const Rva002E6C79 *a);
-private:
-	Rva0052DC97Pt *m_0;
-	char _04[10];
-	unsigned char m_0E;
-};
-
 int PathfindCell::CalcCostSoFar(const Rva002E6C79 *a)
 {
 	if (a == 0)
 		return 0;
-	Rva0052DC97Pt *ap = (Rva0052DC97Pt *)a->m_ptr;
-	Rva0052DC97Pt *tp = m_0;
-	int arg_x = ap->x;
-	int arg_y = ap->y;
-	int dx1 = arg_x - tp->x;
-	int dy1 = arg_y - tp->y;
+	MixFileInfoBuffer *ap = (MixFileInfoBuffer *)a->m_ptr;
+	MixFileInfoBuffer *tp = (MixFileInfoBuffer *)m_info;
+	int arg_x = ap->field00;
+	int arg_y = ap->field04;
+	int dx1 = arg_x - tp->field00;
+	int dy1 = arg_y - tp->field04;
 	int e;
 	if (dx1 != 0 && dy1 != 0)
-		e = (int)ap->m_12 + 14;
+		e = (int)ap->field12 + 14;
 	else
-		e = (int)ap->m_12 + 10;
-	if ((m_0E & 1) != 0)
+		e = (int)ap->field12 + 10;
+	if (getPinched())
 		e += 14;
 	int eb = 0;
 	int rrInt = ((Rva002E6C79 *)a)->rva002E6C79();
-	Rva0052DC97Ret *rr = (Rva0052DC97Ret *)rrInt;
+	PathfindCell *rr = (PathfindCell *)rrInt;
 	if (rr != 0) {
-		int rx = rr->m_0->x;
-		int ry = rr->m_0->y;
+		int rx = ((MixFileInfoBuffer *)rr->m_info)->field00;
+		int ry = ((MixFileInfoBuffer *)rr->m_info)->field04;
 		int dx2 = rx - arg_x;
 		int dy2 = ry - arg_y;
 		if (dx2 != dx1 || dy2 != dy1) {

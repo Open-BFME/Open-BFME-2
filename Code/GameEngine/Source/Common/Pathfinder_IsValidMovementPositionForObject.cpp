@@ -13,14 +13,7 @@ enum PathfindLayerEnum
 	PF_LAYER_0 = 0
 };
 
-class PathfindCell
-{
-public:
-	char _00[4];
-	void *m_04;
-	char _08[4];
-	int m_0C;
-};
+#include "../../Include/GameLogic/PathfindCell.h"
 
 class Object;
 
@@ -74,7 +67,7 @@ bool Pathfinder::IsValidMovementPositionForObject(const Coord3D *pos, int layer,
 		return false;
 	if ((unsigned char)Rva002E6E8AGet(layer) != 0)
 	{
-		if ((((unsigned int)cell->m_0C >> 4) & 0x3F) != (unsigned int)layer)
+		if ((unsigned int)cell->getLayer() != (unsigned int)layer)
 			return false;
 	}
 	Rva002E909FInner *inner = (Rva002E909FInner *)obj->m_04;

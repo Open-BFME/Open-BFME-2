@@ -12,11 +12,8 @@
 
 typedef float Real;
 
-struct Rva0052DC3FPoint
-{
-	int x;
-	int y;
-};
+#include "../../Include/Common/MixFileInfoBuffer.h"
+#include "../../Include/GameLogic/PathfindCell.h"
 
 extern float g_Va00BC2428;
 extern float g_Va00BC26F0;
@@ -33,18 +30,10 @@ static __forceinline long fast_round(Real f)
 	return i;
 }
 
-class PathfindCell
-{
-public:
-	int CalcCostToHierGoal(PathfindCell *goal);
-private:
-	Rva0052DC3FPoint *m_0;
-};
-
 int PathfindCell::CalcCostToHierGoal(PathfindCell *goal)
 {
-	int dx = m_0->x - goal->m_0->x;
-	int dy = m_0->y - goal->m_0->y;
+	int dx = ((MixFileInfoBuffer *)m_info)->field00 - ((MixFileInfoBuffer *)goal->m_info)->field00;
+	int dy = ((MixFileInfoBuffer *)m_info)->field04 - ((MixFileInfoBuffer *)goal->m_info)->field04;
 	int d2 = dy * dy + dx * dx;
 	double f = floor(sqrt((double)d2) * g_Va00BC2428 + g_Va00BC26F0);
 	return fast_round((Real)f);
