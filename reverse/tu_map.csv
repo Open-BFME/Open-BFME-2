@@ -2738,7 +2738,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0004C62D,53,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C662,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp
 0x0004C662,50,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C694,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004C662Factory.cpp
 0x0004C694,50,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C6C6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp
-0x0004C6C6,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C6D4,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp
+0x0004C6C6,14,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C6D4,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp
 0x0004C6D4,53,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C709,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0004C662Factory.cpp
 0x0004C709,58,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C743,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientFactories.cpp
 0x0004C743,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp,approved,C,C=0x0004C5F8..0x0004C755,Code/GameEngine/Source/Common/OpaqueSingleInheritanceDtors.cpp
