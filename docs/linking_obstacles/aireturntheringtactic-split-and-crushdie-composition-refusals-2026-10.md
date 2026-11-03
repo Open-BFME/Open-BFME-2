@@ -22,3 +22,9 @@ shared `Code/GameEngine/Source/Common/Thing/thing.h` view. Prerequisite: reconci
 the donor's `Thing` view to the shared header in its own verified commit first
 (as for any canonical-class view), then merge. The merge was reverted; nothing
 was committed.
+
+Follow-up (2026-11-03): the allocated `AIReturnTheRingTactic.cpp` merge dry run
+now reaches compilation, but rejects its donor because the target view lacks
+`run` and `m_owner`. Reconcile that class view in a separate verified change
+before retrying; session evidence is in
+[`consolidation-seat1-handoff-20261103.md`](../../reverse/attempt_support/consolidation-seat1-handoff-20261103.md).
