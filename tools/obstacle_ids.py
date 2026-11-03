@@ -9,7 +9,9 @@ commits and logs. The newer entry gets a new ID when someone next touches it.
 
 An entry's ID is the LINK-NNN that the heading on its first line starts with. The check
 fails when a change makes more entries head an ID than before and more than one does, so
-the old pairs pass and a third entry on one of them does not.
+the old pairs pass and a third entry on one of them does not. "Before" is the base; a
+base from before the split (a branch whose remote tip predates it) has no entries, so
+origin/master stands in for it there, and without either the check has nothing to judge.
 
   python3 tools/obstacle_ids.py --staged          the index against HEAD (pre-commit)
   python3 tools/obstacle_ids.py --range BASE TIP  TIP's tree against BASE's (pre-push)
@@ -62,6 +64,20 @@ def has(rev):
                           capture_output=True).returncode == 0
 
 
+def split(rev):
+    """Whether rev has the register's entry directory (it was split on 2026-11-03)."""
+    return has(rev) and bool(git("ls-tree", "-d", "--name-only", rev, "--", REGISTER.rstrip("/")).strip())
+
+
+def baseline(base):
+    """{LINK-NNN: how many entries head it} at the base, or at origin/master for a base from before the split;
+    None when neither has the entries."""
+    for rev in (base, "origin/master"):
+        if split(rev):
+            return {i: len(paths) for i, paths in heads(rev).items()}
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     group = parser.add_mutually_exclusive_group(required=True)
@@ -70,10 +86,11 @@ def main():
     args = parser.parse_args()
     base, tip = ("HEAD", None) if args.staged else args.range
     try:
-        before = heads(base) if has(base) else {}
+        before = baseline(base)
+        if before is None:
+            return 0
         after = heads(tip)
-        taken = {i: sorted(paths) for i, paths in after.items()
-                 if len(paths) > max(1, len(before.get(i, ())))}
+        taken = {i: sorted(paths) for i, paths in after.items() if len(paths) > max(1, before.get(i, 0))}
         if not taken:
             return 0
         free = next_free(tip)

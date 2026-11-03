@@ -92,6 +92,31 @@ def test_a_base_before_the_register_split_passes(repo):
     assert repo.check("--range", root, repo.base).returncode == 0
 
 
+def test_old_pairs_on_master_are_not_new_to_a_branch_from_before_the_split(repo):
+    # codex review 03.11.: a branch whose remote tip predates the split takes master's old pairs over.
+    before = repo.git("commit-tree", "-m", "before", "4b825dc642cb6eb9a060e54bf8d69288fbee4904")   # empty tree
+    pair = repo.commit(**{"link-001-twin": "### LINK-001: twin\n"})
+    repo.git("update-ref", "refs/remotes/origin/master", pair)
+    assert repo.check("--range", before, pair).returncode == 0
+    third = repo.commit(**{"link-001-third": "### LINK-001: third\n"})
+    assert repo.check("--range", before, third).returncode == 1
+
+
+def test_the_base_counts_first_and_master_only_stands_in_for_a_base_from_before_the_split(repo):
+    # codex re-check 03.11.: a stale origin/master still holding a pair the base repaired let a new duplicate pass.
+    pair = repo.commit(**{"link-001-twin": "### LINK-001: twin\n"})
+    repo.git("update-ref", "refs/remotes/origin/master", pair)
+    repaired = repo.commit(**{"link-001-twin": "### LINK-009: twin, renumbered\n"})
+    again = repo.commit(**{"link-001-again": "### LINK-001: again\n"})
+    assert repo.check("--range", repaired, again).returncode == 1
+
+
+def test_without_entries_at_the_base_or_on_master_there_is_nothing_to_judge(repo):
+    before = repo.git("commit-tree", "-m", "before", "4b825dc642cb6eb9a060e54bf8d69288fbee4904")   # empty tree
+    pair = repo.commit(**{"link-001-twin": "### LINK-001: twin\n"})
+    assert repo.check("--range", before, pair).returncode == 0                     # no origin/master here
+
+
 def test_both_hooks_run_it():
     assert "python3 tools/obstacle_ids.py --staged" in (HOOKS / "pre-commit").read_text()
     assert 'tools/obstacle_ids.py --range "$base" "$local_sha"' in (HOOKS / "pre-push").read_text()
