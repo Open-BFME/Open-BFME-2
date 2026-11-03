@@ -18,24 +18,7 @@ typedef unsigned char UnsignedByte;
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class TileData : public RefCountClass
-{
-public:
-	TileData();
-	virtual ~TileData();
-	UnsignedByte m_tileData[0x2000];
-	UnsignedByte m_tileDataMip32[0x800];
-	UnsignedByte m_tileDataMip16[0x200];
-	UnsignedByte m_tileDataMip8[0x80];
-	UnsignedByte m_tileDataMip4[0x20];
-	UnsignedByte m_tileDataMip2[0x8];
-	UnsignedByte m_tileDataMip1[0x4];
-	int m_2AB4;
- unsigned char tail[8];
-	bool hasRGBDataForWidth(Int width);
-	UnsignedByte *getRGBDataForWidth(Int width);
-	void updateMips();
-};
+#include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
 #include <string.h>
 struct TBlendTileInfo { int blendNdx; unsigned char horiz,vert,rightDiagonal,leftDiagonal,inverted,longDiagonal; int customBlendEdgeClass; };

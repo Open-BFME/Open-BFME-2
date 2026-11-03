@@ -28,17 +28,7 @@ public:
 
 // ABI view: refcounted 0x2AC0-byte tile whose vtable slot 0 deletes it; the
 // rowed members keep their address-derived names.
-class TileData
-{
-public:
-	TileData();
-	virtual void Delete_This();
-	void rva0011178B(TileData *normalTile);
-	void rva00111A05(const UnsignedByte *data, Int stride);
-	Int m_numRefs;
-private:
-	UnsignedByte m_data[0x2AC0-8];
-};
+#include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
 // Rowed getter of the companion normal-map tile at TileData+0x2AB4.
 class Rva00111784DwordField
@@ -166,7 +156,7 @@ Bool WorldHeightMap::readTiles(InputStream *pStr, InputStream *pNormalStr, TileD
 			TileData *normalTile = new TileData;
 			tiles[i]->rva0011178B(normalTile);
 			if (normalTile) {
-				if (--normalTile->m_numRefs == 0) {
+				if (--normalTile->NumRefs == 0) {
 					normalTile->Delete_This();
 				}
 			}

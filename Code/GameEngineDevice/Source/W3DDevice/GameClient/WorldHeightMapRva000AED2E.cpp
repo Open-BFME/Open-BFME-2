@@ -31,12 +31,7 @@ public:
 	Int get() const;
 };
 
-class TileData
-{
-public:
-	bool hasRGBDataForWidth(Int width);
-	UnsignedByte *getRGBDataForWidth(Int width);
-};
+#include "../../../Include/W3DDevice/GameClient/TileDataClass.h"
 
 class Rva000ABD19
 {
