@@ -594,3 +594,4 @@ AerialPathfinder,Code/GameEngine/Include/GameLogic/AerialPathfinder.h,existing h
 AssetRegistry,Code/GameEngineDevice/Include/W3DDevice/GameClient/AssetRegistry.h,existing header; contract class_contracts/AssetRegistry.json; 7/10 sampled units adopt
 ArmyDetailsMovieClip,Code/GameEngine/Include/GameClient/ArmyDetailsMovieClip.h,existing header; contract class_contracts/ArmyDetailsMovieClip.json; 10/10 sampled units adopt
 HordeContainInterface,Code/GameEngine/Include/GameLogic/Module/HordeContainInterface.h,existing header; contract class_contracts/HordeContainInterface.json; 10/14 sampled units adopt
+GiveUpgradeUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h,existing header; contract class_contracts/GiveUpgradeUpdateModuleData.json; 8/13 sampled units adopt
