@@ -109,20 +109,7 @@ public:
 	virtual Shadow *addDecal(RenderObjClass *robj, Shadow::ShadowTypeInfo *shadowInfo, int bfme2, int bfme3) = 0;
 };
 extern ProjectedShadowManager *TheProjectedShadowManager;
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) Real getShadowSizeX() const { return m_shadowSizeX; }
-	__declspec(dllimport) Real getShadowSizeY() const { return m_shadowSizeY; }
-	__declspec(dllimport) Real getShadowOffsetX() const { return m_shadowOffsetX; }
-	__declspec(dllimport) Real getShadowOffsetY() const { return m_shadowOffsetY; }
-private:
-	unsigned char m_pad00[0x4E8];
-	Real m_shadowSizeX; // +0x4E8
-	Real m_shadowSizeY; // +0x4EC
-	Real m_shadowOffsetX; // +0x4F0
-	Real m_shadowOffsetY; // +0x4F4
-};
+#include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
 class Drawable
 {
 public:

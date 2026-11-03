@@ -138,7 +138,7 @@ public:
     char pad04[0x3c5-4]; unsigned char allow04;
 };
 
-class ThingTemplate { public: unsigned short getTemplateID() const { return templateID; } char pad00[0x5d8]; unsigned short templateID; };
+#include "../../../../Include/Common/ThingTemplate.h"
 
 struct ModelConditionFlags {
  unsigned int words[19];

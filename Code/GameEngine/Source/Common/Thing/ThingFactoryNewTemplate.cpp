@@ -18,22 +18,7 @@
 // /G7 drops the zero-extension before the 16-bit counter load.
 #include "ascii_string.h"
 
-class ThingTemplate
-{
-public:
-	ThingTemplate();
-	ThingTemplate &operator=(const ThingTemplate &that);
-	void setCopiedFromDefault();
-	__declspec(dllimport) __forceinline void friend_setTemplateName(const AsciiString &name) { m_name = name; }
-	__declspec(dllimport) __forceinline void friend_setTemplateID(unsigned short id) { m_templateID = id; }
-
-private:
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x5D8 - 0x68];
-	unsigned short m_templateID; // +0x5D8
-	unsigned char m_pad5DA[0x640 - 0x5DA];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // g_00E01EA8 is only an alias of the owned global g_00E01EA8 (ledger names column); this unit reads the owner through its own view type.
 extern unsigned char g_00E01EA8;
