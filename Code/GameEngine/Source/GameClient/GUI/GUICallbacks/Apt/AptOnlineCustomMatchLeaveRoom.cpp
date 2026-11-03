@@ -141,11 +141,7 @@ public:
 	void rva00516F08();
 };
 
-class AptMpGameSetup
-{
-public:
-	void rva0043DC0F();
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 class CustomMatchScreen
 {

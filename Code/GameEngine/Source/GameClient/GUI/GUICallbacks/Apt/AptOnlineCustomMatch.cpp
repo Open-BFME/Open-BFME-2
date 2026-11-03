@@ -205,7 +205,7 @@ class GameSpyStagingRoom{public:
 };
 #include "../../../../../Include/GameClient/MapMetaData.h"
 class AptMapPreview{public:MapMetaData*rva0057D922(const AsciiString&);};
-class AptMpGameSetup{public:const Image*rva0043E512(int);void rva0043FA68(GameInfo *);};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 #include "../../../../../Include/GameClient/Image.h"
 extern ImageCollection*TheMappedImageCollection;
 static __forceinline bool hasWide(const UnicodeString&name){const unsigned short*p=name.str();int n=name.getLength();for(int i=0;i<n;++i)if(p[i]>=256)return true;return false;}

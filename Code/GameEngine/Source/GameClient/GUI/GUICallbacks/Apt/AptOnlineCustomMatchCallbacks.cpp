@@ -492,15 +492,7 @@ public:
 	unsigned char m_b;
 };
 
-class AptMpGameSetup
-{
-public:
-	void rva0043E5C1(int slot, int kind, int value);
-	void InitGadgets();
-	bool OnHostStartGame(bool host); // rowed 0x00440BDF (WB OnHostStartGame)
-	bool WaitStartGame();		 // rowed 0x0044127C
-	bool OnUpdate();			 // rowed 0x00443EA8
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 // The NAT negotiator at 0x00A063F8 keeps its port negotiation at +0x28.
 struct Elem005DB98E;

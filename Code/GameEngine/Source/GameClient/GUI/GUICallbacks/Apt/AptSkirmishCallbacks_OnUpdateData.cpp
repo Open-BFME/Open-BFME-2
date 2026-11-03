@@ -274,13 +274,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 // expressed through its canonical data-ledger name above.
 void SelectRandomHero();
 
-class AptMpGameSetup
-{
-public:
-	bool OnUpdate();bool OnHostStartGame(bool);
-	int rva00442CB3(unsigned int message, unsigned int data1, unsigned int data2);
-	void rva0044303D();
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 
 

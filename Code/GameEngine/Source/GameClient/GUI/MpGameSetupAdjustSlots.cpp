@@ -78,25 +78,14 @@ public:
 	virtual bool applySlotTeam(GameSlot *slot, int team);
 };
 
-class AptMpGameSetup
-{
-public:
-	void rva0043EDB4();
-	void ChangePlayerSelection(int slot, int value);
-private:
-	unsigned char m_pad000[0x58];
-	MpGameSetupOwner *m_owner;
-	Rva0043DA65 *m_game;
-	unsigned char m_pad060[0x7C - 0x60];
-	int m_mode;
-};
+#include "../../../Include/GameClient/AptMpGameSetup.h"
 
 void AptMpGameSetup::rva0043EDB4()
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
+	GameInfo *game = (GameInfo *)field5c->rva0043DA65();
 	if (!game)
 		return;
-	if (m_mode == 1)
+	if (field7c == 1)
 		return;
 	if (!game->v12())
 		return;
@@ -159,7 +148,7 @@ void AptMpGameSetup::rva0043EDB4()
 			if (slot->isObserver())
 				continue;
 			slot->setPlayerTemplate(-2);
-			m_owner->applySlotPlayerTemplate(slot, -2);
+			field58->applySlotPlayerTemplate(slot, -2);
 			--count;
 		}
 	}
@@ -177,7 +166,7 @@ void AptMpGameSetup::rva0043EDB4()
 			if (!slot->isObserver())
 				continue;
 			slot->setPlayerTemplate(-1);
-			m_owner->applySlotPlayerTemplate(slot, -1);
+			field58->applySlotPlayerTemplate(slot, -1);
 			++count;
 		}
 		for (int i = 0; i < 8; ++i)

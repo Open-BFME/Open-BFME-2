@@ -466,11 +466,7 @@ struct LANView0044446D : public Rva00251C24Slots<54>
 {
 	virtual bool v54();
 };
-class AptMpGameSetup
-{
-public:
-	void rva0043DC0F();
-};
+#include "../../Include/GameClient/AptMpGameSetup.h"
 class Rva0043DFE0
 {
 public:

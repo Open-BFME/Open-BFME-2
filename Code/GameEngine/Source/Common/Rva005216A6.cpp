@@ -5,12 +5,7 @@
 class GameInfo;
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 
-class AptMpGameSetup
-{
-public:
-	bool rva00442C9C();
-	bool Init(GameInfo *game, int value);
-};
+#include "../../Include/GameClient/AptMpGameSetup.h"
 
 class Rva005216A6
 {

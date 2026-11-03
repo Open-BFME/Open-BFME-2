@@ -559,14 +559,7 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 // expressed through its canonical data-ledger name above.
 void SelectRandomHero();
 
-class AptMpGameSetup
-{
-public:
-	bool OnUpdate();bool OnHostStartGame(bool);
-	bool SetSlotHeroData(GameSlot *slot, int heroIndex);
-	int rva00442CB3(unsigned int message, unsigned int data1, unsigned int data2);
-	void rva0044303D();
-};
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 
 // Retail 0x005231B0 (282 bytes), primary AptSkirmish vtable slot 2 at
 // VA 0x00C67918. The target handles profile-list activation (0x4015),
