@@ -330,11 +330,7 @@ class Rva00568C4E
 public:
 	~Rva00568C4E();
 };
-class BfmePoolRef10
-{
-public:
-	~BfmePoolRef10();
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 void Rva0052BFCF(Rva004E1A04 *p);
 
 void Rva0052BFD8(Rva004E366E *p);

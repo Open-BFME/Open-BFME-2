@@ -11,14 +11,7 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 class BfmePoolHolder88;
-class BfmePoolRef10
-{
-public:
-    __forceinline BfmePoolRef10() : m_target(0) {}
-    ~BfmePoolRef10();
-private:
-    BfmePoolHolder88 *m_target;
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 class Rva00690FF0Handle
 {
 public:

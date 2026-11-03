@@ -22,27 +22,12 @@
 #include <new.h>
 #include "OpaqueRefCounted.h"
 typedef long Long;
-struct BfmePoolHolder88
-{
-    unsigned char m_pad[0x88];
-	OpaqueRefCounted m_ref;
-};
+#include "../../../../GameEngine/Include/Common/BfmePoolRef10.h"
 class BfmePoolRef08
 {
 	OpaqueRefCounted *m_target;
 public:
 	__forceinline ~BfmePoolRef08() { if (m_target != 0) m_target->Release_Ref(); }
-};
-class BfmePoolRef10
-{
-    BfmePoolHolder88 *m_target;
-public:
-	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
-    BfmePoolRef10(BfmePoolHolder88 *p);
-    BfmePoolRef10(const BfmePoolRef10 &other);
-    BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
-    void rva000519BD();
-    void rva00053D26(BfmePoolHolder88 *p);
 };
 #include "../../../../GameEngine/Include/Common/OpaqueRefElement4.h"
 class Rva000A8C9B { public: void clear(); };

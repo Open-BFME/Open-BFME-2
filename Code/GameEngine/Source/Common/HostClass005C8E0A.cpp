@@ -32,13 +32,7 @@ struct Base0C
 	int m_04;
 };
 
-class BfmePoolRef10
-{
-public:
-	BfmePoolRef10() : m_ptr(0) {}
-	~BfmePoolRef10();
-	void *m_ptr;
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 // The map<int,void*> destructor otherwise emits this unit's own copy, which is
 // not retail's body; the call links to the kept retail definition.

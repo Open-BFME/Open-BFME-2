@@ -6,11 +6,7 @@
 // 0x00051950); MSVC returns the receiver in eax. The ctor ABI (member-init
 // order plus the eax return) is the identity; the class name stays
 // address-derived.
-class BfmePoolRef10
-{
-public:
-	BfmePoolRef10(const BfmePoolRef10 &other);
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 class Rva000519DF
 {

@@ -19,12 +19,7 @@ struct BfmePoolHolder
 	OpaqueRefCounted m_ref;
 };
 
-class BfmePoolRef10
-{
-public:
-	BfmePoolHolder *m_target;
-	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 class Rva005C8C73
 {

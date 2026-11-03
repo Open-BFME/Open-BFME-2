@@ -5,13 +5,7 @@
 
 #include "../../Include/Common/OpaqueRefElement4.h"
 
-class BfmePoolRef10
-{
-	void *m_target;
-
-public:
-	BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 struct Twelve
 {
