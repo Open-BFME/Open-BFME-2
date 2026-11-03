@@ -33,7 +33,7 @@ public:
 	virtual ~Made002CCB04();
 	virtual bool check(void *a, void *b);
 	void rva0050B479(void *a, Object *b);
-	virtual void rva0050B519(void *a, void *b);
+	virtual void rva0050B519(void *a, void *position);
 private:
 	char m_pad[0x128 - 4];
 	int m_128;
@@ -60,10 +60,10 @@ void Made002CCB04::rva0050B479(void *a, Object *object)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Made002CCB04Rva0050B519.cpp
 
-void Made002CCB04::rva0050B519(void *a, void *b)
+void Made002CCB04::rva0050B519(void *a, void *position)
 {
 	float range = (m_12C > g_Va00BBB8D8) ? m_12C : g_Va00BBB8D8;
-	BfmeWideResult iterator = ThePartitionManager->rva006255D0((const Coord3D *)b, range, 3, 0);
+	BfmeWideResult iterator = ThePartitionManager->rva006255D0((const Coord3D *)position, range, 3, 0);
 	for (void *other = iterator.next(); other; other = iterator.next())
 		rva0050B479(a, (Object *)other);
 }

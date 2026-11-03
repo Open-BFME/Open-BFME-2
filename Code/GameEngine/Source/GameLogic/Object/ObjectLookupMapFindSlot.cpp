@@ -110,17 +110,17 @@ struct MapHolder
 class Rva002ADF9C
 {
 public:
-	void rva002ADF9C(const Player *p, Object *o);
+	void rva002ADF9C(const Player *player, Object *o);
 private:
 	char m_pad00[0x330];
 	MapHolder *m_holder; // +0x330
 };
 
-void Rva002ADF9C::rva002ADF9C(const Player *p, Object *o)
+void Rva002ADF9C::rva002ADF9C(const Player *player, Object *o)
 {
-	if (!p)
+	if (!player)
 		return;
-	int key = p->m_index54;
+	int key = player->m_index54;
 	Object **slot = m_holder->m_map.findSlot(&key);
 	*slot = o;
 }
@@ -137,17 +137,17 @@ private:
 class Rva002ADFC7
 {
 public:
-	void rva002ADFC7(const Team *t, Object *o);
+	void rva002ADFC7(const Team *team, Object *o);
 private:
 	char m_pad00[0x334];
 	MapHolder *m_holder; // +0x334
 };
 
-void Rva002ADFC7::rva002ADFC7(const Team *t, Object *o)
+void Rva002ADFC7::rva002ADFC7(const Team *team, Object *o)
 {
-	if (!t)
+	if (!team)
 		return;
-	int key = t->getTeamKey();
+	int key = team->getTeamKey();
 	Object **slot = m_holder->m_map.findSlot(&key);
 	*slot = o;
 }

@@ -24,7 +24,7 @@ class Object
 {
 public:
 	float rva002637E2(Coord3D const *a, Coord3D const *b) const;
-	float rva0026381B(Coord3D const *b) const;
+	float rva0026381B(Coord3D const *position) const;
 
 private:
 	char m_pad0[0xA8];
@@ -40,7 +40,7 @@ float Object::rva002637E2(Coord3D const *a, Coord3D const *b) const
 // ?rva0026381B@Object@@QBEMPBUCoord3D@@@Z @0x0026381B 16B, directly after
 // rva002637E2: the same measure from the object's own Coord3D at +0x38 to b.
 // Address-named; no referencing site found in this pass.
-float Object::rva0026381B(Coord3D const *b) const
+float Object::rva0026381B(Coord3D const *position) const
 {
-	return rva002637E2((Coord3D const *)((char const *)this + 0x38), b);
+	return rva002637E2((Coord3D const *)((char const *)this + 0x38), position);
 }

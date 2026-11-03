@@ -31,12 +31,12 @@ public:
 
 #include "../../../Include/Common/INI/INI.h"
 
-void q4Notify002CC64B(void *ini, Made002CC64B *m, int c, int d)
+void q4Notify002CC64B(void *ini, Made002CC64B *nugget, int c, int d)
 {
     MultiIniFieldParse m_fieldParse;
     m_fieldParse.add((const FieldParse *)Rva00507552Get(), 0);
     m_fieldParse.add(AttributeModifierFieldTable, 0);
-    ((INI *)ini)->initFromINIMulti(m, m_fieldParse);
+    ((INI *)ini)->initFromINIMulti(nugget, m_fieldParse);
 }
 
 // Retail C64300..C64370 owns six fields and the full null row. The parser

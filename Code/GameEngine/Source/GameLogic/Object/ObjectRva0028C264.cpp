@@ -60,7 +60,7 @@ public:
 class Object
 {
 public:
-	bool rva0028C264(int *out, int n);
+	bool rva0028C264(int *out, int seconds);
 
 private:
 	char m_pad[0x250];
@@ -74,9 +74,9 @@ extern class GameLogic *TheGameLogic;
 
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
-bool Object::rva0028C264(int *out, int n)
+bool Object::rva0028C264(int *out, int seconds)
 {
-	int frames = LogicFramesPerSecond * n;
+	int frames = LogicFramesPerSecond * seconds;
 	Rva0028C264Provider *provider = m_provider250;
 	Rva0028C264Inner *inner;
 	if (provider != 0)

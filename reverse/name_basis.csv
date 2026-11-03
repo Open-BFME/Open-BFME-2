@@ -6945,3 +6945,12 @@ local,Rva0047CAEBOwner::rva0047CAEB::f,Rva0047CAEBOwner::rva0047CAEB::filter,inf
 local,SlaughterHordeContain::rva004631C9::p,SlaughterHordeContain::rva004631C9::pair,inferred,agree:nl-06662476a9b3,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004631C9.cpp,0x004631C9
 local,TransportContain::onContaining::p,TransportContain::onContaining::pair,inferred,agree:nl-6549c5140e1a,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004631C9.cpp,0x00463191
 param,coordSet::d,coordSet::destination,inferred,agree:nl-8631c0847c44-m5d9787668a38ed89aac40c12,Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp,
+param,q4Notify002CC64B::m,q4Notify002CC64B::nugget,inferred,agree:nl-83157853e51d-mfbf7b2659331f9460ab8d98e,Code/GameEngine/Source/GameLogic/Object/Made002CC64BParse.cpp,0x0050893A
+param,q4Notify002CC7DE::m,q4Notify002CC7DE::nugget,inferred,agree:nl-0f90fdf1a7b0-me6f6ad6a307911d236f57edd,Code/GameEngine/Source/GameLogic/Object/Made002CC7DEParse.cpp,0x005095AE
+param,Made002CCB04::rva0050B519::b,Made002CCB04::rva0050B519::position,inferred,agree:nl-f996fc5e417a,Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp,0x0050B519
+param,Rva002ADF9C::rva002ADF9C::p,Rva002ADF9C::rva002ADF9C::player,inferred,agree:nl-376299957bce,Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp,0x002ADF9C
+param,Rva002ADFC7::rva002ADFC7::t,Rva002ADFC7::rva002ADFC7::team,inferred,agree:nl-7364c91dcd99,Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp,0x002ADFC7
+param,ObjectOrderQueue::setPatrolStartOrder::v,ObjectOrderQueue::setPatrolStartOrder::objectId,inferred,agree:nl-c0a0f30d9f7a,Code/GameEngine/Source/GameLogic/Object/ObjectOrderQueue.cpp,0x005481F9
+local,Object::rva0028C1A9::m,Object::rva0028C1A9::behaviorModule,inferred,agree:nl-73baec458091,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp,0x0028C1A9
+param,Object::rva0028C264::n,Object::rva0028C264::seconds,inferred,agree:nl-0177ba51f02e,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C264.cpp,0x0028C264
+param,Object::rva0026381B::b,Object::rva0026381B::position,inferred,agree:nl-2fcfc1b65fba,Code/GameEngine/Source/GameLogic/Object/Object_rva002637E2Worker.cpp,0x0026381B

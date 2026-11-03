@@ -62,7 +62,7 @@ class ObjectOrderQueue
 public:
 	const ArmorTemplate *checkForPatrol(void *a1, const ListHeroPtr *a2);
 	const ArmorTemplate *checkForPatrol(void *a1, const Rva00548800 *a2);
-	void setPatrolStartOrder(ObjectID v, int flags);
+	void setPatrolStartOrder(ObjectID objectId, int flags);
 };
 
 const ArmorTemplate *ObjectOrderQueue::checkForPatrol(void *a1, const ListHeroPtr *listHeroPtr)
@@ -112,12 +112,12 @@ const ArmorTemplate *ObjectOrderQueue::checkForPatrol(void *a1, const Rva0054880
 // keys resolve to, then record v at +0x0C / +0x10 by flags bits 0 / 1.
 // Assigning the find result to a default-constructed iterator is what reads
 // it straight from the returned pointer as retail does.
-void ObjectOrderQueue::setPatrolStartOrder(ObjectID v, int flags)
+void ObjectOrderQueue::setPatrolStartOrder(ObjectID objectId, int flags)
 {
 	typedef _STL::list<ObjectID> ListObj;
 	ListObj &lst = (ListObj &)m_list;
 	ListObj::iterator it;
-	it = _STL::find(lst.begin(), lst.end(), v);
+	it = _STL::find(lst.begin(), lst.end(), objectId);
 	if (it == lst.end())
 		return;
 	for (; it != lst.end(); ++it) {
@@ -127,7 +127,7 @@ void ObjectOrderQueue::setPatrolStartOrder(ObjectID v, int flags)
 		((ArmorTemplate *)armor)->d7(m_00);
 	}
 	if ((flags & 1) != 0)
-		m_0C = v;
+		m_0C = objectId;
 	if ((flags & 2) != 0)
-		m_10 = v;
+		m_10 = objectId;
 }

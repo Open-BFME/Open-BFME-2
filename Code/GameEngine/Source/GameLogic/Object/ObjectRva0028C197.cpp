@@ -123,9 +123,9 @@ void *Object::rva0028C197() const
 
 void *Object::rva0028C1A9() const
 {
-	for (BehaviorModule37 **m = m_modules244; *m; ++m)
+	for (BehaviorModule37 **behaviorModule = m_modules244; *behaviorModule; ++behaviorModule)
 	{
-		void *p = (*m)->slot37();
+		void *p = (*behaviorModule)->slot37();
 		if (p)
 			return p;
 	}
