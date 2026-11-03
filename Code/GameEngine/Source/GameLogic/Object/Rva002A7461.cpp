@@ -6,11 +6,7 @@
 // callees getNthPlayer/isValid/Player::rva002AB2D9 rowed, ThePlayerList global.
 class BfmeTab1026;
 #include "../../../Include/GameLogic/ObjectFilter.h"
-class Player
-{
-public:
-	bool rva002AB2D9(BfmeTab1026 *tab, bool flag) const;
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct Rva002A7461Entry

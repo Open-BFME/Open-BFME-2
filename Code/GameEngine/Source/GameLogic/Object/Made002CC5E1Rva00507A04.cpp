@@ -23,12 +23,7 @@ struct CreateMask
 	unsigned char m_data[0x10];
 };
 
-class Player
-{
-public:
-	unsigned char m_pad000[0x2EC];
-	Team *m_defaultTeam; // +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 

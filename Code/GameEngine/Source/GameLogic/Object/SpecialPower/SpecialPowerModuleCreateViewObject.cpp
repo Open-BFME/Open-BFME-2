@@ -66,14 +66,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 extern class GlobalData *TheWritableGlobalData;
 
-class Player
-{
-public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-private:
-	char m_pad[0x2EC];
-	Team *m_defaultTeam;
-};
+#include "../../../../Include/Common/Player.h"
 
 // 16 bytes of creation params, all zero in this caller; exact type TBD.
 struct CreateMask

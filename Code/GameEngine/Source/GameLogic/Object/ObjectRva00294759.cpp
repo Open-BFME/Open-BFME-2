@@ -38,11 +38,7 @@ enum Relationship
 	ALLIES = 2
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *that) const;
-};
+#include "../../../Include/Common/Player.h"
 
 // Rowed 0x002A7DD0 runs on ThePlayerList and returns its negated
 // local-player query as an int.

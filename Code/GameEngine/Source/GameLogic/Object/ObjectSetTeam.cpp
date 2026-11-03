@@ -65,15 +65,7 @@ public:
 	Bool bfmeAskRV();			// 0x002AA231, Player::isPlayerActive
 };
 
-class Player
-{
-public:
-	void becomingTeamMember(Object *obj, bool yes);	// 0x002AD4EC
-	char m_pad0[0x54];
-	int m_playerIndex;		// +0x54
-	char m_pad58[0x2EC - 0x58];
-	Team *m_defaultTeam;		// +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

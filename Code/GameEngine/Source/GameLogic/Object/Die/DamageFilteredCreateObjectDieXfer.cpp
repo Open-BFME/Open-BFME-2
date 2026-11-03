@@ -59,13 +59,7 @@ private:
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 class ObjectCreationList;
-class Player
-{
-public:
-	unsigned char m_pad00[0x54];
-	Object *rva002AC629();
-	int m_54;			// +0x54
-};
+#include "../../../../Include/Common/Player.h"
 class Object
 {
 public:

@@ -13,7 +13,7 @@
 // relationship argument pushes; original float conversion and return paths
 // retained, including -1 with untouched mask and early inactive count.
 
-class Player{public:char pad[0x54];int index;};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 enum ObjectStatusTypes{STATUS2=2,STATUS38=38};
@@ -45,13 +45,13 @@ float Object::ShroudGetValueRangeAndMask(int type,unsigned *count,unsigned *mask
  switch(type){
  case 0:
   if(testStatus(STATUS2))break;
-  *count=m_template->visionCount;*mask=1U<<getControllingPlayer()->index;return getVisionRange();
+  *count=m_template->visionCount;*mask=1U<<getControllingPlayer()->m_playerIndex;return getVisionRange();
  case 1:
   if(testStatus(STATUS2))break;
-  *count=m_template->revealCount;*mask=1U<<getControllingPlayer()->index;
+  *count=m_template->revealCount;*mask=1U<<getControllingPlayer()->m_playerIndex;
   {float range=m_template->reveal;if(range==-1.0f && !(m_template->kinds[0]&0x80)){*count=(unsigned)body->getHealth();range=m_template->radius;}return range;}
  case 2:
-  if(m_template->kinds[0]&0x80){*count=m_template->specialCount;if(*count>0){int playerIndex=getControllingPlayer()->index;*mask=ThePlayerList->getPlayersWithRelationship(playerIndex,3,false);return m_template->special;}return -1.0f;}
+  if(m_template->kinds[0]&0x80){*count=m_template->specialCount;if(*count>0){int playerIndex=getControllingPlayer()->m_playerIndex;*mask=ThePlayerList->getPlayersWithRelationship(playerIndex,3,false);return m_template->special;}return -1.0f;}
   break;
  }
  *count=0;return -1.0f;

@@ -86,11 +86,7 @@ enum NameKeyType
 
 class ThingTemplate;
 class Team;
-class Player
-{
-public:
-	Relationship getRelationship(const Team *team) const;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 

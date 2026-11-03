@@ -14,7 +14,7 @@
 #include "Coord3D.h"
 class ObjectCreationList;
 enum ScienceType { SCIENCE_INVALID = -1 };
-class Player { public: bool hasScience(ScienceType)const; };
+#include "../../../../Include/Common/Player.h"
 
 struct Rva004C31A8ScienceWord { ScienceType science; unsigned value; };
 struct Rva004C31A8DataWords {

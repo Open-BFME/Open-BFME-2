@@ -20,11 +20,7 @@ public:
 
 #include "ascii_string.h"
 
-class Player
-{
-public:
-	void rva002AE8CF(const AsciiString *name, float bonus, int frames);
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object
 {

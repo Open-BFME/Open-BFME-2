@@ -12,12 +12,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Player
-{
-public:
-	char m_pad[0x5c];
-	int m_field5c;
-};
+#include "../../../Include/Common/Player.h"
 
 class View
 {
@@ -191,7 +186,7 @@ int Rva0049520B::update()
 {
 	Object *obj = *(Object **)((char *)this - 8);
 	Player *player = obj->getControllingPlayer();
-	if (player->m_field5c == 0)
+	if (player->m_playerType == 0)
 		return 1;
 	Other *other = *(Other **)((char *)this - 0xc);
 	int counter = m_counter;

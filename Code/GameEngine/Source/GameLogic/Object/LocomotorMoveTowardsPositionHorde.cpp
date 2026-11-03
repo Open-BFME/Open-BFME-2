@@ -766,11 +766,7 @@ class AI
 }
 ;
 extern AI *TheAI;
-class Player
-{
-public:
-	Relationship getRelationship(const Object *that) const;
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameClient/Eva.h"

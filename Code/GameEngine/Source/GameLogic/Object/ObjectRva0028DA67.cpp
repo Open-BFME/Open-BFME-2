@@ -15,12 +15,7 @@ enum ObjectStatusTypes
 };
 class Player;
 struct Rva002A7588In;
-class Player
-{
-public:
-	void addCommandPoints(Rva002A7588In *in);
-	void removeCommandPoints(Rva002A7588In *in);
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;

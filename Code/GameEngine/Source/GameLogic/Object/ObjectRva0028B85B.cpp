@@ -31,12 +31,7 @@ public:
 	virtual Rva0028B85BResult *slot15();
 };
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 

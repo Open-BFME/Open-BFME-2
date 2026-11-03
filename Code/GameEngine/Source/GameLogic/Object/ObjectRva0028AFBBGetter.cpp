@@ -9,12 +9,7 @@
 // (ObjectSetProducer.cpp /O1 /DNDEBUG /MD); /O1 selects the retail
 // xor-first cmp plus sete shape.
 
-class Player
-{
-public:
-	int m_5C_pad[0x5C / 4];
-	int m_5C; // +0x5C
-};
+#include "../../../Include/Common/Player.h"
 
 #include "object.h"
 
@@ -22,6 +17,6 @@ bool Object::rva0028AFBB() const
 {
 	Player *player = getControllingPlayer();
 	if (player != 0)
-		return player->m_5C == 0;
+		return player->m_playerType == 0;
 	return false;
 }

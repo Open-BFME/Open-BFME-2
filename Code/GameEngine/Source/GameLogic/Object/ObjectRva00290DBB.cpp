@@ -3,12 +3,7 @@
 // Neighbours removeUpgrade and findSpecialPowerModuleInterface; unlocks 0x0039D97E 0x003BD884 0x002AEA9F.
 // Evidence: null-guarded dual Player calls 0x002A9B58 0x002A9B35; +0x250 iface slot 0x118 list; self-recursion on node +8; callers 0x00290E0F 0x002AEBF8 0x0039D9C9 0x003BD8F9.
 struct Rva002A7588In;
-class Player
-{
-public:
-	void removeCommandPoints(Rva002A7588In *p);
-	void addCommandPoints(Rva002A7588In *p);
-};
+#include "../../../Include/Common/Player.h"
 struct Out
 {
 	void *a;

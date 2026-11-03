@@ -21,12 +21,7 @@ struct Rva002A7588In;
 
 // Player::removeCommandPoints / addCommandPoints per WorldBuilder; rowed under
 // a placeholder owner.
-class Player
-{
-public:
-	void removeCommandPoints(Rva002A7588In *obj);		// 0x002A9B58
-	void addCommandPoints(Rva002A7588In *obj);		// 0x002A9B35
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
