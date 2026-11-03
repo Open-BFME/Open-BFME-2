@@ -560,3 +560,4 @@ Rva00355D66,Code/GameEngine/Include/GameClient/Rva00355D66.h,existing header; co
 AptLoadScreen,Code/GameEngine/Include/GameClient/AptLoadScreen.h,existing header; contract class_contracts/AptLoadScreen.json; 4/9 sampled units adopt
 DamageFX,Code/GameEngine/Include/Common/DamageFXClass.h,existing header; contract class_contracts/DamageFX.json; 6/10 sampled units adopt
 EmotionSystem,Code/GameEngine/Include/GameLogic/EmotionSystem.h,existing header; contract class_contracts/EmotionSystem.json; 4/11 sampled units adopt
+ArmyMemberIconMovieClip,Code/GameEngine/Include/GameClient/ArmyMemberIconMovieClip.h,existing header; contract class_contracts/ArmyMemberIconMovieClip.json; 7/11 sampled units adopt
