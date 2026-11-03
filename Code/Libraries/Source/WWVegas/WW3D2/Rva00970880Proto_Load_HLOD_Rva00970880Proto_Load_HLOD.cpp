@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2
+// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // ?Load_HLOD@Rva00970880Proto@@UAEXXZ
 // retail 0x0018012A, 242 bytes. Dedicated TU ported from the Open-BFME-1
@@ -60,15 +60,7 @@ private:
 	char m_opaque[0x24];
 };
 
-class GenBase009EB7D0
-{
-public:
-	virtual ~GenBase009EB7D0();
-	virtual void handle();
-
-private:
-	char m_pad[0x10];
-};
+#include "../WWLib/GenBase009EB7D0.h"
 
 class Rva00970880Proto : public GenBase009EB7D0
 {

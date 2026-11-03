@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0GenBase009EB7D0@@QAE@XZ @ 0x0061ED40 (51B): prototype base constructor.
 // Ported from Open-BFME-1
 // Code/GameEngine/Source/Common/MidVptrOnlyDerivedCtors.cpp
@@ -8,18 +8,7 @@
 // pin-call shape (same-TU definition would let MSVC see the body).
 extern "C" char GenBase009EB7D0_vtbl;
 
-class __declspec(novtable) GenBase009EB7D0
-{
-public:
-	__declspec(noinline) GenBase009EB7D0();
-	virtual void handle();
-
-private:
-	unsigned int m_flags;
-	unsigned int m_zero08;
-	unsigned int m_zero0c;
-	unsigned int m_zero10;
-};
+#include "../WWLib/GenBase009EB7D0.h"
 
 GenBase009EB7D0::GenBase009EB7D0()
 {
