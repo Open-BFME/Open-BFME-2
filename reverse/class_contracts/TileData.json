@@ -1,0 +1,305 @@
+{
+ "bases": [
+  "RefCountClass"
+ ],
+ "bases_by": "zh",
+ "class": "TileData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 7,
+  "inherited": {
+   "base_views": 4,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x2008": {
+    "4": 3
+   },
+   "0x2808": {
+    "4": 2
+   },
+   "0x2a08": {
+    "4": 2
+   },
+   "0x2a88": {
+    "4": 2
+   },
+   "0x2aa8": {
+    "4": 2
+   },
+   "0x2ab4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x2ac0": 3
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x111850"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x111850"
+     ],
+     "value": {
+      "0x0": "0x7cfac0"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7cfac0"
+     ],
+     "value": {
+      "count": 2,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GTileData@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x111867"
+       }
+      ],
+      "table": "0x7cfac0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 5,
+  "retail_vtables": {
+   "0x7cfac0": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GTileData@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "8": 1,
+   "10930": 1,
+   "10936": 2,
+   "10944": 2
+  },
+  "views": 7,
+  "witness_offsets": [],
+  "zh": {
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/TileData.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "zh",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "zh",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "zh",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_tileData",
+   "name_by": "zh",
+   "offset": 8,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 8192,
+   "type": "uchar[8192]",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_tileDataMip32",
+   "name_by": "majority",
+   "offset": 8200,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 2048,
+   "type": "uchar[2048]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_tileDataMip16",
+   "name_by": "majority",
+   "offset": 10248,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 512,
+   "type": "uchar[512]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_tileDataMip8",
+   "name_by": "majority",
+   "offset": 10760,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 128,
+   "type": "uchar[128]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_tileDataMip4",
+   "name_by": "majority",
+   "offset": 10888,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 32,
+   "type": "uchar[32]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_tileDataMip2",
+   "name_by": "majority",
+   "offset": 10920,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 8,
+   "type": "uchar[8]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_tileDataMip1",
+   "name_by": "majority",
+   "offset": 10928,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uchar[4]",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_2AB4",
+   "name_by": "majority",
+   "offset": 10932,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 4
+ },
+ "outliers": [
+  {
+   "offset": 10936,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapAlphaTiles.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "8:A": 1
+   },
+   "class": "TileData"
+  },
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 1,
+    "8": 1,
+    "10930": 1,
+    "10936": 2,
+    "10944": 2
+   },
+   "class": "TileData"
+  }
+ ],
+ "size": 10936,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "Delete_This()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
