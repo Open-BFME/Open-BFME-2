@@ -6,23 +6,7 @@
 // Evidence: calls to 0x51950 copy-ctor, 0x519BD clear, 0x5C87F8 bool,
 // 0x5C8E0A method, Release_Ref at 0x50ED3; caller 0x56A430.
 
-#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-
-struct BfmePoolHolder88
-{
-	unsigned char m_pad[0x88];
-	OpaqueRefCounted m_ref;
-};
-
-class BfmePoolRef10
-{
-public:
-	BfmePoolHolder88 *m_target;
-	__forceinline BfmePoolRef10() : m_target(0) {}
-	BfmePoolRef10(const BfmePoolRef10 &other);
-	void rva000519BD();
-	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 class LargeGroupAudioGridCell
 {

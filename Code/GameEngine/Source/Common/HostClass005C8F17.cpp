@@ -17,12 +17,7 @@ public:
 	OpaqueRefCounted m_ref; // +0x88
 };
 
-class BfmePoolRef10
-{
-public:
-	BfmePoolHolder *m_target;
-	void rva000519BD();
-};
+#include "../../Include/Common/BfmePoolRef10.h"
 
 class LargeGroupAudioGridCell
 {
@@ -60,7 +55,7 @@ private:
 void HostClass005C8E0A::rva005C8F17()
 {
 	if (m_pool08.m_target != 0) {
-		TheAudio->removeAudioEvent(m_pool08.m_target->m_audioHandle0C);
+		TheAudio->removeAudioEvent(((BfmePoolHolder *)m_pool08.m_target)->m_audioHandle0C);
 		m_pool08.rva000519BD();
 		((LargeGroupAudioGridCell *)this)->setOverlappedLocking(false);
 		method_005C8E0A();

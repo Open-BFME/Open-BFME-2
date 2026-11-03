@@ -9,8 +9,8 @@ struct BfmePoolHolder88
 };
 class BfmePoolRef10
 {
-    BfmePoolHolder88 *m_target;
 public:
+    BfmePoolHolder88 *m_target;
 	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
     // ?BfmePoolRef10::BfmePoolRef10 present-unmatched
     __forceinline BfmePoolRef10() : m_target(0) {}
