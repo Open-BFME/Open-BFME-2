@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class W3DFloorDraw
-{
-public:
-	W3DFloorDraw(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x18];
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DFloorDraw.h"
 
 // ?friend_newModuleInstance@W3DFloorDraw@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *W3DFloorDraw::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
