@@ -500,3 +500,4 @@ Rva0038454E,Code/GameEngine/Include/GameNetwork/Rva0038454E.h,existing header; c
 LifeEventModuleInfo,Code/GameEngine/Include/GameClient/LifeEventModuleInfo.h,existing header; contract class_contracts/LifeEventModuleInfo.json; 8/16 sampled units adopt
 ShroudManager,Code/GameEngine/Include/Common/ShroudManagerClass.h,existing header; contract class_contracts/ShroudManager.json; 2/14 sampled units adopt
 Rva003844D7,Code/GameEngine/Include/GameNetwork/Rva003844D7.h,existing header; contract class_contracts/Rva003844D7.json; 1/10 sampled units adopt
+BattlePromptMovieClip,Code/GameEngine/Include/GameClient/BattlePromptMovieClip.h,existing header; contract class_contracts/BattlePromptMovieClip.json; 8/13 sampled units adopt
