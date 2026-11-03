@@ -15,12 +15,7 @@ typedef unsigned short UShort;
 typedef unsigned char Bool;
 #include <new>
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock();
-	~BFMEDX8DeviceLock();
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class DX8IndexBufferClass : public RefCountClass
 {

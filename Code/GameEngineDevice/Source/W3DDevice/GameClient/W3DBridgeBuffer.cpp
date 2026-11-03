@@ -179,12 +179,7 @@ extern void BFME_DX8_Thread_Lock(void);
 
 extern void BFME_DX8_Thread_Assert(void);
 
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+#include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 

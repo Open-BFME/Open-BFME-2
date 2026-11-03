@@ -134,10 +134,7 @@ void BFME_DX8_Thread_Lock();
 void BFME_DX8_Thread_Assert();
 // Native destructor EH cleanup 75F6F6 uses the existing device-lock
 // destructor 42F8C, paired with lock 11F520 and release 120F50.
-struct BFMEDX8DeviceLock {
- BFMEDX8DeviceLock(){BFME_DX8_Thread_Lock();}
- ~BFMEDX8DeviceLock(){BFME_DX8_Thread_Assert();}
-};
+#include "../../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 class WaterSetting;
 extern WaterSetting WaterSettings[];
 struct WaterSettingClearView {
