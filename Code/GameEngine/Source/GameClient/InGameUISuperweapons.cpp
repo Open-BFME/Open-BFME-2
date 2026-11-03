@@ -191,21 +191,32 @@ void _bfme_debugRecordCallsite(int kind);
 
 #include "../../Include/Common/INI/INI.h"
 
-class BfmeStringRecord000B94D2
-{
-public:
-	~BfmeStringRecord000B94D2();
-	char pad[0x34];
-};
+#include "../../Include/Common/BfmeStringRecord000B94D2.h"
 
+// The template's two strings at +0/+4 are destroyed out of line by the
+// two-string record teardown 0x000B6CF1 (the call parseNamedRadiusDecalTemplate
+// makes); the scalar tail +8..+0x30 follows canonical RadiusDecalTemplate.h.
+// The copy the hash_map's node construction needs is implicit: retail's is
+// 0x0029E067, two string copies and the tail.
 class RadiusDecalTemplate : public BfmeStringRecord000B94D2
 {
 public:
 	RadiusDecalTemplate();
-	RadiusDecalTemplate(const RadiusDecalTemplate &other);
 	void rva00330CDD(const RadiusDecalTemplate &other); // the assignment, rowed at 0x00330CDD
 
 	static void parseRadiusDecalTemplate(INI *ini, void *instance, void *store, const void *userData);
+
+	int m_shadowType;
+	float m_minOpacity;
+	float m_maxOpacity;
+	float m_opacityThrobTime;
+	int m_color;
+	bool m_onlyVisibleToOwningPlayer;
+	float m_unmodelled20;
+	float m_unmodelled24;
+	unsigned int m_unmodelled28;
+	float m_unmodelled2C;
+	float m_unmodelled30;
 };
 
 class Overridable
