@@ -9,11 +9,7 @@
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0056AC26Owner;
-class Rva0056AC26
-{
-public:
-	Rva0056AC26(Rva0056AC26Owner *owner);
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 // The retail table at RVA 0x0086D23C: 5 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

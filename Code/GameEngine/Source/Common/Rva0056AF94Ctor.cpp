@@ -5,11 +5,7 @@
 // 0x00C6D19C vftable at +0 and the 0x00C6D160 vftable at +8. Honest
 // address-derived name.
 class Rva0056AC26Owner;
-class Rva0056AC26
-{
-public:
-	Rva0056AC26(Rva0056AC26Owner *owner);
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 // The retail table at RVA 0x0086D19C: 5 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

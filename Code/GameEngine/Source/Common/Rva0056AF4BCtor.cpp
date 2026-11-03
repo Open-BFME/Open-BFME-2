@@ -9,11 +9,7 @@
 
 // 0x0056AD80 is matched as the constructor Rva0056AC26(Rva0056AC26Owner *).
 class Rva0056AC26Owner;
-class Rva0056AC26
-{
-public:
-	Rva0056AC26(Rva0056AC26Owner *owner);
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056AC26@@@")[];
 extern "C" const void *const __identifier("??_7Rva0056ACDF@@6BRva0056ACDF_B1@@@")[];

@@ -59,12 +59,7 @@ private:
 	int m_08;
 };
 
-class Rva0056AC26 : public Rva0056AC26A, public Rva0056AC26B
-{
-public:
-	Rva0056AC26(Rva0056AC26Owner *);
-	virtual ~Rva0056AC26();
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 class Rva0056AD19 : public Rva0056AC26
 {

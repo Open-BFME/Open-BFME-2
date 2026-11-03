@@ -30,17 +30,9 @@ private:
 
 #include "../../Include/Common/Rva0056AC26Base2.h"
 
-class Rva0056AC26 : public Rva0056AC26Base1, public Rva0056AC26Base2
-{
-public:
-	virtual ~Rva0056AC26();
-
-private:
-	UnicodeString m_text;        // +0x0C
-	Rva0056AC26Owner *m_owner;   // +0x10
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 Rva0056AC26::~Rva0056AC26()
 {
-	m_owner->rva003F88A7(this);
+	m_10->rva003F88A7(this);
 }

@@ -40,11 +40,7 @@ private:
 	int m_08;
 };
 
-class Rva0056AC26 : public Rva0056AC26A, public Rva0056AC26B
-{
-public:
-	virtual ~Rva0056AC26();
-};
+#include "../../Include/Common/Rva0056AC26.h"
 
 #include "../../Include/Common/Rva0056B188Second.h"
 
