@@ -403,3 +403,4 @@ ArmySummarySystem,Code/GameEngine/Include/Common/ArmySummarySystem.h,existing he
 PartitionData,Code/GameEngine/Include/GameLogic/PartitionData.h,existing header; contract class_contracts/PartitionData.json; 18/20 sampled units adopt
 SubsystemInterfaceList,Code/GameEngine/Include/Common/SubsystemInterfaceList.h,existing header; contract class_contracts/SubsystemInterfaceList.json; 12/19 sampled units adopt
 VideoPlayer,Code/GameEngine/Include/GameClient/VideoPlayerClass.h,existing header; contract class_contracts/VideoPlayer.json; 15/21 sampled units adopt
+TransportAIUpdateModuleData,Code/GameEngine/Include/GameLogic/Module/TransportAIUpdateModuleData.h,existing header; contract class_contracts/TransportAIUpdateModuleData.json; 16/22 sampled units adopt
