@@ -48,3 +48,27 @@ LINK-018's historical home-point missing-provider preview prerequisite is
 cleared for these two units by the current index and explicit per-unit
 results above. Other classes and inherited COMDAT selection prerequisites
 in that entry remain outside this scope.
+
+## Application handoff
+
+The reconciliation was handed to the fleet publisher as `bea7681e11` (the
+publisher rebased its original local SHA). The subsequent supported merge
+application stopped before composition or writes: shared ICF row 0x0007FAB3
+is held by `codex-01a1071d-root-recovery-oct11` for RespawnUpdate.cpp. The merge
+tool released the other claims it had acquired, including the two file scopes.
+[Application report](merge-attempt.txt). No source file was removed and no
+ledger path moved; source-file reduction and merge link-guard success are not
+claimed. Do not override the other worker's claim.
+
+Next pass: regenerate the name-lane consolidation packet (the publisher's
+rebase changed map/ledger inputs), claim the available merge scope, and rerun
+the normal merge application, byte checks and batch path-consumer audit. The
+pre-rebase scratch dry run accepted the reconciled composition; the current
+application still needs its full link guard. No TU-map regeneration was
+committed. Remaining GameSlot/Waypoint/LivingWorldBattle header debt stays
+registered. Neither source owns a code-identity/data-check baseline key, flag
+override, MS-header queue row or source-local hatch that requires transfer.
+Historical naming approvals, STLport trials and census paths remain attached
+to the existing files. The hook's shadow asBase divergence has the same
+original seed COMDAT fingerprint in reconciliation-objects.json; no identity
+retirement or new census gain is asserted.

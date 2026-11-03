@@ -1,0 +1,8 @@
+tu: Code/GameEngine/Source/Common/AIBaseBuilder.cpp
+approved: 32
+mixed: {}
+refused: {}
+accepted: []
+rejected: {}
+adopt_first: {'Code/GameEngine/Source/Common/AIBaseBuilder.cpp': ['AIBaseBuilder', 'GameInfo', 'GameSlot', 'Rva00506B1B', 'Waypoint'], 'Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp': ['GameSlot', 'LivingWorldBattle', 'Waypoint']}
+blocked: held by another worker: 0x0007FAB3
