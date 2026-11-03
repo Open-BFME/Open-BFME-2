@@ -274,11 +274,7 @@ unsigned char Rva0050B92D::rva0050B92D(const void *arg, Object *target)
 // null-system factory 0x001FCBD7 and re-reads +0x4 (volatile read), as the
 // sibling ParticleSystem::destroy (0x001F462C) does. Class and method names
 // are address-derived; the meaning is not recovered.
-class ParticleSystem
-{
-public:
-	void rva001F9BA4(void *a, void *b);
-};
+#include "../../Include/GameClient/ParticleSystemClass.h"
 
 ParticleSystem *Make001FCBD7(void);
 

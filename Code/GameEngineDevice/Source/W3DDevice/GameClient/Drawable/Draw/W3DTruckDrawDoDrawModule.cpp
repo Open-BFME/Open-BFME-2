@@ -45,7 +45,7 @@ struct AIUpdateInterface { char head[0x140]; BfmeHostFC *path; char gap[0x1f0-0x
 class Object : public Thing { public: bool isKindOf(KindOfType)const; float rva0028AC7D() const; float GetRelativeAngle(const Coord3D*)const; bool isSignificantlyAboveTerrain()const; char head[0x258]; AIUpdateInterface *ai; AIUpdateInterface *getAI() const { return ai; } };
 struct TWheelInfo { float m_frontLeftHeightOffset, m_frontRightHeightOffset, m_rearLeftHeightOffset, m_rearRightHeightOffset, m_wheelAngle; };
 class Drawable { public: const TWheelInfo *getWheelInfoRV() const { return m_locoInfo ? reinterpret_cast<const TWheelInfo *>(reinterpret_cast<const unsigned char *>(m_locoInfo)+0x3c) : 0; } char head[0xfc]; Object *object; char before138[0x3c]; void *m_locoInfo; Object *getObject() const { return object; } };
-class ParticleSystem { public: void stop(); };
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make00001B18();
 struct Rva00781660Handle { ParticleSystem *system; void *previous, *next; operator bool() const { return system != 0; } ParticleSystem *operator->() const { if (!system) return Make00001B18(); return system; } };
 class GlobalData;

@@ -23,13 +23,7 @@ public:
 	int m_pad08;
 };
 
-class ParticleSystem
-{
-public:
-	void destroy();
-	int m_pad00[0xB4 / 4];
-	int m_idB4;
-};
+#include "../../Include/GameClient/ParticleSystemClass.h"
 
 struct Rva001F5BBEArg
 {
@@ -80,7 +74,7 @@ void Rva001F58D4::rva001F5BBE(Rva001F5BBEArg *arg)
 		if (tmp.m_ptr == 0)
 			continue;
 		ParticleSystem *sys = (ParticleSystem *)tmp.m_ptr;
-		if (sys->m_idB4 == arg->m_id74)
+		if (sys->m_attachedToObjectID == arg->m_id74)
 			sys->destroy();
 	} while (cur != (ListNode001F5BBE *)m4c);
 }

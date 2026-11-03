@@ -13,12 +13,7 @@ extern ParticleSystemManager *TheParticleSystemManager;
 #include "../../Include/GameClient/BfmeParticleSystemHandle.h"
 #include "../../Include/Common/RvaSmartPtr12.h"
 
-class ParticleSystem
-{
-public:
-	char m_pad00[0xA8];
-	int m_idA8;
-};
+#include "../../Include/GameClient/ParticleSystemClass.h"
 
 ParticleSystem *Make001FCBD7(void);
 
@@ -58,6 +53,6 @@ void Rva003FC7FC::rva003FC7C7(const RvaSmartPtr12 &src)
 			q = Make001FCBD7();
 		else
 			q = particleSystem;
-		m_id = (ParticleSystemID)q->m_idA8;
+		m_id = (ParticleSystemID)q->m_systemID;
 	}
 }

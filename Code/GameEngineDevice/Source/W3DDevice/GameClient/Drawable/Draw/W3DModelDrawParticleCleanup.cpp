@@ -26,7 +26,7 @@
 // The 12-byte result view preserves the callee ABI and guards intrusive
 // unlink exactly as this caller does; the linker alias uses the existing
 // verified provider rather than defining a second manager function.
-struct ParticleSystem { void destroy(); };
+#include "../../../../../../GameEngine/Include/GameClient/ParticleSystemClass.h"
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
 #include "../../../../../../GameEngine/Include/Common/RvaSmartPtr12.h"

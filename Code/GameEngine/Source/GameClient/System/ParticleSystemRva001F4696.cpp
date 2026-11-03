@@ -79,11 +79,7 @@ struct ParticleView
 	bool flag1A1;
 };
 
-class ParticleSystem
-{
-public:
-	void rva001F4696(void *pos, void *arg, bool m_isIdentity, void *info);
-};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 
 void ParticleSystem::rva001F4696(void *posArg, void *priority, bool m_isIdentity, void *infoArg)
 {

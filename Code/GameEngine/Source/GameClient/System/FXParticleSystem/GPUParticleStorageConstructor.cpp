@@ -27,7 +27,8 @@ namespace _STL {template<> void push_heap<int*,greater<int> >(int*,int*,greater<
 #include <new>
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
 class DX8ThreadLock{public:DX8ThreadLock(){BFME_DX8_Thread_Lock();}~DX8ThreadLock(){BFME_DX8_Thread_Assert();}};
-class ParticleSystem{public:unsigned rva001F3C6B();};ParticleSystem*Make001FCBD7();
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
+ParticleSystem*Make001FCBD7();
 class RvaSmartPtr12{public:ParticleSystem*target;unsigned b,c;ParticleSystem*operator->()const{return target?target:Make001FCBD7();}};
 class Rva003B00D6{public:Rva003B00D6(const RvaSmartPtr12&);virtual ~Rva003B00D6();char data[24];};
 struct BfmeE12{int a[3];};struct Rva003B02F4Entry{float time;int slot;void*node;};

@@ -72,14 +72,7 @@ public:
 	virtual void f4();
 	virtual void f5(Rva001F4C67 *p);
 };
-class ParticleSystem
-{
-public:
-	char m_pad00[0x7c];
-	int m_7c;
-	char m_pad80[0x24];
-	HelperA4 *m_a4;
-};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 extern ParticleSystem *Make001FCBD7();
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;

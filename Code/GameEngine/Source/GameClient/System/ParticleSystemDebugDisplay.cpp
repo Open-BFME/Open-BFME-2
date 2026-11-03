@@ -37,15 +37,7 @@ struct Rva001FA04BParticleModule {
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
  virtual void slot4();virtual void slot5();virtual void slot6();virtual int getCount();
 };
-class ParticleSystem {
-public:
- char pad00[0xa4];Rva001FA04BParticleModule *countA4;
- unsigned padA8;float costAC;
- char padB0[0x198-0xb0];FXParticleSystem::ParticleSystemTemplate *template198;
- FXParticleSystem::ParticleSystemTemplate *getTemplate() const{return template198;}
- int getParticleCount() const{return countA4->getCount();}
- float getCost() const{return costAC;}
-};
+#include "../../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem *Make001FCBD7();
 #include "../../../Include/Common/RvaSmartPtr12.h"
 class Rva0004CCFF {public:void *destroyDelete(unsigned int);};

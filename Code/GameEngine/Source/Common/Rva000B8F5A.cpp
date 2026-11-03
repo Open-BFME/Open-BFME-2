@@ -39,7 +39,7 @@ class ModelConditionFlags {public:bool rva000B3EB3()const;bool test(unsigned bit
 class WeaponTemplateSetHead {public:WeaponTemplateSetHead(const WeaponTemplateSetHead&);void rva000B3ED3(const WeaponTemplateSetHead&);unsigned bits[19];};
 class Rva000B6253 {public:Rva000B6253*rva000B6253(int,unsigned,unsigned,unsigned,unsigned,unsigned);unsigned bits[19];};
 class Rva000B4B23 {public:void*rva000B4B23(const ModelConditionFlags&);};
-class ParticleSystem {public:void destroy();};
+#include "../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem*Make001FCBD7();
 class RvaSmartPtr12 {public:void rva0004CBC0();ParticleSystem*system;void*previous,*next;};
 namespace _STL {struct _Rb_tree_node_base {int color;

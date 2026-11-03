@@ -20,10 +20,7 @@ enum ParticleSystemID {
     INVALID_PARTICLE_SYSTEM_ID = 0
 };
 
-class ParticleSystem {
-public:
-    void destroy();
-};
+#include "../../Include/GameClient/ParticleSystemClass.h"
 
 // 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
 #include "../../Include/Common/RvaSmartPtr12.h"
