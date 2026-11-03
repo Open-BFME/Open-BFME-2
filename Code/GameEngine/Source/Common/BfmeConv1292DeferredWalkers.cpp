@@ -9,7 +9,7 @@
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
 // Unchanged walker bodies isolated from the independent Apt shutdown.
-// Native hash providers and the duplicate teardown identity remain unresolved.
+// Teardown and generic deletion reuse native providers. Three hash bindings remain open.
 
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>
@@ -46,10 +46,9 @@ void *&vector<void*>::operator[](size_t __n)
 }
 
 #include "StringInline.h"
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva004609B0Mapped@@@:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
+// The value-node allocator specialization is defined below after its value type.
 class AsciiString; struct Rva004609B0Mapped;
-namespace _STL { template <> void allocator<_Hashtable_node<pair<AsciiString const ,Rva004609B0Mapped> > >::deallocate(_Hashtable_node<pair<AsciiString const ,Rva004609B0Mapped> > *,unsigned int) const; }
+
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
@@ -89,7 +88,8 @@ typedef _STL::hash_map<AsciiString, Rva00460A70Mapped *, rts::hash<AsciiString>,
 // as these specializations: bucket-index 0x223149 (31B), node release 0x1FD9EF
 // (28B), and iterator bucket advance 0x3F7925 (47B). Retail's key at node+4,
 // bucket vector at table+4, and two-word iterator establish the layout.
-// Declare them externally: the donor header's 22/32/50B definitions differ.
+// The three declaration-only pointer helpers remain pending: their inline call
+// adapters preserve all rows but the frozen-file inventory refuses two of them.
 // The emitted 68B begin, 22B ++, 30B erase wrapper and 80B erase worker are
 // independently exact twins including the native REL32 dependency graph.
 typedef BfmeSJAHash::value_type PointerSJAValue;
@@ -117,6 +117,18 @@ struct Rva004609B0Mapped
 {
 	char m_body[44];
 };
+
+// STLport4.6 _alloc.h358-360: retain its null guard and typed byte count.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<_Hashtable_node<pair<const AsciiString,Rva004609B0Mapped> > >::deallocate(
+    _Hashtable_node<pair<const AsciiString,Rva004609B0Mapped> > *node, size_t count) const
+{
+    if (node)
+        __sgi_alloc::deallocate(node, count * sizeof(*node));
+}
+}
+
 
 typedef _STL::hash_map<AsciiString, Rva004609B0Mapped, rts::hash<AsciiString>,
 	_STL::equal_to<AsciiString> > BfmeSJAValueHash;
@@ -183,10 +195,13 @@ void Rva00411E80(int ownerAddress)
     g_rva00E02FC0Bits &= ~1;
 }
 
-class Rva004FC957Delete
+// Call-only declaration: this qualified call uses the existing native owner.
+// No object layout or virtual dispatch is taken from this declaration.
+class FileClass;
+class W3DFileSystem
 {
 public:
-    void rva004FC957(Rva00460A70Mapped *value) const;
+    virtual void Return_File(FileClass *file);
 };
 
 // Native Ghidra 0x00411336..0x00411395; 95 bytes; cdecl three words.
@@ -207,7 +222,7 @@ void Rva00411336(void *tableStorage, void *owner, char *deletionContext)
             entryToErase = entryIterator++;
             BfmeSJAHash::value_type *erasedEntry = &*entryToErase;
             Rva00460A70Mapped *mappedObject = erasedEntry->second;
-            reinterpret_cast<Rva004FC957Delete *>(deletionContext)->rva004FC957(mappedObject);
+            reinterpret_cast<W3DFileSystem *>(deletionContext)->W3DFileSystem::Return_File(reinterpret_cast<FileClass *>(mappedObject));
             ownerTable->erase(entryToErase);
         }
         else

@@ -1,0 +1,9 @@
+{
+  "inventory_exit_code": 0,
+  "diagnostics": "Code\\GameEngine\\Source\\Common\\BfmeConv1292DeferredWalkers.cpp: PointerSJATable::_M_delete_node\nCode\\GameEngine\\Source\\Common\\BfmeConv1292DeferredWalkers.cpp: PointerSJATable::_M_bkt_num_key\n",
+  "out_of_line_pointer_adapter_definitions": [],
+  "scope": "CLI inventories successfully (exit0); AGENTS frozen-file policy requires remedy/revert when names remain. Existing30rows exact; full preview LINKS298. All3 adapters reverted; check not modified.",
+  "enforced_exit_code": 1,
+  "enforced_diagnostics": "Code\\GameEngine\\Source\\Common\\BfmeConv1292DeferredWalkers.cpp: PointerSJATable::_M_bkt_num_key\nCode\\GameEngine\\Source\\Common\\BfmeConv1292DeferredWalkers.cpp: PointerSJATable::_M_delete_node\n",
+  "enforced_scope": "pre-commit uses --fail; source trial reproduced exit1 under that mode. No full gate was launched for the known-refused trial."
+}
