@@ -119,12 +119,7 @@ public:
     char pad25C[0x284-0x25C];
     unsigned int m_mask[32];
 };
-class ThingTemplate {
-public:
-    bool isEquivalentTo(const ThingTemplate *) const;
-    char pad[0x115];
-    unsigned char m_flags115;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class BfmeD975 { public: char bfmeGo975D(int); };
 class Rva00475F61BaseBitset { public: void merge(const Rva00475F61BaseBitset &); };
 struct Rva00475F61Result { char pad[0x2B4]; bool flag; };
@@ -673,7 +668,7 @@ void Rva00475F61Iface::rva00475F61(_STL::vector<Object *> &out)
         bool used=false;
         const ThingTemplate *tmpl=TheThingFactory->findTemplate(entry->name);
         Object *replacement=0;
-        if(tmpl->m_flags115 & 0x20) {
+        if(tmpl->m_kindof[3] & (1U << 13)) {
             Team *team=getObject()->getControllingPlayer()->getDefaultTeam();
             CreateMask mask;
             memset(&mask,0,sizeof(mask));

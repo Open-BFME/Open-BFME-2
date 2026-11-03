@@ -17,10 +17,7 @@ class Player;
 enum Relationship { ENEMIES,NEUTRAL,ALLIES };
 enum ObjectStatusTypes { STATUS_38=38,STATUS_62=62,STATUS_93=93,STATUS_94=94 };
 enum KindOfType { RVA_KIND_9=9 };
-class ThingTemplate { public:
-    char unknown00[0x108]; unsigned kindOf[7];
-    __forceinline unsigned kindBit(unsigned bit) const { return kindOf[bit>>5]&(1U<<(bit&31)); }
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 template<int N> class Rva00462977Slots:public Rva00462977Slots<N-1> { public: virtual void gap(char (*)[N]); };
 template<> class Rva00462977Slots<0> {};
 template<> class Rva00462977Slots<1> { public: virtual void gap(char (*)[1]); };
@@ -30,7 +27,7 @@ class Object { public:
     bool testStatus(ObjectStatusTypes) const;
     Relationship getRelationship(const Object *) const;
     __forceinline const ThingTemplate *getTemplate() const { return type; }
-    __forceinline unsigned kindBit(unsigned bit) const { return getTemplate()->kindBit(bit); }
+    __forceinline unsigned kindBit(unsigned bit) const { return (getTemplate()->m_kindof[bit>>5]&(1U<<(bit&31))); }
     __forceinline bool condition214() const { return (reinterpret_cast<const unsigned *>(reinterpret_cast<const char *>(this)+0x124)[0]>>22)&1; }
     char unknown00[4]; const ThingTemplate *type;
     char unknown08[0x254-8]; Rva00462977Body *body;

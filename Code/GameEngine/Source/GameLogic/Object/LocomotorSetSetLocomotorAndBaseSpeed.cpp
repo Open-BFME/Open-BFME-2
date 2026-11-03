@@ -57,13 +57,7 @@ template<> void BfmeLocomotorTemplateVector::push_back(const value_type&);
 class AIUpdateModuleData {
 public: char unknown00[8]; BfmeLocomotorSetMap templates;
 };
-class ThingTemplate {
-public: AIUpdateModuleData *friend_getAIModuleInfo();
- const AsciiString& getName() const { return name; }
- void rva0033E17D(LocomotorSetType, const LocomotorTemplate *);
- void Rva0033D396StoreFloat(int, float);
-private: char unknown00[0x64]; AsciiString name;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class LocomotorStore {
 public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 };

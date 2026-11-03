@@ -9,15 +9,7 @@
 // the source has kindOf bit 0x10B:0x02 (and dropped when that producer is
 // gone).
 #include "../../../Common/GameLogicObjectLookupView.h"
-class ThingTemplate
-{
-public:
-	bool testKindOf10BBit1() const { return (m_kindOf[0x10B - 0x108] & 0x02) != 0; }
-	bool testKindOf113Bit2() const { return (m_kindOf[0x113 - 0x108] & 0x04) != 0; }
-private:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x0C];	// +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -54,15 +46,15 @@ void OathbreakerBody::attemptDamage(DamageInfo *damageInfo)
 	Object *source = logic->findObjectByID(damageInfo->m_sourceID);
 	if (source == 0)
 		return;
-	if (source->getTemplate()->testKindOf10BBit1())
+	if (((source->getTemplate()->m_kindof[0] & (1U << 25)) != 0))
 	{
 		Object *producer = logic->findObjectByID(source->getProducerID());
 		if (producer == 0)
 			return;
-		if (!producer->getTemplate()->testKindOf113Bit2())
+		if (!((producer->getTemplate()->m_kindof[2] & (1U << 26)) != 0))
 			return;
 	}
-	else if (!source->getTemplate()->testKindOf113Bit2())
+	else if (!((source->getTemplate()->m_kindof[2] & (1U << 26)) != 0))
 		return;
 	ActiveBody::attemptDamage(damageInfo);
 }

@@ -190,11 +190,7 @@ struct CoordMath
 	}
 };
 
-struct ThingTemplate
-{
-	char m_pad0[0x10D];
-	unsigned char m_kindOf10D;	// +0x10D, bit 0x80 is the GUI-ignored kindof
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -243,7 +239,7 @@ void Object::onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel new
 
 	bool doAnimation = (!hideAnimationForStealth
 		&& newLevel > oldLevel
-		&& !(m_template->m_kindOf10D & 0x80));
+		&& !(m_template->m_kindof[1] & (1U << 15)));
 
 	switch (newLevel)
 	{

@@ -56,14 +56,7 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 }
 
 extern GameLogic *TheGameLogic;
-class ThingTemplate
-{
-public:
-	bool testKindOf10BBit1() const { return (m_kindOf[0x10B - 0x108] & 0x02) != 0; }
-private:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x0C];	// +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 #include "../../../../Include/GameLogic/WeaponStore.h"
 extern WeaponStore *TheWeaponStore;
 template <int N> class Rva004C2095Slots : public Rva004C2095Slots<N - 1>
@@ -142,7 +135,7 @@ void PorcupineFormationBodyModule::rva004C21A9(DamageInfo *damageInfo)
 			if (weapon != 0) {
 				Object *target = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
 				if (target != 0 && !target->test438Bit0() &&
-					!target->getTemplate()->testKindOf10BBit1() &&
+					!((target->getTemplate()->m_kindof[0] & (1U << 25)) != 0) &&
 					this->Rva004C20D5IsWithin(((TerrainRoadType *)weapon)->getRoadWidth(), source->getPosition(), target->getPosition())) {
 					TheWeaponStore->rva002CE964(data->m_reactionWeapon, source, target);
 				}

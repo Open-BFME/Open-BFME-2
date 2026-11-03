@@ -41,11 +41,7 @@ struct TriggerInfo
 	unsigned char m_pad[2];
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x113];
-	unsigned char m_byte113;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
@@ -73,7 +69,7 @@ private:
 
 Bool Object::didEnterOrExit() const
 {
-	if ((m_template->m_byte113 & 2) != 0)
+	if ((m_template->m_kindof[2] & (1U << 25)) != 0)
 		return false;
 	UnsignedInt now = TheGameLogic->getFrame();
 	return (m_enteredOrExitedFrame == now || m_enteredOrExitedFrame == now - 1);

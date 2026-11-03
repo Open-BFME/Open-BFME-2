@@ -32,14 +32,7 @@ private:
 	float m_10; // +0x10
 	unsigned char m_pad14[0x5C - 0x14];
 };
-class ThingTemplate
-{
-public:
-	const AsciiString &rva00290EE0Name() const { return m_64; }
-private:
-	unsigned char m_pad[0x64];
-	AsciiString m_64; // +0x64
-};
+#include "../../../Include/Common/ThingTemplate.h"
 // The object at Object +0x240. Its rowed 0x0028A82A returns the +0x48
 // position by value: hidden result pointer in, the same pointer back in eax,
 // RET 4. The ledger spells it with an explicit output pointer, which is the
@@ -109,7 +102,7 @@ Coord3D Object::rva0028C08D()
 }
 AsciiString Object::rva00290EE0()
 {
-	return getTemplate()->rva00290EE0Name();
+	return (getTemplate()->m_nameString);
 }
 // Retail 0x0028BE93 (77 bytes, non-virtual, RET 4): the +0x240 object's
 // position by value, or a zero position when there is none. The zero value

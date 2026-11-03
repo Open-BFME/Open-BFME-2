@@ -29,15 +29,7 @@ typedef bool Bool;
 
 enum ObjectStatusTypes;
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x10F];
-	unsigned char m_byte10F;
-	unsigned char m_pad110;
-	unsigned char m_byte111;
-	unsigned char m_pad112[0x632 - 0x112];
-	unsigned char m_byte632;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class InGameUIRet
 {
@@ -84,21 +76,21 @@ private:
 Bool Object::isSelectable() const
 {
 	ThingTemplate *thingTemplate = m_template;
-	if ((thingTemplate->m_byte10F & 4) != 0)
+	if ((thingTemplate->m_kindof[1] & (1U << 26)) != 0)
 		return true;
 	Bool b = testStatus((ObjectStatusTypes)3);
 	if (b)
 		return false;
-	if (thingTemplate->m_byte632 == b)
+	if (thingTemplate->m_keepSelectableWhenDead == b)
 	{
 		if ((m_priv438 & 1) != 0)
 			return false;
 	}
-	if ((thingTemplate->m_byte111 & 2) != 0)
+	if ((thingTemplate->m_kindof[2] & (1U << 9)) != 0)
 		return false;
 	Bool sel = m_isSelectable;
 	InGameUIRet *inGameUIRet = TheInGameUI->slot48();
-	if (inGameUIRet != 0 && inGameUIRet->m_field14 == 0x18 && (m_template->m_byte10F & 0x10) != 0)
+	if (inGameUIRet != 0 && inGameUIRet->m_field14 == 0x18 && (m_template->m_kindof[1] & (1U << 28)) != 0)
 		sel = true;
 	return sel;
 }

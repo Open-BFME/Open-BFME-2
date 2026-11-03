@@ -80,14 +80,7 @@ enum KindOfType
 
 class Locomotor;
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	char m_pad00[0x108];
-	unsigned char m_kindof[32]; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class AIUpdateInterface;
 
@@ -149,7 +142,7 @@ class Thing
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return ((getTemplate()->m_kindof[t >> 5] & (1U << (t & 31))) != 0); }
 	Bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const;
 	const Coord3D *getPosition() const { return &m_pos; }
 	const Matrix3D *getTransformMatrix() const { return &m_transform; }

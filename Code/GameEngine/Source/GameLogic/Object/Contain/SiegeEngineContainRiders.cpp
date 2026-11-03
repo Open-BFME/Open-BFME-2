@@ -69,14 +69,7 @@ public:
 private:
 	unsigned int m_words[20];
 };
-class ThingTemplate
-{
-public:
-	__forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf.test(t); }
-private:
-	unsigned char m_pad[0x10C];
-	Rva0010CBits m_kindOf; // +0x10C
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 template <int N> class AISlots : public AISlots<N - 1>
 {
 public:

@@ -79,12 +79,7 @@ class ThingTemplate;
 
 extern class ThingFactory *TheThingFactory;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x64];
-	AsciiString m_name;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class BehaviorModuleBase
 {
@@ -198,7 +193,7 @@ void SpawnBehavior::xfer(Xfer *xfer)
 		*xfer == m_initialBurstCountdown;
 	}
 	AsciiString tmp;
-	tmp = m_spawnTemplate != NULL ? m_spawnTemplate->m_name : AsciiString::TheEmptyString;
+	tmp = m_spawnTemplate != NULL ? m_spawnTemplate->m_nameString : AsciiString::TheEmptyString;
 	*xfer == tmp;
 	if (xfer->IsLoading()) {
 		m_spawnTemplate = NULL;

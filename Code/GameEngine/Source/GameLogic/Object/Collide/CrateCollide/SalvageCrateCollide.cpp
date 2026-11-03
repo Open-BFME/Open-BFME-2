@@ -171,12 +171,7 @@ public:
 
 #include "../../../../../Include/GameLogic/ExperienceTracker.h"
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x108];
-	unsigned m_kindOf;		// +0x108 (bit 2 tested)
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 #include "../../object.h"
 
@@ -321,7 +316,7 @@ void SalvageCrateCollide::rva004BD2D0(BfmeWideResult *hits)
 bool SalvageCrateCollide::isValidToExecute(const Object *other) const
 {
 	if (CrateCollide::isValidToExecute(other) && other->m_ai != 0
-			&& !(other->m_template->m_kindOf & 4))
+			&& !(other->m_template->m_kindof[0] & 4))
 		return true;
 	return false;
 }

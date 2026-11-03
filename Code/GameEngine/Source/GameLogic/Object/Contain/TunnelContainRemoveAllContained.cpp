@@ -30,12 +30,7 @@ typedef void (*ContainIterateFunc)( Object *obj, void *userData );
 
 #include "../../../../Include/GameLogic/Module/ContainModule.h"
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x115];
-	unsigned char m_kindOf115;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../object.h"
 
@@ -137,7 +132,7 @@ void TunnelContain::removeAllContained( int exposeStealthUnits )
 	{
 		Object *obj = (Object *)containmentFirstWord(*it);
 		++it;
-		if (obj->m_template->m_kindOf115 & 0x20)
+		if (obj->m_template->m_kindof[3] & (1U << 13))
 			obj->getContain()->iterateContained( Rva0047DAEARemoveVisit, this, true );
 		removeFromContain( obj, exposeStealthUnits );
 	}

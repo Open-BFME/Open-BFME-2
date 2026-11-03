@@ -57,18 +57,7 @@ struct ObjectStatusBits
 	__forceinline void clear(int bit) { m_bits[bit >> 5] &= ~(1u << (bit & 31)); }
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline unsigned int isKindOf(int bit) const { return m_kindOf[bit >> 5] & (1u << (bit & 31)); }
-
-	char pad000[0x108];
-	unsigned int m_kindOf[7];	// +0x108
-	char pad124[0x574 - 0x124];
-	int m_evaOwnUnitLost;	// +0x574
-	int m_evaAllyUnitLost;	// +0x578
-	int m_evaEnemyUnitLost;	// +0x57C
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class DieModuleInterface
 {
@@ -299,7 +288,7 @@ void Object::onDie(DamageInfo *damageInfo)
 		((Rva001E42F2 *)this)->rva001E42F2((const int *)Rva0028F59A(0, 0x45).m_bits);
 	}
 
-	if (getTemplate()->isKindOf(190))
+	if ((getTemplate()->m_kindof[190 >> 5] & (1u << (190 & 31))))
 		TheCreateAHeroManager->UnbindHeroFromObjectAndUpdate(this);
 
 	bool selfInflicted = (damageInfo->m_sourceID == getID());
@@ -327,7 +316,7 @@ void Object::onDie(DamageInfo *damageInfo)
 	{
 		container->m_contain->removeFromContain(this, false);
 		clearStatusBit(88);
-		if (getTemplate()->isKindOf(55))
+		if ((getTemplate()->m_kindof[55 >> 5] & (1u << (55 & 31))))
 			container->kill((DamageType)8, (DeathType)0);
 	}
 
@@ -347,7 +336,7 @@ void Object::onDie(DamageInfo *damageInfo)
 	DelayedLuaEventList events;
 	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(1, this, (BfmeDelayedLuaEventList *)&events);
 
-	if (getTemplate()->isKindOf(144) || getTemplate()->isKindOf(90))
+	if ((getTemplate()->m_kindof[144 >> 5] & (1u << (144 & 31))) || (getTemplate()->m_kindof[90 >> 5] & (1u << (90 & 31))))
 		((Rva0042638E *)TheEmotionSystem)->rva0042638E((const SearchArg0042638E *)this);
 
 	if (m_team)
@@ -362,11 +351,11 @@ void Object::onDie(DamageInfo *damageInfo)
 			Player *controlling = getControllingPlayer();
 			Player *local = ThePlayerList->m_local;
 			if (controlling == local)
-				evaEvent = thingTemplate->m_evaOwnUnitLost;
+				evaEvent = thingTemplate->m_evaEventDieOwner;
 			else if (local && local->getRelationship(m_team) == REL_ALLIES)
-				evaEvent = thingTemplate->m_evaAllyUnitLost;
+				evaEvent = thingTemplate->m_evaEventDieAlly;
 			else
-				evaEvent = thingTemplate->m_evaEnemyUnitLost;
+				evaEvent = thingTemplate->m_evaEventDieEnemy;
 			if (evaEvent != -1)
 				TheEva->reportEvaEvent((EvaEventID)evaEvent, getPosition(), 0);
 		}
@@ -375,10 +364,10 @@ void Object::onDie(DamageInfo *damageInfo)
 	int playerIndex = getControllingPlayer()->m_playerIndex;
 	TheInGameUI->removeIdleWorker(this, playerIndex);
 
-	if (getTemplate()->isKindOf(8))
+	if ((getTemplate()->m_kindof[8 >> 5] & (1u << (8 & 31))))
 	{
 		Object *killer = TheGameLogic->findObjectByID(damageInfo->m_sourceID);
-		if (killer && killer->getTemplate()->isKindOf(165))
+		if (killer && (killer->getTemplate()->m_kindof[165 >> 5] & (1u << (165 & 31))))
 			setStatus((ObjectStatusTypes)0x47, true);
 	}
 

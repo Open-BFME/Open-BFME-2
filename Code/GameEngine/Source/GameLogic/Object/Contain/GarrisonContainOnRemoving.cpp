@@ -133,17 +133,7 @@ public:
     virtual Rva0046247DPair &slot108(Rva0046247DPair &p);
 };
 
-class ThingTemplate
-{
-public:
-    __forceinline bool isKindOf(int t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
-    unsigned int getOcclusionDelay() const { return m_occlusionDelay; }
-private:
-    unsigned char m_pad00[0x108];
-    unsigned char m_kindof[32]; // +0x108
-    unsigned char m_pad128[0x554 - 0x128];
-    unsigned int m_occlusionDelay; // +0x554
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
@@ -340,7 +330,7 @@ void GarrisonContain::onRemoving(Object *obj)
         m_hideGarrisonedStateFromNonallies = false;
     }
 
-    obj->setSafeOcclusionFrame(TheGameLogic->getFrame() + obj->getTemplate()->getOcclusionDelay());
+    obj->setSafeOcclusionFrame(TheGameLogic->getFrame() + (obj->getTemplate()->m_occlusionDelay));
 
     recalcApparentControllingPlayer();
 
@@ -372,7 +362,7 @@ void GarrisonContain::onRemoving(Object *obj)
                 force.z = dir.z;
                 ((Rva003909FAObj *)physics)->consume(&force, 0, 0);
             }
-            if (obj->getTemplate()->isKindOf(90))
+            if (((obj->getTemplate()->m_kindof[2] & (1U << 26)) != 0))
             {
                 DamageInfo info;
                 info.m_damageType = DAMAGE_UNRESISTABLE;

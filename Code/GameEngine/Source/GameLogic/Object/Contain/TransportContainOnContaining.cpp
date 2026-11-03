@@ -88,13 +88,7 @@ public:
 	UnsignedInt m_bits[4];
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(int k) const { return m_kindOf[k >> 5] & (1 << (k & 0x1f)); }
-	unsigned char m_unmodelled000[0x108];
-	UnsignedInt m_kindOf[4];							///< +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../Include/GameClient/Drawable.h"
 
@@ -110,7 +104,7 @@ public:
 	void *rva0028C197() const;
 
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline UnsignedInt isKindOf(int k) const { return getTemplate()->isKindOf(k); }
+	__forceinline UnsignedInt isKindOf(int k) const { return (getTemplate()->m_kindof[k >> 5] & (1 << (k & 0x1f))); }
 	const Coord3D *getPosition() const { return &m_pos; }
 	__forceinline void setModelConditionState(int a)
 	{

@@ -53,14 +53,7 @@ public:
 	virtual Rva004BC3CFHordeRecord *slot31(); // +0x7C
 };
 
-class ThingTemplate
-{
-public:
-	unsigned int testKindOf(int k) const { return m_kindOf[k >> 5] & (1U << (k & 31)); }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned int m_kindOf[8];                 // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -142,7 +135,7 @@ void HordeMemberCollide::onCollide(Object *other, const Coord3D *, const Coord3D
 		target = other->getContainedBy();
 	if (!target)
 		return;
-	if (!target->getTemplate()->testKindOf(109))
+	if (!(target->getTemplate()->m_kindof[3] & (1U << (109 & 31))))
 		return;
 	if (me->getRelationship(target) != ALLIES)
 		return;

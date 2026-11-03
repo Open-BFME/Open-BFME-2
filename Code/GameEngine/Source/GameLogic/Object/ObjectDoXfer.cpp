@@ -134,14 +134,7 @@ public:
 	unsigned int m_bits[32];
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x64];
-	AsciiString m_name;            // +0x64
-	char m_pad068[0x10F - 0x68];
-	unsigned char m_kindOfByte10F;  // +0x10F
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -495,7 +488,7 @@ void Object::xfer(Xfer *xfer)
 
 	bool notLightCRC = !xfer->IsLightCRC();
 
-	AsciiString templateName = m_template->m_name;
+	AsciiString templateName = m_template->m_nameString;
 	*xfer == templateName;
 
 	ObjectID id = m_id;
@@ -846,7 +839,7 @@ void Object::xfer(Xfer *xfer)
 	if (version.m_minimum >= 13)
 		*xfer == m_field1C4;
 
-	if (xfer->IsLoading() && (m_template->m_kindOfByte10F & 0x10))
+	if (xfer->IsLoading() && (m_template->m_kindof[1] & (1U << 28)))
 	{
 		if (!(m_privateStatus & 1) || (m_body && m_body->s8() == 0))
 			TheAI->pathfinder()->AddObjectToPathfindMap(this);

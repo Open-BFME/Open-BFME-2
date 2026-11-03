@@ -87,14 +87,7 @@ enum ObjectID
 {
 	INVALID_ID = 0
 };
-class ThingTemplate
-{
-public:
-	bool testKindOf115Bit5() const { return (m_kindOf115 & 0x20) != 0; }
-private:
-	unsigned char m_pad000[0x115];
-	unsigned char m_kindOf115;	// +0x115
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -129,7 +122,7 @@ public:
 void ProductionQueueHordeContain::rva00479B7F(Object *obj)
 {
 	HordeGarrisonContain::rva00479B7F(obj);
-	if (!obj->m_template->testKindOf115Bit5() || obj->m_250->rvaSlot31()->rvaSlot61())
+	if (!((obj->m_template->m_kindof[3] & (1U << 13)) != 0) || obj->m_250->rvaSlot31()->rvaSlot61())
 		CreateTemplate(obj->m_id, obj);
 }
 void ProductionQueueHordeContain::rva00479ADA(Object *obj)
