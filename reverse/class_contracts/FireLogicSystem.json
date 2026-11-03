@@ -1,0 +1,475 @@
+{
+ "bases": [
+  "SubsystemInterface",
+  "Snapshot"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "FireLogicSystem",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 28,
+  "inherited": {
+   "base_views": 5,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x70": {
+    "4": 11
+   },
+   "0x74": {
+    "4": 6
+   },
+   "0x78": {
+    "4": 11
+   },
+   "0x7c": {
+    "4": 10
+   },
+   "0x80": {
+    "4": 1
+   },
+   "0x84": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xa0": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x286ec8"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "SubsystemInterface",
+       "offset": 0,
+       "own_vftable": "0x7fb7bc",
+       "rule": "retail-ctor-call"
+      },
+      {
+       "kind": "target",
+       "name": "Snapshot",
+       "offset": 12,
+       "own_vftable": "0x7fb7ac",
+       "rule": "retail-inlined-base-vptr"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x286ec8"
+     ],
+     "value": 160
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x286ec8"
+     ],
+     "value": {
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x286ec8"
+     ],
+     "value": {
+      "0x84": [
+       "??0?$map@JVLadderPref@@U?$less@J@_STL@@V?$allocator@U?$pair@$$CBJVLadderPref@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x286ec8"
+     ],
+     "value": {
+      "0x0": "0x7fb7bc",
+      "0xc": "0x7fb7ac"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fb7bc"
+     ],
+     "value": {
+      "count": 14,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GFireLogicSystem@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x287c05"
+       },
+       {
+        "name": "?init@FireLogicSystem@@UAEXXZ",
+        "slot": 1,
+        "target": "0x28576d"
+       },
+       {
+        "name": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+        "slot": 2,
+        "target": "0x1b5384"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 3,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 4,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "?IsCRC@Xfer@@UBE_NXZ",
+        "slot": 5,
+        "target": "0x47a699"
+       },
+       {
+        "name": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+        "slot": 6,
+        "target": "0xd43d0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 7,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 8,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?reset@FireLogicSystem@@UAEXXZ",
+        "slot": 9,
+        "target": "0x287010"
+       },
+       {
+        "name": "?update@FireLogicSystem@@UAEXXZ",
+        "slot": 10,
+        "target": "0x287fad"
+       },
+       {
+        "name": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+        "slot": 11,
+        "target": "0x5cb9ff"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 12,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 13,
+        "target": "0x47a69c"
+       }
+      ],
+      "table": "0x7fb7bc"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 18,
+  "retail_vtables": {
+   "0x7fb7ac": {
+    "offset": 12,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7fb7bc": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GFireLogicSystem@@UAEPAXI@Z",
+     "1": "?init@FireLogicSystem@@UAEXXZ",
+     "2": "?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ",
+     "3": "??1Region2D@@QAE@XZ",
+     "4": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "5": "?IsCRC@Xfer@@UBE_NXZ",
+     "6": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+     "7": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "8": "??1Region2D@@QAE@XZ",
+     "9": "?reset@FireLogicSystem@@UAEXXZ",
+     "10": "?update@FireLogicSystem@@UAEXXZ",
+     "11": "?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z",
+     "12": "??1Region2D@@QAE@XZ",
+     "13": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 17,
+   "4": 2,
+   "16": 1,
+   "128": 1,
+   "160": 6
+  },
+  "views": 27,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 9,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispDwordImmSettersAddr.cpp",
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00285DC5Paint.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00285DC5Paint.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00285DC5Paint.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 5
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/Common/DispDwordImmSettersAddr.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystem.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemCtorDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp",
+    "Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp"
+   ],
+   "views": 5
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base-slots",
+   "candidates": {
+    "1": 2,
+    "14": 3
+   },
+   "class": "FireLogicSystem"
+  }
+ ],
+ "size": 160,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "update()"
+  }
+ }
+}
