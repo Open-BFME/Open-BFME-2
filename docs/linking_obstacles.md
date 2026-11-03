@@ -110,6 +110,11 @@ definitions; normal 81-row/two-data checks and owning acceptance pass. One more
 header queue row retires, leaving three seed header prerequisites. The header
 and all other consumers remain unchanged.
 
+PathfindCell now adopts its registered header with only the obstacle method's
+own flags reference mapped to m_0C; its separate Info view stays. Current-main
+verification retains 81 function rows and two data rows, and owning acceptance
+retires one more header entry. Two seed header prerequisites remain.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

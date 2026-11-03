@@ -738,16 +738,7 @@ private:
 
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 
-class PathfindCell
-{
-public:
-	bool IsObstaclePresent(ObjectID id) const;
-
-private:
-	PathfindCellInfo *m_info;	// +0x00
-	char m_pad04[8];
-	unsigned int m_flags;		// +0x0C, type in the low four bits
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 
 class Rva0052DA63
 {
@@ -1469,7 +1460,7 @@ public:
 
 bool PathfindCell::IsObstaclePresent(ObjectID id) const
 {
-	if (id != INVALID_ID && (m_flags & 0xF) == 4)
+	if (id != INVALID_ID && (m_0C & 0xF) == 4)
 		return m_info != 0 && m_info->m_obstacleID == id;
 	return false;
 }
