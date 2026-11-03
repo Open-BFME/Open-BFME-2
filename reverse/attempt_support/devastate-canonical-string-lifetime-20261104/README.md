@@ -1,0 +1,9 @@
+# Devastate canonical string lifetime alignment, 2026-11-04
+
+The module-data destructor uses the same existing four-byte AsciiString member as its verified constructor, at8C. Include the owning ascii_string.h directly and remove the obsolete public-StringBase-dtor access switch. Keep the remaining fields, canonical SpecialPowerModuleData base and existing novtable contract unchanged. No shared header, flag, row, name, pin, alias or hatch is added.
+
+The complete56B destructor remains exact, including its native parent EH graph. Its only existing-provider relocation changes from the former public StringBase-dtor spelling to the actual existing releaseBuffer worker at36410; body instruction bytes and all other provider/property facts stay unchanged. One existing native5B AsciiString destructor copy is additionally emitted through its canonical header. The previous native/current-owner review proves that helper and releaseBuffer provider; no new owner row or annotation is needed. Routes intentionally change through those established bindings. Normal object equals the private winner; strict frozen and literals/imports pass. Saved23b85ddde5 LinkGuard prepares cleanly and reports no loss.
+
+This is a separately verified source/lifetime prerequisite. It claims no debt-register retirement, source reduction or whole-class merge. Retry the current supported planner/merger; constructor/novtable, derived receiver/interface and existing protected behavior-destructor marker remain their own evidence obligations.
+
+Latest768f394a45 audit remains INCONCLUSIVE at index23b85ddde5/basef2a364e1821ee625a0c56ea7c9b320348388b0b8, one baseline receipt gap first DevastateSpecialPower.cpp. Carry that seed and affected consumers into the next scheduled census. No new official link or ownership measurement is claimed.

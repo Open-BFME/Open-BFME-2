@@ -11,11 +11,10 @@
 // suppresses the derived vtable store retail lacks (CloudBreak precedent);
 // the base call restores the base table.
 
-// The canonical frozen StringBase replaces the private copy; its switch makes
-// the member dtor reachable and keeps the teardown an out-of-line call to the
-// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
-#define BFME_STRINGBASE_PUBLIC_DTOR
-#include "string_base.h"
+// The canonical four-byte AsciiString member supplies the native reference-
+// counted lifetime. Its inline destructor reaches the rowed narrow
+// releaseBuffer (0x00036410), with the native parent EH graph preserved.
+#include "ascii_string.h"
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
@@ -29,7 +28,7 @@ private:
 	void *m_fx; // +0x80
 	float m_treeValueMultiplier; // +0x84
 	float m_treeValueTotalCap; // +0x88
-	StringBase<char> m_fireWeapon; // +0x8C
+	AsciiString m_fireWeapon; // +0x8C
 };
 
 DevastateSpecialPowerModuleData::~DevastateSpecialPowerModuleData()
