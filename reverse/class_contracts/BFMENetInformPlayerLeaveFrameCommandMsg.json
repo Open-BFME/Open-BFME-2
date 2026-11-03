@@ -1,0 +1,135 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BFMENetInformPlayerLeaveFrameCommandMsg",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 9,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 2
+   },
+   "0x20": {
+    "4": 2
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 3,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 6,
+   "28": 1,
+   "36": 2
+  },
+  "views": 9,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_processInformPlayerLeaveFrameCommand.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp",
+    "Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors_BFMENetInformPlayerLeaveFrameCommandMsg_QAEXHI_Z.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
