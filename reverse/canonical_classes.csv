@@ -651,3 +651,4 @@ TCreateUnitsInfo,Code/GameEngine/Include/GameLogic/TCreateUnitsInfo.h,existing h
 LightSubPoint,Code/Libraries/Source/WWVegas/WW3D2/LightSubPoint.h,existing header; contract class_contracts/LightSubPoint.json; 4/7 sampled units adopt
 W3DShadowGeometryMesh,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShadowGeometryMesh.h,existing header; contract class_contracts/W3DShadowGeometryMesh.json; 2/8 sampled units adopt
 GettingBuiltBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h,existing header; contract class_contracts/GettingBuiltBehaviorModuleData.json; 3/8 sampled units adopt
+W3DTerrainVisual,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisualClass.h,existing header; contract class_contracts/W3DTerrainVisual.json; 3/13 sampled units adopt

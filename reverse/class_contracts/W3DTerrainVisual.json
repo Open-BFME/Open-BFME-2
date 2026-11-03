@@ -1,0 +1,491 @@
+{
+ "bases": [
+  "<polymorphic base>"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "W3DTerrainVisual",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 13,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [],
+     "value": [
+      {
+       "kind": "inference",
+       "name": "<polymorphic base>",
+       "offset": 4,
+       "own_vftable": "0x7c8068",
+       "rule": "retail-secondary-vptr"
+      }
+     ]
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-dtor-vptr",
+     "sites": [
+      "0x9203a"
+     ],
+     "value": {
+      "0x0": "0x7c80a0",
+      "0x4": "0x7c8068"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7c80a0"
+     ],
+     "value": {
+      "count": 36,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva009203A@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x92123"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?name@Rva00091AACNamed@@QBEPBDXZ",
+        "slot": 2,
+        "target": "0x91aac"
+       },
+       {
+        "name": "?xfer@W3DTerrainVisual@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x926ec"
+       },
+       {
+        "name": "?load@W3DTerrainVisual@@UAE_NABVAsciiString@@PAVChunkInputStream@@PAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z",
+        "slot": 4,
+        "target": "0x9213f"
+       },
+       {
+        "name": "?rva00091D32@Rva00091D32Forwarder@@QAEXXZ",
+        "slot": 5,
+        "target": "0x91d32"
+       },
+       {
+        "name": "?getTerrainColorAt@W3DTerrainVisual@@UAEXMMPAURGBColor@@@Z",
+        "slot": 6,
+        "target": "0x91d3d"
+       },
+       {
+        "name": "?getTerrainTile@W3DTerrainVisual@@UAEPAVTerrainType@@MM@Z",
+        "slot": 7,
+        "target": "0x92512"
+       },
+       {
+        "name": "?intersectTerrain@W3DTerrainVisual@@UAE_NPAUCoord3D@@00@Z",
+        "slot": 8,
+        "target": "0x92832"
+       },
+       {
+        "name": "?rva00092014@Rva00091A80@@QAEXXZ",
+        "slot": 9,
+        "target": "0x92014"
+       },
+       {
+        "name": "?addFactionBib@W3DTerrainVisual@@UAEXPAVObject@@_NM@Z",
+        "slot": 10,
+        "target": "0x92dd8"
+       },
+       {
+        "name": "?rva00091DE3@Rva00091DC4@@QAEXPAVRva00091DE3Arg@@@Z",
+        "slot": 11,
+        "target": "0x91de3"
+       },
+       {
+        "name": "?addFactionBibDrawable@W3DTerrainVisual@@UAEXPAVDrawable@@_NM@Z",
+        "slot": 12,
+        "target": "0x92a95"
+       },
+       {
+        "name": "?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z",
+        "slot": 13,
+        "target": "0x91dc4"
+       },
+       {
+        "name": "?rva00091DFB@Rva00091DC4@@QAEXXZ",
+        "slot": 14,
+        "target": "0x91dfb"
+       },
+       {
+        "name": "?rva00091E0A@Rva00091DC4@@QAEXXZ",
+        "slot": 15,
+        "target": "0x91e0a"
+       },
+       {
+        "name": "?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z",
+        "slot": 16,
+        "target": "0x91e19"
+       },
+       {
+        "name": "?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ",
+        "slot": 17,
+        "target": "0x91e38"
+       },
+       {
+        "name": "?removeTreesAndPropsForConstruction@W3DTerrainVisual@@UAEXPBUCoord3D@@ABVGeometryInfo@@M@Z",
+        "slot": 18,
+        "target": "0x91e45"
+       },
+       {
+        "name": "?rva00091E64@W3DTerrainVisual@@UAEXPBUCoord3D@@PBVGeometryInfo@@M@Z",
+        "slot": 19,
+        "target": "0x91e64"
+       },
+       {
+        "name": "?addProp@W3DTerrainVisual@@UAEXPBVThingTemplate@@PBUCoord3D@@MM@Z",
+        "slot": 20,
+        "target": "0x9257a"
+       },
+       {
+        "name": "?rva00091E83@Rva00091E83@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z",
+        "slot": 21,
+        "target": "0x91e83"
+       },
+       {
+        "name": "?rva00091EDD@Rva00091EDDNullForwarder@@QAEXH@Z",
+        "slot": 22,
+        "target": "0x91edd"
+       },
+       {
+        "name": "?rva00091EEC@W3DTerrainVisual@@UAEXVVector3@@M@Z",
+        "slot": 23,
+        "target": "0x91eec"
+       },
+       {
+        "name": "?rva00091F2A@Rva00091F2ANullForwarder@@QAEHHH@Z",
+        "slot": 24,
+        "target": "0x91f2a"
+       },
+       {
+        "name": "?rva00091F3B@Rva00091F3BNullForwarder@@QAEXPAX@Z",
+        "slot": 25,
+        "target": "0x91f3b"
+       },
+       {
+        "name": "?rva00091FBA@Rva00091FBA@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z",
+        "slot": 26,
+        "target": "0x91fba"
+       },
+       {
+        "name": "?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z",
+        "slot": 27,
+        "target": "0x91fab"
+       },
+       {
+        "name": "?rva00091F51@Rva00091F51NullForwarder@@QAE_NHH@Z",
+        "slot": 28,
+        "target": "0x91f51"
+       },
+       {
+        "name": "?rva00091F62@Rva00091F62NullForwarder@@QAE_NHH@Z",
+        "slot": 29,
+        "target": "0x91f62"
+       },
+       {
+        "name": "?rva00091F73@Rva00091F73NullForwarder@@QAE_NH_N@Z",
+        "slot": 30,
+        "target": "0x91f73"
+       },
+       {
+        "name": "?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z",
+        "slot": 31,
+        "target": "0x91f84"
+       },
+       {
+        "name": "?rva00091F95@Rva00091DB2@@QAE_NH@Z",
+        "slot": 32,
+        "target": "0x91f95"
+       },
+       {
+        "name": "?rva00091DB2@Rva00091DB2@@QAEXXZ",
+        "slot": 33,
+        "target": "0x91db2"
+       },
+       {
+        "name": "?rva00091D61@Rva00091D61@@QAEXPAHH@Z",
+        "slot": 34,
+        "target": "0x91d61"
+       },
+       {
+        "name": "?rva000926AC@W3DTerrainVisual@@UAEXABVAsciiString@@_N0@Z",
+        "slot": 35,
+        "target": "0x926ac"
+       }
+      ],
+      "table": "0x7c80a0"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7c8068": {
+    "offset": 4,
+    "slots": {},
+    "stores": 1
+   },
+   "0x7c80a0": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva009203A@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?name@Rva00091AACNamed@@QBEPBDXZ",
+     "3": "?xfer@W3DTerrainVisual@@MAEXPAVXfer@@@Z",
+     "4": "?load@W3DTerrainVisual@@UAE_NABVAsciiString@@PAVChunkInputStream@@PAV?$AreaSet@VStandingWaveArea@@@@PAV?$AreaSet@VRiverArea@@@@PAV?$AreaSet@VWaterWaveArea@@@@@Z",
+     "5": "?rva00091D32@Rva00091D32Forwarder@@QAEXXZ",
+     "6": "?getTerrainColorAt@W3DTerrainVisual@@UAEXMMPAURGBColor@@@Z",
+     "7": "?getTerrainTile@W3DTerrainVisual@@UAEPAVTerrainType@@MM@Z",
+     "8": "?intersectTerrain@W3DTerrainVisual@@UAE_NPAUCoord3D@@00@Z",
+     "9": "?rva00092014@Rva00091A80@@QAEXXZ",
+     "10": "?addFactionBib@W3DTerrainVisual@@UAEXPAVObject@@_NM@Z",
+     "11": "?rva00091DE3@Rva00091DC4@@QAEXPAVRva00091DE3Arg@@@Z",
+     "12": "?addFactionBibDrawable@W3DTerrainVisual@@UAEXPAVDrawable@@_NM@Z",
+     "13": "?rva00091DC4@Rva00091DC4@@QAEXPAVRva0055A88BDwordField@@@Z",
+     "14": "?rva00091DFB@Rva00091DC4@@QAEXXZ",
+     "15": "?rva00091E0A@Rva00091DC4@@QAEXXZ",
+     "16": "?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z",
+     "17": "?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ",
+     "18": "?removeTreesAndPropsForConstruction@W3DTerrainVisual@@UAEXPBUCoord3D@@ABVGeometryInfo@@M@Z",
+     "19": "?rva00091E64@W3DTerrainVisual@@UAEXPBUCoord3D@@PBVGeometryInfo@@M@Z",
+     "20": "?addProp@W3DTerrainVisual@@UAEXPBVThingTemplate@@PBUCoord3D@@MM@Z",
+     "21": "?rva00091E83@Rva00091E83@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z",
+     "22": "?rva00091EDD@Rva00091EDDNullForwarder@@QAEXH@Z",
+     "23": "?rva00091EEC@W3DTerrainVisual@@UAEXVVector3@@M@Z",
+     "24": "?rva00091F2A@Rva00091F2ANullForwarder@@QAEHHH@Z",
+     "25": "?rva00091F3B@Rva00091F3BNullForwarder@@QAEXPAX@Z",
+     "26": "?rva00091FBA@Rva00091FBA@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z",
+     "27": "?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z",
+     "28": "?rva00091F51@Rva00091F51NullForwarder@@QAE_NHH@Z",
+     "29": "?rva00091F62@Rva00091F62NullForwarder@@QAE_NHH@Z",
+     "30": "?rva00091F73@Rva00091F73NullForwarder@@QAE_NH_N@Z",
+     "31": "?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z",
+     "32": "?rva00091F95@Rva00091DB2@@QAE_NH@Z",
+     "33": "?rva00091DB2@Rva00091DB2@@QAEXXZ",
+     "34": "?rva00091D61@Rva00091D61@@QAEXPAHH@Z",
+     "35": "?rva000926AC@W3DTerrainVisual@@UAEXABVAsciiString@@_N0@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 1,
+   "20": 2,
+   "24": 2,
+   "28": 1,
+   "32": 6,
+   "36": 1
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_W3DTerrainVisual.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisual.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 13,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i1",
+   "name": "m_flag",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_name.m_text",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_filenameString.m_text",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "char*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_terrainRenderObject",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "BaseHeightMapRenderObjClass*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_waterRenderObject",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "WaterRenderObjClass*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_logicHeightMap",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "WorldHeightMap*",
+   "views": 6,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "base@0x4",
+   "candidates": {
+    "'<polymorphic base>'": 1
+   },
+   "class": "W3DTerrainVisual",
+   "why": "retail proves a base here; no view spells the retail base layout and the ledger names it only by placeholder"
+  },
+  {
+   "attribute": "nested@0xc",
+   "candidates": {
+    "m_name.m_text": 3
+   },
+   "class": "W3DTerrainVisual"
+  },
+  {
+   "attribute": "nested@0x10",
+   "candidates": {
+    "m_filenameString.m_text": 5
+   },
+   "class": "W3DTerrainVisual"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "removeTreesAndPropsForConstruction(Coord3D*,GeometryInfo*,float)": 1,
+    "slot2()": 1
+   },
+   "class": "W3DTerrainVisual"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "rva00091E64(Coord3D*,GeometryInfo*,float)": 1,
+    "slot3()": 1
+   },
+   "class": "W3DTerrainVisual"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "getTerrainColorAt(float,float,RGBColor*)": 1,
+    "load(AsciiString*,ChunkInputStream*,AreaSet<StandingWaveArea>*,AreaSet<RiverArea>*,AreaSet<WaterWaveArea>*)": 1
+   },
+   "class": "W3DTerrainVisual"
+  }
+ ],
+ "size": 32,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "rva00091EEC(Vector3,float)"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "rva000926AC(AsciiString*,bool,AsciiString*)"
+  }
+ }
+}
