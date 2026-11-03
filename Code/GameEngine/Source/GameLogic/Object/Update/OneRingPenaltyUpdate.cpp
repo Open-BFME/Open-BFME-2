@@ -37,11 +37,7 @@ float Cos(float value);
 float Sin(float value);
 #include <string.h>
 #pragma function(memset)
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "OneRingPenaltyModuleDataView.h"
