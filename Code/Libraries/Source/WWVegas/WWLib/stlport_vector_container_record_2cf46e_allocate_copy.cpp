@@ -12,7 +12,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-class BfmeFixedStorage002CF0F0 { char m_bytes[4]; public: __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &); };
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
 #include <vector>
 struct BfmeContainerRecord002CF46E {
     BfmeFixedStorage002CF0F0 storage;

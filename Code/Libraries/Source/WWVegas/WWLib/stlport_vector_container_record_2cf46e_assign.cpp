@@ -2,11 +2,7 @@
 // stlport
 // ??4?$vector@UBfmeContainerRecord002CF46E@@V?$allocator@UBfmeContainerRecord002CF46E@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z @0x002D0C90 206B: vector BfmeContainerRecord002CF46E assign via allocate_and_copy 0x2CFBF4 plus clear 0xC05EC plus copy 0x2CF830 plus destroy 0x331FF1 plus uninitialized_copy 0x33BF5B. Evidence: same 3-path 206B shape as StringRecord assign 0x000C084D; idiv 0x0c stride 12 throughout; chain from 0x002CF830; caller 0x002D1371.
 #include "ascii_string.h"
-struct BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &o);
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
 struct BfmeContainerRecord002CF46E
 {
 	BfmeFixedStorage002CF0F0 storage;
