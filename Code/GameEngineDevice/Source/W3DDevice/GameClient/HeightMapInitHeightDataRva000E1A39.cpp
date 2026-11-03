@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Target nativeE1A39..E1C1A is481B RET16, with four borrowed arguments.
 // ZH HeightMapRenderObjClass::initHeightData/freeIndexVertexBuffers are the
 // primary allocation/lifetime guide; target uses background tile objects
@@ -69,7 +69,7 @@ class GameLODManager;extern GameLODManager*TheGameLODManager;
 struct TerrainNormalFlags{char unknown[0x49];bool normalTerrain;};
 struct TerrainLODState{char unknown[0x1780];int terrainLOD;};
 static int terrainShaderLevels[3]={0,1,2};
-class FXShaderSetup{public:virtual void Delete_This();void Add_Ref(){++refs;}void Release_Ref(){if(--refs==0)Delete_This();}int refs;};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 template<class T>class RefCountPtr{public:RefCountPtr():m_ptr(0){}RefCountPtr(const RefCountPtr&o):m_ptr(o.m_ptr){if(m_ptr)m_ptr->Add_Ref();}~RefCountPtr(){if(m_ptr)m_ptr->Release_Ref();}T*m_ptr;};
 struct Rva0007BB16Record;namespace _STL{template<class T>class allocator;template<class T,class A>class vector;}
 RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char*,const char*,const _STL::vector<Rva0007BB16Record,_STL::allocator<Rva0007BB16Record> >*,int);

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva000E6D94@Rva000EC9C6@@QAEXH@Z, retail 0x000E6D94..0x000E6EE9 (341 bytes, EH, RET 4).
 // Zero Hour's W3DTreeBuffer::allocateTreeBuffers in BFME2's per-batch form, the counterpart
@@ -65,7 +65,7 @@ private:
 
 struct Rva0007BB16Record;
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-class FXShaderSetup : public RefCountClass {};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 template<class T> class RefCountPtr
 {
 public:

@@ -39,18 +39,7 @@ struct BfmeFXShaderRefOps {
 	}
 };
 
-class FXShaderSetup : public RefCountClass
-{
-public:
-	FXShaderSetup();
-	bool Load_W3D(ChunkLoadClass &cload);
-
-protected:
-	virtual ~FXShaderSetup();
-
-private:
-	char m_pad[0x34 - 8];
-};
+#include "FXShaderSetup.h"
 
 template <class T> class DynamicVectorClass
 {

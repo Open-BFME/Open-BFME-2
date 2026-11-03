@@ -138,7 +138,7 @@ struct Rva0007BB16Record;
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class FXShaderSetup:public RefCountClass {};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 
 template<class T> class RefCountPtr {
 public:

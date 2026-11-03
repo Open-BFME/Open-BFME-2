@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Target: native boundary 0x00100981..0x00100A0B (138B), ret 4,
 // lazy shader holder at this+0x128, "watershader.fx" / "DepthOnly",
 // factory 0x00152C47, holder assignment 0x00072A94 and device lock/unlock.
@@ -10,7 +10,7 @@
 // native accesses independently establish the referent count at +4.
 #include "../../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class FXShaderSetup : public RefCountClass {};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 
 template<class T> class RefCountPtr {
 public:

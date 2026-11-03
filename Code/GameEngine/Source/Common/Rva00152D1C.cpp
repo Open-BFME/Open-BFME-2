@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva152d1c@Rva00152D1CObj@@QAEXH@Z @0x00152D1C 170B evidence: caller 0x00117172 via [mesh+0x94]->[+0xB8] arg 4; LINK BONUS 131B Rva00117120Cluster; virtual slot0 or 0 then AsciiString from char then copy +0x18 then vector copy +0x0C then matched FXShaderSetup::InitializeShader at 0x0015288F.
 // The caller passes two string pointers, the parameter vector and the LOD; the matched callee returns bool in AL, which this caller ignores. prev/next Common.
@@ -16,12 +16,7 @@ public:
 	virtual const char *v00();
 };
 
-class FXShaderSetup
-{
-public:
-	bool InitializeShader(const char *shaderName, const char *techniqueName,
-		const _STL::vector<Rva0007BB16Record> *parameters, int lod);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h"
 
 class Rva00152D1CObj
 {
