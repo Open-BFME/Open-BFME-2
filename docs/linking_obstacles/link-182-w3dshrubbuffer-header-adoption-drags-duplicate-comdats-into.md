@@ -14,6 +14,17 @@ four-line private view with the canonical include, and `./build.sh` keeps the un
 mapping, is the cause: the view it replaces names only `rva000E7734(Thing *)`.
 The source was restored and the queue row left in place.
 
+All three duplicates are rows this same file owns: `functions.csv:46946-46947` give the
+two 17-byte address-derived forwarders `rva001EC99B` and `rva001EC9AC` to
+`LinearCampaignManager.cpp` (both noted "identity remains address-derived"), and
+`Rva0023D6D5Callee` is named by `GameLogic.cpp`, this file and
+`Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp`. They sit immediately
+after the terrain-bib wrapper of [LINK-090](link-090-the-terrain-bib-wrapper-calls-a-row-identified-as.md),
+whose contested `0x001EC3B5` is also owned by this file and also carries a
+`BaseHeightMapRenderObjClass` spelling in `symbols.csv`. Structural inference, not
+proven: this forwarder cluster's real owner looks like terrain/heightmap code, which
+would explain why a W3D header closure provides the same bodies.
+
 Completed: nothing retired. The byte result above is the useful part: the field mapping
 and the layout are not what blocks this unit, so a future attempt should start at the
 include closure and not re-derive the view.
