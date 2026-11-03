@@ -80,28 +80,20 @@ public:
 	ModelConditionFlagType m_deathAnim;
 	unsigned m_deathAnimDuration;
 };
-class ObjectCreationUpgrade
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09(int x);
-	void rva004B463C();
-	static NameKeyType rva004B3FF5();
+    void rva004B463C();
+    static NameKeyType rva004B3FF5();
+protected:
+    virtual void xfer(Xfer *xfer);
 private:
-	char m_pad04[0x0C - 0x04];
-	UpgradeData0C *m_data0C;
-	Object *m_object10;
-	char m_pad14[0x28 - 0x14];
-	int m_status28;
-	bool m_flag2C;
+    int m_status28;
+    bool m_flag2C;
 };
 //
 // Ported from Open-BFME-1 GameEngine/Source/GameLogic/AI/Rva002D6EB0ForwardedMember.cpp
@@ -296,8 +288,8 @@ private:
 // ?rva004B463C@ObjectCreationUpgrade@@QAEXXZ
 void ObjectCreationUpgrade::rva004B463C()
 {
-	v09(0);
-	UpgradeData0C *data = m_data0C;
+	setUpgradeExecuted(false);
+	UpgradeData0C *data = (UpgradeData0C *)m_moduleData;
 	m_status28 = 0x3fffffff;
 	m_flag2C = false;
 	if (!data)
@@ -305,7 +297,7 @@ void ObjectCreationUpgrade::rva004B463C()
 	if (!data->m_flag13C)
 		return;
 	static NameKeyType key = TheNameKeyGenerator->nameToKey("SlaveWatcherBehavior");
-	Module *mod = m_object10->findModule(key);
+	Module *mod = m_object->findModule(key);
 	if (!mod)
 		return;
 	unsigned len = ((NetWrapperCommandMsg *)mod)->getDataLength();
