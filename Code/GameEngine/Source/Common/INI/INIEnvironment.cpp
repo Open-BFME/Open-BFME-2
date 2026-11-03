@@ -1,4 +1,4 @@
-// cl: /GX /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // ?iniParseEnvironmentSkyboxTextureDefinition@@YAXPAVINI@@@Z @0x0020D6F5 177B.
 // Target identity: WB 0x00B4F600 names this function and INIEnvironment.cpp;
@@ -49,10 +49,7 @@ private:
     StringBase<char> m_04, m_08, m_0c, m_10, m_14;
 };
 
-struct NoCaseTreeValue4 {
-    char m_body[4];
-    NoCaseTreeValue4() { *(void **)m_body = 0; }
-};
+#include "../../../Include/Common/NoCaseTreeValue4.h"
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
 #include "../../../Include/GameLogic/Rva000427195.h"
 class Rva00056F61;

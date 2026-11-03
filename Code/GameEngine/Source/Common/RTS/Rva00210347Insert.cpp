@@ -1,15 +1,11 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva00210347@Rva00210347@@QAEAAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@ABU23@@Z @0x00210347 68B hash insert via resize plus bucketIndex plus node alloc
 // Evidence: same 68B shape as rowed Rva002249ED 0x002249ED calling resize 0x00212858 plus rowed bucketIndex 0x00223149 plus node allocator; allocator is thiscall twin of rowed free Rva0020F569Alloc 0x0020F569 via call-site mov ecx esi like 0x001DE556; buckets at +4 and count at +0x10; caller 0x002104ED.
 #include "ascii_string.h"
 #include <map>
 
-struct NoCaseTreeValue4
-{
-	char m_body[4];
-	NoCaseTreeValue4() { *(unsigned int *)m_body = 0; }
-};
+#include "../../../Include/Common/NoCaseTreeValue4.h"
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /D_BFME_RETAIL_TREE_INSERT_LAYOUT C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // ?Rva002214C5Get@@YAXPAV?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@@Z @0x002214C5 182B
 // Builds FieldParse table (as vector<BfmeE16> 16B pods) from static map<AsciiString,NoCaseTreeValue4> via rowed getter 0x002213D9 plus Vector_base 0x00211E58 plus reserve 0x0022118F plus push_back 0x0059D2A3 plus _M_increment 0x00024250 plus g_emptyFieldParseTable plus swap 0x00567ECD plus _free 0x00030830. Evidence: retail bytes plus caller 0x0022157B plus rowed callees.
@@ -26,7 +26,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 extern "C" char s_slot3E4first;
 
-struct NoCaseTreeValue4 { unsigned char m_data[4]; };
+#include "../../Include/Common/NoCaseTreeValue4.h"
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 struct BfmeE12 { char m_d[12]; };
 struct FieldParse { const char *token; void *parse; const void *userdata; int offset; };

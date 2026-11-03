@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport46
 // ?Rva001DD8C9Alloc@@YGPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x001DD8C9 37B hashtable node alloc via rowed allocate 0x000307F0 plus the rowed native placement copy 0x001DD745 (Rva001DD745Construct:
 // retail's call lands there, not on _Construct<pair<..., NoCaseTreeValue4>> 0x000A7849).
@@ -6,10 +6,7 @@
 #include <memory>
 #include <map>
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-struct NoCaseTreeValue4
-{
-	char m_body[4];
-};
+#include "../../Include/Common/NoCaseTreeValue4.h"
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
 // Use the complete 466EA7 pair-copy provider rather than emitting a
 // competing constructor from this allocation helper's flags.

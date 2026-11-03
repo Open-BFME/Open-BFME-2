@@ -1,13 +1,10 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ?rva002CFB4C@Rva002CFB4C@@QAEPAXPBX@Z @0x002CFB4C 68B via bucket insert plus create
 // Evidence: thiscall ret4 takes pair at offset0 AsciiString; rowed bucketIndex 0x00223149 plus pin rva00212858 0x00212858 on Rva000427195; rowed create 0x002CF9DC; caller 0x002CFEEC passes pair and uses return+4
 #include <map>
 #include "ascii_string.h"
-struct NoCaseTreeValue4
-{
-	unsigned char m_data[4];
-};
+#include "../../Include/Common/NoCaseTreeValue4.h"
 #include "../../Include/GameLogic/Rva000427195.h"
 class Rva002CFB4C
 {

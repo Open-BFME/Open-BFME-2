@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva002234BA@Rva000427195@@QAEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@PBU23@@Z @0x002234BA 68B
 // Hash insert old-before-new over the Eva bucket vector. Buckets at +4,
 // count at +0x10 (same layout as rowed erase 0x00223429 and bucketIndex
@@ -8,10 +8,7 @@
 // Callers 0x0022363A. Returns pair pointer for LINK BONUS style callers.
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-struct NoCaseTreeValue4
-{
-	char m_body[4];
-};
+#include "../../Include/Common/NoCaseTreeValue4.h"
 
 namespace _STL {
 template <class T1, class T2> struct pair
