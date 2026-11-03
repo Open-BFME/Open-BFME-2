@@ -51,25 +51,7 @@ public:
 	bool get() const;
 };
 
-class AptValue
-{
-public:
-	virtual void unused0();
-	virtual void unused1();
-	virtual void unused2();
-	virtual void unused3();
-	virtual void unused4();
-	virtual void unused5();
-	virtual void unused6();
-	virtual void unused7();
-	virtual void unused8();
-	virtual void unused9();
-	virtual void unused10();
-	virtual void unused11();
-	virtual void unused12();
-	virtual void unused13();
-	void setGCMark(bool value);
-};
+#include "../../../Libraries/Source/Apt/AptValue.h"
 
 // The three apt-value members the Rva00709B80 layout places at +0x20, +0x24 and
 // +0x28 (Rva00709B80Slot11.cpp). The eight bytes of Rva006D6360 base sit below
@@ -105,7 +87,7 @@ void Rva00709B80::rva00709D80()
 		if (!((const Rva006DBB40ShrAndField *)m_28)->get())
 		{
 			((AptValue *)m_28)->setGCMark(true);
-			((AptValue *)m_28)->unused13();
+			((AptValue *)m_28)->vslot13();
 		}
 	}
 
@@ -114,7 +96,7 @@ void Rva00709B80::rva00709D80()
 		if (!((const Rva006DBB40ShrAndField *)m_20)->get())
 		{
 			((AptValue *)m_20)->setGCMark(true);
-			((AptValue *)m_20)->unused13();
+			((AptValue *)m_20)->vslot13();
 		}
 	}
 
@@ -123,7 +105,7 @@ void Rva00709B80::rva00709D80()
 		if (!((const Rva006DBB40ShrAndField *)m_24)->get())
 		{
 			((AptValue *)m_24)->setGCMark(true);
-			((AptValue *)m_24)->unused13();
+			((AptValue *)m_24)->vslot13();
 		}
 	}
 }

@@ -1,0 +1,5 @@
+Relocation-aware COMDATs identical.
+All external symbols and linker directives identical.
+Counts: [1, 1, 3, 0, 0, 0]
+COMDATs: [('?rva00709D80@Rva00709B80@@QAEXXZ', '614ab4a9322c', 113)]
+Symbols: ({'?rva00709D80@Rva00709B80@@QAEXXZ'}, {'?get@Rva006DBB40ShrAndField@@QBE_NXZ', '?RegisterReferences@AptObject@@UBEXXZ', '?setGCMark@AptValue@@QAEX_N@Z'}, [], {}, set())
