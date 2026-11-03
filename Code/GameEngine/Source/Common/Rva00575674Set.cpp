@@ -12,14 +12,7 @@ public:
 	virtual void *deleteInstance(int flags);
 };
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-
-private:
-	Object *m_ptr;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 void Rva00575674::rva00575674(Object *object)
 {

@@ -35,7 +35,7 @@ struct Rva005F2792Info
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
-class Rva00575674 { public: void rva00575674(Object *); };
+#include "../../Include/Common/Rva00575674.h"
 class Rva005C31FB {
 public:
     virtual ~Rva005C31FB();

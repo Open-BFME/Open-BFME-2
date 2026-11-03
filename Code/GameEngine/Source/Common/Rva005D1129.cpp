@@ -28,14 +28,7 @@ public:
 class Object;
 class Rva002BA8F1Logic;
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *value);
-
-private:
-	Object *m_ptr;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 // One-pointer layout view. The +8 cleanup call at 0x005EC4AF is represented as
 // its destructor; the target class relationship remains unproven.

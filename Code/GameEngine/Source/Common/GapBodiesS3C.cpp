@@ -15,11 +15,7 @@ struct Coord3D;
 // --- 0x00575CDF / 0x00575D12 (51B each): from a +0x04 interface, build a
 // fresh 0x14-byte rowed 0x0057551C / 0x00575540 record over the whole object
 // and both arguments and hand it to the +0x2C holder's rowed 0x00575674.
-class Rva00575674
-{
-public:
-	void rva00575674(Object *obj);							// 0x00575674
-};
+#include "../../Include/Common/Rva00575674.h"
 
 class Rva0057551C
 {

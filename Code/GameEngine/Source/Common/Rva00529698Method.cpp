@@ -8,12 +8,7 @@
 
 #include "../GameLogic/Object/object.h"
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-	Object *m_ptr;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 struct Rva00529698Elem
 {

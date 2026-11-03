@@ -25,14 +25,7 @@ public:
 
 class Object;
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *value);
-
-private:
-	Object *m_ptr;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 class Rva005D1129Pointer
 {

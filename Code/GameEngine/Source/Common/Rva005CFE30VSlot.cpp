@@ -9,11 +9,7 @@
 unsigned int g_00E06640 = 0;
 extern "C" const void *const __identifier("??_7Rva005CF925@@6B@")[];
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-};
+#include "../../Include/Common/Rva00575674.h"
 class Rva005CF872
 {
 public:

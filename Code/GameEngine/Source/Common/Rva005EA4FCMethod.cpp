@@ -36,7 +36,7 @@ struct Rva005EA183
 // by member14 virtual slot4. The pointer field is the setter's one-word
 // access view; original subsystem and method identity remain unproven.
 class Object;
-class Rva00575674 {public:void rva00575674(Object *);};
+#include "../../Include/Common/Rva00575674.h"
 class Rva005E9FC1 {
 public:
 Rva005E9FC1(void *);

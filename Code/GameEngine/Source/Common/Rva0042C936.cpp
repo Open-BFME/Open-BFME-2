@@ -75,7 +75,7 @@ Rva0042C936 *Rva0042C936::assign(Holder0042C936 holder)
 // (rowed 0x0042C993 in StrategicInGameUITurnPhaseFactory.cpp), filled
 // through the rowed 0x00575674 and cleared by 0x000AD6F4.
 class Object;
-class Rva00575674 { public: void rva00575674(Object *object); };
+#include "../../Include/Common/Rva00575674.h"
 class Rva00577838 : public Rva0042C993Pointee { public: Rva00577838(int argument); char m_data[4]; };
 class Rva0042C993Holder
 {

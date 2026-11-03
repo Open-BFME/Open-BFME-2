@@ -12,12 +12,7 @@ public:
 	virtual void v02();
 };
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-	Object *m_ptr;
-};
+#include "../../Include/Common/Rva00575674.h"
 
 Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), the only definition
 

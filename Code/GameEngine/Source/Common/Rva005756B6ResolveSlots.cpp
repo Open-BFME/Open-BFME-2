@@ -44,11 +44,7 @@ private:
 
 class Object;
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *object);
-};
+#include "../../Include/Common/Rva00575674.h"
 
 class Rva005756B6
 {

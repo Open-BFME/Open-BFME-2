@@ -5,11 +5,7 @@
 // Honest Rva name on proven vtable class.
 class Rva00574815;
 #include "../GameLogic/Object/object.h"
-class Rva00575674
-{
-public:
-	void rva00575674(Object *p);
-};
+#include "../../Include/Common/Rva00575674.h"
 #include "../../Include/Common/Rva000AD6F4.h"
 #include <new>
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"

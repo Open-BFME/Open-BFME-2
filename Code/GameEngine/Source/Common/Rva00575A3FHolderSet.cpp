@@ -30,11 +30,7 @@ class Object;
 
 #include "../../Include/Common/Rva000AD6F4.h"
 
-class Rva00575674
-{
-public:
-	void rva00575674(Object *object);
-};
+#include "../../Include/Common/Rva00575674.h"
 
 class Rva005CF7BF
 {

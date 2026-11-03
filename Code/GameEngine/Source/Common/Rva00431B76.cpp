@@ -32,11 +32,7 @@ struct Rva00431B76Helper
 };
 
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *o);
-};
+#include "../../Include/Common/Rva00575674.h"
 
 
 class FormationTranslator

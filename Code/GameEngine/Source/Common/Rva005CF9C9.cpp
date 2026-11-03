@@ -51,11 +51,7 @@ struct Rva005CF9C9Mid
 
 // The state-slot setter is rowed as ?rva00575674@Rva00575674 (Object * receiver spelling).
 class Object;
-class Rva00575674
-{
-public:
-	void rva00575674(Object *state);
-};
+#include "../../Include/Common/Rva00575674.h"
 
 // A partial owner view: both callbacks address the state slot at +0x1C.
 struct Rva005D0DBBOwner
