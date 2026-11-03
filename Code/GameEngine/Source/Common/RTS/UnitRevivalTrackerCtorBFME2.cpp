@@ -9,12 +9,7 @@
 class Xfer;
 #include <vector>
 class Player;
-class UnitRevivalEntry {
-public:
- UnitRevivalEntry();UnitRevivalEntry(const UnitRevivalEntry&);~UnitRevivalEntry();
- UnitRevivalEntry&operator=(const UnitRevivalEntry&);
-private:char m_bytes[0xD8];
-};
+#include "../../../Include/GameLogic/UnitRevivalEntry.h"
 class UnitRevivalTracker {
 public:
  UnitRevivalTracker(Player*);void rva0037F26D();

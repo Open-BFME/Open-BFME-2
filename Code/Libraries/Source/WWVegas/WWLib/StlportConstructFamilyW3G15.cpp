@@ -56,7 +56,7 @@ struct Rva002B91EDElement
 	Rva002B91EDElement(const Rva002B91EDElement &that);
 };
 
-class UnitRevivalEntry { public: UnitRevivalEntry(const UnitRevivalEntry &); };
+#include "../../../../GameEngine/Include/GameLogic/UnitRevivalEntry.h"
 struct Rva002E160FElement
 {
 	int a;

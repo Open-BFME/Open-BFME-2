@@ -15,7 +15,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // The record is the rowed UnitRevivalEntry (copy ctor 0x002E134C); the
 // address-derived name is only a view. Forward to the real body so _Construct
 // binds the canonical symbol instead of an undefined address-named twin.
-class UnitRevivalEntry { public: UnitRevivalEntry(const UnitRevivalEntry &); };
+#include "../../Include/GameLogic/UnitRevivalEntry.h"
 struct Rva002E2D10Record
 {
 	Rva002E2D10Record();

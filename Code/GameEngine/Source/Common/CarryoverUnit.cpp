@@ -94,11 +94,7 @@ public:
 
 class Rva002E2903Player;
 
-class UnitRevivalEntry
-{
-public:
-	void setThingTemplateName(const AsciiString &arg);
-};
+#include "../../Include/GameLogic/UnitRevivalEntry.h"
 
 class Rva001EAFC1
 {
