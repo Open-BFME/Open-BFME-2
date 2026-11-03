@@ -31,15 +31,7 @@ typedef UnsignedInt TeamID;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../Object/object.h"
 
 
 extern GameLogic *TheGameLogic;

@@ -12,15 +12,7 @@ enum Relationship { ENEMIES=0,NEUTRAL=1,ALLIES=2 };
 enum WeaponSlotType { PRIMARY=0 };
 class Rva002C9400ByteField { public: unsigned char get() const; };
 #include "../../../Include/GameLogic/Weapon.h"
-class Object {
-public:
- bool rva0029493F(Object *,int);
- bool canCrushOrSquishNoAlly(Object *,int);
- bool testStatus(ObjectStatusTypes) const;
- bool isKindOf(KindOfType) const;
- Relationship getRelationship(const Object *) const;
- const Weapon *getCurrentWeapon(WeaponSlotType *) const;
-};
+#include "object.h"
 bool Object::rva0029493F(Object *victim,int mode) {
  if (!canCrushOrSquishNoAlly(victim,mode)) return false;
  if (testStatus(STATUS_39) || testStatus(STATUS_32) || isKindOf(KINDOF_84)) return true;

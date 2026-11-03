@@ -42,13 +42,7 @@ struct Rva00391F4E
 	unsigned int m_bits[4];
 };
 
-class Object
-{
-public:
-	void maskObject(bool mask);				// 0x0028B7E2
-	void rva0028CDEB(const Rva00346BC0 &mask, bool set);	// 0x0028CDEB, status set/clear
-	void setSelectable(bool selectable);			// 0x0028B76D
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 

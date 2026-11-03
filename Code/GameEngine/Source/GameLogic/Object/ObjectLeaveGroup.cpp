@@ -7,15 +7,7 @@ class Object;
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class Object
-{
-public:
-	void leaveGroup();
-
-private:
-	unsigned char m_pad[0x1A8];
-	AIGroup *m_group; // +0x1A8
-};
+#include "object.h"
 
 void Object::leaveGroup()
 {

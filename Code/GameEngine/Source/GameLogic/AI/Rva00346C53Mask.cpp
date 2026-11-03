@@ -28,12 +28,7 @@ private:
 };
 
 class Rva00346BC0;
-class Object
-{
-public:
-	void setStatusForHorde(const Rva00346BC0 &mask, bool set);
-	void rva00346C53(ObjectStatusTypes a, bool b);
-};
+#include "../Object/object.h"
 
 void Object::rva00346C53(ObjectStatusTypes a, bool b)
 {

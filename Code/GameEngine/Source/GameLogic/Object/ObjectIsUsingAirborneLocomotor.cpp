@@ -33,15 +33,7 @@ private:
 	Locomotor *m_curLocomotor; // +0x1f0
 };
 
-class Object
-{
-public:
-	bool isUsingAirborneLocomotor() const;
-
-private:
-	unsigned char m_pad[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "object.h"
 
 bool Object::isUsingAirborneLocomotor() const
 {

@@ -93,11 +93,7 @@ public:
 	const CommandButton *getCommandButton(Int i) const;
 };
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const;
-};
+#include "../object.h"
 
 class ControlBar;
 

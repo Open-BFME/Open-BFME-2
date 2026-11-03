@@ -45,19 +45,7 @@ public:
 	unsigned short m_kindOf10A;
 };
 
-class Object
-{
-public:
-	void attemptHealing(Real amount, const Object *source);
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x244 - 0x08];
-	BehaviorModule **m_behaviors;
-	unsigned char m_pad248[0x254 - 0x248];
-	BodyModuleInterface *m_body;
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

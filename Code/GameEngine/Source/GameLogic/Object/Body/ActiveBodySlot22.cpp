@@ -56,14 +56,7 @@ public:
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_pos; }
-	void rva0028EC68(int a, void *b, int c);	// 0x0028EC68
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
+#include "../object.h"
 
 #include "../../../Common/PartitionRangeQueryCallView.h"
 

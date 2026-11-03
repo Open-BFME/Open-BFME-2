@@ -472,11 +472,7 @@ BFME_DISP32_LEA_GETTER(Rva00308156LeaGetter, 0x8C)
 // destructor establishes that base and its preceding adjustment word.
 // The adjusted receiver addresses a member 0x42C bytes before itself.
 // The original member name and pointee type are not established.
-class Object
-{
-public:
-	virtual void *slot() const;
-};
+#include "../Object/object.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp
 

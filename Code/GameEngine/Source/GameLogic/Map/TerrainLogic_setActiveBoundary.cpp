@@ -85,11 +85,7 @@ public:
 	Real m_floatD8; // +0xD8
 };
 
-class Object
-{
-public:
-	void friend_notifyOfNewMapBoundary();
-};
+#include "../Object/object.h"
 
 // Battle for Middle-earth View vtable slot +0x1B8 is
 // forceCameraConstraintRecalc (the reference build has it at +0x1B4; the

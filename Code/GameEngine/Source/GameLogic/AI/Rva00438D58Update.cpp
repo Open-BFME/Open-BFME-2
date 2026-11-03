@@ -12,28 +12,13 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 
 class Drawable;
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../Object/object.h"
 
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0
 };
 
-class Object : public Thing
-{
-public:
-	int rva002933CD();
-	bool isLocallyControlled() const;
-	void setStatus(ObjectStatusTypes bit, bool flag);
-	int getID() const { return m_id; }
-private:
-	char m_pad00[0x74];
-	int m_id;
-};
 
 class Rva002390CB
 {

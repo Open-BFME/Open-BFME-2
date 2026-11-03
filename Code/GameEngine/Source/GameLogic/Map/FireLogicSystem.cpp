@@ -445,12 +445,7 @@ public:
 	char m_pad24[0x7C - 0x24];
 };
 
-class Object
-{
-public:
-	bool isSignificantlyAboveTerrain() const;	// 0x0030ADDC
-	void attemptDamage(DamageInfo *info);		// 0x0029848E
-};
+#include "../Object/object.h"
 
 // An object's burn share in a cell (0x0027F09F through TheTerrainLogic) and
 // the per-key tick of a burning cell (0x002856CF).

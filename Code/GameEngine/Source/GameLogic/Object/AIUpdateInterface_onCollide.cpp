@@ -18,19 +18,7 @@ class Object;
 class ObjectView { public: char m_pad[0x113]; unsigned char m_113; };
 enum Relationship { RELATIONSHIP_ENUM_BASE = 0 };
 enum ObjectStatusTypes { STATUS_3B = 0x3b };
-class Object
-{
-public:
-	bool rva002931BA();
-	bool testStatus(ObjectStatusTypes status) const;
-	enum Relationship getRelationship(const Object *other) const;
-	Object *rva0028ACA0() const;
-private:
-	char m_pad004[0x74 - 0x04];
-	int m_074;			// +0x74
-	char m_pad078[0x274 - 0x78];
-	Object *m_274;			// +0x274
-};
+#include "object.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 extern unsigned char g_00DFE7A8;

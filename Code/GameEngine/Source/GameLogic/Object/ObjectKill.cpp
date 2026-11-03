@@ -37,16 +37,7 @@ private:
 // Target-backed slot facade: getMaxHealth is called at vtable offset +0x18.
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
-class Object
-{
-public:
-    void kill(DamageType damageType, DeathType deathType);
-    void attemptDamage(DamageInfo *damageInfo);
-
-private:
-    unsigned char pad_0000[0x254];
-    BodyModuleInterface *m_body;
-};
+#include "object.h"
 
 void Object::kill(DamageType damageType, DeathType deathType)
 {

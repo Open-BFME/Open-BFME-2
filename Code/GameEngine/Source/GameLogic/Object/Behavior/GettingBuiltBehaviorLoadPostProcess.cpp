@@ -47,15 +47,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Object
-{
-public:
-	void kill(DamageType damageType, DeathType deathType);
-	char m_pad00[0x7c];
-	int m_7c;
-	char m_pad80[0x438 - 0x80];
-	unsigned char m_438;
-};
+#include "../object.h"
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
@@ -96,7 +88,7 @@ void GettingBuiltBehavior::loadPostProcess()
 	for (_STL::list<BfmePod20, _STL::allocator<BfmePod20> >::iterator it = m_workList.begin(); it != m_workList.end(); ++it)
 	{
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)(*it).a[0]);
-		if (obj && (obj->m_438 & 1))
+		if (obj && (obj->m_privateStatus & 1))
 		{
 			Pathfinder *pathfinder = TheAI->m_pathfinder;
 			pathfinder->RemoveObjectFromPathfindMap(obj);
@@ -109,7 +101,7 @@ void GettingBuiltBehavior::rva0045427E()
 	Object *obj = m_object;
 	if (!obj)
 		return;
-	Object *found = TheGameLogic->findObjectByID((ObjectID)obj->m_7c);
+	Object *found = TheGameLogic->findObjectByID((ObjectID)obj->m_builderID);
 	if (!found)
 		return;
 	if (!m_b3C)

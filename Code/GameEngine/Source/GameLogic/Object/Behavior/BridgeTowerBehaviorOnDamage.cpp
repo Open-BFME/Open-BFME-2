@@ -83,22 +83,7 @@ public:
 	unsigned short m_kindOf10A;
 };
 
-class Object
-{
-public:
-	void attemptDamage(DamageInfo *damageInfo);
-	ObjectID getID() const { return m_id; }
-	BodyModuleInterface *getBodyModule() const { return m_body; }
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
-	void *m_vtable;
-	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x74 - 0x08];
-	ObjectID m_id;
-	unsigned char m_pad78[0x244 - 0x78];
-	BehaviorModule **m_behaviors;
-	unsigned char m_pad248[0x254 - 0x248];
-	BodyModuleInterface *m_body;
-};
+#include "../object.h"
 
 extern GameLogic *TheGameLogic;
 

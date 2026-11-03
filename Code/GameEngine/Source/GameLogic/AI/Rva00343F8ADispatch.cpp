@@ -15,14 +15,7 @@ enum WeaponSlotType { PRIMARY = 0 };
 enum CanAttackResult { RESULT_2 = 2, RESULT_3 = 3 };
 enum AbleToAttackType { ATTACK_TYPE_0 = 0 };
 enum CommandSourceType { COMMAND_SOURCE_0 = 0 };
-class Object
-{
-public:
-    const Weapon *getCurrentWeapon(WeaponSlotType *) const;
-    bool isAbleToAttack() const;
-    CanAttackResult getAbleToAttackSpecificObject(
-        AbleToAttackType, const Object *, CommandSourceType) const;
-};
+#include "../Object/object.h"
 
 class StateMachine
 {

@@ -56,12 +56,7 @@ struct Rva00459E05Entry
 	int m_objectID;
 };
 
-class Object
-{
-public:
-	int getMultiLogicalBonePosition( const char *boneNamePrefix, int maxBones, Coord3D *positions,
-		Matrix3D *transforms, bool convertToWorld, int unused ) const;
-};
+#include "../object.h"
 
 class SiegeDockingBehavior
 {

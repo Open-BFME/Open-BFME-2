@@ -19,14 +19,7 @@ enum ObjectStatusTypes
 
 struct Coord3D;
 class Weapon;
-class Object
-{
-public:
-	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	void setStatus(ObjectStatusTypes status, bool value);
-	// Native 0x00291916, the verified position overload in ObjectFireCurrentWeapon.cpp.
-	void fireCurrentWeapon(const Coord3D *position);
-};
+#include "../Object/object.h"
 
 class AIChargeTargetState
 {
