@@ -23478,3 +23478,7 @@ Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva00469
 Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BA|m_membersEnd70,b8d06a24c78477548df39caa,drz-t27,drz-t27-sv2-2,w-12fda968aca1,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BA|m_formation1AC,a5957a46390149a3c681cc37,drz-t27,drz-t27-sv2-2,w-12fda968aca1,2026-11-03
 Code/GameEngine/Source/Common/Rva003F8101.cpp|member|Rva003F8101Item|m_id08,10ac1b7cbf1e837ec1ee2505,drz-t27,drz-t27-sv2-4,w-12fda968aca1,2026-11-03
+Code/GameEngine/Source/Common/Rva003ECB3DIsAlly.cpp|function|0x003ECB3D|Rva003ECB3DIsAlly,d4f38341c0dd7fee8200cb56,drz-t28,drz-t28-sv2-3,w-f1463ee6b143,2026-11-03
+Code/GameEngine/Source/Common/Rva003ECB3DIsAlly.cpp|function|0x003ECB2A|Rva003ECB2AIsEnemy,aa0b70bd8d6e6577c3d7fafa,drz-t28,drz-t28-sv2-3,w-f1463ee6b143,2026-11-03
+Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp|function|0x00432AA2|rva00432AA2,6ea6144de4d0b78c0d5c65a7,drz-t28,drz-t28-sv2-7,w-f1463ee6b143,2026-11-03
+Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp|function|0x00432AC5|rva00432AC5,84c49b36db92fb6548d18a81,drz-t28,drz-t28-sv2-7,w-f1463ee6b143,2026-11-03
