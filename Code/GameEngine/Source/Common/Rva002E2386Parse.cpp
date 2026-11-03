@@ -17,13 +17,7 @@ struct FieldParse;
 
 #include "../../Include/Common/INI/INI.h"
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Retail 0x00C3BC20: seventeen integer fields followed by a zero terminator.
 // RVA 0x00339900's field parser: the audio-token routine GlobalWeatherSystem.cpp
@@ -54,13 +48,6 @@ extern const FieldParse g_00C3BC20[] =
 	{0, 0, 0, 0}
 };
 
-class INIException
-{
-public:
-	INIException(int argCount, const char *format, ...);
-	char *mFailureMessage;
-	int mErrorCode;
-};
 
 struct _s__ThrowInfo;
 

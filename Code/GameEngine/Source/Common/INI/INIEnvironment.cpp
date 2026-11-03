@@ -18,13 +18,7 @@
 struct FieldParse;
 #include "../../../Include/Common/INI/INI.h"
 
-struct FieldParse
-{
-    const char *token;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    int offset;
-};
+#include "../../../Include/Common/INI/FieldParse.h"
 
 // Retail's own five-record SkyboxTextureSet table, transcribed from .rdata at RVA
 // 0x008082F0 (VA 0x00C082F0, file offset 0x008077F0): SkyboxTexture{N,E,S,W,T},

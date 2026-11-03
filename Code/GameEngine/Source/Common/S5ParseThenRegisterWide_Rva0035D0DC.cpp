@@ -6,13 +6,7 @@
 // owner; the original derived-class name remains unresolved.
 
 class INI;
-struct FieldParse
-{
-    const char *token;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 struct Gen_00489270 { void m(int); };
 

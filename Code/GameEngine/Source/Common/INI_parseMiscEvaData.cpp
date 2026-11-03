@@ -1,13 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /G7 /arch:SSE
 // ?parseMiscEvaData@INI@@SAXPAV1@@Z @0x001DCFE5 70B evidence: BlockParse MiscEvaData token VA 0x00DB8D94 parse 0x001DCFE5; donor BFME1 game/GameEngine/Source/GameClient/Eva.cpp INI::parseMiscEvaData; string Cannot override MiscEvaData entries; FieldParse table VA 0x00BDC468; TheEva+0x80
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 enum INILoadType
 {
@@ -18,15 +12,6 @@ enum INILoadType
 
 #include "../../Include/Common/INI/INI.h"
 
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &that);
-	~INIException();
-};
 
 class Eva;
 extern Eva *TheEva;

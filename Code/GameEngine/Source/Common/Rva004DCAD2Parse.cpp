@@ -9,13 +9,7 @@ void parseEmotionNuggetCopyFrom(INI *ini, void *instance, void *store, const voi
 void Rva004DC674Parse(INI *ini, void *instance, void *store, const void *userData);
 void Rva000B9468Parse(INI *ini, void *instance, void *store, const void *userData);
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Retail's own 29-record EmotionNugget field table, transcribed from .rdata at
 // RVA 0x00861310 (VA 0x00C61310, file offset 0x00860710): the record words are

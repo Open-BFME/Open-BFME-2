@@ -8,13 +8,7 @@
 // Evidence: unlock lane; caller 0x00414009; packet message; drain sibling of
 // 0x004135CD.
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 // Retail's field table at VA 0x00C39E58 (.rdata, 64 bytes), transcribed from
 // retail's own bytes: three records plus the null terminator.
@@ -24,12 +18,6 @@ extern const FieldParse ResourceBonusFieldParse[] =
 	{ "WeaponMultiplier", &INI::parseReal, 0, 0x4 },
 	{ "ArmorMultiplier",  &INI::parseReal, 0, 0x8 },
 	{ 0, 0, 0, 0 }
-};
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
 };
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva00413DCCThrowInfoAnchor { int a; int b; int c; int d; };

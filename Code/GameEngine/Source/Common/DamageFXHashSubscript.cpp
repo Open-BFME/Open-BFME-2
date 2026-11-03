@@ -81,7 +81,7 @@ Rva003608C9 &Rva00360A92::rva00360A92(const int &key)
     return *(Rva003608C9*)((char*)it._M_cur+8);
 }
 
-struct FieldParse { const char *token; void (*parse)(INI*,void*,void*,const void*); const void *data; unsigned offset; };
+#include "../../Include/Common/INI/FieldParse.h"
 extern const char *TheVeterancyNames[];
 static const FieldParse DamageFXFields[] = {
  {"AmountForMajorFX",DamageFX::parseAmount,0,0},

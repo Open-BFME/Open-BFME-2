@@ -10,13 +10,7 @@
 // derived struct is unresolved; its field table is owned below from retail.
 
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
 

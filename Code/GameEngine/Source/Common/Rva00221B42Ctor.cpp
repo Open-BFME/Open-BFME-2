@@ -33,13 +33,7 @@ struct FieldParse;
 #include "../../Include/Common/INI/INI.h"
 #include "../../Include/Common/GlobalLanguageClass.h"
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *, void *, void *, const void *);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 // Retail's own five-record table, transcribed from .rdata at RVA 0x007E6BD8 (VA
 // 0x00BE6BD8, file offset 0x007E0FD8): Title, OpenAudio and Icon with

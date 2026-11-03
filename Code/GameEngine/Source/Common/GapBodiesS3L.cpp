@@ -157,19 +157,8 @@ public:
 	};
 };
 
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
-class MultiIniFieldParse
-{
-public:
-	void add(const FieldParse *table, unsigned int offset);	// 0x0002BC6E
-};
 
 // 0x004E3BD8 is rowed with its own (INI *, int, vector<BfmePod88> *) signature
 // (LivingWorldCampaignObjects.cpp); the table stores it as a parse callback.

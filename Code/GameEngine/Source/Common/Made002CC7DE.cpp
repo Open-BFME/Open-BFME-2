@@ -41,13 +41,7 @@ class MultiIniFieldParse;
 // field-name literals, parse functions are the rowed INI statics, userData
 // is null, offsets walk 0x130-0x14C. Field identifiers are descriptive;
 // the original table spelling is unknown.
-struct FieldParse
-{
-    const char *name;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    unsigned int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 extern const char BfmeProjectileWarheadTemplateNameField[];
 const char BfmeProjectileWarheadTemplateNameField[] = "WarheadTemplateName";
@@ -71,14 +65,6 @@ const FieldParse TheProjectileFieldTable[] = {
     { 0, 0, 0, 0 }
 };
 int __cdecl Rva00507552Get();
-class MultiIniFieldParse
-{
-public:
-    MultiIniFieldParse();
-    void add(const FieldParse *p, unsigned int u);
-
-    char m_pad[0x84];
-};
 typedef bool Bool;
 typedef int Int;
 typedef float Real;

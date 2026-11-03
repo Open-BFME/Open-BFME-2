@@ -8,13 +8,7 @@
 // unlock lane; caller 0x004138C7 (Duplicate message sibling in string_xrefs);
 // string_xrefs full message; prev/next Common TUs.
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 // Retail's field table at VA 0x00C39A78 (.rdata, 64 bytes), transcribed from
 // retail's own bytes: three records plus the null terminator.
@@ -24,12 +18,6 @@ extern const FieldParse SciencePurchasePointBonusFieldParse[] =
 	{ "WeaponMultiplier",                 &INI::parseReal, 0, 0x4 },
 	{ "ArmorMultiplier",                  &INI::parseReal, 0, 0x8 },
 	{ 0, 0, 0, 0 }
-};
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
 };
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva004135CDThrowInfoAnchor { int a; int b; int c; int d; };

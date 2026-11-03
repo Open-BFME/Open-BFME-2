@@ -3,13 +3,7 @@
 // The factory parses its field table, then copies end frame into frame length.
 
 class INI;
-struct FieldParse
-{
-    const char *token;
-    void (*parse)(INI *, void *, void *, const void *);
-    const void *userData;
-    int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 #include "../../Include/Common/INI/INI.h"
 struct Gen_00489270 { void m(int); };
 

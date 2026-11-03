@@ -30,13 +30,7 @@ namespace _STL { template <> void vector<AsciiString, allocator<AsciiString> >::
 
 // The table's native record. Its vector retains the ledger's BfmeE16 storage
 // identity; only the field accesses use this parser view of the 16 bytes.
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 extern const int g_emptyFieldParseTable[4];
 
 // The narrow "text + text" node, as WinMainPairUnicode.cpp and

@@ -315,13 +315,7 @@ struct FieldParse;
 
 // Native BonusForLevel table C3A658..C3A6C8. The target supplies all six
 // field names, parser addresses and offsets in the 24-byte level record.
-struct FieldParse
-{
- const char *token;
- void (*parse)(INI *, void *, void *, const void *);
- const void *userData;
- int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 extern const FieldParse BfmeBonusForLevelFieldTable[] = {
  { "MinLevel", INI::parseInt, 0, 0 },
  { "MaximumUnitsAffected", INI::parseInt, 0, 4 },

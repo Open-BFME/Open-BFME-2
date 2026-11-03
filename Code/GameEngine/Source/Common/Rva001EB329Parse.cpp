@@ -9,13 +9,7 @@
 #include "ascii_string.h"
 
 class INI;
-struct FieldParse
-{
-	const char *token;
-	void (*parse)(INI *ini, void *instance, void *store, const void *userData);
-	const void *userData;
-	int offset;
-};
+#include "../../Include/Common/INI/FieldParse.h"
 
 #include "../../Include/Common/INI/INI.h"
 
@@ -34,12 +28,6 @@ extern const FieldParse CampaignMissionFieldParse[] =
 };
 
 
-struct INIException
-{
-	char *mFailureMessage;
-	int mErrorCode;
-	INIException(int argCount, const char *format, ...);
-};
 
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 struct Rva001EB329ThrowInfoAnchor { int a; int b; int c; int d; };
