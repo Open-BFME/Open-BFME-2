@@ -30,6 +30,10 @@ the source that referenced it), `result.json` and `link.log`.
 the omission proof named in `refusal`. The numbers are real, but the result cannot count as the
 exit test until the refusal clears.
 
+`image_report.json` compares the kept objects with retail on what the linker cannot see
+(`tools/image_report.py`): initializers registered, vtable lengths, data contents, FieldParse tables
+and duplicate globals. These all pass a link and fail at run time. Its `rows` lists name each case.
+
 ## When the census stops publishing
 
 Look at the last cycle in `journalctl --user -u bfme2-runner.service` on srv1:

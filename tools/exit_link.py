@@ -817,11 +817,16 @@ def main(argv=None):
     mode.add_argument("--eh-proof", action="store_true", help="run eh_verify --all and report")
     mode.add_argument("--link", action="store_true", help="sandbox or hosted runner only: read-only proof and exit link")
     mode.add_argument("--report", action="store_true", help="summarise build/exit_link/result.json")
+    mode.add_argument("--image-report", action="store_true",
+                      help="compare the kept objects with retail: tools/image_report.py")
     parser.add_argument("--objects", action="store_true",
                         help="with --plan: prove the omission from build/match objects")
     parser.add_argument("--index", action="store_true",
                         help="with --plan: cross-check the published census index (--fetch-index first)")
     args = parser.parse_args(argv)
+    if args.image_report:
+        import image_report
+        return image_report.main([])
     if (args.objects or args.index) and not args.plan:
         parser.error("--objects and --index go with --plan")
     if args.report:

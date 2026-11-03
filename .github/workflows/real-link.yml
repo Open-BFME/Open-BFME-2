@@ -102,6 +102,9 @@ jobs:
           print(text)
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
               summary.write('## Real link measurement\n\n```json\n' + text + '\n```\n')
+      - name: Compare the objects with retail
+        continue-on-error: true
+        run: python tools/exit_link.py --image-report
       - name: Publish the result
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -115,6 +118,7 @@ jobs:
             build/exit_link/errors.tsv
             build/exit_link/link.log
             build/exit_link/run.log
+            build/exit_link/image_report.json
 
   report:
     needs: measure
@@ -146,7 +150,11 @@ jobs:
                   if done.returncode:
                       return None
                   with open(f'{folder}/scoreboard.json', encoding='utf-8') as handle:
-                      return json.load(handle)
+                      result = json.load(handle)
+                  if os.path.exists(f'{folder}/image_report.json'):
+                      with open(f'{folder}/image_report.json', encoding='utf-8') as handle:
+                          result['image_report'] = json.load(handle)['summary']
+                  return result
 
 
           now = board(RUN, os.environ['GITHUB_SHA'])
@@ -166,6 +174,13 @@ jobs:
                   line += f" {len(now['omitted_funclets'])} funclets still block the official run."
           else:
               line = f"Real link at `{now['commit'][:10]}` was refused: {str(now['refusal'])[:300]}"
+          if 'image_report' in now:
+              seen = now['image_report']
+              line += (f"\nAgainst retail: {seen['initializers']['registered_retail_entries']} of "
+                       f"{seen['initializers']['retail']} initializers registered, "
+                       f"{seen['vtables']['ours_shorter']} vtables with a short copy, "
+                       f"{seen['fieldparse']['contents_differ']} parse tables differ, "
+                       f"{seen['globals']['contents_differ'] + seen['globals']['ours_zero_retail_not']} globals differ.")
           line += f" <{os.environ['GITHUB_SERVER_URL']}/{os.environ['GH_REPO']}/actions/runs/{RUN}>"
           print(line)
           body = json.dumps({'content': line, 'allowed_mentions': {'parse': []}}).encode()
