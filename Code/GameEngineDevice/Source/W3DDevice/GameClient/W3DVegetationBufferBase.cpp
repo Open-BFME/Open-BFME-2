@@ -124,11 +124,7 @@ void BFME_DX8_Thread_Lock(void);
 
 bool BFME_DX8_Thread_Assert(void);
 
-class BfmeResetTextureRef
-{
-public:
-	void clear();
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
 class Rva00170EBC
 {

@@ -1,4 +1,4 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ??0Rva00136001@@QAE@ABVHierarchyPrototypeRef@@@Z @ 0x00136001 (49 bytes).
 // SEH owner copy ctor zeroes holder then assigns through rowed rva00135E86 at
 // 0x00135E86 which validates texture class ids; same 49B SEH shape as HTree
@@ -41,11 +41,7 @@ Rva00136001::Rva00136001(const HierarchyPrototypeRef &source)
 // describes the established WORD-at4 counted-resource ABI; the original
 // wrapper and prototype types are unknown.
 struct BfmeResetAnyRef { void *pointer; };
-struct BfmeResetTextureRef {
- void *pointer;
- void clear();
- BfmeResetTextureRef &rva00180815(const BfmeResetAnyRef &rhs);
-};
+#include "BfmeResetTextureRef.h"
 class Rva00180AF9 {
 public:
  Rva00180AF9 *rva00180AF9(const RefCountPtr<TextureClass> &other);
