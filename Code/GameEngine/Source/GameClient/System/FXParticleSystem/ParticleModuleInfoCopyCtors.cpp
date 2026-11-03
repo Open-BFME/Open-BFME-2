@@ -422,6 +422,7 @@ Rva003AE5F9::Rva003AE5F9(const Rva003AE5F9 &other)
 // adjustment of source to +0x1c for the Box base; vptrs at +0/+0x14/+0x18/+0x1c DIR32;
 // same Intermediate3AFC6FC pre-Box stores as rowed 0x003AF5AC Line version; caller 0x003AF645 45B;
 // LINK BONUS: 1 matched file waiting via 0x003AF645.
+#include "../../../../Include/GameClient/BoxEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 class Snapshot672
@@ -434,12 +435,6 @@ class EmissionVolumeInfo672 : public Snapshot672
 public:
 	virtual ~EmissionVolumeInfo672();
 	bool m_flag;
-};
-class BoxEmissionVolumeInfo : public EmissionVolumeInfo672
-{
-public:
-  BoxEmissionVolumeInfo(const BoxEmissionVolumeInfo &that) throw();
-  virtual ~BoxEmissionVolumeInfo();
 };
 }
 

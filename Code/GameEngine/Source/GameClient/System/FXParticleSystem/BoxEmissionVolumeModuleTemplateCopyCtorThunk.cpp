@@ -3,6 +3,7 @@
 // Open-BFME5: BoxEmissionVolumeModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/BoxEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class BoxEmissionVolumeInfo
-{
-public:
-	BoxEmissionVolumeInfo(const BoxEmissionVolumeInfo &that);
-	virtual void dummy();
-};
 
 // BoxEmissionVolumeModuleTemplate_cvtbl0: matched references place it at VA 0xc1bb50 (retail .rdata value -99).
 extern "C" char BoxEmissionVolumeModuleTemplate_cvtbl0 = -99;

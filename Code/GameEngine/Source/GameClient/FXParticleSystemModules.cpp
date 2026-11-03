@@ -27,6 +27,7 @@ class INI;
 #include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
 #include "../../Include/GameClient/LineEmissionVolumeInfo.h"
 #include "../../Include/GameClient/EmissionVelocityInfo.h"
+#include "../../Include/GameClient/BoxEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
 
@@ -48,11 +49,6 @@ struct FXCoord3D
 
 
 
-class BoxEmissionVolumeInfo : public EmissionVolumeInfo
-{
-public:
-    FXCoord3D m_half;
-};
 
 
 class CylinderEmissionVolumeInfo : public EmissionVolumeInfo

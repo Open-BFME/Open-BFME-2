@@ -26,16 +26,9 @@
 // Complete-destructor providers exist for this collector; unresolved owners
 // remain byte-verified in the corresponding _Unresolved unit.
 
+#include "../../Include/GameClient/BoxEmissionVolumeInfo.h"
 namespace FXParticleSystem
 {
-class BoxEmissionVolumeInfo
-{
-public:
-	BoxEmissionVolumeInfo();
-	virtual ~BoxEmissionVolumeInfo();
-private:
-	char m_unmodelled_04[0x14 - 0x04];
-};
 }
 
 #include "../../Include/GameClient/SphereEmissionVolumeInfo.h"
