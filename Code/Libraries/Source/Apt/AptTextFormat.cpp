@@ -81,10 +81,7 @@ public:
   EAStringC string;
   static AptString *Create();
 };
-class AptInteger {
-public:
-  static AptValue *Create(int);
-};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 class AptBoolean {
 public:
   static AptValue *Create(bool);

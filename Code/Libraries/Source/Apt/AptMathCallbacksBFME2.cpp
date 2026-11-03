@@ -188,7 +188,7 @@ AptValue *aptMathAtan2(void *self, int argc)
     return Rva008A4EA0MakeFloat((float)atan2((double)yCoordinate, (double)xCoordinate));
 }
 
-class AptInteger { public: static AptValue *Create(int value); };
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 // Native 6E8760..6E87B3: integer abs preserves integer type; otherwise fabs.
 // The BFME1 abs donor only has the integer path. The target's isInteger()
 // predicate and separate float factory independently establish this extension.

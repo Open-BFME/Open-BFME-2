@@ -18,11 +18,7 @@ void __debugbreak();
 
 class AptValue;
 
-class AptInteger
-{
-public:
-	static AptValue *Create(int nValue);
-};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 class AptValue; extern AptValue *gpUndefinedValue;
 int Rva006CD220Get();

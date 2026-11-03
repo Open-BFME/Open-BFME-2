@@ -14,17 +14,9 @@ public:
     __forceinline EAStringC *GetInternalString() { return &str; }
 };
 class AptBoolean { public: bool GetBool() const; };
-class AptInteger { public: int GetInt() const; };
+#include "../../../../GameEngine/Include/Common/AptInteger.h"
 class Rva00723490FloatField { public: float get() const; };
 #include "../BfmeAptValue006DCD20.h"
-class AptValue {
-    virtual void vtableSlot0();
-    unsigned int flags;
-public:
-    AptString *c_string() const;
-    AptInteger *c_integer() const;
-    bool toBool() const;
-};
 int Rva006CD220Get();
 extern "C" long __cdecl strtol(const char *, char **, int);
 extern "C" double Rva006CD070Atof(const char *);
@@ -40,7 +32,7 @@ extern AptValue *gpUndefinedValue;
 
 bool AptValue::toBool() const
 {
-    switch (static_cast<int>(flags) >> 25) {
+    switch (static_cast<int>(field04) >> 25) {
     case 1:
     case 42:
         if (Rva006CD220Get() == 7) {

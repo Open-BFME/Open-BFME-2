@@ -78,7 +78,7 @@ class Rva006F1360 {public:AptValue *objectMemberLookup(AptValue *,const EAString
 
 class AptString {public:static AptString *Create();};
 
-class AptInteger {public:static AptValue *Create(int);};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 class AptBoolean {public:static AptValue *Create(bool);};
 

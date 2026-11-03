@@ -175,7 +175,7 @@ class AptString {public:
  static AptValue*sMethod_slice(AptValue*,int);
 };
 
-class AptInteger {public:static AptValue*Create(int);};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 struct R4Word {const char*name;int value;};
 

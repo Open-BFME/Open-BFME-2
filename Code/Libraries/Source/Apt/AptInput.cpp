@@ -64,7 +64,7 @@ public:
 
 struct AptNativeHash;
 
-class AptValue {public:virtual void AddRef();virtual void Release();virtual void ForceDelete();virtual AptNativeHash *GetNativeHashVirtual();virtual bool ContainsNativeHashVirtual() const;AptValue *findChild(const EAStringC *,AptValue *);};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 #include "AptNativeHash.h"
 
@@ -384,7 +384,6 @@ struct BfmePickNode1284;
 
 typedef char PoolCountOffset[(sizeof(AptAnimationPoolData) >= 0x44 + sizeof(BfmeAptValue006DCD20)) ? 1 : -1];
 
-class AptInteger { public: static AptValue *Create(int); };
 
 bool rva006EE6C0(AptValue *target, const EAStringC *name, AptValue *value);
 

@@ -106,10 +106,7 @@ class AptString : public AptValue {
 public:
   static AptString *Create();
 };
-class AptInteger {
-public:
-  static AptValue *Create(int);
-};
+#include "../../../../GameEngine/Include/Common/AptInteger.h"
 class Rva006DBB60ShrNAndField {
 public:
   bool get() const;

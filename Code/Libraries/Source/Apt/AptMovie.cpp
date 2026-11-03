@@ -27,7 +27,7 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 
 class AptValue;
 
-class AptInteger {public:static AptValue *Create(int);};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 class AptNativeHash {
  char data[20];

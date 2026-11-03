@@ -76,7 +76,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 class AptValue;
 
-class AptInteger { public: static AptValue *Create(int); };
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 
 class AptString { public: static AptString *Create(); };
 

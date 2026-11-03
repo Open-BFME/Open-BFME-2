@@ -61,11 +61,7 @@ void *Rva006CBAD0Format(const char *szFormat, ...)
 // into the rowed pooled factory (AptInteger::Create 0x006D8520, the float
 // factory 0x006D8700, AptBoolean::Create 0x006D88C0). Address-derived names.
 class AptValue;
-class AptInteger
-{
-public:
-	static AptValue *Create(int value);
-};
+#include "../../../../GameEngine/Include/Common/AptInteger.h"
 class AptBoolean
 {
 public:

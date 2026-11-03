@@ -138,7 +138,7 @@ AptValue *__cdecl rva006ee540(AptValue *value)
     return Rva008A4EA0MakeFloat(byteCount);
 }
 
-class AptInteger {public:static AptValue *Create(int);};
+#include "../../../GameEngine/Include/Common/AptInteger.h"
 class AptBasePtrStack {public:AptValue *At(int);};
 struct AptActionInterpreter {AptBasePtrStack stack;void loadVariables(AptValue *,AptValue *,const EAStringC *);};
 extern AptActionInterpreter g_aptDateInterpreter;

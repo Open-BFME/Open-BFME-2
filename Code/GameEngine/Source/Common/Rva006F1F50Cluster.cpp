@@ -54,11 +54,7 @@ public:
 // The native call targets the verified type-7 pooled factory at
 // 0x006D8520 in AptIntegerCreateBFME2.cpp. Only its static interface is
 // used here; neither a scalar layout nor these callers' identity is inferred.
-class AptInteger
-{
-public:
-	static AptValue *Create(int value);
-};
+#include "../../Include/Common/AptInteger.h"
 
 void rva006F1F50(BfmeAptValue006DCD20 *value)
 {

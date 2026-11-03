@@ -3,7 +3,7 @@
 // special-key table when the modifier bits are set and the code is small.
 // cl: /DNDEBUG /MD /EHsc
 class AptValue;
-class AptInteger { public: static AptValue* Create(int value); };
+#include "../../../Include/Common/AptInteger.h"
 extern unsigned int Rva008A5250LastKey;
 // Rva008A5250LastKey: matched references place it at VA 0xe18328 (zero-filled .bss).
 unsigned int Rva008A5250LastKey;
