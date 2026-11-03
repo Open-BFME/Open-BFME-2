@@ -45,3 +45,58 @@ From `reverse/exit_link_blockers.tsv` (real link at `96cfeda7ba`; 234 errors, 21
   and `?name@Rva0049795ANamed@@QBEPBDXZ`. `#define BFME_SNAPSHOT_NAME_SLOT` alone would bind slot 2 to
   `UpdateModule::GetSnapshotName`, not retail's; rename those rows to the classes' `GetSnapshotName`
   and declare the override in each view.
+
+#### Seat halilkkaya-lk20 follow-up (2026-11-03, real link at `d0b9cc5d27`)
+
+Method for every repair below: list the names the unit's object defines, check in the census index
+(23b85ddde5) that no other object references any of them without another definer, delete the unrowed
+Zero Hour bodies, keep every row (a member-pointer anchor where a header inline row lost its only
+emitter), then rebuild, compare the old and new objects' undefined sets, run the orphan scan over all
+22,374 `build/match` objects and `link_check` the unit's siblings. Each commit body has the receipts.
+
+- **ConnectionManager.cpp, 42 names: 40 repaired.** 51 unrowed Zero Hour methods dropped (retail's
+  are rowed in the `ConnectionManager_*.cpp` units); 33 rows, TheDisconnectMenu and the map anchors
+  kept. Orphans 0; the 38 sibling units LINKS unchanged. **Remaining 2:**
+  `Rva004D272EMapHintInsert::insert` and `Rva0046A9ABMapLowerBound::lower_bound`, the pinned adapters
+  the operator[] row 0x004D2941 calls (the recorded 4D2941 identity prerequisite; see
+  `connectionmanager-remaining-type-ownership-cohort-handoff-2026-11-03.md`).
+- **Weapon.cpp, 24 names: repaired.** Zero Hour field table, fireWeaponTemplate, privateFireWeapon,
+  fireWeapon, the copy constructor (Zero Hour Weapon vtable) and two line-of-sight overloads dropped;
+  `setLeechRangeActive` (0x002D95FE, no approved TU) kept by an anchor. `link_check` 0 -> 217 B LINKS.
+- **WeaponSet.cpp, 6 names: repaired.** Three Zero Hour WeaponSet methods dropped; the
+  parseWeaponTemplateSet table's "Conditions" entry now points at retail's 0x002C8C06
+  (`Rva002C8C06Parse`), per retail table 0x00C00A90, instead of Zero Hour's BitFlags parser (static
+  `INI::scanIndexList`). The rest of that table still differs from retail's (OnlyAgainst,
+  OnlyInCondition, ReadyStatusSharedWithinSet, DefaultWeaponChoiceCritera are missing). The census still
+  blocks the unit on its `??_7WeaponSet` copy.
+- **StealthUpdate.cpp, 18 names: repaired**, together with SpawnBehavior.cpp's unrowed
+  `areAllSlavesStealthed`, the only outside caller of `allowedToStealth` (SpawnBehavior.obj emits no
+  vtable). `getPlayerNightColor` (0x00509D29, no approved TU) kept by an anchor. `link_check`
+  0 -> 16 B LINKS.
+- **BuddyThread_Unresolved.cpp, 5 names: 2 repaired.** Retail table 0x00C6B014 follows Zero Hour's slot
+  order. Slot 3 `isThreadRunning` (0x00550609) and slot 5 `isConnecting` (0x003889E8) are folded with
+  GameSpyPeerMessageQueue's rowed bodies and are now ICF twin rows (fold-proof=PeerThread.cpp).
+  **Remaining 3, renames needed:** slot 2 `endThread` is 0x00550B4C (placeholder
+  `?rva00550B4C@Rva00550B4C@@QAEXXZ`, BuddyThread.cpp); slot 4 `isConnected` is 0x00550618
+  (`mov al,[thread+0x52]`) and slot 10 `getLocalProfileID` is 0x00550626 (`mov eax,[thread+0x54]`),
+  both placeholders in Common/VslotSmallBodiesAM.cpp. Each needs the owner row renamed with a naming
+  basis; a second name on the address is not allowed.
+- **Checked, not repaired:**
+  - DumbProjectileBehavior.cpp (10) and JetAIUpdate.cpp (9): still parked as LINK-072 records.
+    DumbProjectile's row `UpdateModule::getUpdatePhase` (0x0022C4CB, displaced) is a virtual inline that
+    78 objects emit; it cannot be anchored and has no approved unit to move to.
+  - BodyModuleCtor.cpp (2): the canonical `BodyModuleClass.h` declares `getBody` and `vslot12`, and
+    nothing defines them. Retail BodyModule tables: behavior-interface 0x00C5AD78 slot 0 is 0x002533D3,
+    the null-checked `+0x10` cast folded with `getDie@DieModule` and `getUpdate@UpdateModule`; primary
+    0x00C5AE68 slot 12 is 0x0050B5C6 (`mov al,1; ret`, placeholder `Rva0050B5C6`). The fix is two ICF
+    twin rows defined in BodyModuleCtor.cpp, but both RVAs are claimed by StarkillerHDX@fleet
+    (class:AIUpdateInterface/LocomotorSet), so they were left alone.
+  - BoneFXDamage.cpp (3) and LockWeaponCreate.cpp (2): the rowed constructors emit Zero Hour vtables
+    (DamageModule crc/xfer/loadPostProcess; LockWeaponCreate onBuildComplete/xfer). Each needs the retail
+    table's slot owners named first.
+  - EvacuateDamageCtorModuleFactoryBody.cpp (1) and BFMENetwork.cpp (7): their rowed constructors call
+    names that are only pins onto other rows (`??1PB_DeepBase` to 0x0002CCC3; `??0BFMENetworkState` to
+    0x00007850) or that have no provider. These are identity work, not body drops.
+  - AIUpdate.cpp (5): the file is claimed by another worker.
+  - RadarUpdateConstructor.cpp: its getter row 0x004A0C27 is in Common/ModuleNameGetters3.cpp (Codex's
+    slice).
