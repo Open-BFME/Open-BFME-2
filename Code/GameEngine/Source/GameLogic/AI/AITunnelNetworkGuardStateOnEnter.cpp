@@ -53,17 +53,7 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 #include "../../../Include/Common/StateMachineClass.h"
-class AITNGuardMachine : public StateMachine
-{
-public:
-	AITNGuardMachine(Object *owner);
-	void setTargetPositionToGuard(const Coord3D *pos) { m_positionToGuard = *pos; }
-	void setGuardMode(GuardMode guardMode) { m_guardMode = guardMode; }
-private:
-	Coord3D m_positionToGuard; // +0x3C
-	unsigned char m_pad48[0x4C - 0x48];
-	GuardMode m_guardMode; // +0x4C
-};
+#include "../../../Include/GameLogic/AITNGuardMachine.h"
 class AITunnelNetworkGuardState : public State
 {
 public:
