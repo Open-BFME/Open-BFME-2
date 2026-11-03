@@ -953,12 +953,7 @@ void Rva006CF1B0(int delay)
 	Rva006CF040Tick(delay);
 }
 
-class AttributeModifierStore
-{
-public:
-	void *GetCategoryContainer(int category);
-	void *rva002149A5(int category);
-};
+#include "../../Include/GameLogic/AttributeModifierStore.h"
 
 void *AttributeModifierStore::rva002149A5(int category)
 {

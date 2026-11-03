@@ -33,18 +33,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
-class AttributeModifierStore
-{
-public:
-	void *GetCategoryContainer(int index);
-	bool getModifier(int index, void *key, float *value, const StringBase<char> *name);
-	int rva00214713(int key);
-	void *rva00214801(void *out, int index);
-	void *getEndFX(int index, Object *object);
-	void *rva00214862(void *out, int index);
-	void *getFX(int index,Object *object);
-	void *getDelayedUpgrade(int index);
-};
+#include "../../../../Include/GameLogic/AttributeModifierStore.h"
 extern AttributeModifierStore *TheAttributeModifierStore;
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <string.h>

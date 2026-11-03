@@ -142,12 +142,7 @@ struct Rva0046DB6DCategory
 	unsigned char m_pad00[0x0C];
 	int m_index; // +0x0C
 };
-class AttributeModifierStore
-{
-public:
-	int rva00214713(int key);
-	void *GetCategoryContainer(int index);
-};
+#include "../../../../Include/GameLogic/AttributeModifierStore.h"
 extern AttributeModifierStore *TheAttributeModifierStore;
 enum PathfindLayerEnum
 {

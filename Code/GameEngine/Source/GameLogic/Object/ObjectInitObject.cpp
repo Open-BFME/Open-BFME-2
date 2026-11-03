@@ -226,12 +226,7 @@ public:
 		const _STL::vector<AsciiString, _STL::allocator<AsciiString> > *names);
 };
 
-class AttributeModifierStore
-{
-public:
-	Int rva00214713(Int key);
-	void *rva002149A5(Int index);
-};
+#include "../../../Include/GameLogic/AttributeModifierStore.h"
 extern AttributeModifierStore *TheAttributeModifierStore;
 
 class GlobalWeatherSystem;

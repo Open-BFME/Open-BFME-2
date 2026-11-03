@@ -88,7 +88,7 @@ enum NameKeyType{KEY0=0};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AttributeModifierStore{public:int rva00214713(int);void*getDuration(int);};
+#include "../../../../Include/GameLogic/AttributeModifierStore.h"
 
 extern AttributeModifierStore *TheAttributeModifierStore;
 

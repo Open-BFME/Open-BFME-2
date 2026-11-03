@@ -48,12 +48,7 @@ public:
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AttributeModifierStore
-{
-public:
-	int rva00214713(int key);
-	void *getDuration(int index);
-};
+#include "../../../../Include/GameLogic/AttributeModifierStore.h"
 extern AttributeModifierStore *TheAttributeModifierStore;
 
 class GameLogic;

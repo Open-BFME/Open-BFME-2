@@ -44,7 +44,7 @@ template<> __declspec(noinline) inline void deque<BfmeWordValue4>::pop_front() {
 template<> _Deque_base<BfmeWordValue4,allocator<BfmeWordValue4> >::~_Deque_base();
 }
 struct AttributeConditionWords {int words[19];};
-class AttributeModifierStore {public:void *rva00214801(void*,int);void *getEndFX(int,Object*);void *GetCategoryContainer(int);void *getDelayedUpgrade(int);};
+#include "../../../../Include/GameLogic/AttributeModifierStore.h"
 extern AttributeModifierStore *TheAttributeModifierStore;
 class FXList {public:static void doFXObj(const FXList *,const Object *,const Object *);};
 struct CategoryView {char unknown00[12];int category;};

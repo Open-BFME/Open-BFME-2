@@ -97,11 +97,7 @@ class ArmyDefinitionManager
 public:
 	static void parseArmyDefinition(INI *);
 };
-class AttributeModifierStore
-{
-public:
-	static void parseModifierListDefinition(INI *);
-};
+#include "../../../Include/GameLogic/AttributeModifierStore.h"
 class AudioEventInfo
 {
 public:
