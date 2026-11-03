@@ -14,6 +14,7 @@ Donor facts: Zero Hour's InGameUI declaration supplies the names of message togg
 The INI field-parse table at VA 0x00BFC338 gives each key's offset and parser: parseAsciiString 0x0002F11E, parseInt 0x0002EF56, parseBool 0x0002E850, parseColorInt 0x0002F3FE, parseReal 0x0002EFC0, parseDurationReal 0x00338B0A and parseVelocityReal 0x00338BBD type the superweapon (+0x728..+0x748), named-timer (+0x76C..+0x798), drawable-caption (+0x79C..+0x7A4), message (+0x814..+0x838), military-caption (+0x858..+0x86C), floating-text (+0x8A4..+0x8AC) and RMB-anchor (+0x8C3/+0x8C4) members; Zero Hour's table maps the same keys to these names. BFME2-only keys keep neutral names: UnitHelpTextDelay +0x984 (integral store by 0x0002F0F7) and the four Hero*NotificationMessage/Timeout pairs +0x9D0..+0x9EC (AsciiString, Real).
 Rowed accesses: setScrolling/isScrolling 0x0029A7F1/0x0029A83A use byte +0x7F8, setSelecting/isSelecting 0x0029A841/0x0029A854 byte +0x7F9, isPlacementAnchored 0x0029AAFC reads byte +0x554, updateOrderDisplayMode 0x0029A72C stores 0/1/2 to dword +0x8B4, evaluateSoloNexus 0x0029B967 stores the drawable ID at +0x980 (0x0029B9C3), placeBuildAvailable 0x0029BB8B stores 1/2 to dword +0x9C8 (0x0029BCF6/0x0029BD2D), and playCameoMovie 0x0029F3D7 passes the pointer at +0x5C8 to the window's video-buffer setter (0x0029F48D).
 Pointee types: the constructor stores the result of InGameNotificationBoxMovieClip's constructor 0x004E6C34 (called at 0x002A640C) at +0x9CC (0x002A6415). playCameoMovie stores at +0x5CC (0x0029F40D) what TheVideoPlayer's slot 17 returns (call 0x0029F408); slot 17 of its table VA 0x00BC7EA8 is 0x0009151D, whose row returns VideoStreamInterface *. drawConstructPercent 0x002779CE reads TheInGameUI's +0x7A4 byte and +0x7A0 dword inline (0x00277A53/0x00277A59), the Zero Hour inline caption accessors.
+Inline slots: W3DInGameUI's object (constructor 0x0008EF3F) emits InGameUI's inline virtuals right after its constructor, in table order, and both tables 0x00BFD410 and 0x00BC7A88 point at those copies: toggleMessages 0x0008EF81 (slot 20, byte +0x811 = 1 - itself), isMessagesOn 0x0008EF95 (21), slot51 0x0008EF9C (byte +0x98C), slot63/slot64 0x0008EFA3/0x0008EFAA (byte +0x8C6), getMaxSelectCount 0x0008EFB7 (+0x56C), slot76 0x0008EFBE (+0x980), slot95 0x0008EFC5 (byte +0x810) and the Snapshot name getter 0x0008EFD2 (+0xC table slot 2, the "InGameUI" literal at VA 0x00BC7C7C). Slots 52, 70, 72, 102 and 103 point at identical bodies folded elsewhere: 0x000D43D0 (xor eax,eax), 0x0054902C (+0x568), 0x0028A94B (+0x570), 0x0045310D and 0x004AD9A6 (byte +0x3C). Donor facts: Zero Hour declares toggleMessages, isMessagesOn, getSelectCount, getMaxSelectCount, getFrameSelectionChanged and getDisplayedMaxWarning inline with these bodies, and its snapshot methods protected; the loadPostProcess 0x002A2184 and xfer 0x002A6AC2 rows are protected virtuals.
 */
 #ifndef BFME2_INGAMEUI_H
 #define BFME2_INGAMEUI_H
@@ -97,8 +98,8 @@ public:
     virtual void __cdecl messageColor(const RGBColor *, UnicodeString, ...);
     virtual void __cdecl message(UnicodeString, ...);
     virtual void __cdecl message(AsciiString, ...);
-    virtual void toggleMessages();
-    virtual bool isMessagesOn();
+    virtual void toggleMessages() { field811 = 1 - field811; }
+    virtual bool isMessagesOn() { return field811; }
     virtual void militarySubtitle(const AsciiString &, int);
     virtual void militarySubtitle(UnicodeString, int);
     virtual void removeMilitarySubtitle();
@@ -128,8 +129,8 @@ public:
     virtual const CommandButton *getGUICommand() const;
     virtual void slot49(const Coord3D *);
     virtual void slot50(const Coord3D *);
-    virtual bool slot51();
-    virtual int slot52();
+    virtual bool slot51() { return field98C; }
+    virtual int slot52() { return 0; }
     virtual void updateFormationPreview();
     virtual bool rva0029DB61();
     virtual void placeBuildAvailable(const ThingTemplate *, Drawable *);
@@ -140,20 +141,20 @@ public:
     virtual bool isPlacementAnchored();
     virtual void getPlacementPoints(ICoord2D *, ICoord2D *);
     virtual float getPlacementAngle();
-    virtual bool slot63();
-    virtual void slot64(bool);
+    virtual bool slot63() { return field8C6; }
+    virtual void slot64(bool value) { field8C6 = value; }
     virtual void slot65();
     virtual void selectDrawable(Drawable *);
     virtual void deselectDrawable(Drawable *);
     virtual void deselectAllDrawables();
     virtual void rva0029BE05(bool, Player *);
-    virtual int getSelectCount();
-    virtual int getMaxSelectCount();
-    virtual unsigned int getFrameSelectionChanged();
+    virtual int getSelectCount() { return field568; }
+    virtual int getMaxSelectCount() { return field56C; }
+    virtual unsigned int getFrameSelectionChanged() { return field570; }
     virtual const _STL::list<Drawable *, _STL::allocator<Drawable *> > *getAllSelectedDrawables() const;
     virtual const _STL::list<Drawable *, _STL::allocator<Drawable *> > *getAllSelectedLocalDrawables();
     virtual Drawable *getFirstSelectedDrawable();
-    virtual int slot76();
+    virtual int slot76() { return m_soloNexusSelectedDrawableID; }
     virtual bool slot77(int) const;
     virtual bool isAnySelectedKindOf(KindOfType) const;
     virtual bool isAllSelectedKindOf(KindOfType) const;
@@ -172,15 +173,15 @@ public:
     virtual int slot92();
     virtual int getMousedOverDrawableID() const;
     virtual void rva0029AC03(bool);
-    virtual bool slot95() const;
+    virtual bool slot95() const { return field810; }
     virtual const void *slot96() const;
     virtual int selectUnitsMatchingCurrentSelection();
     virtual int selectMatchingAcrossScreen();
     virtual int selectMatchingAcrossMap();
     virtual int selectMatchingAcrossRegion(IRegion2D *);
     virtual void mergeRva0029AF3F(const int *, const int *, int *);
-    virtual bool getDisplayedMaxWarning();
-    virtual void setDisplayedMaxWarning(bool);
+    virtual bool getDisplayedMaxWarning() { return field03C; }
+    virtual void setDisplayedMaxWarning(bool value) { field03C = value; }
     virtual void addFloatingText(const UnicodeString &, const Coord3D *, int);
     virtual void addIdleWorker(Object *);
     virtual void removeIdleWorker(Object *, int);
@@ -200,13 +201,15 @@ public:
     virtual void *slot118() = 0;
     virtual void slot119() = 0;
 
+protected:
     virtual void loadPostProcess();
 #ifdef BFME_SNAPSHOT_NAME_SLOT
-    virtual const char *GetSnapshotName() const;
+    virtual const char *GetSnapshotName() const { return "InGameUI"; }
 #else
     virtual void crc(Xfer *xfer);
 #endif
     virtual void xfer(Xfer *);
+public:
     virtual void slot10_00();
     virtual void slot10_01();
     virtual void rva0029B56E(const UnicodeString &, const Rva002217EA &, int);
@@ -328,7 +331,8 @@ public:
     int m_7FC;
     int m_800;
     unsigned int m_804;
-    char opaque808[0x811 - 0x808];
+    char opaque808[0x810 - 0x808];
+    bool field810;
     bool field811;
     int m_messageColor1;
     int m_messageColor2;
@@ -356,13 +360,15 @@ public:
     bool m_drawRMBScrollAnchor;
     bool m_moveRMBScrollAnchor;
     unsigned char m_8C5;
-    char opaque8C6[0x978 - 0x8C6];
+    bool field8C6;
+    char opaque8C7[0x978 - 0x8C7];
     GameWindow *m_idleWorkerWin;
     int m_97C;
     unsigned int m_soloNexusSelectedDrawableID;
     unsigned int m_984;
     unsigned int field988;
-    char opaque98C[0x9B4 - 0x98C];
+    bool field98C;
+    char opaque98D[0x9B4 - 0x98D];
     unsigned char m_9B4;
     char opaque9B5[0x9C8 - 0x9B5];
     int m_9C8;

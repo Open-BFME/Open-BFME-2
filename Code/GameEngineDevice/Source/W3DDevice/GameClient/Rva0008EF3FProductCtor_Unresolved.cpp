@@ -14,8 +14,12 @@
 // name): this is W3DInGameUI::W3DInGameUI -- MAX_MOVE_HINTS is 25 and the
 // fields are m_moveHintRenderObj/m_moveHintAnim then the building placement
 // anchor and arrow. The class keeps the ledger's address-derived name.
-
-#include "Common/Snapshot.h"
+//
+// Its vtable also emits InGameUI's inline virtuals (InGameUI.h). Retail's
+// copies follow the constructor in table order, 0x0008EF81..0x0008EFD2, and
+// both InGameUI's 0x00BFD410 and this class's 0x00BC7A88 point at them.
+// Those addresses keep their placeholder rows in the Common getter units
+// until this unit links; then they move here under the InGameUI names.
 
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
