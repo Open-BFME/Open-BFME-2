@@ -23447,3 +23447,6 @@ Code/GameEngine/Source/Common/Rva005C6CCC.cpp|local|Rva005C6D4D::rva005C674A|t,e
 Code/GameEngine/Source/Common/Rva0046AC52.cpp|function|0x0046AC52|rva0046AC52,7c7e7ea729f5bfae2fae5bbf,drz-t04,drz-t04-sv2-5,w-e0b7150320c2,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp|member|DamageEntry|m_frame04,1129158f1f2df259b04f236f,drz-t04,drz-t04-sv2-8,w-e0b7150320c2,2026-11-03
 Code/Libraries/Source/Fesl/blobservice.cpp|class||Rva007F04B0BlobService,a82a68d92dfd1e9244beb450,drz-t11,drz-t11-sv2-5,w-50a7182dafff,2026-11-03
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_08,b9d17150f0c4f0b2bd647358,drz-t13,drz-t13-sv2-5,w-14744362fb11,2026-11-03
+Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp|member|Rva0048E022Member|m_0C,466107641c3916105c282c31,drz-t13,drz-t13-sv2-5,w-14744362fb11,2026-11-03
+Code/GameEngine/Source/Common/Rva005CEDAFClone.cpp|function|0x005CEDAF|rva005CEDAF,647060cd0a3c59c02a3a2fdf,drz-t13,drz-t13-sv2-12,w-14744362fb11,2026-11-03
