@@ -301,14 +301,7 @@ protected:
 // the slot-0 scalar-deleting dtor at 0x483EC5 (vtable 0x00849E98). novtable
 // suppresses the derived vtable store retail lacks.
 
-class SlowDeathBehaviorModuleData
-{
-public:
-	virtual ~SlowDeathBehaviorModuleData();
-
-private:
-	unsigned char m_pad[0x190 - 4];
-};
+#include "../../Include/GameLogic/Module/SlowDeathBehaviorModuleData.h"
 
 class GeometryInfo
 {

@@ -9,11 +9,7 @@
 // Shape follows SiegeDeployHordeSpecialPowerModuleDataDtor (novtable empty
 // body tail-jmp).
 
-class SlowDeathBehaviorModuleData
-{
-public:
-	virtual ~SlowDeathBehaviorModuleData();
-};
+#include "../../../../Include/GameLogic/Module/SlowDeathBehaviorModuleData.h"
 
 class __declspec(novtable) GiantBirdSlowDeathBehaviorModuleData : public SlowDeathBehaviorModuleData
 {

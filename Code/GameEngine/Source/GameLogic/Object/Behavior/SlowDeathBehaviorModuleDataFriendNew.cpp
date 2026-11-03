@@ -18,17 +18,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class SlowDeathBehaviorModuleData
-{
-public:
-	SlowDeathBehaviorModuleData();
-	virtual ~SlowDeathBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x190 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SlowDeathBehaviorModuleData.h"
 
 // ?friend_newModuleData@SlowDeathBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *SlowDeathBehaviorModuleData::friend_newModuleData(INI *ini)
