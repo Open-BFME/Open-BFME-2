@@ -1,0 +1,1128 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "TAiData",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 44,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0xf4": {
+    "4": 1
+   },
+   "0xf8": {
+    "4": 3
+   },
+   "0xfc": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2fe382"
+     ],
+     "value": 260
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2fe382"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x100": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       1
+      ],
+      "0x65": [
+       1
+      ],
+      "0x66": [
+       1
+      ],
+      "0x67": [
+       1
+      ],
+      "0x68": [
+       1
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       4
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       1
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       4
+      ],
+      "0x98": [
+       4
+      ],
+      "0x9c": [
+       4
+      ],
+      "0xa0": [
+       4
+      ],
+      "0xa4": [
+       4
+      ],
+      "0xa8": [
+       4
+      ],
+      "0xac": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xb4": [
+       4
+      ],
+      "0xb8": [
+       1
+      ],
+      "0xb9": [
+       1
+      ],
+      "0xba": [
+       1
+      ],
+      "0xbb": [
+       1
+      ],
+      "0xbc": [
+       1
+      ],
+      "0xbd": [
+       1
+      ],
+      "0xc": [
+       4
+      ],
+      "0xc0": [
+       4
+      ],
+      "0xc4": [
+       4
+      ],
+      "0xc8": [
+       4
+      ],
+      "0xcc": [
+       4
+      ],
+      "0xd0": [
+       4
+      ],
+      "0xd4": [
+       4
+      ],
+      "0xd8": [
+       1
+      ],
+      "0xe8": [
+       4
+      ],
+      "0xec": [
+       1
+      ],
+      "0xf0": [
+       4
+      ],
+      "0xf4": [
+       4
+      ],
+      "0xf8": [
+       4
+      ],
+      "0xfc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2fe382"
+     ],
+     "value": {
+      "0xdc": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xe0": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ],
+      "0xe4": [
+       "??0?$StringBase@D@@AAE@PBD@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2fe382"
+     ],
+     "value": {
+      "0x0": "0x8071e4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x8071e4"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTAiData@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2fe041"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?GetSnapshotName@TAiData@@UBEPBDXZ",
+        "slot": 2,
+        "target": "0x2fe03b"
+       },
+       {
+        "name": "?xfer@TAiData@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x2fdd94"
+       }
+      ],
+      "table": "0x8071e4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 3,
+  "retail_vtables": {
+   "0x8071e4": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTAiData@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?GetSnapshotName@TAiData@@UBEPBDXZ",
+     "3": "?xfer@TAiData@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 1,
+   "4": 2,
+   "68": 2,
+   "72": 6,
+   "88": 2,
+   "92": 5,
+   "101": 1,
+   "105": 1,
+   "108": 1,
+   "116": 1,
+   "136": 1,
+   "141": 1,
+   "152": 5,
+   "188": 1,
+   "204": 1,
+   "216": 1,
+   "244": 1,
+   "248": 6,
+   "256": 1,
+   "260": 1,
+   "276": 3
+  },
+  "views": 44,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TAiData.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_structureSeconds",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_teamSeconds",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_resourcesWealthy",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_resourcesPoor",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_forceIdleFramesCount",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_structuresWealthyMod",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_teamWealthyMod",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_structuresPoorMod",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_teamPoorMod",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_teamResourcesToBuild",
+   "name_by": "majority",
+   "offset": 40,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_guardInnerModifierAI",
+   "name_by": "majority",
+   "offset": 44,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_guardOuterModifierAI",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_guardInnerModifierHuman",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "f4",
+   "name": "m_guardOuterModifierHuman",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {},
+   "size": 4,
+   "type": "float",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_guardChaseUnitFrames",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_guardEnemyScanRate",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_guardEnemyReturnScanRate",
+   "name_by": "majority",
+   "offset": 68,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uint",
+   "views": 10,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAreaEnemySearch.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp"
+   ],
+   "views": 6
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_ComputeGoal_ComputeGoal_Update.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIClosestObjectQueries.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 101,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 102,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 103,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGetNextMoodTarget.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceGetNextMoodTarget.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerIsLocationSafe.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIMeleeReAcquireStateOnEnter.cpp"
+   ],
+   "views": 8
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 185,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 186,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 187,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 189,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 192,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 196,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 200,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateMachine.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 208,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 216,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 220,
+   "sources": [
+    "Code/GameEngine/Source/Common/TAiData.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 224,
+   "sources": [
+    "Code/GameEngine/Source/Common/TAiData.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngine/Source/Common/TAiData.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 232,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 236,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 240,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 244,
+   "sources": [
+    "Code/GameEngine/Source/Common/TAiData.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIParseSideInfo.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerQueueSupplyTruck.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_DoUpgradesAndSkills.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild_QueueUnits.cpp"
+   ],
+   "views": 9
+  },
+  {
+   "offset": 248,
+   "sources": [
+    "Code/GameEngine/Source/Common/TAiData.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 252,
+   "sources": [
+    "Code/GameEngine/Source/Common/TAiData.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 256,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AI_xfer.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 260,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 264,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 268,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 272,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/AI/TAiDataXfer.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "size",
+   "candidates": {
+    "1": 1,
+    "4": 2,
+    "68": 2,
+    "72": 6,
+    "88": 2,
+    "92": 5,
+    "101": 1,
+    "105": 1,
+    "108": 1,
+    "116": 1,
+    "136": 1,
+    "141": 1,
+    "152": 5,
+    "188": 1,
+    "204": 1,
+    "216": 1,
+    "244": 1,
+    "248": 6,
+    "256": 1,
+    "260": 1,
+    "276": 3
+   },
+   "class": "TAiData"
+  }
+ ],
+ "size": 72,
+ "size_by": "tie",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v01()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}
