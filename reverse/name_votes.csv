@@ -22711,3 +22711,11 @@ Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp|param|coordSet|d,8631c0
 Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp|param|coordSet|p,62416b3e674404509aea88d4,drz-k10,drz-k10-n45g-6,w-88a32c4f7da7,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Made002CC64BParse.cpp|param|q4Notify002CC64B|m,83157853e51d7e76db9737e0,drz-k10,drz-k10-n45g-16,w-88a32c4f7da7,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Made002CC7DEParse.cpp|param|q4Notify002CC7DE|m,0f90fdf1a7b08e7f8243d4ed,drz-k10,drz-k10-n45g-17,w-88a32c4f7da7,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp|param|Made002CCB04::rva0050B519|b,f996fc5e417a11c3901f93bb,drz-k11,drz-k11-n45h-1,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp|param|bfmeAnchorObjectLookupMapFindSlot|p,099f3c08d1b57434926fde91,drz-k11,drz-k11-n45h-11,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp|param|Rva002ADF9C::rva002ADF9C|p,376299957bced242ceefeb08,drz-k11,drz-k11-n45h-11,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp|param|Rva002ADFC7::rva002ADFC7|t,7364c91dcd99d173355b885f,drz-k11,drz-k11-n45h-11,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectOrderQueue.cpp|param|ObjectOrderQueue::setPatrolStartOrder|v,7ff338f019b64da0a60cd276,drz-k11,drz-k11-n45h-13,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Object_rva002637E2Worker.cpp|param|Object::rva0026381B|b,2fcfc1b65fba3a53638a6e73,drz-k11,drz-k11-n45h-15,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp|local|Object::rva0028C1A9|m,91b8a0bddc625cbdecda24a7,drz-k11,drz-k11-n45h-19,w-09889333d128,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C264.cpp|param|Object::rva0028C264|n,21bb433b7478cf49e0f10ae0,drz-k11,drz-k11-n45h-20,w-09889333d128,2026-11-02
