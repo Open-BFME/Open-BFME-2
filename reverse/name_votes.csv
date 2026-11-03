@@ -23491,3 +23491,7 @@ Code/GameEngine/Source/GameNetwork/GameSpy/ChatDispatchIndexedValue.cpp|member|B
 Code/GameEngine/Source/Common/BfmeConv903.cpp|local|bfmeGoLD|o,b4d625b655d32ec33165c3a9,drz-t38,drz-t38-sv2-1,w-40d581ef94d1,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv903.cpp|local|bfmeGoLD|p,3a81379bf635223054b67bed,drz-t38,drz-t38-sv2-1,w-40d581ef94d1,2026-11-03
 Code/GameEngine/Source/Common/Rva006C4300Malloc.cpp|local|rva006C40C0MarkEnd|n,ae3aca3d5ca4c0b6c5dca9c5,drz-t38,drz-t38-sv2-3,w-40d581ef94d1,2026-11-03
+Code/GameEngine/Source/GameNetwork/FrameData.cpp|member|BfmePairYL|m_bfmeKey,4c829dcc7c5c0fb4df78dd37,drz-t39,drz-t39-sv2-1,w-04185bd328cf,2026-11-03
+Code/GameEngine/Source/GameNetwork/FrameData.cpp|member|BfmeTableYL|m_bfmePairs,352bebb6ab07ab39d34d7124,drz-t39,drz-t39-sv2-1,w-04185bd328cf,2026-11-03
+Code/GameEngine/Source/GameNetwork/FrameData.cpp|member|BfmeItemYN|m_bfmeMark,d4b0671b2df065449163d4cb,drz-t39,drz-t39-sv2-1,w-04185bd328cf,2026-11-03
+Code/GameEngine/Source/GameNetwork/FrameData.cpp|member|BfmeCellYN|m_bfmeNext,70c84e2385b5ce46e9459637,drz-t39,drz-t39-sv2-1,w-04185bd328cf,2026-11-03
