@@ -72,15 +72,7 @@ public:
 
 #include "../../Include/Common/NameKeyGenerator.h"
 
-class Player
-{
-public:
-	__declspec(dllimport) __forceinline Int getPlayerColor() const { return m_color; }
-
-private:
-	char m_pad000[0x280];
-	Int m_color;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 

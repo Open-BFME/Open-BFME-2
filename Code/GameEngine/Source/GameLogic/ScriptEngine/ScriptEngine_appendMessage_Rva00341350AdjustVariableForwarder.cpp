@@ -149,15 +149,7 @@ private:
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
 
-class Player
-{
-public:
-	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
-
-private:
-	unsigned char m_unknown00[0x50];
-	NameKeyType m_playerNameKey;				// +0x50
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

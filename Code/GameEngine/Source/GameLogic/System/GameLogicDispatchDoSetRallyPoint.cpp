@@ -60,13 +60,7 @@ public:
 	Bool m_selected;			// +0x43C
 };
 
-class Player
-{
-public:
-	Int iterateObjects(Int (*callback)(Object *, void *), void *userData) const;
-	unsigned char m_pad00[0x54];
-	Int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 class ThingTemplate { public: unsigned char m_pad000[0x11F]; unsigned char m_kindOf11F; };
 

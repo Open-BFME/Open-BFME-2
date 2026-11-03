@@ -26,15 +26,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Player
-{
-public:
-	// Matched callers use the target player index at +0x54 directly;
-	// avoid an out-of-line getter shared with incompatible layouts.
-	int getPlayerMask() const { return 1 << m_playerIndex; }
-	unsigned char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

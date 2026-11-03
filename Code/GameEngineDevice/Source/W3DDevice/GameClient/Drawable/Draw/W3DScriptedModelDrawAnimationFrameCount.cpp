@@ -58,7 +58,7 @@ template <> _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<Asci
 }
 
 class Team;enum Relationship{ENEMIES,NEUTRAL,ALLIES};
-class Player {public:Relationship getRelationship(const Team*)const;};
+#include "../../../../../../GameEngine/Include/Common/Player.h"
 class PlayerList{char prefix[16];public:Player *local;};extern PlayerList *ThePlayerList;
 struct Rva000B5FE6Template {char prefix[0x64];AsciiString name;char prefix68[0x108-0x68];unsigned flags[19];char gap[0x632-0x154];bool special632;};
 class Weapon;enum WeaponSlotType {WS0};

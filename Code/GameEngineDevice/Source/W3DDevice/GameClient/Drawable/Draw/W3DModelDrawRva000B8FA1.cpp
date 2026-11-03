@@ -30,12 +30,7 @@ struct NameSpan
 	AsciiString *m_end;
 };
 
-class Player
-{
-public:
-	unsigned char m_pad000[0x280];
-	Int m_color;	// +0x280
-};
+#include "../../../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../../../GameEngine/Source/GameLogic/Object/object.h"
 

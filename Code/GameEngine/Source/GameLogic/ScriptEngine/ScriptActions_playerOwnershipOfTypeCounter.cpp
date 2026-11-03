@@ -80,11 +80,7 @@ public:
 
 void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTypes);
 
-class Player
-{
-public:
-	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

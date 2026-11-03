@@ -15,15 +15,7 @@
 
 typedef bool Bool;
 
-class Player
-{
-public:
-	int getPlayerMask() const { return 1 << m_playerIndex; }
-
-private:
-	unsigned char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-};
+#include "../../../Include/Common/Player.h"
 
 class PlayerList
 {

@@ -215,11 +215,7 @@ class ThingTemplate;
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class Player
-{
-public:
-	bool canBuild(const ThingTemplate *tmpl) const;
-};
+#include "../../../../Include/Common/Player.h"
 
 class Rva005AD9E6
 {

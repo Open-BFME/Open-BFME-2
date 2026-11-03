@@ -64,16 +64,7 @@ enum Relationship
 	ALLIES
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Team *team) const;	// 0x002AD0C6
-	Team *getDefaultTeam() const { return m_defaultTeam; }
-
-private:
-	unsigned char m_pad000[0x2EC];
-	Team *m_defaultTeam;				// +0x2EC
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
 
 #include "../../../../GameEngine/Include/Common/PlayerList.h"
 

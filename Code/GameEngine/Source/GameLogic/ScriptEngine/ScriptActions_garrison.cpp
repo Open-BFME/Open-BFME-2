@@ -175,15 +175,7 @@ private:
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Player
-{
-public:
-	int getPlayerMask() const { return 1 << m_playerIndex; }
-
-private:
-	unsigned char m_pad[0x54];
-	int m_playerIndex;
-};
+#include "../../../Include/Common/Player.h"
 
 enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 #include "../../Common/GameLogicObjectLookupView.h"

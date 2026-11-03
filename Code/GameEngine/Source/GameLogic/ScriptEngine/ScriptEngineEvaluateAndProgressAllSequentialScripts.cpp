@@ -95,12 +95,7 @@ protected:
 };
 
 
-class Player
-{
-public:
-	char m_pad[0x2EC];
-	Team *m_defaultTeam;	// +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 class Parameter;
 
