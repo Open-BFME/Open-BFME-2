@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class ProductionUpdate
-{
-public:
-	ProductionUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x140];
-};
+#include "../../../../Include/GameLogic/Module/ProductionUpdateClass.h"
 
 // ?friend_newModuleInstance@ProductionUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *ProductionUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)

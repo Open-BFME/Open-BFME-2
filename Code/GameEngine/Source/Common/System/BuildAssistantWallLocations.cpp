@@ -288,11 +288,7 @@ class Rva00346BC0
 public:
 UnsignedInt m_bits[4];
 };
-class ProductionUpdate
-{
-public:
-static ProductionUpdateInterface*getProductionUpdateInterfaceFromObject(Object*obj);
-};
+#include "../../../Include/GameLogic/Module/ProductionUpdateClass.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class G00DFF080Obj
 {
