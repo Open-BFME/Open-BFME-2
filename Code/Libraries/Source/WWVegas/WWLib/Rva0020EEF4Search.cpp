@@ -24,12 +24,12 @@ struct Rva0020EEF4Elem
 class Rva0020EEF4Outer
 {
 public:
-	int rva0020EEF4(int v);
+	int rva0020EEF4(int criteria);
 private:
 	char m_pad[8];
 	Rva0020EEF4Inner *m_inner;
 };
-int Rva0020EEF4Outer::rva0020EEF4(int v)
+int Rva0020EEF4Outer::rva0020EEF4(int criteria)
 {
 	Rva0020EEF4Inner *inner = m_inner;
 	if (inner != 0)
@@ -39,7 +39,7 @@ int Rva0020EEF4Outer::rva0020EEF4(int v)
 			Rva0020EEF4Elem *element = (Rva0020EEF4Elem *)inner->m_begin[i];
 			if (element->m_13C == -1)
 				continue;
-			int elementResult = ((Rva003F08D7 *)element)->rva003F08D7(v);
+			int elementResult = ((Rva003F08D7 *)element)->rva003F08D7(criteria);
 			if (elementResult)
 				return elementResult;
 		}

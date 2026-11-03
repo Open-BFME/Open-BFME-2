@@ -119,38 +119,38 @@ public:
  virtual void vt14();virtual void vt18();virtual void vt1C();virtual void vt20();virtual void vt24();
  virtual void rva_vt28(S2CompactTransform&,int,float)const;
 };
-static __forceinline void rotate(const Quaternion &q,const Vector3&v,Vector3*out){
- float x=(q.Y*v.Z-q.Z*v.Y)+q.W*v.X;
- float y=-(q.X*v.Z-q.Z*v.X)+q.W*v.Y;
- float z=(q.X*v.Y-q.Y*v.X)+q.W*v.Z;
- float w=0.0f-(q.X*v.X+q.Y*v.Y+q.Z*v.Z);
- out->X=(q.Y*z-y*q.Z)+(q.W*x-q.X*w);
- out->Y=(q.W*y-q.Y*w)-(q.X*z-q.Z*x);
- out->Z=(q.X*y-q.Y*x)+(q.W*z-q.Z*w);
+static __forceinline void rotate(const Quaternion &rotation,const Vector3&vector,Vector3*out){
+ float x=(rotation.Y*vector.Z-rotation.Z*vector.Y)+rotation.W*vector.X;
+ float y=-(rotation.X*vector.Z-rotation.Z*vector.X)+rotation.W*vector.Y;
+ float z=(rotation.X*vector.Y-rotation.Y*vector.X)+rotation.W*vector.Z;
+ float w=0.0f-(rotation.X*vector.X+rotation.Y*vector.Y+rotation.Z*vector.Z);
+ out->X=(rotation.Y*z-y*rotation.Z)+(rotation.W*x-rotation.X*w);
+ out->Y=(rotation.W*y-rotation.Y*w)-(rotation.X*z-rotation.Z*x);
+ out->Z=(rotation.X*y-rotation.Y*x)+(rotation.W*z-rotation.Z*w);
 }
 static __forceinline void compose(const S2CompactTransform&a,const S2CompactTransform&b,S2CompactTransform&result){
  Vector3 rotated;rotate(a.Q,b.Position,&rotated);result.Position=rotated+a.Position;
  result.Q=a.Q*b.Q;
 }
 
-static __forceinline void rotate2(const Quaternion &q,const Vector3&v,Vector3*out){
- float x=(q.Y*v.Z-q.Z*v.Y)+q.W*v.X;
- float y=-(q.X*v.Z-q.Z*v.X)+q.W*v.Y;
- float z=(q.X*v.Y-q.Y*v.X)+q.W*v.Z;
- float w=0.0f-(q.X*v.X+q.Y*v.Y+q.Z*v.Z);
- out->X=(q.Y*z-y*q.Z)+(q.W*x-q.X*w);
- out->Y=(q.W*y-q.Y*w)-(q.X*z-q.Z*x);
- out->Z=((1 ? (q.X*y) : (q.X*y))-q.Y*x)+(q.W*z-q.Z*w);
+static __forceinline void rotate2(const Quaternion &rotation,const Vector3&vector,Vector3*out){
+ float x=(rotation.Y*vector.Z-rotation.Z*vector.Y)+rotation.W*vector.X;
+ float y=-(rotation.X*vector.Z-rotation.Z*vector.X)+rotation.W*vector.Y;
+ float z=(rotation.X*vector.Y-rotation.Y*vector.X)+rotation.W*vector.Z;
+ float w=0.0f-(rotation.X*vector.X+rotation.Y*vector.Y+rotation.Z*vector.Z);
+ out->X=(rotation.Y*z-y*rotation.Z)+(rotation.W*x-rotation.X*w);
+ out->Y=(rotation.W*y-rotation.Y*w)-(rotation.X*z-rotation.Z*x);
+ out->Z=((1 ? (rotation.X*y) : (rotation.X*y))-rotation.Y*x)+(rotation.W*z-rotation.Z*w);
 }
 static __forceinline void compose2(const S2CompactTransform&a,const S2CompactTransform&b,S2CompactTransform&result){
  Vector3 rotated;rotate2(a.Q,b.Position,&rotated);result.Position=rotated+a.Position;
  result.Q=a.Q*b.Q;
 }
 
-static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &Q,const S2CompactTransform &q,Matrix3D &m) {
- const float xx=Q.X*Q.X*2.0f,xy=2.0f*(Q.X*Q.Y),xz=Q.Z*Q.X*2.0f,wx=Q.W*Q.X*2.0f;
- const float yy=Q.Y*Q.Y*2.0f,yz=Q.Z*Q.Y*2.0f,wy=Q.W*Q.Y*2.0f;
- const float zz=Q.Z*Q.Z*2.0f,wz=Q.W*Q.Z*2.0f;
+static __forceinline Matrix3D &S2PivotMatrix(const Quaternion &rotation,const S2CompactTransform &q,Matrix3D &m) {
+ const float xx=rotation.X*rotation.X*2.0f,xy=2.0f*(rotation.X*rotation.Y),xz=rotation.Z*rotation.X*2.0f,wx=rotation.W*rotation.X*2.0f;
+ const float yy=rotation.Y*rotation.Y*2.0f,yz=rotation.Z*rotation.Y*2.0f,wy=rotation.W*rotation.Y*2.0f;
+ const float zz=rotation.Z*rotation.Z*2.0f,wz=rotation.W*rotation.Z*2.0f;
  m[0][0]=1.0f-yy-zz;m[0][1]=xy-wz;m[0][2]=xz+wy;
  m[1][0]=xy+wz;m[1][1]=1.0f-zz-xx;m[1][2]=yz-wx;
  m[2][0]=xz-wy;m[2][1]=yz+wx;m[2][2]=1.0f-yy-xx;

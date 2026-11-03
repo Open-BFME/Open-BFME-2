@@ -7225,3 +7225,9 @@ local,Rva006E3410::rva006E3410::x,Rva006E3410::rva006E3410::target,inferred,agre
 param,Rva006E3410::rva006E3410::v,Rva006E3410::rva006E3410::needle,inferred,agree:nl-eeb21b98a15e,Code/Libraries/Source/Apt/Rva006E3410.cpp,0x006E3410
 param,FilterBlockBil_8_mmx::x,FilterBlockBil_8_mmx::xPhase,inferred,agree:nl-a21442bde2ed,Code/Libraries/Source/VP6/FilterBlockBil8Mmx.cpp,0x001D7200
 param,FilterBlockBil_8_mmx::y,FilterBlockBil_8_mmx::yPhase,inferred,agree:nl-0b5e3da45f8f,Code/Libraries/Source/VP6/FilterBlockBil8Mmx.cpp,0x001D7200
+param,S2PivotMatrix::Q,S2PivotMatrix::rotation,inferred,agree:nl-3a2eed26e864,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,rotate2::q,rotate2::rotation,inferred,agree:nl-f1adc79efcb2,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,rotate2::v,rotate2::vector,inferred,agree:nl-3b3358eeb8d7,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,rotate::q,rotate::rotation,inferred,agree:nl-1818e9707eed,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,rotate::v,rotate::vector,inferred,agree:nl-070b44746519,Code/Libraries/Source/WWVegas/WW3D2/HTreeClassReadPivots.cpp,
+param,Rva0020EEF4Outer::rva0020EEF4::v,Rva0020EEF4Outer::rva0020EEF4::criteria,inferred,agree:nl-f816116b72a3,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,0x0020EEF4
