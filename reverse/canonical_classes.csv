@@ -621,3 +621,4 @@ AITNGuardMachine,Code/GameEngine/Include/GameLogic/AITNGuardMachine.h,existing h
 SidesListNotifier,Code/GameEngine/Include/Common/SidesListNotifier.h,existing header; contract class_contracts/SidesListNotifier.json; 3/8 sampled units adopt
 RegionAwardDispute,Code/GameEngine/Include/GameLogic/RegionAwardDispute.h,existing header; contract class_contracts/RegionAwardDispute.json; 5/10 sampled units adopt
 GateOpenAndCloseBehaviorModuleData,Code/GameEngine/Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h,existing header; contract class_contracts/GateOpenAndCloseBehaviorModuleData.json; 4/9 sampled units adopt
+BFME2MotionChannel,Code/GameEngine/Include/GameClient/BFME2MotionChannel.h,existing header; contract class_contracts/BFME2MotionChannel.json; 1/8 sampled units adopt

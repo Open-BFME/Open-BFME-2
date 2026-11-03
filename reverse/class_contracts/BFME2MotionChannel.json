@@ -1,0 +1,223 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BFME2MotionChannel",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 8,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1a465b"
+     ],
+     "value": 4
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1a465b"
+     ],
+     "value": {
+      "0x0": "0x7d6cb4"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d6cb4"
+     ],
+     "value": {
+      "count": 7,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "__purecall",
+        "slot": 0,
+        "target": "0x3b810"
+       },
+       {
+        "name": "??_GBFME2MotionChannel@@UAEPAXI@Z",
+        "slot": 1,
+        "target": "0x1a4697"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7d6cb4"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7d6cb4": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "__purecall",
+     "1": "??_GBFME2MotionChannel@@UAEPAXI@Z",
+     "2": "__purecall",
+     "3": "__purecall",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 3,
+   "20": 5
+  },
+  "views": 8,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Type",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Pivot",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Count",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "Components",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "Load(ChunkLoadClass*)": 3,
+    "UnknownSlot0()": 1,
+    "__vecDelDtor(uint)": 3,
+    "slot0()": 1
+   },
+   "class": "BFME2MotionChannel"
+  }
+ ],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "1": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "UnknownSlot2()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "UnknownSlot3(float,float*,uchar**)"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "UnknownSlot4(float,Vector3*,uchar**)"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "UnknownSlot5(float,Quaternion*,uchar**)"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "UnknownSlot6()"
+  }
+ }
+}
