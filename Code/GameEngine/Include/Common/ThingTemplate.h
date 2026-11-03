@@ -31,6 +31,8 @@ enum KindOfType;
 enum LocomotorSetType;
 
 //-------------------------------------------------------------------------------------------------
+struct FieldParse;
+
 class ThingTemplate : public Overridable
 {
 public:
@@ -74,6 +76,10 @@ protected:
 	static void parseFlammability( INI *ini, void *instance, void *store, const void *userData );		// 0x0033BC6A
 	static void parseRemoveModule( INI *ini, void *instance, void *store, const void *userData );		// 0x0033CD41
 	static void parseReplaceModule( INI *ini, void *instance, void *store, const void *userData );		// 0x0033CE18
+private:
+	template<class T> friend struct DataRowPrivateProbe;
+	static const FieldParse s_objectFieldParseTable[];	// ThingTemplateFieldTable.cpp
+protected:
 	static void parseModuleName( INI *ini, void *instance, void *store, const void *userData );		// 0x0033D865
 	static void parsePrerequisites( INI *ini, void *instance, void *store, const void *userData );		// 0x0033EBB5
 

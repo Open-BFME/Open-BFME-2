@@ -11,9 +11,10 @@
   private view declares only the slots it calls, so `??_7Xfer@@6B@` has copies of 1 and 39 words, and
   COMDAT selection may keep either. A virtual call past the end of a kept copy jumps into whatever
   follows. Next step: confirm which copy the link keeps; the header lanes already remove these views.
-- **FieldParse: `ThingTemplate::s_objectFieldParseTable` is still wrong**, so INI data parsed through
-  it lands in the wrong place. It is the BFME 1 table: retail opens `Hotkey`, `ReviveText`,
-  `RecruitText`, `DisplayName`, ours `DisplayName`, `RadarPriority`, with 63 wrong pointers.
+- **FieldParse: the 4 wrong tables are cleared.** `ThingTemplate::s_objectFieldParseTable` was BFME 1's
+  (115 entries, 66 shared with retail's 191). `ThingTemplateFieldTable.cpp` now holds retail's: every
+  offset, raw user word and parser pointer equal retail's. Its other 8 name lists have no data rows, so
+  they are compared by content only. Merge the file back when `ThingTemplate.cpp` adopts canonical INI.
   Cleared in `ModuleFactory.cpp`, which took three tables from Zero Hour headers: `UnitCrateCollide`
   (3 entries), `SalvageCrateCollide` (10, retail's fields were absent) and `TransitionDamageFX` (121;
   each mask spans 0x154 bytes, and it adds subobject lists at +0xFD4). Every token offset and user
