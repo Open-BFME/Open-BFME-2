@@ -474,3 +474,4 @@ CameraClass,Code/Libraries/Source/WWVegas/WW3D2/CameraClass.h,existing header; c
 ModuleInfo,Code/GameEngine/Include/Common/ModuleInfoClass.h,existing header; contract class_contracts/ModuleInfo.json; 22/57 sampled units adopt
 Rva00439E0C,Code/GameEngine/Include/GameLogic/Rva00439E0C.h,existing header; contract class_contracts/Rva00439E0C.json; 21/23 sampled units adopt
 Rva005E4300Cmp,Code/Libraries/Source/WWVegas/WWLib/Rva005E4300Cmp.h,existing header; contract class_contracts/Rva005E4300Cmp.json; 16/17 sampled units adopt
+BfmeNetAddress,Code/GameEngine/Include/GameNetwork/BfmeNetAddress.h,existing header; contract class_contracts/BfmeNetAddress.json; 12/26 sampled units adopt

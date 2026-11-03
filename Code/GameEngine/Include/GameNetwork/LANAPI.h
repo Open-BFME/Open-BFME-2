@@ -3,16 +3,12 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "BfmeNetAddress.h"
 class LANGameInfo;
 class LANPlayer;
 class LivingWorldBattle;
 class Transport;
 struct LANMessage;
-struct BfmeNetAddress {
- bool Rva00248CBF(const BfmeNetAddress *) const;
- unsigned int ip;
- unsigned short port;
-};
 // The canonical SubsystemInterface exposes its data/lifetime surface only.
 // This consumed interface spells out the native virtual prefix as declarations;
 // it neither copies that base nor claims a new SubsystemInterface provider.
