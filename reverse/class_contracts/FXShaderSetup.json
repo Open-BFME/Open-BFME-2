@@ -1,0 +1,351 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "FXShaderSetup",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x20": {
+    "4": 2
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x34": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1525fb",
+      "0x152de9"
+     ],
+     "value": 40
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x1525fb",
+      "0x152de9"
+     ],
+     "value": {
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x8": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x1525fb",
+      "0x152de9"
+     ],
+     "value": {
+      "0x0": [
+       "??4FXShaderSetup@@QAEAAV0@ABV0@@Z"
+      ],
+      "0x28": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0xc": [
+       "??0ObjectCreationList@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x1525fb",
+      "0x152de9"
+     ],
+     "value": {
+      "0x0": "0x7d3b1c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7d3b1c"
+     ],
+     "value": {
+      "count": 10,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+        "slot": 0,
+        "target": "0x6ce57"
+       },
+       {
+        "name": "??_GFXShaderSetup@@MAEPAXI@Z",
+        "slot": 1,
+        "target": "0x15263d"
+       },
+       {
+        "name": "?Begin_Rendering@FXShaderSetup@@UAE_NPAIH@Z",
+        "slot": 2,
+        "target": "0x151ee2"
+       },
+       {
+        "name": "?Begin_Pass@FXShaderSetup@@UAEXI@Z",
+        "slot": 3,
+        "target": "0x151cee"
+       },
+       {
+        "name": "?UpdateDynamicParameterSet@FXShaderSetup@@UAEXI@Z",
+        "slot": 4,
+        "target": "0x151d1a"
+       },
+       {
+        "name": "?End_Pass@FXShaderSetup@@UAEXXZ",
+        "slot": 5,
+        "target": "0x151d5f"
+       },
+       {
+        "name": "?End_Rendering@FXShaderSetup@@UAEXXZ",
+        "slot": 6,
+        "target": "0x151d85"
+       },
+       {
+        "name": "?rva001524BE@Rva001524BE@@QAEXVRva00087A93@@@Z",
+        "slot": 7,
+        "target": "0x1524be"
+       },
+       {
+        "name": "?rva001524CA@Rva001524CA@@QAE?AUTreeHintRef00217D4C@@XZ",
+        "slot": 8,
+        "target": "0x1524ca"
+       },
+       {
+        "name": "??0RealRange@@QAE@XZ",
+        "slot": 9,
+        "target": "0x47a6a9"
+       }
+      ],
+      "table": "0x7d3b1c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 4,
+  "retail_vtables": {
+   "0x7d3b1c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ",
+     "1": "??_GFXShaderSetup@@MAEPAXI@Z",
+     "2": "?Begin_Rendering@FXShaderSetup@@UAE_NPAIH@Z",
+     "3": "?Begin_Pass@FXShaderSetup@@UAEXI@Z",
+     "4": "?UpdateDynamicParameterSet@FXShaderSetup@@UAEXI@Z",
+     "5": "?End_Pass@FXShaderSetup@@UAEXXZ",
+     "6": "?End_Rendering@FXShaderSetup@@UAEXXZ",
+     "7": "?rva001524BE@Rva001524BE@@QAEXVRva00087A93@@@Z",
+     "8": "?rva001524CA@Rva001524CA@@QAE?AUTreeHintRef00217D4C@@XZ",
+     "9": "??0RealRange@@QAE@XZ"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 2,
+   "8": 13,
+   "24": 2,
+   "36": 2,
+   "52": 3
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 20,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "NumRefs",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 16,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 9
+ },
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/FXShaderSetup_UpdateDynamicParameterSet.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/RenderAssetSwitchTexturesBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/RenderAssetSwitchTexturesBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/RenderAssetSwitchTexturesBFME2.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/Common/FXShaderSetup_UpdateDynamicParameterSet.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 8,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "Delete_This()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "Begin_Rendering(uint*,int)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "Begin_Pass(uint)"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "UpdateDynamicParameterSet(uint)"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "End_Pass()"
+  },
+  "6": {
+   "decided_by": "bytes",
+   "member": "End_Rendering()"
+  }
+ }
+}
