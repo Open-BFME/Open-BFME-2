@@ -35,7 +35,7 @@ void BfmeThing940G::bfmeGo940G()
 {
 	BfmeA940G *a = *(BfmeA940G **)((char *)this - 0xc);
 	m_bfmeFlag = 0;
-	void *v = a->m_bfmeVal;
+	void *weaponSlot = a->m_bfmeVal;
 	BfmeB940G *b = *(BfmeB940G **)((char *)this - 8);
-	((Object *)b)->setWeaponLock((WeaponSlotType)(int)v, (WeaponLockType)2);
+	((Object *)b)->setWeaponLock((WeaponSlotType)(int)weaponSlot, (WeaponLockType)2);
 }

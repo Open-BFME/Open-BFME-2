@@ -59,7 +59,7 @@ char *Rva00542425Caller(char *text)
 	return skipIdentifier(cursor);
 }
 
-// ?rva005424C4@XmlNameSlotList@@QAEHXZ @0x005424C4 535B
+// ?scanElement@XmlNameSlotList@@QAEHXZ @0x005424C4 535B
 // Element scanner: tail-jumped from XmlNameSlotList::finish 0x00542890 at '<'.
 // Skips whitespace after '<', reads an optional '/' (closing tag, kind 2),
 // the tag name (skipIdentifier), then for an opening tag up to 4
@@ -73,7 +73,7 @@ class Rva005423F0 {public:char *rva005423F0(char *);};
 struct Rva005424C4Attribute {char name[33];char value[64];};
 class XmlNameSlotList {
 public:
- int rva005424C4();
+ int scanElement();
 private:
  char *m_pos;
  int m_counter04;
@@ -90,7 +90,7 @@ private:
  int m_mark;
  Rva005424C4Attribute m_attributes[4];
 };
-int XmlNameSlotList::rva005424C4()
+int XmlNameSlotList::scanElement()
 {
  int kind=1;
  m_pos=((Rva005423F0 *)this)->rva005423F0(m_pos)+1;

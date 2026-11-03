@@ -28,7 +28,7 @@ struct Rva001E34B2Point
 struct Rva001E34B2Node
 {
 	int m_pad00[2]; // +0x00..+0x07
-	Rva001E34B2Node *m_p08; // +0x08
+	Rva001E34B2Node *m_next; // +0x08
 	Rva001E34B2Point m_pos; // +0x0C
 };
 
@@ -45,7 +45,7 @@ Rva001E34B2Point Rva001E34B2::rva001E34B2()
 	Rva001E34B2Node *p = m_p00;
 	if (!p)
 		return Rva001E34B2Point(0.0f, 0.0f, 0.0f);
-	Rva001E34B2Node *q = p->m_p08;
+	Rva001E34B2Node *q = p->m_next;
 	if (!q)
 		return p->m_pos;
 	return q->m_pos;

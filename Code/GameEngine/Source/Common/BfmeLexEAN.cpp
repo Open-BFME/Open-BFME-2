@@ -73,7 +73,7 @@ class XmlNameSlotList
 {
 public:
 	int finish();
-	int rva005424C4();							// 0x005424C4, scan an element
+	int scanElement();							// 0x005424C4, scan an element
 
 private:
 	char *m_pos;								// +0x00
@@ -305,7 +305,7 @@ int XmlNameSlotList::finish()
 			break;
 		if (*m_pos == '<') {
 			if (m_pos[1] != '!')
-				return rva005424C4();
+				return scanElement();
 			if (!((Rva0054273B *)this)->rva0054273B())
 				return ((BfmeLexEAN *)this)->bfmeFailEAN(-1);
 		} else
@@ -350,7 +350,7 @@ void Rva0054288B::rva0054288B()
 	((Rva005427F1 *)this)->rva005427F1();
 }
 
-// tu-skeleton: 0x005424C4 535B ?rva005424C4@XmlNameSlotList@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva00542425Skip.cpp (not merged yet)
+// tu-skeleton: 0x005424C4 535B ?scanElement@XmlNameSlotList@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva00542425Skip.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/SmallLeafBodies2_PairSlotSetters.cpp
 
