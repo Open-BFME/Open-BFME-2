@@ -1,3 +1,9 @@
+### BridgeBehaviorCtor link repair (2026-11-03)
+
+`BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:
+Adopted the real multiple inheritance hierarchy matching `BridgeBehaviorDtor.cpp` (`UpdateModule`, `BridgeBehaviorInterface`, `DamageModuleInterface`, `DieModuleInterface`) and its virtual methods. This lets the compiler generate native vtable stores and emit/resolve matching secondary vtables, eliminating the unresolvable fake `MiBase1` extern, manual pointer stores, and the `_vtbl_00C40818` `/alternatename` hatch.
+Verification: `build.sh` 3/3 functions and 1 data row matched; `link_check.py` LINKS 0 -> 196 bytes.
+
 ### LivingWorldLogicCtorBfme link repair (2026-11-02)
 
 `LivingWorldLogicCtorBfme.cpp` (815B) unresolved `?event5_2@LivingWorldLogic@@UAEXHHH@Z` resolved:
@@ -20,9 +26,6 @@ A single-path `link_check` still reports their sibling COMDATs as "differs from 
 comes from the stale census-index copies, not from current objects.
 
 Still blocked:
-- BridgeBehaviorCtor.cpp (196 B): it needs the Dtor's real class view. The ctor's natural base vptr
-  stores then name `??_7BridgeBehaviorInterface@@6B@`/`??_7DieModuleInterface@@6B@`, which need data
-  identity for the folded tables 0x00C40818 and 0x00C1C780 first.
 - Rva000FDCD7Get.cpp (26 B): the address-named data global `g_00DB5BD4` (data lane).
 - MapCacheAddMap.cpp and MapCacheLoadUserMapsBFME2.cpp (2,389 B): MapUtil.cpp's duplicate Zero Hour
   `addMap` (LINK-177 item 3). retail addMap 0x00304E64 is approved for MapUtil.cpp, but

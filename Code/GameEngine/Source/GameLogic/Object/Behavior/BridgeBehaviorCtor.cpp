@@ -10,7 +10,9 @@
 // Evidence: base-ctor call 0x00253390, Rva0029FB3BMember::init 0x0029FB3B
 // and reset 0x0026549E, six explicit secondary vtable installs, memset zero
 // cluster at +0x2C, nested 4x3 loops over +0xA3C/+0xA6C/+0xA9C/+0xACC.
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];  // folded vftable 0x00C1C780 (35 classes), by its data-ledger name
+class Object;
+#include "../../../Common/GameLogicObjectLookupView.h"
+enum BridgeTowerType { BRIDGE_TOWER_FROM_LEFT = 0, BRIDGE_MAX_TOWERS = 4 };
 
 // The retail table at RVA 0x008409DC: 13 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -42,43 +44,35 @@ extern "C" const void *const vtbl_00C409DC[13] = {
 	(const void *)&__identifier("?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ"), // slot 12 0x0022C4CB
 };
 
-extern "C" const void *const __identifier("??_7BridgeBehavior@@6BMiBase1@@@")[];  // vftable 0x00C40920
-
-extern "C" const void *const __identifier("??_7BridgeBehavior@@6BUpdateModule@@@")[];  // ??_7BridgeBehavior@@6BUpdateModule@@@
-
-extern "C" const void *const __identifier("??_7BridgeBehavior@@6BBridgeBehaviorInterface@@@")[];  // vftable 0x00C408FC
-
-extern "C" const void *const __identifier("??_7BridgeBehavior@@6BDamageModuleInterface@@@")[];  // vftable 0x00C408F0
-
-extern "C" const void *const __identifier("??_7BridgeBehavior@@6BDieModuleInterface@@@")[];  // vftable 0x00C408EC
-
-extern "C" const void *const vtbl_00C40818[];  // folded, 7 classes; via ??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@
-#pragma comment(linker, "/alternatename:_vtbl_00C40818=??_7BfmeCtor001B3A20@@6BBfmeCtorFirstBase001B3A20@@@")
-
-extern "C" const void *const __identifier("??_7DamageModuleInterface@@6B@")[];  // folded vftable 0x00BE2B78 (10 classes), by its data-ledger name
-
-class Thing;
-class ModuleData;
-
-class BehaviorModuleBase
-{
-public:
-	virtual void unusedBase();
-	int m_a;
-	int m_b;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void unusedOther();
-};
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+template <int NUMBITS> class BitFlags;
+typedef BitFlags<11> DisabledMaskType;
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
+class BridgeBehaviorInterface
+{
+public:
+	virtual void setTower(BridgeTowerType towerType, Object *tower) = 0;
+	virtual ObjectID getTowerID(BridgeTowerType towerType) = 0;
+	virtual void createScaffolding() = 0;
+	virtual void removeScaffolding() = 0;
+	virtual bool isScaffoldInMotion() = 0;
+	virtual bool isScaffoldPresent() = 0;
+};
 
+class DamageInfo;
+enum BodyDamageType { BODY_PRISTINE = 0 };
+
+class DamageModuleInterface
+{
+public:
+	virtual void onDamage(DamageInfo *damageInfo) = 0;
+	virtual void onHealing(DamageInfo *damageInfo) = 0;
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState) = 0;
+};
+
+#include "../../../../Include/GameLogic/Module/DieModuleInterface.h"
 
 class Rva0029FB3BMember
 {
@@ -90,11 +84,9 @@ public:
 
 #include <string.h>
 
-class BridgeBehavior : public UpdateModule
+class BridgeBehavior : public UpdateModule,
+	public BridgeBehaviorInterface, public DamageModuleInterface, public DieModuleInterface
 {
-	void *m_20;
-	int m_24;
-	int m_28;
 	int m_2C;
 	int m_30;
 	int m_34;
@@ -109,24 +101,27 @@ class BridgeBehavior : public UpdateModule
 	Rva0029FB3BMember m_free; // +0x100
 	int m_104;
 public:
+	virtual ~BridgeBehavior();
+	virtual UpdateSleepTime update();
+	virtual void setTower(BridgeTowerType towerType, Object *tower);
+	virtual ObjectID getTowerID(BridgeTowerType towerType);
+	virtual void createScaffolding();
+	virtual void removeScaffolding();
+	virtual bool isScaffoldInMotion();
+	virtual bool isScaffoldPresent() { return m_FD; }
+	virtual void onDamage(DamageInfo *damageInfo);
+	virtual void onHealing(DamageInfo *damageInfo);
+	virtual void onBodyDamageStateChange(const DamageInfo *damageInfo, BodyDamageType oldState, BodyDamageType newState);
+	virtual void onDie(const DamageInfo *damageInfo);
+
 	BridgeBehavior(Thing *thing, const ModuleData *moduleData);
 };
 
 BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	*(volatile unsigned int *)((char *)this + 0x20) = ((unsigned int)vtbl_00C40818);
-	*(volatile unsigned int *)((char *)this + 0x24) = ((unsigned int)__identifier("??_7DamageModuleInterface@@6B@"));
-	int *p28 = (int *)((char *)this + 0x28);
-	*p28 = ((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
 	void *context = (void *)((char *)&moduleData + 3);
 	Rva0029FB3BMember *free = &m_free;
-	*(unsigned int *)this = ((unsigned int)vtbl_00C409DC);
-	*(unsigned int *)((char *)this + 0x0C) = ((unsigned int)__identifier("??_7BridgeBehavior@@6BMiBase1@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7BridgeBehavior@@6BUpdateModule@@@"));
-	*(unsigned int *)((char *)this + 0x20) = ((unsigned int)__identifier("??_7BridgeBehavior@@6BBridgeBehaviorInterface@@@"));
-	*(unsigned int *)((char *)this + 0x24) = ((unsigned int)__identifier("??_7BridgeBehavior@@6BDamageModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x28) = ((unsigned int)__identifier("??_7BridgeBehavior@@6BDieModuleInterface@@@"));
 	free->init(context);
 	free->reset();
 	m_FD = false;
