@@ -566,3 +566,4 @@ LivingWorld,Code/GameEngine/Include/GameLogic/LivingWorldClass.h,existing header
 AptSpellStore,Code/GameEngine/Include/GameClient/AptSpellStore.h,existing header; contract class_contracts/AptSpellStore.json; 4/8 sampled units adopt
 ImageSubscriptMap,Code/GameEngine/Include/GameClient/ImageSubscriptMap.h,existing header; contract class_contracts/ImageSubscriptMap.json; 7/9 sampled units adopt
 BFMENetInformPlayerLeaveFrameCommandMsg,Code/GameEngine/Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h,existing header; contract class_contracts/BFMENetInformPlayerLeaveFrameCommandMsg.json; 2/9 sampled units adopt
+PlayerStatusDisplayer,Code/GameEngine/Include/GameClient/PlayerStatusDisplayer.h,existing header; contract class_contracts/PlayerStatusDisplayer.json; 7/8 sampled units adopt
