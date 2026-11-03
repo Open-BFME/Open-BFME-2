@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // ?xfer@W3DLightDraw@@MAEXPAVXfer@@@Z @0x000CFAB1 72B
 // Slot 3 (offset 0x0C) of vtable 0x007CD728 (class of ??1W3DLightDraw@@UAE@XZ).
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLightDrawConstructor.cpp
@@ -34,11 +34,7 @@ class W3DDynamicLight;
 class DrawModule;
 
 // The rowed W3DDynamicLight::setEnabled 0x00042F30.
-class W3DDynamicLight
-{
-public:
-	void setEnabled(bool enabled);
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDynamicLightClass.h"
 
 #include "../../../../../../GameEngine/Include/Common/ObjectModule.h"
 

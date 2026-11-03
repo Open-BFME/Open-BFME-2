@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // ?reactToTransformChange@W3DLightDraw@@UAEXPBVMatrix3D@@PBUCoord3D@@M@Z, retail 0x000CFDFB..0x000CFF4A
 // (337B), thiscall ret 0xC. Donor (facts carried from the donor, not target): Open-BFME-1
 // W3DLightDrawReactToTransformChange.cpp (BFME 1 0x00758AC0). Target evidence: module
@@ -25,32 +25,7 @@ public:
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
-class W3DDynamicLight
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-	virtual void slot2C();
-	virtual void slot30();
-	virtual void slot34();
-	virtual void slot38();
-	virtual void slot3C();
-	virtual void slot40();
-	virtual void slot44();
-	virtual void slot48();
-	virtual void slot4C();
-	virtual void slot50();
-	virtual void Set_Transform(const Matrix3D &transform);
-};
+#include "../../../../../Include/W3DDevice/GameClient/W3DDynamicLightClass.h"
 
 class W3DLightDraw
 {
