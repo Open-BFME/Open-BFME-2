@@ -1,0 +1,276 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "GenBase009EB7D0",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 22,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x14": 1
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x61ed40"
+     ],
+     "value": 20
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x61ed40"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x61ed40"
+     ],
+     "value": {
+      "0x0": "0x87c584"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x87c584"
+     ],
+     "value": {
+      "count": 15,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "__purecall",
+        "slot": 0,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 1,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 2,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 3,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "slot": 4,
+        "target": "0x47a69c"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?Delete@AssetFactoryBase@@UAEXXZ",
+        "slot": 8,
+        "target": "0x61eda0"
+       },
+       {
+        "name": "??_GShdDefFactoryClass@@UAEPAXI@Z",
+        "slot": 9,
+        "target": "0x61ee90"
+       },
+       {
+        "name": "?bfmeGoURB@BfmeThingURB@@QAEHXZ",
+        "slot": 10,
+        "target": "0x130fce"
+       },
+       {
+        "name": "?method@Rva009EB8A0@@QAEXXZ",
+        "slot": 11,
+        "target": "0x61ee20"
+       },
+       {
+        "name": "?UnloadNow@BfmeE1024@@QAEXXZ",
+        "slot": 12,
+        "target": "0x61ee50"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x87c584"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x87c584": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "__purecall",
+     "1": "__purecall",
+     "2": "__purecall",
+     "3": "__purecall",
+     "4": "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "?Delete@AssetFactoryBase@@UAEXXZ",
+     "9": "??_GShdDefFactoryClass@@UAEPAXI@Z",
+     "10": "?bfmeGoURB@BfmeThingURB@@QAEHXZ",
+     "11": "?method@Rva009EB8A0@@QAEXXZ",
+     "12": "?UnloadNow@BfmeE1024@@QAEXXZ",
+     "13": "__purecall",
+     "14": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 13,
+   "20": 9
+  },
+  "views": 22,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 22,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp",
+    "Code/GameEngine/Source/Common/Rva0017FF77Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/GenBase009EB7D0Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00180054Factory.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/texture.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Dtor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp",
+    "Code/GameEngine/Source/Common/Rva0017FF77Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/GenBase009EB7D0Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00180054Factory.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/texture.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Dtor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp",
+    "Code/GameEngine/Source/Common/Rva0017FF77Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/GenBase009EB7D0Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00180054Factory.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/texture.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Dtor.cpp"
+   ],
+   "views": 7
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp",
+    "Code/GameEngine/Source/Common/Rva0017FF77Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/GenBase009EB7D0Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/Rva00180054Factory.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/texture.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva00136794Dtor.cpp"
+   ],
+   "views": 7
+  }
+ ],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "handle()"
+  }
+ }
+}
