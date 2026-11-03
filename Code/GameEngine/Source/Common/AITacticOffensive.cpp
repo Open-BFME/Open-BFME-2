@@ -73,27 +73,7 @@ public:
 	Coord3D m_pos;					// +0x0C
 };
 
-class AITacticOffensive
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual bool slot10();				// +0x28
-
-	unsigned char checkTarget(void *target);
-
-private:
-	unsigned char m_pad04[0x24 - 4];
-	Player *m_player;				// +0x24
-};
+#include "../../Include/Common/AITacticOffensive.h"
 
 // tu-skeleton: 0x005DC722 26B ??0AITacticOffensive@@QAE@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005DC73CTacticBaseCtors.cpp (not merged yet)
 
@@ -117,7 +97,7 @@ unsigned char AITacticOffensive::checkTarget(void *targetPtr)
 	Rva005DC763Units *units;
 	Object *unit = 0;
 	{
-		void *owner = TheSkirmishAIManager->rva002A8F24(m_player);
+		void *owner = TheSkirmishAIManager->rva002A8F24(m_field24);
 		units = *(Rva005DC763Units **)owner;
 	}
 	for (unsigned int i = 0; i < units->bucket_count(); ++i)
@@ -138,7 +118,7 @@ unsigned char AITacticOffensive::checkTarget(void *targetPtr)
 	}
 	if (!unit)
 		return false;
-	Rva002A8AB1Record *playerRecord = TheSkirmishAIManager->rva002A8AB1(m_player);
+	Rva002A8AB1Record *playerRecord = TheSkirmishAIManager->rva002A8AB1(m_field24);
 	if (playerRecord->m_16C == 0)
 	{
 		Object *structure = target->rva002C5DA6();
