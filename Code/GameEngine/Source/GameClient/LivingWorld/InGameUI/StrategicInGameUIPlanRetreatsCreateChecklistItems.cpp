@@ -22,11 +22,7 @@ enum GameMessageDisposition
 
 class GameMessage;
 
-class UserInputTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
-};
+#include "../../../../Include/GameClient/UserInputTranslator.h"
 
 // The translators behind the behavior (ManualPhaseEnder.cpp's and
 // PlayerStatusDisplayer.cpp's units).

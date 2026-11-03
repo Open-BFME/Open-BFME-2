@@ -148,12 +148,7 @@ struct Rva0057556DHolder
 
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 class GameMessage;
-class UserInputTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *);
-	virtual ~UserInputTranslator();
-};
+#include "../../Include/GameClient/UserInputTranslator.h"
 class Listener00576C4B
 {
 public:

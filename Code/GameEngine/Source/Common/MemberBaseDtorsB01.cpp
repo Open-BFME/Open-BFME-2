@@ -336,12 +336,7 @@ public:
 // The callback receives the listener subobject at +0xC.
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
 class GameMessage;
-class UserInputTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *);
-	virtual ~UserInputTranslator();
-};
+#include "../../Include/GameClient/UserInputTranslator.h"
 class Rva005CD1A9
 {
 public:

@@ -32,23 +32,7 @@ class GameMessage;
 // slot 0, a deleting dtor in slot 1, then the input handlers, whose
 // defaults are the shared stubs 0x005748B2 (slot 2 and slots 18..25) and
 // 0x005748AD (slots 3..17). Only the slots this unit needs are named.
-class UserInputTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);	// slot 0
-	virtual ~UserInputTranslator();										// slot 1
-	virtual void slot02(); virtual void slot03(); virtual void slot04();
-	virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10();
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void slot14(); virtual void slot15(); virtual void slot16();
-	virtual void slot17();
-	// Slot 18 takes the region and the integer argument the base
-	// translateGameMessage fetches for it. int follows ZH, where the mouse
-	// click messages carry TheKeyboard->getModifierFlags() (an Int) after
-	// the region; retail cannot tell int from unsigned here.
-	virtual int OnMouseLeftClick(const IRegion2D &region, int modifiers);	// slot 18 (+0x48)
-};
+#include "../../../../Include/GameClient/UserInputTranslator.h"
 
 // The translators behind the behavior (ManualPhaseEnder.cpp's and
 // PlayerStatusDisplayer.cpp's units).
