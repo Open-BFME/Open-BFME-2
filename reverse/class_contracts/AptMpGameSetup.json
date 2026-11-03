@@ -1,0 +1,1147 @@
+{
+ "bases": [
+  "Rva005248D0"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptMpGameSetup",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 35,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x244": {
+    "4": 3
+   },
+   "0x2b0": {
+    "4": 3
+   },
+   "0x2b9": {
+    "1": 2,
+    "4": 1
+   },
+   "0x2ba": {
+    "4": 1
+   },
+   "0x2bb": {
+    "4": 1
+   },
+   "0x2bc": {
+    "4": 1
+   },
+   "0x2bd": {
+    "1": 3,
+    "4": 1
+   },
+   "0x2be": {
+    "1": 3,
+    "4": 1
+   },
+   "0x2bf": {
+    "1": 2,
+    "4": 1
+   },
+   "0x2c0": {
+    "1": 2,
+    "4": 1
+   },
+   "0x2c1": {
+    "4": 1
+   },
+   "0x2c2": {
+    "1": 7
+   },
+   "0x2c4": {
+    "4": 1
+   },
+   "0x394": {
+    "4": 3
+   },
+   "0x398": {
+    "4": 1
+   },
+   "0x3a4": {
+    "1": 3
+   },
+   "0x3a8": {
+    "4": 1
+   },
+   "0x3ac": {
+    "4": 2
+   },
+   "0x3c4": {
+    "4": 1
+   },
+   "0x3d8": {
+    "4": 4
+   },
+   "0x3dc": {
+    "1": 1
+   },
+   "0x58": {
+    "4": 10
+   },
+   "0x5c": {
+    "4": 12
+   },
+   "0x60": {
+    "4": 4
+   },
+   "0x7c": {
+    "4": 4
+   },
+   "0xc1": {
+    "1": 1
+   },
+   "0xd0": {
+    "4": 2
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x441ece"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva005248D0",
+       "offset": 0,
+       "own_vftable": "0x83dd7c",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x441ece"
+     ],
+     "value": 989
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x441ece"
+     ],
+     "value": {
+      "0x2b0": [
+       4
+      ],
+      "0x2b4": [
+       4
+      ],
+      "0x2b8": [
+       1
+      ],
+      "0x2b9": [
+       1
+      ],
+      "0x2ba": [
+       1
+      ],
+      "0x2bc": [
+       1
+      ],
+      "0x2bd": [
+       1
+      ],
+      "0x2be": [
+       1
+      ],
+      "0x2bf": [
+       1
+      ],
+      "0x2c0": [
+       1
+      ],
+      "0x2c1": [
+       1
+      ],
+      "0x2c2": [
+       1
+      ],
+      "0x2c3": [
+       1
+      ],
+      "0x2c4": [
+       1
+      ],
+      "0x2c8": [
+       4
+      ],
+      "0x2cc": [
+       4
+      ],
+      "0x2d0": [
+       4
+      ],
+      "0x394": [
+       4
+      ],
+      "0x3a4": [
+       4
+      ],
+      "0x3a8": [
+       4
+      ],
+      "0x3ac": [
+       4
+      ],
+      "0x3b0": [
+       4
+      ],
+      "0x3b8": [
+       4
+      ],
+      "0x3bc": [
+       4
+      ],
+      "0x3c0": [
+       4
+      ],
+      "0x3d8": [
+       4
+      ],
+      "0x3dc": [
+       1
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x441ece"
+     ],
+     "value": {
+      "0x190": [
+       "??0Rva0043DAE0@@QAE@PAUTargetRef00217D4C@@@Z"
+      ],
+      "0x244": [
+       "??0Rva0057FE6B@@QAE@PAUTargetRef00217D4C@@H_N@Z"
+      ],
+      "0x398": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z"
+      ],
+      "0x3c4": [
+       "??0?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@ABV?$allocator@_N@1@@Z"
+      ],
+      "0x60": [
+       "??0AptMapPreview@@QAE@PAVRva0043DA65@@@Z"
+      ],
+      "0xd0": [
+       "??0Rva0043DABD@@QAE@PAUTargetRef00217D4C@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x441ece"
+     ],
+     "value": {
+      "0x0": "0x83dd7c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83dd7c"
+     ],
+     "value": {
+      "count": 3,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptMpGameSetup@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x4428ad"
+       },
+       {
+        "name": "?rva0043FFD7@AptMpGameSetup@@QAEXXZ",
+        "slot": 1,
+        "target": "0x43ffd7"
+       },
+       {
+        "name": "?get@Rva004421DADwordField@@QBEHXZ",
+        "slot": 2,
+        "target": "0x4421da"
+       }
+      ],
+      "table": "0x83dd7c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 65,
+  "retail_vtables": {
+   "0x83dd7c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptMpGameSetup@@UAEPAXI@Z",
+     "1": "?rva0043FFD7@AptMpGameSetup@@QAEXXZ",
+     "2": "?get@Rva004421DADwordField@@QBEHXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 4,
+  "view_sizes": {
+   "1": 12,
+   "4": 2,
+   "128": 1,
+   "696": 1,
+   "920": 1,
+   "948": 1,
+   "968": 1,
+   "992": 12
+  },
+  "views": 31,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 10,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:AptCommandMapAdder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_commandMaps",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 12,
+   "type": "AptCommandMapAdder",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AptExternHandlerAdder",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_externHandlers",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 12,
+   "type": "AptExternHandlerAdder",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_owner",
+   "name_by": "majority",
+   "offset": 88,
+   "retail_widths": {
+    "4": 10
+   },
+   "size": 4,
+   "type": "MpGameSetupOwner*",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:SetupGameRef",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_game",
+     "offset": 0,
+     "size": 4,
+     "type": "Rva0043DA65*"
+    }
+   ],
+   "name": "game5c",
+   "name_by": "majority",
+   "offset": 92,
+   "retail_widths": {},
+   "size": 4,
+   "type": "SetupGameRef",
+   "views": 9,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0057E3DB",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_mode",
+     "offset": 28,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "P",
+     "name": "m_50",
+     "offset": 80,
+     "size": 4,
+     "type": "GameWindow*"
+    },
+    {
+     "kind": "i1",
+     "name": "m_61",
+     "offset": 97,
+     "size": 1,
+     "type": "bool"
+    }
+   ],
+   "name": "m_60",
+   "name_by": "majority",
+   "offset": 96,
+   "retail_widths": {},
+   "size": 112,
+   "type": "Rva0057E3DB",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva0057EE5C",
+   "name": "m_d0",
+   "name_by": "majority",
+   "offset": 208,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 1,
+   "type": "Rva0057EE5C",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:MpGameSetupRules",
+   "members": [
+    {
+     "kind": "i4",
+     "name": "m_00",
+     "offset": 0,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "m_04",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "m_08",
+     "offset": 8,
+     "size": 4,
+     "type": "int"
+    },
+    {
+     "kind": "i4",
+     "name": "m_commandPointFactor",
+     "offset": 12,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_rules",
+   "name_by": "majority",
+   "offset": 348,
+   "retail_widths": {},
+   "size": 40,
+   "type": "MpGameSetupRules",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva0057F2DE",
+   "name": "m_190",
+   "name_by": "majority",
+   "offset": 400,
+   "retail_widths": {},
+   "size": 1,
+   "type": "Rva0057F2DE",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "S:Rva0057FD6E",
+   "name": "m_244",
+   "name_by": "majority",
+   "offset": 580,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 1,
+   "type": "Rva0057FD6E",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_saved",
+   "name_by": "majority",
+   "offset": 688,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "TreeHintOpaque0043671B*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_pendingHero",
+   "name_by": "majority",
+   "offset": 692,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2b8",
+   "name_by": "majority",
+   "offset": 696,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2b9",
+   "name_by": "majority",
+   "offset": 697,
+   "retail_widths": {
+    "1": 2,
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2ba",
+   "name_by": "majority",
+   "offset": 698,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2bb",
+   "name_by": "majority",
+   "offset": 699,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2bc",
+   "name_by": "majority",
+   "offset": 700,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2bd",
+   "name_by": "majority",
+   "offset": 701,
+   "retail_widths": {
+    "1": 3,
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2be",
+   "name_by": "majority",
+   "offset": 702,
+   "retail_widths": {
+    "1": 3,
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2bf",
+   "name_by": "majority",
+   "offset": 703,
+   "retail_widths": {
+    "1": 2,
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2c0",
+   "name_by": "majority",
+   "offset": 704,
+   "retail_widths": {
+    "1": 2,
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2c1",
+   "name_by": "majority",
+   "offset": 705,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_refreshing",
+   "name_by": "majority",
+   "offset": 706,
+   "retail_widths": {
+    "1": 7
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_pending",
+   "name_by": "majority",
+   "offset": 707,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_2c4",
+   "name_by": "majority",
+   "offset": 708,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_startTime",
+   "name_by": "majority",
+   "offset": 712,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_shownSeconds",
+   "name_by": "majority",
+   "offset": 716,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_2d0",
+   "name_by": "majority",
+   "offset": 720,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_player",
+   "name_by": "majority",
+   "offset": 724,
+   "retail_widths": {},
+   "size": 32,
+   "type": "GameWindow*[32]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_colorCombo",
+   "name_by": "majority",
+   "offset": 756,
+   "retail_widths": {},
+   "size": 32,
+   "type": "MpGameSetupComboRef[32]",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_team",
+   "name_by": "majority",
+   "offset": 788,
+   "retail_widths": {},
+   "size": 32,
+   "type": "GameWindow*[32]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_playerTemplate",
+   "name_by": "majority",
+   "offset": 820,
+   "retail_widths": {},
+   "size": 32,
+   "type": "GameWindow*[32]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_handicap",
+   "name_by": "majority",
+   "offset": 852,
+   "retail_widths": {},
+   "size": 32,
+   "type": "GameWindow*[32]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_hero",
+   "name_by": "majority",
+   "offset": 884,
+   "retail_widths": {},
+   "size": 32,
+   "type": "GameWindow*[32]",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_mapList",
+   "name_by": "majority",
+   "offset": 916,
+   "retail_widths": {
+    "4": 3
+   },
+   "size": 4,
+   "type": "GameWindow*",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_start",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_finish",
+     "offset": 4,
+     "size": 4,
+     "type": "AsciiString*"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 8,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "m_maps",
+   "name_by": "majority",
+   "offset": 920,
+   "retail_widths": {},
+   "size": 12,
+   "type": "_STL::vector<AsciiString,_STL::allocator<AsciiString> >",
+   "views": 7,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_flags",
+   "name_by": "majority",
+   "offset": 932,
+   "retail_widths": {
+    "1": 3
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_3a8",
+   "name_by": "majority",
+   "offset": 936,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_sortColumn",
+   "name_by": "majority",
+   "offset": 940,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_previousSortColumn",
+   "name_by": "majority",
+   "offset": 944,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "pingcache3b4",
+   "name_by": "majority",
+   "offset": 948,
+   "retail_widths": {},
+   "size": 4,
+   "type": "uchar[4]",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "ping3b8",
+   "name_by": "majority",
+   "offset": 952,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Image*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "ping3bc",
+   "name_by": "majority",
+   "offset": 956,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Image*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "ping3c0",
+   "name_by": "majority",
+   "offset": 960,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Image*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:_STL::vector<bool,_STL::allocator<bool> >",
+   "members": [
+    {
+     "kind": "P",
+     "name": "_M_p",
+     "offset": 0,
+     "size": 4,
+     "type": "uint*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_offset",
+     "offset": 4,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "P",
+     "name": "_M_p",
+     "offset": 8,
+     "size": 4,
+     "type": "uint*"
+    },
+    {
+     "kind": "i4",
+     "name": "_M_offset",
+     "offset": 12,
+     "size": 4,
+     "type": "uint"
+    },
+    {
+     "kind": "P",
+     "name": "_M_data",
+     "offset": 16,
+     "size": 4,
+     "type": "uint*"
+    }
+   ],
+   "name": "m_colorsAvailable",
+   "name_by": "majority",
+   "offset": 964,
+   "retail_widths": {},
+   "size": 20,
+   "type": "_STL::vector<bool,_STL::allocator<bool> >",
+   "views": 8,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_numColors",
+   "name_by": "majority",
+   "offset": 984,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "int",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_3dc",
+   "name_by": "majority",
+   "offset": 988,
+   "retail_widths": {
+    "1": 1
+   },
+   "size": 1,
+   "type": "bool",
+   "views": 7,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:VPTR": 1,
+    "692:A": 1
+   },
+   "class": "AptMpGameSetup"
+  },
+  {
+   "attribute": "field@0x60",
+   "candidates": {
+    "112:A": 1,
+    "112:S:Rva0057E3DB": 1
+   },
+   "class": "AptMpGameSetup"
+  },
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "slot01()": 1,
+    "v01()": 1
+   },
+   "class": "AptMpGameSetup"
+  }
+ ],
+ "size": 992,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
