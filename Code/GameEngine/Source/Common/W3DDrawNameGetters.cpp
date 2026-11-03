@@ -42,11 +42,7 @@ const char *W3DPropBuffer::GetSnapshotName() const
 }
 BFME_LITERAL_NAME_GETTER(Rva000CEB69Named, "W3DTreeDraw")
 BFME_LITERAL_NAME_GETTER(W3DBuffDraw, "W3DBuffDraw")
-class W3DPropDraw
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h"
 
 const char *W3DPropDraw::GetSnapshotName() const
 {

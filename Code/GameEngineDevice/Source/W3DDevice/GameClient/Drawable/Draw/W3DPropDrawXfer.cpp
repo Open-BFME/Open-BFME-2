@@ -36,14 +36,7 @@ class DrawModule;
 
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 
-class W3DPropDraw : public DrawModule
-{
-public:
-	W3DPropDraw(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h"
 
 void W3DPropDraw::xfer(Xfer *xfer)
 {

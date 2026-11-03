@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class W3DPropDraw
-{
-public:
-	W3DPropDraw(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x10];
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DPropDrawClass.h"
 
 // ?friend_newModuleInstance@W3DPropDraw@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *W3DPropDraw::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
