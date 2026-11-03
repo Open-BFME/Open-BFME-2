@@ -27,11 +27,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 
 #include "../../Include/Common/Rva001EAE6FHelper.h"
 
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &that);
-	unsigned int m_bits[32];
-};
+#include "../../Include/Common/BfmeFixedStorage128.h"
 
 class Rva0035B513
 {

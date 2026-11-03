@@ -13,11 +13,7 @@
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128&);
-	unsigned char bytes[128];
-};
+#include "../../../Include/Common/BfmeFixedStorage128.h"
 
 namespace _STL
 {

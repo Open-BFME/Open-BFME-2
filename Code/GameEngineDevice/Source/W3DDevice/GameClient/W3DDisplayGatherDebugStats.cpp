@@ -461,7 +461,7 @@ class ThingTemplate { public: char m_pad[0x64]; char *m_nameData; const char *ge
 #include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 namespace _STL { template <int N> struct _Base_bitset { unsigned int _M_w[N]; bool _M_is_any() const; }; }
 typedef _STL::_Base_bitset<4> _STL_Base_bitset4;
-struct BfmeFixedStorage128 { BfmeFixedStorage128(const BfmeFixedStorage128 &that); unsigned int m_bits[32]; };
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage128.h"
 class Object
 {
 public:

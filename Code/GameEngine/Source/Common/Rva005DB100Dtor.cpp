@@ -55,11 +55,7 @@ public:
 	void rva0039B2E6(const struct Rva0039B2E6Input &input);
 };
 
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-	unsigned int m_w[32];
-};
+#include "../../Include/Common/BfmeFixedStorage128.h"
 
 struct Db145Holder
 {
@@ -114,7 +110,7 @@ void Rva005DB145::rva005DB145(const struct Rva0039B2E6Input &input, int)
 				Db145Elem *element = *pp;
 				if (element != 0) {
 					unsigned int id = element->m_val38;
-					bits.m_w[id >> 5] |= (1u << (id & 31));
+					bits.m_bits[id >> 5] |= (1u << (id & 31));
 				}
 				_ReadWriteBarrier();
 				++i;

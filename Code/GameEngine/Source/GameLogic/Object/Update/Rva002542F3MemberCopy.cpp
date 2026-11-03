@@ -13,13 +13,7 @@ private:
 	char m_pad[0x10];
 };
 
-struct BfmeFixedStorage128
-{
-public:
-	BfmeFixedStorage128(const struct BfmeFixedStorage128 &other);
-private:
-	char m_pad[0x80];
-};
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 
 class Rva002542F3Member
 {

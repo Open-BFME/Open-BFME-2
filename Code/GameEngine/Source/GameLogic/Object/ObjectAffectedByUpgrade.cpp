@@ -3,11 +3,7 @@
 // stlport
 // ?affectedByUpgrade@Object@@QBE_NPBVUpgradeTemplate@@@Z RVA 0x002940B9 305B
 // Evidence: LINK BONUS 5 files call this name; pin-only callee of BfmeC985::bfmeGo985C at 0x00261130; Object::affectedByUpgrade per CommandButtonIsReady donor ZH Object.cpp affectedByUpgrade and BFME1 ObjectUpgrades.cpp; callers TeamRva0039E8EB HordeContain CommandButtonIsReady Rva003972D3Apply Rva00397357; prev 0x00293E64 next 0x0029439D share /O1 /G7.
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128&);
-	unsigned char bytes[128];
-};
+#include "../../../Include/Common/BfmeFixedStorage128.h"
 
 namespace _STL
 {

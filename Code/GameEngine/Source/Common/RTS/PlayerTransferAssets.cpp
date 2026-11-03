@@ -211,13 +211,7 @@ private:
 
 // The 1024-bit upgrade mask (copy ctor rowed 0x0004548B, set-bit count
 // rowed 0x00046827).
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-	void clear(UnsignedInt bit) { m_bits[bit >> 5] &= ~(1 << (bit & 0x1F)); }
-
-	UnsignedInt m_bits[0x20];
-};
+#include "../../../Include/Common/BfmeFixedStorage128.h"
 
 class Rva00046827
 {

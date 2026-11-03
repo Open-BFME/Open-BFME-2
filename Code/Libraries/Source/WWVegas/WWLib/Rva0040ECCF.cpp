@@ -319,7 +319,7 @@ public:
 	int m_armyID;
 };
 
-struct BfmeFixedStorage128 { unsigned int m_bits[32]; };
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage128.h"
 enum ScienceType {};
 class ArmySummarySystem;
 class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *system); };

@@ -11,11 +11,7 @@
 // blocks as ctor 0x0050775B at +0x04/+0x84 plus same-cluster callers
 // 0x005075D6 and 0x0050774A plus vtable 0x00864010 class of 0x00507823.
 // UChar return proven by sbb al al inc al; final test/setne from !=0.
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-	unsigned char bytes[128];
-};
+#include "../../Include/Common/BfmeFixedStorage128.h"
 
 namespace _STL
 {

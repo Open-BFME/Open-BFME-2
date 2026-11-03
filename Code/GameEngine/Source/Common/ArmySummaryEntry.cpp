@@ -152,11 +152,7 @@ extern class ExperienceLevelSystem *TheExperienceLevelSystem;
 // module slots 0x30/0x68, data required +0x08 excluded +0x88 max level +0x11C); the 128-byte
 // copy is the rowed BfmeFixedStorage128 copy constructor 0x0004548B, the AND/AND-NOT loops
 // are rowed Rva0040C598 0x0040C598/0x0040C5B1. The purpose and class name are inferred.
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-	int m_bits[32];
-};
+#include "../../Include/Common/BfmeFixedStorage128.h"
 
 class Rva0040C804Target
 {

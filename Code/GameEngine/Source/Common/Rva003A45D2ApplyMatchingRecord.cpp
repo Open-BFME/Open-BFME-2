@@ -19,18 +19,7 @@
 #include <vector>
 #include "ascii_string.h"
 
-struct BfmeFixedStorage128
-{
-	unsigned int words[32];
-	BfmeFixedStorage128(const BfmeFixedStorage128 &rhs);
-	bool any() const
-	{
-		for (unsigned int i = 0; i < 32; ++i)
-			if (words[i] != 0)
-				return true;
-		return false;
-	}
-};
+#include "../../Include/Common/BfmeFixedStorage128.h"
 
 class FXList
 {

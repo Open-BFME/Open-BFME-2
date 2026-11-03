@@ -59,7 +59,7 @@ public:
 };
 class InGameUI;
 extern InGameUI *TheInGameUI;
-struct BfmeFixedStorage128 {unsigned m_bits[32];};
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 class Rva0035B513 {public:BfmeFixedStorage128 *rva0035B513(BfmeFixedStorage128 *);};
 namespace _STL {
  template<unsigned N> class _Base_bitset {

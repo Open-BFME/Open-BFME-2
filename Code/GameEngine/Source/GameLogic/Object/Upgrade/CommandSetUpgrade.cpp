@@ -114,11 +114,7 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-	char m_bytes[0x80];
-};
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 
 class Player
 {

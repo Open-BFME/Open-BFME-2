@@ -74,11 +74,7 @@ public:
 	int m_livingWorldPlayerID;
 };
 
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-	unsigned int m_bits[32];
-};
+#include "../../../Include/Common/BfmeFixedStorage128.h"
 
 class Rva00046827 { public: int rva00046827(); };
 class Rva0026F0F0 { public: void *rva0026F0F0(const void *key); };

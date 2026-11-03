@@ -60,17 +60,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-struct BfmeFixedStorage128
-{
-	BfmeFixedStorage128(const BfmeFixedStorage128 &other);
-
-	__forceinline void clearBit(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1 << (bit & 0x1f));
-	}
-
-	unsigned int m_words[32];
-};
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
 
 // The mask's set-bit count (rowed 0x00046827).
 class Rva00046827
