@@ -119,6 +119,14 @@ PathfindLayer now uses its canonical 0x40-byte declaration, without body or
 field changes. Current-main 81-row/two-data verification and owning acceptance
 pass; one more header entry retires. One seed header prerequisite remains.
 
+Pathfinder now adopts the registered two-base declaration. AddBridge retains
+the target layer array layout; the callback uses the actual primary base while
+keeping its existing byte-argument call view and native 40-byte direct call.
+All 81 main function rows, two data rows, three private EH graphs and 209
+ordinary providers are preserved. Owning acceptance retires the last of the
+eight seed header entries. Donor composition is the next independent check;
+no source-path or census-linked gain is claimed by these preparations.
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

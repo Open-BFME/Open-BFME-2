@@ -37,3 +37,9 @@ The complete private cell declaration is replaced by the registered header. Only
 ## Canonical PathfindLayer
 
 Replace the complete opaque private declaration with the existing canonical header, preserving its 0x40-byte extent and all out-of-line method bindings. No body or field access changes. The private control/candidate proof keeps all 83 ledger entries, three EXACT EH graphs and all 209 external definitions identical. Current-main normal verification passes 81 function rows and two data rows; owning header acceptance retires exactly one queue entry. One seed header prerequisite remains. No source-path move or census gain is claimed.
+
+## Canonical Pathfinder
+
+The complete private Pathfinder prefix is replaced by its existing canonical header, including the target-supported primary PathfindServicesInterface and secondary Snapshot bases. AddBridge uses the established sixteen-element PathfindLayer array at +0x60, stride0x40, through canonical opaque storage. The callback retains its existing bounded byte-argument call view, after a standard member-pointer conversion to the real primary base. That conversion preserves the native40-byte direct call with zero this-adjustment; a naive multiple-inheritance cast emits50 bytes, and the full-pointer direct argument view emits41 bytes. No new callee semantic parameter types are claimed.
+
+The isolated whole-file proof preserves all83 ledger entries, three EXACT EH graphs and every one of209 ordinary external definitions byte/relocation identical. Main normal verification passes81 function rows and both data rows; owning header acceptance retires one queue entry. All eight original seed header prerequisites are now retired. No pin, alias, pragma, assembly, private class, marker or source-path move is introduced. The remaining donor merge must be recomputed against current inputs and audited separately; the dated census remains154 unlinked units.

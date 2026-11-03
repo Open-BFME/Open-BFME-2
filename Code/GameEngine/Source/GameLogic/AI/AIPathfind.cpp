@@ -1126,50 +1126,7 @@ template _STL::_Rb_tree_iterator<_STL::pair<int const, Rva002F3093Record>, _STL:
 
 class Rva002CB35CObj;
 
-class Pathfinder
-{
-public:
-	void AddObjectToPathfindMap(Object *object);
-public:
-	void RemoveObjectFromPathfindMap(Object *object);
-public:
-	void RemoveObjectGoalFromPathfindMap(Object *object);
-public:
-	void RemoveObjectFromPathfindMapKeepingGateFlags(Object *object);
-public:
-	int AddBridge(int arg);
-public:
-	void rva00530212(Object *object, bool insert, bool keepGate, bool goal);
-private:
-	char m_pad00[0x60];
-private:
-	struct Slot { char bytes[0x40]; };
-private:
-	Slot m_slots[16];
-public:
-	int iterateCellsAlongLine(const Coord3D *, const Coord3D *, PathfindLayerEnum, Rva002F1BD5Info *);
-public:
-	bool rva002F3392(PathNode *, PathNode *, unsigned int, Coord3D *, Coord3D *, Coord3D *);
-public:
-	bool CircleClipsTallBuilding(const Coord3D *, const Coord3D *, float, unsigned int, Coord3D *);
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, int x, int y);
-public:
-	int rva002EADE1(const Coord3D *startPos, const Coord3D *destinationPos, PathfindLayerEnum layer, Rva002E7ED6Info *info);
-private:
-	int rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo);
-public:
-	int _GetOverlapUnits(Object *,const Coord3D *,int *);
-public:
-	int _GetAdjacentUnits(Object *,const Coord3D *,int *);
-public:
-	bool CheckDestination(class Object *obj, int cellX, int cellY, enum PathfindLayerEnum layer, int radius, bool centerInCell, int *result, bool flag);
-public:
-	Bool bfmeWrapE6E90(void *a1, void *a2, void *a3, void *a4, void *a5,
-		void *a6);
-public:
-	bool CheckForTarget(void *,void *,void *,Rva002CB35CObj *,void *,void *,void *,void *,Coord3D *);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 class Rva002F336AOwner
 {
@@ -1544,14 +1501,14 @@ void Pathfinder::RemoveObjectFromPathfindMapKeepingGateFlags(Object *object)
 int Pathfinder::AddBridge(int arg)
 {
 	int i = 2;
-	Slot *slot = &m_slots[2];
+	PathfindLayer *slot = reinterpret_cast<PathfindLayer *>(m_unknown60) + 2;
 	for (; i <= 0xf; ++i, ++slot) {
 		if (!((Rva0036666B *)slot)->rva0036666B())
 			goto second;
 	}
 	return 1;
 second:
-	if (!((Rva00366561 *)&m_slots[i])->rva00366561(arg, i))
+	if (!((Rva00366561 *)(reinterpret_cast<PathfindLayer *>(m_unknown60) + i))->rva00366561(arg, i))
 		return 1;
 	return i;
 }
@@ -2301,8 +2258,10 @@ Bool Pathfinder::bfmeWrapE6E90(void *a1, void *a2, void *a3, void *a4, void *a5,
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva002F336ATargetCallback.cpp
 
 bool Rva002F336AOwner::rva002F336A(int x,int y) {
- typedef bool(Pathfinder::*Query)(void *,int,int,Rva002CB35CObj *,void *,void *,void *,unsigned char,Coord3D *);
- return (pf->*reinterpret_cast<Query>(&Pathfinder::CheckForTarget))(object,x,y,weapon,target,targetPosition,radius,mode,out);
+ typedef bool(PathfindServicesInterface::*Query)(void *,int,int,Rva002CB35CObj *,void *,void *,void *,unsigned char,Coord3D *);
+ return (static_cast<PathfindServicesInterface *>(pf)->*reinterpret_cast<Query>(
+     static_cast<bool(PathfindServicesInterface::*)(void *,void *,void *,Rva002CB35CObj *,void *,void *,void *,void *,Coord3D *)>(
+         &Pathfinder::CheckForTarget)))(object,x,y,weapon,target,targetPosition,radius,mode,out);
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F3759.cpp
