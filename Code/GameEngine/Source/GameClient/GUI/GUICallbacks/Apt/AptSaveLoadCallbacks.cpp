@@ -45,67 +45,7 @@ struct AptSaveLoadPending
 };
 
 class GameSpyGameSlot;
-class AptSaveLoad
-{
-public:
-	static AptSaveLoad *s_instance;
-	static void __cdecl AddFriendConfirmationHandler(int button);
-	static GameSpyGameSlot *GetOpponentSlotData();
-	void OnClosed(const char *unused);
-	void Cancel(const char *unused);
-	// Bound as "AptSaveLoad::OnInitialized" and
-	// "AptSaveLoad::ConfirmationCancel" (and by the options screen as
-	// "AptOptions::OnInitialized"): one body or several folded, so it keeps
-	// its address.
-	void rva00433DF1(const char *unused);
-	// Bound without a name as the saved-game prompt's answer (0x00434EFA),
-	// so it keeps its address.
-	void rva00433D71(int button);
-	void Delete(const char *unused);
-	void Load(const char *unused);
-	void ConfirmationOk(const char *unused);
-	void InitGadgets(const char *name, void *argument, GameWindow *window);
-	void rva00434A2F();
-
-	// Unrowed 0x00434AAE (220 bytes; fills the lists), pinned by address.
-	void SetDefaultFileName();
-
-	// Unrowed 0x0043448C, 0x00435224 and 0x00434B8A, pinned by address.
-	void rva0043448C();
-	void rva00435224();
-	void rva00434B8A();
-
-	// Unrowed 0x00433F7F (94 bytes; banked), pinned by address.
-	int rva00433F7F();
-
-	// Rowed 0x004340AC (Rva004340ACMethod.cpp's view of this screen).
-	void rva004340AC();
-	// Rowed 0x00433FDD (Rva00433FDDSet.cpp): state +0x27C = pending ? 3 : 1.
-	void rva00433FDD();
-
-	// 0x00434432 (90 bytes; chain from 0x004340AC).
-	void rva00434432();
-	// Ghidra 0x00436FF6 tail-calls the rowed 0x00434432 refresh.
-	void rva00436FF6();
-	// The 0x00436FF6 mode-4 branch calls this with ECX=this.
-	void rva0043684C();
-
-private:
-	unsigned char m_pad000[0x27C];
-	int m_state; // +0x27C
-	AptSaveLoadPending *m_pending; // +0x280
-	unsigned char m_pad284[0x288 - 0x284];
-	GameWindow *m_gameList; // +0x288
-	GameWindow *m_autoSaveList; // +0x28C
-	GameWindow *m_fileName; // +0x290
-	int m_294; // +0x294; compared with 3 at 0x00436FF6
-	unsigned char m_pad298[0x29C - 0x298];
-	bool m_29c; // +0x29C
-	unsigned char m_pad29d[0x2A0 - 0x29D];
-	int m_mode; // +0x2A0
-	unsigned char m_pad2a4[0x2A8 - 0x2A4];
-	int m_2a8; // +0x2A8
-};
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 
 // The 0x00436FF6 else branch loads the singleton at 0x00DFF08C into ECX and
 // passes the screen's two list pointers, the +0x294 comparison, and +0x2A0
@@ -213,9 +153,9 @@ void __cdecl AptSaveLoad::AddFriendConfirmationHandler(int button)
 void AptSaveLoad::rva00433D71(int button)
 {
 	if (button == 2)
-		m_2a8 = 1;
+		field2A8 = 1;
 	else if (button == 3)
-		m_2a8 = 2;
+		field2A8 = 2;
 }
 
 // Retail 0x00433DB1, 47 bytes: "AptSaveLoad::OnClosed" flags the shell
@@ -224,7 +164,7 @@ void AptSaveLoad::OnClosed(const char *unused)
 {
 	if (TheShell)
 	{
-		if (m_state != 6 || !m_pending || m_pending->m_kind != 6)
+		if (field27C != 6 || !field280 || field280->m_kind != 6)
 			((GlobalA01E48 *)TheShell)->m_54 = true;
 	}
 	Rva00433D27Enable();
@@ -233,7 +173,7 @@ void AptSaveLoad::OnClosed(const char *unused)
 // Retail 0x00433DE0, 17 bytes: "AptSaveLoad::Cancel".
 void AptSaveLoad::Cancel(const char *unused)
 {
-	if (m_state == 0)
+	if (field27C == 0)
 		Rva00433D27Enable();
 }
 
@@ -241,14 +181,14 @@ void AptSaveLoad::Cancel(const char *unused)
 // "AptSaveLoad::ConfirmationCancel" and "AptOptions::OnInitialized".
 void AptSaveLoad::rva00433DF1(const char *unused)
 {
-	m_state = 1;
+	field27C = 1;
 }
 
 // Retail 0x00434318, 31 bytes: "AptSaveLoad::Delete".
 void AptSaveLoad::Delete(const char *unused)
 {
-	if (m_state == 0 && rva00433F7F())
-		m_state = 16;
+	if (field27C == 0 && rva00433F7F())
+		field27C = 16;
 }
 
 // Retail 0x004348CA, 76 bytes: "AptSaveLoad::Load" takes the selected
@@ -256,15 +196,15 @@ void AptSaveLoad::Delete(const char *unused)
 // 4, else state 3.
 void AptSaveLoad::Load(const char *unused)
 {
-	if (m_state == 0)
+	if (field27C == 0)
 	{
-		m_pending = (AptSaveLoadPending *)rva00433F7F();
-		if (m_29c)
-			m_state = 14;
-		else if (m_mode == 4)
+		field280 = (AptSaveLoadPending *)rva00433F7F();
+		if (field29C)
+			field27C = 14;
+		else if (field2A0 == 4)
 			rva0043448C();
 		else
-			m_state = 3;
+			field27C = 3;
 	}
 }
 
@@ -272,18 +212,18 @@ void AptSaveLoad::Load(const char *unused)
 // confirmation the state (0x12..0x15) is waiting on.
 void AptSaveLoad::ConfirmationOk(const char *unused)
 {
-	if (m_state == 0x12)
+	if (field27C == 0x12)
 	{
-		if (m_mode == 4)
+		if (field2A0 == 4)
 			rva0043448C();
 		else
-			m_state = 3;
+			field27C = 3;
 	}
-	else if (m_state == 0x13)
+	else if (field27C == 0x13)
 		rva00435224();
-	else if (m_state == 0x14)
+	else if (field27C == 0x14)
 		rva00434B8A();
-	else if (m_state == 0x15)
+	else if (field27C == 0x15)
 		rva00433FDD();
 }
 
@@ -296,23 +236,23 @@ void AptSaveLoad::InitGadgets(const char *name, void *argument, GameWindow *wind
 		return;
 	if (strcmp(name, "GameList") == 0)
 	{
-		m_gameList = window;
-		m_state = 2;
+		field288 = window;
+		field27C = 2;
 	}
 	else if (strcmp(name, "AutoSaveList") == 0)
 	{
-		m_autoSaveList = window;
-		m_state = 2;
+		field28C = window;
+		field27C = 2;
 	}
 	else if (strcmp(name, "FileNameTextEntry") == 0)
 	{
-		m_fileName = window;
+		field290 = window;
 		GadgetTextEntrySetText(window, UnicodeString(L""));
 		GadgetTextEntrySetMaxChars((BfmeKeyLC *)window, 40);
 		GadgetTextEntrySetValidationFlags(window, 8);
 		SetDefaultFileName();
-		if (m_state == 0)
-			m_state = 1;
+		if (field27C == 0)
+			field27C = 1;
 	}
 }
 
@@ -320,18 +260,18 @@ void AptSaveLoad::InitGadgets(const char *name, void *argument, GameWindow *wind
 // Evidence: rowed winEnable 0x00313BEC and bfmeGoENK 0x00324992 on m_gameList +0x288 and m_autoSaveList +0x28C; winEnable on m_fileName +0x290; tail-jmp to rowed 0x004340AC; caller set 0x00435CA8 0x00437072 0x00437031.
 void AptSaveLoad::rva00434432()
 {
-	if (m_gameList)
+	if (field288)
 	{
-		m_gameList->winEnable(true);
-		bfmeGoENK((BfmeObjENK *)m_gameList, 1);
+		field288->winEnable(true);
+		bfmeGoENK((BfmeObjENK *)field288, 1);
 	}
-	if (m_autoSaveList)
+	if (field28C)
 	{
-		m_autoSaveList->winEnable(true);
-		bfmeGoENK((BfmeObjENK *)m_autoSaveList, 1);
+		field28C->winEnable(true);
+		bfmeGoENK((BfmeObjENK *)field28C, 1);
 	}
-	if (m_fileName)
-		m_fileName->winEnable(true);
+	if (field290)
+		field290->winEnable(true);
 	return rva004340AC();
 }
 
@@ -340,11 +280,11 @@ void AptSaveLoad::rva00434432()
 // tail-call the rowed list/button refresh at 0x00434432.
 void AptSaveLoad::rva00436FF6()
 {
-	if (m_mode == 4)
+	if (field2A0 == 4)
 		rva0043684C();
 	else
 		TheGameState->populateSaveGameListbox(
-			m_gameList, m_autoSaveList, m_294 == 3, m_mode);
+			field288, field28C, field294 == 3, field2A0);
 
 	return rva00434432();
 }
@@ -360,7 +300,7 @@ int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *,void *,const char *,const int 
 
 void AptSaveLoad::rva00434A2F()
 {
-	UnicodeString text = GadgetTextEntryGetText(m_fileName);
+	UnicodeString text = GadgetTextEntryGetText(field290);
 	text.trim();
 	int hasText;
 	if (unicodeIsEmpty(text))

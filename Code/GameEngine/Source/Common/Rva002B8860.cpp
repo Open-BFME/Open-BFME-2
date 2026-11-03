@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-class AptSaveLoad { public: static AptSaveLoad *s_instance; };
+#include "../../Include/GameClient/AptSaveLoad.h"
 // ?rva002B8860@Rva002B8860@@QAEXXZ @0x002B8860 140B. guard +0x168, globals, vector erase, clear, singleton fwd, forEach, tail endgame.
 // Evidence: caller 0x002B9DC7, callees rowed/pinned, vtable slot 0x28, push 0x9CB260.
 void Rva00433D27Enable();

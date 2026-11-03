@@ -16,35 +16,17 @@ struct AptSaveLoadPending
 	unsigned char m_de4;
 };
 
-class AptSaveLoad
-{
-public:
-	int rva00433F7F();
-	void rva004340AC();
-private:
-	char m_pad000[0x27C];
-	int m_state;
-	struct AptSaveLoadPending *m_pending;
-	char m_pad284[0x288 - 0x284];
-	GameWindow *m_gameList;
-	GameWindow *m_autoSaveList;
-	GameWindow *m_fileName;
-	int m_294;
-	char m_pad298[0x29C - 0x298];
-	bool m_29c;
-	char m_pad29D[0x2A0 - 0x29D];
-	int m_mode;
-};
+#include "../../Include/GameClient/AptSaveLoad.h"
 
 void AptSaveLoad::rva004340AC()
 {
-	if (m_294 != 2)
+	if (field294 != 2)
 		return;
 	AptSaveLoadPending *pending = (AptSaveLoadPending *)rva00433F7F();
 	const char *zero = "0";
 	const char *deleteVal = pending ? "1" : zero;
 	const char *loadVal = deleteVal;
-	if (m_mode == 0x10 && pending && pending->m_kind == 6 && pending->m_de4 == 0)
+	if (field2A0 == 0x10 && pending && pending->m_kind == 6 && pending->m_de4 == 0)
 		loadVal = zero;
 	int level = AptPlayer::GetLevelIndex((GameWindow *)this);
 	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), reinterpret_cast<void *>(level), "LoadButtonEnable", loadVal);

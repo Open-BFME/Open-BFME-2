@@ -46,10 +46,7 @@ extern GameInfo *TheGameInfo;
 // WB12B0A60/483 names AptSaveLoad::GetOpponentSlotData with assertions
 //1833/1834/1845. Its static no-argument ABI, staging-room lookup, local
 //slot exclusion and first-human search agree with the complete native body.
-class AptSaveLoad {
-public:
-	static GameSpyGameSlot *GetOpponentSlotData();
-};
+#include "../../Include/GameClient/AptSaveLoad.h"
 
 GameSpyGameSlot *AptSaveLoad::GetOpponentSlotData()
 {

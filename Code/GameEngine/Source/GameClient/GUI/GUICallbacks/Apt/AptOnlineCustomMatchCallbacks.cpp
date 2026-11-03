@@ -82,11 +82,7 @@ int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, c
 // and 0x0059F296).
 void Rva0059F20BSet(int slot, const UnicodeString &text);
 void Rva0059F296Set(int slot, const UnicodeString &text);
-class AptSaveLoad
-{
-public:
-	static void OpenScreen(int a, int b, bool c);
-};
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 
 // The game slot the owner menus edit. Target facts: Team writes +0x1C;
 // the host's name (slot 0) is the UnicodeString at +0x30 that

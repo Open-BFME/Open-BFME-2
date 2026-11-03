@@ -12,12 +12,7 @@ struct State00434160 {
     char pad2[3];
     int f2a0;
 };
-class AptSaveLoad
-{
-public:
-	static AptSaveLoad *s_instance;
-    static void OpenScreen(int a1, int flags, bool a3);
-};
+#include "../../Include/GameClient/AptSaveLoad.h"
 void AptSaveLoad::OpenScreen(int a1, int flags, bool a3)
 {
     if (AptSaveLoad::s_instance != 0)

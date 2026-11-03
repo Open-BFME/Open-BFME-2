@@ -59,7 +59,7 @@ int Rva0021913AGet(void)
 }
 
 // AptSaveLoad::s_instance: matched references place it at VA 0xe032e0 (zero-filled .bss).
-class AptSaveLoad { public: static AptSaveLoad *s_instance; };
+#include "../../Include/GameClient/AptSaveLoad.h"
 // Named WB OpenScreen assertions559/560 and retail save-screen lifecycle
 // identify this one pointer; public access is a reconstruction choice.
 AptSaveLoad *AptSaveLoad::s_instance;

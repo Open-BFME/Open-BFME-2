@@ -28,8 +28,7 @@ extern GameTextInterface *TheGameText;
 // dwords; the final two are an address and this-adjustment word.
 class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)();
-class AptSaveLoad {public:
-	static AptSaveLoad *s_instance;void rva00433D71(int);void rva00435224();int rva00437053();void rva00434432();void rva00436FF6();void rva00435819();};
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 class Rva00434337 {public:void rva00434337(int);};
 struct FunctorBinding { FunctorBinding(){}
  template<class T> FunctorBinding(T*target,void(T::*f)(int)):m_target(reinterpret_cast<FunctorTarget*>(target)),m_method(reinterpret_cast<FunctorMethod>(f)){}

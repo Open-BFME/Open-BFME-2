@@ -4,6 +4,6 @@
 // tail-forwards to434EFA, which independently shows the saved-game prompt.
 // BF1 clean BfmeConv435.cpp at current2f243e26d supplies the same conditional
 // wrapper shape. The outer wrapper original name remains unproven.
-class AptSaveLoad {public: static bool PromptAddFriend();};
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 void Rva00434EFA();
 void Rva00435CCC() { if(!AptSaveLoad::PromptAddFriend())Rva00434EFA(); }

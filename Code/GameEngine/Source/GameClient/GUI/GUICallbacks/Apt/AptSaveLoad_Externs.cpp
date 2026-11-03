@@ -6,20 +6,7 @@ extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *
 extern "C" char *__cdecl _mbscpy(char *, const char *);
 extern "C" char *__cdecl _mbscat(char *, const char *);
 
-class AptSaveLoad
-{
-public:
-	void Externs(int query, char *value, bool set);
-
-private:
-	unsigned char m_pad000[0x27C];
-	int m_state;
-	unsigned char m_pad280[0x294 - 0x280];
-	int m_fileType;
-	unsigned char m_filterEnabled;
-	unsigned char m_pad299[0x2A0 - 0x299];
-	int m_mode;
-};
+#include "../../../../../Include/GameClient/AptSaveLoad.h"
 
 void AptSaveLoad::Externs(int query, char *value, bool set)
 {
@@ -34,9 +21,9 @@ void AptSaveLoad::Externs(int query, char *value, bool set)
 	case 0:
 		if (!set)
 		{
-			if (m_fileType == 3)
+			if (field294 == 3)
 				_mbscpy(value, "Save");
-			else if (m_fileType == 2)
+			else if (field294 == 2)
 				_mbscpy(value, "Load");
 		}
 		break;
@@ -44,32 +31,32 @@ void AptSaveLoad::Externs(int query, char *value, bool set)
 		if (set)
 			return;
 		value[0] = set;
-		if (m_filterEnabled & 1)
+		if (field298Byte & 1)
 			_mbscat(value, "Campaign");
-		if (m_filterEnabled & 2)
+		if (field298Byte & 2)
 			_mbscat(value, "Skirmish");
-		if (m_filterEnabled & 4)
+		if (field298Byte & 4)
 			_mbscat(value, "Replay");
-		if (m_filterEnabled & 8)
+		if (field298Byte & 8)
 			_mbscat(value, "WOTRSP");
-		if (m_filterEnabled & 16)
+		if (field298Byte & 16)
 			_mbscat(value, "WOTRMP");
 		break;
 	case 2:
 		if (!set)
 			return;
 		if (_strcmpi(value, "Campaign") == 0)
-			m_mode = 1;
+			field2A0 = 1;
 		else if (_strcmpi(value, "Skirmish") == 0)
-			m_mode = 2;
+			field2A0 = 2;
 		else if (_strcmpi(value, "Replay") == 0)
-			m_mode = 4;
+			field2A0 = 4;
 		else if (_strcmpi(value, "WOTRSP") == 0)
-			m_mode = 8;
+			field2A0 = 8;
 		else if (_strcmpi(value, "WOTRMP") == 0)
-			m_mode = 16;
-		if (m_state == 0)
-			m_state = 2;
+			field2A0 = 16;
+		if (field27C == 0)
+			field27C = 2;
 		break;
 	}
 }
