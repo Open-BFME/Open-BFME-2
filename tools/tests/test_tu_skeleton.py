@@ -1143,7 +1143,61 @@ class RepointTests(unittest.TestCase):
         self.assertEqual((out, n), (b"INPUT += Code/T.cpp\n", 1))
 
 
+class OverrideCarryTests(unittest.TestCase):
+    def test_only_the_leading_baseline_o2_is_redundant(self):
+        self.assertEqual(T.override_flags_key("-O2"), T.override_flags_key(""))
+        self.assertEqual(T.override_flags_key("-O2 -G7"), T.override_flags_key("-G7"))
+        for flags in ("-O1", "-Ox", "-G6", "-G7", "-arch:SSE", "-arch:SSE2",
+                      "-O1 -O2"):
+            with self.subTest(flags=flags):
+                self.assertNotEqual(T.override_flags_key(flags), T.override_flags_key(""))
+
+    def test_carry_combines_redundant_o2_without_losing_register_totals(self):
+        raw = (b"source,flags,rows,default_lost,reason\n"
+               b"Code/A.cpp,-O2,1,1,region default loses rows\n"
+               b"Code/T.cpp,,15,13,region default loses rows\n")
+        out, moved = T.carry_overrides(raw, {"Code/A.cpp"}, "Code/T.cpp", "")
+        self.assertEqual(moved, 1)
+        self.assertEqual(out, raw.splitlines(keepends=True)[0] +
+                         b"Code/T.cpp,,16,14,region default loses rows\n")
+        for flags in (b"-O1", b"-Ox", b"-O2 -G7", b"-O2 -arch:SSE"):
+            with self.subTest(flags=flags), self.assertRaises(ValueError):
+                T.carry_overrides(raw.replace(b",-O2,", b"," + flags + b","),
+                                  {"Code/A.cpp"}, "Code/T.cpp", "")
+
+
 class MergeDiagnosticsTests(unittest.TestCase):
+    def test_redundant_o2_donor_override_reaches_byte_verification(self):
+        tu, donor = "Code/T.cpp", "Code/A.cpp"
+        texts = {tu: "seed", donor: "donor"}
+        don = {tu: [{"target_rva": "0x1000"}], donor: [{"target_rva": "0x1010"}]}
+        overrides = {tu: {"flags": "", "rows": "15"},
+                     donor: {"flags": "-O2", "rows": "1"}}
+        verified = []
+
+        class Verifier:
+            fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: overrides)
+            errors, all_errors = [], []
+            flags = None
+
+            def matched(self, text, rows):
+                verified.append((text, self.flags, [r["target_rva"] for r in rows]))
+                return {r["target_rva"] for r in rows}
+
+            def effective(self, text, rows):
+                return text
+
+        carry = SimpleNamespace(report=lambda: {}, problems=[])
+        with patch.object(T, "Verifier", return_value=Verifier()), \
+                patch.object(T, "compose", return_value="composed"), \
+                patch.object(T, "Carry", return_value=carry), \
+                patch.object(T, "apply") as apply:
+            out = T._merge(tu, [], don, {"accepted": [], "rejected": {}}, True, texts=texts)
+        self.assertNotIn("blocked", out)
+        self.assertEqual(out["accepted"], [tu, donor])
+        self.assertIn(("composed", "", ["0x1000", "0x1010"]), verified)
+        apply.assert_not_called()
+
     def test_rejected_seed_keeps_trial_errors_without_applying_a_merge(self):
         tu, donor = "Code/T.cpp", "Code/A.cpp"
         texts = {tu: "seed", donor: "donor"}

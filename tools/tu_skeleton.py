@@ -2060,7 +2060,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
             weight[e["flags"]] += int(e["rows"] or 0)
         v.flags = ov[tu]["flags"] if tu in ov else sorted(weight.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
         for f, e in sorted(ov.items()):
-            if e["flags"] != v.flags:
+            if override_flags_key(e["flags"]) != override_flags_key(v.flags):
                 report["rejected"][f] = f"its flag override '{e['flags']}' is not the carried '{v.flags}'"
         don = {f: r for f, r in don.items() if f not in report["rejected"]}
         ov = {f: e for f, e in ov.items() if f in don}
@@ -3889,6 +3889,16 @@ def carry_lines(raw, gone, tu):
     return eol.join(out).encode("utf-8"), moved, collapsed
 
 
+def override_flags_key(flags):
+    """Ignore only a leading duplicate of compiler_command's baseline -O2.
+
+    Keep the remaining tokens in order: later optimization, architecture and
+    tuning options can change codegen and must still agree.
+    """
+    tokens = flags.split()
+    return tuple(tokens[1:] if tokens[:1] == ["-O2"] else tokens)
+
+
 def carry_overrides(raw, gone, tu, flags):
     """(raw, moved): the absorbed donors' and the TU's flag_overrides.csv entries as
     one TU entry spelling FLAGS, the flags the merge was verified under, with their
@@ -3900,7 +3910,7 @@ def carry_overrides(raw, gone, tu, flags):
     moved = sum(r["source"] in gone for r in mine)
     if not moved:
         return raw, 0
-    if any(r["flags"] != flags for r in mine):
+    if any(override_flags_key(r["flags"]) != override_flags_key(flags) for r in mine):
         raise ValueError(f"{OVERRIDES}: carried entries disagree with the verified flags '{flags}'")
     reasons = {r["reason"] for r in mine}
     entry = {"source": tu, "flags": flags,
