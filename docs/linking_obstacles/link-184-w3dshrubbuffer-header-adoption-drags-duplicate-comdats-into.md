@@ -1,4 +1,4 @@
-### LINK-182: W3DShrubBuffer header adoption drags duplicate COMDATs into its consumers
+### LINK-184: W3DShrubBuffer header adoption drags duplicate COMDATs into its consumers
 Status: Blocked on the header's include closure. Updated: 2026-11-03; inspected revision: `c475665b306`.
 
 Evidence / affected units: `Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp`

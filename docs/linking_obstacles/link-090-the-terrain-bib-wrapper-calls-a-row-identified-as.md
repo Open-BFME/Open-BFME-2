@@ -16,7 +16,7 @@ That file also owns the two 17-byte address-derived forwarders immediately after
 wrapper, `?rva001EC99B@Rva001EC99B@@QAEPAXHH@Z` and `?rva001EC9AC@Rva001EC9AC@@QAE_NHHH@Z`
 (`functions.csv:46946-46947`, both noted "identity remains address-derived"), and those two
 plus `?thru@Rva0023D6D5Callee@@QAEXXZ` are exactly the duplicates that stop the unit linking
-when it adopts a canonical W3D header (LINK-182). Structural inference, not proven: the
+when it adopts a canonical W3D header (LINK-184). Structural inference, not proven: the
 terrain spelling at `0x001EC3B5` and the W3D-side duplicates suggest this forwarder cluster's
 real owner is terrain/heightmap code rather than the campaign manager, so rehoming the
 cluster may settle both entries. No row, name, pin or source was changed, and no identity
