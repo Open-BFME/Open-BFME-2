@@ -267,9 +267,9 @@ PlayerMaskType PlayerList::getPlayersWithRelationship(Int srcPlayerIndex, unsign
 		if (player == srcPlayer)
 			continue;
 
-		Relationship r = !reverse ? srcPlayer->getRelationship(player->getDefaultTeam())
+		Relationship relationship = !reverse ? srcPlayer->getRelationship(player->getDefaultTeam())
 			: player->getRelationship(srcPlayer->getDefaultTeam());
-		switch (r)
+		switch (relationship)
 		{
 			case ENEMIES:
 				if (BitTest(allowedRelationships, ALLOW_ENEMIES))
@@ -362,20 +362,20 @@ void PlayerList::newGame()
 		AsciiString enemies = dict->getAsciiString(TheKey_playerEnemies.get());
 		while (enemies.nextToken(&tok))
 		{
-			Player *p2 = findPlayerWithNameKey(NAMEKEY(tok));
-			if (p2)
+			Player *namedPlayer = findPlayerWithNameKey(NAMEKEY(tok));
+			if (namedPlayer)
 			{
-				setPlayerRelationship(player, p2, ENEMIES);
+				setPlayerRelationship(player, namedPlayer, ENEMIES);
 			}
 		}
 
 		AsciiString allies = dict->getAsciiString(TheKey_playerAllies.get());
 		while (allies.nextToken(&tok))
 		{
-			Player *p2 = findPlayerWithNameKey(NAMEKEY(tok));
-			if (p2)
+			Player *namedPlayer = findPlayerWithNameKey(NAMEKEY(tok));
+			if (namedPlayer)
 			{
-				setPlayerRelationship(player, p2, ALLIES);
+				setPlayerRelationship(player, namedPlayer, ALLIES);
 			}
 		}
 

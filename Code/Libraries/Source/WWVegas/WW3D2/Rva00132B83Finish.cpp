@@ -8,8 +8,8 @@ struct TextureSurfaceInfo {
 	int m_pad00[3];
 	int m_type0C;
 	int m_pad10[6];
-	int m_dim28;
-	int m_dim2C;
+	int m_width;
+	int m_height;
 	int m_dim30;
 	int m_pad34[4];
 	int m_mipLevelCount;
@@ -31,7 +31,7 @@ public:
 			return 0;
 		TextureSurfaceInfo *surface = m_surface;
 		unsigned mem = Get_Bits_Per_Pixel((WW3DFormat)m_surface->m_format4C)
-			* m_surface->m_dim30 * m_surface->m_dim2C * m_surface->m_dim28 >> 3;
+			* m_surface->m_dim30 * m_surface->m_height * m_surface->m_width >> 3;
 		if (m_surface->m_type0C == 2)
 			mem *= 6;
 		if (surface->m_mipLevelCount != 1)

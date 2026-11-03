@@ -7189,3 +7189,13 @@ local,DX8Wrapper::Draw_Strip::p,DX8Wrapper::Draw_Strip::polygonCount,inferred,ag
 local,DX8Wrapper::Draw_Strip::v,DX8Wrapper::Draw_Strip::vertexCount,inferred,agree:nl-6e09bfa5679a,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x001206D0
 local,DX8Wrapper::Draw_Triangles::m,DX8Wrapper::Draw_Triangles::minVertexIndex,inferred,agree:nl-8f44acce250c,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x00120620
 local,DX8Wrapper::Draw_Triangles::p,DX8Wrapper::Draw_Triangles::polygonCount,inferred,agree:nl-97a513bde50f,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_draw_prim.cpp,0x00120620
+member,TextureSurfaceInfo::m_dim28,TextureSurfaceInfo::m_width,inferred,agree:nl-9637227047d8,Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp,
+member,TextureSurfaceInfo::m_dim2C,TextureSurfaceInfo::m_height,inferred,agree:nl-d2bac24c3629,Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp,
+local,PlayerList::getPlayersWithRelationship::r,PlayerList::getPlayersWithRelationship::relationship,inferred,agree:nl-e44b470b5fb9,Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp,0x002A7C70
+local,PlayerList::newGame::p2,PlayerList::newGame::namedPlayer,inferred,agree:nl-730d47af0200,Code/GameEngine/Source/Common/RTS/PlayerList_getNthPlayer.cpp,0x002A8008
+param,setInstanceIdentity::m,setInstanceIdentity::instanceMatrix,inferred,agree:nl-458b02eae187,Code/GameEngine/Source/GameClient/DrawableSetInstanceMatrix.cpp,
+local,DeblockNonFilteredBand_C::p1,DeblockNonFilteredBand_C::rowOffset1,inferred,agree:nl-632f9002e7e0,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
+local,DeblockNonFilteredBand_C::p2,DeblockNonFilteredBand_C::rowOffset2,inferred,agree:nl-1bb876a664a1,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
+local,DeblockNonFilteredBand_C::p3,DeblockNonFilteredBand_C::rowOffset3,inferred,agree:nl-cafdfd0ac298,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
+local,DeblockNonFilteredBand_C::p4,DeblockNonFilteredBand_C::rowOffset4,inferred,agree:nl-ee66cb41dd7b,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
+local,DeblockNonFilteredBand_C::p5,DeblockNonFilteredBand_C::rowOffset5,inferred,agree:nl-738e9a5e7501,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770

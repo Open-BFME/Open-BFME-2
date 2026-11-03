@@ -24,7 +24,7 @@ typedef float Real;
 
 static __forceinline void copyInstanceMatrix(Matrix3D &dst,const Matrix3D &src) {dst.Row[0].X=src.Row[0].X;dst.Row[0].Y=src.Row[0].Y;dst.Row[0].Z=src.Row[0].Z;dst.Row[0].W=src.Row[0].W;dst.Row[1].X=src.Row[1].X;dst.Row[1].Y=src.Row[1].Y;dst.Row[1].Z=src.Row[1].Z;dst.Row[1].W=src.Row[1].W;dst.Row[2].X=src.Row[2].X;dst.Row[2].Y=src.Row[2].Y;dst.Row[2].Z=src.Row[2].Z;dst.Row[2].W=src.Row[2].W;}
 static __forceinline void setInstanceRow(Vector4 &instanceRow,float componentX,float componentY,float componentZ,float componentW) { instanceRow.X=componentX;instanceRow.Y=componentY;instanceRow.Z=componentZ;instanceRow.W=componentW; }
-static __forceinline void setInstanceIdentity(Matrix3D &m) { setInstanceRow(m.Row[0],1.0f,0.0f,0.0f,0.0f);setInstanceRow(m.Row[1],0.0f,1.0f,0.0f,0.0f);setInstanceRow(m.Row[2],0.0f,0.0f,1.0f,0.0f); }
+static __forceinline void setInstanceIdentity(Matrix3D &instanceMatrix) { setInstanceRow(instanceMatrix.Row[0],1.0f,0.0f,0.0f,0.0f);setInstanceRow(instanceMatrix.Row[1],0.0f,1.0f,0.0f,0.0f);setInstanceRow(instanceMatrix.Row[2],0.0f,0.0f,1.0f,0.0f); }
 class GameEngine
 {
 public:
