@@ -1,0 +1,20 @@
+[
+  "FAIL Code/GameEngine/Source/Common/ArmySummaryEntry.cpp: field renames: the header's layout: Code/GameEngine/Source/Common/ArmySummaryEntry.cpp: compile failed: C2373",
+  "FAIL Code/GameEngine/Source/Common/ExperienceTrackerAutoResolve.cpp: field renames: ArmySummaryEntry::rest (+0xC, 160 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/Common/Rva002B4076Dispatch.cpp: field renames: ArmySummaryEntry::ref (+0xAC, 8 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp: field renames: the header's layout: Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp: compile failed: C2373",
+  "FAIL Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp: field renames: ArmySummaryEntry::m_refVtbl (+0xAC, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameClient/ArmyUnitSwapperSelection.cpp: field renames: ArmySummaryEntry::prefix (+0x0, 184 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp: field renames: ArmySummaryEntry::key (+0x0, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/ArmySummaryCopyBFME2.cpp: Code\\GameEngine\\Source\\GameLogic\\System\\ArmySummaryCopyBFME2.cpp(185) : error C2440: 'static_cast' : cannot convert from 'Rva0040F454Target *const ' to 'ArmySummaryEntry *'",
+  "FAIL Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp: field renames: ArmySummaryEntry::bytes00 (+0x0, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/ArmySummaryRevivalSpawn.cpp: field renames: ArmySummaryEntry::bytes00 (+0x0, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/ArmySummarySpawn.cpp: field renames: ArmySummaryEntry::bytes00 (+0x0, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/ArmySummaryXferBFME2.cpp: Code\\GameEngine\\Source\\GameLogic\\System\\ArmySummaryXferBFME2.cpp(95) : error C2440: 'static_cast' : cannot convert from 'ArmySummaryEntry *' to 'TargetRef00217D4C *'",
+  "FAIL Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveApplyResults.cpp: field renames: ArmySummaryEntry::count94 (+0x94, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveUnit.cpp: field renames: ArmySummaryEntry::opaque (+0x0, 172 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp: field renames: ArmySummaryEntry::bytes00 (+0x0, 4 bytes) has no canonical field of that offset and size",
+  "FAIL Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp: Code\\GameEngine\\Source\\GameLogic\\System\\LivingWorld\\LivingWorldBuilding.cpp(262) : error C2259: 'ArmySummaryEntry' : cannot instantiate abstract class",
+  "FAIL Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp: field renames: ArmySummaryEntry::m_padB4 (+0xB4) is uchar[4]; the canonical ArmySummaryEntry::m_b4 is int",
+  "FAIL Code/Libraries/Source/WWVegas/WWLib/Rva0040ECCF.cpp: Code\\Libraries\\Source\\WWVegas\\WWLib\\Rva0040ECCF.cpp(187) : error C2664: 'Rva004F6093Holder::Rva004F6093Holder(Rva0040F454Target *)' : cannot convert parameter 1 from 'ArmySummaryEntry *' to 'Rva0040F4"
+]

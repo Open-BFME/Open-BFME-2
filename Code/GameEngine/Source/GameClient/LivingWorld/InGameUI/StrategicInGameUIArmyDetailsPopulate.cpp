@@ -34,7 +34,7 @@ struct SBServer {
  SBServer(); SBServer(const SBServer &);
  ~SBServer(){if(handle)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)((char *)handle+((int **)handle)[0][1]));}
 };
-class ArmySummaryEntry {public:int key;AsciiString name;};
+#include "../../../../Include/Common/ArmySummaryEntry.h"
 class Rva004F6093Holder {
 public:
  Rva004F6093Holder():m_p(0){}
@@ -73,7 +73,7 @@ void Rva005E39AE::rva005E52FD() {
   for(int i=0;i<entryCount;++i) {
    int entryID=entryIDs[i];
    ArmySummaryEntryRef entry=summary->GetEntry(entryID);
-   if(entry.m_holder.get()->name!=army->name)
+   if(entry.m_holder.get()->CarryoverUnit::m_name!=army->name)
     ((StrategicInGameUI::ArmyDetailsPanel::Impl*)this)->CreateIcon(entryID,entry.m_holder.get());
   }
   ((Rva005A0B4CList*)((char*)summary+4))->append((Rva002BA8F1Listener*)this);
