@@ -5,13 +5,7 @@
 // each via rowed write 0x0059B3E9 0x0002C5B1, sum lengths, ret 4.
 // Evidence: retail push ebx frame lea ecx [esi+0x14] calls; callers none;
 // chain from 0x0059B3E9 in Code/GameEngine/Source/Common/Rva0059B3E9Write.cpp.
-class Rva000B3F84Pair
-{
-public:
-	int write(char *dst);
-	const char *m_ptr;
-	int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 struct AsciiStringRef
 {

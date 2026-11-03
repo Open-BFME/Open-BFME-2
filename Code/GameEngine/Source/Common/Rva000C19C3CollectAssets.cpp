@@ -30,7 +30,7 @@ namespace _STL { template <> set<AsciiString, less<AsciiString>, allocator<Ascii
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString;
 struct AsciiStringRef{const AsciiString*m_string;};
-class Rva000B3F84Pair{public:Rva000B3F84Pair(){}const char*m_ptr;int m_len;};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringPlusText:AsciiStringRef{operator AsciiString();Rva000B3F84Pair m_right;};
 AsciiStringPlusText operator+(const AsciiString&,const char*);
 struct Rva001408C0Target;

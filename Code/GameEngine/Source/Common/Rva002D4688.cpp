@@ -9,13 +9,7 @@
 
 #include "ascii_string.h"
 
-struct Rva000B3F84Pair
-{
-	const char *m_ptr;
-	int m_len;
-	int write(char *dst);
-	int length() const { return m_len; }
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 
 struct WinMainTitlePair : Rva000B3F84Pair
 {

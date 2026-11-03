@@ -254,14 +254,7 @@ void AI::reset()
 // generated event is Set<name>ButtonFlashEffectState, argument _show/_hide.
 // Original member identity is unknown; no complete Palantir layout claimed.
 #include "ascii_string.h"
-class Rva000B3F84Pair
-{
-public:
-    // ?Rva000B3F84Pair::Rva000B3F84Pair absent-from-retail
-    Rva000B3F84Pair() {}
-    const char *m_ptr;
-    int m_len;
-};
+#include "../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRefWithChar { const AsciiString *m_string; char m_char; };
 struct AsciiStringCharPlusText : AsciiStringRefWithChar { Rva000B3F84Pair m_right; };
 struct Rva005D2F96S16 { int m0, m1, m2, m3; };

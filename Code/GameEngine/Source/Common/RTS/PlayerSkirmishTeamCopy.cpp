@@ -118,11 +118,7 @@ public:
 	int forward(AsciiString name, int extra);
 };
 
-struct Rva000B3F84Pair
-{
-	const char *text;
-	int len;
-};
+#include "../../../Include/Common/Rva000B3F84Pair.h"
 struct AsciiStringRef
 {
 	const AsciiString *string;
