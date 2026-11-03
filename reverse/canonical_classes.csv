@@ -571,3 +571,4 @@ DynamicPortalLink,Code/GameEngine/Include/GameLogic/DynamicPortalLink.h,existing
 ChunkInputStream,Code/GameEngine/Include/Common/ChunkInputStreamClass.h,existing header; contract class_contracts/ChunkInputStream.json; 5/9 sampled units adopt
 RegionAwardMovieClip,Code/GameEngine/Include/GameClient/RegionAwardMovieClip.h,existing header; contract class_contracts/RegionAwardMovieClip.json; 8/9 sampled units adopt
 OneRingPenaltyUpdate,Code/GameEngine/Include/GameLogic/Module/OneRingPenaltyUpdate.h,existing header; contract class_contracts/OneRingPenaltyUpdate.json; 5/9 sampled units adopt
+AISpellBookBase,Code/GameEngine/Include/GameLogic/AISpellBookBase.h,existing header; contract class_contracts/AISpellBookBase.json; 7/7 sampled units adopt
