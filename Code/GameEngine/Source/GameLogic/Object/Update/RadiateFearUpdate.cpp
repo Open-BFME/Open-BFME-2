@@ -276,11 +276,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 
-class StoreObjectsSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
 
 class CurseSpecialPowerModuleData
 {
