@@ -47,11 +47,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 #include "../../Include/GameLogic/ExperienceTracker.h"
 
 struct Rva003F1BD3TemplateView;
-class LivingWorldBuildPlot
-{
-public:
-	void ConstructBuildingImmediately(const Rva003F1BD3TemplateView *value);
-};
+#include "../../Include/GameLogic/LivingWorldBuildPlot.h"
 
 class Rva0054CBEFTarget
 {
