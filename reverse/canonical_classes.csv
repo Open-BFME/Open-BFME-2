@@ -522,3 +522,4 @@ GameSpyConfigInterface,Code/GameEngine/Include/GameNetwork/GameSpyConfigInterfac
 GarrisonContainModuleData,Code/GameEngine/Include/GameLogic/Module/GarrisonContainModuleData.h,existing header; contract class_contracts/GarrisonContainModuleData.json; 8/14 sampled units adopt
 LANPlayer,Code/GameEngine/Include/GameNetwork/LANPlayerClass.h,existing header; contract class_contracts/LANPlayer.json; 2/8 sampled units adopt
 RespawnBodyModuleData,Code/GameEngine/Include/GameLogic/Module/RespawnBodyModuleData.h,existing header; contract class_contracts/RespawnBodyModuleData.json; 5/13 sampled units adopt
+DelayedDeathBodyModuleData,Code/GameEngine/Include/GameLogic/Module/DelayedDeathBodyModuleData.h,existing header; contract class_contracts/DelayedDeathBodyModuleData.json; 9/12 sampled units adopt
