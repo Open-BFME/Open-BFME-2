@@ -15,7 +15,7 @@ void rva00136E95(RenderObjClass *, Rva00136F5BRange *, Rva00136F5BRange *, Rva00
 // The tentative definition (no initialiser) is deliberate: MSVC must not learn
 // the value or it folds the test and the rowed body stops matching, and a
 // const-qualified flag cannot be left uninitialised at all.
-bool g_Va00DB6218;
+bool g_Va00DB6218 = true;
 class Rva00136F5BRenderView {
 public:
     virtual void slot0();

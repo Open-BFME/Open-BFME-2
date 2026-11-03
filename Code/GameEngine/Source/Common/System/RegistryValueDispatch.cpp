@@ -13,16 +13,16 @@
 
 #include <string.h>
 
-const char *g_SkuNameValue;
-const char *g_GameNameValue;
-const char *g_GameRegPathValue;
-const char *g_InstallerRegPathValue;
-const char *g_OnlineServerValue;
-const char *g_UserDataLeafNameValue;
-const char *g_G1Value;
-const char *g_G2Value;
-const char *g_G3Value;
-const char *g_G4Value;
+const char *g_SkuNameValue = "GI.DAT ERROR";
+const char *g_GameNameValue = "GI.DAT ERROR";
+const char *g_GameRegPathValue = "GI.DAT ERROR";
+const char *g_InstallerRegPathValue = "GI.DAT ERROR";
+const char *g_OnlineServerValue = "GI.DAT ERROR";
+const char *g_UserDataLeafNameValue = "GI.DAT ERROR";
+const char *g_G1Value = "GI.DAT ERROR";
+const char *g_G2Value = "GI.DAT ERROR";
+const char *g_G3Value = "GI.DAT ERROR";
+const char *g_G4Value = "GI.DAT ERROR";
 
 void __cdecl Rva0002F720(const char *key, const char *value)
 {

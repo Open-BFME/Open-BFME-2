@@ -35,7 +35,7 @@ extern int g_Va00E046BC;
 // ledger address is claimed for any of them yet.
 char g_Va00E046C0[256] = {};
 char g_Va00E047C0[256] = {};
-bool g_Va00DD13D8 = false;
+bool g_Va00DD13D8 = true;
 
 void __cdecl Rva005118F3Show(int index, bool clear);
 

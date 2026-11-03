@@ -181,7 +181,7 @@ int														WW3D::LastFrameMemoryAllocations;
 
 int														WW3D::LastFrameMemoryFrees;
 
-int														WW3D::TextureFilter = 0;
+int														WW3D::TextureFilter = 1;
 
 bool														WW3D::Lite = false;
 

@@ -500,7 +500,7 @@ extern CommandList *TheCommandList;
 
 extern MessageStream *TheMessageStream;
 
-int REPLAY_CRC_INTERVAL;
+int REPLAY_CRC_INTERVAL = 100;
 
 static int recorderSavedGlobalValue;
 

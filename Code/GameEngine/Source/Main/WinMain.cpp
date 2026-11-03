@@ -311,7 +311,7 @@ HWND ApplicationHWnd;
 bool ApplicationIsWindowed;
 bool isWinMainActive;
 bool gInitializing;
-bool gDoPaint;
+bool gDoPaint = true;
 HBITMAP gLoadScreenBitmap;
 DWORD TheMessageTime;
 
@@ -624,9 +624,9 @@ void bfmeNotifyDebugWindowed(unsigned runWindowed);
 UnicodeString bfmeGetMainWindowTitle();
 
 HINSTANCE ApplicationHInstance;
-const unsigned short *g_windowClassName;
-int g_windowPosX;
-int g_windowPosY;
+const unsigned short *g_windowClassName = L"E99E8455-CC9B-488a-BA22-0E8A8F74F9FA";
+int g_windowPosX = WINDOW_POS_SENTINEL;
+int g_windowPosY = WINDOW_POS_SENTINEL;
 
 static bool initializeAppWindows( HINSTANCE hInstance, int nCmdShow, bool runWindowed )
 {
