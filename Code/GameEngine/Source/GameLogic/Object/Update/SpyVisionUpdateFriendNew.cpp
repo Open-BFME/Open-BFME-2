@@ -20,17 +20,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class CurseSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	CurseSpecialPowerModuleData();
-	virtual ~CurseSpecialPowerModuleData();
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0xD4 - 4];
-};
+#include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 
 // ?friend_newModuleData@CurseSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *CurseSpecialPowerModuleData::friend_newModuleData(INI *ini)

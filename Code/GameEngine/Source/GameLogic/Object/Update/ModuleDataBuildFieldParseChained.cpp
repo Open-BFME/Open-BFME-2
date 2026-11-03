@@ -254,11 +254,7 @@ extern const FieldParse BfmeTeleportToCasterSpecialPowerFields[] = {
 
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
 
-class CurseSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 
 // Retail VA 0x00C5370C: 2 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;

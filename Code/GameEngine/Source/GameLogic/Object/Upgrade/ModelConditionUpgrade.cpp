@@ -276,11 +276,7 @@ public:
 
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
 
-class CurseSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 
 class SupplyWarehouseDockUpdateModuleData
 {

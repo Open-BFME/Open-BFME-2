@@ -139,14 +139,7 @@ bool SpecialPowerTemplate::rva0029B6D9() const
 	return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_sharedSyncedTimer;
 }
 
-class CurseSpecialPowerModuleData
-{
-public:
-	char m_pad00[0xC8];
-	const FXList *m_C8;	// +0xC8
-	const FXList *m_CC;	// +0xCC
-	float m_cursePercentage;		// +0xD0
-};
+#include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 
 // 0x005F6B0B (module data +0x38) is rowed as Rva005F6B0BPtrChaseField::get.
 class Rva005F6B0BPtrChaseField

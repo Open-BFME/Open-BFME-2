@@ -124,21 +124,7 @@ extern const FieldParse g_00C5F810CurseSpecialPowerFieldParse[] = {
 
 
 
-class __declspec(novtable) CurseSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
-{
-public:
-	CurseSpecialPowerModuleData();
-public:
-	virtual ~CurseSpecialPowerModuleData();
-private:
-	int m_iC8;
-private:
-	int m_iCC;
-private:
-	float m_fD0;
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 
 
 
@@ -170,10 +156,10 @@ void Rva0033DC9CParse(INI *, void *, void *, const void *);
 CurseSpecialPowerModuleData::CurseSpecialPowerModuleData()
 	: SpecialAbilityUpdateModuleData()
 {
-	m_iC8 = 0;
-	m_iCC = 0;
+	m_C8 = 0;
+	m_CC = 0;
 	*reinterpret_cast<char **>(this) = &SpyVisionUpdate_vftable;
-	m_fD0 = kZero;
+	m_cursePercentage = kZero;
 }
 
 // ??1CurseSpecialPowerModuleData@@ present-unmatched
