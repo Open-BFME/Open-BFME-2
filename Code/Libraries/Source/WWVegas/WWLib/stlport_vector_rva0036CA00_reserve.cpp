@@ -6,16 +6,7 @@
 // 0x00057DE4 plus folded allocator 0x00068E15. Caller 0x0023B990. Chain from 0x00239408.
 #include <vector>
 
-class Rva0036CA00Str
-{
-public:
-    Rva0036CA00Str();
-    Rva0036CA00Str(const Rva0036CA00Str &);
-    ~Rva0036CA00Str();
-    Rva0036CA00Str &operator=(const Rva0036CA00Str &);
-private:
-    void *m_data;
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 
 namespace _STL {
 template <> void _Construct<Rva0036CA00Str, Rva0036CA00Str>(Rva0036CA00Str *, const Rva0036CA00Str &);

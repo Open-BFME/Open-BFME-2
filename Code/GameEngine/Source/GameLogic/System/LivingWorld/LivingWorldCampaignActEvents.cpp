@@ -18,12 +18,7 @@ class Rva002B8AC0 { public: void rva002B8AC0(const ModuleData *); };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str(const Rva0036CA00Str &other);
-	void *m_ref;
-};
+#include "../../../../Include/Common/Rva0036CA00Str.h"
 
 class BfmeBaseVNH
 {

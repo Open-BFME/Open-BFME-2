@@ -13,7 +13,7 @@
 #include <list>
 #include <windows.h>
 #include "OpaqueRefCounted.h"
-class Rva0036CA00Str {public:void *m_item;Rva0036CA00Str():m_item(0){}Rva0036CA00Str(const Rva0036CA00Str&);~Rva0036CA00Str(){if(m_item)((OpaqueRefCounted*)m_item)->Release_Ref();}};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 struct TargetNestedHandleData {char pad[12];unsigned count;};
 struct TargetNestedHandle {TargetNestedHandleData *item;};
 struct Rva0073EEE0ListValue {Rva0036CA00Str helperManagedPointer;unsigned unknown_04;TargetNestedHandle handle_08;Rva0073EEE0ListValue();Rva0073EEE0ListValue(const Rva0073EEE0ListValue&);~Rva0073EEE0ListValue();};

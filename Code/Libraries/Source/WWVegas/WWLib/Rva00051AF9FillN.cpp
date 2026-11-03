@@ -8,10 +8,7 @@
 // advancing by the element size, and returns the end pointer; the copy loops
 // call the same rowed _Construct helpers (0x000C92F6, 0x004BA219) per element. Dedicated TU with _Construct
 // declared only, so the call stays external as in retail.
-class Rva0036CA00Str
-{
-	void *m_item;
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 
 #include "../../../../GameEngine/Include/Common/AssetReference.h"
 

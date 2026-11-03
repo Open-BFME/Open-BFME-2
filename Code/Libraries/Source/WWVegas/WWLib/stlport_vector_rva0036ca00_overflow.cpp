@@ -14,16 +14,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class Rva0036CA00Str
-{
-public:
-    Rva0036CA00Str();
-    Rva0036CA00Str(const Rva0036CA00Str &);
-    ~Rva0036CA00Str();
-    Rva0036CA00Str &operator=(const Rva0036CA00Str &);
-private:
-    void *m_data;
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 
 namespace _STL {
 template <> void _Construct<Rva0036CA00Str, Rva0036CA00Str>(Rva0036CA00Str *, const Rva0036CA00Str &);

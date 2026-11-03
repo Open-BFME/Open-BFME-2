@@ -20,11 +20,7 @@ public:
 	WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
 };
 
-class Rva0036CA00Str
-{
-public:
-	Rva0036CA00Str(const Rva0036CA00Str &other);
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 
 class Rva00263895Member
 {

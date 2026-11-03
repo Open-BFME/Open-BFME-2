@@ -4,12 +4,7 @@
 // _STL::__uninitialized_copy<Rva0036CA00Str>, retail 38 bytes. Dedicated TU so
 // _Construct cannot inline into this loop. Element stride is 0x4 via dummy body;
 // _Construct is declared only and resolves through the rowed 0x002393AA.
-class Rva0036CA00Str
-{
-    char _m[0x4];
-public:
-    Rva0036CA00Str(const Rva0036CA00Str &that);
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 namespace _STL
 {
 struct __false_type {};

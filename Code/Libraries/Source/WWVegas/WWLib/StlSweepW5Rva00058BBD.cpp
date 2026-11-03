@@ -32,12 +32,7 @@ struct Rva00058BBDElement { _STL::list<short> values[1]; bool operator==(const R
 
 // Native placement-copy 2393AA calls the owned 0A8C7C counted-handle copy.
 // The old list-shaped view must not instantiate a list copy at that address.
-class Rva0036CA00Str {
-public:
- Rva0036CA00Str(const Rva0036CA00Str &) throw();
-private:
- void *m_handle;
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 namespace _STL {
 template <> __declspec(noinline) inline void _Construct<Rva00058BBDElement, Rva00058BBDElement>(Rva00058BBDElement *dest, const Rva00058BBDElement &source)
 {

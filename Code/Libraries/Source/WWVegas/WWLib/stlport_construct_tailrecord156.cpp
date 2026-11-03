@@ -15,13 +15,7 @@
 
 #include <new.h>
 
-class Rva0036CA00Str
-{
-    void *m_item;
-public:
-	__declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &);
-	~Rva0036CA00Str();
-};
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 
 class BfmeStringTailRecord156
 {

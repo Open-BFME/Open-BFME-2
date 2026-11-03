@@ -41,7 +41,7 @@ struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F
 // 12-byte element; layout owner Coord3DListCreateNode.cpp.
 #include "../../../Include/Lib/Coord3D.h"
 // 4-byte element; layout owner stlport_list_create_nodes.cpp.
-class Rva0036CA00Str { char m_pad[4]; public: Rva0036CA00Str(const Rva0036CA00Str &); ~Rva0036CA00Str(); };
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 // 12-byte element; layout owner stlport_list_create_nodes.cpp.
 #include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 // 3572-byte element; layout owner stlport_list_treehintopaque_00436e3b.cpp.

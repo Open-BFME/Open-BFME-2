@@ -23,7 +23,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-class Rva0036CA00Str { public: unsigned char m_data[4]; };
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 
 bool operator==(const Rva0036CA00Str &a, const Rva0036CA00Str &b);
 bool operator<(const Rva0036CA00Str &a, const Rva0036CA00Str &b);

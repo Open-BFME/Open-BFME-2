@@ -14,7 +14,7 @@
 // an otherwise unknown dword at +4, and a handle at +8 whose pointee count
 // is incremented at +0xC when non-null. Donor BridgeFXInfo semantics remain
 // a provenance hypothesis, not a target identity claim.
-class Rva0036CA00Str { public: __declspec(nothrow) Rva0036CA00Str(const Rva0036CA00Str &); void *m_item; };
+#include "../../../../GameEngine/Include/Common/Rva0036CA00Str.h"
 struct TargetNestedHandleData { unsigned char Unknown[12]; unsigned int RefCount; };
 struct TargetNestedHandle { TargetNestedHandleData *item; };
 struct Rva0073EEE0ListValue {
