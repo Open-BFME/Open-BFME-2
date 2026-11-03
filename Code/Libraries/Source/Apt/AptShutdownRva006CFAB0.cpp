@@ -73,7 +73,7 @@ void Rva006E97A0();
 class AptGC {public:static void CleanAll();};
 void Rva00898D60Invoke();
 
-class AptValueVector {public:void ReleaseValues();void rva006E6D50();};
+#include "AptValueVector.h"
 class AptValueVectorDelete {public:~AptValueVectorDelete(){((AptValueVector *)this)->rva006E6D50();}POOL_DELETE char pad[0x10];};
 extern AptValueVector *g_releaseVectorAtE17710;
 extern AptValueVector *g_aptOptionalValueVector;

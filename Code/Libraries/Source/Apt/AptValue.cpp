@@ -15,12 +15,7 @@ struct R4Word { const char *name; int value; };
 
 const R4Word *Rva00897FD0(const char *,unsigned int);
 
-class AptValueVector
-{
-public:
-	void ReleaseValues();
-	void rva006E6C00(AptValue *pValue);
-};
+#include "AptValueVector.h"
 
 extern AptValueVector *g_releaseVectorAtE17710;
 

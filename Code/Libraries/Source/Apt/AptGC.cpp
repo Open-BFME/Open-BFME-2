@@ -44,10 +44,7 @@ public:
     bool get() const;
 };
 
-class AptValueVector {
-public:
-    void ReleaseValues();
-};
+#include "AptValueVector.h"
 
 class AptValueGC_PoolManager {
 public:

@@ -20,11 +20,7 @@ public:
     BfmeAptValue006DCD20(int type);
 };
 class AptValue;
-class AptValueVector
-{
-public:
-    void rva006E6C00(AptValue *pValue);
-};
+#include "../AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710; // 0x00E17710
 // g_releaseVectorAtE17710: matched references place it at VA 0xe17710 (zero-filled .bss).
 AptValueVector * g_releaseVectorAtE17710;

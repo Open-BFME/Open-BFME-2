@@ -28,11 +28,7 @@ void __debugbreak();
 		} \
 	} while (0)
 
-class AptValueVector
-{
-public:
-	void ReleaseValues();
-};
+#include "AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 
 class AptInteger { public: static AptValue *Create(int value); };

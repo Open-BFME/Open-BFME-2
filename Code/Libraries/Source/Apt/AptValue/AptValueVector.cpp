@@ -68,24 +68,7 @@ public:
 	int m_value;
 };
 
-class AptValueVector
-{
-	int mCapacity;
-	int mCurrentNum;
-	AptValue **mpValues;
-	int mHighWaterNum;
-
-public:
-	AptValueVector(int capacity);
-	static void *Allocate(int size);
-	AptValue ***GetData();
-	void rva006CC0A0(int iPos);
-	AptValue *operator[](int iPos) const;
-	AptValue *PopValue();
-	void ReleaseValues();
-	void rva006E6C00(AptValue *pValue);
-	void rva006E6D50();
-};
+#include "../AptValueVector.h"
 
 // ?aptHasAll@Rva008981E0Value@@QAEHXZ, retail 0x006E6CD0 (17B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/SmallGaps/Rva008981E0AptTypeChecks.cpp
@@ -166,7 +149,7 @@ void AptValueVector::rva006E6C00(AptValue *pValue)
         g_bfmeAptAssertAtE17734("pValue->IsReleaseAtEnd()", ".\\AptValue/AptValueVector.inl", 0x35);
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
-    if (mCurrentNum >= mCapacity) {
+    if (mCurrentNum >= field00) {
         pValue->ClearReleaseAtEnd();
         return;
     }
@@ -176,8 +159,8 @@ void AptValueVector::rva006E6C00(AptValue *pValue)
     }
     mpValues[mCurrentNum] = pValue;
     ++mCurrentNum;
-    if (mCurrentNum > mHighWaterNum)
-        mHighWaterNum = mCurrentNum;
+    if (mCurrentNum > field0C)
+        field0C = mCurrentNum;
 }
 
 // ?rva006E6D50@AptValueVector@@QAEXXZ, retail 0x006E6D50 (64B).
@@ -191,7 +174,7 @@ void AptValueVector::rva006E6D50()
         g_bfmeAptAssertAtE17734("GetNumValues() == 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptValue\\AptValueVector.cpp", 0x4F);
         if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
     }
-    g_pChainBlockAllocator->freeBlock(mpValues, mCapacity * 4);
+    g_pChainBlockAllocator->freeBlock(mpValues, field00 * 4);
 }
 
 // ??0AptValueVector@@QAE@H@Z, retail 0x006E6CF0 (82B).
@@ -203,9 +186,9 @@ void AptValueVector::rva006E6D50()
 // 0x006DB160 via pool at 0x00E176E8; 2 callers.
 AptValueVector::AptValueVector(int capacity)
 {
-    mCapacity = capacity;
+    field00 = capacity;
     mCurrentNum = 0;
-    mHighWaterNum = 0;
+    field0C = 0;
     mpValues = (AptValue **)(*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(capacity * 4);
     if (!mpValues) {
         g_bfmeAptAssertAtE17734("mpValues != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptValue\\AptValueVector.cpp", 0x3E);

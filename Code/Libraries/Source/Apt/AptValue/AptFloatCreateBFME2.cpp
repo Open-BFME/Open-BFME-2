@@ -20,11 +20,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 class AptValue;
-class AptValueVector
-{
-public:
-	void rva006E6C00(AptValue *pValue);
-};
+#include "../AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;

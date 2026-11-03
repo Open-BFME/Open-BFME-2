@@ -6,7 +6,7 @@
 // Caller instruction shape is reconstructed; unvalidated callee identities
 // remain a blocker. See reverse/apt_donor_01903.json for exact call targets.
 #include "../../../Libraries/Source/Apt/AptValue.h"
-class AptValueVector { public: void ReleaseValues(); };
+#include "../../../Libraries/Source/Apt/AptValueVector.h"
 class AptValueGC_PoolManager {
 public:
     AptValue *GetFirstAptValue();

@@ -34,7 +34,8 @@ class Rva006DE6D0:public AptValue{public:Rva006DE6D0();char body[0x20-8];POOL_F4
 typedef AptValue*(__cdecl*AptNativeCallback)(AptValue*,int);
 class AptNativeFunction:public AptValue{public:AptNativeFunction(AptNativeCallback);char body[0x24-8];POOL_F4};
 class AptString:public AptValue{public:static AptString *Create();};
-class AptValueVector{public:void ReleaseValues();};extern AptValueVector*g_releaseVectorAtE17710;
+#include "../AptValueVector.h"
+extern AptValueVector*g_releaseVectorAtE17710;
 extern AptValue *gpUndefinedValue;
 class AptRenderingContext;extern AptRenderingContext*g_aptRenderingContextAtE180C0;
 struct BfmeM1208{float m_w[6];};struct BfmeQ1206;extern "C" BfmeQ1206 g_bfmeD1206;

@@ -16,11 +16,7 @@ void __debugbreak();
 
 class AptValue;
 
-class AptValueVector
-{
-public:
-	void rva006E6C00(AptValue *pValue);
-};
+#include "../AptValueVector.h"
 
 class Rva008981E0Value
 {

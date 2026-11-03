@@ -73,7 +73,7 @@ class Rva006CD650 {public:void *rva006CD650();};
 class AptDisplayList {public:void clear(bool);};
 class Rva008981E0Value {public:int aptHasAll();};
 class Rva006DBDB0DwordOrSetter {public:void apply();};
-class AptValueVector {public:void ReleaseValues();void rva006E6C00(AptValue *);};
+#include "AptValueVector.h"
 class CullableClass;
 class CullSystemClass {protected:CullableClass *Get_First_Collected_Object_Internal();friend class AptCIH;};
 #include "AptBasePtrStack.h"

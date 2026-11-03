@@ -11,15 +11,7 @@ public:
 };
 extern Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 class AptValue;
-class AptValueVector {
-    int mCapacity;
-    int mCurrentNum;
-    AptValue **mpValues;
-    int mHighWaterNum;
-public:
-    void rva006E6D50();
-    AptValueVector *rva006CC350(unsigned int flag);
-};
+#include "../AptValueVector.h"
 AptValueVector *AptValueVector::rva006CC350(unsigned int flag)
 {
     rva006E6D50();

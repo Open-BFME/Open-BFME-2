@@ -94,11 +94,7 @@ public:
     void apply();
 };
 
-class AptValueVector
-{
-public:
-    void rva006E6C00(AptValue *pValue);
-};
+#include "AptValueVector.h"
 
 extern AptValueVector *g_releaseVectorAtE17710;
 

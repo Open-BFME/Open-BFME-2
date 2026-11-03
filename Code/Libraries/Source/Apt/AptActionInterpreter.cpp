@@ -814,11 +814,7 @@ struct RuntimeTryBlock { unsigned int trySize,catchSize,finallySize; unsigned ch
 
 class AptString;
 
-class AptValueVector
-{
-public:
-	void ReleaseValues();
-};
+#include "AptValueVector.h"
 
 extern AptValueVector *g_releaseVectorAtE17710;
 

@@ -117,11 +117,7 @@ private:
     char mBody[0x20 - 8];
 };
 
-class AptValueVector
-{
-public:
-    void ReleaseValues();
-};
+#include "../AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 
 class Rva8D0D80String;

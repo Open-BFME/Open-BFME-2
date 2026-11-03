@@ -609,11 +609,7 @@ protected:
 	CullableClass *Get_First_Collected_Object_Internal();
 	friend class AptDisplayList;
 };
-class AptValueVector
-{
-public:
-	void ReleaseValues();
-};
+#include "AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;

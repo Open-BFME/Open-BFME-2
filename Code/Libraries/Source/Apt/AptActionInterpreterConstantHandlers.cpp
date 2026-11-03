@@ -103,7 +103,7 @@ EAStringC *Rva0070B4F0GetString(int);
 extern void *g_eaStringAtE177D4Storage;
 extern AptValue *gpUndefinedValue;
 extern AptValue *gpGlobalGlobalObject;
-class AptValueVector { public: int GetNumValues() const; void ReleaseValues(); };
+#include "AptValueVector.h"
 extern AptValueVector *g_releaseVectorAtE17710;
 void Rva006CC110Log(int, const char *, ...);
 extern "C" void (__cdecl *g_bfmeAptLogAtE1773C)(const char *,const char *);

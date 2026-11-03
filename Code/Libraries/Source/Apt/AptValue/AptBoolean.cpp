@@ -55,11 +55,7 @@ void __debugbreak();
 
 class AptValue;
 
-class AptValueVector
-{
-public:
-	void rva006E6C00(AptValue *pValue);
-};
+#include "../AptValueVector.h"
 
 extern AptValueVector *g_releaseVectorAtE17710;
 
