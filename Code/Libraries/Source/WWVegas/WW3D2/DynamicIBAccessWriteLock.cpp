@@ -67,13 +67,7 @@ static inline void __fastcall bfme_release_ref_dib(IndexBufferClass *buffer)
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h
-class DX8IndexBufferClass : public IndexBufferClass
-{
-public:
-	BfmeIndexBuffer9 *Get_DX8_Index_Buffer() { return index_buffer; }
-
-	BfmeIndexBuffer9 *index_buffer;
-};
+#include "DX8IndexBufferClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h
 class SortingIndexBufferClass : public IndexBufferClass
@@ -111,12 +105,12 @@ public:
 DynamicIBAccessClass::WriteLockClass::WriteLockClass(DynamicIBAccessClass *ib_access_)
 	: DynamicIBAccess(ib_access_), Indices(0)
 {
-	DynamicIBAccess->IndexBuffer->Add_Ref();
+	++DynamicIBAccess->IndexBuffer->NumRefs;
 	switch (DynamicIBAccess->Get_Type()) {
 	case BUFFER_TYPE_DYNAMIC_DX8:
 		{
 			DX8_Assert();
-			long result = static_cast<DX8IndexBufferClass *>(DynamicIBAccess->IndexBuffer)->Get_DX8_Index_Buffer()->Lock(
+			long result = reinterpret_cast<BfmeIndexBuffer9 *>(static_cast<DX8IndexBufferClass *>(DynamicIBAccess->IndexBuffer)->Get_DX8_Index_Buffer())->Lock(
 				DynamicIBAccess->IndexBufferOffset * sizeof(unsigned short),
 				DynamicIBAccess->Get_Index_Count() * sizeof(unsigned short),
 				reinterpret_cast<void **>(&Indices),
@@ -140,7 +134,7 @@ DynamicIBAccessClass::WriteLockClass::~WriteLockClass()
 	case BUFFER_TYPE_DYNAMIC_DX8:
 		{
 			DX8_Assert();
-			long result = static_cast<DX8IndexBufferClass *>(DynamicIBAccess->IndexBuffer)->Get_DX8_Index_Buffer()->Unlock();
+			long result = reinterpret_cast<BfmeIndexBuffer9 *>(static_cast<DX8IndexBufferClass *>(DynamicIBAccess->IndexBuffer)->Get_DX8_Index_Buffer())->Unlock();
 			if (result != 0)
 				Log_DX8_ErrorCode(result);
 		}
