@@ -13,10 +13,20 @@
 static int Rva00803890SecondaryVTableAnchor;
 static int Rva00803890PrimaryVTableAnchor;
 // Shared with the destructor; keep the data ledger's C symbol spelling.
-extern "C"
-{
-	int Rva00803890SecondaryFinalVTableAnchor;
+extern "C" {
+void __identifier("?forward0@Rva0066F5F0Secondary@@QAEXXZ")();
+void __identifier("?forward1@Rva0066F5F0Secondary@@QAEXXZ")();
+void __identifier("?forward2@Rva0066F5F0Secondary@@QAEXXZ")();
+void __identifier("?forward3@Rva0066F5F0Secondary@@QAEXXZ")();
 }
+
+// RVA 0x008E3F08; 4 code pointers.
+extern "C" const void *const Rva00803890SecondaryFinalVTableAnchor[4] = {
+	(const void *)&__identifier("?forward0@Rva0066F5F0Secondary@@QAEXXZ"), // slot 0, RVA 0x0066F5F0
+	(const void *)&__identifier("?forward1@Rva0066F5F0Secondary@@QAEXXZ"), // slot 1, RVA 0x0066F600
+	(const void *)&__identifier("?forward2@Rva0066F5F0Secondary@@QAEXXZ"), // slot 2, RVA 0x0066F610
+	(const void *)&__identifier("?forward3@Rva0066F5F0Secondary@@QAEXXZ"), // slot 3, RVA 0x0066F620
+};
 
 struct BfmeOwnerUNC
 {
