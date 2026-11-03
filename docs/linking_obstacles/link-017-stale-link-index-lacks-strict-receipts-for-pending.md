@@ -149,6 +149,8 @@ this scope into the next census; no linking gain is claimed.
   inconclusive because the affected 0CreateAHeroManager21FE49.cpp consumer lacks
   a current receipt.
 
+  2026-11-03: [vision-donor PlayerList adoption](../../reverse/attempt_support/battleplan-playerlist-adoption-20261103-codex5.md) retires two header rows with 1/1 exact and the seed/donor retaining 2,762 preview LINKS bytes; seed Player adoption now needs binding-scoped field renaming, and the other composition prerequisites remain.
+
 - **Current-frame texture-counter probe (2026-10-27, `83f299b390`):**
   [The scoped audit](../../reverse/attempt_support/texture-current-frame-data-20261027.md)
   has three strict current receipts, but index `bf3dd31211` predates the source
