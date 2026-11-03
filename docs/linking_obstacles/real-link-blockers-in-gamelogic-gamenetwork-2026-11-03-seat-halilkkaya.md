@@ -19,10 +19,20 @@ From `reverse/exit_link_blockers.tsv` (real link at `96cfeda7ba`; 234 errors, 21
   Joint `link_check`: LINKS -> does not link, so reverted. Prerequisite: give InGameUISuperweapons
   its own RadiusDecalTemplate copy (retail's) or a provider in its TU (GameClient). The reduced
   text is banked in `reverse/attempt_support/real-link-gamelogic-20261103-lk19/`.
-- **HelicopterSlowDeathUpdate.cpp, 16 names: blocked.** Its one row
-  `?isDieApplicable@SlowDeathBehavior@@...` 0x0045D49E is approved for `SlowDeathBehavior.cpp`, but
-  that unit's native seed no longer emits it (`add_match --replace-existing` there: symbol not found;
-  reverted). Re_attempts 86778 has the older layout trial.
+- **HelicopterSlowDeathUpdate.cpp, 16 names: repaired (seat halilkkaya-lk20, real link at
+  `d0b9cc5d27`).** Its one row `?isDieApplicable@SlowDeathBehavior@@...` 0x0045D49E is approved for
+  `SlowDeathBehavior.cpp`, but that unit's native seed no longer emits it (`add_match
+  --replace-existing` there: symbol not found; reverted). Re_attempts 86778 has the older layout trial.
+  The 16 names were not the row: they came from the unrowed Zero Hour bodies (AudioEventRTS, Drawable,
+  PhysicsBehavior, EjectPilotDie, and the Zero Hour `~SlowDeathBehavior`/`crc`/`loadPostProcess`). The
+  unit now defines only the row, as an ordinary out-of-line override over canonical `UpdateModule.h`,
+  `DieModuleInterface.h` and `SlowDeathBehaviorModuleData.h` plus a three-slot slow-death interface at
+  +0x24 (retail table 0x00C42020 slot 2 = 0x0045D49E), no vtable emitted. 1/1 exact; scoped DIR32 OK;
+  `link_check` 0 -> 22 B LINKS; orphan scan over 22,374 `build/match` objects: 725 names gone, 0
+  referenced without another definer; the index shows Heli as the only object touching the row's name
+  and no shared COMDAT where it was the kept copy. Eight present-unmatched hatches removed. The row
+  still sits outside its approved TU; moving it into `SlowDeathBehavior.cpp` is now a plain rehome of
+  this definition.
 - **RailedTransportDockUpdate.cpp, 11 names: needs a definer first.** Its row
   `?getRailedTransportDockUpdateInterface@RailedTransportDockUpdate@@...` 0x004B01D9 (approved for
   SpecialDisguiseUpdate.cpp; `lea eax,[ecx-0Ch]; add ecx,7Ch; neg; sbb; and; ret`, a null-checked
