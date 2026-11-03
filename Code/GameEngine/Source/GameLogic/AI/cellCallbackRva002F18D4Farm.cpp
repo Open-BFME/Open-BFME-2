@@ -12,16 +12,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
-class ThingTemplate {
-public:
- bool kind214()const{return (flags[6]>>22)&1;}
- bool kind59()const{return (((const unsigned char*)flags)[7]&8)!=0;}
- bool kind60()const{return (((const unsigned char*)flags)[7]&16)!=0;}
- bool kind189()const{return (((const unsigned char*)flags)[23]&32)!=0;}
- bool kind203()const{return (((const unsigned char*)flags)[25]&8)!=0;}
- bool kind150()const{return (((const unsigned char*)flags)[18]&64)!=0;}
-private: unsigned char pad[0x108];unsigned int flags[7];
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Object {
 public:
  ObjectID getID()const{return m_id;}
@@ -86,8 +77,8 @@ int Rva002F18D4Info::cellCallback(PathfindCell*previous,PathfindCell*current,int
  if(m_cell){if(current->IsObstaclePresent(m_cell->getObstacleID()))return 0;}
  Object*unit=TheGameLogic->findObjectByID(current->getObstacleID());
  if(unit){
-  bool ownerFlag=m_obj->getTemplate()->kind214();
-  if(unit->getTemplate()->kind60()||unit->getTemplate()->kind189()||unit->getTemplate()->kind203()||unit->getTemplate()->kind150()){
+  bool ownerFlag=(((m_obj->getTemplate()->m_kindof[6]>>22)&1) != 0);
+  if(((unit->getTemplate()->m_kindof[1] & (1U << 28))!=0)||((unit->getTemplate()->m_kindof[5] & (1U << 29))!=0)||((unit->getTemplate()->m_kindof[6] & (1U << 11))!=0)||((unit->getTemplate()->m_kindof[4] & (1U << 22))!=0)){
    if(m_obj->rva0028B511()!=1)return 0;
    if(m_other){
     if(m_other->rva0028B511()!=1)return 0;
@@ -106,7 +97,7 @@ int Rva002F18D4Info::cellCallback(PathfindCell*previous,PathfindCell*current,int
     }
    }
   }else{
-   if(ownerFlag&&!m_obj->getTemplate()->kind59())return 0;
+   if(ownerFlag&&!((m_obj->getTemplate()->m_kindof[1] & (1U << 27))!=0))return 0;
   }
  }
  return 1;

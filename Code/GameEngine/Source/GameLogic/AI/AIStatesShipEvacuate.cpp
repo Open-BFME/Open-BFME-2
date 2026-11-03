@@ -139,14 +139,7 @@ public:
 	virtual ContainedObjects getContainedObjects() = 0; // slot 70
 };
 
-class ThingTemplate
-{
-public:
-	Bool testKindOf6D() const { return (m_kindOf[13] & 0x20) != 0; } // kind bit 0x6D
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x14]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -191,7 +184,7 @@ void rva003532BF(Object *owner, StateMachine *machine, Bool attackMove)
 				dest.x = owner->get31C();
 				dest.y = owner->get320();
 				dest.z = position->z;
-				if (passenger->getTemplate()->testKindOf6D())
+				if (((passenger->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 				{
 					if (attackMove)
 						passenger->getAI()->m_commands.rva003531DB(owner, dest, owner->getAI()->getLastCommandSource());

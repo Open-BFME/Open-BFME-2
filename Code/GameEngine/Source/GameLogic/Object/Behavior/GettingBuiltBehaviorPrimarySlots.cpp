@@ -19,22 +19,16 @@
 
 class Player;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x118];
-	unsigned int m_118; // +0x118
-	unsigned int m_11C; // +0x11C
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 static inline unsigned int rva004534F5TestA(const ThingTemplate *thingTemplate)
 {
-	return thingTemplate->m_11C & 0x20000000;
+	return thingTemplate->m_kindof[5] & 0x20000000;
 }
 
 static inline unsigned int rva004534F5TestB(const ThingTemplate *thingTemplate)
 {
-	return thingTemplate->m_118 & 0x10000000;
+	return thingTemplate->m_kindof[4] & 0x10000000;
 }
 
 // ThingFactory::findTemplate (0x002D06CA) is rowed as ThingFactory::rva002D06CA.

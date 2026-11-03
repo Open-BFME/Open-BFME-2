@@ -57,17 +57,7 @@ public:
 	bool get() const;
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int kind) const
-	{
-		return (m_kindOf[kind >> 3] & (1 << (kind & 7))) != 0;
-	}
-
-	char m_pad00[0x108];
-	unsigned char m_kindOf[0x20]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class AIUpdateInterface
 {
@@ -142,7 +132,7 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 	if (victim)
 	{
 		static_cast<Coord3D&>(target) = *victim->getPosition();
-		if (victim->getTemplate()->isKindOf(93))
+		if (((victim->getTemplate()->m_kindof[2] & (1U << 29)) != 0))
 		{
 			static NameKeyType key = TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
 			Module *module = victim->findModule(key);

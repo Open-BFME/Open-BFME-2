@@ -312,17 +312,7 @@ private:
 		char m_chars[1];
 	} *m_data;
 };
-class ThingTemplate
-{
-public:
-	__forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
-	const ThingTemplateName &getName() const { return m_name; }
-private:
-	unsigned char m_pad00[0x64];
-	ThingTemplateName m_name; // +0x64
-	unsigned char m_pad68[0x108 - 0x68];
-	unsigned int m_kindOf[1]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class GeometryInfo
 {
 public:
@@ -341,7 +331,7 @@ enum ModelConditionFlagType
 class Object
 {
 public:
-	__forceinline unsigned int isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__forceinline unsigned int isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 5] & (1U << (t & 0x1f))); }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ObjectID getID() const { return m_id; }
 	Bool testStatus(ObjectStatusTypes bit) const;

@@ -178,12 +178,7 @@ enum SleepyUpdatePhase;
 
 #include "../../../../Include/GameClient/Drawable.h"
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[4];	// +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // This partial geometry view reads +0x10 inline in the retail update. Keep
 // its helper distinct from the generic accessor emitted by +0x18 views.
@@ -255,7 +250,7 @@ public:
 	__forceinline void setNextPosition(const Coord3D *p) { m_nextPositionValid = true; m_nextPosition = *p; }
 	__forceinline UnsignedInt isKindOf(Int kind) const
 	{
-		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
+		return m_template->m_kindof[kind >> 5] & (1U << (kind & 0x1f));
 	}
 	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id;				// +0x74

@@ -198,21 +198,7 @@ enum KindOfType
 {
 	KINDOF_HULK = 82
 };
-class ThingTemplate
-{
-public:
-	unsigned int isKindOf(KindOfType t) const
-	{
-		return m_kindOf[t >> 5] & (1U << (t & 0x1f));
-	}
-	Bool isSelectableWhenDead() const { return m_byte632 != 0; }
-
-private:
-	unsigned char m_pad00[0x108];
-	unsigned int m_kindOf[4]; // +0x108
-	unsigned char m_pad118[0x632 - 0x118];
-	unsigned char m_byte632; // +0x632
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class AIUpdateInterface
 {
@@ -301,7 +287,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_id; }
 	PhysicsBehavior *getPhysics() const { return m_physics; }
-	__declspec(dllimport) __forceinline unsigned int isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__declspec(dllimport) __forceinline unsigned int isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 5] & (1U << (t & 0x1f))); }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
@@ -849,7 +835,7 @@ void SlowDeathBehavior::onDie(const DamageInfo *damageInfo)
 	TheGameLogic->deselectObject(getObject(), 0xFFFFF, true);
 
 	const ThingTemplate *thingTemplate = getObject()->getTemplate();
-	if (thingTemplate && !thingTemplate->isSelectableWhenDead())
+	if (thingTemplate && !(thingTemplate->m_keepSelectableWhenDead != 0))
 		getObject()->setSelectable(false);
 
 	Int total = 0;

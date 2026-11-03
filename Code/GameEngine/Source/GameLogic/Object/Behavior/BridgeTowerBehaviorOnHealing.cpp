@@ -38,12 +38,7 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x10A];
-	unsigned short m_kindOf10A;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../object.h"
 
@@ -101,7 +96,7 @@ void BridgeTowerBehavior::onHealing( DamageInfo *damageInfo )
 	{
 		// do not heal again when the healing came from the bridge or another tower
 		Object *source = TheGameLogic->findObjectByID( damageInfo->m_sourceID );
-		if( source == 0 || (source->m_template->m_kindOf10A & 0x140) == 0 )
+		if( source == 0 || (source->m_template->m_kindof[0] & 0x1400000U) == 0 )
 		{
 
 			// heal the other towers

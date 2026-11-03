@@ -35,14 +35,7 @@ enum Relationship
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const { return m_kindOf[bit >> 5] & (1U << (bit & 0x1f)); }
-
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -182,16 +175,16 @@ private:
 			if (!check)
 				continue;
 
-			if (isAlly && obj->getTemplate()->isKindOf(0x74) && unit->getTemplate()->isKindOf(0x74))
+			if (isAlly && (obj->getTemplate()->m_kindof[3] & (1U << (0x74 & 0x1f))) && (unit->getTemplate()->m_kindof[3] & (1U << (0x74 & 0x1f))))
 				continue;
-			if (obj->getTemplate()->isKindOf(0x7D) && unit->getTemplate()->isKindOf(8))
+			if ((obj->getTemplate()->m_kindof[3] & (1U << (0x7D & 0x1f))) && (unit->getTemplate()->m_kindof[0] & (1U << (8 & 0x1f))))
 				continue;
-			if (isAlly && obj->getTemplate()->isKindOf(0xBA) && !unit->getTemplate()->isKindOf(0xBA))
+			if (isAlly && (obj->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))) && !(unit->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))))
 			{
 				info.m_32 = false;
 				continue;
 			}
-			if (obj->getTemplate()->isKindOf(0xBB))
+			if ((obj->getTemplate()->m_kindof[5] & (1U << (0xBB & 0x1f))))
 			{
 				info.m_32 = false;
 				continue;
@@ -204,7 +197,7 @@ private:
 				if (info.m_14 & 2)
 					return false;
 				info.m_2C = 1;
-				if (unit->getTemplate()->isKindOf(0xBA) && !obj->getTemplate()->isKindOf(0xBA))
+				if ((unit->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))) && !(obj->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))))
 					return false;
 				continue;
 			}

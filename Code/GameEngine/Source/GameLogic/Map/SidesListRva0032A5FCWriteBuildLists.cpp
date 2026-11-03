@@ -124,18 +124,7 @@ public:
 
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-public:
-	char m_pad00[0x64];
-	AsciiString m_name;					// +0x64
-	char m_pad68[0x108 - 0x68];
-	unsigned char m_kindOf[4];			// +0x108, byte 2 at +0x10A
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/Common/ThingFactory.h"
 
@@ -192,7 +181,7 @@ void SidesList::rva0032A5FC(DataChunkOutput &chunkWriter)
 			{
 				const ThingTemplate *thing = TheThingFactory->findTemplate(
 					((const TerrainType *)pBuildList)->getTexture());
-				if (thing && (thing->m_kindOf[2] & 4))
+				if (thing && (thing->m_kindof[0] & (1U << 18)))
 				{
 					center = *pBuildList->getLocation();
 					break;

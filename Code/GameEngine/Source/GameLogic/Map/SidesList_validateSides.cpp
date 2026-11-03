@@ -221,18 +221,7 @@ public:
 
 // The kind-of mask at +0x108 and the name at +0x64 of the template a map
 // object resolves to through its override chain.
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-public:
-	char m_pad00[0x64];
-	AsciiString m_name;					// +0x64
-	char m_pad68[0x108 - 0x68];
-	unsigned char m_kindOf[4];			// +0x108, byte 2 at +0x10A
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // MapObject resolves the final template override at 0x0030D833; the
 // location getter at 0x0030D631 retains its address-derived spelling.

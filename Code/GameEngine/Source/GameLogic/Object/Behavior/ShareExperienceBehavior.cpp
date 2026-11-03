@@ -95,12 +95,7 @@ enum ObjectStatusTypes
 // Existing exact eligibility provider at 0x0039AE04 uses this opaque owner.
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
-class ThingTemplate
-{
-public:
-	char m_pad000[0x110];
-	unsigned m_110;		// +0x110 (bit 26 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -288,7 +283,7 @@ void ShareExperienceBehavior::rva00480093(float amount)
 		return;
 	if (obj->testStatus(OBJECT_STATUS_RVA00480093_65))
 		return;
-	bool selfFlag = (obj->m_template->m_110 >> 26) & 1;
+	bool selfFlag = (obj->m_template->m_kindof[2] >> 26) & 1;
 	const void *what = &data->m_objectFilter;
 	Player *player = obj->getControllingPlayer();
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), data->m_radius, 0,
@@ -302,7 +297,7 @@ void ShareExperienceBehavior::rva00480093(float amount)
 	center.z = pos->z;
 	Object *other;
 	while (0 != (other = hits.next())) {
-		if (selfFlag && !((Rva00480093GameLogicView *)TheGameLogic)->m_9F && (other->m_template->m_110 & 0x04000000))
+		if (selfFlag && !((Rva00480093GameLogicView *)TheGameLogic)->m_9F && (other->m_template->m_kindof[2] & 0x04000000))
 			continue;
 		ExperienceTracker *tracker = other->m_264;
 		if (!tracker || !((const Rva0039ADF3 *)tracker)->rva0039AE04())

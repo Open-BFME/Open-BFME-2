@@ -118,12 +118,7 @@ private:
 	unsigned m_data[32];
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x10];
-	float m_10;			// +0x10 the radius
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum ObjectID
 {
@@ -233,7 +228,7 @@ bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Templa
 		m_10 * checkTemplate->m_scale, 2, &notThis, 0);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		float radius = other->m_template->m_10 * checkTemplate->m_scale;
+		float radius = other->m_template->m_camouflageDetectionMultiplier * checkTemplate->m_scale;
 		float dx = pos->x - other->m_pos.x;
 		float dy = pos->y - other->m_pos.y;
 		float dz = pos->z - other->m_pos.z;

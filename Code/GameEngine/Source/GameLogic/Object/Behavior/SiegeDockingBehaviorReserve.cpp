@@ -22,12 +22,7 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x119];
-	unsigned char m_kindOf119;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../object.h"
 
@@ -93,7 +88,7 @@ Int SiegeDockingBehavior::rva00459CC0( ObjectID id )
 		Rva00459E05Entry *entry = m_entries[ i ];
 		if( entry->m_objectID != 0 )
 			continue;
-		if( ( obj->m_template->m_kindOf119 & 8 ) == 0 && entry->m_type != 0 )
+		if( ( obj->m_template->m_kindof[4] & (1U << 11) ) == 0 && entry->m_type != 0 )
 			continue;
 
 		SiegeDockingPoint entryPos(entry->m_position);
@@ -139,7 +134,7 @@ bool SiegeDockingBehavior::rva00459A2A( ObjectID id, Coord3D *out )
 			Rva00459E05Entry *entry = m_entries[ i ];
 			if( entry->m_objectID != 0 )
 				continue;
-			if( ( obj->m_template->m_kindOf119 & 8 ) == 0 && entry->m_type != 0 )
+			if( ( obj->m_template->m_kindof[4] & (1U << 11) ) == 0 && entry->m_type != 0 )
 				continue;
 
 			Real scale = 30.0f;

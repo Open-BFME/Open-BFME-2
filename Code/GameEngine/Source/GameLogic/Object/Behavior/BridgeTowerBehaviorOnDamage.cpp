@@ -76,12 +76,7 @@ public:
 	BehaviorModuleInterface m_interface;
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x10A];
-	unsigned short m_kindOf10A;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../object.h"
 
@@ -147,7 +142,7 @@ void BridgeTowerBehavior::onDamage( DamageInfo *damageInfo )
 		// or other towers
 		//
 		Object *source = TheGameLogic->findObjectByID( damageInfo->m_sourceID );
-		if( source == 0 || (source->m_template->m_kindOf10A & 0x140) == 0 )
+		if( source == 0 || (source->m_template->m_kindof[0] & 0x1400000U) == 0 )
 		{
 
 			for( int i = 0; i < 4; ++i )

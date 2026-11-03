@@ -167,14 +167,7 @@ private:
 	WhichTurretType m_turretSyncFlag; // +0x210
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
-private:
-	unsigned char m_pad00[0x108];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class GeometryInfo
 {
@@ -197,7 +190,7 @@ public:
 	Real rva002637E2(const Coord3D *from, const Coord3D *to) const;
 	Real GetRelativeAngle(const Coord3D *pos) const;
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 5] & (1U << (t & 0x1f))); }
 	const Coord3D *getPosition() const { return &m_position; }
 	UnsignedInt getID() const { return m_id; }
 	AIUpdateInterface *getAI() const { return m_ai; }

@@ -221,28 +221,7 @@ class Rva00261603Filter : public Rva000421C8
 class Object;
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
-class ThingTemplate
-{
-  public:
-    char m_pad[0x108];
-    unsigned char m_kind00;
-    unsigned char m_kind01;
-    unsigned char m_kind02;
-    unsigned char m_kind03;
-    unsigned char m_kind04;
-    unsigned char m_kind05;
-    unsigned char m_kind06;
-    unsigned char m_kind07;
-    unsigned char m_kind08;
-    unsigned char m_kind09;
-    unsigned char m_kind0A;
-    unsigned char m_kind0B;
-    unsigned char m_kind0C;
-    unsigned char m_kind0D;
-    unsigned char m_kind0E;
-    unsigned char m_kind0F;
-    unsigned char m_kind10;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 enum CommandSourceType
 {
     CMD_FROM_PLAYER = 0,
@@ -413,15 +392,15 @@ void Rva0039A270MoveOwner::rva0039A270Move(Object *src)
     for (Object *them = iter.next(); them; them = iter.next())
     {
         ThingTemplate *thingTemplate = them->m_template04;
-        if (thingTemplate->m_kind0B & 2)
+        if (thingTemplate->m_kindof[2] & (1U << 25))
             continue;
-        if (thingTemplate->m_kind10 & 0x40)
+        if (thingTemplate->m_kindof[4] & (1U << 6))
             continue;
-        if (thingTemplate->m_kind0D & 1)
+        if (thingTemplate->m_kindof[3] & (1U << 8))
             continue;
-        if (thingTemplate->m_kind07 & 0x10)
+        if (thingTemplate->m_kindof[1] & (1U << 28))
             continue;
-        if (thingTemplate->m_kind00 & 4)
+        if (thingTemplate->m_kindof[0] & (1U << 2))
             continue;
         Slot114Module *mod = (Slot114Module *)them->rva0029439D();
         if (mod && mod->slot114())
