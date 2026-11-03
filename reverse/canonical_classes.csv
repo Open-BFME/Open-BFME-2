@@ -388,3 +388,4 @@ AptPlayer,Code/Libraries/Source/Apt/AptPlayerClass.h,existing header; contract c
 AptNativeHash,Code/Libraries/Source/Apt/AptNativeHash.h,existing header; contract class_contracts/AptNativeHash.json; 24/37 sampled units adopt
 FunctorBinding,Code/GameEngine/Include/GameClient/FunctorBinding.h,existing header; contract class_contracts/FunctorBinding.json; 44/66 sampled units adopt
 FireLogicSystem,Code/GameEngine/Include/GameLogic/FireLogicSystem.h,existing header; contract class_contracts/FireLogicSystem.json; 15/28 sampled units adopt
+AptBasePtrStack,Code/Libraries/Source/Apt/AptBasePtrStack.h,existing header; contract class_contracts/AptBasePtrStack.json; 18/33 sampled units adopt
