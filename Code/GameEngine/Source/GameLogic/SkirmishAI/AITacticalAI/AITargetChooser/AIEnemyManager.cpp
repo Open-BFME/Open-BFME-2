@@ -31,12 +31,22 @@ class ModuleData;
 class Object;
 #include "../../../../../Include/Common/BfmeXfer.h"
 #include "../../../../../../Libraries/Include/Lib/BfmeE16.h"
-
 #include "../../../../../Include/Common/XferVersion.h"
-
 class Player;
-
 #include "../../../../../Include/Common/PlayerList.h"
+typedef int Int;
+namespace _STL
+{
+// Bind the append to the rowed 8-byte-element worker.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
+}
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL,
+	ALLIES
+};
+#include "../../../../../Include/Common/Player.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -87,6 +97,17 @@ public:
 	float rva005A92DE(void *);
 };
 
+class Rva005A9693Owner
+{
+public:
+	void rva005A9693();
+private:
+	Player *m_player;
+	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_vec;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AIEnemyManager.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AIEnemyManager.cpp
 
 // Full native5A9824..5A990B and WorldBuilder1525700 establish AIEnemyManager::update.
@@ -133,6 +154,22 @@ void AIEnemyManager::DoXfer(Xfer *xfer)
  if(version.m_minimum >= 2) *xfer == chosen;
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005A9562Ctor.cpp
+
+//
+// ??0Rva005A9562@@QAE@PAX@Z, retail 0x005A9562 38B.
+// Ctor: void* at +0 stored, vector<BfmeE16> at +4 via rowed Vector_base
+// 0x00211E58, int at +0x10 cleared, int at +0x14 set to -1. Evidence: retail
+// calls Vector_base<BfmeE16> ctor, sets [esi+0x10]=0 and [esi+0x14]=-1, returns
+// this with ret 4. BfmeE16 is the 16B stand-in from stlport_vector_e16_o1.
+
+Rva005A9562::Rva005A9562(void *p)
+	: m_ptr(p), m_vec(_STL::allocator<BfmeE16>())
+{
+	m_a = 0;
+	m_b = -1;
+}
+
 // tu-skeleton: 0x005A9215 63B ??$__median@UBfmeE12@@UBfmeE12Cmp00422291@@@_STL@@YAABUBfmeE12@@ABU1@00UBfmeE12Cmp00422291@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x005A9254 36B ??$__unguarded_insertion_sort_aux@PAUBfmeE8@@U1@U?$less@UBfmeE8@@@_STL@@@_STL@@YAXPAUBfmeE8@@00U?$less@UBfmeE8@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_e8_ptr_sort.cpp (not merged yet)
@@ -155,22 +192,6 @@ void AIEnemyManager::DoXfer(Xfer *xfer)
 
 // tu-skeleton: 0x005A954B 23B ??$pop_heap@PAUBfmeE8@@U?$less@UBfmeE8@@@_STL@@@_STL@@YAXPAUBfmeE8@@0U?$less@UBfmeE8@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_e8_ptr_sort.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005A9562Ctor.cpp
-
-//
-// ??0Rva005A9562@@QAE@PAX@Z, retail 0x005A9562 38B.
-// Ctor: void* at +0 stored, vector<BfmeE16> at +4 via rowed Vector_base
-// 0x00211E58, int at +0x10 cleared, int at +0x14 set to -1. Evidence: retail
-// calls Vector_base<BfmeE16> ctor, sets [esi+0x10]=0 and [esi+0x14]=-1, returns
-// this with ret 4. BfmeE16 is the 16B stand-in from stlport_vector_e16_o1.
-
-Rva005A9562::Rva005A9562(void *p)
-	: m_ptr(p), m_vec(_STL::allocator<BfmeE16>())
-{
-	m_a = 0;
-	m_b = -1;
-}
-
 // tu-skeleton: 0x005A9588 71B ??$__linear_insert@PAUBfmeE8@@U1@U?$less@UBfmeE8@@@_STL@@@_STL@@YAXPAUBfmeE8@@0U1@U?$less@UBfmeE8@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_e8_ptr_sort.cpp (not merged yet)
 
 // tu-skeleton: 0x005A95CF 58B ??$sort_heap@PAUBfmeE8@@U?$less@UBfmeE8@@@_STL@@@_STL@@YAXPAUBfmeE8@@0U?$less@UBfmeE8@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_e8_ptr_sort.cpp (not merged yet)
@@ -179,7 +200,30 @@ Rva005A9562::Rva005A9562(void *p)
 
 // tu-skeleton: 0x005A9639 90B ??$__partial_sort@PAUBfmeE8@@U1@U?$less@UBfmeE8@@@_STL@@@_STL@@YAXPAUBfmeE8@@000U?$less@UBfmeE8@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_e8_ptr_sort.cpp (not merged yet)
 
-// tu-skeleton: 0x005A9693 102B ?rva005A9693@Rva005A9693Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/Rva005A9693PlayerScan.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RTS/Rva005A9693PlayerScan.cpp
+
+// ?rva005A9693@Rva005A9693Owner@@QAEXXZ @0x005A9693 102B: thiscall, no args, void.
+// Loops over ThePlayerList (count at +0x14, getNthPlayer per index). A player
+// other than the owner's first pointer, that passes the byte-flag test from
+// Player::rva002AA245 (0x002AA245), and whose relationship with the owner is
+// ENEMIES (zero), gets a {index, 0.0f} record appended to the vector at +4.
+// Layout and record meaning are address-derived views; the leaf names are the
+// ledger's own spellings for the callees.
+
+// ?rva005A9693@Rva005A9693Owner@@QAEXXZ
+void Rva005A9693Owner::rva005A9693()
+{
+	for (Int i = 0; i < ThePlayerList->m_playerCount; ++i) {
+		Player *player = ThePlayerList->getNthPlayer(i);
+		if (player && player != m_player && player->rva002AA245()
+			&& m_player->getRelationship(player) == ENEMIES) {
+			BfmeE8 rec;
+			rec.a = i;
+			rec.b = 0.0f;
+			m_vec.push_back(rec);
+		}
+	}
+}
 
 // tu-skeleton: 0x005A96F9 74B ??$__final_insertion_sort@PAUBfmeE8@@U?$less@UBfmeE8@@@_STL@@@_STL@@YAXPAUBfmeE8@@0U?$less@UBfmeE8@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_e8_ptr_sort.cpp (not merged yet)
 
