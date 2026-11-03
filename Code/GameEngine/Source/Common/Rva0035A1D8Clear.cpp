@@ -36,16 +36,27 @@ public:
 	virtual void notify0C(Rva00359E04Owner *owner);
 	virtual void notify10(Rva00359E04Owner *owner);
 };
+struct Rva00359AECCall;
 class Rva00359BE8List
 {
 public:
 	void forEach(void (Rva00359E04Listener::*notify)(Rva00359E04Owner *), Rva00359E04Owner *owner);
+	void apply(const Rva00359AECCall &call);
+	~Rva00359BE8List() { if (m_begin) free(m_begin); }
+private:
+	Rva00359E04Listener **m_begin; // +0x00
+	Rva00359E04Listener **m_end; // +0x04
+	Rva00359E04Listener **m_capacity; // +0x08
+	unsigned int m_index; // +0x0C
 };
 class Rva00359E04Owner
 {
 public:
-	char m_pad[4];
-	Rva00359BE8List m_list;
+	void rva00359E04();
+private:
+	char m_unmodelled_00[4]; // +0x00
+public:
+	Rva00359BE8List m_listeners; // +0x04 +0x04
 };
 
 class Rva0035A1D8

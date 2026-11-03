@@ -15,7 +15,11 @@
 class Object {public: CellShroudStatus getShroudStatusForPlayer(int) const;};
 extern GameLogic *TheGameLogic;
 extern PartitionManager *TheShroudManager;
-struct BfmePod8 {int a[2];};
+struct BfmePod8
+{
+public:
+	int a[2]; // +0x00 +0x00
+};
 namespace _STL {
 template<> BfmePod8 *vector<BfmePod8,allocator<BfmePod8> >::erase(BfmePod8*,BfmePod8*);
 }

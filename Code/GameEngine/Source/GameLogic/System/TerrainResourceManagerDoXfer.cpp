@@ -47,7 +47,11 @@ struct XferUnknown11;
 class Xfer::Version { public: Version(unsigned char low,unsigned char high):version(low),current(high){} unsigned char version,current; };
 void XferObjectID(Xfer *, ObjectID *);
 struct BfmePod12 { ObjectID id; float value; bool active; char pad[3]; };
-struct BfmePod8 { int a[2]; };
+struct BfmePod8
+{
+public:
+	int a[2]; // +0x00 +0x00
+};
 namespace _STL { template<> void list<BfmePod12>::push_back(const BfmePod12 &); }
 class Rva0035ABC0 { public: void rva0035ABC0(unsigned int); };
 class Rva0035A18D {

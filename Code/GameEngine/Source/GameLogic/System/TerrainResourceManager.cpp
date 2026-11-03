@@ -8,7 +8,11 @@
 #include <list>
 #include "TerrainResourceVisitorView.h"
 // The existing ratio provider reads the complete visitor's counters10/14.
-class Rva00359835 { public: float rva00359835() const; };
+class Rva00359835
+{
+public:
+	float rva00359835() const;
+};
 // A plain cast emits _ftol2 (211B query); retail uses this established
 // WWMath x87 rounding shape. Only this compiler blocker requires asm.
 __forceinline int cellInteger(float value)
@@ -269,7 +273,11 @@ public:
 	CellShroudStatus getShroudStatusForPlayer(int) const;
 };
 
-class Rva00481FAFFloatSlot { public: void store(float); };
+class Rva00481FAFFloatSlot
+{
+public:
+	void store(float);
+};
 
 class Rva000CBA20;
 
@@ -305,7 +313,7 @@ private:
 struct BfmePod8
 {
 public:
-	int a[2]; // +0x00
+	int a[2]; // +0x00 +0x00
 };
 
 struct BfmeE8
@@ -477,21 +485,22 @@ class Rva00359BE8List
 public:
 	void forEach(void (Rva00359E04Listener::*notify)(Rva00359E04Owner *), Rva00359E04Owner *owner);
 	void apply(const Rva00359AECCall &call);
+	~Rva00359BE8List() { if (m_begin) free(m_begin); }
 private:
-	Rva00359E04Listener **m_begin;
-	Rva00359E04Listener **m_end;
-	Rva00359E04Listener **m_capacity;
-	unsigned int m_index;
+	Rva00359E04Listener **m_begin; // +0x00
+	Rva00359E04Listener **m_end; // +0x04
+	Rva00359E04Listener **m_capacity; // +0x08
+	unsigned int m_index; // +0x0C
 };
 
 class Rva00359E04Owner
 {
 public:
 	void rva00359E04();
-
 private:
-	char m_unmodelled_00[4];
-	Rva00359BE8List m_listeners;		// +0x04
+	char m_unmodelled_00[4]; // +0x00
+public:
+	Rva00359BE8List m_listeners; // +0x04 +0x04
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp

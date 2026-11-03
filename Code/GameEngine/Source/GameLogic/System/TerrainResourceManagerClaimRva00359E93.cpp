@@ -27,8 +27,16 @@ class Object {
 struct Rva0035A238Argument {char pad00[0x74];int key74; 
 // ?Rva0035A238Argument::getKey present-unmatched
 int getKey() const {return key74;} };
-class Rva00359835 {public: float rva00359835() const;};
-class Rva00481FAFFloatSlot {public: void store(float);};
+class Rva00359835
+{
+public:
+	float rva00359835() const;
+};
+class Rva00481FAFFloatSlot
+{
+public:
+	void store(float);
+};
 class Rva000CBA20;
 class TerrainResourceManager {public: void rva0035997F(int,int,int,void*);};
 class Rva0035A238 {
