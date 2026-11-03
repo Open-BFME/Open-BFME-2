@@ -52,14 +52,7 @@ template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b
 }
 class INI;
 struct FieldParse;
-class DamageFX { public:
- const FieldParse *getFieldParse() const;
- class DFX { public: DFX(); char bytes[0x10]; };
- static void parseAmount(INI*,void*,void*,const void*);
- static void parseMajorFXList(INI*,void*,void*,const void*);
- static void parseMinorFXList(INI*,void*,void*,const void*);
- static void parseTime(INI*,void*,void*,const void*);
-};
+#include "../../Include/Common/DamageFXClass.h"
 class Rva003608C9 { public: Rva003608C9(); DamageFX::DFX values[0x78]; };
 struct Rva00148B27Element { char bytes[8]; };
 struct Rva003609F7Element { char bytes[1]; };

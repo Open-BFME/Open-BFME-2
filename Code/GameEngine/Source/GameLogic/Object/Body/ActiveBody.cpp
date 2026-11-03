@@ -550,11 +550,7 @@ public:
 	void rva004BDA67();
 };
 
-class DamageFX
-{
-public:
-	Bool rva003608DF(Int damageType, Real amount, const Object *source, const Object *victim);	// 0x003608DF
-};
+#include "../../../../Include/Common/DamageFXClass.h"
 
 class Rva003605D5	// DamageFX throttle-time lookup (Zero Hour getDamageFXThrottleTime)
 {

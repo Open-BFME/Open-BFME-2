@@ -23,11 +23,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class DamageFX
-{
-public:
-	int m_valueWords[0x1E0];
-};
+#include "../../Include/Common/DamageFXClass.h"
 
 typedef _STL::pair<const NameKeyType, DamageFX> DamageFXPair;
 

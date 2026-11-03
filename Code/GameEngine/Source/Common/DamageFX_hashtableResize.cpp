@@ -49,10 +49,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class DamageFX
-{
-	int m_first;
-};
+#include "../../Include/Common/DamageFXClass.h"
 
 namespace rts
 {
