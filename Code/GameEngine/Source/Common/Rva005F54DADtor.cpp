@@ -21,7 +21,7 @@ struct TreeHintRef00217D4C
 	TargetRef00217D4C *pointer;
 };
 
-class AptCommandTarget {};
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 struct DelegateDesc
 {
 	template <class T> DelegateDesc(T *object, void (T::*method)(void *, void *))

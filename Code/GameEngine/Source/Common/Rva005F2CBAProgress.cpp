@@ -129,9 +129,7 @@ public:
 // the reference releases through the rowed 0x0007DEEF.
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
-class AptCommandTarget
-{
-};
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 struct DelegateDesc
 {
 	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))

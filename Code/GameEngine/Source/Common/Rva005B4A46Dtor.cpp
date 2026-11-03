@@ -91,7 +91,7 @@ class Rva005B4F20WindowManagerView {public:
 };
 
 
-class AptCommandTarget {};
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 typedef void(AptCommandTarget::*FunctorMethod)(const char*);
 struct DelegateDesc {DelegateDesc(FunctorMethod m,AptCommandTarget*o):object(o),method(m){} AptCommandTarget*object;FunctorMethod method;};
 static __forceinline DelegateDesc MakeBinding(FunctorMethod method,AptCommandTarget*target){DelegateDesc d(method,target);return d;}

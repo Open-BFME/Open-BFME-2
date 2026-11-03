@@ -67,7 +67,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 // Apt delegate (object, member) and the command-map name list that binds
 // it: ctor 0x001F81BF (ICF fold, pinned), AddCommandMap 0x0052458E, dtor
 // 0x0052413E (pinned), delegate ref 0x00579E47 (pinned).
-class AptCommandTarget {};
+#include "../../../../../../Libraries/Source/Apt/AptCommandTarget.h"
 struct DelegateDesc {
  template <class T> DelegateDesc(T *object, void (T::*method)(const char *))
   : m_object(reinterpret_cast<AptCommandTarget *>(object)),

@@ -20,9 +20,7 @@
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class AptCommandTarget
-{
-};
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {

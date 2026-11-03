@@ -29,9 +29,7 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 		ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
 }
 
-class AptCommandTarget
-{
-};
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 struct DelegateDesc
 {
