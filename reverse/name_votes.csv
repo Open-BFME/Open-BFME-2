@@ -23440,3 +23440,5 @@ Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp|function|0x004129D
 Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|function|0x00031010|rva00031010,04a1a7f627269c57aae28157,drz-k9,drz-k9-sv1h-23,w-4d4d8f8584bc,2026-11-03
 Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|n,e94b644fa28deddb2652802f,drz-k9,drz-k9-sv1h-23,w-4d4d8f8584bc,2026-11-03
 Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|p,d1c8fd1146787f842c35c92c,drz-k9,drz-k9-sv1h-23,w-4d4d8f8584bc,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv1287.cpp|local|BfmeHostSB::bfmeGoSB|a,17c9e5c9468065a85f7bf61f,drz-t01,drz-t01-sv2-4,w-1b383cf1efa6,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv1287.cpp|local|BfmeHostSB::bfmeGoSB|b,8eb8dc4a861a7ad16e04b4df,drz-t01,drz-t01-sv2-4,w-1b383cf1efa6,2026-11-03
