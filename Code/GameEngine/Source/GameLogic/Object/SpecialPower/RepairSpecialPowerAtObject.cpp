@@ -34,24 +34,24 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+class Thing;
 class ModuleData;
-class ModuleBase
-{
-public:
-	virtual ~ModuleBase();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
-class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
-	public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
+public:
+	SpecialPowerModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~SpecialPowerModule();
 };
 class RepairSpecialPower : public SpecialPowerModule
 {
 public:
+	RepairSpecialPower(Thing *thing, const ModuleData *moduleData);
+protected:
+	virtual ~RepairSpecialPower();
+public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
 };
 

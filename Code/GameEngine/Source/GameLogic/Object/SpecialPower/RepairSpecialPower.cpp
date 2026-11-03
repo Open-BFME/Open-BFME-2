@@ -39,6 +39,7 @@ protected:
 	virtual ~RepairSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void doSpecialPowerAtObject(Object *obj, unsigned int options);
 };
 
 //
