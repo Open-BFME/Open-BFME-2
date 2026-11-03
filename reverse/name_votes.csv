@@ -23625,3 +23625,5 @@ Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x00382931|rva0038293
 Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x003820D1|rva003820D1,2da6a0e16e234b9088b717d4,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
 Code/GameEngine/Source/Common/Rva0038201DFree.cpp|function|0x00382983|rva00382983,266e86a39e17bec56a199e28,claude-opus-5-5,claude3-20261103-224743-8,w-29a6ae2a2f9f,2026-11-03
 Code/GameEngine/Source/Common/Rva00318D9BFill.cpp|function|0x00318D9B|Rva00318D9BFill,c082a4df2577dd9d76ac1d9d,claude-opus-5-5,claude3-20261103-224743-9,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp|member|Rva00062E4FTerrain|m_block37C0,55c2c0913c60587fd4fab6f9,claude-opus-5-5,claude3-20261103-224743-17,w-29a6ae2a2f9f,2026-11-03
+Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp|function|0x00483BA3|rva00483BA3,35a26c7c5cc9b5a875533e4b,claude-opus-5-5,claude3-20261103-224743-22,w-29a6ae2a2f9f,2026-11-03
