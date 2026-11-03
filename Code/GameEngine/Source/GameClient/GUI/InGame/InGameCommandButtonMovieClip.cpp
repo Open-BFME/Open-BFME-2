@@ -9,10 +9,7 @@
 #include "ascii_string.h"
 class __single_inheritance AptDelegateTarget;
 typedef void (AptDelegateTarget::*AptDelegateMethod)(void);
-struct DelegateDesc {
- template<class T,class M> DelegateDesc(T*object,M method):m_object(reinterpret_cast<AptDelegateTarget*>(object)),m_method(reinterpret_cast<AptDelegateMethod>(method)){}
- AptDelegateTarget *m_object; AptDelegateMethod m_method;
-};
+#include "../../../../Include/Common/DelegateDesc.h"
 template<class T,class M> static __forceinline DelegateDesc MakeDelegate(T*object,M method) {DelegateDesc desc(object,method);return desc;}
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);void *ptr;};

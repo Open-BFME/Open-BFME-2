@@ -644,17 +644,7 @@ class DelegateTarget
 {
 };
 
-struct DelegateDesc
-{
-	typedef void (DelegateTarget::*Method)(ID3DXEffect *, D3DXHANDLE);
-
-	template <class T, class M>
-	DelegateDesc(T *object, M method)
-		: m_object(object), m_method(reinterpret_cast<Method>(method)) {}
-
-	void *m_object;
-	Method m_method;
-};
+#include "../../../../GameEngine/Include/Common/DelegateDesc.h"
 
 typedef void (*FXShaderParameterCallback)(ID3DXEffect *effect, D3DXHANDLE parameter);
 
