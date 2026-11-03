@@ -17455,3 +17455,4 @@ nl-76c5f0952219,local,p,position,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/G
 nl-c98ed0698744,local,p,displayString,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|local|Rva0029B380::rva0029B380|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-2a951e52c3f5,local,p,displayString,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|local|Rva0029B380::rva0029B34B|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-c4eccee5e4e2,local,v,count,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/GameClient/Rva0029B732Check.cpp|local|Rva0029B732::rva0029B732|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-a4a25a139dca-m753a9c5215aabd7bbd8bfd7e,param,s,destination,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp|param|AssignCString|s,agreed,meaning agreement; single-worker scoped approval: w-526a51702f64@drz-k5
