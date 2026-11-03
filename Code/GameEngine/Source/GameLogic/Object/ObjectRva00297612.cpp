@@ -50,13 +50,7 @@ class Rva002975ACBody
 public:
 	virtual void slot00(Rva00297612Entry *entry);
 };
-class Drawable
-{
-public:
-	void rva0027295B(void *value);
-	unsigned char unmodelled00[0x43c];
-	bool flag43c;
-};
+#include "../../../Include/GameClient/Drawable.h"
 class BfmeSubBIC
 {
 public:
@@ -97,7 +91,7 @@ void Object::rva002975AC(Rva00297612Entry *entry)
 	if (!(status438 & 1) || entry->field40 > 0.0f)
 		rva00296065(entry);
 	Drawable *draw = drawable;
-	if (draw && draw->flag43c)
+	if (draw && draw->m_selected)
 		draw->rva0027295B((void *)((BfmeSubBIC *)this)->bfmeAskBIC());
 }
 

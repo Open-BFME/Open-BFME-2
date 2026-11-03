@@ -17,7 +17,7 @@
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class Drawable { public: char unknown00[0x43C]; bool selected43C; };
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/Common/Player.h"
 class Object { public: Drawable *getDrawable() const; Player *getControllingPlayer() const; void onContainedBy(Object *); int getID() const { return *reinterpret_cast<const int *>(reinterpret_cast<const char *>(this)+0x74); } };
 template<int N> class Rva00464830Slots:public Rva00464830Slots<N-1> { public: virtual void gap(char (*)[N]); };
@@ -47,7 +47,7 @@ void OpenContain::addToContain(Object *rider)
     if (!rider) return;
     Drawable *draw = rider->getDrawable();
     bool selected = false;
-    if (draw && draw->selected43C) selected = true;
+    if (draw && draw->m_selected) selected = true;
     if (reinterpret_cast<Rva00464830Object *>(rider)->m_containedBy) return;
     addList(rider);
     playerMask58 = 1U << rider->getControllingPlayer()->getPlayerIndex();

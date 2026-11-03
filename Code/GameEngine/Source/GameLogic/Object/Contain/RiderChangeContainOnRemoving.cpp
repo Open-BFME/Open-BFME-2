@@ -80,21 +80,7 @@ public:
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class Drawable
-{
-public:
-	bool isSelectedRV() const { return m_selected; }
-	bool isSelected() const { return m_selected; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's isSelected copy loses to the first-in-order copy (no
-	// retail address); the call below inlines it but still emits the loser
-	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
-	// No flags touched.
-	bool bfme_is_selected() const { return m_selected; }
-	char m_pad00[0x43C];
-private:
-	bool m_selected; // +0x43C +0x43C
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/Common/MessageStream.h"
 
@@ -295,7 +281,7 @@ void RiderChangeContain::onRemoving(Object *rider)
 		Drawable *riderDraw = rider->getDrawable();
 		if (containDraw && riderDraw)
 		{
-			if (bike->getControllingPlayer() == ThePlayerList->bfme_local_player() && containDraw->bfme_is_selected())
+			if (bike->getControllingPlayer() == ThePlayerList->bfme_local_player() && containDraw->isSelected())
 			{
 				GameMessage *teamMsg = TheMessageStream->appendMessage(0x3E9);
 				teamMsg->appendBooleanArgument(false);

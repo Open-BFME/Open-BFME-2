@@ -9,12 +9,7 @@
 
 extern float g_00BBB8D8;
 
-class Drawable
-{
-public:
-	char m_pad[0xb0];
-	float m_value;
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 #include "../../Common/Thing/thing.h"
 
@@ -75,7 +70,7 @@ bool Rva004ADB1B::handlePackingProcessing()
 	float ratio = (float)m_num / (float)denom;
 	float result = base + (other - base) * (g_00BBB8D8 - ratio);
 	if (m_thing->getDrawable() != 0)
-		m_thing->getDrawable()->m_value = result;
+		m_thing->getDrawable()->field_0b0 = result;
 	return ok;
 }
 
@@ -105,7 +100,7 @@ bool Rva004B0164::handlePackingProcessing()
 	if (m_thing->getDrawable() != 0) {
 		float value = m_result8C;
 		Drawable *drawable = m_thing->getDrawable();
-		drawable->m_value = value;
+		drawable->field_0b0 = value;
 	}
 	return ok;
 }

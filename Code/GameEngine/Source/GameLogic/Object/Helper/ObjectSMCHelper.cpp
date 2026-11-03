@@ -30,11 +30,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_FIRST = 0,
 	MODELCONDITION_COUNT = 0x24F
 };
-class Drawable
-{
-public:
-	void rva00274176(Bool force);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 class ModelConditionFlags
 {
 public:
@@ -53,14 +49,6 @@ public:
 
 private:
 	UnsignedInt m_words[19];
-};
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-
-private:
-	unsigned char m_unmodelled00[0x48];
 };
 class Object : public Thing
 {
@@ -86,7 +74,7 @@ public:
 	}
 
 private:
-	unsigned char m_unmodelled48[0x10C - 0x48];
+	unsigned char m_unmodelled48[0x10C - 0x60];
 	ModelConditionFlags m_modelConditionFlags;																///< 0x10C
 };
 #include "../../../Common/GameLogicObjectLookupView.h"

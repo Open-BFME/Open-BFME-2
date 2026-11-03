@@ -136,12 +136,7 @@ private:
 	ObjectID m_crateCreated;	// +0x238
 };
 
-class Drawable
-{
-public:
-	void rva00272870(Int decalType);	// 0x00272870, setTerrainDecal
-	void rva002728C5(Real x, Real y);	// 0x002728C5, setTerrainDecalSize
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 // 0x00270644, setTerrainDecalFadeTarget, rowed under its own address class.
 class Rva00270644
@@ -161,13 +156,6 @@ private:
 	Real m_majorRadius;	// +0x10
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-	Drawable *getDrawable() const;
-};
 
 class Object : public Thing
 {
@@ -178,15 +166,13 @@ public:
 	Int rva0028B511() const;	// 0x0028B511, getLayer
 	void setLayer(PathfindLayerEnum layer);	// 0x0028B4CE, setLayer
 
-	const Coord3D *getPosition() const { return &m_pos; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
 	ObjectID getID() const { return m_id; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 
 private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_pos;	// +0x38
-	unsigned char m_pad044[0x74 - 0x44];
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_id;	// +0x74
 	unsigned char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;	// +0xA8

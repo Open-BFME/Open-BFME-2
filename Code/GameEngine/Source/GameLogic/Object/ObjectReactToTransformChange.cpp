@@ -37,26 +37,15 @@ static inline bool isInRegionNoZRV( const Region3D &region, const Coord3D *query
 extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 
-class Thing
-{
-public:
-	void setTransformMatrix( const Matrix3D *mx );
-};
+#include "../../../Include/GameClient/Drawable.h"
 
-class Drawable : public Thing
+inline void Drawable::markTransformChanged( unsigned int frame )
 {
-public:
-	void markTransformChanged( unsigned int frame )
-	{
-		m_transformFrame = frame;
-		m_transformFlagA = false;
-		m_transformFlagB = false;
-	}
-	unsigned char m_pad00[0x3A4];
-	unsigned int m_transformFrame;
-	bool m_transformFlagA;
-	bool m_transformFlagB;
-};
+	m_3A4 = frame;
+	m_3A8 = false;
+	m_3A9 = false;
+}
+
 
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 

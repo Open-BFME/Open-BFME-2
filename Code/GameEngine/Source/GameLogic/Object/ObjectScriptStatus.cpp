@@ -154,7 +154,7 @@ struct ObjectCrushLevelsView {
 #include <string.h>
 class Rva002D9508 {public:void rva002D9508(const void*);};
 class Object; class Player; class RadarWindowOverrideSource;
-class Drawable { public: void setDrawableHidden(bool); char pad[0x43c]; bool flag43c; };
+#include "../../../Include/GameClient/Drawable.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MessageStream.h"
@@ -374,7 +374,7 @@ void Object::tempRemoveObjectFromWorld() {
  if(draw) {
   draw->setDrawableHidden(true);
   Player *localPlayer=ThePlayerList->m_local;
-  if(getControllingPlayer()==localPlayer && draw->flag43c) {
+  if(getControllingPlayer()==localPlayer && draw->m_selected) {
    GameMessage *message=TheMessageStream->appendMessage((GameMessage::Type)0x3ed);
    message->appendObjectIDArgument(id);
   }

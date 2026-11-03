@@ -17,27 +17,8 @@ static __forceinline Matrix3D &copyLogicalBoneTransform(Matrix3D &out,const Matr
 
 
 
-class Thing
-{
-public:
-	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
-		Coord3D *worldPos, Matrix3D *worldTransform) const;
-	__forceinline const Coord3D *getPosition() const { return &m_cachedPos; }
-	__forceinline const Matrix3D *getTransformMatrix() const { return &m_transform; }
+#include "../../../Include/GameClient/Drawable.h"
 
-private:
-	unsigned char m_pad00[8];
-	Matrix3D m_transform; // +0x08
-	Coord3D m_cachedPos; // +0x38
-	unsigned char m_pad44[0x84 - 0x44];
-};
-
-class Drawable : public Thing
-{
-public:
-	int getPristineBonePositions(const char *boneNamePrefix, int startIndex,
-		Coord3D *positions, Matrix3D *transforms, int maxBones, int extra) const;
-};
 
 class Object : public Thing
 {
@@ -47,6 +28,7 @@ public:
 		Coord3D *positions, Matrix3D *transforms, bool convertToWorld, int extra) const;
 
 private:
+	unsigned char m_pad60[0x84 - 0x60];
 	Drawable *m_drawable; // +0x84
 };
 

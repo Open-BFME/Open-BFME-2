@@ -54,11 +54,7 @@ struct Rva0046247DPair
     const _STL::list<Object *> *m04;
 };
 
-class Drawable
-{
-public:
-    void setDrawableHidden(bool hidden);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 class ContainSlots
 {
@@ -83,16 +79,6 @@ public:
     virtual Rva0046247DPair &slot108(Rva0046247DPair &p);
 };
 
-class Thing
-{
-public:
-    Drawable *getDrawable() const;
-    void setPosition(const Coord3D *pos);
-    const Coord3D *getPosition() const { return &m_pos; }
-private:
-    unsigned char m_pad00[0x38];
-    Coord3D m_pos; // +0x38
-};
 
 class Object : public Thing
 {
@@ -104,7 +90,7 @@ public:
     void *rva0028C197() const;
     void setPrivateStatus(unsigned int bits) { m_privateStatus |= bits; }
 private:
-    unsigned char m_pad44[0x380 - 0x44];
+    unsigned char m_pad60[0x380 - 0x60];
     unsigned int m_privateStatus; // +0x380
 };
 

@@ -22,18 +22,8 @@ enum ObjectStatusTypes
 // Logic frame rate, read where Zero Hour uses LOGICFRAMES_PER_SECOND.
 extern int BfmeLogicFramesPerSecond;
 
-class Drawable
-{
-public:
-	// Drawable::flashAsSelected; the rowed callee takes the colour as a word.
-	void rva00278C7C(int color);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
 
 class AIUpdateInterface;
 
@@ -81,7 +71,7 @@ public:
 	Bool getIsUndetectedDefector() const { return (m_privateStatus & 2) != 0; }
 
 private:
-	unsigned char m_unmodelled00[0x74];
+	unsigned char m_unmodelled00[0x74 - 0x60];
 	Int m_id;																																	///< 0x74
 	unsigned char m_unmodelled78[0x258 - 0x78];
 	AIUpdateInterface *m_ai;																									///< 0x258

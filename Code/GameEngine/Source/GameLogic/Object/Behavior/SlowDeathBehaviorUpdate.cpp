@@ -150,12 +150,7 @@ public:
 	OpaqueRefCounted *m_item;
 };
 
-class Drawable
-{
-public:
-	void fadeOut(UnsignedInt frames);
-	void rva00272A02(Bool enable);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 // The two-float drawable setter the slow death starts with (0.0f, -0.2f).
 class Rva00270644
@@ -269,22 +264,13 @@ private:
 	unsigned int m_words[19];
 };
 
-class Thing
-{
-public:
-	Bool isAboveTerrain() const;
-	Real getHeightAboveTerrain() const;
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-	Drawable *getDrawable() const;
-};
 
 class Module;
 
 class Object : public Thing
 {
 public:
-	const Coord3D *getPosition() const { return &m_position; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
 	ObjectID getID() const { return m_id; }
 	PhysicsBehavior *getPhysics() const { return m_physics; }
 	__declspec(dllimport) __forceinline unsigned int isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 5] & (1U << (t & 0x1f))); }
@@ -326,11 +312,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 
 private:
-	void *m_vtable;
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad78[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C

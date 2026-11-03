@@ -60,17 +60,8 @@ enum PathfindLayerEnum
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
 
 class Object : public Thing
 {
@@ -78,7 +69,7 @@ public:
 	// Status bit 6 of the bit flags at +0x94.
 	Bool testStatusBit6() const { return (m_status94 >> 6) & 1; }
 private:
-	unsigned char m_pad000[0x94];
+	unsigned char m_pad60[0x94 - 0x60];
 	UnsignedInt m_status94; // +0x94
 };
 

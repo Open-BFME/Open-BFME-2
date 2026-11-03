@@ -72,21 +72,6 @@ struct ObjectStatusMask
 #include "../../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
 
-class Drawable
-{
-public:
-	bool isSelectedRV() const { return m_selected; }
-	bool isSelected() const { return m_selected; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's isSelected copy loses to the first-in-order copy (no
-	// retail address); the call below inlines it but still emits the loser
-	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
-	// No flags touched.
-	bool bfme_is_selected() const { return m_selected; }
-	char m_pad00[0x43C];
-private:
-	bool m_selected; // +0x43C +0x43C
-};
 
 #include "../../../../Include/Common/MessageStream.h"
 
@@ -108,6 +93,7 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Rva00439E0C.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 // Experience tracker views at Object+0x264 (rowed and pinned spellings).
 class Rva0039ACA4
@@ -230,7 +216,7 @@ void RiderChangeContain::onContaining(Object *rider, bool wasSelected)
 	m_containing = true;
 
 	Drawable *containDraw = getObject()->getDrawable();
-	if (containDraw && wasSelected && !containDraw->isSelectedRV())
+	if (containDraw && wasSelected && !containDraw->isSelected())
 	{
 		GameMessage *teamMsg = TheMessageStream->appendMessage(0x3E9);
 		teamMsg->appendBooleanArgument(false);

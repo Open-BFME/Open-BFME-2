@@ -146,12 +146,7 @@ extern AiOrdersManager *TheAiOrdersManager;
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Drawable
-{
-public:
-	char m_pad000[0x43C];
-	unsigned char m_43C;							// +0x43C
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 
@@ -330,7 +325,7 @@ void HordeContain::changeToFormation(const ThingTemplate *newTemplate)
 		if (it != members.end())
 			members.erase(it);
 	}
-	Bool flag = getObject()->getDrawable()->m_43C != 0;
+	Bool flag = getObject()->getDrawable()->m_selected != 0;
 	if (newHorde->slot60())
 	{
 		AIUpdateInterface *ai = getObject()->getAI();

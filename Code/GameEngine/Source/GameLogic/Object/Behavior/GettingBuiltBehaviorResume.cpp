@@ -8,15 +8,9 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
-class Drawable
-{
-public:
-	void rva0027366A();
-	void rva000B3FD0();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 // WBCA4BE0 is an empty instance method invoked on the builder drawable;
 // retail uses the complete shared RET at B3FD0. Original spelling unknown.
-class Thing { public: Drawable *getDrawable() const; void setPosition(const Coord3D *); };
 enum ObjectStatusTypes { STATUS_NONE = 0 };
 enum CommandSourceType { SOURCE_NONE = 0 };
 class AICommandInterface
@@ -45,8 +39,7 @@ public:
  void setStatus(ObjectStatusTypes, bool);
  bool testStatus(ObjectStatusTypes) const;
  void rva0028AE6D();
- unsigned char pad0[0x38]; Coord3D position;
- unsigned char pad44[0x10c-0x44]; GettingBuiltConditions conditions;
+ unsigned char pad44[0x10C - 0x60]; GettingBuiltConditions conditions;
  unsigned char pad158[0x258-0x158]; AIUpdateView *ai;
  unsigned char pad25c[0x280-0x25c]; float construction;
  unsigned char pad284[0x438-0x284]; unsigned char privateStatus;
@@ -82,7 +75,7 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
  Team *team = player->team;
  Object *builder = TheThingFactory->newObject(thingTemplate,team,&mask,(ObjectID)0);
  if (!builder) return;
- builder->setPosition(&object->position);
+ builder->setPosition(&object->m_cachedPos);
  builder->setProducer(object);
  object->setBuilder(builder);
  *((bool *)this+0x1c) = true;

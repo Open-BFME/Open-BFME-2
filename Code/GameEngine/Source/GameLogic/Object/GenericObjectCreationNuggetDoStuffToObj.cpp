@@ -182,11 +182,7 @@ struct PhysicsBehaviorView
 	bool m_allowBouncing; // +0x5D
 };
 
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-};
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva002B224BDwordField
 {
@@ -200,15 +196,6 @@ public:
 	bool rva00270260();
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	void setTransformMatrix(const Matrix3D *mtx);
-	void setOrientation(Real angle);
-	void setPosition(const Coord3D *pos);
-	void getUnitDirectionVector3D(Coord3D &dir) const;
-};
 
 #include "../../../Include/GameLogic/AICommandParms.h"
 
@@ -258,15 +245,13 @@ public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	PhysicsBehaviorView *getPhysics() const { return m_physics; }
-	Real getOrientation() const { return m_angle; }
+	Real getOrientation() const { return m_cachedAngle; }
 
 protected:
 	Module *findModule(NameKeyType key) const;
 
 public:
-	char m_pad000[0x44];
-	Real m_angle; // +0x44
-	char m_pad048[0x10C - 0x48];
+	char m_pad60[0x10C - 0x60];
 	ObjectStatusBits m_status; // +0x10C
 	char m_pad110[0x1C0 - 0x110];
 	Real m_orientation; // +0x1C0

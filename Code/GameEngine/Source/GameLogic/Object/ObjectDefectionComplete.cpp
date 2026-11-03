@@ -10,7 +10,7 @@
 // Object::setStatus(enum,bool), and canonical rowed AI operations.
 
 class Object; class Team;
-class Drawable { public: char pad[0x43c]; bool selected; };
+#include "../../../Include/GameClient/Drawable.h"
 class InGameUI { public:
  virtual void slot00();
  virtual void slot01();
@@ -282,7 +282,7 @@ void Object::defect(Object *source,bool permanent) {
   }
  }
  Drawable *draw=drawable;
- if(draw && draw->selected) TheInGameUI->nativeDeselect(draw);
+ if(draw && draw->m_selected) TheInGameUI->nativeDeselect(draw);
  ObjectDefectProductionView *production=(ObjectDefectProductionView *)Rva004A1828Get((Rva004A1828Owner *)this);
  if(production) production->nativeCancel(0);
  SpawnBehaviorInterface *spawn=getSpawnBehaviorInterface();

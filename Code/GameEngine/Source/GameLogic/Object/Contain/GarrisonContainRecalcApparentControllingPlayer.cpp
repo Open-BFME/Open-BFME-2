@@ -45,11 +45,7 @@ enum ObjectStatusTypes
 };
 
 class Object;
-class Drawable
-{
-public:
-    void setIndicatorColor(int color);
-};
+#include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/Common/TeamBFME2.h"
 
@@ -95,11 +91,6 @@ public:
     void rva0046247D(Rva0046247DPair &p);
 };
 
-class Thing
-{
-public:
-    Drawable *getDrawable() const;
-};
 
 class ConditionBits
 {
@@ -125,7 +116,7 @@ public:
     void setTeam(Team *team);
     void rva0028AE6D();
     Team *getTeam() const { return m_team; }
-    unsigned char m_pad00[0x10C];
+    unsigned char m_pad60[0x10C - 0x60];
     ConditionBits m_conditionBits; // +0x10C
     unsigned char m_pad110[0x304 - 0x110];
     Team *m_team; // +0x304

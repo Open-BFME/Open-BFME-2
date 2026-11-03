@@ -61,11 +61,6 @@ public:
 };
 enum DamageType { DeathDamage=8 };
  enum DeathType { NormalDeath=0 };
-class Drawable
-{
-public:
-	void setDrawableHidden(bool hidden);
-};
 class Matrix3D;
 #define PURE_SLOT(n) virtual void s##n()=0;
 class RiderContain
@@ -498,6 +493,7 @@ struct Rva004772D1RangePrefix
 };
 
 #include "../../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
