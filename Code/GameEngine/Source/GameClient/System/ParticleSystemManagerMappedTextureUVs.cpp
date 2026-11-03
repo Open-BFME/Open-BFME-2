@@ -62,11 +62,7 @@ struct VideoPair
 inline VideoPair makePair(void *const &nodeReference,void *const &tableReference) { return VideoPair(nodeReference,tableReference); }
 class Rva00056F61;
 #include "../../../Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61
-{
-public:
-	Rva0041534BIter rva0041534B(const AsciiString *key);
-};
+#include "../../../Include/GameClient/Rva00056F61.h"
 struct Rva001F5BBEArg;
 class Rva001F58D4
 {

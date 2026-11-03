@@ -23,13 +23,7 @@ struct AudioEventInfo;
 
 class Rva00056F61;
 #include "../../../../GameEngine/Include/GameClient/Rva0041534BIter.h"
-class Rva00056F61 {
-public:
-    // 41534B -> 56F61 -> 55041/2BA61 and 69D6/6733/memcmp: read-only,
-    // no allocations, callbacks, or C++ throws. Its provider uses this contract.
-    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
-    bool *rva003A3763(const AsciiString *);
-};
+#include "../../../../GameEngine/Include/GameClient/Rva00056F61.h"
 struct WordSlotPair {
     AsciiString name;
     unsigned int value;

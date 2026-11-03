@@ -75,12 +75,7 @@ struct Rva0041534BIter {
 // shape matches STLport hashtable find 0x00620DD0. The 0x56F61 lookup only
 // hashes and compares existing bytes (callees 0x55041 -> 0x2BA61 and 0x69D6
 // -> 0x6733 -> memcmp): no allocation, callbacks or C++ throws.
-class Rva00056F61
-{
-public:
- void *rva00056F61(const AsciiString *key);
- __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *key);
-};
+#include "../../../GameEngine/Include/GameClient/Rva00056F61.h"
 // ?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z 0x0041534B 27B
 // Inline (a selectany COMDAT, kept out of line) like the other units that
 // compile this find (MilesAudioManagerRva00059EAE.cpp,

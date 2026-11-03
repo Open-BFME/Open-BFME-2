@@ -326,11 +326,7 @@ public:
 	void *rva00210390(const AsciiString *key);
 };
 
-class Rva00056F61
-{
-public:
-	Rva0041534BIter rva0041534B(const AsciiString *key);
-};
+#include "../../../../GameEngine/Include/GameClient/Rva00056F61.h"
 
 void *Rva00210390::rva00210390(const AsciiString *key)
 {
