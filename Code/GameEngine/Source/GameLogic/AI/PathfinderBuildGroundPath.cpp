@@ -25,17 +25,12 @@ struct PathCollisionInfo {
     char prefix[0x14]; PathCollisionNode *occupants;
     char gap18[8]; PathCollisionNode *goals,*reservations;
 };
-class PathfindCell {
-public:
-    PathCollisionInfo *info; char gap04[8]; unsigned int word;
-    unsigned int getType() const { return word&15; }
-    Int getLayer() const { return (word>>4)&63; }
-    unsigned int getRawWord() const { return word; }
-    Bool bit(int bitIndex) const { return ((word>>bitIndex)&1)!=0; }
-    __forceinline Bool hasOccupants() const { return info ? info->occupants!=0 : false; }
-    __forceinline Bool hasGoals() const { return info ? info->goals!=0 : false; }
-    __forceinline Bool hasReservations() const { return info ? info->reservations!=0 : false; }
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline Bool cellBit(const PathfindCell *cell, int bitIndex) { return ((cell->m_0C>>bitIndex)&1)!=0; }
+static __forceinline PathCollisionInfo *cellInfo(const PathfindCell *cell) { return (PathCollisionInfo *)cell->m_info; }
+static __forceinline Bool cellHasOccupants(const PathfindCell *cell) { return cellInfo(cell) ? cellInfo(cell)->occupants!=0 : false; }
+static __forceinline Bool cellHasGoals(const PathfindCell *cell) { return cellInfo(cell) ? cellInfo(cell)->goals!=0 : false; }
+static __forceinline Bool cellHasReservations(const PathfindCell *cell) { return cellInfo(cell) ? cellInfo(cell)->reservations!=0 : false; }
 class Pathfinder;
 struct IRegion2D;
 class Xfer;
@@ -198,7 +193,7 @@ void Pathfinder::rva002EFB3A()
                         case 1: color.blue=1; color.green=0.3f; color.red=0.3f; empty=false; break;
                         case 7:
                             color.blue=0.8f; empty=false;
-                            if (cell->bit(23)) color.green=0.2f;
+                            if (cellBit(cell,23)) color.green=0.2f;
                             break;
                         case 8:
                             color.blue=Rva002E7BB8Get(); color.red=Rva002E7BB8Get(); color.green=Rva002E7BB8Get(); empty=false;
@@ -206,13 +201,13 @@ void Pathfinder::rva002EFB3A()
                         case 3: color.red=1; color.green=0.5f; empty=false; break;
                         case 4: color.green=1; color.red=1; empty=false; break;
                         default:
-                            if (cell->bit(16)) { color.green=0.7f; color.blue=0.7f; empty=false; }
+                            if (cellBit(cell,16)) { color.green=0.7f; color.blue=0.7f; empty=false; }
                             if (cell->getLayer()==16) { color.blue=0.5f; empty=false; }
-                            else if (cell->getLayer()!=1 || (cell->getRawWord()&0xfc00)==0x4000) { color.blue=0.7f; color.red=0.7f; empty=false; }
+                            else if (cell->getLayer()!=1 || (cell->m_0C&0xfc00)==0x4000) { color.blue=0.7f; color.red=0.7f; empty=false; }
                             break;
                         }
                     }
-                    if (empty && cell->bit(18)) { color.red=0.3f; empty=false; }
+                    if (empty && cellBit(cell,18)) { color.red=0.3f; empty=false; }
                     Coord3D position;
                     position.x=topLeftCorner.x+5.0f; position.y=topLeftCorner.y+5.0f; position.z=0;
                     if (cell->getLayer()!=1) position.z=GetWallHeight((PathfindLayerEnum)cell->getLayer(),&position,0);
@@ -221,30 +216,30 @@ void Pathfinder::rva002EFB3A()
                         empty=true;
                         color.blue=0; color.green=0; color.red=0;
                         if (cell) {
-                        if (cell->hasOccupants()) { empty=false; color.red=1; }
-                        if (cell->hasGoals()) { empty=false; color.green=1; }
-                        if (cell->hasReservations()) { empty=false; color.blue=1; }
+                        if (cellHasOccupants(cell)) { empty=false; color.red=1; }
+                        if (cellHasGoals(cell)) { empty=false; color.green=1; }
+                        if (cellHasReservations(cell)) { empty=false; color.blue=1; }
                         if (((Rva0052DB4D *)cell)->rva0052DB4D(0)) { empty=false; color.red=0; color.blue=1; color.green=1; }
-                        if (empty && cell->bit(17)) { empty=false; color.blue=0; color.green=0; color.red=0; }
+                        if (empty && cellBit(cell,17)) { empty=false; color.blue=0; color.green=0; color.red=0; }
                         }
                     }
                     if (!empty) {
                         Int remaining=duration-1;
                         Rva000B3FD0PathDebug(&position,8.0f,remaining,color);
-                        if (((cell->getRawWord()>>10)&63)!=0) {
+                        if (((cell->m_0C>>10)&63)!=0) {
                             color.blue=1; color.green=1; color.red=1;
                             Rva000B3FD0PathDebug(&position,3.0f,remaining,color);
                         }
                     }
-                    if (cell && cell->bit(17)) {
+                    if (cell && cellBit(cell,17)) {
                         color.blue=0; color.green=0; color.red=0;
                         Rva000B3FD0PathDebug(&position,3.0f,duration-1,color);
                     }
-                    if (cell && (Int)((cell->getRawWord()>>19)&3)>0) {
-                        color.red=(float)(Int)((cell->getRawWord()>>19)&3)*0.5f; color.blue=0; color.green=0;
+                    if (cell && (Int)((cell->m_0C>>19)&3)>0) {
+                        color.red=(float)(Int)((cell->m_0C>>19)&3)*0.5f; color.blue=0; color.green=0;
                         Rva000B3FD0PathDebug(&position,1.5f,duration-1,color);
                     }
-                    if (cell && cell->bit(21)) {
+                    if (cell && cellBit(cell,21)) {
                         color.red=0; color.green=0.5f; color.blue=0;
                         Rva000B3FD0PathDebug(&position,10.0f,duration-1,color);
                     }

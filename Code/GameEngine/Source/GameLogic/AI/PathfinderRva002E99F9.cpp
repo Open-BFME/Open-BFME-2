@@ -12,12 +12,7 @@ enum PathfindLayerEnum
 };
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class PathfindCell
-{
-public:
-	char m_pad0[8];
-	unsigned short m_8;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
 class Rva005310E3
 {
 public:
@@ -101,9 +96,9 @@ int Pathfinder::FindBrokenBridge(Rva002E99F9Arg1 *locoSet, const Coord3D * volat
 	zoneParams.m_5 = 0;
 	unsigned short wB;
 	unsigned short wA;
-	wB = pathfindCell->m_8;
+	wB = pathfindCell->getZone();
 	unsigned int startZone = m_sub460.rva0053241F(&zoneParams, wB);
-	wA = m_endCell->m_8;
+	wA = m_endCell->getZone();
 	unsigned int endZone = m_sub460.rva0053241F(&zoneParams, wA);
 	unsigned int startZoneRoot = m_sub460.rva00531FD4(&zoneParams, startZone);
 	unsigned int endZoneRoot = m_sub460.rva00531FD4(&zoneParams, endZone);

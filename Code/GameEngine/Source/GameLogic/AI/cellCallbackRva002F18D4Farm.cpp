@@ -25,15 +25,9 @@ public:
  unsigned char pad78[0x274-0x78];Object*m_containedBy;
 };
 extern GameLogic*TheGameLogic;
-struct PathfindCellInfo {unsigned char pad[0x28];ObjectID obstacle;};
-class PathfindCell {
-public:
- int getLayer()const{return (packed>>4)&63;}
- int getRawType()const{return bits.type;}
- ObjectID getObstacleID()const {return info?info->obstacle:INVALID_OBJECT_ID;}
- bool IsObstaclePresent(ObjectID)const;
- PathfindCellInfo*info;int unused1,unused2;union{unsigned int packed;struct{unsigned int type:4;unsigned int rest:28;}bits;};
-};
+struct FarmCellInfo {unsigned char pad[0x28];ObjectID obstacle;};
+#include "../../../Include/GameLogic/PathfindCell.h"
+static __forceinline ObjectID cellObstacleID(const PathfindCell*cell){FarmCellInfo*info=(FarmCellInfo*)cell->m_info;return info?info->obstacle:INVALID_OBJECT_ID;}
 class Rva002E6C4D
 {
 public:
@@ -59,7 +53,7 @@ public:
 int Rva002F18D4Info::cellCallback(PathfindCell*previous,PathfindCell*current,int x,int y){
  if((unsigned char)Rva002E6E8AGet(current->getLayer())){*(volatile int*)&m_layerCount = m_layerCount+1;m_runLength *= 0;*(volatile bool*)&m_hitLayer = true;}else m_runLength++;
  if(m_skip>0){m_skip--;return 0;}
- if(current->getRawType()==4){}else return 0;
+ if(current->getType()==PathfindCell::CELL_OBSTACLE){}else return 0;
  if(current->IsObstaclePresent(m_obj->getID()))return 0;
  Object*other=m_other;
  if(other){
@@ -74,8 +68,8 @@ int Rva002F18D4Info::cellCallback(PathfindCell*previous,PathfindCell*current,int
  }
  if(current->IsObstaclePresent((ObjectID)(int)Rva002E6E9FGet(obj)))return 0;
  if((unsigned char)((Rva002E6C4D*)current)->rva002E6C4D())return 0;
- if(m_cell){if(current->IsObstaclePresent(m_cell->getObstacleID()))return 0;}
- Object*unit=TheGameLogic->findObjectByID(current->getObstacleID());
+ if(m_cell){if(current->IsObstaclePresent(cellObstacleID(m_cell)))return 0;}
+ Object*unit=TheGameLogic->findObjectByID(cellObstacleID(current));
  if(unit){
   bool ownerFlag=(((m_obj->getTemplate()->m_kindof[6]>>22)&1) != 0);
   if(((unit->getTemplate()->m_kindof[1] & (1U << 28))!=0)||((unit->getTemplate()->m_kindof[5] & (1U << 29))!=0)||((unit->getTemplate()->m_kindof[6] & (1U << 11))!=0)||((unit->getTemplate()->m_kindof[4] & (1U << 22))!=0)){

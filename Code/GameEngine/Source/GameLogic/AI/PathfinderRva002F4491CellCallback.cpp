@@ -29,25 +29,7 @@ struct In002E6BA1
 	Int m_04;
 };
 
-class Rva002E6BA1;
-class MixFileInfoBuffer
-{
-private:
-	friend class Rva002E6BA1;
-public:
-	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
-private:
-	void bfmeUnlink();
-public:
-	int x; // +0x00
-	int y; // +0x04
-	char m_pad08[0x4];
-	Int m_0C; // +0x0C
-	unsigned short m_totalCost; // +0x10
-	unsigned short m_costSoFar; // +0x12
-	char m_pad14[0x18];
-	unsigned int m_flags; // +0x2C
-};
+#include "../../../Include/Common/MixFileInfoBuffer.h"
 
 extern int TheMixFileInfoPool;
 void Rva0052DBCDInit(void);
@@ -65,36 +47,25 @@ public:
 	int rva002E6B06();
 };
 
-class PathfindCell
-{
-public:
-	Bool getOpen() const { return (unsigned char)reinterpret_cast<const Rva002E6AF3 *>(this)->get() != 0; }
-	Bool getClosed() { return (unsigned char)reinterpret_cast<Rva002E6B06 *>(this)->rva002E6B06() != 0; }
-	Int getLayer() const { return (m_flags >> 4) & 0x3F; }
-	Bool getBit21() const { return ((m_flags >> 21) & 1) != 0; }
-	unsigned short getCostSoFar() const { return m_info->m_costSoFar; }
-	void setCostSoFar(unsigned short cost) { m_info->m_costSoFar = cost; }
-	void setTotalCost(unsigned short cost) { m_info->m_totalCost = cost; }
-	void SetParentCell(int *source);
-	__forceinline void allocateInfo(In002E6BA1 *coord)
-	{
-		if (!m_info)
-		{
-			if (TheMixFileInfoPool == 0)
-				Rva0052DBCDInit();
-			m_info = Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool, (int)this, coord);
-		}
-		else
-		{
-			m_info->m_0C = 0;
-		}
-	}
-	void setBlockedByAlly() { m_info->m_flags &= ~1u; }
+#include "../../../Include/GameLogic/PathfindCell.h"
 
-	MixFileInfoBuffer *m_info;
-	char m_pad04[0x0C - 4];
-	unsigned int m_flags;
-};
+static __forceinline MixFileInfoBuffer *cellInfo(const PathfindCell *cell) { return (MixFileInfoBuffer *)cell->m_info; }
+static __forceinline Bool cellOpen(const PathfindCell *cell) { return (unsigned char)reinterpret_cast<const Rva002E6AF3 *>(cell)->get() != 0; }
+static __forceinline Bool cellClosed(PathfindCell *cell) { return (unsigned char)reinterpret_cast<Rva002E6B06 *>(cell)->rva002E6B06() != 0; }
+static __forceinline Bool cellBit21(const PathfindCell *cell) { return ((cell->m_0C >> 21) & 1) != 0; }
+static __forceinline void cellAllocateInfo(PathfindCell *cell, In002E6BA1 *coord)
+{
+	if (!cell->m_info)
+	{
+		if (TheMixFileInfoPool == 0)
+			Rva0052DBCDInit();
+		cell->m_info = (PathfindCellInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool, (int)cell, coord);
+	}
+	else
+	{
+		cellInfo(cell)->m_0C = 0;
+	}
+}
 
 struct Rva002F4491FireCell
 {
@@ -149,7 +120,7 @@ int Rva002F4491Info::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
 {
 	if (!from)
 		return 0;
-	if (to->getOpen() || to->getClosed())
+	if (cellOpen(to) || cellClosed(to))
 		return 1;
 	{
 		Coord3D pos;
@@ -164,14 +135,14 @@ int Rva002F4491Info::cellCallback(PathfindCell *from, PathfindCell *to, int x, i
 		In002E6BA1 coord;
 		coord.m_00 = x;
 		coord.m_04 = y;
-		to->allocateInfo(&coord);
+		cellAllocateInfo(to, &coord);
 	}
-	to->setBlockedByAlly();
-	unsigned int newCostSoFar = from->getCostSoFar() + (to->getBit21() ? 2 : 5);
+	cellInfo(to)->m_flags &= ~1u;
+	unsigned int newCostSoFar = cellInfo(from)->field12 + (cellBit21(to) ? 2 : 5);
 	Int costRemaining = pathfinder->rva002F0A72(to, goalCell);
-	to->setCostSoFar((unsigned short)newCostSoFar);
+	cellInfo(to)->field12 = (unsigned short)newCostSoFar;
 	to->SetParentCell((int *)from);
-	to->setTotalCost((unsigned short)(to->getCostSoFar() + costRemaining));
+	cellInfo(to)->field10 = (unsigned short)(cellInfo(to)->field12 + costRemaining);
 	pathfinder->AddToOpenList(to);
 	return 0;
 }
