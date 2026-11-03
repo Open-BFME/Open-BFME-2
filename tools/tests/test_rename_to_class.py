@@ -124,6 +124,11 @@ GOOD = {TABLE: ([0x00403040, 0x00401000, 0x00404000], {CTOR_STORE: 0})}
      "?GetSnapshotName@Widget@@MBEPBDXZ"),                                  # full mangled, access chosen
     ("?is@Rva4@@QBE_NXZ", "?isConnected@Widget@@UAE_NXZ",
      "?isConnected@Widget@@UAE_NXZ"),                                       # `this` cv follows the class
+    ("?rva0029AA62@Rva0029AA3F@@QAEXPBUCoord3D@@@Z", "slot49",
+     "?slot49@Widget@@UAEXPBUCoord3D@@@Z"),                                 # a digit inside an identifier
+    ("?get@Rva5@@QAE?AW4ObjectID@@XZ", "get", "?get@Widget@@UAE?AW4ObjectID@@XZ"),    # an enum's W4
+    ("?set@Rva6@@QAEXV?$BitFlags@$0HF@@@@Z", "set",
+     "?set@Widget@@UAEXV?$BitFlags@$0HF@@@@Z"),                             # an encoded template number
 ])
 def test_to_class_symbol(old, new, expected):
     assert rename.to_class_symbol(old, "Widget", new) == expected
@@ -135,10 +140,22 @@ def test_to_class_symbol(old, new, expected):
     ("?name@Rva2Named@@QBEPBDXZ", "?name@Widget@@QBEPBDXZ"),     # not virtual
     ("?name@Rva2Named@@QBEPBDXZ", "?name@Gadget@@UBEPBDXZ"),     # another class
     ("?f@Rva3@@QAEXPAV1@@Z", "f"),                               # back-reference in the parameters
+    ("?f@Rva3@@QAEXPAV0@@Z", "f"),                               # name back-reference to the identifier
+    ("?f@Rva3@@QAEXPAUCoord3D@@0@Z", "f"),                       # argument-type back-reference
+    ("?f@Rva3@@QAEXPAVWidget@@@Z", "f"),                         # the new class is already spelled
+    ("?f@Rva3@@QAEXPAVspin@@@Z", "spin"),                        # the new identifier is already spelled
 ])
 def test_to_class_symbol_refusals(old, new):
     with pytest.raises(Refusal):
         rename.to_class_symbol(old, "Widget", new)
+
+
+def test_back_references_read_positions_not_digits():
+    names, types, spans = rename.back_references("?rva0029AA62@Rva0029AA3F@@QAEXPBUCoord3D@@@Z")
+    assert (names, types) == ([], [])
+    assert "Coord3D" in {"?rva0029AA62@Rva0029AA3F@@QAEXPBUCoord3D@@@Z"[a:b] for a, b in spans}
+    assert rename.back_references("?f@Rva3@@QAEXPAV1@@Z")[:2] == ([1], [])
+    assert rename.back_references("?f@Rva3@@QAEXPAUCoord3D@@0@Z")[:2] == ([], [0])
 
 
 # ------------------------------------------------------------ evidence

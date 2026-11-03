@@ -486,8 +486,11 @@ FUNCLET_PREFIXES = ("__ehhandler$", "__unwindfunclet$")
 
 class _Out(list):
     """fragments' output list; `refs` (when set) also collects the digit of
-    every name back-reference the parser meets in a name position."""
+    every name back-reference the parser meets in a name position, and
+    `type_refs` (when set) the digit of every argument-type back-reference
+    (a digit where a type is expected: `PAUS@@0@Z`)."""
     refs = None
+    type_refs = None
 
 
 def fragments(symbol, refs=None):
@@ -516,6 +519,23 @@ def fragments(symbol, refs=None):
     if text[end:] and not (offset and re.fullmatch(r"\$\d+", text[end:])):
         raise Unparsed(f"{symbol}: trailing {text[end:]!r}")
     return [(offset + a, offset + b) for a, b in out]
+
+
+def back_references(symbol):
+    """(name back-references, argument-type back-references, name fragments)
+    of a decorated `?...` symbol, read by the same parser as `fragments`: a
+    digit counts only where the grammar expects a name or a type, never
+    inside an identifier (`PBUCoord3D@@` holds none), an enum's `W4` or an
+    encoded number. Raises Unparsed outside the parser's subset."""
+    out = _Out()
+    out.refs, out.type_refs = [], []
+    try:
+        end = _parse_symbol(symbol, 0, out)
+    except (IndexError, ValueError) as error:
+        raise Unparsed(f"{symbol}: {error}") from None
+    if symbol[end:]:
+        raise Unparsed(f"{symbol}: trailing {symbol[end:]!r}")
+    return out.refs, out.type_refs, [(a, b) for a, b in out]
 
 
 def _parse_symbol(s, i, out):
@@ -663,7 +683,11 @@ def _parse_type(s, i, out):
         for _ in range(count):
             i = _parse_number(s, i)
         return _parse_type(s, i, out)
-    if c.isdigit() or c in "CDEFGHIJKMNOXZ":
+    if c.isdigit():
+        if out.type_refs is not None:
+            out.type_refs.append(int(c))
+        return i + 1
+    if c in "CDEFGHIJKMNOXZ":
         return i + 1
     raise ValueError(f"type {c!r} at {i}")
 
@@ -3492,9 +3516,19 @@ def to_class_symbol(old_name, cls, new):
     if role != "method" or scopes:
         raise Refusal(f"{old_name}: --to-class moves an ordinary method of a global class only")
     tail = old_name[at + 1:]
-    if re.search(r"[0-9]", tail):
+    # A back-reference in the signature is refused: a name one (`PAV1@`) can
+    # point at the placeholder class or the identifier the move respells, and
+    # an argument-type one (`PAUS@@0@Z`) is kept out too. Only the grammar's
+    # name and type positions count: a digit inside an identifier
+    # (`PBUCoord3D@@`), an enum's `W4` or an encoded number is no reference.
+    try:
+        name_refs, type_refs, spans = back_references(old_name)
+    except Unparsed as error:
+        raise Refusal(f"{old_name}: its decoration cannot be read to rule out back-references ({error})")
+    if name_refs or type_refs:
         raise Refusal(f"{old_name}: its parameters name a type by back-reference; a class move would change "
                       "what they refer to")
+    tail_names = {old_name[a:b] for a, b in spans if a > at}
     code = old_name[at]
     if new.startswith("?"):
         nat, ncls, nscopes, nrole = member_function_header(new)
@@ -3505,6 +3539,7 @@ def to_class_symbol(old_name, cls, new):
         if new[nat + 1:] != tail and not (new[nat + 1] in THIS_CV and tail[:1] in THIS_CV
                                           and new[nat + 2:] == tail[1:]):
             raise Refusal(f"{new} changes the convention, return type or parameters of {old_name}")
+        _refuse_spelled_in_tail(old_name, tail_names, cls, new[1:new.index("@")])
         return new
     if not IDENT.fullmatch(new or "") or new in name_metric.KEYWORDS:
         raise Refusal(f"{new!r} is not a method identifier")
@@ -3514,7 +3549,18 @@ def to_class_symbol(old_name, cls, new):
         access = NONVIRTUAL_ACCESS[code]
     else:
         raise Refusal(f"{old_name} is not a non-static member function (access code {code!r})")
+    _refuse_spelled_in_tail(old_name, tail_names, cls, new)
     return f"?{new}@{cls}@@{access}{tail}"
+
+
+def _refuse_spelled_in_tail(old_name, tail_names, cls, ident):
+    """A signature that already spells the new class or identifier as a name
+    would be decorated with a back-reference to it after the move, so the
+    kept tail would not be what the compiler emits."""
+    for word in (cls, ident):
+        if word in tail_names:
+            raise Refusal(f"{old_name}: its signature already names {word}; after the move the compiler "
+                          "would spell it as a back-reference")
 
 
 def class_installers(ctx, cls, stores, tables):
