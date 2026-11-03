@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME5: clean-C++ CylindricalEmissionVelocityModuleTemplate default constructor.
 
+#include "../../../../Include/GameClient/CylindricalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -40,15 +41,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class CylindricalEmissionVelocityInfo
-{
-public:
-    CylindricalEmissionVelocityInfo();
-    virtual ~CylindricalEmissionVelocityInfo();
-
-private:
-    unsigned char m_body[0x2c];
-};
 
 class CylindricalEmissionVelocityModuleTemplate : public CategoryModuleTemplate<4>,
     public CylindricalEmissionVelocityInfo

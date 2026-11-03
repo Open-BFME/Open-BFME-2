@@ -3,6 +3,7 @@
 // Open-BFME5: CylindricalEmissionVelocityModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/CylindricalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class CylindricalEmissionVelocityInfo
-{
-public:
-	CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that);
-	virtual void dummy();
-};
 
 // CylindricalEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bc70 (retail .rdata value 20).
 extern "C" char CylindricalEmissionVelocityModuleTemplate_cvtbl0 = 20;

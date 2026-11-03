@@ -46,16 +46,9 @@ namespace FXParticleSystem
 {
 }
 
+#include "../../Include/GameClient/CylindricalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
-class CylindricalEmissionVelocityInfo
-{
-public:
-	CylindricalEmissionVelocityInfo();
-	virtual ~CylindricalEmissionVelocityInfo();
-private:
-	char m_unmodelled_04[0x1C - 0x04];
-};
 }
 
 namespace FXParticleSystem
