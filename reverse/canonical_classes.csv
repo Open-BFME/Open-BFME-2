@@ -638,3 +638,4 @@ TransportAIUpdate,Code/GameEngine/Include/GameLogic/Module/TransportAIUpdateClas
 RenderingMethod,Code/Libraries/Source/WWVegas/WW3D2/RenderingMethod.h,existing header; contract class_contracts/RenderingMethod.json; 2/16 sampled units adopt
 LivingWorldVisual,Code/GameEngine/Include/GameClient/LivingWorldVisual.h,existing header; contract class_contracts/LivingWorldVisual.json; 8/13 sampled units adopt
 TileData,Code/GameEngineDevice/Include/W3DDevice/GameClient/TileDataClass.h,existing header; contract class_contracts/TileData.json; 3/7 sampled units adopt
+W3DRopeDraw,Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DRopeDrawClass.h,existing header; contract class_contracts/W3DRopeDraw.json; 4/9 sampled units adopt
