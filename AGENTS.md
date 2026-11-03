@@ -308,7 +308,8 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
   maintainer-provided sandbox and retail record; record repaired crashes as
   awaiting the maintainer's pass (`docs/verifier_upgrade_plan.md`, "Boot and
   smoke queues").
-- **Link repair**: `next_work.py --tier link`, `repair_queue.py link`,
+- **Link repair**: `next_work.py --tier link` (real link blockers first:
+  `reverse/exit_link_blockers.tsv`), `repair_queue.py link`,
   `python3 tools/link_rank.py` (`docs/linking.md`).
 - **Class headers**: `next_work.py --tier header`, `python3 tools/class_views.py`,
   `python3 tools/header_adopt_lane.py order` (`docs/linking.md`).

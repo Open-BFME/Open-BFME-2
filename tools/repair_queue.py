@@ -1014,13 +1014,53 @@ def census_items(path, commit=None):
     return items, notes
 
 
+EXIT_BLOCKERS = "reverse/exit_link_blockers.tsv"
+
+
+def exit_link_items(path=None):
+    """(items, note): units the last real link names as referencing a missing symbol, one item per
+    source. These stop the game building; a census unit may not, so they are served first."""
+    path = Path(path) if path else ROOT / EXIT_BLOCKERS
+    if not path.is_file():
+        return [], None
+    rows_of = rows_by_source()
+    with path.open(encoding="utf-8", newline="") as handle:
+        lines = handle.read().splitlines()
+    measured = lines[0].lstrip("# ") if lines and lines[0].startswith("#") else "a real link"
+    items, rowless = [], []
+    for row in csv.DictReader((line for line in lines if not line.startswith("#")), delimiter="\t"):
+        owned = sorted(rows_of.get(row["source"], ()), key=lambda r: r[0])
+        if not owned:
+            rowless.append(row["source"])
+            continue
+        size = sum(int(r[2] or 0) for r in owned)
+        items.append({
+            "tier": "link", "check": "exit-link", "target_rva": "0x%08X" % owned[0][0],
+            "function": owned[0][1], "source": row["source"], "size": size, "credit": size, "placed": False,
+            "blockers": int(row["missing"]), "fresh": measured,
+            "claim": [f"file:{row['source']}"],
+            "why": (f"the real link stops here: {row['missing']} name(s) it references exist nowhere, "
+                    f"e.g. {row['sample']}. Errors: real-link artifact errors.tsv. A body with no ledger "
+                    "row is a nonmatching reconstruction: row it or remove it (docs/linking.md)"),
+            "pass_test": f"python3 tools/link_check.py {row['source']}; the next real link stops listing it",
+        })
+    note = f"{len(items)} unit(s) blocking the {measured}"
+    if rowless:
+        note += f"; {len(rowless)} with no matched row, not served: " + ", ".join(rowless[:3])
+    return items, note
+
+
 def link_items(path=None):
-    """BFME2 link repairs, with a note naming the source read and the commit it describes:
-    a link cycle's rows not placed at retail RVA or placed but not self-strict, else the
-    committed census's units that do not link (link_source), freshness-filtered against
-    the commit the committed census's history row names."""
+    """BFME2 link repairs, with a note naming the source read and the commit it describes: the real
+    link's blockers while any remain; else a link cycle's rows not placed at retail RVA or placed but
+    not self-strict, else the committed census's units that do not link (link_source),
+    freshness-filtered against the commit the committed census's history row names."""
     if BFME1:
         return [], "BFME1 has no link cycle yet"
+    if path is None:
+        items, note = exit_link_items()
+        if items:
+            return items, note
     kind, path, note = link_source(path)
     if kind is None:
         return [], note

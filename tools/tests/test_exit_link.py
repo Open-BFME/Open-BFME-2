@@ -311,3 +311,15 @@ def test_outputs_are_not_the_census_outputs():
     import link_census
     assert E.OUT != link_census.OUT
     assert E.OUT.name == "exit_link"
+
+
+def test_blockers_from_errors_group_missing_names_by_repo_source():
+    import exit_link as module
+    lines = ["severity\tcode\tsymbol\tobject\tsource\ttext",
+             "error\tLNK2019\t?a@@YAXXZ\tx.obj\tD:\\a\\Open-BFME-2\\Open-BFME-2\\Code\\X.cpp\tt",
+             "error\tLNK2001\t?b@@YAXXZ\tx.obj\tD:\\a\\Open-BFME-2\\Open-BFME-2\\Code\\X.cpp\tt",
+             "error\tLNK2001\t?a@@YAXXZ\tx.obj\tD:\\a\\Open-BFME-2\\Open-BFME-2\\Code\\X.cpp\tt",
+             "error\tLNK2019\t?a@@YAXXZ\ty.obj\tCode/Y.cpp\tt",
+             "error\tLNK2005\t?d@@YAXXZ\tz.obj\tCode/Z.cpp\tt",
+             "error\tLNK2019\t?c@@YAXXZ\tn.obj\t\tt"]
+    assert module.blockers_from_errors(lines) == [("Code/X.cpp", 2, "?a@@YAXXZ"), ("Code/Y.cpp", 1, "?a@@YAXXZ")]

@@ -2993,3 +2993,25 @@ def test_pass_test_removes_only_target_with_mixed_line_endings(
     assert len(calls) == 1
     assert ok == (returncode == 0)
     assert path.read_bytes() == (expected if ok else raw)
+
+
+def test_exit_link_items_serve_real_link_blockers_and_name_the_rowless(tmp_path, monkeypatch):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER)
+    path = tmp_path / "blockers.tsv"
+    path.write_text("# real link at abc123: tools/exit_link.py --blockers\n"
+                    "source\tmissing\tsample\n"
+                    "Code/A.cpp\t49\t?x@@YAXXZ\n"
+                    "Code/Gone.cpp\t2\t?y@@YAXXZ\n", encoding="utf-8")
+    monkeypatch.setattr(rq, "rows_by_source", lambda: {"Code/A.cpp": [[0x2000, "?b", "8"], [0x1000, "?a", "16"]]})
+    items, note = rq.exit_link_items(path)
+    assert [item["source"] for item in items] == ["Code/A.cpp"]
+    item = items[0]
+    assert (item["check"], item["target_rva"], item["function"], item["size"]) == ("exit-link", "0x00001000", "?a", 24)
+    assert item["blockers"] == 49 and item["claim"] == ["file:Code/A.cpp"] and "?x@@YAXXZ" in item["why"]
+    assert "real link at abc123" in note and "Code/Gone.cpp" in note
+
+
+def test_exit_link_items_absent_file_is_no_queue(tmp_path):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER)
+    assert rq.exit_link_items(tmp_path / "absent.tsv") == ([], None)
+

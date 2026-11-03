@@ -41,6 +41,12 @@ funclet's parent from retail's FuncInfo table, never adjacency. A `.text$x` diff
 bytes in a parent is usually a member's real offset (`add ecx,K`); its body can match either way,
 because the view's padding hides where the member starts.
 
+`reverse/exit_link_blockers.tsv` lists the sources the last real link stopped on, and the link tier
+serves them first. Most missing names come from a function the ledger does not know: a donor body
+retail never had. Row it, or remove it if retail lacks it (`find_declared_unmatched.py`, "Frozen
+files"). A virtual one also needs its vtable slot resolved: the slot's retail function may already
+have a row under a placeholder name, in which case the fix is a rename.
+
 ## How the census decides
 
 `reverse/link_status.csv` and `tools/link_census.py` measure linking under

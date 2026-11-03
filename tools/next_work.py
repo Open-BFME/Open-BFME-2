@@ -24,7 +24,8 @@ Sections, in priority order:
   R. Repair       gate debt (reverse/gate_baseline.txt; tier C, diffexec, boot and
                   game smoke): the check, the row, and a pass test that deletes the
                   baseline line (--tier repair)
-  L. Link repair  rows the last link cycle did not place or wire, else the committed
+  L. Link repair  units the last real link names as blockers (reverse/exit_link_blockers.tsv);
+                  then rows the last link cycle did not place or wire, else the committed
                   census's units that do not link, with the units changed since the
                   census re-predicted by tools/link_check.py (--tier link)
   D. Data identity  reverse/data_check_baseline.txt keys: a unit binds or defines a

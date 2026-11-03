@@ -446,6 +446,33 @@ def index_measurement(index, omitted_names, previous=None):
 
 
 # ---------------------------------------------------------------- link
+def blockers_from_errors(lines):
+    """[(source, missing names, sample)] from errors.tsv rows, most missing first."""
+    missing = collections.defaultdict(set)
+    for row in csv.DictReader(lines, delimiter="\t"):
+        if row["code"] not in ("LNK2001", "LNK2019") or not row["source"]:
+            continue
+        for source in row["source"].split(", "):
+            path = source.replace(chr(92), "/")
+            at = path.find("/Code/")
+            missing[path[at + 1:] if at >= 0 else path].add(row["symbol"])
+    return [(source, len(names), sorted(names)[0])
+            for source, names in sorted(missing.items(), key=lambda item: (-len(item[1]), item[0]))]
+
+
+def write_blockers(errors, commit):
+    """reverse/exit_link_blockers.tsv: what the fleet's link tier serves first."""
+    with open(errors, encoding="utf-8", errors="replace", newline="") as handle:
+        blockers = blockers_from_errors(handle)
+    with open(build.ROOT / BLOCKERS, "w", encoding="utf-8", newline="\n") as out:
+        out.write(f"# real link at {commit}: tools/exit_link.py --blockers\n")
+        out.write("source\tmissing\tsample\n")
+        for source, count, sample in blockers:
+            out.write(f"{source}\t{count}\t{sample}\n")
+    print(f"{BLOCKERS}: {len(blockers)} source(s), {sum(b[1] for b in blockers)} missing name(s) by source")
+    return 0
+
+
 def link_arguments(image, rsp):
     """The exit link's options: no /FORCE, no scaffold, a non-retail base."""
     return ["/NOLOGO", "/NODEFAULTLIB", "/INCREMENTAL:NO", "/MACHINE:X86",
@@ -502,6 +529,7 @@ def object_sources(rows):
             for name, values in out.items()}
 
 
+BLOCKERS = "reverse/exit_link_blockers.tsv"
 SCAFFOLD_OBJECT = re.compile(r"^(?:stubs?\.obj|alias(?:es)?\.obj|fill\d+\.obj)$", re.IGNORECASE)
 
 
@@ -817,6 +845,9 @@ def main(argv=None):
     mode.add_argument("--eh-proof", action="store_true", help="run eh_verify --all and report")
     mode.add_argument("--link", action="store_true", help="sandbox or hosted runner only: read-only proof and exit link")
     mode.add_argument("--report", action="store_true", help="summarise build/exit_link/result.json")
+    parser.add_argument("--blockers-commit", default="", help="the commit --blockers' errors.tsv measured")
+    mode.add_argument("--blockers", metavar="ERRORS_TSV",
+                      help="write reverse/exit_link_blockers.tsv from a real link's errors.tsv")
     mode.add_argument("--image-report", action="store_true",
                       help="compare the kept objects with retail: tools/image_report.py")
     parser.add_argument("--objects", action="store_true",
@@ -824,6 +855,8 @@ def main(argv=None):
     parser.add_argument("--index", action="store_true",
                         help="with --plan: cross-check the published census index (--fetch-index first)")
     args = parser.parse_args(argv)
+    if args.blockers:
+        return write_blockers(Path(args.blockers), args.blockers_commit)
     if args.image_report:
         import image_report
         return image_report.main([])
