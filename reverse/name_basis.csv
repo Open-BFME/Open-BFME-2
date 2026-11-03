@@ -7487,3 +7487,21 @@ local,AIBaseBuilder::rva0050722A::base,AIBaseBuilder::rva0050722A::newBase,infer
 local,AIGameTeam::addPlayer::armor,AIGameTeam::addPlayer::armorTemplate,inferred,direct:nd-0b4dcdc1313b7f8861e22c44 parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/redo_ai_local_proposals,Code/GameEngine/Source/Common/AIGameTeam.cpp,0x004E9823
 local,AINavyUnitBattleShip::patrol::trackedUnits,AINavyUnitBattleShip::patrol::trackedUnitIDField,inferred,direct:nd-f60c4f792b9fd28312717bb1 parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/redo_ai_local_proposals,Code/GameEngine/Source/Common/AINavyUnitBattleShip.cpp,0x005AD6F5
 local,AIStateMachine::setTemporaryState::st,AIStateMachine::setTemporaryState::requestedState,inferred,direct:nd-dad47d5143e507593c2b91b6 parent-reviewed-by w-9cc9c63cadbc gpt-6.1-sol proposed-by /root/redo_ai_local_proposals,Code/GameEngine/Source/Common/AIStateMachine_setTemporaryState.cpp,0x0033FCE1
+member,BfmeThingURC::m_bfmeText,BfmeThingURC::m_sessionId,inferred,agree:nl-b4c34013f2b4,Code/GameEngine/Source/Common/BfmeConv1341.cpp,
+member,Rva005E278EOwner::m_0C,Rva005E278EOwner::m_region,inferred,agree:nl-96d8513a5445,Code/GameEngine/Source/Common/Rva005E278EDtor.cpp,
+member,Rva0041154FNode::m_18,Rva0041154FNode::m_window,inferred,agree:nl-2b4593613c52,Code/GameEngine/Source/GameClient/Rva0041154F.cpp,
+member,Rva00397BD9Data::m_19,Rva00397BD9Data::m_evaEnabled,inferred,agree:nl-6e962e9b9bb6,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397BD9.cpp,
+member,RvaMapCacheNodeHeader::color00,RvaMapCacheNodeHeader::m_color,inferred,agree:nl-dc260e04857b,Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp,
+member,RvaMapCacheNodeHeader::left08,RvaMapCacheNodeHeader::m_left,inferred,agree:nl-4eb75bc68b29,Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp,
+member,RvaMapCacheNodeHeader::parent04,RvaMapCacheNodeHeader::m_parent,inferred,agree:nl-e282bda20a56,Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp,
+member,RvaMapCacheNodeHeader::right0C,RvaMapCacheNodeHeader::m_right,inferred,agree:nl-63ec5530f5e1,Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp,
+function,?rva0055A904@ScoredKillTracker@@QAEXI@Z,?setFlags@ScoredKillTracker@@QAEXI@Z,inferred,agree:nl-64b53aa3f44e,Code/GameEngine/Source/Common/RTS/ScoredKillTracker.cpp,0x0055A904
+function,?rva005C3E79@Rva005C3E79@@QAEXXZ,?hide@Rva005C3E79@@QAEXXZ,inferred,agree:nl-2ce061d6f3ec,Code/GameEngine/Source/Common/Rva005C3ACDHide.cpp,0x005C3E79
+function,?rva005C47C4@Rva005C47C4@@QAEXH@Z,?increment@Rva005C47C4@@QAEXH@Z,inferred,agree:nl-5e5c3d2bdd4c,Code/GameEngine/Source/Common/Rva005C47C4VirtInc.cpp,0x005C47C4
+function,?rva005CECF3@Rva005CECF3@@QBE?AURva005CECF3Handle@@XZ,?clone@Rva005CECF3@@QBE?AURva005CECF3Handle@@XZ,inferred,agree:nl-b0b96f686e03,Code/GameEngine/Source/Common/Rva005CECF3Clone.cpp,0x005CECF3
+function,?rva005D4C48@Rva005D4C61@@UAEXM@Z,?setPosition@Rva005D4C61@@UAEXM@Z,inferred,agree:nl-d620e5d44432,Code/GameEngine/Source/Common/Rva005D4C61Dtor.cpp,0x005D4C48
+function,?rva005ED861@Rva005ED976@@QAEXH@Z,?selectPlayer@Rva005ED976@@QAEXH@Z,inferred,agree:nl-0ca414375dbe,Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp,0x005ED861
+function,?rva005ED986@Rva005ED976@@QAEXHABVUnicodeString@@@Z,?setPlayerName@Rva005ED976@@QAEXHABVUnicodeString@@@Z,inferred,agree:nl-727c4c630065,Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp,0x005ED986
+function,?rva00397BD9@Rva00397BD9@@UAEXHHH@Z,?onStateChanged@Rva00397BD9@@UAEXHHH@Z,inferred,agree:nl-1dfdb2808fda,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397BD9.cpp,0x00397BD9
+class,Rva005F83B9Entry,NotifyEntry,inferred,agree:nl-b0cf7523dcfd,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,
+class,Rva005F83B9Item,NotifyItem,inferred,agree:nl-6240c2affc74,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,

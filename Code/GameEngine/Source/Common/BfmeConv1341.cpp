@@ -35,14 +35,14 @@ class BfmeThingURC
 public:
 	BfmeThingURC(BfmeSrcURC *p);
 	BfmeSrcURC *m_bfmeOwner;
-	char m_bfmeText[4];
+	char m_sessionId[4];
 };
 
 // ??0BfmeThingURC@@QAE@PAVBfmeSrcURC@@@Z
 BfmeThingURC::BfmeThingURC(BfmeSrcURC *p)
 {
 	m_bfmeOwner = p;
-	p->bfmeFillURC((char *)"sessionId", m_bfmeText, (void *)0x40);
+	p->bfmeFillURC((char *)"sessionId", m_sessionId, (void *)0x40);
 }
 
 class BfmeThingURD

@@ -57,7 +57,7 @@ struct Rva003591F4Arg {
 struct Rva004F691E { Rva003591F4Arg action; Rva002BED91 ref; ~Rva004F691E(); };
 struct StanceHotKeyRecord : Rva004F691E { bool active; };
 struct Rva005681CE : _STL::vector<StanceHotKeyRecord> { ~Rva005681CE(); };
-class Rva005C3E79 { public: void rva005C3E79(); };
+class Rva005C3E79 { public: void hide(); };
 class Rva00E01E28Owner { public: void rva003591F4(Rva003591F4Arg); };
 class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
@@ -1313,7 +1313,7 @@ InGameToggleStanceCommandButton::Impl::~Impl()
  if(behavior18) behavior18->observers.rva002B7250(reinterpret_cast<CreateAHeroData*>(this));
  Rva005C3F02 *menu=factory0C->getMenu();
  if(menu && reinterpret_cast<Rva0057C22FByteChaseField*>(menu)->get())
-  reinterpret_cast<Rva005C3E79*>(menu)->rva005C3E79();
+  reinterpret_cast<Rva005C3E79*>(menu)->hide();
  if(TheHotKeyManager) {
   int count=(int)button14->stances.size();
   for(int i=0;i<count;++i) {

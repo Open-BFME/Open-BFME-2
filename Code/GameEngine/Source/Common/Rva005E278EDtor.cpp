@@ -56,7 +56,7 @@ struct Rva005E278ERegion
 struct Rva005E278EOwner
 {
 	char m_pad[0x0C];
-	Rva005E278ERegion *m_0C;
+	Rva005E278ERegion *m_region;
 	Rva005CB265 *m_10;
 };
 
@@ -103,6 +103,6 @@ Rva005E278E::~Rva005E278E()
 			((Rva005CB260 *)m_10->m_10)->rva005CB260();
 	}
 	((Rva005E278EPlot *)((Rva005E2138 *)this)->GetBuildPlot())->~Rva005E278EPlot();
-	Rva005E278EItem *item = m_10->m_0C->m_170[m_14];
+	Rva005E278EItem *item = m_10->m_region->m_170[m_14];
 	item->m_holder.rva002B7250((CreateAHeroData *)static_cast<LivingWorldLogicObserver *>(this));
 }

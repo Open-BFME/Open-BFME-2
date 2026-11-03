@@ -70,7 +70,7 @@ class Rva005D4C61 : public Rva005D4C01List
 public:
 	Rva005D4C61(int,const AsciiString &);
  virtual ~Rva005D4C61();
- virtual void rva005D4C48(float);
+ virtual void setPosition(float);
 private:
 	Rva005D4BE7 m_14;
 };
@@ -87,6 +87,6 @@ class ScrollBarListenerSlots { public: virtual void slot00(); virtual void slot0
 class Rva005D48DBElem { public: void Method(int,float); };
 typedef void (Rva005D48DBElem::*Rva005D48DBFn)(int,float);
 class Rva005D4C1FList { public: void forEach(Rva005D48DBFn,int,float); };
-void Rva005D4C61::rva005D4C48(float position) {
+void Rva005D4C61::setPosition(float position) {
  reinterpret_cast<Rva005D4C1FList *>(reinterpret_cast<Rva005D4C01List *>(reinterpret_cast<char *>(this)+4))->forEach(reinterpret_cast<Rva005D48DBFn>(&ScrollBarListenerSlots::slot04),reinterpret_cast<int>(this),position);
 }

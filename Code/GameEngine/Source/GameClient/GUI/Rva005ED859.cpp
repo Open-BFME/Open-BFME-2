@@ -15,8 +15,8 @@ class Rva005ED976
 {
 public:
 	void SetUnitCount(int index, int value);
-	void rva005ED861(int row);
-	void rva005ED986(int index, const UnicodeString &name);
+	void selectPlayer(int row);
+	void setPlayerName(int index, const UnicodeString &name);
 
 private:
 	char m_pad00[4];
@@ -36,12 +36,12 @@ void Rva005ED976::SetUnitCount(int index, int value)
 	m_delegate->rva005ED76A(index, value);
 }
 
-void Rva005ED976::rva005ED861(int row)
+void Rva005ED976::selectPlayer(int row)
 {
 	m_delegate->SelectPlayer(row);
 }
 
-void Rva005ED976::rva005ED986(int index, const UnicodeString &name)
+void Rva005ED976::setPlayerName(int index, const UnicodeString &name)
 {
 	m_delegate->SetPlayerName(index, name);
 }

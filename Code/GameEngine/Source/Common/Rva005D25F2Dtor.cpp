@@ -127,7 +127,7 @@ StrategicHUD::CommandUIImpl::~CommandUIImpl()
 
 class Rva002BED91 { public: void clear(); };
 class Rva0057C22FByteChaseField { public: unsigned char get() const; };
-class Rva005C3E79 { public: void rva005C3E79(); };
+class Rva005C3E79 { public: void hide(); };
 class Rva005D2664 { public:
     void rva005D2664(int); void rva005D27BE(const char *);
     void rva005D28F4(const char *); void rva005D2A27(const char *);
@@ -197,7 +197,7 @@ void StrategicHUD::CommandUIImpl::rva005D2664(int i)
     reinterpret_cast<Rva002BED91 *>(&slot->reference0C)->clear();
     if(!slot->subMenu04.ptr) return;
     if(!reinterpret_cast<Rva0057C22FByteChaseField *>(slot->subMenu04.ptr)->get()) return;
-    reinterpret_cast<Rva005C3E79 *>(slot->subMenu04.ptr)->rva005C3E79();
+    reinterpret_cast<Rva005C3E79 *>(slot->subMenu04.ptr)->hide();
 }
 
 int StrategicHUD::CommandUIImpl::rva005D24E5(int i) { Rva005D2575 *slot=reinterpret_cast<Rva005D2575 *>(reinterpret_cast<char *>(this)+(i+1)*0x1C); return slot->help10.ptr || slot->reference0C.ptr; }

@@ -73,20 +73,20 @@ void Rva005C3ACD::rva005C3ACD()
     m_obj00->f2();
 }
 
-// ?rva005C3E79@Rva005C3E79@@QAEXXZ @0x005C3E79 8B
+// ?hide@Rva005C3E79@@QAEXXZ @0x005C3E79 8B
 // Ptr-chase tail-jmp to rowed ?rva005C3ACD@Rva005C3ACD@@QAEXXZ at 0x005C3ACD:
 // retail mov ecx,[ecx+4]; jmp 0x005C3ACD. Holder keeps target pointer at +4.
 // Evidence: callers at 0x005D2692 and 0x0056825C call with this in ecx no args.
 class Rva005C3E79
 {
 public:
-    void rva005C3E79();
+    void hide();
 private:
     char m_pad00[4];
     Rva005C3ACD *m_p04;
 };
 
-void Rva005C3E79::rva005C3E79()
+void Rva005C3E79::hide()
 {
     m_p04->rva005C3ACD();
 }

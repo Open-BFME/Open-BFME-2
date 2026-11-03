@@ -16,7 +16,7 @@ extern unsigned int AptComponentWindowDataTableStorage[5];
 struct Rva0041154FNode
 {
 	char m_pad[0x18];
-	GameWindow *m_18;
+	GameWindow *m_window;
 	char m_pad2[0x2C - 0x18 - 4];
 	unsigned char m_2C;
 };
@@ -28,7 +28,7 @@ void Rva0041154FHide()
 	while (iter.m_current != 0) {
 		Rva0041154FNode *node = (Rva0041154FNode *)iter.m_current;
 		if (node->m_2C == 0) {
-			GameWindow *win = node->m_18;
+			GameWindow *win = node->m_window;
 			if (win != 0) {
 				if (!win->winIsHidden()) {
 					win->winHide(true);

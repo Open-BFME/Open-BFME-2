@@ -23,7 +23,7 @@ public:
 class Rva005C3E79
 {
 public:
-	void rva005C3E79();
+	void hide();
 };
 
 struct Elem005D2664
@@ -54,7 +54,7 @@ void Rva005D2664::rva005D2664(int idx)
 		return;
 	if (!((Rva0057C22FByteChaseField *)e->m_holder04)->get())
 		return;
-	e->m_holder04->rva005C3E79();
+	e->m_holder04->hide();
 }
 
 // ?rva005D269B@Rva005D2664@@QAEXXZ @0x005D269B 23B: loop 6x over 0x005D2664.

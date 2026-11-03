@@ -39,7 +39,7 @@ public:
  bool rva0055A892(const class Object *);
  void setLifetime(unsigned);
  void setFilter(const Rva00360D26Member &);
- void rva0055A904(unsigned);
+ void setFlags(unsigned);
  void rva0055A91A();
  void hookToKeeper(Rva0039BCF8 *);
  void friend_addTrackedKill(const Coord3D *);

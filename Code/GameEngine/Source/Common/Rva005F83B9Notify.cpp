@@ -4,23 +4,23 @@
 // thiscall helper 0x00577944 first, then virtual slot #1 on each non-null
 // element head. Evidence: direct call plus indirect call [eax+4] with
 // test/je guard and add-8 stride in retail; frameless with no EH state.
-class Rva005F83B9Item
+class NotifyItem
 {
 public:
-	virtual ~Rva005F83B9Item();
+	virtual ~NotifyItem();
 	virtual void rva005F83B9Run();
 };
 
-struct Rva005F83B9Entry
+struct NotifyEntry
 {
-	Rva005F83B9Item *m_obj;
+	NotifyItem *m_obj;
 	int m_pad;
 };
 
 struct Rva005F83B9Vector
 {
-	Rva005F83B9Entry *m_start;
-	Rva005F83B9Entry *m_finish;
+	NotifyEntry *m_start;
+	NotifyEntry *m_finish;
 	int size() const { return m_finish - m_start; }
 };
 
@@ -36,11 +36,11 @@ public:
 void Rva005F83B9::rva005F83B9()
 {
 	rva00577944();
-	Rva005F83B9Entry *end = m_vec.m_finish;
-	Rva005F83B9Entry *it = m_vec.m_start;
+	NotifyEntry *end = m_vec.m_finish;
+	NotifyEntry *it = m_vec.m_start;
 	for (; it != end; ++it)
 	{
-		Rva005F83B9Item *notifyItem = it->m_obj;
+		NotifyItem *notifyItem = it->m_obj;
 		if (notifyItem)
 			notifyItem->rva005F83B9Run();
 	}

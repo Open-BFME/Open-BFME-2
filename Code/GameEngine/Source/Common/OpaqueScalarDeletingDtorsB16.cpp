@@ -144,7 +144,7 @@ public:
 public:
 	virtual ~Rva005D4C61();
 	// Retail C75AAC slot 1 names the matched float callback.
-	virtual void rva005D4C48(float);
+	virtual void setPosition(float);
 };
 
 // ?<Rva005D4C61::Rva005D4C61> absent-from-retail

@@ -154,7 +154,7 @@ void ScoredKillTracker::setLifetime(unsigned value){if(!m_keeper)m_lifetime=valu
 
 void ScoredKillTracker::setFilter(const Rva00360D26Member &filter){if(!m_keeper)m_filter=filter;}
 
-void ScoredKillTracker::rva0055A904(unsigned value){if(!m_keeper)m_value0c=value;}
+void ScoredKillTracker::setFlags(unsigned value){if(!m_keeper)m_value0c=value;}
 
 // tu-skeleton: 0x0055A914 6B ?Rva0055A914Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 

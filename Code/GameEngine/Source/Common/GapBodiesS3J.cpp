@@ -168,7 +168,7 @@ public:
 class Rva005ED976
 {
 public:
-	void rva005ED861(int xfer);								// 0x005ED861
+	void selectPlayer(int xfer);								// 0x005ED861
 };
 
 class Rva005D1362 : public FXParticleSystem::EmissionVelocityInfo
@@ -180,5 +180,5 @@ public:
 void Rva005D1362::DoXfer(Xfer &xfer)
 {
 	FXParticleSystem::EmissionVelocityInfo::DoXfer(xfer);
-	((Rva005ED976 *)this)->rva005ED861((int)&xfer);
+	((Rva005ED976 *)this)->selectPlayer((int)&xfer);
 }

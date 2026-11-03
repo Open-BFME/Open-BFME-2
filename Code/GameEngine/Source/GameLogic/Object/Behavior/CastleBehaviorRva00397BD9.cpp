@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc
-// ?rva00397BD9@Rva00397BD9@@UAEXHHH@Z, retail 0x00397BD9..0x00397C94 (187B,
+// ?onStateChanged@Rva00397BD9@@UAEXHHH@Z, retail 0x00397BD9..0x00397C94 (187B,
 // EH): a Ghidra-unlisted slot of the +0x10 interface table 0x00C1A168 next
 // to CastleBehavior's rowed 0x0039922D. On state 3 with the data flag +0x19
 // set and the owner controlled by the local player (ThePlayerList +0x10), it
@@ -74,7 +74,7 @@ private:
 struct Rva00397BD9Data
 {
 	char m_pad[0x19];
-	bool m_19;												// +0x19
+	bool m_evaEnabled;												// +0x19
 };
 
 class Rva00397BD9Base0
@@ -89,7 +89,7 @@ public:
 class Rva00397BD9Iface
 {
 public:
-	virtual void rva00397BD9(int a, int b, int state);
+	virtual void onStateChanged(int a, int b, int state);
 	int m_14;
 	ObjectID m_targetID;									// +0x18
 	char m_pad1C[0x25 - 0x1C];
@@ -99,14 +99,14 @@ public:
 class Rva00397BD9 : public Rva00397BD9Base0, public Rva00397BD9Iface
 {
 public:
-	virtual void rva00397BD9(int a, int b, int state);
+	virtual void onStateChanged(int a, int b, int state);
 };
 
-void Rva00397BD9::rva00397BD9(int, int, int state)
+void Rva00397BD9::onStateChanged(int, int, int state)
 {
 	if (state == 3)
 	{
-		if (m_data->m_19)
+		if (m_data->m_evaEnabled)
 		{
 			Player *localPlayer = ((Rva00397BD9PlayerListView *)ThePlayerList)->m_local;
 			if (localPlayer == m_object->getControllingPlayer())

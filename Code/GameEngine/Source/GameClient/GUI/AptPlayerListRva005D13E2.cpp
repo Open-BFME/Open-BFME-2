@@ -94,8 +94,8 @@ public:
 	void rva005ED849(int index, int color);
 	void rva005ED851(int index, int value);
 	void SetUnitCount(int index, int value);
-	void rva005ED861(int row);
-	void rva005ED986(int index, const UnicodeString &name);
+	void selectPlayer(int row);
+	void setPlayerName(int index, const UnicodeString &name);
 	void SetRegionBonusText(int index, const UnicodeString &text);
 	void rva005ED5BB(int index, const Image *image);
 };
@@ -138,7 +138,7 @@ void StrategicInGameUI::RegionAwardDialog::Impl::SetupMovieClipPlayers()
 		char *entry = m_entriesBegin[index];
 		Rva005D13E2LoopTemps temps;
 		temps.imageInfo = *(void **)(entry + 0x40);
-		m_rowView->rva005ED986(index, *(UnicodeString *)(entry + 0x1C));
+		m_rowView->setPlayerName(index, *(UnicodeString *)(entry + 0x1C));
 
 		int color = ((RGBColor *)(entry + 0x184))->getAsInt() | 0xFF000000;
 		((Rva005ED849*)m_rowView)->rva005ED849(index,color);
@@ -157,7 +157,7 @@ void StrategicInGameUI::RegionAwardDialog::Impl::SetupMovieClipPlayers()
 		temps.currentView->SetUnitCount(index, units);
 	}
 
-	m_rowView->rva005ED861(0);
+	m_rowView->selectPlayer(0);
 }
 
 // ?GetRegion@Impl@RegionAwardDialog@StrategicInGameUI@@QAEPAVRva0020E89C@@XZ @ 0x005D137D, 26 bytes.

@@ -22,8 +22,8 @@ struct RvaMapCacheEmptyAllocator {
  __forceinline RvaMapCacheEmptyAllocator() {}
 };
 struct RvaMapCacheNodeHeader {
- unsigned char color00; unsigned char padding01[3];
- RvaMapCacheNodeHeader *parent04,*left08,*right0C;
+ unsigned char m_color; unsigned char padding01[3];
+ RvaMapCacheNodeHeader *m_parent,*m_left,*m_right;
 };
 class RvaMapCacheProxy0014F3C4 {
 public:
@@ -49,10 +49,10 @@ public:
 Rva0022C68CMetadataTree::Rva0022C68CMetadataTree(const RvaMapCacheEmptyAllocator&,const RvaMapCacheEmptyAllocator&allocator)
  :base00(allocator) {
  count04=0;
- base00.header00.pointer00->color00=0;
- base00.header00.pointer00->parent04=0;
- base00.header00.pointer00->left08=base00.header00.pointer00;
- base00.header00.pointer00->right0C=base00.header00.pointer00;
+ base00.header00.pointer00->m_color=0;
+ base00.header00.pointer00->m_parent=0;
+ base00.header00.pointer00->m_left=base00.header00.pointer00;
+ base00.header00.pointer00->m_right=base00.header00.pointer00;
 }
 class Rva0022E272MetadataMap {
 public:
