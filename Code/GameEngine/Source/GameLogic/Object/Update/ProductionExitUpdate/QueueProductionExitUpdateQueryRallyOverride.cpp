@@ -23,15 +23,7 @@ private:
 	unsigned char m_bytes[28];
 };
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void rva00362192(Rva00045411BitSet first, BfmeFixedStorage0004543D second);
-private:
-	unsigned m_record;
-};
+#include "../../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class Rva000421C8
 {

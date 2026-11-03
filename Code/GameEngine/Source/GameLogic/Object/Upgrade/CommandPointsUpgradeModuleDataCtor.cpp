@@ -27,14 +27,7 @@ public:
 	~Rva00253487Base();
 };
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-	unsigned char m_data[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class CommandPointsUpgradeModuleData : public Rva00253487Base
 {

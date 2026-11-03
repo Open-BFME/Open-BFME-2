@@ -15,14 +15,7 @@
 
 #include "ascii_string.h"
 
-class Rva003623E5Member
-{
-public:
-	~Rva003623E5Member();
-
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class RvaVecAscii
 {

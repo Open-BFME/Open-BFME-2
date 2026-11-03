@@ -21,15 +21,7 @@ private:
 	unsigned char m_pad[0x10 - 4];
 };
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-
-private:
-	unsigned char m_data[4];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 #include "ascii_string.h"
 

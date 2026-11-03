@@ -194,15 +194,7 @@ public:
 };
 
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 #include "../../../../Include/GameLogic/Module/Rva00507823.h"
 class Made002CC8A4 : public Rva00507823
 {

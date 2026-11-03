@@ -18,13 +18,7 @@ typedef bool Bool;
 #include "subsystem_interface.h"
 #include "Common/Snapshot.h"
 
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	int m_index;
-};
+#include "../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 template <int NUMBITS> class BitFlags
 {

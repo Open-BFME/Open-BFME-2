@@ -10,16 +10,7 @@ template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 extern "C" const void *const __identifier("??_7EmotionTrackerUpdateModuleData@@6B@")[];
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
-class Rva003623E5Member
-{
-public:
-	Rva003623E5Member();
-	~Rva003623E5Member();
-	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
-
-private:
-	int m_x;
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 // The lookup bodies are visible so the compiler knows they only read the map
 // and keeps the closest ID and the active nugget across the lookups.
