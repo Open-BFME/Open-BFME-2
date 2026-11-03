@@ -31,15 +31,7 @@ TerrainTypeCollection * TheTerrainTypes = 0;
 
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
-class W3DTerrainVisual
-{
-public:
-	virtual TerrainType *getTerrainTile(Real x, Real y);
-
-private:
-	char m_pad04[0x18];
-	WorldHeightMap *m_logicHeightMap;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
 TerrainType *W3DTerrainVisual::getTerrainTile(Real x, Real y)
 {

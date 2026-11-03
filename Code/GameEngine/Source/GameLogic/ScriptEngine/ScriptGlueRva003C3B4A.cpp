@@ -15,11 +15,7 @@ public:
 };
 
 #include "../../../Include/GameClient/TerrainVisualClass.h"
-class W3DTerrainVisual : public TerrainVisual
-{
-public:
-	virtual void removeAllBibs();
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;
 
