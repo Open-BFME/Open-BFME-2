@@ -1,0 +1,16 @@
+tu: Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp
+approved: 22
+mixed: {}
+refused: {}
+accepted: ['Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp', 'Code/GameEngine/Source/GameClient/GUI/HeaderTemplateManagerRva00201B05.cpp']
+rejected: {}
+link_guard: census-linked: Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp, Code/GameEngine/Source/GameClient/GUI/HeaderTemplateManagerRva00201B05.cpp
+flags: ['/EHs', '/MD', '/D_CRTIMP=', '/D_STLP_USE_STATIC_LIB', '/Ireference/shims/bfme2_ascii', '-Ireference/open-bfme-1/inputs/reference/shims/sweep', '-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug', '-Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad', '-Ireference/open-bfme-1/game/GameEngine/Source/GameClient/GUI', '/Ireference/shims/bfmelist', '/Ireference/shims/bfmealloc']
+rows: 25
+carried: {'reverse/flag_overrides.csv': 1}
+trailer: Verifier-Change: tu_skeleton --merge carried the protected-register keys of 1 absorbed donor(s) to Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp (transfer; totals kept)
+follow-up:
+  python3 tools/flag_defaults.py propose Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp (drops the override when the region default keeps every row)
+repointed: {'reverse/functions.csv': 5, 'reverse/tu_map.csv': 5, 'reverse/flag_overrides.csv': 1}
+stage: staged: Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp reverse/flag_overrides.csv reverse/functions.csv reverse/tu_map.csv Code/GameEngine/Source/GameClient/GUI/HeaderTemplateManagerRva00201B05.cpp
+subject: Merge 2 files into HeaderTemplate.cpp (25 rows, tu_map approved TU, retail order)
