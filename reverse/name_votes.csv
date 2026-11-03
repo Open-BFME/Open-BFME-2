@@ -23504,3 +23504,5 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|R
 Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|Rva0045ADC1|m_24,f95a0e22d453d045136ac1a7,drz-t12,drz-t12-sv3-2,w-02b96a65a6a1,2026-11-03
 Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp|member|Rva0045B134|m_20,7a68f14da21087563546a173,drz-t12,drz-t12-sv3-4,w-02b96a65a6a1,2026-11-03
 Code/GameEngine/Source/Common/Rva003F7478Scale.cpp|function|0x003F7465|rva003F7465,951fdfec003bda68879c65f6,drz-t16,drz-t16-sv3-12,w-c68e8a9b002b,2026-11-03
+Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp|function|0x005ED861|rva005ED861,8cb7932484e39026e21f3591,drz-t28,drz-t28-sv3-2,w-f1463ee6b143,2026-11-03
+Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp|function|0x005ED986|rva005ED986,82b3c3e4070237db0c09177f,drz-t28,drz-t28-sv3-2,w-f1463ee6b143,2026-11-03
