@@ -991,3 +991,16 @@ Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp|loca
 Code/Libraries/Source/Compression/EAC/btreeencode.cpp|local|BTREE_joinnodes|s,ffeff868e3b437297fbdd6a5,drz-k7,drz-k7-n48-5,w-4471b1f6edef,2026-11-03,eab5cac2b19dc5555efb0557
 Code/Libraries/Source/Compression/EAC/btreeencode.cpp|local|BTREE_joinnodes|d,17d2688ffcfe08480c1448e6,drz-k7,drz-k7-n48-5,w-4471b1f6edef,2026-11-03,758a6dfdec1b9b1f55cc6fd7
 Code/Libraries/Source/WWVegas/WW3D2/Rva0016825DLineBounds.cpp|param|Rva0016825DPoint#2|v,4c1bc0777040fb79fd602a09,drz-k7,drz-k7-n48-8,w-4471b1f6edef,2026-11-03,f3282ec8dfbddbd131b928e1
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000806F3BasesParams.cpp|param|Rva00080E30Scale|v,09918a35a1ff169c124ed6a3,drz-k3,drz-k3-sv1c-1,w-077d7aeb666b,2026-11-03,f65cd23a38928ec09e4db17f
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000806F3BasesParams.cpp|param|Rva0008103ASum|q,17522713e484ae201572d185,drz-k3,drz-k3-sv1c-1,w-077d7aeb666b,2026-11-03,f698f1870ae201c7c67ae86a
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000806F3BasesParams.cpp|param|Rva0008103AAdjust|v,b3db32642f1dfea0ce2a644c,drz-k3,drz-k3-sv1c-1,w-077d7aeb666b,2026-11-03,a46ba5447227be7a4f3a14f7
+Code/GameEngine/Source/Common/AptOnlineHome.cpp|local|AptOnlineHome::rva005B947D|tmp,5d52ab22b91cfb45555b7ecb,drz-k3,drz-k3-sv1c-2,w-077d7aeb666b,2026-11-03,3fc76bbec03c7e8ac995822f
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|param|W3DDisplay::createLightPulse|a,f6a56df9f8737e19cb5b2463,drz-k3,drz-k3-sv1c-4,w-077d7aeb666b,2026-11-03,52e404b8f5007fac1575fa04
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|param|W3DDisplay::createLightPulse|b,50697ccb45fb6b3a268a0073,drz-k3,drz-k3-sv1c-4,w-077d7aeb666b,2026-11-03,db4b210b01bd7c43f39461d2
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|param|W3DDisplay::createLightPulse|c,86e42a7ffe661d9431ff5d00,drz-k3,drz-k3-sv1c-4,w-077d7aeb666b,2026-11-03,bb03fc8b6f493896da0dcb0b
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreateLightPulse.cpp|param|W3DDisplay::createLightPulse|d,95fc3c67c067b79dc4fe48ca,drz-k3,drz-k3-sv1c-4,w-077d7aeb666b,2026-11-03,5c9bbe54b15c827f277a3474
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp|local|ScriptActions::doMilitaryCaption|v,f06aa6f9097c8fc290c42fd4,drz-k3,drz-k3-sv1c-9,w-077d7aeb666b,2026-11-03,667408d4643740618acb40f5
+Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp|param|Rva0056B8F4::rva0056B8F4|arg,4c0b80389da262200ea8bb04,drz-k3,drz-k3-sv1c-13,w-077d7aeb666b,2026-11-03,41e096cbdbca9fa63672f0b7
+Code/GameEngine/Source/Common/LivingWorldArmyIconSubObject.cpp|param|Rva0056B929::rva0056B929|arg,7856de77e38bfd49633fed4a,drz-k3,drz-k3-sv1c-13,w-077d7aeb666b,2026-11-03,9a8f1a3b5d545b3c984cecbb
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp|local|Rva000B348E::rva000B348E|o,a880ba34ab0c2021296b720d,drz-k3,drz-k3-sv1c-16,w-077d7aeb666b,2026-11-03,4de1c6664c418350a8ad09ec
+Code/GameEngine/Source/Common/BfmeConv1455.cpp|local|BfmeCtxVMP::bfmeResetVMP|b,c0ab95785a66e573a654d4b9,drz-k3,drz-k3-sv1c-17,w-077d7aeb666b,2026-11-03,855d4dc09473ce49855c7bce
