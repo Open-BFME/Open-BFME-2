@@ -64,11 +64,7 @@ public:
 	bool m_match;
 };
 // The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
-struct Rva00045411BitSet
-{
-	unsigned m_bits[7];
-	Rva00045411BitSet(int unused, int bit);	// 0x00045411
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
 // first mask and none of the second.

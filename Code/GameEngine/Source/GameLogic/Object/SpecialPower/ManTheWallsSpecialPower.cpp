@@ -157,11 +157,7 @@ public:
 	BfmeFixedStorage0004543D m_24;
 };
 
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int unused, int bit) throw();	// 0x00045411
-	unsigned int m_bits[7];
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template<int Bits> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 

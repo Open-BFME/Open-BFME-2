@@ -1101,12 +1101,7 @@ extern BfmeTaintManager *TheTaintManager;
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
-struct Rva00045411BitSet
-{
-public:
-	Rva00045411BitSet(int unused, int bit) throw(); // 0x00045411
-	unsigned int m_bits[7]; // +0x00
-};
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva0004584D : public Rva000421C8
 {
 public:

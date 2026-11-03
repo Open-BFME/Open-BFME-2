@@ -82,11 +82,7 @@ class BfmeFixedStorage0004543D
 {
 	unsigned char bytes[28];
 };
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int, int) throw();
-	unsigned int bits[7];
-};
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva000421C8

@@ -37,11 +37,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int unused, int bit) throw();
-	unsigned int m_bits[7];
-};
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 
 class Rva000421C8
 {

@@ -8,12 +8,7 @@
 
 #include <string.h>
 
-struct Rva00045411BitSet
-{
-	unsigned m_bits[7];
-
-	Rva00045411BitSet(int unused, int bit);
-};
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 
 // ??0Rva00045411BitSet@@QAE@HH@Z -- retail 0x00045411, 44 bytes.
 // Called from GarrisonContainModuleData ctor 0x47978F (bit 8) and ten other

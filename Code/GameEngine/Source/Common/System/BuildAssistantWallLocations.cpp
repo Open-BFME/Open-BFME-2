@@ -641,11 +641,7 @@ Rva000421C8*link(Rva000421C8*filter);
 Rva000421C8*m_next;
 };
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
-struct Rva00045411BitSet
-{
-Rva00045411BitSet(int unused,int bit)throw();
-unsigned int m_bits[7];
-};
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int NUMBITS> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva0004584D : public Rva000421C8
