@@ -643,3 +643,4 @@ RebuildHoleBehavior,Code/GameEngine/Include/GameLogic/Module/RebuildHoleBehavior
 DeployStyleAIUpdate,Code/GameEngine/Include/GameLogic/Module/DeployStyleAIUpdateClass.h,existing header; contract class_contracts/DeployStyleAIUpdate.json; 3/9 sampled units adopt
 MiscAudio,Code/GameEngine/Include/Common/MiscAudioClass.h,existing header; contract class_contracts/MiscAudio.json; 5/10 sampled units adopt
 W3DShroud,Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DShroudClass.h,existing header; contract class_contracts/W3DShroud.json; 6/13 sampled units adopt
+WinDrawData,Code/GameEngine/Include/GameClient/WinDrawData.h,existing header; contract class_contracts/WinDrawData.json; 7/8 sampled units adopt
