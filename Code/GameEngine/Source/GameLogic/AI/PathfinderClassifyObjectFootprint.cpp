@@ -37,12 +37,10 @@ class Object {public:
 };
 #include "../../Common/Thing/thing.h"
 struct Rva0052DEEFArg;struct Rva0052DFB1Arg;struct In002E6BA1{int x,y;};
-class PathfindCell {public:
- bool SetType_Dirty(int);bool rva0052DEEF(const Rva0052DEEFArg*,bool,In002E6BA1*);bool rva0052DFB1(const Rva0052DFB1Arg*);
- enum CellType{Clear=0,Water=1,Cliff=2,Reserved=3,Obstacle=4,Impassable=5}; __forceinline int type()const{return m_type;}__forceinline int layer()const{return m_layer;}__forceinline bool pinched()const{return m_pinched;}__forceinline void pinch(bool b){m_pinched=b;}
- __forceinline bool gate()const{return m_gate;}
- char pad[12];unsigned m_type:4;unsigned m_layer:6;unsigned m_low:6;unsigned m_pinched:1;unsigned m_gate:1;unsigned m_mid:4;unsigned m_22:1;unsigned m_23:1;unsigned m_high:8;
-};
+#include "../../../Include/GameLogic/PathfindCell.h"
+// Retail inlines these packed-dword (+0x0C) bit accesses: pinched bit 16, gate bit 17.
+static __forceinline void setCellPinched(PathfindCell *cell,bool b){if(b)cell->m_0C|=0x10000u;else cell->m_0C&=~0x10000u;}
+static __forceinline bool getCellGate(const PathfindCell *cell){return ((cell->m_0C>>17)&1)!=0;}
 class Rva0052E001{public:bool rva0052E001(bool);};
 class Rva0052E02F{public:bool rva0052E02F(bool);};
 class PathfindZoneManager{public:void MarkDirty(int,int);};
@@ -80,7 +78,7 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
  if((gate||bit22)&&!insert)changedGate=true;
  if(insert&&obj->templ->kind(120)&&obj->isKindOf(KINDOF_5E)){
   int x=(int)(objPos->x*0.1f),y=(int)(objPos->y*0.1f);
-  for(i=-60;i<=60;++i)for(j=-60;j<=60;++j){PathfindCell*cell=getCell(LayerGround,x+i,y+j);if(cell&&cell->gate()){((Rva0052E001*)cell)->rva0052E001(false);zones.MarkDirty(x+i,y+j);}}
+  for(i=-60;i<=60;++i)for(j=-60;j<=60;++j){PathfindCell*cell=getCell(LayerGround,x+i,y+j);if(cell&&getCellGate(cell)){((Rva0052E001*)cell)->rva0052E001(false);zones.MarkDirty(x+i,y+j);}}
  }
  Rva0027C36A data;
  void*poly;
@@ -105,19 +103,19 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
      int cx=FLOOR((x+0.5f)*0.1f),cy=FLOOR((y+0.5f)*0.1f);
      if(cx<0||cy<0||cx>=extent.hx||cy>=extent.hy)continue;
      bool accept=false;
-     if(map[cx][cy].layer()!=1){
+     if(map[cx][cy].getLayer()!=1){
       if(!gate)continue;
-      if((map[cx][cy].type()==0||map[cx][cy].type()==3)&&insert)accept=true;
-      if((map[cx][cy].type()==4||map[cx][cy].type()==3)&&!insert)accept=true;
+      if((map[cx][cy].getType()==0||map[cx][cy].getType()==3)&&insert)accept=true;
+      if((map[cx][cy].getType()==4||map[cx][cy].getType()==3)&&!insert)accept=true;
       if(!accept)continue;
      }
      bool dirty;
      if(insert){
-      if(gate){if(map[cx][cy].type()==2||map[cx][cy].type()==3){map[cx][cy].SetType_Dirty(0);zones.MarkDirty(cx,cy);}}
+      if(gate){if(map[cx][cy].getType()==2||map[cx][cy].getType()==3){map[cx][cy].SetType_Dirty(0);zones.MarkDirty(cx,cy);}}
       In002E6BA1 cellPoint={cx,cy};dirty=map[cx][cy].rva0052DEEF((const Rva0052DEEFArg*)obj,false,&cellPoint);
      }else dirty=map[cx][cy].rva0052DFB1((const Rva0052DFB1Arg*)obj);
      if(dirty)zones.MarkDirty(cx,cy);
-     if(gate&&!keepGate&&map[cx][cy].gate()!=insert){((Rva0052E001*)&map[cx][cy])->rva0052E001(insert);zones.MarkDirty(cx,cy);}
+     if(gate&&!keepGate&&getCellGate(&map[cx][cy])!=insert){((Rva0052E001*)&map[cx][cy])->rva0052E001(insert);zones.MarkDirty(cx,cy);}
      if(((Rva0052E02F*)&map[cx][cy])->rva0052E02F(bit22))zones.MarkDirty(cx,cy);
     }
    }
@@ -137,10 +135,10 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
    bottomRight.x=(int)(topLeft.x+2*size+2);bottomRight.y=(int)(topLeft.y+2*size+2);
    for(j=topLeft.y;j<bottomRight.y;++j)for(i=topLeft.x;i<bottomRight.x;++i){
     delta.x=i+0.5f-center.x;delta.y=j+0.5f-center.y;
-    if(!(delta.x*delta.x+delta.y*delta.y<=radiusSquared)||i<0||j<0||i>=extent.hx||j>=extent.hy||map[i][j].layer()!=1)continue;
+    if(!(delta.x*delta.x+delta.y*delta.y<=radiusSquared)||i<0||j<0||i>=extent.hx||j>=extent.hy||map[i][j].getLayer()!=1)continue;
     if(insert){In002E6BA1 cellPoint={i,j};if(map[i][j].rva0052DEEF((const Rva0052DEEFArg*)obj,false,&cellPoint))zones.MarkDirty(i,j);}
     else if(map[i][j].rva0052DFB1((const Rva0052DFB1Arg*)obj))zones.MarkDirty(i,j);
-    if(gate&&map[i][j].gate()!=insert){((Rva0052E001*)&map[i][j])->rva0052E001(insert);zones.MarkDirty(i,j);}
+    if(gate&&getCellGate(&map[i][j])!=insert){((Rva0052E001*)&map[i][j])->rva0052E001(insert);zones.MarkDirty(i,j);}
     if(((Rva0052E02F*)&map[i][j])->rva0052E02F(bit22))zones.MarkDirty(i,j);
    }
   }break;
@@ -155,38 +153,38 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
  if(bounds.hx>extent.hx)bounds.hx=extent.hx;
  if(bounds.hy>extent.hy)bounds.hy=extent.hy;
  if(!insert)for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
-  if(map[i][j].type()==5&&map[i][j].layer()==1){map[i][j].SetType_Dirty(0);zones.MarkDirty(i,j);}
+  if(map[i][j].getType()==5&&map[i][j].getLayer()==1){map[i][j].SetType_Dirty(0);zones.MarkDirty(i,j);}
  }
  // Check for pinched cells, and close them off.
  for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
-  if(map[i][j].layer()!=1)continue;
-  map[i][j].pinch(false);
-  if(map[i][j].type()==0){
+  if(map[i][j].getLayer()!=1)continue;
+  setCellPinched(&map[i][j],false);
+  if(map[i][j].getType()==0){
    int total=0,ortho=0;
    for(int k=i-1;k<i+2;++k){if(k<extent.lx||k>extent.hx)continue;
     for(int neighborY=j-1;neighborY<j+2;++neighborY){if(neighborY<extent.ly||neighborY>extent.hy)continue;
      if(k==i&&j==neighborY)continue;
-     if(map[k][neighborY].type()==0){++total;if(k==i||neighborY==j)++ortho;}
+     if(map[k][neighborY].getType()==0){++total;if(k==i||neighborY==j)++ortho;}
     }
    }
    // If the total open cells are < 2 or total cells < 4, we are pinched.
-   if(ortho<2||total<4)map[i][j].pinch(true);
+   if(ortho<2||total<4)setCellPinched(&map[i][j],true);
   }
  }
  for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
-  if(map[i][j].layer()==1&&map[i][j].pinched()&&map[i][j].type()==0){map[i][j].SetType_Dirty(5);map[i][j].pinch(false);zones.MarkDirty(i,j);}
+  if(map[i][j].getLayer()==1&&map[i][j].getPinched()&&map[i][j].getType()==0){map[i][j].SetType_Dirty(5);setCellPinched(&map[i][j],false);zones.MarkDirty(i,j);}
  }
  // Expand building bounds 1 cell.
  for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
-  if(map[i][j].layer()==1&&map[i][j].type()==0){
+  if(map[i][j].getLayer()==1&&map[i][j].getType()==0){
    bool adjacent=false;
    for(int k=i-1;k<i+2;++k){if(k<extent.lx||k>extent.hx)continue;
     for(int neighborY=j-1;neighborY<j+2;++neighborY){if(neighborY<extent.ly||neighborY>extent.hy)continue;
      if(k==i&&neighborY==j)continue;if(k!=i&&neighborY!=j)continue;
-     if(map[k][neighborY].type()==4){adjacent=true;break;}
+     if(map[k][neighborY].getType()==4){adjacent=true;break;}
     }
    }
-   if(adjacent)map[i][j].pinch(true);
+   if(adjacent)setCellPinched(&map[i][j],true);
   }
  }
  if(wall&&drawable){float z;if(drawable->rva0027257B((int)&z))ClassifyWall(obj,insert);}

@@ -38,39 +38,21 @@ public:
 	void rva0052ED74(void *,int);
 };
 
-class PathfindCell
+#include "../../../Include/GameLogic/PathfindCell.h"
+
+// Retail inlines these packed-dword (+0x0C) accesses: layer bits 4..9 read as
+// an int, pinched bit 16.
+static __forceinline Int getCellLayerBits(const PathfindCell *cell)
 {
-public:
-	enum CellType
-	{
-		CELL_CLEAR = 0,
-		CELL_WATER = 1,
-		CELL_CLIFF = 2,
-		CELL_DEEP_WATER = 7
-	};
-
-	// Keep the native four-bit access inline without a competing getter copy.
-	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)type; }
-	bool getPinched() const { return pinched; }
-	Int getLayer() const { return layer; }
-	void setPinched(bool pinch) { pinched = pinch; }
-	bool getBit22() const { return m_bit22; }
-	bool getBit23() const { return m_bit23; }
-	bool SetType_Dirty(int type);
-	void setBit22(bool on) { reinterpret_cast<Rva0052E02F *>(this)->rva0052E02F(on); }
-	void setBit23(bool on) { reinterpret_cast<Rva0052E0CE *>(this)->rva0052E0CE(on); }
-
-public:
-	char m_head[0x0C];
-	unsigned int type : 4;
-	unsigned int layer : 6;
-	unsigned int m_low : 6;
-	unsigned int pinched : 1;
-	unsigned int m_mid : 5;
-	unsigned int m_bit22 : 1;
-	unsigned int m_bit23 : 1;
-	unsigned int m_high : 8;
-};
+	return (cell->m_0C >> 4) & 0x3F;
+}
+static __forceinline void setCellPinched(PathfindCell *cell, bool pinch)
+{
+	if (pinch)
+		cell->m_0C |= 0x10000u;
+	else
+		cell->m_0C &= ~0x10000u;
+}
 
 #include "Code/Libraries/Include/Lib/ICoord2D.h"
 
@@ -239,36 +221,36 @@ void Pathfinder::ClassifyWall(Object*obj,bool insert)
    if(rva0052E6E6(i,j,&m_map[i][j],area,layer,insert)){BfmeE8 p={i,j};changed.push_back(p);}
   }
   for(j=cellBounds.lo.y;j<=cellBounds.hi.y;++j)for(i=cellBounds.lo.x;i<=cellBounds.hi.x;++i){
-   const int current=m_map[i][j].layer;
-   if(current==layer)m_map[i][j].setPinched(false);
+   const int current=getCellLayerBits(&m_map[i][j]);
+   if(current==layer)setCellPinched(&m_map[i][j], false);
    if(m_map[i][j].getType()==0){
     int count=0;for(int k=i-1;k<i+2;k++){if(k<extent.lo.x||k>extent.hi.x)continue;
      for(int l=j-1;l<j+2;++l){if(l<extent.lo.y||l>extent.hi.y)continue;if(k==i&&j==l)continue;
-      if(m_map[k][l].layer!=current)++count;
+      if(getCellLayerBits(&m_map[k][l])!=current)++count;
      }
     }
-    if(count > 1)m_map[i][j].setPinched(true);
+    if(count > 1)setCellPinched(&m_map[i][j], true);
    }
   }
   for(_STL::vector<BfmeE8>::iterator p=changed.begin();p!=changed.end();p++){
-   const int i=p->a,j=p->b;if(m_map[i][j].getPinched()&&m_map[i][j].getType()==0){m_map[i][j].SetType_Dirty(8);zones.MarkDirty(i,j);}m_map[i][j].setPinched(false);
+   const int i=p->a,j=p->b;if(m_map[i][j].getPinched()&&m_map[i][j].getType()==0){m_map[i][j].SetType_Dirty(8);zones.MarkDirty(i,j);}setCellPinched(&m_map[i][j], false);
   }
  }else{
   _STL::set<int>::iterator found=wallIDs.find(obj->getID());if(found!=wallIDs.end())wallIDs.erase(found);
   for(j=cellBounds.lo.y;j<=cellBounds.hi.y;j++)for(i=cellBounds.lo.x;i<=cellBounds.hi.x;++i){
-   if(m_map[i][j].getPinched()){int current=m_map[i][j].layer;int count=0;
+   if(m_map[i][j].getPinched()){int current=getCellLayerBits(&m_map[i][j]);int count=0;
     for(int k=i-1;k<i+2;k++){if(k<extent.lo.x||k>extent.hi.x)continue;
-     for(int l=j-1;l<j+2;l++){if(l<extent.lo.y||l>extent.hi.y)continue;if(k==i&&j==l)continue;if(m_map[k][l].layer!=current)++count;}
+     for(int l=j-1;l<j+2;l++){if(l<extent.lo.y||l>extent.hi.y)continue;if(k==i&&j==l)continue;if(getCellLayerBits(&m_map[k][l])!=current)++count;}
     }
-    if(count > 1)m_map[i][j].setPinched(false);
+    if(count > 1)setCellPinched(&m_map[i][j], false);
    }
   }
   for(j=cellBounds.lo.y;j<=cellBounds.hi.y;j++)for(i=cellBounds.lo.x;i<=cellBounds.hi.x;++i){
    PathfindCell*cell=&m_map[i][j];
-   if(cell->layer==layer){
+   if(getCellLayerBits(cell)==layer){
     bool dirty=cell->SetType_Dirty(0);dirty|=((Rva0052E001*)cell)->rva0052E001(false);dirty|=((Rva00366500*)cell)->rva00366500(true);dirty|=((Rva00366500*)cell)->rva0036652D(false);
     _ReadWriteBarrier();
-    if(dirty)zones.MarkDirty(i,j);cell->setPinched(false);
+    if(dirty)zones.MarkDirty(i,j);setCellPinched(cell, false);
    }
   }
   for(_STL::set<int>::iterator p=wallIDs.begin();p!=wallIDs.end();++p){

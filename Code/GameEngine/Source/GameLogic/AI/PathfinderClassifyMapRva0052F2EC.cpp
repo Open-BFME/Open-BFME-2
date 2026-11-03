@@ -31,37 +31,34 @@ public:
 	void rva0052F294();
 };
 
-class PathfindCell
+#include "../../../Include/GameLogic/PathfindCell.h"
+
+// Cell types 2 and 7 have no name in PathfindCell::CellType yet.
+static const Int CELL_TYPE_CLIFF = 2;
+static const Int CELL_TYPE_DEEP_WATER = 7;
+
+// Retail inlines these accesses to the packed dword at +0x0C: pinched bit 16,
+// edge bits 22 and 23; the bit 22/23 setters are the rowed out-of-line bodies.
+static __forceinline void setCellPinched(PathfindCell *cell)
 {
-public:
-	enum CellType
-	{
-		CELL_CLEAR = 0,
-		CELL_WATER = 1,
-		CELL_CLIFF = 2,
-		CELL_DEEP_WATER = 7
-	};
-
-	// Keep the native four-bit access inline without a competing getter copy.
-	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)m_type; }
-	bool getPinched() const { return m_pinched; }
-	void setPinched(bool pinch) { m_pinched = pinch; }
-	bool getBit22() const { return m_bit22; }
-	bool getBit23() const { return m_bit23; }
-	bool SetType_Dirty(int type);
-	void setBit22(bool on) { reinterpret_cast<Rva0052E02F *>(this)->rva0052E02F(on); }
-	void setBit23(bool on) { reinterpret_cast<Rva0052E0CE *>(this)->rva0052E0CE(on); }
-
-private:
-	char m_head[0x0C];
-	unsigned int m_type : 4;
-	unsigned int m_low : 12;
-	unsigned int m_pinched : 1;
-	unsigned int m_mid : 5;
-	unsigned int m_bit22 : 1;
-	unsigned int m_bit23 : 1;
-	unsigned int m_high : 8;
-};
+	cell->m_0C |= 0x10000u;
+}
+static __forceinline bool getCellBit22(const PathfindCell *cell)
+{
+	return ((cell->m_0C >> 22) & 1) != 0;
+}
+static __forceinline bool getCellBit23(const PathfindCell *cell)
+{
+	return ((cell->m_0C >> 23) & 1) != 0;
+}
+static __forceinline void setCellBit22(PathfindCell *cell, bool on)
+{
+	reinterpret_cast<Rva0052E02F *>(cell)->rva0052E02F(on);
+}
+static __forceinline void setCellBit23(PathfindCell *cell, bool on)
+{
+	reinterpret_cast<Rva0052E0CE *>(cell)->rva0052E0CE(on);
+}
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
@@ -94,7 +91,7 @@ void Pathfinder::Rva0052F2EC()
 	{
 		for (i = m_extent.lo.x; i <= m_extent.hi.x; i++)
 		{
-			if (m_map[i][j].getType() == PathfindCell::CELL_CLIFF)
+			if (m_map[i][j].getType() == CELL_TYPE_CLIFF)
 			{
 				for (Int k = i - 1; k < i + 2; k++)
 				{
@@ -106,7 +103,7 @@ void Pathfinder::Rva0052F2EC()
 							continue;
 						if (m_map[k][l].getType() == PathfindCell::CELL_CLEAR)
 						{
-							m_map[k][l].setPinched(true);
+							setCellPinched(&m_map[k][l]);
 						}
 					}
 				}
@@ -120,7 +117,7 @@ void Pathfinder::Rva0052F2EC()
 		{
 			if (m_map[i][j].getPinched() && m_map[i][j].getType() == PathfindCell::CELL_CLEAR)
 			{
-				m_map[i][j].SetType_Dirty(PathfindCell::CELL_CLIFF);
+				m_map[i][j].SetType_Dirty(CELL_TYPE_CLIFF);
 			}
 		}
 	}
@@ -132,14 +129,14 @@ void Pathfinder::Rva0052F2EC()
 		for (i = m_extent.lo.x; i <= m_extent.hi.x; i++)
 		{
 			PathfindCell *cell = &m_map[i][j];
-			if (cell->getType() == PathfindCell::CELL_DEEP_WATER)
+			if (cell->getType() == CELL_TYPE_DEEP_WATER)
 			{
-				if ((i > m_extent.lo.x && m_map[i - 1][j].getType() != PathfindCell::CELL_DEEP_WATER)
-					|| (i < m_extent.hi.x && m_map[i + 1][j].getType() != PathfindCell::CELL_DEEP_WATER)
-					|| (j > m_extent.lo.y && m_map[i][j - 1].getType() != PathfindCell::CELL_DEEP_WATER)
-					|| (j < m_extent.hi.y && m_map[i][j + 1].getType() != PathfindCell::CELL_DEEP_WATER))
+				if ((i > m_extent.lo.x && m_map[i - 1][j].getType() != CELL_TYPE_DEEP_WATER)
+					|| (i < m_extent.hi.x && m_map[i + 1][j].getType() != CELL_TYPE_DEEP_WATER)
+					|| (j > m_extent.lo.y && m_map[i][j - 1].getType() != CELL_TYPE_DEEP_WATER)
+					|| (j < m_extent.hi.y && m_map[i][j + 1].getType() != CELL_TYPE_DEEP_WATER))
 				{
-					cell->setBit23(true);
+					setCellBit23(cell, true);
 				}
 			}
 		}
@@ -151,16 +148,16 @@ void Pathfinder::Rva0052F2EC()
 		{
 			for (i = m_extent.lo.x; i <= m_extent.hi.x; i++)
 			{
-				if (m_map[i][j].getBit23())
+				if (getCellBit23(&m_map[i][j]))
 				{
-					if (i > m_extent.lo.x && (m_map[i - 1][j].getType() == PathfindCell::CELL_DEEP_WATER || m_map[i - 1][j].getType() == PathfindCell::CELL_WATER))
-						m_map[i - 1][j].setBit22(true);
-					if (i < m_extent.hi.x && (m_map[i + 1][j].getType() == PathfindCell::CELL_DEEP_WATER || m_map[i + 1][j].getType() == PathfindCell::CELL_WATER))
-						m_map[i + 1][j].setBit22(true);
-					if (j > m_extent.lo.y && (m_map[i][j - 1].getType() == PathfindCell::CELL_DEEP_WATER || m_map[i][j - 1].getType() == PathfindCell::CELL_WATER))
-						m_map[i][j - 1].setBit22(true);
-					if (j < m_extent.hi.y && (m_map[i][j + 1].getType() == PathfindCell::CELL_DEEP_WATER || m_map[i][j + 1].getType() == PathfindCell::CELL_WATER))
-						m_map[i][j + 1].setBit22(true);
+					if (i > m_extent.lo.x && (m_map[i - 1][j].getType() == CELL_TYPE_DEEP_WATER || m_map[i - 1][j].getType() == PathfindCell::CELL_WATER))
+						setCellBit22(&m_map[i - 1][j], true);
+					if (i < m_extent.hi.x && (m_map[i + 1][j].getType() == CELL_TYPE_DEEP_WATER || m_map[i + 1][j].getType() == PathfindCell::CELL_WATER))
+						setCellBit22(&m_map[i + 1][j], true);
+					if (j > m_extent.lo.y && (m_map[i][j - 1].getType() == CELL_TYPE_DEEP_WATER || m_map[i][j - 1].getType() == PathfindCell::CELL_WATER))
+						setCellBit22(&m_map[i][j - 1], true);
+					if (j < m_extent.hi.y && (m_map[i][j + 1].getType() == CELL_TYPE_DEEP_WATER || m_map[i][j + 1].getType() == PathfindCell::CELL_WATER))
+						setCellBit22(&m_map[i][j + 1], true);
 				}
 			}
 		}
@@ -170,11 +167,11 @@ void Pathfinder::Rva0052F2EC()
 			for (i = m_extent.lo.x; i <= m_extent.hi.x; i++)
 			{
 				Int type = m_map[i][j].getType();
-				if (m_map[i][j].getBit22()
-					&& (type == PathfindCell::CELL_DEEP_WATER || type == PathfindCell::CELL_WATER))
+				if (getCellBit22(&m_map[i][j])
+					&& (type == CELL_TYPE_DEEP_WATER || type == PathfindCell::CELL_WATER))
 				{
-					m_map[i][j].setBit22(false);
-					m_map[i][j].setBit23(true);
+					setCellBit22(&m_map[i][j], false);
+					setCellBit23(&m_map[i][j], true);
 				}
 			}
 		}

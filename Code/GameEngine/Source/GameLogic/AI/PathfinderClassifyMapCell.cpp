@@ -22,44 +22,37 @@ typedef float Real;
 
 #define PATHFIND_CELL_SIZE_F 10.0f
 
-class PathfindCell
+#include "../../../Include/GameLogic/PathfindCell.h"
+
+// Cell types 2 and 7 have no name in PathfindCell::CellType yet.
+static const Int CELL_TYPE_CLIFF = 2;
+static const Int CELL_TYPE_DEEP_WATER = 7;
+
+// Bit layout of PathfindCell::m_0C as far as this unit uses it: type in
+// bits 0..3, pinched in bit 16 (header target facts).
+struct PathfindCellPackedBits
 {
-public:
-	enum CellType
-	{
-		CELL_CLEAR = 0,
-		CELL_WATER = 1,
-		CELL_CLIFF = 2,
-		CELL_OBSTACLE = 4,
-		CELL_DEEP_WATER = 7
-	};
-
-	// Preserve the native four-bit type read without a competing getter.
-	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)m_type; }
-	void setPinched(Bool pinch) { m_pinched = pinch; }
-	bool SetType_Dirty(int type);
-	void setBit21(Bool on)
-	{
-		if (on)
-			m_bits |= 0x200000;
-		else
-			m_bits &= ~0x200000;
-	}
-
-private:
-	char m_head[0x0C];
-	union
-	{
-		struct
-		{
-			unsigned int m_type : 4;
-			unsigned int m_low : 12;
-			unsigned int m_pinched : 1;
-			unsigned int m_high : 15;
-		};
-		unsigned int m_bits;
-	};
+	unsigned int m_type : 4;
+	unsigned int m_low : 12;
+	unsigned int m_pinched : 1;
+	unsigned int m_high : 15;
 };
+
+// PathfindCell::setPinched 0x0052E0FC: retail emits it as a COMDAT and calls
+// it out of line; the store is MSVC's single-bit bitfield write.
+inline void PathfindCell::setPinched(bool pinch)
+{
+	reinterpret_cast<PathfindCellPackedBits *>(&m_0C)->m_pinched = pinch;
+}
+
+// Retail inlines this packed-dword (+0x0C) write of bit 21.
+static __forceinline void setCellBit21(PathfindCell *cell, Bool on)
+{
+	if (on)
+		cell->m_0C |= 0x200000;
+	else
+		cell->m_0C &= ~0x200000;
+}
 
 class Rva0052E05D
 {
@@ -142,14 +135,14 @@ void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
 
 	Int type = PathfindCell::CELL_CLEAR;
 	if (TheTerrainLogic->isCliffCell(topLeftCorner.x, topLeftCorner.y))
-		type = PathfindCell::CELL_CLIFF;
+		type = CELL_TYPE_CLIFF;
 	if (TheTerrainLogic->slot58(topLeftCorner.x, topLeftCorner.y))
 		((Rva0052E05D *)cell)->rva0052E05D(true);
 	else
 		((Rva0052E05D *)cell)->rva0052E05D(false);
-	cell->setBit21(TheTerrainLogic->slot5C(topLeftCorner.x, topLeftCorner.y));
+	setCellBit21(cell, TheTerrainLogic->slot5C(topLeftCorner.x, topLeftCorner.y));
 
-	if (type != PathfindCell::CELL_CLIFF)
+	if (type != CELL_TYPE_CLIFF)
 	{
 		Real waterDepth = TheAI->getAiData()->m_waterDepth;
 		Real deepWaterDepth = TheAI->getAiData()->m_deepWaterDepth;
@@ -159,22 +152,22 @@ void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
 		if (underwater && waterZ - terrainZ > waterDepth)
 			type = PathfindCell::CELL_WATER;
 		if (underwater && waterZ - terrainZ > deepWaterDepth)
-			type = PathfindCell::CELL_DEEP_WATER;
+			type = CELL_TYPE_DEEP_WATER;
 		underwater = TheTerrainLogic->isUnderwater(topLeftCorner.x, bottomRightCorner.y, &waterZ, &terrainZ, 0);
 		if (underwater && waterZ - terrainZ > waterDepth)
 			type = PathfindCell::CELL_WATER;
 		if (underwater && waterZ - terrainZ > deepWaterDepth)
-			type = PathfindCell::CELL_DEEP_WATER;
+			type = CELL_TYPE_DEEP_WATER;
 		underwater = TheTerrainLogic->isUnderwater(bottomRightCorner.x, bottomRightCorner.y, &waterZ, &terrainZ, 0);
 		if (underwater && waterZ - terrainZ > waterDepth)
 			type = PathfindCell::CELL_WATER;
 		if (underwater && waterZ - terrainZ > deepWaterDepth)
-			type = PathfindCell::CELL_DEEP_WATER;
+			type = CELL_TYPE_DEEP_WATER;
 		underwater = TheTerrainLogic->isUnderwater(bottomRightCorner.x, topLeftCorner.y, &waterZ, &terrainZ, 0);
 		if (underwater && waterZ - terrainZ > waterDepth)
 			type = PathfindCell::CELL_WATER;
 		if (underwater && waterZ - terrainZ > deepWaterDepth)
-			type = PathfindCell::CELL_DEEP_WATER;
+			type = CELL_TYPE_DEEP_WATER;
 	}
 
 	if (hasObstacle)

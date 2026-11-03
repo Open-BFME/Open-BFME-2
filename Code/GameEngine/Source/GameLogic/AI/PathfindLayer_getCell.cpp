@@ -6,29 +6,11 @@
 // Donor: GeneralsMD AIPathfind.cpp PathfindLayer::getCell, unchanged in
 // BFME 2. Target layout read from the body: cells (column pointers) +4,
 // width +8, height +0xC, origin +0x10/+0x14; 16-byte cells whose type is the
-// low nibble at +0xC, CELL_IMPASSABLE = 5.
+// low nibble at +0xC, type 5 (CELL_BRIDGE_IMPASSABLE in the header).
 
 typedef int Int;
 
-class PathfindCell
-{
-public:
-	enum CellType
-	{
-		CELL_CLEAR = 0,
-		CELL_IMPASSABLE = 5
-	};
-
-	// Keep the native four-bit access inline without a competing getter copy.
-	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)m_type; }
-
-private:
-	char m_pad00[0x0C];
-	unsigned char m_type : 4;
-	unsigned char m_flags : 4;
-	char m_pad0D[0x10 - 0x0D];
-};
-
+#include "../../../Include/GameLogic/PathfindCell.h"
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
 PathfindCell *PathfindLayer::getCell(Int x, Int y)
@@ -41,7 +23,7 @@ PathfindCell *PathfindLayer::getCell(Int x, Int y)
 	if (x < 0 || x >= m_width) return 0;
 	if (y < 0 || y >= m_height) return 0;
 	PathfindCell *cell = &m_layerCells[x][y];
-	if (cell->getType() == PathfindCell::CELL_IMPASSABLE) {
+	if (cell->getType() == PathfindCell::CELL_BRIDGE_IMPASSABLE) {
 		return 0; // Impassable cells are ignored.
 	}
 	return cell;
