@@ -132,24 +132,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 
-class GameInfo
-{
-public:
-	GameInfo();
-	virtual ~GameInfo();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void xfer(Xfer *xfer);
-	virtual void slot10(); virtual void slot14(); virtual void slot18();
-	virtual void slot1C(); virtual void slot20(); virtual void slot24();
-	virtual void reset();
-	void init();
-	void endGame();
-	void clearSlotList();
-	char m_pad04[0x10 - 4];
-	bool m_inGame;
-	char m_rest[0xDC - 0x11];
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 class SkirmishGameInfo : public GameInfo
 {
 public:

@@ -1110,15 +1110,7 @@ public:
 	const PlayerTemplate *findPlayerTemplate(NameKeyType key) const;
 };
 extern PlayerTemplateStore *ThePlayerTemplateStore;
-class GameInfo
-{
-public:
-	virtual void g00(); virtual void g01(); virtual void g02(); virtual void g03(); virtual void g04();
-	virtual void g05(); virtual void g06(); virtual void g07(); virtual void g08(); virtual void g09();
-	virtual void g10(); virtual void g11(); virtual void g12(); virtual void g13(); virtual void g14();
-	virtual void g15(); virtual void g16(); virtual void g17(); virtual void g18();
-	virtual bool isMultiPlayer();
-};
+#include "../../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 
 #include "../../../../Include/GameLogic/Rva000427195.h"

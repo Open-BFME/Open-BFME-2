@@ -900,11 +900,7 @@ void AptMainMenu::OnTutorial(const char *params) {
 // in state 8, asks for display-mode confirmation: a two-button message box
 // whose callbacks are 0x00514DC0 (records button 2) and 0x00514DDA, then
 // the 10-second timer 0x00437EC4 and the engine mouse shown again.
-class GameInfo
-{
-public:
-	virtual ~GameInfo();
-};
+#include "../../../../../Include/GameNetwork/GameInfo.h"
 extern GameInfo *TheGameInfo;
 
 // TheGameText's vslot 15 fetch (Rva00515C64's view).

@@ -204,12 +204,7 @@ class W3DProjectedShadow
 public:
 	void rva00108951();
 };
-class GameInfo
-{
-public:
-	int getNumPlayers() const;
-	int getNumOpenOrOccupiedSlots() const;
-};
+#include "../../../Include/GameNetwork/GameInfo.h"
 class Rva0030BBE5
 {
 public:
