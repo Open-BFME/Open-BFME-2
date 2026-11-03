@@ -63,7 +63,7 @@ namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,cha
 // STLport 4.6 inherits these proxy allocation methods from allocator<char>;
 // the former 4.5.3 proxy specializations do not declare members in this mode.
 #include "../../../../Include/Common/File.h"
-struct Rva001F458BText { const char *m_start,*m_finish; };
+#include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File&,const Rva001F458BText&);
 void Rva003AFBC1Write(const char*,File*,unsigned*);
 void Rva003AFC6BWrite(File*,unsigned*);

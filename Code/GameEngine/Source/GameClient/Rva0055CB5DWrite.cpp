@@ -70,10 +70,7 @@ template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(siz
 }
 
 #include "../../Include/Common/File.h"
-struct Rva001F458BText {
-	const char *m_start;
-	const char *m_finish;
-};
+#include "../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
 extern "C" void __cdecl free(void *p);
 

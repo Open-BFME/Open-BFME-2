@@ -75,7 +75,7 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, siz
 }
 struct ColorKey {RGBColor color;unsigned long frame;};
 struct S001F87D5 {unsigned int first;float x,y;};
-struct Rva001F458BText {const char* start;const char* finish;};
+#include "../../../../Include/GameClient/Rva001F458BText.h"
 typedef _STL::basic_ostream<char,_STL::char_traits<char> > OutputStream;
 OutputStream& Rva001F6951Pad(OutputStream&,unsigned int);
 OutputStream& Rva0055C0E1Write(OutputStream&,const RGBColor&);
