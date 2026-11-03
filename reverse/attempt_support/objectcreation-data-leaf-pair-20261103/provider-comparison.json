@@ -1,0 +1,21 @@
+{
+  "scope": "Ordinary external bytes and symbolic relocations; not full local/.sxdata or final image selection.",
+  "sources": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+      "before": 31,
+      "after": 31,
+      "removed": [],
+      "added": [],
+      "changed": []
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp",
+      "before": 17,
+      "after": 17,
+      "removed": [],
+      "added": [],
+      "changed": []
+    }
+  ]
+}

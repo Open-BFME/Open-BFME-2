@@ -98,6 +98,12 @@ public:
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+class ObjectCreationUpgradeModuleData;
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
 public:
@@ -105,9 +111,12 @@ public:
 	static NameKeyType rva004B3FF5();
 protected:
 	virtual void xfer(Xfer *xfer);
+	virtual UpdateSleepTime update();
+	const ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return (const ObjectCreationUpgradeModuleData *)getModuleData(); }
+	Object *getObject() const { return m_object; }
 private:
-	unsigned int m_status28; // +0x28
-	bool m_flag2C; // +0x2C
+	unsigned int m_status28; // +0x28 +0x28
+	bool m_flag2C; // +0x2C +0x2C
 	char m_pad2D[0x3];
 };
 //
@@ -182,25 +191,23 @@ public:
 
 class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
 {
+private:
 	friend class ObjectCreationUpgrade;
 public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	virtual ~ObjectCreationUpgradeModuleData();
 private:
-	unsigned char m_moduleDataState[0x120 - sizeof(Snapshot)];
-private:
-	AsciiString m_removeUpgrade;
-private:
-	AsciiString m_grantUpgrade;
-private:
-	AsciiString m_thingToSpawn;
-private:
-	Coord3D m_offset;
-	float m_angleOffset;
-	unsigned char m_pad13C[0x14C - 0x13C];
-	unsigned int m_fadeInTime;
-	bool m_useSpecialContext;
+	unsigned char m_moduleDataState[0x120 - sizeof(Snapshot)]; // +0x04
 public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
+	AsciiString m_removeUpgrade; // +0x120
+	AsciiString m_grantUpgrade; // +0x124
+	AsciiString m_thingToSpawn; // +0x128
+	Coord3D m_offset; // +0x12C
+	float m_angleOffset; // +0x138
+	char m_pad13C[0x10];
+	unsigned int m_fadeInTime; // +0x14C
+	bool m_useSpecialContext; // +0x150
+	char m_pad151[0x3];
 };
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 #include "../../../../Include/Common/Rva001EAE6FHelper.h"

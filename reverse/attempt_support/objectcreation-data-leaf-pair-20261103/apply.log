@@ -1,0 +1,16 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
+seed: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp  (2 files)
+  ObjectCreationUpgrade: applied (2 files)
+      note: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp gets enum UpdateSleepTime{...}; class ObjectCreationUpgradeModuleData;
+      note: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp gets class Xfer;
+      rename in Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp: m_28 -> m_status28, m_2C -> m_flag2C
+  ObjectCreationUpgradeModuleData: applied (2 files)
+      note: +0x120 m_removeUpgrade: declared private/public; kept public
+      note: +0x124 m_grantUpgrade: declared private/public; kept public
+      note: +0x128 m_thingToSpawn: declared private/public; kept public
+      note: +0x12C m_offset: declared private/public; kept public
+      note: +0x138 m_angleOffset: declared private/public; kept public
+      note: +0x14C m_fadeInTime: declared private/public; kept public
+      note: +0x150 m_useSpecialContext: declared private/public; kept public
+      note: Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp gets class MultiIniFieldParse;
+applied: ['ObjectCreationUpgrade', 'ObjectCreationUpgradeModuleData']

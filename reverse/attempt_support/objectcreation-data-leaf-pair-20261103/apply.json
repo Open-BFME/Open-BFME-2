@@ -1,0 +1,125 @@
+{
+  "tu": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+  "classes": {
+    "ObjectCreationUpgrade": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+      ],
+      "notes": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp gets enum UpdateSleepTime{...}; class ObjectCreationUpgradeModuleData;",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp gets class Xfer;"
+      ],
+      "renames": {
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp": {
+          "m_28": "m_status28",
+          "m_2C": "m_flag2C"
+        }
+      },
+      "fields": [
+        [
+          "0x28",
+          4,
+          "m_status28",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x2C",
+          1,
+          "m_flag2C",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ]
+      ],
+      "block": "class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule\n{\npublic:\n\tvoid rva004B463C();\n\tstatic NameKeyType rva004B3FF5();\nprotected:\n\tvirtual void xfer(Xfer *xfer);\n\tvirtual UpdateSleepTime update();\n\tconst ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return (const ObjectCreationUpgradeModuleData *)getModuleData(); }\n\tObject *getObject() const { return m_object; }\nprivate:\n\tunsigned int m_status28; // +0x28 +0x28\n\tbool m_flag2C; // +0x2C +0x2C\n\tchar m_pad2D[0x3];\n};\n",
+      "files_changed": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+      ]
+    },
+    "ObjectCreationUpgradeModuleData": {
+      "status": "applied",
+      "files": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+      ],
+      "notes": [
+        "+0x120 m_removeUpgrade: declared private/public; kept public",
+        "+0x124 m_grantUpgrade: declared private/public; kept public",
+        "+0x128 m_thingToSpawn: declared private/public; kept public",
+        "+0x12C m_offset: declared private/public; kept public",
+        "+0x138 m_angleOffset: declared private/public; kept public",
+        "+0x14C m_fadeInTime: declared private/public; kept public",
+        "+0x150 m_useSpecialContext: declared private/public; kept public",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp gets class MultiIniFieldParse;"
+      ],
+      "renames": {},
+      "fields": [
+        [
+          "0x04",
+          284,
+          "m_moduleDataState",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x120",
+          4,
+          "m_removeUpgrade",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x124",
+          4,
+          "m_grantUpgrade",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x128",
+          4,
+          "m_thingToSpawn",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x12C",
+          12,
+          "m_offset",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x138",
+          4,
+          "m_angleOffset",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x14C",
+          4,
+          "m_fadeInTime",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ],
+        [
+          "0x150",
+          1,
+          "m_useSpecialContext",
+          "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp"
+        ]
+      ],
+      "block": "class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot\n{\nprivate:\n\tfriend class ObjectCreationUpgrade;\npublic:\n\tstatic void buildFieldParse(MultiIniFieldParse &parse);\n\tvirtual ~ObjectCreationUpgradeModuleData();\nprivate:\n\tunsigned char m_moduleDataState[0x120 - sizeof(Snapshot)]; // +0x04\npublic:\n\tAsciiString m_removeUpgrade; // +0x120\n\tAsciiString m_grantUpgrade; // +0x124\n\tAsciiString m_thingToSpawn; // +0x128\n\tCoord3D m_offset; // +0x12C\n\tfloat m_angleOffset; // +0x138\n\tchar m_pad13C[0x10];\n\tunsigned int m_fadeInTime; // +0x14C\n\tbool m_useSpecialContext; // +0x150\n\tchar m_pad151[0x3];\n};\n",
+      "files_changed": [
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+        "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+      ]
+    }
+  },
+  "canonical": {},
+  "applied": [
+    "ObjectCreationUpgrade",
+    "ObjectCreationUpgradeModuleData"
+  ],
+  "failed": {},
+  "seed": "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+  "files": [
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+  ]
+}

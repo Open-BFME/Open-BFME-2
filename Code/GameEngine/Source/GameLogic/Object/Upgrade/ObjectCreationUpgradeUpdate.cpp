@@ -156,18 +156,26 @@ public:
 	void rva00484869(int objectID);
 };
 
+class MultiIniFieldParse;
 class __declspec(novtable) ObjectCreationUpgradeModuleData : public Snapshot
 {
+private:
+	friend class ObjectCreationUpgrade;
 public:
-	unsigned char m_pad000[0x120 - sizeof(Snapshot)];
-	AsciiString m_removeUpgrade;		// +0x120
-	AsciiString m_grantUpgrade;		// +0x124
-	AsciiString m_thingToSpawn;		// +0x128
-	Coord3D m_offset;			// +0x12C
-	Real m_angleOffset;			// +0x138
-	unsigned char m_pad13C[0x14C - 0x13C];
-	UnsignedInt m_fadeInTime;		// +0x14C
-	bool m_useSpecialContext;		// +0x150
+	static void buildFieldParse(MultiIniFieldParse &parse);
+	virtual ~ObjectCreationUpgradeModuleData();
+private:
+	unsigned char m_moduleDataState[0x120 - sizeof(Snapshot)]; // +0x04
+public:
+	AsciiString m_removeUpgrade; // +0x120
+	AsciiString m_grantUpgrade; // +0x124
+	AsciiString m_thingToSpawn; // +0x128
+	Coord3D m_offset; // +0x12C
+	float m_angleOffset; // +0x138
+	char m_pad13C[0x10];
+	unsigned int m_fadeInTime; // +0x14C
+	bool m_useSpecialContext; // +0x150
+	char m_pad151[0x3];
 };
 
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
@@ -175,15 +183,21 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
+class Xfer;
 class ObjectCreationUpgrade : public UpgradeMux, public UpdateModule
 {
+public:
+	void rva004B463C();
+	static NameKeyType rva004B3FF5();
 protected:
+	virtual void xfer(Xfer *xfer);
 	virtual UpdateSleepTime update();
 	const ObjectCreationUpgradeModuleData *getObjectCreationUpgradeModuleData() const { return (const ObjectCreationUpgradeModuleData *)getModuleData(); }
 	Object *getObject() const { return m_object; }
 private:
-	UnsignedInt m_28;
-	bool m_2C;
+	unsigned int m_status28; // +0x28 +0x28
+	bool m_flag2C; // +0x2C +0x2C
+	char m_pad2D[0x3];
 };
 
 extern GameLogic *TheGameLogic;
@@ -194,7 +208,7 @@ extern BuildAssistant *TheBuildAssistant;
 
 UpdateSleepTime ObjectCreationUpgrade::update()
 {
-	if (m_2C && TheGameLogic->getFrame() > m_28)
+	if (m_flag2C && TheGameLogic->getFrame() > m_status28)
 	{
 	const ObjectCreationUpgradeModuleData *data = getObjectCreationUpgradeModuleData();
 	if (data && !((const StringBase<char> &)data->m_thingToSpawn).isEmpty())
