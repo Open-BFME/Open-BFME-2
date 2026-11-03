@@ -9,10 +9,7 @@
 extern void(__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
-class Rva006DB270 {
-public:
-  void freeBlock(void *block, int blockSize);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 #include "../../Apt/AptValue.h"

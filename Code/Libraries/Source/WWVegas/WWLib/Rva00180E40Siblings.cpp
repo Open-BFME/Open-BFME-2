@@ -51,11 +51,7 @@ public:
 	char m_remaining[0x30 - 4];
 };
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *, int);
-};
+#include "../../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 class Rva006F7140Derived : public Rva006ED150

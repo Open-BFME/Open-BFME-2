@@ -28,11 +28,7 @@ extern "C" char *__cdecl strchr(const char *text, int character);
 
 unsigned short __cdecl hashLower(const char *text);
 
-class Rva006DB270
-{
-public:
-	void freeBlock(void *block, int blockSize);
-};
+#include "../../../../../GameEngine/Include/Common/Rva006DB270.h"
 
 class Rva006DB270; extern Rva006DB270 *g_pChainBlockAllocator;
 
