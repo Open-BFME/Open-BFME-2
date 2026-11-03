@@ -107,23 +107,15 @@ public:
 	virtual bool rva004CABCD(int *dest);
 };
 
-struct BfmeStringRecord002CF550
-{
-	bool operator<(const BfmeStringRecord002CF550 &other) const { return false; }
-	char m_pad[0x10];
-};
-
 struct BfmeObject544View
 {
 	Rva000CF0D6 m_bits;
 	Rva002C99FB m_arr[0x38];
-	_STL::set<BfmeStringRecord002CF550> m_set;
+	char m_pad20C[0x0C]; // unread storage; preserve the proven 0x220 record stride
 	char m_tail[8];
 };
+typedef char BfmeObject544ViewExtentCheck[sizeof(BfmeObject544View) == 0x220 ? 1 : -1];
 
-// The sibling selector view observes begin/end at +08/+0C. The old vector
-// spans +08..+14 (compiler layout); preserve its unread tail as padding.
-struct Rva004CAB8BRecord;
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionSoundSelectorClientBehavior.cpp
 
