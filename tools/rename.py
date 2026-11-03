@@ -217,6 +217,21 @@ plan_fold's section). It invents no name: no name_basis.csv record, tombstones
 `(fold: retail vftable 0x...)`, and a pin the respelling makes a row's own name
 is dropped. A readable OLD is refused.
 
+`function --rva R --to-class C --new WORD [--prepared REL=FILE ...]` moves a
+placeholder-class member (`?rva00550B4C@Rva00550B4C@@QAEXXZ`) into the real
+class C as its virtual `WORD` (or the full mangled name given), keeping cv,
+convention, return type and parameters, only when retail proves it: a table
+that a constructor/destructor/deleting destructor row of C installs holds R in
+exactly one slot, no unrelated class's table holds R, and the vftable C's own
+installer units compile names the new symbol in that slot (checked against the
+current objects when planning and against the rebuilt ones after ./build.sh;
+the other slots that resolve must agree with retail's). The C++ is supplied
+as prepared sources (the definition under C, its callers); the tool respells
+ledger rows, funclets, notes tokens, pins, body owners and spelled mangled
+names, tombstones `(to-class: retail vftable 0x... slot N)`, writes no
+name_basis.csv record (the name comes from C's declaration, not an agent), and
+is byte-gated like any rename (see plan_to_class's section).
+
 Kinds in this build: function, global, file, class, member, param, local;
 plus `check`, `recover` and `revert`. Vendored and SDK sources (vendored= or .lib
 rows, library directories, gamespy and Platform SDK shims) are refused for
@@ -1039,6 +1054,7 @@ class Plan:
     virtual: bool = False                             # function --virtual: the decoration, not the name
     fold: int = None                                  # class --fold: the retail vftable rva proving one class
     dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
+    to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1055,6 +1071,9 @@ class Plan:
             return f"Respell {self.old} as virtual {self.new} (retail vtable slot)"
         if self.fold is not None:
             return f"Fold class {self.old} into {self.new} (retail vftable 0x{self.fold + IMAGE_BASE:08X})"
+        if self.to_class:
+            return (f"Move {self.old} into {self.to_class['cls']} as {self.new} "
+                    f"(retail vftable 0x{self.to_class['table'] + IMAGE_BASE:08X} slot {self.to_class['slot']})")
         if self.kind == "carry":
             return f"Carry {len(self.spellings)} renamed spelling(s) into ledger notes"
         if self.kind in ("member", "param", "local"):
@@ -1070,7 +1089,7 @@ class Plan:
         else:
             lines = [f"rename: {self.kind} {self.old} -> {self.new}{where} ({self.basis})",
                      f"  owner source: {self.source}"]
-            if self.virtual or self.fold is not None:
+            if self.virtual or self.fold is not None or self.to_class:
                 lines.append(f"  evidence: {self.evidence}")
         for old, new in self.moves:
             lines.append(f"  git mv {old} {new}")
@@ -2657,10 +2676,20 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
     return verify
 
 
-def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False):
+def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
+                  to_class=None, prepared=None):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
-    (plan_virtual: no new identifier, no basis, retail evidence)."""
+    (plan_virtual: no new identifier, no basis, retail evidence); with
+    `to_class`, moving a placeholder-class member into that class as its
+    virtual (plan_to_class: retail vftable evidence, prepared C++)."""
+    if to_class:
+        if basis:
+            raise Refusal("--to-class takes its evidence from retail's vftable: pass no --basis")
+        return plan_to_class(ctx, rva, to_class, new, evidence=evidence, old=old, prepared=prepared,
+                             max_files=max_files)
+    if prepared:
+        raise Refusal("--prepared sources go with --to-class only")
     if virtual:
         if new or basis:
             raise Refusal("--virtual keeps the identifier and takes its evidence from retail: "
@@ -3413,6 +3442,378 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25):
     written = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({rel for name in olds for rel in ctx.grep_files(name, roots=("docs", "reverse"))}
                            - written)
+    return plan
+
+
+# ---------------------------------------------------------------- function --to-class
+#
+# A seat that rowed a vftable slot before it knew the slot's class spelled it
+# under an address-derived class: `?rva00550B4C@Rva00550B4C@@QAEXXZ`. When the
+# real class C is known, every route to its own spelling is refused: `function`
+# changes only the identifier, `class --fold` needs special members of the
+# placeholder class (a lone slot has none), and `class` would collide with C.
+# `function --rva R --to-class C --new WORD` moves the row into C as its
+# virtual WORD (cv, convention, return type and parameters kept) on retail
+# evidence alone, and refuses without it:
+#
+# - the row's class is a placeholder (tools/name_metric.py); a readable class
+#   is a naming decision, not this mode's;
+# - retail tables hold R, and exactly one (table, slot) pair belongs to C: a
+#   constructor, destructor or deleting destructor row of C installs that
+#   table (the installers table_classes reads; a data_rows.csv name alone is
+#   not enough); no table of a class unrelated to C holds R (a fold), and R
+#   carries no second row, pin or fold note;
+# - the vftable that C's installer units compile from their own views names
+#   the new symbol in that slot, and every other slot whose symbol the ledger
+#   resolves agrees with retail's table: the declared virtual order matches
+#   retail's at that slot. It is read from the current objects when planning
+#   (when they are current) and always from the rebuilt objects after
+#   ./build.sh (a prepared view change counts only once compiled).
+#
+# The C++ comes from the caller as prepared sources (`--prepared REL=FILE`):
+# the definition under C and any caller spelling the old member. The tool
+# owns the ledgers: rows, funclet rows and notes tokens, pins in place, body
+# owners, spelled mangled names in any file, `(to-class: retail vftable 0x...
+# slot N)` tombstones; it writes no name_basis.csv record (the identifier is
+# the one C's own declaration gives that slot) and carries an existing one.
+
+def to_class_symbol(old_name, cls, new):
+    """The new decorated name: `?WORD@C@@` plus the old access code made
+    virtual (or kept virtual) and the old tail (cv, convention, return type,
+    parameters); or `new` itself when it is a full mangled name, which must
+    keep that tail and spell a virtual near member of C."""
+    at, _cls, scopes, role = member_function_header(old_name)
+    if role != "method" or scopes:
+        raise Refusal(f"{old_name}: --to-class moves an ordinary method of a global class only")
+    tail = old_name[at + 1:]
+    if re.search(r"[0-9]", tail):
+        raise Refusal(f"{old_name}: its parameters name a type by back-reference; a class move would change "
+                      "what they refer to")
+    code = old_name[at]
+    if new.startswith("?"):
+        nat, ncls, nscopes, nrole = member_function_header(new)
+        if nrole != "method" or nscopes or ncls != cls:
+            raise Refusal(f"{new} is not a method of the global class {cls}")
+        if new[nat] not in VIRTUAL_ACCESS:
+            raise Refusal(f"{new} is not spelled virtual: a vftable slot proves only a virtual member")
+        if new[nat + 1:] != tail:
+            raise Refusal(f"{new} changes cv, convention, return type or parameters of {old_name}")
+        return new
+    if not IDENT.fullmatch(new or "") or new in name_metric.KEYWORDS:
+        raise Refusal(f"{new!r} is not a method identifier")
+    if code in VIRTUAL_ACCESS:
+        access = code
+    elif code in NONVIRTUAL_ACCESS:
+        access = NONVIRTUAL_ACCESS[code]
+    else:
+        raise Refusal(f"{old_name} is not a non-static member function (access code {code!r})")
+    return f"?{new}@{cls}@@{access}{tail}"
+
+
+def class_installers(ctx, cls, stores, tables):
+    """[(row, displacement)] for each constructor, destructor or deleting
+    destructor row of `cls` that installs a table through `stores` (at a
+    displacement only when the row also installs a table at +0: the object's
+    primary vptr, not a member object's)."""
+    import bisect
+    primary = sorted(store for _slots, installs in tables.values() for store, disp in installs.items()
+                     if disp == 0)
+    out = []
+    for store, disp in sorted(stores.items()):
+        row = row_at(ctx, store)
+        match = INSTALLER_CLASS.match(row["name"]) if row else None
+        if not match or match.group(1) != cls:
+            continue
+        start = _rva(row["target_rva"])
+        end = start + int(row["target_size"])
+        k = bisect.bisect_left(primary, start)
+        if disp and not (k < len(primary) and primary[k] < end):
+            continue
+        if all(r is not row for r, _d in out):
+            out.append((row, disp))
+    return out
+
+
+def to_class_evidence(ctx, rva, cls, sources):
+    """(table, slot, retail slots, [installer rows], proof) for the one slot of
+    a table `cls`'s own special members install that holds `rva`; Refusal
+    when there is none, more than one, or a table of an unrelated class holds
+    it too."""
+    tables = retail_vtables(ctx)
+    hits = [(table, index) for table, (slots, _stores) in sorted(tables.items())
+            for index, target in enumerate(slots) if target == rva]
+    if not hits:
+        raise Refusal(f"no retail vftable slot holds 0x{rva:08X}: a class move needs one of {cls}'s slots")
+    own, foreign = [], []
+    for table, index in hits:
+        slots, stores = tables[table]
+        installers = class_installers(ctx, cls, stores, tables)
+        where = f"retail table 0x{table + IMAGE_BASE:08X} slot {index}"
+        if installers:
+            own.append((table, index, slots, [r for r, _d in installers], where))
+            continue
+        classes = table_classes(ctx, table, stores, tables)
+        derived = any(cls in class_chain(class_base_map(ctx, rel), other)[0]
+                      for other, (_how, source) in classes.items()
+                      for rel in sorted({source, *sources} - {""}))
+        if not derived:
+            foreign.append(f"{where} belongs to {', '.join(sorted(classes)) or 'no class the ledger names'}")
+    if not own:
+        raise Refusal(f"no constructor, destructor or deleting destructor row of {cls} installs a retail table "
+                      f"holding 0x{rva:08X} ({'; '.join(foreign[:3]) or 'only unowned tables hold it'})")
+    if foreign:
+        raise Refusal(f"0x{rva:08X} is also in a table of a class unrelated to {cls} ({'; '.join(foreign[:3])}): "
+                      "a shared (folded) body proves no one class's member")
+    if len({(table, index) for table, index, _s, _r, _w in own}) != 1:
+        raise Refusal(f"0x{rva:08X} sits in {len(own)} slots of {cls}'s own tables "
+                      f"({', '.join(w for *_x, w in own)}): which member it is is not read here")
+    table, index, slots, installers, where = own[0]
+    first = installers[0]
+    proof = (f"{where}, installed by {first['name']} at 0x{_rva(first['target_rva']):08X}"
+             + (f" and {len(installers) - 1} more {cls} special member(s)" if len(installers) > 1 else ""))
+    return table, index, slots, installers, proof
+
+
+def compiled_vtables(ctx, rel, current=True):
+    """{`??_7...` symbol: [slot target names]} that the object of ledger source
+    `rel` defines; None when it has no object (or, with `current`, none
+    compiled from the present text)."""
+    import build
+    import name_dependents
+    rows = [r for r in ctx.rows() if r.get("source") == rel]
+    objects = name_dependents._row_objects(rows).get(rel, [])
+    digest = build._hash_file(str(ctx.path(rel))) if ctx.path(rel).exists() else None
+    for path in objects:
+        if not path.exists():
+            continue
+        if current and not name_dependents.compiled_from(path, digest):
+            continue
+        out = {}
+        for symbol in build.read_object_symbols(path.read_bytes()):
+            name = symbol.get("name") or ""
+            if not name.startswith("??_7") or symbol.get("section", 0) <= 0 or name in out:
+                continue
+            data, relocs = build.read_object_symbol_bytes(path, name)
+            names = {}
+            for offset, _type, target in relocs:
+                if offset % 4 == 0:
+                    names.setdefault(offset // 4, target)
+            out[name] = [names.get(i, "") for i in range(max(names) + 1)] if names else []
+        return out
+    return None
+
+
+def to_class_slot_problems(ctx, check, *, current=True):
+    """Why the vftable `check['cls']`'s installer units compile does not name
+    `check['new']` in retail's slot `check['slot']`: [] when every installer
+    object agrees. With `current`, a source whose object is stale is skipped
+    (planning); otherwise a missing object is a problem (after ./build.sh)."""
+    cls, slot, new, retail = check["cls"], check["slot"], check["new"], check["retail"]
+    address = {}
+    for row in ctx.rows():
+        at = _rva(row.get("target_rva"))
+        if at is not None and row.get("status") == "matched":
+            address.setdefault(row["name"], at)
+    for pin in ctx.pins():
+        at = _rva(pin.get("address"))
+        if at is not None:
+            address.setdefault(pin.get("name", ""), at)
+    problems = []
+    for rel in check["sources"]:
+        tables = compiled_vtables(ctx, rel, current=current)
+        if tables is None:
+            if not current:
+                problems.append(f"{rel} has no object to read {cls}'s vftable from")
+            continue
+        verdicts = []
+        for symbol, names in sorted(tables.items()):
+            match = VTABLE_NAME.match(symbol)
+            if not match or match.group(1) != cls:
+                continue
+            agree = [j for j, name in enumerate(names) if j != slot and j < len(retail)
+                     and address.get(name) == retail[j]]
+            clash = [j for j, name in enumerate(names) if j != slot and name in address
+                     and (j >= len(retail) or address[name] != retail[j])]
+            verdicts.append((symbol, names, agree, clash))
+        matching = [v for v in verdicts if v[2] and not v[3]]
+        if not matching:
+            seen = "; ".join(f"{s}: {len(a)} slot(s) agree, {len(c)} differ" for s, _n, a, c in verdicts)
+            problems.append(f"{rel} compiles no {cls} vftable that matches retail table "
+                            f"0x{check['table'] + IMAGE_BASE:08X} ({seen or 'no ??_7' + cls + ' at all'})")
+            continue
+        for symbol, names, _agree, _clash in matching:
+            spelled = names[slot] if slot < len(names) else "(no such slot)"
+            if spelled != new:
+                where = [j for j, name in enumerate(names) if name == new]
+                problems.append(f"{rel}'s {symbol} slot {slot} names {spelled}, not {new}" +
+                                (f" (it sits in slot {where[0]}: the declared virtual order differs from retail's)"
+                                 if where else ""))
+    return problems
+
+
+def respell_mangled_text(text, pairs):
+    """(new text, mangled spellings respelled) for one file: every whole old
+    mangled name of `pairs` respelled. A plain string literal spelling an old
+    name is retail-locked text: refused."""
+    for match in SEGMENT.finditer(text):
+        seg = match.group(0)
+        if seg.startswith(("//", "/*", "'")):
+            continue
+        line_start = text.rfind("\n", 0, match.start()) + 1
+        if PRAGMA_LINKER.match(text, line_start) or identifier_string(text, match.start()):
+            continue
+        for old, _new in pairs:
+            if mangled_re(old).search(seg):
+                raise Refusal(f"{old} is spelled inside a string literal: {seg[:80]} (retail-locked text)")
+    respelled = 0
+    for old, new in pairs:
+        text, count = mangled_re(old).subn(lambda _m, n=new: n, text)
+        respelled += count
+    return text, respelled
+
+
+def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, max_files=25):
+    """Plan moving one placeholder-class member into class `cls` as its
+    virtual `new`; see the section comment. Raises Refusal; writes nothing."""
+    cls = cls or ""
+    if not IDENT.fullmatch(cls) or cls in name_metric.KEYWORDS:
+        raise Refusal(f"{cls!r} is not a class identifier")
+    if not new:
+        raise Refusal("--to-class needs --new: the member's identifier in that class, or its full mangled name")
+    owners = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva
+              and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
+    if old:
+        owners = [r for r in owners if r["name"] == old]
+        if not owners:
+            raise Refusal(f"{old} has no row at 0x{rva:08X}")
+    names = sorted({r["name"] for r in owners})
+    if len(names) != 1:
+        raise Refusal(f"0x{rva:08X} carries {len(names)} function names ({', '.join(names) or 'none'}); "
+                      "a class move needs exactly one (pass --old to choose)")
+    row = owners[0]
+    name = row["name"]
+    _at, old_cls, _scopes, _role = member_function_header(name)
+    if old_cls == cls:
+        raise Refusal(f"{name} is already a member of {cls}")
+    if not is_placeholder(old_cls, "class"):
+        raise Refusal(f"{name}'s class {old_cls} is a readable name: --to-class moves only a placeholder class's "
+                      "member (choosing between two readable classes is a naming decision)")
+    new_name = to_class_symbol(name, cls, new)
+    if is_generated(row["source"]):
+        raise Refusal(f"{name} lives in generated source {row['source']}; recover it as real C++ first")
+    reason = is_protected(ctx, "function", name, rva=rva, identifier=scope_of(name).rsplit("::", 1)[-1])
+    if reason:
+        raise Refusal(f"canonical name: {reason}")
+    refuse_vendored(ctx, [row["source"]], f"moving {name}")
+    if any(r["name"] == new_name for r in ctx.rows()) or any(p.get("name") == new_name for p in ctx.pins()):
+        raise Refusal(f"{new_name} already names a row or pin")
+    tombstoned = _tombstones(ctx)
+    if (new_name, rva) in tombstoned:
+        raise Refusal(f"({new_name}, 0x{rva:08X}) is tombstoned in deleted_rows.csv: "
+                      f"{tombstoned[(new_name, rva)][:120]}")
+    shared = sorted({r["name"] for r in ctx.rows() if _rva(r.get("target_rva")) == rva and r["name"] != name
+                     and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",))
+                     and "parent=" not in r.get("notes", "")} |
+                    {p.get("name", "") for p in ctx.pins() if _rva(p.get("address")) == rva
+                     and p.get("name") != name})
+    if shared or FOLD_NOTES.search(row.get("notes", "")):
+        raise Refusal(f"0x{rva:08X} is a shared body ({', '.join(shared[:3]) or 'its notes record a fold'}): "
+                      "a slot there proves only that some folded function is a member")
+    if any(mangled_re(name).search(d.get("name", "")) for d in ctx.dicts(DATA_ROWS)):
+        raise Refusal(f"a data row (a local static) embeds {name}; rename the static first")
+    frozen = frozen_mentions(ctx, name)
+    if frozen:
+        raise Refusal(f"{name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
+
+    table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]})
+    installer_sources = sorted({r["source"] for r in installers})
+    check = {"cls": cls, "table": table, "slot": slot, "new": new_name, "retail": list(retail),
+             "sources": installer_sources}
+    edited = set(prepared or {})
+    early = to_class_slot_problems(ctx, dict(check, sources=[s for s in installer_sources if s not in edited]))
+    if early:
+        raise Refusal("the vftable " + cls + "'s installers compile does not prove the slot: " + early[0])
+
+    plan = Plan("function", name, new_name, "to-class", " ".join((evidence or "").split()), row["source"], rva,
+                old_word=scope_of(name), new_word=f"{cls}::{split_function_name(new_name)[1]}")
+    plan.to_class = check
+    plan.evidence = f"{name} -> {new_name}: {proof}" + (f"; {plan.evidence}" if plan.evidence else "")
+    _batch_source_edits(ctx, plan, prepared)
+
+    # Ledgers: the row, its funclet rows and notes tokens, pins, audited owners.
+    pairs = [(name, new_name)]
+    raw = ctx.read(FUNCTIONS)
+    raw, changed = rewrite_records(raw, "functions.csv", mangled_re(name), new_name)
+    for before, after in changed:
+        if before[0] != after[0]:
+            plan.renamed_rows.append((before[0], after[0], _rva(before[2])))
+        else:
+            plan.notes_rows.append((before[0], _rva(before[2])))
+    plan.edit(ctx, FUNCTIONS, raw)
+    raw = ctx.read(SYMBOLS)
+    if raw is not None:
+        raw, changed = rewrite_records(raw, "symbols.csv", mangled_re(name), new_name)
+        plan.renamed_pins += [(before[0], after[0], before[1]) for before, after in changed]
+        if changed:
+            plan.edit(ctx, SYMBOLS, raw)
+    for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", mangled_re(name), new_name):
+        plan.owner_rows.append((before[1], _rva(before[0])))
+    reason_text = (f"Renamed to {{new}} by tools/rename.py (to-class: retail vftable "
+                   f"0x{table + IMAGE_BASE:08X} slot {slot})")
+    lines = [tombstone_line(old_row, at, reason_text.format(new=new_row))
+             for old_row, new_row, at in plan.renamed_rows if (old_row, at) not in tombstoned]
+    if lines:
+        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), lines, header="name,target_rva,reason"))
+    record = current_records(ctx).get(name)
+    if record:
+        plan.carried.append((name, new_name, record.get("basis", "")))
+        plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
+            ["carry", name, new_name, record.get("basis", ""), f"class move by tools/rename.py: {proof}",
+             record.get("source", ""), record.get("rva", "")])], header=NAME_BASIS_HEADER))
+    else:
+        plan.warnings.append(f"{name} has no name_basis.csv record: {new_name} is the identifier {cls}'s own "
+                             "declaration gives that slot, and no basis row is written for it")
+
+    # Sources: the prepared C++ as given, then every file spelling the old
+    # mangled name respelled; a unit whose object references the old name must
+    # be prepared or spell it.
+    candidates = set(ctx.grep_files(name)) | edited
+    by_object = object_referencers(ctx, {name})
+    headers, rewritten = [], set(edited)
+    for rel in sorted(candidates | by_object):
+        data = plan.after.get(rel, ctx.read(rel))
+        if data is None:
+            raise Refusal(f"{rel} is listed but missing")
+        text = data.decode("utf-8", errors="surrogateescape")
+        new_text, respelled = respell_mangled_text(text, pairs)
+        if new_text == text:
+            if rel in by_object and rel not in edited and object_confirms(ctx, rel, {name}):
+                raise Refusal(f"{rel}'s object references {name}: prepare that source too (--prepared)")
+            continue
+        if is_generated(rel):
+            raise Refusal(f"generated source {rel} spells {name}; it is never edited")
+        refuse_vendored(ctx, [rel], f"moving {name}")
+        rewritten.add(rel)
+        counts = plan.source_counts.setdefault(rel, {})
+        counts["mangled"] = counts.get("mangled", 0) + respelled
+        plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
+        if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
+            headers.append(rel)
+    if len(rewritten) > max_files:
+        raise Refusal(f"{len(rewritten)} files to rewrite (over --max-files {max_files})")
+    verify = {rel for rel in rewritten if rel in ctx.ledger_sources()} | {row["source"]} | set(installer_sources)
+    if headers:
+        verify |= includers(ctx, headers, max_files)
+    renamed = {o for o, _, _ in plan.renamed_rows}
+    verify |= {r["source"] for r in ctx.rows() if r["name"] in renamed}
+    verify |= {r["source"] for r in ctx.rows() if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    plan.verify = sorted(v for v in verify if not is_generated(v))
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows} | {rva}) + \
+        sorted({f"file:{rel}" for rel in {row["source"], *edited}})
+    written = set(plan.after) | {"reverse/re_attempts.log"}
+    plan.mentions = sorted(set(ctx.grep_files(name, roots=("docs", "reverse"))) - written)
     return plan
 
 
@@ -6396,6 +6797,13 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             error.diagnostics = ctx._build_diagnostics
             error.verify_sources = list(plan.verify)
             raise error
+        if plan.to_class:
+            # The slot the rebuilt installer units' vftable names is the proof
+            # a prepared source can change; read it from the fresh objects.
+            slot_problems = to_class_slot_problems(ctx, plan.to_class, current=False)
+            if slot_problems:
+                raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
+                                   f"{slot_problems[0][:300]}; every file restored")
         problems = checks(ctx, plan) if checks else []
         if problems:
             error = VerifyFailed(f"the commit hooks would refuse {plan.old} -> {plan.new} "
@@ -7065,6 +7473,8 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                             del view._object_queries
                         if plan.moves:
                             raise Refusal("a run batch may not move source files")
+                        if plan.to_class:
+                            raise Refusal("a run batch does not take function --to-class moves")
                         # Reject a pin conflict before it contaminates the union
                         # and forces clean proposals through a restored retry.
                         if SYMBOLS in plan.after:
@@ -7732,6 +8142,14 @@ def main(argv=None):
                           help="respell the row non-virtual -> virtual (QAE->UAE, IAE->MAE, AAE->EAE), keeping "
                                "identifier, parameters and return type; refused unless a retail vtable slot of "
                                "the row's class (or of a class a view derives from it) holds the address")
+    function.add_argument("--to-class", metavar="CLASS",
+                          help="move a placeholder-class member into CLASS as its virtual --new (identifier or "
+                               "full mangled name); no --basis: refused unless a table CLASS's own constructor "
+                               "or destructor rows install holds the address in one slot and CLASS's compiled "
+                               "vftable names the new symbol there")
+    function.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
+                          help="with --to-class: the proposed bytes of Code source REL, read from FILE "
+                               "(repeatable): the definition under CLASS and any caller of the old member")
     data = kinds.add_parser("global", parents=[common],
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
@@ -7827,7 +8245,22 @@ def main(argv=None):
                       "carried by: python3 tools/rename.py carry " + ("--all" if args.all else f"--range {args.span}"),
                       file=sys.stderr)
         return 1 if problems else 0
-    virtual = args.kind == "function" and args.virtual
+    to_class = args.kind == "function" and args.to_class
+    if args.kind == "function" and args.prepared and not to_class:
+        parser.error("--prepared goes with --to-class")
+    if to_class and (args.basis or not args.new):
+        parser.error("function --to-class takes --new (the member's identifier in CLASS) and its evidence from "
+                     "retail's vftable: pass no --basis")
+    prepared = {}
+    for item in (args.prepared if to_class else []):
+        rel, sep, path = item.partition("=")
+        if not sep or not rel or not path:
+            parser.error(f"--prepared {item!r} is not REL=FILE")
+        try:
+            prepared[rel.replace("\\", "/")] = Path(path).read_bytes()
+        except OSError as error:
+            parser.error(f"--prepared {item!r}: {error}")
+    virtual = args.kind == "function" and args.virtual and not to_class
     if virtual and (args.new or args.basis):
         parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
                      "pass neither --new nor --basis")
@@ -7841,7 +8274,8 @@ def main(argv=None):
     elif args.kind == "class" and (args.name is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--name", args.name), ("--new", args.new)) if v is None))
-    if not virtual and not fold and (args.basis is None or args.evidence is None or args.new is None):
+    if not virtual and not fold and not to_class and (args.basis is None or args.evidence is None
+                                                      or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
                                               ("--evidence", args.evidence)) if v is None))
@@ -7849,6 +8283,9 @@ def main(argv=None):
     kwargs = dict(new=args.new, basis=args.basis, evidence=args.evidence, max_files=args.max_files)
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files)
+    if to_class:
+        kwargs = dict(to_class=args.to_class, new=args.new, prepared=prepared, evidence=args.evidence or "",
+                      max_files=args.max_files)
     if fold:
         kwargs = dict(name=args.fold, new=args.into, fold=True, evidence=args.evidence or "",
                       max_files=args.max_files)

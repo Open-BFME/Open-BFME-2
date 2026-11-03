@@ -510,6 +510,41 @@ A global's consumers are invisible to the byte gate, because DIR32 is masked. Fo
 `rename.py` refuses a global rename when it cannot find and rewrite every consumer. It reports
 `data_ledger.csv` as stale instead of editing it.
 
+### `rename.py function --to-class`: a slot rowed under a placeholder class
+
+A vftable slot rowed before its class was known carries an address-derived
+class (`?rva00550B4C@Rva00550B4C@@QAEXXZ`). Once the slot's class C is known,
+`function` cannot respell it (identifier only), `class --fold` needs special
+members of the placeholder class, and `class` collides with C. This mode moves
+the row into C as its virtual member:
+
+    python3 tools/rename.py function --rva 0x00550B4C --to-class GameSpyBuddyMessageQueue \
+        --new endThread --prepared Code/.../BuddyThread.cpp=build/endThread.cpp --dry-run
+
+`--new` is the member's identifier in C (the access code becomes the virtual
+form of the old one) or its full mangled name (to choose, say, protected
+`MBE`); cv, convention, return type and parameters are kept. It takes no
+`--basis`, invents nothing, and refuses unless all of these hold:
+
+- the row's class is a placeholder;
+- a table that a constructor, destructor or deleting destructor row of C
+  installs holds the address in exactly one slot, and no table of a class
+  unrelated to C holds it (a folded body); the address has no second row, pin
+  or fold note;
+- the vftable C's installer units compile names the new symbol in that slot,
+  and every other slot whose symbol the ledger resolves agrees with retail's
+  table: C's declared virtual order matches retail's there. It is checked on
+  the current objects when planning and on the rebuilt ones after ./build.sh.
+
+The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
+C, a caller that names the old member, a view declaring the override); the
+files must be clean, tracked ledger sources. The tool respells rows, funclet
+rows, notes tokens, pins, body owners and every spelled mangled name,
+tombstones `Renamed to <new> by tools/rename.py (to-class: retail vftable
+0x... slot N)`, writes no `name_basis.csv` row (the identifier is the one C's
+own declaration gives the slot) and carries an existing record. Run
+`link_check` over the installer units before and after.
+
 ### `rename.py class --fold`: one retail class under two placeholders
 
 Two seats sometimes row one class independently: its constructor as
