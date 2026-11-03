@@ -72,7 +72,9 @@ class ProductionSpeedBonusModuleData : public SpecialPowerModuleData
 {
 public:
 	ProductionSpeedBonusModuleData();
-	virtual ~ProductionSpeedBonusModuleData();
+	// No user-declared destructor: retail's ??1 (0x004C3064) stores no
+	// vptr, only the Type list and base destructor calls, which is the
+	// compiler-generated implicit virtual destructor this TU emits.
 
 private:
 	int m_numberOfFrames; // +0x7C NumberOfFrames
@@ -132,8 +134,6 @@ ProductionSpeedBonusModuleData::ProductionSpeedBonusModuleData()
 
 // tu-skeleton: 0x004C3048 28B ??_GProductionSpeedBonusModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004C3064 56B ??1ProductionSpeedBonusModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ProductionSpeedBonusModuleDataDtor.cpp (not merged yet)
+// 0x004C3064 56B ??1ProductionSpeedBonusModuleData@@UAE@XZ: the implicit destructor (see the class).
 
-// tu-skeleton: 0x0078FE64 8B Unwind@00b8fe64 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ProductionSpeedBonusModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0078FE6C 10B __ehhandler$??1ProductionSpeedBonusModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ProductionSpeedBonusModuleDataDtor.cpp (not merged yet)
