@@ -1,0 +1,19 @@
+{
+  "base": "678d949f99e0faec5d8ad55dda7b766711a0a4a1",
+  "files": [
+    "Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp",
+    "Code/GameEngine/Source/Common/Rva007F63D0Set.cpp"
+  ],
+  "rows": 39,
+  "matched": 39,
+  "missed": [],
+  "errors": [],
+  "flags": [
+    "/GS",
+    "/GX-"
+  ],
+  "object": "/work5/Open-BFME-2/build/tu_skeleton/376539576a958899.obj",
+  "object_sha256": "1828292ffe5d4d1ed9d9dae65693b09d66dbbfb709e5cd3cb522e0c057164c02",
+  "guard_preparation": null,
+  "guard_findings": []
+}
