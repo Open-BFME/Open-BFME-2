@@ -1,0 +1,1135 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "LivingWorld",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "1": 1
+   },
+   "0x1c": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "base_or_member_ctor_calls": {
+     "kind": "inference",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2c0120"
+     ],
+     "value": {
+      "0x4": [
+       "Rva003197EEList",
+       "Rva00330757Member"
+      ]
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2c0120"
+     ],
+     "value": 149
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2c0120"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       1
+      ],
+      "0x19": [
+       1
+      ],
+      "0x1a": [
+       1
+      ],
+      "0x1b": [
+       1
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       1
+      ],
+      "0x25": [
+       1
+      ],
+      "0x54": [
+       4
+      ],
+      "0x58": [
+       4
+      ],
+      "0x5c": [
+       4
+      ],
+      "0x60": [
+       4
+      ],
+      "0x64": [
+       4
+      ],
+      "0x68": [
+       4
+      ],
+      "0x6c": [
+       4
+      ],
+      "0x70": [
+       4
+      ],
+      "0x74": [
+       4
+      ],
+      "0x78": [
+       1
+      ],
+      "0x7c": [
+       4
+      ],
+      "0x80": [
+       4
+      ],
+      "0x84": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0x94": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2c0120"
+     ],
+     "value": {
+      "0x0": [
+       "?rva002BFBF7@Rva002BFBF7@@QAEXXZ"
+      ],
+      "0x28": [
+       "??0Rva002BF807@@QAE@XZ"
+      ],
+      "0x98": [
+       "??0?$hash_map@HURva002C00C1Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva002C00C1Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ],
+      "0xac": [
+       "??0?$hash_map@HURva002C00C1Element@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva002C00C1Element@@@_STL@@@3@@_STL@@QAE@XZ"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2c0120"
+     ],
+     "value": {
+      "0x0": "0x7fe508"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fe508"
+     ],
+     "value": {
+      "count": 43,
+      "end": "next-table",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRva002BFB2D@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2bfd53"
+       },
+       {
+        "name": "??1Region2D@@QAE@XZ",
+        "slot": 1,
+        "target": "0xb3fd0"
+       },
+       {
+        "name": "?Rva002BE8CEGet@@YAHXZ",
+        "slot": 2,
+        "target": "0x2be8ce"
+       },
+       {
+        "name": "?rva002BE833@Rva002BE833@@QAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x2be833"
+       },
+       {
+        "name": "__purecall",
+        "slot": 4,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 5,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 6,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 7,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 8,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 9,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva002BF391@LivingWorld@@UAEX_N@Z",
+        "slot": 10,
+        "target": "0x2bf391"
+       },
+       {
+        "name": "__purecall",
+        "slot": 11,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 12,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 13,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 14,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 15,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+        "slot": 16,
+        "target": "0x2bfbf0"
+       },
+       {
+        "name": "__purecall",
+        "slot": 17,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 18,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva002BE7FA@Rva002BE7FA@@QAEXII@Z",
+        "slot": 19,
+        "target": "0x2be7fa"
+       },
+       {
+        "name": "?set@Rva0009AA01ByteSlot@@QAEXE@Z",
+        "slot": 20,
+        "target": "0x9aa01"
+       },
+       {
+        "name": "__purecall",
+        "slot": 21,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 22,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 23,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 24,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 25,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 26,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?rva002C021A@Rva002C021A@@QAEXXZ",
+        "slot": 27,
+        "target": "0x2c021a"
+       },
+       {
+        "name": "__purecall",
+        "slot": 28,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 29,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 30,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 31,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 32,
+        "target": "0x3b810"
+       },
+       {
+        "name": "?enable@Rva004A18C0OneSetter@@QAEXXZ",
+        "slot": 33,
+        "target": "0x4a18c0"
+       },
+       {
+        "name": "?enable@Rva0009D6E8OneSetter@@QAEXXZ",
+        "slot": 34,
+        "target": "0x9d6e8"
+       },
+       {
+        "name": "?get@Rva0009D6EDByteField@@QBEEXZ",
+        "slot": 35,
+        "target": "0x9d6ed"
+       },
+       {
+        "name": "?get@Rva0009D6F1ByteField@@QBEEXZ",
+        "slot": 36,
+        "target": "0x9d6f1"
+       },
+       {
+        "name": "?disable@Rva002886A2ZeroSetter@@QAEXXZ",
+        "slot": 37,
+        "target": "0x2886a2"
+       },
+       {
+        "name": "?disable@Rva0009D6F5ZeroSetter@@QAEXXZ",
+        "slot": 38,
+        "target": "0x9d6f5"
+       },
+       {
+        "name": "?rva002BEFE5@Rva002BEFE5@@QAEXPBURva002BEFE5Vec@@MMI@Z",
+        "slot": 39,
+        "target": "0x2befe5"
+       },
+       {
+        "name": "__purecall",
+        "slot": 40,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 41,
+        "target": "0x3b810"
+       },
+       {
+        "name": "__purecall",
+        "slot": 42,
+        "target": "0x3b810"
+       }
+      ],
+      "table": "0x7fe508"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x7fe508": {
+    "end": "next-table",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRva002BFB2D@@UAEPAXI@Z",
+     "1": "??1Region2D@@QAE@XZ",
+     "2": "?Rva002BE8CEGet@@YAHXZ",
+     "3": "?rva002BE833@Rva002BE833@@QAEXPAVXfer@@@Z",
+     "4": "__purecall",
+     "5": "__purecall",
+     "6": "__purecall",
+     "7": "__purecall",
+     "8": "__purecall",
+     "9": "__purecall",
+     "10": "?rva002BF391@LivingWorld@@UAEX_N@Z",
+     "11": "__purecall",
+     "12": "__purecall",
+     "13": "__purecall",
+     "14": "__purecall",
+     "15": "__purecall",
+     "16": "?rva002BFBF0@Rva002BFBF0@@QAEMXZ",
+     "17": "__purecall",
+     "18": "__purecall",
+     "19": "?rva002BE7FA@Rva002BE7FA@@QAEXII@Z",
+     "20": "?set@Rva0009AA01ByteSlot@@QAEXE@Z",
+     "21": "__purecall",
+     "22": "__purecall",
+     "23": "__purecall",
+     "24": "__purecall",
+     "25": "__purecall",
+     "26": "__purecall",
+     "27": "?rva002C021A@Rva002C021A@@QAEXXZ",
+     "28": "__purecall",
+     "29": "__purecall",
+     "30": "__purecall",
+     "31": "__purecall",
+     "32": "__purecall",
+     "33": "?enable@Rva004A18C0OneSetter@@QAEXXZ",
+     "34": "?enable@Rva0009D6E8OneSetter@@QAEXXZ",
+     "35": "?get@Rva0009D6EDByteField@@QBEEXZ",
+     "36": "?get@Rva0009D6F1ByteField@@QBEEXZ",
+     "37": "?disable@Rva002886A2ZeroSetter@@QAEXXZ",
+     "38": "?disable@Rva0009D6F5ZeroSetter@@QAEXXZ",
+     "39": "?rva002BEFE5@Rva002BEFE5@@QAEXPBURva002BEFE5Vec@@MMI@Z",
+     "40": "__purecall",
+     "41": "__purecall",
+     "42": "__purecall"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 4,
+   "28": 1,
+   "32": 1,
+   "192": 4
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 6,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_body",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva002BF33DListener**",
+   "views": 5,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorld_ZoomInTo.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorld_ZoomInTo.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 25,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 26,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 27,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/LivingWorld_ZoomInTo.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 37,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 96,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 104,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 108,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 112,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 120,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 124,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 128,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 140,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 144,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 152,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 153,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 154,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 156,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 160,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 168,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 172,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldDtor.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 173,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 174,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 176,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 180,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 188,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "slot04()": 1,
+    "v04()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "slot05()": 1,
+    "v05()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "slot06()": 1,
+    "v06()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "slot07()": 1,
+    "v07()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "slot08()": 1,
+    "v08()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "slot09()": 1,
+    "v09()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "rva002BF391(bool)": 1,
+    "v10()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "slot11()": 1,
+    "v11()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "slot12()": 1,
+    "v12()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot13",
+   "candidates": {
+    "slot13()": 1,
+    "v13()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot14",
+   "candidates": {
+    "slot14()": 1,
+    "v14(void*,void*)": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot15",
+   "candidates": {
+    "slot15()": 1,
+    "v15()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot16",
+   "candidates": {
+    "slot16()": 1,
+    "v16()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot17",
+   "candidates": {
+    "slot17()": 1,
+    "v17()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot18",
+   "candidates": {
+    "slot18()": 1,
+    "v18()": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot19",
+   "candidates": {
+    "slot19()": 1,
+    "v19(int,int)": 1
+   },
+   "class": "LivingWorld"
+  },
+  {
+   "attribute": "slot20",
+   "candidates": {
+    "slot20(bool)": 1,
+    "v20()": 1
+   },
+   "class": "LivingWorld"
+  }
+ ],
+ "size": 192,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "rva002BF391(bool)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "v21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "v22(void*)"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "v23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "v24()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "v25()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "v26()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "v27()"
+  },
+  "28": {
+   "decided_by": "bytes",
+   "member": "v28()"
+  },
+  "29": {
+   "decided_by": "bytes",
+   "member": "v29()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "v03()"
+  },
+  "30": {
+   "decided_by": "bytes",
+   "member": "v30()"
+  },
+  "31": {
+   "decided_by": "bytes",
+   "member": "v31()"
+  },
+  "32": {
+   "decided_by": "bytes",
+   "member": "v32()"
+  },
+  "33": {
+   "decided_by": "bytes",
+   "member": "v33()"
+  },
+  "34": {
+   "decided_by": "bytes",
+   "member": "v34()"
+  },
+  "35": {
+   "decided_by": "bytes",
+   "member": "v35()"
+  },
+  "36": {
+   "decided_by": "bytes",
+   "member": "v36()"
+  },
+  "37": {
+   "decided_by": "bytes",
+   "member": "v37()"
+  },
+  "38": {
+   "decided_by": "bytes",
+   "member": "v38()"
+  },
+  "39": {
+   "decided_by": "bytes",
+   "member": "v39()"
+  },
+  "40": {
+   "decided_by": "bytes",
+   "member": "v40(int)"
+  }
+ }
+}
