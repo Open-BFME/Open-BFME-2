@@ -503,3 +503,4 @@ Rva003844D7,Code/GameEngine/Include/GameNetwork/Rva003844D7.h,existing header; c
 BattlePromptMovieClip,Code/GameEngine/Include/GameClient/BattlePromptMovieClip.h,existing header; contract class_contracts/BattlePromptMovieClip.json; 8/13 sampled units adopt
 RAMFile,Code/GameEngine/Include/Common/RAMFileClass.h,existing header; contract class_contracts/RAMFile.json; 6/12 sampled units adopt
 RectClass,Code/Libraries/Source/WWVegas/WWMath/RectClass.h,existing header; contract class_contracts/RectClass.json; 8/12 sampled units adopt
+LivingWorldAutoResolveBattle,Code/GameEngine/Include/GameLogic/LivingWorldAutoResolveBattle.h,existing header; contract class_contracts/LivingWorldAutoResolveBattle.json; 7/16 sampled units adopt
