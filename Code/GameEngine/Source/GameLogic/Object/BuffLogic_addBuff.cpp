@@ -13,11 +13,7 @@ public:
 	virtual int s17() const;
 };
 
-class ModuleInfo
-{
-public:
-	const ModuleData *getNthData(int i) const;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 struct BuffInner
 {

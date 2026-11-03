@@ -249,16 +249,7 @@ public:
 	Real m_range;				// +0x2C
 };
 // ThingTemplate's behavior module list (begin/end/storage, 20-byte entries).
-class ModuleInfo
-{
-public:
-	Int getCount() const { return ((const char *)m_end - (const char *)m_begin) / 20; }
-	const ModuleData *getNthData(Int i) const;
-private:
-	const void *m_begin;
-	const void *m_end;
-	const void *m_storage;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate
 {
 public:

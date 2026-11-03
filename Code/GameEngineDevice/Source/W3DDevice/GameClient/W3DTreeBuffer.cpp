@@ -758,11 +758,7 @@ public:
 	virtual const Rva000ECDF5TreeDrawData *getAsW3DTreeDrawModuleData() const;
 };
 
-class ModuleInfo
-{
-public:
-	const ModuleData *getNthData(Int i) const;
-};
+#include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate
 {

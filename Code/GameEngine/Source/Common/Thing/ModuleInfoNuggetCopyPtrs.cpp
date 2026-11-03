@@ -12,24 +12,7 @@
 
 #include "../../../Include/Common/ModuleData.h"
 
-class ModuleInfo
-{
-public:
-	struct Nugget
-	{
-		~Nugget();
-		Nugget &operator=(const Nugget &other);
-
-		AsciiString m_first;
-		AsciiString m_moduleTag;
-		const ModuleData *m_data;
-		int m_interfaceMask;
-		unsigned char m_copiedFromDefault;
-		unsigned char m_inheritable;
-		unsigned char m_overrideableByLikeKind;
-		unsigned char m_pad;
-	};
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 namespace _STL
 {

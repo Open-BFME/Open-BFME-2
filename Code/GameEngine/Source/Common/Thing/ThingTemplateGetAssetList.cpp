@@ -24,11 +24,7 @@ public:
 	AssetList00208F90 &operator<<(const AsciiString &s);
 };
 
-class ModuleInfo
-{
-public:
-	char m_data[12];
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 enum ModuleType
 {

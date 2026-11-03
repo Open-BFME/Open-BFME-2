@@ -46,20 +46,7 @@ public:
 	virtual const CommandSetUpgradeModuleData *getAsCommandSetUpgradeModuleData() const;	// slot 23 (+0x5C)
 };
 
-class ModuleInfo
-{
-	struct Nugget
-	{
-		unsigned char m_bytes[0x14];
-	};
-public:
-	__declspec(dllimport) __forceinline Int getCount() const { return m_end - m_begin; }
-	const ModuleData *getNthData(Int i) const;
-private:
-	Nugget *m_begin;
-	Nugget *m_end;
-	Nugget *m_capacity;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate
 {

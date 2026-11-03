@@ -6,14 +6,7 @@
 #include "ascii_string.h"
 
 struct ModuleNugget { char m_bytes[20]; };
-class ModuleInfo
-{
-public:
-    AsciiString getNthName(int index) const;
-    ModuleNugget *m_begin;
-    ModuleNugget *m_end;
-    ModuleNugget *m_cap;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 AsciiString ModuleInfo::getNthName(int index) const
 {

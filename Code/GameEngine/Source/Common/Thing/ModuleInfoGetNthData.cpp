@@ -21,16 +21,7 @@ public:
 class AIUpdateModuleData;
 
 
-class ModuleInfo
-{
-public:
-	const void *m_begin;
-	const void *m_end;
-	const void *m_storage;
-
-public:
-	__declspec(noinline) const ModuleData *getNthData(int i) const;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 // Local stride calculation avoids emitting a competing ModuleInfo::getCount.
 static __forceinline int moduleRecordCount(const ModuleInfo *info)

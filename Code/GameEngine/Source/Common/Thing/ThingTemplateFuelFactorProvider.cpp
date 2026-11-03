@@ -77,14 +77,7 @@ public:
 	float m_scale;
 };
 
-class ModuleInfo
-{
-public:
-	const void *m_begin;
-	const void *m_end;
-	const void *m_storage;
-	__declspec(noinline) const ModuleData *getNthData(int i) const;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate
 {

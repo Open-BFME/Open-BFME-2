@@ -22,16 +22,7 @@ struct ModuleNugget
 	char m_bytes[20];
 };
 
-class ModuleInfo
-{
-public:
-	AsciiString getNthName(int i) const;
-	int getCount() const { return ((char *)m_end - (char *)m_begin) / 20; }
-
-	ModuleNugget *m_begin;
-	ModuleNugget *m_end;
-	ModuleNugget *m_cap;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate
 {

@@ -176,18 +176,7 @@ public:
 	virtual const Rva003A135BHordeData *v21() const;
 };
 
-class ModuleInfo
-{
-	const void *m_begin;
-	const void *m_end;
-	const void *m_storage;
-public:
-	__declspec(dllimport) int getCount() const
-	{
-		return ((const char *)m_end - (const char *)m_begin) / 20;
-	}
-	const ModuleData *getNthData(int i) const;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate;
 

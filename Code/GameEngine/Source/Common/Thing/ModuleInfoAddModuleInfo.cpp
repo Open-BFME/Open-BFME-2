@@ -25,11 +25,7 @@ namespace _STL {
 struct BfmeModuleInfoLayout {
  _STL::vector<BfmeStringRecord002CF4C6,_STL::allocator<BfmeStringRecord002CF4C6> > m_info;
 };
-class ModuleInfo {public:
- struct Nugget {AsciiString first,tag; const ModuleData *data; int mask; unsigned char flags[2];};
- const Nugget *getNuggetWithTag(const AsciiString &) const;
- void addModuleInfo(ThingTemplate *,const AsciiString &,const AsciiString &,const ModuleData *,int,bool,bool);
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 void ModuleInfo::addModuleInfo(ThingTemplate *thingTemplate, 
 																	 const AsciiString& name,
 															 const AsciiString& moduleTag, 

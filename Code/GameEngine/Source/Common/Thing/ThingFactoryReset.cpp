@@ -63,18 +63,13 @@ public:
 };
 
 struct ModuleInfoRecord { char m_opaque[20]; };
-class ModuleInfo
-{
-public:
-    const ModuleData *getNthData(int i) const;
-    ModuleInfoRecord *m_start, *m_end, *m_capacity;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 // Keep the target stride calculation local; other ModuleInfo views emit
 // different getCount copies. This helper is completely inlined.
 static __forceinline int moduleRecordCount(const ModuleInfo *info)
 {
-    return ((const char *)info->m_end - (const char *)info->m_start) / 20;
+    return ((const char *)info->m_end - (const char *)info->m_begin) / 20;
 }
 
 class ThingTemplate : public Overridable

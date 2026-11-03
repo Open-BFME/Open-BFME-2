@@ -46,16 +46,7 @@ class BFMERetailAsciiString : public AsciiString
 };
 
 struct ModuleInfoEntry { unsigned char m_data[0x14]; };
-class ModuleInfo
-{
-public:
-	int getCount() const { return m_end - m_begin; }
-	BFMERetailAsciiString getNthName(int i) const;
-	const ModuleData *getNthData(int i) const;
-	ModuleInfoEntry *m_begin;
-	ModuleInfoEntry *m_end;
-	ModuleInfoEntry *m_capacity;
-};
+#include "../../Include/Common/ModuleInfoClass.h"
 
 #include "../../Include/Common/ThingTemplate.h"
 

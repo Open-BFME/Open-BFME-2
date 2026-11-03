@@ -21,13 +21,7 @@ class ModuleData { public:
 class ThingTemplate;
 #include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
-class ModuleInfo { public:
- bool rva0033C84A(int);
- bool clearAiModuleInfo();
- bool rva0033C8B5();
- void addModuleInfo(ThingTemplate *,const AsciiString &,const AsciiString &,const ModuleData *,int,bool,bool);
-private: char bytes[12];
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate { protected:
  static void parseModuleName(INI *,void *,void *,const void *);
 private:

@@ -7,16 +7,7 @@
 #include "ascii_string.h"
 
 
-class ModuleInfo
-{
-public:
-	bool clearModuleDataWithTag(const AsciiString &tag, AsciiString &out);
-
-private:
-	void *m_p0;
-	void *m_p1;
-	void *m_p2;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 class Rva0033C8E8
 {

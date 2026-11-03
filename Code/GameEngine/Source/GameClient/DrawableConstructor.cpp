@@ -61,16 +61,7 @@ enum DrawableStatus { DRAWABLE_STATUS_NONE = 0 };
 enum ModuleType { MODULETYPE_DRAW = 1, MODULETYPE_CLIENT_UPDATE = 2, MODULETYPE_3 = 3 };
 
 struct ModuleInfoEntry { unsigned char m_data[0x14]; };
-class ModuleInfo
-{
-public:
-	__declspec(dllimport) __forceinline int getCount() const { return m_end - m_begin; }
-	AsciiString getNthName(int i) const;
-	const ModuleData *getNthData(int i) const;
-	ModuleInfoEntry *m_begin;
-	ModuleInfoEntry *m_end;
-	ModuleInfoEntry *m_capacity;
-};
+#include "../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate
 {
