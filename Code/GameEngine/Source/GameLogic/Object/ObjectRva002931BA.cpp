@@ -20,11 +20,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_FAERIE_FIRE = 0x26
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x115];
-	unsigned char m_kindByte115;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -45,7 +41,7 @@ Bool Object::rva002931BA()
 	if (producerID == 0)
 		goto isFalse;
 	Object *producer = TheGameLogic->findObjectByID(producerID);
-	if (producer != 0 && (producer->m_template->m_kindByte115 & 0x20) != 0)
+	if (producer != 0 && (producer->m_template->m_kindof[3] & (1U << 13)) != 0)
 		goto isTrue;
 isFalse:
 	return false;

@@ -61,13 +61,7 @@ enum ObjectStatusTypes
 
 #include "../../Common/GameLogicObjectLookupView.h"
 
-struct ThingTemplate
-{
-	unsigned char m_pad00[ 0x108 ];
-	unsigned char m_byte108; // +0x108, 0x80 STRUCTURE bit per ObjectIsSelectable
-	unsigned char m_pad109[ 0x115 - 0x109 ];
-	unsigned char m_byte115; // +0x115, 0x20 producer check
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -84,12 +78,12 @@ Bool Object::isMassSelectable( void ) const
 		Object *producer = TheGameLogic->findObjectByID( producerID );
 		if( producer != 0 )
 		{
-			if( ( producer->m_template->m_byte115 & 0x20 ) != 0 )
+			if( ( producer->m_template->m_kindof[3] & (1U << 13) ) != 0 )
 			{
 				if( producer->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION ) )
 					return false;
 			}
 		}
 	}
-	return isSelectable() && !( m_template->m_byte108 & 0x80 );
+	return isSelectable() && !( m_template->m_kindof[0] & (1U << 7) );
 }

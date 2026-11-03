@@ -15,15 +15,7 @@ enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0
 };
-class ThingTemplate
-{
-public:
-	bool isKindOf108Bit7() const { return (m_kindOf[0] & 0x80) != 0; }
-	bool isKindOf109Bit6() const { return (m_kindOf[1] & 0x40) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[4]; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
@@ -66,7 +58,7 @@ public:
 void RepairSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int options)
 {
 	Object *self = m_object;
-	if (self->getTemplate()->isKindOf109Bit6() && obj && obj->getTemplate()->isKindOf108Bit7())
+	if (((self->getTemplate()->m_kindof[0] & (1U << 14)) != 0) && obj && ((obj->getTemplate()->m_kindof[0] & (1U << 7)) != 0))
 	{
 		AIUpdateInterface *ai = Object::getAI(self);
 		if (ai)

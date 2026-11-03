@@ -31,11 +31,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad00[0x114];
-	unsigned int m_flags114;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct Rva0028AC4EEntry
 {
@@ -134,7 +130,7 @@ void Object::rva00295FA9(Object *other)
 	Object *cont = m_containedBy;
 	if (cont != 0)
 	{
-		if ((cont->m_template->m_flags114 & 0x2000) != 0)
+		if ((cont->m_template->m_kindof[3] & 0x2000) != 0)
 		{
 			const Rva0028AC4EEntry *holder = cont->rva0028AC4E();
 			if (holder != 0)
@@ -190,7 +186,7 @@ void Object::rva00295F05(Bool force)
 	{
 		if (related == 0)
 			return;
-		unsigned int flags = related->m_template->m_flags114;
+		unsigned int flags = related->m_template->m_kindof[3];
 		if ((((unsigned char *)&flags)[1] & 0x40) == 0 || (flags & 0x800000) != 0)
 			return;
 	}

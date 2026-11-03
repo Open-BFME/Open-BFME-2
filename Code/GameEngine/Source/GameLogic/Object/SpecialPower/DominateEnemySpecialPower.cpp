@@ -114,12 +114,7 @@ public:
 	bool accepts(Object *obj, Player *player);	// 0x00362437
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x114];
-	unsigned m_114;		// +0x114 (bit 13 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -322,7 +317,7 @@ void DominateEnemySpecialPower::rva004CCB0E(Object *target, Object *owner,
 	if (target->testStatus((ObjectStatusTypes)2))
 		return;
 	Object *other = TheGameLogic->findObjectByID(target->m_78);
-	if (other && (other->m_template->m_114 & 0x2000)) {
+	if (other && (other->m_template->m_kindof[3] & 0x2000)) {
 		if (!flag)
 			return;
 		target = other;

@@ -9,14 +9,7 @@
 
 typedef int Int;
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad[0x113];
-	unsigned char m_byte113; // +0x113
-	unsigned char m_pad114[0x570 - 0x114];
-	Int m_bountyValue; // +0x570
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 
@@ -54,7 +47,7 @@ Int Rva0028D796::rva0028D796()
 {
 	ThingTemplate *thingTemplate = m_template;
 	Int base = thingTemplate->m_bountyValue;
-	if ((thingTemplate->m_byte113 & 4) != 0) {
+	if ((thingTemplate->m_kindof[2] & (1U << 26)) != 0) {
 		ExperienceLevelList *list = reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->FindExperienceLevelList(m_tracker);
 		if (list != 0) {
 			Rva00288940Call find;

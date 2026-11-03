@@ -59,22 +59,7 @@ struct Rva0049402BFrameView { char pad[0x40]; unsigned frame; };
 
 #include "../../../../Include/Common/SpecialPower.h"
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(KindOfType t) const
-	{
-		return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isKindOf copy loses to the
-	// kept copy. No flags touched.
-	__forceinline bool bfme_isKindOf_spm(KindOfType t) const
-	{
-		return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0;
-	}
-	char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Rva0049402BPlayerFlags { public: char m_pad[0x1BC]; bool m_flag; };
 
@@ -202,7 +187,7 @@ void SpecialPowerModule::rva0049402B(BfmeWideResult *iter)
 	Object *obj;
 	while ((obj = iter->next()) != 0)
 	{
-		if (obj->getTemplate()->bfme_isKindOf_spm(KINDOF_47))
+		if (((obj->getTemplate()->m_kindof[KINDOF_47 >> 5] & (1U << (KINDOF_47 & 31))) != 0))
 			continue;
 		if (!modData->m_includeSelf && obj == source)
 			continue;
@@ -261,6 +246,6 @@ void SpecialPowerModule::ApplyPowerToObject(Object *obj, int frame, const BitFla
 			FXList::doFXObj(modData->m_fx4C, obj, 0);
 	}
 
-	if (modData->m_fx28 && !obj->getTemplate()->bfme_isKindOf_spm(KINDOF_109))
+	if (modData->m_fx28 && !((obj->getTemplate()->m_kindof[KINDOF_109 >> 5] & (1U << (KINDOF_109 & 31))) != 0))
 		FXList::doFXObj(modData->m_fx28, obj, 0);
 }

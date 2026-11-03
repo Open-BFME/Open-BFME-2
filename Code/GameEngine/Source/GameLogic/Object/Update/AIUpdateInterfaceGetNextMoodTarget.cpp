@@ -177,16 +177,7 @@ public:
 	virtual Bool slot46();
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x109];
-	unsigned char m_kind109; // +0x109
-	unsigned char m_pad10A[0x10F - 0x10A];
-	unsigned char m_kind10F; // +0x10F
-	unsigned char m_pad110[0x114 - 0x110];
-	UnsignedInt m_kind114; // +0x114
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class Team;
 #include "../../../../Include/Common/Team.h"
@@ -321,7 +312,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 
 	Bool humanControlled = obj->testStatus(OBJECT_STATUS_44) || obj->getControllingPlayer()->getPlayerType() == 0;
 
-	if (obj->getTemplate()->m_kind109 & 0x40)
+	if (obj->getTemplate()->m_kindof[0] & (1U << 14))
 	{
 		Rva00268EB8SlotView *view = ((AIUpdateSlots93 *)this)->slot93();
 		if (view && (view->slot09() != -1 || view->slot08()))
@@ -414,7 +405,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 	if (moodMatrixVal & 0x2000)
 		return 0;
 
-	if ((obj->getTemplate()->m_kind114 & 0x2000) && obj->testStatus(OBJECT_STATUS_3A))
+	if ((obj->getTemplate()->m_kindof[3] & 0x2000) && obj->testStatus(OBJECT_STATUS_3A))
 	{
 		ContainView *contain = obj->m_contain;
 		if (contain)
@@ -426,7 +417,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 	}
 
 	UnsignedInt flags = 2;
-	if (TheAI->getAiData()->m_attackUsesLineOfSight && (obj->getTemplate()->m_kind10F & 8))
+	if (TheAI->getAiData()->m_attackUsesLineOfSight && (obj->getTemplate()->m_kindof[1] & (1U << 27)))
 		flags = 3;
 	if (TheAI->getAiData()->m_attackIgnoreInsignificantBuildings)
 		flags |= 4;
@@ -492,7 +483,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 	}
 	if (target)
 	{
-		if (!(obj->getTemplate()->m_kind114 & 0x2000) && (target->getTemplate()->m_kind114 & 0x2000))
+		if (!(obj->getTemplate()->m_kindof[3] & 0x2000) && (target->getTemplate()->m_kindof[3] & 0x2000))
 			target = target->adjustVictim(obj, false, 0);
 	}
 	if (calledByAI && humanControlled && target && !AI::rva002FE193(obj, target))
@@ -520,8 +511,8 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 			}
 		}
 	}
-	if ((obj->getTemplate()->m_kind114 & 0x2000) && target->m_containedBy &&
-		(target->m_containedBy->getTemplate()->m_kind114 & 0x2000))
+	if ((obj->getTemplate()->m_kindof[3] & 0x2000) && target->m_containedBy &&
+		(target->m_containedBy->getTemplate()->m_kindof[3] & 0x2000))
 		target = target->m_containedBy;
 	}
 	return target;

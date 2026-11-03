@@ -55,14 +55,7 @@ class Module;
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ThingTemplate
-{
-public:
-	__forceinline Bool isKindOf(Int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[28];						// +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 struct Coord3D;
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
@@ -187,7 +180,7 @@ void SiegeDeployHordeSpecialPower::initiateIntentToDoSpecialPower(const SpecialP
 		for (SiegeDeployHordeListNode *node = head->m_next; node != head; node = node->m_next)
 		{
 			Object *obj = node->m_data;
-			if (obj->getTemplate()->isKindOf(93))
+			if (((obj->getTemplate()->m_kindof[2] & (1U << 29)) != 0))
 			{
 				leader = obj;
 				break;

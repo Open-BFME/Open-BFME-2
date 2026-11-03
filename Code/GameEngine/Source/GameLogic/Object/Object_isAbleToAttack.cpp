@@ -137,24 +137,7 @@ class ContainedAttackObjectView {public:
  virtual Object *slot69(int);
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x108];
-	unsigned char m_kindByte108;
-	unsigned char m_kindByte109;
-	unsigned char m_pad10A[0x10F-0x10A];
-	unsigned char m_kindByte10F;
-	unsigned char m_pad110[0x112 - 0x110];
-	unsigned char m_kindByte112;
-	unsigned char m_pad113[0x115 - 0x113];
-	unsigned char m_kindByte115;
-	unsigned char pad116[0x11A-0x116];
-	unsigned char m_kindByte11A;
-	unsigned char pad11B[0x11F-0x11B];
-	unsigned char m_kindByte11F;
-	unsigned char pad120[0x634-0x120];
-	bool m_flag634;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct WeaponSet
 {
@@ -305,7 +288,7 @@ Bool Object::isAbleToAttack() const
 		return false;
 
 	const Object *container = m_containedBy;
-	if (container != NULL && (container->m_template->m_kindByte115 & 0x20) != 0)
+	if (container != NULL && (container->m_template->m_kindof[3] & (1U << 13)) != 0)
 		container = container->m_containedBy;
 	if (container == NULL)
 		goto soldCheck;
@@ -333,7 +316,7 @@ soldCheck:
 		return false;
 
 	thingTemplate = m_template;
-	if (((thingTemplate->m_kindByte10F & 2) != 0) || ((thingTemplate->m_kindByte112 & 0x10) != 0))
+	if (((thingTemplate->m_kindof[1] & (1U << 25)) != 0) || ((thingTemplate->m_kindof[2] & (1U << 20)) != 0))
 	{
 		if ((m_statusByte1C8 & 4) != 0)
 			return false;
@@ -342,7 +325,7 @@ soldCheck:
 	ai = m_aiUpdate;
 	anyEnabled = false;
 	anyWeapon = false;
-	if (ai != NULL && (thingTemplate->m_kindByte108 & 8) == 0)
+	if (ai != NULL && (thingTemplate->m_kindof[0] & (1U << 3)) == 0)
 	{
 		for (int i = 0; i < WEAPONSLOT_COUNT; i++)
 		{
@@ -364,7 +347,7 @@ soldCheck:
 	}
 
 checkKind:
-	if ((m_template->m_kindByte108 & 8) != 0)
+	if ((m_template->m_kindof[0] & (1U << 3)) != 0)
 		return true;
 	if (testStatus(OBJECT_STATUS_CAN_ATTACK))
 		return true;
@@ -404,21 +387,21 @@ CanAttackResult Object::getAbleToAttackSpecificObject(AbleToAttackType type,
     if (!target)
         return ATTACKRESULT_NOT_POSSIBLE;
 
-    if ((m_template->m_kindByte109 & 8) && !m_template->m_flag634 &&
-        (target->m_template->m_kindByte108 & 0x80))
+    if ((m_template->m_kindof[0] & (1U << 11)) && !m_template->m_canPathThroughGates &&
+        (target->m_template->m_kindof[0] & (1U << 7)))
     {
         Pathfinder *pathfinder = TheAI->pathfinder;
         if (!pathfinder->QuickDoesPathExistToStructure(const_cast<Object *>(this),
                 &m_position, const_cast<Object *>(target), 0))
             return ATTACKRESULT_NOT_POSSIBLE;
     }
-    if (target->m_template->m_kindByte11A & 0x40)
+    if (target->m_template->m_kindof[4] & (1U << 22))
     {
         Module *wall = WallUpgradeUpdate::rva004AB1F5(const_cast<Object *>(target));
         if (wall && !reinterpret_cast<WallAttackView *>(wall)->predicate.slot0())
             return ATTACKRESULT_NOT_POSSIBLE;
     }
-    if (!((unsigned int)type & 0x10) && (m_template->m_kindByte115 & 0x20))
+    if (!((unsigned int)type & 0x10) && (m_template->m_kindof[3] & (1U << 13)))
     {
         Bfme250Interface *iface = m_iface250;
         if (!iface)
@@ -426,9 +409,9 @@ CanAttackResult Object::getAbleToAttackSpecificObject(AbleToAttackType type,
         ContainedAttackObjectView *contain = iface->slot31();
         if (!contain)
             return ATTACKRESULT_NOT_POSSIBLE;
-        if (isKindOf(KINDOF_0x1BA) && (target->m_template->m_kindByte11F & 0x20))
+        if (isKindOf(KINDOF_0x1BA) && (target->m_template->m_kindof[5] & (1U << 29)))
             return ATTACKRESULT_NOT_POSSIBLE;
-        Object *attacker = (m_template->m_kindByte115 & 0x40) ?
+        Object *attacker = (m_template->m_kindof[3] & (1U << 14)) ?
             contain->slot20() : contain->slot69(0xA4);
         if (attacker)
             return attacker->m_weaponSet.getAbleToAttackSpecificObject(

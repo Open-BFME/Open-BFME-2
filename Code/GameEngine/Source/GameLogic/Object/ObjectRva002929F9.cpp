@@ -94,18 +94,7 @@ public:
 	void rva001E415F(Real value, Int frames);
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOf109() const { return (m_kindOf[13] & 0x20) != 0; }
-
-	char m_pad000[0x108];
-	unsigned char m_kindOf[0x50C - 0x108];
-	Real m_minCrushVelocityPercent;
-	Real m_crushDecelerationPercent;
-	Real m_crushKnockback;
-	Real m_crushZFactor;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -159,7 +148,7 @@ void Object::rva002929F9(Object *other)
 		TheAudio->addAudioEvent(&sound);
 	}
 
-	if (m_containedBy && m_containedBy->getTemplate()->isKindOf109()) {
+	if (m_containedBy && ((m_containedBy->getTemplate()->m_kindof[3] & (1U << 13)) != 0)) {
 		m_containedBy->rva002929F9(other);
 		return;
 	}
@@ -195,7 +184,7 @@ void Object::rva002929F9(Object *other)
 	Real value = reinterpret_cast<Rva001E46E1 *>(entry)->rva001E48CF(this);
 	Real aiSpeed = ai->rva002627E8();
 	speed *= aiSpeed;
-	if (getTemplate()->isKindOf109()) {
+	if (((getTemplate()->m_kindof[3] & (1U << 13)) != 0)) {
 		Rva002929F9Module *module = m_250;
 		if (module) {
 			Int count = module->rva002929F9Count(0);

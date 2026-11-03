@@ -56,14 +56,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-private:
-	char m_pad[0x64];
-	AsciiString m_name;
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {

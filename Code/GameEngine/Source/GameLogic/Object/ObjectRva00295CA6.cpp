@@ -33,12 +33,7 @@ enum ObjectStatusTypes
 	RVA_OBJECT_STATUS_26 = 0x26
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[20];		// +0x108
-	__forceinline bool isKindOf(int k) const { return (m_kindOf[k >> 3] & (1 << (k & 7))) != 0; }
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 struct Rva00295CA6ContainView
 {
@@ -113,7 +108,7 @@ bool Object::rva00295CA6()
 		Object *obj = TheGameLogic->findObjectByID(ids[i]);
 		if (obj == 0)
 			continue;
-		if (obj->getTemplate()->isKindOf(0x6D))
+		if (((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 			continue;
 		if (obj->isEffectivelyDead())
 			continue;
@@ -121,7 +116,7 @@ bool Object::rva00295CA6()
 			continue;
 		if (getRelationship(obj) != ENEMIES)
 			continue;
-		if ((obj->getTemplate()->isKindOf(7) || obj->getTemplate()->isKindOf(0x82)) && obj != related && obj != containerRelated)
+		if ((((obj->getTemplate()->m_kindof[0] & (1U << 7)) != 0) || ((obj->getTemplate()->m_kindof[4] & (1U << 2)) != 0)) && obj != related && obj != containerRelated)
 			continue;
 		if (victim == 0 || victim != related)
 			victim = obj;
@@ -135,7 +130,7 @@ bool Object::rva00295CA6()
 			Object *obj = TheGameLogic->findObjectByID(ids[j]);
 			if (obj == 0)
 				continue;
-			if (obj->getTemplate()->isKindOf(0x6D))
+			if (((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 				continue;
 			if (obj == containerRelated || (containerRelated != 0 && obj->rva002931F5(false) == containerRelated))
 			{
@@ -154,7 +149,7 @@ bool Object::rva00295CA6()
 				continue;
 			if (victim != 0 && victim == related)
 				continue;
-			if ((obj->getTemplate()->isKindOf(7) || obj->getTemplate()->isKindOf(0x82)) && obj != related && obj != containerRelated)
+			if ((((obj->getTemplate()->m_kindof[0] & (1U << 7)) != 0) || ((obj->getTemplate()->m_kindof[4] & (1U << 2)) != 0)) && obj != related && obj != containerRelated)
 				continue;
 			victim = obj;
 			if (obj->testStatus(RVA_OBJECT_STATUS_26))

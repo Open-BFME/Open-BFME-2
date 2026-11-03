@@ -113,16 +113,7 @@ class Rva002A9EFB { public: void rva002A9EFB(int v); };
 
 #include "../../../../Include/Common/Player.h"
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int t) const
-	{
-		return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0;
-	}
-	char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 enum ModelConditionFlagType { MODELCONDITION_INVALID = -1 };
 enum DisabledType { DISABLED_3 = 3 };
@@ -445,13 +436,13 @@ void SpecialPowerModule::triggerSpecialPower(const Coord3D *location)
 	Rva0026119DFilter filterAlive;
 	Rva002611BFFilter filterMapStatus(obj);
 	filterWhat.link(filterRelationship.link(&filterAlive));
-	if (!obj->getTemplate()->isKindOf(123))
+	if (!((obj->getTemplate()->m_kindof[3] & (1U << 27)) != 0))
 		filterWhat.link(&filterMapStatus);
 
 		BfmeWideResult result = ThePartitionManager->iterateObjectsInRange(&pos, specialPowerModuleData->m_radius, 0, &filterWhat, 1);
 		if (specialPowerModuleData->m_includeSelf)
 		{
-			if (obj->getTemplate()->isKindOf(109))
+			if (((obj->getTemplate()->m_kindof[3] & (1U << 13)) != 0))
 			{
 				Rva0028C197Members *horde = (Rva0028C197Members *)obj->rva0028C197();
 				if (horde)

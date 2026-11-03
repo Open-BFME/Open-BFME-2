@@ -111,14 +111,7 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 
-class ThingTemplate
-{
-public:
-	UnsignedInt testKindOf(Int word, UnsignedInt mask) const { return m_kindOf[word] & mask; }
-private:
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[4]; // +0x108
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../../../Include/GameLogic/Module/ContainModule.h"
 
@@ -408,7 +401,7 @@ StateReturnType AIGiantBirdSwoopState::onEnter()
 		if (victim->isDead())
 			return STATE_FAILURE;
 
-		if (victim->getTemplate()->testKindOf(3, 0x2000))
+		if ((victim->getTemplate()->m_kindof[3] & 0x2000))
 		{
 			ai->m_targetID554 = victim->getID();
 			victim = victim->adjustVictim(owner, 1, 0);
@@ -437,9 +430,9 @@ StateReturnType AIGiantBirdSwoopState::onEnter()
 
 		ai->m_flags4B8 &= ~0x10;
 		if (weapon->rva002C969D(owner, (Int)victim) &&
-			(victim->getTemplate()->testKindOf(4, 0x4000) || victim->testStatus(OBJECT_STATUS_BFME_43)))
+			((victim->getTemplate()->m_kindof[4] & 0x4000) || victim->testStatus(OBJECT_STATUS_BFME_43)))
 			ai->m_flags4B8 |= 0x110;
-		else if (victim->getTemplate()->testKindOf(0, 0x800))
+		else if ((victim->getTemplate()->m_kindof[0] & 0x800))
 			ai->m_flags4B8 = (ai->m_flags4B8 & ~0x100) | 0x20;
 		else if (weapon->getTemplate()->getClipSizeRV() > 1 && !victim->testStatusBit38())
 			ai->m_flags4B8 |= 8;

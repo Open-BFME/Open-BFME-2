@@ -263,17 +263,7 @@ private:
 	UnsignedInt m_words[19];
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const
-	{
-		return m_kindOf[bit >> 5] & (1U << (bit & 0x1f));
-	}
-private:
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
 
 class Thing
 {
@@ -657,7 +647,7 @@ UpdateSleepTime AIUpdateInterface::quickHordeUpdate()
 
 		Matrix3D mtx(true);
 		Real angle = obj->getOrientation() + obj->GetRelativeAngle(&m_locomotorGoalData);
-		if (obj->getTemplate()->isKindOf(KINDOF_9))
+		if ((obj->getTemplate()->m_kindof[KINDOF_9 >> 5] & (1U << (KINDOF_9 & 0x1f))))
 		{
 			Real relAngle = obj->GetRelativeAngle(&m_locomotorGoalData);
 			Coord3D offset;

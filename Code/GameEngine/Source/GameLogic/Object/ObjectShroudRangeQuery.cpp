@@ -30,19 +30,7 @@ enum ObjectStatusTypes
 	STATUS15 = 15, STATUS17 = 17
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isKindOf copy loses to the first-in-order copy. No flags touched.
-	__forceinline bool bfme_isKindOf_769ee(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x20]; // +0x108
-	unsigned char m_pad128[0x4B4 - 0x128];
-	Real m_rangeScaleB; // +0x4B4
-	Real m_rangeScaleC; // +0x4B8
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Team;
 enum Relationship { ENEMIES = 0, NEUTRAL = 1, ALLIES = 2 };
@@ -203,7 +191,7 @@ void Object::rva002941EA(int *playerMask, Real *rangeA, Real *rangeB, Real *rang
 }
 float fallback;
 if(!valid)fallback=-1.0f;else{
-	if (getTemplate()->bfme_isKindOf_769ee(KINDOF_87))
+	if (((getTemplate()->m_kindof[KINDOF_87 >> 5] & (1U << (KINDOF_87 & 31))) != 0))
 		*playerMask = 0xFFFFF;
 	else { int allies = ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), 3, false); int own = ((const Rva002AA21CDwordField *)player)->get();
 		// Keep the relation mask in its stack home across the owner-bit call.
@@ -213,8 +201,8 @@ if(!valid)fallback=-1.0f;else{
 		fallback=0.1f;
 	} else {
 	*rangeA = *rangeB = *rangeC = getShroudClearingRange();
-	Real scaleB = getTemplate()->m_rangeScaleB;
-	Real scaleC = getTemplate()->m_rangeScaleC;
+	Real scaleB = getTemplate()->m_visionSide;
+	Real scaleC = getTemplate()->m_visionRear;
 	Rva0028C197Module *module = (Rva0028C197Module *)rva0028C197();
 	if (module)
 	{
@@ -253,7 +241,7 @@ bool Object::rva00294471(void *arg, int mode)
 	}
 	if (rva0028F518() || (testStatus(STATUS15) && !testStatus(STATUS17)))
 	{
-		if (!(m_template->m_kindOf[0x0B] & 1))
+		if (!(m_template->m_kindof[2] & (1U << 24)))
 			return false;
 		Rva00373EC6 *effect = rva0028F4BC();
 		if (effect && effect->active)
@@ -278,7 +266,7 @@ bool Object::rva00294471(void *arg, int mode)
 			if (!owner || player->getRelationship(owner->team) != ENEMIES)
 				return false;
 		}
-		if (m_template->m_kindOf[0x0D] & 0x20)
+		if (m_template->m_kindof[3] & (1U << 13))
 		{
 			ContainView *base = contain;
 			if (base)

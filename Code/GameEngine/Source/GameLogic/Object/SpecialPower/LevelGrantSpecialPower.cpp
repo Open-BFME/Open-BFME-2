@@ -95,12 +95,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x114];
-	unsigned m_114;		// +0x114 (bit 13 tested)
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 // What 0x0029439D returns: slot 96 counts.
 class Rva0029439DResult
@@ -306,7 +301,7 @@ class Object
 public:
 	void *rva0029439D();	// 0x0029439D
 	Player *getControllingPlayer() const;	// 0x0028AFA9
-	unsigned rva004C2D2BBit13() const { return m_template->m_114 & 0x2000; }
+	unsigned rva004C2D2BBit13() const { return m_template->m_kindof[3] & 0x2000; }
 	ObjectID getID() const { return m_74; }
 	char m_pad000[0x04];
 	const ThingTemplate *m_template;	// +0x04

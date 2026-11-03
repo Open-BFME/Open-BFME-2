@@ -27,15 +27,7 @@ private:
 	Int m_type; // +0x04
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(Int t) const { return m_kindOf[t >> 5] & (1 << (t & 31)); }
-
-private:
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Player
 {
@@ -108,7 +100,7 @@ Int Object::rva00294ADD(Int entry)
 	Rva00294ADDGate *gate = static_cast<Rva00294ADDGate *>(rva0028BC94());
 	if (gate == 0 || gate->isBlocked())
 		return 9;
-	if (getTemplate()->isKindOf(0x96) && m_body->getDamageState() == 3)
+	if ((getTemplate()->m_kindof[4] & (1 << (0x96 & 31))) && m_body->getDamageState() == 3)
 		return 9;
 	if (upgrade->getUpgradeType() == 1)
 	{

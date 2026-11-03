@@ -27,11 +27,7 @@ enum ObjectStatusTypes
 	STATUS_60 = 0x60
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x114];
-	unsigned int m_flags114;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -75,15 +71,15 @@ private:
 
 Object *Object::rva002931F5(Bool checkProducer)
 {
-	if ((m_template->m_flags114 & 0x2000) != 0)
+	if ((m_template->m_kindof[3] & 0x2000) != 0)
 		return this;
 	Object *contained = m_containedBy;
-	if (contained != 0 && (contained->m_template->m_flags114 & 0x2000) != 0)
+	if (contained != 0 && (contained->m_template->m_kindof[3] & 0x2000) != 0)
 		return contained;
 	if (checkProducer)
 	{
 		Object *producer = TheGameLogic->findObjectByID(m_producerID);
-		if (producer != 0 && (producer->m_template->m_flags114 & 0x2000) != 0)
+		if (producer != 0 && (producer->m_template->m_kindof[3] & 0x2000) != 0)
 			return producer;
 	}
 	return 0;
