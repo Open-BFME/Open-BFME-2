@@ -568,3 +568,4 @@ ImageSubscriptMap,Code/GameEngine/Include/GameClient/ImageSubscriptMap.h,existin
 BFMENetInformPlayerLeaveFrameCommandMsg,Code/GameEngine/Include/GameNetwork/BFMENetInformPlayerLeaveFrameCommandMsg.h,existing header; contract class_contracts/BFMENetInformPlayerLeaveFrameCommandMsg.json; 2/9 sampled units adopt
 PlayerStatusDisplayer,Code/GameEngine/Include/GameClient/PlayerStatusDisplayer.h,existing header; contract class_contracts/PlayerStatusDisplayer.json; 7/8 sampled units adopt
 DynamicPortalLink,Code/GameEngine/Include/GameLogic/DynamicPortalLink.h,existing header; contract class_contracts/DynamicPortalLink.json; 4/9 sampled units adopt
+ChunkInputStream,Code/GameEngine/Include/Common/ChunkInputStreamClass.h,existing header; contract class_contracts/ChunkInputStream.json; 5/9 sampled units adopt
