@@ -635,13 +635,7 @@ private:
 #include "WorkOrder.h"
 #include "TeamInQueue.h"
 
-class GlobalData
-{
-public:
-	char m_pad000[0x9B8];
-	Int m_debugAI;				// +0x9B8
-	char m_pad9BC[0xA5C-0x9BC];Int m_baseValuePerSupplyBox;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 #include "../../../Include/GameLogic/ScriptClass.h"
@@ -888,7 +882,7 @@ void AIPlayer::queueSupplyTruck( void )
 				static const NameKeyType key_warehouseUpdate = TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
 				SupplyWarehouseDockUpdate *warehouseModule = (SupplyWarehouseDockUpdate*)supplySource->queryModule( key_warehouseUpdate );
 				if( warehouseModule )	{
-					Int availableCash = warehouseModule->getBoxesStored()*TheWritableGlobalData->m_baseValuePerSupplyBox;
+					Int availableCash = warehouseModule->getBoxesStored()*TheWritableGlobalData->m_valuePerSupplyBox;
 					if (availableCash<=0) continue;
 					if( m_player->getRelationship(supplySource->m_team) == 0 ) {
 						continue;

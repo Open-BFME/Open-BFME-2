@@ -18,14 +18,7 @@ typedef unsigned int UnsignedInt;
 // Neither the record class nor the getter's original identity is established.
 class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
 
-class GlobalData
-{
-public:
-	char m_pad[0x86];
-	unsigned char m_liveCampaignMode;
-	char m_pad87[0x8C - 0x87];
-	AsciiString m_livingWorldCampaignOverrride;
-};
+#include "../../../../Include/Common/GlobalData.h"
 
 extern GlobalData *TheWritableGlobalData;
 

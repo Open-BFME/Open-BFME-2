@@ -216,12 +216,7 @@ class BfmeGlob939D:public GameLogic{public:char bfmeCall939D();};
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/MultiPlayMults.h"
-class GlobalData
-{
-public:
-	unsigned char m_pad[0xEC4];
-	MultiPlayMults m_multiPlayMults;		// +0xEC4
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 class ThingTemplate
 {

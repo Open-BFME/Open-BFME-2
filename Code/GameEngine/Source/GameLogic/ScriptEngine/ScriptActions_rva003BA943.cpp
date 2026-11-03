@@ -59,7 +59,7 @@ void ScriptActions::rva003BA943(Parameter *pUnit, bool flag)
 class Rva002D7FAEOwner {public:void rva002D7FAE(Object*);};
 class Radar;
 extern Radar *TheRadar;
-class GlobalData {public:char pad[0x134];int m_timeOfDay;};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 int __cdecl rva003BA83F(void *value,int unused) {
 if(value) {

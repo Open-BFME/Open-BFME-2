@@ -642,12 +642,7 @@ inline void TeamInQueue::disband() { if (m_team) m_team->disband(); }
 
 
 
-class GlobalData
-{
-public:
-	char m_pad000[0x9B8];
-	Int m_debugAI;				// +0x9B8
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond

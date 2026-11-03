@@ -387,12 +387,7 @@ __forceinline long fast_float2long_round(Real f)
 
 extern GameLogic *TheGameLogic;
 
-class GlobalData
-{
-public:
-	unsigned char m_pad[0xA5C];
-	Int m_baseValuePerSupplyBox;		// +0xA5C
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 
 // BFME2's partition filter chain (the view AIStructureCreepTactic.cpp
@@ -894,7 +889,7 @@ Object *AIPlayer::findSupplyCenter(Int minimumCash)
 			SupplyWarehouseDockUpdate *warehouseModule =
 				(SupplyWarehouseDockUpdate *)obj->findModule(key_warehouseUpdate);
 			if (warehouseModule) {
-				Int availableCash = warehouseModule->getBoxesStored() * TheWritableGlobalData->m_baseValuePerSupplyBox;
+				Int availableCash = warehouseModule->getBoxesStored() * TheWritableGlobalData->m_valuePerSupplyBox;
 				if (availableCash < minimumCash)
 					continue;
 				if (m_player->getRelationship(obj->getTeam()) == ENEMIES)

@@ -200,7 +200,7 @@ int Rva00395A9FKill(Object* object,int context);
 // Semantic donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
 // game/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00371B00.cpp.
 // Native layouts, timer scale, disposal flag and callbacks verified independently.
-class GlobalData { public: char pad[0x110c]; float secondsBeforeBaseCheckActive; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData* TheWritableGlobalData;
 extern int BfmeLogicFramesPerSecond;
 class Rva003975B7Projectile {

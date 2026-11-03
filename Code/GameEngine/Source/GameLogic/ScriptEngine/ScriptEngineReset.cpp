@@ -265,12 +265,7 @@ private:
 	bool m_unknown1A4D7;				// +0x1A4D7
 };
 
-class GlobalData
-{
-public:
-	char m_pad[0x28];
-	Int m_framesPerSecondLimit;			// +0x28
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 class GameEngine

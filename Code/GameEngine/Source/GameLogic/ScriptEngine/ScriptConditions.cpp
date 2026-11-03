@@ -395,12 +395,7 @@ private:
 	Rva003E3C39Interface *m_04;
 };
 extern const void *const g_00C35B34[];
-class GlobalData
-{
-public:
-	char m_pad00[0x110C];
-	float m_secondsBeforeBaseCheckActive; // +0x110C, seconds before the destroyed conditions may fire
-};
+#include "../../../Include/Common/GlobalData.h"
 extern class GlobalData *TheWritableGlobalData;
 class AudioManager
 {

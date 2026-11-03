@@ -105,12 +105,7 @@ public:
 	void *rva003980BF(void *tmpl, Int slot, Int unknown);
 };
 
-class GlobalData
-{
-public:
-	char m_pad0000[0x1110];
-	bool m_1110;
-};
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
 // The asset announcement GameLogic::init makes for a looked-up template
@@ -254,7 +249,7 @@ void ScriptActions::rva003C66F1(const AsciiString &buildingType, Parameter *mode
 	if (!player->rva002AA00C(thingTemplate, 0))
 		return;
 
-	if (!TheWritableGlobalData->m_1110) {
+	if (!TheWritableGlobalData->field1110) {
 		AssetLoadMode mode;
 		AssetList assets;
 		thingTemplate->GetAssetList((int)&assets, (int)&mode);

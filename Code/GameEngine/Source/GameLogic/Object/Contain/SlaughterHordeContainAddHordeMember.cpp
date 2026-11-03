@@ -19,7 +19,8 @@ class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemp
  char pad[0x90];Rva003B0D7C money;char pad91[0x280-0x91];int color;
  char pad284[0x3bc-0x284];ScoreKeeper score;};
 #include "../../../../Include/Common/MultiPlayMults.h"
-class GlobalData{public:char pad[0xec4];MultiPlayMults mults;};extern GlobalData *TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
+extern GlobalData *TheWritableGlobalData;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class BfmeGlob939D{public:char bfmeCall939D();};
@@ -82,7 +83,7 @@ void SlaughterHordeContain::AddHordeMember(Object *member)
    float money=(float)REAL_TO_INT_CEIL(value*md->multiplier);
    Rva003B0D7C *wallet=&player->money;
    if(wallet){
-     if(((BfmeGlob939D*)TheGameLogic)->bfmeCall939D())money*=TheWritableGlobalData->mults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
+     if(((BfmeGlob939D*)TheGameLogic)->bfmeCall939D())money*=TheWritableGlobalData->m_multiPlayMults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
      float mult=1.0f;if(me->rva0028C15E(13,&mult,0,1))money*=mult;
      money=(float)player->ScaleMoney(REAL_TO_INT_CEIL(player->getProductionCostChangeBasedOnTemplate(((me ? me : me) ? (me->getTemplate()) : (me->getTemplate())),true)*money));
      typedef void (Rva003B0D7C::*UnsignedDeposit)(unsigned int,Rva0039B7AD*,bool);

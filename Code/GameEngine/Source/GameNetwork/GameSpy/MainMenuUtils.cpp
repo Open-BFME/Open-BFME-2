@@ -135,7 +135,7 @@ GHTTPBool motdCallback(int request,GHTTPResult result,char *buffer,__int64 buffe
 #include "../../../Include/Common/File.h"
 #include "../../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
-class GlobalData { public: AsciiString rva002360DE(void) const; };
+#include "../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 GHTTPBool configCallback(int request,GHTTPResult result,char *buffer,__int64 bufferLen,void *param)
 {
