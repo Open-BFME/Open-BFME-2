@@ -7,13 +7,7 @@
 // _Destroy template per LivingWorldRegionConnectionHelpers precedent.
 // The copy's by-reference dummy is the dead-arg-slot address [ebp+0xb]
 // (Rva002983DAEraseRange precedent); /Oy- keeps the ebp frame retail uses.
-struct DynamicPortalLink
-{
-	void *m_owned;
-	int m_second;
-	int m_third;
-	~DynamicPortalLink();
-};
+#include "../../../../Include/GameLogic/DynamicPortalLink.h"
 namespace _STL
 {
 struct __false_type {};

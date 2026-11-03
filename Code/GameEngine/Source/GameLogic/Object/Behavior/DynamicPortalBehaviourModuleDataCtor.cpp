@@ -56,13 +56,7 @@ struct DynamicPortalWayPoint
 
 // Same partial element layout as the verified DynamicPortalLinkVector provider.
 // Destruction proves ownership at +0; the remaining two fields stay neutral.
-struct DynamicPortalLink
-{
-    void *m_owned;
-    int m_second;
-    int m_third;
-    ~DynamicPortalLink();
-};
+#include "../../../../Include/GameLogic/DynamicPortalLink.h"
 namespace _STL {
 template <> vector<DynamicPortalLink, allocator<DynamicPortalLink> >::~vector();
 }

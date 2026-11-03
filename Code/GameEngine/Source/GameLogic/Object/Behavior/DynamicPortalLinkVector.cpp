@@ -12,13 +12,7 @@
 
 extern "C" void _free(void *ptr);
 
-struct DynamicPortalLink
-{
-	void *m_owned;
-	int m_second;
-	int m_third;
-	~DynamicPortalLink();
-};
+#include "../../../../Include/GameLogic/DynamicPortalLink.h"
 
 template _STL::vector<DynamicPortalLink>::~vector();
 

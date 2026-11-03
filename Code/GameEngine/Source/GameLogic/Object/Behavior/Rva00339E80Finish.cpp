@@ -8,13 +8,7 @@
 // precedent. Same 51B shape as 0x003F3159 (Rva003F3159Finish.cpp).
 // The copy's dummy is the dead-arg-slot address [ebp+0xb]
 // (Rva002983DAEraseRange precedent); /Oy- keeps the ebp frame retail uses.
-struct DynamicPortalLink
-{
-	void *m_owned;
-	int m_second;
-	int m_third;
-	~DynamicPortalLink();
-};
+#include "../../../../Include/GameLogic/DynamicPortalLink.h"
 namespace _STL
 {
 template <class T> void _Destroy(T first, T last);
