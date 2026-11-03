@@ -19332,6 +19332,11 @@ audit was INCONCLUSIVE for two missing current object receipts against index
 984a4cdc4d (base230fdf4dd4); full current linking remains unmeasured.
 [Final main proof and register scope](../reverse/attempt_support/emotion-pool-header-20261103/README.md).
 
+The remaining six pool-header units need coherent donor-header ownership,
+split Update/Behavior layouts or live vector/category-frame lifetime recovery.
+Whole-file reviews record these prerequisites; all six Code files remain unchanged.
+[Exact remaining boundaries](../reverse/attempt_support/attribute-pool-cohort-boundary-20261103/README.md).
+
 ### Clear current real-link follow-up (2026-11-03)
 
 The current real-link picker again serves the fifteen-row Clear unit. Existing

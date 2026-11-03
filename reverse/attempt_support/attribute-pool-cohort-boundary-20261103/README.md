@@ -1,0 +1,7 @@
+# Remaining pool-header cohort
+
+The served nine-file package retires three header entries in two independent verified changes. Six untouched sources remain blocked. Immutable whole-file reviews separate target-compatible pointer-only signatures from independent ancestors and lifetime changes; their precise hashes/locations are in the attached reports. The tick unit shares the owner's live vector/lifetime boundary; the automatic trial also refuses its 12-byte vector to 8-byte access-view mapping.
+
+Factory: callback contract already matches, but donor Module/Snapshot include ownership conflicts. PassiveAreaEffect: pointer call matches, while live Update/Behavior bases and its seven-word BitFlags primary conflict with canonical ancestors. Object: pointer calls match, but its 12-byte explicit-vptr UpdateModule carrier supports ObjectHelper's constructor and cannot be deleted. Horde: pointer calls match, but its split three-base layout and slot32..37 surface require reconciliation. Owner and Tick: real vector methods/lifetimes must remain, and the owner has constructed category-frame elements that the canonical POD array does not model. No guessed mapping, alias, helper suppression, shared header change or failed Code reconstruction is retained.
+
+Prerequisites are actual coherent class/lifetime/header recovery under source, EH, provider and consumer checks. Canonical storage offsets alone do not justify dropping construction or destruction. These reports are scoped handoff evidence, not measured link progress.
