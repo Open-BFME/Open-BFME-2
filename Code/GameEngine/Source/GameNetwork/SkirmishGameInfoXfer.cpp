@@ -103,14 +103,7 @@ struct XferUnknown11;
 // Slot-3 xfer shape: the slot elements persist themselves through their own
 // virtual (retail calls [eax+0x0C] on each element), so only the slot layout
 // matters here, never the element body.
-class GameSlot
-{
-public:
-	virtual ~GameSlot();
-	virtual void crc(Xfer *xfer);
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/GameNetwork/GameInfo.h"
 
 void __cdecl xferMapName(Xfer *xfer, AsciiString *mapNameData);
 
