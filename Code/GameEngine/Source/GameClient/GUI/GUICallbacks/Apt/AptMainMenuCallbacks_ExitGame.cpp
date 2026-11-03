@@ -187,39 +187,7 @@ extern "C" __declspec(dllimport) int __stdcall SetWindowPos(HWND window, HWND af
 extern void *ApplicationHWnd;
 
 // TheDisplay: windowed (vslot 21), width (16) and height (17).
-class Display
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual int getWidth();
-	virtual int getHeight();
-	virtual void v18(); virtual void v19(); virtual void v20();
-	virtual bool getWindowed();
-	virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25();
-	virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
-	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
-	virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
-	virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
-	virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
-	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
-	virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53();
-	virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57();
-	virtual void v58(); virtual void v59(); virtual void v60(); virtual void v61();
-	virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65();
-	virtual bool playMovie(AsciiString name, int flags, int a, int b);	// slot 66
-	virtual void v67(); virtual void v68();
-	virtual bool rva_slot69();		// +0x114, consulted when a campaign is not started
-	virtual void v70();
-	virtual bool rva_slot71();		// +0x11C
-
-	void rva002B2466(float a, float b, float c, float d);	// rowed
-
-	unsigned char m_pad04[0x114 - 0x04];
-	bool m_114;						// +0x114, set when a campaign starts
-};
+#include "../../../../../Include/GameClient/Display.h"
 
 extern Display *TheDisplay;
 

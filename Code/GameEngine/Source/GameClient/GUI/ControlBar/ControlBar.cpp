@@ -189,16 +189,7 @@ public:
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// +0xF0
 };
 extern GameWindowManager *TheWindowManager;
-class Display
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15)
-#undef V
-	virtual UnsignedInt getWidth();		// +0x40
-	virtual UnsignedInt getHeight();	// +0x44
-};
+#include "../../../../Include/GameClient/Display.h"
 extern Display *TheDisplay;
 class Image;
 class ImageCollection
