@@ -587,3 +587,4 @@ StructureCollapseUpdate,Code/GameEngine/Include/GameLogic/Module/StructureCollap
 LightningEmissionInfo,Code/GameEngine/Include/GameClient/LightningEmissionInfo.h,existing header; contract class_contracts/LightningEmissionInfo.json; 6/10 sampled units adopt
 TerrainFireEmissionInfo,Code/GameEngine/Include/GameClient/TerrainFireEmissionInfo.h,existing header; contract class_contracts/TerrainFireEmissionInfo.json; 7/10 sampled units adopt
 OrthoEmissionVelocityInfo,Code/GameEngine/Include/GameClient/OrthoEmissionVelocityInfo.h,existing header; contract class_contracts/OrthoEmissionVelocityInfo.json; 7/10 sampled units adopt
+SubTitleWindow,Code/GameEngine/Include/GameClient/SubTitleWindow.h,existing header; contract class_contracts/SubTitleWindow.json; 8/11 sampled units adopt
