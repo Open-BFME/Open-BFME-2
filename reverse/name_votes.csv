@@ -23514,3 +23514,11 @@ Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp|member|R
 Code/GameEngine/Source/Common/Rva00532165Union.cpp|function|0x00532165|rva00532165,c8806d9a29b3506600e08725,drz-t45,drz-t45-sv3-1,w-0ea1a33d1051,2026-11-03
 Code/Libraries/Source/Apt/Rva006DAEB0Init.cpp|param|Rva006DAEB0::Rva006DAEB0|a1,afffad3399ab03db7cf253c6,drz-t46,drz-t46-sv3-f4a3f,w-d1d37e680132,2026-11-03
 Code/Libraries/Source/Apt/Rva00700170Pop.cpp|local|AptBasePtrStack::rva00700170|s,1777fe72020a15f7cf9eecae,drz-t46,drz-t46-sv3-f1af3,w-d1d37e680132,2026-11-03
+Code/GameEngine/Source/Common/Rva005D4C61Dtor.cpp|function|0x005D4C48|rva005D4C48,41d8f708306b08a738256516,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva002B471BCheck.cpp|member|Rva002B466EOwner|m_count7C,bc062526ed7aa37ae7feec63,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva005D1129.cpp|class||Rva005D1129LinkNode,cbd8086fd791c446454833b4,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva000B32EF.cpp|member|Rva000B32EF|m_decal1D0,955ad337bc716c5d249e644b,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva005D3287Thunk.cpp|function|0x005D3272|rva005D3272,dc99186699b3f276ebf00edb,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva005D3287Thunk.cpp|function|0x005D3279|rva005D3279,00fb66af7c8727d446d93daf,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/Rva005D3287Thunk.cpp|function|0x005D3280|rva005D3280,a4b190fbd084f9a3723676c7,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
+Code/GameEngine/Source/Common/BfmeConv1341.cpp|member|BfmeThingURC|m_bfmeText,0929e4d1f80bbbb972da8390,claude-sonnet-4-6,review-dd1a1e9cbb094798,w-c10b577ef3fb,2026-11-03
