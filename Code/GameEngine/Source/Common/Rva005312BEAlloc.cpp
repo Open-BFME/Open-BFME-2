@@ -69,29 +69,16 @@ struct Rva005312BERect
 	int x1;
 	int y1;
 };
-class PathfindZoneManager
-{
-public:
-	void rva005328E2(Rva005312BERect *rect);
-	char m_pad[0x1BA30];
-	unsigned char m_flag1BA30;
-	unsigned char m_flag1BA31;
-	char m_pad3[0x1BA34 - 0x1BA32];
-	Rva005312BEItem *m_pData;
-	Rva005312BEItem **m_ppItems;
-	int m_outer;
-	int m_inner;
-	Rva005312BERect m_rect;
-};
+#include "../../Include/GameLogic/PathfindZoneManager.h"
 void PathfindZoneManager::rva005328E2(Rva005312BERect *rect)
 {
-	m_rect = *rect;
-	m_outer = (rect->x1 - rect->x0 + 16) / 16;
-	m_inner = (rect->y1 - rect->y0 + 16) / 16;
-	int total = m_outer * m_inner;
-	m_pData = new Rva005312BEItem[total];
-	m_ppItems = (Rva005312BEItem **)new unsigned char[m_outer * 4];
-	for (int i = 0; i < m_outer; ++i)
-		m_ppItems[i] = m_pData + i * m_inner;
-	m_flag1BA31 = 1;
+	field1BA44 = *(const IRegion2D *)rect;
+	field1BA3C = (rect->x1 - rect->x0 + 16) / 16;
+	field1BA40 = (rect->y1 - rect->y0 + 16) / 16;
+	int total = field1BA3C * field1BA40;
+	field1BA34 = new Rva005312BEItem[total];
+	field1BA38 = (Rva005312BEItem **)new unsigned char[field1BA3C * 4];
+	for (int i = 0; i < field1BA3C; ++i)
+		field1BA38[i] = field1BA34 + i * field1BA40;
+	field1BA31 = 1;
 }
