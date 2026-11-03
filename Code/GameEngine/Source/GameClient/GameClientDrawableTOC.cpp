@@ -997,17 +997,7 @@ class Rva00203ACEByteField { public: unsigned char get() const; };
 #include "../../Include/Common/GameEngine.h"
 
 // ZH GhostObjectManager::updateOrphanedObjects, slot 6 (+0x18).
-class GhostObjectManager
-{
-public:
-	virtual ~GhostObjectManager();
-	virtual void vf01();
-	virtual void vf02();
-	virtual void vf03();
-	virtual void vf04();
-	virtual void vf05();
-	virtual void updateOrphanedObjects(int *playerIndexList, int playerIndexCount); // +0x18
-};
+#include "../../Include/GameLogic/GhostObjectManager.h"
 
 // ZH ParticleSystemManager::setLocalPlayerIndex stores +0x64.
 class ParticleSystemManager

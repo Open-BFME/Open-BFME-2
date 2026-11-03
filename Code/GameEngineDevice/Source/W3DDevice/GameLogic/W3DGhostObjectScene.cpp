@@ -511,27 +511,7 @@ class GhostObject;
 // (empty 0x000B3FD0 in the base, W3D's 0x00063C48), setLocalPlayerIndex 5,
 // updateOrphanedObjects 6 (W3D's 0x000635AB) and addGhostObject 7, which
 // takes only the object.
-class GhostObjectManager
-{
-public:
-	GhostObjectManager();
-	virtual ~GhostObjectManager();																			///< slot 0
-protected:
-	virtual void loadPostProcess( void );																						///< slot 1
-	virtual const char *GetSnapshotName( void ) const;																///< slot 2
-	virtual void xfer( Xfer *xfer );																		///< slot 3
-public:
-	virtual void reset( void );																					///< slot 4
-	virtual void setLocalPlayerIndex( int index );												///< slot 5
-	virtual void updateOrphanedObjects( int *playerIndexList, int numNonLocalPlayers );	///< slot 6
-	virtual GhostObject *addGhostObject( Object *object );								///< slot 7
-	inline Int getLocalPlayerIndex( void ) { return m_localPlayer; }
-	void saveLockGhostObjects( Bool enableLock ) { m_saveLockGhostObjects = enableLock; }
-protected:
-	Int m_localPlayer;																					///< 0x04
-	Bool m_lockGhostObjects;																		///< 0x08
-	Bool m_saveLockGhostObjects;																///< 0x09
-};
+#include "../../../../GameEngine/Include/GameLogic/GhostObjectManager.h"
 extern GhostObjectManager *TheGhostObjectManager;
 
 // GhostObject (constructor 0x00305A8F): the provider's vbptr is +0x08 and

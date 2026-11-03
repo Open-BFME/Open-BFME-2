@@ -117,28 +117,7 @@ protected:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GhostObject.h
-class GhostObjectManager : public Snapshot
-{
-public:
-	GhostObjectManager( void );
-	virtual ~GhostObjectManager();
-	// Table 0x00C078F0: slot 4 is the shared empty RET 0x000B3FD0, slot 5 the shared setter 0x002B230F.
-	virtual void reset( void ) {}
-	virtual void setLocalPlayerIndex( int index ) { m_localPlayer = index; }
-	// Slots 6-8 are __purecall; W3DGhostObjectManager's 0x00BC59B8 fills them, slot 8 with 0x001DB09D, returning +0x10.
-	virtual void updateOrphanedObjects( int *playerIndexList, int numNonLocalPlayers ) = 0;
-	virtual GhostObject *addGhostObject( Object *object ) = 0;
-	virtual GhostObject *getFirst() = 0;
-
-protected:
-	virtual const char *GetSnapshotName( void ) const;
-	virtual void xfer( Xfer *xfer );
-	virtual void loadPostProcess( void );
-
-	Int m_localPlayer;																					///< 0x04
-	Bool m_lockGhostObjects;																		///< 0x08
-	Bool m_saveLockGhostObjects;																///< 0x09
-};
+#include "../../../Include/GameLogic/GhostObjectManager.h"
 
 extern GhostObjectManager *TheGhostObjectManager;
 

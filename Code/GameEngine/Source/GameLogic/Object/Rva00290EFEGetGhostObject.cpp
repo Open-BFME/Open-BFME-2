@@ -35,18 +35,7 @@ public:
 
 class Object;
 
-class GhostObjectManager
-{
-public:
-	virtual void vslot00();
-	virtual void vslot04();
-	virtual void vslot08();
-	virtual void vslot0c();
-	virtual void vslot10();
-	virtual void vslot14();
-	virtual void vslot18();
-	virtual void *addGhostObject(Object *object);
-};
+#include "../../../Include/GameLogic/GhostObjectManager.h"
 
 extern GhostObjectManager *TheGhostObjectManager;
 // TheGhostObjectManager: matched references place it at VA 0xdff188 (zero-filled .bss).

@@ -362,13 +362,7 @@ public:
 
 extern BuildAssistant *TheBuildAssistant;
 
-class GhostObjectManager
-{
-public:
-	int getLocalPlayerIndex() const { return m_localPlayerIndex; }
-	char m_pad[4];
-	int m_localPlayerIndex;
-};
+#include "../../../Include/GameLogic/GhostObjectManager.h"
 
 extern GhostObjectManager *TheGhostObjectManager;
 

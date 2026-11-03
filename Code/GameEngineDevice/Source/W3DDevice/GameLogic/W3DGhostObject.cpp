@@ -57,16 +57,7 @@ public:
 	void bfmeGoCDE();
 };
 
-class GhostObjectManager
-{
-public:
-	virtual ~GhostObjectManager();
-	inline Int getLocalPlayerIndex( void ) { return m_localPlayer; }
-protected:
-	Int m_localPlayer;																					///< 0x04
-	Bool m_lockGhostObjects;																		///< 0x08
-	Bool m_saveLockGhostObjects;																///< 0x09
-};
+#include "../../../../GameEngine/Include/GameLogic/GhostObjectManager.h"
 
 class Object;
 
