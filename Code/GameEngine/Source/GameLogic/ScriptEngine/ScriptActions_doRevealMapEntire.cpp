@@ -8,14 +8,7 @@ class AsciiString;
 #include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class PlayerList
-{
-public:
-	Player *getNthPlayer(int i);
-	Player *getEachPlayerFromMask(int &mask);
-	char m_pad00[0x14];
-	int m_playerCount; // +0x14
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class PartitionManager;
 extern PartitionManager *TheShroudManager;

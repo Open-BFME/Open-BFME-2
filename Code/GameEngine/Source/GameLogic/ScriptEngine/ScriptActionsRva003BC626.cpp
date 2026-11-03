@@ -27,11 +27,7 @@ public:
 	int m_20; // +0x20 (written by setTeamNumber via +0x18 relative to m_sub)
 };
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class GameSlot

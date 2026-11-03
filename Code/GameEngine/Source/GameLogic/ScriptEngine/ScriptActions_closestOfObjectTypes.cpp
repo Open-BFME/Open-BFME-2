@@ -124,12 +124,7 @@ class AIGroup;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);	// 0x002A7BC9
-	Player *getPlayerFromMask(int mask);		// 0x002A7B91
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 // The argument block 0x00372571 takes (built inline by its callers).

@@ -21,11 +21,7 @@ extern ScienceStore *TheScienceStore;
 extern class ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/Common/Player.h"
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 void ScriptActions::Rva003BC785Set(const AsciiString &playerName, const AsciiString &scienceName, const AsciiString &availName)

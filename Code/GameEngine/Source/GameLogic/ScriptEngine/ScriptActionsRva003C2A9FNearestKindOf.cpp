@@ -48,11 +48,7 @@ enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 extern ScriptEngine *TheScriptEngine;
 
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 class Player

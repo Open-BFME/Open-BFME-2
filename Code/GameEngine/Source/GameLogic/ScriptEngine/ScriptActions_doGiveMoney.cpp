@@ -8,11 +8,7 @@
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Player;
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 
 class Rva0039B795;
 class Rva0039B7AD;

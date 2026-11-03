@@ -16,11 +16,7 @@ public:
 	char m_pad00[0x18];
 	float m_18;
 };
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 void ScriptActions::Rva003BCBC7Set(const AsciiString &name, float val)

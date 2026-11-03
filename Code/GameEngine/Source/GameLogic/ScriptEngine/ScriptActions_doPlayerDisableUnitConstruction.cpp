@@ -8,11 +8,7 @@ class AsciiString;
 #include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 void ScriptActions::doPlayerDisableUnitConstruction(const AsciiString &name)
 {

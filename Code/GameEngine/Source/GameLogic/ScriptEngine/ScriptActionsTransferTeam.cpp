@@ -56,7 +56,7 @@ inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList(
 }
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class PlayerList { public: Player *getEachPlayerFromMask(int &); };
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 class Rva002039B6Host { public: void rva002039B6(); };
 int __cdecl rva003BA83F(void *,int);

@@ -11,11 +11,7 @@
 extern class ScriptEngine *TheScriptEngine;
 
 #include "../../../Include/Common/Player.h"
-class PlayerList
-{
-public:
-	Player *getEachPlayerFromMask(int &mask);
-};
+#include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
 void ScriptActions::Rva003BC7EFSet(const AsciiString &name, int val)
