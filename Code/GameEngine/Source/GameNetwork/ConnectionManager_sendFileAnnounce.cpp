@@ -33,23 +33,12 @@ enum NetCommandType
 	NETCOMMANDTYPE_UNKNOWN = -1
 };
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // ZH's setRealFilename(AsciiString).
 class Rva004D632D

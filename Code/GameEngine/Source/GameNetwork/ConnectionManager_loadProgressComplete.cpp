@@ -24,26 +24,12 @@ enum NetCommandType
 	NETCOMMANDTYPE_LOADCOMPLETE = 0x10
 };
 
-class NetCommandMsg
-{
-public:
-	NetCommandMsg();
-	void detach();
-	UnsignedInt getPlayerID() const { return m_playerID; }
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() const { return m_commandType; }
-	void setNetCommandType(NetCommandType type) { m_commandType = type; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	NetCommandType m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 #include "../Common/GameLogicObjectLookupView.h"
 

@@ -26,22 +26,12 @@ typedef unsigned char UnsignedByte;
 
 #include "../../Include/Common/FileSystem.h"
 
-class NetCommandMsg
-{
-public:
-	void detach();
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	Int m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // The file command (ZH's NetFileCommandMsg), held in the ledger under its
 // constructor's address name.

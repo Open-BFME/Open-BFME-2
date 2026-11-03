@@ -143,23 +143,12 @@ enum NetCommandType
 {
 };
 
-class NetCommandMsg
-{
-public:
-	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
-	void setID(UnsignedShort id) { m_id = id; }
-	NetCommandType getNetCommandType() { return (NetCommandType)m_commandType; }
-	void detach();
+#include "../../Include/GameNetwork/NetCommandMsg.h"
 
-protected:
-	void *m_vptr;
-	UnsignedInt m_timestamp;
-	UnsignedInt m_executionFrame;
-	UnsignedInt m_playerID;
-	UnsignedShort m_id;
-	Int m_commandType;
-	Int m_referenceCount;
-};
+inline void NetCommandMsg::setID(unsigned short id)
+{
+	m_id = id;
+}
 
 // The type-20 command's payload.
 class NetHeroCommandMsg : public NetCommandMsg
