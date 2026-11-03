@@ -217,12 +217,12 @@ extern "C" void __cdecl DeringBlockWeak_C(void *instance, const unsigned char *s
 			unsigned char sampleValue = vrow[c];
 			int differencePromoted002 = sampleValue;
 			unsigned int differencePromoted003 = pitch;
-			unsigned int differenceDifference004 = c - differencePromoted003;
-			unsigned char differenceSample005 = vrow[differenceDifference004];
-			int differencePromoted006 = differenceSample005;
-			int differenceDifference007 = differencePromoted002 - differencePromoted006;
-			unsigned char differenceSample008 = vrow[c];
-			int differencePromoted009 = differenceSample008;
+			unsigned int aboveOffset = c - differencePromoted003;
+			unsigned char aboveSample = vrow[aboveOffset];
+			int differencePromoted006 = aboveSample;
+			int verticalDelta = differencePromoted002 - differencePromoted006;
+			unsigned char centerSample = vrow[c];
+			int differencePromoted009 = centerSample;
 			unsigned int differencePromoted010 = pitch;
 			unsigned int differenceDifference011 = c - differencePromoted010;
 			unsigned char differenceSample012 = vrow[differenceDifference011];
@@ -235,7 +235,7 @@ extern "C" void __cdecl DeringBlockWeak_C(void *instance, const unsigned char *s
 			unsigned char differenceSample019 = vrow[c];
 			int differencePromoted020 = differenceSample019;
 			int differenceDifference021 = differencePromoted018 - differencePromoted020;
-			int difference = (differenceDifference007) > 0 ? (differenceDifference014) : (differenceDifference021);
+			int difference = (verticalDelta) > 0 ? (differenceDifference014) : (differenceDifference021);
 			int weight;
 			int outputValueDifference022 = 16 - difference;
 			int outputValueProduct023 = 2 * (outputValueDifference022);
@@ -243,8 +243,8 @@ extern "C" void __cdecl DeringBlockWeak_C(void *instance, const unsigned char *s
 			weight = ClampWeight(outputValueSum024, sharpen, cap);
 			int outputIndexProduct025 = r * 8;
 			unsigned int outputIndexPromoted026 = outputIndexProduct025;
-			unsigned int outputIndexSum027 = outputIndexPromoted026 + c;
-			vertical[outputIndexSum027] = (short)weight;
+			unsigned int gridIndex = outputIndexPromoted026 + c;
+			vertical[gridIndex] = (short)weight;
 		}
 		vrow += pitch;
 	}

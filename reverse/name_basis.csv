@@ -7158,3 +7158,12 @@ param,AnimationSoundTree::rva004CA293::c,AnimationSoundTree::rva004CA293::rightI
 local,AnimationSoundTree::rva004CA293::node,AnimationSoundTree::rva004CA293::newNode,inferred,direct:nd-5d4bdb127fd5e86e45c7975e parent-reviewed-by w-9cc9c63cadbc codex proposed-by /root/bulk_local_proposals_b,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp,0x004CA293
 param,AnimationSoundTree::rva004CA68B::out,AnimationSoundTree::rva004CA68B::insertedNode,inferred,direct:nd-506601056fc1fcf483e7806d parent-reviewed-by w-9cc9c63cadbc codex proposed-by /root/bulk_local_proposals_b,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp,0x004CA68B
 local,AnimationSoundTree::rva004CA68B::cur,AnimationSoundTree::rva004CA68B::currentNode,inferred,direct:nd-ad993d3662271bd84364c1ef parent-reviewed-by w-9cc9c63cadbc codex proposed-by /root/bulk_local_proposals_b,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp,0x004CA68B
+local,DeringBlockWeak_C::differenceDifference004,DeringBlockWeak_C::aboveOffset,inferred,agree:nl-d66a0d981377,Code/Libraries/Source/VP6/DeringBlockStrongC.cpp,0x001C22C0
+local,DeringBlockWeak_C::differenceDifference007,DeringBlockWeak_C::verticalDelta,inferred,agree:nl-98631a33bf56,Code/Libraries/Source/VP6/DeringBlockStrongC.cpp,0x001C22C0
+local,DeringBlockWeak_C::differenceSample005,DeringBlockWeak_C::aboveSample,inferred,agree:nl-c9dd6dbebfae,Code/Libraries/Source/VP6/DeringBlockStrongC.cpp,0x001C22C0
+local,DeringBlockWeak_C::differenceSample008,DeringBlockWeak_C::centerSample,inferred,agree:nl-cd4dce619705,Code/Libraries/Source/VP6/DeringBlockStrongC.cpp,0x001C22C0
+local,DeringBlockWeak_C::outputIndexSum027,DeringBlockWeak_C::gridIndex,inferred,agree:nl-b742bad5943f,Code/Libraries/Source/VP6/DeringBlockStrongC.cpp,0x001C22C0
+param,Rva0006F373::Rva0006F373::d,Rva0006F373::Rva0006F373::allocFunc,inferred,agree:nl-39dd90630265,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006FAEC
+param,Rva0006F373::Rva0006F373::e,Rva0006F373::Rva0006F373::freeFunc,inferred,agree:nl-fe5111455775,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006FAEC
+param,Rva0006F373::rva0006F373::d,Rva0006F373::rva0006F373::allocFunc,inferred,agree:nl-daf464ed25c4,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006F373
+param,Rva0006F373::rva0006F373::e,Rva0006F373::rva0006F373::freeFunc,inferred,agree:nl-15d3cfa33ba4,Code/Libraries/Source/WWVegas/WWLib/Rva0006F373Set.cpp,0x0006F373
