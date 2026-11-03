@@ -23,22 +23,8 @@ struct AptWindowManager
 	int m_mode; // +0x318
 };
 
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip
-{
-public:
-	class Impl;
-
-	// The owner's slots the back-button and icon-list callbacks fire
-	// (vtable +4 / +8; names follow the bound callbacks, inference).
-	ArmyDetailsMovieClip(int level, const AsciiString &name, int layout, bool backButtonVisible);
-	virtual ~ArmyDetailsMovieClip();
-	virtual void notifyBackButtonClicked();
-	virtual void notifyIconListBackgroundClicked();
-
-private:
-	Impl *m_impl; // +0x04
-};
 }
 
 class StrategicHUD::ArmyDetailsMovieClip::Impl

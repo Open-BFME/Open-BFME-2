@@ -21,12 +21,8 @@ int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const cha
 int __cdecl Rva005F2A52AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *index, float *x, float *y);
 int __cdecl Rva00577C23AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *index, bool *flag);
 
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 // The Apt scroll bar's owner-side setters (rowed under address names:

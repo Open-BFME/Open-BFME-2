@@ -13,16 +13,8 @@ public:
 };
 
 class AsciiString;
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip {
-public:
-    ArmyDetailsMovieClip(int, const AsciiString &, int, bool);
-    virtual ~ArmyDetailsMovieClip();
-    virtual void notifyBackButtonClicked();
-    virtual void notifyIconListBackgroundClicked();
-private:
-    class Impl *m_impl;
-};
 }
 
 class Rva006003FC

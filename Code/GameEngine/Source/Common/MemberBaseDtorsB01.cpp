@@ -156,16 +156,8 @@ private:
 };
 
 class AsciiString;
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip {
-public:
-    ArmyDetailsMovieClip(int, const AsciiString &, int, bool);
-    virtual ~ArmyDetailsMovieClip();
-    virtual void notifyBackButtonClicked();
-    virtual void notifyIconListBackgroundClicked();
-private:
-    class Impl *m_impl;
-};
 }
 
 // Member destructor rowed as Rva005F64DB::clear (OwnedPointerResets.cpp); the

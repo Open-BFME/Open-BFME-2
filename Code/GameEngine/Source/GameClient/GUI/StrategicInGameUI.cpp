@@ -470,14 +470,9 @@ private:
 
 class AsciiString;
 
+#include "../../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip {public:
-    ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
-    virtual ~ArmyDetailsMovieClip();
-    virtual void notifyBackButtonClicked();
-    virtual void notifyIconListBackgroundClicked();
-private: class Impl *m_impl;
-}; }
+}
 
 class Rva005E54AE:public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE();};
 

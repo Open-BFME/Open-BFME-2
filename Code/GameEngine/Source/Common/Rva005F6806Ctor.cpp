@@ -2,15 +2,8 @@
 // Native 005F6806..005F686A; owner shares C796D0 with destructor5F64F5.
 // Named ArmyDetailsMovieClip80 establishes level/name/layout/back ABI.
 class AsciiString;
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip {
-public:
- ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
- virtual ~ArmyDetailsMovieClip();
- virtual void notifyBackButtonClicked();
- virtual void notifyIconListBackgroundClicked();
-private: class Impl *m_impl;
-};
 // The 0x38-byte member at +8 is the hero clip's Impl, rowed at 0x005F654C.
 class HeroArmyDetailsMovieClip {
 public:

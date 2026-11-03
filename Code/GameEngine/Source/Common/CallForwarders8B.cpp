@@ -13,13 +13,9 @@
 // m_impl sits there (ctor 0x005F3E93); the receiver's class is not proven, so
 // it keeps its pinned address name.
 
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD
 {
-class ArmyDetailsMovieClip
-{
-public:
-	class Impl;
-};
 }
 
 class StrategicHUD::ArmyDetailsMovieClip::Impl

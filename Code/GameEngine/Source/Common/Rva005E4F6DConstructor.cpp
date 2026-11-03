@@ -53,14 +53,9 @@ Rva005E4F6D::~Rva005E4F6D() {}
 // Rva005E4F6D at C. Its shared counted base moves to24; the second owned
 // pointer at20 is independently cleared in the native102-byte teardown.
 class AsciiString;
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip { public:
-    ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
-    virtual ~ArmyDetailsMovieClip();
-    virtual void notifyBackButtonClicked();
-    virtual void notifyIconListBackgroundClicked();
-private: class Impl *m_impl;
-}; }
+}
 class Rva005F64F5 : public StrategicHUD::ArmyDetailsMovieClip
 {
 public:

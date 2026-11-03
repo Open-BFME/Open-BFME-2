@@ -51,14 +51,9 @@ public:
 private:
     Rva005E4B9D child;
 };
+#include "../../Include/GameClient/ArmyDetailsMovieClip.h"
 namespace StrategicHUD {
-class ArmyDetailsMovieClip {public:
-    ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
-    virtual ~ArmyDetailsMovieClip();
-    virtual void notifyBackButtonClicked();
-    virtual void notifyIconListBackgroundClicked();
-private: class Impl *m_impl;
-}; }
+}
 
 class Rva005F64F5 : public StrategicHUD::ArmyDetailsMovieClip {
 public:
