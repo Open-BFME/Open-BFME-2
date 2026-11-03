@@ -54,7 +54,9 @@ public:
 	int rva002E6B06();
 };
 
-class PathfindCell
+#include "../../Include/GameLogic/PathfindCell.h"
+
+class Rva002F5925CellView
 {
 public:
 	Bool getOpen() const { return (unsigned char)reinterpret_cast<const Rva002E6AF3 *>(this)->get() != 0; }
@@ -67,7 +69,6 @@ public:
 	int getCostSoFar() const { return m_info->m_costSoFar; }
 	void setCostSoFar(unsigned short cost) { m_info->m_costSoFar = cost; }
 	void setTotalCost(unsigned short cost) { m_info->m_totalCost = cost; }
-	void SetParentCell(int *source);
 	__forceinline void allocateInfo(In002E6BA1 *coord)
 	{
 		if (!m_info)
@@ -125,6 +126,7 @@ private:
 	Int m_height;
 };
 extern Rva002872BA *TheTriggerManager;
+static __forceinline Rva002F5925CellView *cellView(PathfindCell *cell) { return (Rva002F5925CellView *)cell; }
 
 
 #include "../../../Libraries/Include/Lib/ICoord2D.h"
@@ -210,35 +212,35 @@ int Rva002F5925Info::cellCallback(PathfindCell *from,PathfindCell *to,int x,int 
 {
  if(PathfinderSearchCellsVisited>TheWritableGlobalData->m_maxCellsToExamineTowardsGoal)return 1;
  ++PathfinderSearchCellsVisited;
- if(range>0){int dx=x-goal->m_info->x;int dy=y-goal->m_info->y;if((dx*dx+dy*dy)*100<range*range)return 1;}
+ if(range>0){int dx=x-cellView(goal)->m_info->x;int dy=y-cellView(goal)->m_info->y;if((dx*dx+dy*dy)*100<range*range)return 1;}
  Coord3D point;point.x=(float)(x*10);point.y=(float)(y*10);
  if(TheTriggerManager->isBurning(point))return 1;
  Pathfinder *localPathfinder=pathfinder;
  if(localPathfinder->tunneling)return 1;
  if(from){
-  if(to->getOpen() || to->getClosed())return 1;
+  if(cellView(to)->getOpen() || cellView(to)->getClosed())return 1;
   if(!((Rva002E6DC4*)localPathfinder)->rva002E6DC4(data4,to))return 1;
-  if((unsigned char)isGroundOrBridgeLayer(to->getLayer()) && !localPathfinder->zones.IsPassable(x,y))return 1;
-  if(from->getLayer()!=to->getLayer())return 1;
-  if(to->getPinched())return 1;
-  if(to->getBit23()){
-   if(goal->getType()!=0 || !object->observed250 || !object->definition->kindOf(0xBF))return 1;
+  if((unsigned char)isGroundOrBridgeLayer(cellView(to)->getLayer()) && !localPathfinder->zones.IsPassable(x,y))return 1;
+  if(cellView(from)->getLayer()!=cellView(to)->getLayer())return 1;
+  if(cellView(to)->getPinched())return 1;
+  if(cellView(to)->getBit23()){
+   if(cellView(goal)->getType()!=0 || !object->observed250 || !object->definition->kindOf(0xBF))return 1;
   }
-  if(to->getType()==2)return 1;
+  if(cellView(to)->getType()==2)return 1;
   if(human){if(x<pathfinder->loX || y<pathfinder->loY || x>pathfinder->hiX || y>pathfinder->hiY)return 1;}
   TCheckMovementInfo info;((Rva002E6FDF*)&info)->rva002E6FDF();
-  info.cell.y=y;info.layer=(PathfindLayerEnum)from->getLayer();info.centerInCell=center;info.radius=radius;
+  info.cell.y=y;info.layer=(PathfindLayerEnum)cellView(from)->getLayer();info.centerInCell=center;info.radius=radius;
   info.options=(object->definition->kindOf(0x5A)?1:16)|2;info.ignoreID=ignoreID;
   info.cell.x=x;
   info.field11=false;
   if(!pathfinder->rva002EA658(object,info,&previous) || info.blockers)return 1;
   In002E6BA1 coord;coord.m_00=x;coord.m_04=y;
-  unsigned newCost=from->getCostSoFar()+(to->getBit21()?2.5f:5.0f);
+  unsigned newCost=cellView(from)->getCostSoFar()+(cellView(to)->getBit21()?2.5f:5.0f);
   newCost+=pathfinder->CalcExtraCosts(object,from,(Rva002EBC7FPair*)&coord,info.radius,info.radius+(info.centerInCell?1:0),true);
-  to->allocateInfo(&coord);to->setBlockedByAlly();
+  cellView(to)->allocateInfo(&coord);cellView(to)->setBlockedByAlly();
   int remaining=pathfinder->rva002F0A72(to,goal);
-  to->setCostSoFar((unsigned short)newCost);to->SetParentCell((int*)from);
-  to->setTotalCost((unsigned short)(to->getCostSoFar()+remaining));pathfinder->AddToOpenList(to);
+  cellView(to)->setCostSoFar((unsigned short)newCost);to->SetParentCell((int*)from);
+  cellView(to)->setTotalCost((unsigned short)(cellView(to)->getCostSoFar()+remaining));pathfinder->AddToOpenList(to);
  }
  previous.x=x;previous.y=y;return 0;
 }
