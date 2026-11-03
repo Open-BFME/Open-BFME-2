@@ -1,0 +1,371 @@
+{
+ "bases": [
+  "Rva00355D66"
+ ],
+ "bases_by": "retail-ctor",
+ "class": "AptLoadScreen",
+ "evidence": {
+  "bases_overruled": {
+   "majority": [],
+   "zh": null
+  },
+  "census": 9,
+  "inherited": {
+   "base_views": 2,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x88": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0xd4": 1
+     }
+    },
+    "bases": {
+     "kind": "target",
+     "rule": "retail-ctor",
+     "sites": [
+      "0x43ae44"
+     ],
+     "value": [
+      {
+       "kind": "target",
+       "name": "Rva00355D66",
+       "offset": 0,
+       "own_vftable": "0x83d50c",
+       "rule": "retail-ctor-call"
+      }
+     ]
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x43ae44"
+     ],
+     "value": 209
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x43ae44"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x8": [
+       4
+      ],
+      "0x88": [
+       4
+      ],
+      "0x8c": [
+       4
+      ],
+      "0x90": [
+       4
+      ],
+      "0xb0": [
+       4
+      ],
+      "0xd0": [
+       1
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x43ae44"
+     ],
+     "value": {
+      "0x18": [
+       "??0AptMapPreview@@QAE@PAVRva0043DA65@@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x43ae44"
+     ],
+     "value": {
+      "0x0": "0x83d50c"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x83d50c"
+     ],
+     "value": {
+      "count": 6,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GAptLoadScreen@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x43ae28"
+       },
+       {
+        "name": "?rva0043A0C1@Rva0043A0C1@@QAEXH@Z",
+        "slot": 1,
+        "target": "0x43a0c1"
+       },
+       {
+        "name": "?init@AptLoadScreen@@UAEXPAVGameInfo@@@Z",
+        "slot": 2,
+        "target": "0x43a5f6"
+       },
+       {
+        "name": "?rva0043A0B2@Rva0043A0B2@@QAEXXZ",
+        "slot": 3,
+        "target": "0x43a0b2"
+       },
+       {
+        "name": "?processProgress@AptLoadScreen@@UAEXHH@Z",
+        "slot": 4,
+        "target": "0x43a15d"
+       },
+       {
+        "name": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ",
+        "slot": 5,
+        "target": "0x50b5c6"
+       }
+      ],
+      "table": "0x83d50c"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x83d50c": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GAptLoadScreen@@UAEPAXI@Z",
+     "1": "?rva0043A0C1@Rva0043A0C1@@QAEXH@Z",
+     "2": "?init@AptLoadScreen@@UAEXPAVGameInfo@@@Z",
+     "3": "?rva0043A0B2@Rva0043A0B2@@QAEXXZ",
+     "4": "?processProgress@AptLoadScreen@@UAEXHH@Z",
+     "5": "?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "176": 1,
+   "180": 1,
+   "208": 1,
+   "212": 3
+  },
+  "views": 6,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_next",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_win",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_flag",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_layout",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Rva0043A396Layout*",
+   "views": 2,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_owner",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "i4",
+   "name": "m_level",
+   "name_by": "majority",
+   "offset": 140,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 5,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "A",
+   "name": "m_90",
+   "name_by": "majority",
+   "offset": 144,
+   "retail_widths": {},
+   "size": 32,
+   "type": "int[32]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "A",
+   "name": "m_ids",
+   "name_by": "majority",
+   "offset": 176,
+   "retail_widths": {},
+   "size": 32,
+   "type": "int[32]",
+   "views": 4,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_D0",
+   "name_by": "majority",
+   "offset": 208,
+   "retail_widths": {},
+   "size": 1,
+   "type": "bool",
+   "views": 2,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "212:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "AptLoadScreen"
+  },
+  {
+   "attribute": "field@0x18",
+   "candidates": {
+    "112:A": 1,
+    "112:S:Rva0057E3DB": 1,
+    "1:S:Rva0057E3DB": 1
+   },
+   "class": "AptLoadScreen"
+  },
+  {
+   "attribute": "field@0x88",
+   "candidates": {
+    "4:P": 2,
+    "4:i4": 2
+   },
+   "class": "AptLoadScreen"
+  }
+ ],
+ "size": 212,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "update(int)"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "init(GameInfo*)"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "reset()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "processProgress(int,int)"
+  }
+ }
+}
