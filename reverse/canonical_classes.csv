@@ -425,3 +425,4 @@ Rva0041534BIter,Code/GameEngine/Include/GameClient/Rva0041534BIter.h,existing he
 Rva001EAE6FHelper,Code/GameEngine/Include/Common/Rva001EAE6FHelper.h,existing header; contract class_contracts/Rva001EAE6FHelper.json; 17/31 sampled units adopt
 Rva0025342CMember,Code/GameEngine/Include/GameLogic/Module/Rva0025342CMember.h,existing header; contract class_contracts/Rva0025342CMember.json; 7/9 sampled units adopt
 TAiData,Code/GameEngine/Include/GameLogic/TAiData.h,existing header; contract class_contracts/TAiData.json; 25/44 sampled units adopt
+BFMEDX8DeviceLock,Code/GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h,existing header; contract class_contracts/BFMEDX8DeviceLock.json; 6/54 sampled units adopt
