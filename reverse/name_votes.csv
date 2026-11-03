@@ -23456,3 +23456,9 @@ Code/GameEngine/Source/Main/WinMainPairUnicode.cpp|local|Rva000B3F84Pair::conver
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreen.cpp|local|Rva005DB5F2::rva005DB5F2|o,7f1528374efe9ee2e2cc9f2b,drz-t12,drz-t12-sv2-3,w-02b96a65a6a1,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv888.cpp|local|bfmeGoEYE|n,dfbf18c858e9e2d8ba4e233d,drz-t15,drz-t15-sv2-1,w-d17fefe8143f,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv888.cpp|local|BfmeThingEYF::bfmeGoEYF|n,81b24dda37d0c7ad154257df,drz-t15,drz-t15-sv2-1,w-d17fefe8143f,2026-11-03
+Code/GameEngine/Source/Common/Rva00448DCBFind.cpp|member|Rva00448DCBNode|m_left08,1bf2c3d46731d0a6dce05ec9,drz-t17,drz-t17-sv2-2,w-eff6be175289,2026-11-03
+Code/GameEngine/Source/Common/Rva00448DCBFind.cpp|member|Rva00448DCBNode|m_right0C,06eb7c55e5ec7113fc9715c2,drz-t17,drz-t17-sv2-2,w-eff6be175289,2026-11-03
+Code/GameEngine/Source/Common/Rva00448DCBFind.cpp|member|Rva00448DCBNode|m_key10,c5ae64cc59d2660459ae178b,drz-t17,drz-t17-sv2-2,w-eff6be175289,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x001E7E78|rva001E7E78,4ec61af9450b8f8f28462972,drz-t17,drz-t17-sv2-4,w-eff6be175289,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x003899C4|rva003899C4,d679c246a450b4b2a470ad2f,drz-t17,drz-t17-sv2-4,w-eff6be175289,2026-11-03
+Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x0047003C|rva0047003C,1152dfc780e7c21eb733971e,drz-t17,drz-t17-sv2-4,w-eff6be175289,2026-11-03
