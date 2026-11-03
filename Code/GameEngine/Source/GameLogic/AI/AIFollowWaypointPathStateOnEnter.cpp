@@ -115,32 +115,7 @@ template <> class AIUpdateSlots<0>
 };
 // isDoingGroundMovement is vslot 137 (+0x224); chooseLocomotorSet is vslot
 // 142 (+0x238).
-class AIUpdateInterface : public AIUpdateSlots<137>
-{
-public:
-    virtual Bool isDoingGroundMovement() const;
-    virtual void slot138() = 0;
-    virtual void slot139() = 0;
-    virtual void slot140() = 0;
-    virtual void slot141() = 0;
-    virtual Bool chooseLocomotorSet(LocomotorSetType wst) = 0;
-    Locomotor *getCurLocomotor() { return m_curLocomotor; }
-    RadarObject *rva002630F5();
-    void setDesiredSpeed(Real speed);
-    void setPathExtraDistance(Real dist);
-    void setCompletedWaypoint(const Waypoint *wp);
-    __declspec(dllimport) __forceinline const LocomotorSet &getLocomotorSet() const
-    {
-        return *reinterpret_cast<const LocomotorSet *>(reinterpret_cast<const char *>(this) + 0x1CC);
-    }
-private:
-    unsigned char m_pad004[0x1CC - 0x04];
-    unsigned char m_pad1CC[0x1F0 - 0x1CC];
-    Locomotor *m_curLocomotor; // +0x1F0
-    unsigned char m_pad1F4[0x3C7 - 0x1F4];
-public:
-    Bool m_flag3C7; // +0x3C7
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class ThingTemplate
 {
 public:
