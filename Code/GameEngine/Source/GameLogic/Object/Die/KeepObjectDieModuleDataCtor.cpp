@@ -20,15 +20,7 @@ class ModuleData;
 
 // Opaque 0x38-byte intermediate; default ctor resolves to the opaque pin at
 // 0x00253510. Do NOT declare an explicit vptr member: the hidden one is +0.
-class DestroyDieModuleData
-{
-public:
-	DestroyDieModuleData();
-	virtual ~DestroyDieModuleData();
-
-protected:
-	unsigned char m_pad[0x38 - 4];
-};
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
 class KeepObjectDieModuleData : public DestroyDieModuleData
 {

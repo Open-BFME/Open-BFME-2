@@ -34,15 +34,7 @@ template <> _List_base<AsciiString, allocator<AsciiString> >::~_List_base();
 template <> void _List_base<AsciiString, allocator<AsciiString> >::clear();
 }
 
-class DestroyDieModuleData : public Snapshot
-{
-public:
-	DestroyDieModuleData();
-	virtual ~DestroyDieModuleData();
-
-private:
-	unsigned char m_pad[0x38 - 4];
-};
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
 class CreateCrateDieModuleData : public DestroyDieModuleData
 {

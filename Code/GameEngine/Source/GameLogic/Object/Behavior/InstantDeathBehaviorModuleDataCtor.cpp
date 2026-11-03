@@ -36,15 +36,7 @@ template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
 
-class DestroyDieModuleData
-{
-public:
-	DestroyDieModuleData();
-	virtual ~DestroyDieModuleData();
-
-private:
-	unsigned char m_opaque[0x38 - 4];
-};
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
 class InstantDeathBehaviorModuleData : public DestroyDieModuleData
 {

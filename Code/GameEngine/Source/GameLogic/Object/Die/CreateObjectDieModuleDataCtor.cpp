@@ -35,15 +35,7 @@
 
 class ObjectCreationNugget;
 
-class DestroyDieModuleData
-{
-public:
-	DestroyDieModuleData();
-	virtual ~DestroyDieModuleData();
-
-private:
-	unsigned char m_pad[0x38 - 4];
-};
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
 class CreateObjectDieModuleData : public DestroyDieModuleData
 {

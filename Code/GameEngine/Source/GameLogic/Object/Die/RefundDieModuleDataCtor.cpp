@@ -11,15 +11,7 @@
 // this ctor and pushes the class proc; the rowed RefundDie pool key lives in
 // this family.
 
-class DestroyDieModuleData
-{
-public:
-	DestroyDieModuleData();
-	virtual ~DestroyDieModuleData();
-
-protected:
-	unsigned char m_pad[0x38 - 4];
-};
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
 
 class Rva003623E5Filter
 {
