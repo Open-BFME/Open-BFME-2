@@ -66,11 +66,7 @@ void DevastateSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(reinterpret_cast<const FieldParse *>((unsigned int)&g_00C5E3D0), 0);
 }
 
-class CashHackSpecialPowerModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/CashHackSpecialPowerModuleData.h"
 
 // ?buildFieldParse@CashHackSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004C2955 (27 bytes): base-table call above plus the CashHack

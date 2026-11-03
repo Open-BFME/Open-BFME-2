@@ -26,16 +26,7 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-class CashHackSpecialPowerModuleData
-{
-public:
-	struct Upgrades
-	{
-		int m_science;
-		int m_amount;
-		Upgrades(int science, const int &amount);
-	};
-};
+#include "../../../../Include/GameLogic/Module/CashHackSpecialPowerModuleData.h"
 
 class Rva003FA430
 {

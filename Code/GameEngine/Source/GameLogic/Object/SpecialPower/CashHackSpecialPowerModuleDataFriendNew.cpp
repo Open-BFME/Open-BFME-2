@@ -17,17 +17,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class CashHackSpecialPowerModuleData
-{
-public:
-	CashHackSpecialPowerModuleData();
-	virtual ~CashHackSpecialPowerModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x8C - 4];
-};
+#include "../../../../Include/GameLogic/Module/CashHackSpecialPowerModuleData.h"
 
 // ?friend_newModuleData@CashHackSpecialPowerModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *CashHackSpecialPowerModuleData::friend_newModuleData(INI *ini)
