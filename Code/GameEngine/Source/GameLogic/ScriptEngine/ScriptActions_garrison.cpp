@@ -706,11 +706,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
 #include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int unused, int bit);	// 0x00045411
-	unsigned int m_bits[7];
-};
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template<int> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 

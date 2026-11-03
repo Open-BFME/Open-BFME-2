@@ -147,11 +147,7 @@ extern Int g_bfmeSkirmishAIDebugIndex;	// the selected AI index
 extern const char *AITargetTypeNames[];
 
 #include "../../../../GameEngine/Include/Common/BfmeFixedStorage0004543D.h"
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int, int) throw();
-	unsigned int bits[7];
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva000421C8

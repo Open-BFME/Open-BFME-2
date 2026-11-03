@@ -18,11 +18,7 @@ public:
 };
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
-struct Rva00045411BitSet
-{
-	unsigned int bits[7];
-	Rva00045411BitSet(int unused, int bit) throw();
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva00261409Filter : public Rva000421C8
 {
 public:

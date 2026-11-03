@@ -955,12 +955,7 @@ public:
 	virtual unsigned int v69(int);
 };
 // The 224-bit KindOf mask; the (unused, bit) constructor is 0x00045411.
-struct Rva00045411BitSet
-{
-public:
-	Rva00045411BitSet(int unused, int bit) throw(); // 0x00045411
-	unsigned m_bits[7]; // +0x00
-};
+#include "../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #define REALLY_FAR (100000 * 10.0f)

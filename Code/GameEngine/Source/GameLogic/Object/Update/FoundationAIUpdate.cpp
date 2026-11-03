@@ -388,11 +388,7 @@ void FoundationAIUpdate::rva00455BDD(const ThingTemplate *thingTemplate, const C
 }
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // Rowed 44-byte single-bit constructor at 0x00045411; same 28-byte mask.
-struct Rva00045411BitSet
-{
-	unsigned int bits[7];
-	Rva00045411BitSet(int unused, int bit) throw();
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 class Rva0004584D : public Rva000421C8 {

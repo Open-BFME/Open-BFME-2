@@ -300,7 +300,7 @@ UpdateSleepTime SpecialAbilityUpdate::rva0044F881()
 
 class Rva000421C8 {public:Rva000421C8():m_next(0){}virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *m_next;};
 class BfmeFixedStorage0004543D {public:char data[28];};
-struct Rva00045411BitSet {Rva00045411BitSet(int,int) throw();unsigned bits[7];};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};
 // Existing provider ThingIsAnyKindOf.cpp owns this seven-word zero mask.
 // The template argument retains its established target ABI spelling.

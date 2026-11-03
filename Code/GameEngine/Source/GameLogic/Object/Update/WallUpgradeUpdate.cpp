@@ -54,11 +54,7 @@ public:
 	BfmeFixedStorage0004543D m_24;
 };
 // The 224-bit KindOf mask (unused, bit) constructor 0x00045411.
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int unused, int bit);	// 0x00045411
-	unsigned int m_bits[7];
-};
+#include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
 // vftable 0x00BF91BC, allow 0x002611BF: not the given object.
 class Rva002611BFFilter : public Rva000421C8
 {

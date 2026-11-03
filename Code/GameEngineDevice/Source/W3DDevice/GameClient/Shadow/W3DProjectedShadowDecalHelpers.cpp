@@ -683,7 +683,7 @@ public:
  Rva000421C8* link(Rva000421C8*);
  Rva000421C8* m_next;
 };
-struct Rva00045411BitSet { unsigned m_bits[7]; Rva00045411BitSet(int,int); };
+#include "../../../../../GameEngine/Include/GameLogic/Module/Rva00045411BitSet.h"
 class BfmeFixedStorage0004543D {
 public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();
 private: unsigned char bytes[28];
