@@ -4,14 +4,7 @@
 // at 0x5B61B3. Percolates value from holeIndex toward topIndex via parent
 // (hole-1)/2 while comp(parent value). Caller at 0x5B645D; prev is insert.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 void Rva005B6353Adjust(void **first, int holeIndex, int topIndex, void *val, Rva005B61B3 comp);
 

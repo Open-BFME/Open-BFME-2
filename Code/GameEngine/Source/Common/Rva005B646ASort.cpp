@@ -4,14 +4,7 @@
 // else loops i=first+1..last calling the rowed guarded insert at 0x5B639F.
 // Callers at 0x5B6562 and 0x5B6586; prev is the aux TU with /O1 flags.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 void Rva005B639FGuarded(void **first, void **last, void *val, Rva005B61B3 comp);
 void Rva005B646ASort(void **first, void **last, Rva005B61B3 comp);

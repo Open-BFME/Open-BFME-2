@@ -4,14 +4,7 @@
 // Downward child selection then delegates to the rowed push at 0x5B6353.
 // Callers at 0x5B64D7 and 0x5B6510; prev is aux TU with /O1 flags.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 void Rva005B6353Adjust(void **first, int holeIndex, int topIndex, void *val, Rva005B61B3 comp);
 void Rva005B6409Heap(void **first, int hole, int len, void *val, Rva005B61B3 comp);

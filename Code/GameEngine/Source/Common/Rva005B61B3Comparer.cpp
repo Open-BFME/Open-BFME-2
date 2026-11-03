@@ -27,14 +27,7 @@ struct Rva005B61B3Elem
 	unsigned char m_48;
 };
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a_raw, void *b_raw);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 bool Rva005B61B3::rva005B61B3(void *a_raw, void *b_raw)
 {

@@ -5,14 +5,7 @@
 // first, else delegates to the rowed unguarded insert at 0x5B6324. Caller at
 // 0x5B6486; prev is the insert TU with the same /O1 flags.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 namespace _STL
 {

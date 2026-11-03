@@ -5,14 +5,7 @@
 // pre-decrements last while comp(pivot last); returns first when first>=last
 // else swaps and advances. Caller at 0x5B66D2; prev is the comparator TU.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 void **Rva005B62DBPartition(void **first, void **last, void *pivot, Rva005B61B3 comp);
 

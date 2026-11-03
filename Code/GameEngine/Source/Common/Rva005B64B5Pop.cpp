@@ -5,14 +5,7 @@
 // computed length with hole 0 via the rowed adjust at 0x5B6409. Takes a
 // trailing dummy to match the 7-push callers at 0x5B653A and 0x5B6645.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 void Rva005B6409Heap(void **first, int hole, int len, void *val, Rva005B61B3 comp);
 void Rva005B64B5Pop(void **first, void **last, void **result, void *val, Rva005B61B3 comp, int dummy);

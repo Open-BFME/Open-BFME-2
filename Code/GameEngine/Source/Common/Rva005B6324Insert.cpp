@@ -5,14 +5,7 @@
 // then stores val. Callers at 0x5B63D8 and 0x5B63F6; prev is the comparator
 // TU with the same /O1 flags.
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../Include/Common/Rva005B61B3.h"
 
 void Rva005B6324Insert(void **last, void *val, Rva005B61B3 comp);
 

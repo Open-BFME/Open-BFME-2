@@ -26,14 +26,7 @@ void Rva00442B8FSort(void **first, void **last, Rva0043FE9A comp)
 // ?Rva005B65C8Sort@@YAXPAPAX0VRva005B61B3@@@Z, retail 0x005B65C8, 61 bytes: the
 // same sort-heap loop over the rowed Rva005B65ADPop of the Rva005B61B3 family;
 // only that call differs from Rva00442B8FSort.
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../../Include/Common/Rva005B61B3.h"
 void Rva005B65ADPop(void **first, void **last, Rva005B61B3 comp);
 void Rva005B65C8Sort(void **first, void **last, Rva005B61B3 comp)
 {

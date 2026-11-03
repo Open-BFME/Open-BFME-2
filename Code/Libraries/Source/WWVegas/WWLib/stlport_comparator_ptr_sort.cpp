@@ -53,14 +53,7 @@ struct Rva0043FE9ALess : public Rva0043FE9A
 	bool operator()(MapMetaData *const &a, MapMetaData *const &b) { return rva0043FE9A(a, b); }
 };
 
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../../../GameEngine/Include/Common/Rva005B61B3.h"
 
 struct Rva005B61B3Less : public Rva005B61B3
 {

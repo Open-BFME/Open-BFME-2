@@ -36,14 +36,7 @@ void **Rva00440AB0Median(void **first, void **second, void **third, Rva0043FE9A 
 // ?Rva005B6270Median@@YAPAPAXPAPAX00VRva005B61B3@@@Z, retail 0x005B6270, 107 bytes:
 // the same median of three over the rowed Rva005B61B3 comparator (same 8-byte
 // by-value layout); only the five compare calls differ from Rva00440AB0Median.
-class Rva005B61B3
-{
-public:
-	bool rva005B61B3(void *a, void *b);
-private:
-	int m_key0;
-	int m_key1;
-};
+#include "../../../Include/Common/Rva005B61B3.h"
 void **Rva005B6270Median(void **first, void **second, void **third, Rva005B61B3 comp)
 {
 	if (comp.rva005B61B3(*first, *second)) {
