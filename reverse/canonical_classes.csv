@@ -422,3 +422,4 @@ Rva007EB810Diag,Code/GameEngine/Include/GameNetwork/Rva007EB810Diag.h,existing h
 Rva00507823,Code/GameEngine/Include/GameLogic/Module/Rva00507823.h,existing header; contract class_contracts/Rva00507823.json; 45/57 sampled units adopt
 AsciiStringRef,Code/GameEngine/Include/Common/AsciiStringRef.h,existing header; contract class_contracts/AsciiStringRef.json; 78/83 sampled units adopt
 Rva0041534BIter,Code/GameEngine/Include/GameClient/Rva0041534BIter.h,existing header; contract class_contracts/Rva0041534BIter.json; 38/41 sampled units adopt
+Rva001EAE6FHelper,Code/GameEngine/Include/Common/Rva001EAE6FHelper.h,existing header; contract class_contracts/Rva001EAE6FHelper.json; 17/31 sampled units adopt
