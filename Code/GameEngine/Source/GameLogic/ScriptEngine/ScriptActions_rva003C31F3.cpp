@@ -24,11 +24,7 @@ public:
 	const AsciiString *rva00290E67() const;
 	friend void ScriptActions::Rva003C31F3Do(const AsciiString &, const AsciiString &, bool);
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva00358752Opaque
 {

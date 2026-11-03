@@ -77,7 +77,7 @@ protected:
  friend class Rva00399959;
  friend void Rva00396BC5SetCastleId(_STL::vector<ObjectID>*,ObjectID);
 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator* TheNameKeyGenerator;
 
 extern GameLogic* TheGameLogic;

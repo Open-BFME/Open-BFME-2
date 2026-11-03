@@ -577,11 +577,7 @@ enum NameKeyType
     NAMEKEY_INVALID = 0
 };
 class Module;
-class NameKeyGenerator
-{
-public:
-    NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva004C5772CmpBoolField
 {

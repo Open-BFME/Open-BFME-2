@@ -98,11 +98,7 @@ public:
 	void rva0028D253();
 	void rva0028AE6D();
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator* TheNameKeyGenerator;
 
 extern GameLogic* TheGameLogic;

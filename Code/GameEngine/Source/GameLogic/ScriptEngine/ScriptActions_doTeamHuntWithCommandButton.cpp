@@ -39,11 +39,7 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);	// 0x00148E1A
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../Include/GameClient/CommandButton.h"

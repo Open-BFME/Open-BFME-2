@@ -27,11 +27,7 @@ protected:
     friend void ScriptActions::doSetWarehouseValue(const AsciiString &, int);
 };
 
-class NameKeyGenerator
-{
-public:
-    NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Rva00358752Opaque

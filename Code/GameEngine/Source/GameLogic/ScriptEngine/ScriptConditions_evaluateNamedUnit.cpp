@@ -31,11 +31,7 @@ public:
     virtual void gate05();
     virtual bool stateIsOne();
 };
-class NameKeyGenerator
-{
-public:
-    NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

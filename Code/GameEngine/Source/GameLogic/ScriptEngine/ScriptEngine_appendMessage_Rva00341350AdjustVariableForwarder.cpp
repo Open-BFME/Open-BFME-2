@@ -153,11 +153,7 @@ private:
 
 #include "../../../Include/Common/PlayerList.h"
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);		// 0x00148C95
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 // The script tree walkers keep their address-derived parameter types
 // (ScriptEngine_rva0020A7C9.cpp, ScriptEngineArrWalk_Rva0020C0E3.cpp).

@@ -18,11 +18,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0,
 	NAMEKEY_MAX = 1 << 23
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &s);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

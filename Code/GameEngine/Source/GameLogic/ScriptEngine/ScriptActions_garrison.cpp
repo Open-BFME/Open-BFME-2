@@ -655,11 +655,7 @@ void ScriptActions::Rva003C5405Do(AsciiString timerName, const AsciiString &labe
 	TheInGameUI->addNamedTimer(tmp, TheGameText->fetch(label), false);
 }
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
