@@ -103,11 +103,7 @@ private:
 
 #include "../../../Include/Common/Rva00222A8BTarget.h"
 
-class AptPlayer
-{
-public:
-	bool ShowLevel(int index);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 class AptPalantir
 {

@@ -1,11 +1,7 @@
 // cl: /O1 /MD /EHsc /arch:SSE /G7
 // ??1Rva005EB8D6@@QAE@XZ, RVA 0x005EB8D6, 127 bytes.
 // Address-based destructor; member offsets and destruction order follow retail accesses. The Apt-manager base relationship is inferred from the call target and the existing manager global declaration.
-class AptPlayer
-{
-public:
-	bool RemoveLevel(int value);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 class AsciiString;
 class BfmeAptWindowManager : public AptPlayer
 {

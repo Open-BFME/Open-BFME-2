@@ -175,11 +175,7 @@ public:
 private:
 	T *m_ptr;
 };
-class AptPlayer
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map); // 0x002243E3
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 __forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
 {
 	((AptPlayer *)g_bfmeAptWindowManager)->AddCommandMap(name, (const DelegateDesc *)&desc);

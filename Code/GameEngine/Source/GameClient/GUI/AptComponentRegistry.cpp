@@ -22,7 +22,7 @@ template<class T>class AptRef;
 template<>class AptRef<AptCustomRender>:public Rva00380AB1 {public:AptRef(AptCallback f):Rva00380AB1(&f){}AptRef(const AptRef&that):Rva00380AB1(that){if(m_ptr)++m_ptr->refs;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
 template<>class AptRef<AptCommandMap>:public Rva0023E8D8 {public:AptRef(AptCallback f):Rva0023E8D8(&f){}AptRef(const AptRef&that):Rva0023E8D8(that){if(m_ptr)++m_ptr->refs;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
 template<>class AptRef<AptScreenInitGadgets>:public Rva004106FA {public:AptRef(AptCallback f):Rva004106FA(reinterpret_cast<const int*>(&f)){}AptRef(const AptRef&that):Rva004106FA(that){if(m_ptr)++m_ptr->refs;}~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}};
-class AptPlayer {public:void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);
 class Coord2D;

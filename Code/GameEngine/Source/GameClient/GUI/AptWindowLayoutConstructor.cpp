@@ -39,15 +39,7 @@ public:
  virtual void getWindow(GameWindow *,unsigned,unsigned,GameWindow **);
 };
 extern GameWindowManager *TheWindowManager;
-class AptPlayer {
-public:
-#define SLOT(n) virtual void slot##n();
- SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7)
- SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
- SLOT(16) SLOT(17) SLOT(18) SLOT(19)
-#undef SLOT
- virtual int AddLevel(AsciiString,AsciiString,bool,int);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptWindowLayout : public BfmeQuickMatchScreenBase {

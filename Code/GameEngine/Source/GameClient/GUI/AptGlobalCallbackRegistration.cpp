@@ -60,12 +60,7 @@ public:
  AptRef(const AptRef&aptRef):ptr(aptRef.ptr){if(ptr)++ptr->references;}
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
-class AptPlayer {
-public:
- void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
- void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);
- void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

@@ -1,4 +1,4 @@
-class AptPlayer { public: bool HideLevel(int); };
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 // cl: /O1 /DNDEBUG /MD /EHsc
 //
 // ?rva005EC46F@Rva005EC46F@@QAEXXZ @0x005EC46F 59B: unlocks 0x005EC4AF.

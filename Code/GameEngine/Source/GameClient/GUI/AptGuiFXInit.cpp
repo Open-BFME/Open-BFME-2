@@ -67,11 +67,7 @@ public:
 };
 template<> inline AptRef<AptCommandMap>::AptRef(void *p) { ((Rva0023E8D8*)this)->Rva0023E8D8::Rva0023E8D8(p); }
 template<> inline AptRef<AptCustomRender>::AptRef(void *p) { ((Rva00380AB1*)this)->Rva00380AB1::Rva00380AB1(p); }
-class AptPlayer {
-public:
- void AddCommandMap(const AsciiString &,AptRef<AptCommandMap>);
- void AddCustomRender(const AsciiString &,AptRef<AptCustomRender>);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class GuiFXWindowLoader {
 public:
 #define SLOT(n) virtual void slot##n();

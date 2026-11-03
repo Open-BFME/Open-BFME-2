@@ -67,7 +67,7 @@ const char*bfmePathLeafAfterMarker(const char*);
 void*Rva004110C3Get(const AsciiString*);
 Rva004102C8Arg*Rva004115A9Create(const Coord2D*,const Coord2D*,const char*,const char*,const AsciiString*);
 namespace AptUtils {int LevelIndexFromTarget(const char*);}
-class AptPlayer {public:void*PeekGameWindow(int);};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 class BfmeAptWindowManager;extern BfmeAptWindowManager*g_bfmeAptWindowManager;
 class Rva0031763A {public:Rva0031763A();~Rva0031763A();private:char data[0x2C];};
 struct Rva004121D1Context {Rva004121D1Context();unsigned word[13];};

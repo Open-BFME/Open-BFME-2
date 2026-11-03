@@ -31,7 +31,7 @@ class Rva00223F4B {public:TreeHintRef00222C5A &rva00223F4B(const AsciiString &);
 // Only the map extent and level stride are established; the remaining fields
 // and retail level count remain opaque.
 struct AptOverButtonLevelView {unsigned char map[20];unsigned char unknown[20];};
-class AptPlayer {public:void AddOverButtonHandler(unsigned,const AsciiString &,AptRef<AptOverButtonHandler>);};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 void AptPlayer::AddOverButtonHandler(unsigned level,const AsciiString &name,AptRef<AptOverButtonHandler> handler){
  if(!handler.m_ptr)return;
  AsciiString buttonName(name);

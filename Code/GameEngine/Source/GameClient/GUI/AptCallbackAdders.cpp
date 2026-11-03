@@ -67,16 +67,7 @@ namespace _STL
 	};
 }
 
-class AptPlayer
-{
-public:
-	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);		// 0x002243E3
-	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
-	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);	// 0x002244D2
-	void AddOverButtonHandler(unsigned level, const AsciiString &name, AptRef<AptOverButtonHandler> handler);
-	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);		// 0x0022464C
-	void AddTimer(const AsciiString &name, AptRef<AptTimer> timer);			// 0x002246B9
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // The Apt player global (0x00DFE4CC) under the spelling other units use.
 class BfmeAptWindowManager;

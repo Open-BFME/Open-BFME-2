@@ -102,13 +102,7 @@ public:
 };
 
 // The Apt player / window manager (0x00DFE4CC).
-class AptPlayer : public AptLoadScreenSlots<19>
-{
-public:
-	static int GetLevelIndex(GameWindow *window);
-	virtual void slot19(Int value);				// +0x4C
-	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

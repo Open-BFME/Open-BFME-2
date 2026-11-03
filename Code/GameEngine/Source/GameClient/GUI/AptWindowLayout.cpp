@@ -137,16 +137,7 @@ private:
 // Evidence: ref lane slot neighbours QuickMatchScreenBase/WindowLayout, callees PopFocus 0x00222A33 row AptPlayer, rva0022277D pin Rva00222A8BTarget, shutdownComplete 0x0035C445 row Shell; globals g_bfmeAptWindowManager 0x009FE4CC, TheShell 0x00A01E48; +0x24/+0x28 like prev Rva0040FC79Host, +0x274 owner, vtable +0x10/+0x34. VTABLE Locomotor slot disagrees (Locomotor never touches Apt/Shell), so honest Rva name.
 class AptFocusTarget;
 
-class AptPlayer {
-public:
-	bool ShowLevel(int);
-public:
-	bool RemoveLevel(int level);
-public:
-	bool HideLevel(int);
-public:
-	void PopFocus(AptFocusTarget *t);
-};
+#include "../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 #include "../../../Include/Common/Rva00222A8BTarget.h"
 

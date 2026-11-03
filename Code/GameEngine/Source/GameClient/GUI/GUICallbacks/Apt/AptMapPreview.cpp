@@ -328,12 +328,7 @@ template <class T> class AptRef;
 class AptCustomRender;
 class AptExternHandler;
 // The Apt player (0x00DFE4CC): both adders are pinned by address.
-class AptPlayer
-{
-public:
-	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
-	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);		// 0x0022464C
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)

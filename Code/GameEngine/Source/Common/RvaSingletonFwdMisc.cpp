@@ -19,12 +19,7 @@
 // One ledger row per body.
 class AsciiString;
 
-class AptPlayer
-{
-public:
-	bool UnloadLevel(int index);
-	bool RemoveLevel(int index);
-};
+#include "../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // Preserve the existing global pointee spelling; its storage identity is unchanged.
 class Rva00224B7DTarget;

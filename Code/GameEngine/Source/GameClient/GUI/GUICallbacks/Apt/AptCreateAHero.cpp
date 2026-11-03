@@ -139,11 +139,7 @@ public:
 
 class AptScreenInitGadgets;
 
-class AptPlayer
-{
-public:
-	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
-};
+#include "../../../../../../Libraries/Source/Apt/AptPlayerClass.h"
 
 // One native manager datum at VA DFE4CC; cast to this unit's receiver view.
 class BfmeAptWindowManager;
