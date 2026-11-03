@@ -53,6 +53,9 @@
 // getIgnoredObstacleID 0x0006E009 (called at 0x0034C913) reads +0x164.
 // 0x003E995A and 0x003E9A93 read the completed waypoint +0x13C inline.
 // Zero Hour AIUpdate.h names these three accessors.
+// getCurLocomotor 0x0026FF1E (mov eax,[ecx+0x1F0]; ret) is an inline's
+// emitted copy; AIWanderInPlaceState reads +0x1F0 inline at 0x0034F32C
+// and 0x0034F45B. Zero Hour AIUpdate.h:427 declares it inline.
 
 #pragma once
 #ifndef __BFME2_AIUPDATE_H_
@@ -430,7 +433,7 @@ public:
     void rva00262D40(int);
     bool rva00262DD3(Object const *)const;
     void rva002632E1();
-    Locomotor * getCurLocomotor();
+    Locomotor *getCurLocomotor() { return m_curLocomotor; }
     int rva00265143();
     void transferAttack(ObjectID,ObjectID);
     void rva00263298();
