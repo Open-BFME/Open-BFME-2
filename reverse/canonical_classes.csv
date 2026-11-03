@@ -394,3 +394,4 @@ TextureAsset,Code/GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h,e
 SpawnArmy,Code/GameEngine/Include/Common/SpawnArmy.h,existing header; contract class_contracts/SpawnArmy.json; 10/32 sampled units adopt
 AttributeModifierPoolUpdate,Code/GameEngine/Include/GameLogic/Module/AttributeModifierPoolUpdate.h,existing header; contract class_contracts/AttributeModifierPoolUpdate.json; 16/25 sampled units adopt
 GameSlotConnectInfo,Code/GameEngine/Include/GameNetwork/GameSlotConnectInfo.h,existing header; contract class_contracts/GameSlotConnectInfo.json; 9/24 sampled units adopt
+AptValueVector,Code/Libraries/Source/Apt/AptValueVector.h,existing header; contract class_contracts/AptValueVector.json; 21/24 sampled units adopt
