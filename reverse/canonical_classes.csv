@@ -525,3 +525,4 @@ RespawnBodyModuleData,Code/GameEngine/Include/GameLogic/Module/RespawnBodyModule
 DelayedDeathBodyModuleData,Code/GameEngine/Include/GameLogic/Module/DelayedDeathBodyModuleData.h,existing header; contract class_contracts/DelayedDeathBodyModuleData.json; 9/12 sampled units adopt
 LadderPref,Code/GameEngine/Include/GameNetwork/LadderPref.h,existing header; contract class_contracts/LadderPref.json; 13/16 sampled units adopt
 MixFileInfoBuffer,Code/GameEngine/Include/Common/MixFileInfoBuffer.h,existing header; contract class_contracts/MixFileInfoBuffer.json; 5/13 sampled units adopt
+FormationTranslator,Code/GameEngine/Include/GameClient/FormationTranslator.h,existing header; contract class_contracts/FormationTranslator.json; 6/7 sampled units adopt
