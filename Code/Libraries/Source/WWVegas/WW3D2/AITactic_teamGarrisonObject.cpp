@@ -32,7 +32,7 @@ struct Rva00372571Params;
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
 #include "../../../../GameEngine/Include/Common/AITactic.h"
-void AITactic::teamGarrisonObject(int id, Object *victim)
+void AITactic::teamGarrisonObject(int id, Object *target)
 {
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
@@ -40,7 +40,7 @@ void AITactic::teamGarrisonObject(int id, Object *victim)
 		AIGroup *group = TheAI->createGroup();
 		Team *team = TheTeamFactory->findTeamByID((unsigned int)node->m_model);
 		team->getTeamAsAIGroup(group);
-		group->rva00372BB9(victim, 0);
+		group->rva00372BB9(target, 0);
 		TheAI->destroyGroup(group);
 		node->m_10 = 0;
 	}

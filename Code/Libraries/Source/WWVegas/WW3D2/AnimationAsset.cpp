@@ -193,13 +193,13 @@ HAnimClass *AnimationAsset::GetAnim(const char *name)
 	if (owner.m_prototype == 0)
 		return 0;
 
-	HierarchyPrototype *object = owner.m_prototype;
-	if ((unsigned char)object->slot10() == 0)
-		object->slot11();
-	HAnimClass *animation = object->m_animation;
+	HierarchyPrototype *prototype = owner.m_prototype;
+	if ((unsigned char)prototype->slot10() == 0)
+		prototype->slot11();
+	HAnimClass *animation = prototype->m_animation;
 	if (animation != 0)
 		++animation->m_refCount;
-	return object->m_animation;
+	return prototype->m_animation;
 }
 
 // Existing Get_HAnim callers share this same verified animation body.
@@ -223,9 +223,9 @@ inline Rva0014CD63::~Rva0014CD63()
 // unit's copies for the rows; it is not retail code.
 
 // ?_bfmeRva0014CD63InlineAnchor@@YAXPAVRva0014CD63@@@Z absent-from-retail
-void _bfmeRva0014CD63InlineAnchor(Rva0014CD63 *p)
+void _bfmeRva0014CD63InlineAnchor(Rva0014CD63 *instance)
 {
-    p->Rva0014CD63::~Rva0014CD63();
+    instance->Rva0014CD63::~Rva0014CD63();
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0014CE67Ctor.cpp

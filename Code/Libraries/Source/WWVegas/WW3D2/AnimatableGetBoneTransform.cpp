@@ -175,8 +175,8 @@ Matrix3D Animatable3DObjClass::Get_Bone_Transform(int boneindex)
 	if (m_htree) {
 		if (!m_hierarchyValid)
 			Update_Sub_Object_Transforms();
-		Matrix3D m;
-		return boneMatrix(m_htree->m_bones[boneindex].Transform,m);
+		Matrix3D boneTransform;
+		return boneMatrix(m_htree->m_bones[boneindex].Transform,boneTransform);
 	} else {
 		return m_transform;
 	}

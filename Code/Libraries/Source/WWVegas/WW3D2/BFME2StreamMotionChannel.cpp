@@ -82,9 +82,9 @@ public:
     virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
     virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
     virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
-    inline void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
-    inline void decompress(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1);
-    inline void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
+    inline void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *frameValue, Vector3 *nextFrameValue);
+    inline void decompress(unsigned int *state, unsigned int from, unsigned int frame, float *frameValue, float *nextFrameValue);
+    inline void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *nextFrameValue);
 };
 
 struct VectorValue { float x, y, z; };
@@ -105,11 +105,11 @@ public:
 public:
 	virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
 public:
-	inline void rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
+	inline void rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *frameValue, Vector3 *nextFrameValue);
 public:
-	inline void rva001B2599(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1);
+	inline void rva001B2599(unsigned int *state, unsigned int from, unsigned int frame, float *frameValue, float *nextFrameValue);
 public:
-	inline void rva001B27AB(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
+	inline void rva001B27AB(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *nextFrameValue);
 public:
 	void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
 public:
@@ -146,77 +146,77 @@ static inline float Bfme_Lerp(float a, float b, float t)
 
 void BFME2Encoding1MotionChannel::UnknownSlot3(float frame, float *value, unsigned char **cursor)
 {
-    int whole = (int)frame;
-    frame -= (float)whole;
+    int wholeFrame = (int)frame;
+    frame -= (float)wholeFrame;
     if (cursor) {
         BFME2StreamCache *cache = (BFME2StreamCache *)*cursor;
         float *value0 = &cache->Value0;
         float *value1 = value0 + 1;
-        decompress((unsigned int *)value0, cache->Frame, whole, value0, value1);
-        cache->Frame = whole;
+        decompress((unsigned int *)value0, cache->Frame, wholeFrame, value0, value1);
+        cache->Frame = wholeFrame;
         *value = Bfme_Lerp(*value0, *value1, frame);
         *cursor += Components * 8 + 4;
     } else {
         float value0, value1;
-        decompress((unsigned int *)Initial, 0, whole, &value0, &value1);
+        decompress((unsigned int *)Initial, 0, wholeFrame, &value0, &value1);
         *value = Bfme_Lerp(value0, value1, frame);
     }
 }
 
 void BFME2Encoding2MotionChannel::UnknownSlot3(float frame, float *value, unsigned char **cursor)
 {
-    int whole = (int)frame;
-    frame -= (float)whole;
+    int wholeFrame = (int)frame;
+    frame -= (float)wholeFrame;
     if (cursor) {
         BFME2StreamCache *cache = (BFME2StreamCache *)*cursor;
         float *value0 = &cache->Value0;
         float *value1 = value0 + 1;
-        rva001B2599((unsigned int *)value0, cache->Frame, whole, value0, value1);
-        cache->Frame = whole;
+        rva001B2599((unsigned int *)value0, cache->Frame, wholeFrame, value0, value1);
+        cache->Frame = wholeFrame;
         *value = Bfme_Lerp(*value0, *value1, frame);
         *cursor += Components * 8 + 4;
     } else {
         float value0, value1;
-        rva001B2599((unsigned int *)Initial, 0, whole, &value0, &value1);
+        rva001B2599((unsigned int *)Initial, 0, wholeFrame, &value0, &value1);
         *value = Bfme_Lerp(value0, value1, frame);
     }
 }
 
 void BFME2Encoding1MotionChannel::UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor)
 {
-    int whole = (int)frame;
-    frame -= (float)whole;
+    int wholeFrame = (int)frame;
+    frame -= (float)wholeFrame;
     if (cursor) {
         unsigned int *cache = (unsigned int *)*cursor;
         Quaternion *quaternion = (Quaternion *)(cache + 1);
-        rva001B2450((unsigned int *)quaternion, cache[0], whole, quaternion, quaternion + 1);
-        cache[0] = whole;
+        rva001B2450((unsigned int *)quaternion, cache[0], wholeFrame, quaternion, quaternion + 1);
+        cache[0] = wholeFrame;
         BFME2_Nlerp(*value, quaternion[0], quaternion[1], frame);
         *cursor += Components * 8 + 4;
     } else {
         Quaternion quaternion, value1;
-        rva001B2450((unsigned int *)Initial, 0, whole, &quaternion, &value1);
+        rva001B2450((unsigned int *)Initial, 0, wholeFrame, &quaternion, &value1);
         BFME2_Nlerp(*value, quaternion, value1, frame);
     }
 }
 
 void BFME2Encoding1MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor)
 {
-    int whole = (int)frame;
-    frame -= (float)whole;
+    int wholeFrame = (int)frame;
+    frame -= (float)wholeFrame;
     if (cursor) {
         unsigned int *cache = (unsigned int *)*cursor;
         Vector3 *value0 = (Vector3 *)(cache + 1);
         Vector3 *value1 = value0 + 1;
-        rva001B230A((unsigned int *)value0, cache[0], whole, value0, value1);
-        cache[0] = whole;
+        rva001B230A((unsigned int *)value0, cache[0], wholeFrame, value0, value1);
+        cache[0] = wholeFrame;
         value->X = Bfme_Lerp(value0->X, value1->X, frame);
         value->Y = Bfme_Lerp(value0->Y, value1->Y, frame);
         value->Z = Bfme_Lerp(value0->Z, value1->Z, frame);
         *cursor += Components * 8 + 4;
     } else {
         Vector3 value0, value1;
-        rva001B230A((unsigned int *)Initial, 0, whole, &value0, &value1);
+        rva001B230A((unsigned int *)Initial, 0, wholeFrame, &value0, &value1);
         value->X = Bfme_Lerp(value0.X, value1.X, frame);
         value->Y = Bfme_Lerp(value0.Y, value1.Y, frame);
         value->Z = Bfme_Lerp(value0.Z, value1.Z, frame);
@@ -227,39 +227,39 @@ void BFME2Encoding1MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsi
 
 void BFME2Encoding2MotionChannel::UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor)
 {
-    int whole = (int)frame;
-    frame -= (float)whole;
+    int wholeFrame = (int)frame;
+    frame -= (float)wholeFrame;
     if (cursor) {
         unsigned int *cache = (unsigned int *)*cursor;
         Quaternion *quaternion = (Quaternion *)(cache + 1);
-        rva001B27AB((unsigned int *)quaternion, cache[0], whole, quaternion, quaternion + 1);
-        cache[0] = whole;
+        rva001B27AB((unsigned int *)quaternion, cache[0], wholeFrame, quaternion, quaternion + 1);
+        cache[0] = wholeFrame;
         BFME2_Nlerp(*value, quaternion[0], quaternion[1], frame);
         *cursor += Components * 8 + 4;
     } else {
         Quaternion quaternion, value1;
-        rva001B27AB((unsigned int *)Initial, 0, whole, &quaternion, &value1);
+        rva001B27AB((unsigned int *)Initial, 0, wholeFrame, &quaternion, &value1);
         BFME2_Nlerp(*value, quaternion, value1, frame);
     }
 }
 
 void BFME2Encoding2MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor)
 {
-    int whole = (int)frame;
-    frame -= (float)whole;
+    int wholeFrame = (int)frame;
+    frame -= (float)wholeFrame;
     if (cursor) {
         unsigned int *cache = (unsigned int *)*cursor;
         Vector3 *value0 = (Vector3 *)(cache + 1);
         Vector3 *value1 = value0 + 1;
-        rva001B267B((unsigned int *)value0, cache[0], whole, value0, value1);
-        cache[0] = whole;
+        rva001B267B((unsigned int *)value0, cache[0], wholeFrame, value0, value1);
+        cache[0] = wholeFrame;
         value->X = Bfme_Lerp(value0->X, value1->X, frame);
         value->Y = Bfme_Lerp(value0->Y, value1->Y, frame);
         value->Z = Bfme_Lerp(value0->Z, value1->Z, frame);
         *cursor += Components * 8 + 4;
     } else {
         Vector3 value0, value1;
-        rva001B267B((unsigned int *)Initial, 0, whole, &value0, &value1);
+        rva001B267B((unsigned int *)Initial, 0, wholeFrame, &value0, &value1);
         value->X = Bfme_Lerp(value0.X, value1.X, frame);
         value->Y = Bfme_Lerp(value0.Y, value1.Y, frame);
         value->Z = Bfme_Lerp(value0.Z, value1.Z, frame);
@@ -276,34 +276,34 @@ void BFME2Encoding2MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsi
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding1MotionChannelRva001B2210.cpp
 
-void BFME2Encoding1MotionChannel::decompress(unsigned int *state,unsigned int from,unsigned int frame,float *value0,float *value1)
+void BFME2Encoding1MotionChannel::decompress(unsigned int *state,unsigned int from,unsigned int frame,float *frameValue,float *nextFrameValue)
 {
  ScalarValue last;
  if(from>frame){ from=0; last=*(const ScalarValue*)Initial; }
  else last=*(const ScalarValue*)state;
  unsigned char *packet=Data+(from>>4)*9;
  while(from<=frame+1){
-  if(from>=(unsigned)Count){if(value0)*(ScalarValue*)value0=last;*(ScalarValue*)value1=last;return;}
+  if(from>=(unsigned)Count){if(frameValue)*(ScalarValue*)frameValue=last;*(ScalarValue*)nextFrameValue=last;return;}
   unsigned fi0=from&0xF; from&=~0xFu;
   float filter=filtertable[*packet]*Scale;
-  unsigned char *p=packet+1+(fi0>>1);
+  unsigned char *deltaData=packet+1+(fi0>>1);
   for(unsigned fi=fi0;fi<16;++fi){
    unsigned currentFrame=fi + from;
-   if(currentFrame==frame)*value0=last.x;
-   else if(currentFrame==frame+1){*value1=last.x;break;}
+   if(currentFrame==frame)*frameValue=last.x;
+   else if(currentFrame==frame+1){*nextFrameValue=last.x;break;}
    int bit=fi&1;
-   int factor=bit?(signed char)*p>>4:(signed char)(*p<<4)>>4;
-   p = p + (bit);
+   int factor=bit?(signed char)*deltaData>>4:(signed char)(*deltaData<<4)>>4;
+   deltaData = deltaData + (bit);
    last.x+=(float)factor*filter;
   }
   from+=16;packet+=9;
-  if(from>frame)value0=0;
+  if(from>frame)frameValue=0;
  }
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding1MotionChannelDecoders.cpp
 
-void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1)
+void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *frameValue, Vector3 *nextFrameValue)
 {
     VectorValue last;
     if (from > frame) {
@@ -314,9 +314,9 @@ void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int 
     unsigned char *packet = Data + (from >> 4) * 27;
     while (from <= frame + 1) {
         if (from >= (unsigned int)Count) {
-            if (value0)
-                *(VectorValue *)value0 = last;
-            *(VectorValue *)value1 = last;
+            if (frameValue)
+                *(VectorValue *)frameValue = last;
+            *(VectorValue *)nextFrameValue = last;
             return;
         }
         unsigned int startFrame = from & 0xF;
@@ -327,9 +327,9 @@ void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int 
             for (unsigned int fi = startFrame; fi < 16; ++fi) {
                 unsigned int currentFrame = from + fi;
                 if (currentFrame == frame)
-                    ((float *)value0)[vi] = ((float *)&last)[vi];
+                    ((float *)frameValue)[vi] = ((float *)&last)[vi];
                 else if (currentFrame == frame + 1) {
-                    ((float *)value1)[vi] = ((float *)&last)[vi];
+                    ((float *)nextFrameValue)[vi] = ((float *)&last)[vi];
                     break;
                 }
                 int bit = fi & 1;
@@ -340,11 +340,11 @@ void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int 
         }
         from += 16;
         if (from > frame)
-            value0 = 0;
+            frameValue = 0;
     }
 }
 
-void BFME2Encoding1MotionChannel::rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *quaternion, Quaternion *value1)
+void BFME2Encoding1MotionChannel::rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *frameValue, Quaternion *nextFrameValue)
 {
     Quaternion last;
     if (from > frame) {
@@ -355,9 +355,9 @@ void BFME2Encoding1MotionChannel::rva001B2450(unsigned int *state, unsigned int 
     unsigned char *packet = Data + (from >> 4) * 36;
     while (from <= frame + 1) {
         if (from >= (unsigned int)Count) {
-            if (quaternion)
-                *quaternion = last;
-            *value1 = last;
+            if (frameValue)
+                *frameValue = last;
+            *nextFrameValue = last;
             return;
         }
         unsigned int startFrame = from & 0xF;
@@ -368,9 +368,9 @@ void BFME2Encoding1MotionChannel::rva001B2450(unsigned int *state, unsigned int 
             for (unsigned int fi = startFrame; fi < 16; ++fi) {
                 unsigned int currentFrame = from + fi;
                 if (currentFrame == frame)
-                    ((float *)quaternion)[vi] = ((float *)&last)[vi];
+                    ((float *)frameValue)[vi] = ((float *)&last)[vi];
                 else if (currentFrame == frame + 1) {
-                    ((float *)value1)[vi] = ((float *)&last)[vi];
+                    ((float *)nextFrameValue)[vi] = ((float *)&last)[vi];
                     break;
                 }
                 int bit = fi & 1;
@@ -381,38 +381,38 @@ void BFME2Encoding1MotionChannel::rva001B2450(unsigned int *state, unsigned int 
         }
         from += 16;
         if (from > frame)
-            quaternion = 0;
+            frameValue = 0;
     }
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding2MotionChannelRva001B2599.cpp
 
-void BFME2Encoding2MotionChannel::rva001B2599(unsigned int *state,unsigned int from,unsigned int frame,float *value0,float *value1)
+void BFME2Encoding2MotionChannel::rva001B2599(unsigned int *state,unsigned int from,unsigned int frame,float *frameValue,float *nextFrameValue)
 {
  ScalarValue last;
  if(from>frame){ from=0; last=*(const ScalarValue*)Initial; }
  else last=*(const ScalarValue*)state;
  unsigned char *packet=Data+(from>>4)*17;
  while(from<=frame+1){
-  if(from>=(unsigned)Count){if(value0)*(ScalarValue*)value0=last;*(ScalarValue*)value1=last;return;}
+  if(from>=(unsigned)Count){if(frameValue)*(ScalarValue*)frameValue=last;*(ScalarValue*)nextFrameValue=last;return;}
   // Codegen: same-valued PHI on the packet pointer (two reads) closes the native register roles.
-  unsigned ix=*(packet?packet:packet);
+  unsigned filterTableIndex=*(packet?packet:packet);
   unsigned fi=from&0xF; from&=~0xFu;
-  float filter=filtertable[ix]*Scale*0.0625;
+  float filter=filtertable[filterTableIndex]*Scale*0.0625;
   
   for(;fi<16;++fi){
-   unsigned f=from+fi;
-   if(f==frame)*value0=last.x;
-   else if(f==frame+1){*value1=last.x;break;}
+   unsigned currentFrame=from+fi;
+   if(currentFrame==frame)*frameValue=last.x;
+   else if(currentFrame==frame+1){*nextFrameValue=last.x;break;}
    int factor=(int)(packet?packet:packet)[fi+1]-128;
    last.x+=(float)factor*filter;
   }
   from+=16;packet+=17;
-  if(from>frame)value0=0;
+  if(from>frame)frameValue=0;
  }
 }
 
-void BFME2Encoding2MotionChannel::rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1)
+void BFME2Encoding2MotionChannel::rva001B267B(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *frameValue, Vector3 *nextFrameValue)
 {
     VectorValue last;
     if (from > frame) {
@@ -424,9 +424,9 @@ void BFME2Encoding2MotionChannel::rva001B267B(unsigned int *state, unsigned int 
     while (from <= frame + 1) {
         // Frame Loop
         if (from >= (unsigned int)Count) {
-            if (value0)
-                *(VectorValue *)value0 = last;
-            *(VectorValue *)value1 = last;
+            if (frameValue)
+                *(VectorValue *)frameValue = last;
+            *(VectorValue *)nextFrameValue = last;
             return;
         }
         // initial filter index
@@ -434,28 +434,28 @@ void BFME2Encoding2MotionChannel::rva001B267B(unsigned int *state, unsigned int 
         from &= ~0xFu;
         for (int vi = 0; vi < 3; ++vi, packet += 17) {
             float filter = filtertable[*packet] * Scale * 0.0625;	// decompression filter
-            unsigned char *p = packet + 1 + fi0;
-            for (unsigned int fi = fi0; fi < 16; ++fi, ++p) {
-                unsigned int f = from + fi;
-                if (f == frame)
-                    ((float *)value0)[vi] = ((float *)&last)[vi];
-                else if (f == frame + 1) {
-                    ((float *)value1)[vi] = ((float *)&last)[vi];
+            unsigned char *deltaData = packet + 1 + fi0;
+            for (unsigned int fi = fi0; fi < 16; ++fi, ++deltaData) {
+                unsigned int currentFrame = from + fi;
+                if (currentFrame == frame)
+                    ((float *)frameValue)[vi] = ((float *)&last)[vi];
+                else if (currentFrame == frame + 1) {
+                    ((float *)nextFrameValue)[vi] = ((float *)&last)[vi];
                     break;
                 }
-                int factor = *p - 128;
+                int factor = *deltaData - 128;
                 ((float *)&last)[vi] += (float)factor * filter;
             }
         }
         from += 16;
         if (from > frame)
-            value0 = 0;
+            frameValue = 0;
     }
 }
 
 // Encoding 2 quaternion decoder: four 17-byte component packets per 16-frame block, each a filter
 // byte then 16 deltas biased by 128; p walks the delta bytes in step with fi.
-void BFME2Encoding2MotionChannel::rva001B27AB(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *quaternion, Quaternion *value1)
+void BFME2Encoding2MotionChannel::rva001B27AB(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *frameValue, Quaternion *nextFrameValue)
 {
     Quaternion last;
     if (from > frame) {
@@ -467,9 +467,9 @@ void BFME2Encoding2MotionChannel::rva001B27AB(unsigned int *state, unsigned int 
     while (from <= frame + 1) {
         // Frame Loop
         if (from >= (unsigned int)Count) {
-            if (quaternion)
-                *quaternion = last;
-            *value1 = last;
+            if (frameValue)
+                *frameValue = last;
+            *nextFrameValue = last;
             return;
         }
         // initial filter index
@@ -477,21 +477,21 @@ void BFME2Encoding2MotionChannel::rva001B27AB(unsigned int *state, unsigned int 
         from &= ~0xFu;
         for (int vi = 0; vi < 4; ++vi, packet += 17) {
             float filter = filtertable[*packet] * Scale * 0.0625;	// decompression filter
-            unsigned char *p = packet + 1 + fi0;
-            for (unsigned int fi = fi0; fi < 16; ++fi, ++p) {
-                unsigned int f = from + fi;
-                if (f == frame)
-                    ((float *)quaternion)[vi] = ((float *)&last)[vi];
-                else if (f == frame + 1) {
-                    ((float *)value1)[vi] = ((float *)&last)[vi];
+            unsigned char *deltaData = packet + 1 + fi0;
+            for (unsigned int fi = fi0; fi < 16; ++fi, ++deltaData) {
+                unsigned int currentFrame = from + fi;
+                if (currentFrame == frame)
+                    ((float *)frameValue)[vi] = ((float *)&last)[vi];
+                else if (currentFrame == frame + 1) {
+                    ((float *)nextFrameValue)[vi] = ((float *)&last)[vi];
                     break;
                 }
-                int factor = *p - 128;
+                int factor = *deltaData - 128;
                 ((float *)&last)[vi] += (float)factor * filter;
             }
         }
         from += 16;
         if (from > frame)
-            quaternion = 0;
+            frameValue = 0;
     }
 }

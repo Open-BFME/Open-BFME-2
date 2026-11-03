@@ -84,12 +84,12 @@ BFME2Encoding0MotionChannel::~BFME2Encoding0MotionChannel()
 __forceinline int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int **context)
 {
  if (context) {
-  int *rec = *context;
-  if ((unsigned int)*rec < (unsigned int)Count) {
-   int index = *rec;
+  int *cachedIndex = *context;
+  if ((unsigned int)*cachedIndex < (unsigned int)Count) {
+   int index = *cachedIndex;
    while (index && (TimeCodes[index] & ~0x8000) > time) --index;
    while (index < Count-1 && (TimeCodes[index+1] & ~0x8000) <= time) ++index;
-   *rec = index; ++*context;
+   *cachedIndex = index; ++*context;
    return index;
   }
  }

@@ -17,9 +17,9 @@ float filtertable[256] = {
  1.0f, 10.0f, 100.0f, 1000.0f, 10000.0f, 100000.0f, 1000000.0f, 10000000.0f
 };
 bool Rva001B20E5Init() {
- float n=0;
- for(int i=16;i<256;++i,n+=1.0f) {
- float radians=n*0.375f;
+ float step=0;
+ for(int i=16;i<256;++i,step+=1.0f) {
+ float radians=step*0.375f;
  radians*=0.017453292f;
  filtertable[i]=1.0f-WWMath::Sin(radians);
  }

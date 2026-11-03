@@ -34,15 +34,15 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void *handle);
 // WorldBuilder ExecuteAssetCacheBuilder, WB VA 0x009D6AA0 (imports,strings lead, score 1.1).
 bool __cdecl ExecuteAssetCacheBuilder(const unsigned short *currentDirectory)
 {
- STARTUPINFOW startup;
- unsigned short command[260];
- PROCESS_INFORMATION info;
- memset(&startup,0,sizeof(startup));
- startup.cb=sizeof(startup);
- wcscpy(command,L"assetCacheBuilder.exe");
- if(CreateProcessW(0,command,0,0,0,0x8000000,0,currentDirectory,&startup,&info)){
-  WaitForSingleObject(info.hProcess,0xFFFFFFFF);
-  CloseHandle(info.hProcess);CloseHandle(info.hThread);return true;
+ STARTUPINFOW startupInfo;
+ unsigned short commandLine[260];
+ PROCESS_INFORMATION processInfo;
+ memset(&startupInfo,0,sizeof(startupInfo));
+ startupInfo.cb=sizeof(startupInfo);
+ wcscpy(commandLine,L"assetCacheBuilder.exe");
+ if(CreateProcessW(0,commandLine,0,0,0,0x8000000,0,currentDirectory,&startupInfo,&processInfo)){
+  WaitForSingleObject(processInfo.hProcess,0xFFFFFFFF);
+  CloseHandle(processInfo.hProcess);CloseHandle(processInfo.hThread);return true;
  }
  return false;
 }
