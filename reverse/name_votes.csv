@@ -22707,3 +22707,7 @@ Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047BA69Contain.cpp|local|Rva
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva0047CAEBFilter.cpp|local|Rva0047CAEBOwner::rva0047CAEB|f,f36af663de15b9885a7a9a7c,drz-k8,drz-k8-n45f-9,w-87ae7cdc64ef,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004631C9.cpp|local|SlaughterHordeContain::rva004631C9|p,06662476a9b356cd035c6ca6,drz-k8,drz-k8-n45f-21,w-87ae7cdc64ef,2026-11-02
 Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainRva004631C9.cpp|local|TransportContain::onContaining|p,6549c5140e1a688ff592db3a,drz-k8,drz-k8-n45f-21,w-87ae7cdc64ef,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp|param|coordSet|d,8631c0847c440be99f61c98c,drz-k10,drz-k10-n45g-6,w-88a32c4f7da7,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp|param|coordSet|p,62416b3e674404509aea88d4,drz-k10,drz-k10-n45g-6,w-88a32c4f7da7,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Made002CC64BParse.cpp|param|q4Notify002CC64B|m,83157853e51d7e76db9737e0,drz-k10,drz-k10-n45g-16,w-88a32c4f7da7,2026-11-02
+Code/GameEngine/Source/GameLogic/Object/Made002CC7DEParse.cpp|param|q4Notify002CC7DE|m,0f90fdf1a7b08e7f8243d4ed,drz-k10,drz-k10-n45g-17,w-88a32c4f7da7,2026-11-02

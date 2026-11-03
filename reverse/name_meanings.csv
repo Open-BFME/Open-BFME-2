@@ -960,3 +960,7 @@ Code/GameEngine/Source/GameLogic/Map/SidesListRva0032F0AA.cpp|local|SidesList::r
 Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp|param|StandingWaveAreaRef|p,17fe8ea69952aecd5c12e998,drz-k1,drz-k1-n45a-19,w-d29055ee9848,2026-11-02,06568caaedf412c426f2060b
 Code/GameEngine/Source/GameLogic/Object/BuffLogic_addBuff.cpp|param|BuffLogic::addBuff|a,7ae1195ff8f5935c4ab488da,drz-k5,drz-k5-n45d-6,w-526a51702f64,2026-11-02,6b3d0f9a343543bd04a45bb7
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface24Slot0.cpp|local|Rva0046950D24::rva0046950D|p,4b0a6370e14c3e7be1f71694,drz-k5,drz-k5-n45d-19,w-526a51702f64,2026-11-02,d769049704de4d140cb9c891
+Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp|param|coordSet|d,8631c0847c440be99f61c98c,drz-k10,drz-k10-n45g-6,w-88a32c4f7da7,2026-11-02,5d9787668a38ed89aac40c12
+Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp|param|coordSet|p,62416b3e674404509aea88d4,drz-k10,drz-k10-n45g-6,w-88a32c4f7da7,2026-11-02,2bbe3b45ad9ef113958501bb
+Code/GameEngine/Source/GameLogic/Object/Made002CC64BParse.cpp|param|q4Notify002CC64B|m,83157853e51d7e76db9737e0,drz-k10,drz-k10-n45g-16,w-88a32c4f7da7,2026-11-02,fbf7b2659331f9460ab8d98e
+Code/GameEngine/Source/GameLogic/Object/Made002CC7DEParse.cpp|param|q4Notify002CC7DE|m,0f90fdf1a7b08e7f8243d4ed,drz-k10,drz-k10-n45g-17,w-88a32c4f7da7,2026-11-02,e6f6ad6a307911d236f57edd
