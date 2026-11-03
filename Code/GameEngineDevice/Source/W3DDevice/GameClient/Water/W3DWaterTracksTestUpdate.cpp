@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep -ICode/Libraries/Source/WWVegas/WW3D2
 //
 // Bodies ported from Open-BFME-1's GameEngineDevice/Source/W3DDevice/GameClien
 // t/Water/W3DWaterTracksTestUpdate.cpp (donor revision
@@ -82,7 +82,7 @@ struct waveInfo
 extern waveInfo waveTypeInfo[WaveTypeMax];
 class WaterTracksObj { public: char pad[0x30]; waveType m_type; char pad34[8]; bool m_bound; char pad3d[0x68-0x3d]; int m_initTimeOffset; char pad6c[8]; int m_elapsedMs; char pad78[0xb0-0x78]; WaterTracksObj *m_nextSystem,*m_prevSystem; void init(float,float,Vector2&,Vector2&,char*,int,void *); };
 struct FeNode;
-class WaterTracksRenderSystem { public: char pad[0x10]; WaterTracksObj *m_usedModules,*m_freeModules; char unknown18[0x10]; AsciiString m_file; WaterTracksObj *bindTrack(waveType); void rva000FE188(); void rva000FE8FC(FeNode *); };
+#include "../../../../Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 class Rva000FF50D { public: void saveTracks(); };
 // Existing opaque pin's integer argument carries the filename reference;
 // native FF F02/F05 passes this+28. Preserve the existing provider spelling.

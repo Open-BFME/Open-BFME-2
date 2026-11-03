@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.
 // Same function, same address: bind the header spelling here.
@@ -293,11 +293,7 @@ Rva0078B83::Rva0078B83(EmitVtableTag *)
 {
 }
 
-class WaterTracksRenderSystem
-{
-public:
-	~WaterTracksRenderSystem();	// row 0x000FF4D6 in WaterTracksRenderSystemFlush.cpp
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GWaterTracksRenderSystem (it
 // calls out to the destructor row); the destructor is only declared here.

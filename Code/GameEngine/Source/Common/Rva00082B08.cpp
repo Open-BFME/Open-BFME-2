@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc -ICode/Libraries/Source/WWVegas/WW3D2 -ICode/Libraries/Source/WWVegas/WWLib -ICode/Libraries/Source/WWVegas/WWMath -ICode/Libraries/Source/WWVegas/WWSaveLoad -ICode/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/shims/sweep
 // stlport
 // ?rva00082B08@Rva00082B08@@QAEXXZ @0x00082B08 127B: triple conditional Rva002B7250 erase plus two vector range erases plus conditional tail to WaterTracksRenderSystem move drain. Evidence: three Rva002B7250 row calls plus two 0x819EC vector erase row calls plus tail jmp to 0xFE188 row plus caller 0x91CF2.
 #include <vector>
@@ -11,11 +11,7 @@ public:
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 // Retail's erase is the rowed copy in Rva004F92E3Rva004F92E3.cpp.
 namespace _STL { template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C, allocator<TreeHintRef00217D4C> >::erase(TreeHintRef00217D4C *, TreeHintRef00217D4C *); }
-class WaterTracksRenderSystem
-{
-public:
-	void rva000FE188();
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
 class Rva00082B08
 {
 public:
