@@ -23442,3 +23442,5 @@ Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00Chun
 Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|p,d1c8fd1146787f842c35c92c,drz-k9,drz-k9-sv1h-23,w-4d4d8f8584bc,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv1287.cpp|local|BfmeHostSB::bfmeGoSB|a,17c9e5c9468065a85f7bf61f,drz-t01,drz-t01-sv2-4,w-1b383cf1efa6,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv1287.cpp|local|BfmeHostSB::bfmeGoSB|b,8eb8dc4a861a7ad16e04b4df,drz-t01,drz-t01-sv2-4,w-1b383cf1efa6,2026-11-03
+Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp|function|0x004FBEAB|rva004FBEAB,62e82de4e30c841420862e8c,drz-t02,drz-t02-sv2-4,w-70b7a1fa20d8,2026-11-03
+Code/GameEngine/Source/Common/Rva005C6CCC.cpp|local|Rva005C6D4D::rva005C674A|t,eed887465e98158bdb59c031,drz-t02,drz-t02-sv2-6,w-70b7a1fa20d8,2026-11-03
