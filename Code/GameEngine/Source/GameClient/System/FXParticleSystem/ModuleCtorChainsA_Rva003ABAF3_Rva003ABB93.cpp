@@ -116,11 +116,11 @@ void __identifier("?get@Rva004F5FA3LeaGetter@@QBEPAXXZ")();
 void __identifier("?rva003ABD04@Rva003ABD04@@QAE?AURva00SlotFloat2@@XZ")();
 }
 extern const void *const g_00C1C53C[7];
-extern "C" const void *const __identifier("??_7Rva003ABD20@@6BDefaultModuleSecondBase@@@")[];
-extern "C" const void *const __identifier("??_7Rva003ABD81@@6BDefaultModuleSecondBase@@@")[];
+extern "C" const void *const __identifier("??_7Rva003ABD20@@6BRva003AEEB3Slot14@@@")[];
+extern "C" const void *const __identifier("??_7Rva003ABD81@@6BRva003AEEB3Slot14@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@")[];
 extern "C" const void *const __identifier("??_7Rva005FEAD0DefaultModule7@FXParticleSystem@@6BRva005FEA50PrimaryBase@1@@")[];
-extern "C" const void *const __identifier("??_7Rva003AEDE9@@6BDefaultModuleSecondBase_3AEE16@@@")[];
+extern "C" const void *const __identifier("??_7Rva003AEDE9@@6BRva003AEEB3Slot14@@@")[];
 // The retail table at RVA 0x0081C620: 4 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
@@ -229,7 +229,7 @@ void __identifier("?Rva004647D1Get@@YAMXZ")();
 extern const void *const g_00C1C444[11];
 extern "C" const void *const __identifier("??_7Rva003AE683@@6B@")[];
 extern const void *const g_00C1C620[];
-extern "C" const void *const __identifier("??_7Rva003AEDE9@@6BDefaultModuleSecondBase_3AEE16@@@")[];
+extern "C" const void *const __identifier("??_7Rva003AEDE9@@6BRva003AEEB3Slot14@@@")[];
 extern "C" const void *const __identifier("??_7Rva003AEDE9@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva003AE683@@6BModuleInfoHeadBase_3AE683@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?RENDEROBJECT_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_DRAW_MODULE_NAME@2@3QBDBVRenderObjectDrawModule@2@VRenderObjectDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
@@ -244,7 +244,7 @@ void __identifier("?get@Rva004F5FA3LeaGetter@@QBEPAXXZ")();
 }
 extern const void *const g_00C1CDCC[5];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
-extern "C" const void *const __identifier("??_7Rva003AEDE9@@6BDefaultModuleHeadBase_3AEE16@@@")[];
+extern "C" const void *const __identifier("??_7Rva003AEDE9@@6BDefaultModuleHeadBase@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
 // The retail table at RVA 0x0081CF38: 12 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
@@ -261,7 +261,7 @@ void __identifier("?get@Rva003ABE78LeaGetter@@QBEPAXXZ")();
 }
 extern const void *const g_00C1CF38[12];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
-extern "C" const void *const __identifier("??_7Gen005ED0D0@@6BDefaultModuleHeadBase_3AEE16@@@")[];
+extern "C" const void *const __identifier("??_7Gen005ED0D0@@6BDefaultModuleHeadBase@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
 extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot0@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
@@ -351,7 +351,7 @@ int __cdecl _purecall(void);
 void __identifier("?rva005644A9@Rva005644A9@@UAEXPAVXfer@@@Z")();
 }
 extern const void *const g_00C1C6A4[4];
-extern "C" const void *const __identifier("??_7Gen005ED0D0@@6BDefaultModuleSecondBase_3AEE16@@@")[];
+extern "C" const void *const __identifier("??_7Gen005ED0D0@@6BRva003AEEB3Slot14@@@")[];
 extern "C" const void *const __identifier("??_7Gen005ED0D0@@6B@")[];
 
 struct Rva0055BF4BSrc;
