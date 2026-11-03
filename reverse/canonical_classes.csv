@@ -512,3 +512,4 @@ AiOrdersManager,Code/GameEngine/Include/GameLogic/AiOrdersManager.h,existing hea
 TerrainCollisionModuleInfo,Code/GameEngine/Include/GameClient/TerrainCollisionModuleInfo.h,existing header; contract class_contracts/TerrainCollisionModuleInfo.json; 7/13 sampled units adopt
 EmissionVolumeInfo,Code/GameEngine/Include/GameClient/EmissionVolumeInfo.h,existing header; contract class_contracts/EmissionVolumeInfo.json; 9/15 sampled units adopt
 GpuDrawModuleInfo,Code/GameEngine/Include/GameClient/GpuDrawModuleInfo.h,existing header; contract class_contracts/GpuDrawModuleInfo.json; 9/14 sampled units adopt
+RenderObjectUpdateModuleInfo,Code/GameEngine/Include/GameClient/RenderObjectUpdateModuleInfo.h,existing header; contract class_contracts/RenderObjectUpdateModuleInfo.json; 8/11 sampled units adopt
