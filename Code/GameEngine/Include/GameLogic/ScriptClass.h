@@ -43,6 +43,7 @@
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 class Xfer;
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../Common/BfmeFixedStorage002CF0F0.h"
 
 class DataChunkInput;
 class OrCondition;
@@ -61,16 +62,6 @@ public:
     int m_field04;
     bool m_field08;
     AsciiString m_field0C;
-};
-
-class BfmeFixedStorage002CF0F0
-{
-public:
-    BfmeFixedStorage002CF0F0() {}
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-    unsigned int bits() const { return *(const unsigned int *)m_bytes; }
-private:
-    char m_bytes[4];
 };
 
 class Script : public Snapshot
