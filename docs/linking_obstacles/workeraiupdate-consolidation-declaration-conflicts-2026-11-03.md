@@ -1,3 +1,5 @@
 ### WorkerAIUpdate consolidation declaration conflicts (2026-11-03)
 
 Status: Blocked. The five candidate donors still compile separately, but none can join the approved TU: canonical/reference header collisions, incompatible state-machine destructor views and the deleter's synthetic constructor require separate repairs. The old missing-WORKER_FIELDS seed failure is no longer the blocker. [Current donor diagnostics, verification and next checks](../../reverse/attempt_support/workerai-consolidation-20261103/README.md). Existing census-linked status is preserved; no merge or new census clearance is claimed.
+
+Ctor prerequisite completed: canonical StateConditionInfo adopted and one header-debt row retired; [30/30 byte checks and header/link acceptance](../../reverse/attempt_support/workerai-stateconditioninfo-20261103/README.md). The other declaration conflicts remain.

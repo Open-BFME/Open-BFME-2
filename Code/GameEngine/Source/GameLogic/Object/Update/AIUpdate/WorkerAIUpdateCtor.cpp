@@ -205,12 +205,7 @@ public:
 	unsigned char m_pad1C[0x20 - 0x1C];
 };
 
-struct StateConditionInfo
-{
-	Bool (*test)(State *thisState, void *userData);
-	StateID toStateID;
-	void *userData;
-};
+#include "../../../../../Include/Common/StateConditionInfo.h"
 
 #include "StateMachineView.h"
 
