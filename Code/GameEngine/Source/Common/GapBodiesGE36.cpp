@@ -7,11 +7,7 @@
 
 // --- 0x005B1275 (19B): a by-value delegate description handed to the rowed
 // 0x00579E47 base.
-struct DelegateDesc
-{
-	void *m_object;
-	void *m_method;
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 class Rva00579E47
 {

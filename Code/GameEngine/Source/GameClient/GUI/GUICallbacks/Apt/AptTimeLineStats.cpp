@@ -124,11 +124,7 @@ void AptTimeLineStats::InitGadgets(const char *name,int unused,GameWindow *windo
 // VC7.1. The typed callback is erased only when packed for the existing wrapper.
 typedef void (AptTimeLineStats::*TimelineHandler)();
 typedef char TimelineHandlerIsOneWord[sizeof(TimelineHandler)==4 ? 1 : -1];
-struct DelegateDesc {
- AptTimeLineStats *object;
- TimelineHandler method;
- DelegateDesc(AptTimeLineStats *aptTimeLineStats,TimelineHandler m):object(aptTimeLineStats),method(m){}
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva00579E47 {

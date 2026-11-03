@@ -72,13 +72,7 @@ private:
 class __single_inheritance AptLoadScreen;
 typedef void (AptLoadScreen::*AptLoadScreenHandler)(void);
 
-struct DelegateDesc
-{
-	DelegateDesc(AptLoadScreen *object, AptLoadScreenHandler method) : m_object(object), m_method(method) {}
-
-	AptLoadScreen *m_object;
-	AptLoadScreenHandler m_method;
-};
+#include "../../../../../Include/Common/DelegateDesc.h"
 
 // The color handlers' delegate goes through a by-value copy and is built once
 // for the loop (retail loads the method address into eax for that copy).

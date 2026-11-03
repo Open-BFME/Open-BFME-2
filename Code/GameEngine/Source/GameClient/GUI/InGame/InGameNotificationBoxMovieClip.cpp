@@ -106,7 +106,7 @@ struct AsciiStringPlusText:AsciiStringRef{Rva000B3F84Pair text;operator AsciiStr
 AsciiStringPlusText operator+(const AsciiString&,const char*);
 class __single_inheritance InGameNotificationBoxMovieClip;
 typedef void(InGameNotificationBoxMovieClip::*NoticeCommand)(unsigned);
-struct DelegateDesc{DelegateDesc(InGameNotificationBoxMovieClip*p,NoticeCommand m):object(p),method(m){} InGameNotificationBoxMovieClip*object;NoticeCommand method;};
+#include "../../../../Include/Common/DelegateDesc.h"
 struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);void*ptr;};
 template<class T> class AptRef:public Rva00579E47{public:AptRef(DelegateDesc d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};

@@ -48,10 +48,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left,con
 
 class __single_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(const char *);
-struct DelegateDesc {
-    DelegateDesc(FunctorMethod functorMethod,FunctorTarget *functorTarget):object(functorTarget),method(functorMethod) {}
-    FunctorTarget *object; FunctorMethod method;
-};
+#include "../../Include/Common/DelegateDesc.h"
 struct FunctorHeader { void *vptr; int refs; };
 class Rva00579E47 { public:
     Rva00579E47(const DelegateDesc &);

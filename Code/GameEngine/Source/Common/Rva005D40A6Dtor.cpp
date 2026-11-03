@@ -147,10 +147,7 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left,con
 
 class __single_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)(const char *);
-struct DelegateDesc {
-    DelegateDesc(FunctorMethod f,FunctorTarget *functorTarget):object(functorTarget),method(f) {}
-    FunctorTarget *object; FunctorMethod method;
-};
+#include "../../Include/Common/DelegateDesc.h"
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct FunctorHeader { void *vptr; int refs; };

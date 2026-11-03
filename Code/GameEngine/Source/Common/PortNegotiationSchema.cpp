@@ -233,11 +233,7 @@ private:
 // pointers to the +0x3E4 / +0x3E8 / +0x3EC subobjects.
 // --- 0x0052AC16 / 0x0052AC29 (19B each): assign a by-value delegate
 // description through the rowed assignments; return this.
-struct DelegateDesc
-{
-	void *m_object;
-	void *m_method;
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 class Rva0052A786
 {

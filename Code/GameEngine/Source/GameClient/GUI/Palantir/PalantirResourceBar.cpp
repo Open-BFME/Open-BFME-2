@@ -21,7 +21,7 @@ struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __single_inheritance ResourceDrawTarget {};
 typedef void (ResourceDrawTarget::*ResourceDrawMethod)(const Coord2D &,const Coord2D &,void *,void *);
-struct DelegateDesc {DelegateDesc(ResourceDrawMethod m,void *o):object(o),method(m){} void *object; ResourceDrawMethod method;};
+#include "../../../../Include/Common/DelegateDesc.h"
 class Rva00579E47 {public:Rva00579E47(const DelegateDesc &);void *ptr;};
 class Rva002D4594 {public:Rva002D4594(const int *);void *ptr;};
 class Rva002D45C9 {public:Rva002D45C9(const int *);void *ptr;};

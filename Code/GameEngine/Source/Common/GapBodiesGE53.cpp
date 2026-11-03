@@ -188,11 +188,7 @@ void Rva00210E7C::rva00210E9D()
 
 // --- 0x0021674F (19B): construct from a by-value DelegateDesc through the
 // rowed 0x002165B0 setter.
-struct DelegateDesc
-{
-	int m_00;
-	int m_04;
-};
+#include "../../Include/Common/DelegateDesc.h"
 
 class Rva002165B0
 {
