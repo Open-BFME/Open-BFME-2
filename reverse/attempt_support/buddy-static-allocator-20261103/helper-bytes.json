@@ -1,0 +1,54 @@
+[
+  {
+    "symbol": "?_M_push_back_aux_v@?$deque@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXABVBuddyResponse@@@Z",
+    "rva": "0x00551910",
+    "target_size": 110,
+    "emitted_size": 110,
+    "exact": false,
+    "masked": false,
+    "unresolved": [
+      "?_M_reserve_map_at_back@?$deque@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXI@Z"
+    ],
+    "compiled_hex": "558bec81ec6408000053568b7508578bd9b9190200008dbd9cf7fffff3a56a018bcbe8000000006a006864080000e8000000008b4b1c8941048d859cf7ffff50ff7310e8000000008b431c83c00489431c8b0083c41089431405640800008943188b43145f5e8943105bc9c20400",
+    "resolved_hex": "558bec81ec6408000053568b7508578bd9b9190200008dbd9cf7fffff3a56a018bcbe8000000006a006864080000e8adeeadff8b4b1c8941048d859cf7ffff50ff7310e858eeffff8b431c83c00489431c8b0083c41089431405640800008943188b43145f5e8943105bc9c20400",
+    "target_hex": "558bec81ec6408000053568b7508578bd9b9190200008dbd9cf7fffff3a56a018bcbe8c6f9ffff6a006864080000e8adeeadff8b4b1c8941048d859cf7ffff50ff7310e858eeffff8b431c83c00489431c8b0083c41089431405640800008943188b43145f5e8943105bc9c20400",
+    "relocations": [
+      [
+        35,
+        20,
+        "?_M_reserve_map_at_back@?$deque@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXI@Z"
+      ],
+      [
+        47,
+        20,
+        "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+      ],
+      [
+        68,
+        20,
+        "??$_Construct@VBuddyResponse@@V1@@_STL@@YAXPAVBuddyResponse@@ABV1@@Z"
+      ]
+    ]
+  },
+  {
+    "symbol": "?_M_pop_front_aux@?$deque@VBuddyResponse@@V?$allocator@VBuddyResponse@@@_STL@@@_STL@@IAEXXZ",
+    "rva": "0x00550B06",
+    "target_size": 46,
+    "emitted_size": 45,
+    "exact": false,
+    "masked": false,
+    "unresolved": [
+      "?deallocate@?$allocator@VBuddyResponse@@@_STL@@QBEXPAVBuddyResponse@@I@Z"
+    ],
+    "compiled_hex": "568bf16a01ff76048d4e24e8000000008b460c83c00489460c8b0089460405640800008946088b460489065ec3",
+    "resolved_hex": "568bf16a01ff76048d4e24e8000000008b460c83c00489460c8b0089460405640800008946088b460489065ec3",
+    "target_hex": "568bf18b460485c0740750e81afdadff598b460c83c00489460c8b0089460405640800008946088b460489065ec3",
+    "relocations": [
+      [
+        12,
+        20,
+        "?deallocate@?$allocator@VBuddyResponse@@@_STL@@QBEXPAVBuddyResponse@@I@Z"
+      ]
+    ]
+  }
+]
