@@ -10,14 +10,7 @@
 #include "../../../Include/Common/MemoryPoolObject.h"
 #include "Common/Snapshot.h"
 class SpecialPowerTemplate;
-class SpecialPowerModuleInterface
-{
-public:
-    virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-    virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-    virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-    virtual void s12(const Coord3D *position, int options);
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../Object/object.h"
 // Native rowed member iterator returns24B. Only its current Object is read
 // here; its opaque20B callback state is retained for the out-of-line advance.
@@ -106,7 +99,7 @@ bool ScriptActions::FireSpecialPowerAtPosition(const AsciiString &playerName,
                     SpecialPowerModuleInterface *module = object->getSpecialPowerModule(power);
                     if (module)
                     {
-                        module->s12(position, 0x40000);
+                        module->doSpecialPowerAtLocation(position, 0x40000);
                         return true;
                     }
                 }
