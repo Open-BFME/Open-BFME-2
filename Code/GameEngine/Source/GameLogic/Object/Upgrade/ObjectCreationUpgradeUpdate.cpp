@@ -108,20 +108,7 @@ inline OCUVector3 operator*(const OCUMatrix3D &A, const OCUVector3 &a)
 	return OCUVector3(x, y, z);
 }
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	void setPosition(const Coord3D *pos);
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	Real getOrientation() const { return m_cachedAngle; }
-	const OCUMatrix3D *getTransformMatrix() const { return (const OCUMatrix3D *)m_transform; }
-private:
-	char m_pad00[0x08];
-	float m_transform[12];
-	Coord3D m_cachedPos;
-	Real m_cachedAngle;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -135,7 +122,7 @@ public:
 protected:
 	Module *findModule(NameKeyType key) const;
 public:
-	char m_pad48[0x74 - 0x48];
+	char m_pad48[0x74 - sizeof(Thing)]; // Retain the legacy label; the canonical base is0x60.
 	int m_id;
 	char m_pad78[0x1C0 - 0x78];
 	Real m_1C0;
@@ -207,7 +194,7 @@ UpdateSleepTime ObjectCreationUpgrade::update()
 			pos.X = getObject()->getPosition()->x;
 			pos.Y = getObject()->getPosition()->y;
 			pos.Z = getObject()->getPosition()->z;
-			pos = *getObject()->getTransformMatrix() * offset;
+			pos = *reinterpret_cast<const OCUMatrix3D *>(getObject()->getTransformMatrix()) * offset;
 
 			Object *owner = getObject();
 			Real angle = owner->getOrientation();
