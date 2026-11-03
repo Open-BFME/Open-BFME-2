@@ -8,17 +8,14 @@
 // Evidence: called per element by 0x0046AC30 (which allocates 0x24 and
 // constructs at +0x10); 0x10 element size with Rva00469155 member proven by
 // the copy ctor. Caller 0x0046AC44.
-#include <stddef.h>
-
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
+// The copy ctor only copies fields through 0x0046916D, so its nonthrowing
+// contract avoids a placement-delete EH frame with the real allocation header.
+#include <new.h>
 
 class Rva00469BEA
 {
 public:
-	Rva00469BEA(const Rva00469BEA &that);
+	Rva00469BEA(const Rva00469BEA &that) throw();
 };
 
 namespace _STL
