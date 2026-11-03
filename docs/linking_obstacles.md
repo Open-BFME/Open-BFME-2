@@ -12280,6 +12280,14 @@ queue keys. Other window/DisplayString/transition/list identity debts remain.
 The text-entry anchor cleanup is a separate prepared change.
 [Current scope, exact refusals and acceptance receipts](../reverse/attempt_support/gamewindowmanager-current-pass-20261103/README.md).
 
+The text-entry cleanup now passes current-main three-row verification and the
+unmodified replacement LinkGuard: its exact function/EH body remains, the
+artificial four-byte anchor disappears, and the function becomes an ordinary
+NODUPLICATES definition. All four surviving providers retain bytes/relocations;
+this explicit selection change is included in the outgoing consumer audit.
+No image-ownership receipt or census improvement is inferred.
+[Anchor removal, COFF properties and scope](../reverse/attempt_support/gadget-textentry-anchor-20261103/README.md).
+
 ### LINK-076: `Rva006DF470Initialize.cpp` named 0x00A180C4 a second time
 Status: Repair landed / awaiting verification. Updated: 2026-10-26; inspected revision:
 `9f685c7696` (index 2026-10-26 19:02 at `5ce093a71a`).

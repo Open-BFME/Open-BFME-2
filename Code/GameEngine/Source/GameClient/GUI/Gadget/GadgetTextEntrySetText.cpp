@@ -30,13 +30,7 @@ class GameWindow;
 
 extern GameWindowManager *TheWindowManager;
 
-inline void GadgetTextEntrySetText(GameWindow *gameWindow, UnicodeString text)
+void GadgetTextEntrySetText(GameWindow *gameWindow, UnicodeString text)
 {
 	TheWindowManager->winSendSystemMsg(gameWindow, 0x4030, (WindowMsgData)&text, 0);
 }
-
-// Header inlines that the units including the header emit as select-any
-// copies, which plain definitions here collided with. Taking each one's
-// address keeps this unit's copy for its row; these pointers are not retail
-// data.
-void (*_bfmeInlineAnchor_GadgetTextEntrySetText_0)(GameWindow *g, UnicodeString text) = &GadgetTextEntrySetText;
