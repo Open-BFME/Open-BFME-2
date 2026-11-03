@@ -21,26 +21,8 @@ struct Held188 { char _pad[0x188]; Elem28 *m_arr; };
 
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1, CMD_FROM_AI = 2 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType src);
-};
+#include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 
-template <int N> class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>
-{
-public:
-	virtual void unused(char (*)[N]) = 0;
-};
-template <> class BfmeVirtualSlots<0> { };
-
-class __declspec(novtable) AIUpdateInterface : public BfmeVirtualSlots<110>
-{
-public:
-	virtual bool slot110() = 0;
-	char _pad[0x1c];
-	AICommandInterface m_commands; // +0x20
-};
 
 struct ObjectArg
 {
@@ -116,7 +98,7 @@ void HordeMeleeFormation::setUnitNeedsNewAttackPos(void *arg, int idx)
 	AIUpdateInterface *ai = ((ObjectArg *)arg)->m_ai;
 	if (!ai)
 		return;
-	if (ai->slot110())
+	if (ai->isIdle())
 		return;
-	ai->m_commands.aiIdle(CMD_FROM_AI);
+	ai->aiIdle(CMD_FROM_AI);
 }

@@ -23,18 +23,7 @@ public:
 enum GuardMode { GUARDMODE_NORMAL = 0 };
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void aiGuardPosition(const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Object
 {
@@ -102,7 +91,7 @@ void ScriptActions::doUnitGuardForFramecount(const AsciiString &unitName, int fr
 	position.x = object->m_position.x;
 	position.y = object->m_position.y;
 	position.z = object->m_position.z;
-	ai->m_command.aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+	ai->aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 	if (seconds)
 		TheScriptEngine->setSequentialTimer(object, framecount * BfmeLogicFramesPerSecond);
 	else
@@ -129,7 +118,7 @@ void ScriptActions::doUnitGuardPosition(const AsciiString &unitName, const Ascii
 	position.x = way->location()->x;
 	position.y = way->location()->y;
 	position.z = way->location()->z;
-	ai->m_command.aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+	ai->aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 }
 
 // ?doNamedGuard@ScriptActions@@IAEXABVAsciiString@@@Z, retail 0x003C886A, 97 bytes.
@@ -150,7 +139,7 @@ void ScriptActions::doNamedGuard(const AsciiString &unitName)
 	position.x = object->m_position.x;
 	position.y = object->m_position.y;
 	position.z = object->m_position.z;
-	ai->m_command.aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+	ai->aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 }
 
 void ScriptActions::doTeamGuard(const AsciiString &teamName)
@@ -171,6 +160,6 @@ void ScriptActions::doTeamGuard(const AsciiString &teamName)
 		pos.x = obj->m_position.x;
 		pos.y = obj->m_position.y;
 		pos.z = obj->m_position.z;
-		ai->m_command.aiGuardPosition(&pos, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+		ai->aiGuardPosition(&pos, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 	}
 }

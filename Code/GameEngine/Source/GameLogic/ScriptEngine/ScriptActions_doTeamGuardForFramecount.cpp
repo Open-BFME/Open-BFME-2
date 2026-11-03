@@ -26,18 +26,7 @@ public:
 enum GuardMode { GUARDMODE_NORMAL = 0 };
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void aiGuardPosition(const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -66,7 +55,7 @@ void ScriptActions::doTeamGuardForFramecount(const AsciiString &teamName, int fr
 			position.x = object->m_cachedPos.x;
 			position.y = object->m_cachedPos.y;
 			position.z = object->m_cachedPos.z;
-			ai->m_command.aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+			ai->aiGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 		}
 		iter.advance();
 	}

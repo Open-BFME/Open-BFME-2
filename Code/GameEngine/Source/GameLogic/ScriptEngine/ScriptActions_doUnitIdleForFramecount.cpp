@@ -11,18 +11,7 @@ extern int BfmeLogicFramesPerSecond;
 
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -43,7 +32,7 @@ void ScriptActions::doUnitIdleForFramecount(const AsciiString &unitName, int fra
 	AIUpdateInterface *ai = object->getAIUpdateInterface();
 	if (!ai)
 		return;
-	ai->m_command.aiIdle(CMD_FROM_SCRIPT);
+	ai->aiIdle(CMD_FROM_SCRIPT);
 	if (seconds)
 		TheScriptEngine->setSequentialTimer(object, framecount * BfmeLogicFramesPerSecond);
 	else

@@ -71,18 +71,7 @@ enum CommandSourceType
 // The +0x250 contain module interface; only the slots this action calls.
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 
-class AICommandInterface
-{
-public:
-	void rva0026C347(Object *obj, CommandSourceType source);	// 0x0026C347
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commands;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 namespace _STL { void __cdecl __stl_throw_out_of_range(const char *msg); }
 
@@ -215,7 +204,7 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 
 			AIUpdateInterface *ai = obj->getAIUpdateInterface();
 			if (ai && obj->isKindOf(72) && !obj->isKindOf(91)) {
-				ai->m_commands.rva0026C347(theBuilding, CMD_FROM_SCRIPT);
+				ai->rva0026C347(theBuilding, CMD_FROM_SCRIPT);
 				++i;
 			}
 			diter.advance();

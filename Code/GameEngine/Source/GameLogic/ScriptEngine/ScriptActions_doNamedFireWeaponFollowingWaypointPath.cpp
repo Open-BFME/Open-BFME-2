@@ -34,17 +34,7 @@ public:
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class AICommandInterface
-{
-public:
-    void aiFollowWaypointPath(const Waypoint *, CommandSourceType);
-};
-class AIUpdateInterface
-{
-public:
-    char pad[0x20];
-    AICommandInterface command;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -92,5 +82,5 @@ void ScriptActions::doNamedFireWeaponFollowingWaypointPath(const AsciiString &un
     if (!ai)
         return;
     projectile->leaveGroup();
-    ai->command.aiFollowWaypointPath(waypoint, CMD_FROM_SCRIPT);
+    ai->aiFollowWaypointPath(waypoint, CMD_FROM_SCRIPT);
 }

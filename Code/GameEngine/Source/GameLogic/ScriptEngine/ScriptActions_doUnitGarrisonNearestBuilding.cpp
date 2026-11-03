@@ -165,18 +165,7 @@ public:
 	virtual unsigned int getPlayerWhoEntered() const = 0;	// slot 81 (+0x144)
 };
 
-class AICommandInterface
-{
-public:
-	void rva0026C347(Object *obj, CommandSourceType source);	// 0x0026C347
-};
-
-class AIUpdateInterface
-{
-public:
-	char m_pad00[0x20];
-	AICommandInterface m_commands;	// +0x20
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../Object/object.h"
 
@@ -219,7 +208,7 @@ void ScriptActions::doUnitGarrisonNearestBuilding(const AsciiString &unitName)
 		unsigned int player = theBuilding->getContain()->getPlayerWhoEntered();
 		if (player != 0 && player != theUnit->getControllingPlayer()->getPlayerMask())
 			continue;
-		ai->m_commands.rva0026C347(theBuilding, CMD_FROM_SCRIPT);
+		ai->rva0026C347(theBuilding, CMD_FROM_SCRIPT);
 		return;
 	}
 }

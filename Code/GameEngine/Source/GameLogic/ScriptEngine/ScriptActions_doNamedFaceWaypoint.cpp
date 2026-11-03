@@ -35,18 +35,7 @@ public:
     virtual void _32()=0; virtual void _33()=0;
     virtual Waypoint *getWaypointByName(const AsciiString &) = 0;
 };
-class AICommandInterface
-{
-public:
-    void aiFacePosition(const Coord3D *, int);
-};
-class AIUpdateInterface
-{
-public:
-    char pad[0x20];
-    AICommandInterface command;
-    void rva0026295E();
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object
 {
 public:
@@ -76,5 +65,5 @@ void ScriptActions::doNamedFaceWaypoint(const AsciiString &unitName,
     if (!ai) return;
     ai->rva0026295E();
     unit->leaveGroup();
-    ai->command.aiFacePosition(waypoint->location(), 1);
+    ai->aiFacePosition(waypoint->location(), 1);
 }

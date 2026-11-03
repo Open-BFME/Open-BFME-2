@@ -31,17 +31,8 @@ public:
 
 #include "../Object/object.h"
 
-class AICommandInterface
-{
-public: void aiFaceObject(Object *, int);
-};
-class AIUpdateInterface
-{
-public:
-    unsigned char pad[0x20];
-    AICommandInterface command;
-    void rva0026295E();
-};
+enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class Rva00358752Opaque
@@ -68,7 +59,7 @@ void ScriptActions::doTeamFaceNamed(const AsciiString &teamName,
         if (ai) {
             ai->rva0026295E();
             object->leaveGroup();
-            ai->command.aiFaceObject(faceObject, 1);
+            ai->aiFaceObject(faceObject, CMD_FROM_SCRIPT);
         }
         iter.advance();
     }
