@@ -13,11 +13,11 @@ struct Vec2XY
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 
-void ScriptEngine::rva00357C1F(void *p, void *v)
+void ScriptEngine::rva00357C1F(void *p, void *position)
 {
 	if (!p)
 		return;
-	Vec2XY *dst2 = (Vec2XY *)v;
+	Vec2XY *dst2 = (Vec2XY *)position;
 	if (!dst2)
 		return;
 	Coord3D tmp;

@@ -7006,3 +7006,12 @@ param,ScriptActions::Rva003C2C28Do::b,ScriptActions::Rva003C2C28Do::counterParm,
 param,ScriptActions::Rva003C2CD8Do::b,ScriptActions::Rva003C2CD8Do::counterParm,inferred,agree:nl-da5af2d0fe0d,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2CD8.cpp,0x003C2CD8
 param,ScriptActions::Rva003C2D34Do::b,ScriptActions::Rva003C2D34Do::counterParm,inferred,agree:nl-579bccb95c95,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2CD8.cpp,0x003C2D34
 param,ScriptActions::Rva003C2E61Do::a3,ScriptActions::Rva003C2E61Do::counterParm,inferred,agree:nl-f5e38712b969,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,0x003C2E61
+member,Rva00357340Arg::m_f38,Rva00357340Arg::m_offsetX,inferred,agree:nl-cf7ec8d7b70f,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp,
+member,Rva00357340Arg::m_f3C,Rva00357340Arg::m_offsetY,inferred,agree:nl-253138bb7eb7,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp,
+member,Rva00357340Arg::m_f40,Rva00357340Arg::m_offsetZ,inferred,agree:nl-cd5fc9d5083a,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp,
+local,ScriptActions::Rva003C301DDo::a,ScriptActions::Rva003C301DDo::healthPercent,inferred,agree:nl-06a18b2b61b3,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsTeamHealthPercent.cpp,0x003C301D
+local,ScriptActions::Rva003C2E61Do::c,ScriptActions::Rva003C2E61Do::counter,inferred,agree:nl-f43f86894c5a,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,0x003C2E61
+local,ScriptActions::Rva003C2E61Do::s3,ScriptActions::Rva003C2E61Do::counterName,inferred,agree:nl-9cb49b209d4f,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,0x003C2E61
+local,ScriptActions::Rva003C2E61Do::v,ScriptActions::Rva003C2E61Do::count,inferred,agree:nl-8ff26b113a18,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2E61.cpp,0x003C2E61
+param,ScriptEngine::rva00357C1F::v,ScriptEngine::rva00357C1F::position,inferred,agree:nl-b2626f861e9c-m9fdc2b9a3f3a4b57633e6a07,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357C1F.cpp,0x00357C1F
+local,ScriptEngine::createNamedMapReveal::p,ScriptEngine::createNamedMapReveal::record,inferred,agree:nl-03dc49444350-m9cae488c8ed2571bcfbd9505,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_createNamedMapReveal.cpp,0x00358853

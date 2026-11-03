@@ -51,9 +51,9 @@ BfmeStringRecord00204A30 *ScriptEngine::createNamedMapReveal(const AsciiString &
 	unsigned long crc = Rva003ECA13Get(name);
 	BfmeStringRecord00204A30 *begin = m_vec.m_start;
 	BfmeStringRecord00204A30 *end = m_vec.m_finish;
-	for (BfmeStringRecord00204A30 *p = begin; p != end; ++p) {
-		if (p->word0 == crc)
-			return p;
+	for (BfmeStringRecord00204A30 *record = begin; record != end; ++record) {
+		if (record->word0 == crc)
+			return record;
 	}
 	BfmeStringRecord00204A30 rec;
 	((StringBase<char> *)&rec.text1)->set(*(const StringBase<char> *)&text1);

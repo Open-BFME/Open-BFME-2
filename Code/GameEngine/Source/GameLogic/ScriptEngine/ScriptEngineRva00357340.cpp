@@ -25,9 +25,9 @@ struct Rva00357340Entry
 struct Rva00357340Arg
 {
 	char m_pad0[0x38];
-	float m_f38;
-	float m_f3C;
-	float m_f40;
+	float m_offsetX;
+	float m_offsetY;
+	float m_offsetZ;
 	char m_pad1[0x88 - 0x44];
 	AsciiString m_str88;
 };
@@ -55,9 +55,9 @@ void ScriptEngine::rva00357340(void *p, Coord3D *dst)
 		if (it->m_key == (int)crc)
 		{
 			*dst = it->m_pos;
-			dst->x -= arg->m_f38;
-			dst->y -= arg->m_f3C;
-			dst->z -= arg->m_f40;
+			dst->x -= arg->m_offsetX;
+			dst->y -= arg->m_offsetY;
+			dst->z -= arg->m_offsetZ;
 			dst->normalize();
 			return;
 		}

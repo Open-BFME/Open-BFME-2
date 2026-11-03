@@ -56,14 +56,14 @@ void ScriptActions::Rva003C301DDo(Parameter *teamParm, Parameter *floatParm)
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamParm->getString(), false);
 	if (team == 0)
 		return;
-	float a = floatParm->m_real;
-	a = FloatMinRef(a, 100.0f);
-	a = FloatMaxRef(0.0f, a);
+	float healthPercent = floatParm->m_real;
+	healthPercent = FloatMinRef(healthPercent, 100.0f);
+	healthPercent = FloatMaxRef(0.0f, healthPercent);
 	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		BodyModule *body = it.cur()->m_body;
 		if (body == 0)
 			continue;
-		body->b21(a, 1);
+		body->b21(healthPercent, 1);
 		body->b23();
 	}
 }
