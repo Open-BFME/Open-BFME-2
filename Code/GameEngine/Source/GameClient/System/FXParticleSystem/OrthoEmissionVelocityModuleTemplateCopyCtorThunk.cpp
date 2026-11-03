@@ -3,6 +3,7 @@
 // Open-BFME5: OrthoEmissionVelocityModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class OrthoEmissionVelocityInfo
-{
-public:
-	OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &that);
-	virtual void dummy();
-};
 
 // OrthoEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bc10 (retail .rdata value -44).
 extern "C" char OrthoEmissionVelocityModuleTemplate_cvtbl0 = -44;

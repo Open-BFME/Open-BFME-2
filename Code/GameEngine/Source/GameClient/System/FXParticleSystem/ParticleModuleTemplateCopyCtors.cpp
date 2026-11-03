@@ -13,14 +13,10 @@ public:
 	Rva003AF50D(const Rva003AF50D &other);
 };
 
+#include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
-class OrthoEmissionVelocityInfo
-{
-public:
-	OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &other);
-};
 
 class SphericalEmissionVelocityInfo
 {

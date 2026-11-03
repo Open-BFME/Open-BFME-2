@@ -1,6 +1,7 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME5: clean-C++ OrthoEmissionVelocityModuleTemplate default constructor.
 
+#include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -40,15 +41,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class OrthoEmissionVelocityInfo
-{
-public:
-    OrthoEmissionVelocityInfo();
-    virtual ~OrthoEmissionVelocityInfo();
-
-private:
-    unsigned char m_body[0x2c];
-};
 
 class OrthoEmissionVelocityModuleTemplate : public CategoryModuleTemplate<4>,
     public OrthoEmissionVelocityInfo

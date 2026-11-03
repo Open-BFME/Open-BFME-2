@@ -36,16 +36,9 @@ namespace FXParticleSystem
 {
 }
 
+#include "../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
-class OrthoEmissionVelocityInfo
-{
-public:
-	OrthoEmissionVelocityInfo();
-	virtual ~OrthoEmissionVelocityInfo();
-private:
-	char m_unmodelled_04[0x28 - 0x04];
-};
 }
 
 namespace FXParticleSystem
