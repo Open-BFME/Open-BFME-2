@@ -164,11 +164,7 @@ extern const FieldParse g_00BEF0A8WeaponFireSpecialAbilityFieldParse[] = {
 };
 
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 // Retail VA 0x00C3F7F8: 58 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies

@@ -120,11 +120,7 @@ void rva004B5293(INI *, void *, void *, const void *);
 void Rva0049B51EParse(INI *, void *, void *, const void *);
 
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class DockUpdateModuleData
 {

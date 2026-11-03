@@ -40,22 +40,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 void parseTriggerSpecialPower(INI *ini, void *instance, void *store, const void *userData);
 
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-	// The ModuleData slots after the dtor, pure here as in the dtor unit's view
-	// (ActivateModuleSpecialPowerModuleDataDtor.cpp): one derived table copy.
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	static void buildFieldParse(MultiIniFieldParse &parse);
-
-protected:
-	// +0x00 vptr; remainder opaque to 0xC8 (ToggleHidden-inferred size).
-	unsigned char m_opaque[0xC4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class ActivateModuleSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {

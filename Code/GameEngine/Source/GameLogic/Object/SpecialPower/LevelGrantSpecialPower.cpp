@@ -321,15 +321,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-private:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class Rva003623E5Member
 {

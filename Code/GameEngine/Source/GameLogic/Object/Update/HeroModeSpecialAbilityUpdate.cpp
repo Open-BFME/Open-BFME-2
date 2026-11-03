@@ -27,15 +27,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-class __declspec(novtable) SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-private:
-	unsigned char m_opaque[0xC4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class HeroModeSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {

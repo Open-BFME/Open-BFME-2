@@ -78,16 +78,7 @@ public:
 	Team *m_team304;
 };
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	char m_pad00[0x40];
-	AsciiString m_name40;
-	char m_pad44[0x80 - 0x44];
-	int m_max80;
-	char m_pad84[0xA9 - 0x84];
-	bool m_flagA9;
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class SpecialAbilityUpdate
 {
@@ -108,12 +99,12 @@ Object *SpecialAbilityUpdate::rva0044FEB6()
 {
 	const SpecialAbilityUpdateModuleData *md = m_moduleData;
 	Object *newObj = 0;
-	if (m_count68 == md->m_max80) {
-		if (md->m_flagA9)
+	if (m_count68 == md->m_maxSpecialObjects) {
+		if (md->m_specialObjectsPersistent)
 			return 0;
 		killSpecialObjects();
 	}
-	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(md->m_name40);
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(md->m_specialObjectName);
 	if (thingTemplate != 0) {
 		CreateMask mask;
 		memset(&mask, 0, sizeof(mask));

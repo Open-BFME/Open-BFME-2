@@ -119,17 +119,7 @@ extern const FieldParse g_00C5F810CurseSpecialPowerFieldParse[] = {
  
  
  
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-public:
-	virtual ~SpecialAbilityUpdateModuleData();
-protected:
-	unsigned char m_pad[0xC8 - 4];
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 
 

@@ -132,15 +132,7 @@ public:
 	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
 };
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-
-protected:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class StoreObjectsSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {

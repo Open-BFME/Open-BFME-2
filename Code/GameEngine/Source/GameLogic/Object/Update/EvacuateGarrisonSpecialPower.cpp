@@ -101,16 +101,7 @@ public:
 	void add(const FieldParse *f, unsigned int extraOffset);
 };
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	SpecialAbilityUpdateModuleData();
-	virtual ~SpecialAbilityUpdateModuleData();
-	static void buildFieldParse(MultiIniFieldParse &p);
-
-protected:
-	unsigned char m_pad[0xC8 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 class EvacuateGarrisonSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
 {
