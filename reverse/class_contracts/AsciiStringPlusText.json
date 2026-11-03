@@ -1,0 +1,106 @@
+{
+ "bases": [
+  "AsciiStringRef"
+ ],
+ "bases_by": "majority",
+ "class": "AsciiStringPlusText",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 39,
+  "inherited": {
+   "base_views": 20,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 1
+   }
+  },
+  "retail_layout": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 12,
+  "view_sizes": {
+   "1": 2,
+   "4": 2,
+   "12": 23
+  },
+  "views": 27,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "S:AsciiStringRef",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_string",
+     "offset": 0,
+     "size": 4,
+     "type": "AsciiString*"
+    }
+   ],
+   "name": "left",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "AsciiStringRef",
+   "views": 25,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva000B3F84Pair",
+   "members": [
+    {
+     "kind": "P",
+     "name": "m_ptr",
+     "offset": 0,
+     "size": 4,
+     "type": "char*"
+    },
+    {
+     "kind": "i4",
+     "name": "m_len",
+     "offset": 4,
+     "size": 4,
+     "type": "int"
+    }
+   ],
+   "name": "m_right",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 8,
+   "type": "Rva000B3F84Pair",
+   "views": 23,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 1
+ },
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "inherited@0x0",
+   "candidates": {
+    "4:P": 1,
+    "4:i4": 1
+   },
+   "class": "AsciiStringPlusText"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}

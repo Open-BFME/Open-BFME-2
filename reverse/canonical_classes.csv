@@ -451,3 +451,4 @@ FXShaderSetup,Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h,existing heade
 DefaultModuleHeadBase,Code/GameEngine/Include/GameClient/DefaultModuleHeadBase.h,existing header; contract class_contracts/DefaultModuleHeadBase.json; 14/20 sampled units adopt
 NoCaseTreeValue4,Code/GameEngine/Include/Common/NoCaseTreeValue4.h,existing header; contract class_contracts/NoCaseTreeValue4.json; 38/48 sampled units adopt
 Rva003ED658,Code/GameEngine/Include/GameLogic/Rva003ED658.h,existing header; contract class_contracts/Rva003ED658.json; 16/21 sampled units adopt
+AsciiStringPlusText,Code/GameEngine/Include/Common/AsciiStringPlusText.h,existing header; contract class_contracts/AsciiStringPlusText.json; 21/39 sampled units adopt
