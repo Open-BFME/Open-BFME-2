@@ -104,10 +104,7 @@ public:
 		Real primarySpeed, const Coord3D *secondary);
 };
 
-class FireWeaponUpdateModuleData
-{
-	char m_unknown00[0x10];
-};
+#include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 
 class OilSpillUpdateModuleData : public FireWeaponUpdateModuleData
 {

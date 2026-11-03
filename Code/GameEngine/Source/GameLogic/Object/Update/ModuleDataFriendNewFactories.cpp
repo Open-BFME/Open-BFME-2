@@ -48,17 +48,7 @@ ModuleData *SiegeDockingBehaviorModuleData::friend_newModuleData(INI *ini)
 // 0x0024CF56: news 0x10, ctor ??0FireWeaponUpdateModuleData (rowed 0x48BC03),
 // parse proc 0x88C0B4.
 
-class FireWeaponUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	FireWeaponUpdateModuleData();
-	virtual ~FireWeaponUpdateModuleData();
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x10 - 4];
-};
+#include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 
 // ?friend_newModuleData@FireWeaponUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *FireWeaponUpdateModuleData::friend_newModuleData(INI *ini)

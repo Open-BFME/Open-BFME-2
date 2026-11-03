@@ -11,15 +11,7 @@
 // +0x10 plus filter +0x14 plus string +0x18). Caller is the slot-0 ??_G at
 // 0x0049114E.
 
-class FireWeaponUpdateModuleData
-{
-public:
-	FireWeaponUpdateModuleData();
-	virtual ~FireWeaponUpdateModuleData();
-
-private:
-	unsigned char m_pad[0x10 - 4];
-};
+#include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 

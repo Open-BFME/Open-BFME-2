@@ -784,11 +784,7 @@ void HordeGarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(BfmeHordeGarrisonContainFields, 0);
 }
 
-class FireWeaponUpdateModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+#include "../../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 
 // Retail VA 0x00C4C2A8: 4 fields and the zero sentinel.
 // Class identity comes from this unit's matched registration function;
