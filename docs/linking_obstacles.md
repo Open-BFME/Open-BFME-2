@@ -13,6 +13,15 @@ along with the outgoing audit's existing missing consumer receipt for
 Common/0CreateAHeroManager21FE49.cpp.
 [Evidence and remaining work](../reverse/attempt_support/pathfinder-fixed-storage-20261103/README.md).
 
+Follow-up: the same seed adopts the canonical Rva002EE9B7 wrapper and maps
+only its clear body's pointer/count fields. All 83 private ledger checks,
+81 normal active rows, two data rows, three EH graphs and 205 external
+definitions are preserved; the owning header lane retires one more queue row.
+Six seed header prerequisites remain. The latest rebased outgoing audit instead
+reported a missing current receipt for AIPathfind itself; complete selected
+provider closure remains unverified.
+[Scoped proof and audit limits](../reverse/attempt_support/pathfinder-small-headers-20261103/README.md).
+
 ### BridgeBehaviorCtor link repair (2026-11-03)
 
 `BridgeBehaviorCtor.cpp` (196B) unresolved symbol `??_7BridgeBehavior@@6BMiBase1@@@` resolved:

@@ -979,14 +979,7 @@ struct Rva002EADB4 {
     void rva002EADB4(_Rva002EADB4Node *p);
 };
 
-class Rva002EE9B7
-{
-public:
-	void rva002EE9B7();
-private:
-	_Rva002EADB4Node *m_head; // +0x00
-	int m_flag; // +0x04
-};
+#include "../../../Include/GameLogic/Rva002EE9B7.h"
 
 namespace _STL
 {
@@ -2189,13 +2182,13 @@ int __cdecl Rva002EDE5B(void *a, Coord3D *pos)
 
 void Rva002EE9B7::rva002EE9B7()
 {
-	if (m_flag == 0)
+	if (field04 == 0)
 		return;
-	((Rva002EADB4 *)this)->rva002EADB4((_Rva002EADB4Node *)m_head->_m_unk4);
-	m_head->_m_next = m_head;
-	m_head->_m_unk4 = 0;
-	m_head->_m_child = m_head;
-	m_flag = 0;
+	((Rva002EADB4 *)this)->rva002EADB4((_Rva002EADB4Node *)field00->_m_unk4);
+	field00->_m_next = field00;
+	field00->_m_unk4 = 0;
+	field00->_m_child = field00;
+	field04 = 0;
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002EF25BCreateNode.cpp
