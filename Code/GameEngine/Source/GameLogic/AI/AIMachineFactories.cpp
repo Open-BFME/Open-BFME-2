@@ -59,13 +59,7 @@ AIStateMachine *WanderAIUpdate::makeStateMachine()
 //  - giant-bird machine vtable 0x00817600 slot 9 (also at 0x0081778C), retail
 //    0x00367F9E: the rowed sub-machine 0x003676A2 with key 0x615E895F.
 // Slot names are unknown; the methods keep their addresses.
-class AIGuardMachine
-{
-public:
-	AIGuardMachine(Object *owner, UnsignedInt nameKey);	// rowed 0x00543163
-private:
-	unsigned char m_pad[0x74];	// operator new size 0x74
-};
+#include "../../../Include/GameLogic/AIGuardMachine.h"
 class AIAttackSwoopThenIdleStateMachine
 {
 public:
