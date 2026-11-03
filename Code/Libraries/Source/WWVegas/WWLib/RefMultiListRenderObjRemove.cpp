@@ -4,9 +4,7 @@
 // Dedicated TU so multilist.cpp cannot see this body. Internal_Remove is
 // already landed; Release_Ref is inlined as dec-at-+4 then vtable slot 0.
 
-class MultiListObjectClass
-{
-};
+#include "MultiListObjectClass.h"
 
 class RefCountClass
 {

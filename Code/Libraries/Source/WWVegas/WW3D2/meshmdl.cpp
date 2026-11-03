@@ -43,13 +43,7 @@ class W3DMPO
 {
 };
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-private:
-	void *ListNode; // +0x04
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 struct UVBufferClass;
 

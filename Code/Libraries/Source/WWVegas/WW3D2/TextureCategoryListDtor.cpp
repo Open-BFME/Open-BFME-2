@@ -13,12 +13,7 @@
 // @0x610640. Base flags (-EHsc-) kept: the retail dtor carries an SEH
 // prolog with states that /EHsc does not reproduce.
 
-class MultiListObjectClass
-{
-public:
-	virtual ~MultiListObjectClass();
-	void *ListNode;
-};
+#include "../WWLib/MultiListObjectClass.h"
 
 #include "../WWLib/GenericMultiListClass.h"
 
