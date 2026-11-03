@@ -10,15 +10,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class DeployStyleAIUpdate
-{
-public:
-	DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x4D8];
-};
+#include "../../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"
 
 // ?friend_newModuleInstance@DeployStyleAIUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *DeployStyleAIUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *moduleData)
