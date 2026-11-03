@@ -39052,9 +39052,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004AEF05,17,code,Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp
 0x004AEF16,13,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 0x004AEF23,35,code,,,-,,Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp
-0x004AEF46,103,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp
+0x004AEF46,103,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 0x004AEFAD,94,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
-0x004AF00B,139,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp
+0x004AF00B,139,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 0x004AF096,128,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp
 0x004AF116,69,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 0x004AF15B,6,code,Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp,approved,U,N=Code/GameEngine/Source/Common/RespawnUpdate.cpp,Code/GameEngine/Source/Common/ModuleNameGetters.cpp

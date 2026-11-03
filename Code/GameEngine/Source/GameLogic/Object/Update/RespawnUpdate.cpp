@@ -192,7 +192,6 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../Include/GameLogic/Module/RespawnUpdate.h"
 class MultiIniFieldParse;
 #include "Common/Snapshot.h"
-
 class Rva00360D26Member
 {
 public:
@@ -200,14 +199,11 @@ public:
     Rva00360D26Member();
     char m_pad00[0x4];
 };
-
 struct BfmePod20
 {
     unsigned a[5];
 };
-
 typedef _STL::_Rb_tree<BfmePod20, BfmePod20, _STL::_Identity<BfmePod20>, _STL::less<BfmePod20>, _STL::allocator<BfmePod20> > UBfmePod20SetTree;
-
 class __declspec(novtable) RespawnUpdateModuleData : public Snapshot
 {
 public:
@@ -234,19 +230,16 @@ public:
     AsciiString m_deadImageName; // +0x118
     AsciiString m_respawnAsTemplate; // +0x11C
 };
-
 struct Rva004AFB01Record
 {
 	char m_pad[0x24];
 	int m_value;
 };
-
 struct Rva004AFB01Context
 {
 	char m_pad[0x264];
 	Rva004AFB01Record *m_record;
 };
-
 class Rva004AFB01
 {
 public:
@@ -256,25 +249,56 @@ public:
 	RespawnUpdateModuleData *m_helper;
 	Rva004AFB01Context *m_context;
 };
-
 class Rva001E42F2 { public: void rva001E42F2(const int *); };
-
 struct RespawnUpdateData004AF182 {
     unsigned char before0C[0xC];
     int conditions0C[19];
     int conditions58[19];
 };
-
 extern PartitionManager *ThePartitionManager;
-
 class CreateAHeroHero;
-
 // The rowed lookup ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z.
 class CreateAHeroData;
-
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
-
 #include "../../../../Include/GameClient/Image.h"
+class Thing;
+class ModuleData;
+class Rva0039B7AD;
+class Rva003B0D7C
+{
+public:
+	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+};
+#include "../../../../Include/Common/Player.h"
+// ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z @0x004AF00B (139B): slot 3 xfer via
+// Version(1,1) slot 0x28 then base UpdateModule 0x0044DF9F plus helpers
+// XferRespawnModeType 0x003060FA XferObjectID 0x003060B2 plus int at
+// +0x34/+0x38/+0x3C via slot 0x7C plus bool at +0x40/+0x41 via slot 0x90
+// plus float at +0x20 via slot 0x70. Layout from RespawnUpdateCtor (base
+// 0x20 plus float 0x20 ints 0x24-0x3C bools 0x40-0x41). Recipe is the
+// Rva003A4CAE Version-plus-base xfer with reverse-overload slots (uint
+// 0x78 float 0x70 int 0x7C bool 0x90).
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
+void __cdecl XferRespawnModeType(Xfer *x, int *v);
+void __cdecl XferObjectID(Xfer *x, ObjectID *v);
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 
@@ -309,7 +333,28 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-// tu-skeleton: 0x004AEF46 103B ?rva004AEF46@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp
+
+void RespawnUpdate::rva004AEF46()
+{
+	Object *obj = m_object;
+	Player *player = obj->getControllingPlayer();
+	Rva003B0D7C *money;
+	if (player != 0)
+		money = (Rva003B0D7C *)((char *)player + 0x90);
+	else
+		money = 0;
+	if (m_2C == 0)
+		return;
+	m_2C = 1;
+	setWakeFrame(obj, UPDATE_SLEEP_FOREVER);
+	m_34 = (unsigned int)-1;
+	m_30 = 0;
+	m_40 = 1;
+	money->rva003B0D7C(m_3C, (Rva0039B7AD *)((char *)player + 0x3BC), true);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
@@ -647,7 +692,30 @@ RespawnInsertResult BFME2RespawnRuleTree::insert(const RespawnRule &rule)
 	return result;
 }
 
-// tu-skeleton: 0x004AF00B 139B ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataParse.cpp
+
+// ?buildFieldParse@RespawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004B0153
+void RespawnUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(reinterpret_cast<const FieldParse *>(s_respawnFieldTable), 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp
+
+void RespawnUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	UpdateModule::xfer(xfer);
+	XferRespawnModeType(xfer, &m_2C);
+	XferObjectID(xfer, (ObjectID *)&m_30);
+	*xfer == m_34;
+	*xfer == m_38;
+	*xfer == m_40;
+	*xfer == m_3C;
+	*xfer == m_20;
+	*xfer == m_41;
+}
 
 // tu-skeleton: 0x004AF096 128B ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp (not merged yet)
 
@@ -684,14 +752,6 @@ RespawnInsertResult BFME2RespawnRuleTree::insert(const RespawnRule &rule)
 // tu-skeleton: 0x004AFBE3 28B ??_GRespawnUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-04-4AFBE3.cpp (not merged yet)
 
 // tu-skeleton: 0x004AFBFF 96B ??1RespawnUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataParse.cpp
-
-// ?buildFieldParse@RespawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004B0153
-void RespawnUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(s_respawnFieldTable), 0);
-}
 
 // tu-skeleton: 0x0078E665 8B uw_0078e665 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 

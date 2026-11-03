@@ -1,0 +1,16 @@
+{
+  "base": "b5593426e0762ebbdd71fabe8dea0ddca974312f",
+  "head": "b5593426e0762ebbdd71fabe8dea0ddca974312f",
+  "staged_blobs": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp": "1bbc01a68b1fbc448a10f6fbc62a11e6a07d8f40",
+    "reverse/functions.csv": "33425fe97df2283231af2fe7ba8ed391d29427fb",
+    "reverse/tu_map.csv": "f19a56be89e9a71a133c3b430089f35c8f810f9c",
+    "reverse/header_queue.tsv": "25dd2c2e2400521b2c4fc2f37f910fcfef2ffcd4",
+    "reverse/ms_header_queue.tsv": "f2d8a9b514b9fef9fcc51cf6487fd6142625d93e",
+    "reverse/code_identity_baseline.tsv": "f445746a96d360475d4d0c99d516a7cab8bd91bc",
+    "reverse/data_rows.csv": "f717779cd6e7f7957ceb4e2c7955d358ba2310a6",
+    "reverse/data_ledger.csv": "6253385a899b7a4968c085db6127ee018dd58fd3",
+    "reverse/hatch_baseline.tsv": "03152decf26cb5adad9d76474251d8246aab381b"
+  },
+  "index_entries_sha256": "6d248319a4ca110f47dfb3aed0b51a6bae5fe0fe962708e89fdcb2b8991ff326"
+}
