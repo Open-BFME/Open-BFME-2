@@ -1,0 +1,180 @@
+{
+  "objects": {
+    "Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp": {
+      "exists": true,
+      "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva^count^note^run^family.obj",
+      "sha256": "f396f12375fa5945503ecc9fe78f98f35cce2ca6064264810f4b9531a94835e2",
+      "defined": [],
+      "refs": [
+        "??1Rva0052B7B3Dtor@@QAE@XZ"
+      ],
+      "alternates": {
+        "??1Rva0052B7B3Dtor@@QAE@XZ": "?j_0052b7b3@@YAXXZ"
+      },
+      "weaks": []
+    },
+    "Code/GameEngine/Source/GameClient/Rva000427195Dtor.cpp": {
+      "exists": true,
+      "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^rva000427195^dtor.obj",
+      "sha256": "0a9f9e1f6d8f45bb65df42b367cb9c8457a30ea88b74a5a8d433f3dc7cf9cdb2",
+      "defined": [
+        "??1Rva000427195@@QAE@XZ"
+      ],
+      "refs": [],
+      "alternates": {},
+      "weaks": []
+    },
+    "Code/gen_small/gthunks_000_admitted.cpp": {
+      "exists": true,
+      "path": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_gen_small_gthunks_000_admitted.obj",
+      "sha256": "124ff6c4b0a6cb78b5c57c0c7317952fa2a6de85cbf90d2734a04008e410f332",
+      "defined": [
+        "?j_0052b7b3@@YAXXZ"
+      ],
+      "refs": [
+        "?b_0052b6fe@@YAXXZ"
+      ],
+      "alternates": {},
+      "weaks": []
+    }
+  },
+  "native": {
+    "0x52b7b3": "e946ffffff",
+    "0x52b6fe": "b89970b900e880da0f0051568bf18975f08365fc00e82973e7ff8b7604834dfcff85f6740756e80751b0ff598b4df45e64890d00000000c9c3"
+  },
+  "index": {
+    "meta": {
+      "date": "2026-11-03 18:36",
+      "commit": "23b85ddde5",
+      "clean_tree": true
+    },
+    "symbols": {
+      "??1Rva0052B7B3Dtor@@QAE@XZ": {
+        "strong": [],
+        "comdat": [],
+        "alternates": [
+          {
+            "object": "^code_^game^engine_^source_^common_^rva^count^note^run^family.obj",
+            "fact": [
+              1130,
+              "?j_0052b7b3@@YAXXZ"
+            ]
+          }
+        ],
+        "incoming": {
+          "??1?$hash_map@HURva0052B81CElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0052B81CElement@@@_STL@@@3@@_STL@@QAE@XZ": [
+            "??1?$hashtable@U?$pair@$$CBHURva0052B81CElement@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva0052B81CElement@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva0052B81CElement@@@_STL@@@2@@_STL@@QAE@XZ",
+            "??1Rva0052B7B3Dtor@@QAE@XZ",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list"
+          ],
+          "??_GRva0052B7B3Dtor@@QAEPAXI@Z": [
+            "??1Rva0052B7B3Dtor@@QAE@XZ",
+            "??3@YAXPAX@Z"
+          ]
+        },
+        "referenced": true
+      },
+      "?j_0052b7b3@@YAXXZ": {
+        "strong": [
+          {
+            "object": "^code_gen_small_gthunks_000_admitted.obj",
+            "fact": 1053
+          }
+        ],
+        "comdat": [
+          {
+            "object": "^code_gen_small_gthunks_000_admitted.obj",
+            "fact": [
+              1053,
+              "897a6398c0e2",
+              "retail"
+            ]
+          }
+        ],
+        "alternates": [],
+        "incoming": {},
+        "referenced": true
+      },
+      "?b_0052b6fe@@YAXXZ": {
+        "strong": [],
+        "comdat": [],
+        "alternates": [],
+        "incoming": {},
+        "referenced": true
+      },
+      "?dup_0052b6fe@@YAXXZ": {
+        "strong": [],
+        "comdat": [],
+        "alternates": [],
+        "incoming": {},
+        "referenced": true
+      },
+      "??1Rva000427195@@QAE@XZ": {
+        "strong": [
+          {
+            "object": "^code_^game^engine_^source_^game^client_^rva000427195^dtor.obj",
+            "fact": 4514
+          }
+        ],
+        "comdat": [
+          {
+            "object": "^code_^game^engine_^source_^game^client_^rva000427195^dtor.obj",
+            "fact": [
+              4514,
+              "b6728390d08d",
+              "retail"
+            ]
+          }
+        ],
+        "alternates": [],
+        "incoming": {
+          "??_GRva000427195@@QAEPAXI@Z": [
+            "??1Rva000427195@@QAE@XZ",
+            "??3@YAXPAX@Z"
+          ],
+          "??0BfmeObject476@@QAE@ABU0@@Z": [
+            "??0?$StringBase@D@@AAE@ABV0@@Z",
+            "??0?$StringBase@G@@AAE@ABV0@@Z",
+            "??0?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+            "??0?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@URva001FDAB0Less@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+            "??0?$hashtable@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@2@@_STL@@QAE@ABV01@@Z",
+            "??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@ABV01@@Z",
+            "??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z",
+            "??0?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@ABV01@@Z",
+            "??0AsciiString@@QAE@ABV0@@Z",
+            "??0Overridable@@QAE@ABV0@@Z",
+            "??0Rva0010F149Handle@@QAE@ABU0@@Z",
+            "??0Rva003B0E5DRecord@@QAE@ABU0@@Z",
+            "??0Rva004216D3Coord@@QAE@ABU0@@Z",
+            "??1?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@XZ",
+            "??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ",
+            "??1?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@XZ",
+            "??1AsciiString@@QAE@XZ",
+            "??1Overridable@@UAE@XZ",
+            "??1Rva000427195@@QAE@XZ",
+            "??1Rva0010F149Handle@@QAE@XZ",
+            "??1Rva001FD42B@@QAE@XZ",
+            "??1Rva001FD458@@QAE@XZ",
+            "??1Rva00360D26Member@@QAE@XZ",
+            "??1Rva003B0E5DRecord@@QAE@XZ",
+            "??1Rva004216D3Coord@@QAE@XZ",
+            "??1S3Money@@UAE@XZ",
+            "??1UnicodeString@@QAE@XZ",
+            "??_7BfmeObject476@@6B@",
+            "??_7S3Money@@6B@",
+            "??__C@YGXPAX0IHP6EX00@ZP6EX0@Z@Z",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list"
+          ],
+          "??1Rva001FE065@@QAE@XZ": [
+            "??1Rva000427195@@QAE@XZ"
+          ]
+        },
+        "referenced": true
+      }
+    }
+  }
+}

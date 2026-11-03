@@ -276,3 +276,18 @@ Rva003ED1BEMap::~Rva003ED1BEMap()
 {
 	((Rva004DFC20 *)this)->clear();
 }
+
+// Native 0x0052B6FE: clears the local registration table and frees its buckets.
+// The original table specialization remains unidentified.
+struct Rva0052B6FE
+{
+    ~Rva0052B6FE();
+    void *m_unused00;
+    Rva000427195BucketHandle m_buckets;
+    unsigned int m_numElements;
+};
+
+Rva0052B6FE::~Rva0052B6FE()
+{
+    ((Rva000427195 *)this)->rva003A2A41();
+}

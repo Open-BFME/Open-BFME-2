@@ -1,0 +1,87 @@
+{
+  "control_rows": 24,
+  "candidate_rows": 24,
+  "candidate_missing": [],
+  "candidate_errors": [],
+  "control_EH": {
+    "??1Rva000427195@@QAE@XZ": "EXACT",
+    "?dup_00410c7b@@YAXXZ": "EXACT",
+    "?dup_0052b6fe@@YAXXZ": "EXACT",
+    "??1Rva002CFF2D@@QAE@XZ": "EXACT",
+    "??1Rva001F8D70Map@@QAE@XZ": "EXACT",
+    "??1Rva00242E71@@QAE@XZ": "EXACT",
+    "??1Rva002BB281Member08@@QAE@XZ": "EXACT",
+    "??1Rva0031C79DMap@@QAE@XZ": "EXACT",
+    "??1Rva002129DD@@QAE@XZ": "EXACT",
+    "??1Rva0021231B@@QAE@XZ": "EXACT",
+    "??1Rva0030A083Map@@QAE@XZ": "EXACT",
+    "??1Rva00524C88Map@@QAE@XZ": "EXACT",
+    "??1Rva00240C27@@QAE@XZ": "EXACT",
+    "??1Rva003ED1BEMap@@QAE@XZ": "EXACT"
+  },
+  "candidate_EH": {
+    "??1Rva000427195@@QAE@XZ": "EXACT",
+    "?dup_00410c7b@@YAXXZ": "EXACT",
+    "??1Rva0052B6FE@@QAE@XZ": "EXACT",
+    "??1Rva002CFF2D@@QAE@XZ": "EXACT",
+    "??1Rva001F8D70Map@@QAE@XZ": "EXACT",
+    "??1Rva00242E71@@QAE@XZ": "EXACT",
+    "??1Rva002BB281Member08@@QAE@XZ": "EXACT",
+    "??1Rva0031C79DMap@@QAE@XZ": "EXACT",
+    "??1Rva002129DD@@QAE@XZ": "EXACT",
+    "??1Rva0021231B@@QAE@XZ": "EXACT",
+    "??1Rva0030A083Map@@QAE@XZ": "EXACT",
+    "??1Rva00524C88Map@@QAE@XZ": "EXACT",
+    "??1Rva00240C27@@QAE@XZ": "EXACT",
+    "??1Rva003ED1BEMap@@QAE@XZ": "EXACT"
+  },
+  "definitions_added": [
+    "??1Rva0052B6FE@@QAE@XZ"
+  ],
+  "definitions_removed": [],
+  "shared_payload_changed": [],
+  "shared_properties_changed": [],
+  "route_delta": {
+    "defined": {
+      "added": [
+        "??1Rva0052B6FE@@QAE@XZ"
+      ],
+      "removed": []
+    }
+  },
+  "new_owner": {
+    "bytes": "b800000000e80000000051568bf18975f08365fc00e8000000008b7604834dfcff85f6740756e800000000598b4df45e64890d00000000c9c3",
+    "relocations": [
+      [
+        1,
+        6,
+        "__ehhandler$??1Rva0052B6FE@@QAE@XZ"
+      ],
+      [
+        6,
+        20,
+        "__EH_prolog"
+      ],
+      [
+        22,
+        20,
+        "?rva003A2A41@Rva000427195@@QAEXXZ"
+      ],
+      [
+        39,
+        20,
+        "_free"
+      ],
+      [
+        51,
+        6,
+        "__except_list"
+      ]
+    ]
+  },
+  "new_properties": {
+    "symbol_storage": 2,
+    "section": ".text",
+    "comdat_selection": 1
+  }
+}
