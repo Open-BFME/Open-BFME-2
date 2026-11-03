@@ -25,13 +25,9 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
+#include "../../../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 namespace FXParticleSystem
 {
-class DefaultPhysicsModuleInfo
-{
-public:
-	virtual void DoXfer(Xfer &xfer);
-};
 }
 
 class Rva0055EF39

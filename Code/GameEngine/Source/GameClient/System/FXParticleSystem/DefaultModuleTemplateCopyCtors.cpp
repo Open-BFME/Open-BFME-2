@@ -11,6 +11,7 @@
 
 #include "../../../../Include/GameClient/WindModuleInfo.h"
 #include "../../../../Include/GameClient/RenderObjectUpdateModuleInfo.h"
+#include "../../../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -20,11 +21,6 @@ public:
 	DefaultColorModuleInfo(const DefaultColorModuleInfo &other);
 };
 
-class DefaultPhysicsModuleInfo
-{
-public:
-	DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &other);
-};
 
 class DefaultUpdateModuleInfo
 {

@@ -23,6 +23,7 @@ class INI;
 
 #include "../../Include/GameClient/WindModuleInfo.h"
 #include "../../Include/GameClient/EmissionVolumeInfo.h"
+#include "../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -235,18 +236,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class DefaultPhysicsModuleInfo
-{
-public:
-    virtual ~DefaultPhysicsModuleInfo();
-    virtual void v1() = 0;
-
-    FXCoord3D m_unknown04;
-    float m_unknown10;
-    FXCoord3D m_unknown14;
-    bool m_unknown20;
-    bool m_unknown21;
-};
 
 class DefaultCategory7ModuleInfo
 {

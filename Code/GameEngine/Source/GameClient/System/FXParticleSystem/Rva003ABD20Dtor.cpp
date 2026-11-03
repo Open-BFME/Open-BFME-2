@@ -60,15 +60,9 @@ public:
 	virtual ~Rva0055BF21();
 };
 
+#include "../../../../Include/GameClient/DefaultPhysicsModuleInfo.h"
 namespace FXParticleSystem
 {
-class __declspec(novtable) DefaultPhysicsModuleInfo : public Snapshot
-{
-public:
-	DefaultPhysicsModuleInfo();
-	virtual ~DefaultPhysicsModuleInfo();
- virtual void DoXfer(Xfer &);
-};
 }
 
 class Rva0055F197 : public Rva0055BF21, public FXParticleSystem::DefaultPhysicsModuleInfo
