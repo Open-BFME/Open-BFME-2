@@ -18,11 +18,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class OneRingPenaltyUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "../../../../Include/GameLogic/Module/OneRingPenaltyUpdate.h"
 
 // ?getModuleNameKey@OneRingPenaltyUpdate@@UBE?AW4NameKeyType@@XZ
 NameKeyType OneRingPenaltyUpdate::getModuleNameKey() const

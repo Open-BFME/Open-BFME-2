@@ -14,16 +14,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class OneRingPenaltyUpdate
-{
-public:
-	OneRingPenaltyUpdate(Thing *thing, const ModuleData *data);
-	virtual ~OneRingPenaltyUpdate();
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *data);
-
-private:
-	unsigned char m_pad[0x34 - 4];
-};
+#include "../../../../Include/GameLogic/Module/OneRingPenaltyUpdate.h"
 
 // ?friend_newModuleInstance@OneRingPenaltyUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z
 Module *OneRingPenaltyUpdate::friend_newModuleInstance(Thing *thing, const ModuleData *data)

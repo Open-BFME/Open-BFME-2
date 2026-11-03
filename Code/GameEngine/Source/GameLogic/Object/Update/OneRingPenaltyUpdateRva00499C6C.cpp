@@ -82,17 +82,7 @@ enum UpdateSleepTime
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class OneRingPenaltyUpdate : public UpdateModule
-{
-private:
-	void rva00499C6C();
-private:
-	unsigned char m_pad20[0x24 - 0x20];
-	int m_24; // +0x24
-	UnsignedInt m_28; // +0x28
-	unsigned char m_pad2C[0x30 - 0x2C];
-	UnsignedInt m_30; // +0x30
-};
+#include "../../../../Include/GameLogic/Module/OneRingPenaltyUpdate.h"
 
 void OneRingPenaltyUpdate::rva00499C6C()
 {

@@ -68,21 +68,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class OneRingPenaltyUpdate : public UpdateModule
-{
-public:
-	virtual UpdateSleepTime update();
-private:
-	void rva00499AFD();
-	void rva00499C35();
-	void rva00499C46();
-	void rva00499D23();
-	unsigned char m_pad20[0x24 - 0x20];
-	int m_24; // +0x24
-	UnsignedInt m_28; // +0x28
-	unsigned char m_pad2C[0x30 - 0x2C];
-	UnsignedInt m_30; // +0x30
-};
+#include "../../../../Include/GameLogic/Module/OneRingPenaltyUpdate.h"
 
 UpdateSleepTime OneRingPenaltyUpdate::update()
 {

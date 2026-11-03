@@ -47,21 +47,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class OneRingPenaltyUpdate : public UpdateModule
-{
-public:
-	OneRingPenaltyUpdate(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	const void *m_20;
-	ObjectID m_objectID;
-	unsigned int m_28;
-	float m_2C;
-	unsigned int m_30;
-};
+#include "../../../../Include/GameLogic/Module/OneRingPenaltyUpdate.h"
 
 void OneRingPenaltyUpdate::xfer(Xfer *xfer)
 {
@@ -69,7 +55,7 @@ void OneRingPenaltyUpdate::xfer(Xfer *xfer)
 	if (xfer->IsLightCRC())
 		return;
 	xfer->Version1();
-	XferObjectID(xfer, &m_objectID);
+	XferObjectID(xfer, &m_24);
 	*xfer == m_28;
 	*xfer == m_2C;
 	*xfer == m_30;
