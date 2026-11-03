@@ -22501,13 +22501,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D2854,5,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,C,C=0x002D282E..0x002D2859,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp
 0x002D2859,36,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeSet.cpp,Code/GameEngine/Source/GameClient/System/Smudge.cpp
 0x002D287D,67,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeSet.cpp,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp
-0x002D28C0,63,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,N,N=Code/GameEngine/Source/GameClient/System/Smudge.cpp,Code/GameEngine/Source/GameClient/System/Smudge_SmudgeSet_addSmudgeToSet.cpp
+0x002D28C0,63,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,N,N=Code/GameEngine/Source/GameClient/System/Smudge.cpp,Code/GameEngine/Source/GameClient/System/Smudge.cpp
 0x002D28FF,28,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,C,C=0x002D28C0..0x002D291B,Code/GameEngine/Source/Common/RvaDeletingDtorBatch04.cpp
 0x002D291B,95,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeManager.cpp,Code/GameEngine/Source/GameClient/System/Smudge.cpp
 0x002D297A,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/System/SmudgeSet.cpp,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp
-0x002D2996,97,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeSet.cpp,Code/GameEngine/Source/GameClient/System/Smudge_SmudgeSet_addSmudgeToSet.cpp
-0x002D29F7,140,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeManager.cpp,Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp
-0x002D2A83,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/System/SmudgeManager.cpp,Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp
+0x002D2996,97,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeSet.cpp,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x002D29F7,140,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/System/Smudge.cpp S=Code/GameEngine/Source/GameClient/System/Smudge.cpp N=Code/GameEngine/Source/GameClient/System/SmudgeManager.cpp,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x002D2A83,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/System/SmudgeManager.cpp,Code/GameEngine/Source/GameClient/System/Smudge.cpp
 0x002D2A9F,43,code,,,-,,Code/GameEngine/Source/Common/System/color_ops.cpp
 0x002D2ACA,114,code,,,-,,Code/GameEngine/Source/Common/System/color_ops_float.cpp
 0x002D2B3C,94,code,,,-,,Code/GameEngine/Source/Common/System/Rva0040BE00MultiplyColor.cpp
@@ -71597,13 +71597,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00777328,20,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D287D@FuncInfo0x0091EF34,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp
 0x0077733C,11,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D287D@FuncInfo0x0091EF34,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp
 0x00777347,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D287D@FuncInfo0x0091EF34,Code/GameEngine/Source/GameClient/System/SmudgeListAddHead.cpp
-0x00777351,8,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D28C0@FuncInfo0x0091EF58,Code/GameEngine/Source/GameClient/System/Smudge_SmudgeSet_addSmudgeToSet.cpp
-0x00777359,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D28C0@FuncInfo0x0091EF58,Code/GameEngine/Source/GameClient/System/Smudge_SmudgeSet_addSmudgeToSet.cpp
-0x00777363,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D2996@FuncInfo0x0091EF7C,Code/GameEngine/Source/GameClient/System/Smudge_SmudgeSet_addSmudgeToSet.cpp
-0x0077736D,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D2996@FuncInfo0x0091EF7C,Code/GameEngine/Source/GameClient/System/Smudge_SmudgeSet_addSmudgeToSet.cpp
-0x00777377,11,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D29F7@FuncInfo0x0091EFA8,Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp
-0x00777382,11,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D29F7@FuncInfo0x0091EFA8,Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp
-0x0077738D,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D29F7@FuncInfo0x0091EFA8,Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp
+0x00777351,8,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D28C0@FuncInfo0x0091EF58,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x00777359,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D28C0@FuncInfo0x0091EF58,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x00777363,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D2996@FuncInfo0x0091EF7C,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x0077736D,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D2996@FuncInfo0x0091EF7C,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x00777377,11,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D29F7@FuncInfo0x0091EFA8,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x00777382,11,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D29F7@FuncInfo0x0091EFA8,Code/GameEngine/Source/GameClient/System/Smudge.cpp
+0x0077738D,10,code,Code/GameEngine/Source/GameClient/System/Smudge.cpp,approved,P,P=0x002D29F7@FuncInfo0x0091EFA8,Code/GameEngine/Source/GameClient/System/Smudge.cpp
 0x00777397,11,code,,,-,,Code/GameEngine/Source/Common/Rva005248D0Ctor.cpp
 0x007773A2,11,code,,,-,,Code/GameEngine/Source/Common/Rva005248D0Ctor.cpp
 0x007773AD,11,code,,,-,,Code/gen_small/uw_gen_013.cpp
