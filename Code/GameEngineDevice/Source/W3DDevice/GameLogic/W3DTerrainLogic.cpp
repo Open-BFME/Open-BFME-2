@@ -97,155 +97,9 @@ void W3DTerrainLogic::newMap( Bool saveGame )
 /** Device DEPENDENT implementation for load details of logical terrain.
 Note - if query is true, we are  */
 //-------------------------------------------------------------------------------------------------
-// ?loadMap@W3DTerrainLogic@@ present-unmatched
-Bool W3DTerrainLogic::loadMap( AsciiString filename , Bool query )
-{
-	if(!TheMapCache)
-		return FALSE;
-
-	WorldHeightMap *terrainHeightMap;				///< holds raw heightmap data samples
-
-	char	tempBuf[_MAX_PATH];
-	char	filenameBuf[_MAX_PATH];
-	int length = 0;
-
-	_mbscpy(reinterpret_cast<unsigned char *>(tempBuf), reinterpret_cast<const unsigned char *>(filename.str()));
-
-	length = strlen( tempBuf );
-	if( length >= 4 )
-	{
-		memset( filenameBuf, '\0', _MAX_PATH);
-		strncpy( filenameBuf, tempBuf, length - 4);
-	}
-
-//	const char *fname = filename.reverseFind('\\');
-//	if (fname)
-//		filename = fname+1;
-
-	CachedFileInputStream fileStrm;
-	if ( !fileStrm.open(filename) )
-	{
-		return FALSE;
-	}
-
-	ChunkInputStream *pStrm = &fileStrm;
-
-	// allocate new height map data to read from file
-	// this will be a dummy object only containing logical map data
-	terrainHeightMap = NEW WorldHeightMap(pStrm, true);
-
-	if (terrainHeightMap)
-	{	//copy loaded data
-		// Get the whole map, because we don't know which boundary is active yet
-		m_mapDX=terrainHeightMap->getXExtent();
-		m_mapDY=terrainHeightMap->getYExtent();
-
-		// now, get all the boudnaries, and set the current active boundary to boundary 0.
-		m_boundaries = terrainHeightMap->getAllBoundaries();
-		m_activeBoundary = 0;
-
-		Int i, j, minHt, maxHt;
-
-		minHt = terrainHeightMap->getMaxHeightValue();
-		maxHt = 0;
-
-		for (j=0; j<m_mapDY; j++) {
-			for (i=0; i<m_mapDX; i++) {
-				Short cur = terrainHeightMap->getHeight(i,j);
-				if (cur<minHt) minHt = cur;
-				if (maxHt<cur) maxHt = cur;
-			}
-		}
-		m_mapMinZ = minHt * MAP_HEIGHT_SCALE;
-		m_mapMaxZ = maxHt * MAP_HEIGHT_SCALE;
-		//release temporary object used for loading height values
-		REF_PTR_RELEASE(terrainHeightMap);
-	}
-	else
-		return FALSE;	//could not create heightmap object.  File not found?
-
-	// Note - It is very important that this get called AFTER the map is read in.  jba.
-	// enhancing functionality
-	if( TerrainLogic::loadMap( filename, query ) == false )
-		return FALSE;
-
-	// Map file now contains lighting & time of day info.
-	if( TheWritableGlobalData->setTimeOfDay( TheGlobalData->m_timeOfDay ) )
-		TheGameClient->setTimeOfDay( TheGlobalData->m_timeOfDay );
-
-	return TRUE;  // success
-
-}  // end load
-
-//-------------------------------------------------------------------------------------------------
-/** Get the 3D extent of the terrain in world coordinates */
-//-------------------------------------------------------------------------------------------------
-// ?getExtent@W3DTerrainLogic@@ present-unmatched
-void W3DTerrainLogic::getExtent( Region3D *extent ) const 
-{
-	extent->lo.x = 0.0f;
-
-	extent->lo.y = 0.0f;
-
-	// Note - m_boundaries are stored in height map grids wide, so we have to
-	// multiply by the grid width.
-	if (m_boundaries.size() > 0) {
-		extent->hi.x = m_boundaries[m_activeBoundary].x*MAP_XY_FACTOR;
-		extent->hi.y = m_boundaries[m_activeBoundary].y*MAP_XY_FACTOR;
-	} else {
-		extent->hi.x = 0.0f;
-		extent->hi.y = 0.0f;
-	}
-
-	// Note - m_mapMin and Max Z are already in real coord space.
-	extent->lo.z = m_mapMinZ;
-	extent->hi.z = m_mapMaxZ;
-}
-
-//-------------------------------------------------------------------------------------------------
-/** Get the 3D largest bounds defined in the map. */
-//-------------------------------------------------------------------------------------------------
-// ?getMaximumPathfindExtent@W3DTerrainLogic@@ present-unmatched
-void W3DTerrainLogic::getMaximumPathfindExtent( Region3D *extent ) const
-{
-	extent->lo.x = 0.0f;
-
-	extent->lo.y = 0.0f;
-	extent->hi.x = 0.0f;
-	extent->hi.y = 0.0f;
-
-	// Note - m_boundaries are stored in height map grids wide, so we have to
-	// multiply by the grid width.
-	Int i;
-	for (i=0; i<m_boundaries.size(); i++) {
-		if (extent->hi.x < m_boundaries[i].x*MAP_XY_FACTOR) {
-			extent->hi.x = m_boundaries[i].x*MAP_XY_FACTOR;
-		}
-		if (extent->hi.y < m_boundaries[i].y*MAP_XY_FACTOR) {
-			extent->hi.y = m_boundaries[i].y*MAP_XY_FACTOR;
-		}
-	}
-
-	// Note - m_mapMin and Max Z are already in real coord space.
-	extent->lo.z = m_mapMinZ;
-	extent->hi.z = m_mapMaxZ;
-}
-
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?getExtentIncludingBorder@W3DTerrainLogic@@ present-unmatched
-void W3DTerrainLogic::getExtentIncludingBorder( Region3D *extent ) const 
-{
-	extent->lo.x = 0.0f;
-	extent->lo.y = 0.0f;
-
-	Real border = TheTerrainRenderObject->getMap()->getBorderSizeInline() * MAP_XY_FACTOR;
-	extent->lo.x -= border;
-	extent->lo.y -= border;
-	extent->hi.x = (m_mapDX * MAP_XY_FACTOR)-border;
-	extent->hi.y = (m_mapDY * MAP_XY_FACTOR)-border;
-}
+// Zero Hour's loadMap, getExtent, getMaximumPathfindExtent and getExtentIncludingBorder
+// bodies are gone: none is rowed, nothing outside this unit referenced them, and loadMap
+// pulled in Zero Hour-only names (CachedFileInputStream, WorldHeightMap's stream ctor).
 
 //-------------------------------------------------------------------------------------------------
 Bool W3DTerrainLogic::isClearLineOfSight(const Coord3D& pos, const Coord3D& posOther) const
@@ -283,14 +137,7 @@ Bool W3DTerrainLogic::isCliffCell( Real x, Real y) const
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@W3DTerrainLogic@@ present-unmatched
-void W3DTerrainLogic::crc( Xfer *xfer )
-{
-
-	// extend base class
-	TerrainLogic::crc( xfer );
-
-}  // end crc
+// Zero Hour's crc override is gone: BFME 2's Snapshot table has no crc slot.
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer
