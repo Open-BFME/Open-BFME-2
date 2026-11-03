@@ -34,11 +34,7 @@ public:
 	_STL::vector<SubtitleEntry *> m_entries;
 };
 
-class SubTitleWindow
-{
-public:
-	void rva00260BBF(const StringBase<unsigned short> &text, unsigned int color);
-};
+#include "../../Include/GameClient/SubTitleWindow.h"
 
 class Rva006EE520
 {

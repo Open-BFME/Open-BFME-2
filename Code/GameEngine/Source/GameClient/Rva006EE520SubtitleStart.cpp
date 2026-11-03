@@ -24,14 +24,7 @@ public:
     int m_fontSize;
 };
 
-class SubTitleWindow {
-public:
-    
-    SubTitleWindow(GameFont*,float,float,int,int,int,int);
-    ~SubTitleWindow();
-private:
-    char m_body[0x6C];
-};
+#include "../../Include/GameClient/SubTitleWindow.h"
 
 
 class Rva006EE520 {

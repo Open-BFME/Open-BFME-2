@@ -17,19 +17,9 @@ struct Rva00045837Element
 // puts the record vector at +8/+C and the state word (initially 4) at +0x14.
 // Both callers test al, so the query returns bool; one returned expression
 // gives retail's xor eax,eax false path. Its name stays address-derived.
-class SubTitleWindow
-{
-public:
-	bool rva00045837() const;
-private:
-	unsigned int reserved[2];
-	Rva00045837Element *begin;
-	Rva00045837Element *finish;
-	unsigned int reserved10;
-	int control;
-};
+#include "../../Include/GameClient/SubTitleWindow.h"
 
 bool SubTitleWindow::rva00045837() const
 {
-	return !(control == 1 && !((unsigned int)(finish - begin) > 0));
+	return !(field14 == 1 && !((unsigned int)(field0C - field08) > 0));
 }

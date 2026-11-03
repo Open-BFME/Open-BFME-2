@@ -166,11 +166,7 @@ Rva00119D00::Rva00119D00(EmitVtableTag *)
 {
 }
 
-class SubTitleWindow
-{
-public:
-	~SubTitleWindow();	// row 0x00260A3C in SubTitleWindowDestructor.cpp
-};
+#include "../../Include/GameClient/SubTitleWindow.h"
 
 // Anchor: deleting one emits the scalar deleting destructor ??_GSubTitleWindow (it
 // calls out to the destructor row); the destructor is only declared here.

@@ -28,12 +28,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_serve(void);
 
 // The subtitle window (destructor row 0x00260A3C, nonvirtual) and its state
 // query 0x00045837, both rowed under these names.
-class SubTitleWindow
-{
-public:
-	~SubTitleWindow();
-	Bool rva00045837() const;
-};
+#include "../../../GameEngine/Include/GameClient/SubTitleWindow.h"
 
 struct Rva000517F1Settings
 {

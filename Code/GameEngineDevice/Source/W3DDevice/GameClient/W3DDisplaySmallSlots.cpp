@@ -23,12 +23,7 @@ typedef bool Bool;
 
 // The subtitle window (destructor row 0x00260A3C, nonvirtual) and its state
 // query 0x00045837, both rowed under these names.
-class SubTitleWindow
-{
-public:
-	~SubTitleWindow();
-	Bool rva00045837() const;
-};
+#include "../../../../GameEngine/Include/GameClient/SubTitleWindow.h"
 
 // Retail 0x00073CC0 reads its third and fourth arguments as byte values
 // (level, textureOnly), so the mangled name is the E_N spelling; the byte
