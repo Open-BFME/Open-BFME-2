@@ -12,17 +12,7 @@ class MultiIniFieldParse;
 
 #include "../../../../Include/Common/INI/INI.h"
 
-class GettingBuiltBehaviorModuleData
-{
-public:
-	GettingBuiltBehaviorModuleData();
-	virtual ~GettingBuiltBehaviorModuleData();
-	static void buildFieldParse(MultiIniFieldParse &parse);
-	static ModuleData *friend_newModuleData(INI *ini);
-
-private:
-	unsigned char m_pad[0x4C - 4];
-};
+#include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 
 // ?friend_newModuleData@GettingBuiltBehaviorModuleData@@SAPAVModuleData@@PAVINI@@@Z
 ModuleData *GettingBuiltBehaviorModuleData::friend_newModuleData(INI *ini)

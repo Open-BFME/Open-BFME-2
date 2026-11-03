@@ -79,13 +79,7 @@ public:
 
 #include "../object.h"
 
-struct GettingBuiltBehaviorModuleData
-{
-	unsigned char m_pad00[0x14];
-	AsciiString m_workerName; // +0x14
-	AsciiString m_evilWorkerName; // +0x18
-	bool m_testFaction; // +0x1C
-};
+#include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 
 class GettingBuiltBehaviorInterface : public Rva004534F5Slots<4>
 {

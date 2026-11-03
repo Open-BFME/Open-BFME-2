@@ -163,13 +163,7 @@ struct Rva00453652Sound : public OpaqueRefElement4
 };
 
 class ModuleData;
-struct GettingBuiltBehaviorModuleData
-{
-	unsigned char m_pad00[0x08];
-	OpaqueRefElement4 m_constructionSound;	// +0x08
-	OpaqueRefElement4 m_reconstructionSound;	// +0x0C
-	OpaqueRefElement4 m_rubbleRepairSound;	// +0x10
-};
+#include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
@@ -282,18 +276,18 @@ void GettingBuiltBehavior::rva00453652(bool forced)
 		Rva00453652Sound sound;
 		if (m_35)
 		{
-			if (gettingBuiltBehaviorModuleData->m_rubbleRepairSound.referent)
-				sound.OpaqueRefElement4::operator=(gettingBuiltBehaviorModuleData->m_rubbleRepairSound);
+			if (gettingBuiltBehaviorModuleData->m_selfRepairFromRubbleLoop.referent)
+				sound.OpaqueRefElement4::operator=(gettingBuiltBehaviorModuleData->m_selfRepairFromRubbleLoop);
 		}
 		else if (!m_33)
 		{
-			if (gettingBuiltBehaviorModuleData->m_constructionSound.referent)
-				sound.OpaqueRefElement4::operator=(gettingBuiltBehaviorModuleData->m_constructionSound);
+			if (gettingBuiltBehaviorModuleData->m_selfBuildingLoop.referent)
+				sound.OpaqueRefElement4::operator=(gettingBuiltBehaviorModuleData->m_selfBuildingLoop);
 		}
 		else
 		{
-			if (gettingBuiltBehaviorModuleData->m_reconstructionSound.referent)
-				sound.OpaqueRefElement4::operator=(gettingBuiltBehaviorModuleData->m_reconstructionSound);
+			if (gettingBuiltBehaviorModuleData->m_selfRepairFromDamageLoop.referent)
+				sound.OpaqueRefElement4::operator=(gettingBuiltBehaviorModuleData->m_selfRepairFromDamageLoop);
 		}
 		if (sound.referent)
 		{
