@@ -1,6 +1,12 @@
 // cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
 // stlport
 // Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp); this unit had no counterpart under Code/.
+// Only its two rows remain (StealthUpdate::isDisguised and Player::getPlayerNightColor,
+// both header inlines kept emitted below). Retail's StealthUpdate bodies are rowed in
+// StealthUpdateLogic.cpp, StealthUpdateXfer.cpp and their siblings; the unrowed Zero Hour
+// destructor, receiveGrant, allowedToStealth, calcStealthOwner, changeVisualDisguise, crc
+// and the isBlackMarket/setWakeupIfInRange callbacks matched no retail body and made 18
+// references no object defines.
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 // stlport
@@ -111,264 +117,18 @@ static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate_ctor_Thunk.cpp
-// ??0StealthUpdate@@ present-unmatched
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/Common/StealthUpdateDestructorThunk.cpp
-// ??1StealthUpdate@@ present-unmatched
-StealthUpdate::~StealthUpdate( void )
-{
-
-}
 
 //-------------------------------------------------------------------------------------------------
-void isBlackMarket( Object *obj, void *userData )
-{
-	if( obj && obj->isKindOf( KINDOF_FS_BLACK_MARKET ) )
-	{
-		if( obj->isEffectivelyDead() )
-		{
-			return;
-		}
-		if( obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) )
-		{
-			return;
-		}
-		if( obj->testStatus( OBJECT_STATUS_SOLD ) )
-		{
-			return;
-		}
-		*(Bool*)userData = TRUE;
-	}
-}
 
 //---------------------------------------------------------------------------------------~-_-~-_-~-
-// ?receiveGrant@StealthUpdate@@ present-unmatched
-void StealthUpdate::receiveGrant( Bool active, UnsignedInt frames )
-{
-  Object *obj = getObject();
-  if ( obj == NULL )
-    return;
-
-  if (this->canDisguise())
-    return; //so bombtrucks and stuff do not get foiled by this.
-
-	//Kris: Turn it off if we pass in FALSE for active.
-	if( !active && m_enabled )
-	{
-		//markAsDetected();
-	}
-
-	m_enabled = active;
-
-	if( m_enabled )
-	{
-		//On
-		obj->setStatus( MAKE_OBJECT_STATUS_MASK2( OBJECT_STATUS_CAN_STEALTH, OBJECT_STATUS_STEALTHED ) );
-		m_stealthAllowedFrame = TheGameLogic->getFrame();
-	  setWakeFrame( obj, UPDATE_SLEEP_NONE );
-		m_framesGranted = frames;
-	}
-	else
-	{
-		//Off
-		obj->clearStatus( MAKE_OBJECT_STATUS_MASK2( OBJECT_STATUS_CAN_STEALTH, OBJECT_STATUS_STEALTHED ) );
-		m_stealthAllowedFrame = FOREVER;
-		m_framesGranted = 0;
-		Drawable *draw = obj->getDrawable();
-		if( draw )
-		{
-			draw->setEffectiveOpacity( 1.0f );
-		}
-	}
-
-  const ContainModuleInterface *contain = getRetailContain(obj);
-  if ( contain && contain->isRiderChangeContain() )
-  {
-    const Object *rider = contain->friend_getRider(); 
-    if ( rider )
-    {
-      StealthUpdate *riderStealth = rider->getStealth();
-      if ( riderStealth )
-        riderStealth->receiveGrant( active, frames );
-    }
-  }
-
-
-
-}
 
 
 //-------------------------------------------------------------------------------------------------
-// ?allowedToStealth@StealthUpdate@@ present-unmatched
-Bool StealthUpdate::allowedToStealth( Object *stealthOwner ) const
-{
-	const Object *self = getObject();
-	const StealthUpdateModuleData *data = getStealthUpdateModuleData();
-	UnsignedInt now = TheGameLogic->getFrame();
 
-	UnsignedInt flags = data->m_stealthLevel;
-	if( self != stealthOwner )
-	{
-		//Extract the rules from the rider's stealthupdate module data instead
-		//of our own, because the rider determines if the container can stealth or not.
-
-    const StealthUpdate *stealthUpdate = stealthOwner->getStealth();
-		if( stealthUpdate )
-		{
-			flags = stealthUpdate->getStealthLevel();
-		}
-	}
-
-	//With regards to slaves that stealth with us, we need to all be stealthed or not at all. If
-	//any of the slaves can't stealth, then reveal everyone!
-	if( self->isKindOf( KINDOF_SPAWNS_ARE_THE_WEAPONS ) )
-	{
-		SpawnBehaviorInterface *sbInterface = self->getSpawnBehaviorInterface();
-		if( sbInterface )
-		{
-			if( !sbInterface->areAllSlavesStealthed() )
-			{
-				sbInterface->revealSlaves();
-				return FALSE;
-			}
-		}
-	}
-
-	if( flags & STEALTH_NOT_WHILE_ATTACKING && self->getStatusBits().test( OBJECT_STATUS_IS_FIRING_WEAPON ) )
-	{
-		//Doesn't stealth while aggressive (includes approaching).
-		return FALSE;
-	}
-	
-	if( flags & STEALTH_NOT_WHILE_USING_ABILITY && self->getStatusBits().test( OBJECT_STATUS_IS_USING_ABILITY ) )
-	{
-		//Doesn't stealth while using a special ability (starting with preparation, which takes place after unpacking).
-		return FALSE;
-	}
-	
-	if( flags & STEALTH_ONLY_WITH_BLACK_MARKET && m_nextBlackMarketCheckFrame < now )
-	{
-		//randomize timer a little incase we have a whole bunch on the same frame.
-		m_nextBlackMarketCheckFrame += data->m_blackMarketCheckFrames + GameLogicRandomValue( 0, 10 ); 
-		
-		//If we can't find an active black market, then we can't stealth.
-		Bool blackMarket = FALSE;
-		self->getControllingPlayer()->iterateObjects( isBlackMarket, &blackMarket );
-		if( !blackMarket )
-		{
-			return FALSE;
-		}
-	}
-
-	if( !stealthOwner->getStatusBits().test( OBJECT_STATUS_CAN_STEALTH ) )
-	{
-		return FALSE;
-	}
-	
-	if( flags & STEALTH_NOT_WHILE_TAKING_DAMAGE && getRetailBodyModule(self)->getLastDamageTimestamp() >= now - 1 )
-	{
-		//Only if it's not healing damage.
-		if( getRetailBodyModule(self)->getLastDamageInfo()->in.m_damageType != DAMAGE_HEALING )
-		{
-			//Can't stealth if we just took damage in the last frame or two.
-			if( getRetailBodyModule(self)->getLastDamageTimestamp() != 0xffffffff )
-			{
-				//But it's initialized to 0xffffffff so we don't think we took damage on the first frame. 
-				return FALSE;
-			}
-		}
-	}
-
-	//We need all required status or else we fail
-	// If we have any requirements
-	if( data->m_requiredStatus.any()  &&  !self->getStatusBits().testForAll( data->m_requiredStatus ) )
-		return FALSE; 
-
-	//If we have any forbidden statii, then fail
-	if( self->getStatusBits().testForAny( data->m_forbiddenStatus ) )
-		return FALSE; 
-
-
-	//Do a quick preliminary test to see if we are restricted by firing particular weapons and we fired a shot last frame or this frame.
-	if( flags & STEALTH_NOT_WHILE_FIRING_WEAPON && self->getStatusBits().test( OBJECT_STATUS_IS_FIRING_WEAPON ) )
-	{
-		if( (flags & STEALTH_NOT_WHILE_FIRING_WEAPON) == STEALTH_NOT_WHILE_FIRING_WEAPON )
-		{
-			//Not allowed to stealth while firing ANY weapon!
-			return FALSE;
-		}
-
-		//Now do weapon specific checks.
-		Weapon *weapon;
-		UnsignedInt lastFrame = TheGameLogic->getFrame() - 1;
-
-		if( flags & STEALTH_NOT_WHILE_FIRING_PRIMARY )
-		{
-			//Check primary weapon status
-			weapon = self->getWeaponInWeaponSlot( PRIMARY_WEAPON );
-			if( weapon && weapon->getLastShotFrame() >= lastFrame )
-			{
-				return FALSE;
-			}
-		}
-		if( flags & STEALTH_NOT_WHILE_FIRING_SECONDARY )
-		{
-			//Check secondary weapon status
-			weapon = self->getWeaponInWeaponSlot( SECONDARY_WEAPON );
-			if( weapon && weapon->getLastShotFrame() >= lastFrame )
-			{
-				return FALSE;
-			}
-		}
-		if( flags & STEALTH_NOT_WHILE_FIRING_TERTIARY )
-		{
-			//Check tertiary weapon status
-			weapon = self->getWeaponInWeaponSlot( TERTIARY_WEAPON );
-			if( weapon && weapon->getLastShotFrame() >= lastFrame )
-			{
-				return FALSE;
-			}
-		}
-	}
-
-	const Object *containedBy = self->getContainedBy();
-	if( containedBy )
-	{
-		ContainModuleInterface *contain = getRetailContain(containedBy);
-		if( contain && !contain->isGarrisonable() )
-		{
-			return FALSE;
-		}
-	}
-
-  //new past-alpha feature, grr...
-	if( flags & STEALTH_NOT_WHILE_RIDERS_ATTACKING )
-	{
-    ContainModuleInterface *myContain = getRetailContain(self);
-    if ( myContain && myContain->isPassengerAllowedToFire() )
-    {
-      if ( myContain->isAnyRiderAttacking() )
-        return FALSE;
-
-    }
-  }
-
-
-
-	const PhysicsBehavior *physics = self->getPhysics();
-	if ((flags & STEALTH_NOT_WHILE_MOVING) && physics != NULL && 
-					physics->getVelocityMagnitude() > getStealthUpdateModuleData()->m_stealthSpeed)
-		return FALSE;
-	
-	if( self->testScriptStatusBit(OBJECT_STATUS_SCRIPT_UNSTEALTHED))
-	{
-		//We can't stealth because a script disabled this ability for this object!
-		return FALSE;
-	}
-
-	return TRUE;
-}
+//-------------------------------------------------------------------------------------------------
 
 
 //---------------------------------------------------------------------------
@@ -381,80 +141,21 @@ Bool StealthUpdate::allowedToStealth( Object *stealthOwner ) const
 //-------------------------------------------------------------------------------
 
 
-// ?getFriendlyOpacity@StealthUpdate@@ present-unmatched
-Real StealthUpdate::getFriendlyOpacity() const
-{
-	return getStealthUpdateModuleData()->m_friendlyOpacityMin; 
-}
 
 
 //=============================================================================
 // indicate how the given unit is "stealthed" with respect to a given player.
 
 //-------------------------------------------------------------------------------------------------
-// ?calcStealthOwner@StealthUpdate@@ present-unmatched
-Object* StealthUpdate::calcStealthOwner()
-{
-	const StealthUpdateModuleData *data = getStealthUpdateModuleData();
-	//If we are going to use the rider for stealth rules, then we need to separate the
-	//rider and the container. The rider will determine if the container is stealthed or
-	//not.
-	if( data->m_useRiderStealth )
-	{
-		//We're actually going to logically check the rider as the stealth owner, but the
-		//stealth effects will go on the container.
-		ContainModuleInterface *contain = getRetailContain(getObject());
-		if( contain )
-		{
-			const ContainedItemsList *riderList = contain->getContainedItemsList();
-			ContainedItemsList::const_iterator riderIterator;
-			riderIterator = riderList->begin();
-			if( riderIterator != riderList->end() )
-			{
-				//Return this rider!
-				return *riderIterator;
-			}
-		}
-	}
-	//Not applicable, return ourself.
-	return getObject();
-}
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?StealthUpdate::calcSleepTime present-unmatched
 //-------------------------------------------------------------------------------------------------
 /** The update callback. */
 //-------------------------------------------------------------------------------------------------
 // The exact update body is owned by StealthUpdateLogic.cpp.
 
 //-------------------------------------------------------------------------------------------------
-void setWakeupIfInRange( Object *obj, void *userData)
-{
-	Object *victim = (Object *)userData;
-	AIUpdateInterface *ai = obj->getAI();
-	if (!ai) {
-		return;
-	}
-
-	Real vision = obj->getVisionRange();
-
-	Coord3D srcpos = *obj->getPosition();
-	Coord3D dstpos = *victim->getPosition();
-
-	srcpos.sub(&dstpos);
-	if (srcpos.length() > vision)
-		return;
-
-	ai->wakeUpAndAttemptToTarget();
-
-//	if( obj->isKindOf( KINDOF_SELECTABLE ) && ( obj->isAbleToAttack() || !obj->isKindOf( KINDOF_STRUCTURE ) )) {
-//		Drawable *draw = obj->getDrawable();
-//		if( draw ) {
-//			draw->setEmoticon( "Emoticon_Alarm", 5000 );
-//		}
-//	}
-}
 
 
 //-------------------------------------------------------------------------------------------------
@@ -463,157 +164,10 @@ void setWakeupIfInRange( Object *obj, void *userData)
 // The exact disguise body is owned by StealthUpdateLogic.cpp.
 
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateChangeVisualDisguiseThunk.cpp
-// ?changeVisualDisguise@StealthUpdate@@ present-unmatched
-void StealthUpdate::changeVisualDisguise()
-{
-	Object *self = getObject();
-	const StealthUpdateModuleData *data = getStealthUpdateModuleData();
-
-	Drawable *draw = self->getDrawable();
-	// We need to maintain our selection across the un/disguise, so pull selected out here.
-	Bool selected = draw->isSelected();
-
-	if( m_disguiseAsTemplate )
-	{
-		Player *player = ThePlayerList->getNthPlayer( m_disguiseAsPlayerIndex );
-
-		ModelConditionFlags flags = draw->getModelConditionFlags();
-		
-		//Get rid of the old instance!
-		TheGameClient->destroyDrawable( draw );
-
-		draw = TheThingFactory->newDrawable( m_disguiseAsTemplate );
-		if( draw )
-		{
-			TheGameLogic->bindObjectAndDrawable(self, draw);
-			draw->setPosition( self->getPosition() );
-			draw->setOrientation( self->getOrientation() );
-			draw->setModelConditionFlags( flags );
-			draw->updateDrawable();
-			self->getPhysics()->resetDynamicPhysics();
-			if( selected )
-			{
-				TheInGameUI->selectDrawable( draw );
-			}
-			Player *clientPlayer = ThePlayerList->getLocalPlayer();
-			if( self->getControllingPlayer()->getRelationship( clientPlayer->getDefaultTeam() ) != ALLIES && clientPlayer->isPlayerActive() )
-			{
-				//Neutrals and enemies will see this disguised unit as the team it's disguised as.
-				if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
-					draw->setIndicatorColor( player->getPlayerNightColor() );
-				else
-					draw->setIndicatorColor( player->getPlayerColor() );
-			}
-			else
-			{
-				//If it's on our team or our ally's team, then show it's true colors.
-				if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
-					draw->setIndicatorColor( self->getNightIndicatorColor() );
-				else
-					draw->setIndicatorColor( self->getIndicatorColor() );
-			}
-		}
-
-		//Play a disguise sound!
-		AudioEventRTS sound = *self->getTemplate()->getPerUnitSound( "DisguiseStarted" );
-		sound.setObjectID( self->getID() );
-		TheAudio->addAudioEvent( &sound );
-
-		FXList::doFXPos( data->m_disguiseFX, self->getPosition() );
-
-		m_disguised = true;
-		self->setStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_DISGUISED ) );
-		self->setModelConditionState( MODELCONDITION_DISGUISED );
-
-		//33) Did the player ever build a "disguisable" unit and never used the disguise ability?
-		self->getControllingPlayer()->getAcademyStats()->recordVehicleDisguised();
-	}
-	else if( m_disguiseAsPlayerIndex != -1 )
-	{
-		m_disguiseAsPlayerIndex = -1;
-		ModelConditionFlags flags = draw->getModelConditionFlags();
-		
-		//Get rid of the old instance!
-		TheGameClient->destroyDrawable( draw );
-
-		const ThingTemplate *tTemplate = self->getTemplate();
-
-		TheThingFactory->newDrawable( tTemplate );
-		if( draw )
-		{
-			TheGameLogic->bindObjectAndDrawable(self, draw);
-			draw->setPosition( self->getPosition() );
-			draw->setOrientation( self->getOrientation() );
-			draw->setModelConditionFlags( flags );
-			draw->updateDrawable();
-			self->getPhysics()->resetDynamicPhysics();
-			if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
-				draw->setIndicatorColor( self->getNightIndicatorColor() );
-			else
-				draw->setIndicatorColor( self->getIndicatorColor() );
-			if( selected )
-			{
-				TheInGameUI->selectDrawable( draw );
-			}
-
-			//UGH!
-			//A concrete example is the bomb truck. Different payloads are displayed based on which upgrades have been
-			//made. When the bomb truck disguises as something else, these subobjects are lost because the vector is
-			//stored in W3DDrawModule. When we revert back to the original bomb truck, we call this function to 
-			//recalculate those upgraded subobjects.
-			self->forceRefreshSubObjectUpgradeStatus();
-		}
-
-		Bool successfulReveal = false;
-		AIUpdateInterface *ai = self->getAI();
-		if( ai )
-		{
-			Object *currTarget = ai->getCurrentVictim();
-			if( currTarget )
-			{
-				successfulReveal = true;
-			}
-		}
-
-		//Play a reveal sound!
-		AudioEventRTS sound;
-		if( successfulReveal )
-		{
-			sound = *self->getTemplate()->getPerUnitSound( "DisguiseRevealedSuccess" );
-		}
-		else
-		{
-			sound = *self->getTemplate()->getPerUnitSound( "DisguiseRevealedFailure" );
-		}
-		sound.setObjectID( self->getID() );
-		TheAudio->addAudioEvent( &sound );
-
-		FXList::doFXPos( data->m_disguiseRevealFX, self->getPosition() );
-		m_disguised = false;
-		self->clearStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_DISGUISED ) );
-		self->clearModelConditionState( MODELCONDITION_DISGUISED );
-	}
-
-	//Reset the radar (determines color on add)
-	TheRadar->removeObject( self );
-	TheRadar->addObject( self );
-
-	// couldn't possibly need to restore a disguise now :)
-	m_xferRestoreDisguise = FALSE;
-
-}
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@StealthUpdate@@ present-unmatched
-void StealthUpdate::crc( Xfer *xfer )
-{
-
-	// extend base class
-	UpdateModule::crc( xfer );
-
-}  // end crc
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -630,3 +184,9 @@ void StealthUpdate::crc( Xfer *xfer )
 // Its Zero Hour body was the only caller of the rowed isDisguised, so keep that body emitted.
 // ?bfmeAnchorStealthUpdateIsDisguised@@YA_NPBVStealthUpdate@@@Z absent-from-retail
 Bool bfmeAnchorStealthUpdateIsDisguised(const StealthUpdate *s) { return s->isDisguised(); }
+
+// The header inline Player::getPlayerNightColor (7-byte row 0x00509D29, no
+// approved TU) was emitted here only through the dropped Zero Hour
+// changeVisualDisguise. Taking its address keeps this unit's select-any copy
+// emitted; this pointer is not retail data.
+Int (Player::*_bfmeInlineAnchor_PlayerGetPlayerNightColor)() const = &Player::getPlayerNightColor;

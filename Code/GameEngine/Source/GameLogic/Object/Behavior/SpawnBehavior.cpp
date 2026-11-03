@@ -264,26 +264,6 @@ void SpawnBehavior::startSpawning()
 // SpawnBehavior::computeAggregateStates is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_computeAggregateStates.cpp (0x0045FE9A).
 
 //-------------------------------------------------------------------------------------------------
-// ?areAllSlavesStealthed@SpawnBehavior@@ present-unmatched
-Bool SpawnBehavior::areAllSlavesStealthed() const
-{
-	Object *currentSpawn;
-
-	for( std::list<ObjectID>::const_iterator iter = m_spawnIDs.begin(); iter != m_spawnIDs.end(); iter++)
-	{
-		currentSpawn = TheGameLogic->findObjectByID( (*iter) );
-		if( currentSpawn )
-		{
-      const StealthUpdate *stealthUpdate = currentSpawn->getStealth();
-			if( !stealthUpdate || !stealthUpdate->allowedToStealth( currentSpawn ) )
-			{
-				return FALSE;
-			}
-		}
-	}
-
-	return TRUE; //0 or more spawns are ALL stealthed... I suppose if you have NO spawns, then they are considered stealthed ;)
-}
 
 //-------------------------------------------------------------------------------------------------
 // SpawnBehavior::revealSlaves: Zero Hour's copy (unmatched) called
