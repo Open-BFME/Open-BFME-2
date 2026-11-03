@@ -1,0 +1,423 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "TerrainRoadType",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 16,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x14": {
+    "4": 1
+   },
+   "0x28": {
+    "4": 1
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2db1ca"
+     ],
+     "value": 332
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2db1ca"
+     ],
+     "value": {
+      "0x10": [
+       4
+      ],
+      "0x14": [
+       4
+      ],
+      "0x144": [
+       4
+      ],
+      "0x148": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       4
+      ],
+      "0x20": [
+       4
+      ],
+      "0x24": [
+       4
+      ],
+      "0x28": [
+       4
+      ],
+      "0x2c": [
+       4
+      ],
+      "0x30": [
+       4
+      ],
+      "0x34": [
+       4
+      ],
+      "0x38": [
+       4
+      ],
+      "0x3c": [
+       4
+      ],
+      "0x4": [
+       4
+      ],
+      "0x40": [
+       4
+      ],
+      "0x44": [
+       4
+      ],
+      "0x48": [
+       4
+      ],
+      "0x4c": [
+       4
+      ],
+      "0x50": [
+       4
+      ],
+      "0x8": [
+       1
+      ],
+      "0xc": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2db1ca"
+     ],
+     "value": {
+      "0x0": [
+       "??_L@YGXPAXIHP6EX0@Z1@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2db1ca"
+     ],
+     "value": {
+      "0x0": "0x803e24"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x803e24"
+     ],
+     "value": {
+      "count": 1,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GTerrainRoadType@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2db47a"
+       }
+      ],
+      "table": "0x803e24"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 20,
+  "retail_vtables": {
+   "0x803e24": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GTerrainRoadType@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "view_errors": 3,
+  "view_sizes": {
+   "1": 5,
+   "12": 1,
+   "20": 1,
+   "52": 1,
+   "60": 1,
+   "80": 1,
+   "88": 1,
+   "332": 2
+  },
+  "views": 13,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TerrainRoadType.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/TerrainRoads.h"
+  }
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 10
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INITerrainRoad.cpp",
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/INITerrainRoad.cpp",
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/TerrainRoadCollectionNextRoad.cpp",
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeLoad.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 36,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarTerrainTexture.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarTerrainTexture.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 48,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarTerrainTexture.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 52,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeLoad.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoadType_getBridgeModelNameBroken.cpp",
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainRoadType_getTowerObjectName.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 100,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 164,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 212,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 228,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 276,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 324,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 328,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp"
+   ],
+   "views": 2
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "field@0x0",
+   "candidates": {
+    "16:A": 1,
+    "324:A": 1,
+    "4:A": 1,
+    "4:VPTR": 1
+   },
+   "class": "TerrainRoadType"
+  }
+ ],
+ "size": 1,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
