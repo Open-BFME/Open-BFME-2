@@ -24,7 +24,7 @@ BfmeW1228 g_bfmeWords1228[] =
 signed char g_bfmeLookup1228[16] =
 {
 	-1, -1, -1, -1, -1, 0, 1, -1,
-	-1, -1, 2, 3, 4, -1, -1, 5
+	-1, 2, 3, 4, -1, -1, 5, 0
 };
 
 unsigned char g_bfmeLens1228[6] = { 5, 6, 9, 5, 11, 14 };
