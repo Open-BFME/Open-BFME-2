@@ -22646,3 +22646,7 @@ Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|member|Rva0029B380Elem|m_
 Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|local|Rva0029B380::rva0029B380|p,c44dadaf3773e1445304b265,drz-k2,drz-k2-n44b-19,w-ded32b2e2c5e,2026-11-02
 Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp|local|Rva0029B380::rva0029B34B|p,7e5a07c3f7dd5d793c6bb054,drz-k2,drz-k2-n44b-19,w-ded32b2e2c5e,2026-11-02
 Code/GameEngine/Source/GameClient/Rva0029B732Check.cpp|local|Rva0029B732::rva0029B732|v,c4eccee5e4e25bfffe5efdc7,drz-k2,drz-k2-n44b-20,w-ded32b2e2c5e,2026-11-02
+Code/GameEngine/Source/GameClient/Rva003F7737NewNode.cpp|function|0x003F7737|rva003F7737,9554b747a126f0cfdbc662a1,drz-k4,drz-k4-n44c-8,w-855a0f400af4,2026-11-02
+Code/GameEngine/Source/GameClient/Rva003F7737NewNode.cpp|local|Rva003F7737::rva003F7737|n,a570546f4c82f36b055e834d,drz-k4,drz-k4-n44c-8,w-855a0f400af4,2026-11-02
+Code/GameEngine/Source/GameClient/Rva0041154F.cpp|member|Rva0041154FNode|m_18,11e59437e7263ae21d2d36c8,drz-k4,drz-k4-n44c-12,w-855a0f400af4,2026-11-02
+Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp|function|0x0052A2B7|Rva0052A2B7,bd085f368ff909a25de534e4,drz-k4,drz-k4-n44c-18,w-855a0f400af4,2026-11-02
