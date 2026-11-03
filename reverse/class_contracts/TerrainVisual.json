@@ -1,0 +1,78 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "TerrainVisual",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 6,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_layout": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 2,
+  "view_sizes": {
+   "4": 2,
+   "16": 1,
+   "20": 1
+  },
+  "views": 4,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_TerrainVisual.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/TerrainVisual.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 4,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "field@0x4",
+   "candidates": {
+    "12:A": 1,
+    "16:A": 1
+   },
+   "class": "TerrainVisual"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "removeAllBibs()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "v01()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "v02()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "xfer(Xfer*)"
+  }
+ }
+}
