@@ -13,7 +13,7 @@ public:
     float m_0;
     float m_4;
     void rva001DD240(unsigned int *p);
-    void rva001DD276(unsigned char flag);
+    void setFlag(unsigned char flag);
 private:
     char m_pad08[0x54];
     Rva001DD276Elem *m_5C;
@@ -30,7 +30,7 @@ void Rva001DD240::rva001DD240(unsigned int *p)
     unsigned int v = *sel;
     m_0 = (float)v;
 }
-void Rva001DD240::rva001DD276(unsigned char flag)
+void Rva001DD240::setFlag(unsigned char flag)
 {
     if (flag == m_7C)
         return;

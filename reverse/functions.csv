@@ -8933,7 +8933,7 @@ _Rva0088E100WatchdogThread@4,,0x0003D7E0,139,Code/Libraries/Source/debug/debug_e
 ??0Rva007FBC30GameKey@@QAE@PAVRva007E8810Message@@@Z,,0x00668130,48,Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp,matched,BFME1 byte-identical donor; b1 0x007FBC30; ICF-folded in BFME1 so the name is this sweep pick among its twins; 2 DIR32 string literal(s) agree
 ?rva0082BAF0Count@@YAHPAH@Z,,0x000244D0,45,Code/GameEngine/Source/Common/Rva0082BC30Empty.cpp,matched,BFME1 byte-identical donor; b1 0x0082BAF0
 ?assignFrom@Rva0082BFD0Slot@@QAEPAV1@PBH@Z,,0x00024AB0,34,Code/GameEngine/Source/Common/Rva0082BC30Empty.cpp,matched,BFME1 byte-identical donor; b1 0x0082BFD0
-?rva0082B120Set@@YAHH@Z,,0x00023A90,28,Code/GameEngine/Source/Common/Rva0082BC30Empty.cpp,matched,BFME1 byte-identical donor; b1 0x0082B120
+?setMallocHandler@@YAHH@Z,,0x00023A90,28,Code/GameEngine/Source/Common/Rva0082BC30Empty.cpp,matched,BFME1 byte-identical donor; b1 0x0082B120
 ?invoke@Rva00958E30@@QAEJV_bstr_t@@@Z,,0x001771C0,120,Code/GameEngine/Source/GameNetwork/WOLBrowser/WebBrowserComWrappers.cpp,matched,BFME1 near-miss donor b1 0x00958E30; immediate-only IID drift pre-pinned; callees pre-resolved
 ?Rva007F4240@@YGXPAVRva007E8810Message@@PBD111111@Z,,0x00660D00,208,Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp,matched,BFME1 byte-identical donor; b1 0x007F4240; 11 DIR32 string literal(s) agree
 ?Rva007F3EA0@@YGXPAVRva007E8810Message@@_NPBD_JH@Z,,0x00660970,151,Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp,matched,BFME1 byte-identical donor; b1 0x007F3EA0; 5 DIR32 string literal(s) agree
@@ -25885,7 +25885,7 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ?rva0005800A@Rva0005800A@@QAEXABVRva0036CA00Str@@@Z,,0x0005800A,132,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp,matched,deque Str push_back aux via rowed copyCtor reserve allocate Release_Ref caller 0x58BB4
 ?rva0050F450@Rva0050F0AB@@QAEXXZ,,0x0050F450,128,Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp,matched,chain GetText wtoi clamp Send
 ?rva0025ECFC@Rva0025ECFC@@QAEXPAUBigIface0025ECFC@@@Z,,0x0025ECFC,129,Code/GameEngine/Source/GameClient/Rva0025ECFCGet.cpp,matched,callers 0x25F240 and 0x25F26B ten virtual gets
-?rva0050EE23@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,,0x0050EE23,53,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,matched,split null checks plus compareRangeNoCase
+?compareNoCase@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,,0x0050EE23,53,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,matched,split null checks plus compareRangeNoCase
 ?rva0050F2AF@Rva0050F0AB@@QAEXI@Z,,0x0050F2AF,87,Code/GameEngine/Source/Common/System/Rva0050F2AF.cpp,matched,chain clamp 99999 plus focus Send
 ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z,,0x0031AB7F,80,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,Copy assign via base and AsciiString plus array
 ?rva0031AA34@BfmeWorldRV@@QAEXH@Z,,0x0031AA34,23,Code/GameEngine/Source/GameClient/GUI/ControlBar/BfmeWorldRV.cpp,matched,BfmeWorldRV flag via InGameUI slot47
@@ -35808,7 +35808,7 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
 ?setMapSelected@QuickMatchPreferences@@QAEXABVAsciiString@@_N@Z,,0x005DF73F,104,Code/GameEngine/Source/Common/QuickMatchPreferences_setMapSelected.cpp,matched,ZH UserPreferences.cpp at BFME1 6583b3c1ff; target quoted-printable key and literals 1/0 identify setMapSelected; this+4 map and RET8 with known map2031FB and StringBase55F5; sibling isMapSelected5DF458; full104B verified
 ?rva007B9C10DestroyEmptyUnicodeString@@YAXXZ,,0x007B9C10,10,Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp,matched,Native10B atexit callback; initializer7B6740 constructs TheEmptyString then registers7B9C10; callback thiscall to verified UnicodeString dtor5B804E; canonical global and explicit linker alias; original compiler-local name unknown
 ?rva007B6740InitializeEmptyUnicodeString@@YAXXZ,,0x007B6740,22,Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp,matched,Native22B initializer constructs canonical UnicodeString TheEmptyString via folded ctor326BE6 then registers rowed cleanup7B9C10 with atexit6291F8; canonical ctor and CRT provider bindings; original compiler-local name unknown
-?rva001DD276@Rva001DD240@@QAEXE@Z,,0x001DD276,49,Code/GameEngine/Source/Common/Rva001DD240Record.cpp,matched,unlock lane caller 0x003BCA5D data g_00BBB9AC honest address name
+?setFlag@Rva001DD240@@QAEXE@Z,,0x001DD276,49,Code/GameEngine/Source/Common/Rva001DD240Record.cpp,matched,unlock lane caller 0x003BCA5D data g_00BBB9AC honest address name
 ?Rva0008F755Create@@YGPAVRva000A4916@@PAX@Z,,0x0008F755,58,Code/GameEngine/Source/Common/Rva0008F755Create.cpp,matched,chain lane same 58B new+ctor shape as siblings
 ?Rva0008F877Create@@YGPAVRva000A43A4@@PAX@Z,,0x0008F877,58,Code/GameEngine/Source/Common/Rva0008F877Create.cpp,matched,chain lane same 58B new+ctor shape as siblings
 ?addNetCommandMsg@FrameDataManager@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z,,0x0058B6AB,38,Code/GameEngine/Source/GameNetwork/FrameDataManager.cpp,matched,donor FrameDataManager addNetCommandMsg ring mod stride 0x14

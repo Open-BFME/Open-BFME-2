@@ -1,5 +1,5 @@
 // cl: /EHsc
-// ?rva0050EE23@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z @0x0050EE23
+// ?compareNoCase@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z @0x0050EE23
 // (53B): StringBase<char> compareNoCase wrapper extracting data/len with
 // empty fallback then tail-calling rowed compareRangeNoCase; unblocks 41B.
 // Identity via compareRangeNoCase 0x00005841 plus empty string
@@ -16,7 +16,7 @@ int __cdecl compareRangeNoCase(const char *a, int alen, const char *b, int blen,
 class Rva0050EE23
 {
 public:
-	int rva0050EE23(const char *other, int blen, CharCompare tag);
+	int compareNoCase(const char *other, int blen, CharCompare tag);
 	int rva0050F1F0(const char *other, CharCompare tag);
 private:
 	struct Header
@@ -29,7 +29,7 @@ private:
 	Header *m_data;
 };
 
-int Rva0050EE23::rva0050EE23(const char *other, int blen, CharCompare tag)
+int Rva0050EE23::compareNoCase(const char *other, int blen, CharCompare tag)
 {
 	int alen;
 	if (m_data)
@@ -48,7 +48,7 @@ int Rva0050EE23::rva0050EE23(const char *other, int blen, CharCompare tag)
 // strlen (import thunk 0x00629170) before forwarding to 0x0050EE23.
 int Rva0050EE23::rva0050F1F0(const char *other, CharCompare tag)
 {
-	return rva0050EE23(other, other ? strlen(other) : 0, tag);
+	return compareNoCase(other, other ? strlen(other) : 0, tag);
 }
 
 // Retail 0x0050F841 (28B): free cdecl wrapper supplying a value-initialized

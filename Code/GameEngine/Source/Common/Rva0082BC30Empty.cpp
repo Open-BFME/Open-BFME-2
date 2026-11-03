@@ -22,7 +22,7 @@ Rva0082BFD0Slot *Rva0082BFD0Slot::assignFrom(const int *src)
 	return this;
 }
 
-int rva0082B120Set(int value);
+int setMallocHandler(int value);
 
 // The slot is STLport's __malloc_alloc<0>::__oom_handler, defined in
 // Code/Libraries/Source/WWVegas/WWLib/STLMallocAlloc0OutOfMemory.cpp (the
@@ -37,11 +37,11 @@ class __malloc_alloc
 {
 private:
 	static __oom_handler_type __oom_handler;
-	friend int ::rva0082B120Set(int value);
+	friend int ::setMallocHandler(int value);
 };
 }
 
-int rva0082B120Set(int value)
+int setMallocHandler(int value)
 {
 	int old = (int)_STL::__malloc_alloc<0>::__oom_handler;
 	_STL::__malloc_alloc<0>::__oom_handler = (_STL::__oom_handler_type)value;
