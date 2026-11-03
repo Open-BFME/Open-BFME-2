@@ -23500,3 +23500,6 @@ Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp|function|0x0005E959|rva
 Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp|function|0x00041FCF|rva00041FCF,93d62c980ec97f2c5da899c6,drz-t46,drz-t46-sv2-1,w-d1d37e680132,2026-11-03
 Code/GameEngine/Source/Common/BfmeConv816_bfmeGoELHa.cpp|local|bfmeGoELHa|o,bc04ed5726d83138c65c4144,drz-t48,drz-t48-sv2-4,w-f1ece73c1831,2026-11-03
 Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp|member|Rva005FFCCBElem|m_8,888c6055c6f14c8176d1200c,drz-t01,drz-t01-sv3-3,w-1b383cf1efa6,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|Rva0045ADC1|m_20,12e3a8ea96b4853dea7dc574,drz-t12,drz-t12-sv3-2,w-02b96a65a6a1,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp|member|Rva0045ADC1|m_24,f95a0e22d453d045136ac1a7,drz-t12,drz-t12-sv3-2,w-02b96a65a6a1,2026-11-03
+Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp|member|Rva0045B134|m_20,7a68f14da21087563546a173,drz-t12,drz-t12-sv3-4,w-02b96a65a6a1,2026-11-03
