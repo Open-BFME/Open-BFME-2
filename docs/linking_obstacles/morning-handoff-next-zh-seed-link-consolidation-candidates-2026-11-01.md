@@ -114,3 +114,6 @@ cannot conclude while most consumers lack strict receipts.
     Verifier-Change commit. Not regenerated here; `class --fold` no longer depends on it.
   - Held, not touched: `FamilyDeletingDtors_muse-cd13.cpp` (28 B; class
     DeflectSpecialPowerModuleData held by StarkillerHDX).
+
+
+**2026-11-03 follow-up to the held Deflect module-data emitter:** the historical hold is superseded by fresh root claims and a genuine native5B provider in approvedSiege TU. Its constructor's opaque base/table view is reconciled, all3table/deleting copies match, and obsolete base pin/alias/anchor plus redundant dtor pin retire with zero current references. Normal40/40 over8sources; preview8/8 LINKS, Common0->28B. Official real-link/census confirmation remains pending; broader actor/class consolidation is not claimed. [Current evidence and limits](deflect-module-data-native-lifetime-provider.md).

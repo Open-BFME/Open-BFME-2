@@ -1,0 +1,78 @@
+{
+  "??_7DeflectSpecialPowerModuleData@@6B@": {
+    "old": {
+      "bytes": "00000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+        ]
+      ]
+    },
+    "candidate": {
+      "bytes": "00000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+        ]
+      ]
+    },
+    "payload_equal": true,
+    "old_properties": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    },
+    "candidate_properties": {
+      "symbol_storage": 2,
+      "section": ".rdata",
+      "comdat_selection": 2
+    }
+  },
+  "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z": {
+    "old": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1DeflectSpecialPowerModuleData@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "candidate": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1DeflectSpecialPowerModuleData@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ]
+    },
+    "payload_equal": true,
+    "old_properties": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    },
+    "candidate_properties": {
+      "symbol_storage": 2,
+      "section": ".text",
+      "comdat_selection": 2
+    }
+  }
+}

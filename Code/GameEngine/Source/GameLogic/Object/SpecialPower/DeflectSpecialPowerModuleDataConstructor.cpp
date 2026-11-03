@@ -1,25 +1,21 @@
 // cl: /DNDEBUG /MD /EHsc
-
-// DeflectSpecialPowerModuleData's constructor, retail 0x0025A600. Eighteen bytes: the
-// base's constructor and then this class's own vftable pointer, nothing else.
-//
-// The name used to sit on 0x00852130, which is INI::initFromINIMultiProc - a
-// seventy-nine byte function that clears two sixteen-entry tables and is not a
-// module-data constructor at all. It was one of seven names aliased onto those
-// bytes; that claim is retracted here.
-
-class DeflectSpecialPowerModuleDataBase
+// Native0x004C5671/18B: constructs the0x18-byte base then installs Deflect's table.
+// The existing AIUpdateModuleData owner supplies the witnessed base lifetime;
+// this view does not establish the original intermediate class ancestry.
+class AIUpdateModuleData
 {
 public:
-	DeflectSpecialPowerModuleDataBase();
-
-	virtual void moduleDataAnchor();
+    AIUpdateModuleData();
+    virtual ~AIUpdateModuleData();
+private:
+    unsigned char m_opaque[0x14];
 };
 
-class DeflectSpecialPowerModuleData : public DeflectSpecialPowerModuleDataBase
+class DeflectSpecialPowerModuleData : public AIUpdateModuleData
 {
 public:
-	DeflectSpecialPowerModuleData();
+    DeflectSpecialPowerModuleData();
+    virtual ~DeflectSpecialPowerModuleData();
 };
 
 DeflectSpecialPowerModuleData::DeflectSpecialPowerModuleData()

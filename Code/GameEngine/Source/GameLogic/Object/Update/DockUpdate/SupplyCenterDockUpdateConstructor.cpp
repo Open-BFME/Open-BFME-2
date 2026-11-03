@@ -484,15 +484,6 @@ void DeflectSpecialPowerIface1::deflectSpecialPowerIface1Anchor()
 {
 }
 
-struct DeflectSpecialPowerModuleDataBase
-{
-	virtual void moduleDataAnchor();
-};
-
-// ?moduleDataAnchor@DeflectSpecialPowerModuleDataBase@@UAEXXZ present-unmatched
-void DeflectSpecialPowerModuleDataBase::moduleDataAnchor()
-{
-}
 
 struct DemoTrapUpdate
 {

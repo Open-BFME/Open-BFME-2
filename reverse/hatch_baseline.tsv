@@ -3014,7 +3014,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp	?update@UpdateModule@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	??1BehaviorModuleData@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateModuleDataCtor.cpp	??0DeflectSpecialPowerModuleDataBase@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp	??0Rva0026E9BDBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva00295A0F@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp	?rva0048F472@AssaultTransportAIUpdate@@QBE_NPBVObject@@@Z	1
@@ -8047,7 +8046,6 @@ pin	reverse/symbols.csv	0x004C4DB9	1
 pin	reverse/symbols.csv	0x004C4F89	1
 pin	reverse/symbols.csv	0x004C4FA4	1
 pin	reverse/symbols.csv	0x004C545D	1
-pin	reverse/symbols.csv	0x004C64E9	1
 pin	reverse/symbols.csv	0x004C6F47	1
 pin	reverse/symbols.csv	0x004C6F77	2
 pin	reverse/symbols.csv	0x004C6FD0	1
@@ -8875,7 +8873,6 @@ pin	reverse/symbols.csv	0x005875BF	1
 pin	reverse/symbols.csv	0x005875DC	1
 pin	reverse/symbols.csv	0x00587DCD	1
 pin	reverse/symbols.csv	0x00589079	1
-pin	reverse/symbols.csv	0x0058925D	1
 pin	reverse/symbols.csv	0x00589DDD	2
 pin	reverse/symbols.csv	0x00589F09	1
 pin	reverse/symbols.csv	0x0058A290	1
@@ -12766,7 +12763,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	hence	2
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	ifaceAnchor@BehaviorModuleInterface@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	moduleDataAnchor@DeflectSpecialPowerModuleDataBase@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	muxAnchor@UpgradeMux@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	objectAnchor@ObjectModule@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	objectModuleAnchor@DemoTrapUpdate@@UAEXXZ	1
@@ -13029,15 +13025,11 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Dra
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp	doDrawModule@W3DPropDraw@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp	loadPostProcess@W3DPropDraw@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp	BfmeParticleSystemHandle::operator->	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp	0W3DTankTruckDraw@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	loadPostProcess@W3DRopeDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp	Rva00115DA7::rva00115DA7	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp	W3DGadgetVerticalSliderDraw	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryLoadFontData.cpp	the	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp	storeLightingOverbright	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	0HeightMapRenderObjClass@@QAE@XZ	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	Render@HeightMapRenderObjClass@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	updateBlock@HeightMapRenderObjClass@@UAEHHHHHPAVWorldHeightMap@@PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp	getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z	1

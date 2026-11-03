@@ -1,0 +1,179 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerModuleDataConstructor.cpp",
+  "control_sha256": "d7bbdef1ac4655ce997d6aa3698fd517b97003477ae1c436d7fddb248f7d52e9",
+  "variants": {
+    "control": {
+      "matched": [
+        "0x004C5671"
+      ],
+      "missing": [],
+      "errors": [],
+      "facts": [
+        {
+          "??0DeflectSpecialPowerModuleData@@QAE@XZ": {
+            "bytes": "568bf1e800000000c706000000008bc65ec3",
+            "relocations": [
+              [
+                4,
+                20,
+                "??0DeflectSpecialPowerModuleDataBase@@QAE@XZ"
+              ],
+              [
+                10,
+                6,
+                "??_7DeflectSpecialPowerModuleData@@6B@"
+              ]
+            ]
+          },
+          "??_7DeflectSpecialPowerModuleData@@6B@": {
+            "bytes": "00000000",
+            "relocations": [
+              [
+                0,
+                6,
+                "?moduleDataAnchor@DeflectSpecialPowerModuleDataBase@@UAEXXZ"
+              ]
+            ]
+          }
+        },
+        {
+          "??0DeflectSpecialPowerModuleData@@QAE@XZ": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 1
+          },
+          "??_7DeflectSpecialPowerModuleData@@6B@": {
+            "symbol_storage": 2,
+            "section": ".rdata",
+            "comdat_selection": 2
+          }
+        },
+        {
+          "defined": [
+            "??0DeflectSpecialPowerModuleData@@QAE@XZ",
+            "??_7DeflectSpecialPowerModuleData@@6B@"
+          ],
+          "undefined": [
+            "??0DeflectSpecialPowerModuleDataBase@@QAE@XZ",
+            "?moduleDataAnchor@DeflectSpecialPowerModuleDataBase@@UAEXXZ"
+          ],
+          "weak": [],
+          "alternates": {},
+          "includes": []
+        }
+      ]
+    },
+    "candidate": {
+      "matched": [
+        "0x004C5671"
+      ],
+      "missing": [],
+      "errors": [],
+      "facts": [
+        {
+          "??0DeflectSpecialPowerModuleData@@QAE@XZ": {
+            "bytes": "568bf1e800000000c706000000008bc65ec3",
+            "relocations": [
+              [
+                4,
+                20,
+                "??0AIUpdateModuleData@@QAE@XZ"
+              ],
+              [
+                10,
+                6,
+                "??_7DeflectSpecialPowerModuleData@@6B@"
+              ]
+            ]
+          },
+          "??_7DeflectSpecialPowerModuleData@@6B@": {
+            "bytes": "00000000",
+            "relocations": [
+              [
+                0,
+                6,
+                "??_EDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+              ]
+            ]
+          },
+          "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z": {
+            "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+            "relocations": [
+              [
+                4,
+                20,
+                "??1DeflectSpecialPowerModuleData@@UAE@XZ"
+              ],
+              [
+                17,
+                20,
+                "??3@YAXPAX@Z"
+              ]
+            ]
+          }
+        },
+        {
+          "??0DeflectSpecialPowerModuleData@@QAE@XZ": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 1
+          },
+          "??_7DeflectSpecialPowerModuleData@@6B@": {
+            "symbol_storage": 2,
+            "section": ".rdata",
+            "comdat_selection": 2
+          },
+          "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 2
+          }
+        },
+        {
+          "defined": [
+            "??0DeflectSpecialPowerModuleData@@QAE@XZ",
+            "??_7DeflectSpecialPowerModuleData@@6B@",
+            "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+          ],
+          "undefined": [
+            "??0AIUpdateModuleData@@QAE@XZ",
+            "??1DeflectSpecialPowerModuleData@@UAE@XZ",
+            "??3@YAXPAX@Z",
+            "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+          ],
+          "weak": [
+            [
+              "??_EDeflectSpecialPowerModuleData@@UAEPAXI@Z",
+              "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+            ]
+          ],
+          "alternates": {},
+          "includes": []
+        }
+      ]
+    }
+  },
+  "delta": {
+    "old_count": 2,
+    "new_count": 3,
+    "removed": [],
+    "added": [
+      "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+    ],
+    "changed": [
+      "??0DeflectSpecialPowerModuleData@@QAE@XZ",
+      "??_7DeflectSpecialPowerModuleData@@6B@"
+    ],
+    "properties_changed": [],
+    "removed_undefined": [
+      "??0DeflectSpecialPowerModuleDataBase@@QAE@XZ",
+      "?moduleDataAnchor@DeflectSpecialPowerModuleDataBase@@UAEXXZ"
+    ],
+    "added_undefined": [
+      "??0AIUpdateModuleData@@QAE@XZ",
+      "??1DeflectSpecialPowerModuleData@@UAE@XZ",
+      "??3@YAXPAX@Z",
+      "??_GDeflectSpecialPowerModuleData@@UAEPAXI@Z"
+    ]
+  }
+}

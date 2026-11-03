@@ -1,0 +1,251 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPower.cpp",
+  "control_sha256": "62002cfc72a78406c37e6210754faf1b260bbb46f5702412c4f9bab69fdaf6cb",
+  "variants": {
+    "control": {
+      "matched": [
+        "0x004C636B",
+        "0x004C6472",
+        "0x004C64D3",
+        "0x004C64E9",
+        "0x0079019D",
+        "0x007901AA"
+      ],
+      "missing": [],
+      "errors": [],
+      "facts": [
+        {
+          "?g_00C5DD44@@3QBUFieldParse@@B": {
+            "bytes": "0000000000000000000000001800000000000000000000000000000000000000",
+            "relocations": [
+              [
+                0,
+                6,
+                "??_C@_0M@MHHIJIOH@HordeDeploy?$AA@"
+              ],
+              [
+                4,
+                6,
+                "?parseBool@INI@@SAXPAV1@PAX1PBX@Z"
+              ]
+            ]
+          },
+          "??_C@_0M@MHHIJIOH@HordeDeploy?$AA@": {
+            "bytes": "486f7264654465706c6f7900",
+            "relocations": []
+          },
+          "?buildFieldParse@SiegeDeployHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z": {
+            "bytes": "ff742404e800000000598b4c24046a006800000000e800000000c3",
+            "relocations": [
+              [
+                5,
+                20,
+                "?buildFieldParse@Rva005890EDBase@@SAXAAVMultiIniFieldParse@@@Z"
+              ],
+              [
+                17,
+                6,
+                "?g_00C5DD44@@3QBUFieldParse@@B"
+              ],
+              [
+                22,
+                20,
+                "?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z"
+              ]
+            ]
+          },
+          "?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ": {
+            "bytes": "b800000000e800000000f60500000000017521830d00000000018b0d0000000083642408006800000000e800000000a3000000008b0c24a10000000064890d00000000c9c3",
+            "relocations": [
+              [
+                1,
+                6,
+                "__ehhandler$?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ"
+              ],
+              [
+                6,
+                20,
+                "__EH_prolog"
+              ],
+              [
+                12,
+                6,
+                "?$S1@?1??getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA"
+              ],
+              [
+                21,
+                6,
+                "?$S1@?1??getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA"
+              ],
+              [
+                28,
+                6,
+                "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+              ],
+              [
+                38,
+                6,
+                "??_C@_0BN@KBCIEECP@SiegeDeployHordeSpecialPower?$AA@"
+              ],
+              [
+                43,
+                20,
+                "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+              ],
+              [
+                48,
+                6,
+                "?TheSiegeDeployHordeSpecialPowerPoolKey@?1??getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A"
+              ],
+              [
+                56,
+                6,
+                "?TheSiegeDeployHordeSpecialPowerPoolKey@?1??getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A"
+              ],
+              [
+                63,
+                6,
+                "__except_list"
+              ]
+            ]
+          },
+          "??_C@_0BN@KBCIEECP@SiegeDeployHordeSpecialPower?$AA@": {
+            "bytes": "53696567654465706c6f79486f7264655370656369616c506f77657200",
+            "relocations": []
+          },
+          "??0SiegeDeployHordeSpecialPowerModuleData@@QAE@XZ": {
+            "bytes": "568bf1e800000000c70600000000c64618008bc65ec3",
+            "relocations": [
+              [
+                4,
+                20,
+                "??0AIUpdateModuleData@@QAE@XZ"
+              ],
+              [
+                10,
+                6,
+                "??_7DeflectSpecialPowerModuleData@@6B@"
+              ]
+            ]
+          },
+          "??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ": {
+            "bytes": "e900000000",
+            "relocations": [
+              [
+                1,
+                20,
+                "??1AIUpdateModuleData@@UAE@XZ"
+              ]
+            ]
+          }
+        },
+        {
+          "?g_00C5DD44@@3QBUFieldParse@@B": {
+            "symbol_storage": 2,
+            "section": ".rdata",
+            "comdat_selection": 0
+          },
+          "??_C@_0M@MHHIJIOH@HordeDeploy?$AA@": {
+            "symbol_storage": 2,
+            "section": ".rdata",
+            "comdat_selection": 2
+          },
+          "?buildFieldParse@SiegeDeployHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 1
+          },
+          "?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 1
+          },
+          "??_C@_0BN@KBCIEECP@SiegeDeployHordeSpecialPower?$AA@": {
+            "symbol_storage": 2,
+            "section": ".rdata",
+            "comdat_selection": 2
+          },
+          "??0SiegeDeployHordeSpecialPowerModuleData@@QAE@XZ": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 1
+          },
+          "??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ": {
+            "symbol_storage": 2,
+            "section": ".text",
+            "comdat_selection": 1
+          }
+        },
+        {
+          "defined": [
+            "??0SiegeDeployHordeSpecialPowerModuleData@@QAE@XZ",
+            "??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ",
+            "??_C@_0BN@KBCIEECP@SiegeDeployHordeSpecialPower?$AA@",
+            "??_C@_0M@MHHIJIOH@HordeDeploy?$AA@",
+            "?buildFieldParse@SiegeDeployHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z",
+            "?g_00C5DD44@@3QBUFieldParse@@B",
+            "?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ"
+          ],
+          "undefined": [
+            "??0AIUpdateModuleData@@QAE@XZ",
+            "??1AIUpdateModuleData@@UAE@XZ",
+            "??_7DeflectSpecialPowerModuleData@@6B@",
+            "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A",
+            "?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z",
+            "?buildFieldParse@Rva005890EDBase@@SAXAAVMultiIniFieldParse@@@Z",
+            "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z",
+            "?parseBool@INI@@SAXPAV1@PAX1PBX@Z",
+            "__EH_prolog",
+            "___CxxFrameHandler",
+            "__except_list"
+          ],
+          "weak": [],
+          "alternates": {
+            "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+            "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+            "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+            "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+            "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+            "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+            "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+          },
+          "includes": []
+        }
+      ],
+      "EH": {
+        "?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ": [
+          "EXACT",
+          ""
+        ]
+      }
+    },
+    "plain": {
+      "matched": [],
+      "missing": [
+        "0x004C636B",
+        "0x004C6472",
+        "0x004C64D3",
+        "0x004C64E9",
+        "0x0079019D",
+        "0x007901AA"
+      ],
+      "errors": [
+        "Code\\GameEngine\\Source\\GameLogic\\Object\\SpecialPower\\.SiegeDeployHordeSpecialPower.22b4ad30c939df64.tu_skeleton.cpp(164) : error C2373: 'const DeflectSpecialPowerModuleData::`vftable'' : redefinition; different type modifiers"
+      ]
+    },
+    "novtable": {
+      "matched": [],
+      "missing": [
+        "0x004C636B",
+        "0x004C6472",
+        "0x004C64D3",
+        "0x004C64E9",
+        "0x0079019D",
+        "0x007901AA"
+      ],
+      "errors": [
+        "Code\\GameEngine\\Source\\GameLogic\\Object\\SpecialPower\\.SiegeDeployHordeSpecialPower.f910333694e297ff.tu_skeleton.cpp(164) : error C2373: 'const DeflectSpecialPowerModuleData::`vftable'' : redefinition; different type modifiers"
+      ]
+    }
+  }
+}

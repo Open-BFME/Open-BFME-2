@@ -1,0 +1,7 @@
+### Deflect module-data native lifetime provider and table view
+
+Updated2026-11-03. Actual5B typed destructor at4C64E9 now has genuine C++ in the address's approved existing Siege TU, admitted by add_match --icf-owner against its retained owner. Native deleting4C5686->4C64E9->52B494BE4 and constructor4C5671/factory252114 prove the24-byte base-lifetime prefix. Original direct inheritance/novtable spelling and full original table extent remain unproven.
+
+Constructor18B stays exact and uses the actual base owner. Its former opaque-anchor table now matches Common/Siege's deleting route; all3table/deleting copies equal, including properties/weak defaults. Old base ctor pin/alias, redundant dtor pin and orphan anchor stub/class/marker are retired after a zero-reference current-object overlay. Other SupplyCenter stubs and broader Deflect actor/merge prerequisites remain.
+
+Normal40/40 over8sources and2data rows; preview8/8 LINKS2238->2266 (Common0->28), index23b85ddde5. [Native, codegen, folding, provider, retirement and independent review](../../reverse/attempt_support/deflect-native-lifetime-20261103/README.md). Official142unlinked census, whole-image/runtime and NOT OURS remain unmeasured by this repair. Prior9798edbac6 audit is INCONCLUSIVE for35header consumers (index23b85ddde5/base8757e5a02d3c5f0012681c51c9bf547b99352490); packet lists all35paths for next scheduled census confirmation.

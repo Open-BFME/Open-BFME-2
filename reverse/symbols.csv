@@ -1343,7 +1343,6 @@ name,address,notes
 ??0DefaultModuleTemplate7Allocation@FXParticleSystem@@QAE@XZ,0x003AB82E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0DefectorSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C298B,(Thing*;ModuleData*) ctor called by DefectorSpecialPower::friend_newModuleInstance (0x002519AB); class from the ModuleFactory registration literal
 ??0DeflectSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C545D,(Thing*;ModuleData*) ctor called by DeflectSpecialPower::friend_newModuleInstance (0x002520DC); class from the ModuleFactory registration literal
-??0DeflectSpecialPowerModuleDataBase@@QAE@XZ,0x0058925D,callee of 0DeflectSpecialPowerModuleData (0x004C5671) at the site its BFME1 donor calls it; may be an ICF alias
 ??0DelayedUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B3C75,(Thing*;ModuleData*) ctor called by DelayedUpgrade::friend_newModuleInstance (0x0024FEC3); class from the ModuleFactory registration literal
 ??0DelayedWeaponSetUpgradeUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,0x004882E4,(Thing*;ModuleData*) ctor called by DelayedWeaponSetUpgradeUpdate::friend_newModuleInstance (0x0024CCBC); class from the ModuleFactory registration literal
 ??0DelayedWeaponSetUpgradeUpdateModuleData@@QAE@XZ,0x000B28BF,ctor call in the byte-true DelayedWeaponSetUpgradeUpdate data factory (ModuleFactory registers it under "DelayedWeaponSetUpgradeUpdate")
@@ -1868,7 +1867,6 @@ name,address,notes
 ??1DebugCmdInterface@@UAE@XZ,0x006C5930,twin spelling of the MAE pin at the same 7B base-dtor body for the public link-canonical base view used by DebugCmdInterfaceDebugCtor.cpp
 ??1DebugIOConBase@@UAE@XZ,0x0003F320,TU-private view (DebugIOCon units) of the DebugIOInterface base: the DebugIOCon constructor and destructor-thunk unwind funclets destroy that base through the DebugIOInterface destructor at this address
 ??1DebugMember@@QAE@XZ,0x0069E440
-??1DeflectSpecialPowerModuleData@@UAE@XZ,0x004C64E9,ICF twin of rowed SiegeDeployHordeSpecialPowerModuleData dtor at same address; resolves Deflect deleting dtor call at 0x4C5686
 ??1DieModule@@MAE@XZ,0x0045CE54,address read from the REL32 displacement at a placed body
 ??1DrawableModule@@MAE@XZ,0x0049B47C,callee of 1W3DLaserDraw (0x000C9B1D) at the site its BFME1 donor calls it; may be an ICF alias
 ??1DynamicPortalLink@@QAE@XZ,0x0007FAB3,Link element teardown folding with the rowed basic_string-char dtor dup at this address per the range-destroy call site

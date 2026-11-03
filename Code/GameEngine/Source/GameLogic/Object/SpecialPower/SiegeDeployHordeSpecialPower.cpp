@@ -71,7 +71,7 @@ public:
 // "SiegeDeployHordeSpecialPower" (sole-caller data factory per the
 // superseded ctor pin).
 
-extern "C" const void *const __identifier("??_7DeflectSpecialPowerModuleData@@6B@")[];
+extern "C" void (__cdecl *const __identifier("??_7DeflectSpecialPowerModuleData@@6B@")[])();
 
   // vftable 0x00C5DAB0
 
@@ -154,3 +154,15 @@ SiegeDeployHordeSpecialPowerModuleData::~SiegeDeployHordeSpecialPowerModuleData(
 // tu-skeleton: 0x007901BC 13B $L4828 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeInitiate.cpp (not merged yet)
 
 // tu-skeleton: 0x007901C9 10B __ehhandler$?initiateIntentToDoSpecialPower@SiegeDeployHordeSpecialPower@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeInitiate.cpp (not merged yet)
+
+// Native Deflect deleting call4C5686 reaches the same5B lifetime thunk.
+// The18B Deflect constructor and0x18-byte factory allocation bound its base view.
+class __declspec(novtable) DeflectSpecialPowerModuleData : public AIUpdateModuleData
+{
+public:
+    virtual ~DeflectSpecialPowerModuleData();
+};
+
+DeflectSpecialPowerModuleData::~DeflectSpecialPowerModuleData()
+{
+}
