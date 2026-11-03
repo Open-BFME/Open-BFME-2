@@ -19,3 +19,10 @@ The tool currently emits the reset ahead of the objects.
 The next useful change is a regression-tested composition repair preserving
 closed declaration-only inline_depth scopes. It must retain normal byte and
 link judgments; success would not establish that the remaining donors merge.
+
+Repair validation: [validation.json](validation.json) records the two failing
+regression fixtures, the passing composition/exploit suite and the real merge
+dry run. Preserving the closed declaration scope restores the seed and permits
+its three-row parseTooltip donor: 33 rows pass the existing byte/link guards.
+Other donors retain their compile/view conflicts. This receipt applies no
+source move and claims no census change; the accepted merge is the next step.

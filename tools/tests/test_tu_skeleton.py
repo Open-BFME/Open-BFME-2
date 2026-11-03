@@ -219,6 +219,31 @@ class DirectiveCompositionTests(unittest.TestCase):
         self.assertLess(out.index("// the unit ends size-optimised"), out.index('#pragma optimize("gsy", on)'))
         self.assertLess(out.index("int f()"), out.index("int g()"))
 
+    def test_inline_depth_scope_stays_around_global_initializers(self):
+        # GameWindowManagerScript.cpp's four callback strings must call the
+        # out-of-line constructor. Hoisting the reset ahead of them loses rows.
+        scope = ('#pragma inline_depth( 0 )\n'
+                 'AsciiString systemName;\nAsciiString inputName;\n'
+                 'AsciiString tooltipName;\nAsciiString drawName;\n'
+                 '#pragma inline_depth()')
+        text = 'struct AsciiString { AsciiString(); };\n' + scope + '\nint f() { return 1; }\n'
+        for skeleton in (True, False):
+            out = self.compose(text, skeleton)
+            start = out.index('#pragma inline_depth( 0 )')
+            end = out.index('#pragma inline_depth()') + len('#pragma inline_depth()')
+            self.assertEqual(T.token_seq(scope), T.token_seq(out[start:end]))
+            self.assertLess(out.index('struct AsciiString'), start)
+
+    def test_separate_inline_depth_declaration_scopes_keep_their_resets(self):
+        first = '#pragma inline_depth(0)\nA first;\n#pragma inline_depth()'
+        second = '#pragma inline_depth(1)\nA second;\n#pragma inline_depth()'
+        out = self.compose(first + '\nint between;\n' + second + '\n')
+        self.assertIn(first, out)
+        self.assertIn(second, out)
+        self.assertEqual(out.count('#pragma inline_depth()'), 2)
+        self.assertLess(out.index(first), out.index('int between;'))
+        self.assertLess(out.index('int between;'), out.index(second))
+
     def test_unterminated_region_is_not_silently_closed(self):
         out = self.compose("#ifdef DEBUG\nint f() { return 1; }\n")
         self.assertIn("#ifdef DEBUG\n", out)

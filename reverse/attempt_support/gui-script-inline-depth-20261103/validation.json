@@ -1,0 +1,63 @@
+{
+  "revision": "5e109261d5c4ba5757fbdb3c43e56f5e7cbe8ac5",
+  "mode": "dry-run only; source unchanged",
+  "regression_before": "Both new directive composition tests fail against the original implementation.",
+  "tests": "python3 -m pytest -q tools/tests/test_tu_skeleton.py tools/tests/test_gate_exploits.py: 234 passed, 1 skipped, 56 subtests passed",
+  "merge_command": "python3 tools/tu_skeleton.py --merge Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp --dry-run",
+  "merge_exit": 0,
+  "report": {
+    "tu": "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+    "approved": 71,
+    "mixed": {
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseLayoutBlock.cpp": 1
+    },
+    "refused": {},
+    "accepted": [
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltip.cpp"
+    ],
+    "rejected": {
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\GameClient\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\GameClient\\FontLibrary.h(16) : error C201",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp": "compile: Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.6c716a377ce493e3.tu_skeleton.cpp(2677) : error C2084: function 'Bool parseHeaderTemplate(char *,WinInstanceData *,char *,void *)' already has a body",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\GameClient\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\GameClient\\GameText.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp": "compile: Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.2b721f1b2e9c0cc5.tu_skeleton.cpp(2711) : error C2084: function 'Bool parseText(char *,WinInstanceData *,char *,void *)' already has a body",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp": "compile: Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.426d3372bda34a0c.tu_skeleton.cpp(2764) : error C2084: function 'Bool parseDrawData(char *,WinInstanceData *,char *,void *)' already has a body",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp": "compile: Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.11eb26d5d7c5cba2.tu_skeleton.cpp(673) : error C2365: 'GWS_PUSH_BUTTON' : redefinition; previous definition was a 'enumerator' | Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.11eb26d5d7c5cba2.tu_skeleton.cpp(674) : error ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseWinClass.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseSystemCallback.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work5\\Open-BFME-2\\Code\\GameEngine\\Source\\GameClient\\GUI\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: ",
+      "Code/GameEngine/Source/GameClient/GUI/WindowLayoutInfoLoad.cpp": "compile: z:\\work5\\Open-BFME-2\\Code\\Libraries\\Source\\Apt\\../subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.0c497632a7e93e67.tu_skeleton.cpp(2740) : error C2039: 'load' : is not a member of 'Win",
+      "Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp": "compile: Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.b5871345abe868a6.tu_skeleton.cpp(2815) : error C2614: 'Rva0031763A' : illegal member initialization: 'm_s1C' is not a base or member | Code\\GameEngine\\Source\\GameClient\\GUI\\.GameWindowManagerScript.b5871345abe868a6.tu_skeleton.cpp(2815) "
+    },
+    "adopt_first": {
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp": [
+        "GameWindow",
+        "GameWindowManager",
+        "ListboxData"
+      ],
+      "Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp": [
+        "GameTextInterface",
+        "GameWindow",
+        "GameWindowManager"
+      ],
+      "Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp": [
+        "GameWindowManager"
+      ],
+      "Code/GameEngine/Source/GameClient/GUI/WindowLayoutInfoLoad.cpp": [
+        "GameWindowManager"
+      ]
+    },
+    "link_guard": "census-linked: Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScriptDrawData.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseDrawCallback.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseHeaderTemplate.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseInputCallback.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseName.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseSystemCallback.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseText.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltip.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipCallback.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseTooltipText.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseWinClass.cpp, Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_setWindowText.cpp, Code/GameEngine/Source/GameClient/GUI/Rva0031763ACtorDtorAssign.cpp, Code/GameEngine/Source/GameClient/GUI/WindowLayoutInfoLoad.cpp",
+    "rows": 33,
+    "reconcile_classes": [
+      "FunctionLexicon",
+      "Rva0031763A",
+      "Rva00DFF024Registry",
+      "WindowLayoutInfo"
+    ]
+  }
+}

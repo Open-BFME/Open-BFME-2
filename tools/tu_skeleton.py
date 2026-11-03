@@ -719,6 +719,8 @@ def composition_chunks(text):
     repeated resets, rather than joining the hoisted include directives.
     Explicit instantiation definitions likewise stay in body order, after their
     primary templates and inside their original directive context.
+    A closed inline_depth scope around declarations stays opaque too: moving
+    its reset ahead of global objects changes their constructor calls.
     """
     out, region, nesting = [], [], 0
     for kind, text in chunks(text):
@@ -746,7 +748,22 @@ def composition_chunks(text):
         out.append((kind, text))
     if region:  # Preserve malformed input too: the compiler must still refuse it.
         out.append(("decl", "\n".join(c for _, c in region)))
-    return out
+    scoped, at = [], 0
+    while at < len(out):
+        kind, text = out[at]
+        if kind == "pp" and re.fullmatch(r"#\s*pragma\s+inline_depth\s*\(\s*\d+\s*\)\s*", text):
+            end = at + 1
+            while end < len(out) and out[end][0] in ("decl", "tail") \
+                    and not out[end][1].lstrip().startswith("#"):
+                end += 1
+            if end > at + 1 and end < len(out) and out[end][0] == "pp" \
+                    and re.fullmatch(r"#\s*pragma\s+inline_depth\s*\(\s*\)\s*", out[end][1]):
+                scoped.append(("decl", "\n".join(c for _, c in out[at:end + 1])))
+                at = end + 1
+                continue
+        scoped.append(out[at])
+        at += 1
+    return scoped
 
 
 def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=frozenset()):
