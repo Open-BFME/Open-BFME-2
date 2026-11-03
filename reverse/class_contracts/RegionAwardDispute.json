@@ -1,0 +1,256 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "RegionAwardDispute",
+ "evidence": {
+  "bases_overruled": null,
+  "census": 10,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x18": {
+    "4": 2
+   },
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 6
+   },
+   "0xc": {
+    "4": 3
+   }
+  },
+  "retail_layout": {
+   "confidence": "partial",
+   "conflicts": [],
+   "facts": {
+    "allocation_observed": {
+     "kind": "inference",
+     "rule": "retail-operator-new",
+     "sites": [],
+     "value": {
+      "0x20": 2
+     }
+    },
+    "extent_lower_bound": {
+     "kind": "inference",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2b644a",
+      "0x4fc002"
+     ],
+     "value": 29
+    },
+    "fields": {
+     "kind": "target",
+     "rule": "retail-ctor-writes",
+     "sites": [
+      "0x2b644a",
+      "0x4fc002"
+     ],
+     "value": {
+      "0x14": [
+       4
+      ],
+      "0x18": [
+       4
+      ],
+      "0x1c": [
+       1
+      ],
+      "0x4": [
+       4
+      ]
+     }
+    },
+    "member_ctor_calls": {
+     "kind": "target",
+     "rule": "retail-ctor-call",
+     "sites": [
+      "0x2b644a",
+      "0x4fc002"
+     ],
+     "value": {
+      "0x0": [
+       "?rva004FBF8E@RegionAwardDispute@@QAEXXZ"
+      ],
+      "0x8": [
+       "??0?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z",
+       "??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@ABV01@@Z"
+      ]
+     }
+    },
+    "vftables": {
+     "kind": "target",
+     "rule": "retail-ctor-vptr",
+     "sites": [
+      "0x2b644a",
+      "0x4fc002"
+     ],
+     "value": {
+      "0x0": "0x7fe280"
+     }
+    },
+    "vslots": {
+     "kind": "target",
+     "rule": "retail-vftable-words",
+     "sites": [
+      "0x7fe280"
+     ],
+     "value": {
+      "count": 4,
+      "end": "non-code",
+      "exact": false,
+      "listed_agrees": null,
+      "slots": [
+       {
+        "name": "??_GRegionAwardDispute@@UAEPAXI@Z",
+        "slot": 0,
+        "target": "0x2b647c"
+       },
+       {
+        "name": "?loadPostProcess@RegionAwardDispute@@MAEXXZ",
+        "slot": 1,
+        "target": "0x4fbffd"
+       },
+       {
+        "name": "?GetSnapshotName@RegionAwardDispute@@MBEPBDXZ",
+        "slot": 2,
+        "target": "0x2b6476"
+       },
+       {
+        "name": "?xfer@RegionAwardDispute@@MAEXPAVXfer@@@Z",
+        "slot": 3,
+        "target": "0x4fbdf7"
+       }
+      ],
+      "table": "0x7fe280"
+     }
+    }
+   }
+  },
+  "retail_member_rows": 6,
+  "retail_vtables": {
+   "0x7fe280": {
+    "end": "non-code",
+    "offset": 0,
+    "slots": {
+     "0": "??_GRegionAwardDispute@@UAEPAXI@Z",
+     "1": "?loadPostProcess@RegionAwardDispute@@MAEXXZ",
+     "2": "?GetSnapshotName@RegionAwardDispute@@MBEPBDXZ",
+     "3": "?xfer@RegionAwardDispute@@MAEXPAVXfer@@@Z"
+    },
+    "stores": 2
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 5,
+   "28": 1,
+   "32": 4
+  },
+  "views": 10,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/Common/System/Rva004FBC02Copy.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/Common/RegionAwardDispute.cpp",
+    "Code/GameEngine/Source/Common/Rva002B644ADtor.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp"
+   ],
+   "views": 4
+  }
+ ],
+ "queue": [],
+ "size": 32,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}
