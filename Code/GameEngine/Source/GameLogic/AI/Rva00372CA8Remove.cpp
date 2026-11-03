@@ -40,8 +40,8 @@ void Rva00372CA8::rva00372CA8(int val)
 }
 bool Rva00372CA8::rva00372CEC(int val)
 {
-	unsigned int n = (unsigned int)m_count;
-	for (unsigned int i = 0; i < n; ++i) {
+	unsigned int count = (unsigned int)m_count;
+	for (unsigned int i = 0; i < count; ++i) {
 		if (m_slots[i] == val)
 			return true;
 	}

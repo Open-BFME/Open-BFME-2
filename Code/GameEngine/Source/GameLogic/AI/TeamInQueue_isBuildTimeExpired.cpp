@@ -18,10 +18,10 @@ struct Rva004F0681Mid {
 extern GameLogic *TheGameLogic;
 bool TeamInQueue::isBuildTimeExpired()
 {
-    int v=((Rva004F0681Mid *)m_team)->m_30->m_1F8;
-    if(v<1)
+    int idleFrames=((Rva004F0681Mid *)m_team)->m_30->m_1F8;
+    if(idleFrames<1)
         return false;
-    unsigned int c=(unsigned int)m_frameStarted+(unsigned int)v;
-    unsigned char result=TheGameLogic->getFrame()>c;
+    unsigned int deadline=(unsigned int)m_frameStarted+(unsigned int)idleFrames;
+    unsigned char result=TheGameLogic->getFrame()>deadline;
     return result;
 }

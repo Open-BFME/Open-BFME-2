@@ -6923,3 +6923,11 @@ param,setCanPathThroughUnits::b,setCanPathThroughUnits::canPathThroughUnits,infe
 param,setUsePreciseZPos::b,setUsePreciseZPos::usePreciseZPos,inferred,agree:nl-9c35b2abf21b,Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateOnExit.cpp,
 param,Path::rva003641AE::a,Path::rva003641AE::angle,inferred,agree:nl-ef2526dfe9d3,Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp,0x003641AE
 param,Path::rva003641AE::b,Path::rva003641AE::radius,inferred,agree:nl-3a3afbdc1226,Code/GameEngine/Source/GameLogic/AI/Rva003641AEFinish.cpp,0x003641AE
+member,Rva004388E3Template::m_1C,Rva004388E3Template::m_kindOfMask,inferred,agree:nl-e428fb136b06,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,
+param,zeroCoord3D::c,zeroCoord3D::coord,inferred,agree:nl-e700eb49a378-mfefc4eb340cd05b1c4e44464,Code/GameEngine/Source/GameLogic/AI/Rva0036792FMachineCtor.cpp,
+local,Rva00372CA8::rva00372CEC::n,Rva00372CA8::rva00372CEC::count,inferred,agree:nl-50e2514cb49f-m6af33b9fe1a4329018f2ce66,Code/GameEngine/Source/GameLogic/AI/Rva00372CA8Remove.cpp,0x00372CEC
+param,Rva004389AE::rva004388E3::tmpl,Rva004389AE::rva004388E3::checkTemplate,inferred,agree:nl-8f7d4cf0f873-m118c3f67d9a600fcac80564d,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,0x004388E3
+param,Rva004389AE::rva004389AE::tmpl,Rva004389AE::rva004389AE::checkTemplate,inferred,agree:nl-9b701befc684-m2222195f9354cc77ba87a722,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,0x004389AE
+param,Rva004389AE::rva0043912F::tmpl,Rva004389AE::rva0043912F::checkTemplate,inferred,agree:nl-443f235d9bbb-m5a8e4d931261b357399e4db3,Code/GameEngine/Source/GameLogic/AI/Rva004389AENearbyCheck.cpp,0x0043912F
+local,TeamInQueue::isBuildTimeExpired::c,TeamInQueue::isBuildTimeExpired::deadline,inferred,agree:nl-46d7d1849457-mcecf5d92ae7d9e48a9baf563,Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp,0x004F0681
+local,TeamInQueue::isBuildTimeExpired::v,TeamInQueue::isBuildTimeExpired::idleFrames,inferred,agree:nl-19ed0a51165a-mbbf26850721f0a14c59db4dc,Code/GameEngine/Source/GameLogic/AI/TeamInQueue_isBuildTimeExpired.cpp,0x004F0681

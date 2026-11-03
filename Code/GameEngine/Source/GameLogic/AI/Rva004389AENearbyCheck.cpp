@@ -173,7 +173,7 @@ struct Rva004388E3Template
 	char m_pad01[0x14 - 0x01];
 	float m_scale;			// +0x14 the scale
 	char m_pad18[0x1C - 0x18];
-	Rva00406F9C m_1C;		// +0x1C
+	Rva00406F9C m_kindOfMask;		// +0x1C
 	unsigned char m_9C;		// +0x9C bits 0 and 1
 };
 
@@ -189,17 +189,17 @@ extern class GlobalData *TheWritableGlobalData;
 class Rva004389AE
 {
 public:
-	bool rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl);
-	bool rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl);
-	bool rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl, ObjectID *out);
+	bool rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Template *checkTemplate);
+	bool rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Template *checkTemplate);
+	bool rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *checkTemplate, ObjectID *out);
 private:
 	char m_pad00[0x10];
 	float m_10;		// +0x10 the scale
 };
 
-bool Rva004389AE::rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl)
+bool Rva004389AE::rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Template *checkTemplate)
 {
-	if (tmpl->m_1C.rva00406F9C(obj->m_284))
+	if (checkTemplate->m_kindOfMask.rva00406F9C(obj->m_284))
 		return true;
 
 	Object *other = ThePartitionManager->getClosestObject(pos, 50.0f, 0,
@@ -212,16 +212,16 @@ bool Rva004389AE::rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Templa
 		const_cast<Coord3D *>(pos), 50.0f, 1, 0) ? true : false;
 }
 
-bool Rva004389AE::rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl)
+bool Rva004389AE::rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Template *checkTemplate)
 {
-	if (((tmpl->m_9C & 1) || (tmpl->m_00 & 1)) && rva004388E3(obj, pos, tmpl))
+	if (((checkTemplate->m_9C & 1) || (checkTemplate->m_00 & 1)) && rva004388E3(obj, pos, checkTemplate))
 		return true;
 	return false;
 }
 
-bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl, ObjectID *out)
+bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Template *checkTemplate, ObjectID *out)
 {
-	int flags = (tmpl->m_9C & 2) ? 4 : 1;
+	int flags = (checkTemplate->m_9C & 2) ? 4 : 1;
 	Rva002614DFFilter notThis(obj);
 	Rva0026119DFilter alive;
 	Rva0026118BFilter third;
@@ -234,10 +234,10 @@ bool Rva004389AE::rva0043912F(Object *obj, const Coord3D *pos, Rva004388E3Templa
 	notThis.link(&same);
 	notThis.link(&relationship);
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos,
-		m_10 * tmpl->m_scale, 2, &notThis, 0);
+		m_10 * checkTemplate->m_scale, 2, &notThis, 0);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		float radius = other->m_template->m_10 * tmpl->m_scale;
+		float radius = other->m_template->m_10 * checkTemplate->m_scale;
 		float dx = pos->x - other->m_pos.x;
 		float dy = pos->y - other->m_pos.y;
 		float dz = pos->z - other->m_pos.z;
