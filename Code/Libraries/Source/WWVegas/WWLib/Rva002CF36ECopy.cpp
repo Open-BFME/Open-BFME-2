@@ -5,12 +5,7 @@
 // 0x002CF35C copy. Caller at 0x002CF883 unblocks 0x002CF86F.
 #include <new>
 
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other);
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
 
 struct Rva002CF13B
 {

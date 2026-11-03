@@ -8,12 +8,7 @@ extern char g_00E0661C;
 // overwrites vtable with 0x0086E620. Evidence: call sequence matches base
 // comment listing this as derived ctor with global 0x00E0661C; sole caller
 // at 0x005757B9; neighbours share /O1. Honest Rva address name.
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 class Rva005CBA04
 {
 public:

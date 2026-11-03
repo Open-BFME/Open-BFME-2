@@ -14,12 +14,7 @@
 #pragma function(memset)
 #include <string.h>
 
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 int __stdcall rva004BD97A(int arg)
 {

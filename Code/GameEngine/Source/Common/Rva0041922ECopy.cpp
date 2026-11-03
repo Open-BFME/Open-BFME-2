@@ -7,10 +7,7 @@ class Rva00419035 {
 public: Rva00419035(const Rva00419035 &);
 private: char m_pad[12];
 };
-class BfmeFixedStorage002CF0F0 {
-public: BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-private: char m_pad[12];
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 struct Rva004191E5 {
  Rva004191E5(const Rva004191E5 &);
  AsciiString m_00; Rva00419035 m_04; BfmeFixedStorage002CF0F0 m_10;

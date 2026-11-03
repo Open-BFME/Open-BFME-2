@@ -27,11 +27,7 @@ namespace _STL { template <> _Rb_tree_base<pair<int const ,BfmePod24>,allocator<
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod24;
 namespace _STL { template <> void allocator<_Rb_tree_node<pair<int const ,BfmePod24> > >::deallocate(_Rb_tree_node<pair<int const ,BfmePod24> > *,unsigned int) const; }
-class BfmeFixedStorage002CF0F0 {
-    char m_bytes[4];
-public:
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 class Rva004181A6 {
 public:
     Rva004181A6(const Rva004181A6 &other);

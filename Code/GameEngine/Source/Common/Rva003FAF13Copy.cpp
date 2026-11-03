@@ -9,11 +9,7 @@
 
 #include "../../Include/Common/Rva0036CA00Str.h"
 
-class BfmeFixedStorage002CF0F0 {
-public:
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other);
-    char m_bytes[4];
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 #include "../../../Libraries/Include/Lib/Region2D.h"
 

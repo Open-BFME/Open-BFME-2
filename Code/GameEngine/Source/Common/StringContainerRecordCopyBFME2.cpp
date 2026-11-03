@@ -47,11 +47,7 @@ BfmeContainerRecord00462D62::BfmeContainerRecord00462D62(const BfmeContainerReco
 template void _STL::_Construct<BfmeContainerRecord00462D62,BfmeContainerRecord00462D62>(BfmeContainerRecord00462D62*,const BfmeContainerRecord00462D62&);
 
 // Retail helper 0x002CF0F0 copies exactly 4 bytes and cannot throw.
-class BfmeFixedStorage002CF0F0 {
-    char m_bytes[4];
-public:
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 // Complete memberwise constructor at 0x002CF46E.
 struct BfmeContainerRecord002CF46E {

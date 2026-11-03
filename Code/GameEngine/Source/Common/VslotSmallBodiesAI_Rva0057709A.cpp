@@ -209,12 +209,7 @@ private:
 
 
 // 0x0057709A: derived ctor of Rva005CBA04 storing vtable 0x00C6E8A8, base temp from global 0x00E0660C, outer arg at +8.
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 extern unsigned g_Va00E0660C;
 // The retail table at RVA 0x0086E8A8: 19 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).

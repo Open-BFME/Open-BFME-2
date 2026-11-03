@@ -99,14 +99,7 @@ void WriteScriptDataChunk(DataChunkOutput &writer,ScriptList *list,Script *scrip
 // subrecord and version4 player mask. The mask helper has private ABI in
 // native3B5918..3B5994: input ECX and hidden output ESI, selected by MSVC
 // from this visible internal function and its only caller.
-class BfmeFixedStorage002CF0F0
-{
-    char m_bytes[4];
-public:
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-    BfmeFixedStorage002CF0F0() {}
-    unsigned int bits() const { return *(const unsigned int *)m_bytes; }
-};
+#include "../../../Include/Common/BfmeFixedStorage002CF0F0.h"
 class Rva003B44EE
 {
 public:

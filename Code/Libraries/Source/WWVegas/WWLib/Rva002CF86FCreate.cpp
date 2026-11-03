@@ -32,11 +32,7 @@ void *__stdcall Rva002CF86FCreate(const Rva002CF13B *src)
 // BitFlags<17> preserves the established ledger spelling, not a new claim about
 // the original template count (the verified comparator examines 21 bits).
 class WeaponTemplateSet;
-class BfmeFixedStorage002CF0F0 {
-    char m_bytes[4];
-public:
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
 template <int BitCount> class BitFlags {
 public:
     unsigned int m_flagWords[(BitCount+31)/32];

@@ -9,12 +9,7 @@ char g_00E0661C;
 // comment listing this as derived ctor with global 0x00E0661C; sole caller
 // at 0x00574971; same 49B shape as sibling Rva005756B6; neighbours share /O1.
 // Honest Rva address name.
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 class Rva005CBA04
 {
 public:

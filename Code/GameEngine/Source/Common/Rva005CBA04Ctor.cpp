@@ -14,12 +14,7 @@
 // "ToggleSelectionDetailsButton" follow the vtable but prove no donor class
 // so the honest Rva address name is used. Flags copied from neighbour
 // BitFlags11DisabilityCtors.cpp; same as FixedStorageCopyBFME2.cpp.
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 class Rva005CBA04
 {

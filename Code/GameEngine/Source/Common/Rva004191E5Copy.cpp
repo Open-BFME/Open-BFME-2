@@ -28,14 +28,7 @@ private:
 }
 typedef _STL::_Rb_tree<Rva00419035Element, Rva00419035Element, _STL::_Identity<Rva00419035Element>, _STL::less<Rva00419035Element>, _STL::allocator<Rva00419035Element> > Rva00419035;
 
-class BfmeFixedStorage002CF0F0
-{
-public:
-	BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other);
-
-private:
-	char m_pad[0xC];
-};
+#include "../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 struct Rva004191E5
 {

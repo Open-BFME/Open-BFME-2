@@ -12,11 +12,7 @@
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <map>
 class WeaponTemplateSet;
-class BfmeFixedStorage002CF0F0 {
-    char m_bytes[4];
-public:
-    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
-};
+#include "../../../../GameEngine/Include/Common/BfmeFixedStorage002CF0F0.h"
 
 template <int BitCount>
 class BitFlags

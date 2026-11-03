@@ -140,13 +140,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 extern BitFlags<11> DISABLEDMASK_ALL;
 
-class BfmeFixedStorage002CF0F0
-{
-public:
-	BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other);
-private:
-	int m_00;
-};
+#include "../../../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 class Rva004AB9D5
 {

@@ -120,12 +120,7 @@ private:
 	UnsignedInt m_words[1];
 };
 
-class BfmeFixedStorage002CF0F0
-{
-	char m_bytes[4];
-public:
-	__declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other);
-};
+#include "../../../../Include/Common/BfmeFixedStorage002CF0F0.h"
 
 class UpgradeMux
 {
