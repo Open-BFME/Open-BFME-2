@@ -3,7 +3,7 @@
 #include <vector>
 #include <string.h>
 #include "ascii_string.h"
-extern "C" void __cdecl free(void *);
+#include <stdlib.h>
 // Native vector teardown calls the game-memory wrapper at 0x30830, through
 // its existing throwing C++ view. C-linkage CRT free would select the import
 // thunk and elide the final unwind-state reset in the registration routine.
