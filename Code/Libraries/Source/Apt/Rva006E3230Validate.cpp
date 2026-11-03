@@ -152,21 +152,21 @@ void AptActionQueueC::rva006E39A0()
     int k = 0;
     if (iDelta > 0) {
         do {
-            Rva006E3230ActionFull *a = (Rva006E3230ActionFull *)rva006E3920(k);
-            int m_actionType = a->eActionType;
+            Rva006E3230ActionFull *action = (Rva006E3230ActionFull *)rva006E3920(k);
+            int m_actionType = action->eActionType;
             if (m_actionType == 1) {
-                if (!((const Rva006DBB40ShrAndField *)a->m_pValues[2])->get()) {
-                    a->m_pValues[2]->setGCMark(true);
-                    a->m_pValues[2]->unused13();
+                if (!((const Rva006DBB40ShrAndField *)action->m_pValues[2])->get()) {
+                    action->m_pValues[2]->setGCMark(true);
+                    action->m_pValues[2]->unused13();
                 }
             } else if (m_actionType == 2) {
-                if (!((const Rva006DBB40ShrAndField *)a->m_pValues[0])->get()) {
-                    a->m_pValues[0]->setGCMark(true);
-                    a->m_pValues[0]->unused13();
+                if (!((const Rva006DBB40ShrAndField *)action->m_pValues[0])->get()) {
+                    action->m_pValues[0]->setGCMark(true);
+                    action->m_pValues[0]->unused13();
                 }
-                if (!((const Rva006DBB40ShrAndField *)a->m_pValues[1])->get()) {
-                    a->m_pValues[1]->setGCMark(true);
-                    a->m_pValues[1]->unused13();
+                if (!((const Rva006DBB40ShrAndField *)action->m_pValues[1])->get()) {
+                    action->m_pValues[1]->setGCMark(true);
+                    action->m_pValues[1]->unused13();
                 }
             } else {
                 g_bfmeAptAssertAtE17734("NOT_REACHED && \"Encountered invalid pActionPool->eActionType\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x7AA);

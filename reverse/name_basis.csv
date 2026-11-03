@@ -7199,3 +7199,12 @@ local,DeblockNonFilteredBand_C::p2,DeblockNonFilteredBand_C::rowOffset2,inferred
 local,DeblockNonFilteredBand_C::p3,DeblockNonFilteredBand_C::rowOffset3,inferred,agree:nl-cafdfd0ac298,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
 local,DeblockNonFilteredBand_C::p4,DeblockNonFilteredBand_C::rowOffset4,inferred,agree:nl-ee66cb41dd7b,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
 local,DeblockNonFilteredBand_C::p5,DeblockNonFilteredBand_C::rowOffset5,inferred,agree:nl-738e9a5e7501,Code/Libraries/Source/VP6/DeblockNonFilteredBandC.cpp,0x001BE770
+member,TextureSurfaceInfo::m_dim30,TextureSurfaceInfo::m_depth,inferred,agree:nl-f8f1a58d2afc,Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp,
+member,TextureSurfaceInfo::m_format4C,TextureSurfaceInfo::m_format,inferred,agree:nl-0ac4d4933f06,Code/Libraries/Source/WWVegas/WW3D2/Rva00132B83Finish.cpp,
+local,LivingWorldRegion::rva003F2150::tmpl,LivingWorldRegion::rva003F2150::buildingTemplate,inferred,agree:nl-f297b1676492,Code/GameEngine/Source/Common/rva003F2150Rva003F2150Farm.cpp,0x003F2150
+local,WeaponModeSpecialPowerUpdateBase::rva00589135::p1,WeaponModeSpecialPowerUpdateBase::rva00589135::outerObject,inferred,agree:nl-25a8e8d86daf,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x00589135
+local,WeaponModeSpecialPowerUpdateBase::rva0058916B::p1,WeaponModeSpecialPowerUpdateBase::rva0058916B::outerObject,inferred,agree:nl-85c9f73349c7,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x0058916B
+local,WeaponModeSpecialPowerUpdateBase::rva005891A3::p1,WeaponModeSpecialPowerUpdateBase::rva005891A3::outerObject,inferred,agree:nl-a5e92e1580e6,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x005891A3
+local,WeaponModeSpecialPowerUpdateBase::rva005891DB::p1,WeaponModeSpecialPowerUpdateBase::rva005891DB::outerObject,inferred,agree:nl-14a0495f3003,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x005891DB
+local,WeaponModeSpecialPowerUpdateBase::rva005893AD::p1,WeaponModeSpecialPowerUpdateBase::rva005893AD::outerObject,inferred,agree:nl-8a53d3846dc1,Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBase.cpp,0x005893AD
+local,AptActionQueueC::rva006E39A0::a,AptActionQueueC::rva006E39A0::action,inferred,agree:nl-6860655f705b,Code/Libraries/Source/Apt/Rva006E3230Validate.cpp,0x006E39A0

@@ -10,11 +10,11 @@ struct TextureSurfaceInfo {
 	int m_pad10[6];
 	int m_width;
 	int m_height;
-	int m_dim30;
+	int m_depth;
 	int m_pad34[4];
 	int m_mipLevelCount;
 	int m_pad48;
-	int m_format4C;
+	int m_format;
 };
 class TextureBaseClass { public: void Add_Ref(); void Release_Ref(); };
 class TextureClass : public TextureBaseClass {
@@ -30,8 +30,8 @@ public:
 		if (!Is_Initialized())
 			return 0;
 		TextureSurfaceInfo *surface = m_surface;
-		unsigned mem = Get_Bits_Per_Pixel((WW3DFormat)m_surface->m_format4C)
-			* m_surface->m_dim30 * m_surface->m_height * m_surface->m_width >> 3;
+		unsigned mem = Get_Bits_Per_Pixel((WW3DFormat)m_surface->m_format)
+			* m_surface->m_depth * m_surface->m_height * m_surface->m_width >> 3;
 		if (m_surface->m_type0C == 2)
 			mem *= 6;
 		if (surface->m_mipLevelCount != 1)

@@ -363,10 +363,10 @@ void LivingWorldRegion::rva003F2150(Rva003F7BB4 *bonus)
 	((Rva002E02F0 *)TheLivingWorldBuildingTemplateStore)->rva002E02F0(owner->getScore(), &buildings);
 	_STL::vector<ScienceType>::iterator end = buildings.end();
 	for (_STL::vector<ScienceType>::iterator b = buildings.begin(); b != end; ++b) {
-		Rva003F2150Template *tmpl = (Rva003F2150Template *)((Rva002B6498 *)TheLivingWorldBuildingTemplateStore)->rva002B6498((NameKeyType)*b);
-		if (tmpl && tmpl->m_kind == 1 && tmpl->m_09) {
+		Rva003F2150Template *buildingTemplate = (Rva003F2150Template *)((Rva002B6498 *)TheLivingWorldBuildingTemplateStore)->rva002B6498((NameKeyType)*b);
+		if (buildingTemplate && buildingTemplate->m_kind == 1 && buildingTemplate->m_09) {
 			Rva003F7B22Element entry(new ArmySummaryEntry);
-			entry.m_entry->m_name = tmpl->m_name;
+			entry.m_entry->m_name = buildingTemplate->m_name;
 			bonus->rva003F7BB4(entry);
 		}
 	}

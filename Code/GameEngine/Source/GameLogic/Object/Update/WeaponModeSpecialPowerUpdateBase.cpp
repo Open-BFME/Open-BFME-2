@@ -246,8 +246,8 @@ void WeaponModeSpecialPowerUpdateBase::rva00589135(int commandOptions)
 {
 	if (m_08 > 0)
 		return;
-	void *p1 = *(void *const *)((const char *)this - 0x1c);
-	BitFlags<11> *flags = (BitFlags<11> *)((char *)p1 + 0x1c8);
+	void *outerObject = *(void *const *)((const char *)this - 0x1c);
+	BitFlags<11> *flags = (BitFlags<11> *)((char *)outerObject + 0x1c8);
 	if (flags->any())
 		return;
 	void *moduleData = *(void *const *)((const char *)this - 0x20);
@@ -260,8 +260,8 @@ void WeaponModeSpecialPowerUpdateBase::rva0058916B(int arg1, int commandOptions)
 {
 	if (m_08 > 0)
 		return;
-	void *p1 = *(void *const *)((const char *)this - 0x1c);
-	BitFlags<11> *flags = (BitFlags<11> *)((char *)p1 + 0x1c8);
+	void *outerObject = *(void *const *)((const char *)this - 0x1c);
+	BitFlags<11> *flags = (BitFlags<11> *)((char *)outerObject + 0x1c8);
 	if (flags->any())
 		return;
 	void *moduleData = *(void *const *)((const char *)this - 0x20);
@@ -274,8 +274,8 @@ void WeaponModeSpecialPowerUpdateBase::rva005891A3(int arg1, int commandOptions)
 {
 	if (m_08 > 0)
 		return;
-	void *p1 = *(void *const *)((const char *)this - 0x1c);
-	BitFlags<11> *flags = (BitFlags<11> *)((char *)p1 + 0x1c8);
+	void *outerObject = *(void *const *)((const char *)this - 0x1c);
+	BitFlags<11> *flags = (BitFlags<11> *)((char *)outerObject + 0x1c8);
 	if (flags->any())
 		return;
 	void *moduleData = *(void *const *)((const char *)this - 0x20);
@@ -288,8 +288,8 @@ void WeaponModeSpecialPowerUpdateBase::rva005891DB(int loc, int angle, int comma
 {
 	if (m_08 > 0)
 		return;
-	void *p1 = *(void *const *)((const char *)this - 0x1c);
-	BitFlags<11> *flags = (BitFlags<11> *)((char *)p1 + 0x1c8);
+	void *outerObject = *(void *const *)((const char *)this - 0x1c);
+	BitFlags<11> *flags = (BitFlags<11> *)((char *)outerObject + 0x1c8);
 	if (flags->any())
 		return;
 	void *moduleData = *(void *const *)((const char *)this - 0x20);
@@ -314,8 +314,8 @@ int WeaponModeSpecialPowerUpdateBase::rva005893AD()
 	if (m_08 > 0)
 		goto gameLogic;
 	{
-		void *p1 = *(void *const *)((const char *)this - 0x1c);
-		BitFlags<11> *flags = (BitFlags<11> *)((char *)p1 + 0x1c8);
+		void *outerObject = *(void *const *)((const char *)this - 0x1c);
+		BitFlags<11> *flags = (BitFlags<11> *)((char *)outerObject + 0x1c8);
 		if (!flags->any())
 			return m_04;
 	}
