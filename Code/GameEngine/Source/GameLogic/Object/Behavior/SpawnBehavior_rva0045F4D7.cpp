@@ -48,11 +48,8 @@ struct Helper0045F4D7
 	float m_best;
 };
 
-static void callback0045F4D7(Object *obj, void *userData)
-{
-	(void)obj;
-	(void)userData;
-}
+// Retail's iterateObjects callback here is 0x0045F39B (SpawnBehaviorFindClosestOrphan.cpp).
+int findClosestOrphan(Object *obj, void *userData);
 
 class SpawnBehavior
 {
@@ -80,7 +77,7 @@ Object *SpawnBehavior::rva0045F4D7()
 		if (last.compare(*it) == 0)
 			continue;
 		helper.m_template = (void *)TheThingFactory->findTemplate(*it);
-		player->iterateObjects((int (*)(Object *, void *))callback0045F4D7, &helper);
+		player->iterateObjects(findClosestOrphan, &helper);
 		last = *it;
 	}
 	return helper.m_result;
