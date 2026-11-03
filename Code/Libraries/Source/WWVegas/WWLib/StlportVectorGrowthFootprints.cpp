@@ -46,7 +46,7 @@ namespace _STL { template <> void __destroy_aux<BfmePod128 *>(BfmePod128 *,BfmeP
 // 32-byte element; layout owner stlport_bfmeassignrecord32_destroy.cpp.
 struct BfmeAssignRecord32 { char m_pad[32]; public: BfmeAssignRecord32(const BfmeAssignRecord32 &); ~BfmeAssignRecord32(); };
 // 8-byte element; layout owner StlportVectorDtorChains.cpp.
-class Rva002390CB { char m_pad[8]; public: Rva002390CB(const Rva002390CB &); ~Rva002390CB(); };
+#include "../../../../GameEngine/Include/Common/Rva002390CB.h"
 // 20-byte element; layout owner Rva003371B1Copy.cpp.
 class Rva003371B1 { char m_pad[20]; public: Rva003371B1(const Rva003371B1 &); ~Rva003371B1(); };
 // 20-byte element; layout owner stlport_vector_stringrecord_5ed5f3_allocate_copy.cpp.

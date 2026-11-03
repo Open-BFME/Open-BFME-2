@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Oy-
+// cl: /DNDEBUG /MD /EHsc /Oy- C:/Program Files/Git/ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // Twenty-three keyed Drawable lookups, each 25 bytes: forward the hidden
 // return pointer and a constant key (0x21..0x37) to the Drawable member at
@@ -10,15 +10,7 @@
 // identify them, the names stay address-derived. Flags follow the Drawable
 // units; the wrappers compile identically without /EHsc.
 
-class Rva002390CB
-{
-public:
-	Rva002390CB(const Rva002390CB &other);
-	~Rva002390CB();
-
-private:
-	char m_pad[8];
-};
+#include "../../Include/Common/Rva002390CB.h"
 
 #include "../../Include/GameClient/Drawable.h"
 
