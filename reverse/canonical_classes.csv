@@ -434,3 +434,4 @@ Rva0052413E,Code/GameEngine/Include/Common/Rva0052413E.h,existing header; contra
 TreeKey00242F5E,Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h,existing header; contract class_contracts/TreeKey00242F5E.json; 21/39 sampled units adopt
 BfmeResetTextureRef,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h,existing header; contract class_contracts/BfmeResetTextureRef.json; 28/37 sampled units adopt
 Rva006C1F60,Code/GameEngine/Include/Common/Rva006C1F60.h,existing header; contract class_contracts/Rva006C1F60.json; 19/33 sampled units adopt
+Rva003623E5Member,Code/GameEngine/Include/GameLogic/Module/Rva003623E5Member.h,existing header; contract class_contracts/Rva003623E5Member.json; 50/63 sampled units adopt
