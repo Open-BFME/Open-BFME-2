@@ -196,12 +196,7 @@ public:
 	unsigned char m_locoSet[4];	// +0x1CC
 };
 
-class Object
-{
-public:
-	unsigned char m_pad000[0x258];
-	AIUpdateInterface *m_ai;	// +0x258
-};
+#include "../Object/object.h"
 
 class BfmeX1035
 {

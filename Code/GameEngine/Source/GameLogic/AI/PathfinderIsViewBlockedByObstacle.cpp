@@ -8,14 +8,7 @@
 // Structural inference: this is the same forwarding helper; retail has no
 // null check on objOther, unlike the donor's source-level guard.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Object
-{
-public:
-    unsigned char pad[0x38];
-    Coord3D position;
-    bool isSignificantlyAboveTerrain(void) const;
-    Coord3D const *getPosition(void) const { return &position; }
-};
+#include "../Object/object.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
 bool Pathfinder::isViewBlockedByObstacle(Object const *obj, Object const *objOther)
 {

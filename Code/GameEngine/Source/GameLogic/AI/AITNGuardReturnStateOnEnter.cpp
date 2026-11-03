@@ -74,29 +74,7 @@ template <> class VSlotsC<0>
 {
 };
 #include "../../../Include/GameLogic/Module/ContainModule.h"
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAI() { return m_ai; }
-	// Retail inlines this +0x258 load; suppress the surplus external copy.
-	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	Player *getControllingPlayer() const;
-	ContainModuleInterface *getContain() const { return m_contain; }
-	// Retail inlines this +0x274 load, as in AIIdleState::update.
-	__declspec(dllimport) __forceinline Object *getContainedBy() { return m_containedBy; }
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0x74 - 0x44];
-	ObjectID m_id; // +0x74
-	unsigned char m_pad78[0x250 - 0x78];
-	ContainModuleInterface *m_contain; // +0x250
-	unsigned char m_pad254[0x258 - 0x254];
-	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x274 - 0x25C];
-	Object *m_containedBy; // +0x274
-};
+#include "../Object/object.h"
 struct TAiData
 {
 	unsigned char m_pad00[0x40];

@@ -28,28 +28,10 @@ public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-
-private:
-	char m_pad00[4];
-	ThingTemplate *m_template;
-};
+#include "../Object/object.h"
 
 class AIGroup;
 
-class Object : public Thing
-{
-public:
-	void *getAI() const { return m_ai; }
-	void enterGroup(AIGroup *group);
-
-private:
-	unsigned char m_pad[0x258 - 8];
-	void *m_ai;
-};
 
 class AIGroup
 {

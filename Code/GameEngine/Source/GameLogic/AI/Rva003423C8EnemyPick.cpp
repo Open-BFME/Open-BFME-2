@@ -9,11 +9,7 @@
 // object's vision range. It lies between AIFaceState::onExit and
 // AIRampageState::xfer; its owner and name are not established, so they are
 // address-derived.
-class Object
-{
-public:
-	float getVisionRange() const;
-};
+#include "../Object/object.h"
 
 class AttackPriorityInfo;
 class PartitionFilter;

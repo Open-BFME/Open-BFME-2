@@ -67,20 +67,7 @@ enum WeaponLockType
 class Drawable;
 class AIUpdateInterface;
 
-class Object
-{
-public:
-	Drawable *getDrawable() const;
-	Bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
-	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAI() { return m_ai; }
-
-private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 
 // Retail calls the list destructor out of line (the shared pointer-list
 // destructor 0x00239AF4); declaring it here keeps /O1 from expanding it.

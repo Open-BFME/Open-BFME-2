@@ -42,14 +42,7 @@ public:
 	unsigned char m_pad[0x3BA];
 	unsigned char m_canPathThroughUnits; // +0x3BA
 };
-class Object
-{
-public:
-	AIUpdateInterface *getAI() { return m_ai; }
-	DockUpdateInterface *getDockUpdateInterface();
-	unsigned char m_objectFields00[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 class StateMachine
 {
 public:

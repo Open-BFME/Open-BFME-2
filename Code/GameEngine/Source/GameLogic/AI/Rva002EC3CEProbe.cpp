@@ -25,11 +25,7 @@ class Object;
 class Rva002C9400ByteField;
 #include "../../../Include/GameLogic/Weapon.h"
 
-class Object
-{
-public:
-	int rva0028B511() const;
-};
+#include "../Object/object.h"
 
 struct Rva002EC3CEInner
 {

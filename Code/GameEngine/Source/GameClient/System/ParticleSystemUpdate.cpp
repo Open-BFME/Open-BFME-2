@@ -47,11 +47,7 @@ private:
 	Bool m_visible;		// +0x441
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
+#include "../../GameLogic/Object/object.h"
 
 enum CellShroudStatus
 {
@@ -61,15 +57,6 @@ enum CellShroudStatus
 	CELLSHROUD_COUNT
 };
 
-class Object : public Thing
-{
-public:
-	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-private:
-	char pad[0x8];
-	Matrix3D m_transform;	// +0x8
-};
 
 class GameClient
 {

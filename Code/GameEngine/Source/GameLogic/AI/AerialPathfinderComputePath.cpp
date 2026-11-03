@@ -61,12 +61,7 @@ inline float capExtension(float value) {
     if (!(value > cap)) cap = value;
     return cap;
 }
-class Object {
-public:
-    void rva0028ACEE(int, int);
-    void Get2DCenterVectorTo(Coord3D *, const Coord3D *) const;
-    bool isSignificantlyAboveTerrain() const;
-};
+#include "../Object/object.h"
 class LocomotorSet;
 #include "../../../Include/GameLogic/AIPathfind.h"
 class AI;

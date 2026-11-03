@@ -28,11 +28,7 @@ public:
 class ControlBar;
 extern ControlBar *TheControlBar;
 
-class Object
-{
-public:
-	const AsciiString *rva00290E67() const; // Object::getCommandSetString
-};
+#include "../Object/object.h"
 
 struct ObjectListNode
 {

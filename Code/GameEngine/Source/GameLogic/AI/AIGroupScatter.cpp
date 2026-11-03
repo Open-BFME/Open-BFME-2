@@ -67,29 +67,7 @@ private:
 	UnsignedInt m_kindOf;	// +0x108
 };
 
-class Object
-{
-public:
-	Bool rva002907A1();
-	void rva0028AD32();
-	Int rva0028B511() const;	// the pathfind layer (as Object::getLayer callers)
-	UnsignedInt isKindOf(UnsignedInt mask) const { return m_template->isKindOf(mask); }
-	const Coord3D *getPosition() const { return &m_position; }
-	// Retail inlines this +0x258 load; suppress the surplus external copy.
-	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	AIUpdateInterface *getAI() { return m_ai; }
-
-private:
-	char m_pad0[4];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad8[0x38 - 0x08];
-	Coord3D m_position;
-	char m_pad44[0x1C8 - 0x44];
-	unsigned char m_disabledMask[0x258 - 0x1C8];
-	AIUpdateInterface *m_ai;
-	char m_pad25C[0x410-0x25C];
-	UnsignedInt m_formationID;
-};
+#include "../Object/object.h"
 
 class AIGroup
 {

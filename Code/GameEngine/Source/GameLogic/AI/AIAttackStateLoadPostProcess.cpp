@@ -21,13 +21,7 @@ public:
 
 #include "../../../Include/GameLogic/Weapon.h"
 
-class Object
-{
-public:
-    const Weapon *getCurrentWeapon(WeaponSlotType *) const;
-    char m_unrecovered000[0x304];
-    Team *m_team;
-};
+#include "../Object/object.h"
 
 class Rva0028B7B5CmpBoolField
 {

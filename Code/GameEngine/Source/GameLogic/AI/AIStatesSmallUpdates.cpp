@@ -119,18 +119,7 @@ private:
 	unsigned char m_pad1F4[0x3BA - 0x1F4];
 	Bool m_canPathThroughUnits; // +0x3BA
 };
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAI() { return m_ai; }
-	void setEffectivelyDead(bool dead);
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0x258 - (0x38 + sizeof(Coord3D))];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 class StateMachine
 {
 public:

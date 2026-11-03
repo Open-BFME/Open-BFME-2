@@ -41,20 +41,7 @@ extern unsigned char g_00E03745;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAI() { return m_ai; }
-	int rva0028B511() const;
-	void rva0028ACEE(int pos, int layer);
-	Bool GetGoalPosition(Coord3D *pos) const;
-private:
-	unsigned char m_pad000[0x38];
-	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0x258 - 0x44];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 
 // Retail 0x002EF3D9: forwards (object, object position, buffer) to
 // Pathfinder::_GetOverlapUnits.

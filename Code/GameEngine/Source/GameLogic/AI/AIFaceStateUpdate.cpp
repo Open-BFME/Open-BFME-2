@@ -48,21 +48,7 @@ public:
 	virtual void bfmeStopTurn() = 0;
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class Object
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	Real getOrientation() const { return m_orientation; }
-	AIUpdateInterface *getAI() { return m_ai; }
-	Real GetRelativeAngle(const Coord3D *pos) const;
-	void *rva0029439D();
-private:
-	unsigned char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	Real m_orientation; // +0x44
-	unsigned char m_pad48[0x258 - 0x48];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 class StateMachine
 {
 public:

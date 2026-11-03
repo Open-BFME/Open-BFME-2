@@ -22,11 +22,7 @@ struct ObjWithPos
 	Coord3D pos;
 };
 
-class Object
-{
-public:
-	Int rva0028B511() const;
-};
+#include "../Object/object.h"
 
 #include "../../../Include/GameLogic/PathfindCell.h"
 

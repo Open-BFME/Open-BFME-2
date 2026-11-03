@@ -43,13 +43,7 @@ public:
 	virtual bool slot110() = 0;
 };
 
-class Object
-{
-public:
-	bool rva002931BA();
-	char m_pad0[0x258];
-	AIUpdateInterface *m_ai; // +0x258
-};
+#include "../Object/object.h"
 
 bool Rva00547263(Object *p, const Coord3D *q);
 

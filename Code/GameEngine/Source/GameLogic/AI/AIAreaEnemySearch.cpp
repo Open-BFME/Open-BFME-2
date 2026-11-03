@@ -208,26 +208,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_25 = 0x25
 };
 
-class Object
-{
-public:
-	bool isAbleToAttack() const;	// 0x00290B73
-	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
-	Object *adjustVictim(Object *owner, bool useWeaponRange, int index);	// 0x0028CCB9
-	Real rva00263763(const void *other) const;	// 0x00263763
-
-	const Coord3D *getPosition() const { return &m_pos; }
-	ContainModuleInterface *getContain() const { return m_contain; }
-	Object *getContainedBy() const { return m_containedBy; }
-private:
-	void *m_vtable;
-	char m_pad004[0x38 - 0x04];
-	Coord3D m_pos;	// +0x38
-	char m_pad044[0x250 - 0x44];
-	ContainModuleInterface *m_contain;	// +0x250
-	char m_pad254[0x274 - 0x254];
-	Object *m_containedBy;	// +0x274
-};
+#include "../Object/object.h"
 
 struct TAiData
 {
