@@ -33,6 +33,22 @@ shape outside the module tree, is recorded under LINK-065.)
   element (36 bytes; the byte-exact strides confirm it). 50 more
   present-unmatched hatches (and one `#pragma optimize`) removed. All LINK
   in preview.
+  **2026-11-04 (seat halilkkaya-lk21, census index 8661f15284):**
+  - DeliverPayloadAIUpdate.cpp (a220f68d19, 0 -> 14 B). Its last consumer
+    was InGameUISuperweapons.cpp's out-of-line RadiusDecalTemplate copy
+    constructor; that unit now generates the implicit copy over the
+    canonical two-string base.
+  - SpectreGunshipUpdate.cpp (1197d32fab, 0 -> 10 B). Its protected inline
+    row is kept by one call from a static member of a never-constructed
+    derived struct, marked absent-from-retail. A pointer constant to a member
+    of this multiply-derived class compiled to a .CRT$XCU dynamic
+    initializer, so the pointer anchor was refused.
+
+  Both units LINK in preview. Details are in
+  `real-link-blockers-in-gamelogic-gamenetwork-2026-11-03-seat-halilkkaya.md`.
+  JetAIUpdate and DumbProjectileBehavior stay parked: `Matrix3D(bool)` 0x0004C91A
+  is still only `proposed`, and `getUpdatePhase` 0x0022C4CB still has no
+  approved unit.
 - **Remaining / next check:** same test passes for SpectreGunshipUpdate,
   RailedTransportDockUpdate, DeliverPayloadAIUpdate, JetAIUpdate,
   FlightDeckBehavior, DumbProjectileBehavior, HelicopterSlowDeathUpdate and

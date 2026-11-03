@@ -112,3 +112,75 @@ emitter), then rebuild, compare the old and new objects' undefined sets, run the
     retail outside slot 2 (the ctor unit's `??_7BattlePlanUpdate@@6BObjectModule@@@`: 6 slots agree,
     4 differ; `??_7RadarUpdate@@6BObjectModule@@@`: 7 agree, 3 differ). The to-class slot check
     requires those slots to agree before it accepts the move.
+
+#### Seat halilkkaya-lk21 follow-up (2026-11-04, real link at `4272054b98`, census index `8661f15284`)
+
+**Repaired: 23 names.** Every drop below had an orphan scan, and every COMDAT the object held first
+in link order had a joint `link_check` over all of its definers and referrers (91 units, 0 LINKS ->
+not linking).
+
+- **BodyModuleCtor.cpp, 2 names (82cbff63b5).**
+  - `getBody` is retail BI-table 0x00C5AD78 slot 0 = 0x002533D3. `vslot12` is primary 0x00C5AE68
+    slot 12 = 0x0050B5C6.
+  - Both are defined in the ctor unit and rowed as ICF twins (fold-proof CreateObjectDie.cpp /
+    VtableConstantPredicates.cpp).
+  - The StarkillerHDX claims on both RVAs had expired.
+- **DeliverPayloadAIUpdate.cpp, 19 names (a220f68d19).**
+  - lk19's banked reduced text is now live.
+  - InGameUISuperweapons.cpp no longer declares RadiusDecalTemplate's copy ctor out of line. Its
+    private view now derives from canonical `Common/BfmeStringRecord000B94D2.h` plus the canonical
+    tail fields, so the compiler generates the copy where the hash_map node construction needs it.
+  - Retail's copy is 0x0029E067, reached through operator[] 0x002A3FAF -> pair 0x0029FB63. It is
+    still rowed under the placeholders `Rva0029E067` / `Rva002A3FAFRecord`. Renaming that owner to
+    `??0RadiusDecalTemplate@@QAE@ABV0@@Z` is open naming work.
+  - `header_adopt_lane accept --class BfmeStringRecord000B94D2` for InGameUISuperweapons was refused
+    before this landed: the census still had DeliverPayload's copy first. Retry it after the next
+    census.
+  - Locomotor::setFlag's kept copy is now AIFollowPathStateMethods' retail one. The five units
+    fa51ed6f74 protected all still LINK.
+- **SpectreGunshipUpdate.cpp, 2 names (1197d32fab).**
+  - The ZH `initiateIntentToDoSpecialPower` is gone. It also emitted the census's one wrong
+    `Locomotor::setFlag` copy.
+  - The protected inline row `setLogicalStatus` (0x00238D83) is kept by a derived struct's static
+    member call (absent-from-retail). A member-pointer constant became a .CRT$XCU dynamic
+    initializer for this multiply-derived class.
+  - Unit 0 -> 10 B LINKS.
+- Hatch register -4 present_unmatched (8efc5bbe6b).
+
+**Checked, not repaired (what each needs):**
+
+- **BoneFXDamage.cpp (3) and LockWeaponCreate.cpp (2):** the retail primary tables carry BFME 2's
+  slot order, not Zero Hour's.
+  - BoneFXDamage 0x00C598B4:
+    - slot 1 loadPostProcess 0x00497805, placeholder `Rva00497805`;
+    - slot 3 xfer 0x0045CE8C, placeholder `Rva0045CE8C`;
+    - no crc slot.
+  - LockWeaponCreate 0x00C592FC:
+    - slot 1 is the same 0x00497805;
+    - slot 3 xfer 0x004851E3.
+  - BFME 2's DamageModule (0x00C598E4) has no crc slot either. Its loadPostProcess is 0x0058B03E
+    and its xfer 0x004CE56D (`Rva004CE56D`). No object defines `?xfer@` / `?loadPostProcess@` /
+    `?crc@DamageModule@@`.
+  - 0x00497805 sits in both an unrelated DamageModule-derived table and a CreateModule-derived one,
+    so `--to-class` refuses it as a fold. Its owning base (or fold proof) comes first. Then each
+    unit's view needs retail's slot order (header lane) before its ZH crc/xfer bodies can go.
+- **RailedTransportDockUpdate.cpp (11):** 0x004B01D9 has one reference in the image: slot 3 of
+  table VA 0x00C562D8.
+  - That table is installed by ToggleMountedSpecialAbilityUpdate's ctor (0x004ADAB5), by
+    SpecialDisguiseUpdate's ctor (0x004B0292) and by two ModuleUpdateDtors.cpp dtors.
+  - Slot 9 of the same table is getUpdate 0x002533D3. So it is a BehaviorModuleInterface table of
+    those classes' common base, and slot 3 is that base's interface getter (BFME 2 order, one slot
+    off ZH's from getUpdate on).
+  - The class and getter name must be settled before the Railed dtor/vtable can go.
+- **EvacuateDamageCtorModuleFactoryBody.cpp (1):** retail `~EvacuateDamage` 0x0002CD7B calls
+  0x0002CCC3 as its base dtor.
+  - That address is rowed as a STLport hashtable dtor in INI.cpp. `??1PB_DeepBase@@UAE@XZ` is only
+    a pin there.
+  - The EH funclet 0x0078F58B jumps to 0x004B96CC (`??1DamageModule` pin, row `Rva004B96CC`).
+  - The base's real identity (and whether 0x0002CCC3 is a fold) is open.
+- **DumbProjectileBehavior (10), JetAIUpdate (9):** still parked under LINK-072.
+  - 0x0022C4CB has no approved unit.
+  - 0x0004C91A is still `proposed`.
+- **AIUpdate.cpp (5):** the file is free, but `class:AIUpdateInterface` is held by StarkillerHDX.
+- **BFMENetwork (7), ConnectionManager's last 2, BattlePlan/Radar crc:** no change from the
+  sections above. Identity work is still required, and class:BattlePlanUpdate was still held.
