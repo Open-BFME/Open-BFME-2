@@ -5,11 +5,17 @@
 // The scalar at0C remains unnamed. Position construction is a12B member
 // wrapper around canonical Coord3D: native initializes it after the count.
 #include <list>
+#if !defined(__SNAPSHOT_H_)
+#ifndef BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT 1
+#define BFME_SCORED_KILL_RESTORE_NAME_SLOT
+#endif
+#ifndef BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS 1
+#define BFME_SCORED_KILL_RESTORE_CAPITALIZED_SLOTS
+#endif
+#endif
 #include "Common/Snapshot.h"
-#undef BFME_SNAPSHOT_CAPITALIZED_SLOTS
-#undef BFME_SNAPSHOT_NAME_SLOT
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 class Rva00360D26Member {
 public:
@@ -30,9 +36,30 @@ public:
  ScoredKillTracker(unsigned,const Rva00360D26Member &,unsigned);
  ScoredKillTracker(const ScoredKillTracker &);
  virtual ~ScoredKillTracker();
+ // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
  virtual void LoadPostProcess();
+#else
+ virtual void loadPostProcess();
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+ virtual const char *GetSnapshotName();
+#else
  virtual const char *GetSnapshotName() const;
+#endif
+#else
+ virtual void crc(Xfer *);
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+ virtual void DoXfer(Xfer &);
+#else
  virtual void DoXfer(Xfer *);
+#endif
+#else
+ virtual void xfer(Xfer *);
+#endif
  // Native55A892..55A8E2 filters by the20-player mask at0C and then
  // applies the indexed ObjectFilter at8 with the tracked owner at14.
  // Its original method name remains unknown. Nonvirtual; layout unchanged.
@@ -55,4 +82,12 @@ private:
  ScoredKillTrackerPosition m_position;
 };
 typedef char ScoredKillTrackerSizeIs44[sizeof(ScoredKillTracker)==44?1:-1];
+#ifdef BFME_SCORED_KILL_RESTORE_NAME_SLOT
+#undef BFME_SCORED_KILL_RESTORE_NAME_SLOT
+#undef BFME_SNAPSHOT_NAME_SLOT
+#endif
+#ifdef BFME_SCORED_KILL_RESTORE_CAPITALIZED_SLOTS
+#undef BFME_SCORED_KILL_RESTORE_CAPITALIZED_SLOTS
+#undef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#endif
 #endif

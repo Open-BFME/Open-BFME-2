@@ -14,7 +14,9 @@
 #if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT) || defined(BFME_SNAPSHOT_REFERENCE_XFER) || defined(BFME_SNAPSHOT_CONSTRUCTOR_ONLY)
 #error LivingWorldPlayer requires the complete native Snapshot profile
 #endif
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
+#endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 class Xfer;
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"

@@ -1,15 +1,11 @@
 #pragma once
 // BFME2 bounded retail ABI. See reverse/attempt_support/streakdraw-canonical-qc10-20261031/.
 // Snapshot's established name-slot surface matches the native slot2 getter.
-#ifndef BFME_SNAPSHOT_NAME_SLOT
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_STREAK_RESTORE_NAME_SLOT
 #endif
 #include "../../../../../../GameEngine/Include/Common/Module.h"
-#ifdef BFME_STREAK_RESTORE_NAME_SLOT
-#undef BFME_SNAPSHOT_NAME_SLOT
-#undef BFME_STREAK_RESTORE_NAME_SLOT
-#endif
 class Thing;
 class Drawable;
 class BfmeStreakObject;
@@ -35,9 +31,30 @@ public:
  DrawModule(Thing *,const ModuleData *);
 protected:
  virtual ~DrawModule();
+ // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+ virtual void LoadPostProcess(); //1
+#else
  virtual void loadPostProcess(); //1
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+ virtual const char *GetSnapshotName(); //2
+#else
  virtual const char *GetSnapshotName() const; //2
+#endif
+#else
+ virtual void crc(Xfer *); //2
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+ virtual void DoXfer(Xfer &); //3
+#else
+ virtual void DoXfer(Xfer *); //3
+#endif
+#else
  virtual void xfer(Xfer *); //3
+#endif
 private:
  virtual void _bfme_draw_slot11();
  virtual void _bfme_draw_slot12();
@@ -101,9 +118,29 @@ public:
  virtual NameKeyType getModuleNameKey() const; //4
  virtual void Rva000CFF4C(bool); //16, native CFF4C
 protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+ virtual void LoadPostProcess(); //1
+#else
  virtual void loadPostProcess(); //1
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+ virtual const char *GetSnapshotName(); //2
+#else
  virtual const char *GetSnapshotName() const; //2
+#endif
+#else
+ virtual void crc(Xfer *); //2
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+ virtual void DoXfer(Xfer &); //3
+#else
+ virtual void DoXfer(Xfer *); //3
+#endif
+#else
  virtual void xfer(Xfer *); //3
+#endif
 public:
  // Existing nonvirtual owned spellings do not admit additional virtual providers.
  void rva000D0091();
@@ -115,3 +152,7 @@ private:
  BfmeStreakObject *m_streak; //C
  TextureClass *m_texture; //10: storage projection only, lifetime not reconstructed here
 };
+#ifdef BFME_STREAK_RESTORE_NAME_SLOT
+#undef BFME_SNAPSHOT_NAME_SLOT
+#undef BFME_STREAK_RESTORE_NAME_SLOT
+#endif

@@ -61,6 +61,8 @@ struct Coord3D
 	void set(float ax, float ay, float az) { x = ax; y = ay; z = az; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
 };
+// Retail slot 2 is the name getter 0x0048BDAD, not crc.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free

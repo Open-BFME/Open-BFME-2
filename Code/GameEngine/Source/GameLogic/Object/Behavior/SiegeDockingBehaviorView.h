@@ -2,7 +2,9 @@
 
 #include <vector>
 // BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
+#endif
 #include "../../../../Include/Common/ObjectModule.h"
 
 enum NameKeyType { NK_UNKNOWN = 0 };

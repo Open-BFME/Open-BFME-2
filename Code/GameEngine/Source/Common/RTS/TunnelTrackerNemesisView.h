@@ -6,7 +6,9 @@
 
 #include <list>
 #include "../GameLogicObjectLookupView.h"
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
+#endif
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 // _List_iterator comparisons otherwise instantiate the base-class
@@ -75,9 +77,30 @@ public:
     void updateNemesis(const Object *target);
 protected:
     virtual ~TunnelTracker();
+    // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+    virtual void LoadPostProcess();
+#else
     virtual void loadPostProcess();
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+    virtual const char *GetSnapshotName();
+#else
     virtual const char *GetSnapshotName() const;
+#endif
+#else
+    virtual void crc(Xfer *xfer);
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+    virtual void DoXfer(Xfer &xfer);
+#else
+    virtual void DoXfer(Xfer *xfer);
+#endif
+#else
     virtual void xfer(Xfer *xfer);
+#endif
 private:
     // The contain list's sentinel node, walked directly by iterateContained.
     TunnelContainedNode *containHead() const { return (TunnelContainedNode *)m_containList._M_node._M_data; }

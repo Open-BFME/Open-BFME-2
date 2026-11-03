@@ -3,7 +3,9 @@
 // Existing native ArmySummary layout shared by the provider and query callers.
 #include <vector>
 #include "ascii_string.h"
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT 1
+#endif
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include <stdlib.h>
 struct TargetRef00217D4C { void* vtable; int references; };
@@ -39,11 +41,32 @@ enum ObjectID;
 class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:
  virtual ~ArmySummary();
+ // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
  // ?ArmySummary::loadPostProcess present-unmatched
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+ virtual void LoadPostProcess() {}
+#else
  virtual void loadPostProcess() {}
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+ virtual const char *GetSnapshotName();
+#else
  virtual const char *GetSnapshotName() const;
+#endif
+#else
+ virtual void crc(Xfer *);
+#endif
 protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+ virtual void DoXfer(Xfer &);
+#else
+ virtual void DoXfer(Xfer *);
+#endif
+#else
  virtual void xfer(Xfer *);
+#endif
 public:
  Rva0040DD3ARef RemoveEntry(int);
  Rva0040DD3ARef rva0040E672(int);

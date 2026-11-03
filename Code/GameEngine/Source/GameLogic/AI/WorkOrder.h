@@ -4,7 +4,9 @@
 // xfer4F0716 and AIPlayer's consumers witness the field offsets below.
 // ZH supplies member spellings and purpose; BFME2-only fields keep offset names.
 // Destructor4F1B56 restores Snapshot's BBB554 table after destroying string20.
+#if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
+#endif
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class ThingTemplate;
@@ -22,9 +24,30 @@ public:
     bool isWaitingToBuild() const { if (m_numCompleted >= m_numRequired) return false; return true; }
     void validateFactory(Player *thisPlayer);
 protected:
+    // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+    virtual void LoadPostProcess();
+#else
     virtual void loadPostProcess();
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+    virtual const char *GetSnapshotName();
+#else
     virtual const char *GetSnapshotName() const;
+#endif
+#else
+    virtual void crc(Xfer *xfer);
+#endif
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+    virtual void DoXfer(Xfer &xfer);
+#else
+    virtual void DoXfer(Xfer *xfer);
+#endif
+#else
     virtual void xfer(Xfer *xfer);
+#endif
 public:
     const ThingTemplate *m_thing; // +04
     ObjectID m_factoryID;        // +08
