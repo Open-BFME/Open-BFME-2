@@ -881,10 +881,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E065B8	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp	g_Va00E065BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0056D983Ensure.cpp	g_Va00E0333C	3
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C63398	2
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C745A0	2
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C74698	2
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00C7475C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E04500	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065B4	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065B8	2
@@ -2780,7 +2776,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp	?Th
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorModuleDataCtor.cpp	??0AutoAbilityQueryEntry@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleXfer.cpp	?xfer@BehaviorModule@@MAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp	_vtbl_00C40818	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp	?push_back@BridgeBehaviorObjectIDList@@QAEXABW4ObjectID@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp	?slot@BB_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorCtorThunk.cpp	?slot@BB_Iface2@@UAEXXZ	1
@@ -11677,8 +11672,7 @@ pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"s",on	1
 pragma_optimize	reference/shims/wwstring_teardown/zhmd/wwstring.h	"t",off	1
 present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmeEventPositionView::zero	1
 present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmePoolRef08::BfmePoolRef08	1
-present_unmatched	Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h	BfmePoolRef10::BfmePoolRef10	1
-present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::BfmePoolRef10	1	allow=b05e1455a2cbbd699a97af0b97750616c5c54993
+present_unmatched	Code/GameEngine/Include/Common/BfmePoolRef10.h	BfmePoolRef10::BfmePoolRef10	1
 present_unmatched	Code/GameEngine/Include/Common/Rva00041004Lock.h	Rva0040EDB::Rva0040EDB	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva000851F3::~Rva000851F3	1
 present_unmatched	Code/GameEngine/Include/GameClient/Rva0008990CArrayOwner.h	Rva0089971::rva00047A69C	1
@@ -12198,9 +12192,7 @@ present_unmatched	Code/GameEngine/Source/Common/bezier_segment.cpp	BezierSegment
 present_unmatched	Code/GameEngine/Source/Common/bezier_segment.cpp	BezierSegment::s_bezBasisMatrix	1
 present_unmatched	Code/GameEngine/Source/Common/bezier_segment.cpp	splitSegmentAtT@BezierSegment@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/CameraMarkerListFind.cpp	remove@CameraMarkerList@@QAEXPAUCameraMarker@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	AnimationSoundNullRef::AnimationSoundNullRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	Range::Range	1
-present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	Rva004C9E5D::~Rva004C9E5D	1
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp	1BeaconClientUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp	1BeaconClientUpdateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/EvaCtor.cpp	Eva::loadPostProcess	1
@@ -13980,7 +13972,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C26
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp	Rva0018C4A9Result::Rva0018C4A9Result	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva001EBAEACtor.cpp	0Rva001EAE6FHelper@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva001ECF66Finish.cpp	rva001ECF66@Rva001ECF66@@QAE@ABV0@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp	remains	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp	RvaMapCacheEmptyAllocator::RvaMapCacheEmptyAllocator	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002AE3F4Finish.cpp	append@Rva002A1B6FNativeList@@QAEXABQAX@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00383BACFinish.cpp	_M_insert@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHH@2@0@Z	1

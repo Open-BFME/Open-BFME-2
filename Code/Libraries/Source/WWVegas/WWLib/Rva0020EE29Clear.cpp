@@ -565,7 +565,8 @@ void Rva00DFE1C8Host::rva00212655(int arg)
 // 0x0037BA0 on the first handle with the existing g_bfmeEmptyF9 symbol, then
 // answers the handle. The second handle is unused by retail; the zeroed slot
 // is dead. Target evidence: the call site sets ecx from the first handle and
-// pushes the empty-string address. The helper body remains present-unmatched.
+// pushes the empty-string address. The 28-byte hidden-result construction is
+// already rowed in GameClient/System/Rva002115D0String.cpp.
 extern char g_bfmeEmptyF9[];
 
 class Rva002115D0
