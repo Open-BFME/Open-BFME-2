@@ -396,8 +396,8 @@ def test_regexes_stay_in_step_with_their_owners():
     assert inv.ADDR_GLOBAL is hatch_counters.ADDR_GLOBAL
     assert inv.INVENTED.pattern == data_ledger.INVENTED.pattern
     assert set(inv.LITERALS) <= {prefix for prefix, kind in data_ledger.EMITTED if kind in ("string", "wstring", "float")}
-    assert {p for p in inv.VTABLE_RTTI if p != "??_8"} == {prefix for prefix, kind in data_ledger.EMITTED
-                                                           if kind in ("vtable", "rtti")}
+    assert set(inv.VTABLE_RTTI) == {prefix for prefix, kind in data_ledger.EMITTED
+                                    if kind in ("vtable", "rtti")}
     for symbol in ("?g_Va00BBB8D8@@3MA", "?Foo@Bar@@2HA", "_c_name", "??_7Foo@@6B@"):
         assert inv.identifier(symbol) == data_ledger.identifier(symbol)
 
