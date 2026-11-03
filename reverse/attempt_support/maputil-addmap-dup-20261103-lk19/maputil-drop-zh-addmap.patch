@@ -1,0 +1,390 @@
+diff --git a/Code/GameEngine/Source/GameClient/MapUtil.cpp b/Code/GameEngine/Source/GameClient/MapUtil.cpp
+index 2982fe749e..73bfdabebf 100644
+--- a/Code/GameEngine/Source/GameClient/MapUtil.cpp
++++ b/Code/GameEngine/Source/GameClient/MapUtil.cpp
+@@ -291,102 +291,6 @@ extern "C" { Coord3DList	m_techPositions; }
+ static Int m_mapDX = 0;
+ static Int m_mapDY = 0;
+ 
+-static UnsignedInt calcCRC( AsciiString dirName, AsciiString fname )
+-{
+-	CRC theCRC;
+-	theCRC.clear();
+-
+-	// Try the official map dir
+-	AsciiString asciiFile;
+-	char	tempBuf[_MAX_PATH];
+-	char	filenameBuf[_MAX_PATH];
+-	int length = 0;
+-	strcpy(tempBuf, fname.str());
+-	length = strlen( tempBuf );
+-	if( length >= 4 )
+-	{
+-		memset( filenameBuf, '\0', _MAX_PATH);
+-		strncpy( filenameBuf, tempBuf, length - 4);
+-	}
+-
+-	File *fp;
+-	asciiFile = fname;
+-	fp = TheFileSystem->openFile(asciiFile.str(), File::READ);
+-	if( !fp )
+-	{
+-		DEBUG_CRASH(("Couldn't open '%s'\n", fname.str()));
+-		return 0;
+-	}
+-
+-	UnsignedByte buf[4096];
+-	Int num;
+-	while ( (num=fp->read(buf, 4096)) > 0 )
+-	{
+-		theCRC.computeCRC(buf, num);
+-	}
+-
+-	fp->close();
+-	fp = NULL;
+-
+-	return theCRC.get();
+-}
+-
+-static Bool ParseObjectDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
+-{
+-	Bool readDict = info->version >= K_OBJECTS_VERSION_2;
+-
+-	Coord3D loc;
+-	loc.x = file.readReal();
+-	loc.y = file.readReal();
+-	loc.z = file.readReal();
+-	if (info->version <= K_OBJECTS_VERSION_2) 
+-	{
+-		loc.z = 0;
+-	}
+-
+-	Real angle = file.readReal();
+-	Int flags = file.readInt(); 
+-	AsciiString name = file.readAsciiString();
+-	Dict d;
+-	if (readDict)
+-	{
+-		d = file.readDict();
+-	}
+-	MapObject *pThisOne;
+-	
+-	// create the map object
+-	pThisOne = newInstance( MapObject )( loc, name, angle, flags, &d, 
+-														TheThingFactory->findTemplate( name, FALSE ) );
+-
+-//DEBUG_LOG(("obj %s owner %s\n",name.str(),d.getAsciiString(TheKey_originalOwner).str()));
+-
+-	if (pThisOne->getProperties()->getType(TheKey_waypointID) == Dict::DICT_INT)
+-	{
+-		pThisOne->setIsWaypoint();
+-
+-		// grab useful info
+-		(*m_waypoints)[pThisOne->getWaypointName()] = loc;
+-	}
+-	else if (pThisOne->getThingTemplate() && pThisOne->getThingTemplate()->isKindOf(KINDOF_TECH_BUILDING))
+-	{
+-		m_techPositions.push_back(loc);
+-	}
+-	else if (pThisOne->getThingTemplate() && pThisOne->getThingTemplate()->isKindOf(KINDOF_SUPPLY_SOURCE_ON_PREVIEW))
+-	{
+-		m_supplyPositions.push_back(loc);
+-	}
+-
+-	pThisOne->deleteInstance();
+-	return TRUE;
+-}
+-
+-static Bool ParseObjectsDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
+-{
+-	file.m_currentObject = NULL;
+-	file.registerParser( AsciiString("Object"), info->label, ParseObjectDataChunk );
+-	return (file.parse(userData));
+-}
+-
+ #pragma optimize("s", on)
+ Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
+ {
+@@ -395,96 +299,6 @@ Bool ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *us
+ }
+ #pragma optimize("", on)
+ 
+-static Bool ParseSizeOnly(DataChunkInput &file, DataChunkInfo *info, void *userData)
+-{
+-	m_width = file.readInt();
+-	m_height = file.readInt();
+-	if (info->version >= K_HEIGHT_MAP_VERSION_3) {
+-		m_borderSize = file.readInt();
+-	} else {
+-		m_borderSize = 0;
+-	}
+-
+-	if (info->version >= K_HEIGHT_MAP_VERSION_4) {
+-		Int numBorders = file.readInt();
+-		m_boundaries.resize(numBorders);
+-		for (int i = 0; i < numBorders; ++i) {
+-			m_boundaries[i].x = file.readInt();
+-			m_boundaries[i].y = file.readInt();
+-		}
+-	}
+-	return true;
+-
+-	m_dataSize = file.readInt();
+-	m_data = NEW UnsignedByte[m_dataSize];	// pool[]ify
+-	if (m_dataSize <= 0 || (m_dataSize != (m_width*m_height))) {
+-		throw ERROR_CORRUPT_FILE_FORMAT	;
+-	}
+-	file.readArrayOfBytes((char *)m_data, m_dataSize);
+-	// Resize me. 
+-	if (info->version == K_HEIGHT_MAP_VERSION_1) {
+-		Int newWidth = (m_width+1)/2;
+-		Int newHeight = (m_height+1)/2;
+-		Int i, j;
+-		for (i=0; i<newHeight; i++) {
+-			for (j=0; j<newWidth; j++) {
+-				m_data[i*newWidth+j] = m_data[2*i*m_width+2*j];
+-			}
+-		}
+-		m_width = newWidth;
+-		m_height = newHeight;
+-	}
+-	return true;
+-}
+-
+-static Bool ParseSizeOnlyInChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
+-{
+-	return ParseSizeOnly(file, info, userData);
+-}
+-
+-static Bool loadMap( AsciiString filename )
+-{
+-	char	tempBuf[_MAX_PATH];
+-	char	filenameBuf[_MAX_PATH];
+-	AsciiString asciiFile;
+-	int length = 0;
+-
+-	strcpy(tempBuf, filename.str());
+-
+-	length = strlen( tempBuf );
+-	if( length >= 4 )
+-	{
+-		memset( filenameBuf, '\0', _MAX_PATH);
+-		strncpy( filenameBuf, tempBuf, length - 4);
+-	}
+-
+-	CachedFileInputStream fileStrm;
+-
+-	asciiFile = filename;
+-	if( !fileStrm.open(asciiFile) )
+-	{
+-		return FALSE;
+-	}
+-
+-	ChunkInputStream *pStrm = &fileStrm;
+-
+-	DataChunkInput file( pStrm );
+-
+-	m_waypoints = NEW WaypointMap;
+-
+-	file.registerParser( AsciiString("HeightMapData"), AsciiString::TheEmptyString, ParseSizeOnlyInChunk );
+-	file.registerParser( AsciiString("WorldInfo"), AsciiString::TheEmptyString, ParseWorldDictDataChunk );
+-	file.registerParser( AsciiString("ObjectsList"), AsciiString::TheEmptyString, ParseObjectsDataChunk );
+-	if (!file.parse(NULL)) {
+-		throw(ERROR_CORRUPT_FILE_FORMAT);
+-	}
+-
+-	m_mapDX = m_width  - 2*m_borderSize;
+-	m_mapDY = m_height - 2*m_borderSize;
+-
+-	return TRUE;
+-}
+-
+ #pragma optimize("s", on)
+ void resetMap( void )
+ {
+@@ -504,7 +318,7 @@ void resetMap( void )
+ }
+ #pragma optimize("", on)
+ 
+-static void getExtent( Region3D *extent )
++void getExtent( Region3D *extent )
+ {
+ 	extent->lo.x = 0.0f;
+ 
+@@ -549,149 +363,33 @@ AsciiString MapCache::getUserMapDir() const
+ 
+ 
+ 
+-//Bool MapCache::addMap( AsciiString dirName, AsciiString fname, WinTimeStamp timestamp, UnsignedInt filesize, Bool isOfficial )
+-// ?addMap@MapCache@@ present-unmatched
+-Bool MapCache::addMap( AsciiString dirName, AsciiString fname, FileInfo *fileInfo, Bool isOfficial)
+-{
+-	if (fileInfo == NULL) {
+-		return FALSE;
+-	}
+-
+-	AsciiString lowerFname;
+-	lowerFname = fname;
+-	((StringBase<char> *)&lowerFname)->toLower();
+-	MapCache::iterator it = find(lowerFname);
+-
+-	MapMetaData md;
+-	UnsignedInt filesize = fileInfo->sizeLow;
+-
+-	if (it != end())
+-	{
+-		// Found the map in our cache.  Check to see if it has changed.
+-		md = it->second;
+-
+-		if ((md.m_filesize == filesize) &&
+-				(md.m_CRC != 0))
+-		{
+-			// Force a lookup so that we don't display the English localization in all builds.
+-			if (md.m_nameLookupTag.isEmpty())
+-			{
+-				// unofficial maps or maps without names
+-				AsciiString tempdisplayname;
+-				tempdisplayname = ((const StringBase<char> *)&fname)->reverseFind('\\') + 1;
+-				(*this)[lowerFname].m_displayName.translate(tempdisplayname);
+-				if (md.m_numPlayers >= 2)
+-				{
+-					UnicodeString extension;
+-					extension.format(L" (%d)", md.m_numPlayers);
+-					(*this)[lowerFname].m_displayName.concat(extension);
+-				}
+-			}
+-			else
+-			{
+-				// official maps with name tags
+-				(*this)[lowerFname].m_displayName = TheGameText->fetch(md.m_nameLookupTag);
+-				if (md.m_numPlayers >= 2)
+-				{
+-					UnicodeString extension;
+-					extension.format(L" (%d)", md.m_numPlayers);
+-					(*this)[lowerFname].m_displayName.concat(extension);
+-				}
+-			}
+-//			DEBUG_LOG(("MapCache::addMap - found match for map %s\n", lowerFname.str()));
+-			return FALSE;	// OK, it checks out.
+-		}
+-		DEBUG_LOG(("%s didn't match file in MapCache\n", fname.str()));
+-		DEBUG_LOG(("size: %d / %d\n", filesize, md.m_filesize));
+-		DEBUG_LOG(("time1: %d / %d\n", fileInfo->timestampHigh, md.m_timestamp.m_highTimeStamp));
+-		DEBUG_LOG(("time2: %d / %d\n", fileInfo->timestampLow, md.m_timestamp.m_lowTimeStamp));
+-//		DEBUG_LOG(("size: %d / %d\n", filesize, md.m_filesize));
+-//		DEBUG_LOG(("time1: %d / %d\n", timestamp.m_highTimeStamp, md.m_timestamp.m_highTimeStamp));
+-//		DEBUG_LOG(("time2: %d / %d\n", timestamp.m_lowTimeStamp, md.m_timestamp.m_lowTimeStamp));
+-	}
+-
+-	DEBUG_LOG(("MapCache::addMap(): caching '%s' because '%s' was not found\n", fname.str(), lowerFname.str()));
+-
+-	loadMap(fname); // Just load for querying the data, since we aren't playing this map.
+-
+-	// The map is now loaded.  Pick out what we need.
+-	md.m_fileName = lowerFname;
+-	md.m_filesize = filesize;
+-	md.m_isOfficial = isOfficial;
+-	md.m_waypoints.update();
+-	md.m_numPlayers = md.m_waypoints.m_numStartSpots;
+-	md.m_isMultiplayer = (md.m_numPlayers >= 2);
+-	md.m_timestamp.m_highTimeStamp = fileInfo->timestampHigh;
+-	md.m_timestamp.m_lowTimeStamp = fileInfo->timestampLow;
+-	md.m_supplyPositions = m_supplyPositions;
+-	md.m_techPositions = m_techPositions;
+-	md.m_CRC = calcCRC(dirName, fname);
+-
+-	Bool exists = false;
+-	AsciiString munkee = worldDict.getAsciiString(TheKey_mapName, &exists);
+-	md.m_nameLookupTag = munkee;
+-	if (!exists || munkee.isEmpty())
+-	{
+-		DEBUG_LOG(("Missing TheKey_mapName!\n"));
+-		AsciiString tempdisplayname;
+-		tempdisplayname = ((const StringBase<char> *)&fname)->reverseFind('\\') + 1;
+-		md.m_displayName.translate(tempdisplayname);
+-		if (md.m_numPlayers >= 2)
+-		{
+-			UnicodeString extension;
+-			extension.format(L" (%d)", md.m_numPlayers);
+-			md.m_displayName.concat(extension);
+-		}
+-		TheGameText->reset();
+-	}
+-	else
+-	{
+-		AsciiString stringFileName;
+-		stringFileName.format("%s\\%s", dirName.str(), fname.str());
+-		for (Int i=0; i<4; ++i)
+-			stringFileName.removeLastChar();
+-		((StringBase<char> *)&stringFileName)->concat("\\map.str");
+-		TheGameText->initMapStringFile(stringFileName);
+-		md.m_displayName = TheGameText->fetch(munkee);
+-		if (md.m_numPlayers >= 2)
+-		{
+-			UnicodeString extension;
+-			extension.format(L" (%d)", md.m_numPlayers);
+-			md.m_displayName.concat(extension);
+-		}
+-		DEBUG_LOG(("Map name is now '%ls'\n", md.m_displayName.str()));
+-		TheGameText->reset();
+-	}
+-
+-	getExtent(&(md.m_extent));
+-
+-	(*this)[lowerFname] = md;
+-
+-	DEBUG_LOG(("  filesize = %d bytes\n", md.m_filesize));
+-	DEBUG_LOG(("  displayName = %ls\n", md.m_displayName.str()));
+-	DEBUG_LOG(("  CRC = %X\n", md.m_CRC));
+-	DEBUG_LOG(("  timestamp = %d\n", md.m_timestamp));
+-	DEBUG_LOG(("  isOfficial = %s\n", (md.m_isOfficial)?"yes":"no"));
+-
+-	DEBUG_LOG(("  isMultiplayer = %s\n", (md.m_isMultiplayer)?"yes":"no"));
+-	DEBUG_LOG(("  numPlayers = %d\n", md.m_numPlayers));
+-
+-	DEBUG_LOG(("  extent = (%2.2f,%2.2f) -> (%2.2f,%2.2f)\n",
+-		md.m_extent.lo.x, md.m_extent.lo.y,
+-		md.m_extent.hi.x, md.m_extent.hi.y));
+-
+-	Coord3D pos;
+-	WaypointMap::iterator itw = md.m_waypoints.begin();
+-	while (itw != md.m_waypoints.end())
+-	{
+-		pos = itw->second;
+-		DEBUG_LOG(("    waypoint %s: (%2.2f,%2.2f)\n", itw->first.str(), pos.x, pos.y));
+-		++itw;
+-	}
+-
+-	resetMap();
+-
+-	return TRUE;
++// MapCache::addMap is retail's 0x00304E64 body in MapCacheAddMap.cpp. Zero
++// Hour's copy, and the static calcCRC/loadMap/parser chain only it reached,
++// was a second strong addMap that kept MapCacheAddMap.cpp and
++// MapCacheLoadUserMapsBFME2.cpp from linking. Retail's own calcCRC, loadMap,
++// ParseObjectDataChunk, ParseObjectsDataChunk and ParseSizeOnlyInChunk are the
++// external rows at 0x0030050E, 0x00302F2B, 0x00302907, 0x00302B06 and
++// 0x00302F1B.
++//
++// The waypoint tree members below are this file's rows 0x0016DB20, 0x0016D590,
++// 0x0016D760 and 0x0073B560 (WaypointMap is map<AsciiString, Coord3D>); the
++// chain above used to emit them implicitly, so they are instantiated here.
++namespace _STL {
++template _Rb_tree<AsciiString, pair<const AsciiString, Coord3D>,
++    _Select1st<pair<const AsciiString, Coord3D> >, less<AsciiString>,
++    allocator<pair<const AsciiString, Coord3D> > >::_Rb_tree(
++        const less<AsciiString> &, const allocator<pair<const AsciiString, Coord3D> > &);
++template _Rb_tree_base<pair<const AsciiString, Coord3D>,
++    allocator<pair<const AsciiString, Coord3D> > >::_Rb_tree_base(
++        const allocator<pair<const AsciiString, Coord3D> > &);
++template _Rb_tree_node<pair<const AsciiString, Coord3D> > *
++_Rb_tree<AsciiString, pair<const AsciiString, Coord3D>,
++    _Select1st<pair<const AsciiString, Coord3D> >, less<AsciiString>,
++    allocator<pair<const AsciiString, Coord3D> > >::_M_create_node(
++        const pair<const AsciiString, Coord3D> &);
++template _Rb_tree_node<pair<const AsciiString, Coord3D> > *
++allocator<_Rb_tree_node<pair<const AsciiString, Coord3D> > >::allocate(
++    size_t, const void *) const;
+ }
+ 
+ MapCache *TheMapCache = NULL;
