@@ -61,12 +61,12 @@ public:
 private: unsigned int storage[4];
 };
 #include "../../../../Include/GameClient/EmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem {
 class Rva003AA228Slice { public: virtual void unusedVirtual() = 0; };
 class Rva003AA228 : public DefaultModuleHeadBase, public Rva003AA228Slice { public: virtual ~Rva003AA228(); };
 template<int Category> class DefaultParticleModule;
 template<> class DefaultParticleModule<4> : public Rva003AA228 { public: virtual ~DefaultParticleModule(); };
-class SphericalEmissionVelocityInfo : public EmissionVelocityInfo { private: GameClientRandomVariable var; };
 class SphericalEmissionVelocityModule : public DefaultParticleModule<4>, public SphericalEmissionVelocityInfo { public: virtual ~SphericalEmissionVelocityModule(); };
 }
 class Rva003ACBA3 : public FXParticleSystem::SphericalEmissionVelocityModule {

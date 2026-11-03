@@ -44,6 +44,7 @@ class INI;
 #include "../../Include/GameClient/BoxEmissionVolumeInfo.h"
 #include "../../Include/GameClient/LightningEmissionInfo.h"
 #include "../../Include/GameClient/TerrainFireEmissionInfo.h"
+#include "../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -81,11 +82,6 @@ public:
 // Sizes come from the clone bodies, which push the wrapper's size to operator
 // new: 24 for the spherical and hemispherical velocities, 36 for the
 // cylindrical and outward ones, 48 for the ortho one.
-class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-    FXCoord3D m_unknown04;
-};
 
 class HemisphericalEmissionVelocityInfo : public EmissionVelocityInfo
 {

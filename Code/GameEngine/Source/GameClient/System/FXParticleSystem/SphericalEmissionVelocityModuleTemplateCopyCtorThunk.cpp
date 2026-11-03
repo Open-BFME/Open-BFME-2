@@ -3,6 +3,7 @@
 // Open-BFME5: SphericalEmissionVelocityModuleTemplate copy ctor
 // Retail: base copy; null-preserving sub copy at +8; dual outer vtbl + sub vtbl.
 
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -13,12 +14,6 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class SphericalEmissionVelocityInfo
-{
-public:
-	SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &that);
-	virtual void dummy();
-};
 
 // SphericalEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bc40 (retail .rdata value -83).
 extern "C" char SphericalEmissionVelocityModuleTemplate_cvtbl0 = -83;

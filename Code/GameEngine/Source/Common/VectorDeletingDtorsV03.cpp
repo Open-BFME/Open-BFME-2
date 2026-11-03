@@ -41,16 +41,9 @@ namespace FXParticleSystem
 {
 }
 
+#include "../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
-class SphericalEmissionVelocityInfo
-{
-public:
-	SphericalEmissionVelocityInfo();
-	virtual ~SphericalEmissionVelocityInfo();
-private:
-	char m_unmodelled_04[0x10 - 0x04];
-};
 }
 
 namespace FXParticleSystem

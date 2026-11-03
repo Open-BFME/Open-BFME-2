@@ -14,15 +14,11 @@ public:
 };
 
 #include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
 
-class SphericalEmissionVelocityInfo
-{
-public:
-	SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &other);
-};
 
 class CylindricalEmissionVelocityInfo
 {

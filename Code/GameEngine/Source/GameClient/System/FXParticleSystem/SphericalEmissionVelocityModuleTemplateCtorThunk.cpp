@@ -1,6 +1,7 @@
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Open-BFME5: clean-C++ SphericalEmissionVelocityModuleTemplate default constructor.
 
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -40,15 +41,6 @@ public:
     virtual ~CategoryModuleTemplate();
 };
 
-class SphericalEmissionVelocityInfo
-{
-public:
-    SphericalEmissionVelocityInfo();
-    virtual ~SphericalEmissionVelocityInfo();
-
-private:
-    unsigned char m_body[0x2c];
-};
 
 class SphericalEmissionVelocityModuleTemplate : public CategoryModuleTemplate<4>,
     public SphericalEmissionVelocityInfo

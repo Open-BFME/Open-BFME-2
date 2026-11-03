@@ -57,6 +57,7 @@ class RvaSmartPtr12;
 #include "../../../../Include/GameClient/BoxEmissionVolumeInfo.h"
 #include "../../../../Include/GameClient/OrthoEmissionVelocityInfo.h"
 #include "../../../../Include/GameClient/TerrainFireEmissionInfo.h"
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
 namespace FXParticleSystem
 {
 
@@ -125,11 +126,6 @@ DefaultParticleModule<5>::DefaultParticleModule( void *system, void *module_temp
 
 
 
-class SphericalEmissionVelocityInfo : public EmissionVelocityInfo
-{
-public:
-	SphericalEmissionVelocityInfo( const SphericalEmissionVelocityInfo &that );
-};
 
 class CylindricalEmissionVelocityInfo : public EmissionVelocityInfo
 {
