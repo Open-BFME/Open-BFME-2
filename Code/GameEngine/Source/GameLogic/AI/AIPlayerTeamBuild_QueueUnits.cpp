@@ -498,11 +498,7 @@ public:
 
 #include "../../../Include/GameLogic/TAiData.h"
 
-class NameKeyGenerator
-{
-public:
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // Zero Hour's ScienceStore::getInternalNameForScience, rowed at 0x001FF5F2.

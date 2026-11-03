@@ -118,11 +118,7 @@ public:
 };
 class Rva0033A951 { public: bool rva0033A951(); };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ModuleDataBase

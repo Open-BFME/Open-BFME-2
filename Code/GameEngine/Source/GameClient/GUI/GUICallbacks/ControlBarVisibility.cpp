@@ -27,11 +27,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 

@@ -89,12 +89,7 @@ enum GameDifficulty
 #include "ascii_string.h"
 
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	const AsciiString &keyToName(NameKeyType key);	// 0x00148C95
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

@@ -109,12 +109,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0,
 	NAMEKEY_MAX = 1 << 23
 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class GameWindow;
 class WinInstanceData;

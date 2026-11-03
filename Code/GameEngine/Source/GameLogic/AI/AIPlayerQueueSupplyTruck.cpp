@@ -519,12 +519,7 @@ public:
 
 #include "../../../Include/GameLogic/TAiData.h"
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-	const AsciiString &keyToName(NameKeyType key);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 // The rowed body at 0x001FF5F2 under its pinned address spelling

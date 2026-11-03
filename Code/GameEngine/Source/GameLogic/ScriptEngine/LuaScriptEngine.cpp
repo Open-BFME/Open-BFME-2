@@ -1131,12 +1131,7 @@ public:
 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/NameKeyGenerator.h
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey( const char *name );
-	NameKeyType nameToKey(const AsciiString &name);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 struct BfmeDelayedLuaEvent
 {

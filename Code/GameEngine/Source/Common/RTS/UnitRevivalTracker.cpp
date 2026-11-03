@@ -116,11 +116,7 @@ int RevivalExperienceView::rva000B49A1() const
 }
 
 enum NameKeyType { INVALID_NAME_KEY = 0 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *);
-};
+#include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Xfer;
