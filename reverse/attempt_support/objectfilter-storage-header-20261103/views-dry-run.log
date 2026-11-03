@@ -1,0 +1,6 @@
+tu: Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+seed: Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp  (7 files)
+  Rva00360F55: conflict (5 files)
+      CONFLICT: fields overlap: Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp m_names +0x0..0xC, Code/GameEngine/Source/GameLogic/System/ObjectFilterIsForbidden.cpp vectors +0x0..0x48
+  Rva00361624: conflict (2 files)
+      CONFLICT: class-key differs (Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp: class, Code/GameEngine/Source/GameLogic/Object/Rva00361624Erase.cpp: struct) and no matched name spells it

@@ -133,14 +133,7 @@ template <> AsciiString *__uninitialized_copy(const AsciiString*, const AsciiStr
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
 }
 
-class BfmeFixedStorage0004543D
-{
-public:
-    BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-
-private:
-    unsigned char m_data[0x1C];
-};
+#include "../../../Include/Common/BfmeFixedStorage0004543D.h"
 
 class Rva0036105B
 {
