@@ -7412,3 +7412,13 @@ param,Rva00331ED1::rva00331ED1::argument3,Rva00331ED1::rva00331ED1::parameters,i
 param,bfmeAnchorRva00447909Copy::p,bfmeAnchorRva00447909Copy::buffer,inferred,agree:nl-9a49d07bb2c9,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,
 param,bfmeAnchorRva00447909Copy::s,bfmeAnchorRva00447909Copy::outU16,inferred,agree:nl-82b199cd8938,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,
 param,bfmeAnchorRva00447909Copy::u,bfmeAnchorRva00447909Copy::outU32,inferred,agree:nl-17cbbb27c5f5,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,
+local,BfmeStrVKK::bfmeReverseVKK::a,BfmeStrVKK::bfmeReverseVKK::first,inferred,agree:nl-ff741cc05017,Code/GameEngine/Source/Common/BfmeConv1404.cpp,0x006D59A0
+local,BfmeStrVKK::bfmeReverseVKK::b,BfmeStrVKK::bfmeReverseVKK::last,inferred,agree:nl-adc9d0acffa5,Code/GameEngine/Source/Common/BfmeConv1404.cpp,0x006D59A0
+local,BfmeStrVKK::bfmeReverseVKK::x,BfmeStrVKK::bfmeReverseVKK::lastChar,inferred,agree:nl-e820f63b28fa,Code/GameEngine/Source/Common/BfmeConv1404.cpp,0x006D59A0
+local,BfmeStrVKK::bfmeReverseVKK::y,BfmeStrVKK::bfmeReverseVKK::firstChar,inferred,agree:nl-c913bd4d52dd,Code/GameEngine/Source/Common/BfmeConv1404.cpp,0x006D59A0
+local,calcCRC::n,calcCRC::m_BytesRead,inferred,agree:nl-619edd9d54f0,Code/GameEngine/Source/Common/calcCRC.cpp,0x0030050E
+param,calcCRC::b,calcCRC::fileName,inferred,agree:nl-083bea4a45df,Code/GameEngine/Source/Common/calcCRC.cpp,0x0030050E
+local,Rva0026E7C8Ctor::rva00332975::k1,Rva0026E7C8Ctor::rva00332975::key1,inferred,agree:nl-c0515fc45180,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975
+local,Rva0026E7C8Ctor::rva00332975::k2,Rva0026E7C8Ctor::rva00332975::key2,inferred,agree:nl-6c4ec278077d,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975
+local,Rva0026E7C8Ctor::rva00332975::s1,Rva0026E7C8Ctor::rva00332975::name1,inferred,agree:nl-6cb9d3c37763,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975
+local,Rva0026E7C8Ctor::rva00332975::s2,Rva0026E7C8Ctor::rva00332975::name2,inferred,agree:nl-7617ef27f5cc,Code/GameEngine/Source/GameLogic/Object/Update/Rva0026E7C8Xfer.cpp,0x00332975

@@ -43,19 +43,19 @@ BfmeStrVKK *BfmeStrVKK::bfmeReverseVKK()
 	unsigned length = m_bfme00->m_length;
 	if (length > 1)
 	{
-		char *a = (char *)m_bfme00 + 8;
-		char *b = a + length - 1;
-		if (a < b)
+		char *first = (char *)m_bfme00 + 8;
+		char *last = first + length - 1;
+		if (first < last)
 		{
 			do
 			{
-				char x = *b;
-				char y = *a;
-				*a = x;
-				++a;
-				*b = y;
-				--b;
-			} while (a < b);
+				char lastChar = *last;
+				char firstChar = *first;
+				*first = lastChar;
+				++first;
+				*last = firstChar;
+				--last;
+			} while (first < last);
 		}
 		m_bfme00->m_bfme06 = 0;
 	}

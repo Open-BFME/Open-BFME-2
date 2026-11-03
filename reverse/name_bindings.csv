@@ -398,3 +398,8 @@ agree:nl-bea1ccc2344b-ma4a6116d6336ce14eafe6ce3,AptComponents::UpdateView3D::y,A
 agree:nl-ccfb79ff6226,Rva000B348E::rva000B348E::v,Rva000B348E::rva000B348E::flags,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawNukeRender.cpp,dae02b07b13a6ac926f3e4b327409b4dca28d2a0a915411c0c1f6724bf47092e
 agree:nl-b0d664d10491-m4dd5f61627cad68045e73246,AptComponents::UpdateView3D::f,AptComponents::UpdateView3D::frame,Code/GameEngine/Source/Common/AptComponents.cpp,8869c28f722f244b3aae8157feef1f2290d286d6f574bd5f80efdb6051ea47a1
 agree:nl-318dd770475f-m12b8ebcc3f81a773fbb53fb5,AptComponents::UpdateView3D::z,AptComponents::UpdateView3D::lightZ,Code/GameEngine/Source/Common/AptComponents.cpp,8869c28f722f244b3aae8157feef1f2290d286d6f574bd5f80efdb6051ea47a1
+agree:nl-ff741cc05017,BfmeStrVKK::bfmeReverseVKK::a,BfmeStrVKK::bfmeReverseVKK::first,Code/GameEngine/Source/Common/BfmeConv1404.cpp,936b626b18ac074e64e83efcd3974b32130029a063628900206f655437089a4f
+agree:nl-adc9d0acffa5,BfmeStrVKK::bfmeReverseVKK::b,BfmeStrVKK::bfmeReverseVKK::last,Code/GameEngine/Source/Common/BfmeConv1404.cpp,936b626b18ac074e64e83efcd3974b32130029a063628900206f655437089a4f
+agree:nl-e820f63b28fa,BfmeStrVKK::bfmeReverseVKK::x,BfmeStrVKK::bfmeReverseVKK::lastChar,Code/GameEngine/Source/Common/BfmeConv1404.cpp,936b626b18ac074e64e83efcd3974b32130029a063628900206f655437089a4f
+agree:nl-c913bd4d52dd,BfmeStrVKK::bfmeReverseVKK::y,BfmeStrVKK::bfmeReverseVKK::firstChar,Code/GameEngine/Source/Common/BfmeConv1404.cpp,936b626b18ac074e64e83efcd3974b32130029a063628900206f655437089a4f
+agree:nl-619edd9d54f0,calcCRC::n,calcCRC::m_BytesRead,Code/GameEngine/Source/Common/calcCRC.cpp,5ef5c2de89c9e7814434188c70b641f0e4e1a63443a06398e22ff39debc73fd6

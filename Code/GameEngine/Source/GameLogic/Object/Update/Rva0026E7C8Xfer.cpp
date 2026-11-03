@@ -152,24 +152,24 @@ void Rva0026E7C8Ctor::rva00332975(Xfer *xfer)
 	m_vec.reserve(count);
 	for (int i = 0; i < count; ++i)
 	{
-		AsciiString s1;
-		AsciiString s2;
+		AsciiString name1;
+		AsciiString name2;
 		if (xfer->IsStoring())
 		{
 			Rva003328B6Element &e = m_vec[i];
-			s1 = TheNameKeyGenerator->keyToName(e.m_key1);
-			s2 = TheNameKeyGenerator->keyToName(e.m_key2);
-			*xfer == s1;
-			*xfer == s2;
+			name1 = TheNameKeyGenerator->keyToName(e.m_key1);
+			name2 = TheNameKeyGenerator->keyToName(e.m_key2);
+			*xfer == name1;
+			*xfer == name2;
 			xferSTLObjectIDList(xfer, &e.m_list);
 		}
 		else if (xfer->IsLoading())
 		{
-			*xfer == s1;
-			*xfer == s2;
-			NameKeyType k1 = TheNameKeyGenerator->nameToKey(s1);
-			NameKeyType k2 = TheNameKeyGenerator->nameToKey(s2);
-			m_vec.push_back(Rva00331EAD(k1, k2));
+			*xfer == name1;
+			*xfer == name2;
+			NameKeyType key1 = TheNameKeyGenerator->nameToKey(name1);
+			NameKeyType key2 = TheNameKeyGenerator->nameToKey(name2);
+			m_vec.push_back(Rva00331EAD(key1, key2));
 			Rva0029FB3BMember *list = &m_vec.back().m_list;
 			list->reset();
 			xferSTLObjectIDList(xfer, list);

@@ -18,13 +18,13 @@ extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 extern "C" unsigned int __cdecl strlen(const char *s);
 extern "C" void *__cdecl memset(void *dst, int c, unsigned int n);
 extern "C" __declspec(dllimport) char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
-unsigned int __cdecl calcCRC(AsciiString a, AsciiString b)
+unsigned int __cdecl calcCRC(AsciiString a, AsciiString fileName)
 {
 	char buf1[260];
 	char buf2[260];
 	char filebuf[4096];
 	AsciiString path;
-	char *t = *(char * const *)&b;
+	char *t = *(char * const *)&fileName;
 	const char *s = t ? t + 8 : "";
 	_mbscpy(buf1, s);
 	unsigned int len = strlen(buf1);
@@ -32,15 +32,15 @@ unsigned int __cdecl calcCRC(AsciiString a, AsciiString b)
 		memset(buf2, 0, 260);
 		strncpy(buf2, buf1, len - 4);
 	}
-	((StringBase<char> *)&path)->set(*(const StringBase<char> *)&b);
+	((StringBase<char> *)&path)->set(*(const StringBase<char> *)&fileName);
 	char *pt = *(char * const *)&path;
 	const char *ps = pt ? pt + 8 : "";
 	unsigned int crc = 0;
 	File *file = TheFileSystem->openFile(ps, 1, 0);
 	if (file) {
-		int n;
-		while ((n = file->readFile(filebuf, 4096)) > 0)
-			crc = ComputeCRC((const unsigned char *)filebuf, (unsigned int)n, crc);
+		int m_BytesRead;
+		while ((m_BytesRead = file->readFile(filebuf, 4096)) > 0)
+			crc = ComputeCRC((const unsigned char *)filebuf, (unsigned int)m_BytesRead, crc);
 		file->closeFile();
 	}
 	return crc;
